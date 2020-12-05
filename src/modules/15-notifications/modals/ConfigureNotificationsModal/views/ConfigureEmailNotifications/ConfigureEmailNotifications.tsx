@@ -9,7 +9,7 @@ import type { EmailNotificationConfiguration } from '@notifications/interfaces/N
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/notifications'
-
+import { useStrings } from 'framework/exports'
 import i18n from '../../ConfigureNotifications.i18n'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
@@ -22,6 +22,8 @@ interface EmailTestConfigData {
 interface ConfigureEmailNotificationsProps {
   onSuccess: (notificationConfiguration: EmailNotificationConfiguration) => void
   hideModal: () => void
+  isStep?: boolean
+  onBack?: () => void
 }
 
 interface TestEmailConfigProps {
@@ -75,9 +77,10 @@ interface EmailNotificationData {
   userGroups: string[]
 }
 
-const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = ({ onSuccess, hideModal }) => {
+const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = props => {
   const [isOpen, setIsOpen] = useState(false)
   const { accountId } = useParams()
+  const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting, loading } = useTestNotificationSetting({})
 
@@ -105,7 +108,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
   }
 
   const handleSubmit = (formData: EmailNotificationData): void => {
-    onSuccess({
+    props.onSuccess({
       type: NotificationType.Email,
       emailIds: formData.emailIds
         .split(',')
@@ -113,7 +116,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
         .filter(email => email),
       userGroups: formData.userGroups
     })
-    hideModal()
+    props.hideModal()
   }
 
   return (
@@ -147,10 +150,17 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                   {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>
-                <Layout.Horizontal spacing={'medium'} margin={{ top: 'xlarge' }}>
-                  <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
-                  <Button text={i18n.buttonCancel} onClick={hideModal} />
-                </Layout.Horizontal>
+                {props.isStep ? (
+                  <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
+                    <Button text={getString('back')} onClick={props.onBack} />
+                    <Button text={getString('next')} intent="primary" type="submit" />
+                  </Layout.Horizontal>
+                ) : (
+                  <Layout.Horizontal spacing={'medium'} margin={{ top: 'xlarge' }}>
+                    <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
+                    <Button text={i18n.buttonCancel} onClick={props.hideModal} />
+                  </Layout.Horizontal>
+                )}
               </FormikForm>
             )
           }}

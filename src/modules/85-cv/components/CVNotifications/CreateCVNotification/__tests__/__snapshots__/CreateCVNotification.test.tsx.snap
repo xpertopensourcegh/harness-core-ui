@@ -1,0 +1,476 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create CV Notification Rule should render 1`] = `
+<div>
+  <div
+    class="createNotification"
+  >
+    <div
+      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    >
+      <div
+        class="StepWizard---navBarList--2ILN"
+      >
+        <div
+          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            1
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Detail
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            2
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Configure Method
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            3
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Conditions
+          </p>
+        </div>
+      </div>
+      <div
+        class="StepWizard---stepDetails--Uaxx"
+      >
+         
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+          style="width: 60%;"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Notification Rule Details
+          </p>
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws formBody"
+                >
+                  <div
+                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                  >
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      >
+                        ID
+                        :
+                      </p>
+                      <span
+                        class="InputWithIdentifier---idInput--w8_T"
+                        contenteditable="true"
+                      >
+                        undefined
+                        
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        icon="edit"
+                        style="vertical-align: middle;"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        Give name to your notification rule
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="notificationSettingType-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="notificationSettingType"
+                    >
+                      Notification Type
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="notificationSettingType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value=""
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Next
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create CV Notification Rule should render 2`] = `
+<div>
+  <div
+    class="createNotification"
+  >
+    <div
+      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    >
+      <div
+        class="StepWizard---navBarList--2ILN"
+      >
+        <div
+          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            1
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Detail
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            2
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Configure Method
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            3
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Conditions
+          </p>
+        </div>
+      </div>
+      <div
+        class="StepWizard---stepDetails--Uaxx"
+      >
+         
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+          style="width: 60%;"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Notification Rule Details
+          </p>
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws formBody"
+                >
+                  <div
+                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                  >
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      >
+                        ID
+                        :
+                      </p>
+                      <span
+                        class="InputWithIdentifier---idInput--w8_T"
+                        contenteditable="true"
+                      >
+                        dummy_name
+                        
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        icon="edit"
+                        style="vertical-align: middle;"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        Give name to your notification rule
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value="dummy name"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group bp3-intent-danger"
+                    data-id="notificationSettingType-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="notificationSettingType"
+                    >
+                      Notification Type
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group bp3-intent-danger"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="notificationSettingType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value=""
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Select a notification type
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Next
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

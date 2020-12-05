@@ -444,6 +444,10 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/admin/access-control/org/${orgIdentifier}/projects/${projectIdentifier}`
   ),
+  toCVAdminNotifications: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/notifications`
+  ),
   /********************************************************************************************************************/
   toProjectDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) => `/org/${orgIdentifier}/project/${projectIdentifier}`

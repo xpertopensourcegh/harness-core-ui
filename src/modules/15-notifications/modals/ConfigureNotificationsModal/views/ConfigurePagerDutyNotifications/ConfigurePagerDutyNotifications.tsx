@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading } from '@wings-software/uikit'
 
 import { useParams } from 'react-router-dom'
+import { useStrings } from 'framework/exports'
 import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/notifications'
 import type { PagerDutyNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
@@ -15,6 +16,9 @@ import css from '../../ConfigureNotificationsModal.module.scss'
 interface ConfigurePagerDutyNotificationsProps {
   onSuccess: (config: PagerDutyNotificationConfiguration) => void
   hideModal: () => void
+  isStep?: boolean
+  onBack?: () => void
+  config?: PagerDutyNotificationConfiguration
 }
 
 interface PagerDutyNotificationData {
@@ -22,8 +26,9 @@ interface PagerDutyNotificationData {
   userGroups: string[]
 }
 
-const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsProps> = ({ onSuccess, hideModal }) => {
+const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsProps> = props => {
   const { accountId } = useParams()
+  const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})
 
@@ -48,7 +53,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
   }
 
   const handleSubmit = (formData: PagerDutyNotificationData): void => {
-    onSuccess({
+    props.onSuccess({
       type: NotificationType.PagerDuty,
       ...formData
     })
@@ -68,7 +73,8 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
           })}
           initialValues={{
             key: '',
-            userGroups: []
+            userGroups: [],
+            ...props.config
           }}
         >
           {formik => {
@@ -81,10 +87,18 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>
                 <FormInput.KVTagInput name={'userGroups'} label={i18n.labelPDUserGroups} />
-                <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                  <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
-                  <Button text={i18n.buttonCancel} onClick={hideModal} />
-                </Layout.Horizontal>
+
+                {props.isStep ? (
+                  <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
+                    <Button text={getString('back')} onClick={props.onBack} />
+                    <Button text={getString('next')} intent="primary" type="submit" />
+                  </Layout.Horizontal>
+                ) : (
+                  <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
+                    <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
+                    <Button text={i18n.buttonCancel} onClick={props.hideModal} />
+                  </Layout.Horizontal>
+                )}
               </FormikForm>
             )
           }}

@@ -25,11 +25,16 @@ global:
   errorSummaryText: Error Summary
   na: N/A
   all: All
+  passed: Passed
+  failed: Failed
   todo: TODO - implement this
   add: Add
+  edit: Edit
   delete: Delete
   select: Select
   save: Save
+  back: Back
+  next: Next
   cancel: Cancel
   loading: Loading...
   retry: Retry
@@ -267,6 +272,37 @@ global:
         setup: 'Setup'
         activitySources: 'Activity Sources'
     admin:
+      notifications:
+        enabled: 'Enabled'
+        name: 'Name of the rule'
+        method: 'Notification Method'
+        createSuccess: Notification rule created succesfully
+        updateSuccess: 'Notification rule updated successfully'
+        deleteSuccess: 'Notification rule deleted succesfully'
+        create:
+          type: Notification Type
+          details: Detail
+          method: Configure Method
+          stepOne:
+            heading: Notification Rule Details
+            name: Give name to your notification rule
+          stepThree:
+            service: 'Service'
+            verification: Verification
+            risk: Risk
+            headingOne: Select Condition for Notification
+            headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
+            notifyVerification: Notify on completed verifications
+            activityType: Activity Type
+            verificationStatus: Verification Statuses
+            notifyRisk: Notify on reaching service risk score threshold
+            preDeployment: Pre-Deployment
+            duringDeployment: During Deployment
+            postDeployment: Post-Deployment
+            infrastructureChange: Infrastructure Change
+            configChange: Config Change
+          validation:
+            type: Select a notification type
       activitySources:
         searchBoxPlaceholder: 'Search by Activity Source name'
         noDataMessage: 'No Activity Sources onboarded'

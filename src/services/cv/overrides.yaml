@@ -33,6 +33,10 @@ allowpaths:
   - /kubernetes/workloads
   - /kubernetes/source
   - /kubernetes/sources
+  - /alert
+  - /alert/list
+  - /alert/{identifier}
+  - /alert/activityTypes
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

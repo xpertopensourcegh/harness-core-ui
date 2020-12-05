@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConditionForm render ConditionForm  1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      Select Condition for Notification
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+       
+      Choose the services and their corresponding conditions you’d like to be notified on.
+       
+    </p>
+    <div
+      class="OverlaySpinner---overlaySpinner--3Bs3"
+    >
+      <form
+        class="FormikForm---main--1N87"
+      >
+        <div>
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws formElements"
+          >
+            <div
+              class="bp3-form-group service"
+              data-id="services-0"
+            >
+              <label
+                class="bp3-label"
+                for="services"
+              >
+                Service
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class=""
+                    >
+                      <div
+                        class="bp3-input bp3-tag-input bp3-multi-select"
+                      >
+                        <div
+                          class="bp3-tag-input-values"
+                        >
+                          <input
+                            class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                            name="services"
+                            placeholder="Search..."
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group service"
+              data-id="environments-1"
+            >
+              <label
+                class="bp3-label"
+                for="environments"
+              >
+                Environment
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class=""
+                    >
+                      <div
+                        class="bp3-input bp3-tag-input bp3-multi-select"
+                      >
+                        <div
+                          class="bp3-tag-input-values"
+                        >
+                          <input
+                            class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                            name="environments"
+                            placeholder="Search..."
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX StyledProps---margin-left-xlarge--2EHr"
+            >
+              <div
+                class="bp3-form-group"
+                data-id="enabledVerifications-2"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <label
+                    class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy Checkbox---checkbox--2kFy check StyledProps---main--1Wws StyledProps---inline--1f52"
+                  >
+                    <input
+                      name="enabledVerifications"
+                      type="checkbox"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    Notify on completed verifications
+                  </label>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="enabledRisk-3"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <label
+                    class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---inline--1f52"
+                  >
+                    <input
+                      name="enabledRisk"
+                      type="checkbox"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    Notify on reaching service risk score threshold
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xlarge--2Tnj"
+          >
+            <button
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Back
+              </span>
+            </button>
+            <button
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              type="submit"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Submit
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

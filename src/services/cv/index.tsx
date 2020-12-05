@@ -568,6 +568,84 @@ export interface RestResponsePageString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface AlertCondition {
+  services?: string[]
+  environments?: string[]
+  enabledVerifications?: boolean
+  verificationsNotify?: VerificationsNotify
+  enabledRisk?: boolean
+  notify?: RiskNotify
+}
+
+export interface AlertRuleDTO {
+  uuid?: string
+  enabled?: boolean
+  name?: string
+  alertCondition?: AlertCondition
+  notificationMethod?: NotificationMethod
+  identifier?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface NotificationMethod {
+  notificationSettingType?: 'Slack' | 'PagerDuty' | 'MicrosoftTeams' | 'Email'
+  slackWebhook?: string
+  slackChannelName?: string
+  pagerDutyKey?: string
+  emails?: string[]
+}
+
+export interface RestResponseAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertRuleDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RiskNotify {
+  threshold?: number
+}
+
+export interface VerificationsNotify {
+  activityTypes?: (
+    | 'PRE_DEPLOYMENT'
+    | 'DURING_DEPLOYMENT'
+    | 'POST_DEPLOYMENT'
+    | 'INFRASTRUCTURE_CHANGE'
+    | 'CONFIG_CHANGE'
+  )[]
+  verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
+}
+
+export interface PageAlertRuleDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AlertRuleDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageAlertRuleDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LearningEngineTask {
   uuid?: string
   verificationTaskId?: string
@@ -900,29 +978,6 @@ export interface RestResponseCD10MappingsDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface AppDynamicsApplication {
-  name?: string
-  id?: number
-}
-
-export interface PageAppDynamicsApplication {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: AppDynamicsApplication[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface RestResponsePageAppDynamicsApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageAppDynamicsApplication
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
@@ -984,6 +1039,29 @@ export interface TimeSeriesThresholdCriteria {
   criteria?: string
 }
 
+export interface AppDynamicsApplication {
+  name?: string
+  id?: number
+}
+
+export interface PageAppDynamicsApplication {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AppDynamicsApplication[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageAppDynamicsApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageAppDynamicsApplication
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AppDynamicsTier {
   id?: number
   name?: string
@@ -1034,15 +1112,15 @@ export interface CVConfig {
   monitoringSourceIdentifier: string
   monitoringSourceName: string
   analysisOrchestrationIteration?: number
-  firstTimeDataCollectionTimeRange?: TimeRange
   type?: 'APP_DYNAMICS' | 'SPLUNK'
+  firstTimeDataCollectionTimeRange?: TimeRange
 }
 
-export interface RestResponseListCVConfig {
+export interface RestResponseCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CVConfig[]
+  resource?: CVConfig
   responseMessages?: ResponseMessage[]
 }
 
@@ -1051,11 +1129,11 @@ export interface TimeRange {
   endTime?: number
 }
 
-export interface RestResponseCVConfig {
+export interface RestResponseListCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CVConfig
+  resource?: CVConfig[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1180,13 +1258,6 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
-export interface DataCollectionTaskResult {
-  dataCollectionTaskId?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
-  exception?: string
-  stacktrace?: string
-}
-
 export interface DataCollectionInfo {
   dataCollectionDsl?: string
   collectHostData?: boolean
@@ -1213,6 +1284,13 @@ export interface RestResponseOptionalDataCollectionTaskDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface DataCollectionTaskResult {
+  dataCollectionTaskId?: string
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  exception?: string
+  stacktrace?: string
+}
+
 export interface HostRecordDTO {
   accountId?: string
   verificationTaskId?: string
@@ -1227,14 +1305,6 @@ export interface LogRecordDTO {
   host?: string
   timestamp?: number
   log?: string
-}
-
-export interface RestResponseListTimeSeriesThreshold {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesThreshold[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface MetricDefinitionDTO {
@@ -1274,6 +1344,14 @@ export interface TimeSeriesThresholdDTO {
   metricGroupName?: string
   action?: 'IGNORE' | 'FAIL'
   criteria?: TimeSeriesThresholdCriteria
+}
+
+export interface RestResponseListTimeSeriesThreshold {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesThreshold[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface OnboardingResponseDTO {
@@ -1384,12 +1462,12 @@ export interface DataCollectionRequest {
   connectorInfoDTO?: ConnectorInfoDTO
   tracingId?: string
   type?: 'SPLUNK_SAVED_SEARCHES'
-  baseUrl?: string
-  connectorConfigDTO?: ConnectorConfigDTO
   dslEnvVariables?: {
     [key: string]: { [key: string]: any }
   }
+  connectorConfigDTO?: ConnectorConfigDTO
   dsl?: string
+  baseUrl?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -1514,6 +1592,19 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   readOnly?: boolean
 }
 
+export interface RestResponseListSplunkSavedSearch {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SplunkSavedSearch[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface SplunkSavedSearch {
+  title?: string
+  searchQuery?: string
+}
+
 export interface Bar {
   timestamp?: number
   count?: number
@@ -1555,19 +1646,6 @@ export interface SplunkValidationResponse {
   samples?: SplunkSampleResponse
   errorMessage?: string
   queryDurationMillis?: number
-}
-
-export interface RestResponseListSplunkSavedSearch {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkSavedSearch[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SplunkSavedSearch {
-  title?: string
-  searchQuery?: string
 }
 
 export interface MetricData {
@@ -1885,6 +1963,14 @@ export interface TransactionMetricInfoSummaryPageDTO {
   deploymentTimeRange?: TimeRange
 }
 
+export interface RestResponseVerificationJobDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationJobDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface VerificationJobDTO {
   identifier?: string
   jobName?: string
@@ -1895,14 +1981,6 @@ export interface VerificationJobDTO {
   dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
   duration?: string
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-}
-
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListVerificationJobDTO {
@@ -1916,6 +1994,8 @@ export interface RestResponseListVerificationJobDTO {
 export type CVConfigArrayRequestBody = CVConfig[]
 
 export type ActivityDTORequestBody = ActivityDTO
+
+export type AlertRuleDTORequestBody = AlertRuleDTO
 
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
 
@@ -3664,3 +3744,220 @@ export const useListKubernetesSources = (props: UseListKubernetesSourcesProps) =
     `/kubernetes/sources`,
     { base: getConfig('cv/api'), ...props }
   )
+
+export interface GetAlertRuleQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  identifier: string
+}
+
+export type GetAlertRuleProps = Omit<GetProps<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>, 'path'>
+
+/**
+ * gets the alert rule for an identifier
+ */
+export const GetAlertRule = (props: GetAlertRuleProps) => (
+  <Get<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>
+    path="/alert"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAlertRuleProps = Omit<
+  UseGetProps<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets the alert rule for an identifier
+ */
+export const useGetAlertRule = (props: UseGetAlertRuleProps) =>
+  useGet<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>(`/alert`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+export interface CreateAlertQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type CreateAlertProps = Omit<
+  MutateProps<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * create alert
+ */
+export const CreateAlert = (props: CreateAlertProps) => (
+  <Mutate<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>
+    verb="POST"
+    path="/alert"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseCreateAlertProps = Omit<
+  UseMutateProps<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * create alert
+ */
+export const useCreateAlert = (props: UseCreateAlertProps) =>
+  useMutate<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>(
+    'POST',
+    `/alert`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+export interface UpdateAlertQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type UpdateAlertProps = Omit<
+  MutateProps<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * update alert
+ */
+export const UpdateAlert = (props: UpdateAlertProps) => (
+  <Mutate<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>
+    verb="PUT"
+    path="/alert"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateAlertProps = Omit<
+  UseMutateProps<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * update alert
+ */
+export const useUpdateAlert = (props: UseUpdateAlertProps) =>
+  useMutate<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>('PUT', `/alert`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+export interface RetrieveAlertQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  offset: number
+  pageSize: number
+}
+
+export type RetrieveAlertProps = Omit<
+  GetProps<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of alerts
+ */
+export const RetrieveAlert = (props: RetrieveAlertProps) => (
+  <Get<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>
+    path="/alert/list"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseRetrieveAlertProps = Omit<
+  UseGetProps<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of alerts
+ */
+export const useRetrieveAlert = (props: UseRetrieveAlertProps) =>
+  useGet<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>(`/alert/list`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+export interface DeleteAlertQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type DeleteAlertProps = Omit<MutateProps<void, void, DeleteAlertQueryParams, string, void>, 'path' | 'verb'>
+
+/**
+ * deletes alert
+ */
+export const DeleteAlert = (props: DeleteAlertProps) => (
+  <Mutate<void, void, DeleteAlertQueryParams, string, void>
+    verb="DELETE"
+    path="/alert"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteAlertProps = Omit<
+  UseMutateProps<void, void, DeleteAlertQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * deletes alert
+ */
+export const useDeleteAlert = (props: UseDeleteAlertProps) =>
+  useMutate<void, void, DeleteAlertQueryParams, string, void>('DELETE', `/alert`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+export interface GetActivityTypesQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetActivityTypesProps = Omit<
+  GetProps<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets activity types
+ */
+export const GetActivityTypes = (props: GetActivityTypesProps) => (
+  <Get<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>
+    path="/alert/activityTypes"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityTypesProps = Omit<
+  UseGetProps<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets activity types
+ */
+export const useGetActivityTypes = (props: UseGetActivityTypesProps) =>
+  useGet<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>(`/alert/activityTypes`, {
+    base: getConfig('cv/api'),
+    ...props
+  })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Draggable from 'react-draggable'
 import { Container, Layout, Text } from '@wings-software/uikit'
 import { colors } from '@common/components/HeatMap/ColorUtils'
@@ -7,6 +7,7 @@ import css from './CVRiskScoreSlider.module.scss'
 interface CVRiskScoreSliderProps {
   height?: number
   width?: number
+  selectedValue?: number
   onSelected: (value: number) => void
 }
 
@@ -14,12 +15,18 @@ const CVRiskScoreSlider: React.FC<CVRiskScoreSliderProps> = props => {
   const sliderWidth = props.width || 340
   const divi = (sliderWidth - 30) / 100
   const [risk, setRisk] = useState(0)
+  useEffect(() => {
+    if (props.selectedValue) {
+      setRisk(props.selectedValue)
+    }
+  }, [props.selectedValue])
   return (
     <Layout.Vertical width={sliderWidth}>
       <Draggable
         axis="x"
         bounds={{ right: sliderWidth - 30, left: 0 }}
         defaultClassNameDragging={css.draggingHandle}
+        position={{ x: (props.selectedValue || 0) * divi, y: 0 }}
         onDrag={(e, data) => {
           e.stopPropagation()
           setRisk((data.x / divi) | 0)

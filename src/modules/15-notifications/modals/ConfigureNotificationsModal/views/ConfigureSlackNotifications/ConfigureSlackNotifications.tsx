@@ -7,13 +7,16 @@ import * as Yup from 'yup'
 import { useTestNotificationSetting, SlackSettingDTO } from 'services/notifications'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
-
+import { useStrings } from 'framework/exports'
 import i18n from '../../ConfigureNotifications.i18n'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigureSlackNotificationsProps {
   onSuccess: (config: SlackNotificationConfiguration) => void
   hideModal: () => void
+  isStep?: boolean
+  onBack?: () => void
+  config?: SlackNotificationConfiguration
 }
 
 interface SlackNotificationData {
@@ -21,8 +24,9 @@ interface SlackNotificationData {
   userGroups: string[]
 }
 
-const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = ({ onSuccess, hideModal }) => {
+const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = props => {
   const { accountId } = useParams()
+  const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})
 
@@ -47,7 +51,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
   }
 
   const handleSubmit = (formData: SlackNotificationData): void => {
-    onSuccess({
+    props.onSuccess({
       type: NotificationType.Slack,
       ...formData
     })
@@ -67,7 +71,8 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
           })}
           initialValues={{
             webhookUrl: '',
-            userGroups: []
+            userGroups: [],
+            ...props.config
           }}
         >
           {formik => {
@@ -80,10 +85,18 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>
                 <FormInput.KVTagInput name={'userGroups'} label={i18n.labelSlackUserGroups} />
-                <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                  <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
-                  <Button text={i18n.buttonCancel} onClick={hideModal} />
-                </Layout.Horizontal>
+
+                {props.isStep ? (
+                  <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
+                    <Button text={getString('back')} onClick={props.onBack} />
+                    <Button text={getString('next')} intent="primary" type="submit" />
+                  </Layout.Horizontal>
+                ) : (
+                  <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
+                    <Button type={'submit'} intent={'primary'} text={i18n.buttonSubmit} />
+                    <Button text={i18n.buttonCancel} onClick={props.hideModal} />
+                  </Layout.Horizontal>
+                )}
               </FormikForm>
             )
           }}

@@ -1,0 +1,62 @@
+import React, { useState } from 'react'
+import { Button } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
+import { Page } from '@common/exports'
+import { PageError } from '@common/components/Page/PageError'
+
+import useCVNotificationsModal from '@cv/components/CVNotifications/useCVNotificationsModal'
+import { useRetrieveAlert } from 'services/cv'
+
+import { PageSpinner } from '@common/components'
+import CVNotificationTable from './NotificationTable/CVNotificationTable'
+
+import css from './CVNotificationPage.module.scss'
+
+const CVNotificationPage: React.FC = () => {
+  const [page, setPage] = useState(0)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+
+  const { data, loading, error, refetch: reloadAlertList } = useRetrieveAlert({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      offset: page,
+      pageSize: 10
+    }
+  })
+  const { openNotificationModal } = useCVNotificationsModal({
+    onSuccess: () => {
+      reloadAlertList()
+    }
+  })
+
+  return (
+    <>
+      <Page.Header title={'Notifications'}></Page.Header>
+      <Page.Body className={css.mainPage}>
+        <Button text="New Notification Rule" icon="plus" intent="primary" onClick={() => openNotificationModal()} />
+
+        {loading ? (
+          <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+            <PageSpinner />
+          </div>
+        ) : error ? (
+          <div style={{ paddingTop: '200px' }}>
+            <PageError message={error.message} onClick={() => reloadAlertList()} />
+          </div>
+        ) : data?.resource?.content?.length ? (
+          <CVNotificationTable
+            data={data?.resource}
+            reload={reloadAlertList}
+            gotoPage={pageNumber => setPage(pageNumber)}
+          />
+        ) : (
+          <Page.NoDataCard icon="nav-dashboard" message={'No Notification Rule'} />
+        )}
+      </Page.Body>
+    </>
+  )
+}
+
+export default CVNotificationPage

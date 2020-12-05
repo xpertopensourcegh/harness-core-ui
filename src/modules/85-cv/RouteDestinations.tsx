@@ -40,6 +40,7 @@ import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsP
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
 import ResourcesPage from '@cv/pages/Resources/ResourcesPage'
+import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
 
 const RedirectToCVHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -142,6 +143,7 @@ export default (
         >
           <ActivitySourceSetup />
         </RouteWithLayout>
+
         <RouteWithLayout
           exact
           path={routes.toCVMetricPackConfigureThresholdPage({ ...accountPathProps, ...projectPathProps })}
@@ -225,6 +227,15 @@ export default (
 
         <RouteWithLayout exact path={routes.toCVAdminAccessControl({ ...accountPathProps, ...projectPathProps })}>
           <CVAccessControlPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          exact
+          path={routes.toCVAdminNotifications({
+            ...accountPathProps,
+            ...projectPathProps
+          })}
+        >
+          <CVNotificationPage />
         </RouteWithLayout>
       </Switch>
     </SidebarProvider>
