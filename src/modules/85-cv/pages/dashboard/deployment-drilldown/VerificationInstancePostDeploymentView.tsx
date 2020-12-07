@@ -87,7 +87,7 @@ export default function VerificationInstacePostDeploymentView({
       </Container>
       {!!rangeStartTime && !!rangeEndTime && (
         <>
-          <Container className={styles.panel}>
+          <Container className={classnames(styles.panel, styles.activitiesTimelineViewPanel)}>
             <ActivitiesTimelineViewSection
               environmentIdentifier={environmentIdentifier}
               selectedActivityId={selectedActivityId}
@@ -168,8 +168,7 @@ export function mapMetricsData(res: any, startTime: number, endTime: number, act
           }
         ]
       }
-    },
-    hideShowMore: true
+    }
   }))
 }
 

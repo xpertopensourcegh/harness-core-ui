@@ -7,5 +7,8 @@ declare const styles: {
   readonly chartRow: string
   readonly chartContainer: string
   readonly verticalMoreIcon: string
+  readonly detailsModal: string
+  readonly timelineBar: string
+  readonly crossButton: string
 }
 export default styles

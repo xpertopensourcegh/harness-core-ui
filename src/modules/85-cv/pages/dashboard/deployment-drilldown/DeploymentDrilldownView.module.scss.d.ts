@@ -21,6 +21,7 @@ declare const styles: {
   readonly logAnalysisRow: string
   readonly progressBar: string
   readonly postDeploymentView: string
+  readonly activitiesTimelineViewPanel: string
   readonly postDeploymentMetrics: string
   readonly filtersAndStatusBar: string
   readonly seriesRow: string

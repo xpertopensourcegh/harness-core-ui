@@ -1,3 +1,5 @@
+$moreIconWidth: 16px;
+
 .header {
   display: flex;
   align-items: center;
@@ -76,6 +78,7 @@
     flex: 1;
     padding-top: 6px;
     margin-left: var(--spacing-small) !important;
+    margin-right: $moreIconWidth;
   }
 }
 
@@ -129,6 +132,9 @@
     .bp3-tab-panel {
       margin-top: 0;
     }
+  }
+  .activitiesTimelineViewPanel {
+    padding-right: calc(var(--spacing-medium) + #{$moreIconWidth}) !important;
   }
   .postDeploymentMetrics {
     .filtersAndStatusBar {

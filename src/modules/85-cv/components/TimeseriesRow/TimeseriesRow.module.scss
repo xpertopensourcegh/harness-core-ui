@@ -37,7 +37,29 @@
       }
       .verticalMoreIcon {
         transform: rotate(90deg);
+        cursor: pointer;
+        &:hover {
+          color: var(--blue-350) !important;
+        }
+        &:active,
+        &:global(.bp3-active) {
+          color: var(--blue-500) !important;
+        }
       }
     }
+  }
+}
+
+.detailsModal {
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px var(--grey-300);
+  .timelineBar {
+    margin-left: 260px;
+    margin-right: var(--spacing-small);
+  }
+  .crossButton {
+    position: absolute;
+    top: var(--spacing-small);
+    right: var(--spacing-small);
   }
 }

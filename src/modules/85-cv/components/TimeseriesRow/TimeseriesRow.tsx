@@ -1,11 +1,14 @@
-import React, { useMemo } from 'react'
-import { Container, Text, Icon, Color } from '@wings-software/uikit'
+import React, { useMemo, useState } from 'react'
+import { Container, Text, Icon, Color, useModalHook, Button } from '@wings-software/uikit'
 import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/FontProps'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import classnames from 'classnames'
 import moment from 'moment'
 import merge from 'lodash-es/merge'
+import { Popover, Menu, MenuItem, Dialog } from '@blueprintjs/core'
+import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
+import { useStrings } from 'framework/exports'
 import styles from './TimeseriesRow.module.scss'
 
 export interface SeriesConfig {
@@ -16,9 +19,9 @@ export interface SeriesConfig {
 export interface TimeseriesRowProps {
   transactionName: React.ReactNode
   metricName?: React.ReactNode
-  seriesData: Array<SeriesConfig>
+  seriesData?: Array<SeriesConfig>
   chartOptions?: Highcharts.Options
-  hideShowMore?: boolean // temporary - this will likely become click callback
+  withContextMenu?: boolean
   className?: string
 }
 
@@ -32,11 +35,14 @@ export default function TimeseriesRow({
   seriesData,
   className,
   chartOptions,
-  hideShowMore
+  withContextMenu = true
 }: TimeseriesRowProps) {
+  const { getString } = useStrings()
+  const showDetails = useTimeseriesDetailsModal(transactionName, metricName)
   const rows = useMemo(() => {
-    return seriesData.map(data => ({
+    return seriesData?.map(data => ({
       name: data.name,
+      series: data.series,
       options: chartOptions ? merge(chartsConfig(data.series), chartOptions) : chartsConfig(data.series)
     }))
   }, [seriesData, chartOptions])
@@ -56,20 +62,115 @@ export default function TimeseriesRow({
         </div>
       </Container>
       <Container className={styles.charts}>
-        {rows.map((data, index) => (
+        {rows?.map((data, index) => (
           <React.Fragment key={index}>
             {data.name && <Text>{data.name}</Text>}
             <Container className={styles.chartRow}>
               <Container className={styles.chartContainer}>
                 <HighchartsReact highcharts={Highcharts} options={data.options} />
               </Container>
-              {!hideShowMore && <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />}
+              {withContextMenu && (
+                <Popover
+                  content={
+                    <Menu>
+                      <MenuItem
+                        icon="fullscreen"
+                        text={getString('viewDetails')}
+                        onClick={() =>
+                          showDetails({
+                            name: data.name,
+                            series: data.series
+                          })
+                        }
+                      />
+                    </Menu>
+                  }
+                >
+                  <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />
+                </Popover>
+              )}
             </Container>
           </React.Fragment>
         ))}
       </Container>
     </Container>
   )
+}
+
+export function useTimeseriesDetailsModal(transactionName: React.ReactNode, metricName: React.ReactNode) {
+  const [range, setRange] = useState<{ startDate: number; endDate: number } | undefined>()
+  const [seriesData, setSeriesData] = useState<SeriesConfig>()
+  const [openModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen
+        usePortal
+        autoFocus
+        canEscapeKeyClose
+        canOutsideClickClose
+        enforceFocus
+        onClose={hideModal}
+        style={{ width: '80vw', borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }}
+      >
+        <Container className={styles.detailsModal} padding="small" margin="xxxlarge">
+          <TimeseriesRow
+            transactionName={transactionName}
+            metricName={metricName}
+            seriesData={seriesData && [seriesData]}
+            chartOptions={{
+              chart: {
+                height: 200,
+                marginLeft: 50
+              },
+              yAxis: {
+                labels: {
+                  enabled: true,
+                  style: {
+                    fontSize: 'var(--font-size-small)',
+                    color: 'var(--grey-300)'
+                  }
+                }
+              }
+            }}
+            withContextMenu={false}
+          />
+          {range && <TimelineBar className={styles.timelineBar} {...range} />}
+          <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={styles.crossButton} />
+        </Container>
+      </Dialog>
+    ),
+    [seriesData]
+  )
+  return (data: SeriesConfig, options?: Highcharts.Options) => {
+    setRange(extractTimeRange(data, options))
+    setSeriesData(data)
+    return openModal()
+  }
+}
+
+export function extractTimeRange(data: SeriesConfig, options?: Highcharts.Options) {
+  let start: number = (options?.xAxis as Highcharts.XAxisOptions)?.min ?? 0
+  let end: number = (options?.xAxis as Highcharts.XAxisOptions)?.max ?? 0
+  if (!start && !end) {
+    const seriesWithData = data.series.filter(serie => serie.data?.length)
+    if (seriesWithData.length) {
+      start = Infinity
+      end = -Infinity
+      seriesWithData.forEach(serie => {
+        serie?.data?.forEach((item: any) => {
+          const timestamp = Array.isArray(item) ? item[0] : item.x
+          start = Math.min(start, timestamp)
+          end = Math.max(end, timestamp)
+        })
+      })
+    }
+  }
+  if (start && end) {
+    return {
+      startDate: start,
+      endDate: end
+    }
+  }
 }
 
 export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts.Options {
@@ -120,7 +221,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
     tooltip: {
       formatter: function tooltipFormatter(this: any): string {
         return `<section class="serviceeGuardTimeSeriesTooltip"><p>${moment(this.x).format(
-          'M/D/YYYY h:mm a'
+          'M/D/YYYY h:mm:ss a'
         )}</p><br/><p>Value: ${this.y}</p></section>`
       },
       outside: true
