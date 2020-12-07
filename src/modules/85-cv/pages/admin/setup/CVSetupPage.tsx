@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Text, Layout, Container, Button, Color, Icon, Link, Card, CardBody, IconName } from '@wings-software/uikit'
 import cx from 'classnames'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { useGetCVSetupStatus, RestResponseCVSetupStatus } from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
+
 import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
 
@@ -53,17 +55,16 @@ const MonitoringSources = [
   {
     type: 'AppDynamics',
     icon: 'service-appdynamics',
-    label: 'AppDynamics'
-  },
-  {
-    type: 'Splunk',
-    icon: 'service-splunk',
-    label: 'Splunk'
+    label: 'AppDynamics',
+    routeName: MonitoringSourceSetupRoutePaths.APP_DYNAMICS,
+    routeUrl: routes.toCVAdminSetupMonitoringSource
   },
   {
     type: 'GoogleCloudOperations',
     icon: 'service-stackdriver',
-    label: 'Google Cloud Operations'
+    label: 'Google Cloud Operations',
+    routeName: MonitoringSourceSetupRoutePaths.GoogleCloudOperations,
+    routeUrl: routes.toCVAdminSetupMonitoringSource
   }
 ]
 interface CVSetupPageProps {
@@ -72,7 +73,7 @@ interface CVSetupPageProps {
 interface ActivitySourceContentProps {
   setActiveStep: (val: string) => void
   setActivitySource: (val: string) => void
-  setDataSource: (val: string) => void
+  setMonitoringSource: (val: string) => void
 }
 
 const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
@@ -144,7 +145,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
           onClick={() => {
             props.setActiveStep(STEP.MONITORING_SOURCE)
             props.setActivitySource(Status.COMPLETED)
-            props.setDataSource(Status.ACTIVE)
+            props.setMonitoringSource(Status.ACTIVE)
           }}
         >
           {i18n.activitySource.skip}
@@ -157,13 +158,13 @@ interface MonitoringSourceContentProps {
   statusData: RestResponseCVSetupStatus | null
   setActiveStep: (val: string) => void
   setActivitySource: (val: string) => void
-  setDataSource: (val: string) => void
+  setMonitoringSource: (val: string) => void
   setVerificationJob: (val: string) => void
   monitoringSource: string
-  monitoringSourceType: string
-  setMonitoringSourceType: (val: string) => void
 }
-const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props => {
+const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = () => {
+  const history = useHistory()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <Layout.Horizontal>
       <Container height="100vh" width="70%">
@@ -175,12 +176,16 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
           <div className={css.items}>
             {MonitoringSources.map((item, index) => {
               return (
-                <div className={css.cardWrapper} key={`${index}${item}`}>
-                  <Card
-                    interactive={true}
-                    className={cx(css.cardCss, { [css.cardSelected]: props.monitoringSourceType === item.type })}
-                    onClick={() => props.setMonitoringSourceType(item.type)}
-                  >
+                <div
+                  className={css.cardWrapper}
+                  key={`${index}${item}`}
+                  onClick={() =>
+                    history.push(
+                      item.routeUrl({ monitoringSource: item.routeName, projectIdentifier, orgIdentifier, accountId })
+                    )
+                  }
+                >
+                  <Card interactive={true} className={css.cardCss}>
                     <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
                   </Card>
                   <div className={css.cardLabel}>{item.label}</div>
@@ -200,14 +205,14 @@ const VerificatiionContent = () => {
 
 const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const [activitySource, setActivitySource] = useState<string>(Status.ACTIVE)
-  const [monitoringSource, setDataSource] = useState<string>(Status.NOT_VISITED)
+  const [monitoringSource, setMonitoringSource] = useState<string>(Status.NOT_VISITED)
   const [verificationJob, setVerificationJob] = useState<string>(Status.NOT_VISITED)
   const [activeStep, setActiveStep] = useState<string>(STEP.ACTIVITY_SOURCE)
-  // const [activitySourceType, setActivitySourceType] = useState()
-  const [monitoringSourceType, setMonitoringSourceType] = useState('')
+  const location = useLocation()
   const history = useHistory()
-
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const queryParams = new URLSearchParams(location.search)
+  const step = queryParams.get('step')
 
   const { data, loading, refetch, error } = useGetCVSetupStatus({
     queryParams: {
@@ -220,14 +225,25 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const categories = data?.resource?.stepsWhichAreCompleted
 
   useEffect(() => {
-    if (!categories?.includes('ACTIVITY_SOURCE')) {
-      setActiveStep(STEP.ACTIVITY_SOURCE)
-    } else if (!categories?.includes('MONITORING_SOURCE')) {
-      setActiveStep(STEP.MONITORING_SOURCE)
-    } else if (!categories?.includes('VERIFICATION_JOBS')) {
-      setActiveStep(STEP.VERIFICATION_JOBS)
-    } else {
-      setActiveStep(STEP.ACTIVITY_SOURCE)
+    if (step) {
+      if (!categories?.includes('ACTIVITY_SOURCE')) {
+        setActiveStep(STEP.ACTIVITY_SOURCE)
+        setActivitySource(Status.ACTIVE)
+      } else if (!categories?.includes('MONITORING_SOURCE')) {
+        setActiveStep(STEP.MONITORING_SOURCE)
+        setMonitoringSource(Status.ACTIVE)
+        setActivitySource(Status.COMPLETED)
+      } else if (!categories?.includes('VERIFICATION_JOBS')) {
+        setActiveStep(STEP.VERIFICATION_JOBS)
+        setVerificationJob(Status.ACTIVE)
+        setMonitoringSource(Status.COMPLETED)
+        setActivitySource(Status.COMPLETED)
+      }
+      //  Not required : Discuss after verification step
+      // else {
+      //   setActiveStep(STEP.ACTIVITY_SOURCE)
+      //   setActivitySource(Status.ACTIVE)
+      // }
     }
   }, [categories])
   return (
@@ -248,7 +264,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical spacing="xsmall">
                     {activitySource === Status.COMPLETED ? (
                       <Icon name="tick-circle" color="green500" size={20} />
-                    ) : activitySource === Status.ACTIVE ? (
+                    ) : activeStep === STEP.ACTIVITY_SOURCE && activitySource === Status.ACTIVE ? (
                       <span className={css.number}>1</span>
                     ) : (
                       <Text>1</Text>
@@ -263,7 +279,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
                       font={{ size: 'medium', weight: 'bold' }}
-                      color={activitySource === Status.ACTIVE ? Color.BLACK : Color.GREY_500}
+                      color={activeStep === STEP.ACTIVITY_SOURCE ? Color.BLACK : Color.GREY_500}
                     >
                       {i18n.activitySource.heading}
                     </Text>
@@ -276,7 +292,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical spacing="xsmall">
                     {monitoringSource === Status.COMPLETED ? (
                       <Icon name="tick-circle" color="green500" size={20} />
-                    ) : monitoringSource === Status.ACTIVE ? (
+                    ) : activeStep === STEP.MONITORING_SOURCE && monitoringSource === Status.ACTIVE ? (
                       <span className={css.number}>2</span>
                     ) : (
                       <span className={css.onlyNumber}> 2</span>
@@ -291,7 +307,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
                       font={{ size: 'medium', weight: 'bold' }}
-                      color={monitoringSource === Status.ACTIVE ? Color.BLACK : Color.GREY_500}
+                      color={activeStep === STEP.MONITORING_SOURCE ? Color.BLACK : Color.GREY_500}
                     >
                       {i18n.monitoringSource.heading}
                     </Text>
@@ -304,7 +320,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical>
                     {verificationJob === Status.COMPLETED ? (
                       <Icon name="tick-circle" color="green500" size={20} />
-                    ) : verificationJob === Status.ACTIVE ? (
+                    ) : activeStep === STEP.VERIFICATION_JOBS && verificationJob === Status.ACTIVE ? (
                       <span className={css.number}>{3}</span>
                     ) : (
                       <span className={css.onlyNumber}> 3</span>
@@ -314,7 +330,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
                       font={{ size: 'medium', weight: 'bold' }}
-                      color={verificationJob === Status.ACTIVE ? Color.BLACK : Color.GREY_500}
+                      color={activeStep === STEP.VERIFICATION_JOBS ? Color.BLACK : Color.GREY_500}
                     >
                       {i18n.verificationJob.heading}
                     </Text>
@@ -326,21 +342,34 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               </Layout.Vertical>
             </Container>
             <Layout.Horizontal spacing="medium">
-              <Button text="Previous" icon="chevron-left" onClick={() => alert('Hello World')} />
+              <Button
+                text="Previous"
+                icon="chevron-left"
+                onClick={() => {
+                  if (activeStep === STEP.ACTIVITY_SOURCE) {
+                    history.push(routes.toCVMainDashBoardPage({ accountId, projectIdentifier, orgIdentifier }))
+                  } else if (activeStep === STEP.MONITORING_SOURCE) {
+                    setActiveStep(STEP.ACTIVITY_SOURCE)
+                    setActivitySource(Status.COMPLETED)
+                  } else if (activeStep === STEP.VERIFICATION_JOBS) {
+                    setActiveStep(STEP.MONITORING_SOURCE)
+                    setMonitoringSource(Status.COMPLETED)
+                  }
+                }}
+              />
               <Button
                 intent="primary"
                 text={i18n.NEXT}
                 rightIcon="chevron-right"
                 onClick={() => {
-                  if (monitoringSource === Status.ACTIVE && monitoringSourceType) {
-                    history.push(
-                      routes.toCVAdminSetupMonitoringSource({
-                        orgIdentifier: orgIdentifier,
-                        projectIdentifier: projectIdentifier,
-                        monitoringSource: monitoringSourceType,
-                        accountId
-                      })
-                    )
+                  if (activeStep === STEP.ACTIVITY_SOURCE) {
+                    setActiveStep(STEP.MONITORING_SOURCE)
+                    setMonitoringSource(Status.ACTIVE)
+                    setActivitySource(Status.COMPLETED)
+                  } else if (activeStep === STEP.MONITORING_SOURCE) {
+                    setActiveStep(STEP.VERIFICATION_JOBS)
+                    setVerificationJob(Status.ACTIVE)
+                    setMonitoringSource(Status.COMPLETED)
                   }
                 }}
               />
@@ -354,7 +383,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               <ActivitySourceContent
                 setActiveStep={setActiveStep}
                 setActivitySource={setActivitySource}
-                setDataSource={setDataSource}
+                setMonitoringSource={setMonitoringSource}
                 // setActivitySourceType={setActivitySourceType}
               />
             ) : activeStep === STEP.MONITORING_SOURCE ? (
@@ -363,10 +392,8 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 monitoringSource={monitoringSource}
                 setActiveStep={setActiveStep}
                 setActivitySource={setActivitySource}
-                setDataSource={setDataSource}
+                setMonitoringSource={setMonitoringSource}
                 setVerificationJob={setVerificationJob}
-                setMonitoringSourceType={setMonitoringSourceType}
-                monitoringSourceType={monitoringSourceType}
               />
             ) : activeStep === STEP.VERIFICATION_JOBS ? (
               <VerificatiionContent />

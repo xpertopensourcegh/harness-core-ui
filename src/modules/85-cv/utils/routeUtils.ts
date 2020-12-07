@@ -21,3 +21,7 @@ export const ActivitySourceSetupRoutePaths = {
   KUBERNETES: 'kubernetes',
   HARNESS_CD: 'harness-cd'
 }
+export const MonitoringSourceSetupRoutePaths = {
+  APP_DYNAMICS: 'app-dynamics',
+  GoogleCloudOperations: 'GoogleCloudOperations'
+}

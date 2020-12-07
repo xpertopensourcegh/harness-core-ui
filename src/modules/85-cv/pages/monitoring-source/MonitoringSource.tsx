@@ -2,18 +2,22 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uikit'
 import routes from '@common/RouteDefinitions'
+
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from './MonitoringSource.i18n'
+
+import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
+
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
 import { GoogleCloudOperationsMonitoringSource } from './google-cloud-operations/GoogleCloudOperationsMonitoringSource'
+import i18n from './MonitoringSource.i18n'
 import css from './MonitoringSource.module.scss'
 
 const getContentByType = (type: string): JSX.Element => {
   switch (type) {
-    case 'AppDynamics':
+    case MonitoringSourceSetupRoutePaths.APP_DYNAMICS:
       return <AppDMonitoringSource />
-    case 'GoogleCloudOperations':
+    case MonitoringSourceSetupRoutePaths.GoogleCloudOperations:
       return <GoogleCloudOperationsMonitoringSource />
     default:
       return <></>

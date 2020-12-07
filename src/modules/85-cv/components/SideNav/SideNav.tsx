@@ -53,7 +53,7 @@ export default function CISideNav(): React.ReactElement {
           />
           <AdminSelector path={routes.toCVAdmin({ accountId })}>
             <AdminSelectorLink
-              label="Setup"
+              label={getString('cv.navLinks.adminSideNavLinks.setup')}
               iconName="resources-icon"
               to={routes.toCVAdminSetup({
                 projectIdentifier,
@@ -88,11 +88,6 @@ export default function CISideNav(): React.ReactElement {
               iconName="settings"
               to=""
               disabled
-            />
-            <AdminSelectorLink
-              label={getString('cv.navLinks.adminSideNavLinks.setup')}
-              iconName="square"
-              to={routes.toCVAdminSetup({ projectIdentifier, orgIdentifier, accountId })}
             />
             <AdminSelectorLink
               label={getString('cv.navLinks.adminSideNavLinks.activitySources')}

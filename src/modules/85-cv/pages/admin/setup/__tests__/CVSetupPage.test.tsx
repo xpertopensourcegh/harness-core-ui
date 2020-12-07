@@ -31,6 +31,7 @@ describe('CVSetupPage', () => {
       <TestWrapper
         path="/cv/account/:accountId/org/:orgIdentifier/project/:projectIdentifier/admin/setup"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummyOrgId', projectIdentifier: 'dummyProjectId' }}
+        queryParams={{ step: '2' }}
       >
         <CVSetupPage
           setupStatusMockData={{

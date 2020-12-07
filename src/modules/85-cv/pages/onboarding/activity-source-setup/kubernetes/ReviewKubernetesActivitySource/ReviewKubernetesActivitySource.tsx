@@ -130,7 +130,7 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
         nextButtonProps={{ text: getString('submit') }}
         onNextClick={async () => {
           await mutate(transformToSavePayload(data, tableData))
-          history.push(routes.toCVAdminSetup(params))
+          history.push(`${routes.toCVAdminSetup(params)}?step=2`)
         }}
       />
     </Container>
