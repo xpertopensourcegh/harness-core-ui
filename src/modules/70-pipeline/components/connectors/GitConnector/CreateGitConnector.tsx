@@ -22,7 +22,7 @@ import ConnectionModeStep from '@connectors/components/CreateConnector/GITConnec
 import HttpCredendialStep from '@connectors/components/CreateConnector/GITConnector/HTTP/HttpCredendialStep'
 import type { StageElementWrapper } from 'services/cd-ng'
 import i18n from '@connectors/components/CreateConnector/GITConnector/CreateGITConnector.i18n'
-import customi18n from '../../ManifestSelection/ManifestWizardSteps/ManifestWizard.i18n'
+import customi18n from '@pipeline/components/ManifestSelection/ManifestWizardSteps/ManifestWizard.i18n'
 import css from './CreateGitConnector.module.scss'
 
 interface CreateGITConnectorProps {

@@ -19,6 +19,7 @@ import { S3Step } from './Steps/S3Step/S3Step'
 import { JFrogArtifactoryStep } from './Steps/JFrogArtifactoryStep/JFrogArtifactoryStep'
 import { Dependency } from './Steps/Dependency/Dependency'
 
+import { KubernetesServiceSpec } from './Steps/K8sServiceSpec/K8sServiceSpec'
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
 }
@@ -32,6 +33,7 @@ factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())
 factory.registerStep(new CustomVariables())
 factory.registerStep(new KubernetesInfraSpec())
+factory.registerStep(new KubernetesServiceSpec())
 // build steps
 factory.registerStep(new RunStep())
 factory.registerStep(new PluginStep())

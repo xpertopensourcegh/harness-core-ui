@@ -7,13 +7,15 @@ export const CollapseForm: React.FC<{
   children: React.ReactNode
   headerProps?: TextProps
   headerColor?: string
+  open?: boolean
 }> = ({
   header,
   children,
   headerProps = { font: { size: 'medium' } },
-  headerColor = 'var(--pipeline-form-blue)'
+  headerColor = 'var(--pipeline-form-blue)',
+  open = true
 }): JSX.Element => {
-  const [isOpen, setOpen] = React.useState(true)
+  const [isOpen, setOpen] = React.useState(open)
   return (
     <div style={{ width: '100%' }}>
       <Layout.Horizontal

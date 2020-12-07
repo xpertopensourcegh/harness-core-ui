@@ -7,7 +7,7 @@ import type { NGVariable as Variable } from 'services/cd-ng'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { StepType } from '../../../70-pipeline/components/PipelineSteps/PipelineStepInterface'
 
-import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
+import { PredefinedOverrideSets } from '../../../70-pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 
 import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
 import i18n from './WorkflowVariables.i18n'

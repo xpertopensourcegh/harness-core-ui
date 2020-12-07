@@ -45,7 +45,7 @@ export abstract class Step<T extends object> {
     initialValues: T,
     onUpdate?: (data: T) => void,
     stepViewType?: StepViewType,
-    template?: { [P in keyof T]: string },
+    template?: T,
     allValues?: T
   ): JSX.Element
 }

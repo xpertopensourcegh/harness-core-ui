@@ -1,0 +1,944 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateGitConnector tests renders with isForOverrideSets true without crashing 1`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz wrapper StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTOR DETAILS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTION MODE
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CREDENTIALS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          VERIFY CONNECTION
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          MANIFEST SOURCE
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+      >
+        <div
+          class="heading"
+        >
+          GIT Connector Details
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+        >
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      >
+                        <div
+                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                        >
+                          <div
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          >
+                            <p
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            >
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier---idInput--w8_T"
+                              contenteditable="true"
+                            />
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              icon="edit"
+                              style="vertical-align: middle;"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="12"
+                                viewBox="0 0 16 16"
+                                width="12"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Description
+                        </p>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Tags
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                >
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CreateGitConnector tests renders with isForOverrideSets true without crashing 2`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz wrapper StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTOR DETAILS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTION MODE
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CREDENTIALS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          VERIFY CONNECTION
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          MANIFEST SOURCE
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+      >
+        <div
+          class="heading"
+        >
+          GIT Connector Details
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+        >
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      >
+                        <div
+                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                        >
+                          <div
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          >
+                            <p
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            >
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier---idInput--w8_T"
+                              contenteditable="true"
+                            />
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              icon="edit"
+                              style="vertical-align: middle;"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="12"
+                                viewBox="0 0 16 16"
+                                width="12"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Description
+                        </p>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Tags
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                >
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz wrapper StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTOR DETAILS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTION MODE
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CREDENTIALS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          VERIFY CONNECTION
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          MANIFEST SOURCE
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+      >
+        <div
+          class="heading"
+        >
+          GIT Connector Details
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+        >
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      >
+                        <div
+                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                        >
+                          <div
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          >
+                            <p
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            >
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier---idInput--w8_T"
+                              contenteditable="true"
+                            />
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              icon="edit"
+                              style="vertical-align: middle;"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="12"
+                                viewBox="0 0 16 16"
+                                width="12"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Description
+                        </p>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Tags
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                >
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz wrapper StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTOR DETAILS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CONNECTION MODE
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          CREDENTIALS
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          VERIFY CONNECTION
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          MANIFEST SOURCE
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+      >
+        <div
+          class="heading"
+        >
+          GIT Connector Details
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+        >
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      >
+                        <div
+                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                        >
+                          <div
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          >
+                            <p
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            >
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier---idInput--w8_T"
+                              contenteditable="true"
+                            >
+                              dummy_name
+                              
+                            </span>
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              icon="edit"
+                              style="vertical-align: middle;"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="12"
+                                viewBox="0 0 16 16"
+                                width="12"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value="dummy name"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Description
+                        </p>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Tags
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                >
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -230,6 +230,12 @@ global:
         newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
         propagateConnectorLabel: 'Kubernetes Cluster'
         namespace: 'Namespace'
+    deploy:
+      serviceSpecifications:
+        deploymentTypes:
+          artifacts: 'Artifacts'
+          manifests: 'Manifests'
+
   validation:
     name: 'Name is a required field'
     identifier: 'Identifier is required'

@@ -5,6 +5,7 @@ export enum StepType {
   K8sRollingRollback = 'K8sRollingRollback',
   StepGroup = 'StepGroup',
   KubernetesInfraSpec = 'KubernetesInfraSpec',
+  K8sServiceSpec = 'K8sServiceSpec',
   K8sRollingDeploy = 'K8sRollingDeploy',
   CustomVariable = 'Custom_Variable',
   Dependency = 'dependency',

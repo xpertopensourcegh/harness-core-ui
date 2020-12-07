@@ -1,12 +1,11 @@
 import React from 'react'
 import { StepViewType, StepWidget } from '@pipeline/exports'
-import type { DeploymentStage, K8SDirectInfrastructure } from 'services/cd-ng'
+import type { DeploymentStage, K8SDirectInfrastructure, ServiceSpec } from 'services/cd-ng'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
-
 export interface StageInputSetFormProps {
   deploymentStage?: DeploymentStage
   deploymentStageTemplate: DeploymentStage
@@ -27,8 +26,21 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
           header={i18n.service(deploymentStage?.service?.name || '')}
           headerProps={{ font: { size: 'normal' } }}
           headerColor="var(--black)"
+          open={false}
         >
-          <div>WIP</div>
+          <StepWidget<ServiceSpec>
+            factory={factory}
+            initialValues={deploymentStageInputSet?.service?.serviceDefinition?.spec || {}}
+            template={deploymentStageTemplate?.service?.serviceDefinition?.spec || {}}
+            type={StepType.K8sServiceSpec}
+            stepViewType={StepViewType.InputSet}
+            onUpdate={(data: any) => {
+              if (deploymentStageInputSet?.service?.serviceDefinition?.spec) {
+                deploymentStageInputSet.service.serviceDefinition.spec = data
+                onUpdate(deploymentStageInputSet)
+              }
+            }}
+          />
         </CollapseForm>
       )}
       {deploymentStageTemplate.infrastructure && (

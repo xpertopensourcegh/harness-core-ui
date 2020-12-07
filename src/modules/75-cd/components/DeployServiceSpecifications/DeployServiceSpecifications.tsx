@@ -3,8 +3,6 @@ import * as Yup from 'yup'
 
 import {
   Layout,
-  Tabs,
-  Tab,
   Button,
   Card,
   CardBody,
@@ -25,14 +23,17 @@ import {
   PipelineContext,
   getStageFromPipeline,
   getStageIndexFromPipeline,
-  getPrevoiusStageFromIndex
+  getPrevoiusStageFromIndex,
+  StepWidget,
+  StepViewType
 } from '@pipeline/exports'
-import { loggerFor, ModuleName } from 'framework/exports'
-import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
-import ManifestSelection from '../ManifestSelection/ManifestSelection'
-import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
+import { loggerFor, ModuleName, useStrings } from 'framework/exports'
+
+import OverrideSets from '@pipeline/components/OverrideSets/OverrideSets'
+import type { K8SDirectServiceStep } from '@pipeline/components/PipelineSteps/Steps/K8sServiceSpec/K8sServiceSpec'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
 import i18n from './DeployServiceSpecifications.i18n'
-import OverrideSets from '../OverrideSets/OverrideSets'
 import css from './DeployServiceSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -92,14 +93,19 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
 
 export default function DeployServiceSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
-  const [selectedTab, setSelectedTab] = React.useState(i18n.artifacts)
+  const { getString } = useStrings()
+  const [selectedTab, setSelectedTab] = React.useState(
+    getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
+  )
   const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [specSelected, setSelectedSpec] = React.useState(specificationTypes.SPECIFICATION)
   const [setupModeType, setSetupMode] = React.useState('')
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
-
+  const handleTabChange = (data: string): void => {
+    setSelectedTab(data)
+  }
   const previousStageList: { label: string; value: string }[] = []
   const {
     state: {
@@ -206,9 +212,9 @@ export default function DeployServiceSpecifications(): JSX.Element {
     return { serviceName, description, tags, identifier }
   }
 
-  const handleTabChange = (data: string): void => {
-    setSelectedTab(data)
-  }
+  // const handleTabChange = (data: string): void => {
+  //   setSelectedTab(data)
+  // }
 
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
@@ -502,40 +508,13 @@ export default function DeployServiceSpecifications(): JSX.Element {
               <div className={css.artifactType}>
                 {(isConfigVisible || stageIndex === 0 || setupModeType === setupMode.DIFFERENT) && (
                   <div>
-                    <Tabs id="serviceSpecifications" onChange={handleTabChange}>
-                      <Tab
-                        id={i18n.artifacts}
-                        title={i18n.artifacts}
-                        panel={
-                          <ArtifactsSelection
-                            isForOverrideSets={false}
-                            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-                          />
-                        }
-                      />
-                      <Tab
-                        id={i18n.manifests}
-                        title={i18n.manifests}
-                        panel={
-                          <ManifestSelection
-                            isForOverrideSets={false}
-                            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-                          />
-                        }
-                      />
-                      <Tab
-                        id={i18n.variables}
-                        title={i18n.variables}
-                        disabled={true}
-                        panel={
-                          <WorkflowVariables
-                            isForOverrideSets={false}
-                            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-                          />
-                        }
-                      />
-                    </Tabs>
-                    {setupModeType === setupMode.DIFFERENT && <OverrideSets selectedTab={selectedTab} />}
+                    <StepWidget<K8SDirectServiceStep>
+                      factory={factory}
+                      initialValues={{ stageIndex, setupModeType, handleTabChange }}
+                      type={StepType.K8sServiceSpec}
+                      stepViewType={StepViewType.Edit}
+                    />
+                    <OverrideSets selectedTab={selectedTab} />
                   </div>
                 )}
               </div>

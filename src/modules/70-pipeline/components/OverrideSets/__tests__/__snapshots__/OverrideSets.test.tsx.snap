@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverrideSet tests renders without crashing 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    style="padding-top: 0px;"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      style="line-height: 24px;"
+    >
+      Configure pre-defined override sets (Advanced)
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      style="line-height: 24px;"
+    >
+      Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
+    </p>
+    <section
+      class="collapseContainer"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      />
+    </section>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+      style="cursor: pointer;"
+    >
+      + Create new override set
+    </p>
+  </div>
+</div>
+`;

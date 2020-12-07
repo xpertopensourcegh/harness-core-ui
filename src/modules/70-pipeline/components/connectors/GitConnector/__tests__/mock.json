@@ -1,0 +1,80 @@
+{
+  "name": "P1",
+  "identifier": "P1",
+  "description": "",
+  "stages": [
+    {
+      "stage": {
+        "name": "Servic1",
+        "identifier": "Servic1",
+        "description": "",
+        "type": "Deployment",
+        "spec": {
+          "service": {
+            "identifier": "",
+            "name": "",
+            "description": "",
+            "serviceDefinition": {
+              "type": "Kubernetes",
+              "spec": {
+                "artifacts": {
+                  "sidecars": [
+                    {
+                      "sidecar": {
+                        "type": "Dockerhub",
+                        "identifier": "sidecar1",
+                        "spec": { "connectorRef": "account.harnessimage", "imagePath": "${input}" }
+                      }
+                    }
+                  ],
+                  "primary": null
+                },
+                "manifests": [
+                  {
+                    "manifest": {
+                      "identifier": "gitId",
+                      "type": "K8sManifest",
+                      "spec": {
+                        "store": {
+                          "type": "Git",
+                          "spec": {
+                            "connectorRef": "account.dronegit",
+                            "gitFetchType": "Branch",
+                            "branch": "${input}",
+                            "commitId": "",
+                            "paths": ["specs"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "artifactOverrideSets": [],
+                "manifestOverrideSets": [{ "overrideSet": { "identifier": "ok", "manifests": [] } }]
+              }
+            }
+          },
+          "infrastructure": {
+            "environment": { "name": "infra", "identifier": "infra", "description": "", "type": "PreProduction" },
+            "infrastructureDefinition": {
+              "type": "KubernetesDirect",
+              "spec": { "connectorRef": "account.adsds", "namespace": "${input}", "releaseName": "${input}" }
+            }
+          },
+          "execution": {
+            "steps": [
+              {
+                "step": {
+                  "name": "Rollout Deployment",
+                  "identifier": "rolloutDeployment",
+                  "type": "K8sRollingDeploy",
+                  "spec": { "timeout": "${input}", "skipDryRun": false }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

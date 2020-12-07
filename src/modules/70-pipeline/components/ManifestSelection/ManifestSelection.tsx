@@ -23,10 +23,10 @@ import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getStageFromPipeline } from '@pipeline/exports'
 import { PipelineContext } from '@pipeline/exports'
-import CreateGitConnector from '../connectors/GitConnector/CreateGitConnector'
+import CreateGitConnector from '@pipeline/components/connectors/GitConnector/CreateGitConnector'
 
+import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
-import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
 

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManifestSelection tests renders without crashing 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      style="line-height: 24px;"
+    >
+      Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
+    </p>
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          + Add Manifest
+        </p>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <section />
+      </div>
+    </div>
+  </div>
+</div>
+`;

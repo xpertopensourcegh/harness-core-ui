@@ -9,7 +9,7 @@ export interface StepWidgetProps<T extends object = {}> {
   type: string
   initialValues: T
   allValues?: T
-  template?: { [key in keyof T]: string }
+  template?: T
   stepViewType?: StepViewType
   onUpdate?: (data: T) => void
 }
