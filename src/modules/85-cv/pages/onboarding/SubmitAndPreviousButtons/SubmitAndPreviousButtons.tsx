@@ -20,12 +20,12 @@ export function SubmitAndPreviousButtons(props: SubmitAndPreviousButtonProps): J
         onClick={() => onPreviousClick?.()}
       />
       <Button
-        {...props.nextButtonProps}
         text={i18n.nextLabel}
         intent="primary"
         type="submit"
         rightIcon="chevron-right"
         onClick={() => onNextClick?.()}
+        {...props.nextButtonProps}
       />
     </Layout.Horizontal>
   )

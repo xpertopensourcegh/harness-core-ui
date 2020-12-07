@@ -343,6 +343,13 @@ global:
         multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in monitoring sources.'
         servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
         multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
+      selectProductScreen:
+        validationText:
+          name: 'Name is required.'
+          identifier: 'Identifier is required,'
+          connectorRef: 'Connector Selection is required.'
+          validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
+          product: 'Product selection is required.'
     newService: New Service
     selectCreateService: select or create an service
     monitoringSources:
@@ -375,12 +382,30 @@ global:
           selectApp: Please select application and its environment
           selectTier: Please select tier and its service
           selectMetricPack: Plese select metric packs
+        connectToMonitoringSource: 'Connect to your AppDynamics monitoring source'
+        firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
+        createConnectorText: '+ New AppDynamics Connector'
+        selectProduct: 'Select the AppDyanamics Product that you would like to select applications from'
+        product:
+          applicationMonitoring: 'Application Monitoring'
+          businessMonitoring: 'Business Performance Monitoring'
+          machineMonitoring: 'Machine Monitoring'
+          endUserMonitoring: 'End User Moniorting'
         infoPanel:
           mapDashboards: Map Dashboards to Harness Services
           mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
           applications: Applications
           applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
           tiers: Tiers
+      gco:
+        connectToMonitoringSource: 'Connect to your Google Cloud Platform'
+        defaultName: 'My Google Cloud Operations Monitoring Source'
+        firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
+        createConnectorText: '+ New Google Cloud Platform Connector'
+        selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
+        product:
+          metrics: 'Cloud Metrics'
+        productValidationText: 'Google Cloud Operations feature is required.'
     activitySources:
       name: 'Name your activity source'
       harnessCD:

@@ -26,7 +26,7 @@ export default function ActivitySourceSetup(): JSX.Element {
     ProjectPathProps & AccountPathProps & { activitySource: string }
   >()
   return (
-    <Container className={css.main}>
+    <Container className={css.pageDimensions}>
       <OnBoardingPageHeader
         breadCrumbs={[
           {

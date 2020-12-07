@@ -1,8 +1,10 @@
 import React from 'react'
-import { Layout, Text, Container, FormikForm, Formik, Color } from '@wings-software/uikit'
+import { Layout, Container, FormikForm, Formik, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import {
   SelectOrCreateConnector,
@@ -10,10 +12,13 @@ import {
 } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
-import i18n from './SelectProduct.i18n'
 
-interface SelectProductProps {
-  type: string
+interface SelectProductFieldProps {
+  type: 'AppDynamics' | 'GoogleCloudOperations'
+  productSelectValidationText?: string
+}
+
+interface SelectProductProps extends SelectProductFieldProps {
   stepData?: { [key: string]: string }
   onCompleteStep: (data: { [key: string]: string }) => void
 }
@@ -27,117 +32,149 @@ interface MonitoringSourceInfo extends SelectOrCreateConnectorProps {
   products: ProductOption[]
 }
 
-const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
+export const InitialValues = {
+  name: '',
+  description: '',
+  identifier: '',
+  tags: []
+}
+
+export function getValidationSchema(
+  getString: UseStringsReturn['getString'],
+  productSelectValidationText?: string
+): object {
+  return {
+    name: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
+    identifier: Yup.string().when('name', {
+      is: val => val?.length,
+      then: Yup.string()
+        .trim()
+        .required(getString('cv.onboarding.selectProductScreen.validationText.identifier'))
+        .matches(
+          /^(?![0-9])[0-9a-zA-Z_$]*$/,
+          getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
+        )
+        .notOneOf(StringUtils.illegalIdentifiers)
+    }),
+    connectorRef: Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef')),
+    product: Yup.string().required(
+      productSelectValidationText || getString('cv.onboarding.selectProductScreen.validationText.product')
+    )
+  }
+}
+
+const getInfoSchemaByType = (type: string, getString: UseStringsReturn['getString']): MonitoringSourceInfo => {
   switch (type) {
     case 'AppDynamics':
       return {
         iconName: 'service-appdynamics',
         iconLabel: 'AppDynamics',
-        connectToMonitoringSourceText: i18n.AppD.connectToMonitoringSource,
-        firstTimeSetupText: i18n.AppD.firstTimeText,
+        connectToMonitoringSourceText: getString('cv.monitoringSources.appD.connectToMonitoringSource'),
+        firstTimeSetupText: getString('cv.monitoringSources.appD.firstTimeSetupText'),
         connectorType: 'AppDynamics',
-        createConnectorText: i18n.AppD.createConnector,
-        selectProduct: i18n.AppD.selectProduct,
+        createConnectorText: getString('cv.monitoringSources.appD.createConnectorText'),
+        selectProduct: getString('cv.monitoringSources.appD.selectProduct'),
 
         products: [
-          { value: 'Application Monitoring', label: i18n.AppD.product.applicationMonitoring },
-          { value: 'Business_Performance_Monitoring', label: i18n.AppD.product.businessMonitoring },
-          { value: 'Machine_Monitoring', label: i18n.AppD.product.machineMonitoring },
-          { value: 'End_User_Moniorting', label: i18n.AppD.product.endUserMonitoring }
+          {
+            value: 'Application Monitoring',
+            label: getString('cv.monitoringSources.appD.product.applicationMonitoring')
+          }
+          // {
+          //   value: 'Business_Performance_Monitoring',
+          //   label: getString('cv.monitoringSources.appD.product.businessMonitoring')
+          // },
+          // { value: 'Machine_Monitoring', label: getString('cv.monitoringSources.appD.product.machineMonitoring') },
+          // { value: 'End_User_Moniorting', label: getString('cv.monitoringSources.appD.product.endUserMonitoring') }
         ]
+      }
+    case 'GoogleCloudOperations':
+      return {
+        iconName: 'service-stackdriver',
+        iconLabel: 'Google Cloud Operations',
+        connectToMonitoringSourceText: getString('cv.monitoringSources.gco.connectToMonitoringSource'),
+        firstTimeSetupText: getString('cv.monitoringSources.gco.firstTimeSetupText'),
+        connectorType: 'Gcp',
+        createConnectorText: getString('cv.monitoringSources.gco.createConnectorText'),
+        selectProduct: getString('cv.monitoringSources.gco.selectProduct'),
+        products: [{ value: 'Cloud Metrics', label: getString('cv.monitoringSources.gco.product.metrics') }]
       }
     default:
       return {} as MonitoringSourceInfo
   }
 }
 
-const SelectProduct: React.FC<SelectProductProps> = props => {
-  const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
-  const monitoringSource = getInfoSchemaByType(props.type)
+export function SelectProductFields(props: SelectProductFieldProps): JSX.Element {
+  const { getString } = useStrings()
+  const monitoringSource = getInfoSchemaByType(props.type, getString)
 
   return (
-    <Container padding="small">
-      <Formik
-        initialValues={{
-          name: '',
-          description: '',
-          identifier: '',
-          tags: [],
-          product: '',
-          ...props.stepData
-        }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.validation.name),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .trim()
-              .required(i18n.validation.identifier)
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validation.validIdRegex)
-              .notOneOf(StringUtils.illegalIdentifiers)
-          }),
-          connectorRef: Yup.object().required(),
-          product: Yup.string().trim().required(i18n.validation.product)
-        })}
-        onSubmit={formData => props?.onCompleteStep(formData as {})}
-      >
-        {({ values, errors, touched, submitCount, setFieldValue, setFieldTouched }) => (
-          <FormikForm>
-            <Layout.Vertical width="40%" style={{ margin: 'auto' }}>
-              <SelectOrCreateConnector
-                iconName={monitoringSource.iconName}
-                iconLabel={monitoringSource.iconLabel}
-                connectorType={monitoringSource.connectorType}
-                createConnectorText={monitoringSource.createConnectorText}
-                firstTimeSetupText={monitoringSource.firstTimeSetupText}
-                connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
-              />
-              <Layout.Vertical spacing="small">
-                <Text>{monitoringSource?.selectProduct}</Text>
-                <Layout.Horizontal spacing="medium">
-                  {monitoringSource?.products?.map((item, index) => {
-                    return (
-                      <CVSelectionCard
-                        isSelected={values.product === item.value}
-                        key={`${index}${item}`}
-                        isLarge
-                        cardLabel={item.label}
-                        iconProps={{
-                          name: monitoringSource.iconName,
-                          size: 30
-                        }}
-                        onCardSelect={isSelected => {
-                          setFieldValue('product', isSelected ? item.value : undefined)
-                          setFieldTouched('product', true)
-                        }}
-                      />
-                    )
-                  })}
-                </Layout.Horizontal>
-                {errors.product && (touched.product || !!submitCount) && (
-                  <Text color={Color.RED_500} font={{ size: 'small' }} margin={{ top: 'small' }}>
-                    {errors.product}
-                  </Text>
-                )}
-              </Layout.Vertical>
-            </Layout.Vertical>
-            <SubmitAndPreviousButtons
-              onPreviousClick={() =>
-                history.push(
-                  routes.toCVAdminSetup({
-                    projectIdentifier,
-                    orgIdentifier,
-                    accountId
-                  })
+    <Container width="40%" style={{ margin: 'auto' }}>
+      <SelectOrCreateConnector
+        iconName={monitoringSource.iconName}
+        iconLabel={monitoringSource.iconLabel}
+        connectorType={monitoringSource.connectorType}
+        createConnectorText={monitoringSource.createConnectorText}
+        firstTimeSetupText={monitoringSource.firstTimeSetupText}
+        connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
+      />
+      <FormInput.CustomRender
+        label={monitoringSource?.selectProduct}
+        name="product"
+        render={formikProps => {
+          return (
+            <Layout.Horizontal spacing="medium">
+              {monitoringSource?.products?.map((item, index) => {
+                return (
+                  <CVSelectionCard
+                    isSelected={formikProps.values.product === item.value}
+                    key={`${index}${item}`}
+                    isLarge
+                    cardLabel={item.label}
+                    iconProps={{
+                      name: monitoringSource.iconName,
+                      size: 30
+                    }}
+                    onCardSelect={isSelected =>
+                      formikProps.setFieldValue('product', isSelected ? item.value : undefined)
+                    }
+                  />
                 )
-              }
-            />
-          </FormikForm>
-        )}
-      </Formik>
+              })}
+            </Layout.Horizontal>
+          )
+        }}
+      />
     </Container>
   )
 }
 
-export default SelectProduct
+export const SelectProduct: React.FC<SelectProductProps> = props => {
+  const history = useHistory()
+  const { getString } = useStrings()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<AccountPathProps & ProjectPathProps>()
+
+  return (
+    <Formik
+      enableReinitialize={true}
+      initialValues={{ ...InitialValues, ...props.stepData }}
+      validationSchema={Yup.object().shape(getValidationSchema(getString, props.productSelectValidationText))}
+      onSubmit={formData => props.onCompleteStep({ ...formData } as {})}
+    >
+      <FormikForm>
+        <SelectProductFields type={props.type} />
+        <SubmitAndPreviousButtons
+          onPreviousClick={() =>
+            history.push(
+              routes.toCVAdminSetup({
+                projectIdentifier,
+                orgIdentifier,
+                accountId
+              })
+            )
+          }
+        />
+      </FormikForm>
+    </Formik>
+  )
+}

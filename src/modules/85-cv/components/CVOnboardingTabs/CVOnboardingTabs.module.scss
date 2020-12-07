@@ -6,7 +6,7 @@
 .tabWrapper {
   flex: 1;
   [class~='bp3-tab-list'] {
-    border-bottom: none;
+    border-bottom: none !important;
     box-shadow: 5px 1px 10px var(--grey-300);
   }
   [class~='bp3-tabs'] {

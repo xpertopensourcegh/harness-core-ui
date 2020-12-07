@@ -213,7 +213,7 @@ exports[`MapApplications matches snapshot 1`] = `
                 class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderWithFilter StyledProps---flex--2Jz8"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
                 >
                   xx
                 </p>

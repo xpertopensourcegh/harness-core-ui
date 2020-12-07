@@ -59,6 +59,11 @@ const MonitoringSources = [
     type: 'Splunk',
     icon: 'service-splunk',
     label: 'Splunk'
+  },
+  {
+    type: 'GoogleCloudOperations',
+    icon: 'service-stackdriver',
+    label: 'Google Cloud Operations'
   }
 ]
 interface CVSetupPageProps {

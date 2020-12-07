@@ -127,6 +127,7 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
       />
       <SubmitAndPreviousButtons
         onPreviousClick={onPrevious}
+        nextButtonProps={{ text: getString('submit') }}
         onNextClick={async () => {
           await mutate(transformToSavePayload(data, tableData))
           history.push(routes.toCVAdminSetup(params))

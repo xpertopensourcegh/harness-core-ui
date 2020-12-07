@@ -12,7 +12,9 @@ export function TableColumnWithFilter(props: TableColumnWithFilterProps): JSX.El
   const { appliedFilter: filteredNamespace, onFilter, columnName, className } = props
   return (
     <Container flex className={className}>
-      <Text color={Color.BLACK}>{columnName}</Text>
+      <Text color={Color.BLACK} font={{ size: 'small', weight: 'bold' }}>
+        {columnName}
+      </Text>
       <ExpandingSearchInput
         throttle={750}
         defaultValue={filteredNamespace}
