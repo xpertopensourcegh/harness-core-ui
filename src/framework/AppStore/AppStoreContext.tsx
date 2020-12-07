@@ -100,8 +100,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
         updateAppStore
       }}
     >
-      {orgLoading || userLoading || projectsLoading ? <PageSpinner /> : null}
-      {props.children}
+      {orgLoading || userLoading || projectsLoading ? <PageSpinner /> : props.children}
     </AppStoreContext.Provider>
   )
 }

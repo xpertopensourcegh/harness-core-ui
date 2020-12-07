@@ -43,7 +43,7 @@ const ProjectDetails: React.FC = () => {
   const { openCollaboratorModal } = useCollaboratorModal()
 
   const showCollaborators = (project: Project): void => {
-    openCollaboratorModal(project)
+    openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
   }
 
   return (

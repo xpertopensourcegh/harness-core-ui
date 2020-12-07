@@ -30,7 +30,7 @@ describe('Collaborators test', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
         <Collaborators
-          identifier={project.identifier}
+          projectIdentifier={project.identifier}
           orgIdentifier={project.orgIdentifier}
           userMockData={userMockData as UseGetMockData<ResponsePageUserSearchDTO>}
           rolesMockData={rolesMockData as UseGetMockData<ResponseOptionalListRoleDTO>}

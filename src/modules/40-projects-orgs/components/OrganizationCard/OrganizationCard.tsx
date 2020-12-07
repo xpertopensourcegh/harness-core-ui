@@ -17,11 +17,12 @@ interface OrganizationCardProps {
   isPreview?: boolean
   reloadOrgs?: () => void
   editOrg?: () => void
+  inviteCollab?: () => void
   onClick?: () => void
 }
 
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
-  const { data, isPreview, onClick, editOrg, reloadOrgs } = props
+  const { data, isPreview, onClick, editOrg, reloadOrgs, inviteCollab } = props
   const { accountId } = useParams()
   const { organisationsMap, updateAppStore } = useAppStore()
   const { showSuccess, showError } = useToaster()
@@ -52,6 +53,11 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
     editOrg?.()
   }
 
+  const handleInvite = (e: React.MouseEvent): void => {
+    e.stopPropagation()
+    inviteCollab?.()
+  }
+
   const handleDelete = async (e: React.MouseEvent): Promise<void> => {
     e.stopPropagation()
     if (!data?.identifier) return
@@ -66,6 +72,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
             menuContent={
               <Menu>
                 <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} />
+                <Menu.Item icon="new-person" text={i18n.invite} onClick={handleInvite} />
                 <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
               </Menu>
             }

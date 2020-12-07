@@ -19,7 +19,7 @@ export default {
     errorName: 'Name is required',
     errorIdentifier: 'Identifier is required',
     createSuccess: 'Organization Created Successfully',
-    editSuccess: 'Edited the Organization Successfully',
+    editSuccess: 'Organization updated Successfully',
     validationIdentifierChars: 'Identifier can only contain alphanumerics, _ and $'
   },
   preview: 'Preview'

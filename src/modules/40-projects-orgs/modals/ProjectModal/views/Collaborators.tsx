@@ -34,7 +34,8 @@ import {
   useUpdateInvite,
   ResponsePageUserSearchDTO,
   ResponseOptionalListRoleDTO,
-  ResponsePageInviteDTO
+  ResponsePageInviteDTO,
+  Organization
 } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -44,8 +45,9 @@ import { InviteType } from '../Constants'
 import css from './Steps.module.scss'
 
 interface CollaboratorModalData {
-  identifier?: string
+  projectIdentifier?: string
   orgIdentifier?: string
+  showManage?: boolean
   userMockData?: UseGetMockData<ResponsePageUserSearchDTO>
   rolesMockData?: UseGetMockData<ResponseOptionalListRoleDTO>
   invitesMockData?: UseGetMockData<ResponsePageInviteDTO>
@@ -226,25 +228,14 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
   )
 }
 
-const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = props => {
-  const {
-    previousStep,
-    nextStep,
-    prevStepData,
-    rolesMockData,
-    userMockData,
-    invitesMockData,
-    identifier,
-    orgIdentifier
-  } = props
+const Collaborators: React.FC<CollaboratorModalData> = props => {
+  const { rolesMockData, userMockData, invitesMockData, projectIdentifier, orgIdentifier, showManage = true } = props
   const [role, setRole] = useState<SelectOption>(defaultRole)
   const [search, setSearch] = useState<string>()
   const { accountId } = useParams()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const projectIdentifier = identifier ? identifier : prevStepData?.identifier
-  const organisationIdentifier = orgIdentifier ? orgIdentifier : prevStepData?.orgIdentifier
-  const { getString } = useStrings()
   const initialValues: CollaboratorsData = { collaborators: [] }
+  const { getString } = useStrings()
   const { data: userData } = useGetUsers({
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
     mock: userMockData,
@@ -254,7 +245,7 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
   const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: organisationIdentifier || '',
+      orgIdentifier: orgIdentifier || '',
       projectIdentifier: projectIdentifier || ''
     },
     mock: invitesMockData
@@ -263,7 +254,7 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
   const { mutate: sendInvite, loading } = useSendInvite({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: organisationIdentifier || '',
+      orgIdentifier: orgIdentifier || '',
       projectIdentifier: projectIdentifier || ''
     }
   })
@@ -271,7 +262,7 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
   const { data: roleData } = useGetRoles({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: organisationIdentifier || '',
+      orgIdentifier: orgIdentifier || '',
       projectIdentifier: projectIdentifier || ''
     },
     mock: rolesMockData
@@ -340,154 +331,202 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
         return (
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
-            <Layout.Vertical padding="xxxlarge">
-              <Container className={css.collaboratorForm}>
-                <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>
-                  {i18n.newProjectWizard.Collaborators.name.toUpperCase()}
-                </Text>
-                <Text padding={{ bottom: 'small' }}>{i18n.newProjectWizard.Collaborators.urlMessage}</Text>
-                <Layout.Horizontal>
-                  <TextInput
-                    placeholder={i18n.newProjectWizard.Collaborators.url}
-                    disabled
-                    rightElement={(<Button icon="duplicate" inline minimal className={css.clone} />) as any}
-                    className={css.url}
-                  />
+
+            <Container className={css.collaboratorForm}>
+              <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>
+                {i18n.newProjectWizard.Collaborators.name.toUpperCase()}
+              </Text>
+              <Text padding={{ bottom: 'small' }}>{i18n.newProjectWizard.Collaborators.urlMessage}</Text>
+              <Layout.Horizontal>
+                <TextInput
+                  placeholder={i18n.newProjectWizard.Collaborators.url}
+                  disabled
+                  rightElement={(<Button icon="duplicate" inline minimal className={css.clone} />) as any}
+                  className={css.url}
+                />
+              </Layout.Horizontal>
+              <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
+                <Layout.Horizontal width="50%">
+                  <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
                 </Layout.Horizontal>
-                <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
-                  <Layout.Horizontal width="50%">
-                    <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
-                  </Layout.Horizontal>
-                  <Layout.Horizontal
-                    width="50%"
-                    spacing="xsmall"
-                    flex={{ align: 'center-center' }}
-                    className={css.toEnd}
-                  >
-                    <Text>{getString('collaborators.roleLabel')}</Text>
-                    <CustomSelect
-                      items={roles}
-                      filterable={false}
-                      itemRenderer={(item, { handleClick }) => (
-                        <div>
-                          <Menu.Item
-                            text={item.label}
-                            key={item.label}
-                            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
-                          />
-                        </div>
-                      )}
-                      onItemSelect={item => {
-                        setRole(item)
-                      }}
-                      popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-                    >
-                      <Button inline minimal rightIcon="chevron-down" text={role.label} className={css.toEnd} />
-                    </CustomSelect>
-                  </Layout.Horizontal>
-                </Layout.Horizontal>
-                <Layout.Horizontal spacing="small">
-                  <FormInput.MultiSelect
-                    name={i18n.newProjectWizard.Collaborators.collaborator}
-                    items={users}
-                    multiSelectProps={{
-                      allowCreatingNewItems: true,
-                      onQueryChange: (query: string) => {
-                        setSearch(query)
-                      },
-                      // eslint-disable-next-line react/display-name
-                      tagRenderer: item => (
-                        <Layout.Horizontal key={item.label.toString()} spacing="small">
-                          <Avatar email={item.value.toString()} size="xsmall" />
-                          <Text>{item.label}</Text>
-                        </Layout.Horizontal>
-                      ),
-                      // eslint-disable-next-line react/display-name
-                      itemRender: (item, { handleClick }) => (
-                        <div>
-                          <Menu.Item
-                            text={
-                              <Layout.Horizontal spacing="small">
-                                <Avatar email={item.value.toString()} size="normal" />
-                                <Text>{item.label}</Text>
-                              </Layout.Horizontal>
-                            }
-                            onClick={handleClick}
-                          />
-                        </div>
-                      )
-                    }}
-                    className={css.input}
-                  />
-                  <Button
-                    text={i18n.newProjectWizard.Collaborators.add}
-                    intent="primary"
-                    inline
-                    disabled={role.value == 'none' ? true : false}
-                    type="submit"
-                    loading={loading}
-                  />
-                </Layout.Horizontal>
-                {formik.errors.collaborators
-                  ? formik.errors.collaborators.map(val => (
-                      <Text intent="danger" key={val?.value}>
-                        {formik.values.collaborators[getIndex(val?.value || '')]?.label +
-                          i18n.newProjectWizard.Collaborators.notValid}
-                      </Text>
-                    ))
-                  : null}
-                {inviteData?.data?.content?.length ? (
-                  <Layout.Vertical padding={{ top: 'medium', bottom: 'xxxlarge' }}>
-                    <Text padding={{ bottom: 'small' }}>
-                      {i18n.newProjectWizard.Collaborators.pendingUsers(inviteData?.data?.content?.length.toString())}
-                    </Text>
-                    <Container className={css.pendingList}>
-                      {inviteData?.data?.content.slice(0, 15).map(user => (
-                        <InviteListRenderer
-                          key={user.name}
-                          user={user}
-                          reload={reloadInvites}
-                          roles={roles}
-                          modalErrorHandler={modalErrorHandler}
+                <Layout.Horizontal width="50%" spacing="xsmall" flex={{ align: 'center-center' }} className={css.toEnd}>
+                  <Text>{getString('collaborators.roleLabel')}</Text>
+                  <CustomSelect
+                    items={roles}
+                    filterable={false}
+                    itemRenderer={(item, { handleClick }) => (
+                      <div>
+                        <Menu.Item
+                          text={item.label}
+                          key={item.label}
+                          onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
                         />
-                      ))}
-                    </Container>
-                  </Layout.Vertical>
-                ) : inviteLoading ? (
-                  <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'xxxlarge' }}>
-                    <Icon name="steps-spinner" size={32} color={Color.GREY_600} flex={{ align: 'center-center' }} />
-                  </Layout.Vertical>
-                ) : null}
-              </Container>
-              {prevStepData ? (
-                <Layout.Horizontal spacing="small">
-                  <Button
-                    className={css.button}
-                    onClick={() => previousStep?.(prevStepData)}
-                    text={i18n.newProjectWizard.back}
-                  />
-                  <Button
-                    className={css.button}
-                    text={i18n.newProjectWizard.saveAndContinue}
-                    onClick={() => {
-                      if (prevStepData) {
-                        nextStep?.({ ...prevStepData })
-                      }
+                      </div>
+                    )}
+                    onItemSelect={item => {
+                      setRole(item)
                     }}
-                  />
+                    popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+                  >
+                    <Button inline minimal rightIcon="chevron-down" text={role.label} className={css.toEnd} />
+                  </CustomSelect>
                 </Layout.Horizontal>
-              ) : (
-                <Layout.Horizontal>
-                  <Button inline minimal>
-                    {i18n.newProjectWizard.Collaborators.manage}
-                  </Button>
-                </Layout.Horizontal>
-              )}
-            </Layout.Vertical>
+              </Layout.Horizontal>
+              <Layout.Horizontal spacing="small">
+                <FormInput.MultiSelect
+                  name={i18n.newProjectWizard.Collaborators.collaborator}
+                  items={users}
+                  multiSelectProps={{
+                    allowCreatingNewItems: true,
+                    onQueryChange: (query: string) => {
+                      setSearch(query)
+                    },
+                    // eslint-disable-next-line react/display-name
+                    tagRenderer: item => (
+                      <Layout.Horizontal key={item.label.toString()} spacing="small">
+                        <Avatar email={item.value.toString()} size="xsmall" />
+                        <Text>{item.label}</Text>
+                      </Layout.Horizontal>
+                    ),
+                    // eslint-disable-next-line react/display-name
+                    itemRender: (item, { handleClick }) => (
+                      <div>
+                        <Menu.Item
+                          text={
+                            <Layout.Horizontal spacing="small">
+                              <Avatar email={item.value.toString()} size="normal" />
+                              <Text>{item.label}</Text>
+                            </Layout.Horizontal>
+                          }
+                          onClick={handleClick}
+                        />
+                      </div>
+                    )
+                  }}
+                  className={css.input}
+                />
+                <Button
+                  text={i18n.newProjectWizard.Collaborators.add}
+                  intent="primary"
+                  inline
+                  disabled={role.value == 'none' ? true : false}
+                  type="submit"
+                  loading={loading}
+                />
+              </Layout.Horizontal>
+              {formik.errors.collaborators
+                ? formik.errors.collaborators.map(val => (
+                    <Text intent="danger" key={val?.value}>
+                      {formik.values.collaborators[getIndex(val?.value || '')]?.label +
+                        i18n.newProjectWizard.Collaborators.notValid}
+                    </Text>
+                  ))
+                : null}
+              {inviteData?.data?.content?.length ? (
+                <Layout.Vertical padding={{ top: 'medium', bottom: 'xxxlarge' }}>
+                  <Text padding={{ bottom: 'small' }}>
+                    {i18n.newProjectWizard.Collaborators.pendingUsers(inviteData?.data?.content?.length.toString())}
+                  </Text>
+                  <Container className={css.pendingList}>
+                    {inviteData?.data?.content.slice(0, 15).map(user => (
+                      <InviteListRenderer
+                        key={user.name}
+                        user={user}
+                        reload={reloadInvites}
+                        roles={roles}
+                        modalErrorHandler={modalErrorHandler}
+                      />
+                    ))}
+                  </Container>
+                </Layout.Vertical>
+              ) : inviteLoading ? (
+                <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'xxxlarge' }}>
+                  <Icon name="steps-spinner" size={32} color={Color.GREY_600} flex={{ align: 'center-center' }} />
+                </Layout.Vertical>
+              ) : null}
+            </Container>
+
+            {showManage ? (
+              <Layout.Horizontal>
+                <Button inline minimal>
+                  {projectIdentifier
+                    ? i18n.newProjectWizard.Collaborators.manage
+                    : i18n.newProjectWizard.Collaborators.manageOrg}
+                </Button>
+              </Layout.Horizontal>
+            ) : null}
           </Form>
         )
       }}
     </Formik>
   )
 }
+
+export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & CollaboratorModalData> = ({
+  prevStepData,
+  previousStep,
+  nextStep,
+  ...rest
+}) => {
+  return (
+    <Layout.Vertical padding="xxxlarge">
+      <Collaborators
+        projectIdentifier={prevStepData?.identifier}
+        orgIdentifier={prevStepData?.orgIdentifier}
+        showManage={false}
+        {...rest}
+      />
+      <Layout.Horizontal spacing="small">
+        <Button className={css.button} onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
+        <Button
+          className={css.button}
+          text={i18n.newProjectWizard.finish}
+          onClick={() => {
+            if (prevStepData) {
+              nextStep?.({ ...prevStepData })
+            }
+          }}
+        />
+      </Layout.Horizontal>
+    </Layout.Vertical>
+  )
+}
+
+export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & CollaboratorModalData> = ({
+  prevStepData,
+  previousStep,
+  nextStep,
+  ...rest
+}) => {
+  return (
+    <Layout.Vertical padding="xxxlarge">
+      <Collaborators orgIdentifier={prevStepData?.identifier} showManage={false} {...rest} />
+      {prevStepData ? (
+        <Layout.Horizontal spacing="small">
+          <Button
+            className={css.button}
+            onClick={() => previousStep?.(prevStepData)}
+            text={i18n.newProjectWizard.back}
+          />
+          <Button
+            className={css.button}
+            text={i18n.newProjectWizard.finish}
+            onClick={() => {
+              if (prevStepData) {
+                nextStep?.({ ...prevStepData })
+              }
+            }}
+          />
+        </Layout.Horizontal>
+      ) : (
+        <Layout.Horizontal>
+          <Button inline minimal>
+            {i18n.newProjectWizard.Collaborators.manage}
+          </Button>
+        </Layout.Horizontal>
+      )}
+    </Layout.Vertical>
+  )
+}
+
 export default Collaborators

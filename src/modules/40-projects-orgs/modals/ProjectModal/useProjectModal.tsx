@@ -6,7 +6,7 @@ import cx from 'classnames'
 import type { Project } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { Views } from './Constants'
-import Collaborators from './views/Collaborators'
+import { ProjectCollaboratorsStep } from './views/Collaborators'
 import PurposeList from './views/PurposeList'
 import StepAboutProject from './views/StepAboutProject'
 import EditProject from './views/EditProject'
@@ -53,7 +53,7 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
               modules={projectData?.modules}
               onSuccess={onSuccess}
             />
-            <Collaborators name={i18n.newProjectWizard.Collaborators.name} />
+            <ProjectCollaboratorsStep name={i18n.newProjectWizard.Collaborators.name} />
           </StepWizard>
         ) : null}
 

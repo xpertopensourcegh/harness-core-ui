@@ -34,7 +34,8 @@ interface OrganizationFormData {
   data?: Organization
   title: string
   submitTitle: string
-  disableSubmit: boolean
+  disableSubmit?: boolean
+  disablePreview?: boolean
   enableEdit: boolean
   onComplete: (organization: Organization) => Promise<void>
   setModalErrorHandler: (modalErrorHandler: ModalErrorHandlerBinding) => void
@@ -47,6 +48,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
   onComplete,
   submitTitle,
   disableSubmit,
+  disablePreview,
   enableEdit
 }) => {
   return (
@@ -58,6 +60,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
         tags: {},
         ...data
       }}
+      enableReinitialize={true}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(i18n.form.errorName),
         identifier: Yup.string().when('name', {
@@ -76,7 +79,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
         <Form>
           <ModalErrorHandler bind={setModalErrorHandler} />
           <Layout.Horizontal>
-            <Layout.Vertical width="50%" padding="xxlarge">
+            <Layout.Vertical width={disablePreview ? '100%' : '50%'} padding="xxlarge">
               <Container style={{ minHeight: '450px' }}>
                 <Heading level={2} color={Color.GREY_800} margin={{ bottom: 'xxlarge' }}>
                   {title}
@@ -97,9 +100,11 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
                 <Button type="submit" className={css.button} text={submitTitle} disabled={disableSubmit} />
               </Layout.Horizontal>
             </Layout.Vertical>
-            <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
-              <OrganizationCard data={formikProps.values} isPreview />
-            </Container>
+            {disablePreview ? null : (
+              <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
+                <OrganizationCard data={formikProps.values} isPreview />
+              </Container>
+            )}
           </Layout.Horizontal>
         </Form>
       )}

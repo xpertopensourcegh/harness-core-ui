@@ -51,7 +51,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
   const { openCollaboratorModal } = useCollaboratorModal()
 
   const showCollaborators = (project: Project): void => {
-    openCollaboratorModal(project)
+    openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
   }
 
   const { data: orgsData } = useGetOrganizationList({

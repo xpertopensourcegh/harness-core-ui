@@ -103,7 +103,7 @@ describe('Project Page List', () => {
       await waitFor(() => getByText(document.body, 'EDIT PROJECT'))
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
       await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
-      fireEvent.click(queryByText(document.body, 'Save and Continue')!)
+      fireEvent.click(queryByText(document.body, 'Finish')!)
       await waitFor(() => getByText(document.body, 'Which Harness modules would you like to enable for this project?'))
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
       form = findDialogContainer()

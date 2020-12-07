@@ -19,13 +19,13 @@ exports[`Org Page List Create New Org 1`] = `
       class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
         type="button"
       >
         <span
           class="bp3-button-text"
         >
-          + New Organization
+          + Organization
         </span>
       </button>
     </div>

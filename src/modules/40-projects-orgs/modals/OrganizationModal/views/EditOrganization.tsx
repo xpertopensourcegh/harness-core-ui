@@ -6,8 +6,10 @@ import { Organization, useGetOrganization } from 'services/cd-ng'
 import { usePutOrganization } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useAppStore } from 'framework/exports'
-import i18n from './StepAboutOrganization.i18n'
+import { PageSpinner } from '@common/components'
 import OrganizationForm from './OrganizationForm'
+
+import i18n from './StepAboutOrganization.i18n'
 
 interface EditModalData {
   identifier?: string
@@ -23,7 +25,7 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
   const [version, setVersion] = useState<string>()
   const orgIdentifier = isStep ? prevStepData?.identifier : identifier
 
-  const { mutate: editOrganization } = usePutOrganization({
+  const { mutate: editOrganization, loading: saving } = usePutOrganization({
     identifier: orgIdentifier || '',
     queryParams: {
       accountIdentifier: accountId
@@ -71,17 +73,17 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
   }
   return (
     <>
-      {!loading ? (
-        <OrganizationForm
-          data={data?.data}
-          title={i18n.editTitle}
-          enableEdit={false}
-          submitTitle={isStep ? i18n.form.saveAndContinue : i18n.form.saveAndClose}
-          disableSubmit={false}
-          setModalErrorHandler={setModalErrorHandler}
-          onComplete={onComplete}
-        />
-      ) : null}
+      <OrganizationForm
+        data={data?.data}
+        title={i18n.editTitle}
+        enableEdit={false}
+        submitTitle={isStep ? i18n.form.saveAndContinue : i18n.form.saveAndClose}
+        disableSubmit={saving}
+        disablePreview={true}
+        setModalErrorHandler={setModalErrorHandler}
+        onComplete={onComplete}
+      />
+      {loading ? <PageSpinner /> : null}
     </>
   )
 }

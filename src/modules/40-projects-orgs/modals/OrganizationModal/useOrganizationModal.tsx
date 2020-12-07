@@ -6,7 +6,7 @@ import type { Organization } from 'services/cd-ng'
 import i18n from './useOrganizationModal.i18n'
 import StepAboutOrganization from './views/StepAboutOrganization'
 import EditOrganization from './views/EditOrganization'
-import { StepCollaborators } from './views/StepCollaborators'
+import { OrgCollaboratorsStep } from '../ProjectModal/views/Collaborators'
 import css from './useOrganizationModal.module.scss'
 
 export interface UseOrganizationModalArgs {
@@ -39,7 +39,7 @@ export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): U
         {view === Views.CREATE ? (
           <StepWizard<Organization> stepClassName={css.stepClass}>
             <StepAboutOrganization name={i18n.aboutTitle} onSuccess={onSuccess} />
-            <StepCollaborators name={i18n.collaboratorsTitle} />
+            <OrgCollaboratorsStep name={i18n.collaboratorsTitle} />
           </StepWizard>
         ) : null}
         {view === Views.EDIT ? (

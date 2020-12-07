@@ -15,6 +15,7 @@ export default {
     back: 'Back',
     saveAndClose: 'Save and Close',
     saveAndContinue: 'Save and Continue',
+    finish: 'Finish',
     createProject: {
       name: 'Create a New Project',
       newProject: 'New Project',
@@ -100,6 +101,7 @@ export default {
       noRole: 'No project role assigned',
       collaborator: 'collaborators',
       manage: 'Manage all the users in the project',
+      manageOrg: 'Manage all the users in the organization',
       notValid: ' is not a valid email ',
       inviteSuccess: 'The invite has been sent successfully',
       deleteSuccess: 'The invite has been deleted successfully'

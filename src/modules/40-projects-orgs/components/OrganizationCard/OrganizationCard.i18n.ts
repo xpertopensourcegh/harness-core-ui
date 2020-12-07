@@ -7,6 +7,7 @@ export default {
   projects: 'projects',
   orgMembers: 'Org Members',
   edit: 'Edit',
+  invite: 'Invite Collaborators',
   clone: 'Clone',
   delete: 'Delete',
   confirmDelete: (name: string) => `Are you sure you want to delete the Organization '${name}'?`,

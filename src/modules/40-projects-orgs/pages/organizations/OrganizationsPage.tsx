@@ -10,6 +10,7 @@ import type { Organization } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useOrganizationModal } from '@projects-orgs/modals/OrganizationModal/useOrganizationModal'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
+import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
@@ -29,6 +30,7 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
   const { openOrganizationModal } = useOrganizationModal({
     onSuccess: () => refetch()
   })
+  const { openCollaboratorModal } = useCollaboratorModal()
 
   return (
     <>
@@ -36,7 +38,7 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
       <Page.Header
         title={
           <Layout.Horizontal padding="small">
-            <Button text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
+            <Button intent="primary" text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
           </Layout.Horizontal>
         }
         toolbar={
@@ -73,6 +75,7 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
             <OrganizationCard
               data={org}
               editOrg={() => openOrganizationModal(org)}
+              inviteCollab={() => openCollaboratorModal({ orgIdentifier: org.identifier })}
               reloadOrgs={() => refetch()}
               onClick={() =>
                 history.push(

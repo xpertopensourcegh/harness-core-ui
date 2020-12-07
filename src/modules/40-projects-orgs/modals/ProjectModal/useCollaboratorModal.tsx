@@ -1,40 +1,48 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uikit'
+import { useModalHook, Button, Container } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
-import type { Project } from 'services/cd-ng'
 import Collaborators from './views/Collaborators'
 
 import css from './useProjectModal.module.scss'
 
+interface UseCollaboratorModalProps {
+  projectIdentifier?: string
+  orgIdentifier: string
+}
+
 export interface UseCollaboratorModalReturn {
-  openCollaboratorModal: (project?: Project) => void
+  openCollaboratorModal: (props?: UseCollaboratorModalProps) => void
   closeCollaboratorModal: () => void
 }
 
 export const useCollaboratorModal = (): UseCollaboratorModalReturn => {
-  const [projectData, setProjectData] = useState<Project>()
+  const [projectIdentifier, setProjectIdentifier] = useState<string>()
+  const [orgIdentifier, setOrgIdentifier] = useState<string>()
 
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG, css.collaborators)}>
-        <Collaborators identifier={projectData?.identifier} orgIdentifier={projectData?.orgIdentifier} />
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
+        <Container padding="xxxlarge">
+          <Collaborators projectIdentifier={projectIdentifier} orgIdentifier={orgIdentifier} />
+          <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
+        </Container>
       </Dialog>
     ),
-    [projectData]
+    [projectIdentifier, orgIdentifier]
   )
 
   const open = useCallback(
-    (_project?: Project) => {
-      setProjectData(_project)
+    (props?: UseCollaboratorModalProps) => {
+      setProjectIdentifier(props?.projectIdentifier)
+      setOrgIdentifier(props?.orgIdentifier)
       showModal()
     },
     [showModal]
   )
 
   return {
-    openCollaboratorModal: (project?: Project) => open(project),
+    openCollaboratorModal: props => open(props),
     closeCollaboratorModal: hideModal
   }
 }
