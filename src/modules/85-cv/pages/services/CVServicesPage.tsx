@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import ActivitesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import routes from '@common/RouteDefinitions'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
@@ -23,7 +24,7 @@ const RangeOptions = [
   { label: i18n.timeRangeLabels.sevenDays, value: 7 * 24 * 60 },
   { label: i18n.timeRangeLabels.thirtyDays, value: 30 * 24 * 60 }
 ]
-const DEFAULT_RANGE = RangeOptions[1]
+const DEFAULT_RANGE = RangeOptions[3]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 const TimelineViewProps = {
   labelsWidth: 210,
@@ -46,7 +47,7 @@ const getRangeDates = (val: number, endTime?: number) => {
 }
 
 export default function CVServicesPage(): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
   const [serviceIsEmpty, setIsServiceEmpty] = useState<boolean>(false)
   const [{ selectedValue, startTime, endTime }, setRange] = useState<{
     selectedValue: number
@@ -72,8 +73,8 @@ export default function CVServicesPage(): JSX.Element {
 
   const { data: categoryRiskData, error, loading, refetch: refetchCategoryRisk } = useGetCategoryRiskMap({
     queryParams: {
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string,
+      orgIdentifier,
+      projectIdentifier,
       accountId,
       envIdentifier: selectedService?.environmentIdentifier,
       serviceIdentifier: selectedService?.serviceIdentifier
@@ -104,8 +105,8 @@ export default function CVServicesPage(): JSX.Element {
           onClick: () => {
             history.push({
               pathname: routes.toCVDataSources({
-                projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string,
+                projectIdentifier,
+                orgIdentifier,
                 accountId
               })
             })
