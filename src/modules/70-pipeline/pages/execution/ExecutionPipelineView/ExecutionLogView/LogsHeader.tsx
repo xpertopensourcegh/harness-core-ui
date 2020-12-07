@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Heading, ExpandingSearchInput, Icon, Text } from '@wings-software/uikit'
+import { Container, ExpandingSearchInput, Icon, Text } from '@wings-software/uikit'
 import css from './LogsHeader.module.scss'
 
 interface LogsHeaderProps {
@@ -23,7 +23,7 @@ const LogsHeader = (props: LogsHeaderProps) => {
     <Container className={css.headerContainer}>
       <header className={css.logsHeader}>
         <section className={css.headerContent}>
-          <Heading level={2}>Console logs</Heading>
+          <Text className={css.header}>Console logs</Text>
           <Text font="small" className={css.subHeader}>
             {subHeader}
           </Text>
@@ -43,8 +43,8 @@ const LogsHeader = (props: LogsHeaderProps) => {
           />
         </div>
 
-        <Icon name="download" size={20} />
-        <Icon name="cross" size={20} />
+        <Icon name="download" size={16} />
+        <Icon name="cross" size={16} />
       </section>
     </Container>
   )

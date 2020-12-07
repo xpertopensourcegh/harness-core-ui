@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Text, Color, MultiLogsViewer } from '@wings-software/uikit'
 import LogsHeader from './LogsHeader'
+import Summary from './Summary'
 
 import css from './ExecutionLogView.module.scss'
 const LogsContent = () => {
@@ -64,8 +65,10 @@ const LogsContent = () => {
 
           setPanelArr([...panelArr])
         }}
+        style={{ background: '#0b0b0d !important' }}
         className={css.logViewer}
       />
+      <Summary />
     </section>
   )
 }

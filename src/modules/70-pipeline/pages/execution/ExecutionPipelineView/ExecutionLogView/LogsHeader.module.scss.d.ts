@@ -6,6 +6,8 @@ declare const styles: {
   readonly subHeader: string
   readonly logsHeader: string
   readonly headerContent: string
+  readonly header: string
   readonly headerActions: string
+  readonly summaryElement: string
 }
 export default styles

@@ -4,7 +4,7 @@ import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import { MenuItem } from '@blueprintjs/core'
 
-import { Container, Icon, Text, Color, Button } from '@wings-software/uikit'
+import { Container, Icon, Text, Button } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import routes from '@common/RouteDefinitions'
@@ -30,11 +30,14 @@ interface Node {
   children: string[]
   next: string[]
   data: string
+  nestedChild: boolean
 }
 interface TreeProps {
   node: Node
   isRootNode: boolean
   level: number
+
+  pNode?: Node
 }
 
 export default function ExecutionLogView(): React.ReactElement {
@@ -44,6 +47,7 @@ export default function ExecutionLogView(): React.ReactElement {
     pipelineStagesMap,
     queryParams
   } = useExecutionContext()
+  const [selectedNode, setSelectedNode] = useState<string | undefined>()
   const [selectedStageId, setStageId] = useState(autoSelectedStageId)
   const params = useParams<ExecutionPathParams>()
   const history = useHistory()
@@ -94,7 +98,11 @@ export default function ExecutionLogView(): React.ReactElement {
     const { startTs, endTs } = node
 
     if (startTs && endTs) {
-      return <Text font="small">{moment(moment(node.endTs).diff(moment(node.startTs))).format('S')}s</Text>
+      return (
+        <Text font={{ size: 'xsmall' }} className={css.timeDiff}>
+          {moment(moment(node.endTs).diff(moment(node.startTs))).format('S')}s
+        </Text>
+      )
     }
   }
 
@@ -108,11 +116,12 @@ export default function ExecutionLogView(): React.ReactElement {
     const icon: string = statusIcon[status]
 
     const attrs: any = rootNode?.status === 'Running' ? { color: 'blue500' } : {}
+    const highlightingClassName = selectedNode && selectedNode === rootNode.name ? css.highlighted : ''
     return (
-      <section className={`${css.node}`}>
+      <section className={`${css.node} ${highlightingClassName}`} onClick={() => setSelectedNode(rootNode.name)}>
         <div className={css.nodeInfo}>
           {<Icon name={icon} className={css.icon} {...attrs} />}
-          <Text color={Color.BLACK}>{rootNode.name}</Text>
+          <Text className={css.nodeText}>{rootNode.name}</Text>
         </div>
         {renderTimeDiff(rootNode)}
       </section>
@@ -123,7 +132,7 @@ export default function ExecutionLogView(): React.ReactElement {
   const renderRootNode = () => {
     // const rootNode = getNodeDetails(nodeId)
     return (
-      <section>
+      <section className={css.stageRootNode}>
         <StageSelection
           itemRenderer={(item, { handleClick }) => (
             <div>
@@ -159,13 +168,23 @@ export default function ExecutionLogView(): React.ReactElement {
             history.push(`${logUrl}?view=log&stage=${value}`)
           }}
         >
-          <Button minimal rightIcon="chevron-down" text={selectedStageId} icon="geolocation" />
+          <Button
+            minimal
+            rightIcon="chevron-down"
+            text={selectedStageId}
+            icon="geolocation"
+            iconProps={{
+              size: 20,
+              background: 'linear-gradient(147.14deg, #73DFE7 6.95%, #0095F7 93.05%)'
+            }}
+            className={css.rootIcon}
+          />
         </StageSelection>
       </section>
     )
   }
 
-  const traverseNodeGraph = (activeNode = stageGraph?.rootNodeId, isRootNode = true) => {
+  const traverseNodeGraph = (activeNode = stageGraph?.rootNodeId, level = 0, isRootNode = true) => {
     const index = stageIds.length
 
     if (activeNode) {
@@ -176,6 +195,7 @@ export default function ExecutionLogView(): React.ReactElement {
       stageIds[index].data = activeNode
       stageIds[index].next = []
       stageIds[index].children = []
+      stageIds[index].nestedChild = level > 1
 
       const children = getChildren(activeNode)
 
@@ -184,7 +204,7 @@ export default function ExecutionLogView(): React.ReactElement {
         if (nextIds && nextIds.length) {
           for (const id of nextIds) {
             stageIds[index].next.push(id)
-            traverseNodeGraph(id, false)
+            traverseNodeGraph(id, level, false)
           }
         }
       }
@@ -192,7 +212,7 @@ export default function ExecutionLogView(): React.ReactElement {
       if (children && children.length) {
         for (const child of children) {
           stageIds[index].children.push(child)
-          traverseNodeGraph(child, false)
+          traverseNodeGraph(child, level + 1, false)
         }
       }
     }
@@ -206,16 +226,18 @@ export default function ExecutionLogView(): React.ReactElement {
 
   const TreeNode = (props: TreeProps) => {
     const {
-      node: { children, next, data },
+      node,
+      node: { children, next, data, nestedChild },
       isRootNode,
       level
     } = props
     const rootCls = isRootNode ? css.rootNode : ''
     const childCls = level > 0 ? css.childNode : css.rootElement
-    const treeCls = level === 0 ? css.rNode : ''
+    const subChildCls = nestedChild ? css.subChild : ''
+    // const treeCls = level === 0 ? css.rNode : ''
     return (
-      <Container className={treeCls}>
-        <ul className={childCls} key={data}>
+      <Container>
+        <ul className={`${childCls} ${subChildCls}`} key={data}>
           <li className={rootCls}>
             {!isRootNode && renderNodeDetails(data)}
             {isRootNode && renderRootNode()}
@@ -223,7 +245,14 @@ export default function ExecutionLogView(): React.ReactElement {
 
           {children &&
             children.map((item: string) => (
-              <TreeNode {...props} node={getByStage(item)} isRootNode={false} level={level + 1} key={item} />
+              <TreeNode
+                {...props}
+                node={getByStage(item)}
+                isRootNode={false}
+                level={level + 1}
+                key={item}
+                pNode={node}
+              />
             ))}
         </ul>
         {next &&

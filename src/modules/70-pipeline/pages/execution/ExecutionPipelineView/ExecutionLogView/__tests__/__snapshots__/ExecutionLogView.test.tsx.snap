@@ -6,15 +6,17 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
     class="StyledProps---font--2ipy StyledProps---main--1Wws logsContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws rNode"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
     >
       <ul
-        class="rootElement"
+        class="rootElement "
       >
         <li
           class="rootNode"
         >
-          <section>
+          <section
+            class="stageRootNode"
+          >
             <span
               class="bp3-popover-wrapper"
             >
@@ -25,7 +27,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                   class=""
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws rootIcon"
                     type="button"
                   >
                     <span
@@ -34,15 +36,15 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                     >
                       <svg
                         data-icon="geolocation"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
                       >
                         <desc>
                           geolocation
                         </desc>
                         <path
-                          d="M-.01 6.66l7.34 2 2 7.33 6.66-16z"
+                          d="M0 8.33l9.17 2.5 2.5 9.17L20 0z"
                           fill-rule="evenodd"
                         />
                       </svg>
@@ -58,15 +60,15 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                     >
                       <svg
                         data-icon="chevron-down"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
                       >
                         <desc>
                           chevron-down
                         </desc>
                         <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          d="M16 6c-.28 0-.53.11-.71.29L10 11.59l-5.29-5.3a1.003 1.003 0 00-1.42 1.42l6 6c.18.18.43.29.71.29s.53-.11.71-.29l6-6A1.003 1.003 0 0016 6z"
                           fill-rule="evenodd"
                         />
                       </svg>
@@ -81,13 +83,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
           class="StyledProps---font--2ipy StyledProps---main--1Wws"
         >
           <ul
-            class="childNode"
+            class="childNode "
           >
             <li
               class=""
             >
               <section
-                class="node"
+                class="node "
               >
                 <div
                   class="nodeInfo"
@@ -119,13 +121,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws nodeText"
                   >
                     Service
                   </p>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws timeDiff StyledProps---font-size-xsmall--1f9b"
                 >
                   0
                   s
@@ -137,13 +139,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
             class="StyledProps---font--2ipy StyledProps---main--1Wws"
           >
             <ul
-              class="childNode"
+              class="childNode "
             >
               <li
                 class=""
               >
                 <section
-                  class="node"
+                  class="node "
                 >
                   <div
                     class="nodeInfo"
@@ -175,13 +177,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws nodeText"
                     >
                       Infrastructure
                     </p>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws timeDiff StyledProps---font-size-xsmall--1f9b"
                   >
                     0
                     s
@@ -193,13 +195,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               class="StyledProps---font--2ipy StyledProps---main--1Wws"
             >
               <ul
-                class="childNode"
+                class="childNode "
               >
                 <li
                   class=""
                 >
                   <section
-                    class="node"
+                    class="node "
                   >
                     <div
                       class="nodeInfo"
@@ -231,13 +233,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws nodeText"
                       >
                         execution
                       </p>
                     </div>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws timeDiff StyledProps---font-size-xsmall--1f9b"
                     >
                       0
                       s
@@ -248,13 +250,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws"
                 >
                   <ul
-                    class="childNode"
+                    class="childNode subChild"
                   >
                     <li
                       class=""
                     >
                       <section
-                        class="node"
+                        class="node "
                       >
                         <div
                           class="nodeInfo"
@@ -286,13 +288,13 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                             </svg>
                           </span>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws nodeText"
                           >
                             http step 1
                           </p>
                         </div>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws timeDiff StyledProps---font-size-xsmall--1f9b"
                         >
                           9
                           s
@@ -304,25 +306,25 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                     class="StyledProps---font--2ipy StyledProps---main--1Wws"
                   >
                     <ul
-                      class="childNode"
+                      class="childNode subChild"
                     >
                       <li
                         class=""
                       >
                         <section
-                          class="node"
+                          class="node "
                         >
                           <div
                             class="nodeInfo"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws nodeText"
                             >
                               http step 2
                             </p>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws timeDiff StyledProps---font-size-xsmall--1f9b"
                           >
                             0
                             s
@@ -350,12 +352,11 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
           <section
             class="headerContent"
           >
-            <h2
-              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws"
-              level="2"
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws header"
             >
               Console logs
-            </h2>
+            </p>
             <p
               class="StyledProps---font--2ipy StyledProps---main--1Wws subHeader StyledProps---font-small--1qQz"
             >
@@ -408,15 +409,15 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="download"
-              height="20"
-              viewBox="0 0 20 20"
-              width="20"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
             >
               <desc>
                 download
               </desc>
               <path
-                d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm4.71 11.71l-4 4c-.18.18-.43.29-.71.29s-.53-.11-.71-.29l-4-4a1.003 1.003 0 011.42-1.42L9 12.59V5c0-.55.45-1 1-1s1 .45 1 1v7.59l2.29-2.29c.18-.19.43-.3.71-.3a1.003 1.003 0 01.71 1.71z"
+                d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM11.7 9.7l-3 3c-.18.18-.43.29-.71.29s-.53-.11-.71-.29l-3-3A1.003 1.003 0 015.7 8.28l1.29 1.29V3.99c0-.55.45-1 1-1s1 .45 1 1v5.59l1.29-1.29a1.003 1.003 0 011.71.71c0 .27-.11.52-.29.7z"
                 fill-rule="evenodd"
               />
             </svg>
@@ -427,15 +428,15 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="cross"
-              height="20"
-              viewBox="0 0 20 20"
-              width="20"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
             >
               <desc>
                 cross
               </desc>
               <path
-                d="M11.41 10l4.29-4.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-4.29-4.3a1.003 1.003 0 00-1.42 1.42L8.59 10 4.3 14.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4.29-4.3 4.29 4.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
                 fill-rule="evenodd"
               />
             </svg>
@@ -674,6 +675,11 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="summaryElement"
+      >
+        Summary
       </div>
     </section>
   </div>
