@@ -14,9 +14,10 @@ import styles from './ReviewTiersAndApps.module.scss'
 interface ReviewTiersAndAppsProps {
   [key: string]: any
   onCompleteStep: (data: object) => void
+  onPrevious?: () => void
 }
 
-export default function ReviewTiersAndApps({ stepData }: ReviewTiersAndAppsProps) {
+export default function ReviewTiersAndApps({ stepData, onPrevious }: ReviewTiersAndAppsProps) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
@@ -90,14 +91,14 @@ export default function ReviewTiersAndApps({ stepData }: ReviewTiersAndAppsProps
               id: '2',
               Header: 'Tiers',
               accessor: 'tiers',
-              width: '15%',
+              width: '10%',
               disableSortBy: true
             },
             {
               id: '3',
               Header: getString('cv.monitoringSources.appD.mapToHarnessEnvironment'),
               accessor: 'environment',
-              width: '15%',
+              width: '20%',
               disableSortBy: true,
               Cell: function EnvironmentCell({ value }: any) {
                 return <Text icon="harness">{value}</Text>
@@ -130,7 +131,7 @@ export default function ReviewTiersAndApps({ stepData }: ReviewTiersAndAppsProps
           data={tableData}
         />
       )}
-      <SubmitAndPreviousButtons onNextClick={onNext} />
+      <SubmitAndPreviousButtons onPreviousClick={onPrevious} onNextClick={onNext} />
     </Container>
   )
 }

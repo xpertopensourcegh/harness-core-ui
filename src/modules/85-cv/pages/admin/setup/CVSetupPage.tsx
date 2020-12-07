@@ -327,7 +327,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 text={i18n.NEXT}
                 rightIcon="chevron-right"
                 onClick={() => {
-                  if (monitoringSource === Status.ACTIVE) {
+                  if (monitoringSource === Status.ACTIVE && monitoringSourceType) {
                     history.push(
                       routes.toCVAdminSetupMonitoringSource({
                         orgIdentifier: orgIdentifier,

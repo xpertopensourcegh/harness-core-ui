@@ -5,6 +5,7 @@ import routes from '@common/RouteDefinitions'
 import i18n from './MonitoringSource.i18n'
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
+import styles from './MonitoringSource.module.scss'
 
 const getContentByType = (type: string): JSX.Element => {
   switch (type) {
@@ -32,9 +33,7 @@ const MonitoringSource = (): JSX.Element => {
           }
         ]}
       />
-      <Container style={{ maxHeight: 'calc(100% - 80px)', overflow: 'auto' }}>
-        {getContentByType(monitoringSource)}
-      </Container>
+      <Container className={styles.pageBody}>{getContentByType(monitoringSource)}</Container>
     </>
   )
 }

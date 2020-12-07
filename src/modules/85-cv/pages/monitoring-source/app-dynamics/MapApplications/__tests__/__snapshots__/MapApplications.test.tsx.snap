@@ -3,7 +3,7 @@
 exports[`MapApplications matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws tabWrapper"
   >
     <div
       class="StyledProps---font--2ipy StyledProps---main--1Wws main"
@@ -132,7 +132,7 @@ exports[`MapApplications matches snapshot 1`] = `
             xx
           </p>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-small--3Kji"
           >
             <label
               class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws"
@@ -414,11 +414,11 @@ exports[`MapApplications matches snapshot 1`] = `
           class="StyledProps---font--2ipy StyledProps---main--1Wws infoPanelItem"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---margin-bottom-small--3Kji"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---margin-right-medium--1Ojn"
             >
               <svg
                 height="16"
@@ -444,11 +444,11 @@ exports[`MapApplications matches snapshot 1`] = `
           class="StyledProps---font--2ipy StyledProps---main--1Wws infoPanelItem"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---margin-bottom-small--3Kji"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---margin-right-medium--1Ojn"
             >
               <svg
                 height="16"
@@ -474,11 +474,11 @@ exports[`MapApplications matches snapshot 1`] = `
           class="StyledProps---font--2ipy StyledProps---main--1Wws infoPanelItem"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---margin-bottom-small--3Kji"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---margin-right-medium--1Ojn"
             >
               <svg
                 height="16"

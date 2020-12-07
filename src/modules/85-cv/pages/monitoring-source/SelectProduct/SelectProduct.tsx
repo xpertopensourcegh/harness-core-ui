@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Layout, Text, Container, FormikForm, Formik } from '@wings-software/uikit'
+import React from 'react'
+import { Layout, Text, Container, FormikForm, Formik, Color } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
@@ -54,7 +54,6 @@ const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
 const SelectProduct: React.FC<SelectProductProps> = props => {
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
-  const [selectedProduct, setSelectedProduct] = useState<string>()
   const monitoringSource = getInfoSchemaByType(props.type)
 
   return (
@@ -65,6 +64,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
           description: '',
           identifier: '',
           tags: [],
+          product: '',
           ...props.stepData
         }}
         validationSchema={Yup.object().shape({
@@ -77,16 +77,12 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validation.validIdRegex)
               .notOneOf(StringUtils.illegalIdentifiers)
           }),
-          connectorRef: Yup.object().required()
+          connectorRef: Yup.object().required(),
+          product: Yup.string().trim().required(i18n.validation.product)
         })}
-        onSubmit={formData => {
-          const stepData = { ...formData, product: selectedProduct }
-          if (selectedProduct) {
-            props.onCompleteStep(stepData as {})
-          }
-        }}
+        onSubmit={formData => props?.onCompleteStep(formData as {})}
       >
-        {() => (
+        {({ values, errors, touched, submitCount, setFieldValue, setFieldTouched }) => (
           <FormikForm>
             <Layout.Vertical width="40%" style={{ margin: 'auto' }}>
               <SelectOrCreateConnector
@@ -97,13 +93,13 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
                 firstTimeSetupText={monitoringSource.firstTimeSetupText}
                 connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
               />
-              <Layout.Vertical spacing="large">
+              <Layout.Vertical spacing="small">
                 <Text>{monitoringSource?.selectProduct}</Text>
                 <Layout.Horizontal spacing="medium">
                   {monitoringSource?.products?.map((item, index) => {
                     return (
                       <CVSelectionCard
-                        isSelected={selectedProduct === item.value}
+                        isSelected={values.product === item.value}
                         key={`${index}${item}`}
                         isLarge
                         cardLabel={item.label}
@@ -111,11 +107,19 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
                           name: monitoringSource.iconName,
                           size: 30
                         }}
-                        onCardSelect={isSelected => setSelectedProduct(isSelected ? item.value : undefined)}
+                        onCardSelect={isSelected => {
+                          setFieldValue('product', isSelected ? item.value : undefined)
+                          setFieldTouched('product', true)
+                        }}
                       />
                     )
                   })}
                 </Layout.Horizontal>
+                {errors.product && (touched.product || !!submitCount) && (
+                  <Text color={Color.RED_500} font={{ size: 'small' }} margin={{ top: 'small' }}>
+                    {errors.product}
+                  </Text>
+                )}
               </Layout.Vertical>
             </Layout.Vertical>
             <SubmitAndPreviousButtons

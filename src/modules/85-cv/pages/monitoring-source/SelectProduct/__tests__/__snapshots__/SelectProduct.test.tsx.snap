@@ -294,7 +294,7 @@ exports[`SelectProduct render for AppD monitoring source 1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
             >
               <p
                 class="StyledProps---font--2ipy StyledProps---main--1Wws"

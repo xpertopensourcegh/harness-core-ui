@@ -143,6 +143,12 @@ describe('MapApplications', () => {
   })
 
   test('Can select tier, metricPack and hit next', () => {
+    jest.spyOn(xhr, 'post').mockImplementation(
+      () =>
+        Promise.resolve({
+          response: { resource: [{ overallStatus: 'SUCCESS' }, { overallStatus: 'SUCCESS' }] }
+        }) as XhrPromise<any>
+    )
     const onCompleteStep = jest.fn()
     const { container, getByText } = render(
       <MapApplications

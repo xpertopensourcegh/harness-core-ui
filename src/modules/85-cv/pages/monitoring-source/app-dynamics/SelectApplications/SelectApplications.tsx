@@ -8,13 +8,16 @@ import { useGetEnvironmentListForProject, ResponsePageEnvironmentResponseDTO } f
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import EnvironmentSelect from './EnvironmentSelect'
-import type { ApplicationRecord } from '../AppDOnboardingUtils'
+import { ApplicationRecord, useValidationErrors } from '../AppDOnboardingUtils'
+import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './SelectApplications.module.scss'
 
 interface SelectApplicationsProps {
   stepData?: { [key: string]: any }
   onCompleteStep: (data: object) => void
+  onPrevious?: () => void
 }
 
 interface InternalState {
@@ -29,7 +32,7 @@ interface CellProps {
   onUpdateOptions?(options: Array<SelectOption>): void
 }
 
-const PAGE_SIZE = 7
+const PAGE_SIZE = 5
 
 export function updateApplication(
   updater: (params: (val: InternalState) => InternalState) => void,
@@ -50,13 +53,14 @@ export function updateApplication(
   })
 }
 
-export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps) {
+export default function SelectApplications({ stepData, onCompleteStep, onPrevious }: SelectApplicationsProps) {
   const { getString } = useStrings()
   const [state, setState] = useState<InternalState>(stepData?.applications || {})
   const [environmentOptions, setEnvironmentOptions] = useState<Array<SelectOption>>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [pageIndex, setPageIndex] = useState(0)
   const [textFilter, setTextFilter] = useState('')
+  const { setError, renderError } = useValidationErrors()
 
   const { data, loading } = useGetAppDynamicsApplications({
     queryParams: {
@@ -100,11 +104,14 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
     }
     if (Object.keys(applications).length) {
       onCompleteStep({ applications })
+    } else {
+      setError('selectApp', getString('cv.monitoringSources.appD.validations.selectApp'))
     }
   }
 
   return (
     <Container className={styles.main}>
+      <Container className={styles.sideSpace} />
       <Container className={styles.mainPanel}>
         {loading && <PageSpinner />}
         <Table
@@ -130,6 +137,7 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
                             }
                           : update
                       )
+                      update && setError('selectApp', undefined)
                     }}
                   />
                 )
@@ -184,16 +192,20 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
             gotoPage: (page: number) => setPageIndex(page)
           }}
         />
-        <SubmitAndPreviousButtons onNextClick={onNext} />
+        {!loading && !data?.resource?.content?.length && (
+          <Container height={250}>
+            <NoDataCard message={getString('cv.monitoringSources.appD.noAppsMsg')} icon="warning-sign" />
+          </Container>
+        )}
+        {renderError('selectApp')}
+        <SubmitAndPreviousButtons onPreviousClick={onPrevious} onNextClick={onNext} />
       </Container>
-      <Container className={styles.infoPanel}>
-        <Container className={styles.infoPanelItem}>
-          <Text icon="info" font={{ weight: 'bold' }} margin={{ bottom: 'small' }}>
-            {getString('cv.monitoringSources.appD.infoPanel.mapDashboards')}
-          </Text>
-          <Text>{getString('cv.monitoringSources.appD.infoPanel.mapDashboardsMsg')}</Text>
-        </Container>
-      </Container>
+      <InfoPanel>
+        <InfoPanelItem
+          label={getString('cv.monitoringSources.appD.infoPanel.mapDashboards')}
+          text={getString('cv.monitoringSources.appD.infoPanel.mapDashboardsMsg')}
+        />
+      </InfoPanel>
     </Container>
   )
 }

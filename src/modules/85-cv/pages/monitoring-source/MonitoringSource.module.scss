@@ -1,0 +1,6 @@
+.pageBody {
+  height: calc(100% - 80px);
+  > div {
+    height: 100%;
+  }
+}

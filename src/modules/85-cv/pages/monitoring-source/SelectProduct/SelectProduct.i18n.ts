@@ -1,8 +1,9 @@
 export default {
   validation: {
     name: 'Name is a required field',
-    identifier: 'Identifier is required',
-    validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
+    identifier: 'Identifier is a required field',
+    validIdRegex: 'Identifier can only contain alphanumerics, _ and $',
+    product: 'Product is a required field'
   },
   addDescription: '+ description',
   addTags: '+ tag',

@@ -68,7 +68,7 @@ global:
   serviceAccount: Service Account
   saveAndContinue: 'Save and Continue'
   metricPacks: 'Metric Packs'
-  review: 'review'
+  review: 'Review'
   selectProduct: 'Select Product'
   selectApplication: 'Select Application'
   mapApplications: 'Map Applications to Harness Services'
@@ -356,7 +356,8 @@ global:
         validationMsg: Services should be mapped uniquely to application services
         mapApplicationsToEnv: Map the AppDynamics Application to a Harness Environment
         mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
-        noTiersMsg: No tiers were found for selected application
+        noAppsMsg: No Applications were found
+        noTiersMsg: No Tiers were found for selected application
         mapsTo: maps to
         metricPackValidation: METRIC PACK VALIDATION
         mappingToHarnessService: MAPPING TO HARNESS SERVICE
@@ -370,6 +371,10 @@ global:
         noData: no data
         validationsPassed: validations passed
         validationsFailed: validations failed
+        validations:
+          selectApp: Please select application and its environment
+          selectTier: Please select tier and its service
+          selectMetricPack: Plese select metric packs
         infoPanel:
           mapDashboards: Map Dashboards to Harness Services
           mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
@@ -410,7 +415,6 @@ global:
           - 'Select Kubernetes Connector'
           - 'Select Kubernetes Namespace(s)'
           - 'Map Workloads to Services'
-          - 'Review'
         mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
         noWorkloads: 'No workloads found.'
         workloadToServiceTableColumns:

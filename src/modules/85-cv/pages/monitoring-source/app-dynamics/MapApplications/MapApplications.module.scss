@@ -1,8 +1,12 @@
+.tabWrapper {
+  height: 100%;
+}
 .main {
   display: flex;
+  height: 100%;
   .content {
     flex: 1;
-    padding: 0 var(--spacing-huge);
+    padding: 0 var(--spacing-xxlarge) !important;
     .mappingDetails {
       display: flex;
       align-items: center;
@@ -31,23 +35,5 @@
     font-size: var(--font-size-small) !important;
     font-weight: bold !important;
     margin-right: var(--spacing-xsmall) !important;
-  }
-}
-
-.infoPanel {
-  border-left: 1px solid var(--grey-200);
-  width: 300px;
-  padding: var(--spacing-large) !important;
-  .infoPanelItem {
-    p:first-child {
-      margin-bottom: var(--spacing-small);
-      border-bottom: 1px solid var(--grey-200);
-      padding-bottom: var(--spacing-small);
-      font-weight: bold;
-    }
-    p:nth-child(2) {
-      padding-left: var(--spacing-large);
-      margin-bottom: var(--spacing-large);
-    }
   }
 }

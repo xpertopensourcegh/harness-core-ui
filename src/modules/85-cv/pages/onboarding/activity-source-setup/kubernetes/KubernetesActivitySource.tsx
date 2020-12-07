@@ -98,6 +98,13 @@ export function KubernetesActivitySource(): JSX.Element {
     if (params.activitySourceId) fetchKubernetesSource()
   }, [params])
 
+  const tabTitles = [
+    getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
+    getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
+    getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
+    getString('review')
+  ]
+
   return (
     <Page.Body loading={loading} error={error?.message}>
       <CVOnboardingTabs
@@ -108,7 +115,7 @@ export function KubernetesActivitySource(): JSX.Element {
         setName={val => setCurrentData({ ...currentData, name: val } as KubernetesActivitySourceInfo)}
         tabProps={TabComponents.map((tabComponent, index) => ({
           id: index + 1,
-          title: getString(`cv.activitySources.kubernetes.tabNames[${index}]`),
+          title: tabTitles[index],
           component: React.createElement(tabComponent, {
             data: currentData as KubernetesActivitySourceInfo,
             onSubmit: (submittedInfo: KubernetesActivitySourceInfo) => {

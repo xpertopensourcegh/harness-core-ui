@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { Container, Text, Checkbox, Color } from '@wings-software/uikit'
 import groupBy from 'lodash-es/groupBy'
 import xhr from '@wings-software/xhr-async'
@@ -15,12 +15,14 @@ import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/Me
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { SelectedCell, ValidationCell, ServiceCell } from './MapApplicationsTableCells'
 import AppDApplicationSelector from './AppDApplicationSelector'
-import { TierRecord, ValidationStatus } from '../AppDOnboardingUtils'
+import { TierRecord, ValidationStatus, useValidationErrors } from '../AppDOnboardingUtils'
+import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './MapApplications.module.scss'
 
 export interface MapApplicationsProps {
   stepData?: { [key: string]: any }
   onCompleteStep: (data: object) => void
+  onPrevious?: () => void
 }
 
 export interface InternalState {
@@ -65,7 +67,7 @@ export function updateTier(
 
 const PAGE_SIZE = 10
 
-export default function MapApplications({ stepData, onCompleteStep }: MapApplicationsProps) {
+export default function MapApplications({ stepData, onCompleteStep, onPrevious }: MapApplicationsProps) {
   const { getString } = useStrings()
   const [selectedAppId, setSelectedAppId] = useState<number>()
   const [pageIndex, setPageIndex] = useState(0)
@@ -74,6 +76,8 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
   const [serviceOptions, setServiceOptions] = useState([])
   const [metricPacks, setMetricPacks] = useState<Array<{ selected: boolean; data: MetricPackDTO }>>([])
   const [validationResult, setValidationResult] = useState()
+  const { setError, renderError } = useValidationErrors()
+  const haveMPacksChanged = useRef((val: any) => val === metricPacks)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
@@ -161,7 +165,6 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
     if (metricPacks.some(mp => mp.selected)) {
       updateTier(setState, tierId, { validationStatus: ValidationStatus.IN_PROGRESS })
       const payload = metricPacks.filter(mp => mp.selected).map(mp => mp.data)
-
       const update = await validateTier(payload as MetricPackArrayRequestBody, {
         accountId,
         appdAppId: selectedAppId as number,
@@ -171,14 +174,45 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
         projectIdentifier: projectIdentifier as string,
         requestGuid: String(Date.now())
       })
-
-      updateTier(setState, tierId, update)
+      if (haveMPacksChanged.current(metricPacks)) {
+        updateTier(setState, tierId, update)
+      }
+    } else {
+      updateTier(setState, tierId, { validationStatus: undefined })
     }
   }
+
+  const onSelectMetricPack = (identifier: string, selected: boolean) => {
+    setMetricPacks(old =>
+      old.map(val => {
+        if (val.data.identifier === identifier) {
+          return {
+            data: val.data,
+            selected
+          }
+        } else {
+          return val
+        }
+      })
+    )
+    setError('metricPacks', undefined)
+  }
+
+  useEffect(() => {
+    haveMPacksChanged.current = (val: any) => val === metricPacks
+    if (Object.keys(state).length) {
+      Object.values(state).forEach(tier => {
+        if (tier.service) {
+          onValidateTier(tier.id)
+        }
+      })
+    }
+  }, [metricPacks])
 
   const onNext = async () => {
     const mPacks = metricPacks.filter(mp => mp.selected).map(mp => mp.data)
     if (!mPacks.length) {
+      setError('metricPacks', getString('cv.monitoringSources.appD.validations.selectMetricPack'))
       return
     }
     if (!Object.keys(errors).length) {
@@ -186,10 +220,14 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
       for (const tierId of Object.keys(tiersData)) {
         if (!tiersData[tierId].service) {
           delete tiersData[tierId]
+        } else if (tiersData[tierId].validationStatus === ValidationStatus.IN_PROGRESS) {
+          tiersData[tierId].validationStatus = undefined
         }
       }
       if (Object.keys(tiersData).length) {
         onCompleteStep({ tiers: tiersData, metricPacks: mPacks })
+      } else {
+        setError('selectTier', getString('cv.monitoringSources.appD.validations.selectTier'))
       }
     }
   }
@@ -197,7 +235,7 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
   const onTierUpdate = (tierId: number, update: Partial<TierRecord>) => updateTier(setState, tierId, update)
 
   return (
-    <Container>
+    <Container className={styles.tabWrapper}>
       <Container className={styles.main}>
         <AppDApplicationSelector
           applications={stepData?.applications}
@@ -221,30 +259,17 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
             <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
               {getString('metricPacks')}
             </Text>
-            <Container>
+            <Container margin={{ bottom: 'small' }}>
               {metricPacks.map(mp => (
                 <Checkbox
                   key={mp.data.identifier}
                   checked={mp.selected}
                   label={mp.data.identifier}
-                  onChange={e => {
-                    const selected = e.currentTarget.checked
-                    setMetricPacks(old =>
-                      old.map(val => {
-                        if (val.data.identifier === mp.data.identifier) {
-                          return {
-                            data: val.data,
-                            selected
-                          }
-                        } else {
-                          return val
-                        }
-                      })
-                    )
-                  }}
+                  onChange={e => onSelectMetricPack(mp.data.identifier!, e.currentTarget.checked)}
                 />
               ))}
             </Container>
+            {renderError('metricPacks')}
           </Container>
           <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
             {getString('cv.monitoringSources.appD.mapTiersToServices')}
@@ -273,6 +298,9 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
                               }
                             : update
                         )
+                        if (update) {
+                          setError('selectTier', undefined)
+                        }
                       }}
                     />
                   )
@@ -346,29 +374,28 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
               gotoPage: (page: number) => setPageIndex(page)
             }}
           />
-          {!!selectedAppId && errors[selectedAppId] && (
-            <Container color={Color.RED_500}>{errors[selectedAppId]}</Container>
-          )}
+          {!!selectedAppId && errors[selectedAppId] && <Text color={Color.RED_500}>{errors[selectedAppId]}</Text>}
+          {renderError('selectTier')}
           {!loadingTiers && !tiers?.resource?.content?.length && (
             <Container height={250}>
               <NoDataCard message={getString('cv.monitoringSources.appD.noTiersMsg')} icon="warning-sign" />
             </Container>
           )}
         </Container>
-        <Container className={styles.infoPanel}>
-          <Container className={styles.infoPanelItem}>
-            <Text icon="info">{getString('cv.monitoringSources.appD.infoPanel.applications')}</Text>
-            <Text>{getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}</Text>
-          </Container>
-          <Container className={styles.infoPanelItem}>
-            <Text icon="info">{getString('metricPacks')}</Text>
-            <Text>{getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}</Text>
-          </Container>
-          <Container className={styles.infoPanelItem}>
-            <Text icon="info">{getString('cv.monitoringSources.appD.infoPanel.tiers')}</Text>
-            <Text>{getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}</Text>
-          </Container>
-        </Container>
+        <InfoPanel>
+          <InfoPanelItem
+            label={getString('cv.monitoringSources.appD.infoPanel.applications')}
+            text={getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}
+          />
+          <InfoPanelItem
+            label={getString('metricPacks')}
+            text={getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}
+          />
+          <InfoPanelItem
+            label={getString('cv.monitoringSources.appD.infoPanel.tiers')}
+            text={getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}
+          />
+        </InfoPanel>
       </Container>
       {validationResult && (
         <MetricsVerificationModal
@@ -378,7 +405,7 @@ export default function MapApplications({ stepData, onCompleteStep }: MapApplica
           verificationType="AppDynamics"
         />
       )}
-      <SubmitAndPreviousButtons onNextClick={onNext} />
+      <SubmitAndPreviousButtons onPreviousClick={onPrevious} onNextClick={onNext} />
     </Container>
   )
 }

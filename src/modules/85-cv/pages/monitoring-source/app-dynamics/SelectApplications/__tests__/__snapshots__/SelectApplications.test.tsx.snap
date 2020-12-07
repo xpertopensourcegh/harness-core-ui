@@ -6,6 +6,9 @@ exports[`SelectApplications Matches snapshot 1`] = `
     class="StyledProps---font--2ipy StyledProps---main--1Wws main"
   >
     <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws sideSpace"
+    />
+    <div
       class="StyledProps---font--2ipy StyledProps---main--1Wws mainPanel"
     >
       <div
@@ -300,7 +303,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+            class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---margin-right-medium--1Ojn"
           >
             <svg
               height="16"

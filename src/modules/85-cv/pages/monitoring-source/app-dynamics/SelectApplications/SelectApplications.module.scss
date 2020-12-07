@@ -1,30 +1,19 @@
 .main {
   display: flex;
+  height: 100%;
+  .sideSpace {
+    flex-basis: 300px;
+    flex-shrink: 1;
+  }
   .mainPanel {
     flex: 1;
-    padding: var(--spacing-large);
+    padding: var(--spacing-xxlarge) !important;
     .table {
-      margin-left: 300px;
+      flex-shrink: 0;
+      flex-basis: 600px;
       .selectEnvironmentCell {
         display: flex;
         align-items: center;
-      }
-    }
-  }
-  .infoPanel {
-    border-left: 1px solid var(--grey-200);
-    width: 300px;
-    padding: var(--spacing-large) !important;
-    .infoPanelItem {
-      p:first-child {
-        margin-bottom: var(--spacing-small);
-        border-bottom: 1px solid var(--grey-200);
-        padding-bottom: var(--spacing-small);
-        font-weight: bold;
-      }
-      p:nth-child(2) {
-        padding-left: var(--spacing-large);
-        margin-bottom: var(--spacing-large);
       }
     }
   }
