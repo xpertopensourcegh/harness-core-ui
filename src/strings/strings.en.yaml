@@ -445,3 +445,7 @@ pipeline-execution-ci:
   execution:
     pipelineIdentifierText: '(Build ID: {{deploymentId}})' # Text for Pipeline Identifier
 pipeline-execution-cd: {}
+
+# !!! THIS NAMESPACE IS FOR TESTING PLEASE DO NOT REMOVE !!!
+testing:
+  harness: Harness (Testing)

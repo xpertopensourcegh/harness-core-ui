@@ -226,4 +226,6 @@ jobs:
         run: yarn
 
       - name: Run Strings Check
-        run: node scripts/yaml-strings-check.js
+        run: |
+          node scripts/yaml-strings-check.js
+          npx jest scripts/eslint-rules/__tests__/string-exists-in-yaml.test.js

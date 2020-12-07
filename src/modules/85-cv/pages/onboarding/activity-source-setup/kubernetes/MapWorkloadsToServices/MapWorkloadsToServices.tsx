@@ -334,7 +334,7 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
   )
   const [selectedNamespace, setSelectedNamespace] = useState<string>(data.selectedNamespaces[0])
 
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   return (
     <Container className={css.main}>
       <Container className={css.namespaceNav}>
