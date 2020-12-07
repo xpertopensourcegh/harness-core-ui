@@ -6,7 +6,7 @@ import type { SecretDTOV2, SecretResponseWrapper } from 'services/cd-ng'
 
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 
-import i18n from './CreateSecretModal.i18n'
+import { useStrings } from 'framework/exports'
 import css from './useCreateSecretModal.module.scss'
 
 type SecretType = SecretDTOV2['type']
@@ -27,7 +27,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
     hideModal()
     props.onSuccess?.()
   }
-
+  const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -38,13 +38,19 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
         className={css.dialog}
       >
         <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
-          {type === 'SecretText' ? i18n.titleCreateText : i18n.titleCreateFile}
+          {secret?.secret.identifier
+            ? type === 'SecretText'
+              ? getString('secret.titleEditText')
+              : getString('secret.titleEditFile')
+            : type === 'SecretText'
+            ? getString('secret.titleCreateText')
+            : getString('secret.titleCreateFile')}
         </Text>
         <CreateUpdateSecret secret={secret} type={type} onSuccess={handleSuccess} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [type]
+    [type, secret]
   )
 
   return {

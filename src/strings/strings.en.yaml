@@ -28,6 +28,8 @@ global:
   passed: Passed
   failed: Failed
   todo: TODO - implement this
+  identifier: 'Identifier'
+  name: 'Name'
   add: Add
   edit: Edit
   delete: Delete
@@ -79,6 +81,15 @@ global:
     templateLibrary: 'Template Library'
   collaborators:
     roleLabel: 'Role :'
+  ssh:
+    sshCredential: 'SSH Credential'
+    createmessageSuccess: 'Execution Credential created successfully'
+    editmessageSuccess: 'Execution Credential updated successfully'
+  secret:
+    titleCreateText: 'Add new Encrypted Text'
+    titleCreateFile: 'Add new Encrypted File'
+    titleEditText: 'Edit Encrypted Text'
+    titleEditFile: 'Edit Encrypted File'
   execution:
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
@@ -210,7 +221,6 @@ global:
         valueCell: 'VALUE'
         addVariable: '+ Add Variable'
         addCustomVariableDialogTitle: 'Add Custom Variable'
-        variableNamePlaceholder: 'Name'
         textType: 'Text'
         secretType: 'Secret'
       infraSpecifications:

@@ -231,7 +231,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
             columns={[
               {
                 accessor: 'name',
-                Header: getString('pipelineSteps.build.stageSpecifications.variableNamePlaceholder'),
+                Header: getString('name'),
                 width: '16.5%',
                 Cell: TableCell
               },

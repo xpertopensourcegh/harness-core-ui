@@ -26,6 +26,7 @@ import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/C
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 
 import i18n from '../CreateSSHCredModal.i18n'
@@ -90,6 +91,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
     identifier: prevStepData?.detailsData?.identifier || '',
     queryParams: { accountIdentifier: accountId }
   })
+  const { getString } = useStrings()
 
   const isEdit = prevStepData?.authData ? true : false
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -120,7 +122,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       // finally create the connector
       isEdit ? await editSecret(dataToSubmit) : await createSecret(dataToSubmit)
       setSaving(false)
-      showSuccess(i18n.messageSuccess)
+      isEdit ? showSuccess(getString('ssh.editmessageSuccess')) : showSuccess(getString('ssh.createmessageSuccess'))
       onSuccess?.()
       nextStep?.({ ...prevStepData, authData: formData })
     } catch (err) {
@@ -163,7 +165,10 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                   mockSecretReference={mockSecretReference}
                 />
                 <Layout.Horizontal spacing="small">
-                  <Button text="Back" onClick={() => previousStep?.({ ...prevStepData, authData: formik.values })} />
+                  <Button
+                    text={getString('back')}
+                    onClick={() => previousStep?.({ ...prevStepData, authData: formik.values })}
+                  />
                   <Button type="submit" text={saving ? i18n.btnSaving : i18n.btnSave} disabled={saving} />
                 </Layout.Horizontal>
               </FormikForm>

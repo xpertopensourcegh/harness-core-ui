@@ -3,6 +3,7 @@ import { FormInput } from '@wings-software/uikit'
 import type { FormikContext } from 'formik'
 import type { SecretDTOV2 } from 'services/cd-ng'
 
+import { useStrings } from 'framework/exports'
 import i18n from '../CreateUpdateSecret.i18n'
 
 interface VaultFormFieldsProps {
@@ -15,6 +16,7 @@ interface FormikContextProps<T> {
 }
 
 const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> = ({ formik, type, editing }) => {
+  const { getString } = useStrings()
   return (
     <>
       {type === 'SecretText' ? (
@@ -45,18 +47,8 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
         </>
       ) : null}
       {type === 'SecretFile' ? <FormInput.FileInput name="file" label={i18n.labelSecretFile} multiple /> : null}
-      <FormInput.TextArea name="description" label={i18n.labelSecretDescription} />
-      {/* <FormInput.TagInput
-              name="tags"
-              label={i18n.labelSecretTags}
-              items={[]}
-              labelFor={name => name as string}
-              itemFromNewTag={newTag => newTag}
-              tagInputProps={{
-                showClearAllButton: true,
-                allowNewTag: true
-              }}
-            /> */}
+      <FormInput.TextArea name="description" label={getString('description')} />
+      <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
     </>
   )
 }

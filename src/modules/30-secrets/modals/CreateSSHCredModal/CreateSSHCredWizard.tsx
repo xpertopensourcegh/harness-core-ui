@@ -2,6 +2,7 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uikit'
 
 import type { ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import StepSSHDetails from './views/StepDetails'
 import StepAuthentication from './views/StepAuthentication'
 import StepVerify from './views/StepVerify'
@@ -23,8 +24,10 @@ export interface SSHCredSharedObj {
 }
 
 const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps & SSHCredSharedObj> = props => {
+  const { getString } = useStrings()
+
   return (
-    <StepWizard<SSHCredSharedObj>>
+    <StepWizard<SSHCredSharedObj> icon="secret-ssh" iconProps={{ size: 37 }} title={getString('ssh.sshCredential')}>
       <StepSSHDetails name={i18n.titleDetails.toUpperCase()} {...props} />
       <StepAuthentication
         name={i18n.stepTitleAuth.toUpperCase()}

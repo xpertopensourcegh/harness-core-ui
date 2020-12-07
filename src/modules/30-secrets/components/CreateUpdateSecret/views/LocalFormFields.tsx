@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
 import type { FormikContext } from 'formik'
+import { useStrings } from 'framework/exports'
 
 import type { SecretDTOV2 } from 'services/cd-ng'
 import i18n from '../CreateUpdateSecret.i18n'
@@ -15,6 +16,7 @@ interface FormikContextProps<T> {
 }
 
 const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> = ({ editing, type }) => {
+  const { getString } = useStrings()
   return (
     <>
       {type === 'SecretText' ? (
@@ -26,7 +28,8 @@ const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> 
         />
       ) : null}
       {type === 'SecretFile' ? <FormInput.FileInput name="file" label={i18n.labelSecretFile} multiple /> : null}
-      <FormInput.TextArea name="description" label={i18n.labelSecretDescription} />
+      <FormInput.TextArea name="description" label={getString('description')} />
+      <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
     </>
   )
 }

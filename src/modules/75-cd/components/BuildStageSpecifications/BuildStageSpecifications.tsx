@@ -543,9 +543,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                         <FormInput.Text
                                           name="name"
                                           label={getString('variableNameLabel')}
-                                          placeholder={getString(
-                                            'pipelineSteps.build.stageSpecifications.variableNamePlaceholder'
-                                          )}
+                                          placeholder={getString('name')}
                                         />
                                         <FormInput.Select
                                           name="type"

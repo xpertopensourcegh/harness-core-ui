@@ -2,11 +2,12 @@ import React from 'react'
 import { Text, Popover, Layout, Icon, Container, Tag } from '@wings-software/uikit'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 
+import type { tagsType } from '@common/utils/types'
 import i18n from './TagsPopover.i18n'
 import css from './TagsPopover.module.scss'
 
-interface ListTagsProps {
-  tags: { [key: string]: string }
+export interface ListTagsProps {
+  tags: tagsType
 }
 const TagsPopover: React.FC<ListTagsProps> = props => {
   const { tags } = props

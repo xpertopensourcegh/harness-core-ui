@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link, useHistory } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { parse } from 'yaml'
 import cx from 'classnames'
-import { omit, pick, without } from 'lodash-es'
+import { omit, without } from 'lodash-es'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
 
 import {
@@ -23,7 +23,7 @@ import routes from '@common/RouteDefinitions'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
-import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -60,7 +60,6 @@ const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): strin
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
   const { showSuccess, showError } = useToaster()
-  const history = useHistory()
   const [edit, setEdit] = useState<boolean>()
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
   const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'createdAt', 'updatedAt'])
@@ -78,6 +77,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
 
   const [secretData, setSecretData] = useState(data?.data)
   const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: refetch })
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: refetch })
   const handleSaveYaml = async (): Promise<void> => {
     const yamlData = yamlHandler?.getLatestYaml()
     let jsonData
@@ -91,8 +91,8 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       try {
         await updateSecretYaml(yamlData as any)
         showSuccess(i18n.updateSuccess)
-        history.push(routes.toResourcesSecretDetails({ secretId, accountId }))
         setEdit(false)
+        refetch()
       } catch (err) {
         showError(err.data.message)
       }
@@ -179,34 +179,17 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
               text={i18n.buttonEdit}
               icon="edit"
               onClick={() => {
-                secretData.secret.type === 'SSHKey' && mode === Mode.VISUAL
-                  ? openCreateSSHCredModal(data?.data?.secret)
+                mode === Mode.VISUAL
+                  ? secretData.secret.type === 'SSHKey'
+                    ? openCreateSSHCredModal(data?.data?.secret)
+                    : openCreateSecretModal(secretData.secret.type, secretData)
                   : setEdit(true)
               }}
             />
           )}
         </Layout.Horizontal>
-
-        {edit ? (
-          // EDIT in VISUAL mode
-          mode === Mode.VISUAL ? (
-            <Container>
-              {secretData.secret.type === 'SecretFile' || secretData.secret.type === 'SecretText' ? (
-                <Container width="400px">
-                  <CreateUpdateSecret
-                    secret={secretData}
-                    onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
-                    onSuccess={() => {
-                      history.push(routes.toResourcesSecretDetails({ secretId, accountId }))
-                      setEdit(false)
-                    }}
-                    connectorListMockData={props.connectorListMockData}
-                  />
-                </Container>
-              ) : null}
-            </Container>
-          ) : (
-            // EDIT in YAML mode
+        {mode === Mode.YAML ? (
+          edit ? (
             <Container>
               <YamlBuilder
                 entityType={YamlEntity.SECRET}
@@ -218,22 +201,21 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
               />
               <Button intent="primary" text="Save" onClick={handleSaveYaml} margin={{ top: 'large' }} />
             </Container>
+          ) : (
+            <Container>
+              <YamlBuilder
+                entityType={YamlEntity.SECRET}
+                existingJSON={omit(secretData, fieldsRemovedFromYaml)}
+                fileName={`${secretData.secret.name}.yaml`}
+                isReadOnlyMode={true}
+                showSnippetSection={false}
+                bind={setYamlHandler}
+              />
+            </Container>
           )
-        ) : mode === Mode.VISUAL ? (
-          // VIEW in VISUAL mode
-          <ViewSecretDetails secret={secretData} />
         ) : (
-          // VIEW in YAML mode
-          <Container>
-            <YamlBuilder
-              entityType={YamlEntity.SECRET}
-              existingJSON={omit(secretData, fieldsRemovedFromYaml)}
-              fileName={`${secretData.secret.name}.yaml`}
-              isReadOnlyMode={true}
-              showSnippetSection={false}
-              bind={setYamlHandler}
-            />
-          </Container>
+          //View in Visual Mode
+          <ViewSecretDetails secret={secretData} />
         )}
       </Container>
     </>

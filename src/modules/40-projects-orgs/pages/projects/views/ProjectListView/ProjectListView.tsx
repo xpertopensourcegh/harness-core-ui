@@ -44,7 +44,7 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
           <Text color={Color.BLACK} lineClamp={1} className={css.project}>
             {data.name}
           </Text>
-          {data.tags ? <TagsPopover tags={data.tags} /> : null}
+          {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         {data.description ? (
           <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
