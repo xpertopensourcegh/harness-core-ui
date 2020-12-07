@@ -3,7 +3,7 @@ import { Button } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
-
+import { useStrings } from 'framework/exports'
 import useCVNotificationsModal from '@cv/components/CVNotifications/useCVNotificationsModal'
 import { useRetrieveAlert } from 'services/cv'
 
@@ -15,6 +15,7 @@ import css from './CVNotificationPage.module.scss'
 const CVNotificationPage: React.FC = () => {
   const [page, setPage] = useState(0)
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { getString } = useStrings()
 
   const { data, loading, error, refetch: reloadAlertList } = useRetrieveAlert({
     queryParams: {
@@ -35,7 +36,13 @@ const CVNotificationPage: React.FC = () => {
     <>
       <Page.Header title={'Notifications'}></Page.Header>
       <Page.Body className={css.mainPage}>
-        <Button text="New Notification Rule" icon="plus" intent="primary" onClick={() => openNotificationModal()} />
+        <Button
+          text={getString('cv.admin.notifications.newNotification')}
+          icon="plus"
+          intent="primary"
+          onClick={() => openNotificationModal()}
+          margin={{ bottom: 'small' }}
+        />
 
         {loading ? (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>

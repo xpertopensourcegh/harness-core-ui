@@ -24,6 +24,7 @@ interface ConfigureEmailNotificationsProps {
   hideModal: () => void
   isStep?: boolean
   onBack?: () => void
+  config?: EmailNotificationConfiguration
 }
 
 interface TestEmailConfigProps {
@@ -82,6 +83,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
   const { accountId } = useParams()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
+
   const { mutate: testNotificationSetting, loading } = useTestNotificationSetting({})
 
   const handleTest = async (testData: EmailTestConfigData): Promise<void> => {
@@ -129,9 +131,10 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             emailIds: Yup.string().trim().required()
           })}
           initialValues={{
-            emailIds: '',
-            userGroups: []
+            emailIds: props.config?.emailIds.toString() || '',
+            userGroups: props.config?.userGroups || []
           }}
+          enableReinitialize={true}
         >
           {() => {
             return (

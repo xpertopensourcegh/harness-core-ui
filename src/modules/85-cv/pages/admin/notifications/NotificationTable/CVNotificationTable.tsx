@@ -27,6 +27,19 @@ type CustomColumn<T extends object> = Column<T> & {
 const RenderNotificationMethod: Renderer<CellProps<AlertRuleDTO>> = ({ row }) => {
   const rowData = row.original
 
+  const getEmailTooltip = () => {
+    const emails =
+      rowData.notificationMethod &&
+      rowData.notificationMethod.emails?.length &&
+      rowData?.notificationMethod.emails
+        .slice(2)
+        .map(item => {
+          return item
+        })
+        .toString()
+    return emails as string
+  }
+
   return (
     <>
       {rowData.notificationMethod?.notificationSettingType === NotificationType.Slack ? (
@@ -45,7 +58,14 @@ const RenderNotificationMethod: Renderer<CellProps<AlertRuleDTO>> = ({ row }) =>
       {rowData.notificationMethod?.notificationSettingType === NotificationType.Email ? (
         <Layout.Horizontal spacing="small" color={Color.BLACK}>
           <Icon name="main-email" color={Color.GREY_400} />
-          <Text color={Color.BLACK}>{rowData.notificationMethod.emails?.[0]}</Text>
+          <Text color={Color.BLACK}>
+            {rowData.notificationMethod.emails?.[0]}, {rowData.notificationMethod.emails?.[1]}
+          </Text>
+          {rowData.notificationMethod.emails?.length && rowData.notificationMethod.emails.length > 2 ? (
+            <Text tooltip={getEmailTooltip()} color={Color.BLUE_500}>
+              {`+${rowData.notificationMethod.emails.length - 2}`}
+            </Text>
+          ) : null}
         </Layout.Horizontal>
       ) : null}
     </>

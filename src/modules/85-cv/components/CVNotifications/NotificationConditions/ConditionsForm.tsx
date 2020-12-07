@@ -128,6 +128,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
 
   useEffect(() => {
     const initialVal: SelectOption[] = []
+
     if (props.ruleData?.services?.length) {
       props.ruleData.services.forEach(item => {
         serviceResponse?.data?.content?.forEach(service => {
@@ -153,6 +154,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
 
   useEffect(() => {
     const initialVal: SelectOption[] = []
+
     if (props.ruleData?.environments?.length) {
       props.ruleData.environments.forEach(item => {
         environmentsResponse?.data?.content?.map(environment => {
@@ -187,6 +189,10 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
         })
       })
       setInitialActivityTypes(initialVal)
+    } else {
+      if (props.ruleData?.enabledVerifications) {
+        setInitialActivityTypes([{ label: getString('all'), value: 'All' }])
+      }
     }
   }, [activityTypeResponse, props.ruleData?.activityTypes])
 
@@ -201,6 +207,10 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
         })
       })
       setInitialVerificationStatus(initialVal)
+    } else {
+      if (props.ruleData?.enabledVerifications) {
+        setInitialVerificationStatus([{ label: getString('all'), value: 'All' }])
+      }
     }
   }, [props.ruleData?.verificationStatuses])
 

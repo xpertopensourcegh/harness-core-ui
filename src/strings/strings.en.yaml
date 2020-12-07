@@ -290,6 +290,7 @@ global:
         activitySources: 'Activity Sources'
     admin:
       notifications:
+        newNotification: 'New Notification Rule'
         enabled: 'Enabled'
         name: 'Name of the rule'
         method: 'Notification Method'

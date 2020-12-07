@@ -121,6 +121,11 @@ const NotificationMethod: React.FC<StepProps<any> & NotificationMethodProps> = p
           hideModal={() => undefined}
           isStep={true}
           onBack={() => props.prevStepData?.()}
+          config={{
+            type: NotificationType.Email,
+            emailIds: props.ruleData?.emailIds || [],
+            userGroups: []
+          }}
         />
       )
     case NotificationType.Slack:
@@ -179,7 +184,8 @@ const CreateCVNotification: React.FC<StepProps<any> & CreateCVNotificationProps>
         verificationStatuses: props.notificationData.alertCondition?.verificationsNotify?.verificationStatuses,
         webhookUrl: props.notificationData.notificationMethod?.slackWebhook,
         enabledVerifications: props.notificationData.alertCondition?.enabledVerifications,
-        key: props.notificationData.notificationMethod?.pagerDutyKey
+        key: props.notificationData.notificationMethod?.pagerDutyKey,
+        emailIds: props.notificationData.notificationMethod?.emails
       }
       setRuleData(formatData as CVNotificationForm)
     }
