@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
-import FlagElemTest from '../../components/CreateFlagWizard/FlagElemTest'
+import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
 import patch, { ClauseData } from '../../utils/instructions'

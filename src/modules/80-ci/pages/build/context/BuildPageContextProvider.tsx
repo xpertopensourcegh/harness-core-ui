@@ -14,7 +14,7 @@ import {
   getFlattenItemsFromPipeline,
   getSelectOptionsFromExecutionPipeline,
   getStepsPipelineFromExecutionPipeline
-} from '../../build/sections/pipeline-graph/BuildPipelineGraphUtils'
+} from '../sections/pipeline-graph/BuildPipelineGraphUtils'
 import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 import { fetchLogsAccessToken } from '../../../services/TokenService'
 

@@ -80,6 +80,7 @@ rules:
           position: after
           patternOptions:
             matchBase: true
+  import/no-useless-path-segments: 2
 
   no-restricted-imports:
     - error

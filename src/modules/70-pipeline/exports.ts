@@ -11,7 +11,7 @@ import {
   ExecutionPipelineItemStatus,
   ExecutionPipelineNodeType
 } from './components/ExecutionStageDiagram/ExecutionPipelineModel'
-import * as Diagram from './/components/Diagram/index'
+import * as Diagram from './components/Diagram/index'
 import type { StagesMap } from './components/PipelineStudio/PipelineContext/PipelineContext'
 import ExecutionGraph from './components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import type { PipelineStagesProps } from './components/PipelineStages/PipelineStages'

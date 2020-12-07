@@ -5,7 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import SelectEnvironment from '../SelectEnvironment'
 import mockEnv from './mockEnv-CD1.json'
 
-import mockEnvironments from '../__tests__/mockEnvironments.json'
+import mockEnvironments from './mockEnvironments.json'
 
 jest.mock('framework/exports', () => ({
   ...(jest.requireActual('framework/exports') as object),
