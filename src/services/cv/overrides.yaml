@@ -37,6 +37,9 @@ allowpaths:
   - /alert/list
   - /alert/{identifier}
   - /alert/activityTypes
+  - /stackdriver/dashboards
+  - /stackdriver/dashboard-detail
+  - /stackdriver/sample-data
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

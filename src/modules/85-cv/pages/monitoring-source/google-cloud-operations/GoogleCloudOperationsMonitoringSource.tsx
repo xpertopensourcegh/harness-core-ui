@@ -4,6 +4,7 @@ import { useStrings } from 'framework/exports'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import { Page } from '@common/exports'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
+import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
 
 export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
   const { getString } = useStrings()
@@ -19,12 +20,30 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
         tabProps={[
           {
             id: 1,
+            title: getString('selectProduct'),
             component: (
               <SelectProduct
                 stepData={currentData}
                 type="GoogleCloudOperations"
-                onCompleteStep={data => setCurrentData({ ...data })}
+                onCompleteStep={data => {
+                  setCurrentData(data)
+                  onNext()
+                }}
                 productSelectValidationText={getString('cv.monitoringSources.gco.productValidationText')}
+              />
+            )
+          },
+          {
+            id: 2,
+            title: getString('cv.monitoringSources.gco.tabName.selectDashboards'),
+            component: (
+              <SelectGCODashboards
+                data={...currentData}
+                onPrevious={tabInfo.onPrevious}
+                onNext={data => {
+                  setCurrentData(data)
+                  onNext()
+                }}
               />
             )
           }

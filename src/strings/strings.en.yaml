@@ -414,6 +414,11 @@ global:
         product:
           metrics: 'Cloud Metrics'
         productValidationText: 'Google Cloud Operations feature is required.'
+        selectDashboardsPage:
+          noDataText: 'No Google Cloud Operation dashboards found.'
+          dashboardColumnName: 'Google Cloud Operation Dashboards'
+        tabName:
+          selectDashboards: 'Select Dashboards'
     activitySources:
       name: 'Name your activity source'
       harnessCD:
