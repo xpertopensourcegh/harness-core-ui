@@ -195,7 +195,7 @@ describe('StepWidget tests', () => {
     const addManifestButton = await findByText(container, '+ Add Manifest')
     expect(addManifestButton).toBeDefined()
     fireEvent.click(addManifestButton)
-    const portal = document.getElementsByClassName('bp3-portal')[0]
+    const portal = document.getElementsByClassName('bp3-dialog')[0]
     const k8sButton = await waitFor(() => findByText(portal as HTMLElement, 'K8s Manifest'))
     expect(portal).toMatchSnapshot('Create Manifest modal')
     expect(k8sButton).toBeDefined()
@@ -248,7 +248,7 @@ describe('StepWidget tests', () => {
 
     const createArtifactModalTitle = await findByText(document.body, 'Docker Connector Details')
     expect(createArtifactModalTitle).toBeDefined() // Create New Artifact Server Modal Rendered
-    const portal = document.getElementsByClassName('bp3-portal')[0]
+    const portal = document.getElementsByClassName('bp3-dialog')[0]
     expect(portal).toMatchSnapshot('Artifact Name Step ')
     await act(async () => {
       // enter name and move to next step
@@ -282,7 +282,7 @@ describe('StepWidget tests', () => {
       expect(await findByText(document.body, 'testpass')).toBeDefined()
       const saveAndContinueButton = await findByText(document.body, 'SAVE CREDENTIALS AND CONTINUE')
       fireEvent.click(saveAndContinueButton)
-      expect(document.getElementsByClassName('bp3-portal')[0]).toMatchSnapshot('Artifact Details Step')
+      expect(document.getElementsByClassName('bp3-dialog')[0]).toMatchSnapshot('Artifact Details Step')
     })
   })
 })

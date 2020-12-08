@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectOption, IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
+import { SelectOption, IconName, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import type { StepViewType } from '@pipeline/exports'
@@ -31,9 +31,6 @@ interface HttpStepWidgetProps {
 const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   return (
     <>
-      <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {i18n.httpStep}
-      </Text>
       <Formik<HttpStepData>
         onSubmit={values => {
           onUpdate?.(values)

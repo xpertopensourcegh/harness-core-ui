@@ -3,7 +3,6 @@ import { Heading, Button } from '@wings-software/uikit'
 import { noop } from 'lodash-es'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { RightBar } from '../RightBar/RightBar'
 import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
@@ -67,8 +66,6 @@ export const PipelineConfigureService: React.FC<PipelineConfigureServiceProps> =
 
         <Button className={css.close} icon="main-close" minimal onClick={handleCloseClick} />
       </div>
-
-      <RightBar />
     </div>
   )
 }

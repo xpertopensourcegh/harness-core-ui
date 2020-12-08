@@ -18,7 +18,6 @@ import type { AbstractStepFactory, StepData as FactoryStepData } from '../../Abs
 
 import i18n from './StepPalette.18n'
 import { iconMap, iconMapByName } from './iconMap'
-import { RightBar } from '../RightBar/RightBar'
 // TODO: Mock API
 import buildStageSteps from './mock/buildStageSteps.json'
 import css from './StepPalette.module.scss'
@@ -297,7 +296,6 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
           </section>
         </section>
       </div>
-      <RightBar />
     </div>
   )
 }

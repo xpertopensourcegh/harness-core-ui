@@ -1,0 +1,18 @@
+.main {
+  transform: translateX(-60px);
+  width: 480px !important;
+
+  :global(.bp3-drawer-header) {
+    margin: 0 var(--spacing-large);
+    padding: var(--spacing-medium) 0 !important;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    :global(.bp3-icon) {
+      margin-right: var(--spacing-small);
+    }
+  }
+}

@@ -3,7 +3,6 @@ import { Tabs, Tab, Formik, Text, MultiTypeInput } from '@wings-software/uikit'
 import { FormGroup } from '@blueprintjs/core'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import i18n from './StepCommands.18n'
-import { RightBar } from '../RightBar/RightBar'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import css from './StepCommands.module.scss'
@@ -79,7 +78,6 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
           />
         </Tabs>
       </div>
-      <RightBar />
     </div>
   )
 }

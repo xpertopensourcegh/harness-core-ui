@@ -8,7 +8,6 @@ import type {
   NGVariable as Variable,
   NgPipeline
 } from 'services/cd-ng'
-import { RightBar } from '../RightBar/RightBar'
 import i18n from './PipelineVariables.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getPipelineTree } from '../PipelineUtils'
@@ -152,7 +151,6 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <RightBar />
     </div>
   )
 }

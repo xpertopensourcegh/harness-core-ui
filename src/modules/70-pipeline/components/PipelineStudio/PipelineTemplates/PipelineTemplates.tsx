@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text } from '@wings-software/uikit'
-import { RightBar } from '../RightBar/RightBar'
 import i18n from './PipelineTemplates.i18n'
 import css from './PipelineTemplates.module.scss'
 
@@ -10,7 +9,6 @@ export const PipelineTemplates: React.FC = (): JSX.Element => {
       <div className={css.templatesContainer}>
         <Text font={{ size: 'large' }}>{i18n.templates}</Text>
       </div>
-      <RightBar />
     </div>
   )
 }

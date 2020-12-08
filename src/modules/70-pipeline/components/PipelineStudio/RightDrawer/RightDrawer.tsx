@@ -1,5 +1,6 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
+import { Icon } from '@wings-software/uikit'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommands } from '../StepCommands/StepCommands'
@@ -12,6 +13,8 @@ import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { PipelineConfigureService } from '../PipelineConfigureService/PipelineConfigureService'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
+
+import css from './RightDrawer.module.scss'
 
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
@@ -30,9 +33,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
-  if (!isDrawerOpened) {
-    return <></>
-  }
+
+  const stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
 
   return (
     <Drawer
@@ -47,6 +49,15 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       size={DrawerSizes[type]}
       isOpen={isDrawerOpened}
       position={Position.RIGHT}
+      title={
+        stepData ? (
+          <div className={css.title}>
+            <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
+            {stepData?.name}
+          </div>
+        ) : null
+      }
+      className={css.main}
       {...restDrawerProps}
     >
       {type === DrawerTypes.StepConfig && data?.stepConfig && data?.stepConfig.node && (

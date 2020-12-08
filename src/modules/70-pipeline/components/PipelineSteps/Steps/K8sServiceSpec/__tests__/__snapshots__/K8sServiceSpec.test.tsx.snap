@@ -207,718 +207,670 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
 
 exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = `
 <div
-  class="bp3-portal"
+  class="bp3-dialog modal bp3-dialog"
+  style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
-    class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container"
+    class="bp3-dialog-header"
+  >
+    <h4
+      class="bp3-heading"
+    />
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <section
+    class="wrapper"
   >
     <div
-      class="bp3-overlay-backdrop bp3-overlay-appear-done bp3-overlay-enter-done"
-    />
-    <div
-      class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear-done bp3-overlay-enter-done"
-      tabindex="0"
+      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
     >
       <div
-        class="bp3-dialog modal bp3-dialog"
-        style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
+        class="StepWizard---navBarList--2ILN"
       >
         <div
-          class="bp3-dialog-header"
+          class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
         >
-          <h4
-            class="bp3-heading"
-          />
-          <button
-            aria-label="Close"
-            class="bp3-button bp3-minimal bp3-dialog-close-button"
-            type="button"
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            icon="small-tick"
           >
-            <span
-              class="bp3-icon bp3-icon-small-cross"
-              icon="small-cross"
+            <svg
+              data-icon="small-tick"
+              height="22"
+              viewBox="0 0 20 20"
+              width="22"
             >
-              <svg
-                data-icon="small-cross"
-                height="20"
-                viewBox="0 0 20 20"
-                width="20"
-              >
-                <desc>
-                  small-cross
-                </desc>
-                <path
-                  d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            CONNECTOR DETAILS
+          </p>
         </div>
-        <section
-          class="wrapper"
+        <div
+          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
         >
-          <div
-            class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+          <span
+            class="StepWizard---number--1LKy"
           >
-            <div
-              class="StepWizard---navBarList--2ILN"
+            2
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            AUTHENTICATION
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            3
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            VERIFY CONNECTION
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            ARTIFACT SOURCE
+          </p>
+        </div>
+      </div>
+      <div
+        class="StepWizard---stepDetails--Uaxx"
+      >
+         
+        <div
+          class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          style="height: inherit;"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Authentication
+          </p>
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
             >
-              <div
-                class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
-              >
-                <span
-                  class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
-                  icon="small-tick"
-                >
-                  <svg
-                    data-icon="small-tick"
-                    height="22"
-                    viewBox="0 0 20 20"
-                    width="22"
-                  >
-                    <desc>
-                      small-tick
-                    </desc>
-                    <path
-                      d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  CONNECTOR DETAILS
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  2
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  AUTHENTICATION
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  3
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  VERIFY CONNECTION
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  4
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  ARTIFACT SOURCE
-                </p>
-              </div>
-            </div>
-            <div
-              class="StepWizard---stepDetails--Uaxx"
-            >
-               
-              <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
-                style="height: inherit;"
-              >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                >
-                  Authentication
-                </p>
+              <div>
                 <div
-                  class="OverlaySpinner---overlaySpinner--3Bs3"
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
+                  style="min-height: 440px; width: 64%;"
                 >
-                  <form
-                    class="FormikForm---main--1N87"
+                  <div
+                    class="bp3-form-group"
+                    data-id="dockerRegistryUrl-0"
                   >
-                    <div>
+                    <label
+                      class="bp3-label"
+                      for="dockerRegistryUrl"
+                    >
+                      Docker Registry URL
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
                       <div
-                        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
-                        style="min-height: 440px; width: 64%;"
+                        class="bp3-input-group"
                       >
-                        <div
-                          class="bp3-form-group"
-                          data-id="dockerRegistryUrl-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="dockerRegistryUrl"
-                          >
-                            Docker Registry URL
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="dockerRegistryUrl"
-                                type="text"
-                                value="https://hub.docker.com"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="username-1"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="username"
-                          >
-                            Username
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="username"
-                                type="text"
-                                value="test"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="null-2"
-                        >
-                          <label
-                            class="bp3-label"
-                          >
-                            Password
-                          </label>
-                          <button
-                            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-button-text"
-                            >
-                              <div
-                                class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-                                style="align-items: center; width: 100%;"
-                              >
-                                <span
-                                  class="bp3-icon StyledProps---main--1Wws"
-                                  style="height: 12px;"
-                                >
-                                  <svg
-                                    height="24"
-                                    width="24"
-                                  >
-                                    <g
-                                      fill="none"
-                                      stroke="#1C1C28"
-                                      stroke-width="0.5"
-                                    >
-                                      <path
-                                        d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                      />
-                                      <path
-                                        d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                      />
-                                    </g>
-                                  </svg>
-                                </span>
-                                <span>
-                                  testpass
-                                </span>
-                              </div>
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                      <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
-                      >
-                        <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            BACK
-                          </span>
-                        </button>
-                        <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---font-small--1qQz"
-                          type="submit"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            SAVE CREDENTIALS AND CONTINUE
-                          </span>
-                        </button>
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="dockerRegistryUrl"
+                          type="text"
+                          value="https://hub.docker.com"
+                        />
                       </div>
                     </div>
-                  </form>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="username-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="username"
+                    >
+                      Username
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="username"
+                          type="text"
+                          value="test"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-2"
+                  >
+                    <label
+                      class="bp3-label"
+                    >
+                      Password
+                    </label>
+                    <button
+                      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <div
+                          class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                          style="align-items: center; width: 100%;"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws"
+                            style="height: 12px;"
+                          >
+                            <svg
+                              height="24"
+                              width="24"
+                            >
+                              <g
+                                fill="none"
+                                stroke="#1C1C28"
+                                stroke-width="0.5"
+                              >
+                                <path
+                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                />
+                                <path
+                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                          <span>
+                            testpass
+                          </span>
+                        </div>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
+                >
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      BACK
+                    </span>
+                  </button>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      SAVE CREDENTIALS AND CONTINUE
+                    </span>
+                  </button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
-        </section>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 `;
 
 exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
 <div
-  class="bp3-portal"
+  class="bp3-dialog modal bp3-dialog"
+  style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
-    class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container"
+    class="bp3-dialog-header"
+  >
+    <h4
+      class="bp3-heading"
+    />
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <section
+    class="wrapper"
   >
     <div
-      class="bp3-overlay-backdrop bp3-overlay-appear-done bp3-overlay-enter-done"
-    />
-    <div
-      class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear-done bp3-overlay-enter-done"
-      tabindex="0"
+      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
     >
       <div
-        class="bp3-dialog modal bp3-dialog"
-        style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
+        class="StepWizard---navBarList--2ILN"
       >
         <div
-          class="bp3-dialog-header"
+          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
         >
-          <h4
-            class="bp3-heading"
-          />
-          <button
-            aria-label="Close"
-            class="bp3-button bp3-minimal bp3-dialog-close-button"
-            type="button"
+          <span
+            class="StepWizard---number--1LKy"
           >
-            <span
-              class="bp3-icon bp3-icon-small-cross"
-              icon="small-cross"
-            >
-              <svg
-                data-icon="small-cross"
-                height="20"
-                viewBox="0 0 20 20"
-                width="20"
-              >
-                <desc>
-                  small-cross
-                </desc>
-                <path
-                  d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+            1
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            CONNECTOR DETAILS
+          </p>
         </div>
-        <section
-          class="wrapper"
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            2
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            AUTHENTICATION
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            3
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            VERIFY CONNECTION
+          </p>
+        </div>
+        <div
+          class="StepWizard---navStep--2trN"
+        >
+          <span
+            class="StepWizard---number--1LKy"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            ARTIFACT SOURCE
+          </p>
+        </div>
+      </div>
+      <div
+        class="StepWizard---stepDetails--Uaxx"
+      >
+         
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
         >
           <div
-            class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+            class="heading"
+          >
+            Docker Connector Details
+          </div>
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
           >
             <div
-              class="StepWizard---navBarList--2ILN"
+              class="OverlaySpinner---overlaySpinner--3Bs3"
             >
-              <div
-                class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+              <form
+                class="FormikForm---main--1N87"
               >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  1
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  CONNECTOR DETAILS
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  2
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  AUTHENTICATION
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  3
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  VERIFY CONNECTION
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  4
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  ARTIFACT SOURCE
-                </p>
-              </div>
-            </div>
-            <div
-              class="StepWizard---stepDetails--Uaxx"
-            >
-               
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
-              >
-                <div
-                  class="heading"
-                >
-                  Docker Connector Details
-                </div>
-                <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
-                >
+                <div>
                   <div
-                    class="OverlaySpinner---overlaySpinner--3Bs3"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    style="min-height: 460px;"
                   >
-                    <form
-                      class="FormikForm---main--1N87"
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws main"
                     >
-                      <div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                      >
                         <div
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                          style="min-height: 460px;"
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
                         >
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                            class="InputWithIdentifier---txtNameContainer--20iZ"
                           >
                             <div
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
                             >
-                              <div
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                              <p
+                                class="StyledProps---font--2ipy StyledProps---main--1Wws"
                               >
-                                <div
-                                  class="InputWithIdentifier---txtNameContainer--20iZ"
-                                >
-                                  <div
-                                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
-                                  >
-                                    <p
-                                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                                    >
-                                      ID
-                                      :
-                                    </p>
-                                    <span
-                                      class="InputWithIdentifier---idInput--w8_T"
-                                      contenteditable="true"
-                                    />
-                                    <span
-                                      class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
-                                      icon="edit"
-                                      style="vertical-align: middle;"
-                                    >
-                                      <svg
-                                        data-icon="edit"
-                                        height="12"
-                                        viewBox="0 0 16 16"
-                                        width="12"
-                                      >
-                                        <desc>
-                                          edit
-                                        </desc>
-                                        <path
-                                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                  <div
-                                    class="bp3-form-group"
-                                    data-id="name-0"
-                                  >
-                                    <label
-                                      class="bp3-label"
-                                      for="name"
-                                    >
-                                      Name
-                                       
-                                      <span
-                                        class="bp3-text-muted"
-                                      />
-                                    </label>
-                                    <div
-                                      class="bp3-form-content"
-                                    >
-                                      <div
-                                        class="bp3-input-group"
-                                      >
-                                        <input
-                                          autocomplete="off"
-                                          class="bp3-input"
-                                          name="name"
-                                          type="text"
-                                          value=""
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div
-                                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-                                style="justify-content: center;"
+                                ID
+                                :
+                              </p>
+                              <span
+                                class="InputWithIdentifier---idInput--w8_T"
+                                contenteditable="true"
+                              />
+                              <span
+                                class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                                icon="edit"
+                                style="vertical-align: middle;"
                               >
-                                <p
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                                <svg
+                                  data-icon="edit"
+                                  height="12"
+                                  viewBox="0 0 16 16"
+                                  width="12"
                                 >
-                                  + Description
-                                </p>
-                                <p
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
-                                >
-                                  + Tags
-                                </p>
-                              </div>
+                                  <desc>
+                                    edit
+                                  </desc>
+                                  <path
+                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
                             </div>
                             <div
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                            />
+                              class="bp3-form-group"
+                              data-id="name-0"
+                            >
+                              <label
+                                class="bp3-label"
+                                for="name"
+                              >
+                                Name
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="name"
+                                    type="text"
+                                    value=""
+                                  />
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                          class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                          style="justify-content: center;"
                         >
-                          <button
-                            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-                            type="submit"
+                          <p
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
                           >
-                            <span
-                              class="bp3-button-text"
-                            >
-                              <span>
-                                Save and Continue
-                              </span>
-                            </span>
-                          </button>
+                            + Description
+                          </p>
+                          <p
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          >
+                            + Tags
+                          </p>
                         </div>
                       </div>
-                    </form>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  >
+                    <button
+                      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                      type="submit"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span>
+                          Save and Continue
+                        </span>
+                      </span>
+                    </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 `;
 
 exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] = `
 <div
-  class="bp3-portal"
+  class="bp3-dialog modal bp3-dark"
+  style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
-    class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container"
+    class="bp3-dialog-header"
   >
-    <div
-      class="bp3-overlay-backdrop bp3-overlay-appear bp3-overlay-appear-active"
+    <h4
+      class="bp3-heading"
     />
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws optionsViewContainer"
+  >
+    <h2
+      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+      level="2"
+      style="font-size: 30px;"
+    >
+      Specify your manifest file repository type
+    </h2>
+    <h3
+      class="StyledProps---font--2ipy StyledProps---font-h3--oaTS StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-white--3AwB StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-medium--1zkE"
+      level="3"
+    >
+      Start by selecting your repository type.
+    </h3>
     <div
-      class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
-      tabindex="0"
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
     >
       <div
-        class="bp3-dialog modal bp3-dark"
-        style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
+        class="optionsViewGrid"
       >
         <div
-          class="bp3-dialog-header"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+          data-index="0"
+          tabindex="0"
         >
-          <h4
-            class="bp3-heading"
-          />
-          <button
-            aria-label="Close"
-            class="bp3-button bp3-minimal bp3-dialog-close-button"
-            type="button"
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
           >
             <span
-              class="bp3-icon bp3-icon-small-cross"
-              icon="small-cross"
+              class="bp3-icon StyledProps---main--1Wws"
             >
               <svg
-                data-icon="small-cross"
-                height="20"
-                viewBox="0 0 20 20"
-                width="20"
+                height="35"
+                viewBox="0 0 14 14"
+                width="35"
               >
-                <desc>
-                  small-cross
-                </desc>
                 <path
-                  d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
-                  fill-rule="evenodd"
+                  d="M7 .4c-.1 0-.2 0-.3.1L2 2.7c-.2.1-.4.3-.5.6l-1.2 5c-.1.2 0 .5.1.7l.1.1 3.2 4c.2.2.4.3.7.3h5.2c.3 0 .5-.1.7-.3l3.2-4c.2-.2.2-.5.2-.7l-1.2-5c-.1-.3-.2-.5-.5-.6L7.3.6c0-.1-.2-.2-.3-.2z"
+                  fill="#326ce5"
+                />
+                <path
+                  d="M7 2.1c-.2 0-.3.1-.3.3v.9c0 .1-.1.1-.1.1v.1c-.2 0-.3 0-.5.1-.7.2-1.4.5-1.8 1l-.1-.1H4c-.1-.1-.2-.2-.4-.3L3.4 4h-.1c-.1 0-.1-.1-.2-.1s-.2 0-.2.1c-.1.1-.1.3.1.4h.1c.1.1.2.1.2.1.2.1.3.2.4.3 0 0 .1.1.1.2l.1.1c-.5.7-.7 1.6-.6 2.5h-.1l-.1.1c-.1 0-.3.1-.5.1h-.4c-.2 0-.3.2-.2.3 0 .1.2.2.4.2h.1c.1 0 .2-.1.3-.1.2-.1.3-.1.5-.1.1 0 .1 0 .2.1h.1c.3.9.9 1.6 1.6 2l-.1.1v.2c-.1.1-.1.3-.3.5-.1.1-.1.1-.1.2v.1c-.1.2 0 .3.1.4s.3 0 .4-.2v-.1c0-.1.1-.2.1-.3.1-.2.1-.4.2-.5 0 0 .1 0 .1-.1l.1-.1c.6.2 1.4.3 2.1.2.2 0 .3-.1.5-.1l.1.1s.1 0 .1.1c.1.1.1.3.2.5 0 .1 0 .2.1.3v.1c.1.2.2.2.4.2.1-.1.2-.2.1-.4v-.1c0-.1-.1-.1-.1-.2-.1-.2-.2-.3-.2-.4V10.4c.8-.5 1.3-1.2 1.6-2h.1s.1-.1.2-.1.3.1.5.1c.1 0 .2.1.3.1h.1c.2 0 .3-.1.4-.2 0-.1-.1-.3-.2-.3h-.4c-.2 0-.4 0-.5-.1-.1 0-.1-.1-.1-.1h-.1c.1-.4 0-.9-.1-1.3s-.3-.9-.5-1.2l.1-.1c0-.1 0-.1.1-.2s.2-.2.4-.3c.1 0 .2-.1.2-.1h.1c.1-.1.2-.3.1-.4s-.3-.1-.4 0h-.1l-.2.2c-.1.1-.3.3-.4.3H10l-.1.1c-.6-.6-1.4-1-2.3-1.1v-.1l-.1-.1V3v-.4c-.2-.3-.3-.5-.5-.5zm-.3 2.2l-.1 1.5c0 .1-.1.2-.2.2h-.1l-1.2-.9c.4-.4.8-.6 1.4-.8zm.7 0c.6.1 1.2.4 1.7.8l-1.2.8c-.1.1-.3.1-.3 0l-.1-.1zM4.6 5.7l1.1 1c.1.1.1.2 0 .3l-.1.1-1.4.4c-.1-.7 0-1.3.4-1.8zm4.9 0c.2.3.3.6.4.9s.1.6.1.9l-1.4-.4c-.1 0-.2-.2-.2-.3s0-.1.1-.1zm-2.7 1h.4l.3.3-.1.4-.4.2-.4-.2-.1-.4zm1.4 1.2c.1 0 .1 0 0 0l1.5.2c-.2.6-.6 1.1-1.2 1.5l-.6-1.4c.1-.1.1-.2.3-.3zm-2.4 0c.1 0 .2.1.2.2v.2l-.6 1.4c-.5-.3-.9-.8-1.2-1.5zm1.2.6l.2.1.7 1.3c-.1 0-.2.1-.3.1-.5.1-1.1.1-1.6-.1l.7-1.3c.2 0 .2-.1.3-.1z"
+                  fill="#fff"
+                  stroke="#fff"
+                  stroke-width="0.25"
                 />
               </svg>
             </span>
-          </button>
+          </div>
+          <section>
+            K8s Manifest
+          </section>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws optionsViewContainer"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+          data-index="1"
+          tabindex="0"
         >
-          <h2
-            class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
-            level="2"
-            style="font-size: 30px;"
-          >
-            Specify your manifest file repository type
-          </h2>
-          <h3
-            class="StyledProps---font--2ipy StyledProps---font-h3--oaTS StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-white--3AwB StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-medium--1zkE"
-            level="3"
-          >
-            Start by selecting your repository type.
-          </h3>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
           >
-            <div
-              class="optionsViewGrid"
+            <span
+              class="bp3-icon StyledProps---main--1Wws"
             >
-              <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
-                data-index="0"
-                tabindex="0"
+              <svg
+                height="35"
+                viewBox="0 0 15 14"
+                width="35"
               >
-                <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                >
-                  <span
-                    class="bp3-icon StyledProps---main--1Wws"
-                  >
-                    <svg
-                      height="35"
-                      viewBox="0 0 14 14"
-                      width="35"
-                    >
-                      <path
-                        d="M7 .4c-.1 0-.2 0-.3.1L2 2.7c-.2.1-.4.3-.5.6l-1.2 5c-.1.2 0 .5.1.7l.1.1 3.2 4c.2.2.4.3.7.3h5.2c.3 0 .5-.1.7-.3l3.2-4c.2-.2.2-.5.2-.7l-1.2-5c-.1-.3-.2-.5-.5-.6L7.3.6c0-.1-.2-.2-.3-.2z"
-                        fill="#326ce5"
-                      />
-                      <path
-                        d="M7 2.1c-.2 0-.3.1-.3.3v.9c0 .1-.1.1-.1.1v.1c-.2 0-.3 0-.5.1-.7.2-1.4.5-1.8 1l-.1-.1H4c-.1-.1-.2-.2-.4-.3L3.4 4h-.1c-.1 0-.1-.1-.2-.1s-.2 0-.2.1c-.1.1-.1.3.1.4h.1c.1.1.2.1.2.1.2.1.3.2.4.3 0 0 .1.1.1.2l.1.1c-.5.7-.7 1.6-.6 2.5h-.1l-.1.1c-.1 0-.3.1-.5.1h-.4c-.2 0-.3.2-.2.3 0 .1.2.2.4.2h.1c.1 0 .2-.1.3-.1.2-.1.3-.1.5-.1.1 0 .1 0 .2.1h.1c.3.9.9 1.6 1.6 2l-.1.1v.2c-.1.1-.1.3-.3.5-.1.1-.1.1-.1.2v.1c-.1.2 0 .3.1.4s.3 0 .4-.2v-.1c0-.1.1-.2.1-.3.1-.2.1-.4.2-.5 0 0 .1 0 .1-.1l.1-.1c.6.2 1.4.3 2.1.2.2 0 .3-.1.5-.1l.1.1s.1 0 .1.1c.1.1.1.3.2.5 0 .1 0 .2.1.3v.1c.1.2.2.2.4.2.1-.1.2-.2.1-.4v-.1c0-.1-.1-.1-.1-.2-.1-.2-.2-.3-.2-.4V10.4c.8-.5 1.3-1.2 1.6-2h.1s.1-.1.2-.1.3.1.5.1c.1 0 .2.1.3.1h.1c.2 0 .3-.1.4-.2 0-.1-.1-.3-.2-.3h-.4c-.2 0-.4 0-.5-.1-.1 0-.1-.1-.1-.1h-.1c.1-.4 0-.9-.1-1.3s-.3-.9-.5-1.2l.1-.1c0-.1 0-.1.1-.2s.2-.2.4-.3c.1 0 .2-.1.2-.1h.1c.1-.1.2-.3.1-.4s-.3-.1-.4 0h-.1l-.2.2c-.1.1-.3.3-.4.3H10l-.1.1c-.6-.6-1.4-1-2.3-1.1v-.1l-.1-.1V3v-.4c-.2-.3-.3-.5-.5-.5zm-.3 2.2l-.1 1.5c0 .1-.1.2-.2.2h-.1l-1.2-.9c.4-.4.8-.6 1.4-.8zm.7 0c.6.1 1.2.4 1.7.8l-1.2.8c-.1.1-.3.1-.3 0l-.1-.1zM4.6 5.7l1.1 1c.1.1.1.2 0 .3l-.1.1-1.4.4c-.1-.7 0-1.3.4-1.8zm4.9 0c.2.3.3.6.4.9s.1.6.1.9l-1.4-.4c-.1 0-.2-.2-.2-.3s0-.1.1-.1zm-2.7 1h.4l.3.3-.1.4-.4.2-.4-.2-.1-.4zm1.4 1.2c.1 0 .1 0 0 0l1.5.2c-.2.6-.6 1.1-1.2 1.5l-.6-1.4c.1-.1.1-.2.3-.3zm-2.4 0c.1 0 .2.1.2.2v.2l-.6 1.4c-.5-.3-.9-.8-1.2-1.5zm1.2.6l.2.1.7 1.3c-.1 0-.2.1-.3.1-.5.1-1.1.1-1.6-.1l.7-1.3c.2 0 .2-.1.3-.1z"
-                        fill="#fff"
-                        stroke="#fff"
-                        stroke-width="0.25"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <section>
-                  K8s Manifest
-                </section>
-              </div>
-              <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
-                data-index="1"
-                tabindex="0"
-              >
-                <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                >
-                  <span
-                    class="bp3-icon StyledProps---main--1Wws"
-                  >
-                    <svg
-                      height="35"
-                      viewBox="0 0 15 14"
-                      width="35"
-                    >
-                      <path
-                        d="M4.64.866H3.214A2.352 2.352 0 00.862 3.217v1.427a2.352 2.352 0 002.352 2.351H4.64a2.352 2.352 0 002.352-2.351V3.217A2.352 2.352 0 004.64.866zm1.255 3.778c0 .691-.563 1.254-1.255 1.254H3.214A1.256 1.256 0 011.96 4.644V3.217c0-.691.562-1.254 1.254-1.254H4.64c.692 0 1.255.563 1.255 1.254v1.427zm5.8-3.778H10.27a2.352 2.352 0 00-2.351 2.351v1.427a2.352 2.352 0 002.351 2.351h1.427a2.352 2.352 0 002.351-2.351V3.217A2.352 2.352 0 0011.696.866zm1.255 3.778c0 .691-.563 1.254-1.254 1.254h-1.427a1.256 1.256 0 01-1.254-1.254V3.217c0-.691.563-1.254 1.254-1.254h1.427c.691 0 1.254.563 1.254 1.254v1.427zM4.64 7.773H3.214a2.352 2.352 0 00-2.352 2.351v1.427a2.352 2.352 0 002.352 2.352H4.64a2.352 2.352 0 002.352-2.352v-1.427A2.352 2.352 0 004.64 7.773zm1.255 3.778c0 .691-.563 1.254-1.255 1.254H3.214a1.256 1.256 0 01-1.254-1.254v-1.427c0-.691.562-1.254 1.254-1.254H4.64c.692 0 1.255.563 1.255 1.254v1.427zm8.294-1.984a.549.549 0 01-.549.549H8.466a.549.549 0 010-1.098h5.174a.55.55 0 01.549.549zm0 3.397a.549.549 0 01-.549.549H8.466a.549.549 0 110-1.098h5.174a.55.55 0 01.549.549z"
-                        fill="#25A6F7"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <section>
-                  Values Override
-                </section>
-              </div>
-            </div>
+                <path
+                  d="M4.64.866H3.214A2.352 2.352 0 00.862 3.217v1.427a2.352 2.352 0 002.352 2.351H4.64a2.352 2.352 0 002.352-2.351V3.217A2.352 2.352 0 004.64.866zm1.255 3.778c0 .691-.563 1.254-1.255 1.254H3.214A1.256 1.256 0 011.96 4.644V3.217c0-.691.562-1.254 1.254-1.254H4.64c.692 0 1.255.563 1.255 1.254v1.427zm5.8-3.778H10.27a2.352 2.352 0 00-2.351 2.351v1.427a2.352 2.352 0 002.351 2.351h1.427a2.352 2.352 0 002.351-2.351V3.217A2.352 2.352 0 0011.696.866zm1.255 3.778c0 .691-.563 1.254-1.254 1.254h-1.427a1.256 1.256 0 01-1.254-1.254V3.217c0-.691.563-1.254 1.254-1.254h1.427c.691 0 1.254.563 1.254 1.254v1.427zM4.64 7.773H3.214a2.352 2.352 0 00-2.352 2.351v1.427a2.352 2.352 0 002.352 2.352H4.64a2.352 2.352 0 002.352-2.352v-1.427A2.352 2.352 0 004.64 7.773zm1.255 3.778c0 .691-.563 1.254-1.255 1.254H3.214a1.256 1.256 0 01-1.254-1.254v-1.427c0-.691.562-1.254 1.254-1.254H4.64c.692 0 1.255.563 1.255 1.254v1.427zm8.294-1.984a.549.549 0 01-.549.549H8.466a.549.549 0 010-1.098h5.174a.55.55 0 01.549.549zm0 3.397a.549.549 0 01-.549.549H8.466a.549.549 0 110-1.098h5.174a.55.55 0 01.549.549z"
+                  fill="#25A6F7"
+                />
+              </svg>
+            </span>
           </div>
+          <section>
+            Values Override
+          </section>
         </div>
       </div>
     </div>
@@ -928,297 +880,281 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
 
 exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
 <div
-  class="bp3-portal"
+  class="bp3-dialog modal bp3-dialog"
+  style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
-    class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container"
+    class="bp3-dialog-header"
+  >
+    <h4
+      class="bp3-heading"
+    />
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    class="exampleWizard"
   >
     <div
-      class="bp3-overlay-backdrop bp3-overlay-appear-done bp3-overlay-enter-done"
-    />
-    <div
-      class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear-done bp3-overlay-enter-done"
-      tabindex="0"
+      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
     >
       <div
-        class="bp3-dialog modal bp3-dialog"
-        style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
+        class="StepWizard---navBarList--2ILN"
       >
         <div
-          class="bp3-dialog-header"
+          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
         >
-          <h4
-            class="bp3-heading"
-          />
-          <button
-            aria-label="Close"
-            class="bp3-button bp3-minimal bp3-dialog-close-button"
-            type="button"
+          <span
+            class="StepWizard---number--1LKy"
           >
-            <span
-              class="bp3-icon bp3-icon-small-cross"
-              icon="small-cross"
-            >
-              <svg
-                data-icon="small-cross"
-                height="20"
-                viewBox="0 0 20 20"
-                width="20"
-              >
-                <desc>
-                  small-cross
-                </desc>
-                <path
-                  d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+            1
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            SPECIFY MANIFEST SERVER
+          </p>
         </div>
         <div
-          class="exampleWizard"
+          class="StepWizard---navStep--2trN"
         >
-          <div
-            class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+          <span
+            class="StepWizard---number--1LKy"
           >
-            <div
-              class="StepWizard---navBarList--2ILN"
+            2
+          </span>
+          <p
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            MANIFEST SOURCE
+          </p>
+        </div>
+      </div>
+      <div
+        class="StepWizard---stepDetails--Uaxx"
+      >
+         
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+          style="height: 100%;"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+          >
+            MANIFEST SOURCE
+          </p>
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="formContainerStepOne"
             >
               <div
-                class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                style="align-items: center;"
               >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  1
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  SPECIFY MANIFEST SERVER
-                </p>
-              </div>
-              <div
-                class="StepWizard---navStep--2trN"
-              >
-                <span
-                  class="StepWizard---number--1LKy"
-                >
-                  2
-                </span>
-                <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-                  style="--text-line-clamp: 2; width: 240px;"
-                >
-                  MANIFEST SOURCE
-                </p>
-              </div>
-            </div>
-            <div
-              class="StepWizard---stepDetails--Uaxx"
-            >
-               
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---padding-small--3f0A"
-                style="height: 100%;"
-              >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
-                >
-                  MANIFEST SOURCE
-                </p>
                 <div
-                  class="OverlaySpinner---overlaySpinner--3Bs3"
+                  class="bp3-form-group"
                 >
-                  <form
-                    class="formContainerStepOne"
+                  <label
+                    class="bp3-label"
+                    for="gitServer"
+                  >
+                    GIT Server
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
-                      style="align-items: center;"
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      style="width: 400px;"
                     >
-                      <div
-                        class="bp3-form-group"
+                      <span
+                        class="bp3-popover-wrapper"
                       >
-                        <label
-                          class="bp3-label"
-                          for="gitServer"
+                        <span
+                          class="bp3-popover-target"
                         >
-                          GIT Server
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
-                            style="width: 400px;"
+                          <button
+                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                            style="width: 372px;"
+                            type="button"
                           >
                             <span
-                              class="bp3-popover-wrapper"
+                              class="bp3-button-text"
                             >
-                              <span
-                                class="bp3-popover-target"
+                              <div
+                                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                style="justify-content: space-between; width: 100%;"
                               >
-                                <button
-                                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
-                                  style="width: 372px;"
-                                  type="button"
+                                <p
+                                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                >
+                                  dockerAleks
+                                </p>
+                                <div
+                                  class="rightStatus"
                                 >
                                   <span
-                                    class="bp3-button-text"
-                                  >
-                                    <div
-                                      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
-                                      style="justify-content: space-between; width: 100%;"
-                                    >
-                                      <p
-                                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                                      >
-                                        dockerAleks
-                                      </p>
-                                      <div
-                                        class="rightStatus"
-                                      >
-                                        <span
-                                          class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
-                                          icon="full-circle"
-                                        >
-                                          <svg
-                                            data-icon="full-circle"
-                                            height="6"
-                                            viewBox="0 0 16 16"
-                                            width="6"
-                                          >
-                                            <desc>
-                                              full-circle
-                                            </desc>
-                                            <path
-                                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                              fill-rule="evenodd"
-                                            />
-                                          </svg>
-                                        </span>
-                                        <span
-                                          class="Tag---main--1vng"
-                                        >
-                                          <span
-                                            class="bp3-tag bp3-minimal tag"
-                                          >
-                                            <span
-                                              class="bp3-text-overflow-ellipsis bp3-fill"
-                                            >
-                                              account
-                                            </span>
-                                          </span>
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </span>
-                                  <span
-                                    class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
-                                    icon="caret-down"
+                                    class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                    icon="full-circle"
                                   >
                                     <svg
-                                      data-icon="caret-down"
-                                      height="16"
+                                      data-icon="full-circle"
+                                      height="6"
                                       viewBox="0 0 16 16"
-                                      width="16"
+                                      width="6"
                                     >
                                       <desc>
-                                        caret-down
+                                        full-circle
                                       </desc>
                                       <path
-                                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
                                         fill-rule="evenodd"
                                       />
                                     </svg>
                                   </span>
-                                </button>
-                              </span>
+                                  <span
+                                    class="Tag---main--1vng"
+                                  >
+                                    <span
+                                      class="bp3-tag bp3-minimal tag"
+                                    >
+                                      <span
+                                        class="bp3-text-overflow-ellipsis bp3-fill"
+                                      >
+                                        account
+                                      </span>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
                             </span>
                             <span
-                              class="bp3-popover-wrapper"
+                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              icon="caret-down"
                             >
-                              <span
-                                class="bp3-popover-target"
+                              <svg
+                                data-icon="caret-down"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
                               >
-                                <button
-                                  class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
-                                  >
-                                    <svg
-                                      height="12"
-                                      viewBox="0 0 9 9"
-                                      width="12"
-                                    >
-                                      <path
-                                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                        fill="#009dff"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
                             </span>
-                          </div>
-                        </div>
-                      </div>
-                      <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-                        type="button"
+                          </button>
+                        </span>
+                      </span>
+                      <span
+                        class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-                          icon="plus"
+                          class="bp3-popover-target"
                         >
-                          <svg
-                            data-icon="plus"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
+                          <button
+                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
                           >
-                            <desc>
-                              plus
-                            </desc>
-                            <path
-                              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <span
+                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 9 9"
+                                width="12"
+                              >
+                                <path
+                                  d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                  fill="#009dff"
+                                />
+                              </svg>
+                            </span>
+                          </button>
                         </span>
-                        <span
-                          class="bp3-button-text"
-                        >
-                          New Manifest Server
-                        </span>
-                      </button>
+                      </span>
                     </div>
-                    <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws bottomButtons"
-                    >
-                      <button
-                        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-                        type="submit"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          Save and Continue
-                        </span>
-                      </button>
-                    </div>
-                  </form>
+                  </div>
                 </div>
+                <button
+                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    icon="plus"
+                  >
+                    <svg
+                      data-icon="plus"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        plus
+                      </desc>
+                      <path
+                        d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    New Manifest Server
+                  </span>
+                </button>
               </div>
-            </div>
+              <div
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws bottomButtons"
+              >
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save and Continue
+                  </span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
