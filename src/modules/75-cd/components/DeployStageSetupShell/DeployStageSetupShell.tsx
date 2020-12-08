@@ -212,10 +212,9 @@ export default function DeployStageSetupShell(): JSX.Element {
             }
             panel={
               <ExecutionGraph
-                allowAddGroup={true} // default true
-                hasRollback={true} // default true
-                hasDependencies={false} // default false
-                //
+                allowAddGroup={true}
+                hasRollback={true}
+                hasDependencies={false}
                 stepsFactory={stepsFactory}
                 stage={selectedStage!}
                 updateStage={() => {

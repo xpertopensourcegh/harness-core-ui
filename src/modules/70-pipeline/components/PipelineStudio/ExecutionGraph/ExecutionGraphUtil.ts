@@ -263,15 +263,17 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
 export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNodeModel): boolean => {
   // 1. services
   const servicesData = state.dependenciesData
-  let idx
-  servicesData.forEach((service, _idx) => {
-    if (service.identifier === entity.getOptions().identifier) {
-      idx = _idx
+  if (servicesData) {
+    let idx
+    servicesData.forEach((service, _idx) => {
+      if (service.identifier === entity.getOptions().identifier) {
+        idx = _idx
+      }
+    })
+    if (idx !== undefined) {
+      servicesData.splice(idx, 1)
+      return true
     }
-  })
-  if (idx !== undefined) {
-    servicesData.splice(idx, 1)
-    return true
   }
 
   // 2. steps

@@ -144,7 +144,7 @@ export const removeNodeFromPipeline = (
         parent.parallel.splice(parallelIndex, 1)
         if (parent.parallel.length === 0) {
           const emptyParallel = data?.stages?.indexOf(parent)
-          if (emptyParallel && emptyParallel > -1) {
+          if (emptyParallel !== undefined && emptyParallel > -1) {
             data?.stages?.splice(emptyParallel, 1)
           }
         }

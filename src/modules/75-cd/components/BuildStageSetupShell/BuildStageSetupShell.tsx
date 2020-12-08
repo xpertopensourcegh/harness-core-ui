@@ -182,10 +182,9 @@ export default function BuildStageSetupShell(): JSX.Element {
             }
             panel={
               <ExecutionGraph
-                allowAddGroup={true}
+                allowAddGroup={false}
                 hasRollback={false}
                 hasDependencies={true}
-                //
                 stepsFactory={stepsFactory}
                 stage={selectedStage!}
                 updateStage={() => {
