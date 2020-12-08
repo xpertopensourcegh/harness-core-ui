@@ -52,6 +52,7 @@ export interface ExecutionPipelineGroupInfo<T> {
   cssProps?: React.CSSProperties
   icon: IconName
   showLines?: boolean // default true
+  showInLabel?: boolean // Default = true
   status: ExecutionPipelineItemStatus
   isOpen: boolean
   items: Array<ExecutionPipelineNode<T>>

@@ -30,6 +30,7 @@ export enum StepTypes {
   SERVICE = 'SERVICE',
   INFRASTRUCTURE = 'INFRASTRUCTURE',
   GENERIC_SECTION = 'GENERIC_SECTION',
+  SECTION_CHAIN = 'SECTION_CHAIN',
   K8S_ROLLING = 'K8S_ROLLING',
   FORK = 'FORK',
   HTTP = 'HTTP'
@@ -39,6 +40,7 @@ const IconsMap: { [key in StepTypes]: IconName } = {
   SERVICE: 'main-services',
   GENERIC_SECTION: 'step-group',
   K8S_ROLLING: 'service-kubernetes',
+  SECTION_CHAIN: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
   FORK: 'fork',
   HTTP: 'command-http'
@@ -52,16 +54,43 @@ const processNodeData = (
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
   children?.forEach(item => {
     const nodeData = nodeMap?.[item]
-    items.push({
-      item: {
-        name: nodeData?.name || /* istanbul ignore next */ '',
-        icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
-        identifier: item,
-        status: nodeData?.status as any,
-        type: ExecutionPipelineNodeType.NORMAL,
-        data: nodeData
-      }
-    })
+    if (nodeData?.stepType === StepTypes.FORK) {
+      items.push({
+        parallel: processNodeData(
+          nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
+          nodeMap,
+          nodeAdjacencyListMap
+        )
+      })
+    } else if (nodeData?.stepType === StepTypes.SECTION_CHAIN) {
+      items.push({
+        group: {
+          name: nodeData.name || /* istanbul ignore next */ '',
+          identifier: item,
+          data: nodeData,
+          showInLabel: false,
+          status: nodeData.status as any,
+          isOpen: true,
+          icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+          items: processNodeData(
+            nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
+            nodeMap,
+            nodeAdjacencyListMap
+          )
+        }
+      })
+    } else {
+      items.push({
+        item: {
+          name: nodeData?.name || /* istanbul ignore next */ '',
+          icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+          identifier: item,
+          status: nodeData?.status as any,
+          type: ExecutionPipelineNodeType.NORMAL,
+          data: nodeData
+        }
+      })
+    }
     const nextIds = nodeAdjacencyListMap?.[item].nextIds || /* istanbul ignore next */ []
     nextIds.forEach(id => {
       const nodeDataNext = nodeMap?.[id]

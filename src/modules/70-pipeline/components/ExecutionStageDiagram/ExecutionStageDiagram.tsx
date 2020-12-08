@@ -103,7 +103,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
 
   React.useEffect(() => {
-    const stageData = getGroupsFromData(data)
+    const stageData = getGroupsFromData(data.items)
     setGroupStage(stageData)
   }, [data])
 
@@ -229,21 +229,23 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
           </StageSelection>
           {groupStage && groupStage.size > 0 && (
             <div className={css.groupLabels}>
-              {[...groupStage].map(item => (
-                <span
-                  onClick={e => {
-                    e.currentTarget.classList.add(css.selectedLabel)
-                    moveStageToFocus(engine, item[1].identifier)
-                  }}
-                  onAnimationEnd={e => {
-                    e.currentTarget.classList.remove(css.selectedLabel)
-                  }}
-                  className={css.label}
-                  key={item[0]}
-                >
-                  {item[1].name}
-                </span>
-              ))}
+              {[...groupStage]
+                .filter(item => item[1].showInLabel)
+                .map(item => (
+                  <span
+                    onClick={e => {
+                      e.currentTarget.classList.add(css.selectedLabel)
+                      moveStageToFocus(engine, item[1].identifier)
+                    }}
+                    onAnimationEnd={e => {
+                      e.currentTarget.classList.remove(css.selectedLabel)
+                    }}
+                    className={css.label}
+                    key={item[0]}
+                  >
+                    {item[1].name}
+                  </span>
+                ))}
             </div>
           )}
         </Layout.Horizontal>

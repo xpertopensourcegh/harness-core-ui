@@ -1,10 +1,43 @@
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Color, IconName } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
-import { ExecutionPipelineItemStatus, ExecutionPipeline, ExecutionPipelineItem } from './ExecutionPipelineModel'
+import {
+  ExecutionPipelineItemStatus,
+  ExecutionPipeline,
+  ExecutionPipelineItem,
+  ExecutionPipelineNode
+} from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
+
+export const calculateDepthCount = <T>(items: Array<ExecutionPipelineNode<T>>): number => {
+  let depth = 1 // half of gap
+  items?.forEach(node => {
+    if (node.group) {
+      depth += 0.8
+      const groupItems = node.group.items
+      let maxParallelLength = 0
+      let maxGroupDepth = 0
+      groupItems.forEach(groupItem => {
+        if (groupItem.parallel && groupItem.parallel.length > maxParallelLength) {
+          maxParallelLength = groupItem.parallel.length
+        }
+        if (groupItem.group?.items) {
+          const groupDepth = calculateDepthCount(groupItem.group.items)
+          if (groupDepth > maxGroupDepth) {
+            maxGroupDepth = groupDepth
+          }
+        }
+      })
+      depth += maxParallelLength * 0.5
+      if (maxGroupDepth > 0) {
+        depth += maxGroupDepth
+      }
+    }
+  })
+  return depth
+}
 
 export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItemStatus): React.CSSProperties => {
   const style = {} as React.CSSProperties
@@ -141,26 +174,33 @@ export interface GroupState<T> {
   data?: T
   collapsed: boolean
   name: string
+  showInLabel: boolean
   status: ExecutionPipelineItemStatus
   identifier: string
 }
 
-export const getGroupsFromData = <T>(data: ExecutionPipeline<T>): Map<string, GroupState<T>> => {
-  const groupState = new Map<string, GroupState<T>>()
-  data.items.forEach(node => {
+export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Map<string, GroupState<T>> => {
+  let groupState = new Map<string, GroupState<T>>()
+  items.forEach(node => {
     if (node.group) {
       groupState.set(node.group.identifier, {
         collapsed: false,
         name: node.group.name,
         status: node.group.status,
         identifier: node.group.identifier,
+        showInLabel: node.group.showInLabel ?? true,
         data: node.group.data
       })
+      if (node.group.items.length > 0) {
+        const itemsGroupState = getGroupsFromData(node.group.items)
+        groupState = new Map([...groupState, ...itemsGroupState])
+      }
     } else if (node.item?.showInLabel) {
       groupState.set(node.item.identifier, {
         collapsed: false,
         name: node.item.name,
         status: node.item.status,
+        showInLabel: node.item.showInLabel,
         identifier: node.item.identifier,
         data: node.item.data
       })

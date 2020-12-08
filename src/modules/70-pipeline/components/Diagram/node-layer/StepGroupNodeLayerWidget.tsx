@@ -109,7 +109,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           top: config.minY - 40 * depth,
           pointerEvents: allowAdd ? 'all' : 'none',
           position: 'absolute',
-          height: height + 100
+          height: height
         }}
         onDragOver={event => {
           if (allowAdd) {

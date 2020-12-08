@@ -103,6 +103,45 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
               }
             },
             {
+              group: {
+                icon: 'step-group',
+                identifier: 'Step-Group',
+                name: 'Step Group HTTP',
+                isOpen: true,
+                showInLabel: false,
+                status: ExecutionPipelineItemStatus.RUNNING,
+                data: {
+                  label: 'step-group'
+                },
+                items: [
+                  {
+                    item: {
+                      icon: 'badge' as any,
+                      identifier: 'badge',
+                      name: 'Badge',
+                      status: ExecutionPipelineItemStatus.ABORTED,
+                      type: ExecutionPipelineNodeType.NORMAL,
+                      data: {
+                        label: 'badge'
+                      }
+                    }
+                  },
+                  {
+                    item: {
+                      icon: 'barcode' as any,
+                      identifier: 'barcode',
+                      name: 'barcode',
+                      status: ExecutionPipelineItemStatus.NOT_STARTED,
+                      type: ExecutionPipelineNodeType.NORMAL,
+                      data: {
+                        label: 'barcode'
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
               item: {
                 icon: 'barcode' as any,
                 identifier: 'barcode',

@@ -9,7 +9,13 @@ import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType
 } from './ExecutionPipelineModel'
-import { getNodeStyles, getStatusProps, getArrowsColor, GroupState } from './ExecutionStageDiagramUtils'
+import {
+  getNodeStyles,
+  getStatusProps,
+  getArrowsColor,
+  GroupState,
+  calculateDepthCount
+} from './ExecutionStageDiagramUtils'
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
 
@@ -277,6 +283,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           new Diagram.StepGroupNodeLayerModel({
             identifier: node.group.identifier,
             id: node.group.identifier,
+            depth: calculateDepthCount(node.group.items),
             label: node.group.name,
             showRollback: false
           })
@@ -341,7 +348,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         this.useNormalLayer()
         return { startX, startY, prevNodes: prevNodes }
       } else {
-        this.clearAllLinksForGroupLayer(node.group.identifier)
+        this.clearAllStageGroups(node)
         startX += this.gap
         const nodeRender =
           this.getNodeFromId(node.group.identifier) ||
@@ -371,6 +378,20 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       }
     }
     return { startX, startY }
+  }
+
+  clearAllStageGroups<T>(node: ExecutionPipelineNode<T>): void {
+    if (node.group) {
+      this.clearAllLinksForGroupLayer(node.group.identifier)
+      const items = node.group.items
+      if (items.length > 0) {
+        items.forEach(item => {
+          if (item.group) {
+            this.clearAllStageGroups(item)
+          }
+        })
+      }
+    }
   }
 
   addUpdateGraph<T>(
