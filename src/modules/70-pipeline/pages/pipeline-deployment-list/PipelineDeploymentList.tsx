@@ -71,7 +71,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       error={error?.message}
       retryOnError={() => refetch?.()}
       noData={{
-        when: () => !hasFilters && !loading && !pipelineExecutionSummary?.data?.content?.length,
+        when: () => !hasFilters && !pipelineExecutionSummary?.data?.content?.length,
         icon: 'cd-hover',
         message: getString('noDeploymentText'),
         buttonText: getString('runPipelineText'),
