@@ -91,8 +91,9 @@
 
   .footer {
     position: fixed;
+    display: block !important;
     bottom: 0px;
-    width: 100%;
+    width: 100% !important;
     background-color: var(--white);
     z-index: 1;
     box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);

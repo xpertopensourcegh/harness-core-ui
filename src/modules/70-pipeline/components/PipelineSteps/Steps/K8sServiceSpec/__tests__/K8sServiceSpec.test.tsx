@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, findByText, waitFor } from '@testing-library/react'
+import { render, fireEvent, findByText, waitFor, getAllByText } from '@testing-library/react'
 
 import { act } from 'react-test-renderer'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -166,6 +166,51 @@ describe('StepWidget tests', () => {
     fireEvent.click(manifests)
     expect(manifests.getAttribute('aria-selected')).toEqual('true')
   })
+
+  test(`shows add manifests modal`, async () => {
+    const { container } = render(
+      <TestWrapper
+        path="account/:accountId/cd/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/P1/ui/"
+        pathParams={{
+          identifier: 'dummy',
+          accountId: 'dummy',
+          orgIdentifier: 'dummy',
+          projectIdentifier: 'dummy'
+        }}
+      >
+        <StepWidget<K8SDirectServiceStep>
+          factory={factory}
+          initialValues={serviceTabInitialValues}
+          type={StepType.K8sServiceSpec}
+          stepViewType={StepViewType.Edit}
+        />
+      </TestWrapper>
+    )
+    const manifests = await findByText(container, 'Manifests')
+    expect(manifests).toBeDefined()
+
+    fireEvent.click(manifests)
+    expect(manifests.getAttribute('aria-selected')).toEqual('true')
+    //create manifests
+    const addManifestButton = await findByText(container, '+ Add Manifest')
+    expect(addManifestButton).toBeDefined()
+    fireEvent.click(addManifestButton)
+    const portal = document.getElementsByClassName('bp3-portal')[0]
+    const k8sButton = await waitFor(() => findByText(portal as HTMLElement, 'K8s Manifest'))
+    expect(portal).toMatchSnapshot('Create Manifest modal')
+    expect(k8sButton).toBeDefined()
+    fireEvent.click(k8sButton)
+    await waitFor(() => findByText(portal as HTMLElement, 'GIT Server'))
+    const serverInput = await findByText(portal as HTMLElement, 'Select GIT Server')
+    fireEvent.click(serverInput)
+    await waitFor(() => findByText(document.body, 'Account'))
+
+    const firstAccount = getAllByText(document.body, 'dockerAleks')[0]
+    expect(firstAccount).toBeDefined()
+    fireEvent.click(firstAccount)
+    expect(portal).toMatchSnapshot('Git Server Step')
+  })
+
   test(`shows add artifact modal`, async () => {
     const { container } = render(
       <TestWrapper

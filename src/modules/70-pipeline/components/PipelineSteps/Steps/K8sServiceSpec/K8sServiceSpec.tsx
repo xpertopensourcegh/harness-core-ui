@@ -93,21 +93,24 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
 
     return setState(updatedState)
   }
+  const { getString } = useStrings()
 
   return (
     <Layout.Vertical spacing="medium">
       <>
         {template?.artifacts?.primary && (
-          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>Primary Artifact</Text>
+          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
+            {getString('primaryArtifactText')}
+          </Text>
         )}
         {template?.artifacts?.primary && (
           <Layout.Vertical key="primary">
-            {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
+            {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
               MultiTypeInputType.RUNTIME && (
-              <FormGroup labelFor={'identifier'} label={'Artifact Server'}>
+              <FormGroup labelFor={'connectorRef'} label={getString('pipelineSteps.deploy.inputSet.artifactServer')}>
                 <TextInput
                   style={{ width: 400 }}
-                  name="identifier"
+                  name="connectorRef"
                   defaultValue={
                     getMultiTypeFromValue(get(initialValues, `artifacts.primary.spec.connectorRef`, '')) ===
                     MultiTypeInputType.RUNTIME
@@ -126,10 +129,10 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
             )}
             {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
               MultiTypeInputType.RUNTIME && (
-              <FormGroup labelFor="identifier" label={'Image Path'}>
+              <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
                 <TextInput
                   style={{ width: 400 }}
-                  name="identifier"
+                  name="imagePath"
                   defaultValue={
                     getMultiTypeFromValue(get(initialValues, `artifacts.primary.spec.imagePath`, '')) ===
                     MultiTypeInputType.RUNTIME
@@ -149,7 +152,9 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           </Layout.Vertical>
         )}
         {template?.artifacts?.sidecars?.length && (
-          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>Sidecar Artifact</Text>
+          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
+            {getString('sidecarArtifactText')}
+          </Text>
         )}
         {template?.artifacts?.sidecars?.map(
           (
@@ -168,10 +173,13 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
               <Layout.Vertical key={identifier}>
                 <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                  <FormGroup labelFor={'identifier'} label={'Artifact Server'}>
+                  <FormGroup
+                    labelFor={'connectorRef'}
+                    label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
+                  >
                     <TextInput
                       style={{ width: 400 }}
-                      name="identifier"
+                      name="connectorRef"
                       defaultValue={
                         getMultiTypeFromValue(connectorRefValue) === MultiTypeInputType.RUNTIME ? '' : connectorRefValue
                       }
@@ -187,10 +195,10 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
                   </FormGroup>
                 )}
                 {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
-                  <FormGroup labelFor="identifier" label={'Image Path'}>
+                  <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
                     <TextInput
                       style={{ width: 400 }}
-                      name="identifier"
+                      name="imagePath"
                       defaultValue={
                         getMultiTypeFromValue(imagePathValue) === MultiTypeInputType.RUNTIME ? '' : imagePathValue
                       }
@@ -212,7 +220,9 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
       </>
       <>
         {template?.manifests?.length && (
-          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>Manifests</Text>
+          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
+            {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          </Text>
         )}
         {template?.manifests?.map(
           (
@@ -221,7 +231,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
                 identifier,
                 spec: {
                   store: {
-                    spec: { branch }
+                    spec: { branch, connectorRef }
                   }
                 }
               }
@@ -229,11 +239,38 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
             index: number
           ) => {
             const branchValue = get(initialValues, `manifests[${index}].manifest.spec.store.spec.branch`, '')
+            const connectorRefValue = get(
+              initialValues,
+              `manifests[${index}].manifest.spec.store.spec.connectorRef`,
+              ''
+            )
             return (
               <Layout.Vertical key={identifier}>
-                <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
+                <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>{' '}
+                {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
+                  <FormGroup
+                    labelFor={'connectorRef'}
+                    label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
+                  >
+                    <TextInput
+                      style={{ width: 400 }}
+                      name="connectorRef"
+                      defaultValue={
+                        getMultiTypeFromValue(connectorRefValue) === MultiTypeInputType.RUNTIME ? '' : connectorRefValue
+                      }
+                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                        updateState({
+                          index,
+                          value: event.currentTarget.value,
+                          key: 'connectorRef',
+                          artifactType: 'manifests'
+                        })
+                      }}
+                    ></TextInput>
+                  </FormGroup>
+                )}
                 {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
-                  <FormGroup labelFor={'identifier'} label={'Branch'}>
+                  <FormGroup labelFor={'branch'} label={getString('pipelineSteps.deploy.inputSet.branch')}>
                     <TextInput
                       style={{ width: 400 }}
                       name="branch"

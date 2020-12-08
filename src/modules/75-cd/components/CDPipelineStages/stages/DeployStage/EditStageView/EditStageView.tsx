@@ -18,9 +18,9 @@ import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import { CustomVariables } from '@pipeline/components/CustomVariables/CustomVariables'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
-
 const newStageData = [
   {
     text: i18n.service,
@@ -57,128 +57,139 @@ export interface EditStageView {
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context, onChange }): JSX.Element => {
   const [isDescriptionVisible, toggleDescription] = React.useState(!!data?.stage?.description)
+
   const removeDescription = (values: any) => {
     onChange?.({ ...values, description: '' })
     toggleDescription(false)
   }
+
   const { getString } = useStrings()
   return (
-    <div className={css.stageSection}>
-      {context && <Layout.Vertical className={css.tabHeading}>{i18n.stageDetails}</Layout.Vertical>}
-      <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
-        {!context && (
-          <Text icon="pipeline-deploy" iconProps={{ size: 16 }}>
-            {i18n.aboutYourStage}
-          </Text>
-        )}
-        <Container padding="medium">
-          <Formik
-            initialValues={{
-              identifier: data?.stage.identifier,
-              name: data?.stage.name,
-              description: data?.stage.description,
-              serviceType: newStageData[0]
-            }}
-            onSubmit={values => {
-              if (data) {
-                data.stage.identifier = values.identifier
-                data.stage.name = values.name
-                onSubmit?.(data, values.identifier)
-              }
-            }}
-            validate={values => {
-              if (context && data) {
-                onChange?.(values)
-              }
-            }}
-            validationSchema={Yup.object().shape({
-              name: Yup.string().required(i18n.stageNameRequired)
-            })}
-          >
-            {formikProps => {
-              return (
-                <FormikForm>
-                  <div className={cx({ [css.inputContainer]: true, [css.sideDescription]: !!context })}>
-                    <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
+    <>
+      <div className={css.stageSection}>
+        {context && <Layout.Vertical className={css.tabHeading}>{i18n.stageDetails}</Layout.Vertical>}
+        <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
+          {!context && (
+            <Text icon="pipeline-deploy" iconProps={{ size: 16 }}>
+              {i18n.aboutYourStage}
+            </Text>
+          )}
+          <Container padding="medium">
+            <Formik
+              initialValues={{
+                identifier: data?.stage.identifier,
+                name: data?.stage.name,
+                description: data?.stage.description,
+                serviceType: newStageData[0]
+              }}
+              onSubmit={values => {
+                if (data) {
+                  data.stage.identifier = values.identifier
+                  data.stage.name = values.name
+                  onSubmit?.(data, values.identifier)
+                }
+              }}
+              validate={values => {
+                if (context && data) {
+                  onChange?.(values)
+                }
+              }}
+              validationSchema={Yup.object().shape({
+                name: Yup.string().required(i18n.stageNameRequired)
+              })}
+            >
+              {formikProps => {
+                return (
+                  <FormikForm>
+                    <div className={cx({ [css.inputContainer]: true, [css.sideDescription]: !!context })}>
+                      <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
 
-                    {!isDescriptionVisible && (
-                      <Button
-                        minimal
-                        text={getString('description')}
-                        icon="plus"
-                        onClick={() => toggleDescription(true)}
-                      />
-                    )}
-                  </div>
-                  {isDescriptionVisible && (
-                    <div>
-                      <span
-                        onClick={() => removeDescription(formikProps.values)}
-                        className={cx({ [css.removeLink]: true, [css.dialogView]: !context })}
-                      >
-                        {i18n.removeLabel}
-                      </span>
-                      <FormInput.TextArea
-                        name="description"
-                        label={getString('description')}
-                        style={{ width: context ? 440 : 320 }}
-                      />
+                      {!isDescriptionVisible && (
+                        <Button
+                          minimal
+                          text={getString('description')}
+                          icon="plus"
+                          onClick={() => toggleDescription(true)}
+                        />
+                      )}
                     </div>
-                  )}
-                  <div className={css.labelBold}>
-                    <Label>{i18n.whatToDeploy}</Label>
-                  </div>
-                  <div>
-                    <CardSelect
-                      type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType
-                      selected={formikProps.values.serviceType}
-                      onChange={item => formikProps.setFieldValue('serviceType', item)}
-                      renderItem={(item, selected) => (
+                    {isDescriptionVisible && (
+                      <div>
                         <span
-                          onClick={e => {
-                            if (item.disabled) {
-                              e.stopPropagation()
-                            }
-                          }}
+                          onClick={() => removeDescription(formikProps.values)}
+                          className={cx({ [css.removeLink]: true, [css.dialogView]: !context })}
                         >
-                          <Card selected={selected} interactive={!item.disabled} disabled={item.disabled}>
-                            <CardBody.Icon icon={item.icon as IconName} iconSize={25} />
-                          </Card>
-                          <Text
-                            font={{
-                              size: 'small',
-                              align: 'center'
-                            }}
-                            style={{
-                              color: selected ? 'var(--grey-900)' : 'var(--grey-350)'
+                          {i18n.removeLabel}
+                        </span>
+                        <FormInput.TextArea
+                          name="description"
+                          label={getString('description')}
+                          style={{ width: context ? 440 : 320 }}
+                        />
+                      </div>
+                    )}
+                    <div className={css.labelBold}>
+                      <Label>{i18n.whatToDeploy}</Label>
+                    </div>
+                    <div>
+                      <CardSelect
+                        type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType
+                        selected={formikProps.values.serviceType}
+                        onChange={item => formikProps.setFieldValue('serviceType', item)}
+                        renderItem={(item, selected) => (
+                          <span
+                            onClick={e => {
+                              if (item.disabled) {
+                                e.stopPropagation()
+                              }
                             }}
                           >
-                            {item.text}
-                          </Text>
-                        </span>
-                      )}
-                      data={newStageData}
-                      className={css.grid}
-                    />
-                  </div>
-                  {!context && (
-                    <div className={css.btnSetup}>
-                      <Button
-                        type="submit"
-                        intent="primary"
-                        text={i18n.setupStage}
-                        onClick={() => {
-                          formikProps.submitForm()
-                        }}
+                            <Card selected={selected} interactive={!item.disabled} disabled={item.disabled}>
+                              <CardBody.Icon icon={item.icon as IconName} iconSize={25} />
+                            </Card>
+                            <Text
+                              font={{
+                                size: 'small',
+                                align: 'center'
+                              }}
+                              style={{
+                                color: selected ? 'var(--grey-900)' : 'var(--grey-350)'
+                              }}
+                            >
+                              {item.text}
+                            </Text>
+                          </span>
+                        )}
+                        data={newStageData}
+                        className={css.grid}
                       />
                     </div>
-                  )}
-                </FormikForm>
-              )
-            }}
-          </Formik>
-        </Container>
+                    {!context && (
+                      <div className={css.btnSetup}>
+                        <Button
+                          type="submit"
+                          intent="primary"
+                          text={i18n.setupStage}
+                          onClick={() => {
+                            formikProps.submitForm()
+                          }}
+                        />
+                      </div>
+                    )}
+                  </FormikForm>
+                )
+              }}
+            </Formik>
+          </Container>
+        </div>
       </div>
-    </div>
+      <div className={css.stageSection}>
+        {context && <Layout.Vertical className={css.tabHeading}>{getString('variableLabel')}</Layout.Vertical>}
+
+        <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
+          {context && <CustomVariables />}
+        </div>
+      </div>
+    </>
   )
 }

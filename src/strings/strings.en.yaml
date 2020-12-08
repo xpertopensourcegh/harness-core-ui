@@ -20,6 +20,7 @@ global:
   buildText: Build
   buildsText: Builds
   primaryArtifactText: Primary Artifact
+  sidecarArtifactText: Sidecar Artifact
   sidecarsText: Sidecars
   manifestsText: Manifest
   errorSummaryText: Error Summary
@@ -210,6 +211,7 @@ global:
         setupStage: 'Setup Stage'
       stageSpecifications:
         stageNamePlaceholder: 'Enter your stage name'
+        variableNamePlaceholder: 'Enter Variable name'
         addDescription: 'description'
         addTags: 'tags'
         removeLabel: 'remove'
@@ -232,6 +234,11 @@ global:
         propagateConnectorLabel: 'Kubernetes Cluster'
         namespace: 'Namespace'
     deploy:
+      inputSet:
+        imagePath: 'Image Path'
+        artifactServer: 'Artifact Server'
+        branch: 'Branch'
+
       serviceSpecifications:
         deploymentTypes:
           artifacts: 'Artifacts'

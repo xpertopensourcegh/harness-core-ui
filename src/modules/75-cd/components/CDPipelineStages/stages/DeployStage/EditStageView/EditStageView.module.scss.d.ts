@@ -16,5 +16,14 @@ declare const styles: {
   readonly sideDescription: string
   readonly removeLink: string
   readonly dialogView: string
+  readonly variablesGrid: string
+  readonly variableTitle: string
+  readonly box: string
+  readonly row: string
+  readonly secretContainer: string
+  readonly addVariable: string
+  readonly editVariable: string
+  readonly fixed: string
+  readonly icon: string
 }
 export default styles

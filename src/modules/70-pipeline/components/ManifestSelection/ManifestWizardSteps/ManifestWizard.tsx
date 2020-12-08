@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { StepWizard, Layout, Button, Text, FormInput, Formik } from '@wings-software/uikit'
+import {
+  StepWizard,
+  Layout,
+  Button,
+  Text,
+  FormInput,
+  Formik,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uikit'
 import { Form } from 'formik'
 
 import * as Yup from 'yup'
@@ -124,7 +133,10 @@ const SecondStep = (props: any): JSX.Element => {
                 store: {
                   type: 'Git',
                   spec: {
-                    connectorRef: prevData?.gitServer?.value,
+                    connectorRef:
+                      getMultiTypeFromValue(prevData?.gitServer) === MultiTypeInputType.RUNTIME
+                        ? prevData?.gitServer
+                        : prevData?.gitServer?.value,
                     gitFetchType: formData?.gitFetchType,
                     branch: formData?.branch,
                     commitId: formData?.commitId,

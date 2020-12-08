@@ -21,12 +21,13 @@ export default function DeployStageSpecifications(): JSX.Element {
   } = React.useContext(PipelineContext)
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)
-  const [stageData, updateStageData] = React.useState({ ...stage?.stage })
+  const [stageData, updateStageData] = React.useState({ customVariables: [], ...stage?.stage })
   const StateRef = React.useRef(stageData)
   const updateStage = (data: any) => {
     updateStageData(data)
     StateRef.current = data
   }
+
   React.useEffect(() => {
     return () => {
       const _stageObj = stage?.stage
