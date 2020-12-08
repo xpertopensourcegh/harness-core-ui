@@ -4,3 +4,12 @@
   color: #fff;
   list-style: none;
 }
+
+.projectSelect {
+  :global {
+    .bp3-menu {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  }
+}

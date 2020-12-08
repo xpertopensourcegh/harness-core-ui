@@ -9,6 +9,7 @@ import qs from 'qs'
 import strings from 'strings/strings.en.yaml'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
+import type { Project } from 'services/cd-ng'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -33,6 +34,7 @@ export interface TestWrapperProps {
   queryParams?: Record<string, unknown>
   defaultAppStoreValues?: Partial<AppStoreContextProps>
   strings?: Record<string, unknown[]>
+  projects?: Project[]
 }
 
 export const prependAccountPath = (path: string): string => withAccountId(() => path)(accountPathProps)
@@ -50,7 +52,7 @@ export const NotFound = (): JSX.Element => {
 }
 
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
-  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {} } = props
+  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {}, projects = [] } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
   const routePath = compile(path)(pathParams) + search
@@ -61,7 +63,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     <AppStoreContext.Provider
       value={{
         strings,
-        projects: [],
+        projects,
         organisationsMap: new Map(),
         updateAppStore: jest.fn(),
         user: {},

@@ -9,8 +9,9 @@ import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/Rout
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { useStrings } from 'framework/exports'
+import { ModuleName } from 'framework/types/ModuleName'
 
-export default function CISideNav(): React.ReactElement {
+export default function CVSideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
   const routeMatch = useRouteMatch()
   const { getString } = useStrings()
@@ -20,6 +21,7 @@ export default function CISideNav(): React.ReactElement {
     <Layout.Vertical spacing="small">
       <SidebarLink label="Dashboard" to={routes.toCVHome({ accountId })} />
       <ProjectSelector
+        moduleFilter={ModuleName.CV}
         onSelect={data => {
           if (projectIdentifier) {
             // changing project

@@ -13,7 +13,7 @@ import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/Ac
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 
 export default (
-  <SidebarProvider navComponent={AccountSettingsSideNav} title="">
+  <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
     <Route path="/">
       <RouteWithLayout
         path={[

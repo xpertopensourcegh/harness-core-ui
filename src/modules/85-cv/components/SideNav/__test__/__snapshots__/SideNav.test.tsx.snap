@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidenav render 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+  >
+    <a
+      class="link"
+      href="/account/dummy/cv/home"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Dashboard
+      </p>
+    </a>
+    <div
+      class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+    >
+      <div
+        class="bp3-popover-target"
+      >
+        <div
+          class=""
+        >
+          <button
+            class="bp3-button bp3-minimal bp3-align-left projectButton"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Select Project
+            </span>
+            <span
+              class="bp3-icon bp3-icon-caret-down"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <a
+      class="link"
+      href="/account/dummy/cv/dashboard/org/dummy/project/dummy"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/datasources/org/dummy/project/dummy"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Data Sources
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/activities/org/dummy/project/dummy"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Activities
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/services/org/dummy/project/dummy"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Services
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/metric-pack/config/org/dummy/project/dummy"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Metric Packs
+      </p>
+    </a>
+    <div
+      class="bp3-popover-wrapper bp3-fill"
+    >
+      <div
+        class="bp3-popover-target"
+      >
+        <a
+          class="adminLink"
+          href="/account/dummy/cv/admin"
+        >
+          Admin
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

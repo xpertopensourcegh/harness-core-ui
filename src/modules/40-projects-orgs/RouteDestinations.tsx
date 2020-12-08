@@ -14,7 +14,7 @@ import SidebarProvider from '@common/navigation/SidebarProvider'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 
 export default (
-  <SidebarProvider navComponent={AccountSettingsSideNav} title="">
+  <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
     <Route path="/">
       <RouteWithLayout layout={MinimalLayout} path={routes.toProjects({ ...accountPathProps })} exact>
         <ProjectsPage />

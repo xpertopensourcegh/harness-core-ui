@@ -8,6 +8,7 @@ import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelec
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
+import { ModuleName } from 'framework/types/ModuleName'
 
 export default function CDSideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
@@ -18,6 +19,7 @@ export default function CDSideNav(): React.ReactElement {
     <Layout.Vertical spacing="small">
       <SidebarLink label="Dashboard" to={routes.toCIHome({ accountId })} />
       <ProjectSelector
+        moduleFilter={ModuleName.CI}
         onSelect={data => {
           if (projectIdentifier) {
             // changing project

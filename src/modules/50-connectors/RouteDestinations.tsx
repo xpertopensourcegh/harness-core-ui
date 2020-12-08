@@ -5,7 +5,7 @@ import { RouteWithLayout } from '@common/router'
 import SidebarProvider from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, connectorPathProps } from '@common/utils/routeUtils'
-import AccountSetingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
+import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
@@ -19,7 +19,7 @@ const RedirectToOrgResourcesHome = (): React.ReactElement => {
 }
 
 export default (
-  <SidebarProvider navComponent={AccountSetingsSideNav} title="">
+  <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
     <Route path="/">
       <Route exact path={routes.toOrgResources({ ...accountPathProps, ...orgPathProps })}>
         <RedirectToOrgResourcesHome />

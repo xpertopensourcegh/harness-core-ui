@@ -72,6 +72,7 @@ global:
   review: 'Review'
   selectProduct: 'Select Product'
   selectApplication: 'Select Application'
+  selectProject: 'Select Project'
   mapApplications: 'Map Applications to Harness Services'
   viewDetails: 'View Details'
   adminSideNavLinks:
