@@ -9,6 +9,17 @@ import {
 } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
 import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import type {
+  ExecutionGraphAddStepEvent,
+  ExecutionGraphEditStepEvent
+} from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
+import {
+  generateRandomString,
+  STATIC_SERVICE_GROUP_NAME,
+  StepType
+} from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import i18n from './BuildStageSetupShell.i18n'
@@ -37,7 +48,9 @@ export default function BuildStageSetupShell(): JSX.Element {
       },
       pipelineView
     },
-    updatePipelineView
+    stepsFactory,
+    updatePipelineView,
+    updatePipeline
   } = React.useContext(PipelineContext)
 
   const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
@@ -87,7 +100,22 @@ export default function BuildStageSetupShell(): JSX.Element {
     }
   }, [selectedTabId])
 
+  React.useEffect(() => {
+    const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
+    if (data) {
+      if (data?.stage?.spec?.execution) {
+        if (!data.stage.spec.execution.steps) {
+          data.stage.spec.execution.steps = []
+        }
+        if (!data.stage.spec.dependencies) {
+          data.stage.spec.dependencies = []
+        }
+      }
+    }
+  }, [pipeline, selectedStageId])
+
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
+  const selectedStage = getStageFromPipeline(pipeline, selectedStageId).stage
 
   return (
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
@@ -152,7 +180,73 @@ export default function BuildStageSetupShell(): JSX.Element {
                 {i18n.executionLabel}
               </span>
             }
-            panel={<ExecutionGraph />}
+            panel={
+              <ExecutionGraph
+                allowAddGroup={true}
+                hasRollback={false}
+                hasDependencies={true}
+                //
+                stepsFactory={stepsFactory}
+                stage={selectedStage!}
+                updateStage={() => {
+                  updatePipeline(pipeline)
+                }}
+                onAddStep={(event: ExecutionGraphAddStepEvent) => {
+                  if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.ConfigureService,
+                        data: {
+                          stepConfig: {
+                            node: {
+                              type: StepsStepType.Dependency,
+                              name: name,
+                              identifier: generateRandomString(name)
+                            },
+                            addOrEdit: 'add',
+                            isStepGroup: false
+                          }
+                        }
+                      }
+                    })
+                  } else {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.AddStep,
+                        data: {
+                          paletteData: {
+                            entity: event.entity,
+                            // isAddStepOverride: true,
+                            isRollback: event.isRollback,
+                            isParallelNodeClicked: event.isParallel
+                          }
+                        }
+                      }
+                    })
+                  }
+                }}
+                onEditStep={(event: ExecutionGraphEditStepEvent) => {
+                  updatePipelineView({
+                    ...pipelineView,
+                    isDrawerOpened: true,
+                    drawerData: {
+                      type: event.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
+                      data: {
+                        stepConfig: {
+                          node: event.node,
+                          isStepGroup: event.isStepGroup,
+                          addOrEdit: event.addOrEdit
+                        }
+                      }
+                    }
+                  })
+                }}
+              />
+            }
           />
         </Tabs>
       </Layout.Horizontal>

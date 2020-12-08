@@ -3,7 +3,7 @@ import type { IDrawerProps } from '@blueprintjs/core'
 import type { NgPipeline, ExecutionWrapper, YamlSnippetMetaData } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type { Diagram } from '@pipeline/exports'
-import type { ServiceWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
+import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -47,13 +47,12 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
   type: DrawerTypes
   data?: {
     paletteData?: {
-      isAddStepOverride: boolean
       isRollback: boolean
       isParallelNodeClicked: boolean
       entity: Diagram.DefaultNodeModel
     }
     stepConfig?: {
-      node: ExecutionWrapper | ServiceWrapper
+      node: ExecutionWrapper | DependenciesWrapper
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
     }

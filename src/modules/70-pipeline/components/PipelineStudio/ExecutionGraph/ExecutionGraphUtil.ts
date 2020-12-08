@@ -13,15 +13,15 @@ import {
 } from '../../Diagram'
 
 // TODO: have to be auto generated from swagger/API
-export interface ServiceWrapper {
+export interface DependenciesWrapper {
   [key: string]: any
 }
 
 export interface ExecutionGraphState {
   isRollback: boolean
-  stepStates: StepStateMap
+  states: StepStateMap
   stepsData: Required<ExecutionElement>
-  servicesData: Required<ServiceWrapper[]>
+  dependenciesData: Required<DependenciesWrapper[]>
 }
 
 export type ExecutionParallelWrapper = ExecutionWrapper & {
@@ -86,12 +86,12 @@ export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStat
   return depth
 }
 
-export const getServiceFromNode = (
-  servicesData: Required<ServiceWrapper[]> | undefined,
+export const getDependencyFromNode = (
+  servicesData: Required<DependenciesWrapper[]> | undefined,
   node: DefaultNodeModel
-): { node: ServiceWrapper | undefined; parent: ServiceWrapper[] } => {
-  const _service = servicesData?.find((service: ServiceWrapper) => node.getIdentifier() === service.identifier)
-  return { node: _service, parent: servicesData as ServiceWrapper[] }
+): { node: DependenciesWrapper | undefined; parent: DependenciesWrapper[] } => {
+  const _service = servicesData?.find((service: DependenciesWrapper) => node.getIdentifier() === service.identifier)
+  return { node: _service, parent: servicesData as DependenciesWrapper[] }
 }
 
 export const getStepFromNode = (
@@ -209,7 +209,7 @@ const getStepFromIdInternal = (
 // identifier for Dependencies/Services group that is always present
 export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
 
-export const getServiceState = (services: ServiceWrapper[], mapState: StepStateMap): void => {
+export const getDependenciesState = (services: DependenciesWrapper[], mapState: StepStateMap): void => {
   // we have one service group
   mapState.set(STATIC_SERVICE_GROUP_NAME, {
     isSaved: true,
@@ -220,7 +220,7 @@ export const getServiceState = (services: ServiceWrapper[], mapState: StepStateM
     stepType: StepType.SERVICE_GROUP
   })
 
-  services.forEach((service: ServiceWrapper) => {
+  services.forEach((service: DependenciesWrapper) => {
     mapState.set(service.identifier, { isSaved: true, isStepGroup: false, stepType: StepType.SERVICE })
   })
 }
@@ -262,7 +262,7 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
 
 export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNodeModel): boolean => {
   // 1. services
-  const servicesData = state.servicesData
+  const servicesData = state.dependenciesData
   let idx
   servicesData.forEach((service, _idx) => {
     if (service.identifier === entity.getOptions().identifier) {

@@ -4,7 +4,7 @@ import { noop } from 'lodash-es'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { RightBar } from '../RightBar/RightBar'
-import type { ServiceWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
+import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
 
@@ -12,8 +12,8 @@ import i18n from './PipelineConfigureService.i18n'
 import css from './PipelineConfigureService.module.scss'
 
 export interface PipelineConfigureServiceProps {
-  step: ServiceWrapper
-  onSubmit?: (step: ServiceWrapper) => void
+  step: DependenciesWrapper
+  onSubmit?: (step: DependenciesWrapper) => void
   onBack?: () => void
   onCancel?: () => void
   onClose?: () => void

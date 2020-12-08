@@ -16,7 +16,7 @@ import {
   StepStateMap,
   isCustomGeneratedString,
   STATIC_SERVICE_GROUP_NAME,
-  ServiceWrapper
+  DependenciesWrapper
 } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
@@ -33,7 +33,7 @@ export class ExecutionStepModel extends DiagramModel {
   }
 
   renderGraphServiceNodes(
-    services: ServiceWrapper[],
+    services: DependenciesWrapper[],
     startX: number,
     startY: number,
     factory: AbstractStepFactory,
@@ -101,7 +101,7 @@ export class ExecutionStepModel extends DiagramModel {
       prevNodes = [createNode]
 
       newY += this.gap * 0.5
-      services.forEach((service: ServiceWrapper) => {
+      services.forEach((service: DependenciesWrapper) => {
         const nodeRender = new DefaultNodeModel({
           identifier: service.identifier,
           name: service.name,
@@ -391,10 +391,10 @@ export class ExecutionStepModel extends DiagramModel {
   }
 
   addUpdateGraph(
-    stageType: string,
     stepsData: ExecutionWrapper[],
     stepStates: StepStateMap,
-    servicesData: ServiceWrapper[],
+    hasDependencies: boolean,
+    servicesData: DependenciesWrapper[],
     factory: AbstractStepFactory,
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean
@@ -422,7 +422,7 @@ export class ExecutionStepModel extends DiagramModel {
 
     let prevNodes: DefaultNodeModel[] = [startNode]
 
-    if (stageType === 'ci') {
+    if (hasDependencies) {
       const servicesResp = this.renderGraphServiceNodes(servicesData, startX, startY, factory, stepStates, prevNodes)
       startX = servicesResp.startX
       startY = servicesResp.startY

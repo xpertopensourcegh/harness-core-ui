@@ -49,9 +49,7 @@ export const getNewStageFromType = (type: string): StageElementWrapper => {
       identifier: uuid(),
       description: '',
       type: type,
-      spec: {
-        execution: {}
-      }
+      spec: {}
     }
   }
 }
