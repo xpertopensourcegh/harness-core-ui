@@ -4,6 +4,7 @@ declare const styles: {
   readonly headerContainer: string
   readonly searchInput: string
   readonly subHeader: string
+  readonly redirectBtn: string
   readonly logsHeader: string
   readonly headerContent: string
   readonly header: string

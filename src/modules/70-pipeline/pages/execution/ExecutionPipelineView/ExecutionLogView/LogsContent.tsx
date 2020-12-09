@@ -4,7 +4,12 @@ import LogsHeader from './LogsHeader'
 import Summary from './Summary'
 
 import css from './ExecutionLogView.module.scss'
-const LogsContent = () => {
+interface HeaderProps {
+  header?: string
+  showCross?: boolean
+  redirectToLogView?: any
+}
+const LogsContent = (props: HeaderProps) => {
   const arr = Array.from({ length: 4 }, () => false)
   arr[0] = true
   const [panelArr, setPanelArr] = useState(arr)
@@ -26,7 +31,7 @@ const LogsContent = () => {
   }
   return (
     <section className={css.logContent}>
-      <LogsHeader onNext={onNext} onPrev={onPrev} searchDir={searchDir} />
+      <LogsHeader onNext={onNext} onPrev={onPrev} searchDir={searchDir} {...props} />
 
       <MultiLogsViewer
         numberOfLogSections={4}

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, ExpandingSearchInput, Icon, Text } from '@wings-software/uikit'
+import { Button, Container, ExpandingSearchInput, Icon, Text } from '@wings-software/uikit'
+import { useStrings } from 'framework/exports'
 import css from './LogsHeader.module.scss'
 
 interface LogsHeaderProps {
@@ -7,10 +8,13 @@ interface LogsHeaderProps {
   onPrev(searchText: string): void
   searchDir: string
   subHeader?: string
+  header?: string
+  showCross?: boolean
+  redirectToLogView?: any
 }
 const LogsHeader = (props: LogsHeaderProps) => {
-  const { subHeader = 'Log Message', searchDir } = props
-
+  const { subHeader = 'Log Message', searchDir, header = 'Console logs', showCross = true, redirectToLogView } = props
+  const { getString } = useStrings()
   const onSearch = (text: string) => {
     if (searchDir === 'prev') {
       props.onPrev(text)
@@ -23,14 +27,24 @@ const LogsHeader = (props: LogsHeaderProps) => {
     <Container className={css.headerContainer}>
       <header className={css.logsHeader}>
         <section className={css.headerContent}>
-          <Text className={css.header}>Console logs</Text>
+          <Text className={css.header}>{header}</Text>
           <Text font="small" className={css.subHeader}>
             {subHeader}
           </Text>
         </section>
         <div></div>
       </header>
+
       <section className={css.headerActions}>
+        {redirectToLogView && (
+          <Button
+            text={getString('logView')}
+            className={css.redirectBtn}
+            onClick={() => {
+              redirectToLogView()
+            }}
+          ></Button>
+        )}
         <div className={css.searchInput}>
           <ExpandingSearchInput
             onChange={onSearch}
@@ -42,9 +56,8 @@ const LogsHeader = (props: LogsHeaderProps) => {
             throttle={200}
           />
         </div>
-
         <Icon name="download" size={16} />
-        <Icon name="cross" size={16} />
+        {showCross && <Icon name="cross" size={16} />}
       </section>
     </Container>
   )

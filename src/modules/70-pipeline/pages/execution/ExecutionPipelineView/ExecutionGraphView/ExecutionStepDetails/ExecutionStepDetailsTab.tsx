@@ -1,10 +1,12 @@
 import React from 'react'
 import moment from 'moment'
-
+import { useHistory, useParams } from 'react-router-dom'
 import type { ExecutionNode } from 'services/cd-ng'
 import { String } from 'framework/exports'
 import { DurationI18n, timeDelta } from '@common/exports'
-
+import routes from '@common/RouteDefinitions'
+import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import LogsContent from '../../ExecutionLogView/LogsContent'
 import css from './ExecutionStepDetails.module.scss'
 
 const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
@@ -17,7 +19,21 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const { step } = props
 
   const delta = timeDelta(step?.startTs || 0, step?.endTs || 0)
+  const params = useParams<ExecutionPathParams>()
 
+  const history = useHistory()
+  const redirectToLogView = () => {
+    const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId } = params
+    const logUrl = routes.toCDExecutionPiplineView({
+      orgIdentifier,
+      executionIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      accountId
+    })
+
+    history.push(`${logUrl}?view=log`)
+  }
   return (
     <div className={css.detailsTab}>
       {step?.failureInfo ? (
@@ -50,7 +66,8 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
           </tr>
         </tbody>
       </table>
-      <div style={{ background: '#00162B', height: '100%', flex: '1 1 0%' }}></div>
+      <LogsContent header="Step Logs" showCross={false} redirectToLogView={redirectToLogView} />
+      {/* <div style={{ background: '#00162B', height: '100%', flex: '1 1 0%' }}></div> */}
     </div>
   )
 }

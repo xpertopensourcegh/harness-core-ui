@@ -9,14 +9,14 @@
 }
 
 .searchInput {
-  width: 200px;
+  //width: 200px;
   height: 19px;
   display: flex;
   justify-content: flex-end;
   :global {
     input:not(:placeholder-shown),
     input:focus {
-      width: 242px;
+      //width: 242px;
       padding-right: 108px;
     }
     input:not(:focus) {
@@ -34,6 +34,10 @@
 .subHeader {
   padding: var(--spacing-xsmall) !important;
   margin-left: var(--spacing-small) !important;
+}
+
+.redirectBtn {
+  margin-top: -5px !important;
 }
 
 .logsHeader {
@@ -57,7 +61,6 @@
 
 .headerActions {
   display: flex;
-  width: 260px;
 
   justify-content: space-between;
 }
