@@ -15,7 +15,7 @@ const getContextValue = (): Partial<BuildPageContextInterface> => {
   const buildData: BuildData = {
     response: response as ResponseCIBuildResponseDTO,
     stagePipeline: graph2ExecutionPipeline(response?.data?.graph as OrchestrationGraphDTO),
-    defaultSelectedStageIdentifier: '-1',
+    defaultSelectedStageIdentifier: 'springbootbuild',
     defaultSelectedStepIdentifier: '-1',
     globalErrorMessage: null
   }

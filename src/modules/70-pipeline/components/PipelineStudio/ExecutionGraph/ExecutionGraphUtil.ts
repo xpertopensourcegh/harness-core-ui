@@ -116,7 +116,13 @@ const getStepFromId = (
   id: string,
   isComplete = false,
   isFindParallelNode = false
-): { node: ExecutionWrapper | undefined; parent: ExecutionWrapper[] } => {
+): {
+  node: ExecutionWrapper | undefined
+  parent: ExecutionWrapper[]
+  parallelParent?: ExecutionWrapper
+  parallelParentIdx?: number
+  parallelParentParent?: ExecutionWrapper[]
+} => {
   let returnObj = getStepFromIdInternal(stageData?.steps, id, isComplete, isFindParallelNode)
   if (!returnObj.node) {
     returnObj = getStepFromIdInternal(stageData?.rollbackSteps, id, isComplete, isFindParallelNode)
@@ -128,17 +134,32 @@ const getStepFromIdInternal = (
   stepData: ExecutionWrapper[] | undefined,
   id: string,
   isComplete = false,
-  isFindParallelNode = false
-): { node: ExecutionWrapper | undefined; parent: ExecutionWrapper[] } => {
+  isFindParallelNode = false,
+  _parallelParent: ExecutionWrapper | undefined = undefined,
+  _parallelParentIdx: number | undefined = undefined,
+  _parallelParentParent: ExecutionWrapper[] | undefined = undefined
+): {
+  node: ExecutionWrapper | undefined
+  parent: ExecutionWrapper[]
+  parallelParent?: ExecutionWrapper
+  parallelParentIdx?: number
+  parallelParentParent?: ExecutionWrapper[]
+} => {
   let stepResp: ExecutionWrapper | undefined = undefined
   let parent: ExecutionWrapper[] | ExecutionParallelWrapper = []
-  stepData?.every(node => {
+  let parallelParent: ExecutionWrapper | undefined = undefined
+  let parallelParentIdx: number | undefined
+  let parallelParentParent: ExecutionWrapper[] | undefined = undefined
+  stepData?.every((node, idx) => {
     if (node.step && node.step.identifier === id) {
       if (isComplete) {
         stepResp = node
       } else {
         stepResp = node.step
       }
+      parallelParent = _parallelParent
+      parallelParentParent = _parallelParentParent
+      parallelParentIdx = _parallelParentIdx
       parent = stepData
       return false
     } else if (node.parallel) {
@@ -176,10 +197,13 @@ const getStepFromIdInternal = (
           return false
         }
       } else {
-        const response = getStepFromIdInternal(node.parallel, id, isComplete)
+        const response = getStepFromIdInternal(node.parallel, id, isComplete, false, node, idx, stepData)
         if (response.node) {
           stepResp = response.node
           parent = response.parent
+          parallelParent = response.parallelParent
+          parallelParentIdx = response.parallelParentIdx
+          parallelParentParent = response.parallelParentParent
           return false
         }
       }
@@ -203,7 +227,7 @@ const getStepFromIdInternal = (
     }
     return true
   })
-  return { parent, node: stepResp }
+  return { parent, node: stepResp, parallelParent, parallelParentIdx, parallelParentParent }
 }
 
 // identifier for Dependencies/Services group that is always present
@@ -291,6 +315,14 @@ export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNod
     const index = response.parent.indexOf(response.node)
     if (index > -1) {
       response.parent.splice(index, 1)
+      // NOTE: if there is one item in parallel array, we are removing parallel array
+      if (response.parallelParent && response.parallelParent.parallel.length === 1) {
+        const stepToReAttach = response.parallelParent.parallel[0]
+        // reattach step
+        if (response.parallelParentParent && response.parallelParentIdx !== undefined) {
+          response.parallelParentParent[response.parallelParentIdx] = stepToReAttach
+        }
+      }
       isRemoved = true
     }
   }
