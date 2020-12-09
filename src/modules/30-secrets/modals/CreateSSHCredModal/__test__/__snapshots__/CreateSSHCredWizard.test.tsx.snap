@@ -113,7 +113,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
        
       <div
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
-        style="width: 350px; height: 500px;"
+        style="height: 500px;"
       >
         <p
           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xlarge--mILw StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
@@ -233,7 +233,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                 class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
                   type="submit"
                 >
                   <span
@@ -683,7 +683,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
                   type="submit"
                 >
                   <span

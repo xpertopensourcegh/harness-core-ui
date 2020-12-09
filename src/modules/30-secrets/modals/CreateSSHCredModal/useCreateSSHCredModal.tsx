@@ -50,6 +50,7 @@ const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHC
         ) : (
           <CreateSSHCredWizard
             {...props}
+            isEdit={true}
             detailsData={sshData?.detailsData}
             authData={sshData?.authData}
             hideModal={hideModal}

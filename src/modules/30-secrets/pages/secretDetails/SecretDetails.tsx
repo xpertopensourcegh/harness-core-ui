@@ -117,25 +117,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     }
   }, [secretData])
 
-  const handleModeSwitch = (targetMode: Mode): void => {
-    if (targetMode === Mode.VISUAL) {
-      const yamlString = yamlHandler?.getLatestYaml() || ''
-      try {
-        const yamlData = parse(yamlString)
-        if (yamlData) {
-          setSecretData(yamlData)
-          setMode(targetMode)
-        } else {
-          showError(i18n.noYaml)
-        }
-      } catch (err) {
-        showError(`${err.name}: ${err.message}`)
-      }
-    } else {
-      setMode(targetMode)
-    }
-  }
-
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
   if (!secretData) return <div>No Data</div>
@@ -157,16 +138,10 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       />
       <Container padding="large">
         <div className={css.switch}>
-          <div
-            className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })}
-            onClick={() => handleModeSwitch(Mode.VISUAL)}
-          >
+          <div className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })} onClick={() => setMode(Mode.VISUAL)}>
             Visual
           </div>
-          <div
-            className={cx(css.item, { [css.selected]: mode === Mode.YAML })}
-            onClick={() => handleModeSwitch(Mode.YAML)}
-          >
+          <div className={cx(css.item, { [css.selected]: mode === Mode.YAML })} onClick={() => setMode(Mode.YAML)}>
             YAML
           </div>
         </div>

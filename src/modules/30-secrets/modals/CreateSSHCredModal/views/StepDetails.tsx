@@ -15,16 +15,17 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj> & SSHCredSharedObj> =
   prevStepData,
   nextStep,
   detailsData,
-  authData
+  authData,
+  isEdit
 }) => {
   return (
-    <Container padding="small" width={350} height={500}>
+    <Container padding="small" height={500}>
       <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
         {i18n.titleDetails}
       </Text>
       <Formik<DetailsForm>
         onSubmit={values => {
-          nextStep?.({ ...prevStepData, detailsData: values, authData })
+          nextStep?.({ detailsData: values, authData, isEdit: isEdit, ...prevStepData })
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(i18n.validName),
@@ -50,11 +51,14 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj> & SSHCredSharedObj> =
             <FormikForm>
               <Container className={css.formData}>
                 <AddDescriptionAndKVTagsWithIdentifier
-                  identifierProps={{ inputName: 'name', isIdentifierEditable: detailsData ? false : true }}
+                  identifierProps={{
+                    inputName: 'name',
+                    isIdentifierEditable: isEdit || prevStepData?.isEdit ? false : true
+                  }}
                 />
               </Container>
               <Layout.Horizontal>
-                <Button type="submit" text={i18n.btnContinue} />
+                <Button type="submit" intent="primary" text={i18n.btnContinue} />
               </Layout.Horizontal>
             </FormikForm>
           )

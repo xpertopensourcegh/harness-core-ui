@@ -92,8 +92,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
     queryParams: { accountIdentifier: accountId }
   })
   const { getString } = useStrings()
-
-  const isEdit = prevStepData?.authData ? true : false
+  const isEdit = prevStepData?.isEdit
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const handleSubmit = async (formData: SSHConfigFormData): Promise<void> => {
@@ -124,7 +123,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       setSaving(false)
       isEdit ? showSuccess(getString('ssh.editmessageSuccess')) : showSuccess(getString('ssh.createmessageSuccess'))
       onSuccess?.()
-      nextStep?.({ ...prevStepData, authData: formData })
+      nextStep?.({ ...prevStepData, authData: formData, isEdit: true })
     } catch (err) {
       setSaving(false)
       modalErrorHandler?.show(err.data)
@@ -169,7 +168,12 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                     text={getString('back')}
                     onClick={() => previousStep?.({ ...prevStepData, authData: formik.values })}
                   />
-                  <Button type="submit" text={saving ? i18n.btnSaving : i18n.btnSave} disabled={saving} />
+                  <Button
+                    type="submit"
+                    intent="primary"
+                    text={saving ? i18n.btnSaving : i18n.btnSave}
+                    disabled={saving}
+                  />
                 </Layout.Horizontal>
               </FormikForm>
             )

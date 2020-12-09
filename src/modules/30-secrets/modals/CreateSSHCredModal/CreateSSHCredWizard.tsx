@@ -21,9 +21,11 @@ interface CreateSSHCredWizardProps {
 export interface SSHCredSharedObj {
   detailsData?: DetailsForm
   authData?: SSHConfigFormData
+  isEdit?: boolean
 }
 
 const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps & SSHCredSharedObj> = props => {
+  const { isEdit } = props
   const { getString } = useStrings()
 
   return (
@@ -33,6 +35,7 @@ const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps & SSHCredSharedObj>
         name={i18n.stepTitleAuth.toUpperCase()}
         onSuccess={props.onSuccess}
         mockSecretReference={props.mockSecretReference}
+        isEdit={isEdit}
       />
       <StepVerify name={i18n.stepTitleVerify.toUpperCase()} closeModal={props.hideModal} />
     </StepWizard>

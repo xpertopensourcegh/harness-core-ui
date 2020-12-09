@@ -1,12 +1,10 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, fireEvent, getByText, queryByText, render, RenderResult, waitFor } from '@testing-library/react'
 
-import { TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import SecretsPage from '../SecretsPage'
 
 import mockData from './secretsListMock.json'
-
-jest.mock('../views/SecretsListView/SecretsList', () => () => null)
 
 describe('Secrets Page', () => {
   test('render data', () => {
@@ -34,5 +32,85 @@ describe('Secrets Page', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+})
+
+jest.mock('react-timeago', () => () => 'dummy date')
+
+describe('Secrets List', () => {
+  let container: HTMLElement
+  let getAllByText: RenderResult['getAllByText']
+  beforeEach(async () => {
+    const renderObj = render(
+      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
+        <SecretsPage mock={{ loading: false, data: mockData as any }} />
+      </TestWrapper>
+    )
+    container = renderObj.container
+    getAllByText = renderObj.getAllByText
+  }),
+    test('render', async () => {
+      expect(container).toMatchSnapshot()
+      expect(container.querySelectorAll('div.row').length).toBe(4)
+    }),
+    test('Edit SSH', async () => {
+      const menu = container?.querySelectorAll("[id='Options_svg__a']")[0]
+      fireEvent.click(menu!)
+      const popover = findPopoverContainer()
+      const edit = getByText(popover as HTMLElement, 'Edit')
+      await act(async () => {
+        fireEvent.click(edit)
+      })
+      expect(container).toMatchSnapshot()
+    }),
+    test('Edit SecretText', async () => {
+      const menu = container?.querySelectorAll("[id='Options_svg__a']")[1]
+      fireEvent.click(menu!)
+      const popover = findPopoverContainer()
+      const edit = getByText(popover as HTMLElement, 'Edit')
+      await act(async () => {
+        fireEvent.click(edit)
+      })
+      expect(container).toMatchSnapshot()
+    }),
+    test('Edit SecretFile', async () => {
+      const menu = container?.querySelectorAll("[id='Options_svg__a']")[2]
+      fireEvent.click(menu!)
+      const popover = findPopoverContainer()
+      const edit = getByText(popover as HTMLElement, 'Edit')
+      await act(async () => {
+        fireEvent.click(edit)
+      })
+      expect(container).toMatchSnapshot()
+    }),
+    test('Delete SSH', async () => {
+      const menu = container?.querySelectorAll("[id='Options_svg__a']")[0]
+      fireEvent.click(menu!)
+      const popover = findPopoverContainer()
+      const deleteButton = getByText(popover as HTMLElement, 'Delete')
+      await act(async () => {
+        fireEvent.click(deleteButton)
+        await waitFor(() => getByText(document.body, 'Delete Secret'))
+        const form = findDialogContainer()
+        expect(form).toBeTruthy()
+        const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+        fireEvent.click(deleteBtn!)
+      })
+      expect(container).toMatchSnapshot()
+    })
+  test('Verify Connection SSH', async () => {
+    const testConnection = getAllByText('TEST CONNECTION')[0]
+    let form = findDialogContainer()
+    await act(async () => {
+      fireEvent.click(testConnection)
+      await waitFor(() => getByText(document.body, 'Test Connection'))
+    })
+    form = findDialogContainer()
+    expect(form).toBeTruthy()
+    await act(async () => {
+      fireEvent.click(form?.querySelector('[icon="cross"]')!)
+    })
+    form = findDialogContainer()
+    expect(form).not.toBeTruthy()
   })
 })
