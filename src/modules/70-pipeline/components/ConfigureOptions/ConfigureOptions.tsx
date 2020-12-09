@@ -221,7 +221,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                           name="advancedValue"
                           className={css.secondColumn}
                           label={getString('configureOptions.jexlLabel')}
-                          placeholder={getString('configureOptions.jexlPlaceholder')}
+                          placeholder={getString('inputTypes.EXPRESSION')}
                         />
                       ) : (
                         <>

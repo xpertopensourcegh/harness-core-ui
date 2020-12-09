@@ -79,6 +79,10 @@ global:
   selectProject: 'Select Project'
   mapApplications: 'Map Applications to Harness Services'
   viewDetails: 'View Details'
+  inputTypes:
+    FIXED: Fixed input list
+    RUNTIME: Runtime input
+    EXPRESSION: Expression
   adminSideNavLinks:
     resources: 'Resources'
     governance: 'Governance'
@@ -514,7 +518,6 @@ global:
     advanced: 'advanced'
     returnToBasic: 'return to basic'
     jexlLabel: 'Values (JEXL Expression)'
-    jexlPlaceholder: 'Expression'
     values: 'Values'
     enterTags: 'Enter values'
     validationErrors:
