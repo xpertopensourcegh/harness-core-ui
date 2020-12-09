@@ -42,27 +42,35 @@ const routes = {
       `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}`
   ),
   // git sync
+  toGitSync: withAccountId(() => '/admin/git-sync'),
   toGitSyncRepos: withAccountId(() => '/admin/git-sync/repos'),
   toGitSyncActivities: withAccountId(() => '/admin/git-sync/activities'),
   toGitSyncEntities: withAccountId(() => '/admin/git-sync/entities'),
   toGitSyncErrors: withAccountId(() => '/admin/git-sync/errors'),
-  toGitSync: withAccountId(() => '/admin/git-sync'),
-  toOrgGitSyncRepos: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/repos`),
+  // org git sync
+  toOrgGitSync: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync`),
+  toOrgGitSyncRepos: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/repos`
+  ),
   toOrgGitSyncActivities: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/activities`
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/activities`
   ),
   toOrgGitSyncEntities: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/entities`
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/entities`
   ),
-  toOrgGitSyncErrors: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/errors`),
-  toOrgGitSync: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}`),
+  toOrgGitSyncErrors: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/errors`
+  ),
+
   toOrgProjects: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/projects`),
   toOrganizations: withAccountId(() => `/admin/organizations`),
   toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}`),
   toGovernance: withAccountId(() => '/admin/governance'),
-  toOrgGovernance: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/governance/org/${orgIdentifier}`),
-  toCreateConnectorFromYaml: withAccountId(() => '/create-connector-from-yaml'),
-  toCreateSecretFromYaml: withAccountId(() => '/create-secret-from-yaml'),
+  toOrgGovernance: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/governance/${orgIdentifier}`
+  ),
+  toCreateConnectorFromYaml: withAccountId(() => '/admin/create-connector-from-yaml'),
+  toCreateSecretFromYaml: withAccountId(() => '/admin/create-secret-from-yaml'),
 
   /********************************************************************************************************************/
   toCD: withAccountId(() => `/cd`),

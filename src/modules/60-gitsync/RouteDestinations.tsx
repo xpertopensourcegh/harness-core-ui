@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, useParams } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
@@ -16,14 +16,25 @@ import GitSyncPage from './pages/GitSyncPage'
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
+  const { orgIdentifier } = useParams()
 
-  return <Redirect to={routes.toGitSyncRepos({ accountId })} />
+  return (
+    <Redirect
+      to={orgIdentifier ? routes.toOrgGitSyncRepos({ accountId, orgIdentifier }) : routes.toGitSyncRepos({ accountId })}
+    />
+  )
 }
 
 export default (
   <Route path="/">
     <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
-      <Route exact path={routes.toGitSync({ ...accountPathProps })}>
+      <Route
+        exact
+        path={[
+          routes.toGitSync({ ...accountPathProps }),
+          routes.toOrgGitSync({ ...accountPathProps, ...orgPathProps })
+        ]}
+      >
         <RedirectToGitSyncHome />
       </Route>
 

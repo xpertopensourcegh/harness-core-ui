@@ -38,7 +38,7 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
       <Page.Header
         title={
           <Layout.Horizontal padding="small">
-            <Button intent="primary" text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
+            <Button intent="primary" icon="plus" text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
           </Layout.Horizontal>
         }
         toolbar={
