@@ -17,7 +17,7 @@ module.exports = {
     target: targetLocalHost ? 'https://localhost:6060' : `${baseUrl}`
   },
   '/cf': {
-    target: 'http://localhost:3000/api/1.0',
-    pathRewrite: { '^/cf': '' }
+    target: targetLocalHost ? 'http://localhost:3000' : baseUrl,
+    pathRewrite: targetLocalHost ? { '^/cf': '/api/1.0' } : {}
   }
 }

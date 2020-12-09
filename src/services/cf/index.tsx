@@ -169,12 +169,18 @@ export interface PatchOperation {
 }
 
 export interface Target {
-  identifier?: string
-  environment: string
-  project: string
-  name?: string
-  anonymous?: boolean
-  attributes?: { [key: string]: any }
+  Anonymous?: boolean
+  Attributes?: { [key: string]: any }
+  CreatedAt: string
+  DeletedAt: string | null
+  Environment: string
+  EnvironmentID: string
+  ID: string
+  Identifier: string
+  Name: string
+  Project: string
+  ProjectID: string
+  UpdatedAt: string
 }
 
 export interface Targets {

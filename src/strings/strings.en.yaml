@@ -328,6 +328,17 @@ global:
         clientKeyCertificate: 'Client Key Certificate'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
+  cf:
+    shared:
+      individual: 'Individual'
+      segments: 'Segments'
+      environment: 'environment'
+    targets:
+      title: 'Targets'
+      ID: 'ID'
+      name: 'name'
+      targetSegment: 'Target Segment'
+      lastActivity: 'Last Activity'
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'
