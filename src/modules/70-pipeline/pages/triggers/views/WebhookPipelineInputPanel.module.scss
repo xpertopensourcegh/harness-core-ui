@@ -1,0 +1,14 @@
+.webhookPipelineInputContainer {
+  width: 800px !important;
+  padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
+}
+
+.pipelineInputRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h2 {
+    font-size: 1.5em !important;
+    font-weight: bold !important;
+  }
+}

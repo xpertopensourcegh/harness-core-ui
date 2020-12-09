@@ -241,14 +241,12 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                   />
                   {connectionType === 'Repo' ? (
                     <>
-                      <Text margin={{ bottom: 'xsmall' }}>
-                        {getString('pipelineSteps.build.create.repositoryUrlLabel')}
-                      </Text>
+                      <Text margin={{ bottom: 'xsmall' }}>{getString('repositoryUrlLabel')}</Text>
                       <TextInput name="repositoryName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
                     </>
                   ) : (
                     <FormInput.Text
-                      label={getString('pipelineSteps.build.create.repositoryUrlLabel')}
+                      label={getString('repositoryUrlLabel')}
                       name="repositoryName"
                       inputGroup={{
                         leftElement: (

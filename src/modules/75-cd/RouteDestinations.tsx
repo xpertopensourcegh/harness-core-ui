@@ -8,6 +8,7 @@ import {
   accountPathProps,
   projectPathProps,
   pipelinePathProps,
+  triggerPathProps,
   connectorPathProps,
   secretPathProps,
   executionPathProps
@@ -34,6 +35,7 @@ import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsP
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
+import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage/ExecutionLandingPage'
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
@@ -172,6 +174,11 @@ export default (
       <RouteWithLayout exact path={routes.toCDTriggersPage({ ...accountPathProps, ...pipelinePathProps })}>
         <PipelineDetails>
           <TriggersPage />
+        </PipelineDetails>
+      </RouteWithLayout>
+      <RouteWithLayout path={routes.toCDTriggersWizardPage({ ...accountPathProps, ...triggerPathProps })}>
+        <PipelineDetails>
+          <TriggersWizardPage />
         </PipelineDetails>
       </RouteWithLayout>
       <Route exact path={routes.toCDExecution({ ...accountPathProps, ...executionPathProps })}>

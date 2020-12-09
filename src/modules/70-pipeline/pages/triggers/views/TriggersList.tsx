@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
-import { Button, TextInput, useModalHook, Container, Heading } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
+import { Button, TextInput, useModalHook } from '@wings-software/uikit'
+import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
-import { useGetInputSetsListForPipeline } from 'services/cd-ng'
+import routes from '@common/RouteDefinitions'
+import { useGetTriggerListForTarget } from 'services/cd-ng'
 import { AddDrawer } from '@common/components'
 import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
-import { getCategoryItems, ItemInterface } from './TriggersListUtils'
+import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
+import { getCategoryItems, ItemInterface } from '../utils/TriggersListUtils'
 import css from './TriggersList.module.scss'
-
 interface TriggerDataInterface {
   triggerType: string
-  source: string
+  sourceRepo: string
   // all else optional
 }
 
 interface TriggersListPropsInterface {
-  isTriggerWizardOpen: boolean
-  onTriggerClick: (val: TriggerDataInterface) => void
+  onNewTriggerClick: (val: TriggerDataInterface) => void
 }
 export default function TriggersList(props: TriggersListPropsInterface): JSX.Element {
-  const { isTriggerWizardOpen, onTriggerClick } = props
+  const { onNewTriggerClick } = props
 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -30,34 +30,43 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
   }>()
 
   const [searchParam, setSearchParam] = useState('')
-  //
-  const [page] = useState(0)
   const { getString } = useStrings()
 
-  // temporary until api ready for triggers
-  const { refetch, error } = useGetInputSetsListForPipeline({
+  const { data: triggerListResponse, error, refetch } = useGetTriggerListForTarget({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      pipelineIdentifier,
-      pageIndex: page,
-      pageSize: 10,
-      searchTerm: searchParam
+      targetIdentifier: pipelineIdentifier
     }
   })
+  const triggerList = triggerListResponse?.data?.content || undefined
+  const history = useHistory()
+
+  const goToEditWizard = ({ triggerIdentifier, triggerType }: GoToEditWizardInterface): void => {
+    history.push(
+      routes.toCDTriggersWizardPage({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
+        triggerIdentifier,
+        triggerType
+      })
+    )
+  }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
-    const onSelect = (val: ItemInterface) => {
-      if (val?.categoryLabel) {
+    const onSelect = (val: ItemInterface): void => {
+      if (val?.categoryValue) {
         hideDrawer()
-        onTriggerClick({ triggerType: val.categoryLabel, source: val.value })
+        onNewTriggerClick({ triggerType: val.categoryValue, sourceRepo: val.value })
       }
     }
 
     return (
       <AddDrawer
-        addDrawerMap={getCategoryItems()}
+        addDrawerMap={getCategoryItems(getString)}
         onSelect={onSelect}
         onClose={hideDrawer}
         drawerContext={DrawerContext.STUDIO}
@@ -65,7 +74,7 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
     )
   })
 
-  return !isTriggerWizardOpen ? (
+  return (
     <>
       <Page.Header
         title={<Button text={getString('pipeline-triggers.newTrigger')} intent="primary" onClick={openDrawer}></Button>}
@@ -85,22 +94,15 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         error={error?.message}
         retryOnError={() => refetch()}
         noData={{
-          when: () => !isTriggerWizardOpen,
-          icon: 'yaml-builder-input-sets',
+          when: () => Array.isArray(triggerList) && triggerList.length === 0,
+          icon: 'yaml-builder-trigger',
           message: getString('pipeline-triggers.aboutTriggers'),
           buttonText: getString('pipeline-triggers.addNewTrigger'),
           onClick: openDrawer
         }}
       >
-        <Container
-          style={{ borderTop: '1px solid var(--grey-300)', maxWidth: 900, margin: '0 auto' }}
-          padding={{ bottom: 'small' }}
-        >
-          <Heading level={2}>TBD</Heading>
-        </Container>
+        <TriggersListSection data={triggerList} refetchTriggerList={refetch} goToEditWizard={goToEditWizard} />
       </Page.Body>
     </>
-  ) : (
-    null!
   )
 }

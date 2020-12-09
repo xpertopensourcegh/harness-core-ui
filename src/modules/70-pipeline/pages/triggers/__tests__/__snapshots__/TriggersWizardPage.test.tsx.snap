@@ -1,0 +1,684 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Show all fields filled 1`] = `
+<body>
+  <x-mentions />
+  <div />
+  <div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    >
+      
+      <section
+        class="wizardShell"
+      >
+        <h2
+          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+          level="2"
+          style="position: fixed; top: 35px;"
+        >
+          Trigger: AllValues123
+        </h2>
+        <div
+          class="headerLine"
+        />
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws tabsContainer"
+        >
+          <div
+            class="OverlaySpinner---overlaySpinner--3Bs3"
+          >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
+                <div
+                  class="bp3-tabs Tabs---main--3Ew7"
+                >
+                  <div
+                    class="bp3-tab-list"
+                    role="tablist"
+                  >
+                    <div
+                      class="bp3-tab-indicator-wrapper"
+                      style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                    >
+                      <div
+                        class="bp3-tab-indicator"
+                      />
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_Wizard_Trigger Configuration"
+                      aria-disabled="false"
+                      aria-expanded="true"
+                      aria-selected="true"
+                      class="bp3-tab"
+                      data-tab-id="Trigger Configuration"
+                      id="bp3-tab-title_Wizard_Trigger Configuration"
+                      role="tab"
+                      style="width: 218px;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="tab"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          icon="tick-circle"
+                        >
+                          <svg
+                            data-icon="tick-circle"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              tick-circle
+                            </desc>
+                            <path
+                              d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        1. 
+                        Trigger Configuration
+                      </span>
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_Wizard_Conditions"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-selected="false"
+                      class="bp3-tab"
+                      data-tab-id="Conditions"
+                      id="bp3-tab-title_Wizard_Conditions"
+                      role="tab"
+                      style="width: 218px;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="tab"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          icon="tick-circle"
+                        >
+                          <svg
+                            data-icon="tick-circle"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              tick-circle
+                            </desc>
+                            <path
+                              d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        2. 
+                        Conditions
+                      </span>
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-selected="false"
+                      class="bp3-tab"
+                      data-tab-id="Pipeline Input"
+                      id="bp3-tab-title_Wizard_Pipeline Input"
+                      role="tab"
+                      style="width: 218px;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="tab"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          icon="tick-circle"
+                        >
+                          <svg
+                            data-icon="tick-circle"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              tick-circle
+                            </desc>
+                            <path
+                              d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        3. 
+                        Pipeline Input
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    aria-hidden="false"
+                    aria-labelledby="bp3-tab-title_Wizard_Trigger Configuration"
+                    class="bp3-tab-panel"
+                    id="bp3-tab-panel_Wizard_Trigger Configuration"
+                    role="tabpanel"
+                  >
+                    <div
+                      class="Layout---vertical--3Szv StyledProps---main--1Wws webhookConfigurationContainer StyledProps---padding-xxlarge--3lSp"
+                    >
+                      <h2
+                        class="heading"
+                      >
+                        Trigger Configuration
+                      </h2>
+                      <div>
+                        <div
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws main triggerName"
+                        >
+                          <div
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                          >
+                            <div
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                            >
+                              <div
+                                class="InputWithIdentifier---txtNameContainer--20iZ"
+                              >
+                                <div
+                                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                                >
+                                  <p
+                                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                  >
+                                    ID
+                                    :
+                                  </p>
+                                  <span
+                                    class="InputWithIdentifier---idInput--w8_T"
+                                    contenteditable="false"
+                                    disabled=""
+                                  >
+                                    AllValues
+                                  </span>
+                                </div>
+                                <div
+                                  class="bp3-form-group"
+                                  data-id="name-0"
+                                >
+                                  <label
+                                    class="bp3-label"
+                                    for="name"
+                                  >
+                                    Trigger Name
+                                     
+                                    <span
+                                      class="bp3-text-muted"
+                                    />
+                                  </label>
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="name"
+                                        type="text"
+                                        value="AllValues123"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                              style="justify-content: center;"
+                            >
+                              <p
+                                class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                              >
+                                + Tags
+                              </p>
+                            </div>
+                          </div>
+                          <div
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                          >
+                            <div
+                              class="bp3-form-group expandedDescription"
+                              data-id="description-1"
+                            >
+                              <label
+                                class="bp3-label"
+                                for="description"
+                              >
+                                <div
+                                  class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                                >
+                                  <span
+                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                                  >
+                                    Description
+                                  </span>
+                                  <span
+                                    class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                                  >
+                                    Hide
+                                  </span>
+                                </div>
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <textarea
+                                  autocomplete="off"
+                                  class="bp3-input bp3-fill"
+                                  name="description"
+                                >
+                                  desc
+                                </textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <h2
+                          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws listenOnNewWebhook"
+                          level="2"
+                        >
+                          Listen on New Webhook
+                        </h2>
+                        <section
+                          style="width: 650px;"
+                        >
+                          <div
+                            class="bp3-form-group"
+                            data-id="sourceRepo-2"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="sourceRepo"
+                            >
+                              Payload Type
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                              >
+                                <div
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-input-group"
+                                  >
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="sourceRepo"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="GitHub"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="repoUrl-3"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="repoUrl"
+                            >
+                              Repository URL
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="repoUrl"
+                                  type="text"
+                                  value="repoUrlss1"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="event-4"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="event"
+                            >
+                              Event
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                              >
+                                <div
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-input-group"
+                                  >
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="event"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="Pull Request"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="actionsContainer"
+                          >
+                            <div>
+                              <p
+                                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                style="font-size: 13px;"
+                              >
+                                Actions
+                              </p>
+                              <div
+                                class="bp3-form-group"
+                                data-id="actions-5"
+                              >
+                                <div
+                                  class="bp3-form-content"
+                                >
+                                  <div
+                                    class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                                  >
+                                    <div
+                                      class="bp3-popover-target"
+                                    >
+                                      <div
+                                        class=""
+                                      >
+                                        <div
+                                          class="bp3-input bp3-tag-input bp3-multi-select"
+                                        >
+                                          <div
+                                            class="bp3-tag-input-values"
+                                          >
+                                            <span
+                                              class="bp3-tag MultiSelect---tag--3wwj"
+                                              data-tag-index="0"
+                                            >
+                                              <span
+                                                class="bp3-text-overflow-ellipsis bp3-fill"
+                                              >
+                                                closed
+                                              </span>
+                                              <button
+                                                class="bp3-tag-remove"
+                                                type="button"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-small-cross"
+                                                  icon="small-cross"
+                                                >
+                                                  <svg
+                                                    data-icon="small-cross"
+                                                    height="16"
+                                                    viewBox="0 0 16 16"
+                                                    width="16"
+                                                  >
+                                                    <desc>
+                                                      small-cross
+                                                    </desc>
+                                                    <path
+                                                      d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </button>
+                                            </span>
+                                            <span
+                                              class="bp3-tag MultiSelect---tag--3wwj"
+                                              data-tag-index="1"
+                                            >
+                                              <span
+                                                class="bp3-text-overflow-ellipsis bp3-fill"
+                                              >
+                                                edited
+                                              </span>
+                                              <button
+                                                class="bp3-tag-remove"
+                                                type="button"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-small-cross"
+                                                  icon="small-cross"
+                                                >
+                                                  <svg
+                                                    data-icon="small-cross"
+                                                    height="16"
+                                                    viewBox="0 0 16 16"
+                                                    width="16"
+                                                  >
+                                                    <desc>
+                                                      small-cross
+                                                    </desc>
+                                                    <path
+                                                      d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </button>
+                                            </span>
+                                            <span
+                                              class="bp3-tag MultiSelect---tag--3wwj"
+                                              data-tag-index="2"
+                                            >
+                                              <span
+                                                class="bp3-text-overflow-ellipsis bp3-fill"
+                                              >
+                                                opened
+                                              </span>
+                                              <button
+                                                class="bp3-tag-remove"
+                                                type="button"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-small-cross"
+                                                  icon="small-cross"
+                                                >
+                                                  <svg
+                                                    data-icon="small-cross"
+                                                    height="16"
+                                                    viewBox="0 0 16 16"
+                                                    width="16"
+                                                  >
+                                                    <desc>
+                                                      small-cross
+                                                    </desc>
+                                                    <path
+                                                      d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </button>
+                                            </span>
+                                            <input
+                                              class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                                              name="actions"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-form-group"
+                            >
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <label
+                                  class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy Checkbox---checkbox--2kFy anyAction StyledProps---main--1Wws StyledProps---inline--1f52"
+                                >
+                                  <input
+                                    name="anyAction"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="bp3-control-indicator"
+                                  />
+                                  Any Actions
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws footer"
+                >
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      Continue
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws cancel"
+                  >
+                    Cancel
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          class="footerLine"
+        />
+      </section>
+    </div>
+  </div>
+</body>
+`;

@@ -5,6 +5,7 @@ import type {
   SecretsPathProps,
   ProjectPathProps,
   PipelinePathProps,
+  TriggerPathProps,
   ExecutionPathProps,
   FeatureFlagPathProps,
   BuildPathProps,
@@ -134,6 +135,19 @@ const routes = {
   toCDTriggersPage: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers`
+  ),
+  toCDTriggersWizardPage: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      triggerIdentifier,
+      triggerType,
+      sourceRepo
+    }: TriggerPathProps) =>
+      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
+        (triggerType && sourceRepo && `?triggerType=${triggerType}&sourceRepo=${sourceRepo}`) || ''
+      }`
   ),
   toCDPipelineDeploymentList: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>

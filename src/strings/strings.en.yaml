@@ -38,10 +38,12 @@ global:
   save: Save
   back: Back
   next: Next
+  continue: Continue
   cancel: Cancel
   loading: Loading...
   retry: Retry
   search: Search
+  deleted: deleted
   showAll: Show All
   categories: Categories
   noSearchResultsFoundPeriod: No results found.
@@ -52,6 +54,7 @@ global:
   tagsLabel: Tags
   keyLabel: Key
   valueLabel: Value
+  repositoryUrlLabel: Repository URL
   typeLabel: Type
   variableLabel: 'Variable'
   variableNameLabel: Variable Name
@@ -101,13 +104,49 @@ global:
   pipeline-triggers:
     aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
     addNewTrigger: Add New Trigger
+    triggersLabel: 'Triggers'
+    triggersSubLabel: 'All Trigger Types'
+    searchPlaceholder: 'Search Triggers'
     newTrigger: + New Trigger
-    onWebhookLabel: 'On Webhook Event'
+    showAllTriggers: 'Show all Triggers'
+    onNewWebhookTitle: 'On New Webhook'
+    onNewArtifactTitle: 'On New Artifact/Manifest'
     onNewArtifactLabel: 'On New artifact'
+    newArtifactLabel: 'New Artifact'
+    newManifestLabel: 'New Manifest'
     onScheduleLabel: 'On Schedule'
+    scheduledLabel: 'Scheduled'
     triggerConfigurationLabel: 'Trigger Configuration'
     conditionsLabel: 'Conditions'
     pipelineInputLabel: 'Pipeline Input'
+    updateTrigger: 'Update trigger'
+    createTrigger: 'Create trigger'
+    deleteTrigger: 'Delete Trigger'
+    confirmDelete: 'Are you sure you want to delete trigger' # followed by name
+    pageNotFound: 'Page not found'
+    triggerLabel: 'Trigger'
+    triggerConfigurationPanel:
+      title: 'Trigger Configuration: On New Webhook'
+      triggerName: 'Trigger Name'
+      listenOnNewWebhook: 'Listen on New Webhook'
+      payloadType: 'Payload Type'
+      event: 'Event'
+      actions: Actions
+      anyActions: Any Actions
+    conditionsPanel:
+      titleOptional: '(OPTIONAL)'
+      subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
+      branchConditions: 'Branch Conditions'
+      sourceBranch: 'Source Branch'
+      targetBranch: 'Target Branch'
+      payloadConditions: 'Payload Conditions'
+      attribute: 'Attribute'
+      operator: 'Operator'
+      matchesValue: 'Matches Value'
+      jexlConditions: 'JEXL Conditions'
+      plusAdd: '+ Add'
+    pipelineInputPanel:
+      noRuntimeInputs: 'No Runtime inputs'
   repo-provider:
     bitbucketLabel: BitBucket
     customLabel: Custom
@@ -206,7 +245,6 @@ global:
         configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
         connectorLabel: 'Connector'
         connectorRequiredError: 'Connector is required'
-        repositoryUrlLabel: 'Repository URL'
         repositoryUrlWrongUrlError: 'Please enter valid URL'
         repositoryUrlRequiredError: 'Repository URL is required'
         setupStage: 'Setup Stage'

@@ -31,7 +31,7 @@ import { StepType } from '../../PipelineStepInterface'
 import css from './CustomVariables.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-export interface Variable extends NGVariable {
+export interface Variable extends Omit<NGVariable, 'value'> {
   value: string
 }
 

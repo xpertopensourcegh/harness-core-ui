@@ -5,14 +5,17 @@ import cx from 'classnames'
 import i18n from './AddDescriptionAndTags.i18n'
 import css from './AddDescriptionAndTags.module.scss'
 
-export interface DescriptionAndTagsInputProps {
+export interface DescriptionAndTagsInputProps<T> {
   formComponent: JSX.Element
-  tagInputProps?: TagInputProps<any>
+  tagInputProps?: TagInputProps<T>
   className?: string
+  defaultOpenFields?: string[]
 }
 
 export interface AddDescriptionAndTagsWithIdentifier {
   identifierProps: Omit<InputWithIdentifierProps, 'formik'>
+  className?: string
+  defaultOpenFields?: string[]
 }
 
 interface FieldLabelWithHideOptionProps {
@@ -48,10 +51,11 @@ function AddFieldOption(props: AddFieldOptionProps): JSX.Element | null {
   )
 }
 
-export function AddDescriptionAndTags(props: DescriptionAndTagsInputProps): JSX.Element {
-  const { formComponent, className } = props
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false)
-  const [isTagsOpen, setIsTagsOpen] = useState(false)
+// Deprecated
+export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>): JSX.Element {
+  const { formComponent, className, defaultOpenFields = [] } = props
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(defaultOpenFields.includes('description'))
+  const [isTagsOpen, setIsTagsOpen] = useState(defaultOpenFields.includes('tags'))
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.connectorFormNameWrapper}>
@@ -97,10 +101,11 @@ export function AddDescriptionAndTags(props: DescriptionAndTagsInputProps): JSX.
   )
 }
 
-export function AddDescriptionAndKVTags(props: DescriptionAndTagsInputProps): JSX.Element {
-  const { formComponent, className } = props
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false)
-  const [isTagsOpen, setIsTagsOpen] = useState(false)
+export function AddDescriptionAndKVTags<T>(props: DescriptionAndTagsInputProps<T>): JSX.Element {
+  const { formComponent, className, defaultOpenFields = [] } = props
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(defaultOpenFields.includes('description'))
+  const [isTagsOpen, setIsTagsOpen] = useState(defaultOpenFields.includes('tags'))
+
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.connectorFormNameWrapper}>
@@ -140,11 +145,21 @@ export function AddDescriptionAndKVTags(props: DescriptionAndTagsInputProps): JS
 }
 
 export function AddDescriptionAndTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
-  const { identifierProps } = props
-  return <AddDescriptionAndTags formComponent={<FormInput.InputWithIdentifier {...identifierProps} />} />
+  const { identifierProps, ...additionalProps } = props
+  return (
+    <AddDescriptionAndTags
+      {...additionalProps}
+      formComponent={<FormInput.InputWithIdentifier {...identifierProps} />}
+    />
+  )
 }
 
 export function AddDescriptionAndKVTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
-  const { identifierProps } = props
-  return <AddDescriptionAndKVTags formComponent={<FormInput.InputWithIdentifier {...identifierProps} />} />
+  const { identifierProps, ...additionalProps } = props
+  return (
+    <AddDescriptionAndKVTags
+      {...additionalProps}
+      formComponent={<FormInput.InputWithIdentifier {...identifierProps} />}
+    />
+  )
 }

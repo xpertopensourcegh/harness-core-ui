@@ -13,6 +13,11 @@ export interface ProjectPathProps extends OrgPathProps {
 export interface PipelinePathProps extends ProjectPathProps {
   pipelineIdentifier: string
 }
+export interface TriggerPathProps extends PipelinePathProps {
+  triggerIdentifier: string
+  triggerType?: string
+  sourceRepo?: string
+}
 
 export interface ExecutionPathProps extends PipelinePathProps {
   executionIdentifier: string

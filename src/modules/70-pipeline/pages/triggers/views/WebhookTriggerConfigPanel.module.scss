@@ -1,0 +1,64 @@
+.webhookConfigurationContainer {
+  min-width: 800px;
+  padding: var(--spacing-large) var(--spacing-xxlarge) !important;
+  section [class*='bp3-input-group'],
+  .actionsContainer > div,
+  [class*='bp3-overlay'] [class*='bp3-transition-container'] {
+    width: 324px;
+  }
+}
+
+.triggerName {
+  width: 600px;
+}
+.heading {
+  margin-top: 0;
+  padding-bottom: var(--spacing-xsmall);
+}
+
+.listenOnNewWebhook {
+  padding-bottom: var(--spacing-small) !important;
+  border-bottom: 1px solid var(--grey-300);
+  margin-bottom: var(--spacing-medium);
+}
+
+.anyAction {
+  margin: var(--spacing-xxlarge) !important;
+}
+
+.actionsContainer {
+  display: flex;
+  margin-top: var(--margin-xsmall) !important;
+  align-items: center;
+  justify-content: space-between;
+  > div {
+    .anyAction {
+      padding-left: var(--spacing-medium);
+      position: relative;
+      top: 10px;
+    }
+  }
+}
+
+.conditionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    padding: 0 var(--padding-large);
+    width: 250px;
+  }
+}
+
+.payloadConditions {
+  padding-top: var(--spacing-large);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background-color: var(--white);
+  z-index: 1;
+  box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
+}

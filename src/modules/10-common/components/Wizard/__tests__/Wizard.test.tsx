@@ -1,0 +1,232 @@
+import React from 'react'
+import { render, waitFor, fireEvent, queryByText } from '@testing-library/react'
+import { renderHook } from '@testing-library/react-hooks'
+import { FormInput } from '@wings-software/uikit'
+import { useStrings } from 'framework/exports'
+import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import strings from 'strings/strings.en.yaml'
+import { getDefaultProps } from './mockConstants'
+import Wizard from '../Wizard'
+
+const value: AppStoreContextProps = {
+  projects: [],
+  organisationsMap: new Map(),
+  user: {},
+  strings,
+  updateAppStore: jest.fn()
+}
+
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+  <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
+)
+const { result } = renderHook(() => useStrings(), { wrapper })
+
+describe('Wizard tests', () => {
+  describe('Renders/snapshots', () => {
+    test('Initial Render - 3 panels', async () => {
+      const defaultWizardProps = getDefaultProps()
+      render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps}>
+            <div>
+              <h2>Form 1</h2>
+              <FormInput.Text name="name" label="Name" />
+            </div>
+            <div>
+              <h2>Form 2</h2>
+            </div>
+            <div>
+              <h2>Form 3</h2>
+            </div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+      expect(document.body).toMatchSnapshot()
+    })
+  })
+
+  describe('Interactivity', () => {
+    test('Footer: Continue button goes to Panel 2', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const { container } = render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps}>
+            <div>Form 1</div>
+            <div>Form 2</div>
+            <div>Form 3</div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+      const continueButton = queryByText(container, result.current.getString('continue'))
+      if (!continueButton) {
+        throw Error('No continue button')
+      }
+      fireEvent.click(continueButton)
+      expect(queryByText(container, 'Form 2')).not.toBeNull()
+      expect(queryByText(container, 'Form 1')).toBeNull()
+      // touched panel with required fields shows warning on Continue button
+      expect(document.body.querySelector('[icon="warning-sign"]')).not.toBeNull()
+    })
+    test('Footer: Back button goes to Panel 1', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const { container } = render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps} defaultTabId={defaultWizardProps.wizardMap.panels[1].id}>
+            <div>Form 1</div>
+            <div>Form 2</div>
+            <div>Form 3</div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+      expect(queryByText(container, 'Form 2')).not.toBeNull()
+      expect(queryByText(container, 'Form 1')).toBeNull()
+      const backButton = queryByText(container, result.current.getString('back'))
+      if (!backButton) {
+        throw Error('No back button')
+      }
+      fireEvent.click(backButton)
+      expect(queryByText(container, 'Form 1')).not.toBeNull()
+      expect(queryByText(container, result.current.getString('continue'))).not.toBeNull()
+      expect(queryByText(container, 'Form 2')).toBeNull()
+    })
+    test('Footer: back button goes to Panel 1', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const { container } = render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps} defaultTabId={defaultWizardProps.wizardMap.panels[1].id}>
+            <div>Form 1</div>
+            <div>Form 2</div>
+            <div>Form 3</div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+      expect(queryByText(container, 'Form 2')).not.toBeNull()
+      expect(queryByText(container, 'Form 1')).toBeNull()
+      const backButton = queryByText(container, result.current.getString('back'))
+      if (!backButton) {
+        throw Error('No back button')
+      }
+      fireEvent.click(backButton)
+      expect(queryByText(container, 'Form 1')).not.toBeNull()
+      expect(queryByText(container, result.current.getString('continue'))).not.toBeNull()
+      expect(queryByText(container, 'Form 2')).toBeNull()
+    })
+
+    test('Tab Change: Show warning for each touched panel until pass validation', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const { container } = render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps}>
+            <div>
+              <h2>Form 1</h2>
+              <FormInput.Text name="name" label="Name" />
+            </div>
+            <div>
+              <h2>Form 2</h2>
+            </div>
+            <div>
+              <h2>Form 3</h2>
+            </div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+      const tab1 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 1"]')
+      const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 2"]')
+      if (!tab1) {
+        throw Error('No tab1 button')
+      }
+      if (!tab2) {
+        throw Error('No tab2 button')
+      }
+      fireEvent.click(tab2)
+      expect(queryByText(container, 'Form 2')).not.toBeNull()
+      expect(queryByText(container, 'Form 1')).toBeNull()
+      // touched panel with required fields shows warning on Tab change
+      expect(document.body.querySelector('[icon="warning-sign"]')).not.toBeNull()
+      fireEvent.click(tab1)
+      const nameField = container.querySelector('[name="name"]')
+      if (!nameField) {
+        throw Error('cannot find name field')
+      }
+      fireEvent.change(nameField, { target: { value: 'test' } })
+      //   warning sign goes away onChange
+      expect(document.body).toMatchSnapshot('look for warning')
+    })
+
+    test('Tab Change: Show warning after leaving touched panel with invalid value starting tab2', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const { container } = render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps} defaultTabId={defaultWizardProps.wizardMap.panels[1].id}>
+            <div>
+              <h2>Form 1</h2>
+              <FormInput.Text name="name" label="Name" />
+            </div>
+            <div>
+              <h2>Form 2</h2>
+              <FormInput.Text name="numberOnly" label="Number Only" />
+            </div>
+            <div>
+              <h2>Form 3</h2>
+            </div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+      const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 2"]')
+      const tab3 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 3"]')
+      if (!tab3) {
+        throw Error('No tab3 button')
+      }
+      if (!tab2) {
+        throw Error('No tab2 button')
+      }
+      const numberOnly = container.querySelector('[name="numberOnly"]')
+      if (!numberOnly) {
+        throw Error('cannot find numberOnly field')
+      }
+      fireEvent.change(numberOnly, { target: { value: 'invalidNumber' } })
+      //   todo: only show once field has been touched
+      //   currently when leaving tab
+      expect(document.body.querySelector('[icon="warning-sign"]')).toBeNull()
+
+      fireEvent.click(tab3)
+      await waitFor(() => queryByText(container, result.current.getString('submit')))
+      expect(document.body.querySelectorAll('[icon="warning-sign"]')?.length).toEqual(2)
+      fireEvent.click(tab2)
+
+      const numberOnly2 = container.querySelector('[name="numberOnly"]')
+      if (!numberOnly2) {
+        throw Error('cannot find numberOnly field')
+      }
+
+      fireEvent.change(numberOnly2, { target: { value: '2000' } })
+
+      const numOfWarningSigns = document.body.querySelectorAll('[icon="warning-sign"]')?.length
+
+      await waitFor(() => expect(numOfWarningSigns).toEqual(1))
+    })
+
+    test('Show error toaster message', async () => {
+      const testError = 'test error'
+      const defaultWizardProps = getDefaultProps()
+      render(
+        <StringsContext.Provider value={value}>
+          <Wizard {...defaultWizardProps} errorToasterMessage={testError}>
+            <div>
+              <h2>Form 1</h2>
+              <FormInput.Text name="name" label="Name" />
+            </div>
+            <div>
+              <h2>Form 2</h2>
+            </div>
+            <div>
+              <h2>Form 3</h2>
+            </div>
+          </Wizard>
+        </StringsContext.Provider>
+      )
+
+      expect(queryByText(document.body, testError)).not.toBeNull()
+    })
+  })
+})

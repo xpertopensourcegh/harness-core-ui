@@ -3,6 +3,7 @@ import type {
   OrgPathProps,
   ProjectPathProps,
   PipelinePathProps,
+  TriggerPathProps,
   ExecutionPathProps,
   ConnectorPathProps,
   SecretsPathProps,
@@ -29,6 +30,11 @@ export const projectPathProps: ProjectPathProps = {
 export const pipelinePathProps: PipelinePathProps = {
   ...projectPathProps,
   pipelineIdentifier: ':pipelineIdentifier'
+}
+
+export const triggerPathProps: TriggerPathProps = {
+  ...pipelinePathProps,
+  triggerIdentifier: ':triggerIdentifier'
 }
 
 export const executionPathProps: ExecutionPathProps = {

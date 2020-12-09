@@ -1,0 +1,298 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Conditions Panel 1`] = `
+<div>
+  <div
+    class="OverlaySpinner---overlaySpinner--3Bs3"
+  >
+    <form
+      class="FormikForm---main--1N87"
+    >
+      <div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws webhookConditionsContainer StyledProps---padding-xxlarge--3lSp"
+        >
+          <h2
+            class="heading"
+          >
+            Conditions
+             
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              style="display: inline-block;"
+            >
+              (OPTIONAL)
+            </p>
+          </h2>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          >
+            Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.
+          </p>
+          <section>
+            <h2
+              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+              level="2"
+            >
+              Branch Conditions
+            </h2>
+            <div
+              class="conditionsRow"
+            >
+              <div>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="font-size: 16px;"
+                >
+                  Source Branch
+                </p>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="sourceBranchOperator-0"
+              >
+                <label
+                  class="bp3-label"
+                  for="sourceBranchOperator"
+                >
+                  Operator
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="sourceBranchOperator"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="sourceBranchValue-1"
+              >
+                <label
+                  class="bp3-label"
+                  for="sourceBranchValue"
+                >
+                  Matches Value
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="sourceBranchValue"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="conditionsRow"
+            >
+              <div>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="font-size: 16px;"
+                >
+                  Target Branch
+                </p>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="targetBranchOperator-2"
+              >
+                <label
+                  class="bp3-label"
+                  for="targetBranchOperator"
+                >
+                  Operator
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="targetBranchOperator"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="targetBranchValue-3"
+              >
+                <label
+                  class="bp3-label"
+                  for="targetBranchValue"
+                >
+                  Matches Value
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="targetBranchValue"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2
+              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+              level="2"
+            >
+              Payload Conditions
+            </h2>
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              style="cursor: pointer; width: 70px;"
+            >
+              + Add
+            </p>
+          </section>
+          <div
+            class="bp3-form-group bp3-disabled"
+            data-id="jexlConditions-4"
+            style="width: 100%;"
+          >
+            <label
+              class="bp3-label"
+              for="jexlConditions"
+            >
+              JEXL Conditions
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <textarea
+                autocomplete="off"
+                class="bp3-input bp3-fill"
+                disabled=""
+                name="jexlConditions"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

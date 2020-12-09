@@ -110,8 +110,6 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
       setCategories(stepsCategories)
       setOriginalCategories(stepsCategories)
     }
-
-    // /* istanbul ignore else */ if (stepsCategories) {
   }, [addDrawerMap])
 
   const filterSteps = (str: string, context: string = filterContext.NAV): void => {
@@ -157,13 +155,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
     }
   }
   return (
-    <Drawer
-      onClose={() => {
-        onClose()
-      }}
-      {...defaultDrawerValues[drawerContext].defaultDrawerProps}
-      {...drawerProps}
-    >
+    <Drawer onClose={onClose} {...defaultDrawerValues[drawerContext].defaultDrawerProps} {...drawerProps}>
       <div className={css.stepPalette}>
         <div className={css.stepInside}>
           <section className={css.stepsRenderer}>
@@ -198,7 +190,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                       <section
                         className={css.step}
                         key={item.itemLabel}
-                        onClick={() => onSelect({ ...Object.assign(item, { categoryLabel: category.categoryLabel }) })}
+                        onClick={() => onSelect({ ...Object.assign(item, { categoryValue: category.categoryValue }) })}
                       >
                         <Card interactive={false} elevation={0} selected={false}>
                           <Icon size={defaultDrawerValues[drawerContext]?.iconSize} name={item.iconName} />

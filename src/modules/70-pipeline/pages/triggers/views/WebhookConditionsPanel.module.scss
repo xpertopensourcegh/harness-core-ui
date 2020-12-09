@@ -1,0 +1,22 @@
+.webhookConditionsContainer {
+  // chagne Icon positioning in PayloadConditionsSection
+  // if width changes
+  width: 800px !important;
+  padding: var(--spacing-large) var(--spacing-xxlarge) !important;
+  .heading {
+    margin: 0;
+  }
+}
+
+.conditionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    width: 240px;
+  }
+}
+
+.payloadConditions {
+  width: 750px;
+}

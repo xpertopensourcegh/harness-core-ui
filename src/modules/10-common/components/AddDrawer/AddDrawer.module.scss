@@ -53,6 +53,11 @@
               box-shadow: 0px 5px 9px -1px var(--grey-350);
             }
           }
+          [class*='card'] {
+            &:hover {
+              cursor: pointer;
+            }
+          }
           .stepName {
             margin-top: var(--spacing-small);
             color: var(--grey-600);
@@ -61,6 +66,9 @@
             -webkit-line-clamp: 2;
             display: -webkit-box;
             -webkit-box-orient: vertical;
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -97,16 +105,12 @@
         display: inline-flex;
         cursor: pointer;
         color: var(--grey-800);
-        // margin-bottom: var(--spacing-small);
         align-items: end;
         font-size: var(--font-size-small);
         :global {
           .bp3-icon {
             margin-right: var(--spacing-small);
           }
-          // path {
-          //   fill: var(--grey-600);
-          // }
         }
       }
       .offset {

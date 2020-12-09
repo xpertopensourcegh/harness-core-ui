@@ -1,59 +1,37 @@
-import React, { useState } from 'react'
-import TriggersList from './Views/TriggersList/TriggersList'
-// import TriggersWizard from './Views/TriggersWizard/TriggersWizard'
-// import i18n from './TriggersPage.i18n'
-// import css from './TriggersPage.module.scss'
-
-// const getWizardMap = (triggerData: { triggerType: string; source: string } | undefined) => {
-//   if (!triggerData) return undefined
-//   const { triggerType = '', source = '' } = triggerData || {}
-//   return {
-//     triggerConfiguration: {
-//       id: i18n.triggerConfigurationLabel,
-//       tabTitleComponent: i18n.triggerConfigurationLabel,
-//       body: (
-//         <>
-//           <h2>Trigger Type: {triggerType}</h2>
-//           <h2>Source: {source}</h2>
-//         </>
-//       )
-//     },
-//     conditions: {
-//       id: i18n.conditionsLabel,
-//       tabTitle: i18n.conditionsLabel,
-//       body: <h2>body</h2>
-//     },
-//     pipelineInput: { id: i18n.pipelineInputLabel, tabTitle: i18n.pipelineInputLabel, body: <h2>body</h2> }
-//   }
-// }
+import React from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
+import TriggersList from './views/TriggersList'
 
 interface TriggerDataInterface {
   triggerType: string
-  source: string
-  // all else optional
+  sourceRepo: string
 }
-const TriggersPage: React.FC = (): JSX.Element => {
-  const [isTriggerWizardOpen, setTriggerWizard] = useState(false)
-  // const [triggerData, setTriggerData] = useState<TriggerDataInterface | undefined>(undefined)
-
-  const onTriggerClick = (_val: TriggerDataInterface) => {
-    // const { triggerType, source } = val
-    // setTriggerData({ triggerType, source })
-    setTriggerWizard(true)
+const TriggersPage: React.FC = (): React.ReactElement => {
+  const { orgIdentifier, projectIdentifier, accountId, pipelineIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+    pipelineIdentifier: string
+    triggerIdentifier: string
+  }>()
+  const history = useHistory()
+  const onNewTriggerClick = (val: TriggerDataInterface): void => {
+    const { triggerType, sourceRepo } = val
+    history.push(
+      routes.toCDTriggersWizardPage({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
+        triggerIdentifier: 'new', // new is a reserved identifier
+        triggerType,
+        sourceRepo
+      })
+    )
   }
 
-  return (
-    <>
-      <TriggersList isTriggerWizardOpen={isTriggerWizardOpen} onTriggerClick={onTriggerClick} />
-      {/* <TriggersWizard
-        isTriggerWizardOpen={isTriggerWizardOpen}
-        wizardMap={getWizardMap(triggerData)}
-        onHide={() => {
-          setTriggerWizard(false)
-        }}
-      /> */}
-    </>
-  )
+  return <TriggersList onNewTriggerClick={onNewTriggerClick} />
 }
 
 export default TriggersPage

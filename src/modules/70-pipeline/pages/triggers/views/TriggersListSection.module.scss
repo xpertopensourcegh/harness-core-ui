@@ -1,0 +1,28 @@
+.actionButton {
+  transform: rotate(90deg);
+}
+
+.activityChart {
+  max-width: 60px;
+  display: block;
+  :global(.progress-bar) {
+    height: var(--spacing-xxlarge) !important;
+  }
+}
+
+.table {
+  margin: var(--spacing-xlarge);
+}
+
+.textCentered {
+  text-align: center;
+}
+
+.activityStatement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  p {
+    display: block;
+  }
+}
