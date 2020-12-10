@@ -1,14 +1,18 @@
 import React, { useMemo, useState } from 'react'
 import { Container, Text, Color, Layout, Icon } from '@wings-software/uikit'
 import groupBy from 'lodash-es/groupBy'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useSaveDataSourceCVConfigs, DSConfig } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+
+import routes from '@common/RouteDefinitions'
+import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import { ValidationStatus } from '../AppDOnboardingUtils'
 import type { TierRecord } from '../AppDOnboardingUtils'
+
 import styles from './ReviewTiersAndApps.module.scss'
 
 interface ReviewTiersAndAppsProps {
@@ -17,9 +21,10 @@ interface ReviewTiersAndAppsProps {
   onPrevious?: () => void
 }
 
-export default function ReviewTiersAndApps({ stepData, onPrevious }: ReviewTiersAndAppsProps) {
+export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteStep }: ReviewTiersAndAppsProps) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const { getString } = useStrings()
+  const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const { mutate: saveDSConfigs, loading } = useSaveDataSourceCVConfigs({})
@@ -61,13 +66,17 @@ export default function ReviewTiersAndApps({ stepData, onPrevious }: ReviewTiers
         productName: product,
         applicationName: appsData[appId].name
       }))
+
     await saveDSConfigs(payload, { queryParams: { accountId } })
+
+    onCompleteStep({ ...stepData, type: 'AppDynamics', sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE })
+
     setShowSuccessMessage(true)
   }
 
   return (
     <Container>
-      {loading && <PageSpinner />}
+      {loading ? <PageSpinner /> : null}
       {showSuccessMessage && (
         <Container className={styles.successMessage}>
           <Icon name="tick-circle" color={Color.GREEN_500} size={26} />
@@ -131,7 +140,22 @@ export default function ReviewTiersAndApps({ stepData, onPrevious }: ReviewTiers
           data={tableData}
         />
       )}
-      <SubmitAndPreviousButtons onPreviousClick={onPrevious} onNextClick={onNext} />
+      <SubmitAndPreviousButtons
+        onPreviousClick={onPrevious}
+        onNextClick={
+          !showSuccessMessage
+            ? onNext
+            : () => {
+                history.push(
+                  `${routes.toCVAdminSetup({
+                    accountId,
+                    projectIdentifier,
+                    orgIdentifier
+                  })}?step=2`
+                )
+              }
+        }
+      />
     </Container>
   )
 }

@@ -392,7 +392,7 @@ const routes = {
   toCVActivitySourceSetup: withAccountId(
     ({ activitySource, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activitySource?: string }>) =>
       activitySource && projectIdentifier && orgIdentifier
-        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/activity-source-setup/${activitySource}`
+        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}`
         : CV_HOME
   ),
   toCVActivitySourceEditSetup: withAccountId(
@@ -403,7 +403,7 @@ const routes = {
       activitySourceId
     }: Partial<ProjectPathProps & { activitySource?: string; activitySourceId: string }>) =>
       activitySource && projectIdentifier && orgIdentifier
-        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
+        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
         : CV_HOME
   ),
   toCVMetricPackConfigureThresholdPage: withAccountId(

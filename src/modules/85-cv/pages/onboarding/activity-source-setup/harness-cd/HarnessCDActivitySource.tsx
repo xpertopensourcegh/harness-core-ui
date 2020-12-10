@@ -11,7 +11,7 @@ import SelectServices from './SelectServices/SelectServices'
 
 const HarnessCDActivitySource: React.FC = () => {
   const { getString } = useStrings()
-  const { onNext, currentData, setCurrentData, onPrevious, ...tabInfo } = useCVTabsHook<any>()
+  const { onNext, currentData, setCurrentData, onPrevious, ...tabInfo } = useCVTabsHook<any>({ totalTabs: 4 })
 
   return (
     <Container>
@@ -31,7 +31,7 @@ const HarnessCDActivitySource: React.FC = () => {
                 initialValues={currentData}
                 onSubmit={data => {
                   setCurrentData({ ...currentData, ...data })
-                  onNext()
+                  onNext({ data: { ...currentData, ...data } })
                 }}
               />
             )
@@ -44,11 +44,9 @@ const HarnessCDActivitySource: React.FC = () => {
                 stepData={currentData}
                 onSubmit={data => {
                   setCurrentData({ ...currentData, ...data })
-                  onNext()
+                  onNext({ data: { ...currentData, ...data } })
                 }}
-                onPrevious={() => {
-                  onPrevious()
-                }}
+                onPrevious={onPrevious}
               />
             )
           },
@@ -60,11 +58,9 @@ const HarnessCDActivitySource: React.FC = () => {
                 initialValues={currentData}
                 onSubmit={data => {
                   setCurrentData({ ...currentData, ...data })
-                  onNext()
+                  onNext({ data: { ...currentData, ...data } })
                 }}
-                onPrevious={() => {
-                  onPrevious()
-                }}
+                onPrevious={onPrevious}
               />
             )
           },
@@ -76,11 +72,9 @@ const HarnessCDActivitySource: React.FC = () => {
                 initialValues={currentData}
                 onSubmit={data => {
                   setCurrentData({ ...currentData, ...data })
-                  onNext()
+                  onNext({ data: { ...currentData, ...data } })
                 }}
-                onPrevious={() => {
-                  onPrevious()
-                }}
+                onPrevious={onPrevious}
               />
             )
           }

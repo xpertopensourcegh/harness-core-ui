@@ -13,7 +13,7 @@ export default function useOnBoardingPageDataHook<T extends object>(
   dataSourceId: string
 ): OnBoardingPageDataHookReturnType<T> {
   const { state: locationContext } = useLocation<T>()
-  const { isInitializingDB, dbInstance } = useIndexedDBHook()
+  const { isInitializingDB, dbInstance } = useIndexedDBHook({})
   const [contextData, setContextData] = useState<T>({ ...locationContext })
   const [loadingContextData, setLoadingContextData] = useState<boolean>(Boolean(!locationContext))
   useEffect(() => {

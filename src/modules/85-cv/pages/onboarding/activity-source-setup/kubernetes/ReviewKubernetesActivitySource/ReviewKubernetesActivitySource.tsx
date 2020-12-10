@@ -9,11 +9,13 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { String, useStrings } from 'framework/exports'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { KubernetesActivitySourceDTO, useRegisterKubernetesSource } from 'services/cv'
+import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
+
 import css from './ReviewKubernetesActivitySource.module.scss'
 
 interface ReviewKubernetesActivitySourceProps {
-  onSubmit: (data: KubernetesActivitySourceInfo) => void
+  onSubmit: (data: KubernetesActivitySourceInfo & BaseSetupTabsObject) => void
   onPrevious: () => void
   data: KubernetesActivitySourceInfo
 }
@@ -77,6 +79,7 @@ function TableColumn(props: CellProps<TableData>): JSX.Element {
 export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySourceProps): JSX.Element {
   const { onPrevious, data } = props
   const params = useParams<ProjectPathProps & AccountPathProps>()
+
   const history = useHistory()
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -130,7 +133,13 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
         nextButtonProps={{ text: getString('submit') }}
         onNextClick={async () => {
           await mutate(transformToSavePayload(data, tableData))
-          history.push(`${routes.toCVAdminSetup(params)}?step=2`)
+          props.onSubmit({
+            ...data,
+            type: 'k8sCluster',
+            sourceType: ONBOARDING_ENTITIES.ACTIVITY_SOURCE as BaseSetupTabsObject['sourceType']
+          })
+
+          history.push(`${routes.toCVAdminSetup(params)}?step=1`)
         }}
       />
     </Container>

@@ -27,7 +27,7 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
                 type="GoogleCloudOperations"
                 onCompleteStep={data => {
                   setCurrentData(data)
-                  onNext()
+                  onNext({ data })
                 }}
                 productSelectValidationText={getString('cv.monitoringSources.gco.productValidationText')}
               />
@@ -42,7 +42,7 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
                 onPrevious={tabInfo.onPrevious}
                 onNext={data => {
                   setCurrentData(data)
-                  onNext()
+                  onNext({ data })
                 }}
               />
             )

@@ -8,7 +8,21 @@ jest.mock('react-router-dom', () => ({
     accountId: 'accountIdMock',
     projectIdentifier: 'projectIdMock',
     orgIdentifier: 'orgIdMock'
+  }),
+  useHistory: jest.fn(() => {
+    return {
+      push: jest.fn(),
+      location: {
+        search: '' // edit mode otherwise e.g. "?triggerType=Webhook&sourceRepo=GITHUB"
+      }
+    }
   })
+}))
+jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
+  useIndexedDBHook: jest.fn().mockImplementation(() => {
+    return { isInitializingDB: false, dbInstance: { get: jest.fn() } }
+  }),
+  CVObjectStoreNames: {}
 }))
 
 jest.mock('framework/exports', () => ({

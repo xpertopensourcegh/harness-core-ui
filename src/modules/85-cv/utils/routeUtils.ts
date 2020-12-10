@@ -25,3 +25,18 @@ export const MonitoringSourceSetupRoutePaths = {
   APP_DYNAMICS: 'app-dynamics',
   GoogleCloudOperations: 'GoogleCloudOperations'
 }
+
+export const getRoutePathByType = (type: string) => {
+  switch (type) {
+    case 'k8sCluster':
+      return ActivitySourceSetupRoutePaths.KUBERNETES
+    case 'HarnessCD_1.0':
+      return ActivitySourceSetupRoutePaths.HARNESS_CD
+    case 'AppDynamics':
+      return MonitoringSourceSetupRoutePaths.APP_DYNAMICS
+    case 'GoogleCloudOperations':
+      return MonitoringSourceSetupRoutePaths.GoogleCloudOperations
+    default:
+      return ''
+  }
+}

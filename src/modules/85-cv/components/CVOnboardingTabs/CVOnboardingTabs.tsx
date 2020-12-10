@@ -2,20 +2,22 @@ import React, { useState } from 'react'
 import { Tabs, Tab, Icon, IconName } from '@wings-software/uikit'
 import ContentEditable from 'react-contenteditable'
 import cx from 'classnames'
+import type { OnClickHandlerParams } from '@cv/hooks/CVTabsHook/useCVTabsHook'
+
 import css from './CVOnboardingTabs.module.scss'
 
-interface CVTabProps {
+interface CVTabProps<T> {
   defaultEntityName: string
   setName: (val: string) => void
   iconName: IconName
   tabProps: any[]
-  onNext: (prevTab?: number, newTab?: number) => void
-  onPrevious: (prevTab?: number, newTab?: number) => void
+  onNext: ({ data, prevTab, newTab }: OnClickHandlerParams<T>) => void
+  onPrevious: (prevTab: number, newTab: number) => void
   currentTab: number
   maxEnabledTab: number
 }
 
-const CVOnboardingTabs: React.FC<CVTabProps> = props => {
+const CVOnboardingTabs: React.FC<CVTabProps<any>> = props => {
   const [editable, setEditable] = useState(false)
 
   return (
@@ -28,7 +30,7 @@ const CVOnboardingTabs: React.FC<CVTabProps> = props => {
           if (newTabId === 0) {
             event.preventDefault()
           } else if (newTabId > prevTabId) {
-            props.onNext(prevTabId, newTabId)
+            props.onNext({ prevTab: prevTabId, newTab: newTabId })
           } else if (newTabId < prevTabId) {
             props.onPrevious(prevTabId, newTabId)
           }

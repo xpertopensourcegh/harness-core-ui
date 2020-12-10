@@ -8,16 +8,17 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
-import ProgressStatus from './ProgressStatus/ProgressStatus'
+import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
+import { useToaster } from '@common/exports'
 
+import { SETUP_INDEXDB_ID } from '@cv/constants'
+import { useStrings } from 'framework/exports'
+import { pluralize } from '@common/utils/StringUtils'
+import ProgressStatus from './ProgressStatus/ProgressStatus'
+import OnboardedSourceSummary from './OnboardedSourceSummary/OnboardedSourceSummary'
+import { SetupIndexDBData, STEP } from './SetupUtils'
 import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
-
-export const STEP = {
-  ACTIVITY_SOURCE: 'ACTIVITY_SOURCE',
-  MONITORING_SOURCE: 'MONITORING_SOURCE',
-  VERIFICATION_JOBS: 'VERIFICATION_JOBS'
-}
 
 export const StepIndex = new Map([
   [STEP.ACTIVITY_SOURCE, 1],
@@ -74,67 +75,95 @@ interface ActivitySourceContentProps {
   setActiveStep: (val: string) => void
   setActivitySource: (val: string) => void
   setMonitoringSource: (val: string) => void
+  step: string | null
+  indexDBData: SetupIndexDBData
 }
 
 const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   const history = useHistory()
+  const { getString } = useStrings()
+  const [showSummary, setShowSummary] = useState(Boolean(props.step))
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
+
   return (
     <Container>
       <Container height="calc(100vh - 100px)">
         <div className={css.monitoringContent}>
-          <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
-            {i18n.activitySource.content.heading.start}
-          </Text>
-          <Text>{i18n.activitySource.content.info}</Text>
-          <Layout.Horizontal margin={{ top: 'xxlarge' }}>
-            <Layout.Vertical margin={{ right: 'xxlarge' }}>
-              <Text>{i18n.harness} </Text>
-              <div className={css.items}>
-                {ActivitySourcesHarness.map((item, index) => {
-                  return (
-                    <div
-                      className={css.cardWrapper}
-                      key={`${index}${item}`}
-                      onClick={() =>
-                        history.push(
-                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier, accountId })
-                        )
-                      }
-                    >
-                      <Card interactive={true} className={css.cardCss}>
-                        <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
-                      </Card>
-                      <div className={css.cardLabel}>{item.label}</div>
-                    </div>
-                  )
-                })}
-              </div>
-            </Layout.Vertical>
-            <Layout.Vertical>
-              <Text>{i18n.infrastructureProvider} </Text>
-              <div className={css.items}>
-                {ActivitySources.map((item, index) => {
-                  return (
-                    <div
-                      className={css.cardWrapper}
-                      key={`${index}${item}`}
-                      onClick={() =>
-                        history.push(
-                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier, accountId })
-                        )
-                      }
-                    >
-                      <Card interactive={true} className={css.cardCss}>
-                        <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
-                      </Card>
-                      <div className={css.cardLabel}>{item.label}</div>
-                    </div>
-                  )
-                })}
-              </div>
-            </Layout.Vertical>
-          </Layout.Horizontal>
+          {showSummary && props.indexDBData?.activitySources?.length ? (
+            <OnboardedSourceSummary
+              sources={props.indexDBData?.activitySources}
+              title={`You have added ${props.indexDBData.activitySources.length} activity source${pluralize(
+                props.indexDBData.activitySources.length
+              )}`}
+              setShowSummary={setShowSummary}
+              buttonText={getString('cv.onboarding.activitySources.addMoreSources')}
+            />
+          ) : (
+            <>
+              <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
+                {i18n.activitySource.content.heading.start}
+              </Text>
+              <Text>{i18n.activitySource.content.info}</Text>
+              <Layout.Horizontal margin={{ top: 'xxlarge' }}>
+                <Layout.Vertical margin={{ right: 'xxlarge' }}>
+                  <Text>{i18n.harness} </Text>
+                  <div className={css.items}>
+                    {ActivitySourcesHarness.map((item, index) => {
+                      return (
+                        <div
+                          className={css.cardWrapper}
+                          key={`${index}${item}`}
+                          onClick={() =>
+                            history.push(
+                              item.routeUrl({
+                                activitySource: item.routeName,
+                                projectIdentifier,
+                                orgIdentifier,
+                                accountId
+                              })
+                            )
+                          }
+                        >
+                          <Card interactive={true} className={css.cardCss}>
+                            <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                          </Card>
+                          <div className={css.cardLabel}>{item.label}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </Layout.Vertical>
+                <Layout.Vertical>
+                  <Text>{i18n.infrastructureProvider} </Text>
+                  <div className={css.items}>
+                    {ActivitySources.map((item, index) => {
+                      return (
+                        <div
+                          className={css.cardWrapper}
+                          key={`${index}${item}`}
+                          onClick={() =>
+                            history.push(
+                              item.routeUrl({
+                                activitySource: item.routeName,
+                                projectIdentifier,
+                                orgIdentifier,
+                                accountId
+                              })
+                            )
+                          }
+                        >
+                          <Card interactive={true} className={css.cardCss}>
+                            <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                          </Card>
+                          <div className={css.cardLabel}>{item.label}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </Layout.Vertical>
+              </Layout.Horizontal>
+            </>
+          )}
         </div>
       </Container>
       <Layout.Horizontal style={{ float: 'right' }} padding="small">
@@ -161,38 +190,61 @@ interface MonitoringSourceContentProps {
   setMonitoringSource: (val: string) => void
   setVerificationJob: (val: string) => void
   monitoringSource: string
+  step: string | null
+  indexDBData: SetupIndexDBData
 }
-const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = () => {
+const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props => {
   const history = useHistory()
+  const { getString } = useStrings()
+  const [showSummary, setShowSummary] = useState(Boolean(props.step))
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
+
   return (
     <Layout.Horizontal>
       <Container height="100vh" width="70%">
         <div className={css.monitoringContent}>
-          <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
-            {i18n.monitoringSource.content.heading}
-          </Text>
-          <Text>{i18n.monitoringSource.content.info}</Text>
-          <div className={css.items}>
-            {MonitoringSources.map((item, index) => {
-              return (
-                <div
-                  className={css.cardWrapper}
-                  key={`${index}${item}`}
-                  onClick={() =>
-                    history.push(
-                      item.routeUrl({ monitoringSource: item.routeName, projectIdentifier, orgIdentifier, accountId })
-                    )
-                  }
-                >
-                  <Card interactive={true} className={css.cardCss}>
-                    <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
-                  </Card>
-                  <div className={css.cardLabel}>{item.label}</div>
-                </div>
-              )
-            })}
-          </div>
+          {showSummary && props.indexDBData?.monitoringSources?.length ? (
+            <OnboardedSourceSummary
+              sources={props.indexDBData?.monitoringSources}
+              title={`You have added ${props.indexDBData.monitoringSources.length} monitoring source${pluralize(
+                props.indexDBData.monitoringSources.length
+              )}`}
+              setShowSummary={setShowSummary}
+              buttonText={getString('cv.onboarding.monitoringSources.addMoreSources')}
+            />
+          ) : (
+            <>
+              <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
+                {i18n.monitoringSource.content.heading}
+              </Text>
+              <Text>{i18n.monitoringSource.content.info}</Text>
+              <div className={css.items}>
+                {MonitoringSources.map((item, index) => {
+                  return (
+                    <div
+                      className={css.cardWrapper}
+                      key={`${index}${item}`}
+                      onClick={() =>
+                        history.push(
+                          item.routeUrl({
+                            monitoringSource: item.routeName,
+                            projectIdentifier,
+                            orgIdentifier,
+                            accountId
+                          })
+                        )
+                      }
+                    >
+                      <Card interactive={true} className={css.cardCss}>
+                        <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                      </Card>
+                      <div className={css.cardLabel}>{item.label}</div>
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          )}
         </div>
       </Container>
     </Layout.Horizontal>
@@ -208,8 +260,13 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const [monitoringSource, setMonitoringSource] = useState<string>(Status.NOT_VISITED)
   const [verificationJob, setVerificationJob] = useState<string>(Status.NOT_VISITED)
   const [activeStep, setActiveStep] = useState<string>(STEP.ACTIVITY_SOURCE)
+
   const location = useLocation()
   const history = useHistory()
+  const { showWarning } = useToaster()
+  const [indexDBData, setIndexDBData] = useState<SetupIndexDBData>()
+  const { isInitializingDB, dbInstance: setUpDbInstance } = useIndexedDBHook({})
+
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const queryParams = new URLSearchParams(location.search)
   const step = queryParams.get('step')
@@ -222,33 +279,66 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
     },
     mock: props.setupStatusMockData
   })
-  const categories = data?.resource?.stepsWhichAreCompleted
+  // Might not need this api now
+  // const categories = data?.resource?.stepsWhichAreCompleted
+
+  const clearDB = async () => {
+    try {
+      await setUpDbInstance?.clear(CVObjectStoreNames.SETUP)
+      setUpDbInstance?.close()
+    } catch (e) {
+      showWarning(e)
+    }
+  }
+
+  const historyUnlisten = history.listen(loc => {
+    if (!loc.pathname.includes('/admin/setup')) {
+      clearDB()
+      historyUnlisten()
+    }
+  })
 
   useEffect(() => {
     if (step) {
-      if (!categories?.includes('ACTIVITY_SOURCE')) {
-        setActiveStep(STEP.ACTIVITY_SOURCE)
-        setActivitySource(Status.ACTIVE)
-      } else if (!categories?.includes('MONITORING_SOURCE')) {
-        setActiveStep(STEP.MONITORING_SOURCE)
-        setMonitoringSource(Status.ACTIVE)
-        setActivitySource(Status.COMPLETED)
-      } else if (!categories?.includes('VERIFICATION_JOBS')) {
-        setActiveStep(STEP.VERIFICATION_JOBS)
-        setVerificationJob(Status.ACTIVE)
-        setMonitoringSource(Status.COMPLETED)
-        setActivitySource(Status.COMPLETED)
+      if (!isInitializingDB && setUpDbInstance) {
+        setUpDbInstance.get(CVObjectStoreNames.SETUP, SETUP_INDEXDB_ID)?.then(resultData => {
+          if (resultData) {
+            setIndexDBData(resultData)
+
+            if (step === '1') {
+              if (activeStep === STEP.MONITORING_SOURCE) {
+                setActivitySource(Status.COMPLETED)
+              }
+            }
+            // !categories?.includes('MONITORING_SOURCE')
+            if (step === '2') {
+              if (activeStep === STEP.ACTIVITY_SOURCE) {
+                setActiveStep(STEP.MONITORING_SOURCE)
+                setMonitoringSource(Status.ACTIVE)
+                setActivitySource(Status.COMPLETED)
+              }
+            }
+            // TODO: after verification job
+            // else if (!categories?.includes('VERIFICATION_JOBS')) {
+            //   setActiveStep(STEP.VERIFICATION_JOBS)
+            //   setVerificationJob(Status.ACTIVE)
+            //   setMonitoringSource(Status.COMPLETED)
+            //   setActivitySource(Status.COMPLETED)
+            // }
+          }
+        })
       }
+
       //  Not required : Discuss after verification step
       // else {
       //   setActiveStep(STEP.ACTIVITY_SOURCE)
       //   setActivitySource(Status.ACTIVE)
       // }
     }
-  }, [categories])
+  }, [isInitializingDB, setUpDbInstance])
   return (
     <Container>
-      {loading ? (
+      {loading || isInitializingDB ? (
         <PageSpinner />
       ) : error ? (
         <div style={{ height: '100vh' }}>
@@ -350,10 +440,10 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                     history.push(routes.toCVMainDashBoardPage({ accountId, projectIdentifier, orgIdentifier }))
                   } else if (activeStep === STEP.MONITORING_SOURCE) {
                     setActiveStep(STEP.ACTIVITY_SOURCE)
-                    setActivitySource(Status.COMPLETED)
+                    setActivitySource(Status.ACTIVE)
                   } else if (activeStep === STEP.VERIFICATION_JOBS) {
                     setActiveStep(STEP.MONITORING_SOURCE)
-                    setMonitoringSource(Status.COMPLETED)
+                    setMonitoringSource(Status.ACTIVE)
                   }
                 }}
               />
@@ -384,10 +474,14 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 setActiveStep={setActiveStep}
                 setActivitySource={setActivitySource}
                 setMonitoringSource={setMonitoringSource}
+                step={step}
+                indexDBData={indexDBData as SetupIndexDBData}
                 // setActivitySourceType={setActivitySourceType}
               />
             ) : activeStep === STEP.MONITORING_SOURCE ? (
               <MonitoringSourceContent
+                step={step}
+                indexDBData={indexDBData as SetupIndexDBData}
                 statusData={data}
                 monitoringSource={monitoringSource}
                 setActiveStep={setActiveStep}

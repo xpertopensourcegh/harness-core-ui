@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CVSetupPage render initial state 1`] = `
+exports[`CVSetupPage check next and previous 1`] = `
 <div>
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
@@ -359,7 +359,7 @@ exports[`CVSetupPage render initial state 1`] = `
 </div>
 `;
 
-exports[`CVSetupPage render when Activity source is already configured 1`] = `
+exports[`CVSetupPage check next and previous 2`] = `
 <div>
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
@@ -524,9 +524,37 @@ exports[`CVSetupPage render when Activity source is already configured 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button bp3-disabled bp3-loading StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            disabled=""
+            tabindex="-1"
             type="button"
           >
+            <div
+              class="bp3-spinner bp3-button-spinner"
+            >
+              <div
+                class="bp3-spinner-animation"
+              >
+                <svg
+                  height="20"
+                  stroke-width="16.00"
+                  viewBox="-3.00 -3.00 106.00 106.00"
+                  width="20"
+                >
+                  <path
+                    class="bp3-spinner-track"
+                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                  />
+                  <path
+                    class="bp3-spinner-head"
+                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                    pathLength="280"
+                    stroke-dasharray="280 280"
+                    stroke-dashoffset="210"
+                  />
+                </svg>
+              </div>
+            </div>
             <span
               class="bp3-button-text"
             >
@@ -663,6 +691,780 @@ exports[`CVSetupPage render when Activity source is already configured 1`] = `
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CVSetupPage check next and previous 3`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      style="height: 100vh;"
+    >
+      <div
+        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+        style="width: 30%;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          Setup
+        </p>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+          style="height: calc(100vh - 128px);"
+        >
+          <div
+            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            style="position: relative; top: 150px;"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+              >
+                <span
+                  class="number"
+                >
+                  1
+                </span>
+                <div
+                  class="dashedLine dashedLineVisited"
+                />
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                style="width: 90%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                >
+                  ACTIVITY SOURCE
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                >
+                  Activity sources provide the details of deployment and infrastructure change
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+              >
+                <span
+                  class="onlyNumber"
+                >
+                   2
+                </span>
+                <div
+                  class="dashedLine dashedLineVisited"
+                />
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                style="width: 90%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                >
+                  MONITORING SOURCE
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                >
+                  Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+              >
+                <span
+                  class="onlyNumber"
+                >
+                   3
+                </span>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                style="width: 90%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                >
+                  VERIFICATION JOBS
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                >
+                  Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <button
+            class="bp3-button bp3-disabled bp3-loading StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <div
+              class="bp3-spinner bp3-button-spinner"
+            >
+              <div
+                class="bp3-spinner-animation"
+              >
+                <svg
+                  height="20"
+                  stroke-width="16.00"
+                  viewBox="-3.00 -3.00 106.00 106.00"
+                  width="20"
+                >
+                  <path
+                    class="bp3-spinner-track"
+                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                  />
+                  <path
+                    class="bp3-spinner-head"
+                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                    pathLength="280"
+                    stroke-dasharray="280 280"
+                    stroke-dashoffset="210"
+                  />
+                </svg>
+              </div>
+            </div>
+            <span
+              class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              icon="chevron-left"
+            >
+              <svg
+                data-icon="chevron-left"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-left
+                </desc>
+                <path
+                  d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              Previous
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-disabled bp3-loading StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <div
+              class="bp3-spinner bp3-button-spinner"
+            >
+              <div
+                class="bp3-spinner-animation"
+              >
+                <svg
+                  height="20"
+                  stroke-width="16.00"
+                  viewBox="-3.00 -3.00 106.00 106.00"
+                  width="20"
+                >
+                  <path
+                    class="bp3-spinner-track"
+                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                  />
+                  <path
+                    class="bp3-spinner-head"
+                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                    pathLength="280"
+                    stroke-dasharray="280 280"
+                    stroke-dashoffset="210"
+                  />
+                </svg>
+              </div>
+            </div>
+            <span
+              class="bp3-button-text"
+            >
+              Next
+            </span>
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              icon="chevron-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-grey200--jF1S"
+        style="width: 70%;"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            style="height: calc(100vh - 100px);"
+          >
+            <div
+              class="monitoringContent"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-xlarge--2Tnj StyledProps---margin-bottom-small--3Kji"
+              >
+                Let’s get you started
+              </p>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Select your activity source
+              </p>
+              <div
+                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+              >
+                <div
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---margin-right-xxlarge--S_1-"
+                >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  >
+                    HARNESS
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        tabindex="0"
+                      >
+                        <div
+                          class="Card---cardIcon--2uSw"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws"
+                          >
+                            <svg
+                              fill="none"
+                              height="40"
+                              viewBox="0 0 26 21"
+                              width="40"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                                fill="url(#cd-main_svg__paint0_linear)"
+                                fill-rule="evenodd"
+                              />
+                              <defs>
+                                <lineargradient
+                                  gradientUnits="userSpaceOnUse"
+                                  id="cd-main_svg__paint0_linear"
+                                  x1="3.557"
+                                  x2="8.848"
+                                  y1="9.622"
+                                  y2="18.787"
+                                >
+                                  <stop
+                                    stop-color="#62F91F"
+                                  />
+                                  <stop
+                                    offset="1"
+                                    stop-color="#5EAA53"
+                                  />
+                                </lineargradient>
+                              </defs>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        Harness CD 1.0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  >
+                    INFRASTRUCTURE PROVIDER
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        tabindex="0"
+                      >
+                        <div
+                          class="Card---cardIcon--2uSw"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws"
+                          >
+                            <svg
+                              height="40"
+                              viewBox="0 0 14 14"
+                              width="40"
+                            >
+                              <path
+                                d="M7 .4c-.1 0-.2 0-.3.1L2 2.7c-.2.1-.4.3-.5.6l-1.2 5c-.1.2 0 .5.1.7l.1.1 3.2 4c.2.2.4.3.7.3h5.2c.3 0 .5-.1.7-.3l3.2-4c.2-.2.2-.5.2-.7l-1.2-5c-.1-.3-.2-.5-.5-.6L7.3.6c0-.1-.2-.2-.3-.2z"
+                                fill="#326ce5"
+                              />
+                              <path
+                                d="M7 2.1c-.2 0-.3.1-.3.3v.9c0 .1-.1.1-.1.1v.1c-.2 0-.3 0-.5.1-.7.2-1.4.5-1.8 1l-.1-.1H4c-.1-.1-.2-.2-.4-.3L3.4 4h-.1c-.1 0-.1-.1-.2-.1s-.2 0-.2.1c-.1.1-.1.3.1.4h.1c.1.1.2.1.2.1.2.1.3.2.4.3 0 0 .1.1.1.2l.1.1c-.5.7-.7 1.6-.6 2.5h-.1l-.1.1c-.1 0-.3.1-.5.1h-.4c-.2 0-.3.2-.2.3 0 .1.2.2.4.2h.1c.1 0 .2-.1.3-.1.2-.1.3-.1.5-.1.1 0 .1 0 .2.1h.1c.3.9.9 1.6 1.6 2l-.1.1v.2c-.1.1-.1.3-.3.5-.1.1-.1.1-.1.2v.1c-.1.2 0 .3.1.4s.3 0 .4-.2v-.1c0-.1.1-.2.1-.3.1-.2.1-.4.2-.5 0 0 .1 0 .1-.1l.1-.1c.6.2 1.4.3 2.1.2.2 0 .3-.1.5-.1l.1.1s.1 0 .1.1c.1.1.1.3.2.5 0 .1 0 .2.1.3v.1c.1.2.2.2.4.2.1-.1.2-.2.1-.4v-.1c0-.1-.1-.1-.1-.2-.1-.2-.2-.3-.2-.4V10.4c.8-.5 1.3-1.2 1.6-2h.1s.1-.1.2-.1.3.1.5.1c.1 0 .2.1.3.1h.1c.2 0 .3-.1.4-.2 0-.1-.1-.3-.2-.3h-.4c-.2 0-.4 0-.5-.1-.1 0-.1-.1-.1-.1h-.1c.1-.4 0-.9-.1-1.3s-.3-.9-.5-1.2l.1-.1c0-.1 0-.1.1-.2s.2-.2.4-.3c.1 0 .2-.1.2-.1h.1c.1-.1.2-.3.1-.4s-.3-.1-.4 0h-.1l-.2.2c-.1.1-.3.3-.4.3H10l-.1.1c-.6-.6-1.4-1-2.3-1.1v-.1l-.1-.1V3v-.4c-.2-.3-.3-.5-.5-.5zm-.3 2.2l-.1 1.5c0 .1-.1.2-.2.2h-.1l-1.2-.9c.4-.4.8-.6 1.4-.8zm.7 0c.6.1 1.2.4 1.7.8l-1.2.8c-.1.1-.3.1-.3 0l-.1-.1zM4.6 5.7l1.1 1c.1.1.1.2 0 .3l-.1.1-1.4.4c-.1-.7 0-1.3.4-1.8zm4.9 0c.2.3.3.6.4.9s.1.6.1.9l-1.4-.4c-.1 0-.2-.2-.2-.3s0-.1.1-.1zm-2.7 1h.4l.3.3-.1.4-.4.2-.4-.2-.1-.4zm1.4 1.2c.1 0 .1 0 0 0l1.5.2c-.2.6-.6 1.1-1.2 1.5l-.6-1.4c.1-.1.1-.2.3-.3zm-2.4 0c.1 0 .2.1.2.2v.2l-.6 1.4c-.5-.3-.9-.8-1.2-1.5zm1.2.6l.2.1.7 1.3c-.1 0-.2.1-.3.1-.5.1-1.1.1-1.6-.1l.7-1.3c.2 0 .2-.1.3-.1z"
+                                fill="#fff"
+                                stroke="#fff"
+                                stroke-width="0.25"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        Kubernetes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+            style="float: right;"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xsmall--1WI2"
+            >
+              Don’t have an activity source? 
+            </p>
+            <a
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+              href="javascript:void()"
+              role="button"
+              tabindex="0"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Skip to monitoring sources
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CVSetupPage render initial state 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      style="height: 100vh;"
+    >
+      <div
+        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+        style="width: 30%;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          Setup
+        </p>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+          style="height: calc(100vh - 128px);"
+        >
+          <div
+            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            style="position: relative; top: 150px;"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+              >
+                <span
+                  class="number"
+                >
+                  1
+                </span>
+                <div
+                  class="dashedLine dashedLineVisited"
+                />
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                style="width: 90%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                >
+                  ACTIVITY SOURCE
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                >
+                  Activity sources provide the details of deployment and infrastructure change
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+              >
+                <span
+                  class="onlyNumber"
+                >
+                   2
+                </span>
+                <div
+                  class="dashedLine dashedLineNotVisited"
+                />
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                style="width: 90%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                >
+                  MONITORING SOURCE
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                >
+                  Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+              >
+                <span
+                  class="onlyNumber"
+                >
+                   3
+                </span>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                style="width: 90%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                >
+                  VERIFICATION JOBS
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                >
+                  Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              icon="chevron-left"
+            >
+              <svg
+                data-icon="chevron-left"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-left
+                </desc>
+                <path
+                  d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              Previous
+            </span>
+          </button>
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Next
+            </span>
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              icon="chevron-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-grey200--jF1S"
+        style="width: 70%;"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            style="height: calc(100vh - 100px);"
+          >
+            <div
+              class="monitoringContent"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-xlarge--2Tnj StyledProps---margin-bottom-small--3Kji"
+              >
+                Let’s get you started
+              </p>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Select your activity source
+              </p>
+              <div
+                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+              >
+                <div
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---margin-right-xxlarge--S_1-"
+                >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  >
+                    HARNESS
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        tabindex="0"
+                      >
+                        <div
+                          class="Card---cardIcon--2uSw"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws"
+                          >
+                            <svg
+                              fill="none"
+                              height="40"
+                              viewBox="0 0 26 21"
+                              width="40"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                                fill="url(#cd-main_svg__paint0_linear)"
+                                fill-rule="evenodd"
+                              />
+                              <defs>
+                                <lineargradient
+                                  gradientUnits="userSpaceOnUse"
+                                  id="cd-main_svg__paint0_linear"
+                                  x1="3.557"
+                                  x2="8.848"
+                                  y1="9.622"
+                                  y2="18.787"
+                                >
+                                  <stop
+                                    stop-color="#62F91F"
+                                  />
+                                  <stop
+                                    offset="1"
+                                    stop-color="#5EAA53"
+                                  />
+                                </lineargradient>
+                              </defs>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        Harness CD 1.0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  >
+                    INFRASTRUCTURE PROVIDER
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        tabindex="0"
+                      >
+                        <div
+                          class="Card---cardIcon--2uSw"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws"
+                          >
+                            <svg
+                              height="40"
+                              viewBox="0 0 14 14"
+                              width="40"
+                            >
+                              <path
+                                d="M7 .4c-.1 0-.2 0-.3.1L2 2.7c-.2.1-.4.3-.5.6l-1.2 5c-.1.2 0 .5.1.7l.1.1 3.2 4c.2.2.4.3.7.3h5.2c.3 0 .5-.1.7-.3l3.2-4c.2-.2.2-.5.2-.7l-1.2-5c-.1-.3-.2-.5-.5-.6L7.3.6c0-.1-.2-.2-.3-.2z"
+                                fill="#326ce5"
+                              />
+                              <path
+                                d="M7 2.1c-.2 0-.3.1-.3.3v.9c0 .1-.1.1-.1.1v.1c-.2 0-.3 0-.5.1-.7.2-1.4.5-1.8 1l-.1-.1H4c-.1-.1-.2-.2-.4-.3L3.4 4h-.1c-.1 0-.1-.1-.2-.1s-.2 0-.2.1c-.1.1-.1.3.1.4h.1c.1.1.2.1.2.1.2.1.3.2.4.3 0 0 .1.1.1.2l.1.1c-.5.7-.7 1.6-.6 2.5h-.1l-.1.1c-.1 0-.3.1-.5.1h-.4c-.2 0-.3.2-.2.3 0 .1.2.2.4.2h.1c.1 0 .2-.1.3-.1.2-.1.3-.1.5-.1.1 0 .1 0 .2.1h.1c.3.9.9 1.6 1.6 2l-.1.1v.2c-.1.1-.1.3-.3.5-.1.1-.1.1-.1.2v.1c-.1.2 0 .3.1.4s.3 0 .4-.2v-.1c0-.1.1-.2.1-.3.1-.2.1-.4.2-.5 0 0 .1 0 .1-.1l.1-.1c.6.2 1.4.3 2.1.2.2 0 .3-.1.5-.1l.1.1s.1 0 .1.1c.1.1.1.3.2.5 0 .1 0 .2.1.3v.1c.1.2.2.2.4.2.1-.1.2-.2.1-.4v-.1c0-.1-.1-.1-.1-.2-.1-.2-.2-.3-.2-.4V10.4c.8-.5 1.3-1.2 1.6-2h.1s.1-.1.2-.1.3.1.5.1c.1 0 .2.1.3.1h.1c.2 0 .3-.1.4-.2 0-.1-.1-.3-.2-.3h-.4c-.2 0-.4 0-.5-.1-.1 0-.1-.1-.1-.1h-.1c.1-.4 0-.9-.1-1.3s-.3-.9-.5-1.2l.1-.1c0-.1 0-.1.1-.2s.2-.2.4-.3c.1 0 .2-.1.2-.1h.1c.1-.1.2-.3.1-.4s-.3-.1-.4 0h-.1l-.2.2c-.1.1-.3.3-.4.3H10l-.1.1c-.6-.6-1.4-1-2.3-1.1v-.1l-.1-.1V3v-.4c-.2-.3-.3-.5-.5-.5zm-.3 2.2l-.1 1.5c0 .1-.1.2-.2.2h-.1l-1.2-.9c.4-.4.8-.6 1.4-.8zm.7 0c.6.1 1.2.4 1.7.8l-1.2.8c-.1.1-.3.1-.3 0l-.1-.1zM4.6 5.7l1.1 1c.1.1.1.2 0 .3l-.1.1-1.4.4c-.1-.7 0-1.3.4-1.8zm4.9 0c.2.3.3.6.4.9s.1.6.1.9l-1.4-.4c-.1 0-.2-.2-.2-.3s0-.1.1-.1zm-2.7 1h.4l.3.3-.1.4-.4.2-.4-.2-.1-.4zm1.4 1.2c.1 0 .1 0 0 0l1.5.2c-.2.6-.6 1.1-1.2 1.5l-.6-1.4c.1-.1.1-.2.3-.3zm-2.4 0c.1 0 .2.1.2.2v.2l-.6 1.4c-.5-.3-.9-.8-1.2-1.5zm1.2.6l.2.1.7 1.3c-.1 0-.2.1-.3.1-.5.1-1.1.1-1.6-.1l.7-1.3c.2 0 .2-.1.3-.1z"
+                                fill="#fff"
+                                stroke="#fff"
+                                stroke-width="0.25"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        Kubernetes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+            style="float: right;"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xsmall--1WI2"
+            >
+              Don’t have an activity source? 
+            </p>
+            <a
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+              href="javascript:void()"
+              role="button"
+              tabindex="0"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Skip to monitoring sources
+              </span>
+            </a>
           </div>
         </div>
       </div>

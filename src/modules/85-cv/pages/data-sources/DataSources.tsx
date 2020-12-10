@@ -415,7 +415,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
 const DataSources: FunctionComponent<{}> = _ => {
   const [existingDataSources, setDataSources] = useState(new Map())
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { isInitializingDB, dbInstance } = useIndexedDBHook()
+  const { isInitializingDB, dbInstance } = useIndexedDBHook({})
   const { data: secretManagersApiResponse, loading, error, refetch } = useGetConnectorList({
     queryParams: {
       accountIdentifier: accountId,

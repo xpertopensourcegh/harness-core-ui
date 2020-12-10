@@ -395,6 +395,12 @@ global:
           createdOn: 'Created on'
           lastUpdatedOn: 'Last Updated on'
     onboarding:
+      monitoringSources:
+        addMoreSources: Add more monitoring sources
+        addedStatus: You have added {{sourceCount}} monitoring source
+      activitySources:
+        addMoreSources: Add more activity sources
+        addedStatus: You have added {{sourceCount}} activity source
       progress:
         heading: 'Your Progress'
         mapServices: 'Map the above {{serviceLabel}} to a monitoring source.'

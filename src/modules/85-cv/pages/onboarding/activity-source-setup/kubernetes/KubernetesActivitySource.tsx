@@ -17,8 +17,8 @@ import { SelectKubernetesConnector } from './SelectKubernetesConnector/SelectKub
 import { SelectKubernetesNamespaces } from './SelectKubernetesNamespaces/SelectKubernetesNamespaces'
 import { MapWorkloadsToServices } from './MapWorkloadsToServices/MapWorkloadsToServices'
 import { ReviewKubernetesActivitySource } from './ReviewKubernetesActivitySource/ReviewKubernetesActivitySource'
-import {
-  buildKubernetesActivitySourceInfo,
+import type {
+  // buildKubernetesActivitySourceInfo,
   KubernetesActivitySourceInfo,
   WorkloadInfo
 } from './KubernetesActivitySourceUtils'
@@ -32,7 +32,7 @@ const TabComponents = [
 ]
 
 export function transformApiData(activitySource?: KubernetesActivitySourceDTO): KubernetesActivitySourceInfo {
-  if (!activitySource || !activitySource?.activitySourceConfigs?.length) return buildKubernetesActivitySourceInfo()
+  if (!activitySource || !activitySource?.activitySourceConfigs?.length) return {} as KubernetesActivitySourceInfo
   const data: KubernetesActivitySourceInfo = {
     ...omit(activitySource, ['lastUpdatedAt', 'activitySourceConfigs']),
     selectedNamespaces: [],
@@ -77,7 +77,9 @@ export function transformApiData(activitySource?: KubernetesActivitySourceDTO): 
 }
 
 export function KubernetesActivitySource(): JSX.Element {
-  const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<KubernetesActivitySourceInfo>()
+  const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<KubernetesActivitySourceInfo>({
+    totalTabs: 5
+  })
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & AccountPathProps & { activitySourceId: string }>()
   const { loading, error, refetch: fetchKubernetesSource } = useGetKubernetesSource({
@@ -95,7 +97,9 @@ export function KubernetesActivitySource(): JSX.Element {
   })
 
   useEffect(() => {
-    if (params.activitySourceId) fetchKubernetesSource()
+    if (params.activitySourceId && !currentData) {
+      fetchKubernetesSource()
+    }
   }, [params])
 
   const tabTitles = [
@@ -120,7 +124,7 @@ export function KubernetesActivitySource(): JSX.Element {
             data: currentData as KubernetesActivitySourceInfo,
             onSubmit: (submittedInfo: KubernetesActivitySourceInfo) => {
               if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
-              onNext()
+              onNext({ data: { ...currentData, ...submittedInfo } })
             },
             onPrevious: tabInfo.onPrevious
           })

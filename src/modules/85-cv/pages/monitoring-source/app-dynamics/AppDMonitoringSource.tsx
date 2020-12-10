@@ -1,23 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
+import type { BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import SelectApplications from './SelectApplications/SelectApplications'
 import MapApplications from './MapApplications/MapApplications'
 import ReviewTiersAndApps from './ReviewTiersAndApps/ReviewTiersAndApps'
 
+interface AppDMonitoringSourceDataType extends BaseSetupTabsObject {
+  [key: string]: any // Add Types
+}
+
 const AppDMonitoringSource = () => {
-  const [data, setData] = useState<any>({ name: '' })
-  const { onNext, onPrevious, currentTab, maxEnabledTab } = useCVTabsHook()
+  const { currentData, setCurrentData, onNext, onPrevious, currentTab, maxEnabledTab } = useCVTabsHook<
+    AppDMonitoringSourceDataType
+  >({ totalTabs: 4 })
   const { getString } = useStrings()
 
   return (
     <CVOnboardingTabs
       iconName="service-appdynamics"
-      defaultEntityName={data.name || 'Default Name'}
+      defaultEntityName={currentData?.name || 'Default Name'}
       setName={val => {
-        setData({ ...data, name: val })
+        setCurrentData({ ...currentData, name: val })
       }}
       onNext={onNext}
       onPrevious={onPrevious}
@@ -29,11 +35,11 @@ const AppDMonitoringSource = () => {
           title: getString('selectProduct'),
           component: (
             <SelectProduct
-              stepData={data}
+              stepData={currentData}
               type="AppDynamics"
               onCompleteStep={stepData => {
-                setData({ ...data, ...stepData })
-                onNext()
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
               }}
             />
           )
@@ -44,12 +50,12 @@ const AppDMonitoringSource = () => {
           component: (
             <SelectApplications
               stepData={{
-                connectorIdentifier: data?.connectorRef?.value,
-                applications: data?.applications
+                connectorIdentifier: currentData?.connectorRef?.value,
+                applications: currentData?.applications
               }}
               onCompleteStep={stepData => {
-                setData({ ...data, ...stepData })
-                onNext()
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
               }}
               onPrevious={onPrevious}
             />
@@ -61,16 +67,16 @@ const AppDMonitoringSource = () => {
           component: (
             <MapApplications
               stepData={{
-                sourceName: data?.name,
-                connectorIdentifier: data?.connectorRef?.value,
-                productName: data?.product,
-                applications: data?.applications,
-                tiers: data?.tiers,
-                metricPacks: data?.metricPacks
+                sourceName: currentData?.name,
+                connectorIdentifier: currentData?.connectorRef?.value,
+                productName: currentData?.product,
+                applications: currentData?.applications,
+                tiers: currentData?.tiers,
+                metricPacks: currentData?.metricPacks
               }}
               onCompleteStep={stepData => {
-                setData({ ...data, ...stepData })
-                onNext()
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
               }}
               onPrevious={onPrevious}
             />
@@ -81,10 +87,10 @@ const AppDMonitoringSource = () => {
           title: getString('review'),
           component: (
             <ReviewTiersAndApps
-              stepData={data}
+              stepData={currentData}
               onCompleteStep={stepData => {
-                setData({ ...data, ...stepData })
-                onNext()
+                setCurrentData({ ...currentData, ...stepData })
+                onNext({ data: { ...currentData, ...stepData } })
               }}
               onPrevious={onPrevious}
             />

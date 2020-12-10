@@ -8,6 +8,13 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { KubernetesActivitySource, transformApiData } from '../KubernetesActivitySource'
 
+jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
+  useIndexedDBHook: jest.fn().mockImplementation(() => {
+    return { isInitializingDB: false, dbInstance: { get: jest.fn(), put: jest.fn() } }
+  }),
+  CVObjectStoreNames: {}
+}))
+
 jest.mock('../SelectActivitySource/SelectActivitySource', () => ({
   ...(jest.requireActual('../SelectActivitySource/SelectActivitySource') as object),
   SelectActivitySource: function MockSelectActivitySource(props: any) {
@@ -147,12 +154,16 @@ describe('Unit tests for KubernetesActivitySource', () => {
     if (!previousButtonNamespace) throw Error('Previous button was not rendered namespace.')
     fireEvent.click(previousButtonNamespace)
 
+    await waitFor(() => expect(container.querySelector('.MapWorkloadsToServices')).not.toBeNull())
+
     const workloadRef = container.querySelector('.MapWorkloadsToServices')
     if (!workloadRef) throw Error('Tabs were not rendered')
 
     const previousButtonWorkload = container.querySelector('#MapWorkloadsToServices')
     if (!previousButtonWorkload) throw Error('Previous button was not rendered workload.')
     fireEvent.click(previousButtonWorkload)
+
+    await waitFor(() => expect(container.querySelector('.ReviewKubernetesActivitySource')).not.toBeNull())
 
     const reviewRef = container.querySelector('.ReviewKubernetesActivitySource')
     if (!reviewRef) throw Error('Tabs were not rendered')
