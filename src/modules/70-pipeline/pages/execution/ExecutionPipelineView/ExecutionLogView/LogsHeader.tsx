@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, ExpandingSearchInput, Icon, Text } from '@wings-software/uikit'
+import { Button, Container, ExpandingSearchInput, Text } from '@wings-software/uikit'
 import { useStrings } from 'framework/exports'
 import css from './LogsHeader.module.scss'
 
@@ -56,8 +56,9 @@ const LogsHeader = (props: LogsHeaderProps) => {
             throttle={200}
           />
         </div>
-        <Icon name="download" size={16} />
-        {showCross && <Icon name="cross" size={16} />}
+        <Button minimal icon="download" className={css.download}></Button>
+        {/* <Icon name="download" size={16} className={css.btn} /> */}
+        {showCross && <Button minimal icon="cross" className={css.remove}></Button>}
       </section>
     </Container>
   )

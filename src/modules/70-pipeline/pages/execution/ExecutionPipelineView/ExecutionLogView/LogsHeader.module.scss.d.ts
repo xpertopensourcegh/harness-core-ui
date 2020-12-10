@@ -10,5 +10,7 @@ declare const styles: {
   readonly header: string
   readonly headerActions: string
   readonly summaryElement: string
+  readonly download: string
+  readonly remove: string
 }
 export default styles

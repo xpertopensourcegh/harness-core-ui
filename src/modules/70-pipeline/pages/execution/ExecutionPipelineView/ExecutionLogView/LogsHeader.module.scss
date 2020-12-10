@@ -9,15 +9,15 @@
 }
 
 .searchInput {
-  //width: 200px;
+  // width: 200px;
   height: 19px;
   display: flex;
   justify-content: flex-end;
   :global {
     input:not(:placeholder-shown),
     input:focus {
-      //width: 242px;
-      padding-right: 108px;
+      // width: 242px;
+      // padding-right: 108px;
     }
     input:not(:focus) {
       cursor: pointer;
@@ -38,6 +38,10 @@
 
 .redirectBtn {
   margin-top: -5px !important;
+  border: 1px solid #383946 !important;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-color: unset !important;
 }
 
 .logsHeader {
@@ -46,7 +50,7 @@
 
 .headerContent {
   display: flex;
-  width: 200px;
+  // width: 200px;
   color: var(--white-color-1);
 }
 
@@ -61,8 +65,16 @@
 
 .headerActions {
   display: flex;
-
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  :global {
+    button:focus {
+      border: 1px solid var(--blue-400);
+      color: var(--blue-500);
+      background-color: var(--blue-100);
+      box-shadow: none;
+    }
+  }
 }
 
 .headerActions * {
@@ -75,4 +87,12 @@
   color: var(--grey-color-2);
   padding: var(--spacing-small);
   background: var(--black-color-1) !important;
+}
+
+.download:focus {
+  background-color: unset !important;
+}
+
+.remove:focus {
+  background-color: unset !important;
 }
