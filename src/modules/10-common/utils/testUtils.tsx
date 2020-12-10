@@ -65,7 +65,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
         strings,
         projects,
         updateAppStore: jest.fn(),
-        user: {},
         ...defaultAppStoreValues
       }}
     >

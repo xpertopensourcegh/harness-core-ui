@@ -2,9 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import type { Project } from 'services/cd-ng'
-import type { User } from 'services/portal'
 import { useGetProjectList } from 'services/cd-ng'
-import { useGetUser } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,9 +16,6 @@ export type StringsMap = Record<string, Record<string, any>>
 export interface AppStoreContextProps {
   readonly projects: Project[]
 
-  /** Current user info */
-  readonly user: Partial<User>
-
   /** strings for i18n */
   readonly strings: StringsMap
 
@@ -29,7 +24,6 @@ export interface AppStoreContextProps {
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   projects: [],
-  user: {},
   strings: {},
   updateAppStore: () => void 0
 })
@@ -41,7 +35,6 @@ export function useAppStore(): AppStoreContextProps {
 export function AppStoreProvider(props: React.PropsWithChildren<{ strings: StringsMap }>): React.ReactElement {
   const { accountId } = useParams<{ accountId: string }>()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
-    user: {},
     projects: []
   })
 
@@ -51,18 +44,12 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
     }
   })
 
-  const { loading: userLoading, data: user } = useGetUser({})
-
   React.useEffect(() => {
     setState(prevState => ({
       ...prevState,
       projects: projects?.data?.content?.map(response => response.project) || []
     }))
   }, [projects?.data?.content])
-
-  React.useEffect(() => {
-    setState(prevState => ({ ...prevState, user: user?.resource || {} }))
-  }, [user?.resource])
 
   function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects'>>): void {
     setState(prevState => ({
@@ -79,7 +66,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
         updateAppStore
       }}
     >
-      {userLoading || projectsLoading ? <PageSpinner /> : props.children}
+      {projectsLoading ? <PageSpinner /> : props.children}
     </AppStoreContext.Provider>
   )
 }

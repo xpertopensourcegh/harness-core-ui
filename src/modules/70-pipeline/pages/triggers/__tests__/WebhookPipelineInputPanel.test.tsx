@@ -16,7 +16,6 @@ import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
 
 const value: AppStoreContextProps = {
   projects: [],
-  user: {},
   strings,
   updateAppStore: jest.fn()
 }

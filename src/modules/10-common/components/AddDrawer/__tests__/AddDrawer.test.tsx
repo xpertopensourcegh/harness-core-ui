@@ -10,7 +10,6 @@ import AddDrawer from '../AddDrawer'
 
 const value: AppStoreContextProps = {
   projects: [],
-  user: {},
   strings,
   updateAppStore: jest.fn()
 }

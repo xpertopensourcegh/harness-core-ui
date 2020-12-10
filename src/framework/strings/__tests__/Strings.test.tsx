@@ -10,7 +10,6 @@ import { AppStoreContext as StringsContext, AppStoreContextProps } from '../../A
 
 const value: AppStoreContextProps = {
   projects: [],
-  user: {},
   strings,
   updateAppStore: jest.fn()
 }

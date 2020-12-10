@@ -11,8 +11,7 @@ export const project: Project = {
   description: 'test',
   tags: { tag1: '', tag2: 'tag3' }
 }
-export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'projects'> = {
-  user: {},
+export const defaultAppStoreValues: Pick<AppStoreContextProps, 'projects'> = {
   projects: [
     {
       accountIdentifier: 'testAcc',

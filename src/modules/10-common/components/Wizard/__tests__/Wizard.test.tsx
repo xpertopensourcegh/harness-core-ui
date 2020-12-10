@@ -10,7 +10,6 @@ import Wizard from '../Wizard'
 
 const value: AppStoreContextProps = {
   projects: [],
-  user: {},
   strings,
   updateAppStore: jest.fn()
 }
