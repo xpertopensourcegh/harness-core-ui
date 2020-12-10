@@ -1,21 +1,11 @@
 .centerContainer {
-  margin: 0 auto !important;
   overflow: scroll;
-  position: relative;
   height: calc(100%) !important;
 }
 
 .pageContainer {
   background: var(--grey-100) !important;
   height: calc(100vh - 128px);
-}
-
-.pageBody {
-  padding: var(--spacing-large) 100px !important;
-}
-
-.moduleContainer {
-  height: calc(100vh - 192px) !important ;
 }
 
 .pagination {

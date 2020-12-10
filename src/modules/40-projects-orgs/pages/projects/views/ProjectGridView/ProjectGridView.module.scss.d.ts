@@ -3,8 +3,6 @@
 declare const styles: {
   readonly centerContainer: string
   readonly pageContainer: string
-  readonly pageBody: string
-  readonly moduleContainer: string
   readonly pagination: string
 }
 export default styles

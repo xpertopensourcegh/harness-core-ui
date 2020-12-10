@@ -1,15 +1,24 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { Organization } from 'services/cd-ng'
+import type { OrganizationAggregateDTO } from 'services/cd-ng'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 
-const organization: Organization = {
-  accountIdentifier: 'dummy',
-  identifier: 'orgId',
-  name: 'Name',
-  description: 'Organization Description ',
-  tags: { tag1: '', tag2: 'tag3' }
+const organization: OrganizationAggregateDTO = {
+  organizationResponse: {
+    organization: {
+      accountIdentifier: 'dummy2',
+      identifier: 'bfvbfkbvf',
+      name: 'bfvbfkbvf',
+      description: 'ddsadsad',
+      tags: { ce: 'module', prod: '', cv: 'module', ci: 'module', strin: '' }
+    },
+    createdAt: 1607450298192,
+    lastModifiedAt: 1607450298192
+  },
+  projectsCount: 2,
+  admins: [{ name: 'Admin', email: 'admin@harness.io', uuid: 'lv0euRhKRCyiXWzS7pOg6g' }],
+  collaborators: [{ name: 'Admin2', email: 'admin2@harness.io', uuid: 'lv0efduRhKRCyiXWzS7pOg6g' }]
 }
 
 describe('Organization Card test', () => {

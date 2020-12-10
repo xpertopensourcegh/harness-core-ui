@@ -229,13 +229,16 @@ exports[`Project Details render 1`] = `
           <a
             href="/account/testAcc/cd/pipeline-studio/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/"
           >
-            Create New Pipeline
+            <span>
+              Create New Pipeline
+            </span>
           </a>
           <a
-            href="/"
+            href="/account/testAcc/cd/pipelines/orgs/Cisco_Meraki/projects/Portal"
           >
-             
-            View Pipeline
+            <span>
+              View Pipelines
+            </span>
           </a>
         </div>
       </div>
@@ -471,16 +474,18 @@ exports[`Project Details render 2`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/"
+            href="/account/testAcc/cv/home"
           >
-             
-            Create New Pipeline
+            <span>
+              Set Up Activity Sources
+            </span>
           </a>
           <a
-            href="/"
+            href="/account/testAcc/cv/datasources/org/Cisco_Meraki/project/Portal"
           >
-             
-            View Pipeline
+            <span>
+              Set Up Data Sources
+            </span>
           </a>
         </div>
       </div>
@@ -1206,16 +1211,18 @@ exports[`Project Details render 5`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/"
+            href="/account/testAcc/ci/pipeline-studio/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/"
           >
-             
-            Create New Pipeline
+            <span>
+              Create New Pipeline
+            </span>
           </a>
           <a
-            href="/"
+            href="/account/testAcc/ci/pipelines/orgs/Cisco_Meraki/projects/Portal"
           >
-             
-            View Pipeline
+            <span>
+              View Pipelines
+            </span>
           </a>
         </div>
       </div>

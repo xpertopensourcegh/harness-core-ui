@@ -15,7 +15,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-bottom-xxlarge--27ky"
           >
-            INVITE COLLABORATORS
+            Invite Collaborators
           </p>
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-bottom-small--2Hba"
@@ -34,37 +34,47 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 <input
                   class="bp3-input"
                   disabled=""
-                  placeholder="https://www.harness.io/somelongencryptedprojecturl"
+                  placeholder="https://www.harness.io/fake-url"
                   style="padding-right: 0px;"
                   type="text"
                 />
                 <span
                   class="bp3-input-action"
                 >
-                  <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws clone StyledProps---inline--1f52"
-                    type="button"
+                  <span
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-duplicate StyledProps---main--1Wws"
-                      icon="duplicate"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="duplicate"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
+                      <button
+                        class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws clone StyledProps---inline--1f52"
+                        disabled=""
+                        tabindex="-1"
+                        type="button"
                       >
-                        <desc>
-                          duplicate
-                        </desc>
-                        <path
-                          d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-duplicate StyledProps---main--1Wws"
+                          icon="duplicate"
+                        >
+                          <svg
+                            data-icon="duplicate"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              duplicate
+                            </desc>
+                            <path
+                              d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
                     </span>
-                  </button>
+                  </span>
                 </span>
               </div>
             </div>
@@ -206,20 +216,16 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align pendingUser"
                     style="width: 60%;"
                   >
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                    <div
+                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
                     >
-                      <svg
-                        height="30"
-                        viewBox="0 0 14 14"
-                        width="30"
+                      <div
+                        class="Avatar---AvatarInner--C7qT"
+                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
-                        <path
-                          d="M13.7 12.5c-.4-.9-2.3-1.5-3.6-2.1S9 9.5 8.9 9.1v-.2c.4-.4.8-.9 1-1.6.1-.2.2-.3.2-.5.3-.1.5-.4.5-.7.1-.1.2-.4.2-.8s-.2-.6-.4-.7v-.1c0-.6-.1-1.4-.1-1.9 0-.1-.1-.3-.1-.4C10 1.6 9.6 1 9 .6 8.5.2 7.7 0 7 0S5.5.2 5 .6s-.9 1-1.1 1.6c0 .1-.1.3-.1.4-.1.6-.2 1.4-.2 2v.1c-.2 0-.4.2-.4.7 0 .3.1.6.2.8.1.3.2.6.6.7-.1.1 0 .2 0 .3.2.6.6 1.2 1.1 1.6V9c0 .5.1.8-1.2 1.4S.7 11.6.3 12.5 0 14 0 14h14s.1-.5-.3-1.5z"
-                          fill="#4d5969"
-                        />
-                      </svg>
-                    </span>
+                        E
+                      </div>
+                    </div>
                     <div
                       class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
                     >
@@ -245,15 +251,15 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         example4@email.com
                       </p>
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
                       >
                         <p
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
                         >
-                          Project Role Assigned:
+                          Role Assigned:
                         </p>
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7 StyledProps---padding-left-xsmall--34pL"
+                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
                           style="--text-line-clamp: 1;"
                         >
                           Project Admin
@@ -336,20 +342,16 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align pendingUser"
                     style="width: 60%;"
                   >
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                    <div
+                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
                     >
-                      <svg
-                        height="30"
-                        viewBox="0 0 14 14"
-                        width="30"
+                      <div
+                        class="Avatar---AvatarInner--C7qT"
+                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
-                        <path
-                          d="M13.7 12.5c-.4-.9-2.3-1.5-3.6-2.1S9 9.5 8.9 9.1v-.2c.4-.4.8-.9 1-1.6.1-.2.2-.3.2-.5.3-.1.5-.4.5-.7.1-.1.2-.4.2-.8s-.2-.6-.4-.7v-.1c0-.6-.1-1.4-.1-1.9 0-.1-.1-.3-.1-.4C10 1.6 9.6 1 9 .6 8.5.2 7.7 0 7 0S5.5.2 5 .6s-.9 1-1.1 1.6c0 .1-.1.3-.1.4-.1.6-.2 1.4-.2 2v.1c-.2 0-.4.2-.4.7 0 .3.1.6.2.8.1.3.2.6.6.7-.1.1 0 .2 0 .3.2.6.6 1.2 1.1 1.6V9c0 .5.1.8-1.2 1.4S.7 11.6.3 12.5 0 14 0 14h14s.1-.5-.3-1.5z"
-                          fill="#4d5969"
-                        />
-                      </svg>
-                    </span>
+                        E
+                      </div>
+                    </div>
                     <div
                       class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
                     >
@@ -375,15 +377,15 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         example3@email.com
                       </p>
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
                       >
                         <p
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
                         >
-                          Project Role Assigned:
+                          Role Assigned:
                         </p>
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7 StyledProps---padding-left-xsmall--34pL"
+                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
                           style="--text-line-clamp: 1;"
                         >
                           Project Admin
@@ -466,20 +468,16 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align pendingUser"
                     style="width: 60%;"
                   >
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                    <div
+                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
                     >
-                      <svg
-                        height="30"
-                        viewBox="0 0 14 14"
-                        width="30"
+                      <div
+                        class="Avatar---AvatarInner--C7qT"
+                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
-                        <path
-                          d="M13.7 12.5c-.4-.9-2.3-1.5-3.6-2.1S9 9.5 8.9 9.1v-.2c.4-.4.8-.9 1-1.6.1-.2.2-.3.2-.5.3-.1.5-.4.5-.7.1-.1.2-.4.2-.8s-.2-.6-.4-.7v-.1c0-.6-.1-1.4-.1-1.9 0-.1-.1-.3-.1-.4C10 1.6 9.6 1 9 .6 8.5.2 7.7 0 7 0S5.5.2 5 .6s-.9 1-1.1 1.6c0 .1-.1.3-.1.4-.1.6-.2 1.4-.2 2v.1c-.2 0-.4.2-.4.7 0 .3.1.6.2.8.1.3.2.6.6.7-.1.1 0 .2 0 .3.2.6.6 1.2 1.1 1.6V9c0 .5.1.8-1.2 1.4S.7 11.6.3 12.5 0 14 0 14h14s.1-.5-.3-1.5z"
-                          fill="#4d5969"
-                        />
-                      </svg>
-                    </span>
+                        E
+                      </div>
+                    </div>
                     <div
                       class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
                     >
@@ -505,15 +503,15 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         example2@email.com
                       </p>
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
                       >
                         <p
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
                         >
-                          Project Role Assigned:
+                          Role Assigned:
                         </p>
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7 StyledProps---padding-left-xsmall--34pL"
+                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
                           style="--text-line-clamp: 1;"
                         >
                           Project Admin
@@ -596,20 +594,16 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align"
                     style="width: 60%;"
                   >
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                    <div
+                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
                     >
-                      <svg
-                        height="30"
-                        viewBox="0 0 14 14"
-                        width="30"
+                      <div
+                        class="Avatar---AvatarInner--C7qT"
+                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
-                        <path
-                          d="M13.7 12.5c-.4-.9-2.3-1.5-3.6-2.1S9 9.5 8.9 9.1v-.2c.4-.4.8-.9 1-1.6.1-.2.2-.3.2-.5.3-.1.5-.4.5-.7.1-.1.2-.4.2-.8s-.2-.6-.4-.7v-.1c0-.6-.1-1.4-.1-1.9 0-.1-.1-.3-.1-.4C10 1.6 9.6 1 9 .6 8.5.2 7.7 0 7 0S5.5.2 5 .6s-.9 1-1.1 1.6c0 .1-.1.3-.1.4-.1.6-.2 1.4-.2 2v.1c-.2 0-.4.2-.4.7 0 .3.1.6.2.8.1.3.2.6.6.7-.1.1 0 .2 0 .3.2.6.6 1.2 1.1 1.6V9c0 .5.1.8-1.2 1.4S.7 11.6.3 12.5 0 14 0 14h14s.1-.5-.3-1.5z"
-                          fill="#4d5969"
-                        />
-                      </svg>
-                    </span>
+                        E
+                      </div>
+                    </div>
                     <div
                       class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
                     >
@@ -707,16 +701,26 @@ exports[`Collaborators test Render Collaborators  1`] = `
         <div
           class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
         >
-          <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
-            type="button"
+          <span
+            class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-button-text"
+              class="bp3-popover-target"
             >
-              Manage all the users in the project
+              <button
+                class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Manage all the users in the project
+                </span>
+              </button>
             </span>
-          </button>
+          </span>
         </div>
       </div>
     </form>

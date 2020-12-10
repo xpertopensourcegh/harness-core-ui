@@ -32,7 +32,7 @@ const showEditProject = jest.fn().mockImplementation(project => openProjectModal
 const collaborators = jest.fn(project => collaboratorModal(project))
 jest.mock('services/cd-ng', () => ({
   useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: deleteProjectMock })),
-  useGetProjectList: jest.fn().mockImplementation(() => {
+  useGetProjectAggregateDTOList: jest.fn().mockImplementation(() => {
     return { ...projectPageMock, refetch: jest.fn(), error: null }
   })
 }))
@@ -60,7 +60,7 @@ describe('Project List', () => {
     expect(container).toMatchSnapshot()
   })
   test('click on Edit Project', async () => {
-    const menu = container.querySelectorAll("[icon='more']")[0]
+    const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
     fireEvent.click(menu!)
     const editMenu = getAllByText('Edit')[0]
     expect(editMenu).toBeDefined()
@@ -71,7 +71,7 @@ describe('Project List', () => {
   }),
     test('click on Collaborators', async () => {
       collaboratorModal.mockReset()
-      const menu = container.querySelectorAll("[icon='more']")[0]
+      const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
       fireEvent.click(menu!)
       const colMenu = getAllByText('Invite Collaborators')[0]
       expect(colMenu).toBeDefined()
@@ -82,7 +82,7 @@ describe('Project List', () => {
     }),
     test('Delete', async () => {
       deleteProject.mockReset()
-      const menu = container.querySelectorAll("[icon='more']")[0]
+      const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
       fireEvent.click(menu!)
       const delMenu = getAllByText('Delete')[0]
       expect(delMenu).toBeDefined()

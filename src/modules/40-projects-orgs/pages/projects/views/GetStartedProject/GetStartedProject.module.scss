@@ -1,0 +1,19 @@
+.getStartedContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 9px;
+  background-color: #fbfcfd;
+}
+.getStartedMainContainer {
+  background-color: #fbfcfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 64px); // 64px is to  delete standard page header height
+}
+
+.image {
+  width: 50%;
+}

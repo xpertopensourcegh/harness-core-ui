@@ -13,6 +13,7 @@ import css from './Purpose.module.scss'
 
 interface ProjectModalData {
   data: Project
+  onSuccess?: () => void
 }
 
 interface PurposeType {
@@ -149,7 +150,7 @@ const getModuleLinks = (
 }
 
 const PurposeList: React.FC<ProjectModalData> = props => {
-  const { data: projectData } = props
+  const { data: projectData, onSuccess } = props
   const { accountId } = useParams()
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
   const { showSuccess, showError } = useToaster()
@@ -160,20 +161,24 @@ const PurposeList: React.FC<ProjectModalData> = props => {
       orgIdentifier: ''
     }
   })
-  const onSuccess = async (module: Required<Project>['modules'][number]): Promise<void> => {
+  const addModule = async (module: Required<Project>['modules'][number]): Promise<void> => {
     projectData.modules?.push(module)
     const dataToSubmit: Project = projectData
     try {
-      await updateProject(dataToSubmit, {
-        pathParams: {
-          identifier: projectData.identifier
-        },
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier: projectData.orgIdentifier
+      await updateProject(
+        { project: dataToSubmit },
+        {
+          pathParams: {
+            identifier: projectData.identifier
+          },
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier: projectData.orgIdentifier
+          }
         }
-      })
+      )
       showSuccess(i18n.moduleSuccess)
+      onSuccess?.()
       const newSelected = [...selected, module]
       setSelected(newSelected)
     } catch (e) {
@@ -222,7 +227,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
                       font={{ size: 'small', weight: 'semi-bold' }}
                       className={css.enable}
                       onClick={() => {
-                        onSuccess(option.module)
+                        addModule(option.module)
                       }}
                     >
                       {i18n.newProjectWizard.purposeList.enable}

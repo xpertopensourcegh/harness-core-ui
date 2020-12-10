@@ -8,5 +8,6 @@ declare const styles: {
   readonly enabledModules: string
   readonly pageHeight: string
   readonly activityCard: string
+  readonly projectDetailsAvatarGroup: string
 }
 export default styles

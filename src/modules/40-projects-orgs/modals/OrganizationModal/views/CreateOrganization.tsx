@@ -5,7 +5,6 @@ import { pick } from 'lodash-es'
 import type { Organization } from 'services/cd-ng'
 import { usePostOrganization } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { useAppStore } from 'framework/exports'
 import i18n from './StepAboutOrganization.i18n'
 import OrganizationForm from './OrganizationForm'
 import type { OrgModalData } from './StepAboutOrganization'
@@ -19,7 +18,6 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
       accountIdentifier: accountId
     }
   })
-  const { organisationsMap, updateAppStore } = useAppStore()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const onComplete = async (values: Organization): Promise<void> => {
@@ -31,15 +29,17 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
     ])
     ;(dataToSubmit as Organization)['accountIdentifier'] = accountId
     try {
-      const { data: organization } = await createOrganization(dataToSubmit as Organization, {
-        queryParams: {
-          accountIdentifier: accountId
+      await createOrganization(
+        { organization: dataToSubmit },
+        {
+          queryParams: {
+            accountIdentifier: accountId
+          }
         }
-      })
-      nextStep?.(organization)
+      )
+      nextStep?.(values)
       showSuccess(i18n.form.createSuccess)
-      updateAppStore({ organisationsMap: organisationsMap.set(values.identifier || '', values) })
-      onSuccess?.(organization)
+      onSuccess?.(values)
     } catch (e) {
       /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)

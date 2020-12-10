@@ -14,6 +14,9 @@
   .navItem {
     display: block;
     margin-bottom: var(--spacing-medium);
+    &:hover {
+      background: #082952;
+    }
   }
 
   .navLink {

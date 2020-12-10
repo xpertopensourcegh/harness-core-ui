@@ -28,15 +28,18 @@ const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module, refet
   const onSelect = async (): Promise<void> => {
     data.modules?.push(module as Required<Project>['modules'][number])
     try {
-      await updateProject(data, {
-        pathParams: {
-          identifier: data.identifier
-        },
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier: data.orgIdentifier
+      await updateProject(
+        { project: data },
+        {
+          pathParams: {
+            identifier: data.identifier
+          },
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier: data.orgIdentifier
+          }
         }
-      })
+      )
       showSuccess(i18n.moduleSuccess)
       refetchProject()
     } catch (e) {

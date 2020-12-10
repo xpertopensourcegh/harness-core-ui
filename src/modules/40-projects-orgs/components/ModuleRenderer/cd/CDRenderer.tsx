@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
+import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
-import i18n from './CDRenderer.i18n'
 import css from '../ModuleRenderer.module.scss'
 
 interface CDRendererProps {
@@ -12,6 +12,7 @@ interface CDRendererProps {
 }
 const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
+  const { getString } = useStrings()
   return (
     <Container
       border={{ top: true, color: Color.GREY_250 }}
@@ -37,11 +38,11 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
             <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
               <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} />
               <Text color={Color.GREY_400} font={{ size: 'medium' }}>
-                {i18n.placeholder.toUpperCase()}
+                {'40'}
               </Text>
             </Layout.Horizontal>
             <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {i18n.deployments.toUpperCase()}
+              {getString('projectCard.cdRendererText').toUpperCase()}
             </Text>
           </Layout.Vertical>
         </Container>

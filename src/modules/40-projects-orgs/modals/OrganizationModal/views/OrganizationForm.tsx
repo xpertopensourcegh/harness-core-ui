@@ -97,12 +97,12 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
                 </div>
               </Container>
               <Layout.Horizontal spacing="xsmall">
-                <Button type="submit" className={css.button} text={submitTitle} disabled={disableSubmit} />
+                <Button type="submit" intent="primary" text={submitTitle} disabled={disableSubmit} />
               </Layout.Horizontal>
             </Layout.Vertical>
             {disablePreview ? null : (
               <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
-                <OrganizationCard data={formikProps.values} isPreview />
+                <OrganizationCard data={{ organizationResponse: { organization: formikProps.values } }} isPreview />
               </Container>
             )}
           </Layout.Horizontal>

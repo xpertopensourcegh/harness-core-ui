@@ -36,6 +36,10 @@
   flex-wrap: wrap;
 }
 
+.flexEnd {
+  justify-content: flex-end;
+}
+
 .overflow {
   overflow-wrap: anywhere;
 }

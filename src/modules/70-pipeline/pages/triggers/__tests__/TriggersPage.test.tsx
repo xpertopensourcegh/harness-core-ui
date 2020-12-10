@@ -36,7 +36,6 @@ jest.mock('react-router-dom', () => ({
 
 const value: AppStoreContextProps = {
   projects: [],
-  organisationsMap: new Map(),
   user: {},
   strings,
   updateAppStore: jest.fn()

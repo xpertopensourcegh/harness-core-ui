@@ -64,7 +64,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
       value={{
         strings,
         projects,
-        organisationsMap: new Map(),
         updateAppStore: jest.fn(),
         user: {},
         ...defaultAppStoreValues

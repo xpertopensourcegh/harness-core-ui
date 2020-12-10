@@ -11,7 +11,7 @@ export const project: Project = {
   description: 'test',
   tags: { tag1: '', tag2: 'tag3' }
 }
-export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'projects' | 'organisationsMap'> = {
+export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'projects'> = {
   user: {},
   projects: [
     {
@@ -22,8 +22,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#e6b800',
       modules: ['CD'],
       description: 'test',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1599715118275
+      tags: { tag1: '', tag2: 'tag3' }
     },
     {
       accountIdentifier: 'testAcc',
@@ -33,8 +32,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#1c1c28',
       modules: ['CD', 'CV'],
       description: 'UI for the Payment',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1599715118275
+      tags: { tag1: '', tag2: 'tag3' }
     },
     {
       accountIdentifier: 'testAcc',
@@ -44,8 +42,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#ff8800',
       modules: ['CV'],
       description: 'Online users',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1599715155888
+      tags: { tag1: '', tag2: 'tag3' }
     },
     {
       accountIdentifier: 'testAcc',
@@ -55,8 +52,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#e6b800',
       modules: [],
       description: '',
-      tags: {},
-      lastModifiedAt: 1599740365287
+      tags: {}
     },
     {
       accountIdentifier: 'testAcc',
@@ -66,8 +62,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#004fc4',
       modules: [],
       description: 'Demo project',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1599730109213
+      tags: { tag1: '', tag2: 'tag3' }
     },
     {
       accountIdentifier: 'testAcc',
@@ -77,8 +72,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#e67a00',
       modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
       description: 'Drone',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1599715251972
+      tags: { tag1: '', tag2: 'tag3' }
     },
     {
       accountIdentifier: 'testAcc',
@@ -88,18 +82,7 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'project
       color: '#e6b800',
       modules: ['CI'],
       description: 'Swagger 2.0',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1599715290787
+      tags: { tag1: '', tag2: 'tag3' }
     }
-  ],
-  organisationsMap: new Map([
-    [
-      'testOrg',
-      {
-        accountIdentifier: 'testAcc',
-        identifier: 'testOrg',
-        name: 'Org Name'
-      }
-    ]
-  ])
+  ]
 }

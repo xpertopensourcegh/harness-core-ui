@@ -1,6 +1,6 @@
 export default {
-  aboutTitle: 'ABOUT THE ORGANIZATION',
-  editTitle: 'EDIT ORGANIZATION',
+  aboutTitle: 'About the Organization',
+  editTitle: 'Edit Organization',
   form: {
     name: 'Name*',
     id: 'ID',

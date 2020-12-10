@@ -3,18 +3,25 @@ import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react
 import { TestWrapper } from '@common/utils/testUtils'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import routes from '@common/RouteDefinitions'
-import { defaultAppStoreValues, project } from './DefaultAppStoreData'
-import { projectWithModules } from './ProjectPageMock'
+import type { ProjectAggregateDTO } from 'services/cd-ng'
+import { defaultAppStoreValues } from './DefaultAppStoreData'
+import { responseProjectAggregateDTO, responseProjectAggregateDTOWithNoModules } from './ProjectPageMock'
+
+const routeParams = {
+  accountId: responseProjectAggregateDTO.data?.projectResponse.project.accountIdentifier || '',
+  orgIdentifier: responseProjectAggregateDTO.data?.projectResponse.project.orgIdentifier || '',
+  projectIdentifier: responseProjectAggregateDTO.data?.projectResponse.project.identifier || ''
+}
 
 describe('Project Card test', () => {
   test('initializes ok ', async () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId"
+        path="/account/:accountId/projects"
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectCard data={project} />
+        <ProjectCard data={responseProjectAggregateDTO.data as ProjectAggregateDTO} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -26,7 +33,7 @@ describe('Project Card test', () => {
           pathParams={{ accountId: 'testAcc' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >
-          <ProjectCard data={projectWithModules} isPreview={true} />
+          <ProjectCard data={responseProjectAggregateDTOWithNoModules.data as ProjectAggregateDTO} isPreview={true} />
         </TestWrapper>
       )
       expect(container).toMatchSnapshot()
@@ -45,7 +52,7 @@ describe('Project Card Functionality Test', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectCard data={projectWithModules} />
+        <ProjectCard data={responseProjectAggregateDTO.data as ProjectAggregateDTO} />
       </TestWrapper>
     )
     container = renderObj.container
@@ -57,57 +64,29 @@ describe('Project Card Functionality Test', () => {
     const cdrow = queryByText('DEPLOYMENTS IN LAST 7 DAYS')
     fireEvent.click(cdrow!)
     await waitFor(() => getByTestId('location'))
-    expect(
-      getByTestId('location').innerHTML.endsWith(
-        routes.toCDDashboard({
-          accountId: 'testAcc',
-          orgIdentifier: projectWithModules.orgIdentifier!,
-          projectIdentifier: projectWithModules.identifier
-        })
-      )
-    ).toBeTruthy()
+    expect(getByTestId('location').innerHTML.endsWith(routes.toCDDashboard(routeParams))).toBeTruthy()
   }),
     test('Click on CV', async () => {
       const cvrow = queryByText('VERIFICATIONS IN LAST 7 DAYS')
       fireEvent.click(cvrow!)
       await waitFor(() => getByTestId('location'))
-      expect(
-        getByTestId('location').innerHTML.endsWith(
-          routes.toCVMainDashBoardPage({
-            accountId: 'testAcc',
-            orgIdentifier: projectWithModules.orgIdentifier,
-            projectIdentifier: projectWithModules.identifier
-          })
-        )
-      ).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCVMainDashBoardPage(routeParams))).toBeTruthy()
     }),
     test('Click on CI', async () => {
       const cirow = queryByText('BUILDS IN LAST 7 DAYS')
       fireEvent.click(cirow!)
       await waitFor(() => getByTestId('location'))
-      expect(
-        getByTestId('location').innerHTML.endsWith(
-          routes.toCIDashboard({
-            accountId: 'testAcc',
-            orgIdentifier: projectWithModules.orgIdentifier!,
-            projectIdentifier: projectWithModules.identifier
-          })
-        )
-      ).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCIDashboard(routeParams))).toBeTruthy()
     }),
-    test('Click on CF', async () => {
+    test('Click on CE', async () => {
+      const cfrow = queryByText('COST SAVINGS IN LAST 7 DAYS')
+      fireEvent.click(cfrow!)
       expect(container).toMatchSnapshot()
-      const cfrow = queryByText('TBD')
+    }),
+    test('Click on CE', async () => {
+      const cfrow = queryByText('FEATURE FLAGS IN LAST 7 DAYS')
       fireEvent.click(cfrow!)
       await waitFor(() => getByTestId('location'))
-      expect(
-        getByTestId('location').innerHTML.endsWith(
-          routes.toCFDashboard({
-            accountId: 'testAcc',
-            orgIdentifier: projectWithModules.orgIdentifier!,
-            projectIdentifier: projectWithModules.identifier
-          })
-        )
-      ).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCFDashboard(routeParams))).toBeTruthy()
     })
 })

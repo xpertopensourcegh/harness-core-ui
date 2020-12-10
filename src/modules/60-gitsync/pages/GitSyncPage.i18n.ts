@@ -1,5 +1,5 @@
 export default {
-  title: 'GIT SYNC',
+  title: 'Git Sync',
   repos: 'Repos',
   entities: 'Entities',
   activities: 'Activities',

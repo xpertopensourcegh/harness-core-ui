@@ -14,7 +14,7 @@ exports[`Default Renderer test initializes ok  1`] = `
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
     >
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
       >
         <svg
           fill="none"
@@ -49,7 +49,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
       >
         <svg
           fill="none"
@@ -84,7 +84,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
       >
         <svg
           fill="none"
@@ -119,7 +119,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
       >
         <svg
           fill="none"
@@ -154,7 +154,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
       >
         <svg
           fill="none"

@@ -4,10 +4,10 @@ import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 
 import OrganizationDetailsPage from '../OrganizationDetails/OrganizationDetailsPage'
-import { getOrgMockData } from './OrganizationsMockData'
+import { getOrgAggregateMockData as getOrgMockData } from './OrganizationsMockData'
 
 jest.mock('services/cd-ng', () => ({
-  useGetOrganization: jest.fn().mockImplementation(() => {
+  useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
   })
 }))
@@ -37,7 +37,9 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        `${routes.toProjects({ accountId: 'testAcc' })}?orgId=${getOrgMockData.data.data.identifier}`
+        `${routes.toProjects({ accountId: 'testAcc' })}?orgId=${
+          getOrgMockData.data.data.organizationResponse.organization.identifier
+        }`
       )
     ).toBeTruthy()
   })
@@ -53,7 +55,10 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        routes.toOrgResources({ accountId: 'testAcc', orgIdentifier: getOrgMockData.data.data.identifier })
+        routes.toOrgResources({
+          accountId: 'testAcc',
+          orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
+        })
       )
     ).toBeTruthy()
   })
@@ -63,7 +68,10 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        routes.toOrgGovernance({ accountId: 'testAcc', orgIdentifier: getOrgMockData.data.data.identifier })
+        routes.toOrgGovernance({
+          accountId: 'testAcc',
+          orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
+        })
       )
     ).toBeTruthy()
   })
@@ -73,7 +81,10 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        routes.toOrgGitSync({ accountId: 'testAcc', orgIdentifier: getOrgMockData.data.data.identifier })
+        routes.toOrgGitSync({
+          accountId: 'testAcc',
+          orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
+        })
       )
     ).toBeTruthy()
   })

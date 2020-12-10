@@ -27,6 +27,7 @@ global:
   errorSummaryText: Error Summary
   na: N/A
   all: All
+  plus: +
   passed: Passed
   failed: Failed
   todo: TODO - implement this
@@ -78,6 +79,8 @@ global:
   selectApplication: 'Select Application'
   selectProject: 'Select Project'
   mapApplications: 'Map Applications to Harness Services'
+  adminLabel: 'Admin'
+  collaboratorsLabel: 'Collaborators'
   viewDetails: 'View Details'
   inputTypes:
     FIXED: Fixed input list
@@ -90,6 +93,17 @@ global:
     accessControl: 'Access Control'
     gitSync: 'Git Sync'
     templateLibrary: 'Template Library'
+  projectCard:
+    clone: 'Clone'
+    projectName: 'Project Name'
+    confirmDelete: 'Are you sure you want to delete the Project {{projectName}} ?'
+    confirmDeleteTitle: 'Delete Project'
+    successMessage: 'Project {{projectName}} is deleted'
+    cdRendererText: 'Deployments in last 7 days'
+    cvRendererText: 'Verifications in last 7 days'
+    ciRendererText: 'Builds in last 7 days'
+    cfRendererText: 'Feature Flags in last 7 days'
+    ceRendererText: 'Cost Savings in last 7 days'
   collaborators:
     roleLabel: 'Role :'
   ssh:
@@ -176,6 +190,19 @@ global:
     NotStarted: NOT STARTED
   executionList:
     servicesDeployedText: 'Services Deployed ({{size}})'
+  moduleRenderer:
+    start: No modules enabled
+    newPipeLine: Create New Pipeline
+    viewPipelines: View Pipelines
+    setupActivity: Set Up Activity Sources
+    dataSources: Set Up Data Sources
+  projectContextMenuRenderer:
+    gotoCV: 'Go to Continuous Verification'
+    gotoCD: 'Go to Continuous Deployement'
+    gotoCF: 'Go to Continuous Features'
+    gotoCI: 'Go to Continuous Integration'
+    gotoCE: 'Go to Continuous Efficiency'
+    invite: 'Invite Collaborators'
   pipelineSteps:
     stepNameLabel: Step Name
     connectorLabel: 'Container Registry'
@@ -544,6 +571,8 @@ global:
       minOneAllowedValue: 'Minimum one allowed value'
     notValidExpression: 'Not a valid input Expression'
     advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
+  orgs:
+    searchPlaceHolder: 'Search Organizations by name, tags'
 pipeline-execution-ci:
   execution:
     pipelineIdentifierText: '(Build ID: {{deploymentId}})' # Text for Pipeline Identifier

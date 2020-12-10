@@ -1,19 +1,18 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import ReactTimeago from 'react-timeago'
-import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
+import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { Project, useGetProjectList, useDeleteProject } from 'services/cd-ng'
+import { Project, ProjectAggregateDTO, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-
-import TagsPopover from '@common/components/TagsPopover/TagsPopover'
-import { useAppStore } from 'framework/exports'
-import { Page } from '@common/components/Page/Page'
-import { useToaster } from '@common/components/Toaster/useToaster'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
-import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import routes from '@common/RouteDefinitions'
+import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+import { ModuleName, useAppStore, String } from 'framework/exports'
+import { Page } from '@common/components/Page/Page'
+import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
+import { getModuleIcon } from '@projects-orgs/utils/utils'
+import useDeleteProjectDialog from '../../DeleteProject'
 import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
@@ -34,95 +33,99 @@ type CustomColumn<T extends object> = Column<T> & {
   collaborators?: (project: Project) => void
 }
 
-const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
+const RenderColumnProject: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
-      <div className={css.colorbox} style={{ backgroundColor: `${data.color}` }} />
+      <div className={css.colorbox} style={{ backgroundColor: `${data.projectResponse.project.color}` }} />
       <Layout.Vertical padding={{ left: 'small' }} className={css.verticalCenter}>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK} lineClamp={1} className={css.project}>
-            {data.name}
+            {data.projectResponse.project.name}
           </Text>
-          {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
+          {data.projectResponse.project.tags && Object.keys(data.projectResponse.project.tags).length ? (
+            <TagsPopover tags={data.projectResponse.project.tags} />
+          ) : null}
         </Layout.Horizontal>
-        {data.description ? (
+        {data.projectResponse.project.description ? (
           <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
-            {data.description}
+            {data.projectResponse.project.description}
           </Text>
         ) : null}
       </Layout.Vertical>
     </Layout.Horizontal>
   )
 }
-const RenderColumnOrganisation: Renderer<CellProps<Project>> = ({ row }) => {
+const RenderColumnOrganization: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
   const data = row.original
-  const { organisationsMap } = useAppStore()
   return (
     <Text color={Color.BLACK} lineClamp={1} className={css.org}>
-      {organisationsMap.get(data.orgIdentifier || /* istanbul ignore next */ '')?.name}
+      {data.organization?.name}
     </Text>
   )
 }
 
-const RenderColumnModules: Renderer<CellProps<Project>> = ({ row }) => {
+const RenderColumnModules: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="medium">
-      {data.modules?.includes('CD') ? <Icon name="cd-hover" size={20}></Icon> : null}
-      {data.modules?.includes('CV') ? <Icon name="cv-main" size={20}></Icon> : null}
+      {data.projectResponse.project.modules?.length ? (
+        data.projectResponse.project.modules.map(module => (
+          <Icon name={getModuleIcon(module as ModuleName)} size={20} key={module} />
+        ))
+      ) : (
+        <String stringID="moduleRenderer.start" />
+      )}
     </Layout.Horizontal>
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<Project>> = ({ row }) => {
+const RenderColumnActivity: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
       <Icon name="activity" />
-      {data.lastModifiedAt ? <ReactTimeago date={data.lastModifiedAt} /> : null}
+      {data.projectResponse.lastModifiedAt ? <ReactTimeago date={data.projectResponse.lastModifiedAt} /> : null}
     </Layout.Horizontal>
   )
 }
-const RenderColumnAdmin: Renderer<CellProps<Project>> = () => {
-  return <Icon name="main-user-groups" size={20} />
-}
-
-const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
+const RenderColumnAdmin: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
   const data = row.original
-  const { accountId } = useParams()
+  return (
+    <AvatarGroup
+      avatars={data.admins?.length ? data.admins : [{}]}
+      onAdd={event => {
+        event.stopPropagation()
+        const { collaborators } = column as any
+        collaborators(data.projectResponse.project)
+      }}
+    />
+  )
+}
+const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
+  const data = row.original
+  return (
+    <AvatarGroup
+      avatars={data.collaborators?.length ? data.collaborators : [{}]}
+      onAdd={event => {
+        event.stopPropagation()
+        const { collaborators } = column as any
+        collaborators(data.projectResponse.project)
+      }}
+    />
+  )
+}
+const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
+  const data = row.original
   const [menuOpen, setMenuOpen] = useState(false)
-  const { mutate: deleteProject } = useDeleteProject({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '' }
-  })
-  const { showSuccess, showError } = useToaster()
-
   const { projects, updateAppStore } = useAppStore()
   const onDeleted = (): void => {
-    const index = projects.findIndex(p => p.identifier === data.identifier)
+    const index = projects.findIndex(p => p.identifier === data.projectResponse.project.identifier)
     projects.splice(index, 1)
     updateAppStore({ projects: ([] as Project[]).concat(projects) })
+    ;(column as any).refetchProjects()
   }
-  const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || /* istanbul ignore next */ ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.delete,
-    cancelButtonText: i18n.cancel,
-    onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
-        try {
-          const deleted = await deleteProject(data.identifier || /* istanbul ignore next */ '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          if (deleted) showSuccess(i18n.successMessage(data.name || /* istanbul ignore next */ ''))
-          onDeleted()
-          ;(column as any).refetchProjects()
-        } catch (err) {
-          showError(err)
-        }
-      }
-    }
-  })
+  const openDialog = useDeleteProjectDialog(data.projectResponse.project, onDeleted)
 
   return (
     <Layout.Horizontal className={css.layout}>
@@ -136,14 +139,15 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
       >
         <Button
           minimal
-          icon="more"
+          icon="Options"
+          iconProps={{ size: 24 }}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
           }}
         />
         <ContextMenu
-          project={data}
+          project={data.projectResponse.project}
           reloadProjects={(column as any).refetchProjects}
           editProject={(column as any).editProject}
           collaborators={(column as any).collaborators}
@@ -169,7 +173,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const { accountId } = useParams()
   const [page, setPage] = useState(0)
   const history = useHistory()
-  const { data, loading, refetch } = useGetProjectList({
+  const { data, loading, refetch } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
@@ -191,50 +195,59 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     setPage(0)
   }, [searchParameter, orgFilterId])
 
-  const columns: CustomColumn<Project>[] = useMemo(
+  const columns: CustomColumn<ProjectAggregateDTO>[] = useMemo(
     () => [
       {
         Header: i18n.project.toUpperCase(),
-        accessor: 'name',
+        id: 'name',
+        accessor: row => row.projectResponse.project.name,
         width: '25%',
         Cell: RenderColumnProject
       },
       {
-        Header: i18n.organisation.toUpperCase(),
-        accessor: 'orgIdentifier',
+        Header: i18n.organization.toUpperCase(),
+        id: 'orgName',
+        accessor: row => row.projectResponse.project.orgIdentifier,
         width: '15%',
-        Cell: RenderColumnOrganisation
+        Cell: RenderColumnOrganization
       },
       {
         Header: i18n.modules.toUpperCase(),
-        accessor: 'modules',
+        id: 'modules',
+        accessor: row => row.projectResponse.project.modules,
         width: '20%',
         Cell: RenderColumnModules,
         disableSortBy: true
       },
       {
         Header: i18n.lastActivity.toUpperCase(),
-        accessor: 'lastModifiedAt',
+        id: 'status',
+        accessor: row => row.projectResponse.lastModifiedAt,
         width: '15%',
         Cell: RenderColumnActivity
       },
       {
         Header: i18n.admin.toUpperCase(),
-        accessor: 'accountIdentifier',
+        id: 'admin',
+        accessor: row => row.projectResponse.project.color,
         width: '10%',
         Cell: RenderColumnAdmin,
+        collaborators: collaborators,
         disableSortBy: true
       },
       {
         Header: i18n.collaborators.toUpperCase(),
-        accessor: 'identifier',
+        id: 'collaborators',
+        accessor: row => row.projectResponse.createdAt,
         width: '10%',
-        Cell: RenderColumnAdmin,
+        Cell: RenderColumnCollabrators,
+        collaborators: collaborators,
         disableSortBy: true
       },
       {
         Header: '',
-        accessor: 'tags',
+        id: 'menu',
+        accessor: row => row.projectResponse.project.identifier,
         width: '5%',
         Cell: RenderColumnMenu,
         refetchProjects: refetch,
@@ -266,16 +279,16 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       }
       className={css.pageContainer}
     >
-      <Table<Project>
+      <Table<ProjectAggregateDTO>
         className={css.table}
         columns={columns}
         data={data?.data?.content || []}
         onRowClick={project => {
           history.push(
             routes.toProjectDetails({
-              projectIdentifier: project.identifier,
-              orgIdentifier: project.orgIdentifier || '',
-              accountId: project.accountIdentifier || ''
+              projectIdentifier: project.projectResponse.project.identifier,
+              orgIdentifier: project.projectResponse.project.orgIdentifier || '',
+              accountId: accountId || ''
             })
           )
         }}

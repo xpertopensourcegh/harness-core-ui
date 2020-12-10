@@ -37,7 +37,7 @@ export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): U
         })}
       >
         {view === Views.CREATE ? (
-          <StepWizard<Organization> stepClassName={css.stepClass}>
+          <StepWizard<Organization> stepClassName={css.stepClass} onCompleteWizard={hideModal}>
             <StepAboutOrganization name={i18n.aboutTitle} onSuccess={onSuccess} />
             <OrgCollaboratorsStep name={i18n.collaboratorsTitle} />
           </StepWizard>

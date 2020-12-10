@@ -1,15 +1,10 @@
 import React from 'react'
 import { Color, Layout, Icon, Text } from '@wings-software/uikit'
-import type { Project } from 'services/cd-ng'
-import i18n from './ModuleRenderer.i18n'
+import { useStrings } from 'framework/exports'
 import css from './ModuleRenderer.module.scss'
 
-interface DefaultProps {
-  data: Project
-  isPreview?: boolean
-}
-
-const DefaultRenderer: React.FC<DefaultProps> = () => {
+const DefaultRenderer: React.FC = () => {
+  const { getString } = useStrings()
   return (
     <Layout.Vertical
       padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'large' }}
@@ -17,14 +12,14 @@ const DefaultRenderer: React.FC<DefaultProps> = () => {
       className={css.started}
     >
       <Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'xsmall' }}>
-        {i18n.start}
+        {getString('moduleRenderer.start')}
       </Text>
       <Layout.Horizontal spacing="small">
-        <Icon name="cd-main" size={20} />
-        <Icon name="cv-main" size={20} />
-        <Icon name="ce-main" size={20} />
-        <Icon name="cf-main" size={20} />
-        <Icon name="ci-main" size={20} />
+        <Icon name="cd-main" size={20} className={css.grayOutIcons} />
+        <Icon name="cv-main" size={20} className={css.grayOutIcons} />
+        <Icon name="ce-main" size={20} className={css.grayOutIcons} />
+        <Icon name="cf-main" size={20} className={css.grayOutIcons} />
+        <Icon name="ci-main" size={20} className={css.grayOutIcons} />
       </Layout.Horizontal>
     </Layout.Vertical>
   )

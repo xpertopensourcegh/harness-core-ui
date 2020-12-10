@@ -1,33 +1,38 @@
 import React, { useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Popover, Tag, Text } from '@wings-software/uikit'
-import { Link, useParams } from 'react-router-dom'
-import { Card, Classes, Position } from '@blueprintjs/core'
+import { Button, Color, Container, Icon, Layout, Popover, Text, AvatarGroup } from '@wings-software/uikit'
+import { Link, useHistory, useParams } from 'react-router-dom'
+import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { Project, useGetProject } from 'services/cd-ng'
-import type { ModuleName } from 'framework/exports'
+import { Project, useGetProjectAggregateDTO } from 'services/cd-ng'
+import { ModuleName, useStrings } from 'framework/exports'
 import ModuleListCard from '@projects-orgs/components/ModuleListCard/ModuleListCard'
 import ModuleEnableCard from '@projects-orgs/components/ModuleEnableCard/ModuleEnableCard'
 import { getEnableModules } from '@projects-orgs/utils/utils'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
-import ActivityStack from '@common/components/ActivityStack/ActivityStack'
+import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
+import { PageSpinner } from '@common/components'
+import { PageError } from '@common/components/Page/PageError'
 import i18n from './ProjectDetails.i18n'
-import { activityData } from './ActivityMock'
+import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
 
 const ProjectDetails: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const { data, refetch } = useGetProject({
+  const { data, loading, error, refetch } = useGetProjectAggregateDTO({
     identifier: projectIdentifier,
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier
     }
   })
+
+  const projectData = data?.data?.projectResponse.project
   const refetchProject = (): void => {
     refetch()
   }
@@ -46,6 +51,15 @@ const ProjectDetails: React.FC = () => {
     openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
   }
 
+  const history = useHistory()
+  const onDeleted = (): void => {
+    history.push(routes.toProjects({ accountId }))
+  }
+  const openDialog = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
+
+  if (loading) return <PageSpinner />
+  if (error) return <PageError message={error.message} onClick={() => refetch()} />
+  if (!projectData) return <></>
   return (
     <>
       <Page.Header
@@ -60,34 +74,43 @@ const ProjectDetails: React.FC = () => {
               </Link>
             </Layout.Horizontal>
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK} lineClamp={1}>
-              {data?.data?.name}
+              {projectData.name}
             </Text>
             <Text font="small" lineClamp={2}>
-              {data?.data?.description}
+              {projectData.description}
             </Text>
-            {data?.data?.tags ? (
-              <Layout.Horizontal padding={{ top: 'small' }} className={css.wrap}>
-                {Object.keys(data.data.tags).map(key => {
-                  const value = data?.data?.tags?.[key]
-                  return (
-                    <Tag className={css.cardTags} key={key}>
-                      {value ? `${key}:${value}` : key}
-                    </Tag>
-                  )
-                })}
-              </Layout.Horizontal>
-            ) : null}
+            <Layout.Horizontal padding={{ top: 'small' }}>
+              <TagsRenderer tags={projectData.tags || {}}></TagsRenderer>
+            </Layout.Horizontal>
           </Layout.Vertical>
         }
         toolbar={
           <Layout.Horizontal padding="xxlarge">
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Icon name="main-user-groups" size={20} />
-              <Text font="xsmall">{i18n.admin.toUpperCase()}</Text>
+              <AvatarGroup
+                className={css.projectDetailsAvatarGroup}
+                avatars={data?.data?.admins?.length ? data?.data?.admins : [{}]}
+                onAdd={event => {
+                  event.stopPropagation()
+                  showCollaborators(projectData as Project)
+                }}
+              />
+              <Text font="xsmall" padding={{ left: 'xsmall' }}>
+                {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
+              </Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Icon name="main-user-groups" size={20} />
-              <Text font="xsmall">{i18n.collaborators.toUpperCase()}</Text>
+              <AvatarGroup
+                className={css.projectDetailsAvatarGroup}
+                avatars={data?.data?.collaborators?.length ? data?.data?.collaborators : [{}]}
+                onAdd={event => {
+                  event.stopPropagation()
+                  showCollaborators(projectData as Project)
+                }}
+              />
+              <Text font="xsmall" padding={{ left: 'xsmall' }}>{`${getString('collaboratorsLabel')} ${
+                data?.data?.collaborators?.length ? `(${data?.data?.collaborators?.length})` : ``
+              }`}</Text>
             </Layout.Vertical>
             <Popover
               isOpen={menuOpen}
@@ -99,18 +122,20 @@ const ProjectDetails: React.FC = () => {
             >
               <Button
                 minimal
-                icon="more"
+                icon="Options"
+                iconProps={{ size: 24 }}
                 onClick={e => {
                   e.stopPropagation()
                   setMenuOpen(true)
                 }}
               />
               <ContextMenu
-                project={data?.data as Project}
+                project={projectData as Project}
                 reloadProjects={refetch}
                 editProject={showEditProject}
                 collaborators={showCollaborators}
                 setMenuOpen={setMenuOpen}
+                openDialog={openDialog}
               />
             </Popover>
           </Layout.Horizontal>
@@ -125,14 +150,14 @@ const ProjectDetails: React.FC = () => {
                 <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
                   {i18n.modulesEnabled}
                 </Text>
-                {data?.data?.modules?.length ? (
-                  data.data.modules.map(module => (
+                {projectData.modules?.length ? (
+                  projectData.modules.map(module => (
                     <ModuleListCard
                       module={module as ModuleName}
                       key={module}
-                      projectIdentifier={data.data?.identifier || ''}
-                      orgIdentifier={data.data?.orgIdentifier || ''}
-                      accountId={data.data?.accountIdentifier || ''}
+                      projectIdentifier={projectData.identifier}
+                      orgIdentifier={projectData.orgIdentifier || ''}
+                      accountId={projectData.accountIdentifier || ''}
                     />
                   ))
                 ) : (
@@ -144,16 +169,16 @@ const ProjectDetails: React.FC = () => {
               </Layout.Vertical>
             </Container>
             <Container padding="xxlarge">
-              {data?.data?.modules?.length === 5 ? null : (
+              {projectData.modules?.length === 5 ? null : (
                 <>
                   <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
                     {i18n.enableModules}
                   </Text>
                   <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
-                    {getEnableModules(data?.data?.modules || []).map(module => (
+                    {getEnableModules(projectData.modules || []).map(module => (
                       <ModuleEnableCard
                         key={module}
-                        data={data?.data as Project}
+                        data={projectData as Project}
                         module={module as ModuleName}
                         refetchProject={refetchProject}
                       />
@@ -163,22 +188,23 @@ const ProjectDetails: React.FC = () => {
               )}
             </Container>
           </div>
-          <Layout.Vertical padding="huge" spacing="large">
+          {/* TODO: ENABLE THIS WHEN WE HAVE INFO */}
+          {/* <Layout.Vertical padding="huge" spacing="large">
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
               {i18n.recentActivities}
             </Text>
             <Card className={css.activityCard}>
               <ActivityStack
-                items={activityData}
+                items={[]}
                 tooltip={item => (
                   <Layout.Vertical padding="medium">
                     <Text>{item.activity}</Text>
                     <Text>{item.updatedBy}</Text>
                   </Layout.Vertical>
                 )}
-              ></ActivityStack>
+              />
             </Card>
-          </Layout.Vertical>
+          </Layout.Vertical>*/}
         </Layout.Horizontal>
       </Page.Body>
     </>

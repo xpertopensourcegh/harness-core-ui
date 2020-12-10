@@ -4,8 +4,7 @@ import { Menu } from '@blueprintjs/core'
 import { Layout, Color, Text, Icon } from '@wings-software/uikit'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-import { ModuleName } from 'framework/exports'
-import i18n from './ContextMenu.i18n'
+import { ModuleName, useStrings } from 'framework/exports'
 
 interface ContextMenuProps {
   project: Project
@@ -18,6 +17,7 @@ interface ContextMenuProps {
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const history = useHistory()
+  const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
@@ -45,9 +45,9 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCDDashboard({
-        orgIdentifier: project?.orgIdentifier as string,
-        projectIdentifier: project?.identifier as string,
-        accountId: project?.accountIdentifier as string
+        orgIdentifier: project.orgIdentifier as string,
+        projectIdentifier: project.identifier,
+        accountId: project.accountIdentifier as string
       })
     )
   }
@@ -56,9 +56,41 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCVDataSources({
-        projectIdentifier: project.identifier || '',
-        orgIdentifier: project.orgIdentifier || '',
+      routes.toCVMainDashBoardPage({
+        projectIdentifier: project.identifier,
+        orgIdentifier: project.orgIdentifier as string,
+        accountId: project?.accountIdentifier as string
+      })
+    )
+  }
+
+  const handleCF = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
+    history.push(
+      routes.toCFDashboard({
+        projectIdentifier: project.identifier,
+        orgIdentifier: project.orgIdentifier as string,
+        accountId: project?.accountIdentifier as string
+      })
+    )
+  }
+  const handleCI = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
+    history.push(
+      routes.toCIDashboard({
+        projectIdentifier: project.identifier,
+        orgIdentifier: project.orgIdentifier as string,
+        accountId: project?.accountIdentifier as string
+      })
+    )
+  }
+  const handleCE = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
+    history.push(
+      routes.toCEHome({
         accountId: project?.accountIdentifier as string
       })
     )
@@ -70,8 +102,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
-              <Icon name="cd-hover" />
-              <Text color={Color.WHITE}>{i18n.gotoCD}</Text>
+              <Icon name="cd-main" />
+              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCD')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCD}
@@ -82,21 +114,52 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="cv-main" />
-              <Text color={Color.WHITE}>{i18n.gotoCV}</Text>
+              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCV')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCV}
         />
       ) : null}
-      <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} />
-      <Menu.Item icon="new-person" text={i18n.invite} onClick={handleCollaborate} />
-
-      {openDialog ? (
-        <>
-          <Menu.Divider />
-          <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
-        </>
+      {project.modules?.includes(ModuleName.CI) ? (
+        <Menu.Item
+          text={
+            <Layout.Horizontal spacing="xsmall">
+              <Icon name="ci-main" />
+              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCI')}</Text>
+            </Layout.Horizontal>
+          }
+          onClick={handleCI}
+        />
       ) : null}
+      {project.modules?.includes(ModuleName.CF) ? (
+        <Menu.Item
+          text={
+            <Layout.Horizontal spacing="xsmall">
+              <Icon name="cf-main" />
+              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCF')}</Text>
+            </Layout.Horizontal>
+          }
+          onClick={handleCF}
+        />
+      ) : null}
+      {project.modules?.includes(ModuleName.CE) ? (
+        <Menu.Item
+          text={
+            <Layout.Horizontal spacing="xsmall">
+              <Icon name="ce-main" />
+              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCE')}</Text>
+            </Layout.Horizontal>
+          }
+          onClick={handleCE}
+        />
+      ) : null}
+      <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
+      <Menu.Item icon="new-person" text={getString('projectContextMenuRenderer.invite')} onClick={handleCollaborate} />
+
+      <>
+        <Menu.Divider />
+        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+      </>
     </Menu>
   )
 }

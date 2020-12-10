@@ -7,5 +7,6 @@ declare const styles: {
   readonly cardTags: string
   readonly wrap: string
   readonly projectInfo: string
+  readonly projectAvatarGroup: string
 }
 export default styles

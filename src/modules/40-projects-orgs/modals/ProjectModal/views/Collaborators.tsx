@@ -40,6 +40,8 @@ import {
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
+import { useToaster } from '@common/exports'
+import { regexEmail } from '@common/utils/StringUtils'
 import { InviteType } from '../Constants'
 
 import css from './Steps.module.scss'
@@ -60,7 +62,6 @@ interface InviteListProps {
   user: InviteDTO
   roles: SelectOption[]
   reload: () => void
-  modalErrorHandler: ModalErrorHandlerBinding | undefined
 }
 
 const CustomSelect = Select.ofType<SelectOption>()
@@ -71,12 +72,13 @@ const defaultRole: SelectOption = {
 }
 
 const InviteListRenderer: React.FC<InviteListProps> = props => {
-  const { user, reload, roles, modalErrorHandler } = props
+  const { user, reload, roles } = props
   const { accountId } = useParams()
   const [approved, setApproved] = useState<boolean>(false)
   const { mutate: deleteInvite } = useDeleteInvite({ queryParams: { accountIdentifier: accountId } })
   const [role, setRole] = useState<SelectOption>(defaultRole)
   const { mutate: updateInvite } = useUpdateInvite({ inviteId: '', queryParams: { accountIdentifier: accountId } })
+  const { showSuccess, showError } = useToaster()
 
   const handleUpdate = async (type: InviteType): Promise<void> => {
     const dataToSubmit: InviteDTO = {
@@ -89,9 +91,9 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     try {
       const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id || '' } })
       if (updated) reload()
-      modalErrorHandler?.showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
+      showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
     } catch (err) {
-      modalErrorHandler?.show(err.data)
+      showError(err.data)
     }
   }
 
@@ -99,9 +101,9 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     try {
       const deleted = await deleteInvite(user.id || '')
       if (deleted) reload()
-      modalErrorHandler?.showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
+      showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
     } catch (err) {
-      modalErrorHandler?.show(err.data)
+      showError(err.data)
     }
   }
   return (
@@ -109,7 +111,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
       {user?.inviteType == InviteType.ADMIN_INITIATED ? (
         <Layout.Horizontal>
           <Layout.Horizontal spacing="medium" className={cx(css.align, css.pendingUser)} width="60%">
-            <Icon name="main-user" size={30} />
+            <Avatar email={user.email} size="normal" />
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
                 <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
@@ -126,17 +128,11 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
               <Text className={css.email} lineClamp={1}>
                 {user.email}
               </Text>
-              <Layout.Horizontal>
+              <Layout.Horizontal spacing="xsmall">
                 <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
                   {i18n.newProjectWizard.Collaborators.roleAssigned}
                 </Text>
-                <Text
-                  font="xsmall"
-                  color={Color.BLUE_600}
-                  padding={{ left: 'xsmall' }}
-                  className={css.role}
-                  lineClamp={1}
-                >
+                <Text font="xsmall" color={Color.BLUE_600} className={css.role} lineClamp={1}>
                   {user.role.name}
                 </Text>
               </Layout.Horizontal>
@@ -157,7 +153,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
       ) : (
         <Layout.Horizontal>
           <Layout.Horizontal spacing="medium" className={css.align} width="60%">
-            <Icon name="main-user" size={30} />
+            <Avatar email={user.email} size="normal" />
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
                 <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
@@ -284,8 +280,8 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       }
     }) || []
 
-  const getIndex = (value: string): number => {
-    return Number(value.charAt(value.indexOf('[') + 1))
+  const isEmail = (email: string): boolean => {
+    return regexEmail.test(String(email).toLowerCase())
   }
 
   const SendInvitation = async (values: MultiSelectOption[]): Promise<void> => {
@@ -331,17 +327,31 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
         return (
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
-
             <Container className={css.collaboratorForm}>
               <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>
-                {i18n.newProjectWizard.Collaborators.name.toUpperCase()}
+                {i18n.newProjectWizard.Collaborators.name}
               </Text>
-              <Text padding={{ bottom: 'small' }}>{i18n.newProjectWizard.Collaborators.urlMessage}</Text>
+              <Text padding={{ bottom: 'small' }}>
+                {projectIdentifier
+                  ? i18n.newProjectWizard.Collaborators.urlMessageProject
+                  : i18n.newProjectWizard.Collaborators.urlMessageOrg}
+              </Text>
               <Layout.Horizontal>
                 <TextInput
                   placeholder={i18n.newProjectWizard.Collaborators.url}
                   disabled
-                  rightElement={(<Button icon="duplicate" inline minimal className={css.clone} />) as any}
+                  rightElement={
+                    (
+                      <Button
+                        tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}
+                        icon="duplicate"
+                        disabled
+                        inline
+                        minimal
+                        className={css.clone}
+                      />
+                    ) as any
+                  }
                   className={css.url}
                 />
               </Layout.Horizontal>
@@ -385,16 +395,18 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     tagRenderer: item => (
                       <Layout.Horizontal key={item.label.toString()} spacing="small">
                         <Avatar email={item.value.toString()} size="xsmall" />
-                        <Text>{item.label}</Text>
+                        <Text color={isEmail(item.value.toString().toLowerCase()) ? Color.BLACK : Color.RED_500}>
+                          {item.label}
+                        </Text>
                       </Layout.Horizontal>
                     ),
                     // eslint-disable-next-line react/display-name
                     itemRender: (item, { handleClick }) => (
-                      <div>
+                      <div key={item.label.toString()}>
                         <Menu.Item
                           text={
-                            <Layout.Horizontal spacing="small">
-                              <Avatar email={item.value.toString()} size="normal" />
+                            <Layout.Horizontal spacing="small" className={css.align}>
+                              <Avatar email={item.value.toString()} size="small" />
                               <Text>{item.label}</Text>
                             </Layout.Horizontal>
                           }
@@ -409,19 +421,11 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   text={i18n.newProjectWizard.Collaborators.add}
                   intent="primary"
                   inline
-                  disabled={role.value == 'none' ? true : false}
+                  disabled={role.value === 'none' || formik.values.collaborators.length === 0 ? true : false}
                   type="submit"
                   loading={loading}
                 />
               </Layout.Horizontal>
-              {formik.errors.collaborators
-                ? formik.errors.collaborators.map(val => (
-                    <Text intent="danger" key={val?.value}>
-                      {formik.values.collaborators[getIndex(val?.value || '')]?.label +
-                        i18n.newProjectWizard.Collaborators.notValid}
-                    </Text>
-                  ))
-                : null}
               {inviteData?.data?.content?.length ? (
                 <Layout.Vertical padding={{ top: 'medium', bottom: 'xxxlarge' }}>
                   <Text padding={{ bottom: 'small' }}>
@@ -429,13 +433,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   </Text>
                   <Container className={css.pendingList}>
                     {inviteData?.data?.content.slice(0, 15).map(user => (
-                      <InviteListRenderer
-                        key={user.name}
-                        user={user}
-                        reload={reloadInvites}
-                        roles={roles}
-                        modalErrorHandler={modalErrorHandler}
-                      />
+                      <InviteListRenderer key={user.name} user={user} reload={reloadInvites} roles={roles} />
                     ))}
                   </Container>
                 </Layout.Vertical>
@@ -448,7 +446,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
 
             {showManage ? (
               <Layout.Horizontal>
-                <Button inline minimal>
+                <Button inline minimal disabled tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}>
                   {projectIdentifier
                     ? i18n.newProjectWizard.Collaborators.manage
                     : i18n.newProjectWizard.Collaborators.manageOrg}
@@ -477,10 +475,10 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
         {...rest}
       />
       <Layout.Horizontal spacing="small">
-        <Button className={css.button} onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
+        <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
         <Button
-          className={css.button}
-          text={i18n.newProjectWizard.finish}
+          intent="primary"
+          text={i18n.newProjectWizard.saveAndContinue}
           onClick={() => {
             if (prevStepData) {
               nextStep?.({ ...prevStepData })
@@ -503,13 +501,9 @@ export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & Collaborat
       <Collaborators orgIdentifier={prevStepData?.identifier} showManage={false} {...rest} />
       {prevStepData ? (
         <Layout.Horizontal spacing="small">
+          <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
           <Button
-            className={css.button}
-            onClick={() => previousStep?.(prevStepData)}
-            text={i18n.newProjectWizard.back}
-          />
-          <Button
-            className={css.button}
+            intent="primary"
             text={i18n.newProjectWizard.finish}
             onClick={() => {
               if (prevStepData) {
@@ -520,7 +514,7 @@ export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & Collaborat
         </Layout.Horizontal>
       ) : (
         <Layout.Horizontal>
-          <Button inline minimal>
+          <Button inline minimal disabled tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}>
             {i18n.newProjectWizard.Collaborators.manage}
           </Button>
         </Layout.Horizontal>

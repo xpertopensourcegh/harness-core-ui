@@ -3,7 +3,13 @@ import { act, fireEvent, getByText, render, waitFor } from '@testing-library/rea
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
-import { createMockData, OrgMockData, projectMockData, projectMockDataWithModules } from './ProjectPageMock'
+import {
+  createMockData,
+  OrgMockData,
+  projectMockDataWithModules,
+  responseProjectAggregateDTO,
+  responseProjectAggregateDTOWithNoModules
+} from './ProjectPageMock'
 
 const getProject = jest.fn()
 const deleteProject = jest.fn()
@@ -18,11 +24,14 @@ let noModule = false
 jest.mock('services/cd-ng', () => ({
   useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: deleteProjectMock })),
   usePutProject: jest.fn().mockImplementation(() => createMockData),
-  useGetProject: jest.fn().mockImplementation(args => {
+  useGetProject: jest.fn().mockImplementation(() => {
+    return { ...projectMockDataWithModules, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetProjectAggregateDTO: jest.fn().mockImplementation(args => {
     getProject(args)
 
     return {
-      ...(noModule ? projectMockData : projectMockDataWithModules),
+      ...(noModule ? { data: responseProjectAggregateDTOWithNoModules } : { data: responseProjectAggregateDTO }),
       refetch: jest.fn(),
       error: null,
       loading: false
@@ -49,13 +58,13 @@ describe('Project Details', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const menu = container?.querySelectorAll("[icon='more']")[0]
+    const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
     const edit = getByText(popover as HTMLElement, 'Edit')
     await act(async () => {
       fireEvent.click(edit)
-      await waitFor(() => getByText(document.body, 'EDIT PROJECT'))
+      await waitFor(() => getByText(document.body, 'Edit Project'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
@@ -72,13 +81,13 @@ describe('Project Details', () => {
         </TestWrapper>
       )
       expect(container).toMatchSnapshot()
-      const menu = container?.querySelectorAll("[icon='more']")[0]
+      const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
       await act(async () => {
         fireEvent.click(invite)
-        await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
+        await waitFor(() => getByText(document.body, 'Invite Collaborators'))
         let form = findDialogContainer()
         expect(form).toBeTruthy()
         await waitFor(() => fireEvent.click(form?.querySelector('[icon="cross"]')!))
@@ -86,7 +95,7 @@ describe('Project Details', () => {
         expect(form).not.toBeTruthy()
       })
     }),
-    test('Manage Organizations', async () => {
+    test('Manage Projects', async () => {
       const { container, getByTestId } = render(
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"

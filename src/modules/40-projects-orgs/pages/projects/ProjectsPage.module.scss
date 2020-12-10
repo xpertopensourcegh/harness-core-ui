@@ -37,6 +37,6 @@
 }
 
 .search {
-  width: 300px;
-  margin-right: var(--spacing-xlarge);
+  margin-right: var(--spacing-small) !important;
+  height: var(--spacing-xxlarge) !important;
 }

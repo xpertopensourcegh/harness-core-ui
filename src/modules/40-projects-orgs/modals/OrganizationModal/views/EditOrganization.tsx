@@ -5,7 +5,6 @@ import { pick } from 'lodash-es'
 import { Organization, useGetOrganization } from 'services/cd-ng'
 import { usePutOrganization } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { useAppStore } from 'framework/exports'
 import { PageSpinner } from '@common/components'
 import OrganizationForm from './OrganizationForm'
 
@@ -45,7 +44,6 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
     }
   }, [error, loading])
 
-  const { organisationsMap, updateAppStore } = useAppStore()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const onComplete = async (values: Organization): Promise<void> => {
@@ -57,15 +55,17 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
     ])
     ;(dataToSubmit as Organization)['accountIdentifier'] = accountId
     try {
-      const { data: organization } = await editOrganization(dataToSubmit as Organization, {
-        queryParams: {
-          accountIdentifier: accountId
+      await editOrganization(
+        { organization: dataToSubmit },
+        {
+          queryParams: {
+            accountIdentifier: accountId
+          }
         }
-      })
-      nextStep?.(organization)
+      )
+      nextStep?.(values)
       showSuccess(i18n.form.editSuccess)
-      updateAppStore({ organisationsMap: organisationsMap.set(values.identifier || '', values) })
-      onSuccess?.(organization)
+      onSuccess?.(values)
     } catch (e) {
       /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)
@@ -74,12 +74,12 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
   return (
     <>
       <OrganizationForm
-        data={data?.data}
+        data={data?.data?.organization}
         title={i18n.editTitle}
         enableEdit={false}
         submitTitle={isStep ? i18n.form.saveAndContinue : i18n.form.saveAndClose}
         disableSubmit={saving}
-        disablePreview={true}
+        disablePreview={!isStep}
         setModalErrorHandler={setModalErrorHandler}
         onComplete={onComplete}
       />

@@ -8,15 +8,18 @@ import css from './TagsPopover.module.scss'
 
 export interface ListTagsProps {
   tags: tagsType
+  target?: React.ReactElement
 }
 const TagsPopover: React.FC<ListTagsProps> = props => {
-  const { tags } = props
+  const { tags, target } = props
   return (
     <Popover interactionKind={PopoverInteractionKind.HOVER}>
-      <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
-        <Icon name="main-tags" size={15} />
-        <Text>{tags.length}</Text>
-      </Layout.Horizontal>
+      {target || (
+        <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
+          <Icon name="main-tags" size={15} />
+          <Text>{tags.length}</Text>
+        </Layout.Horizontal>
+      )}
       <Container padding="small">
         <Text font={{ size: 'small', weight: 'bold' }}>{i18n.tags}</Text>
         <Container className={css.tagsPopover}>

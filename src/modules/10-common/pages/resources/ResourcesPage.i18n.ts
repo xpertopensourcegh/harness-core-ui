@@ -1,5 +1,5 @@
 export default {
-  title: 'RESOURCES',
+  title: 'Resources',
   newConnectorButton: 'New Connector',
   connectors: 'Connectors',
   secrets: 'Secrets',

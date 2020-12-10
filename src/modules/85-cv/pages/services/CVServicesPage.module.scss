@@ -34,13 +34,13 @@
         background-color: var(--white);
         padding: var(--spacing-small);
         border-radius: 3px;
-        box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+        box-shadow: var(--cardsShadow);
       }
 
       .serviceActivityTimeline {
         background-color: var(--white) !important;
         border-radius: 3px;
-        box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+        box-shadow: var(--cardsShadow);
         padding: var(--spacing-small) !important;
         margin-bottom: var(--spacing-xlarge) !important;
         .timelineBarStyle {
@@ -57,7 +57,7 @@
             padding: var(--spacing-small);
             min-height: 250px;
             max-height: 790px;
-            box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+            box-shadow: var(--cardsShadow);
           }
         }
       }

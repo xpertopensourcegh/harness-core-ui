@@ -6,7 +6,8 @@ import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/
 import {
   orgMockData,
   getOrgMockData,
-  createOrgMockData
+  createOrgMockData,
+  getOrganizationAggregateDTOListMockData
 } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import OrganizationsPage from '../OrganizationsPage'
@@ -33,6 +34,9 @@ jest.mock('services/cd-ng', () => ({
   useGetOrganization: jest.fn().mockImplementation(args => {
     getOrg(args)
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetOrganizationAggregateDTOList: jest.fn().mockImplementation(() => {
+    return { ...getOrganizationAggregateDTOListMockData, refetch: jest.fn(), error: null }
   })
 }))
 jest.useFakeTimers()
@@ -43,7 +47,7 @@ describe('Org Page List', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/projects"
+        path="/account/:accountId/admin/organizations"
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -94,7 +98,7 @@ describe('Org Page List', () => {
       const edit = getByText(popover as HTMLElement, 'Edit')
       await act(async () => {
         fireEvent.click(edit)
-        await waitFor(() => getByText(document.body, 'EDIT ORGANIZATION'))
+        await waitFor(() => getByText(document.body, 'Edit Organization'))
       })
       const form = findDialogContainer()
       expect(form).toBeTruthy()

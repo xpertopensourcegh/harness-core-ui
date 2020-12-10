@@ -2,13 +2,14 @@ export default {
   projects: 'Projects',
   loading: 'Loading...',
   addProject: '+ Add Project',
-  newProject: 'New Project',
+  newProject: 'Project',
   search: 'Search by project, tags, members',
+  getNewProjectStarted: 'Get Started',
   aboutProject: 'A Harness project allows you to logically group pipelines, corresponding environments and services.',
   tabMyProjects: 'My Projects',
   tabRecent: 'Recent',
   tabAllProjects: 'All Projects',
-  tabOrgs: 'Organisations:',
+  tabOrgs: 'Organizations:',
   orgLabel: 'All',
   moduleSuccess: 'Module Added Successfully',
   newProjectWizard: {
@@ -24,11 +25,11 @@ export default {
       recommended: 'Recommended'
     },
     aboutProject: {
-      name: 'About the project',
+      name: 'About the Project',
       edit: 'Edit Project',
       projectName: 'Project Name*',
       color: 'Color',
-      org: 'Organisation',
+      org: 'Organization',
       desc: 'Description',
       tags: 'Tags',
       addTags: 'Add Tags',
@@ -38,10 +39,10 @@ export default {
       errorColor: 'required',
       errorName: 'Name is required',
       errorIdentifier: 'Identifier is required',
-      errorOrganisation: 'Organisation is required',
+      errorOrganization: 'Organization is required',
       default: 'default',
       createSuccess: 'Project Created Successfully',
-      editSuccess: 'Edited the Project Successfully',
+      editSuccess: 'Project Updated Successfully',
       validationIdentifierChars:
         'Identifier can only contain alphanumerics, underscore and $ characters, and cannot start with a number',
       validationNameChars: 'Name can only contain alphanumerics, _ and -'
@@ -92,9 +93,10 @@ export default {
       emailInvite: "You've been invited to collaborate on Olivia's Harness project.",
       emailThankyou: 'Thank you,',
       emailFooter: 'Harness',
-      urlMessage: "Your Project is only accessible to people you've invited",
-      roleAssigned: 'Project Role Assigned:',
-      url: 'https://www.harness.io/somelongencryptedprojecturl',
+      urlMessageProject: "Your Project is only accessible to people you've invited",
+      urlMessageOrg: "Your Organization is only accessible to people you've invited",
+      roleAssigned: 'Role Assigned:',
+      url: 'https://www.harness.io/fake-url',
       pendingInvitation: 'Pending Invitation',
       requestAccess: 'Requesting Access',
       pendingUsers: (name: string) => `People Waiting to be Processed (${name})`,
@@ -102,9 +104,14 @@ export default {
       collaborator: 'collaborators',
       manage: 'Manage all the users in the project',
       manageOrg: 'Manage all the users in the organization',
+      notAvailableForBeta: 'Not available for Beta',
       notValid: ' is not a valid email ',
       inviteSuccess: 'The invite has been sent successfully',
       deleteSuccess: 'The invite has been deleted successfully'
+    },
+    GetStartedProjectPage: {
+      welcome: `Welcome, let's get you started!`,
+      welcomeSecondLine: 'Take your software delivery processes to the next level using our Harness modules'
     }
   }
 }

@@ -1,8 +1,10 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
-import { defaultAppStoreValues, project } from './DefaultAppStoreData'
+import routes from '@common/RouteDefinitions'
+import { defaultAppStoreValues } from './DefaultAppStoreData'
+import { projectWithModules } from './ProjectPageMock'
 
 const reloadProjects = jest.fn()
 const editProject = jest.fn()
@@ -10,16 +12,25 @@ const collaborators = jest.fn()
 const setMenuOpen = jest.fn()
 const openDialog = jest.fn()
 
+const routeParams = {
+  accountId: projectWithModules.accountIdentifier || '',
+  orgIdentifier: projectWithModules.orgIdentifier || '',
+  projectIdentifier: projectWithModules.identifier
+}
 describe('Context Menu test', () => {
-  test('invite collaborators ', async () => {
-    const { container, getByText } = render(
+  let container: HTMLElement
+  let getByText: RenderResult['getByText']
+  let getByTestId: RenderResult['getByTestId']
+
+  beforeEach(async () => {
+    const renderObj = render(
       <TestWrapper
-        path="/account/:accountId"
+        path="/account/:accountId/projects"
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
         <ContextMenu
-          project={project}
+          project={projectWithModules}
           reloadProjects={reloadProjects}
           editProject={editProject}
           collaborators={collaborators}
@@ -28,35 +39,43 @@ describe('Context Menu test', () => {
         />
       </TestWrapper>
     )
+    container = renderObj.container
+    getByText = renderObj.getByText
+    getByTestId = renderObj.getByTestId
+  })
+  test('render', () => {
     expect(container).toMatchSnapshot()
+  })
+  test('invite collaborators ', async () => {
     fireEvent.click(getByText('Invite Collaborators'))
     expect(collaborators).toHaveBeenCalled()
-    fireEvent.click(getByText('Delete'))
-    expect(openDialog).toHaveBeenCalled()
-    fireEvent.click(getByText('Go to Continuous Verification'))
-    expect(container).toMatchSnapshot()
   }),
-    test('invite collaborators ', async () => {
-      const { container, getByText } = render(
-        <TestWrapper
-          path="/account/:accountId"
-          pathParams={{ accountId: 'testAcc' }}
-          defaultAppStoreValues={defaultAppStoreValues}
-        >
-          <ContextMenu
-            project={project}
-            reloadProjects={reloadProjects}
-            editProject={editProject}
-            collaborators={collaborators}
-            setMenuOpen={setMenuOpen}
-            openDialog={openDialog}
-          />
-        </TestWrapper>
-      )
-      expect(container).toMatchSnapshot()
+    test('edit project ', async () => {
       fireEvent.click(getByText('Edit'))
       expect(editProject).toHaveBeenCalled()
+    }),
+    test('delete ', async () => {
+      fireEvent.click(getByText('Delete'))
+      expect(openDialog).toHaveBeenCalled()
+    }),
+    test('Go to CV ', async () => {
+      fireEvent.click(getByText('Go to Continuous Verification'))
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCVMainDashBoardPage(routeParams))).toBeTruthy()
+    }),
+    test('Go to CD ', async () => {
       fireEvent.click(getByText('Go to Continuous Deployement'))
-      expect(container).toMatchSnapshot()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCDDashboard(routeParams))).toBeTruthy()
+    }),
+    test('Go to CE ', async () => {
+      fireEvent.click(getByText('Go to Continuous Efficiency'))
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCEHome(routeParams))).toBeTruthy()
+    }),
+    test('Go to CI ', async () => {
+      fireEvent.click(getByText('Go to Continuous Integration'))
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCIDashboard(routeParams))).toBeTruthy()
+    }),
+    test('Go to CF ', async () => {
+      fireEvent.click(getByText('Go to Continuous Features'))
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCFDashboard(routeParams))).toBeTruthy()
     })
 })

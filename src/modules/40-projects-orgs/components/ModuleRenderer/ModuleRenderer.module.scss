@@ -6,6 +6,9 @@
     cursor: auto;
   }
 }
+.grayOutIcons {
+  filter: grayscale(100%);
+}
 
 .pointer {
   cursor: pointer;

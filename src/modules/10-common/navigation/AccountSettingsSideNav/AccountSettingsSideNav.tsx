@@ -15,7 +15,7 @@ export default function AccountSettingsSideNav(): React.ReactElement {
       <SidebarLink label="Resources" to={routes.toResources({ accountId })} />
       <SidebarLink label="Governance" to={routes.toGovernance({ accountId })} />
       <SidebarLink label="Git Sync" to={routes.toGitSync({ accountId })} />
-      <SidebarLink label="Organisations" to={routes.toOrganizations({ accountId })} />
+      <SidebarLink label="Organizations" to={routes.toOrganizations({ accountId })} />
     </Layout.Vertical>
   )
 }

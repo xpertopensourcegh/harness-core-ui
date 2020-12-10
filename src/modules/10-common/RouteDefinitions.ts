@@ -475,7 +475,7 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) => `/org/${orgIdentifier}/project/${projectIdentifier}`
   ),
   toProjects: withAccountId(() => '/projects'),
-
+  toProjectsGetStarted: withAccountId(() => '/projects/getstarted'),
   /********************************************************************************************************************/
   toCE: withAccountId(() => '/ce'),
   toCEHome: withAccountId(() => '/ce/home')

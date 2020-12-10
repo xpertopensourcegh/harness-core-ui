@@ -1,18 +1,17 @@
-import { Card, Color, Container, Icon, Layout, Tag, Text, CardBody } from '@wings-software/uikit'
+import { Card, Color, Container, Icon, Layout, Text, CardBody, AvatarGroup } from '@wings-software/uikit'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
-import { useDeleteOrganization } from 'services/cd-ng'
-import type { Organization } from 'services/cd-ng'
+import { OrganizationAggregateDTO, useDeleteOrganization } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
-import { useAppStore } from 'framework/exports'
 import { useToaster } from '@common/exports'
+import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
 interface OrganizationCardProps {
-  data: Organization
+  data: OrganizationAggregateDTO
   width?: number
   isPreview?: boolean
   reloadOrgs?: () => void
@@ -22,11 +21,16 @@ interface OrganizationCardProps {
 }
 
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
-  const { data, isPreview, onClick, editOrg, reloadOrgs, inviteCollab } = props
+  const { data: organizationAggregateDTO, isPreview, onClick, editOrg, reloadOrgs, inviteCollab } = props
   const { accountId } = useParams()
-  const { organisationsMap, updateAppStore } = useAppStore()
   const { showSuccess, showError } = useToaster()
-
+  const {
+    organizationResponse: { organization: data },
+    projectsCount,
+    admins,
+    collaborators
+  } = organizationAggregateDTO
+  const orgMembers = admins?.concat(collaborators || [])
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
 
   const { openDialog } = useConfirmationDialog({
@@ -39,8 +43,6 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
         try {
           const deleted = await deleteOrg(data.identifier || '', { headers: { 'content-type': 'application/json' } })
           if (deleted) showSuccess(i18n.successMessage(data.name || ''))
-          organisationsMap.delete(data.identifier || '')
-          updateAppStore({ organisationsMap: organisationsMap })
           reloadOrgs?.()
         } catch (err) {
           showError(err)
@@ -93,28 +95,23 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
               </Text>
             ) : null}
           </Layout.Horizontal>
-          <Layout.Horizontal spacing="xsmall" className={css.tags}>
-            {data.tags
-              ? Object.keys(data.tags).map(key => {
-                  const value = data.tags?.[key]
-                  return (
-                    <Tag className={css.cardTags} key={key}>
-                      {value ? `${key}:${value}` : key}
-                    </Tag>
-                  )
-                })
-              : null}
-          </Layout.Horizontal>
+          <TagsRenderer tags={data.tags || {}} className={css.tags} />
           <Layout.Horizontal padding={{ top: 'xlarge' }}>
             <Layout.Vertical spacing="small">
               <Layout.Horizontal spacing="small" flex={{ align: 'center-center' }}>
                 <Icon name="nav-project" size={25}></Icon>
-                <Text font="medium">{i18n.numberOfProjects}</Text>
+                <Text font="medium">{projectsCount}</Text>
               </Layout.Horizontal>
               <Text font="xsmall">{i18n.projects.toUpperCase()}</Text>
             </Layout.Vertical>
-            <Layout.Vertical padding={{ left: 'huge' }} spacing="small" flex={{ align: 'center-center' }}>
-              <Icon name="main-user-groups" size={25} />
+            <Layout.Vertical padding={{ left: 'huge' }} spacing="small" flex>
+              <AvatarGroup
+                avatars={orgMembers?.length ? orgMembers : [{}]}
+                onAdd={event => {
+                  event.stopPropagation()
+                  inviteCollab?.()
+                }}
+              />
               <Text font="xsmall">{i18n.orgMembers.toUpperCase()}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>

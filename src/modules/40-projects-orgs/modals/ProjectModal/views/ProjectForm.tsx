@@ -31,8 +31,9 @@ interface ProjectModalData {
   initialOrgIdentifier: string
   initialModules?: Project['modules']
   onComplete: (project: Project) => Promise<void>
-  organisationItems: SelectOption[]
+  organizationItems: SelectOption[]
   setModalErrorHandler: (modalErrorHandler: ModalErrorHandlerBinding) => void
+  displayProjectCardPreview?: boolean
 }
 
 interface AboutPageData extends Project {
@@ -56,10 +57,11 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
     onComplete,
     disableSelect,
     disableSubmit,
-    organisationItems,
+    organizationItems,
     initialOrgIdentifier,
     initialModules,
-    setModalErrorHandler
+    setModalErrorHandler,
+    displayProjectCardPreview = true
   } = props
   return (
     <Formik
@@ -73,6 +75,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         tags: {},
         ...projectData
       }}
+      enableReinitialize={true}
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .trim()
@@ -85,7 +88,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.newProjectWizard.aboutProject.validationIdentifierChars)
             .notOneOf(illegalIdentifiers)
         }),
-        orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganisation)
+        orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganization)
       })}
       onSubmit={(values: AboutPageData) => {
         onComplete(values)
@@ -95,7 +98,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         return (
           <Form>
             <Layout.Horizontal>
-              <Layout.Vertical width="50%" padding="xxlarge">
+              <Layout.Vertical width={displayProjectCardPreview ? '50%' : '100%'} padding="xxlarge">
                 <Container style={{ minHeight: '450px' }}>
                   <Layout.Horizontal padding={{ bottom: 'large' }}>
                     <Text font="medium" color={Color.BLACK}>
@@ -114,7 +117,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                     <FormInput.Select
                       label={i18n.newProjectWizard.aboutProject.org}
                       name="orgIdentifier"
-                      items={organisationItems}
+                      items={organizationItems}
                       disabled={disableSelect}
                     />
                   </Layout.Horizontal>
@@ -134,16 +137,18 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                 </Container>
                 <Layout.Horizontal>
                   <Button
-                    className={css.button}
+                    intent="primary"
                     text={i18n.newProjectWizard.saveAndContinue}
                     type="submit"
                     disabled={disableSubmit}
                   />
                 </Layout.Horizontal>
               </Layout.Vertical>
-              <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
-                <ProjectCard data={formikProps.values} isPreview={true} />
-              </Container>
+              {displayProjectCardPreview && (
+                <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
+                  <ProjectCard data={{ projectResponse: { project: formikProps.values } }} isPreview={true} />
+                </Container>
+              )}
             </Layout.Horizontal>
           </Form>
         )

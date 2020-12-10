@@ -7,6 +7,8 @@ import { accountPathProps, orgPathProps, projectPathProps } from '@common/utils/
 import { MinimalLayout } from '@common/layouts'
 
 import ProjectsPage from '@projects-orgs/pages/projects/ProjectsPage'
+import GetStartedProject from '@projects-orgs/pages/projects/views/GetStartedProject/GetStartedProject'
+
 import ProjectDetails from '@projects-orgs/pages/projects/views/ProjectDetails/ProjectDetails'
 import OrganizationsPage from '@projects-orgs/pages/organizations/OrganizationsPage'
 import OrganizationDetailsPage from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'
@@ -18,6 +20,9 @@ export default (
     <Route path="/">
       <RouteWithLayout layout={MinimalLayout} path={routes.toProjects({ ...accountPathProps })} exact>
         <ProjectsPage />
+      </RouteWithLayout>
+      <RouteWithLayout layout={MinimalLayout} path={routes.toProjectsGetStarted({ ...accountPathProps })} exact>
+        <GetStartedProject />
       </RouteWithLayout>
       <RouteWithLayout
         layout={MinimalLayout}

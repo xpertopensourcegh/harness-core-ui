@@ -6,6 +6,7 @@ declare const styles: {
   readonly user: string
   readonly cardTags: string
   readonly wrap: string
+  readonly flexEnd: string
   readonly overflow: string
   readonly description: string
   readonly tags: string

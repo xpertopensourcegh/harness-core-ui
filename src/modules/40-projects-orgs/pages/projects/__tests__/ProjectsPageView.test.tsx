@@ -1,10 +1,18 @@
 import React from 'react'
-import { fireEvent, getByText, queryByText, render, RenderResult, waitFor } from '@testing-library/react'
+import {
+  fireEvent,
+  getByText,
+  queryAllByText,
+  queryByText,
+  render,
+  RenderResult,
+  waitFor
+} from '@testing-library/react'
 
 import { act } from 'react-dom/test-utils'
-import { findDialogContainer, findPopoverContainer, TestWrapper, UseGetMockData } from '@common/utils/testUtils'
-import type { ResponsePageOrganization } from 'services/cd-ng'
+import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { orgMockData } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
+import routes from '@common/RouteDefinitions'
 import ProjectsListPage from '../ProjectsPage'
 import { createMockData, OrgMockData, projectMockData, projectPageMock } from './ProjectPageMock'
 import { defaultAppStoreValues } from './DefaultAppStoreData'
@@ -18,9 +26,12 @@ const deleteProjectMock = (): Promise<{ status: string }> => {
   return Promise.resolve({ status: 'SUCCESS' })
 }
 jest.mock('services/cd-ng', () => ({
-  useGetOrganizationList: () => jest.fn(),
+  useGetOrganizationList: () =>
+    jest.fn().mockImplementation(() => {
+      return { ...orgMockData, refetch: jest.fn(), error: null }
+    }),
   usePostProject: jest.fn().mockImplementation(() => createMockData),
-  useGetProjectList: jest.fn().mockImplementation(args => {
+  useGetProjectAggregateDTOList: jest.fn().mockImplementation(args => {
     getProjectList(args)
     return { ...projectPageMock, refetch: jest.fn(), error: null }
   }),
@@ -53,8 +64,10 @@ jest.mock('framework/exports', () => ({
 }))
 
 describe('Project Page List', () => {
-  let container: HTMLElement | undefined
-  let getAllByText: RenderResult['getAllByText'] | undefined
+  let container: HTMLElement
+  let getAllByText: RenderResult['getAllByText']
+  let getByTestId: RenderResult['getByTestId']
+
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
@@ -62,20 +75,21 @@ describe('Project Page List', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectsListPage orgMockData={orgMockData as UseGetMockData<ResponsePageOrganization>} />
+        <ProjectsListPage />
       </TestWrapper>
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
+    getByTestId = renderObj.getByTestId
   })
 
   test('Create Project and Close', async () => {
     expect(container).toMatchSnapshot()
     await act(async () => {
-      const newProject = getAllByText?.('New Project')[0]
+      const newProject = getAllByText?.('Project')[0]
       expect(newProject).toBeDefined()
       fireEvent.click(newProject!)
-      await waitFor(() => getByText(document.body, 'ABOUT THE PROJECT'))
+      await waitFor(() => queryAllByText(document.body, 'About the Project')[0])
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
@@ -85,10 +99,10 @@ describe('Project Page List', () => {
   }),
     test('Whole Modal Test', async () => {
       expect(container).toMatchSnapshot()
-      const newProject = getAllByText?.('New Project')[0]
+      const newProject = getAllByText?.('Project')[0]
       expect(newProject).toBeDefined()
       fireEvent.click(newProject!)
-      await waitFor(() => getByText(document.body, 'ABOUT THE PROJECT'))
+      await waitFor(() => queryAllByText(document.body, 'About the Project')[0])
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       fireEvent.change(form?.querySelector('input[name="name"]')!, {
@@ -98,12 +112,12 @@ describe('Project Page List', () => {
         target: { value: 'testOrg' }
       })
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
-      await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
+      await waitFor(() => getByText(document.body, 'Invite Collaborators'))
       fireEvent.click(getByText(document.body, 'Back')!)
-      await waitFor(() => getByText(document.body, 'EDIT PROJECT'))
+      await waitFor(() => getByText(document.body, 'Edit Project'))
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
-      await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
-      fireEvent.click(queryByText(document.body, 'Finish')!)
+      await waitFor(() => getByText(document.body, 'Invite Collaborators'))
+      fireEvent.click(queryByText(document.body, 'Save and Continue')!)
       await waitFor(() => getByText(document.body, 'Which Harness modules would you like to enable for this project?'))
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
       form = findDialogContainer()
@@ -116,7 +130,7 @@ describe('Project Page List', () => {
       const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
       await act(async () => {
         fireEvent.click(invite)
-        await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
+        await waitFor(() => getByText(document.body, 'Invite Collaborators'))
         let form = findDialogContainer()
         expect(form).toBeTruthy()
         fireEvent.click(form?.querySelector('[icon="cross"]')!)
@@ -147,7 +161,7 @@ describe('Project Page List', () => {
       const edit = getByText(popover as HTMLElement, 'Edit')
       await act(async () => {
         fireEvent.click(edit)
-        await waitFor(() => getByText(document.body, 'EDIT PROJECT'))
+        await waitFor(() => getByText(document.body, 'Edit Project'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
         fireEvent.click(form?.querySelector('button[type="submit"]')!)
@@ -162,5 +176,21 @@ describe('Project Page List', () => {
         fireEvent.click(grid!)
         expect(container).toMatchSnapshot()
       })
+    }),
+    test('Go to Project Details', async () => {
+      const card = container.getElementsByClassName('colorBar')[0]
+      await act(async () => {
+        fireEvent.click(card)
+      })
+      await waitFor(() => getByTestId('location'))
+      expect(
+        getByTestId('location').innerHTML.endsWith(
+          routes.toProjectDetails({
+            accountId: projectPageMock.data.data.content[0].projectResponse.project.accountIdentifier,
+            orgIdentifier: projectPageMock.data.data.content[0].projectResponse.project.orgIdentifier,
+            projectIdentifier: projectPageMock.data.data.content[0].projectResponse.project.identifier
+          })
+        )
+      ).toBeTruthy()
     })
 })

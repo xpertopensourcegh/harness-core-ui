@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uikit'
 import { Link } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
-import { ModuleName } from 'framework/exports'
+import { ModuleName, String } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import i18n from './ModuleListCard.i18n'
 import css from './ModuleListCard.module.scss'
@@ -32,23 +32,40 @@ const getModuleLinks = (
               pipelineIdentifier: '-1'
             })}
           >
-            {i18n.newPipeLine}
+            <String stringID="moduleRenderer.newPipeLine" />
           </Link>
-          <Link to={''}> {i18n.viewPipeline}</Link>
+          <Link to={routes.toCDPipelines({ accountId, orgIdentifier, projectIdentifier })}>
+            <String stringID="moduleRenderer.viewPipelines" />
+          </Link>
         </Layout.Vertical>
       )
     case ModuleName.CV:
       return (
         <Layout.Vertical spacing="medium">
-          <Link to={''}> {i18n.newPipeLine}</Link>
-          <Link to={''}> {i18n.viewPipeline}</Link>
+          <Link to={routes.toCVActivitySourceSetup({ accountId, orgIdentifier, projectIdentifier })}>
+            <String stringID="moduleRenderer.setupActivity" />
+          </Link>
+          <Link to={routes.toCVDataSources({ accountId, orgIdentifier, projectIdentifier })}>
+            <String stringID="moduleRenderer.dataSources" />
+          </Link>
         </Layout.Vertical>
       )
     case ModuleName.CI:
       return (
         <Layout.Vertical spacing="medium">
-          <Link to={''}> {i18n.newPipeLine}</Link>
-          <Link to={''}> {i18n.viewPipeline}</Link>
+          <Link
+            to={routes.toCIPipelineStudio({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier: '-1'
+            })}
+          >
+            <String stringID="moduleRenderer.newPipeLine" />
+          </Link>
+          <Link to={routes.toCIPipelines({ accountId, orgIdentifier, projectIdentifier })}>
+            <String stringID="moduleRenderer.viewPipelines" />
+          </Link>
         </Layout.Vertical>
       )
     case ModuleName.CE:

@@ -1,21 +1,26 @@
 import React from 'react'
-import { Color, Icon, Layout, Tag, Text } from '@wings-software/uikit'
+import { AvatarGroup, Color, Icon, Layout, Text } from '@wings-software/uikit'
 import { Link, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGetOrganization } from 'services/cd-ng'
+import { useGetOrganizationAggregateDTO } from 'services/cd-ng'
 import OrgNavCardRenderer from '@projects-orgs/components/OrgNavCardRenderer/OrgNavCardRenderer'
+import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
+import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
   const { accountId, orgIdentifier } = useParams()
-  const { data, refetch } = useGetOrganization({
+  const { data, refetch } = useGetOrganizationAggregateDTO({
     identifier: orgIdentifier,
     queryParams: {
       accountIdentifier: accountId
     }
   })
+
+  const { openCollaboratorModal } = useCollaboratorModal()
+
   return (
     <>
       <Page.Header
@@ -30,30 +35,21 @@ const OrganizationDetailsPage: React.FC = () => {
               </Link>
             </Layout.Horizontal>
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
-              {data?.data?.name}
+              {data?.data?.organizationResponse.organization.name}
             </Text>
             <Text font="small" lineClamp={2}>
-              {data?.data?.description}
+              {data?.data?.organizationResponse.organization.description}
             </Text>
-            {data?.data?.tags ? (
-              <Layout.Horizontal padding={{ top: 'small' }} className={css.wrap}>
-                {Object.keys(data.data.tags).map(key => {
-                  const value = data?.data?.tags?.[key]
-                  return (
-                    <Tag className={css.cardTags} key={key}>
-                      {value ? `${key}:${value}` : key}
-                    </Tag>
-                  )
-                })}
-              </Layout.Horizontal>
-            ) : null}
+            <Layout.Horizontal padding={{ top: 'small' }}>
+              <TagsRenderer tags={data?.data?.organizationResponse.organization.tags || {}}></TagsRenderer>
+            </Layout.Horizontal>
           </Layout.Vertical>
         }
         content={
           <Layout.Vertical spacing="xsmall">
             <Layout.Horizontal flex={{ align: 'center-center' }} spacing="medium">
               <Icon name="nav-project-selected" size={30}></Icon>
-              <Text font="medium">{i18n.numberOfProjects}</Text>
+              <Text font="medium">{data?.data?.projectsCount}</Text>
             </Layout.Horizontal>
             <Link to={`${routes.toProjects({ accountId })}?orgId=${orgIdentifier}`}>
               <Text>{i18n.viewProjects}</Text>
@@ -62,13 +58,25 @@ const OrganizationDetailsPage: React.FC = () => {
         }
         toolbar={
           <Layout.Horizontal padding="xxlarge">
-            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Icon name="main-user-groups" size={20} />
-              <Text font="xsmall">{i18n.admin.toUpperCase()}</Text>
+            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall" flex>
+              <AvatarGroup
+                avatars={data?.data?.admins?.length ? data.data.admins : [{}]}
+                onAdd={event => {
+                  event.stopPropagation()
+                  openCollaboratorModal({ orgIdentifier })
+                }}
+              />
+              <Text font="xsmall">{i18n.admin}</Text>
             </Layout.Vertical>
-            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Icon name="main-user-groups" size={20} />
-              <Text font="xsmall">{i18n.collaborators.toUpperCase()}</Text>
+            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall" flex>
+              <AvatarGroup
+                avatars={data?.data?.collaborators?.length ? data.data.collaborators : [{}]}
+                onAdd={event => {
+                  event.stopPropagation()
+                  openCollaboratorModal({ orgIdentifier })
+                }}
+              />
+              <Text font="xsmall">{i18n.collaborators}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>
         }

@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/uikit'
+import { Button, Text, Layout, SelectOption, Link, ExpandingSearchInput } from '@wings-software/uikit'
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 
-import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
+import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
 import { useQueryParams } from '@common/hooks'
-import type { UseGetMockData } from '@common/utils/testUtils'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'
@@ -24,12 +23,10 @@ const allOrgsSelectOption: SelectOption = {
   label: i18n.orgLabel,
   value: i18n.orgLabel.toUpperCase()
 }
-interface ProjectListProps {
-  orgMockData?: UseGetMockData<ResponsePageOrganization>
-}
+
 const CustomSelect = Select.ofType<SelectOption>()
 
-const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
+const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams()
   const { orgId } = useQueryParams()
   const [view, setView] = useState(Views.GRID)
@@ -57,106 +54,121 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId
-    },
-    mock: orgMockData
+    }
   })
 
-  const organisations: SelectOption[] = [
+  const organizations: SelectOption[] = [
     allOrgsSelectOption,
     ...(orgsData?.data?.content?.map(org => {
-      org.identifier === orgId
+      org.organization.identifier === orgId
         ? (orgFilter = {
-            label: org.name,
-            value: org.identifier
+            label: org.organization.name,
+            value: org.organization.identifier
           })
         : null
       return {
-        label: org.name,
-        value: org.identifier
+        label: org.organization.name,
+        value: org.organization.identifier
       }
     }) || [])
   ]
 
   return (
     <>
-      <Page.Header title={i18n.projects.toUpperCase()} />
-      <Layout.Horizontal className={css.header}>
-        <Layout.Horizontal width="55%">
-          <Button text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
-        </Layout.Horizontal>
-
-        <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
-          <TextInput
-            leftIcon="search"
-            placeholder={i18n.search}
-            className={css.search}
-            value={searchParam}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchParam(e.target.value.trim())
+      <Page.Header
+        title={i18n.projects}
+        content={
+          <Link
+            withoutHref
+            onClick={() => {
+              history.push(routes.toProjectsGetStarted({ accountId }))
             }}
-          />
-          <Text>{i18n.tabOrgs}</Text>
-          <CustomSelect
-            items={organisations}
-            filterable={false}
-            itemRenderer={(item, { handleClick }) => (
-              <div>
-                <Menu.Item text={item.label} onClick={handleClick} />
-              </div>
-            )}
-            onItemSelect={item => {
-              orgFilter = item
-              history.push({
-                pathname: routes.toProjects({ accountId }),
-                search: `?orgId=${orgFilter.value.toString()}`
-              })
-            }}
-            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
           >
-            <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
-          </CustomSelect>
+            {i18n.getNewProjectStarted}
+          </Link>
+        }
+      />
 
-          <Layout.Horizontal inline>
-            <Button
-              minimal
-              icon="grid-view"
-              intent={view === Views.GRID ? 'primary' : 'none'}
-              onClick={() => {
-                setView(Views.GRID)
+      <>
+        <Layout.Horizontal className={css.header}>
+          <Layout.Horizontal width="55%">
+            <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
+          </Layout.Horizontal>
+
+          <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
+            <Layout.Horizontal flex>
+              <ExpandingSearchInput
+                placeholder={i18n.search}
+                onChange={text => {
+                  setSearchParam(text.trim())
+                }}
+                className={css.search}
+              />
+            </Layout.Horizontal>
+
+            <Text>{i18n.tabOrgs}</Text>
+            <CustomSelect
+              items={organizations}
+              filterable={false}
+              itemRenderer={(item, { handleClick }) => (
+                <div key={item.value.toString()}>
+                  <Menu.Item text={item.label} onClick={handleClick} />
+                </div>
+              )}
+              onItemSelect={item => {
+                orgFilter = item
+                history.push({
+                  pathname: routes.toProjects({ accountId }),
+                  search: `?orgId=${orgFilter.value.toString()}`
+                })
               }}
-            />
-            <Button
-              minimal
-              icon="list"
-              intent={view === Views.LIST ? 'primary' : 'none'}
-              onClick={() => {
-                setView(Views.LIST)
-              }}
-            />
+              popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+            >
+              <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
+            </CustomSelect>
+
+            <Layout.Horizontal inline>
+              <Button
+                minimal
+                icon="grid-view"
+                intent={view === Views.GRID ? 'primary' : 'none'}
+                onClick={() => {
+                  setView(Views.GRID)
+                }}
+              />
+              <Button
+                minimal
+                icon="list"
+                intent={view === Views.LIST ? 'primary' : 'none'}
+                onClick={() => {
+                  setView(Views.LIST)
+                }}
+              />
+            </Layout.Horizontal>
           </Layout.Horizontal>
         </Layout.Horizontal>
-      </Layout.Horizontal>
 
-      {view === Views.GRID ? (
-        <ProjectsGridView
-          showEditProject={showEditProject}
-          collaborators={showCollaborators}
-          orgFilterId={orgFilter.value.toString()}
-          searchParameter={searchParam}
-          reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
-          openProjectModal={openProjectModal}
-        />
-      ) : null}
-      {view === Views.LIST ? (
-        <ProjectsListView
-          showEditProject={showEditProject}
-          collaborators={showCollaborators}
-          orgFilterId={orgFilter.value.toString()}
-          searchParameter={searchParam}
-          reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
-          openProjectModal={openProjectModal}
-        />
-      ) : null}
+        {view === Views.GRID ? (
+          <ProjectsGridView
+            showEditProject={showEditProject}
+            collaborators={showCollaborators}
+            orgFilterId={orgFilter.value.toString()}
+            searchParameter={searchParam}
+            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
+            openProjectModal={openProjectModal}
+          />
+        ) : null}
+        {view === Views.LIST ? (
+          <ProjectsListView
+            showEditProject={showEditProject}
+            collaborators={showCollaborators}
+            orgFilterId={orgFilter.value.toString()}
+            searchParameter={searchParam}
+            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
+            openProjectModal={openProjectModal}
+          />
+        ) : null}
+      </>
     </>
   )
 }

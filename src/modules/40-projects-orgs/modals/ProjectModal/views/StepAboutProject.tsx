@@ -1,19 +1,24 @@
 import React from 'react'
 import type { StepProps } from '@wings-software/uikit'
-import type { Project, ResponseOrganization, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
+import type {
+  Project,
+  ResponseOrganizationResponse,
+  ResponsePageOrganizationResponse,
+  ResponseProjectResponse
+} from 'services/cd-ng'
 import type { UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
 import CreateProject from './CreateProject'
 import EditProject from './EditProject'
 
 interface ProjectModalData {
   closeModal?: () => void
-  onSuccess?: (project: Project | undefined) => void
+  onSuccess?: () => void
   onProjectSubmit?: (project: Project) => Promise<void>
   modules?: Project['modules']
-  orgMockData?: UseGetMockData<ResponsePageOrganization>
-  editOrgMockData?: UseGetMockData<ResponseOrganization>
-  projectMockData?: UseGetMockData<ResponseProject>
-  createMock?: UseMutateMockData<ResponseProject>
+  orgMockData?: UseGetMockData<ResponsePageOrganizationResponse>
+  editOrgMockData?: UseGetMockData<ResponseOrganizationResponse>
+  projectMockData?: UseGetMockData<ResponseProjectResponse>
+  createMock?: UseMutateMockData<ResponseProjectResponse>
 }
 
 const StepAboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {

@@ -1,8 +1,9 @@
 import React from 'react'
-import { Text, Color, Container, Layout, Icon } from '@wings-software/uikit'
+import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
 import css from '../ModuleRenderer.module.scss'
 
 interface CFRendererProps {
@@ -11,6 +12,7 @@ interface CFRendererProps {
 }
 const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
+  const { getString } = useStrings()
   return (
     <Container
       border={{ top: true, color: Color.GREY_250 }}
@@ -32,7 +34,17 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
           <Icon name="cf-main" size={35} />
         </Container>
         <Container width="70%" flex={{ align: 'center-center' }}>
-          <Text>TBD</Text>
+          <Layout.Vertical flex={{ align: 'center-center' }}>
+            <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
+              <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} />
+              <Text color={Color.GREY_400} font={{ size: 'medium' }}>
+                {'10'}
+              </Text>
+            </Layout.Horizontal>
+            <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
+              {getString('projectCard.cfRendererText').toUpperCase()}
+            </Text>
+          </Layout.Vertical>
         </Container>
       </Layout.Horizontal>
     </Container>

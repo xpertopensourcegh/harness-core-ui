@@ -13,7 +13,8 @@ import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
-  onSuccess: (project: Project | undefined) => void
+  onSuccess: () => void
+  onCloseModal?: () => void
 }
 
 export interface UseProjectModalReturn {
@@ -21,7 +22,7 @@ export interface UseProjectModalReturn {
   closeProjectModal: () => void
 }
 
-export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProjectModalReturn => {
+export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
 
@@ -30,7 +31,7 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
       setView(Views.PURPOSE)
       setProjectData(wizardData)
     }
-    onSuccess(wizardData)
+    onSuccess()
   }
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -39,10 +40,10 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
         onClose={() => {
           setView(Views.CREATE)
           hideModal()
+          onCloseModal ? onCloseModal() : null
         }}
         className={cx(css.dialog, Classes.DIALOG, {
           [css.create]: view === Views.CREATE,
-          [css.edit]: view === Views.EDIT,
           [css.purposeList]: view === Views.PURPOSE
         })}
       >
@@ -57,7 +58,7 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
           </StepWizard>
         ) : null}
 
-        {view === Views.PURPOSE ? <PurposeList data={projectData as Project} /> : null}
+        {view === Views.PURPOSE ? <PurposeList data={projectData as Project} onSuccess={onSuccess} /> : null}
 
         {view === Views.EDIT ? (
           <EditProject
@@ -75,6 +76,7 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
           onClick={() => {
             setView(Views.CREATE)
             hideModal()
+            onCloseModal ? onCloseModal() : null
           }}
           className={css.crossIcon}
         />

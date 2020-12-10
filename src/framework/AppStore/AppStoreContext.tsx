@@ -1,9 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import type { Project, Organization } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import type { User } from 'services/portal'
-import { useGetOrganizationList, useGetProjectList } from 'services/cd-ng'
+import { useGetProjectList } from 'services/cd-ng'
 import { useGetUser } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
@@ -18,29 +18,17 @@ export type StringsMap = Record<string, Record<string, any>>
 export interface AppStoreContextProps {
   readonly projects: Project[]
 
-  /** Organisation Map */
-  readonly organisationsMap: Map<string, Organization>
-
   /** Current user info */
   readonly user: Partial<User>
 
   /** strings for i18n */
   readonly strings: StringsMap
 
-  updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects' | 'organisationsMap'>>): void
-}
-
-const getOrganisationMap = (orgsData: Organization[]): Map<string, Organization> => {
-  const orgMap: Map<string, Organization> = new Map<string, Organization>()
-  orgsData.map(org => {
-    orgMap.set(org.identifier || '', org)
-  })
-  return orgMap
+  updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects'>>): void
 }
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   projects: [],
-  organisationsMap: new Map(),
   user: {},
   strings: {},
   updateAppStore: () => void 0
@@ -54,14 +42,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
   const { accountId } = useParams<{ accountId: string }>()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
     user: {},
-    projects: [],
-    organisationsMap: new Map()
-  })
-
-  const { loading: orgLoading, data: orgs } = useGetOrganizationList({
-    queryParams: {
-      accountIdentifier: accountId
-    }
+    projects: []
   })
 
   const { loading: projectsLoading, data: projects } = useGetProjectList({
@@ -73,22 +54,20 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
   const { loading: userLoading, data: user } = useGetUser({})
 
   React.useEffect(() => {
-    setState(prevState => ({ ...prevState, projects: projects?.data?.content || [] }))
+    setState(prevState => ({
+      ...prevState,
+      projects: projects?.data?.content?.map(response => response.project) || []
+    }))
   }, [projects?.data?.content])
-
-  React.useEffect(() => {
-    setState(prevState => ({ ...prevState, organisationsMap: getOrganisationMap(orgs?.data?.content || []) }))
-  }, [orgs?.data?.content])
 
   React.useEffect(() => {
     setState(prevState => ({ ...prevState, user: user?.resource || {} }))
   }, [user?.resource])
 
-  function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects' | 'organisationsMap'>>): void {
+  function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects'>>): void {
     setState(prevState => ({
       ...prevState,
-      projects: data.projects || prevState.projects,
-      organisationsMap: data.organisationsMap || prevState.organisationsMap
+      projects: data.projects || prevState.projects
     }))
   }
 
@@ -100,7 +79,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
         updateAppStore
       }}
     >
-      {orgLoading || userLoading || projectsLoading ? <PageSpinner /> : props.children}
+      {userLoading || projectsLoading ? <PageSpinner /> : props.children}
     </AppStoreContext.Provider>
   )
 }

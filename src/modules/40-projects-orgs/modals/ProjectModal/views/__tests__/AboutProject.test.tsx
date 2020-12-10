@@ -2,7 +2,12 @@ import React from 'react'
 
 import { render, queryByText, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import type { Project, ResponseOrganization, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
+import type {
+  Project,
+  ResponseOrganizationResponse,
+  ResponsePageOrganizationResponse,
+  ResponseProjectResponse
+} from 'services/cd-ng'
 import { TestWrapper, UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
 import { clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
@@ -21,55 +26,58 @@ const project: Project = {
   tags: { tag1: '', tag2: 'tag3' }
 }
 
-const projectMockData: UseGetMockData<ResponseProject> = {
+const projectMockData: UseGetMockData<ResponseProjectResponse> = {
   data: {
     status: 'SUCCESS',
     data: {
-      accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
-      identifier: 'test',
-      name: 'test modified',
-      color: '#0063F7',
-      modules: ['CD', 'CV'],
-      description: 'refetch returns new data',
-      tags: {},
-      lastModifiedAt: 1602158268618
+      project: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'test modified',
+        color: '#0063F7',
+        modules: ['CD', 'CV'],
+        description: 'refetch returns new data',
+        tags: {}
+      }
     },
     metaData: undefined,
     correlationId: '88124a30-e021-4890-8466-c2345e1d42d6'
   }
 }
 
-const editOrgMockData: UseGetMockData<ResponseOrganization> = {
+const editOrgMockData: UseGetMockData<ResponseOrganizationResponse> = {
   data: {
     status: 'SUCCESS',
     data: {
-      accountIdentifier: 'testAcc',
-      identifier: 'testOrg',
-      name: 'Org Name',
-      description: 'Description',
-      tags: { tag1: '', tag2: 'tag3' },
-      lastModifiedAt: 1602148957762
+      organization: {
+        accountIdentifier: 'testAcc',
+        identifier: 'testOrg',
+        name: 'Org Name',
+        description: 'Description',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
     },
     metaData: undefined,
     correlationId: '9f77f74d-c4ab-44a2-bfea-b4545c6a4a39'
   }
 }
 
-const createMockData: UseMutateMockData<ResponseProject> = {
+const createMockData: UseMutateMockData<ResponseProjectResponse> = {
   mutate: async () => {
     return {
       status: 'SUCCESS',
       data: {
-        accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
-        orgIdentifier: 'default',
-        identifier: 'dummy_name',
-        name: 'dummy name',
-        color: '#0063F7',
-        modules: [],
-        description: '',
-        tags: {},
-        lastModifiedAt: 1602660684194
+        project: {
+          accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+          orgIdentifier: 'default',
+          identifier: 'dummy_name',
+          name: 'dummy name',
+          color: '#0063F7',
+          modules: [],
+          description: '',
+          tags: {}
+        }
       },
       metaData: undefined,
       correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
@@ -78,20 +86,21 @@ const createMockData: UseMutateMockData<ResponseProject> = {
   loading: false
 }
 
-const editMockData: UseMutateMockData<ResponseProject> = {
+const editMockData: UseMutateMockData<ResponseProjectResponse> = {
   mutate: async () => {
     return {
       status: 'SUCCESS',
       data: {
-        accountIdentifier: 'testAcc',
-        orgIdentifier: 'testOrg',
-        identifier: 'test',
-        name: 'dummy name',
-        color: '#e6b800',
-        modules: ['CD'],
-        description: 'test',
-        tags: { tag1: '', tag2: 'tag3' },
-        lastModifiedAt: 1602660684194
+        project: {
+          accountIdentifier: 'testAcc',
+          orgIdentifier: 'testOrg',
+          identifier: 'test',
+          name: 'dummy name',
+          color: '#e6b800',
+          modules: ['CD'],
+          description: 'test',
+          tags: { tag1: '', tag2: 'tag3' }
+        }
       },
       metaData: undefined,
       correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
@@ -99,13 +108,28 @@ const editMockData: UseMutateMockData<ResponseProject> = {
   },
   loading: false
 }
+
+jest.mock('services/cd-ng', () => ({
+  useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutProject: jest.fn().mockImplementation(() => editMockData),
+  usePostProject: jest.fn().mockImplementation(() => createMockData),
+  useGetOrganizationList: jest.fn().mockImplementation(() => {
+    return { ...orgMockData, refetch: jest.fn(), error: null }
+  }),
+  useGetOrganization: jest.fn().mockImplementation(() => {
+    return { ...editOrgMockData, refetch: jest.fn(), error: null }
+  }),
+  useGetProject: jest.fn().mockImplementation(() => {
+    return { ...projectMockData, refetch: jest.fn(), error: null }
+  })
+}))
 
 describe('About Project test', () => {
   test('create project ', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
         <StepProject
-          orgMockData={orgMockData as UseGetMockData<ResponsePageOrganization>}
+          orgMockData={orgMockData as UseGetMockData<ResponsePageOrganizationResponse>}
           createMock={createMockData}
         />
       </TestWrapper>
@@ -129,13 +153,7 @@ describe('About Project test', () => {
     test('edit project ', async () => {
       const { container } = render(
         <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-          <EditProject
-            identifier={project.identifier}
-            orgIdentifier={project.accountIdentifier}
-            editOrgMockData={editOrgMockData}
-            projectMockData={projectMockData}
-            editMockData={editMockData}
-          />
+          <EditProject identifier={project.identifier} orgIdentifier={project.accountIdentifier} />
         </TestWrapper>
       )
       expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()

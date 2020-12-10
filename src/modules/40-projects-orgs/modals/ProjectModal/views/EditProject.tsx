@@ -3,66 +3,43 @@ import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
 import { useAppStore } from 'framework/exports'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-import {
-  ResponseOrganization,
-  ResponsePageOrganization,
-  ResponseProject,
-  useGetOrganization,
-  useGetProject
-} from 'services/cd-ng'
+import { useGetOrganization, useGetProject } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
-import type { UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { PageSpinner } from '@common/components'
 import ProjectForm from './ProjectForm'
 
 interface EditModalData {
-  orgmockData?: UseGetMockData<ResponsePageOrganization>
   identifier?: string
   orgIdentifier?: string
   closeModal?: () => void
-  onSuccess?: (project: Project | undefined) => void
+  onSuccess?: () => void
   isStep?: boolean
-  editOrgMockData?: UseGetMockData<ResponseOrganization>
-  projectMockData?: UseGetMockData<ResponseProject>
-  editMockData?: UseMutateMockData<ResponseProject>
 }
 
 const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
-  const {
-    prevStepData,
-    nextStep,
-    identifier,
-    orgIdentifier,
-    closeModal,
-    onSuccess,
-    isStep,
-    editOrgMockData,
-    projectMockData,
-    editMockData
-  } = props
+  const { prevStepData, nextStep, identifier, orgIdentifier, closeModal, onSuccess, isStep } = props
   const [version, setVersion] = useState<string>()
   const { accountId } = useParams()
   const { showSuccess } = useToaster()
   const projectIdentifier = isStep ? prevStepData?.identifier : identifier
-  const organisationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier
+  const organizationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier
 
   const { data: projectData, loading, response, error } = useGetProject({
     identifier: projectIdentifier || /* istanbul ignore next */ '',
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: organisationIdentifier || /* istanbul ignore next */ ''
-    },
-    mock: projectMockData
+      orgIdentifier: organizationIdentifier || /* istanbul ignore next */ ''
+    }
   })
 
   const { data: orgData } = useGetOrganization({
-    identifier: organisationIdentifier || /* istanbul ignore next */ '',
-    queryParams: { accountIdentifier: accountId },
-    mock: editOrgMockData
+    identifier: organizationIdentifier || /* istanbul ignore next */ '',
+    queryParams: { accountIdentifier: accountId }
   })
 
-  const { mutate: updateProject } = usePutProject({
+  const { mutate: updateProject, loading: saving } = usePutProject({
     identifier: '',
     queryParams: {
       accountIdentifier: accountId,
@@ -70,8 +47,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
     },
     requestOptions: {
       headers: { 'If-Match': version as string }
-    },
-    mock: editMockData
+    }
   })
 
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -84,24 +60,27 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
 
   const { projects, updateAppStore } = useAppStore()
 
-  const organisations: SelectOption[] = [
+  const organizations: SelectOption[] = [
     {
-      label: orgData?.data?.name || /* istanbul ignore next */ '',
-      value: orgData?.data?.identifier || /* istanbul ignore next */ ''
+      label: orgData?.data?.organization.name || /* istanbul ignore next */ '',
+      value: orgData?.data?.organization.identifier || /* istanbul ignore next */ ''
     }
   ]
 
   const onComplete = async (values: Project): Promise<void> => {
     try {
-      await updateProject(values, {
-        pathParams: { identifier: values.identifier },
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier: values.orgIdentifier
+      await updateProject(
+        { project: values },
+        {
+          pathParams: { identifier: values.identifier },
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier: values.orgIdentifier
+          }
         }
-      })
+      )
       showSuccess(i18n.newProjectWizard.aboutProject.editSuccess)
-      onSuccess?.(values)
+      onSuccess?.()
       updateAppStore({
         projects: projects.filter(/* istanbul ignore next */ p => p.identifier !== values.identifier).concat(values)
       })
@@ -111,21 +90,24 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
       modalErrorHandler?.showDanger(e.data.message)
     }
   }
+
   return (
     <>
-      {projectData ? (
-        <ProjectForm
-          data={projectData.data}
-          disableSelect={true}
-          enableEdit={false}
-          disableSubmit={false}
-          initialOrgIdentifier={projectData.data?.orgIdentifier || orgIdentifier || /* istanbul ignore next */ ''}
-          organisationItems={organisations}
-          title={i18n.newProjectWizard.aboutProject.edit.toUpperCase()}
-          setModalErrorHandler={setModalErrorHandler}
-          onComplete={onComplete}
-        />
-      ) : null}
+      <ProjectForm
+        data={projectData?.data?.project}
+        disableSelect={true}
+        enableEdit={false}
+        disableSubmit={saving}
+        initialOrgIdentifier={
+          projectData?.data?.project.orgIdentifier || orgIdentifier || /* istanbul ignore next */ ''
+        }
+        organizationItems={organizations}
+        title={i18n.newProjectWizard.aboutProject.edit}
+        setModalErrorHandler={setModalErrorHandler}
+        onComplete={onComplete}
+        displayProjectCardPreview={isStep ? true : false}
+      />
+      {loading && !projectData ? <PageSpinner /> : null}
     </>
   )
 }

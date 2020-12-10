@@ -53,7 +53,7 @@ exports[`Resources Page render 1`] = `
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
       >
-        Organisations
+        Organizations
       </p>
     </a>
   </div>

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import cx from 'classnames'
-import { Project, useGetProjectList, ResponsePageProject } from 'services/cd-ng'
+import { Project, useGetProjectAggregateDTOList, ProjectAggregateDTO } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
-import type { UseGetMockData } from '@common/utils/testUtils'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import i18n from './ProjectGridView.i18n'
 import css from './ProjectGridView.module.scss'
 
 interface ProjectGridViewProps {
-  mockData?: UseGetMockData<ResponsePageProject>
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   searchParameter?: string
@@ -19,13 +16,10 @@ interface ProjectGridViewProps {
   reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
   openProjectModal?: (project?: Project | undefined) => void
   deselectModule?: boolean
-  className?: string
-  pageSize?: number
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
   const {
-    mockData,
     showEditProject,
     collaborators,
     searchParameter,
@@ -33,13 +27,11 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     module,
     reloadPage,
     openProjectModal,
-    deselectModule,
-    className,
-    pageSize
+    deselectModule
   } = props
   const [page, setPage] = useState(0)
   const { accountId } = useParams()
-  const { data, loading, refetch } = useGetProjectList({
+  const { data, loading, refetch } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
@@ -47,12 +39,10 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       searchTerm: searchParameter,
       hasModule: deselectModule ? false : true,
       pageIndex: page,
-      pageSize: pageSize || 10
+      pageSize: 10
     },
-    mock: mockData,
     debounce: 300
   })
-
   if (reloadPage) {
     refetch()
     reloadPage(false)
@@ -81,23 +71,23 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
               message: i18n.noProject
             }
       }
-      className={className || cx(css.pageContainer, { [css.moduleContainer]: module ? true : false })}
+      className={css.pageContainer}
     >
-      <Container height="90%" className={css.pageBody}>
+      <Container height="90%">
         <Layout.Masonry
           center
           gutter={25}
           className={css.centerContainer}
           items={data?.data?.content || []}
-          renderItem={(project: Project) => (
+          renderItem={(projectDTO: ProjectAggregateDTO) => (
             <ProjectCard
-              data={project}
+              data={projectDTO}
               reloadProjects={refetch}
               editProject={showEditProject}
-              collaborators={collaborators}
+              handleInviteCollaborators={collaborators}
             />
           )}
-          keyOf={(project: Project) => project.identifier}
+          keyOf={(projectDTO: ProjectAggregateDTO) => projectDTO.projectResponse.project.identifier}
         />
       </Container>
       <Container height="10%" className={css.pagination}>

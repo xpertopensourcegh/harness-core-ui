@@ -4,45 +4,40 @@ import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-s
 import { pick } from 'lodash-es'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useAppStore } from 'framework/exports'
-import { useGetOrganizationList, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
+import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
-import type { UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
-  orgMockData?: UseGetMockData<ResponsePageOrganization>
   modules?: Project['modules']
-  onSuccess?: (project: Project | undefined) => void
-  createMock?: UseMutateMockData<ResponseProject>
+  onSuccess?: () => void
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
-  const { nextStep, onSuccess, orgMockData, modules, createMock } = props
+  const { nextStep, onSuccess, modules } = props
   const { accountId, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
-  const { mutate: createProject } = usePostProject({
+  const { mutate: createProject, loading: saving } = usePostProject({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: ''
-    },
-    mock: createMock
+    }
   })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { data: orgData } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId
-    },
-    mock: orgMockData
+    }
   })
   const { projects, updateAppStore } = useAppStore()
 
-  const organisations: SelectOption[] =
+  const organizations: SelectOption[] =
     orgData?.data?.content?.map(org => {
       return {
-        label: org.name || /* istanbul ignore next */ '',
-        value: org.identifier || /* istanbul ignore next */ ''
+        label: org.organization.name,
+        value: org.organization.identifier
       }
     }) || []
 
@@ -58,16 +53,19 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     ;(dataToSubmit as Project)['accountIdentifier'] = accountId
     ;(dataToSubmit as Project)['modules'] = values.modules || []
     try {
-      const { data: project } = await createProject(dataToSubmit as Project, {
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier: values?.orgIdentifier || /* istanbul ignore next */ ''
+      await createProject(
+        { project: dataToSubmit },
+        {
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier: values?.orgIdentifier || /* istanbul ignore next */ ''
+          }
         }
-      })
-      nextStep?.(project)
+      )
+      nextStep?.(dataToSubmit)
       showSuccess(i18n.newProjectWizard.aboutProject.createSuccess)
-      onSuccess?.(project)
-      updateAppStore({ projects: projects.concat(project!) })
+      onSuccess?.()
+      updateAppStore({ projects: projects.concat(dataToSubmit!) })
     } catch (e) {
       /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)
@@ -77,11 +75,11 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     <ProjectForm
       disableSelect={orgIdentifier ? true : false}
       enableEdit={true}
-      disableSubmit={false}
+      disableSubmit={saving}
       initialOrgIdentifier={orgIdentifier || i18n.newProjectWizard.aboutProject.default}
       initialModules={modules}
-      organisationItems={organisations}
-      title={i18n.newProjectWizard.aboutProject.name.toUpperCase()}
+      organizationItems={organizations}
+      title={i18n.newProjectWizard.aboutProject.name}
       setModalErrorHandler={setModalErrorHandler}
       onComplete={onComplete}
     />
