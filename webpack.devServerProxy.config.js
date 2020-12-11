@@ -19,5 +19,11 @@ module.exports = {
   '/cf': {
     target: targetLocalHost ? 'http://localhost:3000' : baseUrl,
     pathRewrite: targetLocalHost ? { '^/cf': '/api/1.0' } : {}
+  },
+  '/ci': {
+    target: targetLocalHost ? 'https://localhost:7171' : baseUrl
+  },
+  '/gateway/log-service': {
+    target: targetLocalHost ? 'https://localhost:7457' : baseUrl
   }
 }
