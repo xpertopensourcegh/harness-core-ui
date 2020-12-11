@@ -252,7 +252,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
           </Text>
           <Container className={styles.mappingDetails}>
             <Text icon="service-appdynamics">{stepData?.applications[selectedAppId!]?.name}</Text>
-            <Text>{getString('cv.monitoringSources.appD.mapsTo')}</Text>
+            <Text>{getString('cv.admin.mapsTo')}</Text>
             <Text icon="harness">{stepData?.applications[selectedAppId!]?.environment}</Text>
           </Container>
           <Container className={styles.metricPacks}>

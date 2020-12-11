@@ -168,9 +168,7 @@ const RenderConditions: Renderer<CellProps<AlertRuleDTO>> = ({ row }) => {
     <Layout.Horizontal>
       <Text padding={{ right: 'medium' }} color={Color.BLUE_500}>
         {rowData.alertCondition?.services?.length}{' '}
-        {`${getString('cv.admin.notifications.create.stepThree.service')}${pluralize(
-          rowData.alertCondition?.services?.length || 0
-        )}`}
+        {`${getString('service')}${pluralize(rowData.alertCondition?.services?.length || 0)}`}
       </Text>
 
       {rowData.alertCondition?.enabledVerifications ? (

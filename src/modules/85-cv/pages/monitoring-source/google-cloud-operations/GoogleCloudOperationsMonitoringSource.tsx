@@ -5,6 +5,7 @@ import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import { Page } from '@common/exports'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
+import { MapGCOMetricsToServices } from './MapGCOMetricsToServices/MapGCOMetricsToServices'
 
 export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
   const { getString } = useStrings()
@@ -38,7 +39,21 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
             title: getString('cv.monitoringSources.gco.tabName.selectDashboards'),
             component: (
               <SelectGCODashboards
-                data={...currentData}
+                data={currentData}
+                onPrevious={tabInfo.onPrevious}
+                onNext={data => {
+                  setCurrentData(data)
+                  onNext({ data })
+                }}
+              />
+            )
+          },
+          {
+            id: 3,
+            title: getString('cv.monitoringSources.mapMetricsToServices'),
+            component: (
+              <MapGCOMetricsToServices
+                data={currentData}
                 onPrevious={tabInfo.onPrevious}
                 onNext={data => {
                   setCurrentData(data)

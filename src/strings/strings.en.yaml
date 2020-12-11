@@ -25,6 +25,7 @@ global:
   sidecarsText: Sidecars
   manifestsText: Manifest
   errorSummaryText: Error Summary
+  and: 'And'
   na: N/A
   all: All
   plus: +
@@ -63,6 +64,7 @@ global:
   imageLabel: Image
   encryptedKeyLabel: Encrypted Key
   environment: 'Environment'
+  service: 'Service'
   addEnvironment: '+ Add Environment'
   entryPointsLabel: 'Entry Points'
   addEntryPoint: '+ Add Entry Point'
@@ -378,6 +380,7 @@ global:
         setup: 'Setup'
         activitySources: 'Activity Sources'
     admin:
+      mapsTo: maps to
       notifications:
         newNotification: 'New Notification Rule'
         enabled: 'Enabled'
@@ -394,7 +397,6 @@ global:
             heading: Notification Rule Details
             name: Give name to your notification rule
           stepThree:
-            service: 'Service'
             verification: Verification
             risk: Risk
             headingOne: Select Condition for Notification
@@ -448,6 +450,7 @@ global:
     newService: New Service
     selectCreateService: select or create an service
     monitoringSources:
+      mapMetricsToServices: 'Map Metrics to Harness Services'
       appD:
         newEnvironment: New Environment
         envType: Environment Type
@@ -460,7 +463,6 @@ global:
         mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
         noAppsMsg: No Applications were found
         noTiersMsg: No Tiers were found for selected application
-        mapsTo: maps to
         metricPackValidation: METRIC PACK VALIDATION
         mappingToHarnessService: MAPPING TO HARNESS SERVICE
         mapToHarnessEnvironment: MAP TO HARNESS ENVIRONMENT
@@ -504,6 +506,18 @@ global:
         selectDashboardsPage:
           noDataText: 'No Google Cloud Operation dashboards found.'
           dashboardColumnName: 'Google Cloud Operation Dashboards'
+        mapMetricsToServicesPage:
+          metricTagsLabel: 'Metric Tags'
+          metricNameLabel: 'Metric Name'
+          riskCategoryLabel: 'Risk Category'
+          viewQuery: 'View Query'
+          baselineDeviation: 'Deviation compared to baseline'
+          operationsQueryLabel: 'Operations query (Remove any Group By clauses to create a single metric)'
+          mapMetricToServiceAndEnvironment: 'Map Stackdriver Metric to a Harness Service and Environment'
+          querySpecifications: 'Query Specifications'
+          configureRiskProfile: 'Configure Risk Profile'
+          higherCounts: 'Higher counts = higher risk'
+          lowerCounts: 'Lower counts = lower risk'
         tabName:
           selectDashboards: 'Select Dashboards'
     activitySources:

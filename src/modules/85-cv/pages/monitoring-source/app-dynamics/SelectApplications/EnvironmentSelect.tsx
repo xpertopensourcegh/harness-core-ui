@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { EnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
@@ -21,7 +22,15 @@ interface EnvironmentSelectProps {
 
 const ADD_NEW_VALUE = '@@add_new'
 
-export default function EnvironmentSelect({
+export function generateOptions(response?: EnvironmentResponseDTO[]): SelectOption[] {
+  return response
+    ? (response
+        .filter(entity => entity && entity.identifier && entity.name)
+        .map(entity => ({ value: entity.identifier, label: entity.name })) as SelectOption[])
+    : []
+}
+
+export function EnvironmentSelect({
   item,
   options,
   onSelect,
@@ -30,7 +39,7 @@ export default function EnvironmentSelect({
   className
 }: EnvironmentSelectProps) {
   const { getString } = useStrings('cv')
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
   const { mutate: createEnvironment, loading } = useCreateEnvironment({ queryParams: { accountId } })
   const selectOptions = useMemo(
     () => [

@@ -9,7 +9,7 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import EnvironmentSelect from './EnvironmentSelect'
+import { EnvironmentSelect } from './EnvironmentSelect'
 import { ApplicationRecord, useValidationErrors } from '../AppDOnboardingUtils'
 import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './SelectApplications.module.scss'

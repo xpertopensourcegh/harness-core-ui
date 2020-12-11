@@ -53,17 +53,21 @@ jest.mock('services/cd-ng', () => ({
   })
 }))
 
-jest.mock('../EnvironmentSelect', () => (props: any) => (
-  <div
-    className="environment-select-mock"
-    onClick={() =>
-      props?.onSelect({
-        label: 'env1',
-        value: 'env1'
-      })
-    }
-  />
-))
+jest.mock('../EnvironmentSelect', () => ({
+  EnvironmentSelect: function MockSelect(props: any) {
+    return (
+      <div
+        className="environment-select-mock"
+        onClick={() =>
+          props?.onSelect({
+            label: 'env1',
+            value: 'env1'
+          })
+        }
+      />
+    )
+  }
+}))
 
 describe('SelectApplications', () => {
   test('Matches snapshot', () => {

@@ -78,7 +78,7 @@ export function transformApiData(activitySource?: KubernetesActivitySourceDTO): 
 
 export function KubernetesActivitySource(): JSX.Element {
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<KubernetesActivitySourceInfo>({
-    totalTabs: 5
+    totalTabs: TabComponents.length
   })
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & AccountPathProps & { activitySourceId: string }>()

@@ -12,7 +12,7 @@ import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/exports'
-import EnvironmentSelect from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
+import { EnvironmentSelect } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
 import { useGetEnvironmentListForProject, EnvironmentResponseDTO } from 'services/cd-ng'
 
 import css from '../SelectApplication/SelectApplication.module.scss'
