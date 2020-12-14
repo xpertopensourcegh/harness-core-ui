@@ -17,7 +17,7 @@ import {
 } from '@wings-software/uikit'
 import { Dialog, Menu } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
-import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets } from 'services/cf'
+import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
@@ -396,11 +396,13 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   const { data } = useGetAllTargets({
     queryParams: {
       environment,
-      project
+      project,
+      account: 'default',
+      org: 'default_org'
     }
   })
 
-  const availableTargets = data?.data?.targets?.map(compose(toOption, prop('identifier'))) ?? []
+  const availableTargets = ((data?.targets || []) as Target[]).map(compose(toOption, prop('identifier'))) || []
   const [tempTargets, setTempTargets] = useState(tagOpts)
 
   const [openEditModal, hideModal] = useModalHook(() => {

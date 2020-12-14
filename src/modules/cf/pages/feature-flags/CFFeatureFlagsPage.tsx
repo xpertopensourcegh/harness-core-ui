@@ -160,13 +160,15 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
   const history = useHistory()
 
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
-      project: projectIdentifier as string
+      project: projectIdentifier as string,
+      account: 'default',
+      org: 'default_org'
     }
   })
 
@@ -256,15 +258,21 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   const { showError } = useToaster()
 
-  const { projectIdentifier } = useParams()
+  const { projectIdentifier } = useParams<any>()
 
-  const { data: environments, loading: envsLoading, error: envsError } = useEnvironments(projectIdentifier as string)
+  const { data: environments, loading: envsLoading, error: envsError } = useEnvironments({
+    project: projectIdentifier as string,
+    account: 'default',
+    org: 'default_org'
+  })
 
   const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
     queryParams: {
       project: projectIdentifier as string,
-      environment: environment?.value as string
+      environment: environment?.value as string,
+      account: 'default',
+      org: 'default_org'
     }
   })
 

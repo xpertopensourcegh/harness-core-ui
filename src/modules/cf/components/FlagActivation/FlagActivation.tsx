@@ -76,7 +76,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     identifier: flagData?.identifier as string,
     queryParams: {
       project: project as string,
-      environment: environment?.value as string
+      environment: environment?.value as string,
+      account: 'default',
+      org: 'default_org'
     }
   })
 

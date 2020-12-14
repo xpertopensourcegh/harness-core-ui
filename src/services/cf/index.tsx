@@ -49,9 +49,9 @@ export type ApiKeys = ApiKey[]
 export interface Environment {
   name: string
   description?: string
-  identifier?: string
-  project?: string
-  apiKeys?: ApiKeys
+  identifier: string
+  project: string
+  apiKeys: ApiKeys
   tags?: Tag[]
 }
 
@@ -87,7 +87,7 @@ export interface VariationMap {
 
 export interface Clause {
   id: string
-  attribute?: string
+  attribute: string
   op: string
   value: string[]
   negate: boolean
@@ -130,6 +130,7 @@ export interface Feature {
   defaultOnVariation: string
   defaultOffVariation: string
   permanent: boolean
+  version: string
   envProperties?: {
     environment: string
     variationMap?: VariationMap[]
@@ -144,7 +145,6 @@ export interface Feature {
   createdAt: number
   modifiedAt: number
   tags?: Tag[]
-  version?: any
 }
 
 export type Features = Pagination & {
@@ -169,18 +169,14 @@ export interface PatchOperation {
 }
 
 export interface Target {
-  Anonymous?: boolean
-  Attributes?: { [key: string]: any }
-  CreatedAt: string
-  DeletedAt: string | null
-  Environment: string
-  EnvironmentID: string
-  ID: string
-  Identifier: string
-  Name: string
-  Project: string
-  ProjectID: string
-  UpdatedAt: string
+  identifier?: string
+  account: string
+  org: string
+  environment: string
+  project: string
+  name?: string
+  anonymous?: boolean
+  attributes?: { [key: string]: any }
 }
 
 export interface Targets {
@@ -251,12 +247,12 @@ export type FeatureFlagRequestRequestBody = {
   identifier: string
   owner?: string
   kind: 'boolean' | 'int' | 'string' | 'json'
-  archived?: boolean
+  archived: boolean
   variations: Variation[]
   tags?: Tag[]
-  defaultOnVariation?: string
-  defaultOffVariation?: string
-  permanent?: boolean
+  defaultOnVariation: string
+  defaultOffVariation: string
+  permanent: boolean
 }
 
 export type FeatureFlagPatchRequestRequestBody = PatchOperation
@@ -377,7 +373,7 @@ export interface FeatureResponseResponse {
  */
 export interface TargetsResponseResponse {
   status?: Status
-  data?: Targets
+  targets?: Targets
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -429,6 +425,17 @@ export type UseGetHealthStatusProps = Omit<UseGetProps<HealthResponse, void, voi
 export const useGetHealthStatus = (props: UseGetHealthStatusProps) =>
   useGet<HealthResponse, void, void, void>(`/health`, { base: getConfig('cf'), ...props })
 
+export interface CreateProjectQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
 export type CreateProjectProps = Omit<
   MutateProps<
     void,
@@ -437,7 +444,7 @@ export type CreateProjectProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateProjectQueryParams,
     ProjectRequestRequestBody,
     void
   >,
@@ -457,7 +464,7 @@ export const CreateProject = (props: CreateProjectProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateProjectQueryParams,
     ProjectRequestRequestBody,
     void
   >
@@ -476,7 +483,7 @@ export type UseCreateProjectProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateProjectQueryParams,
     ProjectRequestRequestBody,
     void
   >,
@@ -496,12 +503,20 @@ export const useCreateProject = (props: UseCreateProjectProps) =>
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateProjectQueryParams,
     ProjectRequestRequestBody,
     void
   >('POST', `/admin/projects`, { base: getConfig('cf'), ...props })
 
 export interface GetAllProjectsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * PageNumber
    */
@@ -575,6 +590,17 @@ export const useGetAllProjects = (props: UseGetAllProjectsProps) =>
     void
   >(`/admin/projects`, { base: getConfig('cf'), ...props })
 
+export interface GetProjectQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
 export interface GetProjectPathParams {
   /**
    * Unique identifier for the object in the API.
@@ -586,7 +612,7 @@ export type GetProjectProps = Omit<
   GetProps<
     ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    GetProjectQueryParams,
     GetProjectPathParams
   >,
   'path'
@@ -602,7 +628,7 @@ export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
   <Get<
     ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    GetProjectQueryParams,
     GetProjectPathParams
   >
     path="/admin/projects/${identifier}"
@@ -615,7 +641,7 @@ export type UseGetProjectProps = Omit<
   UseGetProps<
     ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    GetProjectQueryParams,
     GetProjectPathParams
   >,
   'path'
@@ -631,13 +657,24 @@ export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
   useGet<
     ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    GetProjectQueryParams,
     GetProjectPathParams
   >((paramsInPath: GetProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
   })
+
+export interface ModifyProjectQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
 
 export interface ModifyProjectPathParams {
   /**
@@ -654,7 +691,7 @@ export type ModifyProjectProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    ModifyProjectQueryParams,
     ProjectRequestRequestBody,
     ModifyProjectPathParams
   >,
@@ -675,7 +712,7 @@ export const ModifyProject = ({ identifier, ...props }: ModifyProjectProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    ModifyProjectQueryParams,
     ProjectRequestRequestBody,
     ModifyProjectPathParams
   >
@@ -694,7 +731,7 @@ export type UseModifyProjectProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    ModifyProjectQueryParams,
     ProjectRequestRequestBody,
     ModifyProjectPathParams
   >,
@@ -715,7 +752,7 @@ export const useModifyProject = ({ identifier, ...props }: UseModifyProjectProps
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    ModifyProjectQueryParams,
     ProjectRequestRequestBody,
     ModifyProjectPathParams
   >('PUT', (paramsInPath: ModifyProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
@@ -724,11 +761,22 @@ export const useModifyProject = ({ identifier, ...props }: UseModifyProjectProps
     ...props
   })
 
+export interface DeleteProjectQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
 export type DeleteProjectProps = Omit<
   MutateProps<
     void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    DeleteProjectQueryParams,
     string,
     void
   >,
@@ -744,7 +792,7 @@ export const DeleteProject = (props: DeleteProjectProps) => (
   <Mutate<
     void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    DeleteProjectQueryParams,
     string,
     void
   >
@@ -759,7 +807,7 @@ export type UseDeleteProjectProps = Omit<
   UseMutateProps<
     void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    DeleteProjectQueryParams,
     string,
     void
   >,
@@ -775,10 +823,21 @@ export const useDeleteProject = (props: UseDeleteProjectProps) =>
   useMutate<
     void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
+    DeleteProjectQueryParams,
     string,
     void
   >('DELETE', `/admin/projects`, { base: getConfig('cf'), ...props })
+
+export interface AddAPIKeyQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
 
 export type AddAPIKeyProps = Omit<
   MutateProps<
@@ -788,7 +847,7 @@ export type AddAPIKeyProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    AddAPIKeyQueryParams,
     APIKeyRequestRequestBody,
     void
   >,
@@ -808,7 +867,7 @@ export const AddAPIKey = (props: AddAPIKeyProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    AddAPIKeyQueryParams,
     APIKeyRequestRequestBody,
     void
   >
@@ -827,7 +886,7 @@ export type UseAddAPIKeyProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    AddAPIKeyQueryParams,
     APIKeyRequestRequestBody,
     void
   >,
@@ -847,7 +906,7 @@ export const useAddAPIKey = (props: UseAddAPIKeyProps) =>
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    AddAPIKeyQueryParams,
     APIKeyRequestRequestBody,
     void
   >('POST', `/admin/apikey`, { base: getConfig('cf'), ...props })
@@ -861,6 +920,14 @@ export interface DeleteApiKeyQueryParams {
    * Environment
    */
   environment: string
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
 }
 
 export type DeleteApiKeyProps = Omit<
@@ -919,6 +986,17 @@ export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
     void
   >('DELETE', `/admin/apikey`, { base: getConfig('cf'), ...props })
 
+export interface CreateEnvironmentQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
 export type CreateEnvironmentProps = Omit<
   MutateProps<
     void,
@@ -927,7 +1005,7 @@ export type CreateEnvironmentProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateEnvironmentQueryParams,
     EnvironmentRequestRequestBody,
     void
   >,
@@ -947,7 +1025,7 @@ export const CreateEnvironment = (props: CreateEnvironmentProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateEnvironmentQueryParams,
     EnvironmentRequestRequestBody,
     void
   >
@@ -966,7 +1044,7 @@ export type UseCreateEnvironmentProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateEnvironmentQueryParams,
     EnvironmentRequestRequestBody,
     void
   >,
@@ -986,12 +1064,20 @@ export const useCreateEnvironment = (props: UseCreateEnvironmentProps) =>
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateEnvironmentQueryParams,
     EnvironmentRequestRequestBody,
     void
   >('POST', `/admin/environments`, { base: getConfig('cf'), ...props })
 
 export interface GetAllEnvironmentsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
@@ -1074,6 +1160,14 @@ export interface GetEnvironmentQueryParams {
    * Project
    */
   project: string
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
 }
 
 export interface GetEnvironmentPathParams {
@@ -1141,6 +1235,14 @@ export const useGetEnvironment = ({ identifier, ...props }: UseGetEnvironmentPro
   })
 
 export interface ModifyEnvironmentQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
@@ -1237,6 +1339,14 @@ export interface DeleteEnvironmentQueryParams {
    * Project
    */
   project: string
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
 }
 
 export type DeleteEnvironmentProps = Omit<
@@ -1295,36 +1405,16 @@ export const useDeleteEnvironment = (props: UseDeleteEnvironmentProps) =>
     void
   >('DELETE', `/admin/environments`, { base: getConfig('cf'), ...props })
 
-export interface StreamPathParams {
+export interface CreateFeatureFlagQueryParams {
   /**
-   * Unique identifier for the object in the API.
+   * Account
    */
-  identifier: string
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
 }
-
-export type StreamProps = Omit<GetProps<void, void, void, StreamPathParams>, 'path'> & StreamPathParams
-
-/**
- * Stream endpoint.
- */
-export const Stream = ({ identifier, ...props }: StreamProps) => (
-  <Get<void, void, void, StreamPathParams>
-    path="/stream/environments/${identifier}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseStreamProps = Omit<UseGetProps<void, void, void, StreamPathParams>, 'path'> & StreamPathParams
-
-/**
- * Stream endpoint.
- */
-export const useStream = ({ identifier, ...props }: UseStreamProps) =>
-  useGet<void, void, void, StreamPathParams>(
-    (paramsInPath: StreamPathParams) => `/stream/environments/${paramsInPath.identifier}`,
-    { base: getConfig('cf'), pathParams: { identifier }, ...props }
-  )
 
 export type CreateFeatureFlagProps = Omit<
   MutateProps<
@@ -1334,7 +1424,7 @@ export type CreateFeatureFlagProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
     void
   >,
@@ -1354,7 +1444,7 @@ export const CreateFeatureFlag = (props: CreateFeatureFlagProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
     void
   >
@@ -1373,7 +1463,7 @@ export type UseCreateFeatureFlagProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
     void
   >,
@@ -1393,20 +1483,28 @@ export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
     void
   >('POST', `/admin/features`, { base: getConfig('cf'), ...props })
 
 export interface GetAllFeaturesQueryParams {
   /**
-   * Environment
+   * Account
    */
-  environment: string
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
   project: string
+  /**
+   * Environment
+   */
+  environment: string
   /**
    * PageNumber
    */
@@ -1482,6 +1580,14 @@ export const useGetAllFeatures = (props: UseGetAllFeaturesProps) =>
 
 export interface GetFeatureFlagQueryParams {
   /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
    * Project
    */
   project: string
@@ -1556,6 +1662,14 @@ export const useGetFeatureFlag = ({ identifier, ...props }: UseGetFeatureFlagPro
   })
 
 export interface PatchFeatureFlagQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
@@ -1657,6 +1771,14 @@ export const usePatchFeatureFlag = ({ identifier, ...props }: UsePatchFeatureFla
 
 export interface DeleteFeatureFlagQueryParams {
   /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
    * Project
    */
   project: string
@@ -1718,6 +1840,17 @@ export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
     void
   >('DELETE', `/admin/features`, { base: getConfig('cf'), ...props })
 
+export interface CreateTargetQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
 export type CreateTargetProps = Omit<
   MutateProps<
     void,
@@ -1726,7 +1859,7 @@ export type CreateTargetProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetQueryParams,
     TargetRequestRequestBody,
     void
   >,
@@ -1746,7 +1879,7 @@ export const CreateTarget = (props: CreateTargetProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetQueryParams,
     TargetRequestRequestBody,
     void
   >
@@ -1765,7 +1898,7 @@ export type UseCreateTargetProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetQueryParams,
     TargetRequestRequestBody,
     void
   >,
@@ -1785,20 +1918,28 @@ export const useCreateTarget = (props: UseCreateTargetProps) =>
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetQueryParams,
     TargetRequestRequestBody,
     void
   >('POST', `/admin/targets`, { base: getConfig('cf'), ...props })
 
 export interface GetAllTargetsQueryParams {
   /**
-   * Environment
+   * Account
    */
-  environment: string
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
   project: string
+  /**
+   * Environment
+   */
+  environment: string
   /**
    * PageNumber
    */
@@ -1874,6 +2015,14 @@ export const useGetAllTargets = (props: UseGetAllTargetsProps) =>
 
 export interface GetTargetQueryParams {
   /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
    * Project
    */
   project: string
@@ -1948,6 +2097,14 @@ export const useGetTarget = ({ identifier, ...props }: UseGetTargetProps) =>
   })
 
 export interface ModifyTargetQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
@@ -2049,6 +2206,14 @@ export const useModifyTarget = ({ identifier, ...props }: UseModifyTargetProps) 
 
 export interface DeleteTargetQueryParams {
   /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
    * Project
    */
   project: string
@@ -2114,6 +2279,17 @@ export const useDeleteTarget = (props: UseDeleteTargetProps) =>
     void
   >('DELETE', `/admin/targets`, { base: getConfig('cf'), ...props })
 
+export interface CreateTargetSegmentQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
 export type CreateTargetSegmentProps = Omit<
   MutateProps<
     void,
@@ -2122,7 +2298,7 @@ export type CreateTargetSegmentProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetSegmentQueryParams,
     TargetSegmentRequestRequestBody,
     void
   >,
@@ -2142,7 +2318,7 @@ export const CreateTargetSegment = (props: CreateTargetSegmentProps) => (
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetSegmentQueryParams,
     TargetSegmentRequestRequestBody,
     void
   >
@@ -2161,7 +2337,7 @@ export type UseCreateTargetSegmentProps = Omit<
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetSegmentQueryParams,
     TargetSegmentRequestRequestBody,
     void
   >,
@@ -2181,12 +2357,20 @@ export const useCreateTargetSegment = (props: UseCreateTargetSegmentProps) =>
     | UnauthorizedResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    void,
+    CreateTargetSegmentQueryParams,
     TargetSegmentRequestRequestBody,
     void
   >('POST', `/admin/target-segments`, { base: getConfig('cf'), ...props })
 
 export interface GetAllTargetSegmentsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Environment
    */
@@ -2270,6 +2454,14 @@ export const useGetAllTargetSegments = (props: UseGetAllTargetSegmentsProps) =>
 
 export interface GetTargetSegmentQueryParams {
   /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
    * Project
    */
   project: string
@@ -2344,6 +2536,14 @@ export const useGetTargetSegment = ({ identifier, ...props }: UseGetTargetSegmen
   })
 
 export interface PatchTargetSegmentQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Project
    */
@@ -2445,6 +2645,14 @@ export const usePatchTargetSegment = ({ identifier, ...props }: UsePatchTargetSe
 
 export interface DeleteTargetSegmentQueryParams {
   /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
    * Project
    */
   project: string
@@ -2509,3 +2717,34 @@ export const useDeleteTargetSegment = (props: UseDeleteTargetSegmentProps) =>
     string,
     void
   >('DELETE', `/admin/target-segments`, { base: getConfig('cf'), ...props })
+
+export interface StreamPathParams {
+  /**
+   * Unique UUID for the environemnt object in the API.
+   */
+  environmentId: string
+}
+
+export type StreamProps = Omit<GetProps<void, void, void, StreamPathParams>, 'path'> & StreamPathParams
+
+/**
+ * Stream endpoint.
+ */
+export const Stream = ({ environmentId, ...props }: StreamProps) => (
+  <Get<void, void, void, StreamPathParams>
+    path="/stream/environments/${environmentId}"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseStreamProps = Omit<UseGetProps<void, void, void, StreamPathParams>, 'path'> & StreamPathParams
+
+/**
+ * Stream endpoint.
+ */
+export const useStream = ({ environmentId, ...props }: UseStreamProps) =>
+  useGet<void, void, void, StreamPathParams>(
+    (paramsInPath: StreamPathParams) => `/stream/environments/${paramsInPath.environmentId}`,
+    { base: getConfig('cf'), pathParams: { environmentId }, ...props }
+  )

@@ -58,7 +58,9 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     identifier: singleFlag?.identifier as string,
     queryParams: {
       project: singleFlag?.project as string,
-      environment: singleFlag?.envProperties?.environment as string
+      environment: singleFlag?.envProperties?.environment as string,
+      account: 'default',
+      org: 'default_org'
     }
   })
 

@@ -378,6 +378,12 @@ global:
       name: 'name'
       targetSegment: 'Target Segment'
       lastActivity: 'Last Activity'
+      create: 'Target(s)'
+      single: 'Add a target'
+      upload: 'Upload a list of targets'
+      enterName: 'Enter a Name'
+      enterValue: 'Enter a Value'
+      addTargets: 'Add Target(s)'
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'

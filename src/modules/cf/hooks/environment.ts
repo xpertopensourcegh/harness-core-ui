@@ -1,11 +1,9 @@
 import type { SelectOption } from '@wings-software/uikit'
-import { useGetAllEnvironments } from 'services/cf'
+import { GetAllEnvironmentsQueryParams, useGetAllEnvironments } from 'services/cf'
 
-export const useEnvironments = (projectIdentifier: string) => {
+export const useEnvironments = (queryParams: GetAllEnvironmentsQueryParams) => {
   const { data: environments, loading, error, refetch } = useGetAllEnvironments({
-    queryParams: {
-      project: projectIdentifier
-    }
+    queryParams
   })
 
   const convertToSelectOptions: SelectOption[] =

@@ -16,9 +16,13 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
   const { showError } = useToaster()
 
-  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<any>()
 
-  const { data: environments, error: errorEnvs, loading: envsLoading } = useEnvironments(projectIdentifier as string)
+  const { data: environments, error: errorEnvs, loading: envsLoading } = useEnvironments({
+    project: projectIdentifier as string,
+    account: 'default',
+    org: 'default_org'
+  })
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 
   useEffect(() => {
@@ -36,7 +40,9 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     identifier: featureFlagIdentifier as string,
     queryParams: {
       project: projectIdentifier as string,
-      environment: environmentOption?.value as string
+      environment: environmentOption?.value as string,
+      account: 'default',
+      org: 'default_org'
     }
   })
 

@@ -1,36 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import ReactTimeago from 'react-timeago'
-import moment from 'moment'
-import { Button, Card, Container, Icon, Layout, Popover, Select, SelectOption, Text } from '@wings-software/uikit'
-import { Menu, Spinner } from '@blueprintjs/core'
-import type { Column } from 'react-table'
+import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uikit'
+import { Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
-import Table from '@common/components/Table/Table'
-import { useGetAllTargets } from 'services/cf'
+import { TargetSegment, useGetAllTargets, useGetAllTargetSegments } from 'services/cf'
+import type { Target } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { Page, useToaster } from '@common/exports'
-import type { Target } from 'services/cf'
-import css from './CFTargetsPage.module.scss'
-
-const PlaceholderCell: React.FC<any> = () => <Text>TBD</Text>
-const TableCell: React.FC<any> = ({ value }) => <Text>{value}</Text>
-
-const LastUpdatedCell: React.FC<any> = ({ value }: any) => {
-  const [open, setOpen] = useState(false)
-  return (
-    <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }}>
-      <ReactTimeago date={moment(value).toDate()} />
-      <Popover isOpen={open} onInteraction={setOpen}>
-        <Icon size={24} name="Options" />
-        <Menu>
-          <Menu.Item icon="edit" text="Edit" />
-          <Menu.Item icon="cross" text="Delete" />
-        </Menu>
-      </Popover>
-    </Layout.Horizontal>
-  )
-}
+import IndividualTargets from './IndividualTargets'
+import TargetSegmentsView from './TargetSegmentsView'
 
 interface HeaderContentProps {
   page: 'individual' | 'segments'
@@ -62,6 +40,7 @@ interface HeaderToolbar {
   environments: SelectOption[]
   onChange: (opt: SelectOption) => void
 }
+
 const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environments, onChange }) => (
   <Layout.Horizontal flex={{ align: 'center-center' }}>
     <Text margin={{ right: 'small' }} font={{ weight: 'bold' }}>
@@ -73,8 +52,16 @@ const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environmen
 
 const CFTargetsPage: React.FC = () => {
   const { showError } = useToaster()
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>()
-  const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments(projectIdentifier)
+  const { projectIdentifier } = useParams<{
+    projectIdentifier: string
+  }>()
+
+  const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments({
+    project: projectIdentifier,
+    account: 'default',
+    org: 'default_org'
+  })
+
   const [page, setPage] = useState<'individual' | 'segments'>('individual')
   const onChangePage = () => setPage(page === 'individual' ? 'segments' : 'individual')
   const { getString } = useStrings()
@@ -86,17 +73,38 @@ const CFTargetsPage: React.FC = () => {
     lazy: true,
     queryParams: {
       project: projectIdentifier,
-      environment: (environment?.value || '') as string
+      environment: (environment?.value || '') as string,
+      account: 'default',
+      org: 'default_org'
     }
   })
 
-  const loading = loadingEnvs || loadingTargets
+  const {
+    data: segmentsData,
+    loading: loadingSegments,
+    error: errSegments,
+    refetch: fetchSegments
+  } = useGetAllTargetSegments({
+    lazy: true,
+    queryParams: {
+      project: projectIdentifier,
+      environment: (environment?.value || '') as string,
+      account: 'default',
+      org: 'default_org'
+    }
+  })
 
   useEffect(() => {
-    if (environment) {
+    if (environment && page === 'individual') {
       fetchTargets()
     }
-  }, [environment])
+  }, [environment, page])
+
+  useEffect(() => {
+    if (environment && page === 'segments') {
+      fetchSegments()
+    }
+  }, [environment, page])
 
   useEffect(() => {
     if (!loadingEnvs) {
@@ -110,45 +118,17 @@ const CFTargetsPage: React.FC = () => {
   if (errTargets) {
     showError('Error fetching targets')
   }
+  if (errSegments) {
+    showError('Error fetching target segments')
+  }
 
-  if (loading) {
+  if (loadingEnvs) {
     return (
       <Container flex style={{ justifyContent: 'center', height: '100%' }}>
         <Spinner size={50} />
       </Container>
     )
   }
-  type CustomColumn<T extends object> = Column<T>
-  const columnDefs: CustomColumn<Target>[] = [
-    {
-      Header: getPageString('name').toLocaleUpperCase(),
-      accessor: 'Name',
-      width: '20%',
-      Cell: TableCell
-    },
-    {
-      Header: getPageString('ID'),
-      accessor: 'Identifier',
-      width: '20%',
-      Cell: TableCell
-    },
-    {
-      Header: getPageString('targetSegment').toLocaleUpperCase(),
-      width: '20%',
-      Cell: PlaceholderCell
-    },
-    {
-      Header: getString('featureFlagsText').toLocaleUpperCase(),
-      width: '20%',
-      Cell: PlaceholderCell
-    },
-    {
-      Header: getPageString('lastActivity').toLocaleUpperCase(),
-      accessor: 'UpdatedAt',
-      width: '20%',
-      Cell: LastUpdatedCell
-    }
-  ]
 
   return (
     <>
@@ -172,25 +152,22 @@ const CFTargetsPage: React.FC = () => {
           />
         }
       />
-      <Page.Body>
-        <Card style={{ width: '100%' }}>
-          <Button intent="primary" text="+ Target(s)" />
-        </Card>
-        <Container flex padding="medium">
-          <Table<Target>
-            className={css.table}
-            columns={columnDefs}
-            data={(targetsData || []) as Target[]}
-            pagination={{
-              itemCount: targetsData?.data?.itemCount || 0,
-              pageSize: targetsData?.data?.pageSize || 7,
-              pageCount: targetsData?.data?.pageCount || -1,
-              pageIndex: targetsData?.data?.pageIndex || 0,
-              gotoPage: () => undefined
-            }}
-          />
-        </Container>
-      </Page.Body>
+      {page === 'individual' ? (
+        <IndividualTargets
+          loading={loadingTargets}
+          targets={(targetsData?.targets || []) as Target[]}
+          environment={environment?.value as string}
+          project={projectIdentifier}
+          onCreateTargets={fetchTargets}
+        />
+      ) : (
+        <TargetSegmentsView
+          loading={loadingSegments}
+          segments={(segmentsData?.data || []) as TargetSegment[]}
+          environment={environment}
+          project={projectIdentifier}
+        />
+      )}
     </>
   )
 }
