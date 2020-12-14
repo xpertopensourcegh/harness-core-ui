@@ -14,5 +14,10 @@ declare const styles: {
   readonly optionsViewContainer: string
   readonly optionsViewGrid: string
   readonly editForm: string
+  readonly drag: string
+  readonly dragging: string
+  readonly dragOver: string
+  readonly fileHelpText: string
+  readonly addFileButton: string
 }
 export default styles

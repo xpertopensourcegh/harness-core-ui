@@ -1,0 +1,132 @@
+{
+  "stage": {
+    "name": "Deploy Service",
+    "identifier": "Deploy_Service",
+    "description": "",
+    "type": "Deployment",
+    "spec": {
+      "service": {
+        "identifier": "Deploy_Stage",
+        "name": "Deploy Stage",
+        "description": "",
+        "serviceDefinition": {
+          "type": "Kubernetes",
+          "spec": {
+            "artifacts": { "sidecars": [], "primary": null },
+            "manifests": [
+              {
+                "manifest": {
+                  "identifier": "MID ",
+                  "type": "K8sManifest",
+                  "spec": {
+                    "store": {
+                      "type": "Git",
+                      "spec": {
+                        "connectorRef": "${input}",
+                        "gitFetchType": "Branch",
+                        "branch": "branch",
+                        "commitId": null,
+                        "paths": ["1", "2"]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "manifest": {
+                  "identifier": "mid",
+                  "type": "K8sManifest",
+                  "spec": {
+                    "store": {
+                      "type": "Git",
+                      "spec": {
+                        "connectorRef": "${input}",
+                        "gitFetchType": "Branch",
+                        "branch": "branch",
+                        "commitId": null,
+                        "paths": ["a1", "b"]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "manifest": {
+                  "identifier": "mid1",
+                  "type": "K8sManifest",
+                  "spec": {
+                    "store": {
+                      "type": "Git",
+                      "spec": {
+                        "connectorRef": "${input}",
+                        "gitFetchType": "Branch",
+                        "branch": "br1",
+                        "commitId": null,
+                        "paths": "${input}"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "manifest": {
+                  "identifier": "newmid",
+                  "type": "K8sManifest",
+                  "spec": {
+                    "store": {
+                      "type": "Git",
+                      "spec": {
+                        "connectorRef": "${input}",
+                        "gitFetchType": "Branch",
+                        "branch": "br2",
+                        "commitId": null,
+                        "paths": ["p1"]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "artifactOverrideSets": [],
+            "manifestOverrideSets": []
+          }
+        },
+        "tags": {}
+      },
+      "infrastructure": {
+        "environment": {
+          "name": "Infra Stage Env",
+          "identifier": "Infra_Stage_Env",
+          "description": "",
+          "type": "PreProduction"
+        },
+        "infrastructureDefinition": {
+          "type": "KubernetesDirect",
+          "spec": { "connectorRef": "account.cidelegate", "namespace": "ns1", "releaseName": "release1" }
+        }
+      },
+      "execution": {
+        "steps": [
+          {
+            "step": {
+              "name": "Rollout Deployment",
+              "identifier": "rolloutDeployment",
+              "type": "K8sRollingDeploy",
+              "spec": { "timeout": "10m", "skipDryRun": false }
+            }
+          }
+        ],
+        "rollbackSteps": [
+          {
+            "step": {
+              "name": "Rollback Rollout Deployment",
+              "identifier": "rollbackRolloutDeployment",
+              "type": "K8sRollingRollback",
+              "spec": { "timeout": "10m" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

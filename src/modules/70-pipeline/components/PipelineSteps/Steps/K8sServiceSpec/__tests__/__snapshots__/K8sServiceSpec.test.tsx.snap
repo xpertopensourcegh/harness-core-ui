@@ -756,7 +756,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
 exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] = `
 <div
   class="bp3-dialog modal bp3-dark"
-  style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
+  style="width: 1000px; min-height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
     class="bp3-dialog-header"
@@ -881,7 +881,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
 exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
 <div
   class="bp3-dialog modal bp3-dialog"
-  style="width: 1000px; height: 580px; padding-bottom: 0px; position: relative;"
+  style="width: 1000px; min-height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
     class="bp3-dialog-header"

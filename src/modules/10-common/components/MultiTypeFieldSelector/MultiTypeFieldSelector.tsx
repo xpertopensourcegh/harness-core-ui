@@ -15,6 +15,7 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   name: string
   label: string
   formik?: FormikContext<any>
+  defaultValueToReset?: unknown
 }
 
 const TypeIcon: Record<MultiTypeInputType, IconName> = {
@@ -68,7 +69,7 @@ function TypeSelector(props: {
 }
 
 export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): React.ReactElement {
-  const { formik, label, name, children, ...restProps } = props
+  const { formik, label, name, children, defaultValueToReset, ...restProps } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -84,7 +85,15 @@ export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): Reac
 
   function handleChange(newType: MultiTypeInputType): void {
     setType(newType)
-    formik?.setFieldValue(name, newType === MultiTypeInputType.RUNTIME ? RUNTIME_INPUT_VALUE : undefined)
+    if (newType === type) return
+    formik?.setFieldValue(
+      name,
+      newType === MultiTypeInputType.RUNTIME
+        ? RUNTIME_INPUT_VALUE
+        : defaultValueToReset
+        ? defaultValueToReset
+        : undefined
+    )
   }
 
   return (

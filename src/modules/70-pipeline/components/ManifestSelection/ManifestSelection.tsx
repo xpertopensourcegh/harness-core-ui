@@ -13,11 +13,13 @@ import {
   FormInput,
   FormikForm as Form
 } from '@wings-software/uikit'
+import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -26,6 +28,8 @@ import { PipelineContext } from '@pipeline/exports'
 import CreateGitConnector from '@pipeline/components/connectors/GitConnector/CreateGitConnector'
 
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
+import { useStrings, String } from 'framework/exports'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
@@ -97,11 +101,11 @@ function ManifestListView({
     canOutsideClickClose: false,
     enforceFocus: true,
     title: '',
-    style: { width: 1000, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
+    style: { width: 1000, minHeight: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-
+  const { getString } = useStrings()
   const [showConnectorModal, hideConnectorModal] = useModalHook(
     () => (
       <Dialog
@@ -247,13 +251,54 @@ function ManifestListView({
                 value: initValues?.connectorRef
               }
             : initValues?.connectorRef,
-        paths: initValues['paths'][0]
+        paths:
+          typeof initValues['paths'] === 'string'
+            ? initValues['paths']
+            : initValues['paths'].map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
       }
       return values
     } else {
       return {}
     }
   }
+  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
+    event.dataTransfer.setData('data', index.toString())
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+
+  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+
+  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    /* istanbul ignore else */
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
+      /* istanbul ignore else */
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      /* istanbul ignore else */
+      if (data) {
+        const index = parseInt(data, 10)
+        arrayHelpers.swap(index, droppedIndex)
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    []
+  )
+  const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
 
   const [showEditConnectorModal, hideEditConnectorModal] = useModalHook(
     () => (
@@ -265,7 +310,7 @@ function ManifestListView({
           hideEditConnectorModal()
         }}
         {...DIALOG_PROPS}
-        style={{ width: 600, height: 350, borderLeft: 'none', paddingBottom: 0, position: 'relative' }}
+        style={{ width: 600, minHeight: 350, borderLeft: 'none', paddingBottom: 0, position: 'relative' }}
         className={Classes.DIALOG}
       >
         <Layout.Vertical spacing="large" padding="xlarge" className={css.editForm}>
@@ -281,7 +326,10 @@ function ManifestListView({
                 ...getManifestInitialValues(),
                 ...values,
                 connectorRef: values.connectorRef.value ? values.connectorRef.value : values.connectorRef,
-                paths: [values['paths']]
+                paths:
+                  typeof values['paths'] === 'string'
+                    ? values['paths']
+                    : values['paths'].map((path: { path: string }) => path.path)
               }
 
               if (selectedManifestReference) selectedManifestReference['spec']['store']['spec'] = _updatedValues
@@ -289,7 +337,7 @@ function ManifestListView({
               hideEditConnectorModal()
             }}
           >
-            {() => (
+            {formik => (
               <Form>
                 <div>
                   <FormMultiTypeConnectorField
@@ -318,11 +366,72 @@ function ManifestListView({
                     name="commitId"
                   />
                 )}
-                <FormInput.MultiTextInput
-                  label={i18n.existingManifest.filePath}
-                  placeholder={i18n.existingManifest.filePathPlaceholder}
-                  name="paths"
-                />
+
+                <MultiTypeFieldSelector
+                  defaultValueToReset={defaultValueToReset}
+                  name={'paths'}
+                  label={getString('fileFolderPathText')}
+                >
+                  <Text
+                    icon="info-sign"
+                    className={css.fileHelpText}
+                    iconProps={{ color: Color.BLUE_450, size: 23, padding: 'small' }}
+                  >
+                    <String tagName="div" stringID="multipleFilesHelpText" />
+                  </Text>
+                  <FieldArray
+                    name="paths"
+                    render={arrayHelpers => (
+                      <Layout.Vertical>
+                        {formik.values?.paths?.map((path: { uuid: string; path: string }, index: number) => (
+                          <Layout.Horizontal
+                            key={path.uuid}
+                            flex={{ distribution: 'space-between' }}
+                            style={{ alignItems: 'end' }}
+                          >
+                            <Layout.Horizontal
+                              spacing="medium"
+                              style={{ alignItems: 'baseline' }}
+                              draggable={true}
+                              onDragStart={event => {
+                                onDragStart(event, index)
+                              }}
+                              data-testid={path.uuid}
+                              onDragEnd={onDragEnd}
+                              onDragOver={onDragOver}
+                              onDragLeave={onDragLeave}
+                              onDrop={event => onDrop(event, arrayHelpers, index)}
+                            >
+                              {formik.values?.paths?.length > 1 && (
+                                <Icon name="drag-handle-vertical" className={css.drag} />
+                              )}
+                              {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
+                              <FormInput.MultiTextInput
+                                label=""
+                                placeholder={'Enter overrides file path'}
+                                name={`paths[${index}].path`}
+                                style={{ width: '430px' }}
+                              />
+                            </Layout.Horizontal>
+                            {formik.values?.paths?.length > 1 && (
+                              <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                            )}
+                          </Layout.Horizontal>
+                        ))}
+                        <span>
+                          <Button
+                            minimal
+                            text={getString('addFileText')}
+                            intent="primary"
+                            className={css.addFileButton}
+                            onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
+                          />
+                        </span>
+                      </Layout.Vertical>
+                    )}
+                  />
+                </MultiTypeFieldSelector>
+
                 <Button intent="primary" type="submit" text={i18n.existingManifest.submit} />
               </Form>
             )}
@@ -414,7 +523,9 @@ function ManifestListView({
                     </span>
                     <span>
                       <Text width={280} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                        {manifest.spec.store.spec.paths[0]}
+                        {typeof manifest.spec.store.spec.paths === 'string'
+                          ? manifest.spec.store.spec.paths
+                          : manifest.spec.store.spec.paths[0]}
                       </Text>
                     </span>
                     <span>

@@ -8,15 +8,19 @@ import {
   FormInput,
   Formik,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  Icon,
+  Color
 } from '@wings-software/uikit'
-import { Form } from 'formik'
-
+import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from '@common/exports'
 
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { String, useStrings } from 'framework/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
 import css from './ManifestWizard.module.scss'
@@ -111,18 +115,63 @@ const SecondStep = (props: any): JSX.Element => {
     : !props.isForPredefinedSets
     ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
     : get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
+    event.dataTransfer.setData('data', index.toString())
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+
+  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+
+  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+
+  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    /* istanbul ignore else */
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
+      /* istanbul ignore else */
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      /* istanbul ignore else */
+      if (data) {
+        const index = parseInt(data, 10)
+        arrayHelpers.swap(index, droppedIndex)
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    []
+  )
+  const { getString } = useStrings()
+  const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.title}</Text>
       <Formik
-        initialValues={{ gitFetchType: gitFetchTypes[0].value }}
+        initialValues={{
+          gitFetchType: gitFetchTypes[0].value,
+          filePath: [{ path: '', uuid: uuid('', nameSpace()) }]
+        }}
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
             .required(i18n.validation.identifier)
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
             .notOneOf(StringUtils.illegalIdentifiers),
-          filePath: Yup.string().trim().required(i18n.validation.filePath)
+          filePath: Yup.lazy(value =>
+            typeof value === 'string' ? Yup.string() : Yup.array(Yup.string().trim()).required(i18n.validation.filePath)
+          )
         })}
         onSubmit={(formData: any) => {
           const manifestObj = {
@@ -140,7 +189,10 @@ const SecondStep = (props: any): JSX.Element => {
                     gitFetchType: formData?.gitFetchType,
                     branch: formData?.branch,
                     commitId: formData?.commitId,
-                    paths: [formData?.filePath]
+                    paths:
+                      typeof formData?.filePath === 'string'
+                        ? formData?.filePath
+                        : formData?.filePath.map((path: { path: string }) => path.path)
                   }
                 }
               }
@@ -164,7 +216,7 @@ const SecondStep = (props: any): JSX.Element => {
           props.closeModal()
         }}
       >
-        {(formik: { values: { gitFetchType: string } }) => (
+        {(formik: { values: { gitFetchType: string; filePath: { path: string; uuid: string }[] } }) => (
           <Form className={css.formContainer}>
             <FormInput.Text
               name="identifier"
@@ -188,15 +240,71 @@ const SecondStep = (props: any): JSX.Element => {
               />
             )}
 
-            <FormInput.MultiTextInput
-              label={i18n.STEP_TWO.filePath}
-              placeholder={i18n.STEP_TWO.filePathPlaceholder}
-              name="filePath"
-            />
-
-            <Layout.Horizontal spacing="large" className={css.bottomButtons}>
+            <MultiTypeFieldSelector
+              defaultValueToReset={defaultValueToReset}
+              name={'filePath'}
+              label={getString('fileFolderPathText')}
+            >
+              <Text
+                icon="info-sign"
+                className={css.fileHelpText}
+                iconProps={{ color: Color.BLUE_450, size: 23, padding: 'small' }}
+              >
+                <String tagName="div" stringID="multipleFilesHelpText" />
+              </Text>
+              <FieldArray
+                name="filePath"
+                render={arrayHelpers => (
+                  <Layout.Vertical>
+                    {formik.values?.filePath?.map((path: { path: string; uuid: string }, index) => (
+                      <Layout.Horizontal
+                        key={path.uuid}
+                        flex={{ distribution: 'space-between' }}
+                        style={{ alignItems: 'end' }}
+                      >
+                        <Layout.Horizontal
+                          spacing="medium"
+                          style={{ alignItems: 'baseline' }}
+                          draggable={true}
+                          onDragStart={event => {
+                            onDragStart(event, index)
+                          }}
+                          onDragEnd={onDragEnd}
+                          onDragOver={onDragOver}
+                          onDragLeave={onDragLeave}
+                          onDrop={event => onDrop(event, arrayHelpers, index)}
+                        >
+                          {formik.values?.filePath?.length > 1 && (
+                            <Icon name="drag-handle-vertical" className={css.drag} />
+                          )}
+                          {formik.values?.filePath?.length > 1 && <Text>{`${index + 1}.`}</Text>}
+                          <FormInput.MultiTextInput
+                            label={''}
+                            placeholder={i18n.STEP_TWO.filePathPlaceholder}
+                            name={`filePath[${index}].path`}
+                            style={{ width: '330px' }}
+                          />
+                        </Layout.Horizontal>
+                        {formik.values?.filePath?.length > 1 && (
+                          <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                        )}
+                      </Layout.Horizontal>
+                    ))}
+                    <span>
+                      <Button
+                        minimal
+                        text={getString('addFileText')}
+                        intent="primary"
+                        className={css.addFileButton}
+                        onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
+                      />
+                    </span>
+                  </Layout.Vertical>
+                )}
+              />
+            </MultiTypeFieldSelector>
+            <Layout.Horizontal spacing="large">
               <Button onClick={() => props.previousStep({})} text={i18n.STEP_TWO.back} />
-
               <Button type="submit" style={{ color: 'var(--blue-500)' }} text={i18n.STEP_TWO.submit} />
             </Layout.Horizontal>
           </Form>
