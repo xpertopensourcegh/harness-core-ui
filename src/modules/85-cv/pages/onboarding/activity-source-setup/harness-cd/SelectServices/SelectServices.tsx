@@ -49,6 +49,8 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [serviceOptions, setServiceOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const [page, setPage] = useState(0)
+  const [offset, setOffset] = useState(0)
   const { data, loading, error, refetch } = useGetListServices({
     lazy: true
     // mock: props.mockData
@@ -76,7 +78,10 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
 
   useEffect(() => {
     const appIds = Object.keys(props.initialValues.applications)
-    refetch({ queryParams: { appId: appIds }, queryParamStringifyOptions: { arrayFormat: 'repeat' } })
+    refetch({
+      queryParams: { appId: appIds, offset: String(offset), limit: '10' },
+      queryParamStringifyOptions: { arrayFormat: 'repeat' }
+    })
   }, [props.initialValues.selectedApplications])
 
   useEffect(() => {
@@ -239,9 +244,16 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                   pagination={{
                     itemCount: (data?.resource as any)?.total || 0,
                     pageSize: (data?.resource as any)?.pageSize || 10,
-                    pageCount: (data?.resource as any)?.total || -1,
-                    pageIndex: (data?.resource as any)?.offset || 0,
-                    gotoPage: () => undefined
+                    pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
+                    pageIndex: page || 0,
+                    gotoPage: pageNumber => {
+                      setPage(pageNumber)
+                      if (pageNumber) {
+                        setOffset(pageNumber * 10 + 1)
+                      } else {
+                        setOffset(0)
+                      }
+                    }
                   }}
                 />
               </Container>

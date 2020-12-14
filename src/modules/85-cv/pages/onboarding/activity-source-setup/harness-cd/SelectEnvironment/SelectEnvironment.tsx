@@ -50,7 +50,8 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const { data, loading, error, refetch: refetchEnvironments } = useGetListEnvironments({
     lazy: true
   })
-
+  const [page, setPage] = useState(0)
+  const [offset, setOffset] = useState(0)
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
     queryParams: {
       accountId,
@@ -74,7 +75,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
     const appIds = Object.keys(props.initialValues.applications || {})
 
     refetchEnvironments({
-      queryParams: { appId: appIds },
+      queryParams: { appId: appIds, offset: String(offset), limit: '10' },
       queryParamStringifyOptions: { arrayFormat: 'repeat' }
     })
   }, [props.initialValues.selectedApplications])
@@ -242,9 +243,16 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                   pagination={{
                     itemCount: (data?.resource as any)?.total || 0,
                     pageSize: (data?.resource as any)?.pageSize || 10,
-                    pageCount: (data?.resource as any)?.total || -1,
-                    pageIndex: (data?.resource as any)?.offset || 0,
-                    gotoPage: () => undefined
+                    pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
+                    pageIndex: page || 0,
+                    gotoPage: pageNumber => {
+                      setPage(pageNumber)
+                      if (pageNumber) {
+                        setOffset(pageNumber * 10 + 1)
+                      } else {
+                        setOffset(0)
+                      }
+                    }
                   }}
                 />
               </Container>

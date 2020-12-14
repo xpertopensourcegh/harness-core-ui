@@ -35,10 +35,12 @@ const RenderColumnServicesCount: Renderer<CellProps<TableData>> = ({ row }) => {
 const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams()
+  const [page, setPage] = useState(0)
+  const [offset, setOffset] = useState(0)
   const [disable, setDisable] = useState<boolean>(true)
   const [tableData, setTableData] = useState<Array<TableData>>()
   const { data, loading, error, refetch } = useGetListApplications({
-    queryParams: { accountId },
+    queryParams: { accountId, offset: String(offset), limit: '10' },
     mock: props.mockData
   })
 
@@ -130,6 +132,8 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
     }
   }
 
+  const totalpages = Math.ceil((data?.resource as any)?.total / 10)
+
   return (
     <Container>
       <Layout.Vertical spacing="small">
@@ -192,9 +196,16 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                   pagination={{
                     itemCount: (data?.resource as any)?.total || 0,
                     pageSize: (data?.resource as any)?.pageSize || 10,
-                    pageCount: (data?.resource as any)?.total || -1,
-                    pageIndex: (data?.resource as any)?.offset || 0,
-                    gotoPage: () => undefined
+                    pageCount: totalpages || -1,
+                    pageIndex: page || 0,
+                    gotoPage: pageNumber => {
+                      setPage(pageNumber)
+                      if (pageNumber) {
+                        setOffset(pageNumber * 10 + 1)
+                      } else {
+                        setOffset(0)
+                      }
+                    }
                   }}
                 />
               </Container>
