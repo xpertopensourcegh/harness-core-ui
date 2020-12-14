@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, Button, TextInput, useModalHook } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import {
   useGetConnectorList,
   ResponsePageConnectorResponse,
@@ -19,6 +19,7 @@ import {
   CategoryInterface,
   ItemInterface
 } from '@common/components/AddDrawer/AddDrawer'
+import routes from '@common/RouteDefinitions'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import ConnectorsListView from './views/ConnectorsListView'
@@ -36,6 +37,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
+  const history = useHistory()
   const { loading, data, refetch: reloadConnectorList, error } = useGetConnectorList({
     queryParams: {
       pageIndex: page,
@@ -50,12 +52,20 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
   })
 
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
+    const originalData = catalogueData?.data?.catalogue || []
+    const catalogueWithYAMLBuilderOption:
+      | ConnectorCatalogueItem[]
+      | { category: string; connectors: string[] } = originalData.slice()
+    const createViaYAMLBuilderOption = { category: 'CREATE_VIA_YAML_BUILDER' as any, connectors: ['YAML'] as any }
+    if (catalogueWithYAMLBuilderOption.length === originalData.length) {
+      catalogueWithYAMLBuilderOption.push(createViaYAMLBuilderOption)
+    }
     return Object.assign(
       {},
       {
         drawerLabel: 'Connectors',
         categories:
-          catalogueData?.data?.catalogue
+          catalogueWithYAMLBuilderOption
             ?.filter(item => item.category !== 'CONNECTOR')
             .map((item: ConnectorCatalogueItem) => {
               const obj: CategoryInterface = {
@@ -92,6 +102,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface): void => {
+      if (val.value === 'YAML') {
+        history.push(routes.toCreateConnectorFromYaml({ accountId }))
+      }
       openConnectorModal(true, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()
     }
@@ -102,6 +115,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
         onSelect={onSelect}
         onClose={hideDrawer}
         drawerContext={DrawerContext.PAGE}
+        showRecentlyUsed={false}
       />
     )
   }, [loadingCatalogue])

@@ -96,9 +96,10 @@ export interface AddDrawerProps {
   addDrawerMap: AddDrawerMapInterface
   drawerContext: DrawerContext.PAGE | DrawerContext.STUDIO
   drawerProps?: IDrawerProps
+  showRecentlyUsed?: boolean
 }
 export default function AddDrawer(props: AddDrawerProps): JSX.Element {
-  const { onSelect, onClose, addDrawerMap, drawerProps, drawerContext } = props
+  const { onSelect, onClose, addDrawerMap, drawerProps, drawerContext, showRecentlyUsed = true } = props
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [originalData, setOriginalCategories] = useState<CategoryInterface[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
@@ -259,7 +260,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
               >
                 {addDrawerMap.showAllLabel || getString('showAll')} ({originalData?.length})
               </section>
-              <section>{getString('recentlyUsed')} (0)</section>
+              {showRecentlyUsed ? <section>{getString('recentlyUsed')} (0)</section> : null}
             </section>
             <section className={css.secCategories}>
               <section className={css.title}>{getString('categories')}</section>
