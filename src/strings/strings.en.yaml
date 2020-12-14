@@ -255,6 +255,10 @@ global:
     timeoutLabel: 'Timeout'
     awsConnectorLabel: Amazon Web Services Connector
     gcpConnectorLabel: Google Cloud Platform Connector
+    k8sRolloutDeploy: 'K8s Rollout Deploy'
+    skipDryRun: 'Skip Dry Run'
+    stepNameRequired: 'Step Name is required'
+    timeoutRequired: 'Timeout is required'
     gcr:
       title: 'Build and Upload to GCR'
     ecr:
