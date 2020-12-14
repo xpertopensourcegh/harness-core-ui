@@ -234,7 +234,7 @@ const RenderColumnExecutionLog: Renderer<CellProps<NGTriggerDetailsResponse>> = 
 const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column
 }: {
-  column: { accountId: string }
+  column: { accountId: string; getString: (str: string) => string }
 }) => {
   const webhookUrl = window.location.origin + `/ng/api/webhook/trigger?accountIdentifier=${column.accountId}`
   return (
@@ -246,7 +246,7 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         color="blue500"
         onClick={() => {
           copy(webhookUrl)
-          ;(column as any).showSuccess('Webhook URL is copied to clipboard.')
+          ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookUrlCopied'))
         }}
       />
     </div>
@@ -261,6 +261,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column: {
     showSuccess: (str: string) => void
     showError: (str: string) => void
+    getString: (str: string, obj: { enabled: string; name: string }) => string
     refetchTriggerList: () => void
     projectIdentifier: string
     orgIdentifier: string
@@ -290,7 +291,12 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           const updated = await updateTriggerStatus()
 
           if (updated.status === 'SUCCESS') {
-            column.showSuccess(`Successfully ${!data.enabled ? 'enabled' : 'disabled'} ${data.name}`)
+            column.showSuccess(
+              column.getString('pipeline-triggers.toast.toggleEnable', {
+                enabled: !data.enabled ? 'enabled' : 'disabled',
+                name: data.name!
+              })
+            )
             column.refetchTriggerList?.()
           } else if (updated.status === 'ERROR') {
             column.showError('Error')
@@ -331,7 +337,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         headerClassName: 'centerHeader'
       },
       {
-        Header: RenderCenteredColumnHeader(' LAST ACTIVITY STATUS'),
+        Header: RenderCenteredColumnHeader(getString('activity').toUpperCase()),
         accessor: 'activity',
         width: '20%',
         Cell: RenderColumnActivity,
@@ -339,23 +345,24 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         headerClassName: css.textCentered
       },
       {
-        Header: RenderCenteredColumnHeader('EXECUTION HISTORY'),
+        Header: RenderCenteredColumnHeader(getString('pipeline-triggers.lastExecutionLabel')),
         accessor: 'executionLog',
         width: '10%',
         Cell: RenderColumnExecutionLog,
         disableSortBy: true
       },
       {
-        Header: RenderCenteredColumnHeader('WEBHOOK'),
+        Header: RenderCenteredColumnHeader(getString('execution.triggerType.WEBHOOK').toUpperCase()),
         accessor: 'webhook',
         width: '8%',
         Cell: RenderColumnWebhook,
         disableSortBy: true,
         showSuccess,
-        accountId
+        accountId,
+        getString
       },
       {
-        Header: RenderCenteredColumnHeader('ENABLE'),
+        Header: RenderCenteredColumnHeader(getString('pipeline-triggers.enableLabel')),
         accessor: 'enable',
         width: '8%',
         Cell: RenderColumnEnable,
@@ -366,7 +373,8 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         pipelineIdentifier,
         showSuccess,
         showError,
-        refetchTriggerList
+        refetchTriggerList,
+        getString
       },
       {
         Header: '',

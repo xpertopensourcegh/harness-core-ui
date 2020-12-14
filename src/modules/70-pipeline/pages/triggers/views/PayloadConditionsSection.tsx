@@ -24,6 +24,7 @@ export interface PayloadConditionInterface {
 interface PayloadConditionsSectionInterface {
   payloadConditions: PayloadConditionInterface[]
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
+  errors: { [key: string]: string }
 }
 interface PayloadConditionRowInterface {
   index: number
@@ -43,7 +44,8 @@ const PayloadConditionRow: React.FC<PayloadConditionRowInterface> = ({ index, ge
 
 export const PayloadConditionsSection: React.FC<PayloadConditionsSectionInterface> = ({
   payloadConditions,
-  setFieldValue
+  setFieldValue,
+  errors
 }) => {
   const { getString } = useStrings()
   return (
@@ -76,6 +78,11 @@ export const PayloadConditionsSection: React.FC<PayloadConditionsSectionInterfac
                 />
               </div>
             ))}
+            {errors['payloadConditions'] && (
+              <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
+                {errors['payloadConditions']}
+              </Text>
+            )}
           </div>
         )}
       />

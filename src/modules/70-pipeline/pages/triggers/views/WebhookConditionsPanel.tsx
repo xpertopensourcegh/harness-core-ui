@@ -23,7 +23,8 @@ interface WebhookConditionsPanelPropsInterface {
 const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = ({ formikProps }): JSX.Element => {
   const {
     values: { payloadConditions },
-    setFieldValue
+    setFieldValue,
+    errors
   } = formikProps
   const { getString } = useStrings()
 
@@ -78,6 +79,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         key={payloadConditions?.length || 0}
         payloadConditions={payloadConditions}
         setFieldValue={setFieldValue}
+        errors={errors}
       />
       <FormInput.TextArea style={{ width: '100%' }} disabled={true} name="jexlConditions" label="JEXL Conditions" />
     </Layout.Vertical>

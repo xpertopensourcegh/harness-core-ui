@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption } from '@wings-software/uikit'
-import * as Yup from 'yup'
 import { parse, stringify } from 'yaml'
-import { isUndefined, isEmpty, merge } from 'lodash-es'
+import { isEmpty, merge } from 'lodash-es'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Wizard } from '@common/components'
@@ -31,7 +30,8 @@ import {
   getWizardMap,
   PayloadConditionTypes,
   ResponseStatus,
-  TriggerTypes
+  TriggerTypes,
+  getValidationSchema
 } from './utils/TriggersWizardPageUtils'
 
 const TriggersWizardPage: React.FC = (): JSX.Element => {
@@ -208,14 +208,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       payloadConditions = []
     } = val
 
-    if (targetBranchOperator && targetBranchValue) {
+    if (targetBranchOperator && targetBranchValue?.trim()) {
       payloadConditions.unshift({
         key: PayloadConditionTypes.TARGET_BRANCH,
         operator: targetBranchOperator,
         value: targetBranchValue
       })
     }
-    if (sourceBranchOperator && sourceBranchValue) {
+    if (sourceBranchOperator && sourceBranchValue?.trim()) {
       payloadConditions.unshift({
         key: PayloadConditionTypes.SOURCE_BRANCH,
         operator: sourceBranchOperator,
@@ -253,7 +253,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     if (triggerIdentifier && onEditInitialValues?.identifier) {
       const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
       if (status === ResponseStatus.SUCCESS) {
-        showSuccess(`Successfully updated ${data?.name}.`)
+        showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
         history.push(
           routes.toCDTriggersPage({
             accountId,
@@ -267,7 +267,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } else {
       const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
       if (status === ResponseStatus.SUCCESS) {
-        showSuccess(`Successfully created ${data?.name}.`)
+        showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
         history.push(
           routes.toCDTriggersPage({
             accountId,
@@ -280,15 +280,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   }
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().trim().required('Trigger Name is required.'),
-    identifier: Yup.string().trim().required('Identifier is required.'),
-    event: Yup.string().trim().nullable().required('Event is required.'),
-    repoUrl: Yup.string().trim().required('Repository URL is required.'),
-    actions: Yup.array().test('Actions is required.', 'Actions is required.', function (actions) {
-      return !isUndefined(actions)
-    })
-  })
   const initialValues: FlatInitialValuesInterface = Object.assign(
     {
       triggerType: (triggerTypeOnNew as unknown) as NGTriggerSource['type'],
@@ -308,7 +299,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     ((createTriggerErrorResponse?.data as unknown) as { message?: string })?.message ||
     ((updateTriggerErrorResponse?.data as unknown) as { message?: string })?.message
   // ((getTriggerErrorResponse?.data as unknown) as { message?: string })?.message
-
   const renderWebhookWizard = (): JSX.Element | undefined => {
     const isEdit = !!onEditInitialValues?.identifier
     if (!wizardMap) return undefined
@@ -318,8 +308,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           initialValues,
           onSubmit: (val: FlatValidFormikValuesInterface) => handleSubmit(val),
           validateOnBlur: false,
-          validateOnChange: false,
-          validationSchema,
+          validateOnChange: isEdit,
+          validationSchema: getValidationSchema(getString),
           enableReinitialize: true
         }}
         wizardMap={wizardMap}

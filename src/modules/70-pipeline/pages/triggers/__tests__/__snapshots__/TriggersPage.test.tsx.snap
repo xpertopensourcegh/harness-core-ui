@@ -127,7 +127,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-               LAST ACTIVITY STATUS
+              ACTIVITY
             </div>
           </div>
           <div
@@ -139,7 +139,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              EXECUTION HISTORY
+              LAST EXECUTION
             </div>
           </div>
           <div

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, createRef, RefObject } from 'react'
 import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
 import type { IconName } from '@wings-software/uikit'
 import { useStrings } from 'framework/exports'
@@ -61,9 +61,11 @@ const Wizard: React.FC<WizardProps> = ({
   const [selectedTabId, setSelectedTabId] = React.useState<string>(defaultTabId || defaultWizardTabId)
   const [touchedPanels, setTouchedPanels] = React.useState<number[]>([])
   const [selectedTabIndex, setSelectedTabIndex] = React.useState<number>(initialIndex)
-  const layoutRef = React.useRef<HTMLDivElement>(null)
+  const layoutRef = useRef<HTMLDivElement>(null)
   const lastTab = selectedTabIndex === tabsMap.length - 1
   const { getString } = useStrings()
+  const elementsRef: { current: RefObject<HTMLSpanElement>[] } = useRef(wizardMap.panels?.map(() => createRef()))
+
   const handleTabChange = (data: string): void => {
     const tabsIndex = tabsMap.findIndex(tab => tab === data)
     setSelectedTabId(data)
@@ -117,7 +119,8 @@ const Wizard: React.FC<WizardProps> = ({
                         touchedPanels,
                         isEdit,
                         includeTabNumber,
-                        formikValues: formikProps.values
+                        formikValues: formikProps.values,
+                        ref: elementsRef.current[panelIndex]
                       })}
                       panel={
                         children?.[panelIndex] && React.cloneElement(children[panelIndex], { formikProps, isEdit })
@@ -160,6 +163,16 @@ const Wizard: React.FC<WizardProps> = ({
                     rightIcon="chevron-right"
                     type="submit"
                     disabled={disableSubmit}
+                    onClick={() => {
+                      if (
+                        elementsRef.current.some(
+                          (element): boolean =>
+                            !!element?.current?.firstElementChild?.classList?.contains('bp3-icon-warning-sign')
+                        )
+                      ) {
+                        showError(getString('addressErrorFields'))
+                      }
+                    }}
                   />
                 )}
                 <Text className={css.cancel} onClick={onHide}>

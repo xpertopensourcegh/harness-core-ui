@@ -1,4 +1,5 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
+import { string, array, object } from 'yup'
 import type { GetActionsListQueryParams, NGTriggerConfig, NgPipeline, NGTriggerSource } from 'services/cd-ng'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import type { PayloadConditionInterface } from '../views/PayloadConditionsSection'
@@ -130,9 +131,9 @@ const checkValidPayloadConditions = (formikValues: FlatValidFormikValuesInterfac
   const payloadConditions = formikValues['payloadConditions']
   if (
     (formikValues['sourceBranchOperator'] && !formikValues['sourceBranchValue']) ||
-    (!formikValues['sourceBranchOperator'] && formikValues['sourceBranchValue']) ||
+    (!formikValues['sourceBranchOperator'] && formikValues['sourceBranchValue']?.trim()) ||
     (formikValues['targetBranchOperator'] && !formikValues['targetBranchValue']) ||
-    (!formikValues['targetBranchOperator'] && formikValues['targetBranchValue']) ||
+    (!formikValues['targetBranchOperator'] && formikValues['targetBranchValue']?.trim()) ||
     (payloadConditions?.length &&
       payloadConditions.some((payloadCondition: PayloadConditionInterface) => isRowUnfilled(payloadCondition)))
   ) {
@@ -175,3 +176,73 @@ export const getWizardMap = ({
   }),
   panels: getPanels(getString)
 })
+
+export const getValidationSchema = (getString: (key: string) => string): object =>
+  object().shape({
+    name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
+    identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
+    event: string().trim().nullable().required(getString('pipeline-triggers.validation.event')),
+    repoUrl: string().trim().required(getString('pipeline-triggers.validation.repoUrl')),
+    actions: array().test(
+      getString('pipeline-triggers.validation.actions'),
+      getString('pipeline-triggers.validation.actions'),
+      function (actions) {
+        return !isUndefined(actions)
+      }
+    ),
+    sourceBranchOperator: string().test(
+      getString('pipeline-triggers.validation.operator'),
+      getString('pipeline-triggers.validation.operator'),
+      function (operator) {
+        return (
+          // both filled or both empty. Return false to show error
+          (operator && !this.parent.sourceBranchValue) ||
+          (operator && this.parent.sourceBranchValue) ||
+          (!this.parent.sourceBranchValue?.trim() && !operator)
+        )
+      }
+    ),
+    sourceBranchValue: string().test(
+      getString('pipeline-triggers.validation.matchesValue'),
+      getString('pipeline-triggers.validation.matchesValue'),
+      function (matchesValue) {
+        return (
+          (matchesValue && !this.parent.sourceBranchOperator) ||
+          (matchesValue && this.parent.sourceBranchOperator) ||
+          (!matchesValue?.trim() && !this.parent.sourceBranchOperator)
+        )
+      }
+    ),
+    targetBranchOperator: string().test(
+      getString('pipeline-triggers.validation.operator'),
+      getString('pipeline-triggers.validation.operator'),
+      function (operator) {
+        return (
+          (operator && !this.parent.targetBranchValue) ||
+          (operator && this.parent.targetBranchValue) ||
+          (!this.parent.targetBranchValue?.trim() && !operator)
+        )
+      }
+    ),
+    targetBranchValue: string().test(
+      getString('pipeline-triggers.validation.matchesValue'),
+      getString('pipeline-triggers.validation.matchesValue'),
+      function (matchesValue) {
+        return (
+          (matchesValue && !this.parent.targetBranchOperator) ||
+          (matchesValue && this.parent.targetBranchOperator) ||
+          (!matchesValue?.trim() && !this.parent.targetBranchOperator)
+        )
+      }
+    ),
+    payloadConditions: array().test(
+      getString('pipeline-triggers.validation.payloadConditions'),
+      getString('pipeline-triggers.validation.payloadConditions'),
+      function (payloadConditions = []) {
+        if (payloadConditions.some((payloadCondition: PayloadConditionInterface) => isRowUnfilled(payloadCondition))) {
+          return false
+        }
+        return true
+      }
+    )
+  })

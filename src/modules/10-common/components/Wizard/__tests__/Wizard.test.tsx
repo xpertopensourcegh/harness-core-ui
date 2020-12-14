@@ -189,9 +189,19 @@ describe('Wizard tests', () => {
 
       fireEvent.click(tab3)
       await waitFor(() => queryByText(container, result.current.getString('submit')))
+      const submitButton = container.querySelector('button[type="submit"]')
+      if (!submitButton) {
+        throw Error('no submit button')
+      }
+      fireEvent.click(submitButton)
+      expect(queryByText(document.body, result.current.getString('addressErrorFields'))).not.toBeNull()
       expect(document.body.querySelectorAll('[icon="warning-sign"]')?.length).toEqual(2)
       fireEvent.click(tab2)
-
+      await waitFor(() =>
+        expect(
+          queryByText(document.body, result.current.getString('pipeline-triggers.conditionsPanel.subtitle'))
+        ).toBeDefined()
+      )
       const numberOnly2 = container.querySelector('[name="numberOnly"]')
       if (!numberOnly2) {
         throw Error('cannot find numberOnly field')

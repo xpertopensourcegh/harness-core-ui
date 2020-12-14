@@ -81,8 +81,10 @@ global:
   allowedValues: 'Allowed values'
   serviceAccount: Service Account
   saveAndContinue: 'Save and Continue'
+  addressErrorFields: 'Please address all error fields before submitting.'
   metricPacks: 'Metric Packs'
   review: 'Review'
+  activity: 'Activity'
   selectProduct: 'Select Product'
   selectApplication: 'Select Application'
   selectProject: 'Select Project'
@@ -152,6 +154,22 @@ global:
     confirmDelete: 'Are you sure you want to delete trigger' # followed by name
     pageNotFound: 'Page not found'
     triggerLabel: 'Trigger'
+    lastExecutionLabel: 'LAST EXECUTION'
+    enableLabel: 'ENABLE'
+    validation:
+      triggerName: 'Trigger Name is required.'
+      identifier: 'Identifier is required.'
+      event: 'Event is required.'
+      repoUrl: 'Repository URL is required.'
+      actions: 'Actions is required.'
+      operator: 'Operator is required with Matches Value.'
+      matchesValue: 'Matches Value is required with Operator.'
+      payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
+    toast:
+      successfulCreate: 'Successfully created {{name}}.'
+      successfulUpdate: 'Successfully updated {{name}}.'
+      toggleEnable: 'Successfully {{enabled}} {{name}}.'
+      webhookUrlCopied: 'Webhook URL is copied to clipboard.'
     triggerConfigurationPanel:
       title: 'Trigger Configuration: On New Webhook'
       triggerName: 'Trigger Name'

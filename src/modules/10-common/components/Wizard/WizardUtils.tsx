@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 import { Color, Icon } from '@wings-software/uikit'
 import type { IconName } from '@wings-software/uikit'
 import { isUndefined, range } from 'lodash-es'
@@ -52,6 +52,7 @@ export const renderTitle = ({
   panelIndex,
   touchedPanels,
   isEdit,
+  ref,
   formikValues
 }: {
   tabTitle?: string
@@ -63,13 +64,14 @@ export const renderTitle = ({
   touchedPanels: number[]
   isEdit: boolean
   formikValues: { [key: string]: any }
+  ref: RefObject<HTMLSpanElement>
 }): JSX.Element => {
   let title: string | JSX.Element = ''
 
   if (tabTitleComponent) title = tabTitleComponent
   else if (tabTitle) title = tabTitle
   return (
-    <span className={css.tab}>
+    <span ref={ref} className={css.tab}>
       {renderIcon({
         requiredFields,
         panelIndex,
