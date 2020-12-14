@@ -73,6 +73,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
   return (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
       <MultiTypeReferenceInput<ConnectorReferenceDTO>
+        name={name}
         referenceSelectProps={{
           ...getReferenceFieldProps({
             defaultScope,

@@ -187,7 +187,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-2"
+              data-id="spec.bucket-2"
               style="flex-grow: 1;"
             >
               
@@ -202,6 +202,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.bucket"
                       type="text"
                       value=""
                     />
@@ -246,7 +247,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-3"
+              data-id="spec.target-3"
               style="flex-grow: 1;"
             >
               
@@ -261,6 +262,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.target"
                       type="text"
                       value=""
                     />
@@ -305,7 +307,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-4"
+              data-id="spec.sourcePath-4"
               style="flex-grow: 1;"
             >
               
@@ -320,6 +322,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.sourcePath"
                       type="text"
                       value=""
                     />
@@ -373,7 +376,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-5"
+              data-id="spec.endpoint-5"
               style="flex-grow: 1;"
             >
               
@@ -388,6 +391,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.endpoint"
                       type="text"
                       value=""
                     />
@@ -432,7 +436,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-6"
+              data-id="spec.region-6"
               style="flex-grow: 1;"
             >
               
@@ -447,6 +451,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.region"
                       type="text"
                       value=""
                     />
@@ -755,7 +760,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-11"
+              data-id="spec.timeout-11"
               style="flex-grow: 1;"
             >
               
@@ -770,6 +775,7 @@ exports[`S3Step snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.timeout"
                       type="text"
                       value=""
                     />

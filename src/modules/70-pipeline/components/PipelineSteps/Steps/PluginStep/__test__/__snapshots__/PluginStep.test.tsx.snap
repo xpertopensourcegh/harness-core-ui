@@ -211,7 +211,7 @@ exports[`PluginStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-3"
+              data-id="spec.image-3"
               style="flex-grow: 1;"
             >
               
@@ -226,6 +226,7 @@ exports[`PluginStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.image"
                       type="text"
                       value=""
                     />
@@ -292,7 +293,7 @@ exports[`PluginStep snapshot test Widget should render properly 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="undefined-5"
+              data-id="spec.settings[0].value-5"
               style="flex-grow: 1;"
             >
               
@@ -307,6 +308,7 @@ exports[`PluginStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.settings[0].value"
                       placeholder="Value"
                       type="text"
                       value=""

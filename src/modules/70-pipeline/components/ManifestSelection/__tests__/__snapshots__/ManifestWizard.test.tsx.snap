@@ -191,6 +191,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                     >
                       <input
                         class="bp3-input"
+                        name="branch"
                         placeholder="Enter branch name here"
                         type="text"
                         value=""
@@ -336,6 +337,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                               >
                                 <input
                                   class="bp3-input"
+                                  name="filePath[0].path"
                                   placeholder="Enter overrides file path"
                                   type="text"
                                   value=""
@@ -611,6 +613,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                     >
                       <input
                         class="bp3-input"
+                        name="branch"
                         placeholder="Enter branch name here"
                         type="text"
                         value=""
@@ -756,6 +759,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                               >
                                 <input
                                   class="bp3-input"
+                                  name="filePath[0].path"
                                   placeholder="Enter overrides file path"
                                   type="text"
                                   value=""

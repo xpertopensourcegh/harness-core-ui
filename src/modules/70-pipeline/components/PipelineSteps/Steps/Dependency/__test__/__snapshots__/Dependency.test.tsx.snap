@@ -206,7 +206,7 @@ exports[`Dependency snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-3"
+              data-id="spec.image-3"
               style="flex-grow: 1;"
             >
               
@@ -221,6 +221,7 @@ exports[`Dependency snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.image"
                       type="text"
                       value=""
                     />

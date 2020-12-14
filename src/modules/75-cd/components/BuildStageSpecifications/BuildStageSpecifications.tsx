@@ -439,6 +439,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                           )}
                                           <MultiTextInput
                                             value={value}
+                                            name={`customVariables[${index}].value`}
                                             textProps={{
                                               disabled: true,
                                               value: secretsOptions.get(value as string) || value

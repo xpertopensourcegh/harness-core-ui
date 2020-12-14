@@ -187,7 +187,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-2"
+              data-id="spec.registry-2"
               style="flex-grow: 1;"
             >
               
@@ -202,6 +202,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.registry"
                       type="text"
                       value=""
                     />
@@ -246,7 +247,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-3"
+              data-id="spec.repo-3"
               style="flex-grow: 1;"
             >
               
@@ -261,6 +262,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.repo"
                       type="text"
                       value=""
                     />
@@ -358,7 +360,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-5"
+              data-id="spec.dockerfile-5"
               style="flex-grow: 1;"
             >
               
@@ -373,6 +375,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.dockerfile"
                       type="text"
                       value=""
                     />
@@ -417,7 +420,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-6"
+              data-id="spec.context-6"
               style="flex-grow: 1;"
             >
               
@@ -432,6 +435,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.context"
                       type="text"
                       value=""
                     />
@@ -499,7 +503,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="undefined-8"
+                data-id="spec.labels[0].value-8"
                 style="flex-grow: 1;"
               >
                 
@@ -514,6 +518,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                     >
                       <input
                         class="bp3-input"
+                        name="spec.labels[0].value"
                         placeholder="Value"
                         type="text"
                         value=""
@@ -593,7 +598,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="undefined-10"
+                data-id="spec.buildArgs[0].value-10"
                 style="flex-grow: 1;"
               >
                 
@@ -608,6 +613,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                     >
                       <input
                         class="bp3-input"
+                        name="spec.buildArgs[0].value"
                         placeholder="Value"
                         type="text"
                         value=""
@@ -664,7 +670,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-11"
+              data-id="spec.target-11"
               style="flex-grow: 1;"
             >
               
@@ -679,6 +685,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.target"
                       type="text"
                       value=""
                     />
@@ -988,7 +995,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-16"
+              data-id="spec.timeout-16"
               style="flex-grow: 1;"
             >
               
@@ -1003,6 +1010,7 @@ exports[`ECRStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.timeout"
                       type="text"
                       value=""
                     />

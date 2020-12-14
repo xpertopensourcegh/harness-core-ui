@@ -80,7 +80,6 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
           >
             <div
               class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
-              name="radioValue"
             >
               <div
                 class="input"
@@ -238,6 +237,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   <input
                     class="bp3-input"
                     disabled=""
+                    name="checkboxValue"
                     placeholder="\${input}"
                     type="text"
                     value="\${input}"
@@ -292,7 +292,6 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
           >
             <div
               class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
-              name="radioValue"
             >
               <div
                 class="TextInput---main--1ytZ"
@@ -303,6 +302,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   <input
                     class="bp3-input"
                     disabled=""
+                    name="radioValue"
                     placeholder="\${input}"
                     type="text"
                     value="\${input}"
@@ -487,7 +487,6 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
           >
             <div
               class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
-              name="radioValue"
             >
               <div
                 class="input"

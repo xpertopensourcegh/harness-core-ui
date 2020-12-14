@@ -103,7 +103,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                 >
                   <div
                     class="bp3-form-group"
-                    data-id="undefined-1"
+                    data-id="namespace-1"
                     style="width: 300px;"
                   >
                     
@@ -118,6 +118,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         >
                           <input
                             class="bp3-input"
+                            name="namespace"
                             type="text"
                             value=""
                           />

@@ -216,6 +216,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                           >
                             <input
                               class="bp3-input"
+                              name="imagePath"
                               placeholder="Enter path here"
                               type="text"
                               value=""

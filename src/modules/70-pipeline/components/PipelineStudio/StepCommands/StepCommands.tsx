@@ -29,16 +29,16 @@ const AdvancedStep: React.FC<StepCommandsProps> = ({ step }) => {
               {i18n.skipCondition}
             </Text>
             <FormGroup labelFor="condition" label={i18n.specifyConditionToSkipThisStep}>
-              <MultiTypeInput />
+              <MultiTypeInput name="condition" />
             </FormGroup>
             <Text className={css.boldLabel} font={{ size: 'medium' }}>
               {i18n.failureStrategy}
             </Text>
             <FormGroup labelFor="failureStrategy" label={i18n.ifCondition}>
-              <MultiTypeInput />
+              <MultiTypeInput name="ifCondition" />
             </FormGroup>
             <FormGroup labelFor="failureStrategy" label={i18n.do}>
-              <MultiTypeInput />
+              <MultiTypeInput name="do" />
             </FormGroup>
             <Text className={css.boldLabel} font={{ size: 'medium' }}>
               {i18n.output}

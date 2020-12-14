@@ -186,6 +186,7 @@ export const CustomVariables: React.FC = (): JSX.Element => {
                                 )}
                                 <MultiTextInput
                                   value={value}
+                                  name={`variables[${index}].value`}
                                   textProps={{
                                     disabled: true,
                                     value: secretsOptions.get(value as string) || value

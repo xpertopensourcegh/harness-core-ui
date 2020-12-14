@@ -187,7 +187,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-2"
+              data-id="spec.repo-2"
               style="flex-grow: 1;"
             >
               
@@ -202,6 +202,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.repo"
                       type="text"
                       value=""
                     />
@@ -299,7 +300,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-4"
+              data-id="spec.dockerfile-4"
               style="flex-grow: 1;"
             >
               
@@ -314,6 +315,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.dockerfile"
                       type="text"
                       value=""
                     />
@@ -358,7 +360,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-5"
+              data-id="spec.context-5"
               style="flex-grow: 1;"
             >
               
@@ -373,6 +375,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.context"
                       type="text"
                       value=""
                     />
@@ -440,7 +443,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="undefined-7"
+                data-id="spec.labels[0].value-7"
                 style="flex-grow: 1;"
               >
                 
@@ -455,6 +458,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                     >
                       <input
                         class="bp3-input"
+                        name="spec.labels[0].value"
                         placeholder="Value"
                         type="text"
                         value=""
@@ -534,7 +538,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="undefined-9"
+                data-id="spec.buildArgs[0].value-9"
                 style="flex-grow: 1;"
               >
                 
@@ -549,6 +553,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                     >
                       <input
                         class="bp3-input"
+                        name="spec.buildArgs[0].value"
                         placeholder="Value"
                         type="text"
                         value=""
@@ -605,7 +610,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-10"
+              data-id="spec.target-10"
               style="flex-grow: 1;"
             >
               
@@ -620,6 +625,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.target"
                       type="text"
                       value=""
                     />
@@ -929,7 +935,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-15"
+              data-id="spec.timeout-15"
               style="flex-grow: 1;"
             >
               
@@ -944,6 +950,7 @@ exports[`DockerHubStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.timeout"
                       type="text"
                       value=""
                     />

@@ -187,7 +187,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-2"
+              data-id="spec.key-2"
               style="flex-grow: 1;"
             >
               
@@ -202,6 +202,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.key"
                       type="text"
                       value=""
                     />
@@ -246,7 +247,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-3"
+              data-id="spec.bucket-3"
               style="flex-grow: 1;"
             >
               
@@ -261,6 +262,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.bucket"
                       type="text"
                       value=""
                     />
@@ -314,7 +316,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-4"
+              data-id="spec.target-4"
               style="flex-grow: 1;"
             >
               
@@ -329,6 +331,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.target"
                       type="text"
                       value=""
                     />
@@ -543,7 +546,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="undefined-8"
+              data-id="spec.timeout-8"
               style="flex-grow: 1;"
             >
               
@@ -558,6 +561,7 @@ exports[`RestoreCacheGCSStep snapshot test Widget should render properly 1`] = `
                   >
                     <input
                       class="bp3-input"
+                      name="spec.timeout"
                       type="text"
                       value=""
                     />

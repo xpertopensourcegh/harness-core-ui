@@ -83,6 +83,7 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
       disabled={disabled}
     >
       <MultiTypeCheckbox
+        name={name}
         textboxProps={{ name, label, ...textboxProps }}
         value={value}
         {...restMultiProps}

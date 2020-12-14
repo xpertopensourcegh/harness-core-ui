@@ -165,6 +165,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                         >
                           <input
                             class="bp3-input"
+                            name="spec.timeout"
                             type="text"
                             value="10m"
                           />
@@ -227,6 +228,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                           <input
                             class="bp3-input"
                             disabled=""
+                            name="spec.skipDryRun"
                             placeholder="\${input}"
                             type="text"
                             value="\${input}"
@@ -420,6 +422,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
                         >
                           <input
                             class="bp3-input"
+                            name="spec.timeout"
                             type="text"
                             value="10m"
                           />

@@ -199,6 +199,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                 )}
                 <MultiTextInput
                   width={270}
+                  name={`value[${index}]`}
                   textProps={{ disabled: true, value: secretsOptions.get(variable.value) || variable.value }}
                   value={variable.value}
                   mentionsInfo={{
@@ -224,6 +225,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
               <MultiTextInput
                 width={270}
                 textProps={{ value: variable.value }}
+                name={`value[${index}]`}
                 mentionsInfo={{
                   data: done =>
                     done([
