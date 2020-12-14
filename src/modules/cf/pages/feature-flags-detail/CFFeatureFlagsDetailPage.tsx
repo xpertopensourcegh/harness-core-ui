@@ -3,10 +3,10 @@ import { Layout, Container, SelectOption } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useGetFeatureFlag } from 'services/cf'
+import { SharedQueryParams } from '@cf/constants'
 import { useEnvironments } from '@cf/hooks/environment'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
@@ -20,8 +20,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   const { data: environments, error: errorEnvs, loading: envsLoading } = useEnvironments({
     project: projectIdentifier as string,
-    account: 'default',
-    org: 'default_org'
+    ...SharedQueryParams
   })
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 
@@ -41,8 +40,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     queryParams: {
       project: projectIdentifier as string,
       environment: environmentOption?.value as string,
-      account: 'default',
-      org: 'default_org'
+      ...SharedQueryParams
     }
   })
 
@@ -83,7 +81,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
       <Container flex height="100%">
         <Layout.Horizontal className={css.flagContainer}>
           <Layout.Vertical width="100%">
-            <FlagActivationDetails singleFlag={singleFlag?.data} refetchFlag={refetch} />
+            <FlagActivationDetails singleFlag={singleFlag} refetchFlag={refetch} />
           </Layout.Vertical>
         </Layout.Horizontal>
 
@@ -94,8 +92,8 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
               project={projectIdentifier as string}
               environments={environments}
               environment={environmentOption}
-              flagData={singleFlag?.data}
-              isBooleanFlag={singleFlag?.data?.kind === 'boolean'}
+              flagData={singleFlag ?? undefined}
+              isBooleanFlag={singleFlag?.kind === 'boolean'}
               onEnvChange={onEnvChange}
             />
           </Layout.Vertical>

@@ -22,6 +22,7 @@ import { useToaster, useConfirmationDialog } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
 import { Page } from '@common/exports'
+import { SharedQueryParams } from '@cf/constants'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
@@ -167,8 +168,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
       project: projectIdentifier as string,
-      account: 'default',
-      org: 'default_org'
+      ...SharedQueryParams
     }
   })
 
@@ -262,8 +262,7 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   const { data: environments, loading: envsLoading, error: envsError } = useEnvironments({
     project: projectIdentifier as string,
-    account: 'default',
-    org: 'default_org'
+    ...SharedQueryParams
   })
 
   const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
@@ -271,8 +270,7 @@ const CFFeatureFlagsPage: React.FC = () => {
     queryParams: {
       project: projectIdentifier as string,
       environment: environment?.value as string,
-      account: 'default',
-      org: 'default_org'
+      ...SharedQueryParams
     }
   })
 
@@ -328,8 +326,9 @@ const CFFeatureFlagsPage: React.FC = () => {
       },
       {
         Header: '',
+        id: 'version',
         // TODO: Check for the accessor field
-        accessor: 'version',
+        accessor: (row: Feature) => row.envProperties?.version || undefined,
         width: '5%',
         Cell: function WrapperRenderColumnEdit(cell: Cell<Feature>) {
           return <RenderColumnEdit cell={cell} environment={environment?.value as string} />
@@ -369,7 +368,7 @@ const CFFeatureFlagsPage: React.FC = () => {
   return (
     <>
       <Page.Header title={i18n.featureFlag} size="medium" />
-      {flagList?.data?.features && flagList?.data?.features?.length > 0 ? (
+      {flagList?.features && flagList?.features?.length > 0 ? (
         <Container className={css.ffListContainer}>
           <Layout.Horizontal className={css.ffPageBtnsHeader}>
             <FlagDialog />
@@ -410,12 +409,12 @@ const CFFeatureFlagsPage: React.FC = () => {
             {/* TODO: Pagination needs to be communicated with BE */}
             <Table<Feature>
               columns={columns}
-              data={flagList?.data?.features || []}
+              data={flagList?.features || []}
               pagination={{
-                itemCount: flagList?.data?.itemCount || 0,
-                pageSize: flagList?.data?.pageSize || 7,
-                pageCount: flagList?.data?.pageCount || -1,
-                pageIndex: flagList?.data?.pageIndex || 0,
+                itemCount: flagList?.itemCount || 0,
+                pageSize: flagList?.pageSize || 7,
+                pageCount: flagList?.pageCount || -1,
+                pageIndex: flagList?.pageIndex || 0,
                 gotoPage: () => undefined
               }}
             />

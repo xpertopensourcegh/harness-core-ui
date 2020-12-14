@@ -18,6 +18,7 @@ import {
 } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
+import { SharedQueryParams } from '@cf/constants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -77,8 +78,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     queryParams: {
       project: project as string,
       environment: environment?.value as string,
-      account: 'default',
-      org: 'default_org'
+      ...SharedQueryParams
     }
   })
 

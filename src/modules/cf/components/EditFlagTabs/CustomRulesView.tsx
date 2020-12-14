@@ -19,6 +19,7 @@ import { Dialog, Menu } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
+import { SharedQueryParams } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
@@ -397,8 +398,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     queryParams: {
       environment,
       project,
-      account: 'default',
-      org: 'default_org'
+      ...SharedQueryParams
     }
   })
 

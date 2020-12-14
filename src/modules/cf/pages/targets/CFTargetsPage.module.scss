@@ -1,3 +1,10 @@
 .table {
   width: 100%;
 }
+
+.collapse {
+  & > div {
+    border: none;
+    padding: 0;
+  }
+}

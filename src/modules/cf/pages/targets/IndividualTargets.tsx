@@ -8,6 +8,7 @@ import { useStrings } from 'framework/exports'
 import Table from '@common/components/Table/Table'
 import { Page, useToaster } from '@common/exports'
 import { Target, useCreateTarget } from 'services/cf'
+import { SharedQueryParams } from '@cf/constants'
 import CreateTargetModal, { TargetData } from './CreateTargetModal'
 import css from './CFTargetsPage.module.scss'
 
@@ -37,19 +38,35 @@ interface IndividualProps {
   environment: string
   project: string
   loading?: boolean
+  pagination?: {
+    itemCount: number
+    pageCount: number
+    pageIndex: number
+    pageSize: number
+    gotoPage: (pageNumber: number) => void
+  }
   onCreateTargets: () => void
 }
 
-const IndividualTargets: React.FC<IndividualProps> = ({ targets, loading, project, environment, onCreateTargets }) => {
+type CreateTargetResult = {
+  status: 'rejected' | 'fulfilled'
+  which: any
+}
+
+const IndividualTargets: React.FC<IndividualProps> = ({
+  targets,
+  loading,
+  project,
+  environment,
+  pagination,
+  onCreateTargets
+}) => {
   const { getString } = useStrings()
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
   const { showError } = useToaster()
 
   const { mutate: createTarget, loading: loadingCreateTarget } = useCreateTarget({
-    queryParams: {
-      account: 'default',
-      org: 'default_org'
-    }
+    queryParams: SharedQueryParams
   })
 
   const columnDefs: CustomColumn<Target>[] = [
@@ -90,17 +107,38 @@ const IndividualTargets: React.FC<IndividualProps> = ({ targets, loading, projec
           identifier: t.identifier,
           name: t.name,
           anonymous: false,
-          account: 'default',
-          org: 'default_org',
           attributes: {},
           environment,
-          project
+          project,
+          ...SharedQueryParams
         })
+          .then(() => ({
+            status: 'fulfilled',
+            which: t
+          }))
+          .catch(() => ({
+            status: 'rejected',
+            which: t
+          })) as Promise<CreateTargetResult>
       })
     )
+      .then(results => {
+        if (results.every(res => res.status === 'rejected')) {
+          return Promise.reject(results)
+        }
+        results
+          .filter(res => res.status === 'rejected')
+          .forEach((res: CreateTargetResult) => {
+            showError(`Error creating target with id ${res.which.identifier}`)
+          })
+      })
       .then(hideModal)
       .then(onCreateTargets)
-      .catch(() => showError('Erorr creating targets'))
+      .catch(results => {
+        results.forEach((res: CreateTargetResult) => {
+          showError(`Error creating target with id ${res.which.identifier}`)
+        })
+      })
   }
 
   if (loading) {
@@ -117,7 +155,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({ targets, loading, projec
         <CreateTargetModal loading={loadingCreateTarget} onSubmitTargets={handleTargetCreation} />
       </Card>
       <Container flex padding="medium">
-        <Table<Target> className={css.table} columns={columnDefs} data={targets} />
+        <Table<Target> className={css.table} columns={columnDefs} data={targets} pagination={pagination} />
       </Container>
     </Page.Body>
   )

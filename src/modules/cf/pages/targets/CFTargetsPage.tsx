@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uikit'
 import { Spinner } from '@blueprintjs/core'
+import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
-import { TargetSegment, useGetAllTargets, useGetAllTargetSegments } from 'services/cf'
-import type { Target } from 'services/cf'
+import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures, Feature } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
+import { SharedQueryParams } from '@cf/constants'
 import { Page, useToaster } from '@common/exports'
 import IndividualTargets from './IndividualTargets'
 import TargetSegmentsView from './TargetSegmentsView'
 
 interface HeaderContentProps {
-  page: 'individual' | 'segments'
+  view: 'individual' | 'segments'
   leftLabel: string
   rightLabel: string
   onChangePage: () => void
 }
 
-const HeaderContent: React.FC<HeaderContentProps> = ({ page, onChangePage, leftLabel, rightLabel }) => (
+const HeaderContent: React.FC<HeaderContentProps> = ({ view, onChangePage, leftLabel, rightLabel }) => (
   <Layout.Horizontal>
     <Button
       text={leftLabel}
-      minimal={page === 'segments'}
-      intent={page === 'individual' ? 'primary' : undefined}
+      minimal={view === 'segments'}
+      intent={view === 'individual' ? 'primary' : undefined}
       onClick={onChangePage}
     />
     <Button
       text={rightLabel}
-      minimal={page === 'individual'}
-      intent={page === 'segments' ? 'primary' : undefined}
+      minimal={view === 'individual'}
+      intent={view === 'segments' ? 'primary' : undefined}
       onClick={onChangePage}
     />
   </Layout.Horizontal>
@@ -40,7 +41,6 @@ interface HeaderToolbar {
   environments: SelectOption[]
   onChange: (opt: SelectOption) => void
 }
-
 const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environments, onChange }) => (
   <Layout.Horizontal flex={{ align: 'center-center' }}>
     <Text margin={{ right: 'small' }} font={{ weight: 'bold' }}>
@@ -58,53 +58,85 @@ const CFTargetsPage: React.FC = () => {
 
   const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments({
     project: projectIdentifier,
-    account: 'default',
-    org: 'default_org'
+    ...SharedQueryParams
   })
 
-  const [page, setPage] = useState<'individual' | 'segments'>('individual')
-  const onChangePage = () => setPage(page === 'individual' ? 'segments' : 'individual')
+  const [view, setView] = useState<'individual' | 'segments'>('individual')
+  const onChangePage = () => {
+    view === 'individual' ? setTargetPage(0) : setSegmentPage(0)
+    setView(view === 'individual' ? 'segments' : 'individual')
+  }
   const { getString } = useStrings()
   const getSharedString = (key: string) => getString(`cf.shared.${key}`)
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
   const [environment, setEnvironment] = useState<SelectOption>()
 
+  const [targetPage, setTargetPage] = useState(0)
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: fetchTargets } = useGetAllTargets({
     lazy: true,
     queryParams: {
       project: projectIdentifier,
       environment: (environment?.value || '') as string,
-      account: 'default',
-      org: 'default_org'
+      pageNumber: targetPage,
+      pageSize: 10,
+      ...SharedQueryParams
     }
   })
 
+  const [segmentPage, setSegmentPage] = useState(0)
   const {
     data: segmentsData,
     loading: loadingSegments,
     error: errSegments,
     refetch: fetchSegments
-  } = useGetAllTargetSegments({
+  } = useGetAllSegments({
     lazy: true,
     queryParams: {
       project: projectIdentifier,
       environment: (environment?.value || '') as string,
-      account: 'default',
-      org: 'default_org'
+      pageNumber: segmentPage,
+      pageSize: 10,
+      ...SharedQueryParams
+    }
+  })
+
+  const { data: flagsData, loading: loadingFlags, error: errFlags, refetch: fetchFlags } = useGetAllFeatures({
+    lazy: true,
+    queryParams: {
+      project: projectIdentifier,
+      environment: (environment?.value || '') as string,
+      ...SharedQueryParams
     }
   })
 
   useEffect(() => {
-    if (environment && page === 'individual') {
-      fetchTargets()
+    if (environment && view === 'individual') {
+      fetchTargets({
+        queryParams: {
+          project: projectIdentifier,
+          environment: (environment?.value || '') as string,
+          pageNumber: targetPage,
+          pageSize: 10,
+          ...SharedQueryParams
+        }
+      })
     }
-  }, [environment, page])
+  }, [environment, view, targetPage])
 
   useEffect(() => {
-    if (environment && page === 'segments') {
-      fetchSegments()
+    if (environment && view === 'segments') {
+      fetchFlags()
+      fetchSegments({
+        queryParams: {
+          project: projectIdentifier,
+          environment: (environment?.value || '') as string,
+          pageNumber: segmentPage,
+          pageSize: 10,
+          ...SharedQueryParams
+        }
+      })
     }
-  }, [environment, page])
+  }, [environment, view, segmentPage])
 
   useEffect(() => {
     if (!loadingEnvs) {
@@ -112,15 +144,29 @@ const CFTargetsPage: React.FC = () => {
     }
   }, [loadingEnvs])
 
-  if (errEnvs) {
-    showError('Error fetching environments')
-  }
-  if (errTargets) {
-    showError('Error fetching targets')
-  }
-  if (errSegments) {
-    showError('Error fetching target segments')
-  }
+  useEffect(() => {
+    if (errEnvs) {
+      showError('Error fetching environments')
+    }
+  }, [errEnvs])
+
+  useEffect(() => {
+    if (errTargets) {
+      showError('Error fetching targets')
+    }
+  }, [errTargets])
+
+  useEffect(() => {
+    if (errSegments) {
+      showError('Error fetching target segments')
+    }
+  }, [errSegments])
+
+  useEffect(() => {
+    if (errFlags) {
+      showError('Error fetching feature flags')
+    }
+  }, [errFlags])
 
   if (loadingEnvs) {
     return (
@@ -139,7 +185,7 @@ const CFTargetsPage: React.FC = () => {
           <HeaderContent
             leftLabel={getSharedString('individual')}
             rightLabel={getSharedString('segments')}
-            page={page}
+            view={view}
             onChangePage={onChangePage}
           />
         }
@@ -152,20 +198,24 @@ const CFTargetsPage: React.FC = () => {
           />
         }
       />
-      {page === 'individual' ? (
+      {view === 'individual' ? (
         <IndividualTargets
           loading={loadingTargets}
-          targets={(targetsData?.targets || []) as Target[]}
+          targets={(targetsData?.targets ?? []) as Target[]}
+          pagination={{ ...omit(targetsData, ['targets']), gotoPage: setTargetPage }}
           environment={environment?.value as string}
           project={projectIdentifier}
           onCreateTargets={fetchTargets}
         />
       ) : (
         <TargetSegmentsView
-          loading={loadingSegments}
-          segments={(segmentsData?.data || []) as TargetSegment[]}
-          environment={environment}
+          loading={loadingSegments || loadingFlags}
+          segments={(segmentsData?.segments || []) as Segment[]}
+          flags={(flagsData?.features || []) as Feature[]}
+          pagination={{ ...(omit(segmentsData, ['segments']) as any), gotoPage: setSegmentPage }}
+          environment={environment?.value as string}
           project={projectIdentifier}
+          onCreateSegment={fetchSegments}
         />
       )}
     </>

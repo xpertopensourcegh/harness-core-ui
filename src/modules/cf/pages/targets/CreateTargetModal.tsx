@@ -10,8 +10,7 @@ import {
   Color,
   FlexExpander
 } from '@wings-software/uikit'
-import { Radio, RadioGroup, Spinner } from '@blueprintjs/core'
-import { Dialog } from '@blueprintjs/core'
+import { Radio, RadioGroup, Spinner, Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import type { Target } from 'services/cf'
 

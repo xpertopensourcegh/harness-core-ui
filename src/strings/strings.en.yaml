@@ -384,6 +384,13 @@ global:
       enterName: 'Enter a Name'
       enterValue: 'Enter a Value'
       addTargets: 'Add Target(s)'
+    segments:
+      create: 'Segment'
+      targetDefinition: 'Target Definition'
+      usingSegment: 'Flags using this segment'
+      modalTitle: 'Create a Segment'
+      displayIcon: 'Display Icon'
+      uploadImage: 'Upload an image'
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'
