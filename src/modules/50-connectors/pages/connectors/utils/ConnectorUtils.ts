@@ -477,7 +477,7 @@ export const getConnectorDisplayName = (type: string) => {
     case Connectors.LOCAL:
       return 'Local Secret Manager'
     case Connectors.VAULT:
-      return 'Vault'
+      return 'HashiCorp Vault'
     case Connectors.GCP_KMS:
       return 'GCP KMS'
     case Connectors.SECRET_MANAGER:

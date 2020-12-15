@@ -37,6 +37,7 @@ export const getHeadingByType = (type: string) => {
     case Connectors.GIT:
       return i18n.gitConnectorDetails
     case Connectors.VAULT:
+      return i18n.hashicorpVaultDetails
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
       return i18n.secretManagerDetails
@@ -66,6 +67,7 @@ export const getConnectorTitleTextByType = (type: string): string => {
     case Connectors.GIT:
       return i18n.LABEL.gitConnector
     case Connectors.VAULT:
+      return i18n.LABEL.hashicorpVault
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
       return i18n.LABEL.secretManager

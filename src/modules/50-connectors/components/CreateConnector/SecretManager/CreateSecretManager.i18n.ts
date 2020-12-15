@@ -42,6 +42,6 @@ export default {
   buttonSave: 'Save',
   messageSuccess: 'Secrets Manager created successfully',
   nameStepDetails: 'CREATE',
-  nameStepConfigure: 'CONFIGURE',
+  nameStepConfigure: 'HashiCorp Vault Details',
   nameStepVerify: 'VERIFY'
 }

@@ -43,10 +43,11 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [, setLoading] = useState(false)
+  const isEdit = props.isEditMode || prevStepData?.isEdit
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
-    if (props.isEditMode) {
+    if (isEdit) {
       //In edit mode validateTheIdentifierIsUnique API not required
       props.setFormData?.(formData)
       nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
@@ -82,7 +83,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   }
 
   const getInitialValues = () => {
-    if (props.isEditMode) {
+    if (isEdit) {
       return { ...pick(props.connectorInfo, ['name', 'identifier', 'description', 'tags']) }
     } else {
       return {
@@ -126,7 +127,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
                   <AddDescriptionAndKVTagsWithIdentifier
-                    identifierProps={{ inputName: 'name', isIdentifierEditable: !props.isEditMode }}
+                    identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />
                 </Container>
                 <Layout.Horizontal>

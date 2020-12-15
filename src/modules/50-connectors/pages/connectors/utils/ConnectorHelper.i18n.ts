@@ -4,10 +4,12 @@ export default {
   secretManagerDetails: 'Secret Manager Details',
   dockerConnectorDetails: 'Docker Connector Details',
   gcpConnectorDetails: 'GCP Connector Details',
+  hashicorpVaultDetails: 'HashiCorp Vault Overview',
   LABEL: {
     k8sCluster: 'Kubernetes Cluster',
     gcpConnector: 'GCP Connector',
     gitConnector: 'GIT Connector',
+    hashicorpVault: 'HashiCorp Vault',
     secretManager: 'Secret Manager',
     appdynamics: 'AppDynamics connector',
     splunk: 'Splunk connector',

@@ -7,7 +7,9 @@ import {
   Layout,
   StepProps,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  Container,
+  Text
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
@@ -16,12 +18,14 @@ import { useToaster } from '@common/exports'
 import {
   ConnectorRequestBody,
   useCreateConnector,
+  useUpdateConnector,
   VaultConnectorDTO,
   VaultMetadataRequestSpecDTO
 } from 'services/cd-ng'
-import type { SecretManagerWizardData } from '../CreateSecretManager'
+import { useStrings } from 'framework/exports'
 import i18n from '../CreateSecretManager.i18n'
 import VaultConnectorFormFields, { vaultConnectorFormFieldsValidationSchema } from './VaultConnectorFormFields'
+import type { CreateSecretManagerProps, StepSecretManagerProps } from '../CreateSecretManager'
 
 export interface VaultConfigFormData {
   vaultUrl: string
@@ -47,19 +51,30 @@ const validationSchema = Yup.object().shape({
   })
 })
 
-const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevStepData, previousStep, nextStep }) => {
+const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateSecretManagerProps> = ({
+  prevStepData,
+  previousStep,
+  nextStep,
+  isCreate
+}) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { showSuccess } = useToaster()
+  const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createSecretManager, loading } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createSecretManager, loading: createLoading } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateSecretManager, loading: updateLoading } = useUpdateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   const handleSubmit = async (formData: VaultConfigFormData): Promise<void> => {
-    if (prevStepData?.detailsData) {
+    if (prevStepData) {
       const dataToSubmit: ConnectorRequestBody = {
         connector: {
           orgIdentifier,
           projectIdentifier,
-          ...pick(prevStepData.detailsData, ['name', 'identifier', 'description', 'tags']),
+          ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
           type: 'Vault',
           spec: {
             ...pick(formData, ['authToken', 'basePath', 'vaultUrl', 'readOnly', 'default', 'renewIntervalHours']),
@@ -70,11 +85,16 @@ const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevSte
           } as VaultConnectorDTO
         }
       }
-
       try {
-        await createSecretManager(dataToSubmit)
-        nextStep?.({ ...prevStepData, configureData: formData })
-        showSuccess(i18n.messageSuccess)
+        if (isCreate && prevStepData.isEdit != true) {
+          await createSecretManager(dataToSubmit)
+          nextStep?.({ ...prevStepData, spec: { ...formData }, isEdit: true })
+          showSuccess(getString('secretManager.createmessageSuccess'))
+        } else {
+          await updateSecretManager(dataToSubmit)
+          nextStep?.({ ...prevStepData, spec: { ...formData }, isEdit: true })
+          showSuccess(getString('secretManager.editmessageSuccess'))
+        }
       } catch (err) {
         modalErrorHandler?.showDanger(err?.data?.message)
       }
@@ -82,7 +102,10 @@ const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevSte
   }
 
   return (
-    <>
+    <Container padding={{ top: 'medium' }} width="64%">
+      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+        {i18n.titleConnect}
+      </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Formik<VaultConfigFormData>
         initialValues={{
@@ -98,7 +121,7 @@ const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevSte
           secretEngineName: '',
           secretEngineVersion: 2,
           renewIntervalHours: 1,
-          ...prevStepData?.configureData
+          ...prevStepData?.spec
         }}
         validationSchema={validationSchema}
         onSubmit={formData => {
@@ -107,15 +130,15 @@ const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevSte
       >
         {formik => (
           <FormikForm>
-            <VaultConnectorFormFields formik={formik} identifier={prevStepData?.detailsData?.identifier || ''} />
+            <VaultConnectorFormFields formik={formik} identifier={prevStepData?.identifier || ''} />
             <Layout.Horizontal spacing="medium">
               <Button text={i18n.buttonBack} onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={i18n.buttonNext} disabled={loading} />
+              <Button intent="primary" type="submit" text={i18n.buttonNext} disabled={updateLoading || createLoading} />
             </Layout.Horizontal>
           </FormikForm>
         )}
       </Formik>
-    </>
+    </Container>
   )
 }
 

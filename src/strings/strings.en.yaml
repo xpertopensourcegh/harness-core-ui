@@ -124,6 +124,9 @@ global:
     sshCredential: 'SSH Credential'
     createmessageSuccess: 'Execution Credential created successfully'
     editmessageSuccess: 'Execution Credential updated successfully'
+  secretManager:
+    createmessageSuccess: 'Secrets Manager created successfully'
+    editmessageSuccess: 'Secrets Manager updated successfully'
   secret:
     titleCreateText: 'Add new Encrypted Text'
     titleCreateFile: 'Add new Encrypted File'
