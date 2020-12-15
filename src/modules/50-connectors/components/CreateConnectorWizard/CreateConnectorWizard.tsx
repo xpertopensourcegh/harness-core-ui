@@ -2,7 +2,7 @@ import React from 'react'
 import { Connectors } from '@connectors/constants'
 import CreateGITConnector from '@connectors/components/CreateConnector/GITConnector/CreateGITConnector'
 import CreateK8sConnector from '@connectors/components/CreateConnector/K8sConnector/CreateK8sConnector'
-import CreateSecretManager from '@connectors/components/CreateConnector/SecretManager/CreateSecretManager'
+import CreateHashiCorpVault from '@connectors/components/CreateConnector/HashiCorpVault/CreateHashiCorpVault'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector'
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
@@ -48,7 +48,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       )
     case Connectors.VAULT:
       return (
-        <CreateSecretManager
+        <CreateHashiCorpVault
           hideLightModal={hideLightModal}
           isCreate={props.isCreate}
           connectorInfo={props.connectorInfo}

@@ -53,6 +53,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
 
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
+    originalData.map(value => {
+      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault']) : null
+    })
     const catalogueWithYAMLBuilderOption:
       | ConnectorCatalogueItem[]
       | { category: string; connectors: string[] } = originalData.slice()

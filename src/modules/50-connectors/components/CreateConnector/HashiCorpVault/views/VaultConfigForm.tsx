@@ -23,9 +23,9 @@ import {
   VaultMetadataRequestSpecDTO
 } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import i18n from '../CreateSecretManager.i18n'
+import i18n from '../CreateHashiCorpVault.i18n'
 import VaultConnectorFormFields, { vaultConnectorFormFieldsValidationSchema } from './VaultConnectorFormFields'
-import type { CreateSecretManagerProps, StepSecretManagerProps } from '../CreateSecretManager'
+import type { CreateHashiCorpVaultProps, StepSecretManagerProps } from '../CreateHashiCorpVault'
 
 export interface VaultConfigFormData {
   vaultUrl: string
@@ -51,7 +51,7 @@ const validationSchema = Yup.object().shape({
   })
 })
 
-const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateSecretManagerProps> = ({
+const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiCorpVaultProps> = ({
   prevStepData,
   previousStep,
   nextStep,
@@ -61,7 +61,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateSecret
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createSecretManager, loading: createLoading } = useCreateConnector({
+  const { mutate: CreateHashiCorpVault, loading: createLoading } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
   })
   const { mutate: updateSecretManager, loading: updateLoading } = useUpdateConnector({
@@ -87,7 +87,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateSecret
       }
       try {
         if (isCreate && prevStepData.isEdit != true) {
-          await createSecretManager(dataToSubmit)
+          await CreateHashiCorpVault(dataToSubmit)
           nextStep?.({ ...prevStepData, spec: { ...formData }, isEdit: true })
           showSuccess(getString('secretManager.createmessageSuccess'))
         } else {

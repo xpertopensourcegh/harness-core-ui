@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { Connectors } from '@connectors/constants'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
-import CreateSecretManager from '../CreateSecretManager'
+import CreateHashiCorpVault from '../CreateHashiCorpVault'
 
 const secretManagerInfo = {
   name: 'sm14',
@@ -74,7 +74,7 @@ describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateSecretManager hideLightModal={noop} onSuccess={noop} mock={true} isCreate={true} />
+        <CreateHashiCorpVault hideLightModal={noop} onSuccess={noop} mock={true} isCreate={true} />
       </TestWrapper>
     )
 
@@ -143,7 +143,7 @@ describe('Create Secret Manager Wizard', () => {
     test('should render form in edit', async () => {
       const { container } = render(
         <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-          <CreateSecretManager
+          <CreateHashiCorpVault
             connectorInfo={secretManagerInfo}
             hideLightModal={noop}
             onSuccess={noop}

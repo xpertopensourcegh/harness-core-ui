@@ -14,7 +14,7 @@ import {
 import { useToaster } from '@common/exports'
 import type { VaultConfigFormData } from './VaultConfigForm'
 
-import i18n from '../CreateSecretManager.i18n'
+import i18n from '../CreateHashiCorpVault.i18n'
 
 const accessTypeOptions: IOptionProps[] = [
   {

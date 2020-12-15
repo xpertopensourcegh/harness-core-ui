@@ -7,11 +7,11 @@ import { useStrings } from 'framework/exports'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import i18n from './CreateSecretManager.i18n'
+import i18n from './CreateHashiCorpVault.i18n'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import VaultConfigForm from './views/VaultConfigForm'
 
-export interface CreateSecretManagerProps {
+export interface CreateHashiCorpVaultProps {
   hideLightModal: () => void
   onSuccess: () => void
   isCreate: boolean
@@ -23,7 +23,7 @@ export interface StepSecretManagerProps extends ConnectorInfoDTO {
   isEdit: boolean
 }
 
-const CreateSecretManager: React.FC<CreateSecretManagerProps> = props => {
+const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
   const { hideLightModal, onSuccess } = props
   const { getString } = useStrings()
   return (
@@ -52,4 +52,4 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = props => {
   )
 }
 
-export default CreateSecretManager
+export default CreateHashiCorpVault
