@@ -39,7 +39,7 @@ global:
   failed: Failed
   todo: TODO - implement this
   identifier: 'Identifier'
-  name: 'Name'
+  name: Name
   add: Add
   edit: Edit
   delete: Delete
@@ -64,6 +64,10 @@ global:
   keyLabel: Key
   valueLabel: Value
   repositoryUrlLabel: Repository URL
+  UrlLabel: URL
+  methodLabel: Method
+  requestBodyLabel: Request Body
+  outputLabel: Output
   typeLabel: Type
   variableLabel: 'Variable'
   variableNameLabel: Variable Name
@@ -246,7 +250,6 @@ global:
     addLabel: '+ Label'
     regionLabel: 'Region'
     buildArgsLabel: 'Build Arguments'
-
     addBuildArg: '+ Build Argument'
     bucketLabel: 'Bucket'
     targetLabel: 'Target'
@@ -270,7 +273,7 @@ global:
     outputVariablesLabel: 'Output Variables'
     limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
     limitCPUExample: 'Ex: 1'
-    timeoutLabel: 'Timeout'
+    timeoutLabel: Timeout
     awsConnectorLabel: Amazon Web Services Connector
     gcpConnectorLabel: Google Cloud Platform Connector
     k8sRolloutDeploy: 'K8s Rollout Deploy'
@@ -349,6 +352,8 @@ global:
     name: 'Name is a required field'
     identifier: 'Identifier is required'
     validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
+    UrlRequired: URL is required
+    timeout10SecMinimum: 'Min Timeout is 10 Seconds'
   connectors:
     delegateOutClusterInfo1: 'Specify credentials here'
     delegateOutClusterInfo2: 'Manually enter master url and credentials'

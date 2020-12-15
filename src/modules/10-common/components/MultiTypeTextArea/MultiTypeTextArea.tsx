@@ -25,6 +25,8 @@ export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = ({ textAreaPr
           growVertically={false}
           className={cx(css.input, className)}
           {...restProps}
+          value={value}
+          name={rest.name}
           onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             onChange?.(event.target.value, MultiTypeInputValue.STRING)
           }}
@@ -58,17 +60,17 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
   } = restProps
 
   const value: string = get(formik?.values, name, '')
-  const customProps: MultiTypeTextAreaProps = React.useMemo(
-    () =>
-      Object.assign({}, multiTypeTextArea, {
-        textAreaProps: {
-          value,
-          placeholder,
-          onBlur: () => formik?.setFieldTouched(name)
-        }
-      }),
-    []
-  )
+  const customProps: MultiTypeTextAreaProps = {
+    ...multiTypeTextArea,
+    name,
+    textAreaProps: {
+      ...multiTypeTextArea?.textAreaProps,
+      value,
+      placeholder,
+      onBlur: () => formik?.setFieldTouched(name)
+    }
+  }
+
   return (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
       <MultiTypeTextArea

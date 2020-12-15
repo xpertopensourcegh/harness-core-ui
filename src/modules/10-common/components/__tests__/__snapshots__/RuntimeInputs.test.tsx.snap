@@ -163,7 +163,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             >
               <textarea
                 class="bp3-input input"
-              />
+                name="textAreaValue"
+              >
+                Hi
+              </textarea>
               <span
                 class="bp3-popover-wrapper"
               >
@@ -367,6 +370,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   <input
                     class="bp3-input"
                     disabled=""
+                    name="textAreaValue"
                     placeholder="\${input}"
                     type="text"
                     value="\${input}"
@@ -569,6 +573,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             >
               <textarea
                 class="bp3-input input"
+                name="textAreaValue"
               />
               <span
                 class="bp3-popover-wrapper"

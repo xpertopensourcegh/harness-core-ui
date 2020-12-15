@@ -29,7 +29,7 @@ export enum DrawerTypes {
 }
 
 export const DrawerSizes: { [key: string]: number } = {
-  StepConfig: 740,
+  StepConfig: 480,
   AddCommand: 700,
   PipelineVariables: 450,
   Templates: 450,

@@ -17,3 +17,17 @@
 .checkbox {
   padding-left: var(--spacing-xlarge) !important;
 }
+
+.accordion {
+  margin-bottom: var(--spacing-large);
+}
+
+.stepPanel {
+  padding: 0 var(--spacing-xlarge) 0 var(--spacing-small);
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+}
