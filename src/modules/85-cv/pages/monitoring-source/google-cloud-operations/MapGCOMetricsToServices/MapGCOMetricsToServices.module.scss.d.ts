@@ -2,7 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
+  readonly form: string
   readonly leftNav: string
+  readonly hiddenField: string
   readonly setupContainer: string
   readonly sectionHeading: string
   readonly nameAndMetricTagContainer: string
@@ -17,5 +19,7 @@ declare const styles: {
   readonly sampleDataSpinner: string
   readonly metricServiceEnvContainer: string
   readonly envService: string
+  readonly logo: string
+  readonly typedMetricName: string
 }
 export default styles

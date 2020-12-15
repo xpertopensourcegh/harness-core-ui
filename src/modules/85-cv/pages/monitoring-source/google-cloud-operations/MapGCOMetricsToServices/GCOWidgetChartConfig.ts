@@ -17,7 +17,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
     xAxis: {
       labels: {
         formatter: function () {
-          return moment(this.value).format('h:m a')
+          return moment(this.value).format('h:mm a')
         }
       },
       lineWidth: 1,

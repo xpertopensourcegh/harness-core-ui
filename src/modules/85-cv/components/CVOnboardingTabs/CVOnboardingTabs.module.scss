@@ -5,6 +5,7 @@
 }
 .tabWrapper {
   flex: 1;
+  height: 100%;
   [class~='bp3-tab-list'] {
     border-bottom: none !important;
     box-shadow: 5px 1px 10px var(--grey-300);

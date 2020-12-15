@@ -157,7 +157,14 @@ export default function ActivityDashboardPage(): JSX.Element {
       if (!response?.resource?.length) return response
       const { resource: activities } = response
       const timelineActivityData = generateActivityTracks(timelineStartTime, timelineEndTime)
-      const activityTypeToTrackIndex = { DEPLOYMENT: 0, INFRASTRUCTURE: 2, CUSTOM: 3 }
+      const activityTypeToTrackIndex = {
+        DEPLOYMENT: 0,
+        INFRASTRUCTURE: 2,
+        CUSTOM: 3,
+        CONFIG: 4,
+        OTHER: 5,
+        KUBERNETES: 6
+      }
       for (const activity of activities) {
         const {
           activityType,

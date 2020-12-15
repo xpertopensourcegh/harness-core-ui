@@ -567,6 +567,8 @@ global:
           configureRiskProfile: 'Configure Risk Profile'
           higherCounts: 'Higher counts = higher risk'
           lowerCounts: 'Lower counts = lower risk'
+          enterQueryForValidation: 'Please enter a query.'
+          mainSetupValidation: 'All fields for at least one metric must be filled completely.'
         tabName:
           selectDashboards: 'Select Dashboards'
     activitySources:

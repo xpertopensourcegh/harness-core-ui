@@ -9,11 +9,34 @@ import * as cdService from 'services/cd-ng'
 import { FieldNames, MapGCOMetricsToServices } from '../MapGCOMetricsToServices'
 
 const MockQuery = `{}`
+const MockSelectedMetricInfo = {
+  query: '{"someQuery": "sdosdf"}',
+  widgetName: 'widget_1',
+  metric: 'metric_1'
+}
 
 jest.mock('lodash-es', () => ({
   ...(jest.requireActual('lodash-es') as object),
   debounce: jest.fn(fn => fn),
   noop: jest.fn()
+}))
+
+jest.mock('../DashboardWidgetMetricNav/DashboardWidgetMetricNav', () => ({
+  ...(jest.requireActual('../DashboardWidgetMetricNav/DashboardWidgetMetricNav') as object),
+  DashboardWidgetMetricNav: function MockMetricNav(props: any) {
+    return (
+      <Container
+        className="metricWidgetNav"
+        onClick={() =>
+          props.onSelectMetric(
+            MockSelectedMetricInfo.metric,
+            MockSelectedMetricInfo.query,
+            MockSelectedMetricInfo.widgetName
+          )
+        }
+      />
+    )
+  }
 }))
 
 jest.mock('react-monaco-editor', () => () => <Container className="monaco-editor" />)
@@ -24,8 +47,8 @@ const MockValidationResponse = {
     {
       txnName: 'kubernetes.io/container/cpu/core_usage_time',
       metricName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricValue: 7.050477594430973,
-      timestamp: 1607599980000
+      metricValue: 12.151677124512961,
+      timestamp: 1607599860000
     },
     {
       txnName: 'kubernetes.io/container/cpu/core_usage_time',
@@ -36,8 +59,8 @@ const MockValidationResponse = {
     {
       txnName: 'kubernetes.io/container/cpu/core_usage_time',
       metricName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricValue: 12.151677124512961,
-      timestamp: 1607599860000
+      metricValue: 7.050477594430973,
+      timestamp: 1607599980000
     }
   ]
 }
@@ -99,7 +122,13 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       })
     )
 
-    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown } as UseMutateReturn<any, unknown, any, unknown, any>)
+    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      unknown,
+      any,
+      unknown,
+      any
+    >)
     const { container } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
@@ -121,5 +150,49 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     }
     fireEvent.click(viewQuery)
     await waitFor(() => expect(document.body.querySelector('[class*="monaco-editor"]')).not.toBeNull())
+  })
+
+  test('Ensure that when a metric is selected in the nav, the content in the form is rendered', async () => {
+    const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
+    getMetricPackSpy.mockReturnValue({
+      data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
+    const mutateMock = jest.fn().mockReturnValue(
+      Promise.resolve({
+        ...MockValidationResponse
+      })
+    )
+
+    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      unknown,
+      any,
+      unknown,
+      any
+    >)
+    const { container, getByText } = render(
+      <TestWrapper>
+        <MapGCOMetricsToServices
+          data={{ connectorRef: { value: '1234_connectorIden' } }}
+          onNext={jest.fn()}
+          onPrevious={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const metricNav = container.querySelector('.metricWidgetNav')
+    if (!metricNav) {
+      throw Error('Metric nav was not rendered.')
+    }
+
+    fireEvent.click(metricNav)
+    await waitFor(() => expect(getByText(MockSelectedMetricInfo.metric)).not.toBeNull())
+    expect(getByText(MockSelectedMetricInfo.widgetName)).not.toBeNull()
+
+    fireEvent.click(getByText('Next'))
+    await waitFor(() => getByText('All fields for at least one metric must be filled completely.'))
   })
 })

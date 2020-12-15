@@ -32,6 +32,7 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/exports'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { DashboardWidgetMetricNav } from './DashboardWidgetMetricNav/DashboardWidgetMetricNav'
 import { chartsConfig } from './GCOWidgetChartConfig'
 import css from './MapGCOMetricsToServices.module.scss'
@@ -54,13 +55,16 @@ interface QueryValidationProps {
 
 export const FieldNames = {
   METRIC_TAGS: 'metricTags',
-  METRIC_NAMES: 'metricNames',
+  METRIC_NAME: 'metricName',
   QUERY: 'query',
   SERVICE: 'serviceIdentifier',
   ENVIRONMENT: 'environmentIdentifier',
   RISK_CATEGORY: 'riskCategory',
-  BASELINE_DEVIATION: 'baselineDeviation'
+  HIGHER_BASELINE_DEVIATION: 'higherBaselineDeviation',
+  LOWER_BASELINE_DEVIATION: 'lowerBaselineDeviation'
 }
+
+const OVERALL = 'overall'
 
 const DrawerOptions = {
   isOpen: true,
@@ -71,29 +75,50 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
-// const MockData = {
-//   metaData: {},
-//   resource: [
-//     {
-//       txnName: 'kubernetes.io/container/cpu/core_usage_time',
-//       metricName: 'kubernetes.io/container/cpu/core_usage_time',
-//       metricValue: 7.050477594430973,
-//       timestamp: 1607599980000
-//     },
-//     {
-//       txnName: 'kubernetes.io/container/cpu/core_usage_time',
-//       metricName: 'kubernetes.io/container/cpu/core_usage_time',
-//       metricValue: 12.149014549984008,
-//       timestamp: 1607599920000
-//     },
-//     {
-//       txnName: 'kubernetes.io/container/cpu/core_usage_time',
-//       metricName: 'kubernetes.io/container/cpu/core_usage_time',
-//       metricValue: 12.151677124512961,
-//       timestamp: 1607599860000
-//     }
-//   ]
-// }
+function validate(
+  values: any,
+  selectedMetrics: Map<string, any>,
+  validationString: string
+): { [key: string]: string } | undefined {
+  const errors = { [OVERALL]: '' }
+  const totalFields = Object.keys(FieldNames).length - 1
+  let metricWithValues = false
+  for (const entry of selectedMetrics) {
+    const [, metricInfo] = entry
+    metricWithValues = Object.values(metricInfo).filter(val => val ?? false).length >= totalFields
+    if (metricWithValues) {
+      break
+    }
+  }
+
+  if (metricWithValues || Object.values(values).filter(val => val ?? false).length >= totalFields) {
+    return
+  }
+
+  errors[OVERALL] = validationString
+  return errors
+}
+
+function buildMetricInfoObject({
+  metricName,
+  query,
+  metricTag
+}: {
+  metricName: string
+  query: string
+  metricTag: string
+}) {
+  return {
+    [FieldNames.METRIC_NAME]: metricName,
+    [FieldNames.METRIC_TAGS]: { [metricTag]: '' },
+    [FieldNames.QUERY]: query ? formatJSON(query) : undefined
+  }
+}
+
+function formatJSON(val = '{}'): string {
+  const res = JSON.parse(val)
+  return JSON.stringify(res, null, 2)
+}
 
 function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
   if (!metricPacks?.length) {
@@ -153,12 +178,12 @@ function ConfigureRiskProfile(): JSX.Element {
         </Text>
         <Container className={css.checkbox}>
           <FormInput.CheckBox
-            name={FieldNames.BASELINE_DEVIATION}
+            name={FieldNames.HIGHER_BASELINE_DEVIATION}
             value="higher"
             label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.higherCounts')}
           />
           <FormInput.CheckBox
-            name={FieldNames.BASELINE_DEVIATION}
+            name={FieldNames.LOWER_BASELINE_DEVIATION}
             value="lower"
             label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.lowerCounts')}
           />
@@ -202,7 +227,12 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
         {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.mapMetricToServiceAndEnvironment')}
       </Heading>
       <Container className={css.metricServiceEnvContainer}>
-        <Text icon="service-stackdriver">{metricName}</Text>
+        <Container flex>
+          <Icon name="service-stackdriver" className={css.logo} />
+          <Text className={css.typedMetricName} width={200} lineClamp={1}>
+            {metricName}
+          </Text>
+        </Container>
         <Text color={Color.BLACK}>{`${getString('cv.admin.mapsTo')} ${getString('service').toLocaleLowerCase()}`}</Text>
         <FormInput.CustomRender
           name={FieldNames.SERVICE}
@@ -211,6 +241,7 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
               <ServiceSelectOrCreate
                 className={css.envService}
                 options={serviceOptions}
+                key={`${formikProps.values[FieldNames.SERVICE]}-${serviceOptions.length}`}
                 item={formikProps.values[FieldNames.SERVICE]}
                 onNewCreated={newService => {
                   if (!newService || !newService.name || !newService.identifier) return
@@ -229,18 +260,19 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
           'environment'
         ).toLocaleLowerCase()}`}</Text>
         <FormInput.CustomRender
-          name={FieldNames.SERVICE}
+          name={FieldNames.ENVIRONMENT}
           render={formikProps => {
             return (
               <EnvironmentSelect
                 className={css.envService}
                 options={environmentOptions}
+                key={`${formikProps.values[FieldNames.ENVIRONMENT]}-${environmentOptions.length}`}
                 item={formikProps.values[FieldNames.ENVIRONMENT]}
                 onSelect={selectedOption => formikProps.setFieldValue(FieldNames.ENVIRONMENT, selectedOption)}
                 onNewCreated={newEnvironment => {
                   if (!newEnvironment || !newEnvironment.name || !newEnvironment.identifier) return
                   setEnvironmentOptions([
-                    ...serviceOptions,
+                    ...environmentOptions,
                     { value: newEnvironment.identifier, label: newEnvironment.name }
                   ])
                   formikProps.setFieldValue(FieldNames.ENVIRONMENT, {
@@ -262,23 +294,27 @@ function QueryValidation(props: QueryValidationProps): JSX.Element {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<AccountPathProps & ProjectPathProps>()
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const { getString } = useStrings()
-  const { loading, error, mutate } = useGetStackdriverSampleData({
+  const { loading, error, mutate, cancel } = useGetStackdriverSampleData({
     queryParams: { orgIdentifier, projectIdentifier, accountId, connectorIdentifier }
   })
   const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
-  const debouncedGetSampleData = useMemo(
-    () =>
-      debounce(async () => {
-        if (!queryValue) return noop
+  const debouncedGetSampleData = useMemo(() => {
+    cancel()
+    return debounce(async () => {
+      if (!queryValue) return noop
+      try {
         const response = await mutate(JSON.parse(queryValue))
         setSampleData(transformSampleDataIntoHighchartOptions(response?.resource))
-        // setSampleData(transformSampleDataIntoHighchartOptions(MockData?.resource))
-      }, 1000),
-    [queryValue]
-  )
+      } catch (e) {
+        setSampleData({})
+      }
+    }, 1000)
+  }, [queryValue])
+
   useEffect(() => {
     debouncedGetSampleData()
   }, [debouncedGetSampleData])
+
   return (
     <Container className={css.validationContainer}>
       <FormInput.TextArea
@@ -306,7 +342,15 @@ function QueryValidation(props: QueryValidationProps): JSX.Element {
           />
         </Container>
       )}
-      {sampleData && (
+      {!queryValue?.length && (
+        <Container className={css.chartContainer}>
+          <NoDataCard
+            icon="main-notes"
+            message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')}
+          />
+        </Container>
+      )}
+      {!loading && !error?.message && sampleData && (
         <Container className={css.chartContainer}>
           <HighchartsReact highcharts={Highcharts} options={sampleData} />
         </Container>
@@ -314,15 +358,17 @@ function QueryValidation(props: QueryValidationProps): JSX.Element {
       {isQueryExpanded && (
         <Drawer {...DrawerOptions} onClose={() => setIsQueryExpanded(false)}>
           <MonacoEditor
-            language="json"
-            value={queryValue}
+            language="javascript"
+            value={formatJSON(queryValue)}
             onChange={debounce(onChange, 200)}
             options={
               {
                 readOnly: false,
                 wordBasedSuggestions: false,
                 fontFamily: "'Roboto Mono', monospace",
-                fontSize: 13
+                fontSize: 13,
+                formatOnPaste: true,
+                formatOnType: true
               } as any
             }
           />
@@ -335,16 +381,48 @@ function QueryValidation(props: QueryValidationProps): JSX.Element {
 export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JSX.Element {
   const { data, onPrevious, onNext } = props
   const { getString } = useStrings()
+  const [updatedData, setUpdatedData] = useState<Map<string, any>>(data.selectedMetrics || new Map<string, any>())
+  const [selectedMetric, setSelectedMetric] = useState<string>()
   return (
     <Container className={css.main}>
-      <DashboardWidgetMetricNav className={css.leftNav} />
-      <Container className={css.setupContainer}>
-        <Heading level={3} color={Color.BLACK} className={css.sectionHeading}>
-          {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications')}
-        </Heading>
-        <Formik enableReinitialize={true} initialValues={{ [FieldNames.QUERY]: '' }} onSubmit={onNext}>
-          {formikProps => (
-            <FormikForm>
+      <Formik
+        enableReinitialize={true}
+        initialValues={updatedData.get(selectedMetric || '') || {}}
+        onSubmit={onNext}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validate={values =>
+          validate(
+            values,
+            updatedData,
+            getString('cv.monitoringSources.gco.mapMetricsToServicesPage.mainSetupValidation')
+          )
+        }
+      >
+        {formikProps => (
+          <Container className={css.form}>
+            <DashboardWidgetMetricNav
+              className={css.leftNav}
+              connectorIdentifier={data.connectorRef.value}
+              gcoDashboards={data.selectedDashboards}
+              showSpinnerOnLoad={!selectedMetric}
+              onSelectMetric={(metricName, query, widget) => {
+                let metricInfo = updatedData.get(metricName)
+                if (!metricInfo) {
+                  metricInfo = buildMetricInfoObject({ metricName, query, metricTag: widget })
+                } else {
+                  metricInfo[FieldNames.QUERY] = formatJSON(query)
+                }
+                updatedData.set(metricName, metricInfo)
+                updatedData.set(selectedMetric as string, { ...formikProps.values })
+                setUpdatedData(new Map(updatedData))
+                setSelectedMetric(metricName)
+              }}
+            />
+            <FormikForm className={css.setupContainer}>
+              <Heading level={3} color={Color.BLACK} className={css.sectionHeading}>
+                {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications')}
+              </Heading>
               <Container className={css.nameAndMetricTagContainer}>
                 <FormInput.KVTagInput
                   label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricTagsLabel')}
@@ -352,7 +430,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                 />
                 <FormInput.Text
                   label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel')}
-                  name={FieldNames.METRIC_NAMES}
+                  name={FieldNames.METRIC_NAME}
                 />
               </Container>
               <QueryValidation
@@ -360,13 +438,14 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                 queryValue={formikProps.values[FieldNames.QUERY] as string}
                 connectorIdentifier={data.connectorRef.value}
               />
-              <MapMetricToServiceAndEnvironment metricName={''} />
+              <MapMetricToServiceAndEnvironment metricName={formikProps.values[FieldNames.METRIC_NAME]} />
               <ConfigureRiskProfile />
+              <FormInput.Text name={OVERALL} className={css.hiddenField} />
               <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
             </FormikForm>
-          )}
-        </Formik>
-      </Container>
+          </Container>
+        )}
+      </Formik>
     </Container>
   )
 }

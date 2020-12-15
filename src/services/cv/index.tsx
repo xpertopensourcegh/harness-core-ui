@@ -15,7 +15,7 @@ export interface ActivityDTO {
   activityStartTime: number
   activityEndTime?: number
   tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
 }
 
 export interface VerificationJobRuntimeDetails {
@@ -23,24 +23,6 @@ export interface VerificationJobRuntimeDetails {
   runtimeValues?: {
     [key: string]: string
   }
-}
-
-export interface AdditionalInfo {
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-}
-
-export interface DeploymentVerificationJobInstanceSummary {
-  progressPercentage?: number
-  startTime?: number
-  durationMs?: number
-  riskScore?: number
-  environmentName?: string
-  jobName?: string
-  verificationJobInstanceId?: string
-  activityId?: string
-  activityStartTime?: number
-  status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-  additionalInfo?: AdditionalInfo
 }
 
 export interface ResponseMessage {
@@ -269,6 +251,8 @@ export interface ResponseMessage {
     | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
     | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
     | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
     | 'RESOURCE_NOT_FOUND_EXCEPTION'
   level?: 'INFO' | 'ERROR'
   message?: string
@@ -283,11 +267,11 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseDeploymentVerificationJobInstanceSummary {
+export interface RestResponseString {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: DeploymentVerificationJobInstanceSummary
+  resource?: string
   responseMessages?: ResponseMessage[]
 }
 
@@ -305,6 +289,32 @@ export interface Throwable {
   message?: string
   localizedMessage?: string
   suppressed?: Throwable[]
+}
+
+export interface AdditionalInfo {
+  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
+}
+
+export interface DeploymentVerificationJobInstanceSummary {
+  progressPercentage?: number
+  startTime?: number
+  durationMs?: number
+  riskScore?: number
+  environmentName?: string
+  jobName?: string
+  verificationJobInstanceId?: string
+  activityId?: string
+  activityStartTime?: number
+  status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  additionalInfo?: AdditionalInfo
+}
+
+export interface RestResponseDeploymentVerificationJobInstanceSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentVerificationJobInstanceSummary
+  responseMessages?: ResponseMessage[]
 }
 
 export interface ActivityVerificationSummary {
@@ -392,7 +402,7 @@ export interface VerificationResult {
 }
 
 export interface ActivityVerificationResultDTO {
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
+  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
   activityId?: string
   activityName?: string
   activityStartTime?: number
@@ -429,16 +439,8 @@ export interface RestResponseActivityVerificationResultDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string
-  responseMessages?: ResponseMessage[]
-}
-
 export interface ActivityDashboardDTO {
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
+  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
   activityId?: string
   activityName?: string
   activityStartTime?: number
@@ -547,7 +549,9 @@ export interface KubernetesActivityDTO {
   message?: string
   activitySourceConfigId?: string
   eventDetails?: string
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
+  eventType?: 'Normal' | 'Warning' | 'Error'
+  kubernetesActivityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
 }
 
 export interface PageString {
@@ -687,6 +691,53 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
+export interface LogClusterDTO {
+  verificationTaskId?: string
+  epochMinute?: number
+  host?: string
+  log?: string
+  clusterLabel?: string
+  clusterCount?: number
+}
+
+export interface RestResponseListLogClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Frequency {
+  count?: number
+  timestamp?: number
+  riskScore?: number
+}
+
+export interface LogAnalysisCluster {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  verificationTaskId?: string
+  analysisStartTime?: number
+  analysisEndTime?: number
+  accountId?: string
+  analysisMinute?: number
+  label?: number
+  frequencyTrend?: Frequency[]
+  text?: string
+  validUntil?: string
+  evicted?: boolean
+}
+
+export interface RestResponseListLogAnalysisCluster {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisCluster[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseVoid {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -738,53 +789,6 @@ export interface ResultSummary {
   score?: number
   controlClusterLabels?: number[]
   testClusterSummaries?: ClusterSummary[]
-}
-
-export interface LogClusterDTO {
-  verificationTaskId?: string
-  epochMinute?: number
-  host?: string
-  log?: string
-  clusterLabel?: string
-  clusterCount?: number
-}
-
-export interface RestResponseListLogClusterDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogClusterDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Frequency {
-  count?: number
-  timestamp?: number
-  riskScore?: number
-}
-
-export interface LogAnalysisCluster {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  verificationTaskId?: string
-  analysisStartTime?: number
-  analysisEndTime?: number
-  accountId?: string
-  analysisMinute?: number
-  label?: number
-  frequencyTrend?: Frequency[]
-  text?: string
-  validUntil?: string
-  evicted?: boolean
-}
-
-export interface RestResponseListLogAnalysisCluster {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisCluster[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface AnalysisResult {
@@ -1154,48 +1158,6 @@ export interface RestResponseCVSetupStatus {
   responseMessages?: ResponseMessage[]
 }
 
-export interface EnvToServicesDTO {
-  environment?: EnvironmentResponseDTO
-  services?: ServiceResponseDTO[]
-}
-
-export interface EnvironmentResponseDTO {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier?: string
-  name?: string
-  description?: string
-  type?: 'PreProduction' | 'Production'
-  deleted?: boolean
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
-}
-
-export interface RestResponseListEnvToServicesDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvToServicesDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceResponseDTO {
-  accountId?: string
-  identifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  name?: string
-  description?: string
-  deleted?: boolean
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
-}
-
 export interface MonitoringSource {
   monitoringSourceIdentifier?: string
   monitoringSourceName?: string
@@ -1236,6 +1198,48 @@ export interface RestResponseListDSConfig {
   }
   resource?: DSConfig[]
   responseMessages?: ResponseMessage[]
+}
+
+export interface EnvToServicesDTO {
+  environment?: EnvironmentResponseDTO
+  services?: ServiceResponseDTO[]
+}
+
+export interface EnvironmentResponseDTO {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+  name?: string
+  description?: string
+  type?: 'PreProduction' | 'Production'
+  deleted?: boolean
+  tags?: {
+    [key: string]: string
+  }
+  version?: number
+}
+
+export interface RestResponseListEnvToServicesDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvToServicesDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceResponseDTO {
+  accountId?: string
+  identifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  name?: string
+  description?: string
+  deleted?: boolean
+  tags?: {
+    [key: string]: string
+  }
+  version?: number
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -1393,6 +1397,11 @@ export type ArtifactoryConnector = ConnectorConfigDTO & {
   auth?: ArtifactoryAuthentication
 }
 
+export type ArtifactoryUsernamePasswordAuth = ArtifactoryAuthCredentials & {
+  username: string
+  passwordRef: string
+}
+
 export type AwsConnector = ConnectorConfigDTO & {
   credential: AwsCredential
 }
@@ -1407,11 +1416,13 @@ export interface AwsCredentialSpec {
   [key: string]: any
 }
 
-export type AzureContainerRegistryConnectorDTO = ConnectorConfigDTO & {
-  subscriptionId: string
-  resourceGroupName: string
-  azureRegistryName: string
-  azureRegistryLoginServer: string
+export type AwsInheritFromDelegateSpec = AwsCredentialSpec & {
+  delegateSelector: string
+}
+
+export type AwsManualConfigSpec = AwsCredentialSpec & {
+  accessKey: string
+  secretKeyRef: string
 }
 
 export interface ConnectorConfigDTO {
@@ -1468,9 +1479,9 @@ export interface DataCollectionRequest {
     | 'STACKDRIVER_DASHBOARD_LIST'
     | 'STACKDRIVER_DASHBOARD_GET'
     | 'STACKDRIVER_SAMPLE_DATA'
-  baseUrl?: string
-  connectorConfigDTO?: ConnectorConfigDTO
   dsl?: string
+  connectorConfigDTO?: ConnectorConfigDTO
+  baseUrl?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -1487,6 +1498,11 @@ export type DockerConnectorDTO = ConnectorConfigDTO & {
   auth?: DockerAuthenticationDTO
 }
 
+export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
+  username: string
+  passwordRef: string
+}
+
 export type GcpConnector = ConnectorConfigDTO & {
   credential?: GcpConnectorCredential
 }
@@ -1500,6 +1516,10 @@ export interface GcpCredentialSpec {
   [key: string]: any
 }
 
+export type GcpDelegateDetails = GcpCredentialSpec & {
+  delegateSelector?: string
+}
+
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
   projectId?: string
   region?: string
@@ -1507,6 +1527,10 @@ export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
   keyName?: string
   credentials?: string[]
   default?: boolean
+}
+
+export type GcpManualDetails = GcpCredentialSpec & {
+  secretKeyRef: string
 }
 
 export interface GitAuthenticationDTO {
@@ -1522,6 +1546,15 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   gitSync?: GitSyncConfig
 }
 
+export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
+  username: string
+  passwordRef: string
+}
+
+export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
+  sshKeyReference?: string
+}
+
 export interface GitSyncConfig {
   enabled?: boolean
   customCommitAttributes?: CustomCommitAttributes
@@ -1534,8 +1567,30 @@ export type JiraConnector = ConnectorConfigDTO & {
   passwordRef: string
 }
 
+export interface KubernetesAuthCredentialDTO {
+  [key: string]: any
+}
+
+export interface KubernetesAuthDTO {
+  type: 'UsernamePassword' | 'ClientKeyCert' | 'ServiceAccount' | 'OpenIdConnect'
+  spec: KubernetesAuthCredentialDTO
+}
+
+export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
+  caCertRef?: string
+  clientCertRef: string
+  clientKeyRef: string
+  clientKeyPassphraseRef: string
+  clientKeyAlgo?: string
+}
+
 export type KubernetesClusterConfigDTO = ConnectorConfigDTO & {
   credential?: KubernetesCredentialDTO
+}
+
+export type KubernetesClusterDetailsDTO = KubernetesCredentialSpecDTO & {
+  masterUrl: string
+  auth: KubernetesAuthDTO
 }
 
 export interface KubernetesCredentialDTO {
@@ -1545,6 +1600,28 @@ export interface KubernetesCredentialDTO {
 
 export interface KubernetesCredentialSpecDTO {
   [key: string]: any
+}
+
+export type KubernetesDelegateDetailsDTO = KubernetesCredentialSpecDTO & {
+  delegateName: string
+}
+
+export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
+  oidcIssuerUrl: string
+  oidcUsername: string
+  oidcClientIdRef: string
+  oidcPasswordRef: string
+  oidcSecretRef?: string
+  oidcScopes?: string
+}
+
+export type KubernetesServiceAccountDTO = KubernetesAuthCredentialDTO & {
+  serviceAccountTokenRef: string
+}
+
+export type KubernetesUserNamePasswordDTO = KubernetesAuthCredentialDTO & {
+  username?: string
+  passwordRef: string
 }
 
 export type LocalConnectorDTO = ConnectorConfigDTO & {
@@ -1564,6 +1641,11 @@ export type NexusConnector = ConnectorConfigDTO & {
   nexusServerUrl: string
   version: string
   auth?: NexusAuthentication
+}
+
+export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
+  username: string
+  passwordRef: string
 }
 
 export interface OnboardingRequestDTO {
@@ -1651,6 +1733,24 @@ export interface SplunkValidationResponse {
   queryDurationMillis?: number
 }
 
+export interface DataSet {
+  timeSeriesQuery?: { [key: string]: any }
+  metricName?: string
+}
+
+export interface RestResponseListStackdriverDashboardDetail {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StackdriverDashboardDetail[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface StackdriverDashboardDetail {
+  widgetName?: string
+  dataSetList?: DataSet[]
+}
+
 export interface PageStackdriverDashboardDTO {
   totalPages?: number
   totalItems?: number
@@ -1672,19 +1772,6 @@ export interface RestResponsePageStackdriverDashboardDTO {
 export interface StackdriverDashboardDTO {
   name?: string
   path?: string
-}
-
-export interface RestResponseListStackdriverDashboardDetail {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StackdriverDashboardDetail[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StackdriverDashboardDetail {
-  name?: string
-  datasets?: { [key: string]: any }
 }
 
 export interface RestResponseListTimeSeriesSampleDTO {
@@ -1936,6 +2023,23 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
 }
 
+export interface LogAnalysisClusterChartDTO {
+  label?: number
+  text?: string
+  hostName?: string
+  risk?: number
+  x?: number
+  y?: number
+}
+
+export interface RestResponseListLogAnalysisClusterChartDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisClusterChartDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LogAnalysisClusterDTO {
   message?: string
   label?: number
@@ -1962,23 +2066,6 @@ export interface RestResponsePageLogAnalysisClusterDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageLogAnalysisClusterDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LogAnalysisClusterChartDTO {
-  label?: number
-  text?: string
-  hostName?: string
-  risk?: number
-  x?: number
-  y?: number
-}
-
-export interface RestResponseListLogAnalysisClusterChartDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisClusterChartDTO[]
   responseMessages?: ResponseMessage[]
 }
 
