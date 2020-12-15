@@ -47,6 +47,7 @@ import type {
 } from '@common/interfaces/YAMLBuilderProps'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import css from './InputSetForm.module.scss'
@@ -636,6 +637,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                         }
                         invocationMap={invocationMap}
                         bind={setYamlHandler}
+                        schema={pipelineSchema}
                       />
                       <Layout.Horizontal padding={{ top: 'medium' }}>
                         <Button

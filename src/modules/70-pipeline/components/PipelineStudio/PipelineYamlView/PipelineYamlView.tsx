@@ -4,6 +4,7 @@ import { Prompt, useHistory } from 'react-router-dom'
 import type * as History from 'history'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './PipelineYamlView.module.scss'
 
@@ -47,6 +48,7 @@ const PipelineYamlView: React.FC = () => {
         height={'calc(100vh - 200px)'}
         invocationMap={stepsFactory.getInvocationMap()}
         showSnippetSection={false}
+        schema={pipelineSchema}
       />
     </div>
   )

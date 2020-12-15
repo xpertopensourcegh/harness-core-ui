@@ -7,7 +7,7 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { useCreateConnector, useGetYamlSnippetMetadata } from 'services/cd-ng'
+import { useCreateConnector, useGetYamlSnippetMetadata, useGetYamlSchema } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import i18n from './CreateConnectorFromYaml.i18n'
@@ -51,6 +51,12 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     requestOptions: { headers: { accept: 'application/json' } }
   })
 
+  const { data: connectorSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Connectors'
+    }
+  })
+
   return (
     <>
       <PageHeader title={i18n.title} />
@@ -62,6 +68,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
             bind={setYamlHandler}
             showIconMenu={true}
             snippets={snippetData?.data?.yamlSnippets}
+            schema={connectorSchema?.data || ''}
           />
           <Button text="Create" intent="primary" margin={{ top: 'xlarge' }} onClick={handleCreate} />
         </Container>

@@ -22,6 +22,7 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
+import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import type { PipelinePathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
@@ -274,7 +275,12 @@ export function RunPipelineForm({
                       </FormikForm>
                     ) : (
                       <div className={css.editor}>
-                        <YAMLBuilder {...yamlBuilderReadOnlyModeProps} existingJSON={values} bind={setYamlHandler} />
+                        <YAMLBuilder
+                          {...yamlBuilderReadOnlyModeProps}
+                          existingJSON={values}
+                          bind={setYamlHandler}
+                          schema={pipelineSchema}
+                        />
                       </div>
                     )}
 

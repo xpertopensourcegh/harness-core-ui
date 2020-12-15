@@ -44,7 +44,8 @@ jest.mock('services/cd-ng', () => ({
   usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetYamlSchema: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Secret Details', () => {

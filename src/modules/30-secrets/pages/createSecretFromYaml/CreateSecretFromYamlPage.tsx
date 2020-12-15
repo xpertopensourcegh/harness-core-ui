@@ -7,11 +7,12 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { usePostSecretViaYaml } from 'services/cd-ng'
+import { usePostSecretViaYaml, useGetYamlSchema, ResponseString } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
+import type { UseGetMockData } from '@common/utils/testUtils'
 
-const CreateSecretFromYamlPage: React.FC = () => {
+const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseString> }> = props => {
   const { accountId } = useParams()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
@@ -43,11 +44,23 @@ const CreateSecretFromYamlPage: React.FC = () => {
     }
   }
 
+  const { data: secretSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Secrets'
+    },
+    mock: props.mockSchemaData
+  })
+
   return (
     <PageBody>
       <PageHeader title="Create Secret from YAML" />
       <Container padding="xlarge">
-        <YAMLBuilder fileName="New Secret" entityType={'Secrets'} bind={setYamlHandler} />
+        <YAMLBuilder
+          fileName="New Secret"
+          entityType={'Secrets'}
+          bind={setYamlHandler}
+          schema={secretSchema?.data || ''}
+        />
         <Button text="Create" intent="primary" margin={{ top: 'xlarge' }} onClick={handleCreate} />
       </Container>
     </PageBody>

@@ -2,6 +2,7 @@ import { render, waitFor, queryByText } from '@testing-library/react'
 import React from 'react'
 import type { ConnectorResponse, Connector } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as mockSchemaData from '@common/services/mocks/schema.json'
 import ConnectorView from '../ConnectorView'
 import { GitHttp } from './mockData'
 import * as mockMetaData from './snippets.metadata.json'
@@ -20,6 +21,7 @@ describe('Connector Details Page', () => {
           refetchConnector={() => new Promise(resolve => resolve())}
           mockMetaData={mockMetaData as any}
           mockSnippetData={mockSnippetData as any}
+          mockSchemaData={mockSchemaData as any}
         ></ConnectorView>
       </TestWrapper>
     )

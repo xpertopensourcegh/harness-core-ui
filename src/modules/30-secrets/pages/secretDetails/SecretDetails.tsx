@@ -10,7 +10,8 @@ import {
   SecretTextSpecDTO,
   usePutSecretViaYaml,
   ResponseSecretResponseWrapper,
-  ResponsePageConnectorResponse
+  ResponsePageConnectorResponse,
+  useGetYamlSchema
 } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
@@ -72,6 +73,12 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     identifier: secretId,
     queryParams: { accountIdentifier: accountId },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
+  })
+
+  const { data: secretSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Secrets'
+    }
   })
 
   const [secretData, setSecretData] = useState(data?.data)
@@ -172,6 +179,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 // fieldRemovedFromYaml={[]}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 bind={setYamlHandler}
+                schema={secretSchema?.data || ''}
               />
               <Button intent="primary" text="Save" onClick={handleSaveYaml} margin={{ top: 'large' }} />
             </Container>

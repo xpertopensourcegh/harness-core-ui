@@ -16,6 +16,7 @@ import TestConnection from '@connectors/components/TestConnection/TestConnection
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorConnectivityDetails, ResponseYamlSnippets, ResponseString } from 'services/cd-ng'
+import { useGetYamlSchema } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import SavedConnectorDetails, {
@@ -32,6 +33,7 @@ export interface ConnectorViewProps {
   refetchConnector: () => Promise<any>
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
   mockSnippetData?: UseGetMockData<ResponseString>
+  mockSchemaData?: UseGetMockData<ResponseString>
 }
 
 interface ConnectorViewState {
@@ -205,6 +207,13 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     mock: props.mockMetaData
   })
 
+  const { data: connectorSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Connectors'
+    },
+    mock: props.mockSchemaData
+  })
+
   return (
     <Layout.Vertical padding={{ top: 'large', left: 'huge', bottom: 'large', right: 'huge' }}>
       <Container className={css.buttonContainer}>
@@ -250,6 +259,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
                 snippets={snippetMetaData?.data?.yamlSnippets}
                 onSnippetCopy={onSnippetCopy}
                 snippetYaml={snippetYaml}
+                schema={connectorSchema?.data}
               />
               <Button
                 intent="primary"

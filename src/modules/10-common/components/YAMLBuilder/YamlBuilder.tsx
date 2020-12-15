@@ -23,8 +23,6 @@ import {
   getMetaDataForKeyboardEventProcessing,
   getYAMLPathToValidationErrorMap
 } from './YAMLBuilderUtils'
-import { useGetYamlSchema, GetYamlSchemaQueryParams } from 'services/cd-ng'
-import pipelineSchema from '../../services/mocks/pipeline-schema.json'
 
 import css from './YamlBuilder.module.scss'
 import { debounce } from 'lodash-es'
@@ -72,17 +70,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     onExpressionTrigger,
     snippets,
     onSnippetCopy,
-    snippetYaml
+    snippetYaml,
+    schema
   } = props
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string[]> | undefined>()
   const editorRef = useRef<MonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
   const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
-  const schemaRef = useRef<string>()
   yamlRef.current = currentYaml
   yamlValidationErrorsRef.current = yamlValidationErrors
-  schemaRef.current = ''
   const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
   const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
@@ -115,48 +112,19 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  /* Fetch schema for the editor based on entity type */
-
-  /* Register all the data providers here */
-  const { data: connectorSchema, refetch: fetchConnectorSchema } = useGetYamlSchema({
-    queryParams: {
-      entityType
-    },
-    lazy: true
-  })
-
   useEffect(() => {
     verifyIncomingJSON(existingJSON)
   }, [existingJSON])
 
-  const fetchSchema = (entityType: GetYamlSchemaQueryParams['entityType']) => {
-    switch (entityType) {
-      case 'Connectors':
-        fetchConnectorSchema()
-        return
-      default:
-        return
-    }
-  }
-
   useEffect(() => {
-    if (entityType === 'Pipelines') {
-      setUpYAMLBuilderWithLanguageSettings(pipelineSchema)
-      return
-    }
-    fetchSchema(entityType)
-  }, [entityType])
-
-  useEffect(() => {
-    const schema = (connectorSchema?.data as string) || ''
     if (schema) {
       const languageSettings = getSchemaWithLanguageSettings(schema)
-      schemaRef.current = schema
       setUpYAMLBuilderWithLanguageSettings(languageSettings)
     }
-  }, [connectorSchema])
+  }, [schema])
 
-  const getSchemaWithLanguageSettings = (schema: string): LanguageSettingInterface => {
+  const getSchemaWithLanguageSettings = (schema: string | Record<string, any>): LanguageSettingInterface => {
+    const schemaObj = typeof schema === 'string' ? JSON.parse(schema) : schema
     return {
       validate: true,
       enableSchemaRequest: true,
@@ -165,7 +133,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       schemas: [
         {
           fileMatch: ['*'],
-          schema
+          schema: schemaObj
         }
       ]
     }
@@ -184,20 +152,22 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   const verifyYAMLValidity = (currentYaml: string): void => {
-    validateYAMLWithSchema(currentYaml, [schemaRef.current])
-      .then((validationErrors: Diagnostic[]) => {
-        if (validationErrors && Array.isArray(validationErrors)) {
-          const validationErrorMap = getYAMLPathToValidationErrorMap(
-            currentYaml,
-            validationErrors,
-            editorRef?.current?.editor
-          )
-          setYamlValidationErrors(validationErrorMap)
-        }
-      })
-      .catch((error: string) => {
-        showError(error, 5000)
-      })
+    if (schema) {
+      validateYAMLWithSchema(currentYaml, [getSchemaWithLanguageSettings(schema)])
+        .then((validationErrors: Diagnostic[]) => {
+          if (validationErrors && Array.isArray(validationErrors)) {
+            const validationErrorMap = getYAMLPathToValidationErrorMap(
+              currentYaml,
+              validationErrors,
+              editorRef?.current?.editor
+            )
+            setYamlValidationErrors(validationErrorMap)
+          }
+        })
+        .catch((error: string) => {
+          showError(error, 5000)
+        })
+    }
   }
 
   const editorDidMount = (editor: any) => {
