@@ -4,7 +4,6 @@ import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { YamlEntity } from '@common/constants/YamlConstants'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -48,7 +47,7 @@ const CreateSecretFromYamlPage: React.FC = () => {
     <PageBody>
       <PageHeader title="Create Secret from YAML" />
       <Container padding="xlarge">
-        <YAMLBuilder fileName="New Secret" entityType={YamlEntity.SECRET} bind={setYamlHandler} />
+        <YAMLBuilder fileName="New Secret" entityType={'Secrets'} bind={setYamlHandler} />
         <Button text="Create" intent="primary" margin={{ top: 'xlarge' }} onClick={handleCreate} />
       </Container>
     </PageBody>

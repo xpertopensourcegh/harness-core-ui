@@ -4,7 +4,6 @@ import { parse } from 'yaml'
 import { useHistory, useParams, useLocation } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { YamlEntity } from '@common/constants/YamlConstants'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -44,7 +43,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
 
   const { data: snippetData } = useGetYamlSnippetMetadata({
     queryParams: {
-      tags: getSnippetTags(YamlEntity.CONNECTOR)
+      tags: getSnippetTags('Connectors')
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
@@ -59,7 +58,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
         <Container padding="xlarge">
           <YAMLBuilder
             fileName={i18n.newConnector}
-            entityType={YamlEntity.CONNECTOR}
+            entityType="Connectors"
             bind={setYamlHandler}
             showIconMenu={true}
             snippets={snippetData?.data?.yamlSnippets}

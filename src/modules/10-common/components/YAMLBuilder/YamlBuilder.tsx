@@ -13,16 +13,18 @@ import { Tag, Layout, Icon } from '@wings-software/uikit'
 import type {
   YamlBuilderProps,
   YamlBuilderHandlerBinding,
-  CompletionItemInterface
+  CompletionItemInterface,
+  LanguageSettingInterface
 } from '@common/interfaces/YAMLBuilderProps'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
-import { JSONSchemaService } from '@common/services'
 import { validateYAMLWithSchema } from '@common/utils/YamlUtils'
 import {
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
   getYAMLPathToValidationErrorMap
 } from './YAMLBuilderUtils'
+import { useGetYamlSchema, GetYamlSchemaQueryParams } from 'services/cd-ng'
+import pipelineSchema from '../../services/mocks/pipeline-schema.json'
 
 import css from './YamlBuilder.module.scss'
 import { debounce } from 'lodash-es'
@@ -77,8 +79,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const editorRef = useRef<MonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
   const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
+  const schemaRef = useRef<string>()
   yamlRef.current = currentYaml
   yamlValidationErrorsRef.current = yamlValidationErrors
+  schemaRef.current = ''
   const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
   const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
@@ -99,14 +103,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     bind?.(handler)
   }, [bind, handler])
 
-  useEffect(() => {
-    //@ts-ignore
-    const { yaml } = languages || {}
-    const languageSettings = getYAMLLanguageSettings(entityType)
-    yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
-    verifyIncomingJSON(existingJSON)
-  }, [existingJSON, entityType])
-
   const replacer = (_key: string, value: unknown) => (typeof value === 'undefined' ? '' : value)
 
   const verifyIncomingJSON = (jsonObj: Record<string, any> | undefined): void => {
@@ -119,19 +115,76 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  const getYAMLLanguageSettings = (entityType: string): Record<string, any> | undefined => {
-    const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
-    return jsonSchemas
+  /* Fetch schema for the editor based on entity type */
+
+  /* Register all the data providers here */
+  const { data: connectorSchema, refetch: fetchConnectorSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType
+    },
+    lazy: true
+  })
+
+  useEffect(() => {
+    verifyIncomingJSON(existingJSON)
+  }, [existingJSON])
+
+  const fetchSchema = (entityType: GetYamlSchemaQueryParams['entityType']) => {
+    switch (entityType) {
+      case 'Connectors':
+        fetchConnectorSchema()
+        return
+      default:
+        return
+    }
   }
 
+  useEffect(() => {
+    if (entityType === 'Pipelines') {
+      setUpYAMLBuilderWithLanguageSettings(pipelineSchema)
+      return
+    }
+    fetchSchema(entityType)
+  }, [entityType])
+
+  useEffect(() => {
+    const schema = (connectorSchema?.data as string) || ''
+    if (schema) {
+      const languageSettings = getSchemaWithLanguageSettings(schema)
+      schemaRef.current = schema
+      setUpYAMLBuilderWithLanguageSettings(languageSettings)
+    }
+  }, [connectorSchema])
+
+  const getSchemaWithLanguageSettings = (schema: string): LanguageSettingInterface => {
+    return {
+      validate: true,
+      enableSchemaRequest: true,
+      hover: true,
+      completion: true,
+      schemas: [
+        {
+          fileMatch: ['*'],
+          schema
+        }
+      ]
+    }
+  }
+
+  const setUpYAMLBuilderWithLanguageSettings = (languageSettings: Record<string, any>): void => {
+    //@ts-ignore
+    const { yaml } = languages || {}
+    yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
+  }
+
+  /* Handle various interactions with the editor */
   const onYamlChange = (updatedYaml: string): void => {
     setCurrentYaml(updatedYaml)
     verifyYAMLValidity(updatedYaml)
   }
 
   const verifyYAMLValidity = (currentYaml: string): void => {
-    const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
-    validateYAMLWithSchema(currentYaml, [jsonSchemas])
+    validateYAMLWithSchema(currentYaml, [schemaRef.current])
       .then((validationErrors: Diagnostic[]) => {
         if (validationErrors && Array.isArray(validationErrors)) {
           const validationErrorMap = getYAMLPathToValidationErrorMap(
@@ -165,7 +218,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  /** For expressions */
+  /** Expressions support */
   const getExpressionFromCurrentLine = (editor: any): string => {
     const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
     const expression = textInCurrentEditorLine.split(':').map((item: string) => item.trim())?.[1]
@@ -194,7 +247,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  /** For RT Inputs */
+  /** Run-time Inputs support */
   let runTimeCompletionDisposer: { dispose: () => void }
   function registerCompletionItemProviderForRTInputs(
     editor: any,

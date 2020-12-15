@@ -829,11 +829,11 @@ export type ManualInterventionFailureActionConfig = FailureStrategyActionConfig 
 export type MarkAsSuccessFailureActionConfig = FailureStrategyActionConfig & { [key: string]: any }
 
 export interface NGVariable {
+  required?: boolean
   name?: string
   value?: ParameterFieldObject
   type?: 'String' | 'Number'
   description?: string
-  required?: boolean
   metadata?: string
 }
 
@@ -942,10 +942,10 @@ export interface ServiceOverrides {
 }
 
 export interface ServiceSpec {
-  manifestOverrideSets?: ManifestOverrideSets[]
-  artifactOverrideSets?: ArtifactOverrideSets[]
   artifacts?: ArtifactListConfig
   manifests?: ManifestConfigWrapper[]
+  manifestOverrideSets?: ManifestOverrideSets[]
+  artifactOverrideSets?: ArtifactOverrideSets[]
 }
 
 export interface ServiceUseFromStage {
@@ -1146,19 +1146,6 @@ export interface ResponsePageConnectorListFilter {
   correlationId?: string
 }
 
-export interface ConnectorValidationResult {
-  valid?: boolean
-  errorMessage?: string
-  testedAt?: number
-}
-
-export interface ResponseConnectorValidationResult {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ConnectorValidationResult
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username: string
   accountname: string
@@ -1207,13 +1194,6 @@ export type AwsInheritFromDelegateSpec = AwsCredentialSpec & {
 export type AwsManualConfigSpec = AwsCredentialSpec & {
   accessKey: string
   secretKeyRef: string
-}
-
-export type AzureContainerRegistryConnectorDTO = ConnectorConfigDTO & {
-  subscriptionId: string
-  resourceGroupName: string
-  azureRegistryName: string
-  azureRegistryLoginServer: string
 }
 
 export interface ConnectorConfigDTO {
@@ -1489,42 +1469,15 @@ export interface ResponsePageConnectorResponse {
   correlationId?: string
 }
 
-export interface ConnectorStatistics {
-  typeStats?: ConnectorTypeStatistics[]
-  statusStats?: ConnectorStatusStatistics[]
+export interface ConnectorValidationResult {
+  valid?: boolean
+  errorMessage?: string
+  testedAt?: number
 }
 
-export interface ConnectorStatusStatistics {
-  status?: 'SUCCESS' | 'FAILURE'
-  count?: number
-}
-
-export interface ConnectorTypeStatistics {
-  type?:
-    | 'K8sCluster'
-    | 'Git'
-    | 'Splunk'
-    | 'AppDynamics'
-    | 'Vault'
-    | 'DockerRegistry'
-    | 'Local'
-    | 'AwsKms'
-    | 'GcpKms'
-    | 'Awssecretsmanager'
-    | 'Azurevault'
-    | 'Cyberark'
-    | 'CustomSecretManager'
-    | 'Gcp'
-    | 'Aws'
-    | 'Artifactory'
-    | 'Jira'
-    | 'Nexus'
-  count?: number
-}
-
-export interface ResponseConnectorStatistics {
+export interface ResponseConnectorValidationResult {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ConnectorStatistics
+  data?: ConnectorValidationResult
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1567,6 +1520,46 @@ export interface ConnectorCatalogueResponse {
 export interface ResponseConnectorCatalogueResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ConnectorCatalogueResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ConnectorStatistics {
+  typeStats?: ConnectorTypeStatistics[]
+  statusStats?: ConnectorStatusStatistics[]
+}
+
+export interface ConnectorStatusStatistics {
+  status?: 'SUCCESS' | 'FAILURE'
+  count?: number
+}
+
+export interface ConnectorTypeStatistics {
+  type?:
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Vault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'Awssecretsmanager'
+    | 'Azurevault'
+    | 'Cyberark'
+    | 'CustomSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+  count?: number
+}
+
+export interface ResponseConnectorStatistics {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorStatistics
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1678,8 +1671,8 @@ export interface PageActivity {
   size?: number
   content?: Activity[]
   number?: number
-  last?: boolean
   sort?: Sort
+  last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   empty?: boolean
@@ -1687,9 +1680,9 @@ export interface PageActivity {
 
 export interface Pageable {
   offset?: number
-  paged?: boolean
   sort?: Sort
   pageSize?: number
+  paged?: boolean
   pageNumber?: number
   unpaged?: boolean
 }
@@ -1744,8 +1737,8 @@ export interface PageActivitySummary {
   size?: number
   content?: ActivitySummary[]
   number?: number
-  last?: boolean
   sort?: Sort
+  last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   empty?: boolean
@@ -1770,6 +1763,19 @@ export interface DockerBuildDetailsDTO {
   imagePath?: string
 }
 
+export interface ResponseDockerBuildDetailsDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: DockerBuildDetailsDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface DockerRequestDTO {
+  tag?: string
+  tagRegex?: string
+  tagsList?: string[]
+}
+
 export interface DockerResponseDTO {
   buildDetailsList?: DockerBuildDetailsDTO[]
 }
@@ -1781,21 +1787,283 @@ export interface ResponseDockerResponseDTO {
   correlationId?: string
 }
 
-export interface DockerRequestDTO {
-  tag?: string
-  tagRegex?: string
-  tagsList?: string[]
+export interface ContextElement {
+  name?: string
+  uuid?: string
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
 }
 
-export interface ResponseDockerBuildDetailsDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: DockerBuildDetailsDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface DOMConfiguration {
+  parameterNames?: DOMStringList
+}
+
+export interface DOMImplementation {
+  [key: string]: any
+}
+
+export interface DOMStringList {
+  length?: number
+}
+
+export interface DelegateMetaInfo {
+  id?: string
+  hostName?: string
 }
 
 export interface DelegateResponseData {
   [key: string]: any
+}
+
+export interface Document {
+  doctype?: DocumentType
+  documentElement?: Element
+  implementation?: DOMImplementation
+  inputEncoding?: string
+  xmlEncoding?: string
+  xmlStandalone?: boolean
+  xmlVersion?: string
+  strictErrorChecking?: boolean
+  documentURI?: string
+  domConfig?: DOMConfiguration
+  prefix?: string
+  attributes?: NamedNodeMap
+  nodeType?: number
+  nodeName?: string
+  nodeValue?: string
+  parentNode?: Node
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  previousSibling?: Node
+  nextSibling?: Node
+  ownerDocument?: Document
+  namespaceURI?: string
+  localName?: string
+  baseURI?: string
+  textContent?: string
+}
+
+export interface DocumentType {
+  name?: string
+  entities?: NamedNodeMap
+  notations?: NamedNodeMap
+  publicId?: string
+  systemId?: string
+  internalSubset?: string
+  prefix?: string
+  attributes?: NamedNodeMap
+  nodeType?: number
+  nodeName?: string
+  nodeValue?: string
+  parentNode?: Node
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  previousSibling?: Node
+  nextSibling?: Node
+  ownerDocument?: Document
+  namespaceURI?: string
+  localName?: string
+  baseURI?: string
+  textContent?: string
+}
+
+export interface Element {
+  tagName?: string
+  schemaTypeInfo?: TypeInfo
+  prefix?: string
+  attributes?: NamedNodeMap
+  nodeType?: number
+  nodeName?: string
+  nodeValue?: string
+  parentNode?: Node
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  previousSibling?: Node
+  nextSibling?: Node
+  ownerDocument?: Document
+  namespaceURI?: string
+  localName?: string
+  baseURI?: string
+  textContent?: string
+}
+
+export interface ExecutionDataValue {
+  displayName?: string
+  value?: { [key: string]: any }
+}
+
+export type HttpStateExecutionData = Outcome & {
+  httpUrl?: string
+  httpMethod?: string
+  httpResponseCode?: number
+  httpResponseBody?: string
+  assertionStatement?: string
+  assertionStatus?: string
+  header?: string
+  useProxy?: boolean
+  warningMessage?: string
+  document?: Document
+  stateName?: string
+  stateType?: string
+  startTs?: number
+  endTs?: number
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  errorMsg?: string
+  waitInterval?: number
+  element?: ContextElement
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  delegateMetaInfo?: DelegateMetaInfo
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+}
+
+export interface NamedNodeMap {
+  length?: number
+}
+
+export interface Node {
+  prefix?: string
+  attributes?: NamedNodeMap
+  nodeType?: number
+  nodeName?: string
+  nodeValue?: string
+  parentNode?: Node
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  previousSibling?: Node
+  nextSibling?: Node
+  ownerDocument?: Document
+  namespaceURI?: string
+  localName?: string
+  baseURI?: string
+  textContent?: string
+}
+
+export interface NodeList {
+  length?: number
+}
+
+export type ScriptStateExecutionData = Outcome & {
+  name?: string
+  activityId?: string
+  sweepingOutputEnvVariables?: {
+    [key: string]: string
+  }
+  stateName?: string
+  stateType?: string
+  startTs?: number
+  endTs?: number
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  errorMsg?: string
+  waitInterval?: number
+  element?: ContextElement
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  delegateMetaInfo?: DelegateMetaInfo
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+}
+
+export interface TypeInfo {
+  typeName?: string
+  typeNamespace?: string
 }
 
 export interface EntitySetupUsageDTO {
@@ -1812,8 +2080,8 @@ export interface PageEntitySetupUsageDTO {
   size?: number
   content?: EntitySetupUsageDTO[]
   number?: number
-  last?: boolean
   sort?: Sort
+  last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   empty?: boolean
@@ -2181,6 +2449,26 @@ export interface SecretTextDTO {
   value?: string
 }
 
+export interface ResponseSecretValidationResultDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretValidationResultDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface SecretValidationResultDTO {
+  success?: boolean
+  message?: string
+}
+
+export type SSHKeyValidationMetadata = SecretValidationMetaData & {
+  host: string
+}
+
+export interface SecretValidationMetaData {
+  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
+}
+
 export interface BaseSSHSpecDTO {
   [key: string]: any
 }
@@ -2300,26 +2588,6 @@ export interface ResponsePageSecretResponseWrapper {
   data?: PageSecretResponseWrapper
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface ResponseSecretValidationResultDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretValidationResultDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface SecretValidationResultDTO {
-  success?: boolean
-  message?: string
-}
-
-export type SSHKeyValidationMetadata = SecretValidationMetaData & {
-  host: string
-}
-
-export interface SecretValidationMetaData {
-  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
 }
 
 export interface ResponseOrganizationResponse {
@@ -2513,6 +2781,19 @@ export interface ResponsePageUserSearchDTO {
   correlationId?: string
 }
 
+export interface ResponsePipelineExecutionInterrupt {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PipelineExecutionInterrupt
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface PipelineExecutionInterrupt {
+  id?: string
+  type?: 'Abort' | 'Pause' | 'Resume'
+  planExecutionId?: string
+}
+
 export interface ArtifactSummary {
   type?: string
 }
@@ -2523,8 +2804,8 @@ export interface ArtifactsSummary {
 }
 
 export interface ByteString {
-  validUtf8?: boolean
   empty?: boolean
+  validUtf8?: boolean
 }
 
 export type CDStageExecutionSummaryDTO = StageExecutionSummaryDTO & {
@@ -2561,8 +2842,8 @@ export interface Descriptor {
   fields?: FieldDescriptor[]
   extensions?: FieldDescriptor[]
   oneofs?: OneofDescriptor[]
-  options?: MessageOptions
   name?: string
+  options?: MessageOptions
   extendable?: boolean
 }
 
@@ -2578,8 +2859,8 @@ export interface EnumDescriptor {
   file?: FileDescriptor
   containingType?: Descriptor
   values?: EnumValueDescriptor[]
-  options?: EnumOptions
   name?: string
+  options?: EnumOptions
 }
 
 export interface EnumOptions {
@@ -2588,11 +2869,11 @@ export interface EnumOptions {
   serializedSize?: number
   parserForType?: ParserEnumOptions
   defaultInstanceForType?: EnumOptions
-  allowAlias?: boolean
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+  allowAlias?: boolean
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -2608,9 +2889,9 @@ export interface EnumValueDescriptor {
   fullName?: string
   file?: FileDescriptor
   type?: EnumDescriptor
-  options?: EnumValueOptions
   name?: string
   number?: number
+  options?: EnumValueOptions
 }
 
 export interface EnumValueOptions {
@@ -2741,15 +3022,15 @@ export interface FieldDescriptor {
   containingOneof?: OneofDescriptor
   enumType?: EnumDescriptor
   defaultValue?: { [key: string]: any }
-  options?: FieldOptions
-  mapField?: boolean
+  packed?: boolean
+  required?: boolean
   name?: string
   number?: number
-  optional?: boolean
+  options?: FieldOptions
   repeated?: boolean
   javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
-  required?: boolean
-  packed?: boolean
+  mapField?: boolean
+  optional?: boolean
   liteJavaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
   liteType?:
     | 'DOUBLE'
@@ -2780,11 +3061,11 @@ export interface FieldOptions {
   serializedSize?: number
   parserForType?: ParserFieldOptions
   defaultInstanceForType?: FieldOptions
-  ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
-  jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
+  packed?: boolean
   lazy?: boolean
   weak?: boolean
-  packed?: boolean
+  ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
+  jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
@@ -2806,11 +3087,11 @@ export interface FileDescriptor {
   extensions?: FieldDescriptor[]
   dependencies?: FileDescriptor[]
   publicDependencies?: FileDescriptor[]
-  options?: FileOptions
+  fullName?: string
   name?: string
   package?: string
   file?: FileDescriptor
-  fullName?: string
+  options?: FileOptions
   syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
 }
 
@@ -2820,6 +3101,11 @@ export interface FileOptions {
   serializedSize?: number
   parserForType?: ParserFileOptions
   defaultInstanceForType?: FileOptions
+  javaStringCheckUtf8?: boolean
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   javaPackage?: string
   javaPackageBytes?: ByteString
   javaOuterClassname?: string
@@ -2848,11 +3134,6 @@ export interface FileOptions {
   phpMetadataNamespaceBytes?: ByteString
   rubyPackage?: string
   rubyPackageBytes?: ByteString
-  javaStringCheckUtf8?: boolean
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -2913,8 +3194,8 @@ export interface MethodDescriptor {
   service?: ServiceDescriptor
   inputType?: Descriptor
   outputType?: Descriptor
-  options?: MethodOptions
   name?: string
+  options?: MethodOptions
   clientStreaming?: boolean
   serverStreaming?: boolean
 }
@@ -2925,11 +3206,11 @@ export interface MethodOptions {
   serializedSize?: number
   parserForType?: ParserMethodOptions
   defaultInstanceForType?: MethodOptions
-  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -2981,8 +3262,8 @@ export interface OneofDescriptor {
   containingType?: Descriptor
   fieldCount?: number
   fields?: FieldDescriptor[]
-  options?: OneofOptions
   name?: string
+  options?: OneofOptions
 }
 
 export interface OneofOptions {
@@ -3067,6 +3348,7 @@ export interface ParserUninterpretedOption {
 export interface PipelineExecutionDetail {
   pipelineExecution?: PipelineExecutionSummaryDTO
   stageGraph?: ExecutionGraph
+  stageRollbackGraph?: ExecutionGraph
 }
 
 export interface PipelineExecutionSummaryDTO {
@@ -3122,8 +3404,8 @@ export interface ServiceDescriptor {
   fullName?: string
   file?: FileDescriptor
   methods?: MethodDescriptor[]
-  options?: ServiceOptions
   name?: string
+  options?: ServiceOptions
 }
 
 export interface ServiceExecutionSummary {
@@ -3160,12 +3442,12 @@ export interface StageExecutionSummaryDTO {
 export interface UninterpretedOption {
   unknownFields?: UnknownFieldSet
   nameCount?: number
-  stringValue?: ByteString
   doubleValue?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUninterpretedOption
   defaultInstanceForType?: UninterpretedOption
+  stringValue?: ByteString
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
   identifierValue?: string
@@ -3183,8 +3465,8 @@ export interface UninterpretedOption {
 
 export interface UninterpretedOptionOrBuilder {
   nameCount?: number
-  stringValue?: ByteString
   doubleValue?: number
+  stringValue?: ByteString
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
   identifierValue?: string
@@ -3238,19 +3520,6 @@ export interface ResponseMapExecutionNodeTypeString {
   correlationId?: string
 }
 
-export interface ResponsePipelineExecutionInterrupt {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PipelineExecutionInterrupt
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface PipelineExecutionInterrupt {
-  id?: string
-  type?: 'Abort' | 'Pause' | 'Resume'
-  planExecutionId?: string
-}
-
 export interface PagePipelineExecutionSummaryDTO {
   totalPages?: number
   totalItems?: number
@@ -3264,6 +3533,62 @@ export interface PagePipelineExecutionSummaryDTO {
 export interface ResponsePagePipelineExecutionSummaryDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PagePipelineExecutionSummaryDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface JiraIssueType {
+  id?: string
+  name?: string
+  description?: string
+  jiraStatusList?: JiraStatus[]
+  subTask?: boolean
+}
+
+export interface JiraProject {
+  id?: string
+  key?: string
+  name?: string
+  issuetypes?: JiraIssueType[]
+}
+
+export interface JiraProjectResponse {
+  jiraProjects?: JiraProject[]
+}
+
+export interface JiraStatus {
+  id?: string
+  name?: string
+  untranslatedName?: string
+  description?: string
+  statusCategory?: JiraStatusCategory
+}
+
+export interface JiraStatusCategory {
+  id?: string
+  key?: string
+  name?: string
+}
+
+export interface ResponseJiraProjectResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: JiraProjectResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface JiraIssue {
+  executionStatus?: string
+  issueUrl?: string
+  issueKey?: string
+  currentStatus?: string
+  errorMessage?: string
+  description?: string
+}
+
+export interface ResponseJiraIssue {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: JiraIssue
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -3318,46 +3643,8 @@ export interface UpdateJiraTicketRequest {
   rejectionValue?: string
 }
 
-export interface JiraIssue {
-  executionStatus?: string
-  issueUrl?: string
-  issueKey?: string
-  currentStatus?: string
-  errorMessage?: string
-  description?: string
-}
-
-export interface ResponseJiraIssue {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: JiraIssue
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface JiraIssueType {
-  id?: string
-  name?: string
-  description?: string
-  jiraStatusList?: JiraStatus[]
-  subTask?: boolean
-}
-
 export interface JiraProjectStatusesResponse {
   jiraIssueTypeList?: JiraIssueType[]
-}
-
-export interface JiraStatus {
-  id?: string
-  name?: string
-  untranslatedName?: string
-  description?: string
-  statusCategory?: JiraStatusCategory
-}
-
-export interface JiraStatusCategory {
-  id?: string
-  key?: string
-  name?: string
 }
 
 export interface ResponseJiraProjectStatusesResponse {
@@ -3414,27 +3701,9 @@ export interface JiraGetCreateMetadataResponse {
   jiraGetCreateMetadata?: JiraGetCreateMetadata
 }
 
-export interface JiraProject {
-  id?: string
-  key?: string
-  name?: string
-  issuetypes?: JiraIssueType[]
-}
-
 export interface ResponseJiraGetCreateMetadataResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: JiraGetCreateMetadataResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface JiraProjectResponse {
-  jiraProjects?: JiraProject[]
-}
-
-export interface ResponseJiraProjectResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: JiraProjectResponse
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -3447,6 +3716,80 @@ export interface AmbianceDTO {
   planExecutionId?: string
 }
 
+export interface ArtifactOutcome {
+  primaryArtifact?: boolean
+  artifactType?: string
+  type?: string
+  identifier: string
+  artifactSummary?: ArtifactSummary
+}
+
+export type ArtifactsOutcome = Outcome & {
+  primary?: ArtifactOutcome
+  sidecars?: {
+    [key: string]: ArtifactOutcome
+  }
+}
+
+export interface AzureAppDeploymentData {
+  instanceId?: string
+  instanceType?: string
+  instanceName?: string
+  resourceGroup?: string
+  subscriptionId?: string
+  appName?: string
+  deploySlot?: string
+  deploySlotId?: string
+  appServicePlanId?: string
+  hostName?: string
+  instanceIp?: string
+  instanceState?: string
+}
+
+export interface AzureVMInstanceData {
+  instanceId?: string
+  publicDnsName?: string
+  privateDnsName?: string
+  privateIpAddress?: string
+}
+
+export type BarrierOutcome = Outcome & {
+  message?: string
+  identifier?: string
+}
+
+export interface CapacityReservationSpecificationResponse {
+  capacityReservationPreference?: string
+  capacityReservationTarget?: CapacityReservationTargetResponse
+}
+
+export interface CapacityReservationTargetResponse {
+  capacityReservationId?: string
+  capacityReservationResourceGroupArn?: string
+}
+
+export interface CpuOptions {
+  coreCount?: number
+  threadsPerCore?: number
+}
+
+export type DockerArtifactOutcome = Outcome & {
+  connectorRef?: string
+  imagePath?: string
+  tag?: string
+  tagRegex?: string
+  identifier: string
+  artifactType?: string
+  primaryArtifact?: boolean
+  artifactSummary?: ArtifactSummary
+}
+
+export type DummySectionOutcome = Outcome & {
+  map?: {
+    [key: string]: string
+  }
+}
+
 export interface Duration {
   seconds?: number
   zero?: boolean
@@ -3455,9 +3798,53 @@ export interface Duration {
   units?: TemporalUnit[]
 }
 
+export interface EbsInstanceBlockDevice {
+  attachTime?: string
+  deleteOnTermination?: boolean
+  status?: string
+  volumeId?: string
+}
+
+export interface EcsContainerDetails {
+  taskId?: string
+  taskArn?: string
+  dockerId?: string
+  completeDockerId?: string
+  containerId?: string
+  containerInstanceId?: string
+  containerInstanceArn?: string
+  ecsServiceName?: string
+}
+
 export interface EdgeList {
   edges?: string[]
   nextIds?: string[]
+}
+
+export interface ElasticGpuAssociation {
+  elasticGpuId?: string
+  elasticGpuAssociationId?: string
+  elasticGpuAssociationState?: string
+  elasticGpuAssociationTime?: string
+}
+
+export interface ElasticInferenceAcceleratorAssociation {
+  elasticInferenceAcceleratorArn?: string
+  elasticInferenceAcceleratorAssociationId?: string
+  elasticInferenceAcceleratorAssociationState?: string
+  elasticInferenceAcceleratorAssociationTime?: string
+}
+
+export type EnvironmentOutcome = Outcome & {
+  name?: string
+  identifier?: string
+  description?: string
+  tags?: NGTag[]
+}
+
+export interface GitFile {
+  filePath?: string
+  fileContent?: string
 }
 
 export interface GraphVertexDTO {
@@ -3519,6 +3906,316 @@ export interface GraphVertexDTO {
   skipType?: 'NOOP' | 'SKIP_TREE' | 'SKIP_NODE' | 'UNRECOGNIZED'
 }
 
+export interface GroupIdentifier {
+  groupName?: string
+  groupId?: string
+}
+
+export interface HibernationOptions {
+  configured?: boolean
+}
+
+export interface HostElement {
+  uuid?: string
+  hostName?: string
+  ip?: string
+  instanceId?: string
+  publicDns?: string
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+  ec2Instance?: Instance
+  pcfElement?: PcfInstanceElement
+  azureVMInstance?: AzureVMInstanceData
+  webAppInstance?: AzureAppDeploymentData
+  name?: string
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+}
+
+export interface IamInstanceProfile {
+  arn?: string
+  id?: string
+}
+
+export interface Instance {
+  amiLaunchIndex?: number
+  imageId?: string
+  instanceId?: string
+  instanceType?: string
+  kernelId?: string
+  keyName?: string
+  launchTime?: string
+  monitoring?: Monitoring
+  placement?: Placement
+  platform?: string
+  privateDnsName?: string
+  privateIpAddress?: string
+  productCodes?: ProductCode[]
+  publicDnsName?: string
+  publicIpAddress?: string
+  ramdiskId?: string
+  state?: InstanceState
+  stateTransitionReason?: string
+  subnetId?: string
+  vpcId?: string
+  architecture?: string
+  blockDeviceMappings?: InstanceBlockDeviceMapping[]
+  clientToken?: string
+  ebsOptimized?: boolean
+  enaSupport?: boolean
+  hypervisor?: string
+  iamInstanceProfile?: IamInstanceProfile
+  instanceLifecycle?: string
+  elasticGpuAssociations?: ElasticGpuAssociation[]
+  elasticInferenceAcceleratorAssociations?: ElasticInferenceAcceleratorAssociation[]
+  networkInterfaces?: InstanceNetworkInterface[]
+  outpostArn?: string
+  rootDeviceName?: string
+  rootDeviceType?: string
+  securityGroups?: GroupIdentifier[]
+  sourceDestCheck?: boolean
+  spotInstanceRequestId?: string
+  sriovNetSupport?: string
+  stateReason?: StateReason
+  tags?: Tag[]
+  virtualizationType?: string
+  cpuOptions?: CpuOptions
+  capacityReservationId?: string
+  capacityReservationSpecification?: CapacityReservationSpecificationResponse
+  hibernationOptions?: HibernationOptions
+  licenses?: LicenseConfiguration[]
+  metadataOptions?: InstanceMetadataOptionsResponse
+}
+
+export interface InstanceBlockDeviceMapping {
+  deviceName?: string
+  ebs?: EbsInstanceBlockDevice
+}
+
+export interface InstanceElement {
+  uuid?: string
+  displayName?: string
+  hostName?: string
+  dockerId?: string
+  host?: HostElement
+  serviceTemplateElement?: ServiceTemplateElement
+  podName?: string
+  workloadName?: string
+  ecsContainerDetails?: EcsContainerDetails
+  newInstance?: boolean
+  name?: string
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+}
+
+export type InstanceFetchStateExecutionData = Outcome & {
+  activityId?: string
+  hostObjectArrayPath?: string
+  instanceFetchScript?: string
+  hostAttributes?: {
+    [key: string]: string
+  }
+  scriptOutput?: string
+  newInstanceStatusSummaries?: InstanceStatusSummary[]
+  stateName?: string
+  stateType?: string
+  startTs?: number
+  endTs?: number
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  errorMsg?: string
+  waitInterval?: number
+  element?: ContextElement
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  delegateMetaInfo?: DelegateMetaInfo
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+}
+
+export interface InstanceIpv6Address {
+  ipv6Address?: string
+}
+
+export interface InstanceMetadataOptionsResponse {
+  state?: string
+  httpTokens?: string
+  httpPutResponseHopLimit?: number
+  httpEndpoint?: string
+}
+
+export interface InstanceNetworkInterface {
+  association?: InstanceNetworkInterfaceAssociation
+  attachment?: InstanceNetworkInterfaceAttachment
+  description?: string
+  groups?: GroupIdentifier[]
+  ipv6Addresses?: InstanceIpv6Address[]
+  macAddress?: string
+  networkInterfaceId?: string
+  ownerId?: string
+  privateDnsName?: string
+  privateIpAddress?: string
+  privateIpAddresses?: InstancePrivateIpAddress[]
+  sourceDestCheck?: boolean
+  status?: string
+  subnetId?: string
+  vpcId?: string
+  interfaceType?: string
+}
+
+export interface InstanceNetworkInterfaceAssociation {
+  ipOwnerId?: string
+  publicDnsName?: string
+  publicIp?: string
+}
+
+export interface InstanceNetworkInterfaceAttachment {
+  attachTime?: string
+  attachmentId?: string
+  deleteOnTermination?: boolean
+  deviceIndex?: number
+  status?: string
+}
+
+export interface InstancePrivateIpAddress {
+  association?: InstanceNetworkInterfaceAssociation
+  primary?: boolean
+  privateDnsName?: string
+  privateIpAddress?: string
+}
+
+export interface InstanceState {
+  code?: number
+  name?: string
+}
+
+export interface InstanceStatusSummary {
+  instanceElement?: InstanceElement
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+}
+
 export interface InterruptEffect {
   interruptId: string
   tookEffectAt: number
@@ -3543,12 +4240,59 @@ export interface InterruptEffect {
     | 'CONTINUE_PIPELINE_STAGE'
 }
 
+export type K8sDirectInfraMapping = Outcome & {
+  uuid?: string
+  accountId?: string
+  k8sConnector?: string
+  namespace?: string
+  serviceIdentifier?: string
+}
+
+export type K8sDirectInfrastructureOutcome = Outcome & {
+  connectorRef?: string
+  namespace?: string
+  releaseName?: string
+  kind?: string
+}
+
+export type K8sRollingOutcome = Outcome & {
+  releaseName?: string
+  releaseNumber?: number
+}
+
 export interface LevelDTO {
   setupId?: string
   runtimeId?: string
   identifier?: string
   stepType?: string
   group?: string
+}
+
+export interface LicenseConfiguration {
+  licenseConfigurationArn?: string
+}
+
+export interface ManifestDataDetails {
+  identifier?: string
+  gitFiles?: GitFile[]
+}
+
+export type ManifestFetchOutcome = Outcome & {
+  manifestDataDetailsForSpec?: ManifestDataDetails[]
+  manifestDataDetailsForOverrides?: ManifestDataDetails[]
+}
+
+export type ManifestOutcome = Outcome & {
+  manifestAttributes?: ManifestAttributes[]
+}
+
+export interface Monitoring {
+  state?: string
+}
+
+export interface NGTag {
+  key: string
+  value: string
 }
 
 export interface OrchestrationAdjacencyListDTO {
@@ -3587,7 +4331,81 @@ export interface OrchestrationGraphDTO {
 }
 
 export interface Outcome {
-  [key: string]: any
+  type?: string
+}
+
+export interface PcfInstanceElement {
+  uuid?: string
+  applicationId?: string
+  instanceIndex?: string
+  displayName?: string
+  name?: string
+  newInstance?: boolean
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  upsize?: boolean
+}
+
+export interface Placement {
+  availabilityZone?: string
+  affinity?: string
+  groupName?: string
+  partitionNumber?: number
+  hostId?: string
+  tenancy?: string
+  spreadDomain?: string
+  hostResourceGroupArn?: string
+}
+
+export interface ProductCode {
+  productCodeId?: string
+  productCodeType?: string
+}
+
+export type ResourceRestraintOutcome = Outcome & {
+  name?: string
+  capacity?: number
+  resourceUnit?: string
+  usage?: number
+  alreadyAcquiredPermits?: number
 }
 
 export interface ResponseMessage {
@@ -3840,6 +4658,107 @@ export interface RestResponseOrchestrationGraphDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface ServiceElement {
+  uuid?: string
+  name?: string
+  description?: string
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+}
+
+export type ServiceOutcome = Outcome & {
+  identifier?: string
+  displayName?: string
+  description?: string
+  deploymentType?: string
+  artifacts?: ArtifactsOutcome
+  manifests?: ManifestAttributes[]
+}
+
+export interface ServiceTemplateElement {
+  uuid?: string
+  name?: string
+  serviceElement?: ServiceElement
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+}
+
 export interface StackTraceElement {
   methodName?: string
   fileName?: string
@@ -3848,11 +4767,21 @@ export interface StackTraceElement {
   nativeMethod?: boolean
 }
 
+export interface StateReason {
+  code?: string
+  message?: string
+}
+
+export interface Tag {
+  key?: string
+  value?: string
+}
+
 export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
   dateBased?: boolean
   durationEstimated?: boolean
+  timeBased?: boolean
+  duration?: Duration
 }
 
 export interface Throwable {
@@ -3863,16 +4792,62 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
+export type WaitStateExecutionData = Outcome & {
+  stateName?: string
+  stateType?: string
+  startTs?: number
+  endTs?: number
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  errorMsg?: string
+  waitInterval?: number
+  element?: ContextElement
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  delegateMetaInfo?: DelegateMetaInfo
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  duration?: number
+  wakeupTs?: number
+  resumeId?: string
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+}
+
+export interface StreamingOutput {
+  [key: string]: any
+}
+
 export interface RestResponsePlanExecution {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: PlanExecution
   responseMessages?: ResponseMessage[]
-}
-
-export interface StreamingOutput {
-  [key: string]: any
 }
 
 export interface InputSetError {
@@ -4057,8 +5032,8 @@ export interface PageNGPipelineSummaryResponse {
   size?: number
   content?: NGPipelineSummaryResponse[]
   number?: number
-  last?: boolean
   sort?: Sort
+  last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   empty?: boolean
@@ -4262,6 +5237,7 @@ export interface NGTriggerDetailsResponse {
   tags?: {
     [key: string]: string
   }
+  yaml?: string
   enabled?: boolean
 }
 
@@ -4285,6 +5261,13 @@ export interface ResponsePageNGTriggerDetailsResponse {
 export interface WebhookDetails {
   webhookSecret?: string
   webhookSourceRepo?: string
+}
+
+export interface ResponseNGTriggerDetailsResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGTriggerDetailsResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface PageNGTriggerResponse {
@@ -5159,100 +6142,6 @@ export const updateConnectorFilterPromise = (
     void
   >('PUT', getConfig('ng/api'), `/connectorFilters`, props, signal)
 
-export interface GetTestGitRepoConnectionResultQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  repoURL?: string
-}
-
-export interface GetTestGitRepoConnectionResultPathParams {
-  identifier: string
-}
-
-export type GetTestGitRepoConnectionResultProps = Omit<
-  MutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestGitRepoConnectionResultQueryParams,
-    void,
-    GetTestGitRepoConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestGitRepoConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const GetTestGitRepoConnectionResult = ({ identifier, ...props }: GetTestGitRepoConnectionResultProps) => (
-  <Mutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestGitRepoConnectionResultQueryParams,
-    void,
-    GetTestGitRepoConnectionResultPathParams
-  >
-    verb="POST"
-    path="/connectors/testGitRepoConnection/${identifier}"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetTestGitRepoConnectionResultProps = Omit<
-  UseMutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestGitRepoConnectionResultQueryParams,
-    void,
-    GetTestGitRepoConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestGitRepoConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const useGetTestGitRepoConnectionResult = ({ identifier, ...props }: UseGetTestGitRepoConnectionResultProps) =>
-  useMutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestGitRepoConnectionResultQueryParams,
-    void,
-    GetTestGitRepoConnectionResultPathParams
-  >(
-    'POST',
-    (paramsInPath: GetTestGitRepoConnectionResultPathParams) =>
-      `/connectors/testGitRepoConnection/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Test the connection
- */
-export const getTestGitRepoConnectionResultPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestGitRepoConnectionResultQueryParams,
-    void,
-    GetTestGitRepoConnectionResultPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestGitRepoConnectionResultQueryParams,
-    void,
-    GetTestGitRepoConnectionResultPathParams
-  >('POST', getConfig('ng/api'), `/connectors/testGitRepoConnection/${identifier}`, props, signal)
-
 export interface GetConnectorQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -5710,6 +6599,245 @@ export const getConnectorStatusPromise = (
     void
   >('POST', getConfig('ng/api'), `/connectors/validate`, props, signal)
 
+export interface GetConnectorCatalogueQueryParams {
+  accountIdentifier?: string
+}
+
+export type GetConnectorCatalogueProps = Omit<
+  GetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Connector Catalogue
+ */
+export const GetConnectorCatalogue = (props: GetConnectorCatalogueProps) => (
+  <Get<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>
+    path="/connectors/catalogue"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetConnectorCatalogueProps = Omit<
+  UseGetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Connector Catalogue
+ */
+export const useGetConnectorCatalogue = (props: UseGetConnectorCatalogueProps) =>
+  useGet<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
+    `/connectors/catalogue`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Connector Catalogue
+ */
+export const getConnectorCataloguePromise = (
+  props: GetUsingFetchProps<
+    ResponseConnectorCatalogueResponse,
+    Failure | Error,
+    GetConnectorCatalogueQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
+    getConfig('ng/api'),
+    `/connectors/catalogue`,
+    props,
+    signal
+  )
+
+export interface GetTestGitRepoConnectionResultQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  repoURL?: string
+}
+
+export interface GetTestGitRepoConnectionResultPathParams {
+  identifier: string
+}
+
+export type GetTestGitRepoConnectionResultProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestGitRepoConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const GetTestGitRepoConnectionResult = ({ identifier, ...props }: GetTestGitRepoConnectionResultProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >
+    verb="POST"
+    path="/connectors/testGitRepoConnection/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTestGitRepoConnectionResultProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestGitRepoConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const useGetTestGitRepoConnectionResult = ({ identifier, ...props }: UseGetTestGitRepoConnectionResultProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestGitRepoConnectionResultPathParams) =>
+      `/connectors/testGitRepoConnection/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Test the connection
+ */
+export const getTestGitRepoConnectionResultPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testGitRepoConnection/${identifier}`, props, signal)
+
+export interface GetTestConnectionResultQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetTestConnectionResultPathParams {
+  identifier: string
+}
+
+export type GetTestConnectionResultProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >
+    verb="POST"
+    path="/connectors/testConnection/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTestConnectionResultProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Test the connection
+ */
+export const getTestConnectionResultPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
+
 export interface ValidateTheIdentifierIsUniqueQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -5808,151 +6936,6 @@ export const getConnectorStatisticsPromise = (
   getUsingFetch<ResponseConnectorStatistics, Failure | Error, GetConnectorStatisticsQueryParams, void>(
     getConfig('ng/api'),
     `/connectors/stats`,
-    props,
-    signal
-  )
-
-export interface GetTestConnectionResultQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetTestConnectionResultPathParams {
-  identifier: string
-}
-
-export type GetTestConnectionResultProps = Omit<
-  MutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
-  <Mutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >
-    verb="POST"
-    path="/connectors/testConnection/${identifier}"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetTestConnectionResultProps = Omit<
-  UseMutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
-  useMutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >(
-    'POST',
-    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Test the connection
- */
-export const getTestConnectionResultPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
-
-export interface GetConnectorCatalogueQueryParams {
-  accountIdentifier?: string
-}
-
-export type GetConnectorCatalogueProps = Omit<
-  GetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
-  'path'
->
-
-/**
- * Get Connector Catalogue
- */
-export const GetConnectorCatalogue = (props: GetConnectorCatalogueProps) => (
-  <Get<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>
-    path="/connectors/catalogue"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetConnectorCatalogueProps = Omit<
-  UseGetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
-  'path'
->
-
-/**
- * Get Connector Catalogue
- */
-export const useGetConnectorCatalogue = (props: UseGetConnectorCatalogueProps) =>
-  useGet<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
-    `/connectors/catalogue`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Get Connector Catalogue
- */
-export const getConnectorCataloguePromise = (
-  props: GetUsingFetchProps<
-    ResponseConnectorCatalogueResponse,
-    Failure | Error,
-    GetConnectorCatalogueQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
-    getConfig('ng/api'),
-    `/connectors/catalogue`,
     props,
     signal
   )
@@ -6535,58 +7518,6 @@ export const getActivitiesSummaryPromise = (
     signal
   )
 
-export interface GetBuildDetailsForDockerQueryParams {
-  imagePath?: string
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type GetBuildDetailsForDockerProps = Omit<
-  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Gets docker build details
- */
-export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
-  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
-    path="/artifacts/docker/getBuildDetails"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetBuildDetailsForDockerProps = Omit<
-  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Gets docker build details
- */
-export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
-  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
-    `/artifacts/docker/getBuildDetails`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets docker build details
- */
-export const getBuildDetailsForDockerPromise = (
-  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
-    getConfig('ng/api'),
-    `/artifacts/docker/getBuildDetails`,
-    props,
-    signal
-  )
-
 export interface ValidateArtifactImageForDockerQueryParams {
   imagePath?: string
   connectorRef?: string
@@ -6638,81 +7569,6 @@ export const validateArtifactImageForDockerPromise = (
     props,
     signal
   )
-
-export interface GetLabelsForDockerQueryParams {
-  imagePath?: string
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type GetLabelsForDockerProps = Omit<
-  MutateProps<
-    ResponseDockerResponseDTO,
-    Failure | Error,
-    GetLabelsForDockerQueryParams,
-    DockerRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Gets docker labels
- */
-export const GetLabelsForDocker = (props: GetLabelsForDockerProps) => (
-  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetLabelsForDockerQueryParams, DockerRequestDTORequestBody, void>
-    verb="POST"
-    path="/artifacts/docker/getLabels"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetLabelsForDockerProps = Omit<
-  UseMutateProps<
-    ResponseDockerResponseDTO,
-    Failure | Error,
-    GetLabelsForDockerQueryParams,
-    DockerRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Gets docker labels
- */
-export const useGetLabelsForDocker = (props: UseGetLabelsForDockerProps) =>
-  useMutate<
-    ResponseDockerResponseDTO,
-    Failure | Error,
-    GetLabelsForDockerQueryParams,
-    DockerRequestDTORequestBody,
-    void
-  >('POST', `/artifacts/docker/getLabels`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Gets docker labels
- */
-export const getLabelsForDockerPromise = (
-  props: MutateUsingFetchProps<
-    ResponseDockerResponseDTO,
-    Failure | Error,
-    GetLabelsForDockerQueryParams,
-    DockerRequestDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseDockerResponseDTO,
-    Failure | Error,
-    GetLabelsForDockerQueryParams,
-    DockerRequestDTORequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/artifacts/docker/getLabels`, props, signal)
 
 export interface GetLastSuccessfulBuildForDockerQueryParams {
   imagePath?: string
@@ -6842,6 +7698,133 @@ export const validateArtifactServerForDockerPromise = (
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>(
     getConfig('ng/api'),
     `/artifacts/docker/validateArtifactServer`,
+    props,
+    signal
+  )
+
+export interface GetLabelsForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetLabelsForDockerProps = Omit<
+  MutateProps<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetLabelsForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets docker labels
+ */
+export const GetLabelsForDocker = (props: GetLabelsForDockerProps) => (
+  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetLabelsForDockerQueryParams, DockerRequestDTORequestBody, void>
+    verb="POST"
+    path="/artifacts/docker/getLabels"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLabelsForDockerProps = Omit<
+  UseMutateProps<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetLabelsForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets docker labels
+ */
+export const useGetLabelsForDocker = (props: UseGetLabelsForDockerProps) =>
+  useMutate<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetLabelsForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >('POST', `/artifacts/docker/getLabels`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets docker labels
+ */
+export const getLabelsForDockerPromise = (
+  props: MutateUsingFetchProps<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetLabelsForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetLabelsForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/docker/getLabels`, props, signal)
+
+export interface GetBuildDetailsForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetBuildDetailsForDockerProps = Omit<
+  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets docker build details
+ */
+export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
+  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
+    path="/artifacts/docker/getBuildDetails"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForDockerProps = Omit<
+  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets docker build details
+ */
+export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
+  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    `/artifacts/docker/getBuildDetails`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets docker build details
+ */
+export const getBuildDetailsForDockerPromise = (
+  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/getBuildDetails`,
     props,
     signal
   )
@@ -7254,83 +8237,6 @@ export const isEntityReferencedPromise = (
     signal
   )
 
-export interface UpsertEnvironmentQueryParams {
-  accountId?: string
-}
-
-export type UpsertEnvironmentProps = Omit<
-  MutateProps<
-    ResponseEnvironmentResponseDTO,
-    Failure | Error,
-    UpsertEnvironmentQueryParams,
-    EnvironmentRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upsert an environment by identifier
- */
-export const UpsertEnvironment = (props: UpsertEnvironmentProps) => (
-  <Mutate<
-    ResponseEnvironmentResponseDTO,
-    Failure | Error,
-    UpsertEnvironmentQueryParams,
-    EnvironmentRequestDTORequestBody,
-    void
-  >
-    verb="PUT"
-    path="/environments/upsert"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpsertEnvironmentProps = Omit<
-  UseMutateProps<
-    ResponseEnvironmentResponseDTO,
-    Failure | Error,
-    UpsertEnvironmentQueryParams,
-    EnvironmentRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upsert an environment by identifier
- */
-export const useUpsertEnvironment = (props: UseUpsertEnvironmentProps) =>
-  useMutate<
-    ResponseEnvironmentResponseDTO,
-    Failure | Error,
-    UpsertEnvironmentQueryParams,
-    EnvironmentRequestDTORequestBody,
-    void
-  >('PUT', `/environments/upsert`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Upsert an environment by identifier
- */
-export const upsertEnvironmentPromise = (
-  props: MutateUsingFetchProps<
-    ResponseEnvironmentResponseDTO,
-    Failure | Error,
-    UpsertEnvironmentQueryParams,
-    EnvironmentRequestDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseEnvironmentResponseDTO,
-    Failure | Error,
-    UpsertEnvironmentQueryParams,
-    EnvironmentRequestDTORequestBody,
-    void
-  >('PUT', getConfig('ng/api'), `/environments/upsert`, props, signal)
-
 export interface GetEnvironmentQueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -7659,6 +8565,83 @@ export const updateEnvironmentPromise = (
     EnvironmentRequestDTORequestBody,
     void
   >('PUT', getConfig('ng/api'), `/environments`, props, signal)
+
+export interface UpsertEnvironmentQueryParams {
+  accountId?: string
+}
+
+export type UpsertEnvironmentProps = Omit<
+  MutateProps<
+    ResponseEnvironmentResponseDTO,
+    Failure | Error,
+    UpsertEnvironmentQueryParams,
+    EnvironmentRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upsert an environment by identifier
+ */
+export const UpsertEnvironment = (props: UpsertEnvironmentProps) => (
+  <Mutate<
+    ResponseEnvironmentResponseDTO,
+    Failure | Error,
+    UpsertEnvironmentQueryParams,
+    EnvironmentRequestDTORequestBody,
+    void
+  >
+    verb="PUT"
+    path="/environments/upsert"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpsertEnvironmentProps = Omit<
+  UseMutateProps<
+    ResponseEnvironmentResponseDTO,
+    Failure | Error,
+    UpsertEnvironmentQueryParams,
+    EnvironmentRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upsert an environment by identifier
+ */
+export const useUpsertEnvironment = (props: UseUpsertEnvironmentProps) =>
+  useMutate<
+    ResponseEnvironmentResponseDTO,
+    Failure | Error,
+    UpsertEnvironmentQueryParams,
+    EnvironmentRequestDTORequestBody,
+    void
+  >('PUT', `/environments/upsert`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Upsert an environment by identifier
+ */
+export const upsertEnvironmentPromise = (
+  props: MutateUsingFetchProps<
+    ResponseEnvironmentResponseDTO,
+    Failure | Error,
+    UpsertEnvironmentQueryParams,
+    EnvironmentRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseEnvironmentResponseDTO,
+    Failure | Error,
+    UpsertEnvironmentQueryParams,
+    EnvironmentRequestDTORequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/environments/upsert`, props, signal)
 
 export interface UpdateInviteQueryParams {
   accountIdentifier?: string
@@ -8904,6 +9887,80 @@ export const putSecretTextViaYamlPromise = (
     signal
   )
 
+export interface ValidateSecretQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+}
+
+export type ValidateSecretProps = Omit<
+  MutateProps<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a secret
+ */
+export const ValidateSecret = (props: ValidateSecretProps) => (
+  <Mutate<ResponseSecretValidationResultDTO, Failure | Error, ValidateSecretQueryParams, SecretValidationMetaData, void>
+    verb="POST"
+    path="/v2/secrets/validate"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateSecretProps = Omit<
+  UseMutateProps<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a secret
+ */
+export const useValidateSecret = (props: UseValidateSecretProps) =>
+  useMutate<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >('POST', `/v2/secrets/validate`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Validate a secret
+ */
+export const validateSecretPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets/validate`, props, signal)
+
 export interface GetSecretV2QueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -9234,80 +10291,6 @@ export const postSecretPromise = (
     SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
-
-export interface ValidateSecretQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier?: string
-}
-
-export type ValidateSecretProps = Omit<
-  MutateProps<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validate a secret
- */
-export const ValidateSecret = (props: ValidateSecretProps) => (
-  <Mutate<ResponseSecretValidationResultDTO, Failure | Error, ValidateSecretQueryParams, SecretValidationMetaData, void>
-    verb="POST"
-    path="/v2/secrets/validate"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateSecretProps = Omit<
-  UseMutateProps<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validate a secret
- */
-export const useValidateSecret = (props: UseValidateSecretProps) =>
-  useMutate<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >('POST', `/v2/secrets/validate`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Validate a secret
- */
-export const validateSecretPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >('POST', getConfig('ng/api'), `/v2/secrets/validate`, props, signal)
 
 export interface PostSecretViaYamlQueryParams {
   accountIdentifier: string
@@ -10440,75 +11423,6 @@ export const schemafilePromise = (
 ) =>
   getUsingFetch<void, void, SchemafileQueryParams, void>(getConfig('ng/api'), `/yamlschema/schemafile`, props, signal)
 
-export interface UpsertServiceQueryParams {
-  accountId?: string
-}
-
-export type UpsertServiceProps = Omit<
-  MutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upsert a service by identifier
- */
-export const UpsertService = (props: UpsertServiceProps) => (
-  <Mutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>
-    verb="PUT"
-    path="/services/upsert"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpsertServiceProps = Omit<
-  UseMutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upsert a service by identifier
- */
-export const useUpsertService = (props: UseUpsertServiceProps) =>
-  useMutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>(
-    'PUT',
-    `/services/upsert`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Upsert a service by identifier
- */
-export const upsertServicePromise = (
-  props: MutateUsingFetchProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >('PUT', getConfig('ng/api'), `/services/upsert`, props, signal)
-
 export interface GetServiceQueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -10814,6 +11728,75 @@ export const updateServicePromise = (
     void
   >('PUT', getConfig('ng/api'), `/services`, props, signal)
 
+export interface UpsertServiceQueryParams {
+  accountId?: string
+}
+
+export type UpsertServiceProps = Omit<
+  MutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upsert a service by identifier
+ */
+export const UpsertService = (props: UpsertServiceProps) => (
+  <Mutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>
+    verb="PUT"
+    path="/services/upsert"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpsertServiceProps = Omit<
+  UseMutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upsert a service by identifier
+ */
+export const useUpsertService = (props: UseUpsertServiceProps) =>
+  useMutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>(
+    'PUT',
+    `/services/upsert`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Upsert a service by identifier
+ */
+export const upsertServicePromise = (
+  props: MutateUsingFetchProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/services/upsert`, props, signal)
+
 export interface CreateServicesQueryParams {
   accountId?: string
 }
@@ -10922,6 +11905,99 @@ export const getUsersPromise = (
     props,
     signal
   )
+
+export interface HandleInterruptQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  interruptType: 'Abort' | 'Pause' | 'Resume'
+}
+
+export interface HandleInterruptPathParams {
+  planExecutionId: string
+}
+
+export type HandleInterruptProps = Omit<
+  MutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
+  'path' | 'verb'
+> &
+  HandleInterruptPathParams
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
+  <Mutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >
+    verb="PUT"
+    path="/executions/interrupt/${planExecutionId}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHandleInterruptProps = Omit<
+  UseMutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
+  'path' | 'verb'
+> &
+  HandleInterruptPathParams
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
+  useMutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { planExecutionId },
+    ...props
+  })
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const handleInterruptPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
 
 export interface GetPipelineExecutionDetailQueryParams {
   accountIdentifier: string
@@ -11114,99 +12190,6 @@ export const getStepTypesToYamlTypeMappingPromise = (
     signal
   )
 
-export interface HandleInterruptQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  interruptType: 'Abort' | 'Pause' | 'Resume'
-}
-
-export interface HandleInterruptPathParams {
-  planExecutionId: string
-}
-
-export type HandleInterruptProps = Omit<
-  MutateProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
-  <Mutate<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >
-    verb="PUT"
-    path="/executions/interrupt/${planExecutionId}"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHandleInterruptProps = Omit<
-  UseMutateProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
-  useMutate<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`, {
-    base: getConfig('ng/api'),
-    pathParams: { planExecutionId },
-    ...props
-  })
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const handleInterruptPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  > & { planExecutionId: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
-
 export interface GetListOfExecutionsQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -11279,6 +12262,160 @@ export const getListOfExecutionsPromise = (
   getUsingFetch<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
     getConfig('ng/api'),
     `/executions`,
+    props,
+    signal
+  )
+
+export interface GetJiraProjectsQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetJiraProjectsProps = Omit<
+  GetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get jira projects
+ */
+export const GetJiraProjects = (props: GetJiraProjectsProps) => (
+  <Get<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>
+    path="/jira/getProjects"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetJiraProjectsProps = Omit<
+  UseGetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get jira projects
+ */
+export const useGetJiraProjects = (props: UseGetJiraProjectsProps) =>
+  useGet<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(`/jira/getProjects`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get jira projects
+ */
+export const getJiraProjectsPromise = (
+  props: GetUsingFetchProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(
+    getConfig('ng/api'),
+    `/jira/getProjects`,
+    props,
+    signal
+  )
+
+export interface ValidateJiraCredentialsQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateJiraCredentialsProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate jira credentials
+ */
+export const ValidateJiraCredentials = (props: ValidateJiraCredentialsProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>
+    path="/jira/validate"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateJiraCredentialsProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate jira credentials
+ */
+export const useValidateJiraCredentials = (props: UseValidateJiraCredentialsProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(`/jira/validate`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Validate jira credentials
+ */
+export const validateJiraCredentialsPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(
+    getConfig('ng/api'),
+    `/jira/validate`,
+    props,
+    signal
+  )
+
+export interface FetchJiraIssueQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  jiraIssueId?: string
+}
+
+export type FetchJiraIssueProps = Omit<
+  GetProps<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Fetch jira issue
+ */
+export const FetchJiraIssue = (props: FetchJiraIssueProps) => (
+  <Get<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>
+    path="/jira/fetchIssue"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseFetchJiraIssueProps = Omit<
+  UseGetProps<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Fetch jira issue
+ */
+export const useFetchJiraIssue = (props: UseFetchJiraIssueProps) =>
+  useGet<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>(`/jira/fetchIssue`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Fetch jira issue
+ */
+export const fetchJiraIssuePromise = (
+  props: GetUsingFetchProps<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>(
+    getConfig('ng/api'),
+    `/jira/fetchIssue`,
     props,
     signal
   )
@@ -11399,109 +12536,6 @@ export const updateJiraTicketPromise = (
     'POST',
     getConfig('ng/api'),
     `/jira/updateTicket`,
-    props,
-    signal
-  )
-
-export interface ValidateJiraCredentialsQueryParams {
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type ValidateJiraCredentialsProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
-  'path'
->
-
-/**
- * Validate jira credentials
- */
-export const ValidateJiraCredentials = (props: ValidateJiraCredentialsProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>
-    path="/jira/validate"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateJiraCredentialsProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
-  'path'
->
-
-/**
- * Validate jira credentials
- */
-export const useValidateJiraCredentials = (props: UseValidateJiraCredentialsProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(`/jira/validate`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Validate jira credentials
- */
-export const validateJiraCredentialsPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(
-    getConfig('ng/api'),
-    `/jira/validate`,
-    props,
-    signal
-  )
-
-export interface FetchJiraIssueQueryParams {
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  jiraIssueId?: string
-}
-
-export type FetchJiraIssueProps = Omit<
-  GetProps<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>,
-  'path'
->
-
-/**
- * Fetch jira issue
- */
-export const FetchJiraIssue = (props: FetchJiraIssueProps) => (
-  <Get<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>
-    path="/jira/fetchIssue"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseFetchJiraIssueProps = Omit<
-  UseGetProps<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>,
-  'path'
->
-
-/**
- * Fetch jira issue
- */
-export const useFetchJiraIssue = (props: UseFetchJiraIssueProps) =>
-  useGet<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>(`/jira/fetchIssue`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Fetch jira issue
- */
-export const fetchJiraIssuePromise = (
-  props: GetUsingFetchProps<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseJiraIssue, Failure | Error, FetchJiraIssueQueryParams, void>(
-    getConfig('ng/api'),
-    `/jira/fetchIssue`,
     props,
     signal
   )
@@ -11729,101 +12763,95 @@ export const getJiraCreateMetadataPromise = (
     signal
   )
 
-export interface GetJiraProjectsQueryParams {
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+export interface GetGraphOrchestrationQueryParams {
+  planExecutionId?: string
 }
 
-export type GetJiraProjectsProps = Omit<
-  GetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+export type GetGraphOrchestrationProps = Omit<
+  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
   'path'
 >
 
 /**
- * Get jira projects
+ * generate orchestration graph for plan execution
  */
-export const GetJiraProjects = (props: GetJiraProjectsProps) => (
-  <Get<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>
-    path="/jira/getProjects"
+export const GetGraphOrchestration = (props: GetGraphOrchestrationProps) => (
+  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>
+    path="/orchestration/get-graph-orchestration"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetJiraProjectsProps = Omit<
-  UseGetProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+export type UseGetGraphOrchestrationProps = Omit<
+  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
   'path'
 >
 
 /**
- * Get jira projects
+ * generate orchestration graph for plan execution
  */
-export const useGetJiraProjects = (props: UseGetJiraProjectsProps) =>
-  useGet<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(`/jira/getProjects`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+export const useGetGraphOrchestration = (props: UseGetGraphOrchestrationProps) =>
+  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
+    `/orchestration/get-graph-orchestration`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
- * Get jira projects
+ * generate orchestration graph for plan execution
  */
-export const getJiraProjectsPromise = (
-  props: GetUsingFetchProps<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>,
+export const getGraphOrchestrationPromise = (
+  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseJiraProjectResponse, Failure | Error, GetJiraProjectsQueryParams, void>(
+  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
     getConfig('ng/api'),
-    `/jira/getProjects`,
+    `/orchestration/get-graph-orchestration`,
     props,
     signal
   )
 
-export interface GetGraphQueryParams {
+export interface GetGraphVisualizationQueryParams {
   planExecutionId?: string
 }
 
-export type GetGraphProps = Omit<
-  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
-  'path'
->
+export type GetGraphVisualizationProps = Omit<GetProps<void, unknown, GetGraphVisualizationQueryParams, void>, 'path'>
 
 /**
- * generate graph for plan execution
+ * generate graph execution visualization
  */
-export const GetGraph = (props: GetGraphProps) => (
-  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>
-    path="/orchestration/get-graph"
+export const GetGraphVisualization = (props: GetGraphVisualizationProps) => (
+  <Get<void, unknown, GetGraphVisualizationQueryParams, void>
+    path="/orchestration/get-graph-visualization"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetGraphProps = Omit<
-  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
+export type UseGetGraphVisualizationProps = Omit<
+  UseGetProps<void, unknown, GetGraphVisualizationQueryParams, void>,
   'path'
 >
 
 /**
- * generate graph for plan execution
+ * generate graph execution visualization
  */
-export const useGetGraph = (props: UseGetGraphProps) =>
-  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(`/orchestration/get-graph`, {
+export const useGetGraphVisualization = (props: UseGetGraphVisualizationProps) =>
+  useGet<void, unknown, GetGraphVisualizationQueryParams, void>(`/orchestration/get-graph-visualization`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 /**
- * generate graph for plan execution
+ * generate graph execution visualization
  */
-export const getGraphPromise = (
-  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
+export const getGraphVisualizationPromise = (
+  props: GetUsingFetchProps<void, unknown, GetGraphVisualizationQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(
+  getUsingFetch<void, unknown, GetGraphVisualizationQueryParams, void>(
     getConfig('ng/api'),
-    `/orchestration/get-graph`,
+    `/orchestration/get-graph-visualization`,
     props,
     signal
   )
@@ -12006,95 +13034,50 @@ export const httpChainV3Promise = (
     signal
   )
 
-export interface GetGraphOrchestrationQueryParams {
+export interface GetGraphQueryParams {
   planExecutionId?: string
 }
 
-export type GetGraphOrchestrationProps = Omit<
-  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
+export type GetGraphProps = Omit<
+  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
   'path'
 >
 
 /**
- * generate orchestration graph for plan execution
+ * generate graph for plan execution
  */
-export const GetGraphOrchestration = (props: GetGraphOrchestrationProps) => (
-  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>
-    path="/orchestration/get-graph-orchestration"
+export const GetGraph = (props: GetGraphProps) => (
+  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>
+    path="/orchestration/get-graph"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetGraphOrchestrationProps = Omit<
-  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
+export type UseGetGraphProps = Omit<
+  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
   'path'
 >
 
 /**
- * generate orchestration graph for plan execution
+ * generate graph for plan execution
  */
-export const useGetGraphOrchestration = (props: UseGetGraphOrchestrationProps) =>
-  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
-    `/orchestration/get-graph-orchestration`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * generate orchestration graph for plan execution
- */
-export const getGraphOrchestrationPromise = (
-  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/get-graph-orchestration`,
-    props,
-    signal
-  )
-
-export interface GetGraphVisualizationQueryParams {
-  planExecutionId?: string
-}
-
-export type GetGraphVisualizationProps = Omit<GetProps<void, unknown, GetGraphVisualizationQueryParams, void>, 'path'>
-
-/**
- * generate graph execution visualization
- */
-export const GetGraphVisualization = (props: GetGraphVisualizationProps) => (
-  <Get<void, unknown, GetGraphVisualizationQueryParams, void>
-    path="/orchestration/get-graph-visualization"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetGraphVisualizationProps = Omit<
-  UseGetProps<void, unknown, GetGraphVisualizationQueryParams, void>,
-  'path'
->
-
-/**
- * generate graph execution visualization
- */
-export const useGetGraphVisualization = (props: UseGetGraphVisualizationProps) =>
-  useGet<void, unknown, GetGraphVisualizationQueryParams, void>(`/orchestration/get-graph-visualization`, {
+export const useGetGraph = (props: UseGetGraphProps) =>
+  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(`/orchestration/get-graph`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 /**
- * generate graph execution visualization
+ * generate graph for plan execution
  */
-export const getGraphVisualizationPromise = (
-  props: GetUsingFetchProps<void, unknown, GetGraphVisualizationQueryParams, void>,
+export const getGraphPromise = (
+  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<void, unknown, GetGraphVisualizationQueryParams, void>(
+  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(
     getConfig('ng/api'),
-    `/orchestration/get-graph-visualization`,
+    `/orchestration/get-graph`,
     props,
     signal
   )
@@ -13695,6 +14678,81 @@ export const updateTriggerStatusPromise = (
     UpdateTriggerStatusPathParams
   >('PUT', getConfig('ng/api'), `/triggers/${triggerIdentifier}/status`, props, signal)
 
+export interface GetTriggerDetailsQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  targetIdentifier: string
+}
+
+export interface GetTriggerDetailsPathParams {
+  triggerIdentifier: string
+}
+
+export type GetTriggerDetailsProps = Omit<
+  GetProps<
+    ResponseNGTriggerDetailsResponse,
+    Failure | Error,
+    GetTriggerDetailsQueryParams,
+    GetTriggerDetailsPathParams
+  >,
+  'path'
+> &
+  GetTriggerDetailsPathParams
+
+/**
+ * Gets Triggers list for target
+ */
+export const GetTriggerDetails = ({ triggerIdentifier, ...props }: GetTriggerDetailsProps) => (
+  <Get<ResponseNGTriggerDetailsResponse, Failure | Error, GetTriggerDetailsQueryParams, GetTriggerDetailsPathParams>
+    path="/triggers/${triggerIdentifier}/details"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTriggerDetailsProps = Omit<
+  UseGetProps<
+    ResponseNGTriggerDetailsResponse,
+    Failure | Error,
+    GetTriggerDetailsQueryParams,
+    GetTriggerDetailsPathParams
+  >,
+  'path'
+> &
+  GetTriggerDetailsPathParams
+
+/**
+ * Gets Triggers list for target
+ */
+export const useGetTriggerDetails = ({ triggerIdentifier, ...props }: UseGetTriggerDetailsProps) =>
+  useGet<ResponseNGTriggerDetailsResponse, Failure | Error, GetTriggerDetailsQueryParams, GetTriggerDetailsPathParams>(
+    (paramsInPath: GetTriggerDetailsPathParams) => `/triggers/${paramsInPath.triggerIdentifier}/details`,
+    { base: getConfig('ng/api'), pathParams: { triggerIdentifier }, ...props }
+  )
+
+/**
+ * Gets Triggers list for target
+ */
+export const getTriggerDetailsPromise = (
+  {
+    triggerIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseNGTriggerDetailsResponse,
+    Failure | Error,
+    GetTriggerDetailsQueryParams,
+    GetTriggerDetailsPathParams
+  > & { triggerIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseNGTriggerDetailsResponse,
+    Failure | Error,
+    GetTriggerDetailsQueryParams,
+    GetTriggerDetailsPathParams
+  >(getConfig('ng/api'), `/triggers/${triggerIdentifier}/details`, props, signal)
+
 export interface GetTriggerListForRepoURLQueryParams {
   repoURL: string
   filter?: string
@@ -13744,56 +14802,6 @@ export const getTriggerListForRepoURLPromise = (
   getUsingFetch<ResponsePageNGTriggerResponse, Failure | Error, GetTriggerListForRepoURLQueryParams, void>(
     getConfig('ng/api'),
     `/triggers/triggersList`,
-    props,
-    signal
-  )
-
-export interface WebhookEndpointQueryParams {
-  accountIdentifier: string
-}
-
-export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * accept webhook event
- */
-export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>
-    verb="POST"
-    path="/webhook/trigger"
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * accept webhook event
- */
-export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>('POST', `/webhook/trigger`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * accept webhook event
- */
-export const webhookEndpointPromise = (
-  props: MutateUsingFetchProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/webhook/trigger`,
     props,
     signal
   )
@@ -13891,8 +14899,193 @@ export const getActionsListPromise = (
     signal
   )
 
+export interface WebhookEndpointQueryParams {
+  accountIdentifier: string
+}
+
+export type WebhookEndpointProps = Omit<
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * accept webhook event
+ */
+export const WebhookEndpoint = (props: WebhookEndpointProps) => (
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>
+    verb="POST"
+    path="/webhook/trigger"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseWebhookEndpointProps = Omit<
+  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * accept webhook event
+ */
+export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>('POST', `/webhook/trigger`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * accept webhook event
+ */
+export const webhookEndpointPromise = (
+  props: MutateUsingFetchProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/webhook/trigger`,
+    props,
+    signal
+  )
+
+export interface GetYamlSchemaQueryParams {
+  entityType: 'Projects' | 'Pipelines' | 'Connectors' | 'Secrets' | 'Service' | 'Environment' | 'InputSets'
+}
+
+export type GetYamlSchemaProps = Omit<GetProps<ResponseString, Failure | Error, GetYamlSchemaQueryParams, void>, 'path'>
+
+/**
+ * Get Yaml Schema
+ */
+export const GetYamlSchema = (props: GetYamlSchemaProps) => (
+  <Get<ResponseString, Failure | Error, GetYamlSchemaQueryParams, void>
+    path="/yaml-schema"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetYamlSchemaProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Yaml Schema
+ */
+export const useGetYamlSchema = (props: UseGetYamlSchemaProps) =>
+  useGet<ResponseString, Failure | Error, GetYamlSchemaQueryParams, void>(`/yaml-schema`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get Yaml Schema
+ */
+export const getYamlSchemaPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, GetYamlSchemaQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetYamlSchemaQueryParams, void>(
+    getConfig('ng/api'),
+    `/yaml-schema`,
+    props,
+    signal
+  )
+
+export interface GetYamlSchemaForSubtypeQueryParams {
+  subtype:
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Vault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'Awssecretsmanager'
+    | 'Azurevault'
+    | 'Cyberark'
+    | 'CustomSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+}
+
+export interface GetYamlSchemaForSubtypePathParams {
+  entityType: 'Projects' | 'Pipelines' | 'Connectors' | 'Secrets' | 'Service' | 'Environment' | 'InputSets'
+}
+
+export type GetYamlSchemaForSubtypeProps = Omit<
+  GetProps<ResponseString, Failure | Error, GetYamlSchemaForSubtypeQueryParams, GetYamlSchemaForSubtypePathParams>,
+  'path'
+> &
+  GetYamlSchemaForSubtypePathParams
+
+/**
+ * Get Yaml Schema for subtype
+ */
+export const GetYamlSchemaForSubtype = ({ entityType, ...props }: GetYamlSchemaForSubtypeProps) => (
+  <Get<ResponseString, Failure | Error, GetYamlSchemaForSubtypeQueryParams, GetYamlSchemaForSubtypePathParams>
+    path="/yaml-schema/${entityType}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetYamlSchemaForSubtypeProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetYamlSchemaForSubtypeQueryParams, GetYamlSchemaForSubtypePathParams>,
+  'path'
+> &
+  GetYamlSchemaForSubtypePathParams
+
+/**
+ * Get Yaml Schema for subtype
+ */
+export const useGetYamlSchemaForSubtype = ({ entityType, ...props }: UseGetYamlSchemaForSubtypeProps) =>
+  useGet<ResponseString, Failure | Error, GetYamlSchemaForSubtypeQueryParams, GetYamlSchemaForSubtypePathParams>(
+    (paramsInPath: GetYamlSchemaForSubtypePathParams) => `/yaml-schema/${paramsInPath.entityType}`,
+    { base: getConfig('ng/api'), pathParams: { entityType }, ...props }
+  )
+
+/**
+ * Get Yaml Schema for subtype
+ */
+export const getYamlSchemaForSubtypePromise = (
+  {
+    entityType,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseString,
+    Failure | Error,
+    GetYamlSchemaForSubtypeQueryParams,
+    GetYamlSchemaForSubtypePathParams
+  > & { entityType: 'Projects' | 'Pipelines' | 'Connectors' | 'Secrets' | 'Service' | 'Environment' | 'InputSets' },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetYamlSchemaForSubtypeQueryParams, GetYamlSchemaForSubtypePathParams>(
+    getConfig('ng/api'),
+    `/yaml-schema/${entityType}`,
+    props,
+    signal
+  )
+
 export interface GetYamlSnippetMetadataQueryParams {
-  tags?: ('k8s' | 'git' | 'docker' | 'connector' | 'secretmanager')[]
+  tags?: (
+    | 'k8s'
+    | 'git'
+    | 'docker'
+    | 'connector'
+    | 'secretmanager'
+    | 'secret'
+    | 'secretText'
+    | 'secretFile'
+    | 'sshKey'
+  )[]
 }
 
 export type GetYamlSnippetMetadataProps = Omit<

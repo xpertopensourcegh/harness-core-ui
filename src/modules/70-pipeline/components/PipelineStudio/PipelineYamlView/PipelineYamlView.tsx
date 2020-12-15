@@ -2,7 +2,6 @@ import React from 'react'
 import { parse } from 'yaml'
 import { Prompt, useHistory } from 'react-router-dom'
 import type * as History from 'history'
-import { YamlEntity } from '@common/constants/YamlConstants'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -42,7 +41,7 @@ const PipelineYamlView: React.FC = () => {
       />
       <YAMLBuilder
         fileName="DeploymentPipeline.yaml"
-        entityType={YamlEntity.PIPELINE}
+        entityType="Pipelines"
         existingJSON={{ pipeline }}
         bind={setYamlHandler}
         height={'calc(100vh - 200px)'}

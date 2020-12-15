@@ -20,7 +20,6 @@ import {
 import { useToaster } from '@common/exports'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import { YamlEntity } from '@common/constants/YamlConstants'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import type { PipelinePathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -42,7 +41,7 @@ enum SelectedView {
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   fileName: `run-pipeline.yaml`,
-  entityType: YamlEntity.PIPELINE,
+  entityType: 'Pipelines',
   width: 620,
   height: 360,
   showSnippetSection: false

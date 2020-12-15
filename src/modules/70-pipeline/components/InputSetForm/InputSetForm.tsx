@@ -38,7 +38,6 @@ import {
   ResponseOverlayInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput
 } from 'services/cd-ng'
-import { YamlEntity } from '@common/constants/YamlConstants'
 import { useToaster } from '@common/exports'
 import type {
   YamlBuilderHandlerBinding,
@@ -94,7 +93,7 @@ const dialogProps: Omit<IDialogProps, 'isOpen'> = {
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   fileName: `input-set.yaml`,
-  entityType: YamlEntity.INPUT_SET,
+  entityType: 'InputSets',
   width: 620,
   height: 360,
   showSnippetSection: false

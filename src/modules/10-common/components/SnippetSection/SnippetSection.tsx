@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Icon, IconName } from '@wings-software/uikit'
 import cx from 'classnames'
 
-import type { YamlSnippetMetaData } from 'services/cd-ng'
-import type { YamlEntity } from '@common/constants/YamlConstants'
+import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import SnippetDetails from './SnippetDetails'
 
 import css from './SnippetSection.module.scss'
 
 export interface SnippetSectionProps {
-  entityType: YamlEntity
+  entityType: GetYamlSchemaQueryParams['entityType']
   showIconMenu?: boolean
   height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']

@@ -17,7 +17,6 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { YamlEntity } from '@common/constants/YamlConstants'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 
@@ -167,7 +166,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           edit ? (
             <Container>
               <YamlBuilder
-                entityType={YamlEntity.SECRET}
+                entityType={'Secrets'}
                 fileName={`${secretData.secret.name}.yaml`}
                 // existingJson={}
                 // fieldRemovedFromYaml={[]}
@@ -179,7 +178,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           ) : (
             <Container>
               <YamlBuilder
-                entityType={YamlEntity.SECRET}
+                entityType={'Secrets'}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 fileName={`${secretData.secret.name}.yaml`}
                 isReadOnlyMode={true}

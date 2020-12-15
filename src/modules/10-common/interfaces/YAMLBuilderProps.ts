@@ -1,6 +1,5 @@
 import type { CompletionItemKind } from 'vscode-languageserver-types'
-import type { YamlSnippetMetaData } from 'services/cd-ng'
-import type { YamlEntity } from '../constants/YamlConstants'
+import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
@@ -15,7 +14,7 @@ export interface YamlBuilderProps {
   width?: React.CSSProperties['width']
   fileName: string
   existingJSON?: Record<string, any>
-  entityType: YamlEntity
+  entityType: GetYamlSchemaQueryParams['entityType']
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
@@ -32,4 +31,16 @@ export interface CompletionItemInterface {
   label: string
   kind: CompletionItemKind
   insertText: string
+}
+
+interface SchemaInterace {
+  fileMatch: string[]
+  schema: string
+}
+export interface LanguageSettingInterface {
+  validate: boolean
+  enableSchemaRequest?: boolean
+  hover: boolean
+  completion: boolean
+  schemas: SchemaInterace[]
 }

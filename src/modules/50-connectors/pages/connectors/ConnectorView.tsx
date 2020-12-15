@@ -12,7 +12,6 @@ import {
 } from 'services/cd-ng'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import { getValidationErrorMessagesForToaster } from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
-import { YamlEntity } from 'modules/10-common/constants/YamlConstants'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -144,7 +143,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.identifier ?? 'Connector'}.yaml`,
-    entityType: YamlEntity.CONNECTOR,
+    entityType: 'Connectors',
     existingJSON: { connector: connectorForYaml },
     bind: setYamlHandler,
     width: 900
@@ -197,7 +196,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
 
   const { data: snippetMetaData } = useGetYamlSnippetMetadata({
     queryParams: {
-      tags: getSnippetTags(YamlEntity.CONNECTOR, props.type)
+      tags: getSnippetTags('Connectors', props.type)
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
