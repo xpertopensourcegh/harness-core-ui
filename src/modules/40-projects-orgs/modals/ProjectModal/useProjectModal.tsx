@@ -27,7 +27,7 @@ export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProp
   const [projectData, setProjectData] = useState<Project>()
 
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
-    if (!wizardData || isEmpty(wizardData.modules)) {
+    /* istanbul ignore else */ if (!wizardData || isEmpty(wizardData.modules)) {
       setView(Views.PURPOSE)
       setProjectData(wizardData)
     }

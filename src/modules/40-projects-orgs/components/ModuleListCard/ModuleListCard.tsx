@@ -82,6 +82,7 @@ const getModuleLinks = (
           <Link to={''}> {i18n.viewPipeline}</Link>
         </Layout.Vertical>
       )
+    /* istanbul ignore next */
     default:
       return <></>
   }

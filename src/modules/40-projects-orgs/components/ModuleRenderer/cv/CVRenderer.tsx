@@ -25,7 +25,7 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
             routes.toCVMainDashBoardPage({
               orgIdentifier: data.orgIdentifier,
               projectIdentifier: data.identifier,
-              accountId: data.accountIdentifier || ''
+              accountId: data.accountIdentifier || /* istanbul ignore next */ ''
             })
           )
       }}

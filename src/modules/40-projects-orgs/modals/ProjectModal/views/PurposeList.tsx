@@ -247,9 +247,9 @@ const PurposeList: React.FC<ProjectModalData> = props => {
             selected.map(module =>
               getModuleLinks(
                 module,
-                projectData.orgIdentifier || '',
+                projectData.orgIdentifier || /* istanbul ignore next */ '',
                 projectData.identifier,
-                projectData.accountIdentifier || ''
+                projectData.accountIdentifier || /* istanbul ignore next */ ''
               )
             )
           )}

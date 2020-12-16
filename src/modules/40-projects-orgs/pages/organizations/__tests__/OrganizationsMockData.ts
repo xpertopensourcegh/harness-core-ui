@@ -7,18 +7,22 @@ export const orgMockData = {
       pageSize: 50,
       content: [
         {
-          accountIdentifier: 'testAcc',
-          identifier: 'testOrg',
-          name: 'Org Name',
-          description: 'Description',
-          tags: { tag1: '', tag2: 'tag3' }
+          organization: {
+            accountIdentifier: 'testAcc',
+            identifier: 'testOrg',
+            name: 'Org Name',
+            description: 'Description',
+            tags: { tag1: '', tag2: 'tag3' }
+          }
         },
         {
-          accountIdentifier: 'testAcc',
-          identifier: 'testOrg2',
-          name: 'test org 2',
-          description: '',
-          tags: {}
+          organization: {
+            accountIdentifier: 'testAcc',
+            identifier: 'testOrg2',
+            name: 'test org 2',
+            description: '',
+            tags: {}
+          }
         }
       ],
       pageIndex: 0,
@@ -33,11 +37,13 @@ export const getOrgMockData = {
   data: {
     status: 'SUCCESS',
     data: {
-      accountIdentifier: 'testAcc',
-      identifier: 'testOrg',
-      name: 'Org Name',
-      description: 'Description',
-      tags: { tag1: '', tag2: 'tag3' }
+      organization: {
+        accountIdentifier: 'testAcc',
+        identifier: 'testOrg',
+        name: 'Org Name',
+        description: 'Description',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
     },
     metaData: undefined,
     correlationId: '9f77f74d-c4ab-44a2-bfea-b4545c6a4a39'

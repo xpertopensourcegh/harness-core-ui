@@ -4,6 +4,10 @@ global:
   featureFlagsText: Feature Flags
   logView: Log View
   projectsText: Projects
+  projectLabel: Project
+  orgLabel: Organization
+  modules: Modules
+  lastActivity: last activity
   deploymentText: Deployment
   cloudCostsText: Cloud Costs
   changeVerificationText: Change Verifications
@@ -101,6 +105,9 @@ global:
   navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
   navigationCheckTitle: 'Close without saving?'
   inputSetsText: 'Input Sets'
+  projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
+  addProject: '+ Add Project'
+  noProjects: 'No Projects Found'
   inputTypes:
     FIXED: Fixed input list
     RUNTIME: Runtime input

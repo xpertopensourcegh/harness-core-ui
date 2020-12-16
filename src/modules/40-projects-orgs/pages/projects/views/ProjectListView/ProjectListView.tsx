@@ -8,12 +8,11 @@ import { Project, ProjectAggregateDTO, useGetProjectAggregateDTOList } from 'ser
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
-import { ModuleName, useAppStore, String } from 'framework/exports'
+import { ModuleName, useAppStore, String, useStrings } from 'framework/exports'
 import { Page } from '@common/components/Page/Page'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import { getModuleIcon } from '@projects-orgs/utils/utils'
 import useDeleteProjectDialog from '../../DeleteProject'
-import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
@@ -173,6 +172,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const { accountId } = useParams()
   const [page, setPage] = useState(0)
   const history = useHistory()
+  const { getString } = useStrings()
   const { data, loading, refetch } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
@@ -186,7 +186,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     debounce: 300
   })
 
-  if (reloadPage) {
+  /* istanbul ignore else */ if (reloadPage) {
     refetch()
     reloadPage(false)
   }
@@ -198,21 +198,21 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const columns: CustomColumn<ProjectAggregateDTO>[] = useMemo(
     () => [
       {
-        Header: i18n.project.toUpperCase(),
+        Header: getString('projectLabel').toUpperCase(),
         id: 'name',
         accessor: row => row.projectResponse.project.name,
         width: '25%',
         Cell: RenderColumnProject
       },
       {
-        Header: i18n.organization.toUpperCase(),
+        Header: getString('orgLabel').toUpperCase(),
         id: 'orgName',
         accessor: row => row.projectResponse.project.orgIdentifier,
         width: '15%',
         Cell: RenderColumnOrganization
       },
       {
-        Header: i18n.modules.toUpperCase(),
+        Header: getString('modules').toUpperCase(),
         id: 'modules',
         accessor: row => row.projectResponse.project.modules,
         width: '20%',
@@ -220,14 +220,14 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         disableSortBy: true
       },
       {
-        Header: i18n.lastActivity.toUpperCase(),
+        Header: getString('lastActivity').toUpperCase(),
         id: 'status',
         accessor: row => row.projectResponse.lastModifiedAt,
         width: '15%',
         Cell: RenderColumnActivity
       },
       {
-        Header: i18n.admin.toUpperCase(),
+        Header: getString('adminLabel').toUpperCase(),
         id: 'admin',
         accessor: row => row.projectResponse.project.color,
         width: '10%',
@@ -236,7 +236,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         disableSortBy: true
       },
       {
-        Header: i18n.collaborators.toUpperCase(),
+        Header: getString('collaboratorsLabel').toUpperCase(),
         id: 'collaborators',
         accessor: row => row.projectResponse.createdAt,
         width: '10%',
@@ -267,14 +267,14 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
           ? {
               when: () => !data?.data?.content?.length,
               icon: 'nav-project',
-              message: i18n.aboutProject,
-              buttonText: i18n.addProject,
+              message: getString('projectDescription'),
+              buttonText: getString('addProject'),
               onClick: () => openProjectModal?.()
             }
           : {
               when: () => !data?.data?.content?.length,
               icon: 'nav-project',
-              message: i18n.noProject
+              message: getString('noProjects')
             }
       }
       className={css.pageContainer}

@@ -34,15 +34,15 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
 
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
+    contentText: i18n.confirmDelete(data.name),
     titleText: i18n.confirmDeleteTitle,
     confirmButtonText: i18n.delete,
     cancelButtonText: i18n.cancelButton,
     onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
+      /* istanbul ignore else */ if (isConfirmed) {
         try {
-          const deleted = await deleteOrg(data.identifier || '', { headers: { 'content-type': 'application/json' } })
-          if (deleted) showSuccess(i18n.successMessage(data.name || ''))
+          const deleted = await deleteOrg(data.identifier, { headers: { 'content-type': 'application/json' } })
+          /* istanbul ignore else */ if (deleted) showSuccess(i18n.successMessage(data.name))
           reloadOrgs?.()
         } catch (err) {
           showError(err)

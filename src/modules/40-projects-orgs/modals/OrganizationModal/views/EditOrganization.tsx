@@ -39,7 +39,7 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
   })
 
   useEffect(() => {
-    if (!loading && !error) {
+    /* istanbul ignore else */ if (!loading && !error) {
       setVersion(response?.headers.get('etag') as string)
     }
   }, [error, loading])

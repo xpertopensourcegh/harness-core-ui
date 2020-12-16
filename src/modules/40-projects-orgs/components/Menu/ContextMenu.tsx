@@ -22,21 +22,18 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    if (!project?.identifier) return
     openDialog?.()
   }
 
   const handleEdit = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    if (!project) return
     editProject?.(project)
   }
 
   const handleCollaborate = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
     setMenuOpen?.(false)
-    if (!project) return
     collaborators?.(project)
   }
 
@@ -59,7 +56,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       routes.toCVMainDashBoardPage({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
-        accountId: project?.accountIdentifier as string
+        accountId: project.accountIdentifier as string
       })
     )
   }
@@ -71,7 +68,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       routes.toCFDashboard({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
-        accountId: project?.accountIdentifier as string
+        accountId: project.accountIdentifier as string
       })
     )
   }
@@ -82,7 +79,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       routes.toCIDashboard({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
-        accountId: project?.accountIdentifier as string
+        accountId: project.accountIdentifier as string
       })
     )
   }
@@ -91,7 +88,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCEHome({
-        accountId: project?.accountIdentifier as string
+        accountId: project.accountIdentifier as string
       })
     )
   }

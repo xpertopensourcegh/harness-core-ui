@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { ModuleName, useAppStore } from 'framework/exports'
+import { ModuleName, useAppStore, useStrings } from 'framework/exports'
 import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
@@ -15,7 +15,6 @@ import CERenderer from '@projects-orgs/components/ModuleRenderer/ce/CERenderer'
 import CFRenderer from '@projects-orgs/components/ModuleRenderer/cf/CFRenderer'
 import useDeleteProjectDialog from '@projects-orgs/pages/projects/DeleteProject'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import i18n from './ProjectCard.i18n'
 import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
@@ -32,6 +31,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { projectResponse, organization, admins: adminList, collaborators: collaboratorsList } = projectAggregateDTO
   const data = projectResponse.project || null
   const { projects, updateAppStore } = useAppStore()
+  const { getString } = useStrings()
   const history = useHistory()
   const onDeleted = (): void => {
     const index = projects.findIndex(p => p.identifier === data.identifier)
@@ -65,8 +65,8 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             history.push(
               routes.toProjectDetails({
                 projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
-                accountId: data.accountIdentifier || ''
+                orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
+                accountId: data.accountIdentifier || /* istanbul ignore next */ ''
               })
             )
           }}
@@ -78,7 +78,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             </Text>
           ) : isPreview ? (
             <Text font="medium" lineClamp={1} color={Color.BLACK}>
-              {i18n.projectName}
+              {getString('projectCard.projectName')}
             </Text>
           ) : null}
           <Text font={{ size: 'small', weight: 'bold' }}>{organization?.name}</Text>
@@ -103,7 +103,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
               />
-              <Text padding={{ left: 'xsmall' }} font="xsmall">{`${i18n.admin} ${
+              <Text padding={{ left: 'xsmall' }} font="xsmall">{`${getString('adminLabel')} ${
                 adminList?.length ? `(${adminList?.length})` : ``
               }`}</Text>
             </Layout.Vertical>
@@ -117,7 +117,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
               />
-              <Text padding={{ left: 'xsmall' }} font="xsmall">{`${i18n.collaborators} ${
+              <Text padding={{ left: 'xsmall' }} font="xsmall">{`${getString('collaboratorsLabel')} ${
                 collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
               }`}</Text>
             </Layout.Vertical>

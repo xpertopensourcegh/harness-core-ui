@@ -26,10 +26,9 @@ const deleteProjectMock = (): Promise<{ status: string }> => {
   return Promise.resolve({ status: 'SUCCESS' })
 }
 jest.mock('services/cd-ng', () => ({
-  useGetOrganizationList: () =>
-    jest.fn().mockImplementation(() => {
-      return { ...orgMockData, refetch: jest.fn(), error: null }
-    }),
+  useGetOrganizationList: jest.fn().mockImplementation(() => {
+    return { ...orgMockData, refetch: jest.fn(), error: null }
+  }),
   usePostProject: jest.fn().mockImplementation(() => createMockData),
   useGetProjectAggregateDTOList: jest.fn().mockImplementation(args => {
     getProjectList(args)
@@ -189,6 +188,19 @@ describe('Project Page List', () => {
             accountId: projectPageMock.data.data.content[0].projectResponse.project.accountIdentifier,
             orgIdentifier: projectPageMock.data.data.content[0].projectResponse.project.orgIdentifier,
             projectIdentifier: projectPageMock.data.data.content[0].projectResponse.project.identifier
+          })
+        )
+      ).toBeTruthy()
+    }),
+    test('Get Started', async () => {
+      const getStarted = getAllByText('Get Started')[0]
+      await act(async () => {
+        fireEvent.click(getStarted)
+      })
+      expect(
+        getByTestId('location').innerHTML.endsWith(
+          routes.toProjectsGetStarted({
+            accountId: projectPageMock.data.data.content[0].projectResponse.project.accountIdentifier
           })
         )
       ).toBeTruthy()

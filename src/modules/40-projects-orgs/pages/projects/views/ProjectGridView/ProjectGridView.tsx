@@ -43,7 +43,8 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     },
     debounce: 300
   })
-  if (reloadPage) {
+
+  /* istanbul ignore else */ if (reloadPage) {
     refetch()
     reloadPage(false)
   }

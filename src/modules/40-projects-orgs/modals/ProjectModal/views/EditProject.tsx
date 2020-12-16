@@ -53,7 +53,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   useEffect(() => {
-    if (!loading && !error) {
+    /* istanbul ignore else */ if (!loading && !error) {
       setVersion(response?.headers.get('etag') as string)
     }
   }, [error, loading])

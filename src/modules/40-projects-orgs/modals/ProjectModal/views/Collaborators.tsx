@@ -90,7 +90,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     }
     try {
       const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id || '' } })
-      if (updated) reload()
+      /* istanbul ignore else */ if (updated) reload()
       showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
     } catch (err) {
       showError(err.data)
@@ -100,7 +100,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
   const handleDelete = async (): Promise<void> => {
     try {
       const deleted = await deleteInvite(user.id || '')
-      if (deleted) reload()
+      /* istanbul ignore else */ if (deleted) reload()
       showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
     } catch (err) {
       showError(err.data)
@@ -267,16 +267,16 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const users: SelectOption[] =
     userData?.data?.content?.map(user => {
       return {
-        label: user.name || '',
-        value: user.email || ''
+        label: user.name,
+        value: user.email
       }
     }) || []
 
   const roles: SelectOption[] =
     roleData?.data?.map(roleOption => {
       return {
-        label: roleOption.name || '',
-        value: roleOption.name || ''
+        label: roleOption.name,
+        value: roleOption.name
       }
     }) || []
 
@@ -480,7 +480,7 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
           intent="primary"
           text={i18n.newProjectWizard.saveAndContinue}
           onClick={() => {
-            if (prevStepData) {
+            /* istanbul ignore else */ if (prevStepData) {
               nextStep?.({ ...prevStepData })
             }
           }}
@@ -506,7 +506,7 @@ export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & Collaborat
             intent="primary"
             text={i18n.newProjectWizard.finish}
             onClick={() => {
-              if (prevStepData) {
+              /* istanbul ignore else */ if (prevStepData) {
                 nextStep?.({ ...prevStepData })
               }
             }}

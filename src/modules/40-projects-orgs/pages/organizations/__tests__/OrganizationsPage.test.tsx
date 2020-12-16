@@ -10,6 +10,7 @@ import {
   getOrganizationAggregateDTOListMockData
 } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { clickBack, clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import OrganizationsPage from '../OrganizationsPage'
 
 const getOrganizationList = jest.fn()
@@ -37,13 +38,17 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetOrganizationAggregateDTOList: jest.fn().mockImplementation(() => {
     return { ...getOrganizationAggregateDTOListMockData, refetch: jest.fn(), error: null }
-  })
+  }),
+  useGetUsers: () => jest.fn(),
+  useGetInvites: () => jest.fn(),
+  useSendInvite: () => jest.fn(),
+  useGetRoles: () => jest.fn()
 }))
 jest.useFakeTimers()
 
 describe('Org Page List', () => {
-  let container: HTMLElement | undefined
-  let getAllByText: RenderResult['getAllByText'] | undefined
+  let container: HTMLElement
+  let getAllByText: RenderResult['getAllByText']
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
@@ -63,10 +68,19 @@ describe('Org Page List', () => {
     const newOrg = getAllByText?.('Organization')[0]
     await act(async () => {
       if (newOrg) fireEvent.click(newOrg)
-      await waitFor(() => findAllByText(document.body, 'ABOUT THE ORGANIZATION'))
+      await waitFor(() => findAllByText(document.body, 'About the Organization'))
     })
     let form = findDialogContainer()
     expect(form).toBeTruthy()
+    setFieldValue({ container: form as HTMLElement, type: InputTypes.TEXTFIELD, fieldId: 'name', value: 'dummyorg' })
+    await act(async () => {
+      clickSubmit(form as HTMLElement)
+      await waitFor(() => findAllByText(document.body, 'Invite Collaborators'))
+    })
+    await act(async () => {
+      clickBack(form as HTMLElement)
+      await waitFor(() => findAllByText(document.body, 'Edit Organization'))
+    })
     await act(async () => {
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
     })
@@ -106,5 +120,20 @@ describe('Org Page List', () => {
         fireEvent.click(form?.querySelector('button[type="submit"]')!)
       })
       expect(editOrg).toHaveBeenCalled()
+    }),
+    test('Invite Collaborators', async () => {
+      const menu = container?.querySelectorAll("[icon='more']")[1]
+      fireEvent.click(menu!)
+      const popover = findPopoverContainer()
+      const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
+      await act(async () => {
+        fireEvent.click(invite)
+        await waitFor(() => getByText(document.body, 'Invite Collaborators'))
+        let form = findDialogContainer()
+        expect(form).toBeTruthy()
+        fireEvent.click(form?.querySelector('[icon="cross"]')!)
+        form = findDialogContainer()
+        expect(form).not.toBeTruthy()
+      })
     })
 })

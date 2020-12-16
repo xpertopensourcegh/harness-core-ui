@@ -22,7 +22,7 @@ const CERenderer: React.FC<CERendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routes.toCEHome({
-              accountId: data.accountIdentifier || ''
+              accountId: data.accountIdentifier || /* istanbul ignore next */ ''
             })
           )
       }}

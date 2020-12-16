@@ -1,6 +1,6 @@
 import React from 'react'
-import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { act, fireEvent, getAllByText, render, RenderResult, waitFor } from '@testing-library/react'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 
 import OrganizationDetailsPage from '../OrganizationDetails/OrganizationDetailsPage'
@@ -9,7 +9,11 @@ import { getOrgAggregateMockData as getOrgMockData } from './OrganizationsMockDa
 jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useGetUsers: () => jest.fn(),
+  useGetInvites: () => jest.fn(),
+  useSendInvite: () => jest.fn(),
+  useGetRoles: () => jest.fn()
 }))
 describe('Organization Details', () => {
   let container: HTMLElement
@@ -87,5 +91,23 @@ describe('Organization Details', () => {
         })
       )
     ).toBeTruthy()
-  })
+  }),
+    test('Click on Add Admin', async () => {
+      const plus = getAllByText(container, '+')[0]
+      await act(async () => {
+        fireEvent.click(plus)
+        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+      })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+    }),
+    test('Click on Add Collaborator', async () => {
+      const plus = getAllByText(container, '+')[1]
+      await act(async () => {
+        fireEvent.click(plus)
+        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+      })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+    })
 })

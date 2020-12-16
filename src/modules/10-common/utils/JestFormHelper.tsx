@@ -1,5 +1,6 @@
-import { fireEvent, queryByAttribute, waitFor } from '@testing-library/react'
+import { fireEvent, queryByAttribute, waitFor, queryByText } from '@testing-library/react'
 import { find } from 'lodash-es'
+
 export enum InputTypes {
   CHECKBOX = 'CHECKBOX',
   RADIOS = 'RADIOS',
@@ -85,6 +86,12 @@ export const fillAtForm = async (formInput: FormInputValues[]): Promise<void> =>
 
 export const clickSubmit = (container: HTMLElement): void => {
   const target = container.querySelector('button[type="submit"]')
+  expect(target).toBeDefined()
+  if (target) fireEvent.click(target)
+}
+
+export const clickBack = (container: HTMLElement): void => {
+  const target = queryByText(container, 'Back')
   expect(target).toBeDefined()
   if (target) fireEvent.click(target)
 }

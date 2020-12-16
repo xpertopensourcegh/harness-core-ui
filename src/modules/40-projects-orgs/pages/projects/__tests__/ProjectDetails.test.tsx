@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, getByText, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, getAllByText, getByText, render, waitFor } from '@testing-library/react'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
@@ -108,5 +108,39 @@ describe('Project Details', () => {
       fireEvent.click(back)
       await waitFor(() => getByTestId('location'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toProjects({ accountId: 'testAcc' }))).toBeTruthy()
+    }),
+    test('Click on Add Admin', async () => {
+      const { container } = render(
+        <TestWrapper
+          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+        >
+          <ProjectDetails />
+        </TestWrapper>
+      )
+      const plus = getAllByText(container, '+')[0]
+      await act(async () => {
+        fireEvent.click(plus)
+        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+      })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+    }),
+    test('Click on Add Collaborator', async () => {
+      const { container } = render(
+        <TestWrapper
+          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+        >
+          <ProjectDetails />
+        </TestWrapper>
+      )
+      const plus = getAllByText(container, '+')[1]
+      await act(async () => {
+        fireEvent.click(plus)
+        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+      })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
     })
 })

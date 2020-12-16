@@ -9,17 +9,17 @@ import i18n from '../../ProjectsPage.i18n'
 import getStarted from './images/getStarted.png'
 import css from './GetStartedProject.module.scss'
 
-const GetStartedProject = () => {
+const GetStartedProject: React.FC = () => {
   const { accountId } = useParams()
-  let projecCreated = false
+  let projectCreated = false
   const history = useHistory()
   const projectCreateSuccessHandler = (): void => {
-    projecCreated = true
+    projectCreated = true
   }
   const { openProjectModal } = useProjectModal({
     onSuccess: projectCreateSuccessHandler,
     onCloseModal: () => {
-      if (projecCreated) {
+      /* istanbul ignore else */ if (projectCreated) {
         history.push(routes.toProjects({ accountId }))
       }
     }

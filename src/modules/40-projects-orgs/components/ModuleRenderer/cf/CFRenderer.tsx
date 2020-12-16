@@ -22,9 +22,9 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routes.toCFDashboard({
-              orgIdentifier: data.orgIdentifier || '',
+              orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
               projectIdentifier: data.identifier,
-              accountId: data.accountIdentifier || ''
+              accountId: data.accountIdentifier || /* istanbul ignore next */ ''
             })
           )
       }}
