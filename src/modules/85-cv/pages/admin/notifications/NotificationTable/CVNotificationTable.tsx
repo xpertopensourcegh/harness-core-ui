@@ -13,7 +13,7 @@ import { useToaster } from '@common/exports'
 import useCVNotificationsModal from '@cv/components/CVNotifications/useCVNotificationsModal'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
-
+import css from '../CVNotificationPage.module.scss'
 interface CVNotificationTableProps {
   data?: PageAlertRuleDTO
   reload?: () => Promise<void>
@@ -45,18 +45,32 @@ const RenderNotificationMethod: Renderer<CellProps<AlertRuleDTO>> = ({ row }) =>
       {rowData.notificationMethod?.notificationSettingType === NotificationType.Slack ? (
         <Layout.Horizontal spacing="small">
           <Icon name="service-slack" />
-          <Text color={Color.BLACK}>{rowData.notificationMethod.slackWebhook}</Text>
+          <Text
+            color={Color.BLACK}
+            tooltip={rowData.notificationMethod.slackWebhook}
+            className={css.maxWidthCol}
+            lineClamp={1}
+          >
+            {rowData.notificationMethod.slackWebhook}
+          </Text>
         </Layout.Horizontal>
       ) : null}
 
       {rowData.notificationMethod?.notificationSettingType === NotificationType.PagerDuty ? (
         <Layout.Horizontal spacing="small" color={Color.BLACK}>
           <Icon name="service-pagerduty" />
-          <Text color={Color.BLACK}>{rowData.notificationMethod.pagerDutyKey}</Text>
+          <Text
+            color={Color.BLACK}
+            className={css.maxWidthCol}
+            lineClamp={1}
+            tooltip={rowData.notificationMethod.pagerDutyKey}
+          >
+            {rowData.notificationMethod.pagerDutyKey}
+          </Text>
         </Layout.Horizontal>
       ) : null}
       {rowData.notificationMethod?.notificationSettingType === NotificationType.Email ? (
-        <Layout.Horizontal spacing="small" color={Color.BLACK}>
+        <Layout.Horizontal spacing="small" color={Color.BLACK} className={css.maxWidthCol}>
           <Icon name="main-email" color={Color.GREY_400} />
           <Text color={Color.BLACK}>
             {rowData.notificationMethod.emails?.[0]}, {rowData.notificationMethod.emails?.[1]}
@@ -156,7 +170,9 @@ const RenderNameColumn: Renderer<CellProps<AlertRuleDTO>> = ({ row }) => {
 
   return (
     <Layout.Horizontal>
-      <Text color={Color.BLACK}>{rowData.name}</Text>
+      <Text color={Color.BLACK} className={css.maxWidthCol} lineClamp={1}>
+        {rowData.name}
+      </Text>
     </Layout.Horizontal>
   )
 }

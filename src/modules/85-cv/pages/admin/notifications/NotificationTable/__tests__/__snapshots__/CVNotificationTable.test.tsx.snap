@@ -80,7 +80,8 @@ exports[`CVNotificationTable render notification table 1`] = `
           class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            style="--text-line-clamp: 1;"
           >
             mnjfhk
           </p>
@@ -206,7 +207,8 @@ exports[`CVNotificationTable render notification table 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            style="--text-line-clamp: 1;"
           >
             dkjl
           </p>
@@ -283,7 +285,8 @@ exports[`CVNotificationTable render notification table 1`] = `
           class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            style="--text-line-clamp: 1;"
           >
             New rule one
           </p>
@@ -409,7 +412,8 @@ exports[`CVNotificationTable render notification table 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            style="--text-line-clamp: 1;"
           >
             WebhookUrl configure
           </p>
@@ -486,7 +490,8 @@ exports[`CVNotificationTable render notification table 1`] = `
           class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            style="--text-line-clamp: 1;"
           >
             hvj
           </p>
@@ -612,7 +617,8 @@ exports[`CVNotificationTable render notification table 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            style="--text-line-clamp: 1;"
           >
             bnvng
           </p>
