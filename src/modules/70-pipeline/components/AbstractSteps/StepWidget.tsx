@@ -24,7 +24,6 @@ export function StepWidget<T extends object = {}>({
   onUpdate
 }: StepWidgetProps<T>): JSX.Element {
   const step = factory.getStep<T>(type)
-
   if (!step) {
     return <Text intent="warning">{i18n.invalidStep}</Text>
   } else {

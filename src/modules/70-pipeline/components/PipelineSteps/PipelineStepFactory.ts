@@ -20,6 +20,7 @@ import { JFrogArtifactoryStep } from './Steps/JFrogArtifactoryStep/JFrogArtifact
 import { Dependency } from './Steps/Dependency/Dependency'
 
 import { KubernetesServiceSpec } from './Steps/K8sServiceSpec/K8sServiceSpec'
+import { K8sBlueGreenDeployStep } from './Steps/K8sBgStep/K8sBlueGreenDeployStep'
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
 }
@@ -29,6 +30,7 @@ const factory = new PipelineStepFactory()
 // deploy steps
 factory.registerStep(new HttpStep())
 factory.registerStep(new K8RolloutDeployStep())
+factory.registerStep(new K8sBlueGreenDeployStep())
 factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())
 factory.registerStep(new CustomVariables())

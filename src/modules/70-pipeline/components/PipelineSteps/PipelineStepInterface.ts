@@ -3,6 +3,7 @@ export enum StepType {
   SHELLSCRIPT = 'ShellScript',
   APPROVAL = 'Approval',
   K8sRollingRollback = 'K8sRollingRollback',
+  K8sBlueGreenDeploy = 'K8sBlueGreenDeploy',
   StepGroup = 'StepGroup',
   KubernetesInfraSpec = 'KubernetesInfraSpec',
   K8sServiceSpec = 'K8sServiceSpec',

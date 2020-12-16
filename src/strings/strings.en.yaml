@@ -313,6 +313,7 @@ global:
     awsConnectorLabel: Amazon Web Services Connector
     gcpConnectorLabel: Google Cloud Platform Connector
     k8sRolloutDeploy: 'K8s Rollout Deploy'
+    k8sBGDeploy: 'K8s Blue Green Deploy'
     skipDryRun: 'Skip Dry Run'
     stepNameRequired: 'Step Name is required'
     timeoutRequired: 'Timeout is required'
