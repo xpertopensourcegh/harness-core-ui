@@ -50,6 +50,7 @@ global:
   continue: Continue
   cancel: Cancel
   loading: Loading...
+  confirm: Confirm
   retry: Retry
   search: Search
   deleted: deleted
@@ -96,6 +97,8 @@ global:
   adminLabel: 'Admin'
   collaboratorsLabel: 'Collaborators'
   viewDetails: 'View Details'
+  navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
+  navigationCheckTitle: 'Close without saving?'
   inputTypes:
     FIXED: Fixed input list
     RUNTIME: Runtime input

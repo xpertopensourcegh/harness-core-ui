@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, createRef, RefObject } from 'react'
 import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
 import type { IconName } from '@wings-software/uikit'
+import { useHistory } from 'react-router-dom'
+import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { renderTitle, setNewTouchedPanel } from './WizardUtils'
@@ -78,6 +80,7 @@ const Wizard: React.FC<WizardProps> = ({
       includeSkippedIndexes: true
     })
   }
+  const history = useHistory()
   const { showError } = useToaster()
 
   useEffect(() => {
@@ -102,6 +105,13 @@ const Wizard: React.FC<WizardProps> = ({
         <Formik {...formikInitialProps}>
           {formikProps => (
             <FormikForm>
+              <NavigationCheck
+                when={formikProps.dirty}
+                shouldBlockNavigation={() => !(formikProps.isSubmitting && formikProps.isValid)}
+                navigate={newPath => {
+                  history.push(newPath)
+                }}
+              />
               <Tabs id="Wizard" onChange={handleTabChange} selectedTabId={selectedTabId}>
                 {wizardMap.panels.map((_panel, panelIndex) => {
                   const { id, tabTitle, tabTitleComponent, requiredFields = [], checkValidPanel } = _panel

@@ -2,7 +2,11 @@ import React from 'react'
 import { render, waitFor, fireEvent, queryByText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { FormInput } from '@wings-software/uikit'
+import { Link } from 'react-router-dom'
+import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
+import routes from '@common/RouteDefinitions'
+
 import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import strings from 'strings/strings.en.yaml'
 import { getDefaultProps } from './mockConstants'
@@ -24,7 +28,7 @@ describe('Wizard tests', () => {
     test('Initial Render - 3 panels', async () => {
       const defaultWizardProps = getDefaultProps()
       render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps}>
             <div>
               <h2>Form 1</h2>
@@ -37,7 +41,7 @@ describe('Wizard tests', () => {
               <h2>Form 3</h2>
             </div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
       expect(document.body).toMatchSnapshot()
     })
@@ -47,13 +51,13 @@ describe('Wizard tests', () => {
     test('Footer: Continue button goes to Panel 2', async () => {
       const defaultWizardProps = getDefaultProps()
       const { container } = render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps}>
             <div>Form 1</div>
             <div>Form 2</div>
             <div>Form 3</div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
       const continueButton = queryByText(container, result.current.getString('continue'))
       if (!continueButton) {
@@ -68,13 +72,13 @@ describe('Wizard tests', () => {
     test('Footer: Back button goes to Panel 1', async () => {
       const defaultWizardProps = getDefaultProps()
       const { container } = render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps} defaultTabId={defaultWizardProps.wizardMap.panels[1].id}>
             <div>Form 1</div>
             <div>Form 2</div>
             <div>Form 3</div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
       expect(queryByText(container, 'Form 2')).not.toBeNull()
       expect(queryByText(container, 'Form 1')).toBeNull()
@@ -90,13 +94,13 @@ describe('Wizard tests', () => {
     test('Footer: back button goes to Panel 1', async () => {
       const defaultWizardProps = getDefaultProps()
       const { container } = render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps} defaultTabId={defaultWizardProps.wizardMap.panels[1].id}>
             <div>Form 1</div>
             <div>Form 2</div>
             <div>Form 3</div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
       expect(queryByText(container, 'Form 2')).not.toBeNull()
       expect(queryByText(container, 'Form 1')).toBeNull()
@@ -113,7 +117,7 @@ describe('Wizard tests', () => {
     test('Tab Change: Show warning for each touched panel until pass validation', async () => {
       const defaultWizardProps = getDefaultProps()
       const { container } = render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps}>
             <div>
               <h2>Form 1</h2>
@@ -126,7 +130,7 @@ describe('Wizard tests', () => {
               <h2>Form 3</h2>
             </div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
       const tab1 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 1"]')
       const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 2"]')
@@ -154,7 +158,7 @@ describe('Wizard tests', () => {
     test('Tab Change: Show warning after leaving touched panel with invalid value starting tab2', async () => {
       const defaultWizardProps = getDefaultProps()
       const { container } = render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps} defaultTabId={defaultWizardProps.wizardMap.panels[1].id}>
             <div>
               <h2>Form 1</h2>
@@ -168,7 +172,7 @@ describe('Wizard tests', () => {
               <h2>Form 3</h2>
             </div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
       const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 2"]')
       const tab3 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Panel 3"]')
@@ -218,7 +222,7 @@ describe('Wizard tests', () => {
       const testError = 'test error'
       const defaultWizardProps = getDefaultProps()
       render(
-        <StringsContext.Provider value={value}>
+        <TestWrapper>
           <Wizard {...defaultWizardProps} errorToasterMessage={testError}>
             <div>
               <h2>Form 1</h2>
@@ -231,10 +235,54 @@ describe('Wizard tests', () => {
               <h2>Form 3</h2>
             </div>
           </Wizard>
-        </StringsContext.Provider>
+        </TestWrapper>
       )
 
       expect(queryByText(document.body, testError)).not.toBeNull()
+    })
+
+    test('Show error navigation confirm before leaving form', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const { container } = render(
+        <TestWrapper>
+          <Wizard {...defaultWizardProps}>
+            <div>
+              <h2>Form 1</h2>
+              <FormInput.Text name="name" label="Name" />
+            </div>
+            <div>
+              <h2>Form 2</h2>
+            </div>
+            <div>
+              <h2>Form 3</h2>
+            </div>
+          </Wizard>
+          <Link
+            className="redirect"
+            to={routes.toCDTriggersPage({
+              projectIdentifier: 'projectIdentifier',
+              orgIdentifier: 'orgIdentifier',
+              pipelineIdentifier: 'pipelineIdentifier',
+              accountId: 'accountId'
+            })}
+          >
+            Redirect
+          </Link>
+        </TestWrapper>
+      )
+      const nameField = container.querySelector('[name="name"]')
+      if (!nameField) {
+        throw Error('cannot find name field')
+      }
+      fireEvent.change(nameField, { target: { value: 'test' } })
+      const redirectButton = container.querySelector('[class*="redirect"]')
+      if (!redirectButton) {
+        throw Error('redirect button')
+      }
+      fireEvent.click(redirectButton)
+
+      await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog"]')).not.toBeNull())
+      expect(document.body.querySelector('[data-icon="info-sign"]')).not.toBeNull()
     })
   })
 })

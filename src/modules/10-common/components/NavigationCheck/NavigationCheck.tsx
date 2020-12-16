@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Prompt } from 'react-router-dom'
 import type * as History from 'history'
+import { useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '../../modals/ConfirmDialog/useConfirmationDialog'
-import i18n from './NavigationCheck.i18n'
 
 interface Props {
   when?: boolean
@@ -12,7 +12,7 @@ interface Props {
 export const NavigationCheck = ({ when, navigate, shouldBlockNavigation }: Props): JSX.Element => {
   const [lastLocation, setLastLocation] = useState<History.Location | null>(null)
   const [confirmedNavigation, setConfirmedNavigation] = useState(false)
-
+  const { getString } = useStrings()
   const handleBlockedNavigation = (nextLocation: History.Location): string | boolean => {
     if (!confirmedNavigation) {
       if (!shouldBlockNavigation || (shouldBlockNavigation && shouldBlockNavigation(nextLocation))) {
@@ -29,10 +29,10 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation }: Props
   }
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: i18n.cancel,
-    contentText: i18n.navigationCheckText,
-    titleText: i18n.navigationCheckTitle,
-    confirmButtonText: i18n.navigationConfirm,
+    cancelButtonText: getString('cancel'),
+    contentText: getString('navigationCheckText'),
+    titleText: getString('navigationCheckTitle'),
+    confirmButtonText: getString('confirm'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
         handleConfirmNavigationClick()

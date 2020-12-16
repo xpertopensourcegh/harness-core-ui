@@ -4,6 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
 import strings from 'strings/strings.en.yaml'
+import { TestWrapper } from '@common/utils/testUtils'
 import {
   GetSourceRepoToEventResponse,
   GetActionsListResponse,
@@ -39,25 +40,6 @@ jest.mock('services/cd-ng', () => ({
   })
 }))
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn(() => {
-    return {
-      projectIdentifier: 'projectIdentifier',
-      orgIdentifier: 'orgIdentifier',
-      accountId: 'accountId',
-      triggerIdentifier: 'triggerIdentifier' // means this is edit mode
-    }
-  }),
-  useHistory: jest.fn(() => {
-    return {
-      push: jest.fn(),
-      location: {
-        search: '' // edit mode otherwise e.g. "?triggerType=Webhook&sourceRepo=GITHUB"
-      }
-    }
-  })
-}))
-
 const value: AppStoreContextProps = {
   projects: [],
   strings,
@@ -71,9 +53,9 @@ const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(): JSX.Element {
   return (
-    <StringsContext.Provider value={value}>
+    <TestWrapper>
       <TriggersWizardPage />
-    </StringsContext.Provider>
+    </TestWrapper>
   )
 }
 

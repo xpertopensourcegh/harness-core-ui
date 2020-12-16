@@ -250,7 +250,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     if (!isEmpty(payloadConditions) && triggerJson.source?.spec) {
       triggerJson.source.spec.spec.payloadConditions = payloadConditions
     }
-    if (triggerIdentifier && onEditInitialValues?.identifier) {
+
+    if (onEditInitialValues?.identifier) {
       const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
       if (status === ResponseStatus.SUCCESS) {
         showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
