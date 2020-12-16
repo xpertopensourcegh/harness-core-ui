@@ -19,13 +19,13 @@ exports[`ResourcesPage snapshot test should render properly 1`] = `
       >
         <a
           class="tags"
-          href="/account/dummy/ci/admin/resources/orgs/dummy/projects/undefined/connectors"
+          href="/account/dummy/ci/orgs/dummy/projects/undefined/admin/resources/connectors"
         >
           Connectors
         </a>
         <a
           class="tags"
-          href="/account/dummy/ci/admin/resources/orgs/dummy/projects/undefined/secrets"
+          href="/account/dummy/ci/orgs/dummy/projects/undefined/admin/resources/secrets"
         >
           Secrets
         </a>

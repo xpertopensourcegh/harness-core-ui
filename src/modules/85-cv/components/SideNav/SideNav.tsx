@@ -28,9 +28,9 @@ export default function CVSideNav(): React.ReactElement {
             history.push(compile(routeMatch.path)({ ...routeMatch.params, projectIdentifier: data.identifier }))
           } else {
             history.push(
-              routes.toCVMainDashBoardPage({
+              routes.toCVProjectOverview({
                 projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier,
+                orgIdentifier: data.orgIdentifier || '',
                 accountId
               })
             )
@@ -41,7 +41,7 @@ export default function CVSideNav(): React.ReactElement {
         <React.Fragment>
           <SidebarLink
             label="Overview"
-            to={routes.toCVMainDashBoardPage({ accountId, projectIdentifier, orgIdentifier })}
+            to={routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier })}
           />
           <SidebarLink
             label="Data Sources"
@@ -53,7 +53,7 @@ export default function CVSideNav(): React.ReactElement {
             label="Metric Packs"
             to={routes.toCVMetricPackConfigureThresholdPage({ accountId, projectIdentifier, orgIdentifier })}
           />
-          <AdminSelector path={routes.toCVAdmin({ accountId })}>
+          <AdminSelector path={routes.toCVAdmin({ accountId, projectIdentifier, orgIdentifier })}>
             <AdminSelectorLink
               label={getString('cv.navLinks.adminSideNavLinks.setup')}
               iconName="resources-icon"

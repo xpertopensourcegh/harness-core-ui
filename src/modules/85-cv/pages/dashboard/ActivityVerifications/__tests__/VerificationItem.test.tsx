@@ -9,7 +9,7 @@ describe('VerificationItem', () => {
   test('VerificationItem', () => {
     const { container, getByText } = render(
       <TestWrapper
-        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
           accountId: 'testAccountId',
           projectIdentifier: 'testProject',

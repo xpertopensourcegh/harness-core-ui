@@ -9,7 +9,7 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import LogAnalysisFrequencyChart from '../LogAnalysisFrequencyChart'
 
 const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
   pathParams: {
     accountId: '1234_accountId',
     projectIdentifier: '1234_project',

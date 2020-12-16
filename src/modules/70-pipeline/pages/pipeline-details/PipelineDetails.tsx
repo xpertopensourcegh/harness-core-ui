@@ -6,15 +6,11 @@ import routes from '@common/RouteDefinitions'
 import { useGetPipelineSummary } from 'services/cd-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PipelineDetails.module.scss'
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-  }>()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<PipelinePathProps>()
   const { data: pipeline } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -31,11 +27,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toCDDashboard({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId
-                  }),
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
                   label: project?.name as string
                 },
                 {

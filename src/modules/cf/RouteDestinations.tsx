@@ -26,12 +26,28 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import { useAppStore, ModuleName } from 'framework/exports'
 import ResourcesPage from './pages/Resources/ResourcesPage'
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
 
   return <Redirect to={routes.toCFHome(params)} />
+}
+
+const RedirectToCFProject = (): React.ReactElement => {
+  const params = useParams<ProjectPathProps>()
+  const { projects } = useAppStore()
+
+  if (
+    projects.find(
+      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CF)
+    )
+  ) {
+    return <Redirect to={routes.toCFProjectOverview(params)} />
+  } else {
+    return <Redirect to={routes.toCFHome(params)} />
+  }
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
@@ -47,11 +63,15 @@ export default (
         <RedirectToCFHome />
       </Route>
 
+      <Route path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })} exact>
+        <RedirectToCFProject />
+      </Route>
+
       <RouteWithLayout path={routes.toCFHome({ ...accountPathProps })} exact>
         <CFHomePage />
       </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCFDashboard({ ...accountPathProps, ...projectPathProps })} exact>
+      <RouteWithLayout path={routes.toCFProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
         <CFDashboardPage />
       </RouteWithLayout>
 

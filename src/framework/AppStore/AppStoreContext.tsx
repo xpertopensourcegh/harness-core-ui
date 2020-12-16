@@ -40,7 +40,8 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
 
   const { loading: projectsLoading, data: projects } = useGetProjectList({
     queryParams: {
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      pageSize: 500
     }
   })
 

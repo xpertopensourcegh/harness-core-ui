@@ -58,7 +58,7 @@ exports[`Sidenav render 1`] = `
     </div>
     <a
       class="link"
-      href="/account/dummy/cd/dashboard/orgs/dummy/projects/dummy"
+      href="/account/dummy/cd/orgs/dummy/projects/dummy/dashboard"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
@@ -67,9 +67,8 @@ exports[`Sidenav render 1`] = `
       </p>
     </a>
     <a
-      aria-current="page"
-      class="link selected"
-      href="/account/dummy/cd/deployments/orgs/dummy/projects/dummy"
+      class="link"
+      href="/account/dummy/cd/orgs/dummy/projects/dummy/deployments"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
@@ -79,7 +78,7 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cd/pipelines/orgs/dummy/projects/dummy"
+      href="/account/dummy/cd/orgs/dummy/projects/dummy/pipelines"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
@@ -95,7 +94,7 @@ exports[`Sidenav render 1`] = `
       >
         <a
           class="adminLink"
-          href="/account/dummy/cd/admin"
+          href="/account/dummy/cd/orgs/dummy/projects/dummy/admin"
         >
           Admin
         </a>

@@ -60,11 +60,11 @@ describe('Context Menu test', () => {
     }),
     test('Go to CV ', async () => {
       fireEvent.click(getByText('Go to Continuous Verification'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCVMainDashBoardPage(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CD ', async () => {
       fireEvent.click(getByText('Go to Continuous Deployement'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCDDashboard(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CE ', async () => {
       fireEvent.click(getByText('Go to Continuous Efficiency'))
@@ -72,10 +72,10 @@ describe('Context Menu test', () => {
     }),
     test('Go to CI ', async () => {
       fireEvent.click(getByText('Go to Continuous Integration'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCIDashboard(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCIProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CF ', async () => {
       fireEvent.click(getByText('Go to Continuous Features'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCFDashboard(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCFProjectOverview(routeParams))).toBeTruthy()
     })
 })

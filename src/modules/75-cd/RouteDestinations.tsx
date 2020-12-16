@@ -49,34 +49,45 @@ import CDAccessControlPage from '@cd/pages/admin/access-control/CDAccessControlP
 import CDGeneralSettingsPage from '@cd/pages/admin/general-settings/CDGeneralSettingsPage'
 import ResourcesPage from '@cd/pages/Resources/ResourcesPage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
+import { ModuleName, useAppStore } from 'framework/exports'
 
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
-
   return <Redirect to={routes.toCDHome(params)} />
+}
+
+const RedirectToCDProject = (): React.ReactElement => {
+  const params = useParams<ProjectPathProps>()
+  const { projects } = useAppStore()
+
+  if (
+    projects.find(
+      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CD)
+    )
+  ) {
+    return <Redirect to={routes.toCDProjectOverview(params)} />
+  } else {
+    return <Redirect to={routes.toCDHome(params)} />
+  }
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps & ProjectPathProps>()
-
   return <Redirect to={routes.toCDResourcesConnectors(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelinePathProps & AccountPathProps>()
-
   return <Redirect to={routes.toCDPipelineDeploymentList(params)} />
 }
 
 const RedirectToStudioUI = (): React.ReactElement => {
   const params = useParams<PipelinePathProps & AccountPathProps>()
-
   return <Redirect to={routes.toCDPipelineStudioUI(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
   const params = useParams<ExecutionPathProps & AccountPathProps>()
-
   return <Redirect to={routes.toCDExecutionPiplineView(params)} />
 }
 
@@ -86,12 +97,19 @@ export default (
       <Route path={routes.toCD({ ...accountPathProps })} exact>
         <RedirectToCDHome />
       </Route>
+
+      <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
+        <RedirectToCDProject />
+      </Route>
+
       <RouteWithLayout path={routes.toCDHome({ ...accountPathProps })} exact>
         <CDHomePage />
       </RouteWithLayout>
-      <RouteWithLayout path={routes.toCDDashboard({ ...accountPathProps, ...projectPathProps })} exact>
+
+      <RouteWithLayout path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
         <CDDashboardPage />
       </RouteWithLayout>
+
       <RouteWithLayout path={routes.toCDDeployments({ ...accountPathProps, ...projectPathProps })} exact>
         <CDDeploymentsList />
       </RouteWithLayout>
@@ -103,6 +121,7 @@ export default (
       <Route exact path={routes.toCDPipelineStudio({ ...accountPathProps, ...pipelinePathProps })}>
         <RedirectToStudioUI />
       </Route>
+
       <RouteWithLayout
         exact
         layout={MinimalLayout}

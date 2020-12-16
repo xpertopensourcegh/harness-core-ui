@@ -17,7 +17,7 @@ export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldown
   return (
     <Container className={styles.header} padding="small">
       <Link
-        to={routes.toCVMainDashBoardPage({
+        to={routes.toCVProjectOverview({
           projectIdentifier: projectIdentifier as string,
           orgIdentifier: orgIdentifier as string,
           accountId

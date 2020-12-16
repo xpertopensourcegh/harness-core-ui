@@ -22,7 +22,7 @@ export default function DeploymentsList(): React.ReactElement {
           links={[
             {
               label: project?.name || '',
-              url: routes.toCDDashboard({ orgIdentifier, projectIdentifier, accountId })
+              url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId })
             },
             {
               label: getString('deploymentsText'),

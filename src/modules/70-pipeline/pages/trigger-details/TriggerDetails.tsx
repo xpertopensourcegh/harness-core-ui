@@ -43,7 +43,7 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toCDDashboard({
+                  url: routes.toCDProjectOverview({
                     orgIdentifier,
                     projectIdentifier,
                     accountId

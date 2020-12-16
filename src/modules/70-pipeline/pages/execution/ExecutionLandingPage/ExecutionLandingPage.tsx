@@ -141,7 +141,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toCDDashboard({ orgIdentifier, projectIdentifier, accountId }),
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
                   label: project?.name as string
                 },
                 {

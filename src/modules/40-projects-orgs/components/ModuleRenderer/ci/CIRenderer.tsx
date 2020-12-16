@@ -21,7 +21,7 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview &&
           history.push(
-            routes.toCIDashboard({
+            routes.toCIProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
               projectIdentifier: data.identifier,
               accountId: data.accountIdentifier || /* istanbul ignore next */ ''

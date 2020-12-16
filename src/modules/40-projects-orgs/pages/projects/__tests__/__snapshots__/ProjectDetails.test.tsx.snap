@@ -517,14 +517,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cd/pipeline-studio/orgs/testOrg/projects/dummy_name/pipelines/-1/"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cd/orgs/testOrg/projects/dummy_name/pipeline-studio/pipelines/-1/"
                     >
                       <span>
                         Create New Pipeline
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cd/pipelines/orgs/testOrg/projects/dummy_name"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cd/orgs/testOrg/projects/dummy_name/pipelines"
                     >
                       <span>
                         View Pipelines
@@ -759,14 +759,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/home"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/admin/setup/activity-source-setup/undefined"
                     >
                       <span>
                         Set Up Activity Sources
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/datasources/org/testOrg/project/dummy_name"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cv/org/testOrg/project/dummy_name/datasources"
                     >
                       <span>
                         Set Up Data Sources
@@ -1001,14 +1001,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/ci/pipeline-studio/orgs/testOrg/projects/dummy_name/pipelines/-1/"
+                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipeline-studio/pipelines/-1/"
                     >
                       <span>
                         Create New Pipeline
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/ci/pipelines/orgs/testOrg/projects/dummy_name"
+                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipelines"
                     >
                       <span>
                         View Pipelines

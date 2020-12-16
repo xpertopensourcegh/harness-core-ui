@@ -6,7 +6,7 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ActivityVerifications from '../ActivityVerifications'
 
 const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
   pathParams: {
     accountId: 'testAccountId',
     projectIdentifier: 'testProject',
@@ -58,7 +58,7 @@ describe('ActivityVerifications', () => {
     )
     fireEvent.click(container.querySelector('.triger-navigation')!)
     const expectedUrlPart =
-      '/account/testAccountId/cv/dashboard/deployment/tag1/service/service1/org/testOrg/project/testProject'
+      '/account/testAccountId/cv/org/testOrg/project/testProject/dashboard/deployment/tag1/service/service1'
     expect(getByTestId('location').innerHTML).toBe(expectedUrlPart)
   })
 })

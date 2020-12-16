@@ -50,7 +50,13 @@ function App(props: AppProps): React.ReactElement {
 
   ReactDOM.render(
     <HashRouter>
-      <Route path={['/account/:accountId', '/*']}>
+      <Route
+        path={[
+          '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
+          '/account/:accountId',
+          '/*'
+        ]}
+      >
         <App strings={strings} />
       </Route>
     </HashRouter>,

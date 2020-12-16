@@ -9,7 +9,7 @@ import { SelectKubernetesNamespaces } from '../SelectKubernetesNamespaces'
 import i18n from '../SelectKubernetesNamespaces.i18n'
 
 const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
   pathParams: {
     accountId: 'loading',
     projectIdentifier: '1234_project',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, useParams, Redirect } from 'react-router-dom'
+import { Route, useParams, Redirect } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import { EmptyLayout } from '@common/layouts'
@@ -41,28 +41,40 @@ import BuildInputs from '@ci/pages/build/sections/inputs/BuildInputs'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
 import BuildArtifacts from '@ci/pages/build/sections/artifacts/BuildArtifacts'
+import { useAppStore, ModuleName } from 'framework/exports'
 
 const RedirectToCIHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps>()
-
+  const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toCIHome(params)} />
+}
+
+const RedirectToCIProject = (): React.ReactElement => {
+  const params = useParams<ProjectPathProps>()
+  const { projects } = useAppStore()
+
+  if (
+    projects.find(
+      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CI)
+    )
+  ) {
+    return <Redirect to={routes.toCIProjectOverview(params)} />
+  } else {
+    return <Redirect to={routes.toCIHome(params)} />
+  }
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps & ProjectPathProps>()
-
   return <Redirect to={routes.toCIAdminResourcesConnectors(params)} />
 }
 
 const RedirectToStudioUI = (): React.ReactElement => {
   const params = useParams<PipelinePathProps & AccountPathProps>()
-
   return <Redirect to={routes.toCIPipelineStudioUI(params)} />
 }
 
 const RedirectToBuildPipelineGraph = (): React.ReactElement => {
   const params = useParams<AccountPathProps & ProjectPathProps & BuildPathProps>()
-
   return <Redirect to={routes.toCIBuildPipelineGraph(params)} />
 }
 
@@ -75,133 +87,135 @@ const BuildSubroute = ({ path, component }: { path: string; component: React.Rea
 }
 
 export default (
-  <SidebarProvider navComponent={SideNav} subtitle="CONTINUOUS" title="Integration">
-    <Route path={routes.toCI({ ...accountPathProps })}>
-      <Switch>
-        <Route path={routes.toCI({ ...accountPathProps })} exact>
-          <RedirectToCIHome />
-        </Route>
+  <Route path={routes.toCI({ ...accountPathProps })}>
+    <SidebarProvider navComponent={SideNav} subtitle="CONTINUOUS" title="Integration">
+      <Route path={routes.toCI({ ...accountPathProps })} exact>
+        <RedirectToCIHome />
+      </Route>
 
-        <RouteWithLayout path={[routes.toCIHome({ ...accountPathProps })]} exact>
-          <CIHomePage />
-        </RouteWithLayout>
+      <Route path={routes.toCIProject({ ...accountPathProps, ...projectPathProps })} exact>
+        <RedirectToCIProject />
+      </Route>
 
-        <RouteWithLayout path={routes.toCIDashboard({ ...accountPathProps, ...projectPathProps })} exact>
-          <CIDashboardPage />
-        </RouteWithLayout>
+      <RouteWithLayout path={[routes.toCIHome({ ...accountPathProps })]} exact>
+        <CIHomePage />
+      </RouteWithLayout>
 
-        <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
-          <CIBuildList />
-        </RouteWithLayout>
+      <RouteWithLayout path={routes.toCIProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
+        <CIDashboardPage />
+      </RouteWithLayout>
 
-        <Route path={routes.toCIBuild({ ...accountPathProps, ...projectPathProps, ...buildPathProps })} exact>
-          <RedirectToBuildPipelineGraph />
-        </Route>
+      <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
+        <CIBuildList />
+      </RouteWithLayout>
 
-        <BuildSubroute
-          path={routes.toCIBuildPipelineGraph({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
-          component={<PipelineGraph />}
-        />
-        <BuildSubroute
-          path={routes.toCIBuildPipelineLog({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
-          component={<PipelineLog />}
-        />
-        <BuildSubroute
-          path={routes.toCIBuildArtifacts({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
-          component={<BuildArtifacts />}
-        />
-        <BuildSubroute
-          path={routes.toCIBuildTests({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
-          component={<BuildTests />}
-        />
-        <BuildSubroute
-          path={routes.toCIBuildInputs({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
-          component={<BuildInputs />}
-        />
-        <BuildSubroute
-          path={routes.toCIBuildCommits({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
-          component={<BuildCommits />}
-        />
+      <Route path={routes.toCIBuild({ ...accountPathProps, ...projectPathProps, ...buildPathProps })} exact>
+        <RedirectToBuildPipelineGraph />
+      </Route>
 
-        <RouteWithLayout
-          exact
-          layout={EmptyLayout}
-          path={routes.toCIPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps })}
-        >
-          <CIPipelineStudio>
-            <StageBuilder />
-          </CIPipelineStudio>
-        </RouteWithLayout>
+      <BuildSubroute
+        path={routes.toCIBuildPipelineGraph({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+        component={<PipelineGraph />}
+      />
+      <BuildSubroute
+        path={routes.toCIBuildPipelineLog({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+        component={<PipelineLog />}
+      />
+      <BuildSubroute
+        path={routes.toCIBuildArtifacts({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+        component={<BuildArtifacts />}
+      />
+      <BuildSubroute
+        path={routes.toCIBuildTests({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+        component={<BuildTests />}
+      />
+      <BuildSubroute
+        path={routes.toCIBuildInputs({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+        component={<BuildInputs />}
+      />
+      <BuildSubroute
+        path={routes.toCIBuildCommits({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+        component={<BuildCommits />}
+      />
 
-        <Route exact path={routes.toCIAdminResources({ ...accountPathProps, ...projectPathProps })}>
-          <RedirectToResourcesHome />
-        </Route>
+      <RouteWithLayout
+        exact
+        layout={EmptyLayout}
+        path={routes.toCIPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps })}
+      >
+        <CIPipelineStudio>
+          <StageBuilder />
+        </CIPipelineStudio>
+      </RouteWithLayout>
 
-        <RouteWithLayout exact path={routes.toCIAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}>
-          <ResourcesPage>
-            <ConnectorsPage />
-          </ResourcesPage>
-        </RouteWithLayout>
+      <Route exact path={routes.toCIAdminResources({ ...accountPathProps, ...projectPathProps })}>
+        <RedirectToResourcesHome />
+      </Route>
 
-        <RouteWithLayout
-          exact
-          path={routes.toCIAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
-        >
-          <ResourcesPage>
-            <SecretsPage />
-          </ResourcesPage>
-        </RouteWithLayout>
+      <RouteWithLayout exact path={routes.toCIAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}>
+        <ResourcesPage>
+          <ConnectorsPage />
+        </ResourcesPage>
+      </RouteWithLayout>
 
-        <RouteWithLayout
-          exact
-          path={routes.toCIAdminResourcesConnectorDetails({
-            ...accountPathProps,
-            ...projectPathProps,
-            ...connectorPathProps
-          })}
-        >
-          <ConnectorDetailsPage />
-        </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toCIAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+      >
+        <ResourcesPage>
+          <SecretsPage />
+        </ResourcesPage>
+      </RouteWithLayout>
 
-        <RouteWithLayout
-          exact
-          path={routes.toCIAdminResourcesSecretDetails({
-            ...accountPathProps,
-            ...projectPathProps,
-            ...secretPathProps
-          })}
-        >
-          <SecretDetails />
-        </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toCIAdminResourcesConnectorDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...connectorPathProps
+        })}
+      >
+        <ConnectorDetailsPage />
+      </RouteWithLayout>
 
-        <RouteWithLayout
-          exact
-          layout={EmptyLayout}
-          path={routes.toCIPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps })}
-        >
-          <CIPipelineStudio>
-            <PipelineYamlView />
-          </CIPipelineStudio>
-        </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toCIAdminResourcesSecretDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...secretPathProps
+        })}
+      >
+        <SecretDetails />
+      </RouteWithLayout>
 
-        <Route exact path={routes.toCIPipelineStudio({ ...accountPathProps, ...pipelinePathProps })}>
-          <RedirectToStudioUI />
-        </Route>
+      <RouteWithLayout
+        exact
+        layout={EmptyLayout}
+        path={routes.toCIPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps })}
+      >
+        <CIPipelineStudio>
+          <PipelineYamlView />
+        </CIPipelineStudio>
+      </RouteWithLayout>
 
-        <RouteWithLayout exact path={routes.toCIPipelines({ ...accountPathProps, ...projectPathProps })}>
-          <PipelinesPage />
-        </RouteWithLayout>
+      <Route exact path={routes.toCIPipelineStudio({ ...accountPathProps, ...pipelinePathProps })}>
+        <RedirectToStudioUI />
+      </Route>
 
-        <RouteWithLayout
-          exact
-          path={routes.toCIPipelineDeploymentList({
-            ...accountPathProps,
-            ...pipelinePathProps
-          })}
-        >
-          <CIPipelineDeploymentList />
-        </RouteWithLayout>
-      </Switch>
-    </Route>
-  </SidebarProvider>
+      <RouteWithLayout exact path={routes.toCIPipelines({ ...accountPathProps, ...projectPathProps })}>
+        <PipelinesPage />
+      </RouteWithLayout>
+
+      <RouteWithLayout
+        exact
+        path={routes.toCIPipelineDeploymentList({
+          ...accountPathProps,
+          ...pipelinePathProps
+        })}
+      >
+        <CIPipelineDeploymentList />
+      </RouteWithLayout>
+    </SidebarProvider>
+  </Route>
 )

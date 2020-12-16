@@ -95,7 +95,7 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toCDDashboard({ orgIdentifier, projectIdentifier, accountId }),
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
                   label: project?.name as string
                 },
                 { url: '#', label: getString('pipelines') }

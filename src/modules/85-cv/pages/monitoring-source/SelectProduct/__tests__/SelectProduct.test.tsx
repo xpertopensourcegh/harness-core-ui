@@ -11,7 +11,7 @@ describe('SelectProduct', () => {
   test('Render for AppD monitoring source', async () => {
     const { container, getByText } = render(
       <TestWrapper
-        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
           accountId: '1234_account',
           projectIdentifier: '1234_project',
@@ -30,7 +30,7 @@ describe('SelectProduct', () => {
   test('Render google cloud operations monitoring source', async () => {
     const { container, getByText } = render(
       <TestWrapper
-        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
           accountId: '1234_account',
           projectIdentifier: '1234_project',

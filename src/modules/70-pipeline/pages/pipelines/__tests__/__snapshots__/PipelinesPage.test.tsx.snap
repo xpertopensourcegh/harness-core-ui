@@ -14,7 +14,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
           >
             test
           </a>
@@ -1016,7 +1016,7 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
           >
             test
           </a>
@@ -1270,7 +1270,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
           >
             test
           </a>

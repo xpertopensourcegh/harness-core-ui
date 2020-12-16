@@ -106,7 +106,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?query=my%20search%20term
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?query=my%20search%20term
       </div>
     `)
 
@@ -132,7 +132,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?query=
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?query=
       </div>
     `)
 
@@ -172,7 +172,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?status=Failed
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?status=Failed
       </div>
     `)
 
@@ -202,7 +202,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?status=
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?status=
       </div>
     `)
 
@@ -242,7 +242,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?pipeline=test345
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?pipeline=test345
       </div>
     `)
 
@@ -272,7 +272,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?pipeline=
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?pipeline=
       </div>
     `)
 

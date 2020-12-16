@@ -41,10 +41,10 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCDDashboard({
-        orgIdentifier: project.orgIdentifier as string,
-        projectIdentifier: project.identifier,
-        accountId: project.accountIdentifier as string
+      routes.toCDProjectOverview({
+        orgIdentifier: project?.orgIdentifier as string,
+        projectIdentifier: project?.identifier as string,
+        accountId: project?.accountIdentifier as string
       })
     )
   }
@@ -53,7 +53,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCVMainDashBoardPage({
+      routes.toCVProjectOverview({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
@@ -65,7 +65,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCFDashboard({
+      routes.toCFProjectOverview({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
@@ -76,7 +76,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCIDashboard({
+      routes.toCIProjectOverview({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string

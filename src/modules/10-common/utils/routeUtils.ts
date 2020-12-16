@@ -19,6 +19,7 @@ export const accountPathProps: AccountPathProps = {
 }
 
 export const orgPathProps: OrgPathProps = {
+  ...accountPathProps,
   orgIdentifier: ':orgIdentifier'
 }
 

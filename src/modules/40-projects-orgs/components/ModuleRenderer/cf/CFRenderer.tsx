@@ -21,7 +21,7 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview &&
           history.push(
-            routes.toCFDashboard({
+            routes.toCFProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
               projectIdentifier: data.identifier,
               accountId: data.accountIdentifier || /* istanbul ignore next */ ''

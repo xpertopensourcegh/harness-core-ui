@@ -437,7 +437,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 icon="chevron-left"
                 onClick={() => {
                   if (activeStep === STEP.ACTIVITY_SOURCE) {
-                    history.push(routes.toCVMainDashBoardPage({ accountId, projectIdentifier, orgIdentifier }))
+                    history.push(routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier }))
                   } else if (activeStep === STEP.MONITORING_SOURCE) {
                     setActiveStep(STEP.ACTIVITY_SOURCE)
                     setActivitySource(Status.ACTIVE)

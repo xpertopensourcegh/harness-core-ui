@@ -14,7 +14,7 @@ exports[`Trigger Details tests render snapshot view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
           >
             test
           </a>
@@ -27,7 +27,7 @@ exports[`Trigger Details tests render snapshot view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
             Pipelines
           </a>
@@ -40,7 +40,7 @@ exports[`Trigger Details tests render snapshot view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
           >
             testsdfsdf
           </a>
@@ -67,26 +67,26 @@ exports[`Trigger Details tests render snapshot view 1`] = `
       >
         <a
           class="tags"
-          href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/executions"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
         >
           Executions
         </a>
         <a
           class="tags"
-          href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
         >
           Input Sets
         </a>
         <a
           aria-current="page"
           class="tags activeTag"
-          href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
         >
           Triggers
         </a>
         <a
           class="tags"
-          href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/pipeline/"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/pipeline/"
         >
           <span
             class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue600--3aH7"

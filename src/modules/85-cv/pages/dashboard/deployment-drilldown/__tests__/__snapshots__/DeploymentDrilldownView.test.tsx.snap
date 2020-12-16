@@ -9,7 +9,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
       class="StyledProps---font--2ipy StyledProps---main--1Wws header StyledProps---padding-small--3f0A"
     >
       <a
-        href="/account/undefined/cv/dashboard/org/org1/project/project1"
+        href="/account/undefined/cv/orgs/org1/projects/project1/dashboard"
       >
         Dashboard /
       </a>

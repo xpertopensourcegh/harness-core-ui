@@ -64,19 +64,19 @@ describe('Project Card Functionality Test', () => {
     const cdrow = queryByText('DEPLOYMENTS IN LAST 7 DAYS')
     fireEvent.click(cdrow!)
     await waitFor(() => getByTestId('location'))
-    expect(getByTestId('location').innerHTML.endsWith(routes.toCDDashboard(routeParams))).toBeTruthy()
+    expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
   }),
     test('Click on CV', async () => {
       const cvrow = queryByText('VERIFICATIONS IN LAST 7 DAYS')
       fireEvent.click(cvrow!)
       await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCVMainDashBoardPage(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Click on CI', async () => {
       const cirow = queryByText('BUILDS IN LAST 7 DAYS')
       fireEvent.click(cirow!)
       await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCIDashboard(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCIProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Click on CE', async () => {
       const cfrow = queryByText('COST SAVINGS IN LAST 7 DAYS')
@@ -87,6 +87,6 @@ describe('Project Card Functionality Test', () => {
       const cfrow = queryByText('FEATURE FLAGS IN LAST 7 DAYS')
       fireEvent.click(cfrow!)
       await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCFDashboard(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCFProjectOverview(routeParams))).toBeTruthy()
     })
 })

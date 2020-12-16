@@ -5,13 +5,14 @@ import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
 
 export default function CDSideNav(): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
+  const params = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = params
   const routeMatch = useRouteMatch()
   const history = useHistory()
 
@@ -26,7 +27,7 @@ export default function CDSideNav(): React.ReactElement {
             history.push(compile(routeMatch.path)({ ...routeMatch.params, projectIdentifier: data.identifier }))
           } else {
             history.push(
-              routes.toCIDashboard({
+              routes.toCIProjectOverview({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId
@@ -37,19 +38,11 @@ export default function CDSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink label="Overview" to={routes.toCIDashboard({ accountId, projectIdentifier, orgIdentifier })} />
-          <SidebarLink label="Builds" to={routes.toCIBuilds({ accountId, projectIdentifier, orgIdentifier })} />
-          <SidebarLink label="Pipelines" to={routes.toCIPipelines({ accountId, projectIdentifier, orgIdentifier })} />
-          <AdminSelector path={routes.toCIAdmin({ accountId })}>
-            <AdminSelectorLink
-              label="Resources"
-              iconName="main-scope"
-              to={routes.toCIAdminResources({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })}
-            />
+          <SidebarLink label="Overview" to={routes.toCIProjectOverview(params)} />
+          <SidebarLink label="Builds" to={routes.toCIBuilds(params)} />
+          <SidebarLink label="Pipelines" to={routes.toCIPipelines(params)} />
+          <AdminSelector path={routes.toCIAdmin(params)}>
+            <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCIAdminResources(params)} />
             <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
             <AdminSelectorLink label="Git Sync" iconName="git-repo" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />

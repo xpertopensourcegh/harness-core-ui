@@ -11,7 +11,7 @@ describe('Unit tests for SelectActivitySource', () => {
   test('Ensure required fields are validated', async () => {
     const { container, getByText } = render(
       <TestWrapper
-        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
           accountId: 'loading',
           projectIdentifier: '1234_project',

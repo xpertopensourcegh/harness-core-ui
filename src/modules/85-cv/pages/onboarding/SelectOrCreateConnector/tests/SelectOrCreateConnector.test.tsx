@@ -15,7 +15,7 @@ import {
 function WrapperComponent(props: SelectOrCreateConnectorProps): JSX.Element {
   return (
     <TestWrapper
-      path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
       pathParams={{
         accountId: '1234_accountId',
         projectIdentifier: '1234_project',

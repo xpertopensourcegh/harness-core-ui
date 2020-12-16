@@ -11,7 +11,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
       <div>
         <a
           class="breadcrumb"
-          href="/account/1234_accountId/cv/dashboard/org/1234_org/project/1234_project"
+          href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/dashboard"
         />
         <span
           class="separator"

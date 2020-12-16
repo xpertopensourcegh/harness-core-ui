@@ -2,7 +2,7 @@ export interface AccountPathProps {
   accountId: string
 }
 
-export interface OrgPathProps {
+export interface OrgPathProps extends AccountPathProps {
   orgIdentifier: string
 }
 

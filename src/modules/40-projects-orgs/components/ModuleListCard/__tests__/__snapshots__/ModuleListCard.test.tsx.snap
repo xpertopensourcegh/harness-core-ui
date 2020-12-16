@@ -227,14 +227,14 @@ exports[`Project Details render 1`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/account/testAcc/cd/pipeline-studio/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/"
+            href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipeline-studio/pipelines/-1/"
           >
             <span>
               Create New Pipeline
             </span>
           </a>
           <a
-            href="/account/testAcc/cd/pipelines/orgs/Cisco_Meraki/projects/Portal"
+            href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipelines"
           >
             <span>
               View Pipelines
@@ -474,14 +474,14 @@ exports[`Project Details render 2`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/account/testAcc/cv/home"
+            href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/admin/setup/activity-source-setup/undefined"
           >
             <span>
               Set Up Activity Sources
             </span>
           </a>
           <a
-            href="/account/testAcc/cv/datasources/org/Cisco_Meraki/project/Portal"
+            href="/account/testAcc/cv/org/Cisco_Meraki/project/Portal/datasources"
           >
             <span>
               Set Up Data Sources
@@ -1211,14 +1211,14 @@ exports[`Project Details render 5`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/account/testAcc/ci/pipeline-studio/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/"
+            href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipeline-studio/pipelines/-1/"
           >
             <span>
               Create New Pipeline
             </span>
           </a>
           <a
-            href="/account/testAcc/ci/pipelines/orgs/Cisco_Meraki/projects/Portal"
+            href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipelines"
           >
             <span>
               View Pipelines

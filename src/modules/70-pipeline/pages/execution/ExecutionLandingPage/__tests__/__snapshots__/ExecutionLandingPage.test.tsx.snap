@@ -17,7 +17,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/dashboard/orgs/TEST_ORG/projects/TEST_PROJECT"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/dashboard"
             />
             <span
               class="separator"
@@ -28,7 +28,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines"
             >
               Pipelines
             </a>
@@ -41,7 +41,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
             >
               Execution
             </a>
@@ -370,7 +370,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <a
             aria-current="page"
             class="tabLink activeLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
           >
             <span
               class="bp3-icon bp3-icon-alignment-vertical-center StyledProps---main--1Wws"
@@ -397,7 +397,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           </a>
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
           >
             <span
               class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
@@ -424,7 +424,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           </a>
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
           >
             <span
               class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"
@@ -462,14 +462,14 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <a
             aria-current="page"
             class="activeView active"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=graph"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=graph"
           >
             Graph View
           </a>
           <a
             aria-current="page"
             class="active"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
           >
             Log View
           </a>
@@ -486,7 +486,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <div
             data-testid="location"
           >
-            /account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline
+            /account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline
           </div>
         </div>
       </div>
@@ -515,7 +515,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/dashboard/orgs/TEST_ORG/projects/TEST_PROJECT"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/dashboard"
             />
             <span
               class="separator"
@@ -526,7 +526,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines"
             >
               Pipelines
             </a>
@@ -539,7 +539,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
             >
               Execution
             </a>
@@ -752,7 +752,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <a
             aria-current="page"
             class="tabLink activeLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
           >
             <span
               class="bp3-icon bp3-icon-alignment-vertical-center StyledProps---main--1Wws"
@@ -779,7 +779,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           </a>
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
           >
             <span
               class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
@@ -806,7 +806,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           </a>
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
           >
             <span
               class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"
@@ -844,14 +844,14 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <a
             aria-current="page"
             class="activeView active"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=graph"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=graph"
           >
             Graph View
           </a>
           <a
             aria-current="page"
             class="active"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
           >
             Log View
           </a>
@@ -868,7 +868,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <div
             data-testid="location"
           >
-            /account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline
+            /account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline
           </div>
         </div>
       </div>
@@ -970,7 +970,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/dashboard/orgs/TEST_ORG/projects/TEST_PROJECT"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/dashboard"
             />
             <span
               class="separator"
@@ -981,7 +981,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines"
             >
               Pipelines
             </a>
@@ -994,7 +994,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           <div>
             <a
               class="breadcrumb"
-              href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
+              href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
             >
               Execution
             </a>
@@ -1147,7 +1147,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
         >
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
           >
             <span
               class="bp3-icon bp3-icon-alignment-vertical-center StyledProps---main--1Wws"
@@ -1174,7 +1174,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           </a>
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
           >
             <span
               class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
@@ -1201,7 +1201,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           </a>
           <a
             class="tabLink"
-            href="/account/TEST_ACCOUNT_ID/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
+            href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
           >
             <span
               class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"

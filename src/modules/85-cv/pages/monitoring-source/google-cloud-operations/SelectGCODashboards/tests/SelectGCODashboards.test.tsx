@@ -8,7 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { SelectGCODashboards } from '../SelectGCODashboards'
 
 const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
   pathParams: {
     accountId: 'loading',
     projectIdentifier: '1234_project',

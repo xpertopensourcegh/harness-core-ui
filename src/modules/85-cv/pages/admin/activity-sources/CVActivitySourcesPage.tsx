@@ -167,7 +167,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
           <Breadcrumbs
             links={[
               {
-                url: routes.toCVMainDashBoardPage({
+                url: routes.toCVProjectOverview({
                   orgIdentifier: params.orgIdentifier,
                   projectIdentifier: params.projectIdentifier,
                   accountId: params.accountId

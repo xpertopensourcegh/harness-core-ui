@@ -17,7 +17,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
   test('Ensure all tabs are rendered, and tabs can be selected on demand', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
           accountId: '1234_account',
           projectIdentifier: '1234_project',
