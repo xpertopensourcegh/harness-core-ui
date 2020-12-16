@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
-import { Container, Text, Checkbox, Color } from '@wings-software/uikit'
+import { Container, Text, Checkbox, Color, SelectOption } from '@wings-software/uikit'
 import groupBy from 'lodash-es/groupBy'
 import xhr from '@wings-software/xhr-async'
 import qs from 'qs'
@@ -73,7 +73,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   const [pageIndex, setPageIndex] = useState(0)
   const [textFilter, setTextFilter] = useState('')
   const [state, setState] = useState<InternalState>(stepData?.tiers || {})
-  const [serviceOptions, setServiceOptions] = useState([])
+  const [serviceOptions, setServiceOptions] = useState<Array<SelectOption>>([])
   const [metricPacks, setMetricPacks] = useState<Array<{ selected: boolean; data: MetricPackDTO }>>([])
   const [validationResult, setValidationResult] = useState()
   const { setError, renderError } = useValidationErrors()
@@ -280,7 +280,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               {
                 id: '1',
                 Header: '',
-                width: '10%',
+                width: '5%',
                 Cell: function SelectedCellWrapper({ row }: any) {
                   return (
                     <SelectedCell
@@ -313,7 +313,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                     {getString('cv.monitoringSources.appD.appDTier')}
                   </Text>
                 ),
-                width: '30%',
+                width: '25%',
                 disableSortBy: true,
                 accessor: 'name'
               },
@@ -350,7 +350,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                     columnName={getString('cv.monitoringSources.appD.mappingToHarnessService')}
                   />
                 ),
-                width: '30%',
+                width: '40%',
                 disableSortBy: true,
                 Cell: function ServiceCellWrapper({ row }: any) {
                   return (
@@ -360,6 +360,10 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                       onUpdate={onTierUpdate}
                       options={serviceOptions}
                       onValidateTier={onValidateTier}
+                      onServiceCreated={service => {
+                        setServiceOptions(old => [{ label: service.name!, value: service.identifier! }, ...old])
+                        onTierUpdate(row.original.id, { service: service.identifier })
+                      }}
                     />
                   )
                 }

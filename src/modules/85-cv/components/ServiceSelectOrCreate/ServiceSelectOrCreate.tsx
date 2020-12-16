@@ -15,6 +15,7 @@ interface ServiceSelectOrCreateProps {
   onSelect(value: SelectOption): void
   className?: string
   onNewCreated(value: ServiceResponseDTO): void
+  disabled?: boolean
 }
 
 const ADD_NEW_VALUE = '@@add_new'
@@ -113,6 +114,7 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
     <Select
       value={props.item}
       className={props.className}
+      disabled={props.disabled}
       items={selectOptions}
       inputProps={{ placeholder: getString('cv.selectCreateService') }}
       onChange={onSelectChange}

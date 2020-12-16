@@ -69,6 +69,20 @@ jest.mock('services/cd-ng', () => ({
   }
 }))
 
+jest.mock('@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate', () => ({
+  ServiceSelectOrCreate: () => (props: any) => (
+    <div
+      className="service-select-mock"
+      onClick={() =>
+        props?.onSelect({
+          label: 'Service 1',
+          value: 'service1'
+        })
+      }
+    />
+  )
+}))
+
 describe('MapApplications', () => {
   test('matches snapshot', () => {
     const { container } = render(

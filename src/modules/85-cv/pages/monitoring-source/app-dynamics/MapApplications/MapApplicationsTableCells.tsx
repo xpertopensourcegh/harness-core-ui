@@ -1,6 +1,8 @@
 import React from 'react'
-import { Select, Text, Color, Button, Layout, SelectOption } from '@wings-software/uikit'
+import { Text, Color, Button, Layout, SelectOption } from '@wings-software/uikit'
 import { useStrings } from 'framework/exports'
+import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
+import type { ServiceResponseDTO } from 'services/cd-ng'
 import { ValidationStatus, TierRecord } from '../AppDOnboardingUtils'
 
 interface CellProps {
@@ -9,6 +11,7 @@ interface CellProps {
   options?: Array<SelectOption>
   onValidateTier?(tierId: number): void
   onUpdate?(tierId: number, data: Partial<TierRecord> | null): void
+  onServiceCreated?(service: ServiceResponseDTO): void
 }
 
 export const SelectedCell = ({ tierId, tierData, onUpdate }: CellProps) => {
@@ -87,15 +90,15 @@ export const ValidationCell = ({
   }
 }
 
-export const ServiceCell = ({ tierId, tierData, onUpdate, options, onValidateTier }: CellProps) => {
+export const ServiceCell = ({ tierId, tierData, onUpdate, options, onValidateTier, onServiceCreated }: CellProps) => {
   const selectedOption = options?.find((opt: any) => opt.value === tierData?.service)
   return (
-    <Select
+    <ServiceSelectOrCreate
       disabled={!tierData}
-      value={selectedOption}
-      items={options || []}
-      inputProps={{ placeholder: 'select or create a service' }}
-      onChange={opt => {
+      item={selectedOption}
+      options={options || []}
+      onNewCreated={onServiceCreated!}
+      onSelect={opt => {
         onUpdate?.(tierId, { service: opt.value as string })
         onValidateTier?.(tierId)
       }}

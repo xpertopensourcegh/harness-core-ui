@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Button, Color, Container, Heading, OverlaySpinner, Text } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import { accountId, RouteVerificationTypeToVerificationType } from '@cv/constants'
+import { RouteVerificationTypeToVerificationType } from '@cv/constants'
 import { Page } from '@common/exports'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { fetchMetricPacks, saveGlobalMetricPacks } from '../../services/CVNextGenCVConfigService'
 import ConfigureThreshold from './ConfigureThreshold'
 import { MetricPackTable } from '../../components/MetricPackTable/MetricPackTable'
@@ -14,9 +15,9 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
   const [metricPacks, setMetricPacks] = useState([])
   const [metricPacksThresholdData, setMetricPacksThresholdData] = useState([])
   const [inProgress, setInProgress] = useState(false)
-  const { orgId: routeOrgId, projectId: routeProjectId } = useParams()
-  const orgId = routeOrgId as string
-  const projectId = routeProjectId as string
+  const { accountId, projectIdentifier: projectId, orgIdentifier: orgId } = useParams<
+    ProjectPathProps & AccountPathProps
+  >()
 
   useEffect(() => {
     fetchExistingMetricPacks()
