@@ -34,6 +34,13 @@ export const DelegateInClusterType = {
   addNewDelegate: 'addnewDelegate'
 }
 
+export const DockerProviderType = {
+  DOCKERHUB: 'DockerHub',
+  HARBOUR: 'Harbor',
+  QUAY: 'Quay',
+  OTHER: 'Other'
+}
+
 export interface SecretReferenceInterface {
   identifier: string
   name: string
@@ -202,8 +209,25 @@ export const setupGCPFormData = async (connectorInfo: ConnectorInfoDTO, accountI
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
     delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
-    password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams),
-    skipDefaultValidation: true
+    password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams)
+  }
+
+  return formData
+}
+
+export const setupDockerFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    dockerRegistryUrl: connectorInfo.spec.dockerRegistryUrl,
+    authType: connectorInfo.spec.auth.type,
+    dockerProviderType: connectorInfo.spec.providerType,
+    username: connectorInfo.spec.auth.spec.username,
+    password: await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
   }
 
   return formData
@@ -253,27 +277,22 @@ export const buildDockerPayload = (formData: FormData) => {
     type: Connectors.DOCKER,
     spec: {
       dockerRegistryUrl: formData.dockerRegistryUrl,
+      providerType: formData.dockerProviderType,
       auth:
-        formData.username && formData.password
+        formData.authType === AuthTypes.USER_PASSWORD
           ? {
-              type: 'UsernamePassword',
+              type: formData.authType,
               spec: {
                 username: formData.username,
                 passwordRef: formData.password.referenceString
               }
             }
-          : null
+          : {
+              type: formData.authType
+            }
     }
   }
   return { connector: savedData }
-}
-
-export const buildDockerFormData = (connector: ConnectorInfoDTO) => {
-  return {
-    ...pick(connector, ['name', 'identifier', 'description', 'tags']),
-    dockerRegistryUrl: connector?.spec?.dockerRegistryUrl,
-    ...pick(connector?.spec?.auth?.spec, ['username', 'passwordRef'])
-  }
 }
 
 export const buildGcpPayload = (formData: FormData) => {

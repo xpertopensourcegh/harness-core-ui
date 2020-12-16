@@ -337,7 +337,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
           >
-            Authentication
+            Docker Registry Details
           </p>
           <div
             class="OverlaySpinner---overlaySpinner--3Bs3"
@@ -347,8 +347,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
             >
               <div>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
-                  style="min-height: 440px; width: 64%;"
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws secondStep StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
                 >
                   <div
                     class="bp3-form-group"
@@ -380,9 +379,140 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
                       </div>
                     </div>
                   </div>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  >
+                    Provider Type
+                  </p>
+                  <div
+                    class="bp3-form-group bp3-inline dockerProviderType"
+                    data-id="dockerProviderType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div>
+                        <label
+                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        >
+                          <input
+                            checked=""
+                            name="dockerProviderType"
+                            type="radio"
+                            value="DockerHub"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          DockerHub
+                        </label>
+                        <label
+                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        >
+                          <input
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Harbor"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          Harbour
+                        </label>
+                        <label
+                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        >
+                          <input
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Quay"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          Quay
+                        </label>
+                        <label
+                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        >
+                          <input
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Other"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          Other (Docker V2 compliant)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+                  >
+                    <span
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+                    >
+                      Authentication
+                    </span>
+                    <div
+                      class="bp3-form-group"
+                      data-id="authType-2"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="authType"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value="Username and Password"
+                              />
+                              <span
+                                class="bp3-input-action"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="bp3-form-group"
-                    data-id="username-1"
+                    data-id="username-3"
                   >
                     <label
                       class="bp3-label"
@@ -412,7 +542,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="null-2"
+                    data-id="null-4"
                   >
                     <label
                       class="bp3-label"
@@ -460,30 +590,16 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
                     </button>
                   </div>
                 </div>
-                <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                  type="submit"
                 >
-                  <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-                    type="button"
+                  <span
+                    class="bp3-button-text"
                   >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      BACK
-                    </span>
-                  </button>
-                  <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---font-small--1qQz"
-                    type="submit"
-                  >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      SAVE CREDENTIALS AND CONTINUE
-                    </span>
-                  </button>
-                </div>
+                    Save and Continue
+                  </span>
+                </button>
               </div>
             </form>
           </div>
@@ -611,7 +727,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
           <div
             class="heading"
           >
-            Docker Connector Details
+            Overview
           </div>
           <div
             class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"

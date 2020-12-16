@@ -74,7 +74,7 @@ describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateHashiCorpVault hideLightModal={noop} onSuccess={noop} mock={true} isCreate={true} />
+        <CreateHashiCorpVault hideLightModal={noop} onSuccess={noop} mock={true} isEditMode={false} />
       </TestWrapper>
     )
 
@@ -148,7 +148,7 @@ describe('Create Secret Manager Wizard', () => {
             hideLightModal={noop}
             onSuccess={noop}
             mock={true}
-            isCreate={false}
+            isEditMode={true}
           />
         </TestWrapper>
       )

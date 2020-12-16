@@ -18,7 +18,7 @@ interface CreateConnectorWizardProps {
   projectIdentifier: string
   orgIdentifier: string
   type: ConnectorInfoDTO['type']
-  isCreate: boolean
+  isEditMode: boolean
   connectorInfo?: ConnectorInfoDTO | void
   hideLightModal: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
@@ -32,7 +32,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
         <CreateK8sConnector
           onConnectorCreated={props.onSuccess}
           hideLightModal={props.hideLightModal}
-          isCreate={props.isCreate}
+          isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
         />
       )
@@ -50,7 +50,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return (
         <CreateHashiCorpVault
           hideLightModal={hideLightModal}
-          isCreate={props.isCreate}
+          isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
           onSuccess={props.onSuccess}
         />
@@ -78,7 +78,14 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
         />
       )
     case Connectors.DOCKER:
-      return <CreateDockerConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+      return (
+        <CreateDockerConnector
+          onConnectorCreated={props.onSuccess}
+          hideLightModal={props.hideLightModal}
+          isEditMode={props.isEditMode}
+          connectorInfo={props.connectorInfo}
+        />
+      )
     case Connectors.AWS:
       return <CreateAWSConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
     case Connectors.NEXUS:
@@ -90,7 +97,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
         <CreateGcpConnector
           onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
-          isCreate={props.isCreate}
+          isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
         />
       )

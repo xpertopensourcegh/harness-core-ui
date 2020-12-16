@@ -145,7 +145,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
         <div
           class="heading"
         >
-          GCP Connector Details
+          Google Cloud Provider Overview
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
@@ -562,28 +562,6 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                     </span>
                   </button>
                 </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-1"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
-                    >
-                      <input
-                        checked=""
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      Skip default namespace validation
-                    </label>
-                  </div>
-                </div>
               </div>
               <button
                 class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
@@ -749,7 +727,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <div
           class="heading"
         >
-          GCP Connector Details
+          Google Cloud Provider Overview
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
@@ -1145,28 +1123,6 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       </div>
                     </span>
                   </button>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-1"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
-                    >
-                      <input
-                        checked=""
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      Skip default namespace validation
-                    </label>
-                  </div>
                 </div>
               </div>
               <button

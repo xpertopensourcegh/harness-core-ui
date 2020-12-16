@@ -7,12 +7,12 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { usePostSecretViaYaml, useGetYamlSchema, ResponseString } from 'services/cd-ng'
+import { usePostSecretViaYaml, useGetYamlSchema, ResponseJsonNode } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 
-const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseString> }> = props => {
+const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
   const { accountId } = useParams()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()

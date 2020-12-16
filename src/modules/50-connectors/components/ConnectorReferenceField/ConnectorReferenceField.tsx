@@ -60,7 +60,7 @@ export function getEditRenderer(
         icon="edit"
         onClick={e => {
           e.stopPropagation()
-          openConnectorModal(false, type, selected?.connector)
+          openConnectorModal(true, type, selected?.connector)
         }}
         style={{
           color: 'var(--blue-450)'
@@ -167,7 +167,7 @@ export function getReferenceFieldProps({
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
-                openConnectorModal(false, type, item.record)
+                openConnectorModal(true, type, item.record)
               }}
               style={{
                 color: 'var(--blue-450)'
@@ -231,7 +231,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           openConnectorModal
         })}
         createNewHandler={() => {
-          openConnectorModal(true, type, undefined)
+          openConnectorModal(false, type, undefined)
         }}
         editRenderer={getEditRenderer(selected, openConnectorModal, type)}
         selectedRenderer={getSelectedRenderer(selected)}

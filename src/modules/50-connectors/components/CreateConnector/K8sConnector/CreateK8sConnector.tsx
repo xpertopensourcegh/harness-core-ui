@@ -12,7 +12,7 @@ interface CreateK8sConnectorProps {
   hideLightModal: () => void
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
-  isCreate: boolean
+  isEditMode: boolean
   connectorInfo?: ConnectorInfoDTO | void
 }
 
@@ -27,14 +27,14 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
       <ConnectorDetailsStep
         type={Connectors.KUBERNETES_CLUSTER}
         name={getString('connectors.stepOneName')}
-        isEditMode={!props.isCreate}
+        isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
       <Stepk8ClusterDetails
         name={getString('connectors.k8.stepTwoName')}
         onConnectorCreated={props.onConnectorCreated}
-        isEditMode={!props.isCreate}
+        isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate

@@ -4,7 +4,6 @@ import {
   Layout,
   Button,
   Formik,
-  FormInput,
   Text,
   ModalErrorHandler,
   FormikForm as Form,
@@ -47,7 +46,6 @@ interface StepConfigureProps {
 interface GCPFormInterface {
   delegateType: string
   password: SecretReferenceInterface | null
-  skipDefaultValidation: boolean
 }
 const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
@@ -61,8 +59,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
 
   const defaultInitialFormData: GCPFormInterface = {
     delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
-    password: null,
-    skipDefaultValidation: true
+    password: null
   }
 
   const validate = (formData: GCPFormInterface): boolean => {
@@ -98,15 +95,11 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      const response = await createConnector(data)
+      await createConnector(data)
       setLoadConnector(false)
       props.onConnectorCreated?.()
       showSuccess(`Connector '${data.connector?.name}' created successfully`)
-      if (stepData.skipDefaultValidation) {
-        props.onConnectorCreated(response.data)
-      } else {
-        nextStep?.({ ...prevStepData, ...stepData })
-      }
+      nextStep?.({ ...prevStepData, ...stepData })
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -117,14 +110,10 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      const response = await updateConnector(data)
+      await updateConnector(data)
       setLoadConnector(false)
       showSuccess(`Connector '${data.connector?.name}' updated successfully`)
-      if (stepData.skipDefaultValidation) {
-        props.onConnectorCreated(response.data)
-      } else {
-        nextStep?.({ ...prevStepData, ...stepData })
-      }
+      nextStep?.({ ...prevStepData, ...stepData })
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
@@ -189,15 +178,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
               />
 
               {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
-                <>
-                  <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
-
-                  <FormInput.CheckBox
-                    name="skipDefaultValidation"
-                    label={getString('connectors.k8.skipDefaultValidation')}
-                    padding={{ left: 'xxlarge' }}
-                  />
-                </>
+                <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : null}
             </Container>
             <Button

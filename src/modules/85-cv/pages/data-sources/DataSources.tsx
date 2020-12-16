@@ -200,7 +200,7 @@ function Providers(props: ProvidersProps): JSX.Element {
           orgIdentifier={orgId}
           projectIdentifier={projectId}
           type={connectorType}
-          isCreate={true}
+          isEditMode={false}
           onSuccess={async (conn?: ConnectorConfigDTO) => {
             const { identifier, type } = conn?.connector || {}
             if (identifier && type) {

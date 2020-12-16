@@ -1,9 +1,11 @@
 export default {
+  // Note: Deprecating this file, as we are adding these to strings.en.yaml
+  // Todo: Delete this once all usage in helpers are migrated
   k8sClusterDetails: 'Kubernetes Cluster Overview',
   gitConnectorDetails: 'GIT Connector Details',
   secretManagerDetails: 'Secret Manager Details',
-  dockerConnectorDetails: 'Docker Connector Details',
-  gcpConnectorDetails: 'GCP Connector Details',
+  dockerConnectorDetails: 'Overview',
+  gcpConnectorDetails: 'Google Cloud Provider Overview',
   hashicorpVaultDetails: 'HashiCorp Vault Overview',
   LABEL: {
     k8sCluster: 'Kubernetes Cluster',

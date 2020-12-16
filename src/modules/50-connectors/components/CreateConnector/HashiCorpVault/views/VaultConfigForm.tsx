@@ -55,7 +55,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
   prevStepData,
   previousStep,
   nextStep,
-  isCreate
+  isEditMode
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { showSuccess } = useToaster()
@@ -86,7 +86,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
         }
       }
       try {
-        if (isCreate && prevStepData.isEdit != true) {
+        if (!isEditMode && prevStepData.isEdit != true) {
           await CreateHashiCorpVault(dataToSubmit)
           nextStep?.({ ...prevStepData, spec: { ...formData }, isEdit: true })
           showSuccess(getString('secretManager.createmessageSuccess'))

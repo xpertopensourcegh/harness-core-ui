@@ -91,7 +91,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
           }),
           isNewConnectorLabelVisible: isNewConnectorLabelVisible,
           createNewHandler: () => {
-            openConnectorModal(true, type, undefined)
+            openConnectorModal(false, type, undefined)
           },
           editRenderer: getEditRenderer(selected, openConnectorModal, type),
           selectedRenderer: getSelectedRenderer(selected)

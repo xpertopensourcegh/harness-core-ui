@@ -14,7 +14,7 @@ export interface UseCreateConnectorModalProps {
 
 export interface UseCreateConnectorModalReturn {
   openConnectorModal: (
-    isCreate: boolean,
+    isEditMode: boolean,
     type: ConnectorInfoDTO['type'],
     connectorInfo: ConnectorInfoDTO | void,
     modalProps?: IDialogProps
@@ -23,7 +23,7 @@ export interface UseCreateConnectorModalReturn {
 }
 
 const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreateConnectorModalReturn => {
-  const [isCreate, setIsCreate] = useState(true)
+  const [isEditMode, setIsEditMode] = useState(false)
   const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
   const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | void>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
@@ -51,7 +51,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
           type={type}
-          isCreate={isCreate}
+          isEditMode={isEditMode}
           connectorInfo={connectorInfo}
           onSuccess={data => {
             props.onClose?.()
@@ -72,18 +72,18 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
         />
       </Dialog>
     ),
-    [type, isCreate, connectorInfo]
+    [type, isEditMode, connectorInfo]
   )
 
   return {
     openConnectorModal: (
-      isCreating: boolean,
+      isEditing: boolean,
       connectorType: ConnectorInfoDTO['type'],
       connectorDetails: ConnectorInfoDTO | void,
       _modalProps?: IDialogProps | undefined
     ) => {
       setConnectorInfo(connectorDetails)
-      setIsCreate(isCreating)
+      setIsEditMode(isEditing)
       setType(connectorType)
       setModalProps(_modalProps || modalProps)
       showModal()

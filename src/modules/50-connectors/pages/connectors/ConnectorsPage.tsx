@@ -108,7 +108,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
       if (val.value === 'YAML') {
         history.push(routes.toCreateConnectorFromYaml({ accountId }))
       }
-      openConnectorModal(true, val?.value as ConnectorInfoDTO['type'], undefined)
+      openConnectorModal(false, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()
     }
 

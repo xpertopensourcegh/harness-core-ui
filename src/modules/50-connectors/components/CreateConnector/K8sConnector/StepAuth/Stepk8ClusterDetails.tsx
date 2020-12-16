@@ -77,8 +77,8 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
     case AuthTypes.USER_PASSWORD:
       return (
         <>
-          <FormInput.Text name="username" label={getString('connectors.k8.username')} />
-          <SecretInput name={'password'} label={getString('connectors.k8.password')} />
+          <FormInput.Text name="username" label={getString('username')} />
+          <SecretInput name={'password'} label={getString('password')} />
         </>
       )
     case AuthTypes.SERVICE_ACCOUNT:
@@ -138,7 +138,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
 
   const authOptions: Array<AuthOptionInterface> = [
     {
-      label: getString('connectors.k8.authLabels.usernamePassword'),
+      label: getString('usernamePassword'),
       value: AuthTypes.USER_PASSWORD
     },
     {

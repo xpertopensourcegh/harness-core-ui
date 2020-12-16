@@ -90,6 +90,8 @@ global:
   skipGitCloneLabel: Skip Git Clone
   allowedValues: 'Allowed values'
   serviceAccount: Service Account
+  usernamePassword: 'Username and Password'
+  annonymous: 'Anonymous (no credentials required)'
   saveAndContinue: 'Save and Continue'
   addressErrorFields: 'Please address all error fields before submitting.'
   metricPacks: 'Metric Packs'
@@ -102,6 +104,8 @@ global:
   adminLabel: 'Admin'
   collaboratorsLabel: 'Collaborators'
   viewDetails: 'View Details'
+  username: 'Username'
+  password: 'Password'
   navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
   navigationCheckTitle: 'Close without saving?'
   inputSetsText: 'Input Sets'
@@ -379,8 +383,6 @@ global:
       stepTwoName: 'Cluster Details'
       masterUrlLabel: 'Master URL'
       authTitle: 'Authentication'
-      username: 'Username'
-      password: 'Password'
       serviceAccountToken: 'Service Account Token'
       skipDefaultValidation: 'Skip default namespace validation'
       OIDCUsername: 'OIDC Username'
@@ -400,11 +402,20 @@ global:
         username: 'Username is required'
         oidcUsername: 'OIDC username is required'
       authLabels:
-        usernamePassword: 'Username and Password'
         OIDC: 'OpenID Connect'
         clientKeyCertificate: 'Client Key Certificate'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
+    docker:
+      stepTwoName: 'Docker Registry Details'
+      dockerRegistryURL: 'Docker Registry URL'
+      dockerProvideType: 'Provider Type'
+      dockerHub: 'DockerHub'
+      harbour: 'Harbour'
+      quay: 'Quay'
+      other: 'Other (Docker V2 compliant)'
+      validation:
+        dockerRegistryUrl: 'Docker Registry URL is required'
   cf:
     shared:
       individual: 'Individual'

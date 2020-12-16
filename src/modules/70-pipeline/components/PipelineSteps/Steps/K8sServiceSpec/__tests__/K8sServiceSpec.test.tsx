@@ -246,7 +246,7 @@ describe('StepWidget tests', () => {
     const createArtifactButton = await findByText(document.body, 'New Artifact Server')
     fireEvent.click(createArtifactButton)
 
-    const createArtifactModalTitle = await findByText(document.body, 'Docker Connector Details')
+    const createArtifactModalTitle = await findByText(document.body, 'Overview')
     expect(createArtifactModalTitle).toBeDefined() // Create New Artifact Server Modal Rendered
     const portal = document.getElementsByClassName('bp3-dialog')[0]
     expect(portal).toMatchSnapshot('Artifact Name Step ')
@@ -280,7 +280,7 @@ describe('StepWidget tests', () => {
       expect(selectedSecret).toBeDefined()
       fireEvent.click(selectedSecret)
       expect(await findByText(document.body, 'testpass')).toBeDefined()
-      const saveAndContinueButton = await findByText(document.body, 'SAVE CREDENTIALS AND CONTINUE')
+      const saveAndContinueButton = await findByText(document.body, 'Save and Continue')
       fireEvent.click(saveAndContinueButton)
       expect(document.getElementsByClassName('bp3-dialog')[0]).toMatchSnapshot('Artifact Details Step')
     })

@@ -10,7 +10,7 @@ const props = {
   orgIdentifier: 'orgId',
   projectIdentifier: 'projectId',
   type: 'K8sCluster' as ConnectorInfoDTO['type'],
-  isCreate: true,
+  isEditMode: false,
   hideLightModal: jest.fn(),
   onSuccess: jest.fn()
 }

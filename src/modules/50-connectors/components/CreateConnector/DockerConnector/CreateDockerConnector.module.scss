@@ -1,0 +1,44 @@
+.secondStep {
+  min-height: 500px;
+
+  .dockerProviderType {
+    font-size: var(font-size-normal) !important;
+  }
+
+  :global {
+    .bp3-input,
+    .bp3-button,
+    .bp3-checkbox {
+      width: 60%;
+      height: 36px;
+    }
+  }
+
+  .authHeaderRow {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+
+    .authTitle {
+      font-size: var(font-size-normal);
+      color: var(--black-600);
+      padding-top: var(--spacing-small);
+    }
+    :global {
+      .bp3-input-group {
+        .bp3-input {
+          width: 100% !important;
+          border: none !important;
+          padding: var(--spacing-small) 0;
+          min-width: 260px;
+        }
+      }
+    }
+  }
+
+  .saveButton {
+    width: 180px;
+    height: 32px;
+    margin-top: var(--spacing-large);
+  }
+}

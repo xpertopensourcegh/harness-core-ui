@@ -12,7 +12,7 @@ interface CreateGCPConnectorProps {
   hideLightModal: () => void
   onConnectorCreated: (data?: ConnectorConfigDTO) => void | Promise<void>
   mock?: ResponseBoolean
-  isCreate: boolean
+  isEditMode: boolean
   connectorInfo?: ConnectorInfoDTO | void
 }
 
@@ -29,14 +29,14 @@ const CreateGcpConnector: React.FC<CreateGCPConnectorProps> = props => {
         <ConnectorDetailsStep
           type={Connectors.GCP}
           name={getString('connectors.stepOneName')}
-          isEditMode={!props.isCreate}
+          isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
           mock={props.mock}
         />
         <GcpAuthentication
           name={getString('connectors.GCP.stepTwoName')}
           onConnectorCreated={props.onConnectorCreated}
-          isEditMode={!props.isCreate}
+          isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
         />
         <VerifyOutOfClusterDelegate

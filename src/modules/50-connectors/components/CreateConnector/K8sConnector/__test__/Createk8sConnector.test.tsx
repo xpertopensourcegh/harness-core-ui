@@ -24,7 +24,7 @@ describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector hideLightModal={noop} onConnectorCreated={noop} isCreate={true} mock={mockResponse} />
+        <CreateK8sConnector hideLightModal={noop} onConnectorCreated={noop} isEditMode={false} mock={mockResponse} />
       </TestWrapper>
     )
     // fill step 1
@@ -52,7 +52,7 @@ describe('Create k8 connector Wizard', () => {
         <CreateK8sConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
-          isCreate={false}
+          isEditMode={true}
           connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
         />
@@ -74,7 +74,7 @@ describe('Create k8 connector Wizard', () => {
         <CreateK8sConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
-          isCreate={false}
+          isEditMode={true}
           connectorInfo={serviceAccount as ConnectorInfoDTO}
           mock={mockResponse}
         />
@@ -126,7 +126,7 @@ describe('Create k8 connector Wizard', () => {
         <CreateK8sConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
-          isCreate={false}
+          isEditMode={true}
           connectorInfo={oidcMock as ConnectorInfoDTO}
           mock={mockResponse}
         />
@@ -148,7 +148,7 @@ test('should form for edit authtype clientKey', async () => {
       <CreateK8sConnector
         hideLightModal={noop}
         onConnectorCreated={noop}
-        isCreate={false}
+        isEditMode={true}
         connectorInfo={clientKeyMock as ConnectorInfoDTO}
         mock={mockResponse}
       />

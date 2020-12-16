@@ -14,7 +14,7 @@ import VaultConfigForm from './views/VaultConfigForm'
 export interface CreateHashiCorpVaultProps {
   hideLightModal: () => void
   onSuccess: () => void
-  isCreate: boolean
+  isEditMode: boolean
   mock?: any
   connectorInfo?: ConnectorInfoDTO | void
 }
@@ -35,7 +35,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
       <ConnectorDetailsStep
         type={Connectors.VAULT}
         name={getString('connectors.stepOneName')}
-        isEditMode={!props.isCreate}
+        isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />

@@ -8,7 +8,8 @@ import {
   ConnectorRequestBody,
   ConnectorResponse,
   useGetYamlSnippetMetadata,
-  useGetYamlSnippet
+  useGetYamlSnippet,
+  ResponseJsonNode
 } from 'services/cd-ng'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import { getValidationErrorMessagesForToaster } from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
@@ -33,7 +34,7 @@ export interface ConnectorViewProps {
   refetchConnector: () => Promise<any>
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
   mockSnippetData?: UseGetMockData<ResponseString>
-  mockSchemaData?: UseGetMockData<ResponseString>
+  mockSchemaData?: UseGetMockData<ResponseJsonNode>
 }
 
 interface ConnectorViewState {
@@ -244,7 +245,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
             icon="edit"
             onClick={() => {
               state.setEnableEdit(true)
-              selectedView === SelectedView.VISUAL ? openConnectorModal(false, props.type, connector) : undefined
+              selectedView === SelectedView.VISUAL ? openConnectorModal(true, props.type, connector) : undefined
             }}
           />
         )}

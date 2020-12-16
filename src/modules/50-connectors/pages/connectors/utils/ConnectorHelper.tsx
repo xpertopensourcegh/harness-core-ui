@@ -7,7 +7,16 @@ export const AuthTypes = {
   CLIENT_KEY_CERT: 'ClientKeyCert',
   USER_PASSWORD: 'UsernamePassword',
   SERVICE_ACCOUNT: 'ServiceAccount',
-  OIDC: 'OpenIdConnect'
+  OIDC: 'OpenIdConnect',
+  ANNONYMOUS: 'Anonymous'
+}
+
+export const dockerProviderTypes = {
+  CLIENT_KEY_CERT: 'ClientKeyCert',
+  USER_PASSWORD: 'UsernamePassword',
+  SERVICE_ACCOUNT: 'ServiceAccount',
+  OIDC: 'OpenIdConnect',
+  ANNONYMOUS: 'Anonymous'
 }
 
 export const getKubInitialValues = () => {

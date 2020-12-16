@@ -82,7 +82,7 @@ exports[`Create Docker connector Wizard should render form 1`] = `
           <div
             class="heading"
           >
-            Docker Connector Details
+            Overview
           </div>
           <div
             class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
@@ -306,7 +306,7 @@ exports[`Create Docker connector Wizard should render form 2`] = `
           <div
             class="heading"
           >
-            Docker Connector Details
+            Overview
           </div>
           <div
             class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
