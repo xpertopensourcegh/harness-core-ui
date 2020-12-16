@@ -9,6 +9,7 @@ import type {
   SecretsPathProps,
   PipelineType,
   FeatureFlagPathProps,
+  SegmentPathProps,
   CVDataSourceTypePathProps,
   BuildPathProps,
   EnvironmentPathProps
@@ -70,6 +71,10 @@ export const buildPathProps: BuildPathProps = {
 
 export const environmentPathProps: EnvironmentPathProps = {
   environmentIdentifier: ':environmentIdentifier'
+}
+
+export const segmentPathProps: SegmentPathProps = {
+  segmentIdentifier: ':segmentIdentifier'
 }
 
 export function withAccountId<T>(fn: (args: T) => string) {

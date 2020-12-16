@@ -1,4 +1,4 @@
-import { zipObject } from 'lodash-es'
+import { zipObject, isEqual } from 'lodash-es'
 import type { Distribution, PatchOperation, Prerequisite, Serve, Variation, WeightedVariation } from 'services/cf'
 
 type PatchKind =
@@ -29,6 +29,10 @@ type PatchKind =
   | 'reorderRules'
   | 'updateDefaultServe'
   | 'updateOffVariation'
+  | 'addToIncludeList'
+  | 'removeFromIncludeList'
+  | 'addToExcludeList'
+  | 'removeFromExcludeList'
 
 export type FeatureList = Pick<Prerequisite, 'feature'>[]
 export type VariationIdentifier = Pick<Variation, 'identifier'>[]
@@ -60,7 +64,7 @@ export interface ClauseData {
   attribute: string
   op: string
   value: string[]
-  [key: string]: any
+  negate?: boolean
 }
 export interface AddRuleParams {
   priority: number
@@ -87,6 +91,13 @@ export interface ReorderRulesParams {
   rules: string[]
 }
 type UpdateDefaultServeParams = VariationParam | { bucketID: string; variations: WeightedVariation[] }
+type TargetList = { targets: string[] }
+
+export type AddClauseToSegmentParams = ClauseData
+export type UpdateClauseOnSegmentParams = ClauseData & {
+  clauseID: string
+}
+export type RemoveClauseOnSegmentParams = { clauseID: string }
 
 type ParameterType =
   | VariationParam
@@ -108,6 +119,10 @@ type ParameterType =
   | UpdateClauseParams
   | ReorderRulesParams
   | UpdateDefaultServeParams
+  | TargetList
+  | AddClauseToSegmentParams
+  | UpdateClauseOnSegmentParams
+  | RemoveClauseOnSegmentParams
 
 export interface Instruction<Params extends ParameterType = ParameterType> {
   kind: PatchKind
@@ -275,6 +290,34 @@ const updateOffVariation: (variation: string) => Instruction<VariationParam> = u
   shape('variation')
 )
 
+const addToIncludeList: (targets: string[]) => Instruction<TargetList> = unaryInstructionCreator(
+  'addToIncludeList',
+  shape<TargetList>('targets')
+)
+const removeFromIncludeList: (targets: string[]) => Instruction<TargetList> = unaryInstructionCreator(
+  'removeFromIncludeList',
+  shape<TargetList>('targets')
+)
+const addToExcludeList: (targets: string[]) => Instruction<TargetList> = unaryInstructionCreator(
+  'addToExcludeList',
+  shape<TargetList>('targets')
+)
+const removeFromExcludeList: (targets: string[]) => Instruction<TargetList> = unaryInstructionCreator(
+  'removeFromExcludeList',
+  shape<TargetList>('targets')
+)
+const addClauseToSegment: (clause: ClauseData) => Instruction<AddClauseToSegmentParams> = unaryInstructionCreator(
+  'addClause',
+  identity
+)
+const updateClauseOnSegment: (
+  clause: UpdateClauseOnSegmentParams
+) => Instruction<UpdateClauseOnSegmentParams> = unaryInstructionCreator('updateClause', identity)
+const removeClauseOnSegment: (clauseID: string) => Instruction<RemoveClauseOnSegmentParams> = unaryInstructionCreator(
+  'removeClause',
+  shape<RemoveClauseOnSegmentParams>('clauseID')
+)
+
 class SemanticPatch {
   instructions: any[] = []
 
@@ -348,6 +391,12 @@ class SegmentSemanticPatch extends SemanticPatch {
   }
 }
 
+export const getDiff = <A, B>(initial: A[], updated: B[], eqFn: (a: A, b: B) => boolean = isEqual) => {
+  const newData = updated.filter(b => !initial.find(a => eqFn(a, b)))
+  const remData = initial.filter(a => !updated.find(b => eqFn(a, b)))
+  return [newData, remData]
+}
+
 export default {
   feature: FeatureSemanticPatch.getInstance(),
   segment: SegmentSemanticPatch.getInstance(),
@@ -379,6 +428,13 @@ export default {
     reorderRules,
     updateDefaultServeByVariation,
     updateDefaultServeByBucket,
-    updateOffVariation
+    updateOffVariation,
+    addToIncludeList,
+    removeFromIncludeList,
+    addToExcludeList,
+    removeFromExcludeList,
+    addClauseToSegment,
+    updateClauseOnSegment,
+    removeClauseOnSegment
   }
 }

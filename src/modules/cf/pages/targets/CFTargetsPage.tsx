@@ -52,9 +52,7 @@ const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environmen
 
 const CFTargetsPage: React.FC = () => {
   const { showError } = useToaster()
-  const { projectIdentifier } = useParams<{
-    projectIdentifier: string
-  }>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
   const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments({
     project: projectIdentifier,
@@ -215,6 +213,8 @@ const CFTargetsPage: React.FC = () => {
           pagination={{ ...(omit(segmentsData, ['segments']) as any), gotoPage: setSegmentPage }}
           environment={environment?.value as string}
           project={projectIdentifier}
+          orgIdentifier={orgIdentifier}
+          accountId={accountId}
           onCreateSegment={fetchSegments}
         />
       )}

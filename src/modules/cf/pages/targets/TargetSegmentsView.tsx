@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Menu, Spinner } from '@blueprintjs/core'
 import { Card, Container, Icon, Layout, Popover, Text } from '@wings-software/uikit'
 import type { Column } from 'react-table'
+import { useHistory } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
@@ -39,6 +41,8 @@ interface TargetSegmentsProps {
   }
   project: string
   environment: string
+  accountId: string
+  orgIdentifier: string
   onCreateSegment: () => void
 }
 
@@ -49,9 +53,12 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
   pagination,
   project,
   environment,
+  orgIdentifier,
+  accountId,
   onCreateSegment
 }) => {
   const { getString } = useStrings()
+  const history = useHistory()
 
   type CustomColumn<T extends Record<string, any>> = Column<T>
   const columnDefs: CustomColumn<Segment>[] = [
@@ -76,6 +83,18 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
     }
   ]
 
+  const handleRowClick = ({ identifier }: { identifier: string }) => {
+    history.push(
+      routes.toCFSegmentDetails({
+        segmentIdentifier: identifier,
+        projectIdentifier: project,
+        environmentIdentifier: environment,
+        orgIdentifier,
+        accountId
+      })
+    )
+  }
+
   if (loading) {
     return (
       <Container flex style={{ justifyContent: 'center', height: '100%' }}>
@@ -90,7 +109,13 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
         <CreateTargetSegmentModal project={project} environment={environment} onCreate={onCreateSegment} />
       </Card>
       <Container flex padding="medium">
-        <Table<Segment> className={css.table} columns={columnDefs} data={segments} pagination={pagination} />
+        <Table<Segment>
+          className={css.table}
+          columns={columnDefs}
+          data={segments}
+          pagination={pagination}
+          onRowClick={handleRowClick}
+        />
       </Container>
     </Page.Body>
   )

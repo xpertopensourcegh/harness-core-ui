@@ -19,7 +19,7 @@ import { Dialog, Menu } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
-import { SharedQueryParams } from '@cf/constants'
+import { SharedQueryParams, useOperatorsFromYaml } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
@@ -40,19 +40,7 @@ interface Option<T> {
 
 type Finder<T> = (value: T) => Option<T> | undefined
 
-const operators = [
-  { label: i18n.operators.startsWith, value: 'starts_with' },
-  { label: i18n.operators.endsWith, value: 'ends_with' },
-  { label: i18n.operators.match, value: 'match' },
-  { label: i18n.operators.contains, value: 'contains' },
-  { label: i18n.operators.equal, value: 'equal' },
-  { label: i18n.operators.equalSensitive, value: 'equal_sensitive' },
-  { label: i18n.operators.in, value: 'in' }
-]
-
-const findOperatorLabel = (value: string) => operators.find(op => op.value === value)?.label || 'NO_OP'
 const toOption = (x: string): Option<string> => ({ label: x, value: x })
-
 function useOptions<T>(as: T[], mapper: (a: T) => string): [Option<string>[], Finder<string>] {
   const opts = as.map(mapper).map(toOption)
   return [opts, (val: string) => opts.find(o => o.value === val)]
@@ -60,7 +48,7 @@ function useOptions<T>(as: T[], mapper: (a: T) => string): [Option<string>[], Fi
 
 const emptyClause = (): Clause => ({
   id: '',
-  op: operators[0].value,
+  op: 'starts_with',
   attribute: '',
   value: [],
   negate: false
@@ -114,7 +102,7 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
     onAddNewRow,
     onRemoveRow
   } = props
-
+  const operators = useOperatorsFromYaml()
   const valueOpts = values.map(toOption)
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) => onAttributeChange(e.target.value)
   const handleOperatorChange = (data: SelectOption) => onOperatorChange(data.value as string)
@@ -184,6 +172,7 @@ interface RuleEditCardProps {
 }
 
 const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, onDelete, onChange }) => {
+  const operators = useOperatorsFromYaml()
   const percentageRollout = { label: 'a rollout percentage', value: 'percentage' }
   const [varOpts, findVariationOpt] = useOptions(variations, x => x.identifier)
   const variationOps = varOpts.concat([percentageRollout])
@@ -305,10 +294,14 @@ const InlineBold: React.FC<{}> = ({ children }) => <span style={{ fontWeight: 'b
 
 const safeJoin = (data: any[], separator: string) => data?.join(separator) || `[${data}]`
 
-const ClauseViewMode: React.FC<{ clause: Clause }> = ({ clause }) => {
+const ClauseViewMode: React.FC<{ clause: Clause; operators: { label: string; value: string }[] }> = ({
+  clause,
+  operators
+}) => {
   return (
     <>
-      <InlineBold>{` ${clause.attribute} `} </InlineBold> {findOperatorLabel(clause.op)}{' '}
+      <InlineBold>{` ${clause.attribute} `} </InlineBold>{' '}
+      {operators.find(op => op.value === clause.op)?.label || 'NO_OP'}{' '}
       <InlineBold>{` ${safeJoin(clause.value, ', ')}`}</InlineBold>
     </>
   )
@@ -316,7 +309,7 @@ const ClauseViewMode: React.FC<{ clause: Clause }> = ({ clause }) => {
 
 const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
   const isPercentage = Boolean(rule.serve.distribution)
-
+  const operators = useOperatorsFromYaml()
   const [firstClause, ...extraClauses] = rule.clauses
 
   let clausesComponent
@@ -325,13 +318,13 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
       <>
         <div>
           {`${i18n.if} `}
-          <ClauseViewMode clause={firstClause} />
+          <ClauseViewMode clause={firstClause} operators={operators} />
         </div>
         {extraClauses.map((clause, idx) => {
           return (
             <li key={idx}>
               {`${i18n.and.toLocaleLowerCase()} `}
-              <ClauseViewMode clause={clause} />
+              <ClauseViewMode clause={clause} operators={operators} />
             </li>
           )
         })}
@@ -346,7 +339,8 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
       <>
         <div>
           {`${i18n.if} `}
-          <ClauseViewMode clause={firstClause} />,{` ${i18n.serveVariation.serve.toLocaleLowerCase()} `}
+          <ClauseViewMode clause={firstClause} operators={operators} />,
+          {` ${i18n.serveVariation.serve.toLocaleLowerCase()} `}
           {isPercentage ? <InlineBold>{i18n.serveVariation.percentageRollout}</InlineBold> : rule.serve.variation}
         </div>
       </>

@@ -22,7 +22,7 @@ import { SharedQueryParams } from '@cf/constants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
-import patch, { ClauseData } from '../../utils/instructions'
+import patch, { ClauseData, getDiff } from '../../utils/instructions'
 import i18n from './FlagActivation.i18n'
 import css from './FlagActivation.module.scss'
 
@@ -55,12 +55,6 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
     }
     return acc
   }, {})
-
-const getDiff = <A, B>(initial: A[], updated: B[], eqFn: (a: A, b: B) => boolean = isEqual) => {
-  const newData = updated.filter(b => !initial.find(a => eqFn(a, b)))
-  const remData = initial.filter(a => !updated.find(b => eqFn(a, b)))
-  return [newData, remData]
-}
 
 export enum envActivation {
   activeOff = 'off',

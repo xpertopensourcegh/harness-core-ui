@@ -438,6 +438,15 @@ global:
       validation:
         dockerRegistryUrl: 'Docker Registry URL is required'
   cf:
+    clause:
+      operators:
+        startsWith: 'starts with'
+        endsWith: 'ends with'
+        match: 'match'
+        contains: 'contains'
+        equal: 'equal'
+        equalSensitive: 'equal (sensitive)'
+        in: 'in'
     shared:
       individual: 'Individual'
       segments: 'Segments'

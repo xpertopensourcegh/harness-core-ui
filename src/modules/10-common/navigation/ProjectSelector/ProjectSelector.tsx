@@ -23,6 +23,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
   const projectSelectOptions: Project[] = React.useMemo(
     () =>
       projects
+        .filter(Boolean)
         // filter on module
         .filter(({ modules }) => (moduleFilter ? modules && modules.indexOf(moduleFilter) > -1 : true))
         // sort on name
