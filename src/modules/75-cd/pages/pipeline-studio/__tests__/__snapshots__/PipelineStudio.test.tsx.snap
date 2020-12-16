@@ -47,7 +47,9 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
               <div>
                 <span
                   class="lastBreadcrumb"
-                />
+                >
+                  Studio
+                </span>
               </div>
             </div>
             <div
@@ -360,9 +362,22 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
               <div>
                 <a
                   class="breadcrumb"
-                  href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/editPipeline"
+                  href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test"
                 >
                   Pipelines
+                </a>
+                <span
+                  class="separator"
+                >
+                  /
+                </span>
+              </div>
+              <div>
+                <a
+                  class="breadcrumb"
+                  href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/editPipeline"
+                >
+                  test-p1
                 </a>
                 <span
                   class="separator"
@@ -374,7 +389,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
                 <span
                   class="lastBreadcrumb"
                 >
-                  test-p1
+                  Studio
                 </span>
               </div>
             </div>

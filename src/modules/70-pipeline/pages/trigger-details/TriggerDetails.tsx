@@ -3,7 +3,7 @@ import { Container, Layout, Icon, Color } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGetTrigger } from 'services/cd-ng'
+import { useGetPipelineSummary, useGetTrigger } from 'services/cd-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
 import css from './TriggerDetails.module.scss'
@@ -25,6 +25,10 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
       projectIdentifier,
       targetIdentifier: pipelineIdentifier
     }
+  })
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
   const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
@@ -58,10 +62,10 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
                   url: routes.toCDTriggersPage({
                     orgIdentifier,
                     projectIdentifier,
-                    pipelineIdentifier,
-                    accountId
+                    accountId,
+                    pipelineIdentifier
                   }),
-                  label: getString('pipeline-triggers.triggersLabel')
+                  label: pipeline?.data?.name || ''
                 },
                 { url: '#', label: onEditTriggerName || '' }
               ]}

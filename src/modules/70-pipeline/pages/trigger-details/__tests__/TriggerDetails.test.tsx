@@ -4,10 +4,12 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, triggerPathProps } from '@common/utils/routeUtils'
+import { PipelineResponse } from '@pipeline/pages/pipeline-details/__tests__/PipelineDetailsMocks'
 import TriggerDetails from '../TriggerDetails'
 import { GetTriggerResponse } from '../TriggerDetailsMock'
 jest.mock('services/cd-ng', () => ({
-  useGetTrigger: jest.fn(() => GetTriggerResponse)
+  useGetTrigger: jest.fn(() => GetTriggerResponse),
+  useGetPipelineSummary: jest.fn(() => PipelineResponse)
 }))
 
 const TEST_PATH = routes.toCDTriggersWizardPage({ ...accountPathProps, ...triggerPathProps })

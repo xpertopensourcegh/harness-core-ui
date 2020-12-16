@@ -20,6 +20,12 @@ global:
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
   pipelines: Pipelines
+  update: Update
+  visual: VISUAL
+  yaml: YAML
+  notifications: Notifications
+  saveAndPublish: Save and Publish
+  unsavedChanges: unsaved changes
   studioText: Studio
   status: Status
   submit: 'Submit'
@@ -112,6 +118,10 @@ global:
   projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
   addProject: '+ Add Project'
   noProjects: 'No Projects Found'
+  pipelines-studio:
+    pipelineUpdated: Pipeline Updated
+    errorWhileSaving: Error occurred saving pipeline
+    pipelineUpdatedError: Pipeline is updated in the backend by someone so do you want to take the latest pipeline, this may you loose the local pipeline saved?
   inputTypes:
     FIXED: Fixed input list
     RUNTIME: Runtime input

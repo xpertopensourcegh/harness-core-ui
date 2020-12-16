@@ -5,7 +5,7 @@ import { Button, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useParams, NavLink, matchPath, useLocation } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { NgPipeline, Failure } from 'services/cd-ng'
-import { useAppStore } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
@@ -15,7 +15,6 @@ import type { PipelinePathProps, ProjectPathProps, PathFn } from '@common/interf
 import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
-import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
@@ -65,6 +64,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const { showError } = useToaster()
+  const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
@@ -104,10 +104,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
-    cancelButtonText: i18n.cancel,
-    contentText: i18n.pipelineUpdatedError,
-    titleText: i18n.pipelineUpdated,
-    confirmButtonText: i18n.update,
+    cancelButtonText: getString('cancel'),
+    contentText: getString('pipelines-studio.pipelineUpdatedError'),
+    titleText: getString('pipelines-studio.pipelineUpdated'),
+    confirmButtonText: getString('update'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
         fetchPipeline(true, true)
@@ -160,7 +160,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         fetchPipeline(true, true)
       }
     } else {
-      showError(response?.message || i18n.errorWhileSaving)
+      showError(response?.message || getString('errorWhileSaving'))
     }
   }, [
     deletePipelineCache,
@@ -226,12 +226,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     return <PageSpinner />
   }
 
-  const getPipelineRoute = (): string => {
-    const isPipelineSaved = pipeline.identifier !== DefaultNewPipelineId
-    return isPipelineSaved
-      ? toPipelineDetail({ projectIdentifier, orgIdentifier, pipelineIdentifier, accountId })
-      : toPipelineList({ orgIdentifier, projectIdentifier, accountId })
-  }
   return (
     <div
       className={cx(Classes.POPOVER_DISMISS, css.content)}
@@ -270,8 +264,16 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   url: toPipelineProject({ orgIdentifier, projectIdentifier, accountId }),
                   label: project?.name as string
                 },
-                { url: getPipelineRoute(), label: i18n.pipelineListLabel },
-                { url: '#', label: pipeline?.name }
+                { url: toPipelineList({ orgIdentifier, projectIdentifier, accountId }), label: getString('pipelines') },
+                ...(pipelineIdentifier !== DefaultNewPipelineId
+                  ? [
+                      {
+                        url: toPipelineDetail({ projectIdentifier, orgIdentifier, pipelineIdentifier, accountId }),
+                        label: pipeline?.name
+                      },
+                      { url: '#', label: getString('studioText') }
+                    ]
+                  : [{ url: '#', label: getString('studioText') }])
               ]}
             />
             <div className={css.pipelineNameContainer}>
@@ -293,14 +295,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               activeClassName={css.selected}
               to={toPipelineStudioUI({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
             >
-              {i18n.visual}
+              {getString('visual')}
             </NavLink>
             <NavLink
               className={css.topButtons}
               activeClassName={css.selected}
               to={toPipelineStudioYaml({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
             >
-              {i18n.yaml}
+              {getString('yaml')}
             </NavLink>
           </div>
           <div>
@@ -308,7 +310,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               <div>
                 {isUpdated && (
                   <Tag intent="primary" className={css.tagRender} minimal>
-                    {i18n.unsavedChanges}
+                    {getString('unsavedChanges')}
                   </Tag>
                 )}
               </div>
@@ -316,7 +318,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <Button
                   minimal
                   intent="primary"
-                  text={i18n.saveAndPublish}
+                  text={getString('saveAndPublish')}
                   onClick={saveAndPublish}
                   icon="arrow-up"
                   className={css.savePublishBtn}
@@ -328,8 +330,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <div>
                   <Button
                     minimal={!(splitViewType === SplitViewTypes.Notifications)}
-                    text={i18n.notifications}
-                    tooltip={i18n.notifications}
+                    text={getString('notifications')}
+                    tooltip={getString('notifications')}
                     icon="yaml-builder-notifications"
                     iconProps={{ color: 'var(--dark-500)' }}
                     onClick={() => {

@@ -42,7 +42,7 @@ exports[`Trigger Details tests render snapshot view 1`] = `
             class="breadcrumb"
             href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
           >
-            Triggers
+            testsdfsdf
           </a>
           <span
             class="separator"
