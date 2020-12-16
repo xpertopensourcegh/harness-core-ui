@@ -16,6 +16,7 @@ global:
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
   pipelines: Pipelines
+  studioText: Studio
   status: Status
   submit: 'Submit'
   buildText: Build
@@ -99,6 +100,7 @@ global:
   viewDetails: 'View Details'
   navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
   navigationCheckTitle: 'Close without saving?'
+  inputSetsText: 'Input Sets'
   inputTypes:
     FIXED: Fixed input list
     RUNTIME: Runtime input

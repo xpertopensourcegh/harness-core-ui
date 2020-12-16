@@ -3,25 +3,33 @@ import { Container, Layout, Icon, Color } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGetPipelineSummary } from 'services/cd-ng'
+import { useGetTrigger } from 'services/cd-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
-import css from './PipelineDetails.module.scss'
+import css from './TriggerDetails.module.scss'
 
-export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<{
+export default function TriggerDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
     pipelineIdentifier: string
+    triggerIdentifier: string
   }>()
-  const { data: pipeline } = useGetPipelineSummary({
-    pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+
+  const { data: triggerResponse } = useGetTrigger({
+    triggerIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      targetIdentifier: pipelineIdentifier
+    }
   })
   const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
   const { getString } = useStrings()
+  const onEditTriggerName = triggerResponse?.data?.name
 
   return (
     <>
@@ -46,7 +54,16 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
                   }),
                   label: getString('pipelines')
                 },
-                { url: '#', label: pipeline?.data?.name || '' }
+                {
+                  url: routes.toCDTriggersPage({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId
+                  }),
+                  label: getString('pipeline-triggers.triggersLabel')
+                },
+                { url: '#', label: onEditTriggerName || '' }
               ]}
             />
           </Layout.Vertical>

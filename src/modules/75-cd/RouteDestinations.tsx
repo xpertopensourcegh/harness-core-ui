@@ -41,6 +41,7 @@ import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineVi
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
+import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
 import CDTemplateLibraryPage from '@cd/pages/admin/template-library/CDTemplateLibraryPage'
 import CDGitSyncPage from '@cd/pages/admin/git-sync/CDGitSyncPage'
 import CDGovernancePage from '@cd/pages/admin/governance/CDGovernancePage'
@@ -177,9 +178,9 @@ export default (
         </PipelineDetails>
       </RouteWithLayout>
       <RouteWithLayout path={routes.toCDTriggersWizardPage({ ...accountPathProps, ...triggerPathProps })}>
-        <PipelineDetails>
+        <TriggerDetails>
           <TriggersWizardPage />
-        </PipelineDetails>
+        </TriggerDetails>
       </RouteWithLayout>
       <Route exact path={routes.toCDExecution({ ...accountPathProps, ...executionPathProps })}>
         <RedirectToExecutionPipeline />
