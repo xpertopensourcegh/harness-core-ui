@@ -255,23 +255,27 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
           class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
-            icon="small-tick"
+            class="StepWizard---completedIcon--yi-5"
           >
-            <svg
-              data-icon="small-tick"
-              height="22"
-              viewBox="0 0 20 20"
-              width="22"
+            <span
+              class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+              icon="small-tick"
             >
-              <desc>
-                small-tick
-              </desc>
-              <path
-                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
+              <svg
+                data-icon="small-tick"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+              >
+                <desc>
+                  small-tick
+                </desc>
+                <path
+                  d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </span>
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"

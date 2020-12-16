@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   Popover,
   Button,
@@ -7,7 +7,8 @@ import {
   MultiTypeInputValue,
   Layout,
   Text,
-  Color
+  Color,
+  FixedTypeComponentProps
 } from '@wings-software/uikit'
 import { Position, Classes } from '@blueprintjs/core'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -94,38 +95,42 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
 }
 
 interface MultiTypeReferenceInputProps<T extends MinimalObject>
-  extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent'> {
+  extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   referenceSelectProps: Omit<ReferenceSelectProps<T>, 'onChange'>
+}
+
+function MultiTypeReferenceInputFixedTypeComponent<T extends MinimalObject>(
+  props: FixedTypeComponentProps & MultiTypeReferenceInputProps<T>['referenceSelectProps']
+): React.ReactElement {
+  const { onChange, selected, width = 300, ...restProps } = props
+  return (
+    <ReferenceSelect
+      {...restProps}
+      selected={selected}
+      width={width - 28}
+      onChange={(record, scope) => {
+        onChange?.(
+          {
+            label: record.name,
+            value: scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier,
+            scope
+          } as any,
+          MultiTypeInputValue.SELECT_OPTION
+        )
+      }}
+    />
+  )
 }
 
 export function MultiTypeReferenceInput<T extends MinimalObject>(props: MultiTypeReferenceInputProps<T>): JSX.Element {
   const { referenceSelectProps, ...rest } = props
-  const { selected, width = 300, ...restProps } = referenceSelectProps || {}
-  const fixedTypeComponent = useCallback(
-    fixedProps => {
-      const { onChange } = fixedProps
-      return (
-        <ReferenceSelect
-          {...restProps}
-          selected={selected}
-          width={width - 28}
-          onChange={(record, scope) => {
-            onChange?.(
-              {
-                label: record.name,
-                value:
-                  scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier,
-                scope: scope
-              },
-              MultiTypeInputValue.SELECT_OPTION
-            )
-          }}
-        />
-      )
-    },
-    [selected, selected?.value]
-  )
+
   return (
-    <ExpressionAndRuntimeType width={referenceSelectProps.width} {...rest} fixedTypeComponent={fixedTypeComponent} />
+    <ExpressionAndRuntimeType<MultiTypeReferenceInputProps<T>['referenceSelectProps']>
+      width={referenceSelectProps.width}
+      {...rest}
+      fixedTypeComponentProps={referenceSelectProps}
+      fixedTypeComponent={MultiTypeReferenceInputFixedTypeComponent}
+    />
   )
 }

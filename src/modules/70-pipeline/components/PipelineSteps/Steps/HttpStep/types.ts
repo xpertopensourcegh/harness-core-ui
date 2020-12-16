@@ -19,6 +19,7 @@ export interface HttpStepData extends StepElement {
     requestBody?: string
     headers?: string | Array<Omit<HttpStepHeader, 'id'>>
     outputVariables?: string | Array<Omit<HttpStepOutputVariable, 'id'>>
+    timeout: string
   }
 }
 
@@ -28,5 +29,6 @@ export interface HttpStepFormData extends StepElement {
     requestBody?: string
     headers?: string | HttpStepHeader[]
     outputVariables?: string | HttpStepOutputVariable[]
+    timeout: string
   }
 }

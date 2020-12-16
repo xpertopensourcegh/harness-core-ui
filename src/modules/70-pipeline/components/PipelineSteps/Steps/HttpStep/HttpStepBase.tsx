@@ -1,19 +1,12 @@
 import React from 'react'
-import {
-  SelectOption,
-  FormInput,
-  DurationInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Button
-} from '@wings-software/uikit'
-import { get } from 'lodash-es'
+import { SelectOption, FormInput, getMultiTypeFromValue, MultiTypeInputType, Button } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
 import type { HttpStepInfo } from 'services/cd-ng'
 
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@pipeline/components/ConfigureOptions/ConfigureOptions'
@@ -127,20 +120,20 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
           />
         )}
       </div>
-      <FormInput.CustomRender
-        name="spec.socketTimeoutMillis"
-        className={stepCss.duration}
-        label={getString('pipelineSteps.timeoutLabel')}
-        render={formik => {
-          return (
-            <DurationInput
-              value={get(formik.values, 'spec.socketTimeoutMillis')}
-              name="spec.socketTimeoutMillis"
-              onChange={time => formik.setFieldValue('spec.socketTimeoutMillis', time)}
-            />
-          )
-        }}
-      />
+      <div className={stepCss.formGroup}>
+        <FormMultiTypeDurationField name="spec.timeout" label={getString('pipelineSteps.timeoutLabel')} />
+        {getMultiTypeFromValue(formValues.spec.timeout) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formValues.spec.timeout}
+            type="String"
+            variableName="spec.timeout"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => setFieldValue('spec.timeout', value)}
+          />
+        )}
+      </div>
     </div>
   )
 }

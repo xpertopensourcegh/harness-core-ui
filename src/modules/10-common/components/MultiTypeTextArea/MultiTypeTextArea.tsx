@@ -1,44 +1,52 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps, Intent, ITextAreaProps, TextArea } from '@blueprintjs/core'
-import { ExpressionAndRuntimeType, ExpressionAndRuntimeTypeProps, MultiTypeInputValue } from '@wings-software/uikit'
-import { connect, FormikContext, isObject } from 'formik'
+import {
+  ExpressionAndRuntimeType,
+  ExpressionAndRuntimeTypeProps,
+  MultiTypeInputValue,
+  FixedTypeComponentProps
+} from '@wings-software/uikit'
+import { connect } from 'formik'
 import { get } from 'lodash-es'
 import cx from 'classnames'
+
+import { errorCheck } from '@common/utils/formikHelpers'
+
 import css from './MultiTypeTextArea.module.scss'
 
-const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
-  (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
-  get(formik?.errors, name) &&
-  !isObject(get(formik?.errors, name))
+function MultiTypeTextAreaFixedTypeComponent(
+  props: FixedTypeComponentProps & MultiTypeTextAreaProps['textAreaProps']
+): React.ReactElement {
+  const { onChange, value, ...restProps } = props
+  return (
+    <TextArea
+      growVertically={false}
+      {...restProps}
+      className={cx(css.input, restProps.className)}
+      value={value as string}
+      onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        onChange?.(event.target.value, MultiTypeInputValue.STRING)
+      }}
+    />
+  )
+}
 
-export interface MultiTypeTextAreaProps extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent'> {
-  textAreaProps?: ITextAreaProps
+export interface MultiTypeTextAreaProps
+  extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
+  textAreaProps?: Omit<ITextAreaProps, 'onChange' | 'value'>
 }
 
 export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = ({ textAreaProps, ...rest }) => {
-  const { className = '', value = '', ...restProps } = textAreaProps || {}
-  const fixedTypeComponent = React.useCallback(
-    props => {
-      const { onChange } = props
-      return (
-        <TextArea
-          growVertically={false}
-          className={cx(css.input, className)}
-          {...restProps}
-          value={value}
-          name={rest.name}
-          onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-            onChange?.(event.target.value, MultiTypeInputValue.STRING)
-          }}
-        />
-      )
-    },
-    [value]
+  return (
+    <ExpressionAndRuntimeType
+      {...rest}
+      fixedTypeComponentProps={textAreaProps}
+      fixedTypeComponent={MultiTypeTextAreaFixedTypeComponent}
+    />
   )
-  return <ExpressionAndRuntimeType {...rest} fixedTypeComponent={fixedTypeComponent} />
 }
 
-export interface FormMultiTypeTextAreaProps extends Omit<IFormGroupProps, 'label' | 'palceholder'> {
+export interface FormMultiTypeTextAreaProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
   label: string
   name: string
   placeholder?: string
@@ -65,7 +73,7 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
     name,
     textAreaProps: {
       ...multiTypeTextArea?.textAreaProps,
-      value,
+      name,
       placeholder,
       onBlur: () => formik?.setFieldTouched(name)
     }
@@ -84,4 +92,5 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
     </FormGroup>
   )
 }
+
 export const FormMultiTypeTextAreaField = connect(FormMultiTypeTextArea)

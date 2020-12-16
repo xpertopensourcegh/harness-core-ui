@@ -1,17 +1,15 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps, Intent, IOptionProps, IRadioGroupProps, RadioGroup } from '@blueprintjs/core'
 import { ExpressionAndRuntimeType, ExpressionAndRuntimeTypeProps, MultiTypeInputValue } from '@wings-software/uikit'
-import { connect, FormikContext } from 'formik'
+import { connect } from 'formik'
 import cx from 'classnames'
-import { get, isObject } from 'lodash-es'
+import { get } from 'lodash-es'
+
+import { errorCheck } from '@common/utils/formikHelpers'
 import css from './MultiTypeRadioGroup.module.scss'
 
-const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
-  (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
-  get(formik?.errors, name) &&
-  !isObject(get(formik?.errors, name))
-
-export interface MultiTypeRadioGroupProps extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent'> {
+export interface MultiTypeRadioGroupProps
+  extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   radioGroupProps?: Omit<IRadioGroupProps, 'name' | 'selectedValue' | 'onChange' | 'options'>
   name: string
   options: IOptionProps[]

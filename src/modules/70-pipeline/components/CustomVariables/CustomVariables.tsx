@@ -185,11 +185,10 @@ export const CustomVariables: React.FC = (): JSX.Element => {
                                   </div>
                                 )}
                                 <MultiTextInput
-                                  value={value}
+                                  value={secretsOptions.get(value as string) || value}
                                   name={`variables[${index}].value`}
                                   textProps={{
-                                    disabled: true,
-                                    value: secretsOptions.get(value as string) || value
+                                    disabled: true
                                   }}
                                   onChange={newValue => {
                                     setFieldValue(`variables[${index}].value`, newValue)

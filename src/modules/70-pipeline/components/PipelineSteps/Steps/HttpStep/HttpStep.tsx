@@ -15,6 +15,8 @@ import type { StepViewType } from '@pipeline/exports'
 import Accordion from '@common/components/Accordion/Accordion'
 import { useStrings } from 'framework/exports'
 
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import HttpStepBase, { httpStepType } from './HttpStepBase'
@@ -46,9 +48,7 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         spec: Yup.object().shape({
           url: Yup.string().required(getString('validation.UrlRequired')),
-          socketTimeoutMillis: Yup.number()
-            .required(getString('pipelineSteps.timeoutRequired'))
-            .min(9999, getString('validation.timeout10SecMinimum'))
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })
       })}
     >
@@ -92,7 +92,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     spec: {
       url: '',
       method: httpStepType[0].value as string,
-      socketTimeoutMillis: 10000
+      timeout: '10s'
     }
   }
 

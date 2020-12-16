@@ -438,11 +438,10 @@ export default function BuildStageSpecifications(): JSX.Element {
                                             </div>
                                           )}
                                           <MultiTextInput
-                                            value={value}
+                                            value={secretsOptions.get(value as string) || value}
                                             name={`customVariables[${index}].value`}
                                             textProps={{
-                                              disabled: true,
-                                              value: secretsOptions.get(value as string) || value
+                                              disabled: true
                                             }}
                                             onChange={newValue => {
                                               setFieldValue(`customVariables[${index}].value`, newValue)

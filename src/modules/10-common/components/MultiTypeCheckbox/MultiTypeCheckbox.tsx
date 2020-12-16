@@ -10,15 +10,14 @@ import {
 } from '@wings-software/uikit'
 import cx from 'classnames'
 import { get } from 'lodash-es'
-import { connect, FormikContext, isObject } from 'formik'
+import { connect } from 'formik'
+
+import { errorCheck } from '@common/utils/formikHelpers'
+
 import css from './MultiTypeCheckbox.module.scss'
 
-const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
-  (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
-  get(formik?.errors, name) &&
-  !isObject(get(formik?.errors, name))
-
-export interface MultiTypeCheckboxProps extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent'> {
+export interface MultiTypeCheckboxProps
+  extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   textboxProps?: Omit<ICheckboxProps, 'onChange'>
 }
 

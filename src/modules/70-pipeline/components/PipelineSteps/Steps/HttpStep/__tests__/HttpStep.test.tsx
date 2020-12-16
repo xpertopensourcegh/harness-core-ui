@@ -26,7 +26,7 @@ describe('Http Step', () => {
         method: '${input}',
         url: '${input}',
         requestBody: '${input}',
-        socketTimeoutMillis: 10000,
+        timeout: '${input}',
         headers: '${input}',
         outputVariables: '${input}'
       }
@@ -46,7 +46,7 @@ describe('Http Step', () => {
         method: 'POST',
         url: '${input}',
         requestBody: '${input}',
-        socketTimeoutMillis: 10000,
+        timeout: '10s',
         headers: [
           {
             key: 'Content-Type',
@@ -120,7 +120,7 @@ describe('Http Step', () => {
             value: 'response.message'
           }
         ],
-        socketTimeoutMillis: 10000,
+        timeout: '10s',
         url: 'https://someapi.com/v3'
       }
     })
