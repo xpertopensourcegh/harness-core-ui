@@ -40,6 +40,15 @@ const getPayloadValue = (items: SelectOption[] | undefined) => {
   }
 }
 
+const isAllSelected = (items: SelectOption[] | undefined) => {
+  const values = items?.map(item => item.value)
+  if (values?.includes('All')) {
+    return true
+  } else {
+    return false
+  }
+}
+
 const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { getString } = useStrings()
@@ -138,6 +147,8 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
         })
       })
       setInitialServices(initialVal)
+    } else if (props.ruleData?.allServices) {
+      setInitialServices([{ label: getString('all'), value: 'All' }])
     }
   }, [serviceResponse, props.ruleData?.services])
 
@@ -164,6 +175,8 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
         })
       })
       setInitialEnvironment(initialVal)
+    } else if (props.ruleData?.allEnvironments) {
+      setInitialEnvironment([{ label: getString('all'), value: 'All' }])
     }
   }, [environmentsResponse, props.ruleData?.environments])
 
@@ -190,7 +203,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
       })
       setInitialActivityTypes(initialVal)
     } else {
-      if (props.ruleData?.enabledVerifications) {
+      if (props.ruleData?.enabledVerifications && props.ruleData.allActivityTpe) {
         setInitialActivityTypes([{ label: getString('all'), value: 'All' }])
       }
     }
@@ -208,7 +221,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
       })
       setInitialVerificationStatus(initialVal)
     } else {
-      if (props.ruleData?.enabledVerifications) {
+      if (props.ruleData?.enabledVerifications && props.ruleData.allVerificationStatuses) {
         setInitialVerificationStatus([{ label: getString('all'), value: 'All' }])
       }
     }
@@ -262,13 +275,17 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
             name: notificationData.name,
             alertCondition: {
               services: getPayloadValue(notificationData.services) as string[],
+              allServices: isAllSelected(notificationData.services),
               environments: getPayloadValue(notificationData.environments) as string[],
+              allEnvironments: isAllSelected(notificationData.environments),
               enabledVerifications: notificationData.enabledVerifications,
               verificationsNotify: {
                 activityTypes: getPayloadValue(notificationData.activityTypes) as VerificationsNotify['activityTypes'],
+                allActivityTpe: isAllSelected(notificationData.activityTypes),
                 verificationStatuses: getPayloadValue(
                   notificationData.verificationStatuses
-                ) as VerificationsNotify['verificationStatuses']
+                ) as VerificationsNotify['verificationStatuses'],
+                allVerificationStatuses: isAllSelected(notificationData.verificationStatuses)
               },
               enabledRisk: notificationData.enabledRisk,
               notify: {

@@ -16,4 +16,8 @@ export interface CVNotificationForm {
   enabledVerifications?: boolean
   key?: string
   emailIds?: string[]
+  allActivityTpe?: boolean
+  allVerificationStatuses?: boolean
+  allServices?: boolean
+  allEnvironments?: boolean
 }

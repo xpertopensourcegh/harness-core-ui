@@ -185,7 +185,11 @@ const CreateCVNotification: React.FC<StepProps<any> & CreateCVNotificationProps>
         webhookUrl: props.notificationData.notificationMethod?.slackWebhook,
         enabledVerifications: props.notificationData.alertCondition?.enabledVerifications,
         key: props.notificationData.notificationMethod?.pagerDutyKey,
-        emailIds: props.notificationData.notificationMethod?.emails
+        emailIds: props.notificationData.notificationMethod?.emails,
+        allServices: props.notificationData.alertCondition?.allServices,
+        allEnvironments: props.notificationData.alertCondition?.allEnvironments,
+        allActivityTpe: props.notificationData.alertCondition?.verificationsNotify?.allActivityTpe,
+        allVerificationStatuses: props.notificationData.alertCondition?.verificationsNotify?.allVerificationStatuses
       }
       setRuleData(formatData as CVNotificationForm)
     }

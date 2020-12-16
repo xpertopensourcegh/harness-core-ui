@@ -92,7 +92,11 @@ const RenderColumnMenu: Renderer<CellProps<AlertRuleDTO>> = ({ row, column }) =>
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { openNotificationModal } = useCVNotificationsModal({})
+  const { openNotificationModal } = useCVNotificationsModal({
+    onSuccess: () => {
+      ;(column as any).reload?.()
+    }
+  })
   const { mutate: deleteAlert } = useDeleteAlert({
     queryParams: {
       accountId,
