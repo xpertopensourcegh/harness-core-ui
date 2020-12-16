@@ -39,6 +39,22 @@
     top: 2px;
     right: 2px;
   }
+
+  .сonditional {
+    position: absolute;
+    top: -10px;
+    left: 5px;
+
+    a {
+      color: var(--white) !important;
+    }
+
+    svg rect {
+      // TODO: Replace color once it is available in UIKit
+      stroke: #f79400 !important;
+    }
+  }
+
   .iconGroup {
     display: inline;
     :global(.bp3-icon) {
@@ -72,5 +88,11 @@
     cursor: pointer;
     margin: 0 auto;
     box-shadow: -1px 4px 7px 0 rgba(135, 149, 159, 0.27);
+  }
+}
+
+:global {
+  .bp3-popover-content p {
+    white-space: break-spaces !important;
   }
 }

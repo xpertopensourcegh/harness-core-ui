@@ -3,7 +3,7 @@ import { Drawer, Position } from '@blueprintjs/core'
 import { Icon } from '@wings-software/uikit'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
-import { StepCommands } from '../StepCommands/StepCommands'
+import { StepCommands, TabTypes } from '../StepCommands/StepCommands'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
@@ -67,13 +67,26 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={item => {
             const node = data?.stepConfig?.node
             if (node) {
-              node.name = item.name
-              node.identifier = item.identifier
-              if (item.description) node.description = item.description
-              node.spec = { ...item.spec }
+              // Add/replace values only if they are presented
+              if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
+              if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
+              if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
+              if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+
+              // Delete values if they were already added and now removed
+              if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
+              if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+
+              if (item.spec && item.tab !== TabTypes.Advanced) {
+                node.spec = { ...item.spec }
+              }
+
               updatePipeline(pipeline)
             }
-            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+
+            if (!item.shouldKeepOpen) {
+              updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+            }
           }}
           isStepGroup={data.stepConfig.isStepGroup}
         />

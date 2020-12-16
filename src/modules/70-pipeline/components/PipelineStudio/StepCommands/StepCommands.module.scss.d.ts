@@ -1,8 +1,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly boldLabel: string
+  readonly form: string
   readonly stepCommand: string
   readonly stepTabs: string
+  readonly skipConditionLabel: string
+  readonly buttonsWrapper: string
 }
 export default styles

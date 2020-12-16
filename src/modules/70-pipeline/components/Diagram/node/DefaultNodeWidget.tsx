@@ -1,6 +1,6 @@
 import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button } from '@wings-software/uikit'
+import { Icon, Text, Button, Link } from '@wings-software/uikit'
 import cx from 'classnames'
 import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
@@ -187,6 +187,19 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         )}
 
         {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
+        {options.skipCondition && (
+          <div className={css.сonditional}>
+            <Link
+              tooltip={`Skip condition:\n${options.skipCondition}`}
+              tooltipProps={{
+                isDark: true
+              }}
+              withoutHref
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Link>
+          </div>
+        )}
 
         {options.canDelete && (
           <Button

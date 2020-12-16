@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, Select, Text } from '@wings-software/uikit'
+import { Button, Color, Select, Text, Icon } from '@wings-software/uikit'
 import { ExecutionStageDiagram } from '@pipeline/exports'
 import LogViewContainer from '@ci/components/LogViewContainer/LogViewContainer'
 import { RoundButtonGroup } from '@ci/components/RoundButtonGroup/RoundButtonGroup'
@@ -15,6 +15,7 @@ import {
 import StepDetails from './step-details/StepDetails'
 import ServiceDetails from './service-details/ServiceDetails'
 import i18n from './BuildPipelineGraph.i18n'
+import css from './BuildPipelineGraph.module.scss'
 
 const PipelineGraph: React.FC = () => {
   const {
@@ -88,9 +89,20 @@ const PipelineGraph: React.FC = () => {
 
   // Step title
   const stepTitle = selectedStep && (
-    <Text color={Color.GREY_500}>
-      {selectedStep?.data?.service ? i18n.dependency : i18n.step} {selectedStep?.name}
-    </Text>
+    <div className={css.stepTitle}>
+      <Text color={Color.GREY_500}>
+        {selectedStep?.data?.service ? i18n.dependency : i18n.step} {selectedStep?.name}
+      </Text>
+      {selectedStep?.data?.step?.stepParameters?.skipCondition && (
+        <Icon
+          className={css.conditionalIcon}
+          size={26}
+          name={'conditional-skip-new'}
+          color="white"
+          margin={{ top: 'xsmall', left: 'xsmall' }}
+        />
+      )}
+    </div>
   )
 
   // Step tabs

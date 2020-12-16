@@ -240,6 +240,7 @@ function addStepToArray(vertex: GraphVertex, arr: ExecutionPipelineNode<ItemData
     type: ExecutionPipelineNodeType.NORMAL,
     status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
     icon: stageType2IconName(vertex?.stepParameters?.type as string),
+    skipCondition: vertex?.stepParameters?.skipCondition,
     data: { step: vertex }
   }
 

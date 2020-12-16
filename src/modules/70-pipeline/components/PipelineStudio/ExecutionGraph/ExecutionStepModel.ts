@@ -164,6 +164,7 @@ export class ExecutionStepModel extends DiagramModel {
               icon: 'command-approval',
               draggable: true,
               isInComplete: isCustomGeneratedString(node.step.identifier),
+              skipCondition: node.step.skipCondition,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
           : new DefaultNodeModel({
@@ -172,6 +173,7 @@ export class ExecutionStepModel extends DiagramModel {
               icon: factory.getStepIcon(type),
               allowAdd: allowAdd === true,
               isInComplete: isCustomGeneratedString(node.step.identifier),
+              skipCondition: node.step.skipCondition,
               draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })

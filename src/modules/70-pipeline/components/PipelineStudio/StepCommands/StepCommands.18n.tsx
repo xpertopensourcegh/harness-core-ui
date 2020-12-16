@@ -1,23 +1,15 @@
 export default {
   stepConfiguration: 'Step Configuration',
   stepGroupConfiguration: 'Step Group Configuration',
-  stepGroup: 'Step Group',
   advanced: 'Advanced',
   skipCondition: 'Skip Condition',
-  specifyConditionToSkipThisStep: 'Specify condition to skip this step',
-  ifCondition: 'If condition',
-  do: 'Do',
-  output: 'Output',
-  displayName: 'Display Name',
-  failureStrategy: 'Failure Strategy',
-  timeout: 'Timeout',
-  socketTimeoutMillis: 'Socket Timeout',
-  url: 'Url',
-  body: 'Body',
-  method: 'Method',
-  submit: 'Submit',
-  stepNameRequired: 'Step Name is required',
-  header: 'Header',
-  skipDryRun: 'Skip dry run',
-  stepLabel: (type: string) => `Step: ${type}`
+  skipConditionLabel: 'If the JEXL condition evaluates to true, skip this step',
+  skipConditionHelpText: `In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+
+Examples:
+<+steps.step1.output.result> == “success”
+<+environment.name> != “QA”`,
+  learnMore: 'Learn more',
+  save: 'Save',
+  cancel: 'Cancel'
 }

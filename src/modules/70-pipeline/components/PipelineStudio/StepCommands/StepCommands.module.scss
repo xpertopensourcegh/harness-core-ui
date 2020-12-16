@@ -1,7 +1,6 @@
-.bold-label {
-  font-weight: bold !important;
-  color: var(--black) !important;
-  padding-bottom: var(--spacing-medium) !important;
+.form {
+  display: flex;
+  flex-direction: column;
 }
 
 .step-command {
@@ -16,4 +15,16 @@
       justify-content: center;
     }
   }
+}
+
+.skipConditionLabel {
+  // TODO: Replace color once it is available in UIKit
+  color: #223147 !important;
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+  padding-top: var(--spacing-large);
+  margin-top: auto;
 }

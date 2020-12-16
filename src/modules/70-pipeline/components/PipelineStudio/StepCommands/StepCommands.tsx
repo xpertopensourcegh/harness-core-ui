@@ -1,7 +1,8 @@
 import React from 'react'
-import { Tabs, Tab, Formik, Text, MultiTypeInput } from '@wings-software/uikit'
-import { FormGroup } from '@blueprintjs/core'
+import { Tabs, Tab, Formik, FormikForm, Text, FormInput, Link } from '@wings-software/uikit'
+import { debounce } from 'lodash-es'
 import type { ExecutionWrapper } from 'services/cd-ng'
+import Accordion from '@common/components/Accordion/Accordion'
 import i18n from './StepCommands.18n'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
@@ -14,37 +15,63 @@ export interface StepCommandsProps {
   isStepGroup: boolean
 }
 
-const AdvancedStep: React.FC<StepCommandsProps> = ({ step }) => {
+export enum TabTypes {
+  StepConfiguration,
+  Advanced
+}
+
+interface Values {
+  tab?: TabTypes
+  skipCondition?: string
+  shouldKeepOpen?: boolean
+}
+
+const AdvancedStep: React.FC<StepCommandsProps> = ({ step, onChange }) => {
+  const handleValidate = (values: Values): void => {
+    onChange({ ...values, tab: TabTypes.Advanced, shouldKeepOpen: true })
+  }
+
+  const debouncedHandleValidate = React.useRef(debounce(handleValidate, 300)).current
+
   return (
     <Formik
-      onSubmit={values => {
-        JSON.stringify(values)
+      initialValues={{ skipCondition: step.skipCondition }}
+      validate={debouncedHandleValidate}
+      onSubmit={() => {
+        //
       }}
-      initialValues={{ condition: step.condition, failureStrategy: step.failureStrategy }}
     >
       {() => {
         return (
-          <>
-            <Text className={css.boldLabel} font={{ size: 'medium' }}>
-              {i18n.skipCondition}
-            </Text>
-            <FormGroup labelFor="condition" label={i18n.specifyConditionToSkipThisStep}>
-              <MultiTypeInput name="condition" />
-            </FormGroup>
-            <Text className={css.boldLabel} font={{ size: 'medium' }}>
-              {i18n.failureStrategy}
-            </Text>
-            <FormGroup labelFor="failureStrategy" label={i18n.ifCondition}>
-              <MultiTypeInput name="ifCondition" />
-            </FormGroup>
-            <FormGroup labelFor="failureStrategy" label={i18n.do}>
-              <MultiTypeInput name="do" />
-            </FormGroup>
-            <Text className={css.boldLabel} font={{ size: 'medium' }}>
-              {i18n.output}
-            </Text>
-            <Text>$stages.dev.step.output</Text>
-          </>
+          <FormikForm className={css.form}>
+            <div>
+              <Accordion>
+                <Accordion.Panel
+                  id="skipCondition"
+                  summary={i18n.skipCondition}
+                  details={
+                    <>
+                      <Text
+                        className={css.skipConditionLabel}
+                        font={{ weight: 'semi-bold' }}
+                        margin={{ bottom: 'large' }}
+                      >
+                        {i18n.skipConditionLabel}
+                      </Text>
+                      <FormInput.Text name="skipCondition" label="" />
+                      <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
+                        {i18n.skipConditionHelpText}
+                        <br />
+                        <Link font="small" withoutHref>
+                          {i18n.learnMore}
+                        </Link>
+                      </Text>
+                    </>
+                  }
+                />
+              </Accordion>
+            </div>
+          </FormikForm>
         )
       }}
     </Formik>
@@ -70,7 +97,6 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
           />
           <Tab
             id="advanced"
-            disabled
             title={i18n.advanced}
             panel={
               <AdvancedStep step={step} stepsFactory={stepsFactory} onChange={onChange} isStepGroup={isStepGroup} />

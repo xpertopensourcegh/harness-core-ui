@@ -39,6 +39,7 @@ export interface ExecutionPipelineItem<T> {
   type: ExecutionPipelineNodeType
   status: ExecutionPipelineItemStatus
   icon: IconName
+  skipCondition?: string
   showInLabel?: boolean // Default = false
   cssProps?: React.CSSProperties
   data?: T
@@ -51,6 +52,7 @@ export interface ExecutionPipelineGroupInfo<T> {
   data: T
   cssProps?: React.CSSProperties
   icon: IconName
+  skipCondition?: string
   showLines?: boolean // default true
   showInLabel?: boolean // Default = true
   status: ExecutionPipelineItemStatus

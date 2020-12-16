@@ -79,6 +79,7 @@
 
 .step-info {
   height: 50%;
+  overflow-y: auto;
   > * {
     padding-left: var(--spacing-medium) !important;
     padding-right: var(--spacing-medium) !important;
