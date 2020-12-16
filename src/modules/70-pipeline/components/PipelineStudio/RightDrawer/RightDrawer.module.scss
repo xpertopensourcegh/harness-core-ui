@@ -1,5 +1,6 @@
 .main {
   transform: translateX(-60px);
+  overflow-y: auto;
 
   :global(.bp3-drawer-header) {
     margin: 0 var(--spacing-large);
