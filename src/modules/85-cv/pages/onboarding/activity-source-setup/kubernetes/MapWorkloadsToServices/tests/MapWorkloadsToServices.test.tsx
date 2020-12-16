@@ -194,7 +194,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
 
     fireEvent.click(serviceDropDown)
     await waitFor(() => expect(document.body.querySelector(`[class*="bp3-menu"]`)).not.toBeNull())
-    expect(getByText('No matching results found')).not.toBeNull()
+    expect(getByText('+ Add New')).not.toBeNull()
 
     fireEvent.click(getByText('namespace2'))
     await waitFor(() => expect(container.querySelector('input[value="service_2"]')).not.toBeNull())

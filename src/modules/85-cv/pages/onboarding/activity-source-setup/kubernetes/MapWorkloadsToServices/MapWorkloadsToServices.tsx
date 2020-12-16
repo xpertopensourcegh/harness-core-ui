@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Color, Container, Heading, Select, SelectOption, Text } from '@wings-software/uikit'
+import { Color, Container, Heading, SelectOption, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
@@ -17,6 +17,7 @@ import {
 } from 'services/cd-ng'
 import { Table } from '@common/components'
 import { NavItem } from '@cv/pages/onboarding/SetupPageLeftNav/NavItem/NavItem'
+import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/exports'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -167,6 +168,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
   })
   const { data: envOptions } = useGetEnvironmentListForProject({ queryParams })
   const [serviceOptions, setServiceOptions] = useState<SelectOption[]>([{ label: '', value: getString('loading') }])
+  const [createdServices, setCreatedServices] = useState<SelectOption[]>([])
   const [environmentOptions, setEnvironmentOptions] = useState<SelectOption[]>([
     { label: '', value: getString('loading') }
   ])
@@ -189,7 +191,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
   }, [envOptions])
 
   useEffect(() => {
-    const generatedOptions = generateOptions(sOptions?.data?.content)
+    const generatedOptions = [...generateOptions(sOptions?.data?.content), ...createdServices]
     removeSelectedOptions(selectedWorkloads, generatedOptions)
     setServiceOptions(generatedOptions)
   }, [sOptions, selectedNamespace])
@@ -272,14 +274,26 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           disableSortBy: true,
           Cell: function ServiceIdentifier(tableProps: CellProps<WorkloadInfo>) {
             return (
-              <Select
-                value={tableProps.value}
+              <ServiceSelectOrCreate
+                item={tableProps.value}
                 className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
-                items={serviceOptions || []}
-                onChange={selectedService => {
+                options={serviceOptions || []}
+                onSelect={selectedService => {
                   setServiceOptions(generateUpdatedServiceOptions(serviceOptions, selectedService, tableProps.value))
                   onClickWorkload({ ...tableProps.row.original, serviceIdentifier: selectedService })
                   setTableData(updateTableRow(tableData, 'serviceIdentifier', selectedService, tableProps.row.index))
+                }}
+                onNewCreated={createdService => {
+                  if (!createdService || !createdService.name || !createdService.identifier) {
+                    return
+                  }
+                  const serviceOption = { label: createdService.name, value: createdService.identifier }
+                  setServiceOptions(
+                    generateUpdatedServiceOptions(serviceOptions, { label: '', value: -1 }, serviceOption)
+                  )
+                  onClickWorkload({ ...tableProps.row.original, serviceIdentifier: serviceOption })
+                  setCreatedServices([...createdServices, serviceOption])
+                  setTableData(updateTableRow(tableData, 'serviceIdentifier', serviceOption, tableProps.row.index))
                 }}
               />
             )
