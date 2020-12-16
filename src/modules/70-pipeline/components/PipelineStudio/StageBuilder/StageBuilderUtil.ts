@@ -136,7 +136,15 @@ export const removeNodeFromPipeline = (
     const index = data.stages.indexOf(node)
     if (index > -1) {
       data?.stages?.splice(index, 1)
-      updateStateMap && stageMap.delete(node.stage.identifier)
+      if (updateStateMap) {
+        stageMap.delete(node.stage.identifier)
+
+        data.stages?.map((currentStage: StageState) => {
+          if (currentStage.stage?.spec?.service?.useFromStage?.stage === node?.stage?.identifier) {
+            currentStage.stage.spec.service = {}
+          }
+        })
+      }
       return true
     } else if (parent?.parallel) {
       const parallelIndex = parent.parallel?.indexOf(node)
@@ -155,7 +163,16 @@ export const removeNodeFromPipeline = (
   }
   return false
 }
-
+export const getDependantStages = (pipeline: NgPipeline | StageElementWrapper, identifier: string): string[] => {
+  const { stage: node } = getStageFromPipeline(pipeline, identifier)
+  const dependantStages: string[] = []
+  pipeline.stages?.map((currentStage: StageState) => {
+    if (currentStage.stage?.spec?.service?.useFromStage?.stage === node?.stage?.identifier) {
+      dependantStages.push(currentStage.stage.name)
+    }
+  })
+  return dependantStages
+}
 export const resetDiagram = (engine: DiagramEngine): void => {
   engine.getModel().setZoomLevel(100)
   engine.getModel().setOffset(0, 0)

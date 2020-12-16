@@ -147,3 +147,12 @@
     height: 1px;
   }
 }
+
+.stageList {
+  ul {
+    list-style: circle !important;
+    li {
+      margin: 8px 16px !important;
+    }
+  }
+}

@@ -330,6 +330,9 @@ global:
     jFrogArtifactory:
       title: 'Upload Artifacts to JFrog Artifactory'
     build:
+      delete:
+        confirmDeleteTitle: 'Are you sure you want to remove this stage '
+        deleteStageText: 'You are removing a stage that is dependency for other stages. Removing this stage will clear configuration for following stages:'
       create:
         aboutYourStage: 'About Your Stage'
         stageNameRequiredError: 'Stage Name is required'
@@ -342,6 +345,7 @@ global:
         repositoryUrlWrongUrlError: 'Please enter valid URL'
         repositoryUrlRequiredError: 'Repository URL is required'
         setupStage: 'Setup Stage'
+
       stageSpecifications:
         stageNamePlaceholder: 'Enter your stage name'
         variableNamePlaceholder: 'Enter Variable name'

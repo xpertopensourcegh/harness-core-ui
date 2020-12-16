@@ -124,8 +124,9 @@ export default function DeployServiceSpecifications(): JSX.Element {
 
   React.useEffect(() => {
     if (stages && stages.length > 0) {
+      const currentStageType = stage?.stage?.type
       stages.map((item, index) => {
-        if (index < stageIndex) {
+        if (index < stageIndex && currentStageType === item?.stage?.type) {
           previousStageList.push({
             label: `Previous Stage ${item.stage.name} [${item.stage.identifier}]`,
             value: item.stage.identifier
@@ -219,8 +220,14 @@ export default function DeployServiceSpecifications(): JSX.Element {
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
       const stageServiceData = stage?.['stage']?.['spec']['service'] || null
+
+      const { stage: { stage: { name } } = {} } = getStageFromPipeline(pipeline, (item.value as string) || '')
       if (stageServiceData) {
-        stageServiceData.useFromStage.stage = item.value
+        stageServiceData.useFromStage = { stage: item.value }
+        setSelectedPropagatedState({
+          label: `Previous Stage ${name} [${item.value as string}]`,
+          value: item.value
+        })
         updatePipeline(pipeline)
       }
     }
@@ -514,10 +521,10 @@ export default function DeployServiceSpecifications(): JSX.Element {
                       type={StepType.K8sServiceSpec}
                       stepViewType={StepViewType.Edit}
                     />
-                    <OverrideSets selectedTab={selectedTab} />
                   </div>
                 )}
               </div>
+              <OverrideSets selectedTab={selectedTab} />
             </div>
           </div>
         </>

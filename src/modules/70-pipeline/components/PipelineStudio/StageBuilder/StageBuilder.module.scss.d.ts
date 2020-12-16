@@ -11,5 +11,6 @@ declare const styles: {
   readonly stageIncrease: string
   readonly resizers: string
   readonly separator: string
+  readonly stageList: string
 }
 export default styles

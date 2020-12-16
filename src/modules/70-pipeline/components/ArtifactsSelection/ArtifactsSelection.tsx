@@ -29,6 +29,7 @@ import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
 
 import i18n from './ArtifactsSelection.i18n'
 import css from './ArtifactsSelection.module.scss'
+// import { getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 interface ArtifactTable {
   [key: string]: string
@@ -98,7 +99,7 @@ export default function ArtifactsSelection({
     if (isForPredefinedSets) {
       return get(stage, 'stage.spec.service.stageOverrides.artifacts', [])
     }
-    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', null)
+    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', {})
   }
 
   const getPrimaryArtifactPath = (): any => {
@@ -121,7 +122,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
   }
 
-  const artifacts = getArtifactsPath()
+  const artifacts = getArtifactsPath() || {}
 
   const primaryArtifact = getPrimaryArtifactPath()
 
