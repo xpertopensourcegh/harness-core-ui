@@ -25,5 +25,9 @@ module.exports = {
   },
   '/gateway/log-service': {
     target: targetLocalHost ? 'https://localhost:7457' : baseUrl
+  },
+  '/lw': {
+    target: 'http://localhost:9090',
+    pathRewrite: { '^/lw': '' }
   }
 }

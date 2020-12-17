@@ -524,7 +524,15 @@ const routes = {
   toProjectsGetStarted: withAccountId(() => '/projects/getstarted'),
   /********************************************************************************************************************/
   toCE: withAccountId(() => '/ce'),
-  toCEHome: withAccountId(() => '/ce/home')
+  toCEHome: withAccountId(() => '/ce/home'),
+  toCEDashboard: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/dashboard/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  ),
+  toCECostOptimizationDashboard: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/cost-opimizations/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  )
 }
 
 export default routes
