@@ -10,10 +10,10 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
-import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps & OrgPathProps>()
+  const params = useParams<OrgPathProps>()
 
   return <Redirect to={routes.toOrgResourcesConnectors(params)} />
 }

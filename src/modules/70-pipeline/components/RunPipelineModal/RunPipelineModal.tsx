@@ -4,7 +4,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useModalHook } from '@wings-software/uikit'
 
 import type { InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { RunPipelineForm } from './RunPipelineForm'
 
@@ -30,7 +30,7 @@ export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
   pipelineIdentifier,
   className = ''
 }): JSX.Element => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & AccountPathProps>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [openModel, hideModel] = useModalHook(
     () => (
       <Dialog isOpen={true} {...runPipelineDialogProps}>

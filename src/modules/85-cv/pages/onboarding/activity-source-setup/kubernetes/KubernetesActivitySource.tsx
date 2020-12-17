@@ -8,7 +8,7 @@ import {
   RestResponseKubernetesActivitySourceDTO,
   useGetKubernetesSource
 } from 'services/cv'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import i18n from './KubernetesActivitySource.i18n'
@@ -81,7 +81,7 @@ export function KubernetesActivitySource(): JSX.Element {
     totalTabs: TabComponents.length
   })
   const { getString } = useStrings()
-  const params = useParams<ProjectPathProps & AccountPathProps & { activitySourceId: string }>()
+  const params = useParams<ProjectPathProps & { activitySourceId: string }>()
   const { loading, error, refetch: fetchKubernetesSource } = useGetKubernetesSource({
     lazy: true,
     resolve: function (activitySource: RestResponseKubernetesActivitySourceDTO) {

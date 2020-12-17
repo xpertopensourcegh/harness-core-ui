@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Color, Container, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
 import { Classes } from '@blueprintjs/core'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StackdriverDashboardDTO, useGetStackdriverDashboards } from 'services/cv'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { Table } from '@common/components'
@@ -46,7 +46,7 @@ function initializeTableData(
 
 export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
   const { onNext, onPrevious, data: propsData } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [{ pageOffset, filteredDashboard }, setFilterAndPageOffset] = useState<{
     pageOffset: number

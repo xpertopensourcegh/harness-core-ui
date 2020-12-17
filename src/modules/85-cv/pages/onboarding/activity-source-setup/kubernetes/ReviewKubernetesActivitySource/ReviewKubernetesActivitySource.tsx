@@ -7,7 +7,7 @@ import { Table, useToaster } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { String, useStrings } from 'framework/exports'
-import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { KubernetesActivitySourceDTO, useRegisterKubernetesSource } from 'services/cv'
 import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
@@ -78,7 +78,7 @@ function TableColumn(props: CellProps<TableData>): JSX.Element {
 
 export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySourceProps): JSX.Element {
   const { onPrevious, data } = props
-  const params = useParams<ProjectPathProps & AccountPathProps>()
+  const params = useParams<ProjectPathProps>()
 
   const history = useHistory()
   const { getString } = useStrings()

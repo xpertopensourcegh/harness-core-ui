@@ -25,7 +25,7 @@ import {
   EnvironmentSelect,
   generateOptions
 } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
-import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetEnvironmentListForProject, useGetServiceListForProject } from 'services/cd-ng'
 import { MetricPackDTO, TimeSeriesSampleDTO, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
@@ -151,7 +151,7 @@ function transformSampleDataIntoHighchartOptions(sampleData?: TimeSeriesSampleDT
 
 function ConfigureRiskProfile(): JSX.Element {
   const { getString } = useStrings()
-  const { projectIdentifier, accountId } = useParams<AccountPathProps & ProjectPathProps>()
+  const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data } = useGetMetricPacks({
     queryParams: { projectIdentifier, accountId, dataSourceType: 'APP_DYNAMICS' }
   })
@@ -196,7 +196,7 @@ function ConfigureRiskProfile(): JSX.Element {
 function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmentProps): JSX.Element {
   const { metricName } = props
   const { getString } = useStrings()
-  const queryParams = useParams<ProjectPathProps & AccountPathProps>()
+  const queryParams = useParams<ProjectPathProps>()
   const { showError } = useToaster()
   const { data: environments, error: envError } = useGetEnvironmentListForProject({ queryParams })
   const { data: services, error: serviceError } = useGetServiceListForProject({ queryParams })
@@ -291,7 +291,7 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
 
 function QueryValidation(props: QueryValidationProps): JSX.Element {
   const { onChange, queryValue, connectorIdentifier } = props
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<AccountPathProps & ProjectPathProps>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const { getString } = useStrings()
   const { loading, error, mutate, cancel } = useGetStackdriverSampleData({

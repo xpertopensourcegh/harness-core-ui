@@ -10,7 +10,7 @@ import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
-import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './CVActivitySourcesPage.module.scss'
 
 type TableData = {
@@ -66,7 +66,7 @@ function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
 }
 
 function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
-  const params = useParams<ProjectPathProps & AccountPathProps>()
+  const params = useParams<ProjectPathProps>()
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false)
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -132,7 +132,7 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
 
 export default function CVActivitySourcesPage(): JSX.Element {
   const { getString } = useStrings()
-  const params = useParams<ProjectPathProps & AccountPathProps>()
+  const params = useParams<ProjectPathProps>()
   const history = useHistory()
   const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === params.projectIdentifier)

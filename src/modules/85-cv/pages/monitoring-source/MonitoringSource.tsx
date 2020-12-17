@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uikit'
 import routes from '@common/RouteDefinitions'
 
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
 
@@ -26,7 +26,7 @@ const getContentByType = (type: string): JSX.Element => {
 
 const MonitoringSource = (): JSX.Element => {
   const { monitoringSource, projectIdentifier, orgIdentifier, accountId } = useParams<
-    AccountPathProps & ProjectPathProps & { monitoringSource: string }
+    ProjectPathProps & { monitoringSource: string }
   >()
   return (
     <Container className={css.pageDimensions}>

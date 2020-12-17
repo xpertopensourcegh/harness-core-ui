@@ -5,7 +5,7 @@ import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useCreateService, ServiceResponseDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 
@@ -30,7 +30,7 @@ export function generateOptions(response?: ServiceResponseDTO[]): SelectOption[]
 
 export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { mutate: createService, loading } = useCreateService({ queryParams: { accountId } })
 
   const selectOptions = useMemo(

@@ -5,7 +5,7 @@ import { useGetListOfExecutions } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
 import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
@@ -19,9 +19,7 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<
-    AccountPathProps & ProjectPathProps & { pipelineIdentifier?: string }
-  >()
+  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<PipelinePathProps>()
   const queryParams = useQueryParams<{ page?: string } & FilterQueryParams>()
   const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()

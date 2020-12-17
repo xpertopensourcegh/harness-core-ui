@@ -84,3 +84,19 @@ export function withAccountId<T>(fn: (args: T) => string) {
     return `/account/${params.accountId}/${path.replace(/^\//, '')}`
   }
 }
+
+export function withOrgIdentifier<T>(fn: (args: T) => string) {
+  return (params: T & { orgIdentifier: string }) => {
+    const path = fn(params)
+
+    return `/orgs/${params.orgIdentifier}/${path.replace(/^\//, '')}`
+  }
+}
+
+export function withProjectIdentifier<T>(fn: (args: T) => string) {
+  return (params: T & { projectIdentifier: string }) => {
+    const path = fn(params)
+
+    return `/orgs/${params.projectIdentifier}/${path.replace(/^\//, '')}`
+  }
+}

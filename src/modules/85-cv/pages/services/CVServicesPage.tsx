@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import ActivitesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import routes from '@common/RouteDefinitions'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
@@ -47,7 +47,7 @@ const getRangeDates = (val: number, endTime?: number) => {
 }
 
 export default function CVServicesPage(): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [serviceIsEmpty, setIsServiceEmpty] = useState<boolean>(false)
   const [{ selectedValue, startTime, endTime }, setRange] = useState<{
     selectedValue: number

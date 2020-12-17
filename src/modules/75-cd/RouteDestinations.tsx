@@ -72,22 +72,22 @@ const RedirectToCDProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps & ProjectPathProps>()
+  const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toCDResourcesConnectors(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
-  const params = useParams<PipelinePathProps & AccountPathProps>()
+  const params = useParams<PipelinePathProps>()
   return <Redirect to={routes.toCDPipelineDeploymentList(params)} />
 }
 
 const RedirectToStudioUI = (): React.ReactElement => {
-  const params = useParams<PipelinePathProps & AccountPathProps>()
+  const params = useParams<PipelinePathProps>()
   return <Redirect to={routes.toCDPipelineStudioUI(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
-  const params = useParams<ExecutionPathProps & AccountPathProps>()
+  const params = useParams<ExecutionPathProps>()
   return <Redirect to={routes.toCDExecutionPiplineView(params)} />
 }
 

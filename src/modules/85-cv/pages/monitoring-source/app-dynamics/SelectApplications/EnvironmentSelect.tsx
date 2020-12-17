@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { EnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
@@ -39,7 +39,7 @@ export function EnvironmentSelect({
   className
 }: EnvironmentSelectProps) {
   const { getString } = useStrings('cv')
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { mutate: createEnvironment, loading } = useCreateEnvironment({ queryParams: { accountId } })
   const selectOptions = useMemo(
     () => [

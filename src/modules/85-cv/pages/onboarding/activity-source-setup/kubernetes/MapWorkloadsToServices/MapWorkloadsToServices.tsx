@@ -20,7 +20,7 @@ import { NavItem } from '@cv/pages/onboarding/SetupPageLeftNav/NavItem/NavItem'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/exports'
-import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { WorkloadInfo, KubernetesActivitySourceInfo, NamespaceToWorkload } from '../KubernetesActivitySourceUtils'
 import css from './MapWorkloadsToServices.module.scss'
 
@@ -143,7 +143,7 @@ function initializeSelectedWorkloads(
 function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Element {
   const { onClickWorkload, selectedNamespace, selectedWorkloads, connectorIdentifier } = props
   const { getString } = useStrings()
-  const queryParams = useParams<ProjectPathProps & AccountPathProps>()
+  const queryParams = useParams<ProjectPathProps>()
   const { data: sOptions } = useGetServiceListForProject({ queryParams })
   const [tableData, setTableData] = useState<WorkloadInfo[]>([])
   const [{ pageOffset, filteredWorkload }, setFilterAndPageOffset] = useState<{

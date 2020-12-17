@@ -65,7 +65,7 @@ const RedirectToCVProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps & ProjectPathProps>()
+  const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toCVAdminResourcesConnectors(params)} />
 }
 

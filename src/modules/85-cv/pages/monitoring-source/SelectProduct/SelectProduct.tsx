@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
 import { useStrings, UseStringsReturn } from 'framework/exports'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import {
   SelectOrCreateConnector,
@@ -152,7 +152,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
 export const SelectProduct: React.FC<SelectProductProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<AccountPathProps & ProjectPathProps>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   return (
     <Formik

@@ -6,7 +6,7 @@ import { Classes, ITreeNode, Tree } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { StackdriverDashboardDetail, StackdriverDashboardDTO, useGetStackdriverDashboardDetail } from 'services/cv'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DashboardWidgetMetricNav.module.scss'
 
 export interface DashboardWidgetMetricNavProps {
@@ -130,7 +130,7 @@ function transformWidgetsToTreeNodes(
 
 export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): JSX.Element {
   const { className, connectorIdentifier, gcoDashboards, onSelectMetric, showSpinnerOnLoad } = props
-  const { projectIdentifier, accountId, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
+  const { projectIdentifier, accountId, orgIdentifier } = useParams<ProjectPathProps>()
   const [selectedMetric, setSelectedMetric] = useState<ITreeNode | undefined>()
   const [selectedDashboard, setSelectedDashboard] = useState(
     gcoDashboards?.filter(dashboard => dashboard && dashboard.path && dashboard.name)[0] || []

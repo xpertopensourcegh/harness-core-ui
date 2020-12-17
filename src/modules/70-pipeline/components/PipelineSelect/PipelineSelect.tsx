@@ -4,7 +4,7 @@ import { Select as BPSelect, ItemRenderer, ItemListRenderer } from '@blueprintjs
 import { Button, Menu, Spinner } from '@blueprintjs/core'
 
 import { useGetPipelineList, NGPipelineSummaryResponse } from 'services/cd-ng'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { String } from 'framework/exports'
 
 import css from './PipelineSelect.module.scss'
@@ -21,7 +21,7 @@ const itemRenderer: ItemRenderer<NGPipelineSummaryResponse> = (item, props) => (
 )
 
 export default function PipelineSelect(props: PipelineSelectProps): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [query, setQuery] = React.useState('')
   const { data, loading } = useGetPipelineList({
     queryParams: {

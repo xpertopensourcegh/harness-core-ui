@@ -12,12 +12,7 @@ import {
   buildPathProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
-import type {
-  AccountPathProps,
-  BuildPathProps,
-  PipelinePathProps,
-  ProjectPathProps
-} from '@common/interfaces/RouteInterfaces'
+import type { BuildPathProps, PipelinePathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import CIHomePage from '@ci/pages/home/CIHomePage'
 import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
@@ -64,17 +59,17 @@ const RedirectToCIProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps & ProjectPathProps>()
+  const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toCIAdminResourcesConnectors(params)} />
 }
 
 const RedirectToStudioUI = (): React.ReactElement => {
-  const params = useParams<PipelinePathProps & AccountPathProps>()
+  const params = useParams<PipelinePathProps>()
   return <Redirect to={routes.toCIPipelineStudioUI(params)} />
 }
 
 const RedirectToBuildPipelineGraph = (): React.ReactElement => {
-  const params = useParams<AccountPathProps & ProjectPathProps & BuildPathProps>()
+  const params = useParams<ProjectPathProps & BuildPathProps>()
   return <Redirect to={routes.toCIBuildPipelineGraph(params)} />
 }
 

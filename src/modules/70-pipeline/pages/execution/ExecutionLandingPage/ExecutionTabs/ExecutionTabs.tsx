@@ -5,7 +5,7 @@ import cx from 'classnames'
 
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, executionPathProps } from '@common/utils/routeUtils'
-import type { ExecutionPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 
 import i18n from './ExecutionTabs.i18n'
 
@@ -13,7 +13,7 @@ import css from './ExecutionTabs.module.scss'
 
 export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { children } = props
-  const params = useParams<ExecutionPathProps & AccountPathProps>()
+  const params = useParams<ExecutionPathProps>()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
 

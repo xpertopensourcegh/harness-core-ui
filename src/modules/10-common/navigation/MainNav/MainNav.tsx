@@ -7,7 +7,7 @@ import { String } from 'framework/exports'
 
 import paths from '@common/RouteDefinitions'
 
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './MainNav.module.scss'
 
 const commonLinkProps: Partial<NavLinkProps> = {
@@ -16,7 +16,7 @@ const commonLinkProps: Partial<NavLinkProps> = {
 }
 
 export default function L1Nav(): React.ReactElement {
-  const params = useParams<AccountPathProps & Partial<ProjectPathProps>>()
+  const params = useParams<ProjectPathProps>()
 
   return (
     <nav className={css.main}>

@@ -13,7 +13,7 @@ import { Page } from '@common/exports'
 import type { ServiceResponse } from '@common/services/ServiceResponse'
 import { CVObjectStoreNames, CVIndexedDBPrimaryKeys } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import useOnBoardingPageDataHook from '@cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
-import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './SelectListEntityPage.i18n'
 import css from './DataSourceListEntityPage.module.scss'
 
@@ -50,7 +50,7 @@ function createNextPageData(pageData: any): PageContextData {
 
 export default function DataSourceListEntitySelect(): JSX.Element {
   const { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgIdentifier: routeOrgId } = useParams<
-    ProjectPathProps & AccountPathProps & { dataSourceType?: string }
+    ProjectPathProps & { dataSourceType?: string }
   >()
   const { dataSourceId: routeDataSourceId } = useQueryParams()
   const { pageData, dbInstance } = useOnBoardingPageDataHook<PageContextData>(routeDataSourceId as string)

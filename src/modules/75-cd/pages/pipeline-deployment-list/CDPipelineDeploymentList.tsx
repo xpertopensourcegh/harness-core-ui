@@ -6,12 +6,10 @@ import { Dialog } from '@blueprintjs/core'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import type { PipelinePathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
 export default function CDPipelineDeploymentList(): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<
-    PipelinePathProps & AccountPathProps
-  >()
+  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<PipelinePathProps>()
 
   const [openModal, hideModal] = useModalHook(
     () => (

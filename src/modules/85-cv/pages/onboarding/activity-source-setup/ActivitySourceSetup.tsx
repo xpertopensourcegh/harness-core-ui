@@ -3,7 +3,7 @@ import { Container } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { ActivitySourceSetupRoutePaths } from '@cv/utils/routeUtils'
-import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { KubernetesActivitySource } from './kubernetes/KubernetesActivitySource'
 import { OnBoardingPageHeader } from '../OnBoardingPageHeader/OnBoardingPageHeader'
 import HarnessCDActivitySource from './harness-cd/HarnessCDActivitySource'
@@ -23,7 +23,7 @@ function activitySourceTypeToComponent(activitySource: string): JSX.Element {
 
 export default function ActivitySourceSetup(): JSX.Element {
   const { activitySource, projectIdentifier, orgIdentifier, accountId } = useParams<
-    ProjectPathProps & AccountPathProps & { activitySource: string }
+    ProjectPathProps & { activitySource: string }
   >()
   return (
     <Container className={css.pageDimensions}>
