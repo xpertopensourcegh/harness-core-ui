@@ -256,7 +256,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           }}
                           className={css.removeLink}
                         >
-                          {getString('pipelineSteps.build.stageSpecifications.removeLabel')}
+                          {getString('removeLabel')}
                         </span>
                         <FormInput.TextArea
                           name="description"
@@ -274,7 +274,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           }}
                           className={css.removeLink}
                         >
-                          {getString('pipelineSteps.build.stageSpecifications.removeLabel')}
+                          {getString('removeLabel')}
                         </span>
                         <FormInput.TagInput
                           name={getString('pipelineSteps.build.stageSpecifications.addTags')}

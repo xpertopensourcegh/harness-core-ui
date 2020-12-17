@@ -23,7 +23,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
   formikProps,
   isEdit = false
 }) => {
-  const { sourceRepo, actions, event, description, tags } = formikProps.values
+  const { sourceRepo, actions, event } = formikProps.values
   const { data: ResponseSourceRepoToEvent, loading: loadingGetSourceRepoToEvent } = useGetSourceRepoToEvent({})
   const { data: actionsListResponse, refetch } = useGetActionsList({
     queryParams: { sourceRepo, event },
@@ -34,13 +34,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
   const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([]) // will need to get actions from api
   const { getString } = useStrings()
   const loading = loadingGetSourceRepoToEvent
-  const defaultOpenFields = []
-  if (description) {
-    defaultOpenFields.push('description')
-  }
-  if (!isEmpty(tags)) {
-    defaultOpenFields.push('tags')
-  }
+
   useEffect(() => {
     if (sourceRepo && ResponseSourceRepoToEvent?.data?.[sourceRepo]) {
       const eventsList = ResponseSourceRepoToEvent.data[sourceRepo]
@@ -80,7 +74,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
       <div style={{ backgroundColor: 'var(--white)' }}>
         <AddDescriptionAndKVTagsWithIdentifier
           className={css.triggerName}
-          defaultOpenFields={defaultOpenFields}
+          formikProps={formikProps}
           identifierProps={{
             inputLabel: getString('pipeline-triggers.triggerConfigurationPanel.triggerName'),
             isIdentifierEditable: !isEdit

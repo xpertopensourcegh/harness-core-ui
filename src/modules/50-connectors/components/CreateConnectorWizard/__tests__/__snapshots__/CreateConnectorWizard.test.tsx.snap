@@ -212,7 +212,9 @@ exports[`Create connector Wizard should open CreateConnectorWizard 1`] = `
                       </div>
                       <div
                         class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                      />
+                      >
+                        
+                      </div>
                     </div>
                   </div>
                   <div

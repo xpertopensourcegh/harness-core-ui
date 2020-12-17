@@ -73,6 +73,7 @@ global:
   stageDetails: Stage Details
   stageNameLabel: Stage Name
   tagsLabel: Tags
+  removeLabel: 'remove'
   keyLabel: Key
   valueLabel: Value
   repositoryUrlLabel: Repository URL
@@ -362,7 +363,6 @@ global:
         variableNamePlaceholder: 'Enter Variable name'
         addDescription: 'description'
         addTags: 'tags'
-        removeLabel: 'remove'
         workspaceAndSharedPaths: 'Workspace and shared paths'
         workspace: 'Workspace'
         sharedPaths: 'Shared Paths'

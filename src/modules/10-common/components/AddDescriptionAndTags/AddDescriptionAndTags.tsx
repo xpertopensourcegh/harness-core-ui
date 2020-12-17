@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Color, Container, FormInput, Layout, TagInputProps, Text } from '@wings-software/uikit'
 import type { InputWithIdentifierProps } from '@wings-software/uikit/dist/components/InputWithIdentifier/InputWithIdentifier'
 import cx from 'classnames'
+import type { FormikProps } from 'formik'
+import { useStrings } from 'framework/exports'
+import type { tagsType } from '@common/utils/types'
 import i18n from './AddDescriptionAndTags.i18n'
 import css from './AddDescriptionAndTags.module.scss'
 
@@ -12,14 +15,38 @@ export interface DescriptionAndTagsInputProps<T> {
   defaultOpenFields?: string[]
 }
 
+export interface FormikForAddDescriptionandKVTags {
+  name: string
+  identifier: string
+  description?: string
+  tags?: tagsType
+}
+
+export interface DescriptionAndKVTagsInputProps {
+  formComponent: JSX.Element
+  formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
+  className?: string
+}
+
 export interface AddDescriptionAndTagsWithIdentifier {
   identifierProps: Omit<InputWithIdentifierProps, 'formik'>
   className?: string
   defaultOpenFields?: string[]
 }
 
+export interface AddDescriptionAndKVTagsWithIdentifier {
+  identifierProps: Omit<InputWithIdentifierProps, 'formik'>
+  className?: string
+  formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
+}
+
 interface FieldLabelWithHideOptionProps {
   onHide: () => void
+  fieldLabel: string
+}
+
+interface FieldLabelWithRemoveOptionProps {
+  onRemove: () => void
   fieldLabel: string
 }
 
@@ -36,6 +63,19 @@ function FieldLabelWithHideOption(props: FieldLabelWithHideOptionProps): JSX.Ele
       <Text inline>{fieldLabel}</Text>
       <Text inline className={css.fieldToggleLabel} onClick={onHide} color={Color.BLUE_500}>
         {i18n.hideInput}
+      </Text>
+    </Container>
+  )
+}
+
+function FieldLabelWithRemoveOption(props: FieldLabelWithRemoveOptionProps): JSX.Element {
+  const { onRemove, fieldLabel } = props
+  const { getString } = useStrings()
+  return (
+    <Container className={css.headerRow}>
+      <Text inline>{fieldLabel}</Text>
+      <Text inline className={css.fieldToggleLabel} onClick={onRemove} color={Color.BLUE_500}>
+        {getString('removeLabel')}
       </Text>
     </Container>
   )
@@ -101,10 +141,14 @@ export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>)
   )
 }
 
-export function AddDescriptionAndKVTags<T>(props: DescriptionAndTagsInputProps<T>): JSX.Element {
-  const { formComponent, className, defaultOpenFields = [] } = props
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(defaultOpenFields.includes('description'))
-  const [isTagsOpen, setIsTagsOpen] = useState(defaultOpenFields.includes('tags'))
+export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): JSX.Element {
+  const { formComponent, className, formikProps } = props
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(
+    formikProps?.values.description && formikProps.values.description.length > 0
+  )
+  const [isTagsOpen, setIsTagsOpen] = useState(
+    formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0
+  )
 
   return (
     <Container className={cx(css.main, className)}>
@@ -128,14 +172,28 @@ export function AddDescriptionAndKVTags<T>(props: DescriptionAndTagsInputProps<T
             className={css.expandedDescription}
             name="description"
             label={
-              <FieldLabelWithHideOption onHide={() => setIsDescriptionOpen(false)} fieldLabel={i18n.descriptionLabel} />
+              <FieldLabelWithRemoveOption
+                onRemove={() => {
+                  setIsDescriptionOpen(false)
+                  formikProps?.setFieldValue('description', '')
+                }}
+                fieldLabel={i18n.descriptionLabel}
+              />
             }
           />
         )}
         {isTagsOpen && (
           <FormInput.KVTagInput
             name="tags"
-            label={<FieldLabelWithHideOption onHide={() => setIsTagsOpen(false)} fieldLabel={i18n.tagsLabel} />}
+            label={
+              <FieldLabelWithRemoveOption
+                onRemove={() => {
+                  setIsTagsOpen(false)
+                  formikProps?.setFieldValue('tags', {})
+                }}
+                fieldLabel={i18n.tagsLabel}
+              />
+            }
             className="expandedTags"
           />
         )}
@@ -154,7 +212,7 @@ export function AddDescriptionAndTagsWithIdentifier(props: AddDescriptionAndTags
   )
 }
 
-export function AddDescriptionAndKVTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
+export function AddDescriptionAndKVTagsWithIdentifier(props: AddDescriptionAndKVTagsWithIdentifier): JSX.Element {
   const { identifierProps, ...additionalProps } = props
   return (
     <AddDescriptionAndKVTags

@@ -206,7 +206,9 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      
+                    </div>
                   </div>
                 </div>
                 <div
@@ -441,7 +443,9 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      
+                    </div>
                   </div>
                 </div>
                 <div
@@ -676,7 +680,9 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      
+                    </div>
                   </div>
                 </div>
                 <div
@@ -914,7 +920,9 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      
+                    </div>
                   </div>
                 </div>
                 <div

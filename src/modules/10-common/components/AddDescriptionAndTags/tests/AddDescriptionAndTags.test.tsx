@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uikit'
-import { AddDescriptionAndTagsWithIdentifier, AddDescriptionAndKVTagsWithIdentifier } from '../AddDescriptionAndTags'
+import { AddDescriptionAndTagsWithIdentifier } from '../AddDescriptionAndTags'
 import i18n from '../AddDescriptionAndTags.i18n'
 
 function WrapperComponent(props: { defaultOpenFields?: string[] }): JSX.Element {
@@ -9,16 +9,6 @@ function WrapperComponent(props: { defaultOpenFields?: string[] }): JSX.Element 
     <Formik initialValues={{}} onSubmit={() => undefined}>
       <FormikForm>
         <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} {...props} />
-      </FormikForm>
-    </Formik>
-  )
-}
-
-function WrapperComponentKVTags(props: { defaultOpenFields?: string[] }): JSX.Element {
-  return (
-    <Formik initialValues={{}} onSubmit={() => undefined}>
-      <FormikForm>
-        <AddDescriptionAndKVTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} {...props} />
       </FormikForm>
     </Formik>
   )
@@ -55,12 +45,5 @@ describe('Unit tests for AddDescriptionTags Component', () => {
 
     await waitFor(() => expect(container.querySelector('textarea')).not.toBeNull())
     await waitFor(() => expect(container.querySelector('[class*="tagInput"]')).not.toBeNull())
-  })
-
-  test('Show default open fields (assuming values exist in formik)', async () => {
-    const { container } = render(<WrapperComponentKVTags defaultOpenFields={['description', 'tags']} />)
-
-    await waitFor(() => expect(container.querySelector('textarea')).not.toBeNull())
-    await waitFor(() => expect(container.querySelector('[data-mentions*="kv-tag-input"]')).not.toBeNull())
   })
 })

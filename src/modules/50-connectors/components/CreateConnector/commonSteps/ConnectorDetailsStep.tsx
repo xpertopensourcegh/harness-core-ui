@@ -122,11 +122,12 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
             ...props.formData
           }}
         >
-          {() => {
+          {formikProps => {
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
                   <AddDescriptionAndKVTagsWithIdentifier
+                    formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />
                 </Container>

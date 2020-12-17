@@ -843,7 +843,9 @@ exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
                       </div>
                       <div
                         class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                      />
+                      >
+                        
+                      </div>
                     </div>
                   </div>
                   <div

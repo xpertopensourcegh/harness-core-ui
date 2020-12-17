@@ -272,7 +272,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                   <span
                                     class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
                                   >
-                                    Hide
+                                    remove
                                   </span>
                                 </div>
                                  

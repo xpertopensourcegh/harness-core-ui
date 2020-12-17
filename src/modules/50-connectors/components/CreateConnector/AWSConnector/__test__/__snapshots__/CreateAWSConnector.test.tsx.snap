@@ -179,7 +179,9 @@ exports[`Create AWS connector Wizard should render form 1`] = `
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      
+                    </div>
                   </div>
                 </div>
                 <div

@@ -46,11 +46,12 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj> & SSHCredSharedObj> =
           ...(prevStepData ? prevStepData.detailsData : detailsData)
         }}
       >
-        {() => {
+        {formikProps => {
           return (
             <FormikForm>
               <Container className={css.formData}>
                 <AddDescriptionAndKVTagsWithIdentifier
+                  formikProps={formikProps}
                   identifierProps={{
                     inputName: 'name',
                     isIdentifierEditable: isEdit || prevStepData?.isEdit ? false : true

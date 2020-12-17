@@ -134,7 +134,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                   class="bp3-button-text"
                 >
                   <span>
-                    No valid template with id "saveAndContinue" found in any namespace
+                    Save and Continue
                   </span>
                 </span>
               </button>
@@ -271,7 +271,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
                         >
-                          Hide
+                          remove
                         </span>
                       </div>
                        
@@ -286,9 +286,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                         autocomplete="off"
                         class="bp3-input bp3-fill"
                         name="description"
-                      >
-                        dummy description
-                      </textarea>
+                      />
                     </div>
                   </div>
                   <div
@@ -309,7 +307,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
                         >
-                          Hide
+                          remove
                         </span>
                       </div>
                        
@@ -349,7 +347,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                   class="bp3-button-text"
                 >
                   <span>
-                    No valid template with id "saveAndContinue" found in any namespace
+                    Save and Continue
                   </span>
                 </span>
               </button>

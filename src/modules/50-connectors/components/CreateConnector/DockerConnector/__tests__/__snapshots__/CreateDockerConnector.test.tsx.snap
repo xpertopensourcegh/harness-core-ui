@@ -207,7 +207,9 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      
+                    </div>
                   </div>
                 </div>
                 <div
@@ -795,18 +797,53 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         <p
                           class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
                         >
-                          + Description
-                        </p>
-                        <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
-                        >
                           + Tags
                         </p>
                       </div>
                     </div>
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    />
+                    >
+                      <div
+                        class="bp3-form-group expandedDescription"
+                        data-id="description-1"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="description"
+                        >
+                          <div
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                          >
+                            <span
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                            >
+                              Description
+                            </span>
+                            <span
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                            >
+                              remove
+                            </span>
+                          </div>
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <textarea
+                            autocomplete="off"
+                            class="bp3-input bp3-fill"
+                            name="description"
+                          >
+                            devConnector description
+                          </textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div
