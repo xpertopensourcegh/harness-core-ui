@@ -24,7 +24,7 @@ export const getModuleIcon = (module: ModuleName): IconName => {
 export const getModulePurpose = (module: ModuleName): string => {
   switch (module) {
     case ModuleName.CD:
-      return 'Deployment'
+      return 'Delivery'
     case ModuleName.CV:
       return 'Verification'
     case ModuleName.CI:

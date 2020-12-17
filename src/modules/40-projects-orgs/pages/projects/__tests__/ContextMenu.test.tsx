@@ -63,7 +63,7 @@ describe('Context Menu test', () => {
       expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CD ', async () => {
-      fireEvent.click(getByText('Go to Continuous Deployement'))
+      fireEvent.click(getByText('Go to Continuous Delivery'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CE ', async () => {

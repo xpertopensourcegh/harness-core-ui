@@ -62,13 +62,14 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         ) : null}
         <Container
           onClick={() => {
-            history.push(
-              routes.toProjectDetails({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-                accountId: data.accountIdentifier || /* istanbul ignore next */ ''
-              })
-            )
+            !isPreview &&
+              history.push(
+                routes.toProjectDetails({
+                  projectIdentifier: data.identifier,
+                  orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
+                  accountId: data.accountIdentifier || /* istanbul ignore next */ ''
+                })
+              )
           }}
         >
           <div className={css.colorBar} style={{ backgroundColor: data.color }} />

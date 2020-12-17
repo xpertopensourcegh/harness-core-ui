@@ -971,7 +971,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Verification
           </p>
           <a
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/-1/"
+            href="/account/testAcc/cv/org/testOrg/project/test/datasources"
           >
             Add New Data Sources
           </a>
@@ -999,7 +999,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Efficiency
           </p>
           <a
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/-1/"
+            href="/"
           >
             TBD
           </a>

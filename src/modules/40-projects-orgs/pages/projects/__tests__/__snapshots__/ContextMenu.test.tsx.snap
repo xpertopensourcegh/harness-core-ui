@@ -56,7 +56,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
             >
-              Go to Continuous Deployement
+              Go to Continuous Delivery
             </p>
           </div>
         </div>

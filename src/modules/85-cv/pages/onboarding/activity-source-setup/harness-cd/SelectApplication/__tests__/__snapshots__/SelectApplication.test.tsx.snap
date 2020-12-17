@@ -11,7 +11,7 @@ exports[`SelectApplication render 1`] = `
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-large--2eY9"
       >
-        Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Deployment applications.
+        Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications.
       </p>
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-large--2eY9"

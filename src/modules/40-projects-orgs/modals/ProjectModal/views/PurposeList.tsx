@@ -83,14 +83,7 @@ const getModuleLinks = (
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cv}</Text>
-          <Link
-            to={routes.toCDPipelineStudio({
-              orgIdentifier,
-              projectIdentifier,
-              pipelineIdentifier: '-1',
-              accountId
-            })}
-          >
+          <Link to={routes.toCVDataSources({ accountId, orgIdentifier, projectIdentifier })}>
             {i18n.newProjectWizard.purposeList.linkcv}
           </Link>
         </Layout.Vertical>
@@ -101,10 +94,10 @@ const getModuleLinks = (
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ci}</Text>
           <Link
             to={routes.toCIPipelineStudio({
+              accountId,
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: '-1',
-              accountId
+              pipelineIdentifier: '-1'
             })}
           >
             {i18n.newProjectWizard.purposeList.linkci}
@@ -115,16 +108,7 @@ const getModuleLinks = (
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ce}</Text>
-          <Link
-            to={routes.toCDPipelineStudio({
-              orgIdentifier,
-              projectIdentifier,
-              pipelineIdentifier: '-1',
-              accountId
-            })}
-          >
-            {i18n.newProjectWizard.purposeList.linkce}
-          </Link>
+          <Link to={''}>{i18n.newProjectWizard.purposeList.linkce}</Link>
         </Layout.Vertical>
       )
     case ModuleName.CF:

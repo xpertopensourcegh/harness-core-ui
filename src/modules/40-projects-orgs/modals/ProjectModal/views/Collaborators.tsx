@@ -29,9 +29,6 @@ import {
   useGetInvites,
   CreateInviteListDTO,
   useSendInvite,
-  InviteDTO,
-  useDeleteInvite,
-  useUpdateInvite,
   ResponsePageUserSearchDTO,
   ResponseOptionalListRoleDTO,
   ResponsePageInviteDTO,
@@ -40,16 +37,19 @@ import {
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
-import { useToaster } from '@common/exports'
 import { regexEmail } from '@common/utils/StringUtils'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { InviteType } from '../Constants'
 
+import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
 interface CollaboratorModalData {
   projectIdentifier?: string
   orgIdentifier?: string
   showManage?: boolean
+  defaultRole?: SelectOption
   userMockData?: UseGetMockData<ResponsePageUserSearchDTO>
   rolesMockData?: UseGetMockData<ResponseOptionalListRoleDTO>
   invitesMockData?: UseGetMockData<ResponsePageInviteDTO>
@@ -58,180 +58,16 @@ interface CollaboratorsData {
   collaborators: MultiSelectOption[]
 }
 
-interface InviteListProps {
-  user: InviteDTO
-  roles: SelectOption[]
-  reload: () => void
-}
-
 const CustomSelect = Select.ofType<SelectOption>()
-
-const defaultRole: SelectOption = {
-  label: i18n.newProjectWizard.Collaborators.label,
-  value: i18n.newProjectWizard.Collaborators.value
-}
-
-const InviteListRenderer: React.FC<InviteListProps> = props => {
-  const { user, reload, roles } = props
-  const { accountId } = useParams()
-  const [approved, setApproved] = useState<boolean>(false)
-  const { mutate: deleteInvite } = useDeleteInvite({ queryParams: { accountIdentifier: accountId } })
-  const [role, setRole] = useState<SelectOption>(defaultRole)
-  const { mutate: updateInvite } = useUpdateInvite({ inviteId: '', queryParams: { accountIdentifier: accountId } })
-  const { showSuccess, showError } = useToaster()
-
-  const handleUpdate = async (type: InviteType): Promise<void> => {
-    const dataToSubmit: InviteDTO = {
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      inviteType: type,
-      approved: type === InviteType.USER_INITIATED ? true : false
-    }
-    try {
-      const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id || '' } })
-      /* istanbul ignore else */ if (updated) reload()
-      showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
-    } catch (err) {
-      showError(err.data)
-    }
-  }
-
-  const handleDelete = async (): Promise<void> => {
-    try {
-      const deleted = await deleteInvite(user.id || '')
-      /* istanbul ignore else */ if (deleted) reload()
-      showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
-    } catch (err) {
-      showError(err.data)
-    }
-  }
-  return (
-    <Container className={css.invites} padding={{ left: 'xsmall', top: 'medium', bottom: 'medium' }}>
-      {user?.inviteType == InviteType.ADMIN_INITIATED ? (
-        <Layout.Horizontal>
-          <Layout.Horizontal spacing="medium" className={cx(css.align, css.pendingUser)} width="60%">
-            <Avatar email={user.email} size="normal" />
-            <Layout.Vertical padding={{ left: 'small' }}>
-              <Layout.Horizontal spacing="small">
-                <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
-                  {user.name}
-                </Text>
-                <Text
-                  font={{ size: 'xsmall', weight: 'bold' }}
-                  className={cx(css.colorBar, css.pending)}
-                  color={Color.BLUE_500}
-                >
-                  {i18n.newProjectWizard.Collaborators.pendingInvitation}
-                </Text>
-              </Layout.Horizontal>
-              <Text className={css.email} lineClamp={1}>
-                {user.email}
-              </Text>
-              <Layout.Horizontal spacing="xsmall">
-                <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
-                  {i18n.newProjectWizard.Collaborators.roleAssigned}
-                </Text>
-                <Text font="xsmall" color={Color.BLUE_600} className={css.role} lineClamp={1}>
-                  {user.role.name}
-                </Text>
-              </Layout.Horizontal>
-            </Layout.Vertical>
-          </Layout.Horizontal>
-          <Layout.Horizontal width="40%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
-            <Button
-              inline
-              minimal
-              icon="refresh"
-              onClick={() => {
-                handleUpdate(InviteType.ADMIN_INITIATED)
-              }}
-            />
-            <Button inline minimal icon="remove" iconProps={{ size: 20 }} onClick={handleDelete} />
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-      ) : (
-        <Layout.Horizontal>
-          <Layout.Horizontal spacing="medium" className={css.align} width="60%">
-            <Avatar email={user.email} size="normal" />
-            <Layout.Vertical padding={{ left: 'small' }}>
-              <Layout.Horizontal spacing="small">
-                <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
-                  {user.name}
-                </Text>
-                <Text
-                  font={{ size: 'xsmall', weight: 'bold' }}
-                  className={cx(css.colorBar, css.request)}
-                  color={Color.YELLOW_500}
-                >
-                  {i18n.newProjectWizard.Collaborators.requestAccess}
-                </Text>
-              </Layout.Horizontal>
-              <Text className={css.email} lineClamp={1}>
-                {user.email}
-              </Text>
-              <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
-                {i18n.newProjectWizard.Collaborators.noRole}
-              </Text>
-            </Layout.Vertical>
-          </Layout.Horizontal>
-          <Layout.Horizontal width="40%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
-            {!approved ? (
-              <Button
-                inline
-                minimal
-                icon="command-approval"
-                onClick={() => {
-                  setApproved(true)
-                }}
-              />
-            ) : (
-              <Layout.Horizontal>
-                <CustomSelect
-                  items={roles}
-                  filterable={false}
-                  itemRenderer={(item, { handleClick }) => (
-                    <div>
-                      <Menu.Item
-                        text={item.label}
-                        onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
-                      />
-                    </div>
-                  )}
-                  onItemSelect={item => {
-                    setRole(item)
-                  }}
-                  popoverProps={{ minimal: true }}
-                >
-                  <Button inline minimal rightIcon="chevron-down" text={role.label} />
-                </CustomSelect>
-                <Button
-                  inline
-                  minimal
-                  icon="command-approval"
-                  disabled={role === defaultRole}
-                  onClick={() => {
-                    handleUpdate(InviteType.USER_INITIATED)
-                  }}
-                />
-              </Layout.Horizontal>
-            )}
-            <Button inline minimal icon="remove" onClick={handleDelete} />
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-      )}
-    </Container>
-  )
-}
 
 const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { rolesMockData, userMockData, invitesMockData, projectIdentifier, orgIdentifier, showManage = true } = props
-  const [role, setRole] = useState<SelectOption>(defaultRole)
-  const [search, setSearch] = useState<string>()
   const { accountId } = useParams()
+  const { getString } = useStrings()
+
+  const [search, setSearch] = useState<string>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const initialValues: CollaboratorsData = { collaborators: [] }
-  const { getString } = useStrings()
   const { data: userData } = useGetUsers({
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
     mock: userMockData,
@@ -304,7 +140,17 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       modalErrorHandler?.show(e.data)
     }
   }
+  const getDefaultRole = (scope: ScopedObjectDTO): SelectOption => {
+    if (getScopeFromDTO(scope) === Scope.PROJECT)
+      return { label: getString('customText', { text: 'Project Member' }), value: 'Project Member' }
+    if (getScopeFromDTO(scope) === Scope.ORG)
+      return { label: getString('customText', { text: 'Organization Member' }), value: 'Organization Member' }
+    return { label: getString('customText', { text: 'Assign a role' }), value: '' }
+  }
 
+  const [role, setRole] = useState<SelectOption>(
+    getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+  )
   return (
     <Formik<CollaboratorsData>
       initialValues={initialValues}
@@ -318,7 +164,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       onSubmit={(values, { resetForm }) => {
         modalErrorHandler?.hide()
         SendInvitation(values.collaborators)
-        setRole(defaultRole)
+        setRole(getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }))
         resetForm({ collaborators: [] })
       }}
       enableReinitialize={true}
@@ -365,10 +211,9 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     items={roles}
                     filterable={false}
                     itemRenderer={(item, { handleClick }) => (
-                      <div>
+                      <div key={item.label}>
                         <Menu.Item
                           text={item.label}
-                          key={item.label}
                           onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
                         />
                       </div>

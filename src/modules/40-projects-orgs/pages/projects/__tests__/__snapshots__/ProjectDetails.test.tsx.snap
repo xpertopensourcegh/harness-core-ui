@@ -352,7 +352,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
                         >
-                          Deployment
+                          Delivery
                         </p>
                       </div>
                       <div
@@ -505,7 +505,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
                     >
-                      DEPLOYMENT IN LAST 7 DAYS
+                      DEPLOYMENTS IN LAST 7 DAYS
                     </p>
                   </div>
                 </div>
@@ -747,7 +747,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
                     >
-                      VERIFICATION IN LAST 7 DAYS
+                      VERIFICATIONS IN LAST 7 DAYS
                     </p>
                   </div>
                 </div>
@@ -989,7 +989,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
                     >
-                      INTEGRATION IN LAST 7 DAYS
+                      BUILDS IN LAST 7 DAYS
                     </p>
                   </div>
                 </div>
@@ -1231,7 +1231,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
                     >
-                      EFFICIENCY IN LAST 7 DAYS
+                      COST SAVINGS IN LAST 7 DAYS
                     </p>
                   </div>
                 </div>
@@ -1471,7 +1471,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     <p
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
                     >
-                      FEATURES IN LAST 7 DAYS
+                      FEATURE FLAGS IN LAST 7 DAYS
                     </p>
                   </div>
                 </div>
@@ -1820,7 +1820,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
                   >
-                    Deployment
+                    Delivery
                   </p>
                 </div>
               </div>

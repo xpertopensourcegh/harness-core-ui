@@ -107,6 +107,7 @@ global:
   selectApplication: 'Select Application'
   selectProject: 'Select Project'
   mapApplications: 'Map Applications to Harness Services'
+  customText: '{{text}}'
   adminLabel: 'Admin'
   collaboratorsLabel: 'Collaborators'
   viewDetails: 'View Details'
@@ -266,7 +267,7 @@ global:
     dataSources: Set Up Data Sources
   projectContextMenuRenderer:
     gotoCV: 'Go to Continuous Verification'
-    gotoCD: 'Go to Continuous Deployement'
+    gotoCD: 'Go to Continuous Delivery'
     gotoCF: 'Go to Continuous Features'
     gotoCI: 'Go to Continuous Integration'
     gotoCE: 'Go to Continuous Efficiency'
@@ -640,7 +641,7 @@ global:
         harnessApps: 'HARNESS CD 1.0 APPLICATION'
         application:
           noData: 'No applications were found'
-          infoTextOne: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Deployment applications.'
+          infoTextOne: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications.'
           infoTextTwo: 'Select which applications and services you’d like to import over to your current project.'
           servicesToBeImported: 'HARNESS SERVICES (TO BE IMPORTED)'
         environment:

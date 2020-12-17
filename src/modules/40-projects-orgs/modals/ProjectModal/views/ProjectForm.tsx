@@ -66,7 +66,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   return (
     <Formik
       initialValues={{
-        color: '#0063F7',
+        color: '#0063f7',
         identifier: '',
         name: '',
         orgIdentifier: initialOrgIdentifier,
@@ -108,12 +108,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   <ModalErrorHandler bind={setModalErrorHandler} />
                   <FormInput.InputWithIdentifier isIdentifierEditable={enableEdit} />
                   <Layout.Horizontal spacing="small">
-                    <FormInput.ColorPicker
-                      label={i18n.newProjectWizard.aboutProject.color}
-                      name="color"
-                      height={38}
-                      color={formikProps.initialValues.color}
-                    />
+                    <FormInput.ColorPicker label={i18n.newProjectWizard.aboutProject.color} name="color" height={38} />
                     <FormInput.Select
                       label={i18n.newProjectWizard.aboutProject.org}
                       name="orgIdentifier"

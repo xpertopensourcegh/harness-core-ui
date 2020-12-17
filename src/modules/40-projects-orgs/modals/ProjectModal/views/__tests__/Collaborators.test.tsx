@@ -39,7 +39,7 @@ describe('Collaborators test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const role = getByText(container, 'Assign a role')
+    const role = getByText(container, 'Project Member')
     fireEvent.click(role!)
     const popover = findPopoverContainer()
     const opt = getByText(popover as HTMLElement, 'Project Viewer')

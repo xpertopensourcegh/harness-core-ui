@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uikit'
 import { Link } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
-import { ModuleName, String } from 'framework/exports'
+import { ModuleName, String, useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import i18n from './ModuleListCard.i18n'
 import css from './ModuleListCard.module.scss'
@@ -88,6 +88,7 @@ const getModuleLinks = (
   }
 }
 const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
+  const { getString } = useStrings()
   return (
     <>
       <Card className={css.card}>
@@ -118,7 +119,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
                 </Text>
               </Layout.Horizontal>
               <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-                {(getModulePurpose(module) + i18n.deployments).toUpperCase()}
+                {getString(`projectCard.${module.toString().toLowerCase()}RendererText`.toString()).toUpperCase()}
               </Text>
             </Layout.Vertical>
           </Container>
