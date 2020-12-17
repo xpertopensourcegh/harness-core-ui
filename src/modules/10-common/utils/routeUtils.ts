@@ -12,7 +12,8 @@ import type {
   SegmentPathProps,
   CVDataSourceTypePathProps,
   BuildPathProps,
-  EnvironmentPathProps
+  EnvironmentPathProps,
+  DelegatePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -50,6 +51,10 @@ export const connectorPathProps: ConnectorPathProps = {
 
 export const secretPathProps: SecretsPathProps = {
   secretId: ':secretId'
+}
+
+export const delegatePathProps: DelegatePathProps = {
+  delegateId: ':delegateId'
 }
 
 export const pipelineModuleParams: Record<keyof PipelineType<{}>, string> = {

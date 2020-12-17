@@ -3,5 +3,7 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/90-ce/*
+        - '@ce/*'
       paths:
         - lodash

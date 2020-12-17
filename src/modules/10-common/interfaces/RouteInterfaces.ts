@@ -35,6 +35,10 @@ export interface SecretsPathProps {
   secretId: string
 }
 
+export interface DelegatePathProps {
+  delegateId: string
+}
+
 export interface FeatureFlagPathProps {
   featureFlagIdentifier: string
 }

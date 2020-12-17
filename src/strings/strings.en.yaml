@@ -170,6 +170,9 @@ global:
     titleCreateFile: 'Add new Encrypted File'
     titleEditText: 'Edit Encrypted Text'
     titleEditFile: 'Edit Encrypted File'
+  delegate:
+    DELEGATES: 'Delegates'
+    NEW_DELEGATE: 'New Delegate'
   execution:
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types

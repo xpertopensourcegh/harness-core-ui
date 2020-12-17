@@ -10,12 +10,14 @@ import CIRoutes from '@ci/RouteDestinations'
 import CVRoutes from '@cv/RouteDestinations'
 import CFRoutes from '@cf/RouteDestinations'
 import CERoutes from '@ce/RouteDestinations'
+import delegatesRoutes from '@delegates/RouteDestinations'
 
 export default function RouteDestinations(): React.ReactElement {
   return (
     <React.Fragment>
       {commonRoutes}
       {secretsRoutes}
+      {delegatesRoutes}
       {projectsOrgsRoutes}
       {connectorRoutes}
       {gitSyncRoutes}

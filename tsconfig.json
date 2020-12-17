@@ -36,7 +36,8 @@
       "@ce/*": ["modules/90-ce/*"],
       "@cf/*": ["modules/cf/*"],
       "@ci-enterprise/*": ["modules/ci-enterprise/*"],
-      "@dx/*": ["modules/dx/*"]
+      "@dx/*": ["modules/dx/*"],
+      "@delegates/*": ["modules/40-delegates/*"]
     }
   },
   "include": ["src/"],

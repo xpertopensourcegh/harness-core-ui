@@ -3,8 +3,10 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/15-notifications/*
         - modules/20-rbac/*
         - modules/30-secrets/*
+        - modules/40-delegates/*
         - modules/40-projects-orgs/*
         - modules/50-connectors/*
         - modules/60-gitsync/*
@@ -12,8 +14,11 @@ rules:
         - modules/75-cd/*
         - modules/80-ci/*
         - modules/85-cv/*
+        - modules/90-ce/*
+        - '@notifications/*'
         - '@rbac/*'
         - '@secrets/*'
+        - '@delegates/*'
         - '@projects-orgs/*'
         - '@connectors/*'
         - '@gitsync/*'
@@ -21,5 +26,6 @@ rules:
         - '@cd/*'
         - '@ci/*'
         - '@cv/*'
+        - '@ce/*'
       paths:
         - lodash

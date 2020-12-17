@@ -3,10 +3,18 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/40-projects-orgs/*
+        - modules/50-connectors/*
+        - modules/60-gitsync/*
+        - modules/70-pipeline/*
         - modules/75-cd/*
         - modules/80-ci/*
         - modules/85-cv/*
         - modules/90-ce/*
+        - '@projects-orgs/*'
+        - '@connectors/*'
+        - '@gitsync/*'
+        - '@pipeline/*'
         - '@cd/*'
         - '@ci/*'
         - '@cv/*'

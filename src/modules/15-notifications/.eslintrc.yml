@@ -3,6 +3,8 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/20-rbac/*
+        - modules/30-secrets/*
         - modules/40-delegates/*
         - modules/40-projects-orgs/*
         - modules/50-connectors/*
@@ -12,6 +14,8 @@ rules:
         - modules/80-ci/*
         - modules/85-cv/*
         - modules/90-ce/*
+        - '@rbac/*'
+        - '@secrets/*'
         - '@delegates/*'
         - '@projects-orgs/*'
         - '@connectors/*'

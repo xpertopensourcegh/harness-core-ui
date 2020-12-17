@@ -3,6 +3,7 @@ import type {
   OrgPathProps,
   ConnectorPathProps,
   SecretsPathProps,
+  DelegatePathProps,
   ProjectPathProps,
   PipelinePathProps,
   TriggerPathProps,
@@ -28,6 +29,10 @@ const routes = {
   ),
   toResourcesSecretsListing: withAccountId(() => '/admin/resources/secrets'),
   toResourcesSecretDetails: withAccountId(({ secretId }: SecretsPathProps) => `/admin/resources/secrets/${secretId}`),
+  toResourcesDelegates: withAccountId(() => '/admin/resources/delegates'),
+  toResourcesDelegatesDetails: withAccountId(
+    ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}`
+  ),
   // org resources
   toOrgResources: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources`),
   toOrgResourcesConnectors: withAccountId(
@@ -43,6 +48,13 @@ const routes = {
   toOrgResourcesSecretDetails: withAccountId(
     ({ orgIdentifier, secretId }: OrgPathProps & SecretsPathProps) =>
       `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}`
+  ),
+  toOrgResourcesDelegates: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/delegates`
+  ),
+  toOrgResourcesDelegateDetails: withAccountId(
+    ({ orgIdentifier, delegateId }: OrgPathProps & DelegatePathProps) =>
+      `/admin/organizations/${orgIdentifier}/resources/delegates/${delegateId}`
   ),
   // git sync
   toGitSync: withAccountId(() => '/admin/git-sync'),

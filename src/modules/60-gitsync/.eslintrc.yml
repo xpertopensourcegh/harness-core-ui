@@ -7,9 +7,11 @@ rules:
         - modules/75-cd/*
         - modules/80-ci/*
         - modules/85-cv/*
+        - modules/90-ce/*
         - '@pipeline/*'
         - '@cd/*'
         - '@ci/*'
         - '@cv/*'
+        - '@ce/*'
       paths:
         - lodash

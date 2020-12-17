@@ -40,7 +40,15 @@ const ResourcesPage: React.FC = ({ children }) => {
                 {i18n.secrets}
               </NavLink>
 
-              <NavLink className={css.tags} to="#TBD">
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgResourcesDelegates({ accountId, orgIdentifier })
+                    : routes.toResourcesDelegates({ accountId })
+                }
+              >
                 {i18n.delegates}
               </NavLink>
 

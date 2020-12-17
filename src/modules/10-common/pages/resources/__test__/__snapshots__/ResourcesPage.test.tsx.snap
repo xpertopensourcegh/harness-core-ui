@@ -30,9 +30,8 @@ exports[`Resources Page render 1`] = `
           Secrets
         </a>
         <a
-          aria-current="page"
-          class="tags active"
-          href="/account/dummy/admin/resources/#TBD"
+          class="tags"
+          href="/account/dummy/admin/resources/delegates"
         >
           Delegates
         </a>
