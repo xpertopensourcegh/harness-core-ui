@@ -32,13 +32,15 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
 
-  const { data: triggerListResponse, error, refetch } = useGetTriggerListForTarget({
+  const { data: triggerListResponse, error, refetch, loading } = useGetTriggerListForTarget({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      targetIdentifier: pipelineIdentifier
-    }
+      targetIdentifier: pipelineIdentifier,
+      searchTerm: searchParam
+    },
+    debounce: 300
   })
   const triggerList = triggerListResponse?.data?.content || undefined
   const history = useHistory()
@@ -82,6 +84,7 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
           <TextInput
             leftIcon="search"
             placeholder={getString('search')}
+            data-name="search"
             className={css.search}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +94,7 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         }
       />
       <Page.Body
+        loading={loading}
         error={error?.message}
         retryOnError={() => refetch()}
         noData={{

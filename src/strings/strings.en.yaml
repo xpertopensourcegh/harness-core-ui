@@ -196,6 +196,8 @@ global:
     triggerLabel: 'Trigger'
     lastExecutionLabel: 'LAST EXECUTION'
     enableLabel: 'ENABLE'
+    activityActivation: '{{numActivations}} Activations in'
+    activityDays: 'Last {{numDays}} days'
     validation:
       triggerName: 'Trigger Name is required.'
       identifier: 'Identifier is required.'

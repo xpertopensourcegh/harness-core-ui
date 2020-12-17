@@ -12,8 +12,12 @@ import TriggersPage from '../TriggersPage'
 const mockDelete = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 const mockUpdateTriggerStatus = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 const mockRedirecToWizard = jest.fn()
+const mockGetTriggersFunction = jest.fn()
 jest.mock('services/cd-ng', () => ({
-  useGetTriggerListForTarget: jest.fn(() => GetTriggerListForTargetResponse),
+  useGetTriggerListForTarget: jest.fn(args => {
+    mockGetTriggersFunction(args)
+    return GetTriggerListForTargetResponse
+  }),
   useGetPipeline: jest.fn(() => GetPipelineResponse),
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useDeleteTrigger: jest.fn().mockImplementation(() => ({ mutate: mockDelete })),
@@ -25,7 +29,8 @@ jest.mock('react-router-dom', () => ({
     return {
       projectIdentifier: 'projectIdentifier',
       orgIdentifier: 'orgIdentifier',
-      accountId: 'accountId'
+      accountId: 'accountId',
+      pipelineIdentifier: 'pipelineIdentifier'
     }
   }),
   useHistory: jest.fn(() => {
@@ -142,6 +147,33 @@ describe('TriggersPage Triggers tests', () => {
       fireEvent.click(addTriggerButton)
 
       expect(mockRedirecToWizard).toBeCalled()
+    })
+
+    test('Search for a trigger shows filtered results', async () => {
+      const { container } = render(
+        <ModalProvider>
+          <WrapperComponent />
+        </ModalProvider>
+      )
+      await waitFor(() =>
+        expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
+      )
+      const searchInput = container.querySelector('[data-name="search"]')
+      if (!searchInput) {
+        throw Error('No search input')
+      }
+      fireEvent.change(searchInput, { target: { value: 'test1' } })
+
+      expect(mockGetTriggersFunction).toBeCalledWith({
+        debounce: 300,
+        queryParams: {
+          projectIdentifier: 'projectIdentifier',
+          orgIdentifier: 'orgIdentifier',
+          accountIdentifier: 'accountId',
+          targetIdentifier: 'pipelineIdentifier',
+          searchTerm: 'test1'
+        }
+      })
     })
   })
 })

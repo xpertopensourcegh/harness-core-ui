@@ -2,10 +2,21 @@ import React from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, Icon, Switch, IconName } from '@wings-software/uikit'
+import {
+  Button,
+  Color,
+  Layout,
+  Popover,
+  Text,
+  Icon,
+  Switch,
+  IconName,
+  Container,
+  SparkChart
+} from '@wings-software/uikit'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import { isUndefined, isEmpty } from 'lodash-es'
+import { isUndefined, isEmpty, sum } from 'lodash-es'
 import type { tagsType } from '@common/utils/types'
 import Table from '@common/components/Table/Table'
 import {
@@ -188,7 +199,7 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
   )
 }
 
-const RenderColumnCondition: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
+const RenderColumnStatus: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" data-testid={data.identifier}>
@@ -197,36 +208,50 @@ const RenderColumnCondition: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ 
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
-  const data = row.original
-  const lastExecutionTime = data.lastTriggerExecutionDetails?.lastExecutionTime
+const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: { getString: (str: string, obj: { numActivations?: number; numDays?: number }) => string }
+}) => {
+  const data = row.original as any // temporary until API ready
+  const executions = data.executions || [2, 3, 4, 5, 4, 3, 2]
+  const numDays = executions?.length
+  if (numDays === 0) return undefined
+  const numActivations = sum(executions)
   return (
-    <Layout.Horizontal style={{ justifyContent: 'center' }} spacing="small" data-testid={data.identifier}>
-      <div className={css.activityStatement}>
-        {!isUndefined(data.lastTriggerExecutionDetails?.lastExecutionTime) &&
-        !isUndefined(data.lastTriggerExecutionDetails?.lastExecutionTime) ? (
-          <Text
-            icon={
-              data.lastTriggerExecutionDetails?.lastExecutionSuccessful
-                ? 'deployment-success-new'
-                : 'deployment-incomplete-new'
-            }
-          >
-            {lastExecutionTime ? <ReactTimeago date={lastExecutionTime} /> : null}
-          </Text>
-        ) : null}
-      </div>
+    <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
+      <span className={css.activityChart}>
+        <SparkChart data={executions} />
+      </span>
+      <Container style={{ textAlign: 'start', paddingLeft: 'var(--spacing-xsmall)' }}>
+        <span>{column.getString('pipeline-triggers.activityActivation', { numActivations })}</span>
+        <Text>{column.getString('pipeline-triggers.activityDays', { numDays })}</Text>
+      </Container>
     </Layout.Horizontal>
   )
 }
 
-const RenderColumnExecutionLog: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
+const RenderColumnLastExecution: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
   const data = row.original
+  data.lastTriggerExecutionDetails = { lastExecutionTime: 1607637774407, lastExecutionSuccessful: true }
+  const lastExecutionTime = 1607637774407
   return (
     <Layout.Horizontal style={{ justifyContent: 'center' }} spacing="small" data-testid={data.identifier}>
-      <Text font="medium" icon="document-open" color={Color.GREY_400}>
-        (WIP)
-      </Text>
+      <div className={css.activityStatement}>
+        {!isUndefined(data.lastTriggerExecutionDetails?.lastExecutionTime) ? (
+          <>
+            <Layout.Horizontal style={{ alignItems: 'center' }}>
+              <Container style={{ textAlign: 'end', marginLeft: 'var(--spacing-small)' }}>
+                <span>Last Run:</span>
+                <Text>{lastExecutionTime ? <ReactTimeago date={lastExecutionTime} /> : null}</Text>
+              </Container>
+              <Icon style={{ paddingLeft: 'var(--spacing-xsmall)' }} name="dot" color="green500" size={20} />
+            </Layout.Horizontal>
+          </>
+        ) : null}
+      </div>
     </Layout.Horizontal>
   )
 }
@@ -330,31 +355,33 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         Cell: RenderColumnTrigger
       },
       {
-        Header: 'CONDITION',
-        accessor: 'condition',
-        width: '26%',
-        Cell: RenderColumnCondition,
-        headerClassName: 'centerHeader'
+        Header: 'STATUS',
+        accessor: 'status',
+        width: '16%',
+        disableSortBy: true,
+
+        Cell: RenderColumnStatus
       },
       {
         Header: RenderCenteredColumnHeader(getString('activity').toUpperCase()),
         accessor: 'activity',
-        width: '20%',
+        width: '18%',
         Cell: RenderColumnActivity,
         disableSortBy: true,
-        headerClassName: css.textCentered
+        getString
       },
       {
         Header: RenderCenteredColumnHeader(getString('pipeline-triggers.lastExecutionLabel')),
-        accessor: 'executionLog',
-        width: '10%',
-        Cell: RenderColumnExecutionLog,
+        accessor: 'lastExecutionTime',
+        width: '18%',
+        Cell: RenderColumnLastExecution,
         disableSortBy: true
       },
+
       {
         Header: RenderCenteredColumnHeader(getString('execution.triggerType.WEBHOOK').toUpperCase()),
         accessor: 'webhook',
-        width: '8%',
+        width: '10%',
         Cell: RenderColumnWebhook,
         disableSortBy: true,
         showSuccess,
@@ -364,7 +391,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
       {
         Header: RenderCenteredColumnHeader(getString('pipeline-triggers.enableLabel')),
         accessor: 'enable',
-        width: '8%',
+        width: '10%',
         Cell: RenderColumnEnable,
         disableSortBy: true,
         projectIdentifier,
