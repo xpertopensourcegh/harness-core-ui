@@ -37,7 +37,7 @@ const MAX_STACKED_EVENTS = 3
 const BATCH_BREAKPOINT = 70
 const HORIZONTAL_STACK_OFFSET = 4
 
-function generateEventsToPlot(items: EventData[]): EventData[] {
+function generateEventsToPlot(items: EventData[], selected?: EventData): EventData[] {
   if (!items?.length) return []
   if (items.length <= MAX_STACKED_EVENTS) return items
   const failedEvents = []
@@ -54,30 +54,34 @@ function generateEventsToPlot(items: EventData[]): EventData[] {
     }
   }
 
-  if (failedEvents.length && passedEvents.length && inProgressEvents.length) {
-    return [...inProgressEvents.slice(0, 1), ...failedEvents.slice(0, 1), ...passedEvents.slice(0, 1)]
-  }
+  const result: EventData[] = []
 
-  const typesWithEvents = []
-  if (inProgressEvents.length) {
-    typesWithEvents.push(inProgressEvents)
+  if (failedEvents.length + passedEvents.length + inProgressEvents.length <= MAX_STACKED_EVENTS) {
+    // If for some reason, there are events that are not of failed/passed/progress types,
+    // we should end the searching if the number does not exceed MAX_STACKED_EVENTS
+    result.push(...failedEvents)
+    result.push(...passedEvents)
+    result.push(...inProgressEvents)
+  } else {
+    const buckets = [failedEvents, passedEvents, inProgressEvents]
+    let currentBucketIndex = 0
+    const selectedIndex = items.findIndex(i => i === selected)
+    if (selectedIndex >= 0) {
+      // We should make sure selected event is always in a batch
+      result.push(items[selectedIndex])
+    }
+    while (result.length < MAX_STACKED_EVENTS) {
+      if (buckets[currentBucketIndex].length) {
+        const current = buckets[currentBucketIndex].shift()!
+        if (current !== selected) {
+          result.push(current)
+        }
+      }
+      currentBucketIndex = (currentBucketIndex + 1) % buckets.length
+    }
   }
-  if (failedEvents.length) {
-    typesWithEvents.push(failedEvents)
-  }
-  if (passedEvents.length) {
-    typesWithEvents.push(passedEvents)
-  }
-
-  if (typesWithEvents.length === 1) {
-    return typesWithEvents[0]
-  }
-
-  if (typesWithEvents[0].length >= typesWithEvents[1].length) {
-    return [...typesWithEvents[0].slice(0, 2), ...typesWithEvents[1].slice(0, 1)]
-  }
-
-  return [...typesWithEvents[0].slice(0, 1), ...typesWithEvents[1]?.slice(0, 2)]
+  result.sort((a, b) => a.startTime - b.startTime)
+  return result
 }
 
 export default function ActivitiesTimelineView({
@@ -126,12 +130,12 @@ export default function ActivitiesTimelineView({
     )
   }
   const renderBatch = (items: Array<EventData>) => {
-    const itemsToRender = generateEventsToPlot(items)
+    const itemsToRender = generateEventsToPlot(items, preselectedEvent)
     const aditionalStyles: any = {}
     const selectedEventIndex = itemsToRender.findIndex(i => i === selectedEvent || i === preselectedEvent)
     if (selectedEventIndex >= 0) {
-      const start = itemsToRender[0].startTime
-      const end = itemsToRender[itemsToRender.length - 1].startTime
+      const start = items[0].startTime
+      const end = items[items.length - 1].startTime
       if (end - start > 0) {
         const x = itemsToRender[selectedEventIndex].startTime
         const percentagePart = ((x - start) * 100) / (end - start)

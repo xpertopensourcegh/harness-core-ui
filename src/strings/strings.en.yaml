@@ -20,6 +20,9 @@ global:
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
   pipelines: Pipelines
+  performance: Performance
+  quality: quality
+  infrastructure: Infrastructure
   update: Update
   visual: VISUAL
   yaml: YAML

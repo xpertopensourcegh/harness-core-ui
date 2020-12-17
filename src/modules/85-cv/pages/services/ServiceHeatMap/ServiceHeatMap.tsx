@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import HeatMap, { CellStatusValues, SerieConfig } from '@common/components/HeatMap/HeatMap'
 import { HeatMapDTO, useGetHeatmap } from 'services/cv'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
+import { useStrings } from 'framework/exports'
 import useAnalysisDrillDownView from '../analysis-drilldown-view/useAnalysisDrillDownView'
 import i18n from './ServiceHeatMap.i18n'
 import css from './Service_Heatmap.module.scss'
@@ -61,6 +62,17 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
   const { openDrillDown } = useAnalysisDrillDownView()
   const [heatmapData, setHeatmapData] = useState<SerieConfig[]>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { getString } = useStrings()
+
+  const categoryNames: any = {
+    Performance: getString('performance'),
+    Errors: getString('quality'),
+    Infrastructure: getString('infrastructure')
+  }
+  const translationToCategoryName = (value: string) => {
+    const entry = Object.entries(categoryNames).find(([_, text]) => text === value)
+    return entry && entry[0]
+  }
 
   const { loading: loadingHeatmap, refetch: getHeatmap } = useGetHeatmap({
     lazy: true,
@@ -69,7 +81,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
         !response?.resource
           ? []
           : Object.keys(response.resource).map((key: string) => ({
-              name: key,
+              name: categoryNames[key],
               data: response?.resource[key]
             }))
       )
@@ -118,7 +130,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
                 analysisProps: {
                   startTime: cell.startTime,
                   endTime: cell.endTime,
-                  categoryName: rowData?.name,
+                  categoryName: translationToCategoryName(rowData?.name),
                   environmentIdentifier,
                   serviceIdentifier
                 }

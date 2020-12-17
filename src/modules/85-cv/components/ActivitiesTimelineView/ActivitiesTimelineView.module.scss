@@ -29,6 +29,10 @@
   align-items: center;
   text-align: center;
   cursor: zoom-in;
+  // Don't remove - it is important position and width stay like this
+  // so the items are correctly aligned
+  position: absolute;
+  width: 0;
   .itemsGroup {
     position: relative;
     width: 16px;

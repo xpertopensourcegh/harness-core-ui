@@ -39,6 +39,8 @@ jest.mock('react-router-dom', () => ({
   })
 }))
 
+jest.mock('react-timeago', () => () => 'dummy date')
+
 const value: AppStoreContextProps = {
   projects: [],
   strings,

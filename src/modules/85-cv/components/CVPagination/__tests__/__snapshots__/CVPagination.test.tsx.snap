@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CVPagination Matches snapshot 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+  >
+    <span
+      class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+    >
+      Showing 
+      <strong>
+        11
+      </strong>
+       - 
+      <strong>
+        20
+      </strong>
+       of
+       
+      <strong>
+        18
+      </strong>
+    </span>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          1
+        </span>
+      </button>
+      <button
+        class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        disabled=""
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          2
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CVPagination Matches snapshot when page is emptys 1`] = `<div />`;
+
+exports[`CVPagination Matches snapshot when page is not passed 1`] = `<div />`;
+
+exports[`CVPagination Matches snapshot when pageIndex = -1 1`] = `<div />`;

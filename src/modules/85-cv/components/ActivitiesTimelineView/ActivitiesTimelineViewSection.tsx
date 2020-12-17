@@ -51,12 +51,16 @@ export default function ActivitesTimelineViewSection({
             case 'DEPLOYMENT':
               deploymentsData.push(eventData)
               break
-            case 'CUSTOM':
+            case 'CONFIG':
               configChangesData.push(eventData)
               break
             case 'INFRASTRUCTURE':
               infrastructureChangesData.push(eventData)
               break
+            case 'CUSTOM':
+            case 'OTHER':
+            case 'KUBERNETES':
+              otherChangesData.push(eventData)
           }
           if (selectedActivityId === activity.activityId) {
             eventData.headerLabels = {

@@ -91,9 +91,9 @@ describe('ActivitiesTimelineView', () => {
     expect(container.querySelector('.eventBatch')).not.toBeNull()
     const svgPaths = container.querySelector('.eventBatch')?.querySelectorAll('path') || []
     expect(svgPaths.length).toBe(3)
-    expect(svgPaths[0]?.getAttribute('stroke')).toEqual('var(--blue-500)')
-    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#F45858')
-    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('#86DD29')
+    expect(svgPaths[0]?.getAttribute('stroke')).toEqual('#F45858')
+    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#86DD29')
+    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('var(--blue-500)')
   })
 
   test('Ensure correct icons are rendered when two event types stacking is done', async () => {
@@ -116,8 +116,8 @@ describe('ActivitiesTimelineView', () => {
     const svgPaths = container.querySelector('.eventBatch')?.querySelectorAll('path') || []
     expect(svgPaths.length).toBe(3)
     expect(svgPaths[0]?.getAttribute('stroke')).toEqual('#F45858')
-    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#F45858')
-    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('#86DD29')
+    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#86DD29')
+    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('#F45858')
   })
 
   test('Ensure correct icons are rendered when only 1 event types stacking is done', async () => {

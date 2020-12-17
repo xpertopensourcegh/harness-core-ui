@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
-import { MetricPackCategoryLabels } from '@cv/pages/services/CVServicePageUtils'
 import * as cvService from 'services/cv'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
@@ -411,11 +410,7 @@ describe('LogAnalysisFrequencyChart unit tests', () => {
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <LogAnalysisFrequencyChart
-          startTime={1606656600000}
-          endTime={1606676400000}
-          categoryName={MetricPackCategoryLabels.PERFORMANCE}
-        />
+        <LogAnalysisFrequencyChart startTime={1606656600000} endTime={1606676400000} categoryName="Performance" />
       </TestWrapper>
     )
 

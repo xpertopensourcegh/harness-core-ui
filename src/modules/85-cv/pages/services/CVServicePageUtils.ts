@@ -1,19 +1,18 @@
 import type { TimeSeriesMetricDataDTO } from 'services/cv'
-import i18n from './CVServicesPage.i18n'
 
-export const MetricPackCategoryLabels = {
-  PERFORMANCE: i18n.categoryNameLabels.performance,
-  ERRORS: i18n.categoryNameLabels.quality,
-  INFRASTRUCTURE: i18n.categoryNameLabels.resources
+export const categoryNames = {
+  Performance: 'Performance',
+  Errors: 'Errors',
+  Infrastructure: 'Infrastructure'
 }
 
 export function categoryNameToCategoryType(categoryName: string): TimeSeriesMetricDataDTO['category'] {
   switch (categoryName) {
-    case MetricPackCategoryLabels.PERFORMANCE:
+    case categoryNames.Performance:
       return 'PERFORMANCE'
-    case MetricPackCategoryLabels.ERRORS:
+    case categoryNames.Errors:
       return 'ERRORS'
-    case MetricPackCategoryLabels.INFRASTRUCTURE:
+    case categoryNames.Infrastructure:
       return 'INFRASTRUCTURE'
   }
 }
