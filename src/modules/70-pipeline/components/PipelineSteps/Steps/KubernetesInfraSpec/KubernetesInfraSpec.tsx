@@ -13,10 +13,18 @@ import {
   TextInput
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty } from 'lodash-es'
+import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
+import { parse } from 'yaml'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepViewType, ConfigureOptions } from '@pipeline/exports'
-import { K8SDirectInfrastructure, useGetConnector, ConnectorInfoDTO } from 'services/cd-ng'
+import {
+  K8SDirectInfrastructure,
+  useGetConnector,
+  ConnectorInfoDTO,
+  getConnectorListV2Promise,
+  ConnectorResponse
+} from 'services/cd-ng'
 import {
   FormMultiTypeConnectorField,
   MultiTypeConnectorFieldProps
@@ -32,10 +40,13 @@ import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './KubernetesInfraSpec.18n'
 import { PipelineStep } from '../../PipelineStep'
 
+const logger = loggerFor(ModuleName.CD)
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
 interface KubernetesInfraSpecEditableProps {
   initialValues: K8SDirectInfrastructure
@@ -43,6 +54,24 @@ interface KubernetesInfraSpecEditableProps {
   stepViewType?: StepViewType
   template?: K8SDirectInfrastructureTemplate
 }
+
+const getConnectorValue = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? connector?.connector?.identifier
+      : connector?.connector?.orgIdentifier
+      ? `${Scope.ORG}.${connector?.connector?.identifier}`
+      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
+  }` || ''
+
+const getConnectorName = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? connector?.connector?.name
+      : connector?.connector?.orgIdentifier
+      ? `Org -> ${connector?.connector?.name}`
+      : `Account -> ${connector?.connector?.name}`
+  }` || ''
 
 interface FormValues extends Omit<K8SDirectInfrastructure, 'connectorRef'> {
   connectorRef: MultiTypeConnectorFieldProps['selected'] | string
@@ -320,14 +349,63 @@ interface K8SDirectInfrastructureStep extends K8SDirectInfrastructure {
   name?: string
   identifier?: string
 }
-
+const KubernetesDirectRegex = /^.+stage\.spec\.infrastructure\.infrastructureDefinition\.spec\.connectorRef$/
+const KubernetesDirectType = 'KubernetesDirect'
 export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureStep> {
+  lastFetched: number
   protected type = StepType.KubernetesInfraSpec
   protected defaultValues: K8SDirectInfrastructure = {}
 
   protected stepIcon: IconName = 'service-kubernetes'
   protected stepName: string = i18n.stepName
   protected stepPaletteVisible = false
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
+
+  constructor() {
+    super()
+    this.lastFetched = new Date().getTime()
+    this.invocationMap.set(KubernetesDirectRegex, this.getConnectorsListForYaml.bind(this))
+  }
+  protected getConnectorsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId } = params as {
+      accountId: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === KubernetesDirectType) {
+        return getConnectorListV2Promise({
+          queryParams: { accountIdentifier: accountId },
+          body: { type: ['K8sCluster'] }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(connector => ({
+              label: getConnectorName(connector),
+              insertText: getConnectorValue(connector),
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
   renderStep(
     initialValues: K8SDirectInfrastructure,
     onUpdate?: ((data: K8SDirectInfrastructure) => void) | undefined,

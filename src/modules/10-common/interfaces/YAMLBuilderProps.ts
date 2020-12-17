@@ -6,7 +6,11 @@ export interface YamlBuilderHandlerBinding {
   getYAMLValidationErrorMap: () => Map<string, string[]>
 }
 
-export type InvocationMapFunction = (matchingPath: string, currentYaml: string) => Promise<CompletionItemInterface[]>
+export type InvocationMapFunction = (
+  matchingPath: string,
+  currentYaml: string,
+  params: Record<string, unknown>
+) => Promise<CompletionItemInterface[]>
 
 export interface YamlBuilderProps {
   /* Only YAMLBuilder related props */

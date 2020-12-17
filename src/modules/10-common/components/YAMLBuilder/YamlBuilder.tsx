@@ -28,6 +28,7 @@ import css from './YamlBuilder.module.scss'
 import { debounce } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
+import { useParams } from 'react-router-dom'
 
 //@ts-ignore
 monaco.editor.defineTheme('vs', {
@@ -73,6 +74,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     snippetYaml,
     schema
   } = props
+  const params = useParams()
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string[]> | undefined>()
   const editorRef = useRef<MonacoEditor>(null)
@@ -206,7 +208,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       const suggestionsPromise = onExpressionTrigger ? onExpressionTrigger(matchingPath, currentExpression) : null
       if (suggestionsPromise) {
         suggestionsPromise.then(suggestions => {
-          expressionCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
+          // @ts-ignore
+          expressionCompletionDisposer = monaco?.languages?.registerCompletionItemProvider('yaml', {
             triggerCharacters,
             provideCompletionItems: () => {
               return { suggestions }
@@ -225,7 +228,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   ): void {
     if (editor) {
       suggestionsPromise.then(suggestions => {
-        runTimeCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
+        // @ts-ignore
+        runTimeCompletionDisposer = monaco?.languages?.registerCompletionItemProvider('yaml', {
           triggerCharacters: [' '],
           provideCompletionItems: () => {
             return { suggestions }
@@ -240,7 +244,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       invocationMap?.forEach((callBackFunc, yamlPath) => {
         if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
           const yamlLFromEditor = getYAMLFromEditor(editor, true) as string
-          const suggestionsPromise = callBackFunc(matchingPath, yamlLFromEditor)
+          const suggestionsPromise = callBackFunc(matchingPath, yamlLFromEditor, params)
           registerCompletionItemProviderForRTInputs(editor, suggestionsPromise)
         }
       })

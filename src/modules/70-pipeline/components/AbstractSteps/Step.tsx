@@ -13,7 +13,10 @@ export abstract class Step<T extends object> {
   protected abstract defaultValues: T
   protected abstract stepIcon: IconName
   protected abstract stepName: string
-  protected invocationMap?: Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>>
+  protected invocationMap?: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  >
 
   protected stepPaletteVisible?: boolean // default to true
 
@@ -33,7 +36,9 @@ export abstract class Step<T extends object> {
     return this.stepName
   }
 
-  getInvocationMap(): Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> | undefined {
+  getInvocationMap():
+    | Map<RegExp, (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>>
+    | undefined {
     return this.invocationMap
   }
 

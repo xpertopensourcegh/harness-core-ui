@@ -17,7 +17,10 @@ export abstract class AbstractStepFactory {
 
   protected stepBank: Map<string, Step<object>>
   protected stepIconMap: Map<string, StepData>
-  protected invocationMap: Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> = new Map()
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
 
   constructor() {
     this.stepBank = new Map()
@@ -71,7 +74,10 @@ export abstract class AbstractStepFactory {
     return this.stepIconMap.get(type)
   }
 
-  getInvocationMap(): Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> {
+  getInvocationMap(): Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > {
     return this.invocationMap
   }
 
