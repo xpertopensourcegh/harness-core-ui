@@ -27,9 +27,7 @@
   }
 }
 
-.productSelectionCard {
-  [class*='cardLabel'] {
-    padding: var(--spacing-large) 0 !important;
-    font-size: var(--font-size-small) !important;
-  }
+.productSelectionCard div:first-child p {
+  padding: var(--spacing-large) 0 !important;
+  font-size: var(--font-size-small) !important;
 }

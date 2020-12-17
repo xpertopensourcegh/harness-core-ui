@@ -106,6 +106,7 @@ export function KubernetesActivitySource(): JSX.Element {
     getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
     getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
     getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
+    getString(`cv.activitySources.kubernetes.tabNames[${3}]`),
     getString('review')
   ]
 
