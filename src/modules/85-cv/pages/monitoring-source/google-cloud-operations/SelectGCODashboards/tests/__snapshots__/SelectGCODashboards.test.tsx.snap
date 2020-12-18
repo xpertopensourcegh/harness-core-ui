@@ -27,43 +27,59 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
           >
-            <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
-            >
-              Google Cloud Operation Dashboards
-            </p>
-            <div
-              class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
-              data-name=""
+            <a
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws manualQueryLink"
+              href="javascript:void()"
+              role="button"
+              tabindex="0"
             >
               <span
-                class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
-                icon="search"
+                class="bp3-button-text"
               >
-                <svg
-                  data-icon="search"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  width="14"
-                >
-                  <desc>
-                    search
-                  </desc>
-                  <path
-                    d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
+                + Manually input query
               </span>
-              <input
-                class="bp3-input "
-                dir="auto"
-                placeholder="Search"
-                type="search"
-                value=""
-              />
+            </a>
+            <div
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+              >
+                Google Cloud Operation Dashboards
+              </p>
+              <div
+                class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+                data-name=""
+              >
+                <span
+                  class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+                  icon="search"
+                >
+                  <svg
+                    data-icon="search"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      search
+                    </desc>
+                    <path
+                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <input
+                  class="bp3-input "
+                  dir="auto"
+                  placeholder="Search"
+                  type="search"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>

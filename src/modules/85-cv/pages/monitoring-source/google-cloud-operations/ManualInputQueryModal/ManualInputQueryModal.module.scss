@@ -1,0 +1,14 @@
+.main {
+  padding: 0 var(--spacing-large) !important;
+
+  .subtitle {
+    font-size: var(--font-size-small) !important;
+  }
+
+  .form {
+    margin-top: var(--spacing-medium) !important;
+    .buttonContainer button:first-child {
+      margin-right: var(--spacing-small);
+    }
+  }
+}

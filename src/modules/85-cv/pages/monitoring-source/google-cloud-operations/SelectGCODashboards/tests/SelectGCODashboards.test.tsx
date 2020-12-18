@@ -76,19 +76,15 @@ describe('SelectGCODashboards unit tests', () => {
       data: { resource: [] },
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <SelectGCODashboards data={{ connectorRef: { value: '1234_val' } }} onNext={jest.fn()} onPrevious={jest.fn()} />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
 
-    const retryButton = container.querySelector('button')
-    if (!retryButton) {
-      throw Error('Could not find dashboards to render')
-    }
-    fireEvent.click(retryButton)
-    await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
+    fireEvent.click(getByText('+ Manually input query'))
+    await waitFor(() => expect(document.body.querySelector('input[name="metricName"]')).not.toBeNull())
   })
 
   test('When api returns and error, ensure error state is rendered', async () => {

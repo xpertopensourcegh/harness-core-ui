@@ -1,6 +1,11 @@
 .main {
   width: 60% !important;
   margin: 0 auto !important;
+
+  .manualQueryLink {
+    float: right;
+    margin-left: var(--spacing-small) !important;
+  }
 }
 
 .loadingErrorNoData {

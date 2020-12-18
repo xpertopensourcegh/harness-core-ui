@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, Text } from '@wings-software/uikit'
+import { Color, Container, Link, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
 import { Classes } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -11,6 +11,7 @@ import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/Tabl
 import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { ManualInputQueryModal } from '../ManualInputQueryModal/ManualInputQueryModal'
 import css from './SelectGCODashboards.module.scss'
 
 export interface SelectDashboardProps {
@@ -70,6 +71,7 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
     new Map(propsData.selectedDashboards?.map((dash: StackdriverDashboardDTO) => [dash.name, dash]) || [])
   )
   const [tableData, setTableData] = useState<TableData[]>([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     if (loading) {
@@ -92,13 +94,28 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
 
   if (!content?.length && !loading) {
     return (
-      <NoDataCard
-        icon="warning-sign"
-        className={css.loadingErrorNoData}
-        message={getString('cv.monitoringSources.gco.selectDashboardsPage.noDataText')}
-        buttonText={getString('retry')}
-        onClick={() => refetchDashboards()}
-      />
+      <Container>
+        <NoDataCard
+          icon="warning-sign"
+          className={css.loadingErrorNoData}
+          message={getString('cv.monitoringSources.gco.selectDashboardsPage.noDataText')}
+          buttonText={getString('cv.monitoringSources.gco.addManualInputQuery')}
+          onClick={() => setIsModalOpen(true)}
+        />
+        {isModalOpen && (
+          <ManualInputQueryModal
+            manuallyInputQueries={propsData.manuallyInputQueries}
+            onSubmit={values => {
+              if (!propsData.manuallyInputQueries) {
+                propsData.manuallyInputQueries = []
+              }
+              propsData.manuallyInputQueries.push(values.metricName)
+              onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
+            }}
+            closeModal={() => setIsModalOpen(false)}
+          />
+        )}
+      </Container>
     )
   }
 
@@ -155,13 +172,18 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
           },
           {
             Header: (
-              <TableColumnWithFilter
-                columnName={getString('cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName')}
-                appliedFilter={filteredDashboard}
-                onFilter={(filterValue: string) =>
-                  setFilterAndPageOffset({ pageOffset: 0, filteredDashboard: filterValue })
-                }
-              />
+              <Container>
+                <Link withoutHref onClick={() => setIsModalOpen(true)} className={css.manualQueryLink}>
+                  {getString('cv.monitoringSources.gco.addManualInputQuery')}
+                </Link>
+                <TableColumnWithFilter
+                  columnName={getString('cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName')}
+                  appliedFilter={filteredDashboard}
+                  onFilter={(filterValue: string) =>
+                    setFilterAndPageOffset({ pageOffset: 0, filteredDashboard: filterValue })
+                  }
+                />
+              </Container>
             ),
             accessor: 'dashboard',
             width: '90%',
@@ -178,6 +200,19 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
           }
         ]}
       />
+      {isModalOpen && (
+        <ManualInputQueryModal
+          manuallyInputQueries={propsData.manuallyInputQueries}
+          onSubmit={values => {
+            if (!propsData.manuallyInputQueries) {
+              propsData.manuallyInputQueries = []
+            }
+            propsData.manuallyInputQueries.push(values.metricName)
+            onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
+          }}
+          closeModal={() => setIsModalOpen(false)}
+        />
+      )}
       <SubmitAndPreviousButtons
         onNextClick={() => onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })}
         onPreviousClick={onPrevious}

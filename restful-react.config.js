@@ -50,10 +50,11 @@ module.exports = {
     output: 'src/services/cv/index.tsx',
     file: 'src/services/cv/swagger.json',
     transformer: 'scripts/swagger-transform.js',
-    customImport: `import { getConfig } from "../config";`,
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {
       base: `{getConfig("cv/api")}`
-    }
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('cv/api')")
   },
   cf: {
     output: 'src/services/cf/index.tsx',

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Color,
   Container,
@@ -12,7 +12,7 @@ import {
   Icon
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import { debounce, noop } from 'lodash-es'
+import { debounce } from 'lodash-es'
 import MonacoEditor from 'react-monaco-editor'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
@@ -47,10 +47,12 @@ interface MapMetricToServiceAndEnvironmentProps {
   metricName: string
 }
 
-interface QueryValidationProps {
+interface ValidationChartProps {
+  loading: boolean
+  error?: string
   queryValue?: string
-  onChange: (updatedQuery?: string) => void
-  connectorIdentifier: string
+  onRetry: () => void
+  sampleData?: Highcharts.Options
 }
 
 export const FieldNames = {
@@ -115,9 +117,14 @@ function buildMetricInfoObject({
   }
 }
 
-function formatJSON(val = '{}'): string {
-  const res = JSON.parse(val)
-  return JSON.stringify(res, null, 2)
+function formatJSON(val?: string): string | undefined {
+  try {
+    if (!val) return
+    const res = JSON.parse(val)
+    return JSON.stringify(res, null, 2)
+  } catch (e) {
+    return
+  }
 }
 
 function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
@@ -127,8 +134,17 @@ function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
 
   const riskCategoryOptions: IOptionProps[] = []
   for (const metricPack of metricPacks) {
-    if (metricPack && metricPack.identifier) {
-      riskCategoryOptions.push({ label: metricPack.identifier, value: metricPack.identifier })
+    if (metricPack?.identifier && metricPack.metrics?.length) {
+      for (const metric of metricPack.metrics) {
+        if (!metric?.name) {
+          continue
+        }
+
+        riskCategoryOptions.push({
+          label: metricPack.category !== metric.name ? `${metricPack.category}/${metric.name}` : metricPack.category,
+          value: metric.name as string
+        })
+      }
     }
   }
 
@@ -153,7 +169,7 @@ function ConfigureRiskProfile(): JSX.Element {
   const { getString } = useStrings()
   const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data } = useGetMetricPacks({
-    queryParams: { projectIdentifier, accountId, dataSourceType: 'APP_DYNAMICS' }
+    queryParams: { projectIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
   })
   const [riskCategoryOptions, setRiskCategoryOptions] = useState<IOptionProps[]>([])
 
@@ -289,91 +305,59 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
   )
 }
 
-function QueryValidation(props: QueryValidationProps): JSX.Element {
-  const { onChange, queryValue, connectorIdentifier } = props
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [isQueryExpanded, setIsQueryExpanded] = useState(false)
+function ValidationChart(props: ValidationChartProps): JSX.Element {
+  const { loading, error, queryValue, onRetry, sampleData } = props
   const { getString } = useStrings()
-  const { loading, error, mutate, cancel } = useGetStackdriverSampleData({
-    queryParams: { orgIdentifier, projectIdentifier, accountId, connectorIdentifier }
-  })
-  const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
-  const debouncedGetSampleData = useMemo(() => {
-    cancel()
-    return debounce(async () => {
-      if (!queryValue) return noop
-      try {
-        const response = await mutate(JSON.parse(queryValue))
-        setSampleData(transformSampleDataIntoHighchartOptions(response?.resource))
-      } catch (e) {
-        setSampleData({})
-      }
-    }, 1000)
-  }, [queryValue])
+  if (loading) {
+    return <Icon name="steps-spinner" size={32} color={Color.GREY_600} className={css.sampleDataSpinner} />
+  }
+  if (error) {
+    return (
+      <Container className={css.chartContainer}>
+        <PageError message={error} onClick={() => onRetry()} />
+      </Container>
+    )
+  }
 
-  useEffect(() => {
-    debouncedGetSampleData()
-  }, [debouncedGetSampleData])
+  if (!queryValue?.length) {
+    return (
+      <Container className={css.chartContainer}>
+        <NoDataCard
+          icon="main-notes"
+          message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')}
+        />
+      </Container>
+    )
+  }
+
+  if (!sampleData?.series?.length) {
+    return (
+      <Container className={css.chartContainer}>
+        <NoDataCard
+          icon="warning-sign"
+          message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery')}
+          buttonText={getString('retry')}
+          onClick={() => onRetry()}
+        />
+      </Container>
+    )
+  }
 
   return (
-    <Container className={css.validationContainer}>
-      <FormInput.TextArea
-        name={FieldNames.QUERY}
-        className={css.query}
-        label={
-          <Container flex>
-            <Text>{getString('cv.monitoringSources.gco.mapMetricsToServicesPage.operationsQueryLabel')}</Text>
-            <Link withoutHref onClick={() => setIsQueryExpanded(true)}>
-              {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery')}
-            </Link>
-          </Container>
-        }
-      />
-      {loading && <Icon name="steps-spinner" size={32} color={Color.GREY_600} className={css.sampleDataSpinner} />}
-      {error?.message && (
-        <Container className={css.chartContainer}>
-          <PageError
-            message={error.message}
-            onClick={async () => {
-              if (!queryValue?.length) return
-              const response = await mutate(JSON.parse(queryValue))
-              setSampleData(transformSampleDataIntoHighchartOptions(response?.resource))
-            }}
-          />
-        </Container>
-      )}
-      {!queryValue?.length && (
-        <Container className={css.chartContainer}>
-          <NoDataCard
-            icon="main-notes"
-            message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')}
-          />
-        </Container>
-      )}
-      {!loading && !error?.message && sampleData && (
-        <Container className={css.chartContainer}>
-          <HighchartsReact highcharts={Highcharts} options={sampleData} />
-        </Container>
-      )}
-      {isQueryExpanded && (
-        <Drawer {...DrawerOptions} onClose={() => setIsQueryExpanded(false)}>
-          <MonacoEditor
-            language="javascript"
-            value={formatJSON(queryValue)}
-            onChange={debounce(onChange, 200)}
-            options={
-              {
-                readOnly: false,
-                wordBasedSuggestions: false,
-                fontFamily: "'Roboto Mono', monospace",
-                fontSize: 13,
-                formatOnPaste: true,
-                formatOnType: true
-              } as any
-            }
-          />
-        </Drawer>
-      )}
+    <Container className={css.chartContainer}>
+      <HighchartsReact highcharts={Highcharts} options={sampleData} />
+    </Container>
+  )
+}
+
+function TextAreaLabel({ onExpandQuery }: { onExpandQuery: () => void }): JSX.Element {
+  const { getString } = useStrings()
+  return (
+    <Container flex>
+      <Text>{getString('cv.monitoringSources.gco.mapMetricsToServicesPage.operationsQueryLabel')}</Text>
+      <Link withoutHref onClick={onExpandQuery}>
+        {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery')}
+      </Link>
     </Container>
   )
 }
@@ -383,12 +367,46 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
   const { getString } = useStrings()
   const [updatedData, setUpdatedData] = useState<Map<string, any>>(data.selectedMetrics || new Map<string, any>())
   const [selectedMetric, setSelectedMetric] = useState<string>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+  const [error, setError] = useState<string | undefined>()
+  const { loading, mutate, cancel } = useGetStackdriverSampleData({
+    queryParams: { orgIdentifier, projectIdentifier, accountId, connectorIdentifier: data.connectorRef.value }
+  })
+  const [isQueryExpanded, setIsQueryExpanded] = useState(false)
+  const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
+  const [, setDebouncedFunc] = useState<typeof debounce | undefined>()
+  const onQueryChange = useCallback(
+    async (updatedQueryValue: string | undefined, onError?: () => void) => {
+      cancel()
+      try {
+        if (updatedQueryValue?.length) {
+          const response = await mutate(JSON.parse(updatedQueryValue))
+          if (response?.data?.errorMessage?.length) {
+            setError(response.data.errorMessage)
+            setSampleData(transformSampleDataIntoHighchartOptions([]))
+          } else {
+            setError(undefined)
+            setSampleData(transformSampleDataIntoHighchartOptions(response?.data?.sampleData || []))
+          }
+        }
+      } catch (e) {
+        if (e.name === 'SyntaxError') onError?.()
+      }
+    },
+    [mutate, cancel]
+  )
+
   return (
     <Container className={css.main}>
       <Formik
         enableReinitialize={true}
         initialValues={updatedData.get(selectedMetric || '') || {}}
-        onSubmit={onNext}
+        onSubmit={values => {
+          if (selectedMetric) {
+            updatedData.set(selectedMetric, { ...values })
+          }
+          onNext({ ...data, selectedMetrics: new Map(updatedData) })
+        }}
         validateOnChange={false}
         validateOnBlur={false}
         validate={values =>
@@ -404,6 +422,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
             <DashboardWidgetMetricNav
               className={css.leftNav}
               connectorIdentifier={data.connectorRef.value}
+              manuallyInputQueries={data.manuallyInputQueries}
               gcoDashboards={data.selectedDashboards}
               showSpinnerOnLoad={!selectedMetric}
               onSelectMetric={(metricName, query, widget) => {
@@ -411,12 +430,19 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                 if (!metricInfo) {
                   metricInfo = buildMetricInfoObject({ metricName, query, metricTag: widget })
                 } else {
-                  metricInfo[FieldNames.QUERY] = formatJSON(query)
+                  metricInfo[FieldNames.QUERY] = formatJSON(metricInfo.query)
                 }
                 updatedData.set(metricName, metricInfo)
                 updatedData.set(selectedMetric as string, { ...formikProps.values })
                 setUpdatedData(new Map(updatedData))
                 setSelectedMetric(metricName)
+                setError(undefined)
+                onQueryChange(metricInfo[FieldNames.QUERY], () =>
+                  formikProps.setFieldError(
+                    FieldNames.QUERY,
+                    getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                  )
+                )
               }}
             />
             <FormikForm className={css.setupContainer}>
@@ -433,11 +459,72 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                   name={FieldNames.METRIC_NAME}
                 />
               </Container>
-              <QueryValidation
-                onChange={updatedQuery => formikProps.setFieldValue(FieldNames.QUERY, updatedQuery)}
-                queryValue={formikProps.values[FieldNames.QUERY] as string}
-                connectorIdentifier={data.connectorRef.value}
-              />
+              <Container className={css.validationContainer}>
+                <FormInput.CustomRender
+                  name={FieldNames.QUERY}
+                  className={css.query}
+                  label={<TextAreaLabel onExpandQuery={() => setIsQueryExpanded(true)} />}
+                  render={() => (
+                    <textarea
+                      value={formikProps.values[FieldNames.QUERY] || ''}
+                      name={FieldNames.QUERY}
+                      onChange={event => {
+                        event.persist()
+                        formikProps.setFieldValue(FieldNames.QUERY, event.target?.value)
+                        setDebouncedFunc((prevDebounce?: any) => {
+                          prevDebounce?.cancel()
+                          const debouncedFunc = debounce(onQueryChange, 750)
+                          debouncedFunc(event.target.value, () =>
+                            formikProps.setFieldError(
+                              FieldNames.QUERY,
+                              getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                            )
+                          )
+                          return debouncedFunc as any
+                        })
+                      }}
+                    />
+                  )}
+                />
+                <ValidationChart
+                  loading={loading}
+                  error={error}
+                  sampleData={sampleData}
+                  queryValue={formikProps.values[FieldNames.QUERY]}
+                  onRetry={async () => {
+                    if (!formikProps.values[FieldNames.QUERY]?.length) return
+                    onQueryChange(formikProps.values[FieldNames.QUERY])
+                  }}
+                />
+                {isQueryExpanded && (
+                  <Drawer
+                    {...DrawerOptions}
+                    onClose={() => {
+                      setIsQueryExpanded(false)
+                      onQueryChange(formikProps.values[FieldNames.QUERY], () =>
+                        formikProps.setFieldError(
+                          FieldNames.QUERY,
+                          getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                        )
+                      )
+                    }}
+                  >
+                    <MonacoEditor
+                      language="javascript"
+                      value={formatJSON(formikProps.values[FieldNames.QUERY])}
+                      onChange={val => formikProps.setFieldValue(FieldNames.QUERY, val)}
+                      options={
+                        {
+                          readOnly: false,
+                          wordBasedSuggestions: false,
+                          fontFamily: "'Roboto Mono', monospace",
+                          fontSize: 13
+                        } as any
+                      }
+                    />
+                  </Drawer>
+                )}
+              </Container>
               <MapMetricToServiceAndEnvironment metricName={formikProps.values[FieldNames.METRIC_NAME]} />
               <ConfigureRiskProfile />
               <FormInput.Text name={OVERALL} className={css.hiddenField} />

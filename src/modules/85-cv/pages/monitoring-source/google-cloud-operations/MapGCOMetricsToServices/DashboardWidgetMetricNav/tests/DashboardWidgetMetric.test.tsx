@@ -6,7 +6,9 @@ import * as cvService from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
+import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { DashboardWidgetMetricNav } from '../DashboardWidgetMetricNav'
+import { FieldNames } from '../../../ManualInputQueryModal/ManualInputQueryModal'
 
 const MockDashboards: cvService.StackdriverDashboardDTO[] = [
   {
@@ -18,31 +20,6 @@ const MockDashboards: cvService.StackdriverDashboardDTO[] = [
     path: '/dashboard_2/23'
   }
 ]
-
-// const MockWidgetResponse = [
-//   {
-//     id: 'solo-dolo',
-//     isExpanded: true,
-//     hasCaret: true,
-//     label: 'solo-dolo',
-//     childNodes: [
-//       { id: 'sdfsd', label: 'sdfsdf', nodeData: '{}' },
-//       { id: '1', label: '1', nodeData: '{}' },
-//       { id: '2', label: '2', nodeData: '{}' }
-//     ]
-//   },
-//   {
-//     id: 'semi-auto',
-//     label: 'semi-auto',
-//     isExpanded: false,
-//     hasCaret: true,
-//     childNodes: [
-//       { id: '3', label: 'sdfsdf', nodeData: '{}' },
-//       { id: '4', label: '4', nodeData: '{}' },
-//       { id: '5', label: '5', nodeData: '{}' }
-//     ]
-//   }
-// ]
 
 const MockWidgetResponse: cvService.StackdriverDashboardDetail[] = [
   {
@@ -94,10 +71,14 @@ const MockWidgetResponse2: cvService.StackdriverDashboardDetail[] = [
 const MockConnectorIdentifier = '1234_connectorIdentifier'
 
 describe('unit tests for dashboard widget metric', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   test('Ensure content is rendered', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse }
+      data: { resource: MockWidgetResponse },
+      refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
     const mockMetricSelect = jest.fn()
     const { container, getByText } = render(
@@ -143,11 +124,117 @@ describe('unit tests for dashboard widget metric', () => {
 
     const secondDashboard = container.querySelectorAll(`li.${Classes.TREE_NODE} .bp3-tree-node-content svg`)
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
-      data: { resource: MockWidgetResponse2 }
+      data: { resource: MockWidgetResponse2 },
+      refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
-    expect(secondDashboard.length).toBe(4)
-    fireEvent.click(secondDashboard[3])
+    expect(secondDashboard.length).toBe(5)
+    fireEvent.click(secondDashboard[4])
 
     await waitFor(() => expect(getByText(MockWidgetResponse2[0]?.widgetName as string)).not.toBeNull())
+  })
+
+  test('Ensure that when error and no data happens, the component handels it correctly', async () => {
+    const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
+    useGetStackdriverDashboardDetailSpy.mockReturnValue({
+      error: { message: 'mock error' } as unknown,
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVActivitySourceEditSetup({
+          ...accountPathProps,
+          ...projectPathProps,
+          activitySource: ':activitySource',
+          activitySourceId: ':activitySourceId'
+        })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          activitySource: '1234_activitySource',
+          activitySourceId: '1234_sourceId'
+        }}
+      >
+        <DashboardWidgetMetricNav
+          gcoDashboards={MockDashboards}
+          connectorIdentifier={MockConnectorIdentifier}
+          onSelectMetric={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    // error case validation, ensure toaster is displayed
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    await waitFor(() => expect(getByText('mock error')).not.toBeNull())
+
+    // no data validation
+    useGetStackdriverDashboardDetailSpy.mockReturnValue({
+      data: {} as unknown,
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    await waitFor(() =>
+      expect(container.querySelectorAll(`.${Classes.TREE_NODE_LIST}.${Classes.TREE_ROOT} li`).length).toBe(3)
+    )
+
+    expect(container.querySelectorAll(`${Classes.TREE_NODE_LIST}`)[1]?.children.length).toBeUndefined()
+  })
+
+  test('Ensure that when manual input query is selected and entered, it shows up in the nav', async () => {
+    const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
+    useGetStackdriverDashboardDetailSpy.mockReturnValue({
+      data: { resource: MockWidgetResponse },
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+    const mockMetricSelect = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVActivitySourceEditSetup({
+          ...accountPathProps,
+          ...projectPathProps,
+          activitySource: ':activitySource',
+          activitySourceId: ':activitySourceId'
+        })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          activitySource: '1234_activitySource',
+          activitySourceId: '1234_sourceId'
+        }}
+      >
+        <DashboardWidgetMetricNav
+          gcoDashboards={MockDashboards}
+          connectorIdentifier={MockConnectorIdentifier}
+          onSelectMetric={mockMetricSelect}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+
+    // click on manual input query and expect modal to appear
+    fireEvent.click(getByText('+ Manually input query'))
+    await waitFor(() => expect(document.body.querySelector(`input[name="${FieldNames.METRIC_NAME}"]`)).not.toBeNull())
+
+    // fill out value and submit modal
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.TEXTFIELD,
+      fieldId: FieldNames.METRIC_NAME,
+      value: 'solo-dolo'
+    })
+
+    const submitButton = document.body.querySelector('button[type="submit"]')
+    if (!submitButton) {
+      throw Error('submit button not rendered')
+    }
+    fireEvent.click(submitButton)
+
+    // expect selected metric prop to be called and the manual input query to be selected
+    await waitFor(() => expect(document.body.querySelector(`[class*="${Classes.DIALOG_HEADER}"]`)))
+    expect(mockMetricSelect).toHaveBeenNthCalledWith(2, 'solo-dolo', '', '')
+    expect(container.querySelector(`.${Classes.TREE_NODE_SELECTED} p`)?.innerHTML).toEqual('solo-dolo')
   })
 })

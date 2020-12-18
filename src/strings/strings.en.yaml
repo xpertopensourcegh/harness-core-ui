@@ -498,6 +498,7 @@ global:
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'
+    hostNamePlaceholder: '${host}'
     navLinks:
       dataSource: 'Data Sources'
       activities: 'Activities'
@@ -626,6 +627,7 @@ global:
         defaultName: 'My Google Cloud Operations Monitoring Source'
         firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
         createConnectorText: '+ New Google Cloud Platform Connector'
+        addManualInputQuery: '+ Manually input query'
         selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
         product:
           metrics: 'Cloud Metrics'
@@ -633,10 +635,21 @@ global:
         selectDashboardsPage:
           noDataText: 'No Google Cloud Operation dashboards found.'
           dashboardColumnName: 'Google Cloud Operation Dashboards'
+        manualInputQueryModal:
+          modalTitle: 'Add your Google Cloud Operations query'
+          subtitle1: 'Make sure your provide'
+          subtitle2: 'string for filtering in query.'
+          subtitle3: 'For example: '
+          exampleString: 'resource.label.\"pod_name\"=\"${host}\"".'
+          validation:
+            query: 'Query is required.'
+            metricName: 'Metric Name is required.'
+            uniqueMetricName: '{{metricName}} is an already taken metric name'
         mapMetricsToServicesPage:
           metricTagsLabel: 'Metric Tags'
           metricNameLabel: 'Metric Name'
           riskCategoryLabel: 'Risk Category'
+          manuallyInputQueriesLabel: 'Manually input queries'
           viewQuery: 'View Query'
           baselineDeviation: 'Deviation compared to baseline'
           operationsQueryLabel: 'Operations query (Remove any Group By clauses to create a single metric)'
@@ -647,6 +660,8 @@ global:
           lowerCounts: 'Lower counts = lower risk'
           enterQueryForValidation: 'Please enter a query.'
           mainSetupValidation: 'All fields for at least one metric must be filled completely.'
+          validJSON: 'Please provide valid json.'
+          noDataForQuery: 'No data for provided query.'
         tabName:
           selectDashboards: 'Select Dashboards'
     activitySources:

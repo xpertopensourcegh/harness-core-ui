@@ -3,7 +3,7 @@
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
-import { getConfig } from '../config'
+import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export interface ActivityDTO {
   accountIdentifier?: string
   projectIdentifier?: string
@@ -309,26 +309,6 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface RestResponseString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ActivityDashboardDTO {
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
-  activityId?: string
-  activityName?: string
-  activityStartTime?: number
-  environmentIdentifier?: string
-  environmentName?: string
-  serviceIdentifier?: string
-  verificationStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-  activityVerificationSummary?: ActivityVerificationSummary
-}
-
 export interface ActivityVerificationSummary {
   total?: number
   passed?: number
@@ -342,14 +322,6 @@ export interface ActivityVerificationSummary {
   durationMs?: number
   riskScore?: number
   aggregatedStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
-export interface RestResponseListActivityDashboardDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityDashboardDTO[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface DeploymentActivityVerificationResultDTO {
@@ -456,6 +428,34 @@ export interface RestResponseActivityVerificationResultDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: ActivityVerificationResultDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ActivityDashboardDTO {
+  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityId?: string
+  activityName?: string
+  activityStartTime?: number
+  environmentIdentifier?: string
+  environmentName?: string
+  serviceIdentifier?: string
+  verificationStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  activityVerificationSummary?: ActivityVerificationSummary
+}
+
+export interface RestResponseListActivityDashboardDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ActivityDashboardDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -603,21 +603,11 @@ export interface NotificationMethod {
   emails?: string[]
 }
 
-export interface PageAlertRuleDTO {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: AlertRuleDTO[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface RestResponsePageAlertRuleDTO {
+export interface RestResponseAlertRuleDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: PageAlertRuleDTO
+  resource?: AlertRuleDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -638,19 +628,29 @@ export interface VerificationsNotify {
   allVerificationStatuses?: boolean
 }
 
-export interface RestResponseAlertRuleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListActivityType {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface PageAlertRuleDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AlertRuleDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageAlertRuleDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -693,63 +693,6 @@ export interface RestResponseLearningEngineTask {
   }
   resource?: LearningEngineTask
   responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseVoid {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Void
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Void {
-  [key: string]: any
-}
-
-export interface Cluster {
-  text?: string
-  label?: number
-}
-
-export interface ClusterCoordinates {
-  x?: number
-  y?: number
-  label?: number
-  host?: string
-}
-
-export interface ClusterSummary {
-  label?: number
-  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
-  risk?: number
-  score?: number
-  count?: number
-  testFrequencyData?: number[]
-}
-
-export interface ControlClusterSummary {
-  label?: number
-  controlFrequencyData?: number[]
-}
-
-export interface DeploymentLogAnalysisDTO {
-  clusters?: Cluster[]
-  clusterCoordinates?: ClusterCoordinates[]
-  resultSummary?: ResultSummary
-  hostSummaries?: HostSummary[]
-}
-
-export interface HostSummary {
-  host?: string
-  resultSummary?: ResultSummary
-}
-
-export interface ResultSummary {
-  risk?: number
-  score?: number
-  controlClusterSummaries?: ControlClusterSummary[]
-  testClusterSummaries?: ClusterSummary[]
 }
 
 export interface LogClusterDTO {
@@ -800,12 +743,57 @@ export interface RestResponseListLogAnalysisCluster {
   responseMessages?: ResponseMessage[]
 }
 
+export interface Cluster {
+  text?: string
+  label?: number
+}
+
+export interface ClusterCoordinates {
+  x?: number
+  y?: number
+  label?: number
+  host?: string
+}
+
+export interface ClusterSummary {
+  label?: number
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  risk?: number
+  score?: number
+  count?: number
+  testFrequencyData?: number[]
+}
+
+export interface ControlClusterSummary {
+  label?: number
+  controlFrequencyData?: number[]
+}
+
+export interface DeploymentLogAnalysisDTO {
+  clusters?: Cluster[]
+  clusterCoordinates?: ClusterCoordinates[]
+  resultSummary?: ResultSummary
+  hostSummaries?: HostSummary[]
+}
+
+export interface HostSummary {
+  host?: string
+  resultSummary?: ResultSummary
+}
+
 export interface RestResponseDeploymentLogAnalysisDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: DeploymentLogAnalysisDTO
   responseMessages?: ResponseMessage[]
+}
+
+export interface ResultSummary {
+  risk?: number
+  score?: number
+  controlClusterSummaries?: ControlClusterSummary[]
+  testClusterSummaries?: ClusterSummary[]
 }
 
 export interface AnalysisResult {
@@ -824,6 +812,18 @@ export interface LogAnalysisDTO {
   analysisMinute?: number
   logClusters?: LogAnalysisCluster[]
   logAnalysisResults?: AnalysisResult[]
+}
+
+export interface RestResponseVoid {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Void
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Void {
+  [key: string]: any
 }
 
 export interface MetricSum {
@@ -1032,7 +1032,7 @@ export interface MetricPack {
   lastUpdatedAt?: number
   accountId?: string
   projectIdentifier?: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   identifier?: string
   category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinition[]
@@ -1044,7 +1044,7 @@ export interface TimeSeriesThreshold {
   lastUpdatedAt?: number
   accountId: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   metricPackIdentifier: string
   metricName: string
   metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
@@ -1133,8 +1133,8 @@ export interface CVConfig {
   monitoringSourceIdentifier: string
   monitoringSourceName: string
   analysisOrchestrationIteration?: number
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   firstTimeDataCollectionTimeRange?: TimeRange
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
 
 export interface RestResponseCVConfig {
@@ -1172,48 +1172,6 @@ export interface RestResponseCVSetupStatus {
     [key: string]: { [key: string]: any }
   }
   resource?: CVSetupStatus
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DSConfig {
-  identifier?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  productName?: string
-  connectorIdentifier?: string
-  envIdentifier?: string
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
-}
-
-export interface RestResponseListDSConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DSConfig[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface MonitoringSource {
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
-  importStatus?: MonitoringSourceImportStatus
-  numberOfServices?: number
-  importedAt?: number
-}
-
-export interface MonitoringSourceImportStatus {
-  [key: string]: any
-}
-
-export interface RestResponseListMonitoringSource {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: MonitoringSource[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1257,6 +1215,48 @@ export interface ServiceResponseDTO {
     [key: string]: string
   }
   version?: number
+}
+
+export interface MonitoringSource {
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
+  importStatus?: MonitoringSourceImportStatus
+  numberOfServices?: number
+  importedAt?: number
+}
+
+export interface MonitoringSourceImportStatus {
+  [key: string]: any
+}
+
+export interface RestResponseListMonitoringSource {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MonitoringSource[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface DSConfig {
+  identifier?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  productName?: string
+  connectorIdentifier?: string
+  envIdentifier?: string
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
+}
+
+export interface RestResponseListDSConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DSConfig[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -1340,7 +1340,7 @@ export interface MetricDefinitionDTO {
 export interface MetricPackDTO {
   accountId?: string
   projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   identifier?: string
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinitionDTO[]
@@ -1358,7 +1358,7 @@ export interface RestResponseListMetricPackDTO {
 export interface TimeSeriesThresholdDTO {
   accountId?: string
   projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   metricPackIdentifier?: string
   metricName?: string
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
@@ -1496,8 +1496,8 @@ export interface DataCollectionRequest {
     | 'STACKDRIVER_DASHBOARD_LIST'
     | 'STACKDRIVER_DASHBOARD_GET'
     | 'STACKDRIVER_SAMPLE_DATA'
-  connectorConfigDTO?: ConnectorConfigDTO
   baseUrl?: string
+  connectorConfigDTO?: ConnectorConfigDTO
   dsl?: string
 }
 
@@ -1506,12 +1506,13 @@ export interface DockerAuthCredentialsDTO {
 }
 
 export interface DockerAuthenticationDTO {
-  type: 'UsernamePassword'
+  type: 'UsernamePassword' | 'Anonymous'
   spec: DockerAuthCredentialsDTO
 }
 
 export type DockerConnectorDTO = ConnectorConfigDTO & {
   dockerRegistryUrl: string
+  providerType: 'DockerHub' | 'Harbor' | 'Quay' | 'Other'
   auth?: DockerAuthenticationDTO
 }
 
@@ -1760,39 +1761,6 @@ export interface PageStackdriverDashboardDTO {
   empty?: boolean
 }
 
-export interface RestResponseListStackdriverDashboardDetail {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StackdriverDashboardDetail[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListTimeSeriesSampleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesSampleDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StackdriverDashboardDetail {
-  widgetName?: string
-  dataSetList?: DataSet[]
-}
-
-export interface TimeSeriesSampleDTO {
-  txnName?: string
-  metricName?: string
-  metricValue?: number
-  timestamp?: number
-}
-
-export interface DataSet {
-  timeSeriesQuery?: { [key: string]: any }
-  metricName?: string
-}
-
 export interface RestResponsePageStackdriverDashboardDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1804,6 +1772,50 @@ export interface RestResponsePageStackdriverDashboardDTO {
 export interface StackdriverDashboardDTO {
   name?: string
   path?: string
+}
+
+export interface DataSet {
+  timeSeriesQuery?: { [key: string]: any }
+  metricName?: string
+}
+
+export interface RestResponseListStackdriverDashboardDetail {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StackdriverDashboardDetail[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface StackdriverDashboardDetail {
+  widgetName?: string
+  dataSetList?: DataSet[]
+}
+
+export interface Response {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: { [key: string]: any }
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseStackdriverSampleDataDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: StackdriverSampleDataDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface StackdriverSampleDataDTO {
+  sampleData?: TimeSeriesSampleDTO[]
+  errorMessage?: string
+}
+
+export interface TimeSeriesSampleDTO {
+  txnName?: string
+  metricName?: string
+  metricValue?: number
+  timestamp?: number
 }
 
 export interface MetricData {
@@ -1870,22 +1882,6 @@ export interface RestResponseListAnomalyDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface HeatMapDTO {
-  startTime?: number
-  endTime?: number
-  riskScore?: number
-}
-
-export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: HeatMapDTO[]
-  }
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AnalysisRisk {
   name?: string
   risk?: number
@@ -1916,6 +1912,22 @@ export interface ServiceSummary {
   serviceIdentifier?: string
   risk?: number
   analysisRisks?: AnalysisRisk[]
+}
+
+export interface HeatMapDTO {
+  startTime?: number
+  endTime?: number
+  riskScore?: number
+}
+
+export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: HeatMapDTO[]
+  }
+  responseMessages?: ResponseMessage[]
 }
 
 export interface CategoryRisksDTO {
@@ -1951,24 +1963,6 @@ export interface RestResponseListEnvServiceRiskDTO {
 export interface ServiceRisk {
   serviceIdentifier?: string
   risk?: number
-}
-
-export interface CountByTag {
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
-}
-
-export interface LogDataByTag {
-  timestamp?: number
-  countByTags?: CountByTag[]
-}
-
-export interface RestResponseSortedSetLogDataByTag {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogDataByTag[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface AnalyzedLogDataDTO {
@@ -2007,6 +2001,24 @@ export interface RestResponsePageAnalyzedLogDataDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAnalyzedLogDataDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
+}
+
+export interface RestResponseSortedSetLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -2136,7 +2148,7 @@ export interface VerificationJobDTO {
   envIdentifier?: string
   projectIdentifier?: string
   orgIdentifier?: string
-  dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
+  dataSources?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
   duration?: string
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
@@ -2201,6 +2213,25 @@ export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicatio
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get all appdynamics applications
+ */
+export const getAppDynamicsApplicationsPromise = (
+  props: GetUsingFetchProps<
+    RestResponsePageAppDynamicsApplication,
+    unknown,
+    GetAppDynamicsApplicationsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
+    getConfig('cv/api'),
+    `/appdynamics/applications`,
+    props,
+    signal
+  )
+
 export interface GetAppDynamicsMetricDataQueryParams {
   accountId: string
   orgIdentifier: string
@@ -2263,6 +2294,27 @@ export const useGetAppDynamicsMetricData = (props: UseGetAppDynamicsMetricDataPr
     void
   >('POST', `/appdynamics/metric-data`, { base: getConfig('cv/api'), ...props })
 
+/**
+ * get metric data for given metric packs
+ */
+export const getAppDynamicsMetricDataPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseSetAppdynamicsValidationResponse,
+    unknown,
+    GetAppDynamicsMetricDataQueryParams,
+    MetricPackArrayRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseSetAppdynamicsValidationResponse,
+    unknown,
+    GetAppDynamicsMetricDataQueryParams,
+    MetricPackArrayRequestBody,
+    void
+  >('POST', getConfig('cv/api'), `/appdynamics/metric-data`, props, signal)
+
 export interface GetAppDynamicsTiersQueryParams {
   accountId: string
   connectorIdentifier: string
@@ -2304,6 +2356,20 @@ export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
     ...props
   })
 
+/**
+ * get all appdynamics tiers for an application
+ */
+export const getAppDynamicsTiersPromise = (
+  props: GetUsingFetchProps<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(
+    getConfig('cv/api'),
+    `/appdynamics/tiers`,
+    props,
+    signal
+  )
+
 export interface GetDataSourceConfigsQueryParams {
   accountId?: string
   connectorIdentifier?: string
@@ -2340,6 +2406,20 @@ export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
     ...props
   })
 
+/**
+ * gets list of data source configs
+ */
+export const getDataSourceConfigsPromise = (
+  props: GetUsingFetchProps<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>(
+    getConfig('cv/api'),
+    `/ds-config`,
+    props,
+    signal
+  )
+
 export interface SaveDataSourceCVConfigsQueryParams {
   accountId?: string
 }
@@ -2375,6 +2455,21 @@ export const useSaveDataSourceCVConfigs = (props: UseSaveDataSourceCVConfigsProp
     ...props
   })
 
+/**
+ * saves a list of data source config
+ */
+export const saveDataSourceCVConfigsPromise = (
+  props: MutateUsingFetchProps<void, void, SaveDataSourceCVConfigsQueryParams, DSConfig[], void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, SaveDataSourceCVConfigsQueryParams, DSConfig[], void>(
+    'POST',
+    getConfig('cv/api'),
+    `/ds-config`,
+    props,
+    signal
+  )
+
 export interface SaveDataSourceCVConfigQueryParams {
   accountId?: string
 }
@@ -2409,6 +2504,21 @@ export const useSaveDataSourceCVConfig = (props: UseSaveDataSourceCVConfigProps)
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * saves a data source config
+ */
+export const saveDataSourceCVConfigPromise = (
+  props: MutateUsingFetchProps<void, void, SaveDataSourceCVConfigQueryParams, DSConfig, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, SaveDataSourceCVConfigQueryParams, DSConfig, void>(
+    'PUT',
+    getConfig('cv/api'),
+    `/ds-config`,
+    props,
+    signal
+  )
 
 export interface DeleteDataSourceCVConfigByGroupQueryParams {
   accountId?: string
@@ -2448,10 +2558,25 @@ export const useDeleteDataSourceCVConfigByGroup = (props: UseDeleteDataSourceCVC
     ...props
   })
 
+/**
+ * deletes all data source configs for a group
+ */
+export const deleteDataSourceCVConfigByGroupPromise = (
+  props: MutateUsingFetchProps<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>(
+    'DELETE',
+    getConfig('cv/api'),
+    `/ds-config`,
+    props,
+    signal
+  )
+
 export interface GetMetricPacksQueryParams {
   accountId: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
 }
 
 export type GetMetricPacksProps = Omit<
@@ -2484,10 +2609,24 @@ export const useGetMetricPacks = (props: UseGetMetricPacksProps) =>
     ...props
   })
 
+/**
+ * get all metric packs for a connector type
+ */
+export const getMetricPacksPromise = (
+  props: GetUsingFetchProps<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>(
+    getConfig('cv/api'),
+    `/metric-pack`,
+    props,
+    signal
+  )
+
 export interface SaveMetricPacksQueryParams {
   accountId: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
 }
 
 export type SaveMetricPacksProps = Omit<
@@ -2520,6 +2659,27 @@ export const useSaveMetricPacks = (props: UseSaveMetricPacksProps) =>
     'POST',
     `/metric-pack`,
     { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * saves a metric pack for a connector type
+ */
+export const saveMetricPacksPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseBoolean,
+    unknown,
+    SaveMetricPacksQueryParams,
+    MetricPackArrayRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseBoolean, unknown, SaveMetricPacksQueryParams, MetricPackArrayRequestBody, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/metric-pack`,
+    props,
+    signal
   )
 
 export interface GetSplunkValidationQueryParams {
@@ -2561,6 +2721,20 @@ export const useGetSplunkValidation = (props: UseGetSplunkValidationProps) =>
     ...props
   })
 
+/**
+ * validates given setting for splunk data source
+ */
+export const getSplunkValidationPromise = (
+  props: GetUsingFetchProps<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>(
+    getConfig('cv/api'),
+    `/splunk/validation`,
+    props,
+    signal
+  )
+
 export interface GetSplunkSavedSearchesQueryParams {
   accountId?: string
   connectorIdentifier?: string
@@ -2597,6 +2771,20 @@ export const useGetSplunkSavedSearches = (props: UseGetSplunkSavedSearchesProps)
   useGet<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>(
     `/splunk/saved-searches`,
     { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * gets saved searches in splunk
+ */
+export const getSplunkSavedSearchesPromise = (
+  props: GetUsingFetchProps<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>(
+    getConfig('cv/api'),
+    `/splunk/saved-searches`,
+    props,
+    signal
   )
 
 export interface GetTimeSeriesDataQueryParams {
@@ -2638,6 +2826,20 @@ export const useGetTimeSeriesData = (props: UseGetTimeSeriesDataProps) =>
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get time series data for a given data source config
+ */
+export const getTimeSeriesDataPromise = (
+  props: GetUsingFetchProps<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/timeseries/metric-group-data`,
+    props,
+    signal
+  )
+
 export interface GetMetricDefinitionsQueryParams {
   accountId: string
   cvConfigId: string
@@ -2671,6 +2873,20 @@ export const useGetMetricDefinitions = (props: UseGetMetricDefinitionsProps) =>
   useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
     `/timeseries/metric-template`,
     { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get metric definition for a given data source config
+ */
+export const getMetricDefinitionsPromise = (
+  props: GetUsingFetchProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
+    getConfig('cv/api'),
+    `/timeseries/metric-template`,
+    props,
+    signal
   )
 
 export interface GetServicesQueryParams {
@@ -2708,6 +2924,20 @@ export const useGetServices = (props: UseGetServicesProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * gets list of env to services mapping for which data sources are configured
+ */
+export const getServicesPromise = (
+  props: GetUsingFetchProps<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>(
+    getConfig('cv/api'),
+    `/ds-config/env-to-services`,
+    props,
+    signal
+  )
 
 export interface GetHeatmapQueryParams {
   accountId: string
@@ -2749,6 +2979,25 @@ export const useGetHeatmap = (props: UseGetHeatmapProps) =>
     ...props
   })
 
+/**
+ * get heatmap for a time range
+ */
+export const getHeatmapPromise = (
+  props: GetUsingFetchProps<
+    RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO,
+    unknown,
+    GetHeatmapQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>(
+    getConfig('cv/api'),
+    `/heatmap`,
+    props,
+    signal
+  )
+
 export interface GetCategoryRiskMapQueryParams {
   accountId: string
   orgIdentifier: string
@@ -2787,6 +3036,20 @@ export const useGetCategoryRiskMap = (props: UseGetCategoryRiskMapProps) =>
     ...props
   })
 
+/**
+ * get current risk for all categories
+ */
+export const getCategoryRiskMapPromise = (
+  props: GetUsingFetchProps<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>(
+    getConfig('cv/api'),
+    `/heatmap/category-risks`,
+    props,
+    signal
+  )
+
 export interface GetEnvServiceRisksQueryParams {
   accountId: string
   orgIdentifier: string
@@ -2821,6 +3084,20 @@ export const useGetEnvServiceRisks = (props: UseGetEnvServiceRisksProps) =>
   useGet<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>(
     `/heatmap/env-service-risks`,
     { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get current risks for each env/service combination
+ */
+export const getEnvServiceRisksPromise = (
+  props: GetUsingFetchProps<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>(
+    getConfig('cv/api'),
+    `/heatmap/env-service-risks`,
+    props,
+    signal
   )
 
 export interface GetVerificationJobQueryParams {
@@ -2858,6 +3135,20 @@ export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
     ...props
   })
 
+/**
+ * gets the verification job for an identifier
+ */
+export const getVerificationJobPromise = (
+  props: GetUsingFetchProps<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>(
+    getConfig('cv/api'),
+    `/verification-job`,
+    props,
+    signal
+  )
+
 export interface SaveVerificationJobQueryParams {
   accountId?: string
 }
@@ -2892,6 +3183,21 @@ export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * upserts a verification job for an identifier
+ */
+export const saveVerificationJobPromise = (
+  props: MutateUsingFetchProps<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>(
+    'PUT',
+    getConfig('cv/api'),
+    `/verification-job`,
+    props,
+    signal
+  )
 
 export interface DeleteVerificationJobQueryParams {
   accountId?: string
@@ -2929,6 +3235,21 @@ export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =
     ...props
   })
 
+/**
+ * deletes a verification job for an identifier
+ */
+export const deleteVerificationJobPromise = (
+  props: MutateUsingFetchProps<void, void, DeleteVerificationJobQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, DeleteVerificationJobQueryParams, void, void>(
+    'DELETE',
+    getConfig('cv/api'),
+    `/verification-job`,
+    props,
+    signal
+  )
+
 export interface GetVerificationJobsQueryParams {
   accountId?: string
   projectIdentifier?: string
@@ -2964,6 +3285,20 @@ export const useGetVerificationJobs = (props: UseGetVerificationJobsProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * lists all verification jobs for an identifier
+ */
+export const getVerificationJobsPromise = (
+  props: GetUsingFetchProps<RestResponseListVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>(
+    getConfig('cv/api'),
+    `/verification-job/list`,
+    props,
+    signal
+  )
 
 export interface GetAnomalousMetricDashboardDataQueryParams {
   accountId: string
@@ -3006,6 +3341,25 @@ export const useGetAnomalousMetricDashboardData = (props: UseGetAnomalousMetricD
   useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>(
     `/timeseries-dashboard/anomalous-metric-data`,
     { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get anomalous time series data in a given time range
+ */
+export const getAnomalousMetricDashboardDataPromise = (
+  props: GetUsingFetchProps<
+    RestResponsePageTimeSeriesMetricDataDTO,
+    unknown,
+    GetAnomalousMetricDashboardDataQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/timeseries-dashboard/anomalous-metric-data`,
+    props,
+    signal
   )
 
 export interface GetMetricDataQueryParams {
@@ -3051,6 +3405,20 @@ export const useGetMetricData = (props: UseGetMetricDataProps) =>
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get all time series data in a given time range
+ */
+export const getMetricDataPromise = (
+  props: GetUsingFetchProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/timeseries-dashboard/metric-data`,
+    props,
+    signal
+  )
+
 export interface GetAllLogsQueryParams {
   accountId?: string
   projectIdentifier: string
@@ -3093,6 +3461,20 @@ export const useGetAllLogs = (props: UseGetAllLogsProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * get all logs for a time range
+ */
+export const getAllLogsPromise = (
+  props: GetUsingFetchProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(
+    getConfig('cv/api'),
+    `/log-dashboard/all-logs`,
+    props,
+    signal
+  )
 
 export interface GetAnomalousLogsQueryParams {
   accountId?: string
@@ -3137,6 +3519,20 @@ export const useGetAnomalousLogs = (props: UseGetAnomalousLogsProps) =>
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get anomalous logs for a time range
+ */
+export const getAnomalousLogsPromise = (
+  props: GetUsingFetchProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
+    getConfig('cv/api'),
+    `/log-dashboard/anomalous-logs`,
+    props,
+    signal
+  )
+
 export interface GetTagCountQueryParams {
   accountId?: string
   projectIdentifier: string
@@ -3177,6 +3573,20 @@ export const useGetTagCount = (props: UseGetTagCountProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * get a sorted tag vs logs list
+ */
+export const getTagCountPromise = (
+  props: GetUsingFetchProps<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>(
+    getConfig('cv/api'),
+    `/log-dashboard/log-count-by-tags`,
+    props,
+    signal
+  )
 
 export interface GetDeploymentTimeSeriesQueryParams {
   accountId?: string
@@ -3241,6 +3651,28 @@ export const useGetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props
       `/deployment-time-series-analysis/${paramsInPath.verificationJobInstanceId}`,
     { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
   )
+
+/**
+ * get metrics for given verificationJob
+ */
+export const getDeploymentTimeSeriesPromise = (
+  {
+    verificationJobInstanceId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentTimeSeriesQueryParams,
+    GetDeploymentTimeSeriesPathParams
+  > & { verificationJobInstanceId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentTimeSeriesQueryParams,
+    GetDeploymentTimeSeriesPathParams
+  >(getConfig('cv/api'), `/deployment-time-series-analysis/${verificationJobInstanceId}`, props, signal)
 
 export interface GetDeploymentLogAnalysesQueryParams {
   accountId?: string
@@ -3309,6 +3741,28 @@ export const useGetDeploymentLogAnalyses = ({
     { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
   )
 
+/**
+ * get logs for given verificationJob
+ */
+export const getDeploymentLogAnalysesPromise = (
+  {
+    verificationJobInstanceId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysesQueryParams,
+    GetDeploymentLogAnalysesPathParams
+  > & { verificationJobInstanceId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysesQueryParams,
+    GetDeploymentLogAnalysesPathParams
+  >(getConfig('cv/api'), `/deployment-log-analysis/${verificationJobInstanceId}`, props, signal)
+
 export interface GetClusterChartAnalysesQueryParams {
   accountId?: string
   hostName?: string
@@ -3371,6 +3825,28 @@ export const useGetClusterChartAnalyses = ({ verificationJobInstanceId, ...props
     { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
   )
 
+/**
+ * get logs for given verificationJob
+ */
+export const getClusterChartAnalysesPromise = (
+  {
+    verificationJobInstanceId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetClusterChartAnalysesQueryParams,
+    GetClusterChartAnalysesPathParams
+  > & { verificationJobInstanceId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetClusterChartAnalysesQueryParams,
+    GetClusterChartAnalysesPathParams
+  >(getConfig('cv/api'), `/deployment-log-analysis/${verificationJobInstanceId}/clusters`, props, signal)
+
 export interface GetRecentDeploymentActivityVerificationsQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3423,6 +3899,25 @@ export const useGetRecentDeploymentActivityVerifications = (props: UseGetRecentD
     GetRecentDeploymentActivityVerificationsQueryParams,
     void
   >(`/activity/recent-deployment-activity-verifications`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * get recent deployment activity verification
+ */
+export const getRecentDeploymentActivityVerificationsPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListDeploymentActivityVerificationResultDTO,
+    unknown,
+    GetRecentDeploymentActivityVerificationsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseListDeploymentActivityVerificationResultDTO,
+    unknown,
+    GetRecentDeploymentActivityVerificationsQueryParams,
+    void
+  >(getConfig('cv/api'), `/activity/recent-deployment-activity-verifications`, props, signal)
 
 export interface GetVerificationInstancesQueryParams {
   accountId: string
@@ -3487,6 +3982,28 @@ export const useGetVerificationInstances = ({ deploymentTag, ...props }: UseGetV
       `/activity/deployment-activity-verifications/${paramsInPath.deploymentTag}`,
     { base: getConfig('cv/api'), pathParams: { deploymentTag }, ...props }
   )
+
+/**
+ * get deployment activities for given build tag
+ */
+export const getVerificationInstancesPromise = (
+  {
+    deploymentTag,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseDeploymentActivityResultDTO,
+    unknown,
+    GetVerificationInstancesQueryParams,
+    GetVerificationInstancesPathParams
+  > & { deploymentTag: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseDeploymentActivityResultDTO,
+    unknown,
+    GetVerificationInstancesQueryParams,
+    GetVerificationInstancesPathParams
+  >(getConfig('cv/api'), `/activity/deployment-activity-verifications/${deploymentTag}`, props, signal)
 
 export interface GetVerificationsPopoverSummaryQueryParams {
   accountId: string
@@ -3555,6 +4072,28 @@ export const useGetVerificationsPopoverSummary = ({
     { base: getConfig('cv/api'), pathParams: { deploymentTag }, ...props }
   )
 
+/**
+ * get deployment activities summary for given build tag
+ */
+export const getVerificationsPopoverSummaryPromise = (
+  {
+    deploymentTag,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseDeploymentActivityPopoverResultDTO,
+    unknown,
+    GetVerificationsPopoverSummaryQueryParams,
+    GetVerificationsPopoverSummaryPathParams
+  > & { deploymentTag: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseDeploymentActivityPopoverResultDTO,
+    unknown,
+    GetVerificationsPopoverSummaryQueryParams,
+    GetVerificationsPopoverSummaryPathParams
+  >(getConfig('cv/api'), `/activity/deployment-activity-verifications-popover-summary/${deploymentTag}`, props, signal)
+
 export interface GetRecentActivityVerificationResultsQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3602,6 +4141,25 @@ export const useGetRecentActivityVerificationResults = (props: UseGetRecentActiv
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get a list of recent activity verification results
+ */
+export const getRecentActivityVerificationResultsPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListActivityVerificationResultDTO,
+    unknown,
+    GetRecentActivityVerificationResultsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseListActivityVerificationResultDTO,
+    unknown,
+    GetRecentActivityVerificationResultsQueryParams,
+    void
+  >(getConfig('cv/api'), `/activity/recent-activity-verifications`, props, signal)
+
 export interface ListActivitiesForDashboardQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3641,6 +4199,20 @@ export const useListActivitiesForDashboard = (props: UseListActivitiesForDashboa
     ...props
   })
 
+/**
+ * list all activities between a given time range for an environment, project, org
+ */
+export const listActivitiesForDashboardPromise = (
+  props: GetUsingFetchProps<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>(
+    getConfig('cv/api'),
+    `/activity/list`,
+    props,
+    signal
+  )
+
 export interface GetCVSetupStatusQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3676,6 +4248,20 @@ export const useGetCVSetupStatus = (props: UseGetCVSetupStatusProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * get the status of CV related resources setup
+ */
+export const getCVSetupStatusPromise = (
+  props: GetUsingFetchProps<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>(
+    getConfig('cv/api'),
+    `/setup/status`,
+    props,
+    signal
+  )
 
 export interface DeleteKubernetesSourceQueryParams {
   accountId: string
@@ -3714,6 +4300,21 @@ export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps)
     ...props
   })
 
+/**
+ * deletes a kubernetes event source
+ */
+export const deleteKubernetesSourcePromise = (
+  props: MutateUsingFetchProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>(
+    'DELETE',
+    getConfig('cv/api'),
+    `/kubernetes`,
+    props,
+    signal
+  )
+
 export interface GetNamespacesQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3750,6 +4351,20 @@ export const useGetNamespaces = (props: UseGetNamespacesProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * gets a list of kubernetes namespaces
+ */
+export const getNamespacesPromise = (
+  props: GetUsingFetchProps<RestResponsePageString, unknown, GetNamespacesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageString, unknown, GetNamespacesQueryParams, void>(
+    getConfig('cv/api'),
+    `/kubernetes/namespaces`,
+    props,
+    signal
+  )
 
 export interface GetWorkloadsQueryParams {
   accountId: string
@@ -3789,6 +4404,20 @@ export const useGetWorkloads = (props: UseGetWorkloadsProps) =>
     ...props
   })
 
+/**
+ * gets a list of kubernetes workloads
+ */
+export const getWorkloadsPromise = (
+  props: GetUsingFetchProps<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>(
+    getConfig('cv/api'),
+    `/kubernetes/workloads`,
+    props,
+    signal
+  )
+
 export interface GetKubernetesSourceQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3826,6 +4455,20 @@ export const useGetKubernetesSource = (props: UseGetKubernetesSourceProps) =>
     ...props
   })
 
+/**
+ * gets a kubernetes event source by identifier
+ */
+export const getKubernetesSourcePromise = (
+  props: GetUsingFetchProps<RestResponseKubernetesActivitySourceDTO, unknown, GetKubernetesSourceQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseKubernetesActivitySourceDTO, unknown, GetKubernetesSourceQueryParams, void>(
+    getConfig('cv/api'),
+    `/kubernetes/source`,
+    props,
+    signal
+  )
+
 export interface RegisterKubernetesSourceQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3862,6 +4505,27 @@ export const useRegisterKubernetesSource = (props: UseRegisterKubernetesSourcePr
     'POST',
     `/kubernetes/source`,
     { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * register a kubernetes event source
+ */
+export const registerKubernetesSourcePromise = (
+  props: MutateUsingFetchProps<
+    RestResponseString,
+    unknown,
+    RegisterKubernetesSourceQueryParams,
+    KubernetesActivitySourceDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseString, unknown, RegisterKubernetesSourceQueryParams, KubernetesActivitySourceDTO, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/kubernetes/source`,
+    props,
+    signal
   )
 
 export interface ListKubernetesSourcesQueryParams {
@@ -3903,6 +4567,25 @@ export const useListKubernetesSources = (props: UseListKubernetesSourcesProps) =
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * lists all kubernetes event sources
+ */
+export const listKubernetesSourcesPromise = (
+  props: GetUsingFetchProps<
+    RestResponsePageKubernetesActivitySourceDTO,
+    unknown,
+    ListKubernetesSourcesQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>(
+    getConfig('cv/api'),
+    `/kubernetes/sources`,
+    props,
+    signal
+  )
+
 export interface GetAlertRuleQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3936,6 +4619,20 @@ export const useGetAlertRule = (props: UseGetAlertRuleProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * gets the alert rule for an identifier
+ */
+export const getAlertRulePromise = (
+  props: GetUsingFetchProps<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>(
+    getConfig('cv/api'),
+    `/alert`,
+    props,
+    signal
+  )
 
 export interface CreateAlertQueryParams {
   accountId: string
@@ -3975,6 +4672,27 @@ export const useCreateAlert = (props: UseCreateAlertProps) =>
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * create alert
+ */
+export const createAlertPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseAlertRuleDTO,
+    unknown,
+    CreateAlertQueryParams,
+    AlertRuleDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/alert`,
+    props,
+    signal
+  )
+
 export interface UpdateAlertQueryParams {
   accountId: string
   orgIdentifier: string
@@ -4011,6 +4729,21 @@ export const useUpdateAlert = (props: UseUpdateAlertProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * update alert
+ */
+export const updateAlertPromise = (
+  props: MutateUsingFetchProps<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>(
+    'PUT',
+    getConfig('cv/api'),
+    `/alert`,
+    props,
+    signal
+  )
 
 export interface RetrieveAlertQueryParams {
   accountId: string
@@ -4050,6 +4783,20 @@ export const useRetrieveAlert = (props: UseRetrieveAlertProps) =>
     ...props
   })
 
+/**
+ * get list of alerts
+ */
+export const retrieveAlertPromise = (
+  props: GetUsingFetchProps<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>(
+    getConfig('cv/api'),
+    `/alert/list`,
+    props,
+    signal
+  )
+
 export interface DeleteAlertQueryParams {
   accountId: string
   orgIdentifier: string
@@ -4083,6 +4830,21 @@ export const useDeleteAlert = (props: UseDeleteAlertProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * deletes alert
+ */
+export const deleteAlertPromise = (
+  props: MutateUsingFetchProps<void, void, DeleteAlertQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, DeleteAlertQueryParams, string, void>(
+    'DELETE',
+    getConfig('cv/api'),
+    `/alert`,
+    props,
+    signal
+  )
 
 export interface GetActivityTypesQueryParams {
   accountId: string
@@ -4119,6 +4881,20 @@ export const useGetActivityTypes = (props: UseGetActivityTypesProps) =>
     base: getConfig('cv/api'),
     ...props
   })
+
+/**
+ * gets activity types
+ */
+export const getActivityTypesPromise = (
+  props: GetUsingFetchProps<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>(
+    getConfig('cv/api'),
+    `/alert/activityTypes`,
+    props,
+    signal
+  )
 
 export interface GetStackdriverDashboardsQueryParams {
   accountId: string
@@ -4160,6 +4936,25 @@ export const useGetStackdriverDashboards = (props: UseGetStackdriverDashboardsPr
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get all stackdriver dashboards
+ */
+export const getStackdriverDashboardsPromise = (
+  props: GetUsingFetchProps<
+    RestResponsePageStackdriverDashboardDTO,
+    unknown,
+    GetStackdriverDashboardsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageStackdriverDashboardDTO, unknown, GetStackdriverDashboardsQueryParams, void>(
+    getConfig('cv/api'),
+    `/stackdriver/dashboards`,
+    props,
+    signal
+  )
+
 export interface GetStackdriverDashboardDetailQueryParams {
   accountId: string
   connectorIdentifier: string
@@ -4198,6 +4993,25 @@ export const useGetStackdriverDashboardDetail = (props: UseGetStackdriverDashboa
     { base: getConfig('cv/api'), ...props }
   )
 
+/**
+ * get details about one dashboard
+ */
+export const getStackdriverDashboardDetailPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListStackdriverDashboardDetail,
+    unknown,
+    GetStackdriverDashboardDetailQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListStackdriverDashboardDetail, unknown, GetStackdriverDashboardDetailQueryParams, void>(
+    getConfig('cv/api'),
+    `/stackdriver/dashboard-detail`,
+    props,
+    signal
+  )
+
 export interface GetStackdriverSampleDataQueryParams {
   accountId: string
   connectorIdentifier: string
@@ -4211,7 +5025,7 @@ export interface GetStackdriverSampleDataRequestBody {
 
 export type GetStackdriverSampleDataProps = Omit<
   MutateProps<
-    RestResponseListTimeSeriesSampleDTO,
+    ResponseStackdriverSampleDataDTO,
     unknown,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
@@ -4225,7 +5039,7 @@ export type GetStackdriverSampleDataProps = Omit<
  */
 export const GetStackdriverSampleData = (props: GetStackdriverSampleDataProps) => (
   <Mutate<
-    RestResponseListTimeSeriesSampleDTO,
+    ResponseStackdriverSampleDataDTO,
     unknown,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
@@ -4240,7 +5054,7 @@ export const GetStackdriverSampleData = (props: GetStackdriverSampleDataProps) =
 
 export type UseGetStackdriverSampleDataProps = Omit<
   UseMutateProps<
-    RestResponseListTimeSeriesSampleDTO,
+    ResponseStackdriverSampleDataDTO,
     unknown,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
@@ -4254,9 +5068,30 @@ export type UseGetStackdriverSampleDataProps = Omit<
  */
 export const useGetStackdriverSampleData = (props: UseGetStackdriverSampleDataProps) =>
   useMutate<
-    RestResponseListTimeSeriesSampleDTO,
+    ResponseStackdriverSampleDataDTO,
     unknown,
     GetStackdriverSampleDataQueryParams,
     GetStackdriverSampleDataRequestBody,
     void
   >('POST', `/stackdriver/sample-data`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * get sample data for one metric
+ */
+export const getStackdriverSampleDataPromise = (
+  props: MutateUsingFetchProps<
+    ResponseStackdriverSampleDataDTO,
+    unknown,
+    GetStackdriverSampleDataQueryParams,
+    GetStackdriverSampleDataRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseStackdriverSampleDataDTO,
+    unknown,
+    GetStackdriverSampleDataQueryParams,
+    GetStackdriverSampleDataRequestBody,
+    void
+  >('POST', getConfig('cv/api'), `/stackdriver/sample-data`, props, signal)

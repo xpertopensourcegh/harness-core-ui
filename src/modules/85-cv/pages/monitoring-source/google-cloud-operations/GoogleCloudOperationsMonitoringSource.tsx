@@ -7,6 +7,12 @@ import { SelectProduct } from '../SelectProduct/SelectProduct'
 import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
 import { MapGCOMetricsToServices } from './MapGCOMetricsToServices/MapGCOMetricsToServices'
 
+const DefaultValue = {
+  name: `MyGoogleCloudOperationsSource`,
+  identifier: `MyGoogleCloudOperationsSource`,
+  product: 'Cloud Metrics'
+}
+
 export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
   const { getString } = useStrings()
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<any>()
@@ -14,7 +20,7 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
     <Page.Body>
       <CVOnboardingTabs
         iconName="service-stackdriver"
-        defaultEntityName={currentData?.name}
+        defaultEntityName={currentData?.name || DefaultValue.name}
         setName={val => setCurrentData({ ...currentData, name: val })}
         onNext={onNext}
         {...tabInfo}
@@ -24,7 +30,7 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
             title: getString('selectProduct'),
             component: (
               <SelectProduct
-                stepData={currentData}
+                stepData={currentData || { ...DefaultValue }}
                 type="GoogleCloudOperations"
                 onCompleteStep={data => {
                   setCurrentData(data)

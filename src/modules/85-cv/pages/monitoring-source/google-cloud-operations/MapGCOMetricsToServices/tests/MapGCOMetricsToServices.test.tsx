@@ -17,7 +17,10 @@ const MockSelectedMetricInfo = {
 
 jest.mock('lodash-es', () => ({
   ...(jest.requireActual('lodash-es') as object),
-  debounce: jest.fn(fn => fn),
+  debounce: jest.fn(fn => {
+    fn.cancel = jest.fn()
+    return fn
+  }),
   noop: jest.fn()
 }))
 
@@ -39,30 +42,36 @@ jest.mock('../DashboardWidgetMetricNav/DashboardWidgetMetricNav', () => ({
   }
 }))
 
-jest.mock('react-monaco-editor', () => () => <Container className="monaco-editor" />)
+jest.mock('react-monaco-editor', () => (props: any) => (
+  <Container className="monaco-editor">
+    <button className="monaco-editor-onChangebutton" onClick={() => props.onChange('{ "sdfsdffdf": "2132423" }')} />
+  </Container>
+))
 
 const MockValidationResponse = {
   metaData: {},
-  resource: [
-    {
-      txnName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricValue: 12.151677124512961,
-      timestamp: 1607599860000
-    },
-    {
-      txnName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricValue: 12.149014549984008,
-      timestamp: 1607599920000
-    },
-    {
-      txnName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricName: 'kubernetes.io/container/cpu/core_usage_time',
-      metricValue: 7.050477594430973,
-      timestamp: 1607599980000
-    }
-  ]
+  data: {
+    sampleData: [
+      {
+        txnName: 'kubernetes.io/container/cpu/core_usage_time',
+        metricName: 'kubernetes.io/container/cpu/core_usage_time',
+        metricValue: 12.151677124512961,
+        timestamp: 1607599860000
+      },
+      {
+        txnName: 'kubernetes.io/container/cpu/core_usage_time',
+        metricName: 'kubernetes.io/container/cpu/core_usage_time',
+        metricValue: 12.149014549984008,
+        timestamp: 1607599920000
+      },
+      {
+        txnName: 'kubernetes.io/container/cpu/core_usage_time',
+        metricName: 'kubernetes.io/container/cpu/core_usage_time',
+        metricValue: 7.050477594430973,
+        timestamp: 1607599980000
+      }
+    ]
+  }
 }
 
 describe('Unit tests for MapGCOMetricsToServices', () => {
@@ -148,8 +157,17 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     if (!viewQuery) {
       throw new Error('View query button not rendered.')
     }
+
     fireEvent.click(viewQuery)
     await waitFor(() => expect(document.body.querySelector('[class*="monaco-editor"]')).not.toBeNull())
+    const changeButton = document.body.querySelector('button.monaco-editor-onChangebutton')
+    if (!changeButton) {
+      throw Error('button did not render.')
+    }
+
+    fireEvent.click(changeButton)
+    await waitFor(() => expect(container.querySelector('textarea')?.innerHTML).toEqual('{ "sdfsdffdf": "2132423" }'))
+    await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(1))
   })
 
   test('Ensure that when a metric is selected in the nav, the content in the form is rendered', async () => {
@@ -194,5 +212,74 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
 
     fireEvent.click(getByText('Next'))
     await waitFor(() => getByText('All fields for at least one metric must be filled completely.'))
+  })
+
+  test('Ensure that when validation api throws error or returns no data, correct content is displayed', async () => {
+    const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
+    const mutateMock = jest.fn().mockReturnValue(
+      Promise.resolve({
+        data: { errorMessage: 'mock error' }
+      })
+    )
+
+    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      unknown,
+      any,
+      unknown,
+      any
+    >)
+    const { container, getByText, rerender } = render(
+      <TestWrapper>
+        <MapGCOMetricsToServices
+          data={{ connectorRef: { value: '1234_connectorIden' } }}
+          onNext={jest.fn()}
+          onPrevious={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    // error case
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    await setFieldValue({ container, type: InputTypes.TEXTAREA, fieldId: FieldNames.QUERY, value: MockQuery })
+
+    await waitFor(() => expect(getByText('mock error')).not.toBeNull())
+    expect(container.querySelector('[class*="highcharts"]')).toBeNull()
+
+    // no data case
+    mutateMock.mockReturnValue(
+      Promise.resolve({
+        data: { sampleData: [] }
+      })
+    )
+    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      unknown,
+      any,
+      unknown,
+      any
+    >)
+
+    rerender(
+      <TestWrapper>
+        <MapGCOMetricsToServices
+          data={{ connectorRef: { value: '5678_connectorIden' } }}
+          onNext={jest.fn()}
+          onPrevious={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    await setFieldValue({
+      container,
+      type: InputTypes.TEXTAREA,
+      fieldId: FieldNames.QUERY,
+      value: '{ "dsadd": "dsfs" }'
+    })
+    await waitFor(() => expect(getByText('No data for provided query.')))
+
+    //retry api
+    fireEvent.click(getByText('Retry'))
+    await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(3))
   })
 })
