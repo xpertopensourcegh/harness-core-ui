@@ -48,9 +48,9 @@ interface IndividualProps {
   onCreateTargets: () => void
 }
 
-type CreateTargetResult = {
-  status: 'rejected' | 'fulfilled'
-  which: any
+type SettledTarget = {
+  status: 'fulffiled' | 'rejected'
+  data: TargetData
 }
 
 const IndividualTargets: React.FC<IndividualProps> = ({
@@ -65,9 +65,35 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
   const { showError } = useToaster()
 
+  const [loadingBulk, setLoadingBulk] = useState<boolean>(false)
+
   const { mutate: createTarget, loading: loadingCreateTarget } = useCreateTarget({
     queryParams: SharedQueryParams
   })
+
+  const bulkTargetCreation = (ts: TargetData[]): Promise<SettledTarget[]> => {
+    return Promise.all(
+      ts.map((t: TargetData) => {
+        return createTarget({
+          identifier: t.identifier,
+          name: t.name,
+          anonymous: false,
+          attributes: {},
+          environment,
+          project,
+          ...SharedQueryParams
+        })
+          .then(() => ({
+            status: 'fulfilled',
+            data: t
+          }))
+          .catch(() => ({
+            status: 'rejected',
+            data: t
+          })) as Promise<SettledTarget>
+      })
+    )
+  }
 
   const columnDefs: CustomColumn<Target>[] = [
     {
@@ -101,44 +127,38 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   ]
 
   const handleTargetCreation = (ts: TargetData[], hideModal: () => void) => {
-    Promise.all(
-      ts.map(t => {
-        return createTarget({
-          identifier: t.identifier,
-          name: t.name,
-          anonymous: false,
-          attributes: {},
-          environment,
-          project,
-          ...SharedQueryParams
-        })
-          .then(() => ({
-            status: 'fulfilled',
-            which: t
-          }))
-          .catch(() => ({
-            status: 'rejected',
-            which: t
-          })) as Promise<CreateTargetResult>
-      })
-    )
+    setLoadingBulk(true)
+    bulkTargetCreation(ts)
       .then(results => {
         if (results.every(res => res.status === 'rejected')) {
           return Promise.reject(results)
         }
         results
           .filter(res => res.status === 'rejected')
-          .forEach((res: CreateTargetResult) => {
-            showError(`Error creating target with id ${res.which.identifier}`)
+          .forEach((res: SettledTarget) => {
+            showError(`Error creating target with id ${res.data.identifier}`)
           })
       })
       .then(hideModal)
       .then(onCreateTargets)
       .catch(results => {
-        results.forEach((res: CreateTargetResult) => {
-          showError(`Error creating target with id ${res.which.identifier}`)
+        results.forEach((res: SettledTarget) => {
+          showError(`Error creating target with id ${res.data.identifier}`)
         })
       })
+      .finally(() => setLoadingBulk(false))
+  }
+
+  const handleTargetUpload = (file: File, hideModal: () => void) => {
+    file
+      .text()
+      .then((str: string) => {
+        return str
+          .split(/\r?\n/)
+          .map(row => row.split(',').map(x => x.trim()))
+          .map(([name, identifier]) => ({ name, identifier } as TargetData))
+      })
+      .then((ts: TargetData[]) => handleTargetCreation(ts, hideModal))
   }
 
   if (loading) {
@@ -152,7 +172,11 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   return (
     <Page.Body>
       <Card style={{ width: '100%' }}>
-        <CreateTargetModal loading={loadingCreateTarget} onSubmitTargets={handleTargetCreation} />
+        <CreateTargetModal
+          loading={loadingCreateTarget || loadingBulk}
+          onSubmitTargets={handleTargetCreation}
+          onSubmitUpload={handleTargetUpload}
+        />
       </Card>
       <Container flex padding="medium">
         <Table<Target> className={css.table} columns={columnDefs} data={targets} pagination={pagination} />

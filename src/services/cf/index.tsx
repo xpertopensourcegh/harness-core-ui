@@ -38,13 +38,26 @@ export interface Error {
   message: string
 }
 
+export interface Pagination {
+  version?: number
+  pageCount: number
+  itemCount: number
+  pageSize: number
+  pageIndex: number
+}
+
 export interface ApiKey {
   name: string
+  /**
+   * The Key will be shown only on create. On subsequemt GET calls, only the masked APIKeys will be returned
+   */
   apiKey: string
   identifier: string
 }
 
-export type ApiKeys = ApiKey[]
+export type ApiKeys = Pagination & {
+  apiKeys?: ApiKey[]
+}
 
 export interface Environment {
   name: string
@@ -57,14 +70,6 @@ export interface Environment {
 
 export interface Environments {
   environments?: Environment[]
-}
-
-export interface Pagination {
-  version?: number
-  pageCount: number
-  itemCount: number
-  pageSize: number
-  pageIndex: number
 }
 
 export interface Prerequisite {
@@ -245,8 +250,15 @@ export interface ProjectRequestRequestBody {
 export interface APIKeyRequestRequestBody {
   identifier: string
   name: string
-  environment: string
-  project: string
+  description?: string
+  type: string
+  expiredAt?: number
+}
+
+export interface APIKeyUpdateRequestRequestBody {
+  name?: string
+  description?: string
+  expiredAt?: number
 }
 
 export interface EnvironmentRequestRequestBody {
@@ -344,6 +356,26 @@ export interface ProjectResponseResponse {
   data?: Project
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+/**
+ * OK
+ */
+export interface APIKeysResponseResponse {
+  status: Status
+  data: ApiKeys
+  metaData?: { [key: string]: any }
+  correlationId: string
+}
+
+/**
+ * Created
+ */
+export interface APIKeyResponseResponse {
+  status: Status
+  data: ApiKey
+  metaData?: { [key: string]: any }
+  correlationId: string
 }
 
 /**
@@ -845,11 +877,19 @@ export interface AddAPIKeyQueryParams {
    * Organization Identifier
    */
   org: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Project
+   */
+  project: string
 }
 
 export type AddAPIKeyProps = Omit<
   MutateProps<
-    void,
+    APIKeyResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
@@ -865,11 +905,11 @@ export type AddAPIKeyProps = Omit<
 /**
  * Add an API Key to environment.
  *
- * Used to create a key in an environment.
+ * Used to create a key in an environment. The Key will be shown only on create. On subsequemt GET calls, only the masked APIKeys will be returned
  */
 export const AddAPIKey = (props: AddAPIKeyProps) => (
   <Mutate<
-    void,
+    APIKeyResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
@@ -888,7 +928,7 @@ export const AddAPIKey = (props: AddAPIKeyProps) => (
 
 export type UseAddAPIKeyProps = Omit<
   UseMutateProps<
-    void,
+    APIKeyResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
@@ -904,11 +944,11 @@ export type UseAddAPIKeyProps = Omit<
 /**
  * Add an API Key to environment.
  *
- * Used to create a key in an environment.
+ * Used to create a key in an environment. The Key will be shown only on create. On subsequemt GET calls, only the masked APIKeys will be returned
  */
 export const useAddAPIKey = (props: UseAddAPIKeyProps) =>
   useMutate<
-    void,
+    APIKeyResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
@@ -918,6 +958,84 @@ export const useAddAPIKey = (props: UseAddAPIKeyProps) =>
     APIKeyRequestRequestBody,
     void
   >('POST', `/admin/apikey`, { base: getConfig('cf'), ...props })
+
+export interface GetAllAPIKeysQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+}
+
+export type GetAllAPIKeysProps = Omit<
+  GetProps<
+    APIKeysResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllAPIKeysQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get all APiKeys for an environment
+ *
+ * Get all the apiKeys for an environment
+ */
+export const GetAllAPIKeys = (props: GetAllAPIKeysProps) => (
+  <Get<
+    APIKeysResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllAPIKeysQueryParams,
+    void
+  >
+    path="/admin/apikey"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAllAPIKeysProps = Omit<
+  UseGetProps<
+    APIKeysResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllAPIKeysQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get all APiKeys for an environment
+ *
+ * Get all the apiKeys for an environment
+ */
+export const useGetAllAPIKeys = (props: UseGetAllAPIKeysProps) =>
+  useGet<
+    APIKeysResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllAPIKeysQueryParams,
+    void
+  >(`/admin/apikey`, { base: getConfig('cf'), ...props })
 
 export interface DeleteApiKeyQueryParams {
   /**
@@ -993,6 +1111,193 @@ export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
     string,
     void
   >('DELETE', `/admin/apikey`, { base: getConfig('cf'), ...props })
+
+export interface UpdateAPIKeyQueryParams {
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface UpdateAPIKeyPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type UpdateAPIKeyProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateAPIKeyQueryParams,
+    APIKeyUpdateRequestRequestBody,
+    UpdateAPIKeyPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateAPIKeyPathParams
+
+/**
+ * Add an API Key to environment.
+ *
+ * Used to create a key in an environment.
+ */
+export const UpdateAPIKey = ({ identifier, ...props }: UpdateAPIKeyProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateAPIKeyQueryParams,
+    APIKeyUpdateRequestRequestBody,
+    UpdateAPIKeyPathParams
+  >
+    verb="PUT"
+    path="/admin/apikey/${identifier}"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseUpdateAPIKeyProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateAPIKeyQueryParams,
+    APIKeyUpdateRequestRequestBody,
+    UpdateAPIKeyPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateAPIKeyPathParams
+
+/**
+ * Add an API Key to environment.
+ *
+ * Used to create a key in an environment.
+ */
+export const useUpdateAPIKey = ({ identifier, ...props }: UseUpdateAPIKeyProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateAPIKeyQueryParams,
+    APIKeyUpdateRequestRequestBody,
+    UpdateAPIKeyPathParams
+  >('PUT', (paramsInPath: UpdateAPIKeyPathParams) => `/admin/apikey/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface GetAPIKeyQueryParams {
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface GetAPIKeyPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetAPIKeyProps = Omit<
+  GetProps<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >,
+  'path'
+> &
+  GetAPIKeyPathParams
+
+/**
+ * Get all APiKeys for an environment
+ *
+ * Get all the apiKeys for an environment
+ */
+export const GetAPIKey = ({ identifier, ...props }: GetAPIKeyProps) => (
+  <Get<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >
+    path="/admin/apikey/${identifier}"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAPIKeyProps = Omit<
+  UseGetProps<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >,
+  'path'
+> &
+  GetAPIKeyPathParams
+
+/**
+ * Get all APiKeys for an environment
+ *
+ * Get all the apiKeys for an environment
+ */
+export const useGetAPIKey = ({ identifier, ...props }: UseGetAPIKeyProps) =>
+  useGet<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >((paramsInPath: GetAPIKeyPathParams) => `/admin/apikey/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
 
 export interface CreateEnvironmentQueryParams {
   /**
@@ -1806,7 +2111,7 @@ export type DeleteFeatureFlagProps = Omit<
 /**
  * Delete feature flag.
  *
- * Used to delete feature flag with certain id and account id.
+ * Delete feature flag with certain id and account id.
  */
 export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
   <Mutate<
@@ -1837,7 +2142,7 @@ export type UseDeleteFeatureFlagProps = Omit<
 /**
  * Delete feature flag.
  *
- * Used to delete feature flag with certain id and account id.
+ * Delete feature flag with certain id and account id.
  */
 export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
   useMutate<
@@ -2021,6 +2326,97 @@ export const useGetAllTargets = (props: UseGetAllTargetsProps) =>
     void
   >(`/admin/targets`, { base: getConfig('cf'), ...props })
 
+export interface UploadTargetsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export type UploadTargetsProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upload targets
+ *
+ * Add targets by uploading a CSV file.
+ */
+export const UploadTargets = (props: UploadTargetsProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >
+    verb="POST"
+    path="/admin/targets/upload"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseUploadTargetsProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upload targets
+ *
+ * Add targets by uploading a CSV file.
+ */
+export const useUploadTargets = (props: UseUploadTargetsProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >('POST', `/admin/targets/upload`, { base: getConfig('cf'), ...props })
+
 export interface GetTargetQueryParams {
   /**
    * Account
@@ -2148,7 +2544,7 @@ export type ModifyTargetProps = Omit<
   ModifyTargetPathParams
 
 /**
- * Modify target.
+ * Modify target
  *
  * Used to modify target with certain id and account id.
  */
@@ -2190,7 +2586,7 @@ export type UseModifyTargetProps = Omit<
   ModifyTargetPathParams
 
 /**
- * Modify target.
+ * Modify target
  *
  * Used to modify target with certain id and account id.
  */
