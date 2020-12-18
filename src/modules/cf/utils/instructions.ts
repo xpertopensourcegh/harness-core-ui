@@ -61,9 +61,9 @@ export interface SegmentToVariationParams {
   targetSegments: string[]
 }
 export interface ClauseData {
-  attribute: string
+  attribute?: string
   op: string
-  value: string[]
+  values: string[]
   negate?: boolean
 }
 export interface AddRuleParams {

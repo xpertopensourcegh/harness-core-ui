@@ -94,7 +94,7 @@ export interface Clause {
   id: string
   attribute: string
   op: string
-  value: string[]
+  values: string[]
   negate: boolean
 }
 

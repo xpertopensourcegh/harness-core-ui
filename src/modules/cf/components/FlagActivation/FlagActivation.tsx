@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
-import { SharedQueryParams } from '@cf/constants'
+import { SharedQueryParams, extraOperators } from '@cf/constants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -129,11 +129,20 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       )
     }
     if (!isEqual(values.customRules, initialValues.customRules)) {
-      const toClauseData = (c: Clause): ClauseData => ({
-        attribute: c.attribute as string,
-        op: c.op,
-        value: c.value
-      })
+      const toClauseData = (c: Clause): ClauseData => {
+        if (c.op === extraOperators.customRules.matchSegment) {
+          return {
+            op: c.op,
+            values: c.values
+          }
+        } else {
+          return {
+            attribute: c.attribute as string,
+            op: c.op,
+            values: c.values
+          }
+        }
+      }
 
       patch.feature.addAllInstructions(
         initialValues.customRules
@@ -207,6 +216,37 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       .onEmptyPatch(() => setEditing(false))
   }
 
+  type RuleErrors = { [K: number]: { [P: number]: 'required' } }
+  const validateRules = (rules: ServingRule[]): [RuleErrors, boolean] => {
+    const errors: RuleErrors = {}
+    let valid = true
+    rules.forEach((rule: ServingRule, ruleIdx: number) => {
+      rule.clauses.map((clause: Clause, clauseIdx: number) => {
+        if (clause.values.length === 0) {
+          if (!errors[ruleIdx]) {
+            errors[ruleIdx] = {}
+          }
+          errors[ruleIdx][clauseIdx] = 'required'
+          valid = false
+        }
+      })
+    })
+    return [errors, valid]
+  }
+  type FormErrors = {
+    rules?: RuleErrors
+  }
+  const validateForm = (values: Values) => {
+    const errors: FormErrors = {}
+
+    const [rules, valid] = validateRules(values.customRules)
+    if (!valid) {
+      errors.rules = rules
+    }
+
+    return errors
+  }
+
   const [openModalTestFlag, hideModalTestFlag] = useModalHook(() => (
     <Dialog onClose={hideModalTestFlag} isOpen={true} className={css.testFlagDialog}>
       <Container className={css.testFlagDialogContainer}>
@@ -229,7 +269,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   }, [environment])
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSaveChanges}>
+    <Formik
+      validateOnChange={false}
+      validateOnBlur={false}
+      initialValues={initialValues}
+      validate={validateForm}
+      onSubmit={onSaveChanges}
+    >
       {formikProps => (
         <Form>
           <Layout.Horizontal flex background={Color.BLUE_300} padding="large">

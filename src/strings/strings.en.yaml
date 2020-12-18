@@ -471,6 +471,7 @@ global:
         equal: 'equal'
         equalSensitive: 'equal (sensitive)'
         in: 'in'
+        matchSegment: 'Match Segment'
     shared:
       individual: 'Individual'
       segments: 'Segments'

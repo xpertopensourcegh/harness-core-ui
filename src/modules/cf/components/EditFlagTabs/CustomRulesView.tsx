@@ -19,7 +19,7 @@ import { Dialog, Menu } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
-import { SharedQueryParams, useOperatorsFromYaml } from '@cf/constants'
+import { extraOperators, SharedQueryParams, useOperatorsFromYaml } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
@@ -50,7 +50,7 @@ const emptyClause = (): Clause => ({
   id: '',
   op: 'starts_with',
   attribute: '',
-  value: [],
+  values: [],
   negate: false
 })
 
@@ -72,6 +72,9 @@ const addTargetAvatar = (onAdd: () => void) => ({
   onClick: onAdd
 })
 
+const extraOps = extraOperators.customRules
+const useCustomRulesOperators = () => useOperatorsFromYaml(extraOps)
+
 interface ClauseRowProps {
   index: number
   label: string
@@ -80,6 +83,7 @@ interface ClauseRowProps {
   values: string[]
   isLast: boolean
   isSingleClause: boolean
+  error: boolean
   onOperatorChange: (op: string) => void
   onAttributeChange: (attr: string) => void
   onValuesChange: (values: string[]) => void
@@ -96,13 +100,14 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
     values,
     isLast,
     isSingleClause,
+    error,
     onAttributeChange,
     onOperatorChange,
     onValuesChange,
     onAddNewRow,
     onRemoveRow
   } = props
-  const operators = useOperatorsFromYaml()
+  const operators = useCustomRulesOperators()
   const valueOpts = values.map(toOption)
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) => onAttributeChange(e.target.value)
   const handleOperatorChange = (data: SelectOption) => onOperatorChange(data.value as string)
@@ -142,7 +147,13 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
         {label}
       </Text>
       <div style={{ flex: '1' }}>
-        <TextInput style={{ height }} id={`attribute-${index}`} value={attribute} onChange={handleAttrChange} />
+        <TextInput
+          style={{ height }}
+          id={`attribute-${index}`}
+          value={attribute}
+          disabled={operator.value === extraOps.matchSegment}
+          onChange={handleAttrChange}
+        />
       </div>
       <div style={{ flex: '0.8' }}>
         <Select inputProps={{ style: { height } }} value={operator} items={operators} onChange={handleOperatorChange} />
@@ -150,12 +161,14 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
       <div style={{ flex: '1.5' }}>
         <MultiSelect
           fill
-          className={css.valueMultiselect}
-          tagInputProps={{ className: css.valueMultiselect, inputProps: { className: css.valueMultiselect } }}
+          tagInputProps={{
+            intent: error ? 'danger' : 'none'
+          }}
           items={valueOpts}
           value={valueOpts}
           onChange={handleValuesChange}
         />
+        {error && <Text intent="danger">Required</Text>}
       </div>
       <Layout.Horizontal flex={{ align: 'center-center' }} spacing="small">
         {actions}
@@ -167,17 +180,18 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
 interface RuleEditCardProps {
   rule: RuleData
   variations: Variation[]
+  errors: any
   onDelete: () => void
   onChange: (rule: RuleData) => void
 }
 
-const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, onDelete, onChange }) => {
-  const operators = useOperatorsFromYaml()
+const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, errors, onDelete, onChange }) => {
+  const operators = useCustomRulesOperators()
   const percentageRollout = { label: 'a rollout percentage', value: 'percentage' }
   const [varOpts, findVariationOpt] = useOptions(variations, x => x.identifier)
   const variationOps = varOpts.concat([percentageRollout])
   const currentServe = rule.serve.distribution ? percentageRollout : findVariationOpt(rule.serve.variation as string)
-  const handleClauseChange = (idx: number, field: string) => (value: any) => {
+  const handleClauseChange = (idx: number, field: keyof Clause) => (value: any) => {
     onChange({
       ...rule,
       clauses: assoc(idx, assoc(field, value, rule.clauses[idx]), rule.clauses)
@@ -237,10 +251,11 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({ rule, variations, onDelete,
               label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
               attribute={clause?.attribute || ''}
               operator={operators.find(x => x.value === clause.op) || operators[0]}
-              values={clause.value ?? []}
+              values={clause.values ?? []}
+              error={Boolean(errors?.[idx])}
               onOperatorChange={handleClauseChange(idx, 'op')}
               onAttributeChange={handleClauseChange(idx, 'attribute')}
-              onValuesChange={handleClauseChange(idx, 'value')}
+              onValuesChange={handleClauseChange(idx, 'values')}
               onAddNewRow={handleAddNewRow}
               onRemoveRow={handleRemove(idx)}
             />
@@ -302,14 +317,14 @@ const ClauseViewMode: React.FC<{ clause: Clause; operators: { label: string; val
     <>
       <InlineBold>{` ${clause.attribute} `} </InlineBold>{' '}
       {operators.find(op => op.value === clause.op)?.label || 'NO_OP'}{' '}
-      <InlineBold>{` ${safeJoin(clause.value, ', ')}`}</InlineBold>
+      <InlineBold>{` ${safeJoin(clause.values, ', ')}`}</InlineBold>
     </>
   )
 }
 
 const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
   const isPercentage = Boolean(rule.serve.distribution)
-  const operators = useOperatorsFromYaml()
+  const operators = useCustomRulesOperators()
   const [firstClause, ...extraClauses] = rule.clauses
 
   let clausesComponent
@@ -632,6 +647,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
                   variations={target.variations}
                   onDelete={handleDeleteRule(idx)}
                   onChange={handleRuleChange(idx)}
+                  errors={formikProps.errors?.rules?.[idx] || []}
                 />
               ) : (
                 <RuleViewCard key={idx} rule={rule} variations={target.variations} />

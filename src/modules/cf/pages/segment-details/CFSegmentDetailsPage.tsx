@@ -45,7 +45,7 @@ const ClauseViewMode: React.FC<ClauseProps> = ({ clause, operators }) => {
       If
       <InlineBold>{` ${clause.attribute} `} </InlineBold>{' '}
       {operators.find(op => op.value === clause.op)?.label || 'NO_OP'}{' '}
-      <InlineBold>{` ${safeJoin(clause.value, ', ')}`}</InlineBold>
+      <InlineBold>{` ${safeJoin(clause.values, ', ')}`}</InlineBold>
     </>
   )
 }
@@ -53,7 +53,7 @@ const ClauseViewMode: React.FC<ClauseProps> = ({ clause, operators }) => {
 type ClauseMutation =
   | { kind: 'op'; payload: string }
   | { kind: 'attribute'; payload: string }
-  | { kind: 'value'; payload: string[] }
+  | { kind: 'values'; payload: string[] }
 
 type ClauseEditProps = {
   index: number
@@ -63,17 +63,17 @@ type ClauseEditProps = {
     value: string
   }[]
   attribute: string
-  value: string[]
+  values: string[]
   onChange: (data: ClauseMutation) => void
 }
 
-const ClauseEditMode: React.FC<ClauseEditProps> = ({ index, operator, operators, attribute, value, onChange }) => {
-  const valueOpts = value.map(toOption)
+const ClauseEditMode: React.FC<ClauseEditProps> = ({ index, operator, operators, attribute, values, onChange }) => {
+  const valueOpts = values.map(toOption)
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     onChange({ kind: 'attribute', payload: e.target.value })
   const handleOperatorChange = (data: SelectOption) => onChange({ kind: 'op', payload: data.value as string })
   const handleValuesChange = (data: MultiSelectOption[]) =>
-    onChange({ kind: 'value', payload: data.map(x => x.value as string) })
+    onChange({ kind: 'values', payload: data.map(x => x.value as string) })
 
   const height = '36px'
 
@@ -245,7 +245,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
         id: '',
         op: 'starts_with',
         attribute: '',
-        value: [],
+        values: [],
         negate: false
       }
     ])
@@ -299,7 +299,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
                   attribute={clause.attribute}
                   operator={clause.op}
                   operators={operators}
-                  value={clause.value}
+                  values={clause.values}
                   onChange={handleClauseChange(idx)}
                 />
               ) : (

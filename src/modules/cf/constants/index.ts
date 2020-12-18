@@ -21,6 +21,7 @@ export const useOperators = (
     { label: getString(keyMapper('in')), value: 'in' }
   ]
 
+
   const extra = Object.entries(extraOperators).map(([key, value]) => {
     return {
       label: getString(keyMapper(key)),
@@ -34,4 +35,8 @@ export const useOperators = (
 export const useOperatorsFromYaml = (extraOperators: Record<string, string> = {}) => {
   const { getString } = useStrings()
   return useOperators(getString, key => `cf.clause.operators.${key}`, extraOperators)
+}
+
+export const extraOperators = {
+  customRules: { matchSegment: 'segmentMatch' }
 }

@@ -4,6 +4,7 @@ import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-softw
 import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import { SharedQueryParams } from '@cf/constants'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -39,44 +40,46 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     mutate: createFeatureFlag,
     loading: isLoadingCreateFeatureFlag,
     error: errorCreateFlag
-  } = useCreateFeatureFlag({})
+  } = useCreateFeatureFlag({
+    queryParams: SharedQueryParams
+  })
 
   const onTestFlag = (): void => {
     setTestFlagClicked(true)
   }
 
-  const onWizardStepSubmit = async (formData: FeatureFlagRequestRequestBody | undefined): Promise<void> => {
+  const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
 
-    try {
-      /*--- START ONLY FOR DEV ---*/
-      if (formData) {
-        const valTags: any = formData?.tags?.map(elem => {
-          return { name: elem, value: elem }
-        })
-        formData.tags = valTags
-        formData.owner = 'admin' // FIXME: Hardcoded for now
-      }
-      /*--- END ONLY FOR DEV ---*/
+    /*--- START ONLY FOR DEV ---*/
+    if (formData) {
+      const valTags: any = formData?.tags?.map(elem => {
+        return { name: elem, value: elem }
+      })
+      formData.tags = valTags
+      formData.owner = 'admin' // FIXME: Hardcoded for now
+    }
+    /*--- END ONLY FOR DEV ---*/
 
-      if (formData) {
-        await createFeatureFlag(formData)
-        hideModal()
-        history.push(
-          routes.toCFFeatureFlagsDetail({
-            orgIdentifier: orgIdentifier as string,
-            projectIdentifier: projectIdentifier as string,
-            featureFlagIdentifier: formData.identifier,
-            environmentIdentifier: (environmentIdentifier ?? 'production') as string,
-            accountId
-          })
-        )
-      } else {
-        hideModal()
-      }
-    } catch (e) {
-      // TODO: Show more meaningful error
-      modalErrorHandler?.showDanger(e)
+    if (formData) {
+      createFeatureFlag(formData)
+        .then(() => {
+          hideModal()
+          history.push(
+            routes.toCFFeatureFlagsDetail({
+              orgIdentifier: orgIdentifier as string,
+              projectIdentifier: projectIdentifier as string,
+              featureFlagIdentifier: formData.identifier,
+              environmentIdentifier: (environmentIdentifier ?? 'production') as string,
+              accountId
+            })
+          )
+        })
+        .catch(e => {
+          showError(e)
+        })
+    } else {
+      hideModal()
     }
   }
 

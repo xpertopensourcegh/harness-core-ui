@@ -43,6 +43,11 @@ interface FlagElemVariationsProps {
 //   variations: string
 // }
 
+interface FeatureErrors {
+  defaultOnVariation?: 'Required'
+  defaultOffVariation?: 'Required'
+}
+
 // FIXME: Change any for StepProps
 const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
   const {
@@ -87,28 +92,18 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
   }
 
   // TODO: WIP; possible solution is to use yup.addMethod
-  // const validateForm = (values: any): FlagElemTypeVariationError => {
-  //   let isValid = true
-  //   const errors = {
-  //     variations: ''
-  //   }
+  const validateForm = (values: any): any => {
+    const errors: FeatureErrors = {}
 
-  //   values.variations.find((item: FlagElemTypeVariation) => {
-  //     if (!item.identifier) {
-  //       isValid = false
-  //     }
-  //   })
+    if (values.defaultOnVariation.length === 0) {
+      errors.defaultOnVariation = 'Required'
+    }
+    if (values.defaultOffVariation.length === 0) {
+      errors.defaultOffVariation = 'Required'
+    }
 
-  //   if (
-  //     values.variations.length !== new Set(values.variations.map((item: FlagElemTypeVariation) => item.identifier)).size
-  //   ) {
-  //     errors.variations = 'Cannot have duplicated values'
-  //   } else if (!isValid) {
-  //     errors.variations = 'Required'
-  //   }
-
-  //   return errors
-  // }
+    return errors
+  }
 
   return (
     <>
@@ -116,15 +111,15 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         initialValues={{
           kind: FlagTypeVariations.booleanFlag,
           variations: [
-            { identifier: 'true', name: '', description: '', value: 'true' },
-            { identifier: 'false', name: '', description: '', value: 'false' }
+            { identifier: 'true', name: 'true', description: '', value: 'true' },
+            { identifier: 'false', name: 'false', description: '', value: 'false' }
           ],
           defaultOnVariation: '',
           defaultOffVariation: '',
           ...prevStepData
         }}
         // TODO: WIP
-        // validate={validateForm}
+        validate={validateForm}
         onSubmit={vals => {
           if (testFlagClicked) {
             // When user clicks on third optional step, load it's component
@@ -152,7 +147,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                 <Layout.Horizontal>
                   <Container width="35%" margin={{ right: 'medium' }}>
                     <FormInput.Text
-                      name="variations[0].identifier"
+                      name="variations[0].name"
                       label={i18n.trueFlag}
                       onChange={e => {
                         const element = e.currentTarget as HTMLInputElement
@@ -172,7 +167,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                 <Layout.Horizontal>
                   <Container width="35%" margin={{ right: 'medium' }}>
                     <FormInput.Text
-                      name="variations[1].identifier"
+                      name="variations[1].name"
                       label={i18n.falseFlag}
                       onChange={e => {
                         const element = e.currentTarget as HTMLInputElement
