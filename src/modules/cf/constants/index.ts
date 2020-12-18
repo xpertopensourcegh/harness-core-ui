@@ -21,7 +21,6 @@ export const useOperators = (
     { label: getString(keyMapper('in')), value: 'in' }
   ]
 
-
   const extra = Object.entries(extraOperators).map(([key, value]) => {
     return {
       label: getString(keyMapper(key)),
