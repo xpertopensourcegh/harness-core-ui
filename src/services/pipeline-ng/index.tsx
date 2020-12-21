@@ -574,16 +574,16 @@ export interface InputSetSummaryResponse {
 }
 
 export interface Page {
-  totalPages?: number
   totalElements?: number
+  totalPages?: number
   size?: number
   content?: { [key: string]: any }[]
   number?: number
   first?: boolean
   sort?: Sort
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
@@ -665,26 +665,26 @@ export interface PMSPipelineSummaryResponse {
 }
 
 export interface PagePMSPipelineSummaryResponse {
-  totalPages?: number
   totalElements?: number
+  totalPages?: number
   size?: number
   content?: PMSPipelineSummaryResponse[]
   number?: number
   first?: boolean
   sort?: Sort
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
 export interface Pageable {
   offset?: number
-  sort?: Sort
   unpaged?: boolean
-  paged?: boolean
   pageNumber?: number
+  paged?: boolean
   pageSize?: number
+  sort?: Sort
 }
 
 export interface ResponsePagePMSPipelineSummaryResponse {
@@ -708,8 +708,8 @@ export interface ResponsePMSPipelineSummaryResponse {
 }
 
 export interface ByteString {
-  empty?: boolean
   validUtf8?: boolean
+  empty?: boolean
 }
 
 export interface Descriptor {
@@ -750,7 +750,6 @@ export interface EnumDescriptor {
 
 export interface EnumOptions {
   unknownFields?: UnknownFieldSet
-  allowAlias?: boolean
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserEnumOptions
@@ -759,6 +758,7 @@ export interface EnumOptions {
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+  allowAlias?: boolean
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -801,12 +801,12 @@ export interface EnumValueOptions {
 
 export interface ExecutionErrorInfo {
   unknownFields?: UnknownFieldSet
-  message?: string
-  messageBytes?: ByteString
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserExecutionErrorInfo
   defaultInstanceForType?: ExecutionErrorInfo
+  message?: string
+  messageBytes?: ByteString
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -850,13 +850,13 @@ export interface FieldDescriptor {
   enumType?: EnumDescriptor
   defaultValue?: { [key: string]: any }
   options?: FieldOptions
+  required?: boolean
   optional?: boolean
+  mapField?: boolean
   name?: string
   number?: number
-  required?: boolean
   repeated?: boolean
   javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
-  mapField?: boolean
   extension?: boolean
   packed?: boolean
   liteJavaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
@@ -884,14 +884,14 @@ export interface FieldDescriptor {
 
 export interface FieldOptions {
   unknownFields?: UnknownFieldSet
-  ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
-  jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
-  lazy?: boolean
-  weak?: boolean
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserFieldOptions
   defaultInstanceForType?: FieldOptions
+  ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
+  jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
+  lazy?: boolean
+  weak?: boolean
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
@@ -918,12 +918,16 @@ export interface FileDescriptor {
   name?: string
   package?: string
   file?: FileDescriptor
-  fullName?: string
   syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
+  fullName?: string
 }
 
 export interface FileOptions {
   unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserFileOptions
+  defaultInstanceForType?: FileOptions
   javaPackage?: string
   javaPackageBytes?: ByteString
   javaOuterClassname?: string
@@ -952,10 +956,6 @@ export interface FileOptions {
   phpMetadataNamespaceBytes?: ByteString
   rubyPackage?: string
   rubyPackageBytes?: ByteString
-  initialized?: boolean
-  serializedSize?: number
-  parserForType?: ParserFileOptions
-  defaultInstanceForType?: FileOptions
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
@@ -999,12 +999,12 @@ export interface Message {
   serializedSize?: number
   initialized?: boolean
   defaultInstanceForType?: MessageLite
-  unknownFields?: UnknownFieldSet
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  unknownFields?: UnknownFieldSet
 }
 
 export interface MessageLite {
@@ -1020,13 +1020,13 @@ export interface MessageOptions {
   serializedSize?: number
   parserForType?: ParserMessageOptions
   defaultInstanceForType?: MessageOptions
+  messageSetWireFormat?: boolean
   noStandardDescriptorAccessor?: boolean
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
   mapEntry?: boolean
-  messageSetWireFormat?: boolean
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1073,13 +1073,13 @@ export interface MethodOptions {
 
 export interface NamePart {
   unknownFields?: UnknownFieldSet
-  namePart?: string
-  namePartBytes?: ByteString
   isExtension?: boolean
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserNamePart
   defaultInstanceForType?: NamePart
+  namePart?: string
+  namePartBytes?: ByteString
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1088,16 +1088,16 @@ export interface NamePart {
 }
 
 export interface NamePartOrBuilder {
+  isExtension?: boolean
   namePart?: string
   namePartBytes?: ByteString
-  isExtension?: boolean
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1132,16 +1132,16 @@ export interface OneofOptions {
 }
 
 export interface PagePipelineExecutionSummary {
-  totalPages?: number
   totalElements?: number
+  totalPages?: number
   size?: number
   content?: PipelineExecutionSummary[]
   number?: number
   first?: boolean
   sort?: Sort
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
@@ -1278,12 +1278,11 @@ export interface ServiceOptions {
 export interface UninterpretedOption {
   unknownFields?: UnknownFieldSet
   stringValue?: ByteString
-  nameCount?: number
-  doubleValue?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUninterpretedOption
   defaultInstanceForType?: UninterpretedOption
+  nameCount?: number
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
   identifierValue?: string
@@ -1292,6 +1291,7 @@ export interface UninterpretedOption {
   negativeIntValue?: number
   aggregateValue?: string
   aggregateValueBytes?: ByteString
+  doubleValue?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1302,7 +1302,6 @@ export interface UninterpretedOption {
 export interface UninterpretedOptionOrBuilder {
   stringValue?: ByteString
   nameCount?: number
-  doubleValue?: number
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
   identifierValue?: string
@@ -1311,22 +1310,23 @@ export interface UninterpretedOptionOrBuilder {
   negativeIntValue?: number
   aggregateValue?: string
   aggregateValueBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
+  doubleValue?: number
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface UnknownFieldSet {
-  serializedSizeAsMessageSet?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: Parser
   defaultInstanceForType?: UnknownFieldSet
+  serializedSizeAsMessageSet?: number
 }
 
 export interface ExecutionGraph {
@@ -1477,6 +1477,8 @@ export interface ResponsePlanExecutionResponseDto {
   metaData?: { [key: string]: any }
   correlationId?: string
 }
+
+export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export interface GetInputSetForPipelineQueryParams {
   accountIdentifier: string
@@ -2158,7 +2160,7 @@ export type GetMergeInputSetFromPipelineTemplateWithListInputProps = Omit<
     ResponseMergeInputSetResponse,
     Failure | Error,
     GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
+    MergeInputSetRequestRequestBody,
     void
   >,
   'path' | 'verb'
@@ -2174,7 +2176,7 @@ export const GetMergeInputSetFromPipelineTemplateWithListInput = (
     ResponseMergeInputSetResponse,
     Failure | Error,
     GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
+    MergeInputSetRequestRequestBody,
     void
   >
     verb="POST"
@@ -2189,7 +2191,7 @@ export type UseGetMergeInputSetFromPipelineTemplateWithListInputProps = Omit<
     ResponseMergeInputSetResponse,
     Failure | Error,
     GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
+    MergeInputSetRequestRequestBody,
     void
   >,
   'path' | 'verb'
@@ -2205,7 +2207,7 @@ export const useGetMergeInputSetFromPipelineTemplateWithListInput = (
     ResponseMergeInputSetResponse,
     Failure | Error,
     GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
+    MergeInputSetRequestRequestBody,
     void
   >('POST', `/inputSets/merge`, { base: getConfig('pipeline/api'), ...props })
 
@@ -2217,7 +2219,7 @@ export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
     ResponseMergeInputSetResponse,
     Failure | Error,
     GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
+    MergeInputSetRequestRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -2226,9 +2228,70 @@ export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
     ResponseMergeInputSetResponse,
     Failure | Error,
     GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
+    MergeInputSetRequestRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/inputSets/merge`, props, signal)
+
+export interface GetInputsetYamlQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface GetInputsetYamlPathParams {
+  planExecutionId: string
+}
+
+export type GetInputsetYamlProps = Omit<
+  GetProps<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>,
+  'path'
+> &
+  GetInputsetYamlPathParams
+
+/**
+ * Gets  inputsetYaml
+ */
+export const GetInputsetYaml = ({ planExecutionId, ...props }: GetInputsetYamlProps) => (
+  <Get<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>
+    path="/pipelines/execution/${planExecutionId}/inputset"
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetInputsetYamlProps = Omit<
+  UseGetProps<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>,
+  'path'
+> &
+  GetInputsetYamlPathParams
+
+/**
+ * Gets  inputsetYaml
+ */
+export const useGetInputsetYaml = ({ planExecutionId, ...props }: UseGetInputsetYamlProps) =>
+  useGet<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>(
+    (paramsInPath: GetInputsetYamlPathParams) => `/pipelines/execution/${paramsInPath.planExecutionId}/inputset`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * Gets  inputsetYaml
+ */
+export const getInputsetYamlPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams> & {
+    planExecutionId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>(
+    getConfig('pipeline/api'),
+    `/pipelines/execution/${planExecutionId}/inputset`,
+    props,
+    signal
+  )
 
 export interface GetPipelineListQueryParams {
   accountIdentifier: string
@@ -2779,67 +2842,6 @@ export const getStepsPromise = (
     signal
   )
 
-export interface GetInputsetYamlQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export interface GetInputsetYamlPathParams {
-  planExecutionId: string
-}
-
-export type GetInputsetYamlProps = Omit<
-  GetProps<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>,
-  'path'
-> &
-  GetInputsetYamlPathParams
-
-/**
- * Gets  inputsetYaml
- */
-export const GetInputsetYaml = ({ planExecutionId, ...props }: GetInputsetYamlProps) => (
-  <Get<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>
-    path="/pipelines/execution/${planExecutionId}/inputset"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetInputsetYamlProps = Omit<
-  UseGetProps<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>,
-  'path'
-> &
-  GetInputsetYamlPathParams
-
-/**
- * Gets  inputsetYaml
- */
-export const useGetInputsetYaml = ({ planExecutionId, ...props }: UseGetInputsetYamlProps) =>
-  useGet<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>(
-    (paramsInPath: GetInputsetYamlPathParams) => `/pipelines/execution/${paramsInPath.planExecutionId}/inputset`,
-    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
-  )
-
-/**
- * Gets  inputsetYaml
- */
-export const getInputsetYamlPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: GetUsingFetchProps<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams> & {
-    planExecutionId: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<string, Failure | Error, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>(
-    getConfig('pipeline/api'),
-    `/pipelines/execution/${planExecutionId}/inputset`,
-    props,
-    signal
-  )
-
 export type GetPlanCreationResponseProps = Omit<GetProps<void, void, void, void>, 'path'>
 
 /**
@@ -2928,7 +2930,7 @@ export const PostPipelineExecuteWithInputSetYaml = ({
     PostPipelineExecuteWithInputSetYamlPathParams
   >
     verb="POST"
-    path="/pipeline/execute/execute/${identifier}"
+    path="/pipeline/execute/${identifier}"
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -2961,8 +2963,7 @@ export const usePostPipelineExecuteWithInputSetYaml = ({
     PostPipelineExecuteWithInputSetYamlPathParams
   >(
     'POST',
-    (paramsInPath: PostPipelineExecuteWithInputSetYamlPathParams) =>
-      `/pipeline/execute/execute/${paramsInPath.identifier}`,
+    (paramsInPath: PostPipelineExecuteWithInputSetYamlPathParams) => `/pipeline/execute/${paramsInPath.identifier}`,
     { base: getConfig('pipeline/api'), pathParams: { identifier }, ...props }
   )
 
@@ -2988,4 +2989,104 @@ export const postPipelineExecuteWithInputSetYamlPromise = (
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
-  >('POST', getConfig('pipeline/api'), `/pipeline/execute/execute/${identifier}`, props, signal)
+  >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}`, props, signal)
+
+export interface PostPipelineExecuteWithInputSetListQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  useFQNIfError?: boolean
+}
+
+export interface PostPipelineExecuteWithInputSetListPathParams {
+  identifier: string
+}
+
+export type PostPipelineExecuteWithInputSetListProps = Omit<
+  MutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    PostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    PostPipelineExecuteWithInputSetListPathParams
+  >,
+  'path' | 'verb'
+> &
+  PostPipelineExecuteWithInputSetListPathParams
+
+/**
+ * Execute a pipeline with input set references list
+ */
+export const PostPipelineExecuteWithInputSetList = ({
+  identifier,
+  ...props
+}: PostPipelineExecuteWithInputSetListProps) => (
+  <Mutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    PostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    PostPipelineExecuteWithInputSetListPathParams
+  >
+    verb="POST"
+    path="/pipeline/execute/${identifier}/inputSetList"
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UsePostPipelineExecuteWithInputSetListProps = Omit<
+  UseMutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    PostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    PostPipelineExecuteWithInputSetListPathParams
+  >,
+  'path' | 'verb'
+> &
+  PostPipelineExecuteWithInputSetListPathParams
+
+/**
+ * Execute a pipeline with input set references list
+ */
+export const usePostPipelineExecuteWithInputSetList = ({
+  identifier,
+  ...props
+}: UsePostPipelineExecuteWithInputSetListProps) =>
+  useMutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    PostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    PostPipelineExecuteWithInputSetListPathParams
+  >(
+    'POST',
+    (paramsInPath: PostPipelineExecuteWithInputSetListPathParams) =>
+      `/pipeline/execute/${paramsInPath.identifier}/inputSetList`,
+    { base: getConfig('pipeline/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Execute a pipeline with input set references list
+ */
+export const postPipelineExecuteWithInputSetListPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    PostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    PostPipelineExecuteWithInputSetListPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    PostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    PostPipelineExecuteWithInputSetListPathParams
+  >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}/inputSetList`, props, signal)
