@@ -499,6 +499,8 @@ global:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'
     hostNamePlaceholder: '${host}'
+    harnessService: 'Harness Service'
+    harnessEnvironment: 'Harness Environment'
     navLinks:
       dataSource: 'Data Sources'
       activities: 'Activities'
@@ -662,6 +664,9 @@ global:
           mainSetupValidation: 'All fields for at least one metric must be filled completely.'
           validJSON: 'Please provide valid json.'
           noDataForQuery: 'No data for provided query.'
+        reviewPage:
+          mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
+          gcoMetrics: 'Google Cloud Operation metrics'
         tabName:
           selectDashboards: 'Select Dashboards'
     activitySources:

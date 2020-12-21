@@ -35,11 +35,17 @@ import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { DashboardWidgetMetricNav } from './DashboardWidgetMetricNav/DashboardWidgetMetricNav'
 import { chartsConfig } from './GCOWidgetChartConfig'
+import { MANUAL_INPUT_QUERY } from '../ManualInputQueryModal/ManualInputQueryModal'
+import {
+  buildGCOMetricInfo,
+  GCOMetricInfo,
+  GCOMonitoringSourceInfo
+} from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './MapGCOMetricsToServices.module.scss'
 
 interface MapGCOMetricsToServicesProps {
-  data: any
-  onNext: (data: any) => void
+  data: GCOMonitoringSourceInfo
+  onNext: (data: GCOMonitoringSourceInfo) => void
   onPrevious: () => void
 }
 
@@ -47,6 +53,9 @@ interface MapMetricToServiceAndEnvironmentProps {
   metricName: string
 }
 
+interface ConfigureRiskProfileProps {
+  setMetricPacks: (metricPacks?: MetricPackDTO[]) => void
+}
 interface ValidationChartProps {
   loading: boolean
   error?: string
@@ -59,8 +68,8 @@ export const FieldNames = {
   METRIC_TAGS: 'metricTags',
   METRIC_NAME: 'metricName',
   QUERY: 'query',
-  SERVICE: 'serviceIdentifier',
-  ENVIRONMENT: 'environmentIdentifier',
+  SERVICE: 'service',
+  ENVIRONMENT: 'environment',
   RISK_CATEGORY: 'riskCategory',
   HIGHER_BASELINE_DEVIATION: 'higherBaselineDeviation',
   LOWER_BASELINE_DEVIATION: 'lowerBaselineDeviation'
@@ -78,8 +87,8 @@ const DrawerOptions = {
 }
 
 function validate(
-  values: any,
-  selectedMetrics: Map<string, any>,
+  values: GCOMetricInfo,
+  selectedMetrics: Map<string, GCOMetricInfo>,
   validationString: string
 ): { [key: string]: string } | undefined {
   const errors = { [OVERALL]: '' }
@@ -99,22 +108,6 @@ function validate(
 
   errors[OVERALL] = validationString
   return errors
-}
-
-function buildMetricInfoObject({
-  metricName,
-  query,
-  metricTag
-}: {
-  metricName: string
-  query: string
-  metricTag: string
-}) {
-  return {
-    [FieldNames.METRIC_NAME]: metricName,
-    [FieldNames.METRIC_TAGS]: { [metricTag]: '' },
-    [FieldNames.QUERY]: query ? formatJSON(query) : undefined
-  }
 }
 
 function formatJSON(val?: string): string | undefined {
@@ -142,7 +135,7 @@ function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
 
         riskCategoryOptions.push({
           label: metricPack.category !== metric.name ? `${metricPack.category}/${metric.name}` : metricPack.category,
-          value: metric.name as string
+          value: `${metricPack.category}/${metric.name}`
         })
       }
     }
@@ -165,7 +158,8 @@ function transformSampleDataIntoHighchartOptions(sampleData?: TimeSeriesSampleDT
   return chartsConfig(seriesData)
 }
 
-function ConfigureRiskProfile(): JSX.Element {
+function ConfigureRiskProfile(props: ConfigureRiskProfileProps): JSX.Element {
+  const { setMetricPacks } = props
   const { getString } = useStrings()
   const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data } = useGetMetricPacks({
@@ -175,6 +169,7 @@ function ConfigureRiskProfile(): JSX.Element {
 
   useEffect(() => {
     setRiskCategoryOptions(getRiskCategoryOptions(data?.resource))
+    setMetricPacks(data?.resource)
   }, [data])
 
   return (
@@ -365,12 +360,18 @@ function TextAreaLabel({ onExpandQuery }: { onExpandQuery: () => void }): JSX.El
 export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JSX.Element {
   const { data, onPrevious, onNext } = props
   const { getString } = useStrings()
-  const [updatedData, setUpdatedData] = useState<Map<string, any>>(data.selectedMetrics || new Map<string, any>())
+  const [updatedData, setUpdatedData] = useState(data.selectedMetrics || new Map())
   const [selectedMetric, setSelectedMetric] = useState<string>()
+  const [metricPacks, setMetricPack] = useState<MetricPackDTO[] | undefined>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [error, setError] = useState<string | undefined>()
   const { loading, mutate, cancel } = useGetStackdriverSampleData({
-    queryParams: { orgIdentifier, projectIdentifier, accountId, connectorIdentifier: data.connectorRef.value }
+    queryParams: {
+      orgIdentifier,
+      projectIdentifier,
+      accountId,
+      connectorIdentifier: data.connectorRef?.value as string
+    }
   })
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
@@ -398,14 +399,14 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
 
   return (
     <Container className={css.main}>
-      <Formik
+      <Formik<GCOMetricInfo>
         enableReinitialize={true}
         initialValues={updatedData.get(selectedMetric || '') || {}}
         onSubmit={values => {
           if (selectedMetric) {
             updatedData.set(selectedMetric, { ...values })
           }
-          onNext({ ...data, selectedMetrics: new Map(updatedData) })
+          onNext({ ...data, selectedMetrics: new Map(updatedData), metricPacks: metricPacks || [] })
         }}
         validateOnChange={false}
         validateOnBlur={false}
@@ -421,23 +422,29 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
           <Container className={css.form}>
             <DashboardWidgetMetricNav
               className={css.leftNav}
-              connectorIdentifier={data.connectorRef.value}
+              connectorIdentifier={data.connectorRef?.value as string}
               manuallyInputQueries={data.manuallyInputQueries}
               gcoDashboards={data.selectedDashboards}
               showSpinnerOnLoad={!selectedMetric}
-              onSelectMetric={(metricName, query, widget) => {
+              onSelectMetric={(metricName, query, widget, dashboardName) => {
                 let metricInfo = updatedData.get(metricName)
                 if (!metricInfo) {
-                  metricInfo = buildMetricInfoObject({ metricName, query, metricTag: widget })
+                  metricInfo = buildGCOMetricInfo({
+                    metricName,
+                    query,
+                    metricTags: { [widget]: '' },
+                    isManualQuery: metricName === MANUAL_INPUT_QUERY,
+                    dashboardName
+                  })
                 } else {
-                  metricInfo[FieldNames.QUERY] = formatJSON(metricInfo.query)
+                  metricInfo.query = formatJSON(metricInfo.query)
                 }
                 updatedData.set(metricName, metricInfo)
                 updatedData.set(selectedMetric as string, { ...formikProps.values })
                 setUpdatedData(new Map(updatedData))
                 setSelectedMetric(metricName)
                 setError(undefined)
-                onQueryChange(metricInfo[FieldNames.QUERY], () =>
+                onQueryChange(metricInfo.query, () =>
                   formikProps.setFieldError(
                     FieldNames.QUERY,
                     getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
@@ -466,7 +473,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                   label={<TextAreaLabel onExpandQuery={() => setIsQueryExpanded(true)} />}
                   render={() => (
                     <textarea
-                      value={formikProps.values[FieldNames.QUERY] || ''}
+                      value={formikProps.values.query || ''}
                       name={FieldNames.QUERY}
                       onChange={event => {
                         event.persist()
@@ -490,10 +497,10 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                   loading={loading}
                   error={error}
                   sampleData={sampleData}
-                  queryValue={formikProps.values[FieldNames.QUERY]}
+                  queryValue={formikProps.values.query}
                   onRetry={async () => {
-                    if (!formikProps.values[FieldNames.QUERY]?.length) return
-                    onQueryChange(formikProps.values[FieldNames.QUERY])
+                    if (!formikProps.values.query?.length) return
+                    onQueryChange(formikProps.values.query)
                   }}
                 />
                 {isQueryExpanded && (
@@ -501,7 +508,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                     {...DrawerOptions}
                     onClose={() => {
                       setIsQueryExpanded(false)
-                      onQueryChange(formikProps.values[FieldNames.QUERY], () =>
+                      onQueryChange(formikProps.values.query, () =>
                         formikProps.setFieldError(
                           FieldNames.QUERY,
                           getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
@@ -511,7 +518,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                   >
                     <MonacoEditor
                       language="javascript"
-                      value={formatJSON(formikProps.values[FieldNames.QUERY])}
+                      value={formatJSON(formikProps.values.query)}
                       onChange={val => formikProps.setFieldValue(FieldNames.QUERY, val)}
                       options={
                         {
@@ -525,8 +532,8 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                   </Drawer>
                 )}
               </Container>
-              <MapMetricToServiceAndEnvironment metricName={formikProps.values[FieldNames.METRIC_NAME]} />
-              <ConfigureRiskProfile />
+              <MapMetricToServiceAndEnvironment metricName={formikProps.values.metricName || ''} />
+              <ConfigureRiskProfile setMetricPacks={setMetricPack} />
               <FormInput.Text name={OVERALL} className={css.hiddenField} />
               <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
             </FormikForm>

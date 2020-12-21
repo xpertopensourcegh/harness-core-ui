@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { Container, Text, Link, Card, Color } from '@wings-software/uikit'
 
-import type { MetricPack } from '@wings-software/swagger-ts/definitions'
+import type { MetricPack } from 'services/cv'
 import i18n from './MetricPackTable.i18n'
 import css from './MetricPackTable.module.scss'
 

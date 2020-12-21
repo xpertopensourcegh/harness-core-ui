@@ -6,14 +6,17 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { SelectGCODashboards } from '../SelectGCODashboards'
+import { buildGCOMonitoringSourceInfo } from '../../GoogleCloudOperationsMonitoringSourceUtils'
+
+const MockParams = {
+  accountId: '1234_account',
+  projectIdentifier: '1234_project',
+  orgIdentifier: '1234_ORG'
+}
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
-  pathParams: {
-    accountId: 'loading',
-    projectIdentifier: '1234_project',
-    orgIdentifier: '1234_ORG'
-  }
+  pathParams: MockParams
 }
 
 const MockData = {
@@ -78,7 +81,11 @@ describe('SelectGCODashboards unit tests', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
-        <SelectGCODashboards data={{ connectorRef: { value: '1234_val' } }} onNext={jest.fn()} onPrevious={jest.fn()} />
+        <SelectGCODashboards
+          data={buildGCOMonitoringSourceInfo(MockParams)}
+          onNext={jest.fn()}
+          onPrevious={jest.fn()}
+        />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
@@ -98,7 +105,11 @@ describe('SelectGCODashboards unit tests', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <SelectGCODashboards data={{ connectorRef: { value: '1234_val' } }} onNext={jest.fn()} onPrevious={jest.fn()} />
+        <SelectGCODashboards
+          data={buildGCOMonitoringSourceInfo(MockParams)}
+          onNext={jest.fn()}
+          onPrevious={jest.fn()}
+        />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
@@ -125,7 +136,7 @@ describe('SelectGCODashboards unit tests', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <SelectGCODashboards
-          data={{ connectorRef: { value: '1234_val' } }}
+          data={buildGCOMonitoringSourceInfo(MockParams)}
           onNext={onSubmitFunc}
           onPrevious={jest.fn()}
         />
@@ -154,9 +165,15 @@ describe('SelectGCODashboards unit tests', () => {
     fireEvent.click(getByText('Next'))
     await waitFor(() =>
       expect(onSubmitFunc).toHaveBeenCalledWith({
-        connectorRef: {
-          value: '1234_val'
-        },
+        accountId: '1234_account',
+        identifier: '',
+        manuallyInputQueries: [],
+        metricPacks: [],
+        monitoringSourceIdentifier: 'MyGoogleCloudOperationsSource',
+        monitoringSourceName: 'MyGoogleCloudOperationsSource',
+        orgIdentifier: '1234_ORG',
+        product: 'Cloud Metrics',
+        projectIdentifier: '1234_project',
         selectedDashboards: [
           {
             name: ' Redis stress',
@@ -166,7 +183,9 @@ describe('SelectGCODashboards unit tests', () => {
             name: 'CapabilityMismatchErrors',
             path: 'projects/674494598921/dashboards/10677345508806562647'
           }
-        ]
+        ],
+        selectedMetrics: new Map(),
+        type: 'STACKDRIVER'
       })
     )
   })

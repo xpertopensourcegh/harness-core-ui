@@ -18,9 +18,9 @@ interface SelectProductFieldProps {
   productSelectValidationText?: string
 }
 
-interface SelectProductProps extends SelectProductFieldProps {
-  stepData?: { [key: string]: string }
-  onCompleteStep: (data: { [key: string]: string }) => void
+interface SelectProductProps<T> extends SelectProductFieldProps {
+  stepData?: T
+  onCompleteStep: (data: T) => void
 }
 interface ProductOption {
   value: string
@@ -149,7 +149,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
   )
 }
 
-export const SelectProduct: React.FC<SelectProductProps> = props => {
+export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
   const history = useHistory()
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -159,7 +159,7 @@ export const SelectProduct: React.FC<SelectProductProps> = props => {
       enableReinitialize={true}
       initialValues={{ ...InitialValues, ...props.stepData }}
       validationSchema={Yup.object().shape(getValidationSchema(getString, props.productSelectValidationText))}
-      onSubmit={formData => props.onCompleteStep({ ...formData } as {})}
+      onSubmit={formData => props.onCompleteStep({ ...formData } as any)}
     >
       <FormikForm>
         <SelectProductFields type={props.type} />

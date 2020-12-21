@@ -23,7 +23,10 @@ module.exports = {
     '!src/**/PipelineYamlView.tsx',
     '!src/**/RouteDestinations.tsx',
     '!src/modules/10-common/RouteDefinitions.ts',
-    '!src/modules/10-common/utils/testUtils.tsx'
+    '!src/modules/10-common/utils/testUtils.tsx',
+    '!src/modules/85-cv/pages/onboarding/setup/**',
+    '!src/modules/85-cv/pages/metric-pack/**',
+    '!src/modules/85-cv/pages/data-sources/**'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

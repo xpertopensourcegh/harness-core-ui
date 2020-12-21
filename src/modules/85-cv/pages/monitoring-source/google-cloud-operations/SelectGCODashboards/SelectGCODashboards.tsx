@@ -12,11 +12,12 @@ import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { ManualInputQueryModal } from '../ManualInputQueryModal/ManualInputQueryModal'
+import type { GCOMonitoringSourceInfo } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './SelectGCODashboards.module.scss'
 
 export interface SelectDashboardProps {
-  data: any
-  onNext: (data: any) => void
+  data: GCOMonitoringSourceInfo
+  onNext: (data: GCOMonitoringSourceInfo) => void
   onPrevious: () => void
 }
 
@@ -45,6 +46,21 @@ function initializeTableData(
   return tableData
 }
 
+function initializeSelectedDashboards(dashboards?: StackdriverDashboardDTO[]): Map<string, StackdriverDashboardDTO> {
+  if (!dashboards?.length) {
+    return new Map()
+  }
+
+  const selectedDashboards = new Map<string, StackdriverDashboardDTO>()
+  for (const dashboard of dashboards) {
+    if (dashboard?.name && dashboard.path) {
+      selectedDashboards.set(dashboard.name, dashboard)
+    }
+  }
+
+  return selectedDashboards
+}
+
 export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
   const { onNext, onPrevious, data: propsData } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -61,14 +77,14 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
       accountId,
       projectIdentifier,
       orgIdentifier,
-      connectorIdentifier: propsData.connectorRef.value,
+      connectorIdentifier: (propsData?.connectorRef?.value as string) || '',
       pageSize: TOTAL_ITEMS_PER_PAGE,
       offset: pageOffset,
       filter: filteredDashboard
     }
   })
   const [selectedDashboards, setSelectedDashboards] = useState<Map<string, StackdriverDashboardDTO>>(
-    new Map(propsData.selectedDashboards?.map((dash: StackdriverDashboardDTO) => [dash.name, dash]) || [])
+    initializeSelectedDashboards(propsData.selectedDashboards)
   )
   const [tableData, setTableData] = useState<TableData[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)

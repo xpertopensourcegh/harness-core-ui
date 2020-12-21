@@ -16,7 +16,7 @@ export interface DashboardWidgetMetricNavProps {
   gcoDashboards: StackdriverDashboardDTO[]
   manuallyInputQueries?: string[]
   connectorIdentifier: string
-  onSelectMetric: (selectedMetric: string, query: string, widgetName: string) => void
+  onSelectMetric: (selectedMetric: string, query: string, widgetName: string, dashboard: string) => void
   showSpinnerOnLoad?: boolean
 }
 
@@ -287,7 +287,12 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
       setNavContent([...navContent])
       setSelectedMetric(metric)
       const { data: datum } = metric?.nodeData || {}
-      onSelectMetric(metric?.id as string, JSON.stringify(datum?.query), datum?.widget)
+      onSelectMetric(
+        metric?.id as string,
+        JSON.stringify(datum?.query),
+        datum?.widget,
+        selectedDashboard?.name as string
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading])
@@ -350,7 +355,7 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
                 node.isSelected = true
                 setSelectedMetric(node)
                 setSelectedDashboard(undefined)
-                onSelectMetric(id as string, '', '')
+                onSelectMetric(id as string, '', '', '')
               } else {
                 node.isExpanded = !isExpanded
               }
@@ -359,7 +364,7 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
               if (selectedMetric) selectedMetric.isSelected = false
               node.isSelected = true
               setSelectedMetric(node)
-              onSelectMetric(id as string, JSON.stringify(datum.query), datum.widget)
+              onSelectMetric(id as string, JSON.stringify(datum.query), datum.widget, selectedDashboard?.name as string)
               break
             default:
               break
@@ -385,7 +390,7 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
             }
             setNavContent([...navContent])
             setSelectedMetric(newMetric)
-            onSelectMetric(values.metricName, '', '')
+            onSelectMetric(values.metricName, '', '', '')
           }}
           closeModal={() => setIsModalOpen(false)}
         />

@@ -2,10 +2,10 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import { Table, Select, Text, ModalProvider, Link, Container, SelectOption, Color } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
 import { Spinner, Classes } from '@blueprintjs/core'
-import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { Row } from 'react-table'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
 import type { IDBPDatabase } from 'idb'
+import type { AppDynamicsTier, AppdynamicsValidationResponse, MetricPack } from 'services/cv'
 import { AppDynamicsService, CVNextGenCVConfigService } from '@cv/services'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { useIndexedDBHook, CVObjectStoreNames, CVIndexedDBPrimaryKeys } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
@@ -122,7 +122,7 @@ async function fetchAppDTiers(
   }
   return {
     tierList: response?.resource
-      ?.sort((a: AppdynamicsTier, b: AppdynamicsTier) => (a.name && b.name && a.name >= b.name ? 1 : -1))
+      ?.sort((a: AppDynamicsTier, b: AppDynamicsTier) => (a.name && b.name && a.name >= b.name ? 1 : -1))
       .map(({ name, id }) => ({ label: name || '', value: id || '' }))
   }
 }

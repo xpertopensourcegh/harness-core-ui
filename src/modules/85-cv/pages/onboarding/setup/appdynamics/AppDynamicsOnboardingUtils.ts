@@ -1,6 +1,5 @@
-import type { NewRelicApplication, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption, MultiSelectOption } from '@wings-software/uikit'
-import type { DSConfig } from 'services/cv'
+import type { DSConfig, MetricPack } from 'services/cv'
 import type { TierAndServiceRow } from './TierAndServiceTable/TierAndServiceTable'
 
 export interface AppDynamicsDSConfig extends DSConfig {
@@ -51,10 +50,10 @@ export function createDefaultConfigObject(
   }
 }
 
-export function transformAppDynamicsApplications(appdApplications: NewRelicApplication[]): SelectOption[] {
+export function transformAppDynamicsApplications(appdApplications: any[]): SelectOption[] {
   return (
     appdApplications
-      ?.filter((app: NewRelicApplication) => app?.name)
+      ?.filter((app: any) => app?.name)
       .sort((a, b) => (a.name && b.name && a.name > b.name ? 1 : -1))
       .map(({ name, id }) => ({ label: name || '', value: id || '' })) || []
   )

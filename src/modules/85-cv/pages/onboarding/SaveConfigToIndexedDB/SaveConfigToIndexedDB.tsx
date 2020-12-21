@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import type { IDBPDatabase } from 'idb'
-import type { DSConfig } from '@wings-software/swagger-ts/definitions'
+import type { DSConfig } from 'services/cv'
 import { CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 
 interface SaveToIndexedDBProps {

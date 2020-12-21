@@ -6,7 +6,7 @@ import type {
   RestResponseListString,
   RestResponseSetAppdynamicsValidationResponse,
   RestResponseListSplunkSavedSearch
-} from '@wings-software/swagger-ts/definitions'
+} from 'services/cv'
 import type { ServiceResponse } from '@common/services/ServiceResponse'
 import { getConfig } from 'services/config'
 

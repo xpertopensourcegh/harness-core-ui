@@ -119,7 +119,8 @@ describe('unit tests for dashboard widget metric', () => {
       1,
       MockWidgetResponse[0]?.dataSetList?.[0].metricName,
       JSON.stringify(MockWidgetResponse[0]?.dataSetList?.[0].timeSeriesQuery),
-      MockWidgetResponse[0]?.widgetName
+      MockWidgetResponse[0]?.widgetName,
+      MockDashboards[0].name
     )
 
     const secondDashboard = container.querySelectorAll(`li.${Classes.TREE_NODE} .bp3-tree-node-content svg`)
@@ -234,7 +235,7 @@ describe('unit tests for dashboard widget metric', () => {
 
     // expect selected metric prop to be called and the manual input query to be selected
     await waitFor(() => expect(document.body.querySelector(`[class*="${Classes.DIALOG_HEADER}"]`)))
-    expect(mockMetricSelect).toHaveBeenNthCalledWith(2, 'solo-dolo', '', '')
+    expect(mockMetricSelect).toHaveBeenNthCalledWith(2, 'solo-dolo', '', '', '')
     expect(container.querySelector(`.${Classes.TREE_NODE_SELECTED} p`)?.innerHTML).toEqual('solo-dolo')
   })
 })

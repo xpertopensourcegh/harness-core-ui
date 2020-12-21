@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useCallback } from 'react'
 import xhr from '@wings-software/xhr-async'
-import type { MetricPack } from '@wings-software/swagger-ts/definitions'
+import type { MetricPack } from 'services/cv'
 import { CVNextGenCVConfigService } from '@cv/services'
 
 function transformConfigMetricPackToMap(metricPacks: MetricPack[], metricPackMapApi: Map<string, MetricPack>): void {

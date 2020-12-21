@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import { Heading, Container, Text, Button } from '@wings-software/uikit'
-import type { MetricPack } from '@wings-software/swagger-ts/definitions'
 import { cloneDeep } from 'lodash-es'
+import type { MetricPack } from 'services/cv'
 import ConfigureThreshold from '@cv/pages/metric-pack/ConfigureThreshold'
 import i18n from './CustomizeMetricPackDrawer.i18n'
 import { MetricPackTable } from '../MetricPackTable/MetricPackTable'
@@ -55,7 +55,7 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
 
       for (let packIndex = 0; packIndex < localMetricPacks.length; packIndex++) {
         if (localMetricPacks[packIndex]?.identifier === updatedMetrics.identifier) {
-          localMetricPacks[packIndex] = updatedMetrics
+          localMetricPacks[packIndex] = updatedMetrics as MetricPack
           break
         }
       }

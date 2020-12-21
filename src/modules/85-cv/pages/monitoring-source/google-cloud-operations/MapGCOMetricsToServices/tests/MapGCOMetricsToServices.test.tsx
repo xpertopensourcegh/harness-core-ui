@@ -7,12 +7,19 @@ import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import * as cdService from 'services/cd-ng'
 import { FieldNames, MapGCOMetricsToServices } from '../MapGCOMetricsToServices'
+import { buildGCOMonitoringSourceInfo } from '../../GoogleCloudOperationsMonitoringSourceUtils'
 
 const MockQuery = `{}`
 const MockSelectedMetricInfo = {
   query: '{"someQuery": "sdosdf"}',
   widgetName: 'widget_1',
   metric: 'metric_1'
+}
+
+const MockParams = {
+  accountId: '1234_accountId',
+  projectIdentifier: '1234_projectid',
+  orgIdentifier: '1234_orgId'
 }
 
 jest.mock('lodash-es', () => ({
@@ -141,7 +148,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={{ connectorRef: { value: '1234_connectorIden' } }}
+          data={buildGCOMonitoringSourceInfo(MockParams)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -193,7 +200,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={{ connectorRef: { value: '1234_connectorIden' } }}
+          data={buildGCOMonitoringSourceInfo(MockParams)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -232,7 +239,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container, getByText, rerender } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={{ connectorRef: { value: '1234_connectorIden' } }}
+          data={buildGCOMonitoringSourceInfo(MockParams)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -263,7 +270,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     rerender(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={{ connectorRef: { value: '5678_connectorIden' } }}
+          data={buildGCOMonitoringSourceInfo(MockParams)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
