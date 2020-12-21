@@ -259,11 +259,12 @@ describe('Wizard tests', () => {
           </Wizard>
           <Link
             className="redirect"
-            to={routes.toCDTriggersPage({
+            to={routes.toTriggersPage({
               projectIdentifier: 'projectIdentifier',
               orgIdentifier: 'orgIdentifier',
               pipelineIdentifier: 'pipelineIdentifier',
-              accountId: 'accountId'
+              accountId: 'accountId',
+              module: 'cd'
             })}
           >
             Redirect

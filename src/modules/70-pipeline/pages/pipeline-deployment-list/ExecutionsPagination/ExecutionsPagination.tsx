@@ -1,12 +1,12 @@
 import React from 'react'
 import { Pagination } from '@wings-software/uikit'
-import type { ResponsePagePipelineExecutionSummaryDTO } from 'services/cd-ng'
+import type { PagePipelineExecutionSummary } from 'services/pipeline-ng'
 import { useUpdateQueryParams } from '@common/hooks'
 
 import css from './ExecutionsPagination.module.scss'
 
 export interface ExecutionPaginationProps {
-  pipelineExecutionSummary: ResponsePagePipelineExecutionSummaryDTO | null
+  pipelineExecutionSummary?: PagePipelineExecutionSummary
 }
 
 export default function ExecutionPagination({
@@ -21,10 +21,10 @@ export default function ExecutionPagination({
   return (
     <div className={css.pagination}>
       <Pagination
-        pageSize={pipelineExecutionSummary?.data?.pageSize || 0}
-        pageIndex={pipelineExecutionSummary?.data?.pageIndex}
-        pageCount={pipelineExecutionSummary?.data?.totalPages || 0}
-        itemCount={pipelineExecutionSummary?.data?.totalItems || 0}
+        pageSize={pipelineExecutionSummary?.size || 0}
+        pageIndex={pipelineExecutionSummary?.number}
+        pageCount={pipelineExecutionSummary?.totalPages || 0}
+        itemCount={pipelineExecutionSummary?.numberOfElements || 0}
         gotoPage={gotoPage}
         nextPage={gotoPage}
       />

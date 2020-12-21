@@ -7,6 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { useGetTriggerListForTarget } from 'services/cd-ng'
 import { AddDrawer } from '@common/components'
 import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 import { getCategoryItems, ItemInterface } from '../utils/TriggersListUtils'
 import css from './TriggersList.module.scss'
@@ -22,12 +23,14 @@ interface TriggersListPropsInterface {
 export default function TriggersList(props: TriggersListPropsInterface): JSX.Element {
   const { onNewTriggerClick } = props
 
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-  }>()
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+      pipelineIdentifier: string
+    }>
+  >()
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
@@ -47,13 +50,14 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
 
   const goToEditWizard = ({ triggerIdentifier, triggerType }: GoToEditWizardInterface): void => {
     history.push(
-      routes.toCDTriggersWizardPage({
+      routes.toTriggersWizardPage({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         triggerIdentifier,
-        triggerType
+        triggerType,
+        module
       })
     )
   }

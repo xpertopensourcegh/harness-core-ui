@@ -11,7 +11,7 @@ import {
   ExecutionResponse,
   YamlResponse
 } from '@pipeline/components/PipelineStudio/__tests__/PipelineStudioMocks'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -19,11 +19,14 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
-  getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
   useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
-  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
   useGetExecutionStrategyList: jest.fn().mockImplementation(() => ({ loading: false, data: ExecutionResponse })),
   useGetExecutionStrategyYaml: jest.fn().mockImplementation(() => ({ loading: false, data: YamlResponse }))
+}))
+
+jest.mock('services/pipeline-ng', () => ({
+  getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
+  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse }))
 }))
 
 jest.mock('resize-observer-polyfill', () => {
@@ -45,7 +48,7 @@ jest.mock('resize-observer-polyfill', () => {
   return ResizeObserver
 })
 
-const TEST_PATH = routes.toCDPipelineStudio({ ...accountPathProps, ...pipelinePathProps })
+const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('Stage Builder Test', () => {
   let stageBuilder: HTMLElement
@@ -58,7 +61,8 @@ describe('Stage Builder Test', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'editPipeline'
+          pipelineIdentifier: 'editPipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

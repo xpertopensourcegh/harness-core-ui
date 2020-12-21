@@ -18,11 +18,15 @@ function renderNode(
   const { parallel, group, item } = data
 
   if (parallel) {
-    return <div data-stage="parallel">{parallel.map(e => renderNode(e, itemClickHandler))}</div>
+    return (
+      <div data-stage="parallel" key={parallel[0].item?.identifier}>
+        {parallel.map(e => renderNode(e, itemClickHandler))}
+      </div>
+    )
   }
   if (group) {
     return (
-      <div data-stage="group" data-group={group.name}>
+      <div data-stage="group" key={group.identifier} data-group={group.name}>
         {group.items.map(e => renderNode(e, itemClickHandler))}
       </div>
     )
@@ -50,15 +54,17 @@ function renderNode(
 jest.mock('@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram', () => {
   return function ExecutionStageDiagramMock(props: ExecutionStageDiagramProps<ExecutionNode>) {
     const { data, itemClickHandler } = props
-
     return <div data-testid="execution-stage-diagram-mock">{data?.items.map(e => renderNode(e, itemClickHandler))}</div>
   }
 })
 
 const contextValue: ExecutionContextParams = {
   pipelineExecutionDetail: mock.data as any,
-  pipelineStagesMap: getPipelineStagesMap(mock as any),
-  selectedStageId: 'qaStage',
+  pipelineStagesMap: getPipelineStagesMap(
+    mock.data.pipelineExecutionSummary.layoutNodeMap as any,
+    mock.data.pipelineExecutionSummary.startingNodeId
+  ),
+  selectedStageId: 'google_1',
   selectedStepId: '',
   loading: false,
   queryParams: {}
@@ -87,11 +93,17 @@ describe('<ExecutionGrapView /> tests', () => {
       </TestWrapper>
     )
 
-    const stage = await findByText('qa stage2')
+    const stage = await findByText('google_1')
 
     fireEvent.click(stage)
 
-    expect(getByTestId('location').innerHTML).toBe('/?stage=qaStage2')
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /?stage=google_1
+      </div>
+    `)
   })
 
   test('stage selection does not works for "NotStarted" status', async () => {
@@ -104,11 +116,17 @@ describe('<ExecutionGrapView /> tests', () => {
       </TestWrapper>
     )
 
-    const stage = await findByText('qa stage4')
+    const stage = await findByText('qa stage')
 
     fireEvent.click(stage)
 
-    expect(getByTestId('location').innerHTML).toBe('/')
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /
+      </div>
+    `)
   })
 
   test('step selection works', async () => {
@@ -121,11 +139,17 @@ describe('<ExecutionGrapView /> tests', () => {
       </TestWrapper>
     )
 
-    const step = await findByText('http step 1')
+    const step = await findByText('Rollout Deployment')
 
     fireEvent.click(step)
 
-    expect(getByTestId('location').innerHTML).toBe('/?stage=qaStage&amp;step=X_IGbTkaSMulKGh43U_xJw')
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /?stage=google_1&step=K8sRollingUuid
+      </div>
+    `)
   })
 
   test('step selection does not works for "NotStarted" status', async () => {
@@ -138,11 +162,19 @@ describe('<ExecutionGrapView /> tests', () => {
       </TestWrapper>
     )
 
-    const step = await findByText('http step 2')
+    const step = await findByText('RolloutSecond')
 
     fireEvent.click(step)
 
-    expect(getByTestId('location').innerHTML).toBe('/')
+    expect(getByTestId('location')).toMatchInlineSnapshot(
+      `
+      <div
+        data-testid="location"
+      >
+        /
+      </div>
+    `
+    )
   })
 
   test('step details are shown when step is selected', async () => {
@@ -151,8 +183,8 @@ describe('<ExecutionGrapView /> tests', () => {
         <ExecutionContext.Provider
           value={{
             ...contextValue,
-            queryParams: { step: 'X_IGbTkaSMulKGh43U_xJw' },
-            selectedStepId: 'X_IGbTkaSMulKGh43U_xJw'
+            queryParams: { step: 'K8sRollingUuid' },
+            selectedStepId: 'K8sRollingUuid'
           }}
         >
           <ExecutionGraphView />

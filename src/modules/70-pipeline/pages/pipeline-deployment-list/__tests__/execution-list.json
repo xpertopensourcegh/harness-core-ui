@@ -2,64 +2,107 @@
   "data": {
     "status": "SUCCESS",
     "data": {
-      "totalPages": 1,
-      "totalItems": 1,
-      "pageItemCount": 1,
-      "pageSize": 10,
       "content": [
         {
+          "planExecutionId": "planexecutionId",
           "pipelineIdentifier": "testp1",
-          "pipelineName": "test-p1",
-          "deploymentId": "DeploymentIdPlaceHolder",
-          "planExecutionId": "TyNGXVdmRWi5vrOJopUKOg",
-          "executionStatus": "Failed",
-          "startedAt": 1603645554243,
-          "endedAt": 1603645556832,
-          "tags": null,
-          "stageExecutionSummaryElements": [
-            {
-              "stage": {
-                "planExecutionId": "TyNGXVdmRWi5vrOJopUKOg",
-                "stageIdentifier": "stage1",
-                "serviceInfo": null,
-                "stageName": "stage1",
-                "serviceDefinitionType": null,
-                "executionStatus": "NotStarted",
-                "startedAt": null,
-                "endedAt": null,
-                "serviceIdentifier": null,
-                "envIdentifier": "prod1",
-                "errorInfo": null
-              }
+          "name": "test-p1",
+          "status": "NotStarted",
+          "executionTriggerInfo": { "triggeredBy": null, "triggerType": null },
+          "moduleInfo": {
+            "cd": {
+              "envIdentifiers": ["env"],
+              "environmentTypes": ["PreProduction"],
+              "serviceDefinitionTypes": ["Kubernetes"],
+              "serviceIdentifiers": []
             }
-          ],
-          "errorMsg": null,
-          "stageIdentifiers": ["stage1"],
-          "serviceIdentifiers": [],
-          "envIdentifiers": ["prod1"],
-          "serviceDefinitionTypes": [],
-          "stageTypes": [{ "type": "Deployment" }],
-          "errorInfo": {
-            "message": "There was a critical error due to Current value is not in allowed values list while evaluating expression ${${expression}}"
           },
-          "triggerInfo": {
-            "triggeredBy": {
-              "uuid": "lv0euRhKRCyiXWzS7pOg6g",
-              "name": "Admin",
-              "email": "admin@harness.io"
+          "layoutNodeMap": {
+            "KHQLWC2MQFCWJNFw4loqOgparallel": {
+              "nodeType": "parallel",
+              "nodeIdentifier": "parallel",
+              "nodeUuid": "KHQLWC2MQFCWJNFw4loqOgparallel",
+              "status": "NotStarted",
+              "edgeLayoutList": {
+                "currentNodeChildren": ["ztUSwKDiR6KswSvkU7fctw", "ztUSwKDiR6KswSvkU7abvc"],
+                "nextIds": ["HPdKmejETHqIWCK62syYww"]
+              }
             },
-            "triggerType": "MANUAL"
+            "ztUSwKDiR6KswSvkU7fctw": {
+              "nodeType": "stage",
+              "nodeIdentifier": "google_1",
+              "nodeUuid": "ztUSwKDiR6KswSvkU7fctw",
+              "status": "Running",
+              "moduleInfo": {
+                "cd": {
+                  "infrastructureIdentifiers": "infraIdentifier",
+                  "nodeExecutionId": "randomId",
+                  "serviceInfoList": { "artifacts": { "primary": { "type": "Docker" }, "sidecars": [] } }
+                }
+              },
+              "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+            },
+            "ztUSwKDiR6KswSvkU7abvc": {
+              "nodeType": "stage",
+              "nodeIdentifier": "google_2",
+              "nodeUuid": "ztUSwKDiR6KswSvkU7abvc",
+              "status": "Running",
+              "moduleInfo": {
+                "cd": {
+                  "infrastructureIdentifiers": "infraIdentifier",
+                  "nodeExecutionId": "randomId",
+                  "serviceInfoList": {
+                    "artifacts": { "primary": { "type": "Docker" }, "sidecars": [{ "type": "Docker" }] }
+                  }
+                }
+              },
+              "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+            },
+            "HPdKmejETHqIWCK62syYww": {
+              "nodeType": "stage",
+              "nodeIdentifier": "HPdKmejETHqIWCK62syYww",
+              "nodeUuid": "HPdKmejETHqIWCK62syYww",
+              "status": "NotStarted",
+              "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["6iyMwdTxSWqf4rdF5eqVMw"] }
+            },
+            "6iyMwdTxSWqf4rdF5eqVMw": {
+              "nodeType": "stage",
+              "nodeIdentifier": "6iyMwdTxSWqf4rdF5eqVMw",
+              "nodeUuid": "6iyMwdTxSWqf4rdF5eqVMw",
+              "status": "NotStarted",
+              "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+            }
           },
+          "startingNodeId": "KHQLWC2MQFCWJNFw4loqOgparallel",
+          "startTs": 123,
+          "endTs": 0,
+          "createdAt": 1608059579307,
           "successfulStagesCount": 0,
           "runningStagesCount": 0,
-          "failedStagesCount": 0
+          "failedStagesCount": 0,
+          "totalStagesCount": 0
         }
       ],
-      "pageIndex": 0,
+      "pageable": {
+        "sort": { "unsorted": true, "sorted": false, "empty": true },
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 10,
+        "unpaged": false,
+        "paged": true
+      },
+      "totalElements": 1,
+      "totalPages": 1,
+      "last": true,
+      "size": 10,
+      "number": 0,
+      "sort": { "unsorted": true, "sorted": false, "empty": true },
+      "numberOfElements": 1,
+      "first": true,
       "empty": false
     },
     "metaData": null,
-    "correlationId": "b49cec93-aed7-4e1f-805d-0bfc520cb97c"
+    "correlationId": null
   },
   "loading": false
 }

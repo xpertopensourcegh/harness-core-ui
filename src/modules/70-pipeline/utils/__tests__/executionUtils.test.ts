@@ -21,11 +21,32 @@ describe('ExecutionUtils tests', () => {
   describe('getRunningStageForPipeline tests', () => {
     test('gives current running stage', () => {
       const stage = utils.getRunningStageForPipeline(
-        [
-          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-          { stage: { stageIdentifier: 'stage2', executionStatus: 'Running' } },
-          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
-        ],
+        {
+          layoutNodeMap: {
+            stage1: {
+              edgeLayoutList: {
+                nextIds: ['stage2']
+              },
+              status: 'Success',
+              nodeUuid: 'stage1'
+            },
+            stage2: {
+              edgeLayoutList: {
+                nextIds: ['stage3']
+              },
+              status: 'Running',
+              nodeUuid: 'stage2'
+            },
+            stage3: {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'NotStarted',
+              nodeUuid: 'stage3'
+            }
+          },
+          startingNodeId: 'stage1'
+        },
         'Running'
       )
 
@@ -34,18 +55,46 @@ describe('ExecutionUtils tests', () => {
 
     test('gives current running stage - parallel', () => {
       const stage = utils.getRunningStageForPipeline(
-        [
-          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-          {
+        {
+          layoutNodeMap: {
+            stage1: {
+              edgeLayoutList: {
+                nextIds: ['parallel']
+              },
+              status: 'Success',
+              nodeUuid: 'stage1'
+            },
             parallel: {
-              stageExecutions: [
-                { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Running' } },
-                { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Running' } }
-              ]
+              nodeType: 'parallel',
+              edgeLayoutList: {
+                currentNodeChildren: ['stage2.1', 'stage2.2'],
+                nextIds: ['stage3']
+              }
+            },
+            'stage2.1': {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'Running',
+              nodeUuid: 'stage2.1'
+            },
+            'stage2.2': {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'Running',
+              nodeUuid: 'stage2.2'
+            },
+            stage3: {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'NotStarted',
+              nodeUuid: 'stage3'
             }
           },
-          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
-        ],
+          startingNodeId: 'stage1'
+        },
         'Running'
       )
 
@@ -53,18 +102,41 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('handles empty objects', () => {
-      const stage = utils.getRunningStageForPipeline([{}, { parallel: { stageExecutions: [] } }, { stage: {} }])
+      const stage = utils.getRunningStageForPipeline({
+        layoutNodeMap: {}
+      })
 
       expect(stage).toBe(null)
     })
 
     test('gives correct stage for completed process', () => {
       const stage = utils.getRunningStageForPipeline(
-        [
-          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-          { stage: { stageIdentifier: 'stage2', executionStatus: 'Success' } },
-          { stage: { stageIdentifier: 'stage3', executionStatus: 'Success' } }
-        ],
+        {
+          layoutNodeMap: {
+            stage1: {
+              edgeLayoutList: {
+                nextIds: ['stage2']
+              },
+              status: 'Success',
+              nodeUuid: 'stage1'
+            },
+            stage2: {
+              edgeLayoutList: {
+                nextIds: ['stage3']
+              },
+              status: 'Success',
+              nodeUuid: 'stage2'
+            },
+            stage3: {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'Success',
+              nodeUuid: 'stage3'
+            }
+          },
+          startingNodeId: 'stage1'
+        },
         'Success'
       )
 
@@ -73,17 +145,39 @@ describe('ExecutionUtils tests', () => {
 
     test('gives correct stage for completed process - parallel', () => {
       const stage = utils.getRunningStageForPipeline(
-        [
-          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-          {
+        {
+          layoutNodeMap: {
+            stage1: {
+              edgeLayoutList: {
+                nextIds: ['parallel']
+              },
+              status: 'Success',
+              nodeUuid: 'stage1'
+            },
             parallel: {
-              stageExecutions: [
-                { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Success' } },
-                { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Success' } }
-              ]
+              nodeType: 'parallel',
+              edgeLayoutList: {
+                currentNodeChildren: ['stage2.1', 'stage2.2'],
+                nextIds: ['stage3']
+              }
+            },
+            'stage2.1': {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'Running',
+              nodeUuid: 'stage2.1'
+            },
+            'stage2.2': {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'Running',
+              nodeUuid: 'stage2.2'
             }
-          }
-        ],
+          },
+          startingNodeId: 'stage1'
+        },
         'Success'
       )
 
@@ -92,11 +186,32 @@ describe('ExecutionUtils tests', () => {
 
     test('gives correct stage for errored process', () => {
       const stage = utils.getRunningStageForPipeline(
-        [
-          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-          { stage: { stageIdentifier: 'stage2', executionStatus: 'Failed' } },
-          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
-        ],
+        {
+          layoutNodeMap: {
+            stage1: {
+              edgeLayoutList: {
+                nextIds: ['stage2']
+              },
+              status: 'Success',
+              nodeUuid: 'stage1'
+            },
+            stage2: {
+              edgeLayoutList: {
+                nextIds: ['stage3']
+              },
+              status: 'Failed',
+              nodeUuid: 'stage2'
+            },
+            stage3: {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'NotStarted',
+              nodeUuid: 'stage3'
+            }
+          },
+          startingNodeId: 'stage1'
+        },
         'Failed'
       )
 
@@ -105,18 +220,46 @@ describe('ExecutionUtils tests', () => {
 
     test('gives correct stage for errored process - parallel', () => {
       const stage = utils.getRunningStageForPipeline(
-        [
-          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-          {
+        {
+          layoutNodeMap: {
+            stage1: {
+              edgeLayoutList: {
+                nextIds: ['parallel']
+              },
+              status: 'Success',
+              nodeUuid: 'stage1'
+            },
             parallel: {
-              stageExecutions: [
-                { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Failed' } },
-                { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Success' } }
-              ]
+              nodeType: 'parallel',
+              edgeLayoutList: {
+                currentNodeChildren: ['stage2.1', 'stage2.2'],
+                nextIds: ['stage3']
+              }
+            },
+            'stage2.1': {
+              edgeLayoutList: {
+                nextIds: ['stage3']
+              },
+              status: 'Failed',
+              nodeUuid: 'stage2.1'
+            },
+            'stage2.2': {
+              edgeLayoutList: {
+                nextIds: ['stage3']
+              },
+              status: 'Success',
+              nodeUuid: 'stage2.2'
+            },
+            stage3: {
+              edgeLayoutList: {
+                nextIds: []
+              },
+              status: 'NotStarted',
+              nodeUuid: 'stage3'
             }
           },
-          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
-        ],
+          startingNodeId: 'stage1'
+        },
         'Failed'
       )
 

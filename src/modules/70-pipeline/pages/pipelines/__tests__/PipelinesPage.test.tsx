@@ -11,27 +11,29 @@ import { TestWrapper, UseGetMockData, findDialogContainer, findPopoverContainer 
 import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
-import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
+import { projectPathProps, accountPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import CDPipelinesPage from '../PipelinesPage'
 import mocks, { EmptyResponse } from './PipelineMocks'
-import i18n from '../PipelinesPage.i18n'
 
 const params = {
   accountId: 'testAcc',
   orgIdentifier: 'testOrg',
   projectIdentifier: 'test',
-  pipelineIdentifier: 'pipeline1'
+  pipelineIdentifier: 'pipeline1',
+  module: 'cd'
 }
 const onRunPipelineClick: jest.Mock<void> = jest.fn()
 const mockGetCallFunction = jest.fn()
-
+jest.useFakeTimers()
+const aboutPipeline =
+  'Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.'
 const mockDeleteFunction = jest.fn()
 const deletePipeline = (): Promise<{ status: string }> => {
   mockDeleteFunction()
   return Promise.resolve({ status: 'SUCCESS' })
 }
 
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/pipeline-ng', () => ({
   useGetPipelineList: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return args.mock || mocks
@@ -44,7 +46,7 @@ jest.mock('@pipeline/components/RunPipelineModal/RunPipelineModal', () => ({
   RunPipelineModal: ({ children }: { children: JSX.Element }) => <div onClick={onRunPipelineClick}>{children}</div>
 }))
 
-const TEST_PATH = routes.toCDPipelines({ ...accountPathProps, ...projectPathProps })
+const TEST_PATH = routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })
 
 describe('CD Pipeline Page List', () => {
   test('render card view', async () => {
@@ -63,13 +65,15 @@ describe('CD Pipeline Page List', () => {
         <CDPipelinesPage mockData={EmptyResponse as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container, i18n.aboutPipeline))
+    await waitFor(() => getByText(container, aboutPipeline))
     expect(container).toMatchSnapshot()
-    const addButton = getByText(container, i18n.aboutPipeline).nextElementSibling
+    const addButton = getByText(container, aboutPipeline).nextElementSibling
     fireEvent.click(addButton!)
     await waitFor(() => getByTestId('location'))
     expect(
-      getByTestId('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params, pipelineIdentifier: '-1' }))
+      getByTestId('location').innerHTML.endsWith(
+        routes.toPipelineStudio({ ...params, pipelineIdentifier: '-1' } as any)
+      )
     ).toBeTruthy()
   })
 
@@ -108,7 +112,7 @@ describe('CD Pipeline Page List', () => {
     await waitFor(() => getByTestId(params.pipelineIdentifier))
     fireEvent.click(getByTestId('pipeline1')!)
     await waitFor(() => getByTestId('location'))
-    expect(getByTestId('location').innerHTML.endsWith(routes.toCDPipelineDetail(params))).toBeTruthy()
+    expect(getByTestId('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
   })
 
   test('test Add Pipeline on card view', async () => {
@@ -121,7 +125,9 @@ describe('CD Pipeline Page List', () => {
     fireEvent.click(getAllByTestId('add-pipeline')[0]!)
     await waitFor(() => getByTestId('location'))
     expect(
-      getByTestId('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params, pipelineIdentifier: '-1' }))
+      getByTestId('location').innerHTML.endsWith(
+        routes.toPipelineStudio({ ...params, pipelineIdentifier: '-1' } as any)
+      )
     ).toBeTruthy()
   })
   test('Search Pipeline', async () => {
@@ -132,8 +138,9 @@ describe('CD Pipeline Page List', () => {
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
     mockGetCallFunction.mockReset()
-    const searchInput = container?.querySelector('[placeholder="Search by user, tags"]') as HTMLInputElement
+    const searchInput = container?.querySelector('[placeholder="Search"]') as HTMLInputElement
     fireEvent.change(searchInput, { target: { value: 'asd' } })
+    jest.runOnlyPendingTimers()
     expect(mockGetCallFunction).toBeCalledWith({
       debounce: 300,
       mock: undefined,
@@ -169,7 +176,7 @@ describe('Pipeline List View Test cases', () => {
     const row = listView.querySelectorAll("[role='row']")[1]
     fireEvent.click(row)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineDetail(params))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {
@@ -193,7 +200,9 @@ describe('Pipeline List View Test cases', () => {
     const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Pipeline Studio')
     fireEvent.click(gotoStudioBtn)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params }))).toBeTruthy()
+    expect(
+      getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineStudio({ ...(params as any) }))
+    ).toBeTruthy()
   })
 
   test('should be able to open menu and delete pipeline ', async () => {
@@ -234,7 +243,7 @@ describe('Pipeline Card View Test Cases', () => {
     const cardName = getAllByTextLib(cardView, 'Stages')[0]
     fireEvent.click(cardName)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineDetail(params))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineDetail(params as any))).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {
@@ -258,7 +267,9 @@ describe('Pipeline Card View Test Cases', () => {
     const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Pipeline Studio')
     fireEvent.click(gotoStudioBtn)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params }))).toBeTruthy()
+    expect(
+      getByTestIdTop?.('location').innerHTML.endsWith(routes.toPipelineStudio({ ...(params as any) }))
+    ).toBeTruthy()
   })
 
   test('should be able to open menu and delete pipeline ', async () => {

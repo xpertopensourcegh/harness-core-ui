@@ -6,6 +6,7 @@ import { String } from 'framework/exports'
 import { DurationI18n, timeDelta } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import LogsContent from '../../ExecutionLogView/LogsContent'
 import css from './ExecutionStepDetails.module.scss'
 
@@ -19,17 +20,18 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const { step } = props
 
   const delta = timeDelta(step?.startTs || 0, step?.endTs || 0)
-  const params = useParams<ExecutionPathParams>()
+  const params = useParams<PipelineType<ExecutionPathParams>>()
 
   const history = useHistory()
   const redirectToLogView = () => {
-    const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId } = params
-    const logUrl = routes.toCDExecutionPiplineView({
+    const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId, module } = params
+    const logUrl = routes.toExecutionPipelineView({
       orgIdentifier,
       executionIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      accountId
+      accountId,
+      module
     })
 
     history.push(`${logUrl}?view=log`)

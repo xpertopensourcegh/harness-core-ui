@@ -3,14 +3,16 @@ import { Container, Layout, Icon, Color } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGetPipelineSummary } from 'services/cd-ng'
+import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './PipelineDetails.module.scss'
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<PipelinePathProps>()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
+    PipelineType<PipelinePathProps>
+  >()
   const { data: pipeline } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -31,11 +33,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
                   label: project?.name as string
                 },
                 {
-                  url: routes.toCDPipelines({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId
-                  }),
+                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
                 },
                 { url: '#', label: pipeline?.data?.name || '' }
@@ -49,11 +47,12 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toCDPipelineDeploymentList({
+                to={routes.toPipelineDeploymentList({
                   orgIdentifier,
                   projectIdentifier,
                   pipelineIdentifier,
-                  accountId
+                  accountId,
+                  module
                 })}
               >
                 {getString('executionsText')}
@@ -62,21 +61,39 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toCDInputSetList({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+                to={routes.toInputSetList({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module
+                })}
               >
                 {getString('inputSetsText')}
               </NavLink>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toCDTriggersPage({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+                to={routes.toTriggersPage({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module
+                })}
               >
                 {getString('pipeline-triggers.triggersLabel')}
               </NavLink>
 
               <NavLink
                 className={css.tags}
-                to={routes.toCDPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+                to={routes.toPipelineStudio({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module
+                })}
               >
                 <Icon name="pipeline-ng" size={20} style={{ marginRight: '8px' }} color={Color.BLUE_600} />
                 {getString('studioText')}

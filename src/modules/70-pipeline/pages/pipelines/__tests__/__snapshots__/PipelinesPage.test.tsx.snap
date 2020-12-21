@@ -32,26 +32,51 @@ exports[`CD Pipeline Page List render card view 1`] = `
           </span>
         </div>
       </div>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Pipelines
+      </p>
+    </div>
+  </div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws header StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        data-testid="add-pipeline"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          + Pipeline
+        </span>
+      </button>
     </div>
     <div
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
       style="align-items: center;"
     >
       <div
-        class="TextInput---main--1ytZ"
+        class="expandSearch"
       >
         <div
-          class="bp3-input-group search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+          data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
             icon="search"
           >
             <svg
               data-icon="search"
-              height="12"
+              height="14"
               viewBox="0 0 16 16"
-              width="12"
+              width="14"
             >
               <desc>
                 search
@@ -63,91 +88,39 @@ exports[`CD Pipeline Page List render card view 1`] = `
             </svg>
           </span>
           <input
-            class="bp3-input"
-            placeholder="Search by user, tags"
-            type="text"
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
             value=""
           />
         </div>
       </div>
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
-      >
-        Filter By
-      </p>
       <span
-        class="bp3-popover-wrapper"
+        class="bp3-icon StyledProps---main--1Wws"
       >
-        <span
-          class="bp3-popover-target"
+        <svg
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
         >
-          <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-            type="button"
+          <mask
+            fill="#fff"
+            id="ng-filter_svg__a"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Tags
-            </span>
-            <span
-              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
-              icon="caret-down"
-            >
-              <svg
-                data-icon="caret-down"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  caret-down
-                </desc>
-                <path
-                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-      <span
-        class="separator"
-      />
-      <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-        data-testid="add-pipeline"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-add StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-          icon="add"
-        >
-          <svg
-            data-icon="add"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              add
-            </desc>
             <path
-              d="M10.99 6.99h-2v-2c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1zm-3-7c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+              clip-rule="evenodd"
+              d="M16.5 5a.5.5 0 00-1 0v1H5a.5.5 0 000 1h10.5v1a.5.5 0 001 0V7H19a.5.5 0 000-1h-2.5V5zm-12 7a.5.5 0 01.5-.5h3v-1a.5.5 0 011 0v1h10a.5.5 0 010 1H9v1a.5.5 0 01-1 0v-1H5a.5.5 0 01-.5-.5zm0 5.5A.5.5 0 015 17h7v-1a.5.5 0 011 0v1h6a.5.5 0 010 1h-6v1a.5.5 0 01-1 0v-1H5a.5.5 0 01-.5-.5z"
               fill-rule="evenodd"
             />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Add Pipeline
-        </span>
-      </button>
-      <span
-        class="separator"
-      />
+          </mask>
+          <path
+            d="M15.5 6v1a1 1 0 001-1h-1zm0 1h1a1 1 0 00-1-1v1zm1 0V6a1 1 0 00-1 1h1zm0-1h-1a1 1 0 001 1V6zM8 11.5v1a1 1 0 001-1H8zm1 0H8a1 1 0 001 1v-1zm0 1v-1a1 1 0 00-1 1h1zm-1 0h1a1 1 0 00-1-1v1zm4 4.5v1a1 1 0 001-1h-1zm1 0h-1a1 1 0 001 1v-1zm0 1v-1a1 1 0 00-1 1h1zm-1 0h1a1 1 0 00-1-1v1zm4-12.5a.5.5 0 01-.5-.5h2A1.5 1.5 0 0016 3.5v2zm.5-.5a.5.5 0 01-.5.5v-2A1.5 1.5 0 0014.5 5h2zm0 1V5h-2v1h2zM5 7h10.5V5H5v2zm.5-.5A.5.5 0 015 7V5a1.5 1.5 0 00-1.5 1.5h2zM5 6a.5.5 0 01.5.5h-2A1.5 1.5 0 005 8V6zm10.5 0H5v2h10.5V6zm1 2V7h-2v1h2zm-.5-.5a.5.5 0 01.5.5h-2A1.5 1.5 0 0016 9.5v-2zm-.5.5a.5.5 0 01.5-.5v2A1.5 1.5 0 0017.5 8h-2zm0-1v1h2V7h-2zM19 6h-2.5v2H19V6zm-.5.5A.5.5 0 0119 6v2a1.5 1.5 0 001.5-1.5h-2zm.5.5a.5.5 0 01-.5-.5h2A1.5 1.5 0 0019 5v2zm-2.5 0H19V5h-2.5v2zm-1-2v1h2V5h-2zM5 10.5A1.5 1.5 0 003.5 12h2a.5.5 0 01-.5.5v-2zm3 0H5v2h3v-2zm-1 0v1h2v-1H7zM8.5 9A1.5 1.5 0 007 10.5h2a.5.5 0 01-.5.5V9zm1.5 1.5A1.5 1.5 0 008.5 9v2a.5.5 0 01-.5-.5h2zm0 1v-1H8v1h2zm9-1H9v2h10v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zM19 13.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-10 0h10v-2H9v2zm1 0v-1H8v1h2zM8.5 15a1.5 1.5 0 001.5-1.5H8a.5.5 0 01.5-.5v2zM7 13.5A1.5 1.5 0 008.5 15v-2a.5.5 0 01.5.5H7zm0-1v1h2v-1H7zm-2 1h3v-2H5v2zM3.5 12A1.5 1.5 0 005 13.5v-2a.5.5 0 01.5.5h-2zM5 16a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm7 0H5v2h7v-2zm1 1v-1h-2v1h2zm0-1a.5.5 0 01-.5.5v-2A1.5 1.5 0 0011 16h2zm-.5.5a.5.5 0 01-.5-.5h2a1.5 1.5 0 00-1.5-1.5v2zM12 16v1h2v-1h-2zm7 0h-6v2h6v-2zm1.5 1.5A1.5 1.5 0 0019 16v2a.5.5 0 01-.5-.5h2zM19 19a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-6 0h6v-2h-6v2zm-1-1v1h2v-1h-2zm0 1a.5.5 0 01.5-.5v2A1.5 1.5 0 0014 19h-2zm.5-.5a.5.5 0 01.5.5h-2a1.5 1.5 0 001.5 1.5v-2zm.5.5v-1h-2v1h2zm-8 0h7v-2H5v2zm-1.5-1.5A1.5 1.5 0 005 19v-2a.5.5 0 01.5.5h-2z"
+            fill="#383946"
+            mask="url(#ng-filter_svg__a)"
+          />
+        </svg>
+      </span>
       <div
         class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-medium--3Ish"
       >
@@ -203,798 +176,802 @@ exports[`CD Pipeline Page List render card view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--container0 StyledProps---padding-xxxlarge--2I9v"
-      style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
+      class="gridView"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-        style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
+        class="gridLayout"
       >
         <div
-          class="bp3-card bp3-elevation-0 Card---card--2BXa pipelineCard"
+          class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--container0 StyledProps---padding-xxxlarge--2I9v"
+          style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+            style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="Card---cardMenu--JLDc menu"
+              class="bp3-card bp3-elevation-0 Card---card--2BXa pipelineCard"
             >
               <div
-                class="Card---dots--3qQP"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
               >
-                <span
-                  class="bp3-popover-wrapper bp3-dark"
+                <div
+                  class="Card---cardMenu--JLDc menu"
                 >
-                  <span
-                    class="bp3-popover-target"
+                  <div
+                    class="Card---dots--3qQP"
                   >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
-                      type="button"
+                    <span
+                      class="bp3-popover-wrapper bp3-dark"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
-                        icon="more"
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                            icon="more"
+                          >
+                            <svg
+                              data-icon="more"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                more
+                              </desc>
+                              <path
+                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <span
+                  class="tags"
+                >
+                  <span
+                    class="Tag---main--1vng"
+                  >
+                    <span
+                      class="bp3-tag bp3-intent-primary bp3-minimal"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        <span>
+                          Ready To Run
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  data-testid="pipeline1"
+                >
+                  pipeline1
+                </p>
+                <p
+                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                  style="--text-line-clamp: 2;"
+                >
+                  pipeline1 description
+                </p>
+              </div>
+              <div
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+              >
+                <span
+                  class="Tag---main--1vng"
+                >
+                  <span
+                    class="bp3-tag cardTags"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      asdd:asd
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="Tag---main--1vng"
+                >
+                  <span
+                    class="bp3-tag cardTags"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      test
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                  style="align-items: flex-end;"
+                >
+                  <div
+                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
+                      style="text-transform: capitalize; display: flex; align-items: center;"
+                    >
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
                       >
                         <svg
-                          data-icon="more"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
+                          height="12"
+                          id="step-group_svg__Layer_1"
+                          viewBox="0 0 21 20"
+                          width="12"
+                          x="0"
+                          xml:space="preserve"
+                          y="0"
                         >
-                          <desc>
-                            more
-                          </desc>
+                          <style>
+                            .step-group_svg__st0{fill:#fff!important}
+                          </style>
                           <path
-                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                            fill-rule="evenodd"
+                            class="step-group_svg__st0"
+                            d="M1 .8h13v13.3H1z"
+                          />
+                          <path
+                            d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                          />
+                          <path
+                            class="step-group_svg__st0"
+                            d="M7 6h13v13H7z"
+                          />
+                          <path
+                            class="step-group_svg__st1"
+                            d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
                           />
                         </svg>
                       </span>
-                    </button>
-                  </span>
-                </span>
+                      2
+                       
+                      <span>
+                        Stages
+                      </span>
+                    </p>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      style="text-transform: uppercase;"
+                    >
+                      <span>
+                        Stages
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                  >
+                    <span
+                      class="activityChart"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                        role="spark-chart"
+                      >
+                        <div
+                          class="container vertical rounded"
+                        >
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 33.33333333333333%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 33.33333333333333%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 0%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 33.33333333333333%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 100%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 100%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 66.66666666666666%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 100%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 66.66666666666666%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 66.66666666666666%;"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      style="text-transform: uppercase;"
+                    >
+                      <span>
+                        Activity
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+                    >
+                      -
+                    </p>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      style="text-transform: uppercase;"
+                    >
+                      <span>
+                        Errors
+                      </span>
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            <span
-              class="tags"
-            >
-              <span
-                class="Tag---main--1vng"
-              >
-                <span
-                  class="bp3-tag bp3-intent-primary bp3-minimal"
-                >
-                  <span
-                    class="bp3-text-overflow-ellipsis bp3-fill"
-                  >
-                    Ready To Run
-                  </span>
-                </span>
-              </span>
-            </span>
-            <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
-              data-testid="pipeline1"
-            >
-              pipeline1
-            </p>
-            <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-xsmall--XieJ"
-            >
-              pipeline1 description
-            </p>
-            <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
-            >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---padding-right-large--2vF9"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws runPipeline StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
               >
-                <span
-                  class="bp3-icon StyledProps---main--1Wws"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 14 11"
-                    width="20"
+                <div>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    data-testid="card-run-pipeline"
+                    type="button"
                   >
-                    <path
-                      d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
-                >
-                  ADMIN
-                </p>
-              </div>
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-              >
-                <span
-                  class="bp3-icon StyledProps---main--1Wws"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 14 11"
-                    width="20"
-                  >
-                    <path
-                      d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
-                >
-                  COLLABORATORS
-                </p>
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <defs>
+                          <path
+                            d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                            id="run-pipeline_svg__a"
+                          />
+                        </defs>
+                        <clippath
+                          id="run-pipeline_svg__b"
+                        >
+                          <use
+                            overflow="visible"
+                            xlink:href="#run-pipeline_svg__a"
+                          />
+                        </clippath>
+                        <path
+                          clip-path="url(#run-pipeline_svg__b)"
+                          d="M-5-5h26v26H-5z"
+                          fill="#54b610"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Run Pipeline
+                      </span>
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+            style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
-              style="align-items: flex-end;"
+              class="bp3-card bp3-elevation-0 Card---card--2BXa pipelineCard"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
               >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
-                  style="text-transform: capitalize; display: flex; align-items: center;"
-                >
-                  <span
-                    class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-                  >
-                    <svg
-                      height="12"
-                      id="step-group_svg__Layer_1"
-                      viewBox="0 0 21 20"
-                      width="12"
-                      x="0"
-                      xml:space="preserve"
-                      y="0"
-                    >
-                      <style>
-                        .step-group_svg__st0{fill:#fff!important}
-                      </style>
-                      <path
-                        class="step-group_svg__st0"
-                        d="M1 .8h13v13.3H1z"
-                      />
-                      <path
-                        d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                      />
-                      <path
-                        class="step-group_svg__st0"
-                        d="M7 6h13v13H7z"
-                      />
-                      <path
-                        class="step-group_svg__st1"
-                        d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                      />
-                    </svg>
-                  </span>
-                  2
-                   
-                  Stages
-                </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
-                  style="text-transform: uppercase;"
-                >
-                  Stages
-                </p>
-              </div>
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
-              >
-                <span
-                  class="activityChart"
+                <div
+                  class="Card---cardMenu--JLDc menu"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
-                    role="spark-chart"
+                    class="Card---dots--3qQP"
                   >
-                    <div
-                      class="container vertical rounded"
+                    <span
+                      class="bp3-popover-wrapper bp3-dark"
                     >
-                      <div
-                        class="progress-bar"
-                        role="spark"
+                      <span
+                        class="bp3-popover-target"
                       >
-                        <div
-                          class="progress-track"
+                        <button
+                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                          type="button"
                         >
-                          <div
-                            class="progress-fill"
-                            style="height: 33.33333333333333%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 33.33333333333333%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 0%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 33.33333333333333%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 100%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 100%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 66.66666666666666%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 100%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 66.66666666666666%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 66.66666666666666%;"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                          <span
+                            class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                            icon="more"
+                          >
+                            <svg
+                              data-icon="more"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                more
+                              </desc>
+                              <path
+                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
                   </div>
+                </div>
+                <span
+                  class="tags"
+                >
+                  <span
+                    class="Tag---main--1vng"
+                  >
+                    <span
+                      class="bp3-tag bp3-intent-primary bp3-minimal"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        <span>
+                          Ready To Run
+                        </span>
+                      </span>
+                    </span>
+                  </span>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
-                  style="text-transform: uppercase;"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  data-testid="pipeline2"
                 >
-                  ACTIVITY
+                  pipeline2
+                </p>
+                <p
+                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                  style="--text-line-clamp: 2;"
+                >
+                  pipeline2 description
                 </p>
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
               >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                  style="align-items: flex-end;"
                 >
-                  -
-                </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
-                  style="text-transform: uppercase;"
-                >
-                  ERRORS
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws runPipeline StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
-          >
-            <div>
-              <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-                data-testid="card-run-pipeline"
-                type="button"
-              >
-                <span
-                  class="bp3-icon bp3-icon-play StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-                  icon="play"
-                >
-                  <svg
-                    data-icon="play"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
+                  <div
+                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
                   >
-                    <desc>
-                      play
-                    </desc>
-                    <path
-                      d="M12 8c0-.35-.19-.64-.46-.82l.01-.02-6-4-.01.02A.969.969 0 005 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1 .21 0 .39-.08.54-.18l.01.02 6-4-.01-.02c.27-.18.46-.47.46-.82z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="bp3-button-text"
-                >
-                  Run Pipeline
-                </span>
-              </button>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
+                      style="text-transform: capitalize; display: flex; align-items: center;"
+                    >
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                      >
+                        <svg
+                          height="12"
+                          id="step-group_svg__Layer_1"
+                          viewBox="0 0 21 20"
+                          width="12"
+                          x="0"
+                          xml:space="preserve"
+                          y="0"
+                        >
+                          <style>
+                            .step-group_svg__st0{fill:#fff!important}
+                          </style>
+                          <path
+                            class="step-group_svg__st0"
+                            d="M1 .8h13v13.3H1z"
+                          />
+                          <path
+                            d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                          />
+                          <path
+                            class="step-group_svg__st0"
+                            d="M7 6h13v13H7z"
+                          />
+                          <path
+                            class="step-group_svg__st1"
+                            d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                          />
+                        </svg>
+                      </span>
+                      2
+                       
+                      <span>
+                        Stages
+                      </span>
+                    </p>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      style="text-transform: uppercase;"
+                    >
+                      <span>
+                        Stages
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                  >
+                    <span
+                      class="activityChart"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                        role="spark-chart"
+                      >
+                        <div
+                          class="container vertical rounded"
+                        >
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 60%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 80%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 100%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 80%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 80%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 20%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 20%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 40%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 60%;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="progress-bar"
+                            role="spark"
+                          >
+                            <div
+                              class="progress-track"
+                            >
+                              <div
+                                class="progress-fill"
+                                style="height: 40%;"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      style="text-transform: uppercase;"
+                    >
+                      <span>
+                        Activity
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+                    >
+                      2
+                    </p>
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      style="text-transform: uppercase;"
+                    >
+                      <span>
+                        Errors
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws runPipeline StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+              >
+                <div>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    data-testid="card-run-pipeline"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <defs>
+                          <path
+                            d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                            id="run-pipeline_svg__a"
+                          />
+                        </defs>
+                        <clippath
+                          id="run-pipeline_svg__b"
+                        >
+                          <use
+                            overflow="visible"
+                            xlink:href="#run-pipeline_svg__a"
+                          />
+                        </clippath>
+                        <path
+                          clip-path="url(#run-pipeline_svg__b)"
+                          d="M-5-5h26v26H-5z"
+                          fill="#54b610"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Run Pipeline
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-        style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
+        class="pagination"
       >
         <div
-          class="bp3-card bp3-elevation-0 Card---card--2BXa pipelineCard"
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
         >
-          <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
           >
-            <div
-              class="Card---cardMenu--JLDc menu"
-            >
-              <div
-                class="Card---dots--3qQP"
-              >
-                <span
-                  class="bp3-popover-wrapper bp3-dark"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
-                        icon="more"
-                      >
-                        <svg
-                          data-icon="more"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            more
-                          </desc>
-                          <path
-                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </div>
-            </div>
-            <span
-              class="tags"
-            >
-              <span
-                class="Tag---main--1vng"
-              >
-                <span
-                  class="bp3-tag bp3-intent-primary bp3-minimal"
-                >
-                  <span
-                    class="bp3-text-overflow-ellipsis bp3-fill"
-                  >
-                    Ready To Run
-                  </span>
-                </span>
-              </span>
-            </span>
-            <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
-              data-testid="pipeline2"
-            >
-              pipeline2
-            </p>
-            <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-xsmall--XieJ"
-            >
-              pipeline2 description
-            </p>
-            <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
-            >
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---padding-right-large--2vF9"
-              >
-                <span
-                  class="bp3-icon StyledProps---main--1Wws"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 14 11"
-                    width="20"
-                  >
-                    <path
-                      d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
-                >
-                  ADMIN
-                </p>
-              </div>
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-              >
-                <span
-                  class="bp3-icon StyledProps---main--1Wws"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 14 11"
-                    width="20"
-                  >
-                    <path
-                      d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
-                >
-                  COLLABORATORS
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
-          >
-            <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
-              style="align-items: flex-end;"
-            >
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
-              >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
-                  style="text-transform: capitalize; display: flex; align-items: center;"
-                >
-                  <span
-                    class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-                  >
-                    <svg
-                      height="12"
-                      id="step-group_svg__Layer_1"
-                      viewBox="0 0 21 20"
-                      width="12"
-                      x="0"
-                      xml:space="preserve"
-                      y="0"
-                    >
-                      <style>
-                        .step-group_svg__st0{fill:#fff!important}
-                      </style>
-                      <path
-                        class="step-group_svg__st0"
-                        d="M1 .8h13v13.3H1z"
-                      />
-                      <path
-                        d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                      />
-                      <path
-                        class="step-group_svg__st0"
-                        d="M7 6h13v13H7z"
-                      />
-                      <path
-                        class="step-group_svg__st1"
-                        d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                      />
-                    </svg>
-                  </span>
-                  2
-                   
-                  Stages
-                </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
-                  style="text-transform: uppercase;"
-                >
-                  Stages
-                </p>
-              </div>
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
-              >
-                <span
-                  class="activityChart"
-                >
-                  <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
-                    role="spark-chart"
-                  >
-                    <div
-                      class="container vertical rounded"
-                    >
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 60%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 80%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 100%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 80%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 80%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 20%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 20%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 40%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 60%;"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="progress-bar"
-                        role="spark"
-                      >
-                        <div
-                          class="progress-track"
-                        >
-                          <div
-                            class="progress-fill"
-                            style="height: 40%;"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
-                  style="text-transform: uppercase;"
-                >
-                  ACTIVITY
-                </p>
-              </div>
-              <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
-              >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
-                >
-                  2
-                </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
-                  style="text-transform: uppercase;"
-                >
-                  ERRORS
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws runPipeline StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
-          >
-            <div>
-              <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-                data-testid="card-run-pipeline"
-                type="button"
-              >
-                <span
-                  class="bp3-icon bp3-icon-play StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-                  icon="play"
-                >
-                  <svg
-                    data-icon="play"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      play
-                    </desc>
-                    <path
-                      d="M12 8c0-.35-.19-.64-.46-.82l.01-.02-6-4-.01.02A.969.969 0 005 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1 .21 0 .39-.08.54-.18l.01.02 6-4-.01-.02c.27-.18.46-.47.46-.82z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="bp3-button-text"
-                >
-                  Run Pipeline
-                </span>
-              </button>
-            </div>
-          </div>
+            Showing 
+            <strong>
+              4
+            </strong>
+             of 
+            <strong>
+              4
+            </strong>
+          </span>
         </div>
       </div>
     </div>
@@ -1034,26 +1011,51 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
           </span>
         </div>
       </div>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Pipelines
+      </p>
+    </div>
+  </div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws header StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        data-testid="add-pipeline"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          + Pipeline
+        </span>
+      </button>
     </div>
     <div
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
       style="align-items: center;"
     >
       <div
-        class="TextInput---main--1ytZ"
+        class="expandSearch"
       >
         <div
-          class="bp3-input-group search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+          data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
             icon="search"
           >
             <svg
               data-icon="search"
-              height="12"
+              height="14"
               viewBox="0 0 16 16"
-              width="12"
+              width="14"
             >
               <desc>
                 search
@@ -1065,91 +1067,39 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
             </svg>
           </span>
           <input
-            class="bp3-input"
-            placeholder="Search by user, tags"
-            type="text"
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
             value=""
           />
         </div>
       </div>
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
-      >
-        Filter By
-      </p>
       <span
-        class="bp3-popover-wrapper"
+        class="bp3-icon StyledProps---main--1Wws"
       >
-        <span
-          class="bp3-popover-target"
+        <svg
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
         >
-          <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-            type="button"
+          <mask
+            fill="#fff"
+            id="ng-filter_svg__a"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Tags
-            </span>
-            <span
-              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
-              icon="caret-down"
-            >
-              <svg
-                data-icon="caret-down"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  caret-down
-                </desc>
-                <path
-                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-      <span
-        class="separator"
-      />
-      <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-        data-testid="add-pipeline"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-add StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-          icon="add"
-        >
-          <svg
-            data-icon="add"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              add
-            </desc>
             <path
-              d="M10.99 6.99h-2v-2c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1zm-3-7c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+              clip-rule="evenodd"
+              d="M16.5 5a.5.5 0 00-1 0v1H5a.5.5 0 000 1h10.5v1a.5.5 0 001 0V7H19a.5.5 0 000-1h-2.5V5zm-12 7a.5.5 0 01.5-.5h3v-1a.5.5 0 011 0v1h10a.5.5 0 010 1H9v1a.5.5 0 01-1 0v-1H5a.5.5 0 01-.5-.5zm0 5.5A.5.5 0 015 17h7v-1a.5.5 0 011 0v1h6a.5.5 0 010 1h-6v1a.5.5 0 01-1 0v-1H5a.5.5 0 01-.5-.5z"
               fill-rule="evenodd"
             />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Add Pipeline
-        </span>
-      </button>
-      <span
-        class="separator"
-      />
+          </mask>
+          <path
+            d="M15.5 6v1a1 1 0 001-1h-1zm0 1h1a1 1 0 00-1-1v1zm1 0V6a1 1 0 00-1 1h1zm0-1h-1a1 1 0 001 1V6zM8 11.5v1a1 1 0 001-1H8zm1 0H8a1 1 0 001 1v-1zm0 1v-1a1 1 0 00-1 1h1zm-1 0h1a1 1 0 00-1-1v1zm4 4.5v1a1 1 0 001-1h-1zm1 0h-1a1 1 0 001 1v-1zm0 1v-1a1 1 0 00-1 1h1zm-1 0h1a1 1 0 00-1-1v1zm4-12.5a.5.5 0 01-.5-.5h2A1.5 1.5 0 0016 3.5v2zm.5-.5a.5.5 0 01-.5.5v-2A1.5 1.5 0 0014.5 5h2zm0 1V5h-2v1h2zM5 7h10.5V5H5v2zm.5-.5A.5.5 0 015 7V5a1.5 1.5 0 00-1.5 1.5h2zM5 6a.5.5 0 01.5.5h-2A1.5 1.5 0 005 8V6zm10.5 0H5v2h10.5V6zm1 2V7h-2v1h2zm-.5-.5a.5.5 0 01.5.5h-2A1.5 1.5 0 0016 9.5v-2zm-.5.5a.5.5 0 01.5-.5v2A1.5 1.5 0 0017.5 8h-2zm0-1v1h2V7h-2zM19 6h-2.5v2H19V6zm-.5.5A.5.5 0 0119 6v2a1.5 1.5 0 001.5-1.5h-2zm.5.5a.5.5 0 01-.5-.5h2A1.5 1.5 0 0019 5v2zm-2.5 0H19V5h-2.5v2zm-1-2v1h2V5h-2zM5 10.5A1.5 1.5 0 003.5 12h2a.5.5 0 01-.5.5v-2zm3 0H5v2h3v-2zm-1 0v1h2v-1H7zM8.5 9A1.5 1.5 0 007 10.5h2a.5.5 0 01-.5.5V9zm1.5 1.5A1.5 1.5 0 008.5 9v2a.5.5 0 01-.5-.5h2zm0 1v-1H8v1h2zm9-1H9v2h10v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zM19 13.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-10 0h10v-2H9v2zm1 0v-1H8v1h2zM8.5 15a1.5 1.5 0 001.5-1.5H8a.5.5 0 01.5-.5v2zM7 13.5A1.5 1.5 0 008.5 15v-2a.5.5 0 01.5.5H7zm0-1v1h2v-1H7zm-2 1h3v-2H5v2zM3.5 12A1.5 1.5 0 005 13.5v-2a.5.5 0 01.5.5h-2zM5 16a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm7 0H5v2h7v-2zm1 1v-1h-2v1h2zm0-1a.5.5 0 01-.5.5v-2A1.5 1.5 0 0011 16h2zm-.5.5a.5.5 0 01-.5-.5h2a1.5 1.5 0 00-1.5-1.5v2zM12 16v1h2v-1h-2zm7 0h-6v2h6v-2zm1.5 1.5A1.5 1.5 0 0019 16v2a.5.5 0 01-.5-.5h2zM19 19a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-6 0h6v-2h-6v2zm-1-1v1h2v-1h-2zm0 1a.5.5 0 01.5-.5v2A1.5 1.5 0 0014 19h-2zm.5-.5a.5.5 0 01.5.5h-2a1.5 1.5 0 001.5 1.5v-2zm.5.5v-1h-2v1h2zm-8 0h7v-2H5v2zm-1.5-1.5A1.5 1.5 0 005 19v-2a.5.5 0 01.5.5h-2z"
+            fill="#383946"
+            mask="url(#ng-filter_svg__a)"
+          />
+        </svg>
+      </span>
       <div
         class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-medium--3Ish"
       >
@@ -1205,7 +1155,7 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageBody"
   >
     <div
       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
@@ -1247,7 +1197,7 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
           <span
             class="bp3-button-text"
           >
-            Add Pipeline
+            + Pipeline
           </span>
         </button>
       </div>
@@ -1288,26 +1238,51 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </span>
         </div>
       </div>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Pipelines
+      </p>
+    </div>
+  </div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws header StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        data-testid="add-pipeline"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          + Pipeline
+        </span>
+      </button>
     </div>
     <div
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
       style="align-items: center;"
     >
       <div
-        class="TextInput---main--1ytZ"
+        class="expandSearch"
       >
         <div
-          class="bp3-input-group search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+          data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
             icon="search"
           >
             <svg
               data-icon="search"
-              height="12"
+              height="14"
               viewBox="0 0 16 16"
-              width="12"
+              width="14"
             >
               <desc>
                 search
@@ -1319,91 +1294,39 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </svg>
           </span>
           <input
-            class="bp3-input"
-            placeholder="Search by user, tags"
-            type="text"
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
             value=""
           />
         </div>
       </div>
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
-      >
-        Filter By
-      </p>
       <span
-        class="bp3-popover-wrapper"
+        class="bp3-icon StyledProps---main--1Wws"
       >
-        <span
-          class="bp3-popover-target"
+        <svg
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
         >
-          <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-            type="button"
+          <mask
+            fill="#fff"
+            id="ng-filter_svg__a"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Tags
-            </span>
-            <span
-              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
-              icon="caret-down"
-            >
-              <svg
-                data-icon="caret-down"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  caret-down
-                </desc>
-                <path
-                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-      <span
-        class="separator"
-      />
-      <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-        data-testid="add-pipeline"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-add StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
-          icon="add"
-        >
-          <svg
-            data-icon="add"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              add
-            </desc>
             <path
-              d="M10.99 6.99h-2v-2c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1zm-3-7c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+              clip-rule="evenodd"
+              d="M16.5 5a.5.5 0 00-1 0v1H5a.5.5 0 000 1h10.5v1a.5.5 0 001 0V7H19a.5.5 0 000-1h-2.5V5zm-12 7a.5.5 0 01.5-.5h3v-1a.5.5 0 011 0v1h10a.5.5 0 010 1H9v1a.5.5 0 01-1 0v-1H5a.5.5 0 01-.5-.5zm0 5.5A.5.5 0 015 17h7v-1a.5.5 0 011 0v1h6a.5.5 0 010 1h-6v1a.5.5 0 01-1 0v-1H5a.5.5 0 01-.5-.5z"
               fill-rule="evenodd"
             />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          Add Pipeline
-        </span>
-      </button>
-      <span
-        class="separator"
-      />
+          </mask>
+          <path
+            d="M15.5 6v1a1 1 0 001-1h-1zm0 1h1a1 1 0 00-1-1v1zm1 0V6a1 1 0 00-1 1h1zm0-1h-1a1 1 0 001 1V6zM8 11.5v1a1 1 0 001-1H8zm1 0H8a1 1 0 001 1v-1zm0 1v-1a1 1 0 00-1 1h1zm-1 0h1a1 1 0 00-1-1v1zm4 4.5v1a1 1 0 001-1h-1zm1 0h-1a1 1 0 001 1v-1zm0 1v-1a1 1 0 00-1 1h1zm-1 0h1a1 1 0 00-1-1v1zm4-12.5a.5.5 0 01-.5-.5h2A1.5 1.5 0 0016 3.5v2zm.5-.5a.5.5 0 01-.5.5v-2A1.5 1.5 0 0014.5 5h2zm0 1V5h-2v1h2zM5 7h10.5V5H5v2zm.5-.5A.5.5 0 015 7V5a1.5 1.5 0 00-1.5 1.5h2zM5 6a.5.5 0 01.5.5h-2A1.5 1.5 0 005 8V6zm10.5 0H5v2h10.5V6zm1 2V7h-2v1h2zm-.5-.5a.5.5 0 01.5.5h-2A1.5 1.5 0 0016 9.5v-2zm-.5.5a.5.5 0 01.5-.5v2A1.5 1.5 0 0017.5 8h-2zm0-1v1h2V7h-2zM19 6h-2.5v2H19V6zm-.5.5A.5.5 0 0119 6v2a1.5 1.5 0 001.5-1.5h-2zm.5.5a.5.5 0 01-.5-.5h2A1.5 1.5 0 0019 5v2zm-2.5 0H19V5h-2.5v2zm-1-2v1h2V5h-2zM5 10.5A1.5 1.5 0 003.5 12h2a.5.5 0 01-.5.5v-2zm3 0H5v2h3v-2zm-1 0v1h2v-1H7zM8.5 9A1.5 1.5 0 007 10.5h2a.5.5 0 01-.5.5V9zm1.5 1.5A1.5 1.5 0 008.5 9v2a.5.5 0 01-.5-.5h2zm0 1v-1H8v1h2zm9-1H9v2h10v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zM19 13.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-10 0h10v-2H9v2zm1 0v-1H8v1h2zM8.5 15a1.5 1.5 0 001.5-1.5H8a.5.5 0 01.5-.5v2zM7 13.5A1.5 1.5 0 008.5 15v-2a.5.5 0 01.5.5H7zm0-1v1h2v-1H7zm-2 1h3v-2H5v2zM3.5 12A1.5 1.5 0 005 13.5v-2a.5.5 0 01.5.5h-2zM5 16a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm7 0H5v2h7v-2zm1 1v-1h-2v1h2zm0-1a.5.5 0 01-.5.5v-2A1.5 1.5 0 0011 16h2zm-.5.5a.5.5 0 01-.5-.5h2a1.5 1.5 0 00-1.5-1.5v2zM12 16v1h2v-1h-2zm7 0h-6v2h6v-2zm1.5 1.5A1.5 1.5 0 0019 16v2a.5.5 0 01-.5-.5h2zM19 19a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-6 0h6v-2h-6v2zm-1-1v1h2v-1h-2zm0 1a.5.5 0 01.5-.5v2A1.5 1.5 0 0014 19h-2zm.5-.5a.5.5 0 01.5.5h-2a1.5 1.5 0 001.5 1.5v-2zm.5.5v-1h-2v1h2zm-8 0h7v-2H5v2zm-1.5-1.5A1.5 1.5 0 005 19v-2a.5.5 0 01.5.5h-2z"
+            fill="#383946"
+            mask="url(#ng-filter_svg__a)"
+          />
+        </svg>
+      </span>
       <div
         class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-medium--3Ish"
       >
@@ -1459,7 +1382,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageBody"
   >
     <div
       class="table table"
@@ -1500,7 +1423,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 20%;"
+          style="width: 25%;"
         >
           DESCRIPTION
         </div>
@@ -1516,7 +1439,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           ACTIVITY
         </div>
@@ -1527,22 +1450,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           ERRORS
-        </div>
-        <div
-          class="cell"
-          colspan="1"
-          role="columnheader"
-          style="width: 10%;"
-        >
-          ADMIN
-        </div>
-        <div
-          class="cell"
-          colspan="1"
-          role="columnheader"
-          style="width: 5%;"
-        >
-          COLLABORATORS
         </div>
         <div
           class="cell"
@@ -1597,9 +1504,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   </span>
                   <p
                     class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                  >
-                    1
-                  </p>
+                  />
                 </div>
               </span>
             </span>
@@ -1613,7 +1518,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 25%;"
         >
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
@@ -1665,13 +1570,15 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </span>
             2
              
-            Stages
+            <span>
+              Stages
+            </span>
           </p>
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <span
             class="activityChart"
@@ -1831,46 +1738,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 10%;"
-        >
-          <span
-            class="bp3-icon StyledProps---main--1Wws"
-          >
-            <svg
-              height="20"
-              viewBox="0 0 14 11"
-              width="20"
-            >
-              <path
-                d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
-          <span
-            class="bp3-icon StyledProps---main--1Wws"
-          >
-            <svg
-              height="20"
-              viewBox="0 0 14 11"
-              width="20"
-            >
-              <path
-                d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div
-          class="cell"
-          role="cell"
           style="width: 5%;"
         >
           <div
@@ -1940,7 +1807,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 25%;"
         >
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
@@ -1992,13 +1859,15 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </span>
             2
              
-            Stages
+            <span>
+              Stages
+            </span>
           </p>
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <span
             class="activityChart"
@@ -2154,46 +2023,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
           >
             2
           </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          <span
-            class="bp3-icon StyledProps---main--1Wws"
-          >
-            <svg
-              height="20"
-              viewBox="0 0 14 11"
-              width="20"
-            >
-              <path
-                d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
-          <span
-            class="bp3-icon StyledProps---main--1Wws"
-          >
-            <svg
-              height="20"
-              viewBox="0 0 14 11"
-              width="20"
-            >
-              <path
-                d="M11.2 9.9c0-.2-.1-.4-.2-.6-.3-.7-.9-1.1-2.2-1.6-.1 0-.5-.2-.5-.2-.1-.2-.3-.2-.4-.3v-.4c-.1 0-.1-.1-.2-.2.3-.1.4-.4.5-.7v-.1c.3-.2.5-.5.6-.8s.2-.6.1-1c0-.3-.1-.6-.3-.8 0-.4-.1-.9-.1-1.3v-.2c.2 0 .4-.1.6-.1.4 0 .9.1 1.2.4.3.2.6.6.7 1 0 .1 0 .2.1.3.1.3.1.8.1 1.1.1 0 .2.2.2.4s-.1.4-.1.4c0 .2-.1.4-.3.4 0 .1 0 .2-.1.2-.1.4-.4.7-.6.9v.1c0 .3-.1.5.7.8.6.5 1.8.9 2 1.4s.1.9.1.9zm-.9-.3c.3.7.2 1.1.2 1.1H0s-.1-.4.2-1.1S2 8.4 2.9 8c1-.4.9-.7.9-1.1v-.1c-.3-.3-.6-.7-.8-1.2 0-.2 0-.3-.1-.4-.2 0-.4-.3-.4-.5 0-.1-.2-.3-.1-.6 0-.3.2-.5.3-.6 0-.4 0-1 .1-1.4 0-.1 0-.2.1-.3.1-.6.4-1 .8-1.3s1-.5 1.6-.5 1.1.2 1.5.5.7.7.8 1.3c0 .1.1.2.1.3.1.4.1 1 .1 1.4v.1c.1.1.3.2.3.6 0 .2-.1.4-.1.5 0 .2-.2.5-.4.5 0 .1-.1.2-.1.3-.2.5-.5 1-.8 1.3v.1c0 .4-.1.6.9 1.1s2.4.9 2.7 1.6z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
         </div>
         <div
           class="cell"

@@ -77,7 +77,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
                 >
-                  Stage: undefined
+                  Stage: 
                 </p>
                 <span
                   class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"

@@ -24,20 +24,22 @@ const useGetActionsList = jest.fn()
 const mockUpdate = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 jest.mock('services/cd-ng', () => ({
   useGetSourceRepoToEvent: jest.fn(() => GetSourceRepoToEventResponse),
-  useGetPipeline: jest.fn(() => GetPipelineResponse),
-  useGetTemplateFromPipeline: jest.fn(() => GetTemplateFromPipelineResponse),
-  useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(
-    () => GetMergeInputSetFromPipelineTemplateWithListInputResponse
-  ),
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useCreateTrigger: jest.fn(() => GetTriggerResponse),
   useUpdateTrigger: jest.fn().mockImplementation(() => ({ mutate: mockUpdate })),
   useGetConnector: jest.fn(() => ConnectorResponse),
-  useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse),
   useGetActionsList: jest.fn(args => {
     useGetActionsList(args)
     return GetActionsListResponse
   })
+}))
+jest.mock('services/pipeline-ng', () => ({
+  useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse),
+  useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(
+    () => GetMergeInputSetFromPipelineTemplateWithListInputResponse
+  ),
+  useGetPipeline: jest.fn(() => GetPipelineResponse),
+  useGetTemplateFromPipeline: jest.fn(() => GetTemplateFromPipelineResponse)
 }))
 
 const value: AppStoreContextProps = {

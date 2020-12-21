@@ -1,14 +1,13 @@
 import React from 'react'
-import { Button, Layout, TextInput, Text, Popover } from '@wings-software/uikit'
+import { Button, Color, ExpandingSearchInput, Icon, Layout, Text } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
-import { Menu, Position, MenuItem } from '@blueprintjs/core'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { ResponsePageNGPipelineSummaryResponse, useGetPipelineList } from 'services/cd-ng'
+import { ResponsePagePMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
-import i18n from './PipelinesPage.i18n'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import css from './PipelinesPage.module.scss'
@@ -19,29 +18,31 @@ export enum Views {
 }
 
 export interface CDPipelinesPageProps {
-  mockData?: UseGetMockData<ResponsePageNGPipelineSummaryResponse>
+  mockData?: UseGetMockData<ResponsePagePMSPipelineSummaryResponse>
 }
 
-const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
+const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+    }>
+  >()
 
   const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
-  const { getString } = useStrings()
 
   const goToPipelineDetail = React.useCallback(
     (/* istanbul ignore next */ pipelineIdentifier = '-1') => {
       history.push(
-        routes.toCDPipelineDetail({
+        routes.toPipelineDetail({
           projectIdentifier,
           orgIdentifier,
           pipelineIdentifier,
-          accountId
+          accountId,
+          module
         })
       )
     },
@@ -51,11 +52,12 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const goToPipeline = React.useCallback(
     (pipelineIdentifier = '-1') => {
       history.push(
-        routes.toCDPipelineStudio({
+        routes.toPipelineStudio({
           projectIdentifier,
           orgIdentifier,
           pipelineIdentifier,
-          accountId
+          accountId,
+          module
         })
       )
     },
@@ -63,6 +65,7 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   )
   const [page, setPage] = React.useState(0)
   const [view, setView] = React.useState<Views>(Views.GRID)
+  const { getString } = useStrings()
 
   let extraParam: { page?: number; size?: number } = {}
   if (extraParam && view === Views.LIST) {
@@ -78,6 +81,8 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
+      // TODO once its enabled from CD BE
+      // module,
       orgIdentifier,
       searchTerm: searchParam,
       ...extraParam
@@ -86,7 +91,6 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     mock: mockData
   })
 
-  const [filterTag, setFilterTag] = React.useState(i18n.tags)
   return (
     <>
       <Page.Header
@@ -101,101 +105,69 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 { url: '#', label: getString('pipelines') }
               ]}
             />
+            <Text font={{ size: 'medium' }} color={Color.GREY_700}>
+              {getString('pipelines')}
+            </Text>
           </Layout.Vertical>
         }
-        toolbar={
-          <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-            <TextInput
-              leftIcon="search"
-              placeholder={i18n.searchByUser}
-              className={css.search}
-              value={searchParam}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSearchParam(e.target.value.trim())
+      />
+      <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
+        <Layout.Horizontal>
+          <Button
+            intent="primary"
+            data-testid="add-pipeline"
+            text={getString('addPipeline')}
+            onClick={() => goToPipeline()}
+          />
+        </Layout.Horizontal>
+        <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+          <div className={css.expandSearch}>
+            <ExpandingSearchInput
+              placeholder={getString('search')}
+              throttle={200}
+              onChange={(text: string) => {
+                setSearchParam(text)
               }}
             />
-            <Text>{i18n.filterBy}</Text>
-            <Popover
-              minimal
-              content={
-                <Menu>
-                  <MenuItem
-                    text={i18n.tags}
-                    onClick={
-                      /* istanbul ignore next */ () => {
-                        setFilterTag(i18n.tags)
-                      }
-                    }
-                  />
-                  {/* TODO: Change with actual API */}
-                  <MenuItem
-                    text="Tag 1"
-                    onClick={
-                      /* istanbul ignore next */ () => {
-                        setFilterTag('Tag 1')
-                      }
-                    }
-                  />
-                  <MenuItem
-                    text="Tag 2"
-                    onClick={
-                      /* istanbul ignore next */ () => {
-                        setFilterTag('Tag 2')
-                      }
-                    }
-                  />
-                </Menu>
-              }
-              position={Position.BOTTOM}
-            >
-              <Button minimal text={filterTag} rightIcon="caret-down" />
-            </Popover>
-            <span className={css.separator} />
+          </div>
+          <Icon name="ng-filter" size={24} />
+          <Layout.Horizontal inline padding="medium">
             <Button
               minimal
-              intent="primary"
-              data-testid="add-pipeline"
-              text={i18n.addPipeline}
-              icon="add"
-              onClick={() => goToPipeline()}
+              icon="grid-view"
+              intent={view === Views.GRID ? 'primary' : 'none'}
+              onClick={() => {
+                setView(Views.GRID)
+              }}
             />
-            <span className={css.separator} />
-            <Layout.Horizontal inline padding="medium">
-              <Button
-                minimal
-                icon="grid-view"
-                intent={view === Views.GRID ? 'primary' : 'none'}
-                onClick={() => {
-                  setView(Views.GRID)
-                }}
-              />
-              <Button
-                minimal
-                icon="list"
-                intent={view === Views.LIST ? 'primary' : 'none'}
-                onClick={() => {
-                  setView(Views.LIST)
-                }}
-              />
-            </Layout.Horizontal>
+            <Button
+              minimal
+              icon="list"
+              intent={view === Views.LIST ? 'primary' : 'none'}
+              onClick={() => {
+                setView(Views.LIST)
+              }}
+            />
           </Layout.Horizontal>
-        }
-      />
+        </Layout.Horizontal>
+      </Layout.Horizontal>
       <Page.Body
         loading={loading}
+        className={css.pageBody}
         error={error?.message}
         retryOnError={/* istanbul ignore next */ () => reloadPipelines()}
         noData={{
           when: () => !data?.data?.content?.length,
           icon: 'pipeline-ng',
-          message: i18n.aboutPipeline,
-          buttonText: i18n.addPipeline,
+          message: getString('pipeline-list.aboutPipeline'),
+          buttonText: getString('addPipeline'),
           onClick: () => goToPipeline()
         }}
       >
         {view === Views.GRID ? (
           <PipelineGridView
-            pipelineList={data?.data?.content || /* istanbul ignore next */ []}
+            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+            data={data?.data}
             goToPipelineDetail={goToPipelineDetail}
             goToPipelineStudio={goToPipeline}
             refetchPipeline={reloadPipelines}
@@ -214,4 +186,4 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   )
 }
 
-export default CDPipelinesPage
+export default PipelinesPage

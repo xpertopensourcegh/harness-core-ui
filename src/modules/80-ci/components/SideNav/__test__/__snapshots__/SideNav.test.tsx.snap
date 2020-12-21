@@ -68,7 +68,7 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/ci/orgs/dummy/projects/dummy/builds"
+      href="/account/dummy/ci/orgs/dummy/projects/dummy/deployments"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"

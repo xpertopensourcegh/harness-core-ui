@@ -1,12 +1,9 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { useModalHook } from '@wings-software/uikit'
+import { useHistory, useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 
 import type { InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
-import { RunPipelineForm } from './RunPipelineForm'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface RunPipelineModalProps {
   children: React.ReactNode
@@ -15,44 +12,48 @@ export interface RunPipelineModalProps {
   className?: string
 }
 
-export const runPipelineDialogProps: Omit<IDialogProps, 'isOpen'> = {
-  usePortal: true,
-  autoFocus: true,
-  canEscapeKeyClose: true,
-  canOutsideClickClose: true,
-  enforceFocus: true,
-  style: { minWidth: 700, minHeight: 210 }
-}
-
 export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
   children,
   inputSetSelected,
   pipelineIdentifier,
   className = ''
 }): JSX.Element => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [openModel, hideModel] = useModalHook(
-    () => (
-      <Dialog isOpen={true} {...runPipelineDialogProps}>
-        <RunPipelineForm
-          pipelineIdentifier={pipelineIdentifier}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-          accountId={accountId}
-          inputSetSelected={inputSetSelected}
-          onClose={hideModel}
-        />
-      </Dialog>
-    ),
-    [inputSetSelected, pipelineIdentifier, projectIdentifier, accountId, projectIdentifier]
-  )
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
+
+  const history = useHistory()
+
+  const runPipeline = (): void => {
+    if (!inputSetSelected) {
+      history.push(
+        routes.toRunPipeline({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          pipelineIdentifier,
+          module
+        })
+      )
+    } else {
+      history.push(
+        `${routes.toRunPipeline({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          pipelineIdentifier,
+          module
+        })}?inputSetType=${inputSetSelected?.[0].type}&inputSetLabel=${inputSetSelected?.[0].label}&inputSetValue=${
+          inputSetSelected[0].value as string
+        }`
+      )
+    }
+  }
 
   return (
     <span
       className={className}
       onClick={e => {
         e.stopPropagation()
-        openModel()
+        runPipeline()
       }}
     >
       {children}

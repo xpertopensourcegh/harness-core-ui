@@ -1,23 +1,26 @@
 import React from 'react'
-import { Card, Text, Color, Container, Button, Layout, SparkChart, Icon, CardBody, Tag } from '@wings-software/uikit'
+import { Card, Text, Color, Container, Button, Layout, SparkChart, CardBody, Tag } from '@wings-software/uikit'
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { NGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from '../../PipelinesPage.i18n'
+import { PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
+import { String, useStrings } from 'framework/exports'
 import css from '../../PipelinesPage.module.scss'
 
+interface PipelineDTO extends PMSPipelineSummaryResponse {
+  status?: string
+}
 export interface PipelineCardProps {
-  pipeline: NGPipelineSummaryResponse
+  pipeline: PipelineDTO
   goToPipelineDetail: (pipelineIdentifier?: string) => void
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
 }
 
 interface ContextMenuProps {
-  pipeline: NGPipelineSummaryResponse
+  pipeline: PMSPipelineSummaryResponse
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
 }
@@ -28,12 +31,12 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ pipeline, goToPipelineStudio,
   const { mutate: deletePipeline } = useSoftDeletePipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
-
+  const { getString } = useStrings()
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(pipeline.name || /* istanbul ignore next */ ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.deleteButton,
-    cancelButtonText: i18n.cancel,
+    contentText: getString('pipeline-list.confirmDelete', { name: pipeline.name }),
+    titleText: getString('pipeline-list.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {
@@ -43,7 +46,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ pipeline, goToPipelineStudio,
           })
           /* istanbul ignore else */
           if (deleted.status === 'SUCCESS') {
-            showSuccess(i18n.pipelineDeleted(pipeline.name || /* istanbul ignore next */ ''))
+            showSuccess(getString('pipeline-list.pipelineDeleted', { name: pipeline.name }))
           }
           refetchPipeline()
         } catch (err) {
@@ -57,11 +60,11 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ pipeline, goToPipelineStudio,
   return (
     <Menu style={{ minWidth: 'unset' }}>
       <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
-        <Menu.Item icon="play" text={i18n.runPipeline} />
+        <Menu.Item icon="play" text={getString('runPipelineText')} />
       </RunPipelineModal>
       <Menu.Item
         icon="cog"
-        text={i18n.pipelineStudio}
+        text={getString('pipelineStudio')}
         onClick={() => {
           goToPipelineStudio(pipeline.identifier)
         }}
@@ -69,7 +72,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ pipeline, goToPipelineStudio,
       <Menu.Divider />
       <Menu.Item
         icon="trash"
-        text={i18n.delete}
+        text={getString('delete')}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation()
           confirmDelete()
@@ -103,7 +106,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         />
         <span className={css.tags}>
           <Tag intent={Intent.PRIMARY} minimal>
-            {i18n.readyToRun}
+            <String stringID="pipeline-list.readyToRun" />
           </Tag>
         </span>
         <Text
@@ -115,20 +118,24 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         >
           {pipeline.name}
         </Text>
-        <Text font="small" padding={{ top: 'xsmall' }}>
-          {pipeline.description}
-        </Text>
-        <Layout.Horizontal padding={{ top: 'medium' }}>
-          <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-            <Icon name="main-user-groups" size={20} />
-            <Text font="xsmall">{i18n.admin.toUpperCase()}</Text>
-          </Layout.Vertical>
-          <Layout.Vertical spacing="xsmall">
-            <Icon name="main-user-groups" size={20} />
-            <Text font="xsmall">{i18n.collaborators.toUpperCase()}</Text>
-          </Layout.Vertical>
-        </Layout.Horizontal>
+        {pipeline.description ? (
+          <Text font="small" lineClamp={2} padding={{ top: 'medium' }}>
+            {pipeline.description}
+          </Text>
+        ) : null}
       </Container>
+      {pipeline.tags ? (
+        <Layout.Horizontal padding="small" spacing="small">
+          {Object.keys(pipeline.tags).map(key => {
+            const value = pipeline.tags?.[key]
+            return (
+              <Tag className={css.cardTags} key={key}>
+                {value ? `${key}:${value}` : key}
+              </Tag>
+            )
+          })}
+        </Layout.Horizontal>
+      ) : null}
       <Container
         padding="medium"
         border={{ top: true, color: Color.GREY_250 }}
@@ -144,10 +151,11 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               iconProps={{ size: 12 }}
               style={{ textTransform: 'capitalize' }}
             >
-              {pipeline.numOfStages} {i18n.stages}
+              {pipeline.numOfStages}&nbsp;
+              <String stringID="pipeline-list.listStages" />
             </Text>
             <Text color={Color.GREY_600} font={{ size: 'small' }} style={{ textTransform: 'uppercase' }}>
-              {i18n.stages}
+              <String stringID="pipeline-list.listStages" />
             </Text>
           </Layout.Vertical>
           <Layout.Vertical flex={{ align: 'center-center' }} spacing="xsmall">
@@ -155,20 +163,25 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               <SparkChart data={pipeline.deployments || /* istanbul ignore next */ []} />
             </span>
             <Text color={Color.GREY_600} font={{ size: 'small' }} style={{ textTransform: 'uppercase' }}>
-              {i18n.activity}
+              <String stringID="activity" />
             </Text>
           </Layout.Vertical>
           <Layout.Vertical flex={{ align: 'center-center' }} spacing="xsmall">
             <Text color={Color.RED_600}>{pipeline.numOfErrors || '-'}</Text>
             <Text color={Color.GREY_600} font={{ size: 'small' }} style={{ textTransform: 'uppercase' }}>
-              {i18n.errors}
+              <String stringID="errors" />
             </Text>
           </Layout.Vertical>
         </Layout.Horizontal>
       </Container>
       <Container padding="medium" border={{ top: true, color: Color.GREY_250 }} className={css.runPipeline}>
         <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
-          <Button data-testid="card-run-pipeline" intent="primary" icon="play" text={i18n.runPipeline} />
+          <Button
+            data-testid="card-run-pipeline"
+            intent="primary"
+            icon="run-pipeline"
+            text={<String stringID="runPipelineText" />}
+          />
         </RunPipelineModal>
       </Container>
     </Card>

@@ -5,6 +5,9 @@
   font-size: var(--font-size-xsmall);
   line-height: 14px;
   width: 132px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 
   .item {
     display: inline-block;
@@ -22,7 +25,24 @@
   }
 }
 
-.editor {
-  width: 100%;
-  padding-top: var(--spacing-medium);
+.run-form {
+  .editor {
+    width: 100%;
+    padding-top: var(--spacing-medium);
+    padding-bottom: var(--spacing-medium);
+  }
+  [class*='OverlaySpinner---overlaySpinner'] {
+    min-height: calc(100% - var(--page-header-height, 64px));
+    overflow: hidden;
+
+    .content {
+      min-height: calc(100vh - 187px);
+      overflow: auto;
+      display: block;
+      max-height: calc(100vh - 187px);
+    }
+    .footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
 }

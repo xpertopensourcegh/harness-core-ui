@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act, findByText as findByTextGlobal } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
@@ -11,13 +11,16 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('services/cd-ng', () => ({
-  useGetListOfExecutions: jest.fn(() => ({ data: { data: { content: [] } } })),
   useHandleInterrupt: jest.fn(() => ({})),
+  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: {} }))
+}))
+
+jest.mock('services/pipeline-ng', () => ({
+  useGetListOfExecutions: jest.fn(() => ({ data: { data: { content: [] } } })),
   useGetTemplateFromPipeline: jest.fn(() => ({ data: {} })),
   useGetPipeline: jest.fn(() => ({ data: {} })),
-  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: {} })),
-  useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: {} })),
-  useCreateInputSetForPipeline: jest.fn(() => ({ data: {} }))
+  useCreateInputSetForPipeline: jest.fn(() => ({ data: {} })),
+  useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: {} }))
 }))
 
 describe('<CIPipelineDeploymentList /> tests', () => {
@@ -43,34 +46,5 @@ describe('<CIPipelineDeploymentList /> tests', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-  })
-
-  test('opens run pipelie modal', async () => {
-    const { findByText } = render(
-      <TestWrapper
-        path={routes.toCIPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps })}
-        pathParams={{
-          accountId: 'testAcc',
-          orgIdentifier: 'testOrg',
-          projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
-        }}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
-        <CIPipelineDeploymentList />
-      </TestWrapper>
-    )
-
-    const run = await findByText('Run Pipeline')
-
-    act(() => {
-      fireEvent.click(run)
-    })
-
-    const btnText = await findByTextGlobal(document.querySelector('.bp3-dialog') as HTMLElement, 'Run Pipeline', {
-      selector: '.bp3-button-text'
-    })
-
-    expect(btnText).toBeDefined()
   })
 })

@@ -11,13 +11,16 @@ import {
   triggerPathProps,
   connectorPathProps,
   secretPathProps,
-  executionPathProps
+  executionPathProps,
+  pipelineModuleParams,
+  inputSetFormPathProps
 } from '@common/utils/routeUtils'
 import type {
   AccountPathProps,
   PipelinePathProps,
   ExecutionPathProps,
-  ProjectPathProps
+  ProjectPathProps,
+  PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
@@ -50,6 +53,8 @@ import CDGeneralSettingsPage from '@cd/pages/admin/general-settings/CDGeneralSet
 import ResourcesPage from '@cd/pages/Resources/ResourcesPage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
 import { ModuleName, useAppStore } from 'framework/exports'
+import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
+import { InputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
 
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -77,18 +82,21 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
-  const params = useParams<PipelinePathProps>()
-  return <Redirect to={routes.toCDPipelineDeploymentList(params)} />
+  const params = useParams<PipelineType<PipelinePathProps>>()
+
+  return <Redirect to={routes.toPipelineDeploymentList(params)} />
 }
 
 const RedirectToStudioUI = (): React.ReactElement => {
-  const params = useParams<PipelinePathProps>()
-  return <Redirect to={routes.toCDPipelineStudioUI(params)} />
+  const params = useParams<PipelineType<PipelinePathProps>>()
+
+  return <Redirect to={routes.toPipelineStudioUI(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
-  const params = useParams<ExecutionPathProps>()
-  return <Redirect to={routes.toCDExecutionPiplineView(params)} />
+  const params = useParams<PipelineType<ExecutionPathProps>>()
+
+  return <Redirect to={routes.toExecutionPipelineView(params)} />
 }
 
 export default (
@@ -109,23 +117,36 @@ export default (
       <RouteWithLayout path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
         <CDDashboardPage />
       </RouteWithLayout>
-
-      <RouteWithLayout path={routes.toCDDeployments({ ...accountPathProps, ...projectPathProps })} exact>
+      <RouteWithLayout
+        path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+        exact
+      >
         <CDDeploymentsList />
       </RouteWithLayout>
 
-      <RouteWithLayout exact path={routes.toCDPipelines({ ...accountPathProps, ...projectPathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      >
         <PipelinesPage />
       </RouteWithLayout>
-
-      <Route exact path={routes.toCDPipelineStudio({ ...accountPathProps, ...pipelinePathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      >
+        <RunPipelinePage />
+      </RouteWithLayout>
+      <Route
+        exact
+        path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      >
         <RedirectToStudioUI />
       </Route>
 
       <RouteWithLayout
         exact
         layout={MinimalLayout}
-        path={routes.toCDPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps })}
+        path={routes.toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
       >
         <CDPipelineStudio>
           <StageBuilder />
@@ -135,7 +156,7 @@ export default (
       <RouteWithLayout
         exact
         layout={EmptyLayout}
-        path={routes.toCDPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps })}
+        path={routes.toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
       >
         <CDPipelineStudio>
           <PipelineYamlView />
@@ -144,9 +165,10 @@ export default (
 
       <RouteWithLayout
         exact
-        path={routes.toCDPipelineDeploymentList({
+        path={routes.toPipelineDeploymentList({
           ...accountPathProps,
-          ...pipelinePathProps
+          ...pipelinePathProps,
+          ...pipelineModuleParams
         })}
       >
         <PipelineDetails>
@@ -186,40 +208,70 @@ export default (
       >
         <SecretDetails />
       </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDInputSetList({ ...accountPathProps, ...pipelinePathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      >
         <PipelineDetails>
           <InputSetList />
         </PipelineDetails>
       </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDTriggersPage({ ...accountPathProps, ...pipelinePathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
+      >
+        <InputSetForm />
+      </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      >
         <PipelineDetails>
           <TriggersPage />
         </PipelineDetails>
       </RouteWithLayout>
-      <RouteWithLayout path={routes.toCDTriggersWizardPage({ ...accountPathProps, ...triggerPathProps })}>
+      <RouteWithLayout
+        path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+      >
         <TriggerDetails>
           <TriggersWizardPage />
         </TriggerDetails>
       </RouteWithLayout>
-      <Route exact path={routes.toCDExecution({ ...accountPathProps, ...executionPathProps })}>
+      <Route exact path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}>
         <RedirectToExecutionPipeline />
       </Route>
-      <RouteWithLayout exact path={routes.toCDExecutionPiplineView({ ...accountPathProps, ...executionPathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+      >
         <ExecutionLandingPage>
           <ExecutionPipelineView />
         </ExecutionLandingPage>
       </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDExecutionInputsView({ ...accountPathProps, ...executionPathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+      >
         <ExecutionLandingPage>
           <ExecutionInputsView />
         </ExecutionLandingPage>
       </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDExecutionArtifactsView({ ...accountPathProps, ...executionPathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toExecutionArtifactsView({
+          ...accountPathProps,
+          ...executionPathProps,
+          ...pipelineModuleParams
+        })}
+      >
         <ExecutionLandingPage>
           <ExecutionArtifactsView />
         </ExecutionLandingPage>
       </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDPipelineDetail({ ...accountPathProps, ...pipelinePathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      >
         <RedirectToPipelineDetailHome />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDTemplateLibrary({ ...accountPathProps, ...projectPathProps })}>

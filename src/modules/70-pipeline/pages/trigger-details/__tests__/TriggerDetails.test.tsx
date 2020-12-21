@@ -3,8 +3,8 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, triggerPathProps } from '@common/utils/routeUtils'
 import { PipelineResponse } from '@pipeline/pages/pipeline-details/__tests__/PipelineDetailsMocks'
+import { accountPathProps, triggerPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import TriggerDetails from '../TriggerDetails'
 import { GetTriggerResponse } from '../TriggerDetailsMock'
 jest.mock('services/cd-ng', () => ({
@@ -12,7 +12,7 @@ jest.mock('services/cd-ng', () => ({
   useGetPipelineSummary: jest.fn(() => PipelineResponse)
 }))
 
-const TEST_PATH = routes.toCDTriggersWizardPage({ ...accountPathProps, ...triggerPathProps })
+const TEST_PATH = routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })
 describe('Trigger Details tests', () => {
   test('render snapshot view', async () => {
     const { container } = render(
@@ -23,7 +23,8 @@ describe('Trigger Details tests', () => {
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
           pipelineIdentifier: 'pipeline',
-          triggerIdentifier: 'triggerIdentifier'
+          triggerIdentifier: 'triggerIdentifier',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

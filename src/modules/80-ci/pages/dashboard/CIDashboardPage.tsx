@@ -25,11 +25,12 @@ export const CIDashboardPage: React.FC = () => {
             intent="primary"
             onClick={() =>
               history.push(
-                routes.toCIPipelineStudio({
+                routes.toPipelineStudio({
                   accountId,
                   orgIdentifier: project?.orgIdentifier as string,
                   projectIdentifier: projectIdentifier,
-                  pipelineIdentifier: '-1'
+                  pipelineIdentifier: '-1',
+                  module: 'ci'
                 })
               )
             }

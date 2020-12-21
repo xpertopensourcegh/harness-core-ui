@@ -1,181 +1,156 @@
 {
   "status": "SUCCESS",
   "data": {
-    "pipelineExecution": {
-      "pipelineIdentifier": "Test_Pipline",
-      "pipelineName": "Test Pipline",
-      "deploymentId": "DeploymentIdPlaceHolder",
-      "planExecutionId": "09FtLo8NRjGiHXBm0YFUfQ",
-      "executionStatus": "Success",
-      "startedAt": 1602606406435,
-      "endedAt": 1602606454275,
-      "tags": [
-        {
-          "key1": "Value1",
-          "key2": "Value2"
+    "pipelineExecutionSummary": {
+      "planExecutionId": "planexecutionId",
+      "pipelineIdentifier": "testp1",
+      "name": "test-p1",
+      "status": "NotStarted",
+      "executionTriggerInfo": { "triggeredBy": null, "triggerType": null },
+      "moduleInfo": {
+        "cd": {
+          "envIdentifiers": ["env"],
+          "environmentTypes": ["PreProduction"],
+          "serviceDefinitionTypes": ["Kubernetes"],
+          "serviceIdentifiers": []
         }
-      ],
-      "stageExecutionSummaryElements": [
-        {
-          "stage": {
-            "planExecutionId": "09FtLo8NRjGiHXBm0YFUfQ",
-            "stageIdentifier": "qaStage",
-            "serviceInfo": {
-              "identifier": "manager",
-              "displayName": "manager",
-              "deploymentType": "Kubernetes",
-              "artifacts": { "primary": null, "sidecars": [] }
-            },
-            "stageName": "qa stage",
-            "serviceDefinitionType": null,
-            "executionStatus": "Success",
-            "startedAt": 1602606406540,
-            "endedAt": 1602606421975,
-            "serviceIdentifier": "manager",
-            "envIdentifier": "stagingInfra",
-            "errorInfo": null
-          }
-        },
-        {
-          "parallel": {
-            "stageExecutions": [
-              {
-                "stage": {
-                  "planExecutionId": "09FtLo8NRjGiHXBm0YFUfQ",
-                  "stageIdentifier": "qaStage2",
-                  "serviceInfo": null,
-                  "stageName": "qa stage2",
-                  "serviceDefinitionType": null,
-                  "executionStatus": "Success",
-                  "startedAt": null,
-                  "endedAt": 1602606437122,
-                  "serviceIdentifier": null,
-                  "envIdentifier": "stagingInfra",
-                  "errorInfo": null
-                }
-              },
-              {
-                "stage": {
-                  "planExecutionId": "09FtLo8NRjGiHXBm0YFUfQ",
-                  "stageIdentifier": "qaStage3",
-                  "serviceInfo": null,
-                  "stageName": "qa stage3",
-                  "serviceDefinitionType": null,
-                  "executionStatus": "Success",
-                  "startedAt": 1602606423036,
-                  "endedAt": 1602606437118,
-                  "serviceIdentifier": null,
-                  "envIdentifier": "stagingInfra",
-                  "errorInfo": null
-                }
-              }
-            ]
-          }
-        },
-        {
-          "stage": {
-            "planExecutionId": "09FtLo8NRjGiHXBm0YFUfQ",
-            "stageIdentifier": "qaStage4",
-            "serviceInfo": null,
-            "stageName": "qa stage4",
-            "serviceDefinitionType": null,
-            "executionStatus": "NotStarted",
-            "startedAt": null,
-            "endedAt": null,
-            "serviceIdentifier": null,
-            "envIdentifier": "stagingInfra",
-            "errorInfo": null
-          }
-        }
-      ],
-      "errorMsg": null,
-      "stageIdentifiers": ["qaStage", "qaStage2", "qaStage3", "qaStage4"],
-      "serviceIdentifiers": ["manager"],
-      "envIdentifiers": ["stagingInfra", "stagingInfra", "stagingInfra", "stagingInfra"],
-      "serviceDefinitionTypes": ["Kubernetes"],
-      "stageTypes": [
-        { "type": "Deployment" },
-        { "type": "Deployment" },
-        { "type": "Deployment" },
-        { "type": "Deployment" }
-      ],
-      "errorInfo": null,
-      "triggerInfo": {
-        "triggeredBy": { "uuid": "lv0euRhKRCyiXWzS7pOg6g", "name": "Admin", "email": "admin@harness.io" },
-        "triggerType": "MANUAL"
       },
-      "successfulStagesCount": 1,
+      "layoutNodeMap": {
+        "KHQLWC2MQFCWJNFw4loqOgparallel": {
+          "nodeType": "parallel",
+          "nodeIdentifier": "parallel",
+          "nodeUuid": "KHQLWC2MQFCWJNFw4loqOgparallel",
+          "status": "NotStarted",
+          "edgeLayoutList": {
+            "currentNodeChildren": ["ztUSwKDiR6KswSvkU7fctw", "ztUSwKDiR6KswSvkU7abvc"],
+            "nextIds": ["HPdKmejETHqIWCK62syYww"]
+          }
+        },
+        "ztUSwKDiR6KswSvkU7fctw": {
+          "nodeType": "stage",
+          "nodeIdentifier": "google_1",
+          "nodeUuid": "google_1",
+          "status": "Running",
+          "moduleInfo": {
+            "cd": {
+              "infrastructureIdentifiers": "infraIdentifier",
+              "nodeExecutionId": "randomId",
+              "serviceInfoList": { "artifacts": { "primary": { "type": "Docker" }, "sidecars": [] } }
+            }
+          },
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        },
+        "ztUSwKDiR6KswSvkU7abvc": {
+          "nodeType": "stage",
+          "nodeIdentifier": "google_2",
+          "nodeUuid": "google_2",
+          "status": "Running",
+          "moduleInfo": {
+            "cd": {
+              "infrastructureIdentifiers": "infraIdentifier",
+              "nodeExecutionId": "randomId",
+              "serviceInfoList": {
+                "artifacts": { "primary": { "type": "Docker" }, "sidecars": [{ "type": "Docker" }] }
+              }
+            }
+          },
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        },
+        "HPdKmejETHqIWCK62syYww": {
+          "nodeType": "stage",
+          "nodeIdentifier": "qa stage",
+          "nodeUuid": "qastage",
+          "status": "NotStarted",
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["6iyMwdTxSWqf4rdF5eqVMw"] }
+        },
+        "6iyMwdTxSWqf4rdF5eqVMw": {
+          "nodeType": "stage",
+          "nodeIdentifier": "Random",
+          "nodeUuid": "6iyMwdTxSWqf4rdF5eqVMw",
+          "status": "NotStarted",
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        }
+      },
+      "startingNodeId": "KHQLWC2MQFCWJNFw4loqOgparallel",
+      "startTs": 123,
+      "endTs": 0,
+      "createdAt": 1608059579307,
+      "successfulStagesCount": 0,
       "runningStagesCount": 0,
-      "failedStagesCount": 0
+      "failedStagesCount": 0,
+      "totalStagesCount": 0
     },
-    "stageGraph": {
-      "rootNodeId": "x_OOOaV3T-ylRg5KQKSCCA",
+    "executionGraph": {
+      "rootNodeId": "ztUSwKDiR6KswSvkU7fctw",
       "nodeMap": {
-        "RrBW5KMpSmiprd-6ip-7tA": {
-          "uuid": "RrBW5KMpSmiprd-6ip-7tA",
-          "name": "Service",
-          "startTs": 1602606439219,
-          "endTs": 1602606439252,
-          "stepType": "SERVICE",
-          "status": "Success",
-          "failureInfo": null
+        "K8sRollingUuid": {
+          "uuid": "K8sRollingUuid",
+          "name": "Rollout Deployment",
+          "startTs": 1608292073511,
+          "endTs": null,
+          "stepType": "K8S_ROLLING",
+          "status": "Running",
+          "failureInfo": null,
+          "executableResponsesMetadata": [
+            {
+              "baseLoggingKey": "baseKey",
+              "commandUnits": ["Fetch Files", "Initialize", "Prepare", "Apply", "Wait for Steady State", "Wrap Up"]
+            }
+          ],
+          "taskIdToProgressDataMap": { "iCGCEpaJQBGa3fAyhI956g": [{ "data": "33% done" }, { "data": "55% done" }] }
         },
-        "X_IGbTkaSMulKGh43U_xJw": {
-          "uuid": "X_IGbTkaSMulKGh43U_xJw",
-          "name": "http step 1",
-          "startTs": 1602606442223,
-          "endTs": 1602606445195,
-          "stepType": "BASIC_HTTP",
-          "status": "Success",
-          "failureInfo": null
+        "ztUSwKDiR6KswSvkU7fctw": {
+          "uuid": "ztUSwKDiR6KswSvkU7fctw",
+          "name": "qa stage",
+          "startTs": 1608292073511,
+          "endTs": null,
+          "stepType": "SECTION",
+          "status": "Running",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
         },
-        "RpxN130QT7yAKoQ7PvP3Lg": {
-          "uuid": "RpxN130QT7yAKoQ7PvP3Lg",
-          "name": "http step 2",
-          "startTs": 1602606446220,
-          "endTs": 1602606450230,
-          "stepType": "BASIC_HTTP",
+        "K8sRollingUuid2": {
+          "uuid": "K8sRollingUuid2",
+          "name": "RolloutSecond",
+          "startTs": null,
+          "endTs": null,
+          "stepType": "K8S_ROLLING",
           "status": "NotStarted",
           "failureInfo": null
         },
-        "8K1U2YJURE2mlcKi8944kw": {
-          "uuid": "8K1U2YJURE2mlcKi8944kw",
-          "name": "execution",
-          "startTs": 1602606442189,
-          "endTs": 1602606451233,
-          "stepType": "GENERIC_SECTION",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "x_OOOaV3T-ylRg5KQKSCCA": {
-          "uuid": "x_OOOaV3T-ylRg5KQKSCCA",
-          "name": "qa stage4",
-          "startTs": 1602606439165,
-          "endTs": 1602606452245,
-          "stepType": "GENERIC_SECTION",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "hwTX_U7OQ0-pubH7lprhmw": {
-          "uuid": "hwTX_U7OQ0-pubH7lprhmw",
+        "infraUuid": {
+          "uuid": "infraUuid",
           "name": "Infrastructure",
-          "startTs": 1602606440210,
-          "endTs": 1602606440240,
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
           "stepType": "INFRASTRUCTURE",
           "status": "Success",
-          "failureInfo": null
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": { "bFsnHiFzRNy8EX9UDyYNdA": [{ "data": "33% done" }, { "data": "99% done" }] }
+        },
+        "serviceUuid": {
+          "uuid": "serviceUuid",
+          "name": "Service",
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
+          "stepType": "SERVICE",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": { "cS_N6PnYSTa8dX874klfXg": [{ "data": "50% done" }, { "data": "99% done" }] }
         }
       },
       "nodeAdjacencyListMap": {
-        "RrBW5KMpSmiprd-6ip-7tA": { "children": [], "nextIds": ["hwTX_U7OQ0-pubH7lprhmw"] },
-        "X_IGbTkaSMulKGh43U_xJw": { "children": [], "nextIds": ["RpxN130QT7yAKoQ7PvP3Lg"] },
-        "RpxN130QT7yAKoQ7PvP3Lg": { "children": [], "nextIds": [] },
-        "8K1U2YJURE2mlcKi8944kw": { "children": ["X_IGbTkaSMulKGh43U_xJw"], "nextIds": [] },
-        "x_OOOaV3T-ylRg5KQKSCCA": { "children": ["RrBW5KMpSmiprd-6ip-7tA"], "nextIds": [] },
-        "hwTX_U7OQ0-pubH7lprhmw": { "children": [], "nextIds": ["8K1U2YJURE2mlcKi8944kw"] }
+        "K8sRollingUuid2": { "children": null, "nextIds": null },
+        "K8sRollingUuid": { "children": null, "nextIds": ["K8sRollingUuid2"] },
+        "ztUSwKDiR6KswSvkU7fctw": { "children": ["serviceUuid"], "nextIds": null },
+        "infraUuid": { "children": null, "nextIds": ["K8sRollingUuid"] },
+        "serviceUuid": { "children": null, "nextIds": ["infraUuid"] }
       }
     }
   },
   "metaData": null,
-  "correlationId": "0453f390-2ab9-4195-83a9-119a9beed93c"
+  "correlationId": null
 }

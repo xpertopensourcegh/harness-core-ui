@@ -13,12 +13,12 @@ import {
   NGTriggerConfig,
   NGTriggerSource,
   useCreateTrigger,
-  useGetPipeline,
-  useGetTemplateFromPipeline,
   useGetTrigger,
   useUpdateTrigger
 } from 'services/cd-ng'
+import { useGetPipeline, useGetTemplateFromPipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {
@@ -35,14 +35,16 @@ import {
 } from './utils/TriggersWizardPageUtils'
 
 const TriggersWizardPage: React.FC = (): JSX.Element => {
-  const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier, triggerIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-    targetIdentifier: string
-    triggerIdentifier: string
-  }>()
+  const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier, triggerIdentifier, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+      pipelineIdentifier: string
+      targetIdentifier: string
+      triggerIdentifier: string
+    }>
+  >()
   const history = useHistory()
   const { location } = useHistory()
   const { getString } = useStrings()
@@ -92,7 +94,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const originalPipeline: NgPipeline | undefined = (pipelineResponse?.data?.ngPipeline as any)?.pipeline
+  const originalPipeline: NgPipeline | undefined = (pipelineResponse?.data?.yamlPipeline as any)?.pipeline
 
   useEffect(() => {
     if (triggerResponse?.data?.yaml && triggerResponse.data.type) {
@@ -179,11 +181,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   const returnToTriggersPage = (): void => {
     history.push(
-      routes.toCDTriggersPage({
+      routes.toTriggersPage({
         accountId,
         orgIdentifier,
         projectIdentifier,
-        pipelineIdentifier
+        pipelineIdentifier,
+        module
       })
     )
   }
@@ -256,11 +259,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (status === ResponseStatus.SUCCESS) {
         showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
         history.push(
-          routes.toCDTriggersPage({
+          routes.toTriggersPage({
             accountId,
             orgIdentifier,
             projectIdentifier,
-            pipelineIdentifier
+            pipelineIdentifier,
+            module
           })
         )
       }
@@ -270,11 +274,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (status === ResponseStatus.SUCCESS) {
         showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
         history.push(
-          routes.toCDTriggersPage({
+          routes.toTriggersPage({
             accountId,
             orgIdentifier,
             projectIdentifier,
-            pipelineIdentifier
+            pipelineIdentifier,
+            module
           })
         )
       }

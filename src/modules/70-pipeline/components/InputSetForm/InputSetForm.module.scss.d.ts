@@ -10,5 +10,8 @@ declare const styles: {
   readonly drag: string
   readonly dragging: string
   readonly dragOver: string
+  readonly inputSetForm: string
+  readonly content: string
+  readonly footer: string
 }
 export default styles

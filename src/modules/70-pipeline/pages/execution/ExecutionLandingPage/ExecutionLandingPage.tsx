@@ -4,7 +4,7 @@ import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 
 import routes from '@common/RouteDefinitions'
-import { useGetPipelineExecutionDetail } from 'services/cd-ng'
+import { useGetExecutionDetail } from 'services/pipeline-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -22,6 +22,7 @@ import {
 import { useQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -33,8 +34,8 @@ export const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
   const [showDetail, setShowDetails] = React.useState(false)
-  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier } = useParams<
-    ExecutionPathParams
+  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
+    PipelineType<ExecutionPathParams>
   >()
 
   /* These are used when auto updating selected stage/step when a pipeline is running */
@@ -46,7 +47,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
 
-  const { data, refetch, loading } = useGetPipelineExecutionDetail({
+  const { data, refetch, loading } = useGetExecutionDetail({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
@@ -61,8 +62,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
   const { getString } = useStrings()
   const pipelineStagesMap = React.useMemo(() => {
-    return getPipelineStagesMap(data || {})
-  }, [data])
+    return getPipelineStagesMap(
+      data?.data?.pipelineExecutionSummary?.layoutNodeMap,
+      data?.data?.pipelineExecutionSummary?.startingNodeId
+    )
+  }, [data?.data?.pipelineExecutionSummary?.layoutNodeMap, data?.data?.pipelineExecutionSummary?.startingNodeId])
 
   function toggleDetails(): void {
     setShowDetails(status => !status)
@@ -70,7 +74,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
   // setup polling
   React.useEffect(() => {
-    if (!loading && data && !isExecutionComplete(data.data?.pipelineExecution?.executionStatus)) {
+    if (!loading && data && !isExecutionComplete(data.data?.pipelineExecutionSummary?.status)) {
       const timerId = window.setTimeout(() => {
         refetch()
       }, POLL_INTERVAL)
@@ -98,11 +102,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     }
 
     const runningStage = getRunningStageForPipeline(
-      data.data.pipelineExecution?.stageExecutionSummaryElements || [],
-      data.data?.pipelineExecution?.executionStatus
+      data.data.pipelineExecutionSummary,
+      data.data?.pipelineExecutionSummary?.status
     )
 
-    const runningStep = getRunningStep(data.data.stageGraph || {})
+    const runningStep = getRunningStep(data.data.executionGraph || {})
 
     if (runningStage) {
       setAutoSelectedStageId(runningStage)
@@ -121,7 +125,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     setSelectedStepId((queryParams.step as string) || autoSelectedStepId)
   }, [loading, queryParams, autoSelectedStageId, autoSelectedStepId])
 
-  const { pipelineExecution = {} } = data?.data || {}
+  const { pipelineExecutionSummary = {} } = data?.data || {}
 
   return (
     <ExecutionContext.Provider
@@ -145,46 +149,54 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                   label: project?.name as string
                 },
                 {
-                  url: routes.toCDPipelines({ orgIdentifier, projectIdentifier, accountId }),
+                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
                 },
                 {
-                  url: routes.toCDPipelineDeploymentList({
+                  url: routes.toPipelineDeploymentList({
                     orgIdentifier,
                     projectIdentifier,
                     pipelineIdentifier,
-                    accountId
+                    accountId,
+                    module
                   }),
                   label: getString('executionText')
                 },
-                { url: '#', label: pipelineExecution.pipelineName || '' }
+                { url: '#', label: pipelineExecutionSummary.name || '' }
               ]}
             />
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
-                <div className={css.title}>{pipelineExecution.pipelineName}</div>
+                <div className={css.title}>{pipelineExecutionSummary.name}</div>
                 <div className={css.pipelineId}>
                   <String
                     stringID="execution.pipelineIdentifierText"
                     namespace="pipeline-execution-ci"
-                    vars={pipelineExecution}
+                    vars={pipelineExecutionSummary}
                   />
                 </div>
               </div>
               <div className={css.statusBar}>
-                {pipelineExecution.executionStatus && (
-                  <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecution.executionStatus} />
+                {pipelineExecutionSummary.status && (
+                  <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
                 )}
                 <Duration
-                  startTime={pipelineExecution.startedAt}
-                  endTime={pipelineExecution.endedAt}
+                  startTime={pipelineExecutionSummary.startTs}
+                  endTime={pipelineExecutionSummary.endTs}
                   durationText={' '}
                 />
                 <ExecutionActions
-                  executionStatus={pipelineExecution.executionStatus}
-                  inputSetYAML={pipelineExecution.inputSetYaml}
+                  executionStatus={pipelineExecutionSummary.status}
+                  // inputSetYAML={pipelineExecutionSummary.inputSetYaml}
                   refetch={refetch}
-                  params={{ orgIdentifier, pipelineIdentifier, projectIdentifier, accountId, executionIdentifier }}
+                  params={{
+                    orgIdentifier,
+                    pipelineIdentifier,
+                    projectIdentifier,
+                    accountId,
+                    executionIdentifier,
+                    module
+                  }}
                 />
               </div>
             </div>
@@ -199,8 +211,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
               />
               <div className={css.tags}>
                 <Icon name="main-tags" size={14} />
-                {pipelineExecution.tags &&
-                  (Object.entries(pipelineExecution.tags) || []).map(tag => (
+                {pipelineExecutionSummary.tags &&
+                  (Object.entries(pipelineExecutionSummary.tags) || []).map(tag => (
                     <Tag className={css.tag} key={tag[0]}>
                       {tag[1].length > 0 ? `${tag[0]}: ${tag[1]}` : tag[0]}
                     </Tag>

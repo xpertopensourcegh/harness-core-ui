@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import TriggersList from './views/TriggersList'
 
 interface TriggerDataInterface {
@@ -8,25 +9,28 @@ interface TriggerDataInterface {
   sourceRepo: string
 }
 const TriggersPage: React.FC = (): React.ReactElement => {
-  const { orgIdentifier, projectIdentifier, accountId, pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-    triggerIdentifier: string
-  }>()
+  const { orgIdentifier, projectIdentifier, accountId, pipelineIdentifier, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+      pipelineIdentifier: string
+      triggerIdentifier: string
+    }>
+  >()
   const history = useHistory()
   const onNewTriggerClick = (val: TriggerDataInterface): void => {
     const { triggerType, sourceRepo } = val
     history.push(
-      routes.toCDTriggersWizardPage({
+      routes.toTriggersWizardPage({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         triggerIdentifier: 'new', // new is a reserved identifier
         triggerType,
-        sourceRepo
+        sourceRepo,
+        module
       })
     )
   }

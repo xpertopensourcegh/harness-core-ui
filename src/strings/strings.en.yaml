@@ -8,6 +8,7 @@ global:
   orgLabel: Organization
   modules: Modules
   lastActivity: last activity
+  activity: 'Activity'
   deploymentText: Deployment
   cloudCostsText: Cloud Costs
   changeVerificationText: Change Verifications
@@ -33,6 +34,8 @@ global:
   status: Status
   submit: 'Submit'
   buildText: Build
+  pipeline: Pipeline
+  pipelineStudio: Pipeline Studio
   buildsText: Builds
   primaryArtifactText: Primary Artifact
   sidecarArtifactText: Sidecar Artifact
@@ -62,7 +65,9 @@ global:
   back: Back
   next: Next
   continue: Continue
+  addPipeline: + Pipeline
   cancel: Cancel
+  errors: Errors
   loading: Loading...
   confirm: Confirm
   retry: Retry
@@ -106,7 +111,6 @@ global:
   addressErrorFields: 'Please address all error fields before submitting.'
   metricPacks: 'Metric Packs'
   review: 'Review'
-  activity: 'Activity'
   selectProduct: 'Select Product'
   selectApplication: 'Select Application'
   selectProject: 'Select Project'
@@ -189,7 +193,7 @@ global:
     DELEGATES: 'Delegates'
     NEW_DELEGATE: 'New Delegate'
   execution:
-    pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
+    pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
       MANUAL: Manually
       WEBHOOK: Webhook
@@ -736,9 +740,16 @@ global:
     advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
   orgs:
     searchPlaceHolder: 'Search Organizations by name, tags'
+  pipeline-list:
+    aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
+    listStages: Stages
+    confirmDeleteTitle: Delete Pipeline
+    pipelineDeleted: Pipeline {{name}} deleted
+    confirmDelete: Are you sure want to delete pipeline {{name}}
+    readyToRun: Ready To Run
 pipeline-execution-ci:
   execution:
-    pipelineIdentifierText: '(Build ID: {{deploymentId}})' # Text for Pipeline Identifier
+    pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier
 pipeline-execution-cd: {}
 
 # !!! THIS NAMESPACE IS FOR TESTING PLEASE DO NOT REMOVE !!!

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useGetListOfExecutions } from 'services/cd-ng'
+import { useGetListOfExecutions } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
@@ -19,7 +19,7 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<PipelinePathProps>()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<PipelinePathProps>()
   const queryParams = useQueryParams<{ page?: string } & FilterQueryParams>()
   const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()
@@ -29,14 +29,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      pipelineIdentifiers: pipelineIdentifier
-        ? [pipelineIdentifier]
-        : queryParams.pipeline
-        ? [queryParams.pipeline]
-        : undefined,
-      page: page - 1,
-      searchTerm: queryParams.query,
-      executionStatuses: queryParams.status ? [queryParams.status] : undefined
+      // pipelineIdentifiers: pipelineIdentifier
+      //   ? [pipelineIdentifier]
+      //   : queryParams.pipeline
+      //   ? [queryParams.pipeline]
+      //   : undefined,
+      page: page - 1
+      // searchTerm: queryParams.query,
+      // executionStatuses: queryParams.status ? [queryParams.status] : undefined
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
@@ -77,8 +77,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       }}
     >
       <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
-      <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary} />
-      <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
+      <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.data?.content} />
+      <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary?.data} />
     </Page.Body>
   )
 }

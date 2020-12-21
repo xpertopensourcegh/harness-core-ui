@@ -1,378 +1,265 @@
 {
-  "status": "Success",
+  "status": "SUCCESS",
   "data": {
-    "pipelineExecution": {
-      "pipelineIdentifier": "dummyPipelineIdentifier",
-      "pipelineName": "dummyPipeline",
-      "planExecutionId": "planExecutionId",
-      "executionStatus": "Running",
-      "startedAt": 0,
-      "endedAt": 10,
-      "triggeredBy": {
-        "uuid": null,
-        "name": "admin",
-        "email": null
+    "pipelineExecutionSummary": {
+      "pipelineIdentifier": "EkSDnHpyTASfCFoBMpLXTw",
+      "planExecutionId": "9ZEgeMkqQGyv8T6NU0Gr1A",
+      "name": "Mock Pipeline",
+      "status": "Running",
+      "executionTriggerInfo": {
+        "triggeredBy": { "uuid": null, "name": "Harness Dev", "email": null },
+        "triggerType": "MANUAL"
       },
-      "triggerType": "MANUAL",
-      "tags": null,
-      "stageExecutionSummaryElements": [
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageDone",
-            "stageIdentifier": "stageIdentifiercdStageDone",
-            "stageName": "Done Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Success",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageDone",
-            "envIdentifier": "environmentIdentifiercdStageDone",
-            "errorMsg": null
-          }
-        },
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageWaiting",
-            "stageIdentifier": "stageIdentifiercdStageWaiting",
-            "stageName": "Waiting Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Waiting",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageWaiting",
-            "envIdentifier": "environmentIdentifiercdStageWaiting",
-            "errorMsg": null
-          }
-        },
-
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStagePaused",
-            "stageIdentifier": "stageIdentifiercdStagePaused",
-            "stageName": "Paused Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Paused",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStagePaused",
-            "envIdentifier": "environmentIdentifiercdStagePaused",
-            "errorMsg": null
-          }
-        },
-
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageFailed",
-            "stageIdentifier": "stageIdentifiercdStageFailed",
-            "stageName": "Failed Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Failed",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageFailed",
-            "envIdentifier": "environmentIdentifiercdStageFailed",
-            "errorMsg": null
-          }
-        },
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageAborted",
-            "stageIdentifier": "stageIdentifiercdStageAborted",
-            "stageName": "Aborted Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Aborted",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageAborted",
-            "envIdentifier": "environmentIdentifiercdStageAborted",
-            "errorMsg": null
-          }
-        },
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageRollback",
-            "stageIdentifier": "stageIdentifiercdStageRollback",
-            "stageName": "Rollback Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Rollback",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageRollback",
-            "envIdentifier": "environmentIdentifiercdStageRollback",
-            "errorMsg": null
-          }
-        },
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageError",
-            "stageIdentifier": "stageIdentifiercdStageError",
-            "stageName": "Error Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "Error",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageError",
-            "envIdentifier": "environmentIdentifiercdStageError",
-            "errorMsg": null
-          }
-        },
-        {
-          "parallel": {
-            "stageExecutions": [
-              {
-                "stage": {
-                  "planExecutionId": "planExecutionIdparallelStage1",
-                  "stageIdentifier": "stageIdentifierparallelStage1",
-                  "stageName": "Running Stage1",
-                  "artifactsDeployed": [
-                    {
-                      "identifier": "artifactIdentifier",
-                      "artifactStream": null
-                    }
-                  ],
-                  "deploymentType": "Kubernetes",
-                  "executionStatus": "Running",
-                  "startedAt": 0,
-                  "endedAt": 10,
-                  "serviceIdentifier": "serviceIdentifierparallelStage1",
-                  "envIdentifier": "environmentIdentifierparallelStage1",
-                  "errorMsg": null
-                }
-              },
-              {
-                "stage": {
-                  "planExecutionId": "planExecutionIdparallelStage2",
-                  "stageIdentifier": "stageIdentifierparallelStage2",
-                  "stageName": "Running Stage 2",
-                  "artifactsDeployed": [
-                    {
-                      "identifier": "artifactIdentifier",
-                      "artifactStream": null
-                    }
-                  ],
-                  "deploymentType": "Kubernetes",
-                  "executionStatus": "Running",
-                  "startedAt": 0,
-                  "endedAt": 10,
-                  "serviceIdentifier": "serviceIdentifierparallelStage2",
-                  "envIdentifier": "environmentIdentifierparallelStage2",
-                  "errorMsg": null
-                }
-              }
-            ]
-          }
-        },
-        {
-          "stage": {
-            "planExecutionId": "planExecutionIdcdStageNotStarted",
-            "stageIdentifier": "stageIdentifiercdStageNotStarted",
-            "stageName": "Not Started Stage",
-            "artifactsDeployed": [
-              {
-                "identifier": "artifactIdentifier",
-                "artifactStream": null
-              }
-            ],
-            "deploymentType": "Kubernetes",
-            "executionStatus": "NotStarted",
-            "startedAt": 0,
-            "endedAt": 10,
-            "serviceIdentifier": "serviceIdentifiercdStageNotStarted",
-            "envIdentifier": "environmentIdentifiercdStageNotStarted",
-            "errorMsg": null
+      "moduleInfo": {
+        "CD": { "DeploymentType": "k8s", "namespace": "mock-namespace" },
+        "CI": {
+          "ciBuildBranchHook": {
+            "name": "master",
+            "link": "https://github.com/wings-software/portal/blob/master/",
+            "state": "CLOSED",
+            "commits": "[]"
           }
         }
-      ],
-      "errorMsg": null,
-      "stageIdentifiers": ["stageIdentifier"],
-      "serviceIdentifiers": ["ServiceIdentifier1"],
-      "envIdentifiers": [],
-      "serviceDefinitionTypes": ["Kubernetes"],
-      "stageTypes": null,
-      "SuccessfulStagesCount": 0,
-      "RunningStagesCount": 0,
-      "failedStagesCount": 0
+      },
+      "layoutNodeMap": {
+        "EkSDnHpyTASfCFoBMpLXTw": {
+          "nodeType": "pipeline",
+          "nodeIdentifier": "pipeline",
+          "nodeUuid": "EkSDnHpyTASfCFoBMpLXTw",
+          "status": "Running",
+          "edgeLayoutList": { "nextIds": ["3YgeaQo_R5mwfG6xrNgMsw"] }
+        },
+        "0R8m7f23RuukVr8LC2N93A": {
+          "nodeType": "ci_unit_tests_1",
+          "nodeIdentifier": "ci_unit_tests_1",
+          "nodeUuid": "0R8m7f23RuukVr8LC2N93A",
+          "status": "Success",
+          "moduleInfo": {
+            "CI": {
+              "unit-tests-1": {
+                "name": "unit-tests-1",
+                "numberOfTests": "115",
+                "numberOfFlakyTests": "0",
+                "status": "success"
+              }
+            }
+          },
+          "edgeLayoutList": {}
+        },
+        "aSxlM7PPT5KVD6Rho9qmaQ": {
+          "nodeType": "cdStage",
+          "nodeIdentifier": "cdStage",
+          "nodeUuid": "aSxlM7PPT5KVD6Rho9qmaQ",
+          "status": "Running",
+          "moduleInfo": { "CD": { "DeploymentType": "k8s", "namespace": "mock-namespace" } },
+          "edgeLayoutList": { "nextIds": ["RAR81qpVR8W4A0KwL-7UAw"] }
+        },
+        "RAR81qpVR8W4A0KwL-7UAw": {
+          "nodeType": "Rolling Deployment",
+          "nodeIdentifier": "Rolling Deployments",
+          "nodeUuid": "RAR81qpVR8W4A0KwL-7UAw",
+          "status": "Running",
+          "edgeLayoutList": {}
+        },
+        "BDOCv_V7R4-eK0Hb4rliQA": {
+          "nodeType": "Staging1",
+          "nodeIdentifier": "Staging1",
+          "nodeUuid": "BDOCv_V7R4-eK0Hb4rliQA",
+          "status": "Running",
+          "edgeLayoutList": { "nextIds": ["aSxlM7PPT5KVD6Rho9qmaQ"] }
+        },
+        "3YgeaQo_R5mwfG6xrNgMsw": {
+          "nodeType": "stages",
+          "nodeIdentifier": "stages",
+          "nodeUuid": "3YgeaQo_R5mwfG6xrNgMsw",
+          "status": "Running",
+          "edgeLayoutList": { "nextIds": ["3_NPc8kLQ9yd27-swZeieQ"] }
+        },
+        "eSoNsLzrTvGUgQB2kD0uPg": {
+          "nodeType": "ci_unit_tests_2",
+          "nodeIdentifier": "ci_unit_tests_2",
+          "nodeUuid": "eSoNsLzrTvGUgQB2kD0uPg",
+          "status": "Suspended",
+          "edgeLayoutList": {}
+        },
+        "3_NPc8kLQ9yd27-swZeieQ": {
+          "nodeType": "ciStage",
+          "nodeIdentifier": "ciStage",
+          "nodeUuid": "3_NPc8kLQ9yd27-swZeieQ",
+          "status": "Running",
+          "edgeLayoutList": {
+            "currentNodeChildren": ["0R8m7f23RuukVr8LC2N93A", "eSoNsLzrTvGUgQB2kD0uPg"],
+            "nextIds": ["BDOCv_V7R4-eK0Hb4rliQA"]
+          }
+        }
+      },
+      "startingNodeId": "EkSDnHpyTASfCFoBMpLXTw",
+      "startTs": 1607782989773,
+      "endTs": 1607782994773,
+      "createdAt": 1607782989773,
+      "successfulStagesCount": 0,
+      "runningStagesCount": 0,
+      "failedStagesCount": 0,
+      "totalStagesCount": 0
     },
-    "stageGraph": {
-      "rootNodeId": "Ty_-CSAoShC7huCAzfjl6g",
+    "executionGraph": {
+      "rootNodeId": "dX_kUMchTXKhmiKlvWuXKQ",
       "nodeMap": {
-        "gYO3l4TQQvSaDAf1LEQ5aQ": {
-          "uuid": "gYO3l4TQQvSaDAf1LEQ5aQ",
-          "name": "environment",
-          "startTs": null,
-          "endTs": 1600079943495,
-          "stepType": "ENVIRONMENT",
+        "44jFxvB6QYq9aw0p4eWHmg": {
+          "uuid": "44jFxvB6QYq9aw0p4eWHmg",
+          "name": "Service",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "SERVICE",
           "status": "Success",
-          "failureInfo": null
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
         },
-        "YLap7hH0SpOXgKW0ZSF44A": {
-          "uuid": "YLap7hH0SpOXgKW0ZSF44A",
-          "name": "artifacts",
-          "startTs": null,
-          "endTs": 1600079941395,
-          "stepType": "ARTIFACT_FORK_STEP",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "uhkk3uOKRU-izlEDn8qXlA": {
-          "uuid": "uhkk3uOKRU-izlEDn8qXlA",
-          "name": "MANIFESTS",
-          "startTs": null,
-          "endTs": 1600079931903,
-          "stepType": "MANIFEST_STEP",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "WQihquIbS0SwRb6Fv18heg": {
-          "uuid": "WQihquIbS0SwRb6Fv18heg",
-          "name": "infrastructureSpecification",
-          "startTs": null,
-          "endTs": 1600079944451,
-          "stepType": "INFRASTRUCTURE",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "0ugp-sh-QCSKLXaAzk9BSA": {
-          "uuid": "0ugp-sh-QCSKLXaAzk9BSA",
-          "name": "service",
-          "startTs": null,
-          "endTs": 1600079942433,
-          "stepType": "SERVICE_STEP",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "-T6xJ7S2SSWPgMZWc05LYg": {
-          "uuid": "-T6xJ7S2SSWPgMZWc05LYg",
-          "name": "infrastructure",
-          "startTs": null,
-          "endTs": 1600079945407,
-          "stepType": "SECTION_CHAIN",
-          "status": "Success",
-          "failureInfo": null
-        },
-        "Ty_-CSAoShC7huCAzfjl6g": {
-          "uuid": "Ty_-CSAoShC7huCAzfjl6g",
-          "name": "qa stage",
-          "startTs": null,
-          "endTs": null,
-          "stepType": "SECTION_CHAIN",
+        "zUjRX4Q2SxWHNLapfC0EQg": {
+          "uuid": "zUjRX4Q2SxWHNLapfC0EQg",
+          "name": "Step1",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "TERRAFORM",
           "status": "Running",
-          "failureInfo": null
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
         },
-        "bI4RNYnNQnaVYkEfasFjzg": {
-          "uuid": "bI4RNYnNQnaVYkEfasFjzg",
-          "name": "primary",
-          "startTs": null,
-          "endTs": 1600079940404,
-          "stepType": "ARTIFACT_STEP",
+        "bYVNJoSNRIC_28-kUmdSPA": {
+          "uuid": "bYVNJoSNRIC_28-kUmdSPA",
+          "name": "Terraform Plan",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "TASK",
           "status": "Success",
-          "failureInfo": null
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
         },
-        "WOLUCzOCQDWyjJyOLN_9TQ": {
-          "uuid": "WOLUCzOCQDWyjJyOLN_9TQ",
-          "name": "Rollout Deployment",
-          "startTs": null,
-          "endTs": null,
-          "stepType": "K8S_ROLLING",
-          "status": "Running",
-          "failureInfo": null
+        "gQEFz6ckQ8KVTR46F95CvA": {
+          "uuid": "gQEFz6ckQ8KVTR46F95CvA",
+          "name": "Infrastructure",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "INFRA",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
         },
-        "EBb7aN29SDmnoBrS3js0RA": {
-          "uuid": "EBb7aN29SDmnoBrS3js0RA",
-          "name": "execution",
-          "startTs": null,
-          "endTs": null,
-          "stepType": "SECTION_CHAIN",
+        "qHryUZBPRLacdsvXq90cxQ": {
+          "uuid": "qHryUZBPRLacdsvXq90cxQ",
+          "name": "Step2",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "APPROVAL",
+          "status": "Waiting",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
+        },
+        "N_KCOiQLSKWCzjUgzP1_gw": {
+          "uuid": "N_KCOiQLSKWCzjUgzP1_gw",
+          "name": "Approve",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "TASK",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": [{ "status": "Done", "approvalField": "status" }],
+          "taskIdToProgressDataMap": { "_Rp5DtIjRNSzWIxzQuU5mQ": [{ "data": "50% done" }, { "data": "100% done" }] }
+        },
+        "uQW4z3kWSc2Bf_u1Yylezw": {
+          "uuid": "uQW4z3kWSc2Bf_u1Yylezw",
+          "name": "Fork",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "FORK",
           "status": "Running",
-          "failureInfo": null
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
+        },
+        "ePWL379rTHu5mBWeM0uQQw": {
+          "uuid": "ePWL379rTHu5mBWeM0uQQw",
+          "name": "Provisioning Infrastructure",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "SECTION CHAIN",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": [
+            { "status": "Done", "approvalField": "status" },
+            { "terraformApplyResponse": "someResponse" }
+          ],
+          "taskIdToProgressDataMap": {
+            "ATOj6bGvSo2GAYRBuwvnaQ": [{ "data": "50% done" }, { "data": "100% done" }],
+            "vL7JY1qMRUqpD2lKdNd6wA": [{ "data": "33% done" }, { "data": "100% done" }]
+          }
+        },
+        "FF4qHnt2RXGzeivnKNHQNw": {
+          "uuid": "FF4qHnt2RXGzeivnKNHQNw",
+          "name": "Execution",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "SECTION",
+          "status": "Running",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
+        },
+        "ueU1XlsfRoOi2b9K069WNQ": {
+          "uuid": "ueU1XlsfRoOi2b9K069WNQ",
+          "name": "Terraform Apply",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "TASK",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": [{ "terraformApplyResponse": "someResponse" }],
+          "taskIdToProgressDataMap": { "GPxlxgbLS0GuhwiY7Z_awg": [{ "data": "33% done" }, { "data": "100% done" }] }
+        },
+        "HLslGMELTvCHBeG1Y6Fauw": {
+          "uuid": "HLslGMELTvCHBeG1Y6Fauw",
+          "name": "k8sUpdate",
+          "startTs": 1607782989773,
+          "endTs": 1607782989773,
+          "stepType": "TASK",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
+        },
+        "dX_kUMchTXKhmiKlvWuXKQ": {
+          "uuid": "dX_kUMchTXKhmiKlvWuXKQ",
+          "name": "Staging1",
+          "startTs": 1607782989773,
+          "endTs": null,
+          "stepType": "STAGE",
+          "status": "Running",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
         }
       },
       "nodeAdjacencyListMap": {
-        "gYO3l4TQQvSaDAf1LEQ5aQ": {
-          "children": [],
-          "nextIds": ["WQihquIbS0SwRb6Fv18heg"]
-        },
-        "YLap7hH0SpOXgKW0ZSF44A": {
-          "children": ["bI4RNYnNQnaVYkEfasFjzg"],
-          "nextIds": null
-        },
-        "uhkk3uOKRU-izlEDn8qXlA": {
-          "children": [],
-          "nextIds": null
-        },
-        "WQihquIbS0SwRb6Fv18heg": {
-          "children": [],
-          "nextIds": null
-        },
-        "0ugp-sh-QCSKLXaAzk9BSA": {
-          "children": ["YLap7hH0SpOXgKW0ZSF44A", "uhkk3uOKRU-izlEDn8qXlA"],
-          "nextIds": ["-T6xJ7S2SSWPgMZWc05LYg"]
-        },
-        "-T6xJ7S2SSWPgMZWc05LYg": {
-          "children": ["gYO3l4TQQvSaDAf1LEQ5aQ"],
-          "nextIds": ["EBb7aN29SDmnoBrS3js0RA"]
-        },
-        "Ty_-CSAoShC7huCAzfjl6g": {
-          "children": ["0ugp-sh-QCSKLXaAzk9BSA"],
-          "nextIds": null
-        },
-        "bI4RNYnNQnaVYkEfasFjzg": {
-          "children": [],
-          "nextIds": null
-        },
-        "WOLUCzOCQDWyjJyOLN_9TQ": {
-          "children": [],
-          "nextIds": null
-        },
-        "EBb7aN29SDmnoBrS3js0RA": {
-          "children": ["WOLUCzOCQDWyjJyOLN_9TQ"],
-          "nextIds": null
-        }
+        "44jFxvB6QYq9aw0p4eWHmg": { "children": null, "nextIds": ["ePWL379rTHu5mBWeM0uQQw"] },
+        "zUjRX4Q2SxWHNLapfC0EQg": { "children": null, "nextIds": null },
+        "bYVNJoSNRIC_28-kUmdSPA": { "children": null, "nextIds": ["N_KCOiQLSKWCzjUgzP1_gw"] },
+        "gQEFz6ckQ8KVTR46F95CvA": { "children": null, "nextIds": ["FF4qHnt2RXGzeivnKNHQNw"] },
+        "qHryUZBPRLacdsvXq90cxQ": { "children": null, "nextIds": null },
+        "N_KCOiQLSKWCzjUgzP1_gw": { "children": null, "nextIds": ["ueU1XlsfRoOi2b9K069WNQ"] },
+        "uQW4z3kWSc2Bf_u1Yylezw": { "children": ["zUjRX4Q2SxWHNLapfC0EQg", "qHryUZBPRLacdsvXq90cxQ"], "nextIds": null },
+        "ePWL379rTHu5mBWeM0uQQw": { "children": ["bYVNJoSNRIC_28-kUmdSPA"], "nextIds": ["gQEFz6ckQ8KVTR46F95CvA"] },
+        "FF4qHnt2RXGzeivnKNHQNw": { "children": ["HLslGMELTvCHBeG1Y6Fauw"], "nextIds": null },
+        "ueU1XlsfRoOi2b9K069WNQ": { "children": null, "nextIds": null },
+        "HLslGMELTvCHBeG1Y6Fauw": { "children": null, "nextIds": ["uQW4z3kWSc2Bf_u1Yylezw"] },
+        "dX_kUMchTXKhmiKlvWuXKQ": { "children": null, "nextIds": ["44jFxvB6QYq9aw0p4eWHmg"] }
       }
     }
   },
   "metaData": null,
-  "correlationId": "b3fc32e6-a8b1-4933-8183-46f3a1169d1f"
+  "correlationId": null
 }

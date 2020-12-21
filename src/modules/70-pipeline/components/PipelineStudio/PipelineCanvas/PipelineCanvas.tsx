@@ -2,17 +2,18 @@ import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Button, Text, useModalHook, Tag } from '@wings-software/uikit'
-import { useHistory, useParams, NavLink, matchPath, useLocation } from 'react-router-dom'
+import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import type { NgPipeline, Failure } from 'services/cd-ng'
 import { useAppStore, useStrings } from 'framework/exports'
+import type { NgPipeline } from 'services/cd-ng'
+import type { Failure } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import type { PipelinePathProps, ProjectPathProps, PathFn } from '@common/interfaces/RouteInterfaces'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -26,12 +27,12 @@ import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './PipelineCanvas.module.scss'
 
 export interface PipelineCanvasProps {
-  toPipelineStudio: PathFn<PipelinePathProps>
-  toPipelineStudioUI: PathFn<PipelinePathProps>
-  toPipelineStudioYaml: PathFn<PipelinePathProps>
-  toPipelineDetail: PathFn<PipelinePathProps>
-  toPipelineList: PathFn<ProjectPathProps>
-  toPipelineProject: PathFn<ProjectPathProps>
+  toPipelineStudio: PathFn<PipelineType<PipelinePathProps>>
+  toPipelineStudioUI: PathFn<PipelineType<PipelinePathProps>>
+  toPipelineStudioYaml: PathFn<PipelineType<PipelinePathProps>>
+  toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
+  toPipelineList: PathFn<PipelineType<ProjectPathProps>>
+  toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
@@ -65,12 +66,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const { showError } = useToaster()
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string
-    accountId: string
-  }>()
+
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
+    PipelineType<{
+      orgIdentifier: string
+      projectIdentifier: string
+      pipelineIdentifier: string
+      accountId: string
+    }>
+  >()
   // todo: test before enabling
   // const addDrawerMap =
   //   isDrawerOpened && stageType && selectedStage
@@ -99,9 +103,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   //   updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
   // }
 
-  // TODO: temporary
-  const moduleName = useLocation().pathname.indexOf('/ci/') !== -1 ? 'ci' : 'cd'
-
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -128,15 +129,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       response = await savePipeline(
         { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
         latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId,
-        moduleName
+        pipelineIdentifier !== DefaultNewPipelineId
       )
     } else {
       response = await savePipeline(
         { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
         latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId,
-        moduleName
+        pipelineIdentifier !== DefaultNewPipelineId
       )
     }
 
@@ -147,11 +146,17 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         await deletePipelineCache()
         if (isYaml) {
           history.replace(
-            toPipelineStudioYaml({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId })
+            toPipelineStudioYaml({
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier: newPipelineId,
+              accountId,
+              module
+            })
           )
         } else {
           history.replace(
-            toPipelineStudio({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId })
+            toPipelineStudio({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId, module })
           )
         }
         // note: without setTimeout does not redirect properly after save
@@ -175,8 +180,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     showError,
     pipelineIdentifier,
     isYaml,
-    yamlHandler,
-    moduleName
+    yamlHandler
   ])
 
   const { projects } = useAppStore()
@@ -237,15 +241,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         when={isUpdated}
         shouldBlockNavigation={nextLocation => {
           const matchUI = matchPath(nextLocation.pathname, {
-            path: toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps }),
+            path: toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
             exact: true
           })
           const matchYaml = matchPath(nextLocation.pathname, {
-            path: toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps }),
+            path: toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
             exact: true
           })
           const matchDefault = matchPath(nextLocation.pathname, {
-            path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps }),
+            path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
             exact: true
           })
           return !(matchUI?.isExact || matchYaml?.isExact || matchDefault?.isExact)
@@ -261,14 +265,23 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <Breadcrumbs
               links={[
                 {
-                  url: toPipelineProject({ orgIdentifier, projectIdentifier, accountId }),
+                  url: toPipelineProject({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: project?.name as string
                 },
-                { url: toPipelineList({ orgIdentifier, projectIdentifier, accountId }), label: getString('pipelines') },
+                {
+                  url: toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }),
+                  label: getString('pipelines')
+                },
                 ...(pipelineIdentifier !== DefaultNewPipelineId
                   ? [
                       {
-                        url: toPipelineDetail({ projectIdentifier, orgIdentifier, pipelineIdentifier, accountId }),
+                        url: toPipelineDetail({
+                          projectIdentifier,
+                          orgIdentifier,
+                          pipelineIdentifier,
+                          accountId,
+                          module
+                        }),
                         label: pipeline?.name
                       },
                       { url: '#', label: getString('studioText') }
@@ -293,14 +306,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <NavLink
               className={css.topButtons}
               activeClassName={css.selected}
-              to={toPipelineStudioUI({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+              to={toPipelineStudioUI({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
             >
               {getString('visual')}
             </NavLink>
             <NavLink
               className={css.topButtons}
               activeClassName={css.selected}
-              to={toPipelineStudioYaml({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+              to={toPipelineStudioYaml({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
             >
               {getString('yaml')}
             </NavLink>

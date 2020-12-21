@@ -1,10 +1,12 @@
 import React from 'react'
 import { Popover, Button, Layout, TextInput, useModalHook } from '@wings-software/uikit'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/cd-ng'
-import { InputFormType, InputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
+import { useGetInputSetsListForPipeline } from 'services/pipeline-ng'
+import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
+import routes from '@common/RouteDefinitions'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import i18n from './InputSetList.i18n'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
@@ -12,12 +14,9 @@ import css from './InputSetList.module.scss'
 const InputSetList: React.FC = (): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-  }>()
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
+    PipelineType<PipelinePathProps> & { accountId: string }
+  >()
 
   const { data: inputSet, loading, refetch, error } = useGetInputSetsListForPipeline({
     queryParams: {
@@ -34,19 +33,31 @@ const InputSetList: React.FC = (): JSX.Element => {
 
   const [selectedInputSet, setSelectedInputSet] = React.useState<{
     identifier?: string
-    type?: InputSetSummaryResponse['inputSetType']
   }>()
+  const history = useHistory()
 
-  const [showInputSetForm, hideInputSetForm] = useModalHook(
+  const goToInputSetForm = React.useCallback(
+    (inputSetIdentifier = '-1') => {
+      history.push(
+        routes.toInputSetForm({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          pipelineIdentifier,
+          inputSetIdentifier,
+          module
+        })
+      )
+    },
+    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, module, history]
+  )
+  const [showOverlayInputSetForm, hideOverlayInputSetForm] = useModalHook(
     () => (
-      <InputSetForm
-        formType={
-          selectedInputSet?.type === 'OVERLAY_INPUT_SET' ? InputFormType.OverlayInputForm : InputFormType.InputForm
-        }
+      <OverlayInputSetForm
         identifier={selectedInputSet?.identifier}
         hideForm={() => {
           refetch()
-          hideInputSetForm()
+          hideOverlayInputSetForm()
         }}
       />
     ),
@@ -63,15 +74,13 @@ const InputSetList: React.FC = (): JSX.Element => {
                 <MenuItem
                   text={i18n.inputSet}
                   onClick={() => {
-                    setSelectedInputSet({ type: 'INPUT_SET' })
-                    showInputSetForm()
+                    goToInputSetForm()
                   }}
                 />
                 <MenuItem
                   text={i18n.overlayInputSet}
                   onClick={() => {
-                    setSelectedInputSet({ type: 'OVERLAY_INPUT_SET' })
-                    showInputSetForm()
+                    showOverlayInputSetForm()
                   }}
                 />
               </Menu>
@@ -104,15 +113,19 @@ const InputSetList: React.FC = (): JSX.Element => {
           icon: 'yaml-builder-input-sets',
           message: i18n.aboutInputSets,
           buttonText: i18n.addInputSet,
-          onClick: showInputSetForm
+          onClick: goToInputSetForm
         }}
       >
         <InputSetListView
           data={inputSet?.data}
           gotoPage={setPage}
           goToInputSetDetail={(identifier, type) => {
-            setSelectedInputSet({ identifier, type })
-            showInputSetForm()
+            setSelectedInputSet({ identifier })
+            if (type === 'INPUT_SET') {
+              goToInputSetForm(identifier)
+            } else {
+              showOverlayInputSetForm()
+            }
           }}
           refetchInputSet={refetch}
         />

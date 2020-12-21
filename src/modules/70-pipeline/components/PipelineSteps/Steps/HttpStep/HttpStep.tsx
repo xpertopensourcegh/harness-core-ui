@@ -101,22 +101,22 @@ export class HttpStep extends PipelineStep<HttpStepData> {
       ...initialValues,
       spec: {
         ...initialValues.spec,
-        method: getMultiTypeFromValue(initialValues.spec.method as string)
-          ? (initialValues.spec.method as string)
+        method: getMultiTypeFromValue(initialValues.spec?.method as string)
+          ? (initialValues.spec?.method as string)
           : httpStepType.find(step => step.value === initialValues.spec.method),
         headers:
-          getMultiTypeFromValue(initialValues.spec.headers as string) === MultiTypeInputType.RUNTIME
-            ? (initialValues.spec.headers as string)
-            : Array.isArray(initialValues.spec.headers)
+          getMultiTypeFromValue(initialValues.spec?.headers as string) === MultiTypeInputType.RUNTIME
+            ? (initialValues.spec?.headers as string)
+            : Array.isArray(initialValues.spec?.headers)
             ? initialValues.spec.headers.map((header: Omit<HttpStepHeader, 'id'>) => ({
                 ...header,
                 id: uuid()
               }))
             : [{ key: '', value: '', id: uuid() }],
         outputVariables:
-          getMultiTypeFromValue(initialValues.spec.outputVariables as string) === MultiTypeInputType.RUNTIME
-            ? (initialValues.spec.outputVariables as string)
-            : Array.isArray(initialValues.spec.outputVariables)
+          getMultiTypeFromValue(initialValues.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME
+            ? (initialValues.spec?.outputVariables as string)
+            : Array.isArray(initialValues.spec?.outputVariables)
             ? initialValues.spec.outputVariables.map((variable: Omit<HttpStepOutputVariable, 'id'>) => ({
                 ...variable,
                 id: uuid()

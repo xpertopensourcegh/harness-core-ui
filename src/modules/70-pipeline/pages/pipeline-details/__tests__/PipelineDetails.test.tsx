@@ -3,14 +3,14 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import PipelineDetails from '../PipelineDetails'
 import { PipelineResponse } from './PipelineDetailsMocks'
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/pipeline-ng', () => ({
   useGetPipelineSummary: jest.fn(() => PipelineResponse)
 }))
 
-const TEST_PATH = routes.toCDPipelineDetail({ ...accountPathProps, ...pipelinePathProps })
+const TEST_PATH = routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 describe('Pipeline Details tests', () => {
   test('render snapshot view', async () => {
     const { container } = render(
@@ -20,7 +20,8 @@ describe('Pipeline Details tests', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

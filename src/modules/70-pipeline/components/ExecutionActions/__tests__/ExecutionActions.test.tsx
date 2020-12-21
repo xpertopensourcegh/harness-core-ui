@@ -5,7 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { useHandleInterrupt } from 'services/cd-ng'
-import { accountPathProps, executionPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 
 import ExecutionActions from '../ExecutionActions'
 
@@ -17,9 +17,10 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>YAMLBuilder</div>)
 
-const TEST_PATH = routes.toCDExecutionPiplineView({
+const TEST_PATH = routes.toExecutionPipelineView({
   ...accountPathProps,
-  ...executionPathProps
+  ...executionPathProps,
+  ...pipelineModuleParams
 })
 
 const pathParams = {
@@ -27,7 +28,8 @@ const pathParams = {
   orgIdentifier: 'TEST_ORG',
   projectIdentifier: 'TEST_PROJECT',
   pipelineIdentifier: 'TEST_PIPELINE',
-  executionIdentifier: 'TEST_EXECUTION'
+  executionIdentifier: 'TEST_EXECUTION',
+  module: 'cd'
 }
 
 describe('<ExecutionActions /> tests', () => {
@@ -45,7 +47,7 @@ describe('<ExecutionActions /> tests', () => {
   ])('snapshot tests "%s" status', async executionStatus => {
     const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ExecutionActions params={pathParams} executionStatus={executionStatus} refetch={jest.fn()} />
+        <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />
       </TestWrapper>
     )
 
@@ -73,7 +75,7 @@ describe('<ExecutionActions /> tests', () => {
     }))
     const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ExecutionActions params={pathParams} executionStatus={executionStatus} refetch={jest.fn()} />
+        <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />
       </TestWrapper>
     )
 

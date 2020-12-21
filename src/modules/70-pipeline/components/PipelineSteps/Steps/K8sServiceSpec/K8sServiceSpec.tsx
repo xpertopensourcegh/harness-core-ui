@@ -224,7 +224,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
             {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           </Text>
         )}
-        {template?.manifests?.map(
+        {template?.manifests?.map?.(
           (
             {
               manifest: {

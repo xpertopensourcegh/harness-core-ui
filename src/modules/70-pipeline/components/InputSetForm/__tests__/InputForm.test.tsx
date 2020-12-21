@@ -3,9 +3,15 @@ import { render, waitFor, fireEvent, createEvent, act } from '@testing-library/r
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import {
+  accountPathProps,
+  pipelineModuleParams,
+  inputSetFormPathProps,
+  pipelinePathProps
+} from '@common/utils/routeUtils'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import { InputFormType, InputSetForm } from '../InputSetForm'
+import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
+import { InputSetForm } from '../InputSetForm'
 import {
   TemplateResponse,
   PipelineResponse,
@@ -45,38 +51,52 @@ jest.mock(
 )
 
 jest.mock('services/cd-ng', () => ({
-  useGetPipeline: jest.fn(() => PipelineResponse),
-  useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
+  useGetConnector: jest.fn(() => ConnectorResponse)
+}))
+
+jest.mock('services/pipeline-ng', () => ({
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => MergeInputSetResponse),
+  useGetPipeline: jest.fn(() => PipelineResponse),
+  useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
   useGetOverlayInputSetForPipeline: jest.fn(() => GetOverlayInputSetEdit),
   useCreateInputSetForPipeline: jest.fn(() => ({})),
   useUpdateInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: successResponse })),
   useUpdateOverlayInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: successResponse })),
   useCreateOverlayInputSetForPipeline: jest.fn(() => ({})),
-  useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse),
-  useGetConnector: jest.fn(() => ConnectorResponse)
+  useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse)
 }))
 
-const TEST_INPUT_SET_PATH = routes.toCDInputSetList({ ...accountPathProps, ...pipelinePathProps })
+const TEST_INPUT_SET_PATH = routes.toInputSetList({
+  ...accountPathProps,
+  ...pipelinePathProps,
+  ...pipelineModuleParams
+})
+
+const TEST_INPUT_SET_FORM_PATH = routes.toInputSetForm({
+  ...accountPathProps,
+  ...inputSetFormPathProps,
+  ...pipelineModuleParams
+})
 
 describe('Render Forms - Snapshot Testing', () => {
   test('render Input Set Form view', async () => {
-    const { getAllByText, getByText } = render(
+    const { getAllByText, getByText, container } = render(
       <TestWrapper
-        path={TEST_INPUT_SET_PATH}
+        path={TEST_INPUT_SET_FORM_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          inputSetIdentifier: '-1',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm hideForm={jest.fn()} formType={InputFormType.InputForm} />
+        <InputSetForm />
       </TestWrapper>
     )
-    const container = findDialogContainer()
     await waitFor(() => getAllByText('Release name'))
     expect(container).toMatchSnapshot()
     // Switch Mode
@@ -87,7 +107,7 @@ describe('Render Forms - Snapshot Testing', () => {
     fireEvent.click(getByText('VISUAL'))
     await waitFor(() => getAllByText('Release name'))
     // Close Form
-    fireEvent.click(container?.querySelector('[icon="small-cross"]')!)
+    fireEvent.click(getByText('Cancel'))
   })
 
   test('render Overlay Input Set Form view', async () => {
@@ -98,11 +118,12 @@ describe('Render Forms - Snapshot Testing', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm hideForm={jest.fn()} formType={InputFormType.OverlayInputForm} />
+        <OverlayInputSetForm hideForm={jest.fn()} />
       </TestWrapper>
     )
     const container = findDialogContainer()
@@ -118,21 +139,22 @@ describe('Render Forms - Snapshot Testing', () => {
   })
 
   test('render Edit Input Set Form view', async () => {
-    const { getAllByText, getByText } = render(
+    const { getAllByText, getByText, container } = render(
       <TestWrapper
-        path={TEST_INPUT_SET_PATH}
+        path={TEST_INPUT_SET_FORM_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          inputSetIdentifier: 'asd',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm hideForm={jest.fn()} formType={InputFormType.InputForm} identifier="asd" />
+        <InputSetForm />
       </TestWrapper>
     )
-    const container = findDialogContainer()
     await waitFor(() => getAllByText('tesa1'))
     expect(container).toMatchSnapshot()
     fireEvent.click(getByText('Save'))
@@ -150,11 +172,12 @@ describe('Render Forms - Snapshot Testing', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm hideForm={jest.fn()} formType={InputFormType.OverlayInputForm} identifier="OverLayInput" />
+        <OverlayInputSetForm hideForm={jest.fn()} identifier="OverLayInput" />
       </TestWrapper>
     )
     const container = findDialogContainer()
@@ -175,11 +198,12 @@ describe('Render Forms - Snapshot Testing', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm hideForm={jest.fn()} formType={InputFormType.OverlayInputForm} identifier="OverLayInput" />
+        <OverlayInputSetForm hideForm={jest.fn()} identifier="OverLayInput" />
       </TestWrapper>
     )
     await waitFor(() => getByTestId('asd'))

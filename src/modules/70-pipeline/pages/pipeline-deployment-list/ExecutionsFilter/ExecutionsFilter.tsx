@@ -42,7 +42,7 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
   return (
     <div className={css.main}>
       <div className={css.lhs}>
-        <Button icon="cube" intent="primary">
+        <Button icon="run-pipeline" intent="primary">
           <String className={css.runText} stringID="runPipelineText" onClick={props.onRunPipeline} />
         </Button>
         <div className={cx(css.filterGroup, css.btnGroup)}>

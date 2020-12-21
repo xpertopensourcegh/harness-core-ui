@@ -113,7 +113,7 @@ export const getPipelineExecutionDetails = (): ResponsePipelineExecutionDetail =
         runningStagesCount: 0,
         failedStagesCount: 0
       },
-      stageGraph: mock.data.stageGraph as any
+      stageGraph: mock.data.executionGraph as any
     }
   }
 }

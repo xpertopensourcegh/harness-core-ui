@@ -25,11 +25,12 @@ export const CDDashboardPage: React.FC = () => {
             intent="primary"
             onClick={() =>
               history.push(
-                routes.toCDPipelineStudio({
+                routes.toPipelineStudio({
                   orgIdentifier: project?.orgIdentifier as string,
                   projectIdentifier: projectIdentifier as string,
                   pipelineIdentifier: '-1',
-                  accountId
+                  accountId,
+                  module: 'cd'
                 })
               )
             }

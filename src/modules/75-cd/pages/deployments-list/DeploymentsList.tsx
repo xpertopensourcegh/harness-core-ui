@@ -1,11 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useModalHook } from '@wings-software/uikit'
+import { Dialog } from '@blueprintjs/core'
 
 import { useAppStore, useStrings } from 'framework/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 
 import routes from '@common/RouteDefinitions'
+import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
@@ -15,6 +18,19 @@ export default function DeploymentsList(): React.ReactElement {
   const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
 
+  const [openModal, hideModal] = useModalHook(
+    () => (
+      <Dialog isOpen={true} style={{ minWidth: 800 }}>
+        <PipelineModalListView
+          onClose={hideModal}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          accountId={accountId}
+        />
+      </Dialog>
+    ),
+    [projectIdentifier, orgIdentifier, accountId]
+  )
   return (
     <div className={css.main}>
       <div className={css.header}>
@@ -33,7 +49,7 @@ export default function DeploymentsList(): React.ReactElement {
         <h2>Deployments</h2>
       </div>
       <div className={css.content}>
-        <PipelineDeploymentList onRunPipeline={() => alert('TODO: implement this feature')} />
+        <PipelineDeploymentList onRunPipeline={openModal} />
       </div>
     </div>
   )

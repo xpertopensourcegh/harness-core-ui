@@ -9,8 +9,9 @@ import { Select } from '@blueprintjs/select'
 import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import routes from '@common/RouteDefinitions'
 
-import type { ExecutionGraph } from 'services/cd-ng'
+import type { ExecutionGraph } from 'services/pipeline-ng'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import LogsContent from './LogsContent'
 import css from './ExecutionLogView.module.scss'
@@ -49,7 +50,7 @@ export default function ExecutionLogView(): React.ReactElement {
   } = useExecutionContext()
   const [selectedNode, setSelectedNode] = useState<string | undefined>()
   const [selectedStageId, setStageId] = useState(autoSelectedStageId)
-  const params = useParams<ExecutionPathParams>()
+  const params = useParams<PipelineType<ExecutionPathParams>>()
   const history = useHistory()
   useEffect(() => {
     setStageId(queryParams.stage || autoSelectedStageId)
@@ -59,19 +60,19 @@ export default function ExecutionLogView(): React.ReactElement {
     return <div />
   }
 
-  const { stageGraph } = pipelineExecutionDetail
-  if (!stageGraph) {
+  const { executionGraph } = pipelineExecutionDetail
+  if (!executionGraph) {
     return <div />
   }
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
-    label: item[1].stageName || /* istanbul ignore next */ '',
-    value: item[1].stageIdentifier || /* istanbul ignore next */ ''
+    label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
+    value: item[1].nodeUuid || /* istanbul ignore next */ ''
   }))
 
   const stageIds: any = []
 
   const getNodeDetails = (nodeId: string) => {
-    const { nodeMap }: { nodeMap?: ExecutionGraph['nodeMap'] } = stageGraph
+    const { nodeMap }: { nodeMap?: ExecutionGraph['nodeMap'] } = executionGraph
     if (!nodeMap) {
       return {}
     }
@@ -79,7 +80,7 @@ export default function ExecutionLogView(): React.ReactElement {
   }
 
   const getChildren = (nodeId: string) => {
-    const { nodeAdjacencyListMap }: { nodeAdjacencyListMap?: ExecutionGraph['nodeAdjacencyListMap'] } = stageGraph
+    const { nodeAdjacencyListMap }: { nodeAdjacencyListMap?: ExecutionGraph['nodeAdjacencyListMap'] } = executionGraph
     if (!nodeAdjacencyListMap) {
       return []
     }
@@ -87,7 +88,7 @@ export default function ExecutionLogView(): React.ReactElement {
   }
 
   const getNextIds = (nodeId: string) => {
-    const { nodeAdjacencyListMap }: { nodeAdjacencyListMap?: ExecutionGraph['nodeAdjacencyListMap'] } = stageGraph
+    const { nodeAdjacencyListMap }: { nodeAdjacencyListMap?: ExecutionGraph['nodeAdjacencyListMap'] } = executionGraph
     if (!nodeAdjacencyListMap) {
       return []
     }
@@ -157,12 +158,13 @@ export default function ExecutionLogView(): React.ReactElement {
             setStageId(value)
 
             const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId } = params
-            const logUrl = routes.toCDExecutionPiplineView({
+            const logUrl = routes.toExecutionPipelineView({
               orgIdentifier,
               executionIdentifier,
               pipelineIdentifier,
               projectIdentifier,
-              accountId
+              accountId,
+              module: params.module
             })
 
             history.push(`${logUrl}?view=log&stage=${value}`)
@@ -171,7 +173,7 @@ export default function ExecutionLogView(): React.ReactElement {
           <Button
             minimal
             rightIcon="chevron-down"
-            text={selectedStageId}
+            text={pipelineStagesMap.get(selectedStageId)?.nodeIdentifier}
             icon="geolocation"
             iconProps={{
               size: 20,
@@ -184,7 +186,7 @@ export default function ExecutionLogView(): React.ReactElement {
     )
   }
 
-  const traverseNodeGraph = (activeNode = stageGraph?.rootNodeId, level = 0, isRootNode = true) => {
+  const traverseNodeGraph = (activeNode = executionGraph?.rootNodeId, level = 0, isRootNode = true) => {
     const index = stageIds.length
 
     if (activeNode) {
@@ -218,7 +220,7 @@ export default function ExecutionLogView(): React.ReactElement {
     }
     return null
   }
-  if (!stageGraph) {
+  if (!executionGraph) {
     return <div />
   }
 
@@ -260,7 +262,7 @@ export default function ExecutionLogView(): React.ReactElement {
       </Container>
     )
   }
-  if (stageGraph) {
+  if (executionGraph) {
     traverseNodeGraph()
     return (
       <Container className={css.logsContainer}>

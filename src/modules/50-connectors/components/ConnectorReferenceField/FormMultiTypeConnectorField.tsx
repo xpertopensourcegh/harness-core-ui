@@ -7,14 +7,14 @@ import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreate
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/exports'
-import { getScopeFromDTO } from '../../../10-common/components/EntityReference/EntityReference'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { MultiTypeReferenceInput } from '@common/components/ReferenceSelect/ReferenceSelect'
 import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,
   getEditRenderer,
   getSelectedRenderer
 } from './ConnectorReferenceField'
-import { MultiTypeReferenceInput } from '../../../10-common/components/ReferenceSelect/ReferenceSelect'
 
 export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
   onChange?: ExpressionAndRuntimeTypeProps['onChange']

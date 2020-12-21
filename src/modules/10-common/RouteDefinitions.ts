@@ -13,7 +13,9 @@ import type {
   CVDataSourceTypePathProps,
   EnvironmentPathProps,
   AccountPathProps,
-  SegmentPathProps
+  SegmentPathProps,
+  PipelineType,
+  InputSetPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -102,22 +104,22 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
-  toCDDeployments: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
+  toDeployments: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
   ),
 
-  toCDPipelineStudio: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/`
+  toPipelineStudio: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/`
   ),
-  toCDPipelineStudioUI: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/ui/`
+  toPipelineStudioUI: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/ui/`
   ),
-  toCDPipelineStudioYaml: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/yaml/`
+  toPipelineStudioYaml: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/yaml/`
   ),
 
   toCDAdmin: withAccountId(
@@ -145,54 +147,93 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, secretId }: ProjectPathProps & SecretsPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}`
   ),
-  toCDPipelines: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines`
+  toPipelines: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines`
   ),
-  toCDPipelineDetail: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}`
+  toPipelineDetail: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}`
   ),
-  toCDInputSetList: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/input-sets`
+  toRunPipeline: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/runpipeline`
   ),
-  toCDTriggersPage: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers`
+  toInputSetList: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/input-sets`
   ),
-  toCDTriggersWizardPage: withAccountId(
+  toInputSetForm: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      inputSetIdentifier,
+      module
+    }: PipelineType<InputSetPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/input-sets/${inputSetIdentifier}`
+  ),
+  toTriggersPage: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers`
+  ),
+  toTriggersWizardPage: withAccountId(
     ({
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
       triggerIdentifier,
       triggerType,
-      sourceRepo
-    }: TriggerPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
+      sourceRepo,
+      module
+    }: PipelineType<TriggerPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
         (triggerType && sourceRepo && `?triggerType=${triggerType}&sourceRepo=${sourceRepo}`) || ''
       }`
   ),
-  toCDPipelineDeploymentList: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
+  toPipelineDeploymentList: withAccountId(
+    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
   ),
-  toCDExecution: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }: ExecutionPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}`
+  toExecution: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}`
   ),
-  toCDExecutionPiplineView: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }: ExecutionPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/pipeline`
+  toExecutionPipelineView: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/pipeline`
   ),
-  toCDExecutionInputsView: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }: ExecutionPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/inputs`
+  toExecutionInputsView: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/inputs`
   ),
-  toCDExecutionArtifactsView: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }: ExecutionPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/artifacts`
+  toExecutionArtifactsView: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/artifacts`
   ),
   toCDTemplateLibrary: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
@@ -229,22 +270,6 @@ const routes = {
   toCIProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
-  ),
-  toCIPipelines: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines`
-  ),
-  toCIPipelineStudioUI: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/ui/`
-  ),
-  toCIPipelineStudioYaml: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/yaml/`
-  ),
-  toCIPipelineStudio: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/`
   ),
   toCIPipelineDeploymentList: withAccountId(
     ({ projectIdentifier, orgIdentifier, pipelineIdentifier }: PipelinePathProps) =>

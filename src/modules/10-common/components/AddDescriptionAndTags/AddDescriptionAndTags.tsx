@@ -150,6 +150,12 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
     formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0
   )
 
+  React.useEffect(() => {
+    setIsDescriptionOpen(formikProps?.values.description && formikProps.values.description.length > 0)
+    setIsTagsOpen(formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formikProps?.values?.description, formikProps?.values?.tags])
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.connectorFormNameWrapper}>

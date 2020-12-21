@@ -6,16 +6,19 @@ import routes from '@common/RouteDefinitions'
 import { useGetPipelineSummary, useGetTrigger } from 'services/cd-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './TriggerDetails.module.scss'
 
 export default function TriggerDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-    triggerIdentifier: string
-  }>()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+      pipelineIdentifier: string
+      triggerIdentifier: string
+    }>
+  >()
 
   const { data: triggerResponse } = useGetTrigger({
     triggerIdentifier,
@@ -51,19 +54,21 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
                   label: project?.name as string
                 },
                 {
-                  url: routes.toCDPipelines({
+                  url: routes.toPipelines({
                     orgIdentifier,
                     projectIdentifier,
-                    accountId
+                    accountId,
+                    module
                   }),
                   label: getString('pipelines')
                 },
                 {
-                  url: routes.toCDTriggersPage({
+                  url: routes.toTriggersPage({
                     orgIdentifier,
                     projectIdentifier,
+                    pipelineIdentifier,
                     accountId,
-                    pipelineIdentifier
+                    module
                   }),
                   label: pipeline?.data?.name || ''
                 },
@@ -78,11 +83,12 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toCDPipelineDeploymentList({
+                to={routes.toPipelineDeploymentList({
                   orgIdentifier,
                   projectIdentifier,
                   pipelineIdentifier,
-                  accountId
+                  accountId,
+                  module
                 })}
               >
                 {getString('executionsText')}
@@ -91,21 +97,27 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toCDInputSetList({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+                to={routes.toInputSetList({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
               >
                 {getString('inputSetsText')}
               </NavLink>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toCDTriggersPage({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+                to={routes.toTriggersPage({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
               >
                 {getString('pipeline-triggers.triggersLabel')}
               </NavLink>
 
               <NavLink
                 className={css.tags}
-                to={routes.toCDPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+                to={routes.toPipelineStudio({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module
+                })}
               >
                 <Icon name="pipeline-ng" size={20} style={{ marginRight: '8px' }} color={Color.BLUE_600} />
                 {getString('studioText')}

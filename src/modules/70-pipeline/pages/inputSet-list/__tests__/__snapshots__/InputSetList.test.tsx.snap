@@ -122,7 +122,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           DESCRIPTION
         </div>
@@ -130,7 +130,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 15%;"
+          style="width: 10%;"
         >
           INPUT FIELD SUMMARY
         </div>
@@ -154,7 +154,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 10%;"
+          style="width: 15%;"
         >
           ACTIONS
         </div>
@@ -212,11 +212,16 @@ exports[`Input Set List tests render Input Set List view 1`] = `
               </svg>
             </span>
             <div>
-              <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              <div
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                data-testid="OverLayInput"
               >
-                OverLayInput
-              </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                >
+                  OverLayInput
+                </p>
+              </div>
               <p
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
               >
@@ -228,7 +233,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
@@ -240,36 +245,65 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         <div
           class="cell"
           role="cell"
+          style="width: 10%;"
+        >
+          
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 10%;"
+        >
+          
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 10%;"
+        >
+          
+        </div>
+        <div
+          class="cell"
+          role="cell"
           style="width: 15%;"
-        >
-          
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
         >
           <span
             class=""
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
               type="button"
             >
+              <span
+                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              >
+                <svg
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <defs>
+                    <path
+                      d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                      id="run-pipeline_svg__a"
+                    />
+                  </defs>
+                  <clippath
+                    id="run-pipeline_svg__b"
+                  >
+                    <use
+                      overflow="visible"
+                      xlink:href="#run-pipeline_svg__a"
+                    />
+                  </clippath>
+                  <path
+                    clip-path="url(#run-pipeline_svg__b)"
+                    d="M-5-5h26v26H-5z"
+                    fill="#54b610"
+                  />
+                </svg>
+              </span>
               <span
                 class="bp3-button-text"
               >
@@ -355,11 +389,16 @@ exports[`Input Set List tests render Input Set List view 1`] = `
               </svg>
             </span>
             <div>
-              <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              <div
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                data-testid="asd"
               >
-                asd
-              </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                >
+                  asd
+                </p>
+              </div>
               <p
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
               >
@@ -371,7 +410,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
@@ -383,36 +422,65 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         <div
           class="cell"
           role="cell"
+          style="width: 10%;"
+        >
+          
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 10%;"
+        >
+          
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 10%;"
+        >
+          
+        </div>
+        <div
+          class="cell"
+          role="cell"
           style="width: 15%;"
-        >
-          
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
         >
           <span
             class=""
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
               type="button"
             >
+              <span
+                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              >
+                <svg
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <defs>
+                    <path
+                      d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                      id="run-pipeline_svg__a"
+                    />
+                  </defs>
+                  <clippath
+                    id="run-pipeline_svg__b"
+                  >
+                    <use
+                      overflow="visible"
+                      xlink:href="#run-pipeline_svg__a"
+                    />
+                  </clippath>
+                  <path
+                    clip-path="url(#run-pipeline_svg__b)"
+                    d="M-5-5h26v26H-5z"
+                    fill="#54b610"
+                  />
+                </svg>
+              </span>
               <span
                 class="bp3-button-text"
               >

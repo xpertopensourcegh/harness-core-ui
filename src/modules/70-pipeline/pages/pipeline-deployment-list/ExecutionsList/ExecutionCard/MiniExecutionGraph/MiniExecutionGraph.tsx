@@ -2,10 +2,11 @@ import React from 'react'
 import { IconName, Icon } from '@wings-software/uikit'
 import cx from 'classnames'
 
-import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
+import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
 
+import { processLayoutNodeMap } from '@pipeline/utils/executionUtils'
 import css from './MiniExecutionGraph.module.scss'
 
 // TODO: Update icon map with correct icons
@@ -23,28 +24,27 @@ const IconMap: Record<ExecutionStatus, IconName> = {
 }
 
 export interface StageNodeProps extends React.HTMLAttributes<HTMLDivElement> {
-  stage: any
+  stage: GraphLayoutNode
 }
 
 export function StageNode({ stage, ...rest }: StageNodeProps): React.ReactElement {
   return (
-    <div {...rest} className={css.stage} data-status={stage.executionStatus?.toLowerCase()}>
-      <Icon name={IconMap[stage.executionStatus as ExecutionStatus]} size={13} className={css.icon} />
+    <div {...rest} className={css.stage} data-status={stage.status?.toLowerCase()}>
+      <Icon name={IconMap[stage.status as ExecutionStatus]} size={13} className={css.icon} />
     </div>
   )
 }
 
 export interface ParallelNodeProps {
-  stages: any[]
+  stages: GraphLayoutNode[]
 }
 
 const STEP_DETAILS_LIMIT = 4
 
 export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement {
   const [showDetails, setShowDetails] = React.useState(false)
-  const sortedStages = props.stages.slice(0)
-  const detailSteps: ExecutionStatus[] = sortedStages.map(({ stage }) => stage.executionStatus)
-
+  const { stages } = props
+  const sortedStages = stages.slice(0)
   function handleMouseEnter(): void {
     setShowDetails(true)
   }
@@ -56,45 +56,44 @@ export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement 
   return (
     <div className={cx(css.parallel, { [css.showDetails]: showDetails })} onMouseLeave={handleMouseLeave}>
       <div className={css.moreStages}>
-        {detailSteps.slice(1, STEP_DETAILS_LIMIT).map((stepStatus, i) => (
-          <StageNode key={i} stage={{ executionStatus: stepStatus }} />
+        {stages.slice(1, STEP_DETAILS_LIMIT).map((stage: GraphLayoutNode, i) => (
+          <StageNode key={i} stage={stage} />
         ))}
-        {detailSteps.length > STEP_DETAILS_LIMIT ? (
-          <div className={css.extraCount}>+ {detailSteps.length - STEP_DETAILS_LIMIT}</div>
+        {stages.length > STEP_DETAILS_LIMIT ? (
+          <div className={css.extraCount}>+ {stages.length - STEP_DETAILS_LIMIT}</div>
         ) : null}
       </div>
-      <div className={css.parallelNodes} data-stages={Math.min(detailSteps.length - 1, 2)} />
-      <StageNode stage={{ executionStatus: sortedStages[0]?.stage?.executionStatus }} onMouseEnter={handleMouseEnter} />
+      <div className={css.parallelNodes} data-stages={Math.min(stages.length - 1, 2)} />
+      <StageNode stage={sortedStages[0]} onMouseEnter={handleMouseEnter} />
     </div>
   )
 }
 
 export interface MiniExecutionGraphProps {
-  pipelineExecution: PipelineExecutionSummaryDTO
+  pipelineExecution: PipelineExecutionSummary
 }
 
 export default function MiniExecutionGraph(props: MiniExecutionGraphProps): React.ReactElement {
   const {
-    stageExecutionSummaryElements,
     successfulStagesCount,
     runningStagesCount,
     failedStagesCount,
-    executionStatus,
+    status,
     totalStagesCount,
-    errorMsg
+    executionErrorInfo
   } = props.pipelineExecution
-
+  const elements = processLayoutNodeMap(props.pipelineExecution)
   return (
     <div className={css.main}>
       <div className={css.graphWrapper}>
         <div className={css.graph}>
-          {(stageExecutionSummaryElements || []).map(({ stage, parallel }, i) => {
-            if (parallel && Array.isArray(parallel.stageExecutions)) {
-              return <ParallelStageNode key={i} stages={parallel.stageExecutions} />
+          {(elements || []).map(({ stage, parallel }, i) => {
+            if (parallel && Array.isArray(parallel)) {
+              return <ParallelStageNode key={i} stages={parallel} />
             }
 
             if (stage) {
-              return <StageNode key={stage.stageIdentifier} stage={stage} />
+              return <StageNode key={stage.nodeUuid} stage={stage} />
             }
 
             return null
@@ -106,18 +105,18 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
           <Icon name={IconMap.Success} size={10} />
           {successfulStagesCount} / {totalStagesCount}
         </div>
-        {isExecutionRunning(executionStatus) ? (
+        {isExecutionRunning(status) ? (
           <div className={css.stepCount} data-status="running">
             <Icon name={IconMap.Running} size={10} />
             {runningStagesCount}
           </div>
-        ) : isExecutionCompletedWithBadState(executionStatus) ? (
+        ) : isExecutionCompletedWithBadState(status) ? (
           <div className={css.stepCount} data-status="failed">
             <Icon name={IconMap.Failed} size={10} /> {failedStagesCount}
           </div>
         ) : null}
-        {isExecutionCompletedWithBadState(executionStatus) && errorMsg ? (
-          <div className={cx(css.stepCount, css.errorMsg)}>{errorMsg}</div>
+        {isExecutionCompletedWithBadState(status) && executionErrorInfo?.message ? (
+          <div className={cx(css.stepCount, css.errorMsg)}>{executionErrorInfo.message}</div>
         ) : null}
       </div>
     </div>

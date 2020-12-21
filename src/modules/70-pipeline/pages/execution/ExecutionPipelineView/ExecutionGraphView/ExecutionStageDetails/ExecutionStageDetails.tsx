@@ -2,7 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
+import type { ExecutionNode, ExecutionGraph } from 'services/pipeline-ng'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import {
@@ -30,7 +30,8 @@ export enum StepTypes {
   SERVICE = 'SERVICE',
   INFRASTRUCTURE = 'INFRASTRUCTURE',
   GENERIC_SECTION = 'GENERIC_SECTION',
-  SECTION_CHAIN = 'SECTION_CHAIN',
+  SECTION_CHAIN = 'SECTION CHAIN',
+  SECTION = 'SECTION',
   K8S_ROLLING = 'K8S_ROLLING',
   FORK = 'FORK',
   HTTP = 'HTTP'
@@ -40,7 +41,8 @@ const IconsMap: { [key in StepTypes]: IconName } = {
   SERVICE: 'main-services',
   GENERIC_SECTION: 'step-group',
   K8S_ROLLING: 'service-kubernetes',
-  SECTION_CHAIN: 'step-group',
+  'SECTION CHAIN': 'step-group',
+  SECTION: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
   FORK: 'fork',
   HTTP: 'command-http'
@@ -62,7 +64,7 @@ const processNodeData = (
           nodeAdjacencyListMap
         )
       })
-    } else if (nodeData?.stepType === StepTypes.SECTION_CHAIN) {
+    } else if (nodeData?.stepType === StepTypes.SECTION_CHAIN || nodeData?.stepType === StepTypes.SECTION) {
       items.push({
         group: {
           name: nodeData.name || /* istanbul ignore next */ '',
@@ -135,7 +137,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.GENERIC_SECTION) {
+        if (nodeData.stepType === StepTypes.SECTION) {
           items.push({
             group: {
               name: nodeData.name || /* istanbul ignore next */ '',
@@ -185,18 +187,18 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const { layout, setLayout } = useExecutionLayoutContext()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
-    label: item[1].stageName || /* istanbul ignore next */ '',
-    value: item[1].stageIdentifier || /* istanbul ignore next */ '',
+    label: item[1].nodeType || /* istanbul ignore next */ '',
+    value: item[1].nodeUuid || /* istanbul ignore next */ '',
     icon: { name: 'pipeline-deploy' },
-    disabled: item[1].executionStatus === 'NotStarted'
+    disabled: item[1].status === 'NotStarted'
   }))
   const { executionIdentifier } = useParams<ExecutionPathParams>()
   const stage = pipelineStagesMap.get(props.selectedStage)
 
   const data: ExecutionPipeline<ExecutionNode> = {
-    items: processExecutionData(pipelineExecutionDetail?.stageGraph),
+    items: processExecutionData(pipelineExecutionDetail?.executionGraph),
     identifier: `${executionIdentifier}-${props.selectedStage}`,
-    status: stage?.executionStatus as any
+    status: stage?.status as any
   }
 
   // open details view when a user selection is active
@@ -207,7 +209,6 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
       setLayout(ExecutionLayoutState.NONE)
     }
   }, [queryParams, layout, setLayout])
-
   return (
     <div
       className={css.main}
@@ -220,7 +221,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           selectedIdentifier={props.selectedStep}
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
-          showEndNode={stage?.executionStatus !== 'Running'}
+          showEndNode={stage?.status !== 'Running'}
           isWhiteBackground
           nodeStyle={{
             width: 64,
@@ -233,8 +234,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           }}
           showStageSelection={true}
           selectedStage={{
-            label: stage?.stageName || /* istanbul ignore next */ '',
-            value: stage?.stageIdentifier || /* istanbul ignore next */ '',
+            label: stage?.nodeType || /* istanbul ignore next */ '',
+            value: stage?.nodeUuid || /* istanbul ignore next */ '',
             icon: { name: 'pipeline-deploy' }
           }}
           stageSelectionOptions={stagesOptions}

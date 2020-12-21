@@ -26,6 +26,16 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ng/api')")
   },
+  'pipeline-ng': {
+    output: 'src/services/pipeline-ng/index.tsx',
+    url: 'http://localhost:12001/api/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("pipeline/api")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('pipeline/api')")
+  },
   notifications: {
     output: 'src/services/notifications/index.tsx',
     url: 'http://localhost:9005/api/swagger.json',

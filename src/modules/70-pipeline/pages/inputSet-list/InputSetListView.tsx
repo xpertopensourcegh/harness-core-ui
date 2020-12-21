@@ -4,9 +4,14 @@ import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
-import { PageInputSetSummaryResponse, useDeleteInputSetForPipeline, InputSetSummaryResponse } from 'services/cd-ng'
+import {
+  PageInputSetSummaryResponse,
+  useDeleteInputSetForPipeline,
+  InputSetSummaryResponse
+} from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import { TagsPopover } from '@common/components'
 import i18n from './InputSetList.i18n'
 import css from './InputSetList.module.scss'
 
@@ -45,7 +50,10 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         size={30}
       ></Icon>
       <div>
-        <Text color={Color.BLACK}>{data.name}</Text>
+        <Layout.Horizontal spacing="small" data-testid={data.identifier}>
+          <Text color={Color.BLACK}>{data.name}</Text>
+          {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
+        </Layout.Horizontal>
         <Text color={Color.GREY_400}>{data.identifier}</Text>
       </div>
     </Layout.Horizontal>
@@ -73,9 +81,7 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         }
       ]}
     >
-      <Button minimal intent="primary">
-        {i18n.runPipeline}
-      </Button>
+      <Button icon="run-pipeline" intent="primary" text={i18n.runPipeline} />
     </RunPipelineModal>
   )
 }
@@ -198,14 +204,14 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: i18n.description.toUpperCase(),
         accessor: 'description',
-        width: '25%',
+        width: '20%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
       {
         Header: i18n.inputFieldSummary.toUpperCase(),
         accessor: 'inputFieldSummary',
-        width: '15%',
+        width: '10%',
         disableSortBy: true
       },
       {
@@ -223,7 +229,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: i18n.actions.toUpperCase(),
         accessor: 'identifier',
-        width: '10%',
+        width: '15%',
         Cell: RenderColumnActions,
         disableSortBy: true,
         goToInputSetDetail

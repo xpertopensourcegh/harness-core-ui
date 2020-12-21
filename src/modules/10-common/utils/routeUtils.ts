@@ -13,7 +13,8 @@ import type {
   CVDataSourceTypePathProps,
   BuildPathProps,
   EnvironmentPathProps,
-  DelegatePathProps
+  DelegatePathProps,
+  InputSetPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -33,6 +34,11 @@ export const projectPathProps: ProjectPathProps = {
 export const pipelinePathProps: PipelinePathProps = {
   ...projectPathProps,
   pipelineIdentifier: ':pipelineIdentifier'
+}
+
+export const inputSetFormPathProps: InputSetPathProps = {
+  ...pipelinePathProps,
+  inputSetIdentifier: ':inputSetIdentifier'
 }
 
 export const triggerPathProps: TriggerPathProps = {
@@ -57,7 +63,7 @@ export const delegatePathProps: DelegatePathProps = {
   delegateId: ':delegateId'
 }
 
-export const pipelineModuleParams: Record<keyof PipelineType<{}>, string> = {
+export const pipelineModuleParams: Record<keyof PipelineType<{}>, 'ci' | 'cd' | ':module'> = {
   module: ':module'
 }
 

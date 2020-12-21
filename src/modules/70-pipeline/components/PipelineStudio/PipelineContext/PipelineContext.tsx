@@ -3,19 +3,18 @@ import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uikit'
-import type {
-  NgPipeline,
-  GetPipelineListQueryParams,
-  // getPipelinePromise,
-  // putPipelinePromise,
-  PutPipelineQueryParams,
-  ResponseNGPipelineResponse,
-  Failure
-  // postPipelinePromise
-} from 'services/cd-ng'
+import type { NgPipeline, ResponseNGPipelineResponse } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import {
+  createPipelinePromise,
+  getPipelinePromise,
+  GetPipelineQueryParams,
+  putPipelinePromise,
+  PutPipelineQueryParams,
+  Failure
+} from 'services/pipeline-ng'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -28,20 +27,14 @@ import {
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
-import {
-  getPipelinePromiseFactory,
-  postPipelinePromiseFactory,
-  putPipelinePromiseFactory
-} from './PipelineContextUtils'
 
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
-  params: GetPipelineListQueryParams,
-  identifier: string,
-  moduleName: 'ci' | 'cd' = 'cd'
+  params: GetPipelineQueryParams,
+  identifier: string
 ): Promise<NgPipeline | undefined> => {
-  return getPipelinePromiseFactory(moduleName)({
+  return getPipelinePromise({
     pipelineIdentifier: identifier,
     queryParams: {
       accountIdentifier: params.accountIdentifier,
@@ -69,11 +62,10 @@ export const getPipelineByIdentifier = (
 export const savePipeline = (
   params: PutPipelineQueryParams,
   pipeline: NgPipeline,
-  isEdit = false,
-  moduleName: 'cd' | 'ci' = 'cd'
+  isEdit = false
 ): Promise<Failure | undefined> => {
   return isEdit
-    ? putPipelinePromiseFactory(moduleName)({
+    ? putPipelinePromise({
         pipelineIdentifier: pipeline.identifier,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
@@ -89,7 +81,7 @@ export const savePipeline = (
           return response
         }
       })
-    : postPipelinePromiseFactory(moduleName)({
+    : createPipelinePromise({
         body: stringify({ pipeline }) as any,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
@@ -153,7 +145,7 @@ const getId = (
 
 const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineListQueryParams,
+  queryParams: GetPipelineQueryParams,
   identifier: string,
   forceFetch = false,
   forceUpdate = false
@@ -165,13 +157,10 @@ const _fetchPipeline = async (
     identifier
   )
   if (IdbPipeline) {
-    // TODO: next line is temporary
-    const moduleName = window.location.hash.indexOf('ci') !== -1 ? 'ci' : 'cd'
-
     dispatch(PipelineContextActions.fetching())
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
     if ((!data || forceFetch) && identifier !== DefaultNewPipelineId) {
-      const pipeline = await getPipelineByIdentifier(queryParams, identifier, moduleName)
+      const pipeline = await getPipelineByIdentifier(queryParams, identifier)
       const payload: PipelinePayload = {
         [KeyPath]: id,
         pipeline,
@@ -221,7 +210,7 @@ const _fetchPipeline = async (
 
 const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineListQueryParams,
+  queryParams: GetPipelineQueryParams,
   identifier: string,
   originalPipeline: NgPipeline,
   pipeline: NgPipeline
@@ -295,7 +284,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
   }
 }
 
-const _deletePipelineCache = async (queryParams: GetPipelineListQueryParams, identifier: string): Promise<void> => {
+const _deletePipelineCache = async (queryParams: GetPipelineQueryParams, identifier: string): Promise<void> => {
   if (IdbPipeline) {
     const id = getId(
       queryParams.accountIdentifier,
@@ -330,7 +319,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
 })
 
 export const PipelineProvider: React.FC<{
-  queryParams: GetPipelineListQueryParams
+  queryParams: GetPipelineQueryParams
   pipelineIdentifier: string
   stepsFactory: AbstractStepFactory
   stagesMap: StagesMap

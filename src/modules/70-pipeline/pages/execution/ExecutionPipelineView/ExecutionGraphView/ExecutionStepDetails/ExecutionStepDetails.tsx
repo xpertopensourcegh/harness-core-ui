@@ -16,7 +16,7 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   const { selectedStep } = props
   const { pipelineExecutionDetail } = useExecutionContext()
 
-  const step = pipelineExecutionDetail?.stageGraph?.nodeMap?.[selectedStep] || {}
+  const step = pipelineExecutionDetail?.executionGraph?.nodeMap?.[selectedStep] || {}
 
   return (
     <div className={css.main}>

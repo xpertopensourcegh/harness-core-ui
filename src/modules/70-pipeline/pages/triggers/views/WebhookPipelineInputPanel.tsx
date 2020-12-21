@@ -4,12 +4,12 @@ import { Layout, Heading, Text } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import { pick, merge } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
+import type { NgPipeline } from 'services/cd-ng'
 import {
   useGetTemplateFromPipeline,
-  NgPipeline,
-  useGetMergeInputSetFromPipelineTemplateWithListInput,
-  getInputSetForPipelinePromise
-} from 'services/cd-ng'
+  getInputSetForPipelinePromise,
+  useGetMergeInputSetFromPipelineTemplateWithListInput
+} from 'services/pipeline-ng'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'

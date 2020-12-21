@@ -7,9 +7,9 @@ export default {
           name: 'pipeline1',
           identifier: 'pipeline1',
           description: 'pipeline1 description',
+          tags: { asdd: 'asd', test: '' },
           numOfStages: 2,
           numOfErrors: 0,
-          tags: [{ value: '1' }],
           deployments: [1, 1, 0, 1, 3, 3, 2, 3, 2, 2]
         },
         {

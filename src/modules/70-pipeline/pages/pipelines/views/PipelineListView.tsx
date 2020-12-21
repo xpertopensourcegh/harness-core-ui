@@ -1,18 +1,18 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, Icon, SparkChart } from '@wings-software/uikit'
+import { Button, Color, Layout, Popover, Text, SparkChart } from '@wings-software/uikit'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
-import { NGPipelineSummaryResponse, PageNGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import i18n from '../PipelinesPage.i18n'
+import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
+import { String, useStrings } from 'framework/exports'
 import css from '../PipelinesPage.module.scss'
 
 interface PipelineListViewProps {
-  data?: PageNGPipelineSummaryResponse
+  data?: PagePMSPipelineSummaryResponse
   gotoPage: (pageNumber: number) => void
   goToPipelineDetail: (pipelineIdentifier?: string) => void
   goToPipelineStudio: (pipelineIdentifier?: string) => void
@@ -20,7 +20,7 @@ interface PipelineListViewProps {
 }
 
 // Todo: Remove this when BE updated
-interface PipelineDTO extends NGPipelineSummaryResponse {
+interface PipelineDTO extends PMSPipelineSummaryResponse {
   admin?: string
   collaborators?: string
   status?: string
@@ -44,11 +44,13 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
+  const { getString } = useStrings()
+
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || /* istanbul ignore next */ ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.deleteButton,
-    cancelButtonText: i18n.cancel,
+    contentText: getString('pipeline-list.confirmDelete', { name: data.name }),
+    titleText: getString('pipeline-list.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {
@@ -58,7 +60,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           })
           /* istanbul ignore else */
           if (deleted.status === 'SUCCESS') {
-            showSuccess(i18n.pipelineDeleted(data.name || /* istanbul ignore next */ ''))
+            showSuccess(getString('pipeline-list.pipelineDeleted', { name: data.name }))
           }
           ;(column as any).refetchPipeline()
         } catch (err) {
@@ -89,11 +91,11 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
         />
         <Menu style={{ minWidth: 'unset' }}>
           <RunPipelineModal pipelineIdentifier={data.identifier || /* istanbul ignore next */ ''}>
-            <Menu.Item icon="play" text={i18n.runPipeline} />
+            <Menu.Item icon="play" text={getString('runPipelineText')} />
           </RunPipelineModal>
           <Menu.Item
             icon="cog"
-            text={i18n.pipelineStudio}
+            text={getString('pipelineStudio')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               ;(column as any).goToPipelineStudio(data.identifier)
@@ -103,7 +105,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           <Menu.Divider />
           <Menu.Item
             icon="trash"
-            text={i18n.delete}
+            text={getString('delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               confirmDelete()
@@ -122,7 +124,7 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     <>
       <Layout.Horizontal spacing="small" data-testid={data.identifier}>
         <Text color={Color.BLACK}>{data.name}</Text>
-        {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
+        {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
       </Layout.Horizontal>
       <Text color={Color.GREY_400}>{data.identifier}</Text>
     </>
@@ -136,10 +138,6 @@ const RenderColumnDescription: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
       {data.description}
     </Text>
   )
-}
-
-const RenderColumnAdmin: Renderer<CellProps<PipelineDTO>> = () => {
-  return <Icon name="main-user-groups" size={20} />
 }
 
 const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
@@ -164,7 +162,7 @@ const RenderStages: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
       iconProps={{ size: 12 }}
       style={{ textTransform: 'capitalize' }}
     >
-      {row.original.numOfStages} {i18n.stages}
+      {row.original.numOfStages} <String stringID="pipeline-list.listStages" />
     </Text>
   )
 }
@@ -175,54 +173,41 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   refetchPipeline,
   goToPipelineStudio
 }): JSX.Element => {
+  const { getString } = useStrings()
   const columns: CustomColumn<PipelineDTO>[] = React.useMemo(
     () => [
       {
-        Header: i18n.pipeline.toUpperCase(),
+        Header: getString('pipeline').toUpperCase(),
         accessor: 'name',
         width: '25%',
         Cell: RenderColumnPipeline
       },
       {
-        Header: i18n.description.toUpperCase(),
+        Header: getString('description').toUpperCase(),
         accessor: 'description',
-        width: '20%',
+        width: '25%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
       {
-        Header: i18n.stages.toUpperCase(),
+        Header: getString('pipeline-list.listStages').toUpperCase(),
         accessor: 'numOfStages',
         width: '10%',
         Cell: RenderStages,
         disableSortBy: true
       },
       {
-        Header: i18n.activity.toUpperCase(),
+        Header: getString('activity').toUpperCase(),
         accessor: 'deployments',
-        width: '15%',
+        width: '20%',
         Cell: RenderActivity,
         disableSortBy: true
       },
       {
-        Header: i18n.errors.toUpperCase(),
+        Header: getString('errors').toUpperCase(),
         accessor: 'numOfErrors',
         width: '10%',
         Cell: RenderErrors,
-        disableSortBy: true
-      },
-      {
-        Header: i18n.admin.toUpperCase(),
-        accessor: 'admin',
-        width: '10%',
-        Cell: RenderColumnAdmin,
-        disableSortBy: true
-      },
-      {
-        Header: i18n.collaborators.toUpperCase(),
-        accessor: 'collaborators',
-        width: '5%',
-        Cell: RenderColumnAdmin,
         disableSortBy: true
       },
       {

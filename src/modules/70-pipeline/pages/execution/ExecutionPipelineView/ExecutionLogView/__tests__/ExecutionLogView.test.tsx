@@ -9,8 +9,11 @@ import mock from '../../ExecutionGraphView/__tests__/mock.json'
 
 const contextValue: ExecutionContextParams = {
   pipelineExecutionDetail: mock.data as any,
-  pipelineStagesMap: getPipelineStagesMap(mock as any),
-  selectedStageId: 'qa stage4',
+  pipelineStagesMap: getPipelineStagesMap(
+    mock.data.pipelineExecutionSummary.layoutNodeMap as any,
+    mock.data.pipelineExecutionSummary.startingNodeId
+  ),
+  selectedStageId: 'google_1',
   selectedStepId: '',
   queryParams: {},
   loading: false
@@ -39,14 +42,14 @@ describe('<ExecutionLogView /> tests', () => {
       </TestWrapper>
     )
 
-    const stageBtn = document.querySelector('.bp3-button-text')
+    const stageBtn = await findByText('google_1')
 
     fireEvent.click(stageBtn!)
 
-    const stage = await findByText('qa stage2')
+    const stage = await findByText('google_2')
 
     fireEvent.click(stage)
 
-    expect(getByTestId('location').innerHTML).toContain('stage=qaStage2')
+    expect(getByTestId('location').innerHTML).toContain('stage=google_2')
   })
 })

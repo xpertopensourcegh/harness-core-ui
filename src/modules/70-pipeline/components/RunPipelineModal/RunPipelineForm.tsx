@@ -7,16 +7,17 @@ import { parse, stringify } from 'yaml'
 import { noop, pick, merge } from 'lodash-es'
 import * as Yup from 'yup'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { NgPipeline } from 'services/cd-ng'
 import {
-  NgPipeline,
+  useGetPipeline,
+  usePostPipelineExecuteWithInputSetYaml,
+  useGetTemplateFromPipeline,
+  useGetMergeInputSetFromPipelineTemplateWithListInput,
   Failure,
   getInputSetForPipelinePromise,
-  useCreateInputSetForPipeline,
-  useGetMergeInputSetFromPipelineTemplateWithListInput,
-  useGetPipeline,
-  useGetTemplateFromPipeline,
-  usePostPipelineExecuteWithInputSetYaml
-} from 'services/cd-ng'
+  useCreateInputSetForPipeline
+} from 'services/pipeline-ng'
+
 import { useToaster } from '@common/exports'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -24,7 +25,12 @@ import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import type { PipelinePathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { PageBody } from '@common/components/Page/PageBody'
+import { PageHeader } from '@common/components/Page/PageHeader'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useAppStore, useStrings } from 'framework/exports'
+import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import css from './RunPipelineModal.module.scss'
@@ -32,7 +38,7 @@ import css from './RunPipelineModal.module.scss'
 export interface RunPipelineFormProps extends PipelinePathProps, AccountPathProps {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
-  onClose: () => void
+  onClose?: () => void
 }
 
 enum SelectedView {
@@ -55,11 +61,13 @@ export function RunPipelineForm({
   projectIdentifier,
   onClose,
   inputSetSelected,
-  inputSetYAML
-}: RunPipelineFormProps): React.ReactElement {
+  inputSetYAML,
+  module
+}: PipelineType<RunPipelineFormProps>): React.ReactElement {
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
+  const [notifyOnlyMe, setNotifyOnlyMe] = React.useState<boolean>(false)
   const { data: template, loading: loadingTemplate, error: errorTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
@@ -91,7 +99,7 @@ export function RunPipelineForm({
     [yamlHandler?.getLatestYaml]
   )
 
-  const pipeline: NgPipeline | undefined = (pipelineResponse?.data?.ngPipeline as any)?.pipeline
+  const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
   const history = useHistory()
   const { mutate: runPipeline } = usePostPipelineExecuteWithInputSetYaml({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
@@ -109,19 +117,20 @@ export function RunPipelineForm({
         const response = await runPipeline(
           valuesPipeline ? (stringify({ pipeline: valuesPipeline || '' }) as any) : (valuesPipeline as any)
         )
+        const data = response.data
         if (response.status === 'SUCCESS') {
-          if (!response.data?.errorResponse) {
+          if (!response.data) {
             showSuccess(i18n.pipelineRunSuccessFully)
             history.push(
-              routes.toCDExecutionPiplineView({
+              routes.toExecutionPipelineView({
                 orgIdentifier,
                 pipelineIdentifier,
                 projectIdentifier,
-                executionIdentifier: response.data?.planExecution?.uuid || '',
-                accountId
+                executionIdentifier: data?.planExecution?.uuid || '',
+                accountId,
+                module
               })
             )
-            onClose()
           }
         }
       } catch (error) {
@@ -135,6 +144,7 @@ export function RunPipelineForm({
       pipelineIdentifier,
       history,
       orgIdentifier,
+      module,
       projectIdentifier,
       onClose,
       accountId
@@ -166,7 +176,7 @@ export function RunPipelineForm({
 
   React.useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
-      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
+      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           const data = await mergeInputSet({
             inputSetReferences: selectedInputSets.map(item => item.value as string)
@@ -193,15 +203,16 @@ export function RunPipelineForm({
     }
   }, [
     template?.data?.inputSetTemplateYaml,
-    selectedInputSets?.length,
     selectedInputSets,
     accountId,
     projectIdentifier,
     orgIdentifier,
-    pipelineIdentifier,
-    mergeInputSet
+    pipelineIdentifier
   ])
 
+  const { projects } = useAppStore()
+  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { getString } = useStrings()
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {
     return <PageSpinner />
   }
@@ -218,153 +229,188 @@ export function RunPipelineForm({
 
   return (
     <>
-      <Layout.Horizontal flex={{ distribution: 'space-between' }} padding="medium">
-        <Text font="medium">{`${i18n.runPipeline}: ${pipeline?.name}`}</Text>
-        <Button icon="cross" minimal onClick={onClose} />
-      </Layout.Horizontal>
-      <div className={Classes.DIALOG_BODY}>
-        <Layout.Vertical spacing="medium">
-          {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
-            <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                <div className={css.optionBtns}>
-                  <div
-                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                    onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-                  >
-                    {i18n.VISUAL}
-                  </div>
-                  <div
-                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                    onClick={() => handleModeSwitch(SelectedView.YAML)}
-                  >
-                    {i18n.YAML}
-                  </div>
+      <PageHeader
+        title={
+          <Layout.Vertical spacing="xsmall">
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                  label: project?.name as string
+                },
+                {
+                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
+                  label: getString('pipelines')
+                },
+                { url: '#', label: pipeline?.name || '' }
+              ]}
+            />
+            <Layout.Horizontal>
+              <Text font="medium">{`${i18n.runPipeline}: ${pipeline?.name}`}</Text>
+              <div className={css.optionBtns}>
+                <div
+                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+                  onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+                >
+                  {i18n.VISUAL}
                 </div>
-              </Layout.Horizontal>
-              <InputSetSelector
-                pipelineIdentifier={pipelineIdentifier}
-                onChange={value => {
-                  setSelectedInputSets(value)
-                }}
-                value={selectedInputSets}
-              />
+                <div
+                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+                  onClick={() => handleModeSwitch(SelectedView.YAML)}
+                >
+                  {i18n.YAML}
+                </div>
+              </div>
             </Layout.Horizontal>
-          )}
-          <Layout.Vertical>
-            <Formik initialValues={currentPipeline || {}} onSubmit={noop} enableReinitialize>
-              {({ setFieldValue, values }) => {
-                return (
-                  <>
-                    {selectedView === SelectedView.VISUAL ? (
-                      <FormikForm>
-                        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
-                          <PipelineInputSetForm
-                            originalPipeline={pipeline}
-                            template={parse(template.data.inputSetTemplateYaml).pipeline}
-                            pipeline={values.pipeline}
-                            onUpdate={updatedPipeline => {
-                              setFieldValue('pipeline', updatedPipeline)
-                            }}
-                          />
-                        ) : (
-                          <Layout.Horizontal padding="medium" margin="medium">
-                            <Text>{i18n.noRuntimeInput}</Text>
-                          </Layout.Horizontal>
-                        )}
-                      </FormikForm>
-                    ) : (
-                      <div className={css.editor}>
-                        <YAMLBuilder
-                          {...yamlBuilderReadOnlyModeProps}
-                          existingJSON={values}
-                          bind={setYamlHandler}
-                          schema={pipelineSchema}
-                        />
-                      </div>
-                    )}
-
-                    <Layout.Horizontal padding={{ top: 'medium  ' }}>
-                      <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
-                        <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                          <Button
-                            intent="primary"
-                            type="submit"
-                            text={i18n.runPipeline}
-                            onClick={() => handleRunPipeline(values.pipeline as any)}
-                          />
-                          <Checkbox
-                            label={i18n.skipPreFlightCheck}
-                            checked={skipPreFlightCheck}
-                            onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
-                          />
-                        </Layout.Horizontal>
-                        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
-                          <Popover
-                            content={
-                              <Layout.Vertical
-                                padding="medium"
-                                spacing="medium"
-                                className={Classes.POPOVER_DISMISS_OVERRIDE}
-                              >
-                                <Formik
-                                  onSubmit={input => {
-                                    createInputSet(stringify({ inputSet: input }) as any).then(response => {
-                                      if (response.data?.errorResponse) {
-                                        showError(i18n.inputSetSavedError)
-                                      } else {
-                                        showSuccess(i18n.inputSetSaved)
-                                      }
-                                    })
-                                  }}
-                                  validationSchema={Yup.object().shape({
-                                    name: Yup.string().trim().required(i18n.nameIsRequired)
-                                  })}
-                                  initialValues={{ pipeline: values.pipeline, name: '', identifier: '' } as InputSetDTO}
-                                >
-                                  {({ submitForm, values: formikValues }) => {
-                                    return (
-                                      <>
-                                        <BasicInputSetForm
-                                          isEdit={false}
-                                          formType={InputFormType.InputForm}
-                                          values={formikValues}
-                                        />
-
-                                        <Layout.Horizontal
-                                          flex={{ distribution: 'space-between' }}
-                                          padding={{ top: 'medium' }}
-                                        >
-                                          <Button
-                                            intent="primary"
-                                            text={i18n.save}
-                                            onClick={event => {
-                                              event.stopPropagation()
-                                              submitForm()
-                                            }}
-                                          />
-                                          <Button className={Classes.POPOVER_DISMISS} text={i18n.cancel} />
-                                        </Layout.Horizontal>
-                                      </>
-                                    )
-                                  }}
-                                </Formik>
-                              </Layout.Vertical>
-                            }
-                          >
-                            <Button minimal intent="primary" text={i18n.saveAsInputSet} />
-                          </Popover>
-                        )}
-                      </Layout.Horizontal>
-                    </Layout.Horizontal>
-                  </>
-                )
-              }}
-            </Formik>
           </Layout.Vertical>
-        </Layout.Vertical>
-      </div>
-      <div className={Classes.DIALOG_FOOTER}></div>
+        }
+      />
+      <PageBody className={css.runForm}>
+        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
+          <Layout.Horizontal
+            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+            flex={{ distribution: 'space-between' }}
+          >
+            <Text font="medium">{i18n.pipeline}</Text>
+            <InputSetSelector
+              pipelineIdentifier={pipelineIdentifier}
+              onChange={value => {
+                setSelectedInputSets(value)
+              }}
+              value={selectedInputSets}
+            />
+          </Layout.Horizontal>
+        )}
+        <Formik initialValues={currentPipeline || {}} onSubmit={noop} enableReinitialize>
+          {({ setFieldValue, values }) => {
+            return (
+              <>
+                <Layout.Horizontal
+                  className={css.content}
+                  padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+                >
+                  {selectedView === SelectedView.VISUAL ? (
+                    <FormikForm>
+                      {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                        <PipelineInputSetForm
+                          originalPipeline={pipeline}
+                          template={parse(template.data.inputSetTemplateYaml).pipeline}
+                          pipeline={values.pipeline}
+                          onUpdate={updatedPipeline => {
+                            setFieldValue('pipeline', updatedPipeline)
+                          }}
+                        />
+                      ) : (
+                        <Layout.Horizontal padding="medium" margin="medium">
+                          <Text>{i18n.noRuntimeInput}</Text>
+                        </Layout.Horizontal>
+                      )}
+                    </FormikForm>
+                  ) : (
+                    <div className={css.editor}>
+                      <YAMLBuilder
+                        {...yamlBuilderReadOnlyModeProps}
+                        existingJSON={values}
+                        bind={setYamlHandler}
+                        schema={pipelineSchema}
+                      />
+                    </div>
+                  )}
+                </Layout.Horizontal>
+                <Layout.Horizontal className={css.footer} padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }}>
+                  <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
+                    <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                      <Button
+                        intent="primary"
+                        type="submit"
+                        icon="run-pipeline"
+                        text={i18n.runPipeline}
+                        onClick={() => handleRunPipeline(values.pipeline as any)}
+                      />
+                      <Checkbox
+                        disabled
+                        label={i18n.skipPreFlightCheck}
+                        checked={skipPreFlightCheck}
+                        onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+                      />
+                      <Checkbox
+                        label={i18n.notifyOnlyMe}
+                        checked={notifyOnlyMe}
+                        onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                      />
+                    </Layout.Horizontal>
+                    <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                      {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
+                        <Popover
+                          content={
+                            <Layout.Vertical
+                              padding="medium"
+                              spacing="medium"
+                              className={Classes.POPOVER_DISMISS_OVERRIDE}
+                            >
+                              <Formik
+                                onSubmit={input => {
+                                  createInputSet(stringify({ inputSet: input }) as any).then(response => {
+                                    if (response.data?.errorResponse) {
+                                      showError(i18n.inputSetSavedError)
+                                    } else {
+                                      showSuccess(i18n.inputSetSaved)
+                                    }
+                                  })
+                                }}
+                                validationSchema={Yup.object().shape({
+                                  name: Yup.string().trim().required(i18n.nameIsRequired)
+                                })}
+                                initialValues={{ pipeline: values.pipeline, name: '', identifier: '' } as InputSetDTO}
+                              >
+                                {({ submitForm, values: formikValues }) => {
+                                  return (
+                                    <>
+                                      <BasicInputSetForm isEdit={false} values={formikValues} />
+
+                                      <Layout.Horizontal
+                                        flex={{ distribution: 'space-between' }}
+                                        padding={{ top: 'medium' }}
+                                      >
+                                        <Button
+                                          intent="primary"
+                                          text={i18n.save}
+                                          onClick={event => {
+                                            event.stopPropagation()
+                                            submitForm()
+                                          }}
+                                        />
+                                        <Button className={Classes.POPOVER_DISMISS} text={i18n.cancel} />
+                                      </Layout.Horizontal>
+                                    </>
+                                  )
+                                }}
+                              </Formik>
+                            </Layout.Vertical>
+                          }
+                        >
+                          <Button minimal intent="primary" text={i18n.saveAsInputSet} />
+                        </Popover>
+                      )}
+                      <Button
+                        text={i18n.cancel}
+                        minimal
+                        onClick={() => {
+                          if (onClose) {
+                            onClose()
+                          } else {
+                            history.goBack()
+                          }
+                        }}
+                      />
+                    </Layout.Horizontal>
+                  </Layout.Horizontal>
+                </Layout.Horizontal>
+              </>
+            )
+          }}
+        </Formik>
+      </PageBody>
     </>
   )
 }

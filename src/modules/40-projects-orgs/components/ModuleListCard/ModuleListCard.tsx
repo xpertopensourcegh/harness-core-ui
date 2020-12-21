@@ -25,16 +25,17 @@ const getModuleLinks = (
       return (
         <Layout.Vertical spacing="medium">
           <Link
-            to={routes.toCDPipelineStudio({
+            to={routes.toPipelineStudio({
               accountId,
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: '-1'
+              pipelineIdentifier: '-1',
+              module: 'ci'
             })}
           >
             <String stringID="moduleRenderer.newPipeLine" />
           </Link>
-          <Link to={routes.toCDPipelines({ accountId, orgIdentifier, projectIdentifier })}>
+          <Link to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'ci' })}>
             <String stringID="moduleRenderer.viewPipelines" />
           </Link>
         </Layout.Vertical>
@@ -54,16 +55,17 @@ const getModuleLinks = (
       return (
         <Layout.Vertical spacing="medium">
           <Link
-            to={routes.toCIPipelineStudio({
+            to={routes.toPipelineStudio({
               accountId,
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: '-1'
+              pipelineIdentifier: '-1',
+              module: 'ci'
             })}
           >
             <String stringID="moduleRenderer.newPipeLine" />
           </Link>
-          <Link to={routes.toCIPipelines({ accountId, orgIdentifier, projectIdentifier })}>
+          <Link to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'ci' })}>
             <String stringID="moduleRenderer.viewPipelines" />
           </Link>
         </Layout.Vertical>

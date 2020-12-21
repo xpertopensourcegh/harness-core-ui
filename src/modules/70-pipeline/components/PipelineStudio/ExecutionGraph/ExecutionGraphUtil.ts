@@ -255,6 +255,11 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
     node.steps.forEach((step: ExecutionWrapper) => {
       getStepsState(step, mapState)
     })
+    if (node.rollbackSteps) {
+      node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+        getStepsState(step, mapState)
+      })
+    }
   } else if (node.rollbackSteps) {
     node.rollbackSteps.forEach((step: ExecutionWrapper) => {
       getStepsState(step, mapState)

@@ -74,32 +74,32 @@ exports[`<ExecutionGrapView /> tests renders excution graphs 1`] = `
               data-testid="execution-stage-diagram-mock"
             >
               <div
-                data-item="qaStage"
-                data-status="Success"
+                data-stage="parallel"
+              >
+                <div
+                  data-item="google_1"
+                  data-status="Running"
+                >
+                  google_1
+                </div>
+                <div
+                  data-item="google_2"
+                  data-status="Running"
+                >
+                  google_2
+                </div>
+              </div>
+              <div
+                data-item="qastage"
+                data-status="NotStarted"
               >
                 qa stage
               </div>
               <div
-                data-stage="parallel"
-              >
-                <div
-                  data-item="qaStage2"
-                  data-status="Success"
-                >
-                  qa stage2
-                </div>
-                <div
-                  data-item="qaStage3"
-                  data-status="Success"
-                >
-                  qa stage3
-                </div>
-              </div>
-              <div
-                data-item="qaStage4"
+                data-item="6iyMwdTxSWqf4rdF5eqVMw"
                 data-status="NotStarted"
               >
-                qa stage4
+                Random
               </div>
             </div>
           </div>
@@ -124,33 +124,28 @@ exports[`<ExecutionGrapView /> tests renders excution graphs 1`] = `
               data-testid="execution-stage-diagram-mock"
             >
               <div
-                data-item="RrBW5KMpSmiprd-6ip-7tA"
+                data-item="serviceUuid"
                 data-status="Success"
               >
                 Service
               </div>
               <div
-                data-item="hwTX_U7OQ0-pubH7lprhmw"
+                data-item="infraUuid"
                 data-status="Success"
               >
                 Infrastructure
               </div>
               <div
-                data-group="execution"
-                data-stage="group"
+                data-item="K8sRollingUuid"
+                data-status="Running"
               >
-                <div
-                  data-item="X_IGbTkaSMulKGh43U_xJw"
-                  data-status="Success"
-                >
-                  http step 1
-                </div>
-                <div
-                  data-item="RpxN130QT7yAKoQ7PvP3Lg"
-                  data-status="NotStarted"
-                >
-                  http step 2
-                </div>
+                Rollout Deployment
+              </div>
+              <div
+                data-item="K8sRollingUuid2"
+                data-status="NotStarted"
+              >
+                RolloutSecond
               </div>
             </div>
           </div>
@@ -245,32 +240,32 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
               data-testid="execution-stage-diagram-mock"
             >
               <div
-                data-item="qaStage"
-                data-status="Success"
+                data-stage="parallel"
+              >
+                <div
+                  data-item="google_1"
+                  data-status="Running"
+                >
+                  google_1
+                </div>
+                <div
+                  data-item="google_2"
+                  data-status="Running"
+                >
+                  google_2
+                </div>
+              </div>
+              <div
+                data-item="qastage"
+                data-status="NotStarted"
               >
                 qa stage
               </div>
               <div
-                data-stage="parallel"
-              >
-                <div
-                  data-item="qaStage2"
-                  data-status="Success"
-                >
-                  qa stage2
-                </div>
-                <div
-                  data-item="qaStage3"
-                  data-status="Success"
-                >
-                  qa stage3
-                </div>
-              </div>
-              <div
-                data-item="qaStage4"
+                data-item="6iyMwdTxSWqf4rdF5eqVMw"
                 data-status="NotStarted"
               >
-                qa stage4
+                Random
               </div>
             </div>
           </div>
@@ -307,33 +302,28 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                     data-testid="execution-stage-diagram-mock"
                   >
                     <div
-                      data-item="RrBW5KMpSmiprd-6ip-7tA"
+                      data-item="serviceUuid"
                       data-status="Success"
                     >
                       Service
                     </div>
                     <div
-                      data-item="hwTX_U7OQ0-pubH7lprhmw"
+                      data-item="infraUuid"
                       data-status="Success"
                     >
                       Infrastructure
                     </div>
                     <div
-                      data-group="execution"
-                      data-stage="group"
+                      data-item="K8sRollingUuid"
+                      data-status="Running"
                     >
-                      <div
-                        data-item="X_IGbTkaSMulKGh43U_xJw"
-                        data-status="Success"
-                      >
-                        http step 1
-                      </div>
-                      <div
-                        data-item="RpxN130QT7yAKoQ7PvP3Lg"
-                        data-status="NotStarted"
-                      >
-                        http step 2
-                      </div>
+                      Rollout Deployment
+                    </div>
+                    <div
+                      data-item="K8sRollingUuid2"
+                      data-status="NotStarted"
+                    >
+                      RolloutSecond
                     </div>
                   </div>
                 </div>
@@ -361,7 +351,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                       class="title"
                     >
                       Step: 
-                      http step 1
+                      Rollout Deployment
                     </div>
                     <div
                       class="toggle"
@@ -563,7 +553,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 Started at:
                               </th>
                               <td>
-                                10/13/2020 04:27:22 pm
+                                12/18/2020 11:47:53 am
                               </td>
                             </tr>
                             <tr>
@@ -571,7 +561,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 Ended at:
                               </th>
                               <td>
-                                10/13/2020 04:27:25 pm
+                                -
                               </td>
                             </tr>
                             <tr>
@@ -579,7 +569,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 Duration:
                               </th>
                               <td>
-                                2s
+                                -
                               </td>
                             </tr>
                             <tr>

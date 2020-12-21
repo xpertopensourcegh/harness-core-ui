@@ -3,26 +3,29 @@ import { render, fireEvent, act, findByText as findByTextContainer } from '@test
 
 import { TestWrapper, NotFound } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, executionPathProps } from '@common/utils/routeUtils'
-import { useGetPipelineExecutionDetail } from 'services/cd-ng'
+import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
+import { ResponsePipelineExecutionDetail, useGetExecutionDetail } from 'services/pipeline-ng'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import { getRunningStageForPipeline } from '@pipeline/utils/executionUtils'
+import { ExecutionPathParams, getRunningStageForPipeline, getRunningStep } from '@pipeline/utils/executionUtils'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'
 import i18nTabs from '../ExecutionTabs/ExecutionTabs.i18n'
 import mockData from './mock.json'
 
 jest.mock('services/cd-ng', () => ({
-  useGetPipelineExecutionDetail: jest.fn(() => ({
+  useHandleInterrupt: jest.fn(() => ({
+    mutate: jest.fn()
+  }))
+}))
+jest.mock('services/pipeline-ng', () => ({
+  useGetExecutionDetail: jest.fn(() => ({
     refetch: jest.fn(),
     loading: false,
     data: {
       data: { pipelineExecution: {}, stageGraph: {} }
     }
-  })),
-  useHandleInterrupt: jest.fn(() => ({
-    mutate: jest.fn()
   }))
 }))
 
@@ -30,26 +33,35 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>YAMLBui
 
 jest.useFakeTimers()
 
-const TEST_EXECUTION_PATH = routes.toCDExecution({ ...accountPathProps, ...executionPathProps })
-const TEST_EXECUTION_PIPELINE_PATH = routes.toCDExecutionPiplineView({ ...accountPathProps, ...executionPathProps })
+const TEST_EXECUTION_PATH = routes.toExecution({
+  ...accountPathProps,
+  ...executionPathProps,
+  ...pipelineModuleParams
+})
+const TEST_EXECUTION_PIPELINE_PATH = routes.toExecutionPipelineView({
+  ...accountPathProps,
+  ...executionPathProps,
+  ...pipelineModuleParams
+})
 
 describe('<ExecutionLandingPage /> tests', () => {
-  const pathParams = {
+  const pathParams: PipelineType<ExecutionPathParams> = {
     accountId: 'TEST_ACCOUNT_ID',
     orgIdentifier: 'TEST_ORG',
     projectIdentifier: 'TEST_PROJECT',
     pipelineIdentifier: 'TEST_PIPELINE',
-    executionIdentifier: 'TEST_EXECUTION'
+    executionIdentifier: 'TEST_EXECUTION',
+    module: 'cd'
   }
 
   test('loading state - snapshot test', () => {
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: true,
       data: null
     }))
     const { container } = render(
-      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -59,17 +71,17 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    [i18nTabs.piplines, routes.toCDExecutionPiplineView(pathParams)],
-    [i18nTabs.inputs, routes.toCDExecutionInputsView(pathParams)],
-    [i18nTabs.artifacts, routes.toCDExecutionArtifactsView(pathParams)]
+    [i18nTabs.piplines, routes.toExecutionPipelineView(pathParams)],
+    [i18nTabs.inputs, routes.toExecutionInputsView(pathParams)],
+    [i18nTabs.artifacts, routes.toExecutionArtifactsView(pathParams)]
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: true,
       data: null
     }))
     const { container, getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -83,16 +95,16 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    [i18nTabs.graphView, routes.toCDExecutionPiplineView(pathParams) + '?view=graph'],
-    [i18nTabs.logView, routes.toCDExecutionPiplineView(pathParams) + '?view=log']
+    [i18nTabs.graphView, routes.toExecutionPipelineView(pathParams) + '?view=graph'],
+    [i18nTabs.logView, routes.toExecutionPipelineView(pathParams) + '?view=log']
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: false,
       data: null
     }))
     const { findByText, getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <NotFound />
         </ExecutionLandingPage>
@@ -109,17 +121,17 @@ describe('<ExecutionLandingPage /> tests', () => {
   test.each<[ExecutionStatus, boolean]>([
     ['Aborted', false],
     ['Running', true]
-  ])('For status "%s" - polling is `%s`', (executionStatus, called) => {
+  ])('For status "%s" - polling is `%s`', (status, called) => {
     const refetch = jest.fn()
 
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch,
       loading: false,
-      data: { data: { pipelineExecution: { executionStatus } } }
+      data: { data: { pipelineExecutionSummary: { status } } }
     }))
 
     render(
-      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -134,14 +146,14 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test('Toggle details works', async () => {
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: false,
       data: mockData
     }))
 
     const { container, findByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <NotFound />
         </ExecutionLandingPage>
@@ -158,7 +170,7 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test('auto stage selection works', () => {
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: true,
       data: mockData
@@ -176,26 +188,23 @@ describe('<ExecutionLandingPage /> tests', () => {
     }
 
     const { getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <Child />
         </ExecutionLandingPage>
       </TestWrapper>
     )
-
-    const stage = getRunningStageForPipeline(
-      mockData.data.pipelineExecution.stageExecutionSummaryElements,
-      mockData.data.pipelineExecution.executionStatus as ExecutionStatus
-    )
-
+    const testData = (mockData as unknown) as ResponsePipelineExecutionDetail
+    const stage = getRunningStageForPipeline(testData.data?.pipelineExecutionSummary)
+    const runningStep = getRunningStep(testData.data?.executionGraph || {})
     jest.runOnlyPendingTimers()
 
     expect(getByTestId('autoSelectedStageId').innerHTML).toBe(stage)
-    expect(getByTestId('autoSelectedStepId').innerHTML).toBe('')
+    expect(getByTestId('autoSelectedStepId').innerHTML).toBe(runningStep)
   })
 
   test('auto stage should not work when user has selected a stage/step', () => {
-    ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: false,
       data: mockData
@@ -213,7 +222,11 @@ describe('<ExecutionLandingPage /> tests', () => {
     }
 
     const { getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} queryParams={{ stage: 'qaStage' }} pathParams={pathParams}>
+      <TestWrapper
+        path={TEST_EXECUTION_PIPELINE_PATH}
+        queryParams={{ stage: 'qaStage' }}
+        pathParams={(pathParams as unknown) as Record<string, string>}
+      >
         <ExecutionLandingPage>
           <Child />
         </ExecutionLandingPage>

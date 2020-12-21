@@ -4,6 +4,7 @@ import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy } from 'lodash-es'
 
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { getConfig } from 'services/config'
 import {
   Failure,
@@ -13,7 +14,7 @@ import {
   StepData,
   useGetSteps,
   UseGetStepsProps
-} from 'services/cd-ng'
+} from 'services/pipeline-ng'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
 import i18n from './StepPalette.18n'
@@ -66,9 +67,10 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
+  const { module } = useParams<{ module: string }>()
   const serviceDefinitionType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
 
-  const { data: stepsData } = dataSourceFactory(stageType)({ queryParams: { serviceDefinitionType } })
+  const { data: stepsData } = dataSourceFactory(stageType)({ queryParams: { category: serviceDefinitionType, module } })
 
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories

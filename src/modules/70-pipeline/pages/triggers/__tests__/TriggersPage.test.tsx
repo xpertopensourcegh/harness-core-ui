@@ -18,10 +18,12 @@ jest.mock('services/cd-ng', () => ({
     mockGetTriggersFunction(args)
     return GetTriggerListForTargetResponse
   }),
-  useGetPipeline: jest.fn(() => GetPipelineResponse),
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useDeleteTrigger: jest.fn().mockImplementation(() => ({ mutate: mockDelete })),
   useUpdateTriggerStatus: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTriggerStatus }))
+}))
+jest.mock('services/pipeline-ng', () => ({
+  useGetPipeline: jest.fn(() => GetPipelineResponse)
 }))
 
 jest.mock('react-router-dom', () => ({

@@ -1,10 +1,10 @@
 import React from 'react'
-import { render, RenderResult, waitFor, fireEvent, getByText, queryByText } from '@testing-library/react'
+import { render, RenderResult, waitFor, fireEvent, getByText, queryByText, getByTestId } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import InputSetList from '../InputSetList'
 import {
   TemplateResponse,
@@ -27,26 +27,29 @@ const deleteInputSet = (): Promise<{ status: string }> => {
 const getInputSetList = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
+  useGetConnector: jest.fn(() => ConnectorResponse),
+  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({}))
+}))
+
+jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: jest.fn(() => PipelineResponse),
   useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
-  useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => MergeInputSetResponse),
   useGetOverlayInputSetForPipeline: jest.fn(() => GetOverlayInputSetEdit),
   useCreateInputSetForPipeline: jest.fn(() => ({})),
   useUpdateInputSetForPipeline: jest.fn(() => ({})),
   useUpdateOverlayInputSetForPipeline: jest.fn(() => ({})),
   useCreateOverlayInputSetForPipeline: jest.fn(() => ({})),
-  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({})),
   useGetInputSetsListForPipeline: jest.fn().mockImplementation(args => {
     getInputSetList(args)
     return GetInputSetsResponse
   }),
-  useGetConnector: jest.fn(() => ConnectorResponse),
   getInputSetForPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(GetInputSetsResponse.data)),
+  useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
   useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet }))
 }))
 
-const TEST_PATH = routes.toCDInputSetList({ ...accountPathProps, ...pipelinePathProps })
+const TEST_PATH = routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('Input Set List tests', () => {
   test('render Input Set List view', async () => {
@@ -57,7 +60,8 @@ describe('Input Set List tests', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -81,7 +85,8 @@ describe('Input Set List - Actions tests', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -97,9 +102,19 @@ describe('Input Set List - Actions tests', () => {
     const inputSetRow = getAllByText?.('asd')[0]
     await act(async () => {
       fireEvent.click(inputSetRow!)
-      await waitFor(() => getByText(document.body, 'Edit Input Set: asd'))
-      const form = findDialogContainer()
-      expect(form).toBeTruthy()
+      await waitFor(() => getByTestId(document.body, 'location'))
+      expect(
+        getByTestId(document.body, 'location').innerHTML.endsWith(
+          routes.toInputSetForm({
+            accountId: 'testAcc',
+            orgIdentifier: 'testOrg',
+            projectIdentifier: 'test',
+            pipelineIdentifier: 'pipeline',
+            inputSetIdentifier: 'asd',
+            module: 'cd'
+          } as any)
+        )
+      ).toBeTruthy()
     })
   })
 
@@ -108,16 +123,6 @@ describe('Input Set List - Actions tests', () => {
     await act(async () => {
       fireEvent.click(inputSetRow!)
       await waitFor(() => getByText(document.body, 'Edit Overlay Input Set: OverLayInput'))
-      const form = findDialogContainer()
-      expect(form).toBeTruthy()
-    })
-  })
-
-  test('click handler for Run pipeline Input Set', async () => {
-    const inputSetRow = getAllByText?.('Run Pipeline')[1]
-    await act(async () => {
-      fireEvent.click(inputSetRow!)
-      await waitFor(() => getByText(document.body, 'Run Pipeline: testsdfsdf'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
     })
@@ -141,9 +146,19 @@ describe('Input Set List - Actions tests', () => {
     const editMenu = getAllByText?.('Edit')[0]
     await act(async () => {
       fireEvent.click(editMenu!)
-      await waitFor(() => getByText(document.body, 'Edit Input Set: asd'))
-      const form = findDialogContainer()
-      expect(form).toBeTruthy()
+      await waitFor(() => getByTestId(document.body, 'location'))
+      expect(
+        getByTestId(document.body, 'location').innerHTML.endsWith(
+          routes.toInputSetForm({
+            accountId: 'testAcc',
+            orgIdentifier: 'testOrg',
+            projectIdentifier: 'test',
+            pipelineIdentifier: 'pipeline',
+            inputSetIdentifier: 'asd',
+            module: 'cd'
+          } as any)
+        )
+      ).toBeTruthy()
     })
   })
 
@@ -205,13 +220,19 @@ describe('Input Set List - Actions tests', () => {
     const newInputSet = getByText(popover as HTMLElement, 'Input Set')
     await act(async () => {
       fireEvent.click(newInputSet)
-      await waitFor(() => getByText(document.body, 'New Input Set'))
-      let form = findDialogContainer()
-      expect(form).toBeTruthy()
-      // Close
-      fireEvent.click(form?.querySelector('[icon="small-cross"]')!)
-      form = findDialogContainer()
-      expect(form).not.toBeTruthy()
+      await waitFor(() => getByTestId(document.body, 'location'))
+      expect(
+        getByTestId(document.body, 'location').innerHTML.endsWith(
+          routes.toInputSetForm({
+            accountId: 'testAcc',
+            orgIdentifier: 'testOrg',
+            projectIdentifier: 'test',
+            pipelineIdentifier: 'pipeline',
+            inputSetIdentifier: '-1',
+            module: 'cd'
+          } as any)
+        )
+      ).toBeTruthy()
     })
   })
 

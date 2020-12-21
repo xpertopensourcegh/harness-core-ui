@@ -4,7 +4,7 @@ import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 
 import CIPipelineStudio from '../CIPipelineStudio'
 import { PipelineResponse } from './PipelineStudioMocks'
@@ -14,16 +14,13 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('services/cd-ng', () => ({
-  getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
-  putPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
-  postPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve({ response: { data: { content: [] } } }))
 }))
 
-jest.mock('@pipeline/components/PipelineStudio/PipelineContext/PipelineContextUtils', () => ({
-  getPipelinePromiseFactory: jest.fn().mockImplementation(() => () => Promise.resolve(PipelineResponse)),
-  putPipelinePromiseFactory: jest.fn().mockImplementation(() => () => Promise.resolve({ status: 'SUCCESS' })),
-  postPipelinePromiseFactory: jest.fn().mockImplementation(() => () => Promise.resolve({ status: 'SUCCESS' }))
+jest.mock('services/pipeline-ng', () => ({
+  getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
+  putPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
+  createPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' }))
 }))
 
 jest.mock('@pipeline/components/RunPipelineModal/RunPipelineForm', () => ({
@@ -35,7 +32,7 @@ jest.mock('@pipeline/components/RunPipelineModal/RunPipelineForm', () => ({
   )
 }))
 
-const TEST_PATH = routes.toCIPipelineStudio({ ...accountPathProps, ...pipelinePathProps })
+const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('Test Pipeline Studio', () => {
   test('should render default pipeline studio', async () => {
@@ -46,7 +43,8 @@ describe('Test Pipeline Studio', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: DefaultNewPipelineId
+          pipelineIdentifier: DefaultNewPipelineId,
+          module: 'ci'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -64,7 +62,8 @@ describe('Test Pipeline Studio', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'editPipeline'
+          pipelineIdentifier: 'editPipeline',
+          module: 'ci'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -82,7 +81,8 @@ describe('Test Pipeline Studio', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'editPipeline'
+          pipelineIdentifier: 'editPipeline',
+          module: 'ci'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -108,7 +108,8 @@ describe('Test Pipeline Studio', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: DefaultNewPipelineId
+          pipelineIdentifier: DefaultNewPipelineId,
+          module: 'ci'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -133,7 +134,8 @@ describe('Test Pipeline Studio', () => {
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
           projectIdentifier: 'test',
-          pipelineIdentifier: 'editPipeline'
+          pipelineIdentifier: 'editPipeline',
+          module: 'ci'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

@@ -1,36 +1,52 @@
-import { Layout } from '@wings-software/uikit'
+import { Layout, Pagination } from '@wings-software/uikit'
 import React from 'react'
-import type { NGPipelineSummaryResponse } from 'services/cd-ng'
+import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { PipelineCard } from './PipelineCard/PipelineCard'
+import css from '../PipelinesPage.module.scss'
 
 interface PipelineGridViewProps {
-  pipelineList: NGPipelineSummaryResponse[]
+  data?: PagePMSPipelineSummaryResponse
+  gotoPage: (pageNumber: number) => void
   goToPipelineDetail: (pipelineIdentifier?: string) => void
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
 }
 
 export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
-  pipelineList,
+  data,
+  gotoPage,
   goToPipelineDetail,
   goToPipelineStudio,
   refetchPipeline
 }): JSX.Element => {
   return (
-    <Layout.Masonry
-      center
-      gutter={30}
-      width={900}
-      items={pipelineList}
-      renderItem={(item: NGPipelineSummaryResponse) => (
-        <PipelineCard
-          pipeline={item}
-          goToPipelineDetail={goToPipelineDetail}
-          goToPipelineStudio={goToPipelineStudio}
-          refetchPipeline={refetchPipeline}
+    <div className={css.gridView}>
+      <div className={css.gridLayout}>
+        <Layout.Masonry
+          center
+          gutter={30}
+          width={900}
+          items={data?.content || []}
+          renderItem={(item: PMSPipelineSummaryResponse) => (
+            <PipelineCard
+              pipeline={item}
+              goToPipelineDetail={goToPipelineDetail}
+              goToPipelineStudio={goToPipelineStudio}
+              refetchPipeline={refetchPipeline}
+            />
+          )}
+          keyOf={(item: PMSPipelineSummaryResponse) => item.identifier}
         />
-      )}
-      keyOf={(item: NGPipelineSummaryResponse) => item.identifier}
-    />
+      </div>
+      <div className={css.pagination}>
+        <Pagination
+          itemCount={data?.totalElements || /* istanbul ignore next */ 0}
+          pageSize={data?.size || /* istanbul ignore next */ 10}
+          pageCount={data?.totalPages || /* istanbul ignore next */ -1}
+          pageIndex={data?.number || /* istanbul ignore next */ 0}
+          gotoPage={gotoPage}
+        />
+      </div>
+    </div>
   )
 }

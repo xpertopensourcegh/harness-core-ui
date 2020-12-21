@@ -15,7 +15,7 @@ import { clone } from 'lodash-es'
 import cx from 'classnames'
 import { Button, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/cd-ng'
+import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import i18n from './InputSetSelector.i18n'
@@ -64,8 +64,8 @@ const RenderValue = React.memo(function RenderValue({
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ right: 'small' }}>
       <Layout.Horizontal spacing="small">
-        <Icon intent="primary" name={getIconByType(value[0].type)}></Icon>
-        <Text>{value[0].label}</Text>
+        <Icon intent="primary" name={getIconByType(value[0]?.type)}></Icon>
+        <Text>{value[0]?.label}</Text>
       </Layout.Horizontal>
       <div
         className={css.clearButton}

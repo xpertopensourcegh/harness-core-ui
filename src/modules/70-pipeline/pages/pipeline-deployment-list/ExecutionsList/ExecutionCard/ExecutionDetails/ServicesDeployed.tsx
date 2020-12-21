@@ -2,37 +2,38 @@ import React from 'react'
 import { Button } from '@wings-software/uikit'
 import { Popover, Position } from '@blueprintjs/core'
 
-import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
+import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 
+import type { CDPipelineModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import css from '../ExecutionCard.module.scss'
 
 export interface ServicesDeployedProps {
-  pipelineExecution: PipelineExecutionSummaryDTO
+  pipelineExecution: PipelineExecutionSummary
 }
 
 export default function ServicesDeployed(props: ServicesDeployedProps): React.ReactElement {
   const { pipelineExecution } = props
-  const serviceIdentifiers = pipelineExecution?.serviceIdentifiers || []
+  const serviceIdentifiers: string[] =
+    ((pipelineExecution?.moduleInfo?.cd as CDPipelineModuleInfo)?.serviceIdentifiers as string[]) || []
   const [showMore, setShowMore] = React.useState(false)
   const length = serviceIdentifiers.length
 
   const servicesMap = React.useMemo(() => {
-    const stagesMap = getPipelineStagesMap({ data: { pipelineExecution } })
-    const map = new Map()
+    const stagesMap = getPipelineStagesMap(pipelineExecution.layoutNodeMap, pipelineExecution.startingNodeId)
+    const map = new Map<string, ServiceExecutionSummary>()
 
     stagesMap.forEach(stage => {
-      if (stage.serviceInfo && stage.serviceInfo.identifier) {
-        map.set(stage.serviceInfo.identifier, stage.serviceInfo)
+      const serviceInfo = stage.moduleInfo?.cd?.serviceInfoList as ServiceExecutionSummary
+      if (serviceInfo?.identifier) {
+        map.set(serviceInfo.identifier, serviceInfo)
       }
     })
 
     return map
   }, [pipelineExecution])
-
-  const items = showMore && length > 2 ? serviceIdentifiers : serviceIdentifiers.slice(0, 2)
-
+  const items = showMore && length > 2 ? serviceIdentifiers : serviceIdentifiers?.slice(0, 2)
   function toggle(): void {
     setShowMore(status => !status)
   }
@@ -41,7 +42,7 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
     <div className={css.servicesDeployed}>
       <String stringID="executionList.servicesDeployedText" vars={{ size: length }} />
       <div className={css.servicesList}>
-        {items.map(identifier => {
+        {items.map((identifier: string) => {
           const service = servicesMap.get(identifier)
 
           if (!service) return null
@@ -57,8 +58,8 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
               <div className={css.serviceName}>{service.displayName}</div>
               <div className={css.servicesDeployedHoverCard}>
                 <String tagName="div" className={css.title} stringID="primaryArtifactText" />
-                {service?.artifact ? (
-                  <div>{JSON.stringify(service?.artifact)}</div>
+                {service?.artifacts ? (
+                  <div>{JSON.stringify(service.artifacts)}</div>
                 ) : (
                   <String tagName="div" stringID="na" />
                 )}

@@ -1,3 +1,3 @@
-# CD Next Gen Services
+# Pipeline Next Gen Services
 
-This folder contains service from CD Next Gen.
+This folder contains service from Pipeline Next Gen.

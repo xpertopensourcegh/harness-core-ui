@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import type { PipelinePathProps, ProjectPathProps, PathFn } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { RightBar } from './RightBar/RightBar'
@@ -10,12 +10,12 @@ export interface PipelineStudioProps {
   className?: string
   title?: string
   onClose?: () => void
-  routePipelineStudio: PathFn<PipelinePathProps>
-  routePipelineStudioUI: PathFn<PipelinePathProps>
-  routePipelineStudioYaml: PathFn<PipelinePathProps>
-  routePipelineDetail: PathFn<PipelinePathProps>
-  routePipelineList: PathFn<ProjectPathProps>
-  routePipelineProject: PathFn<ProjectPathProps>
+  routePipelineStudio: PathFn<PipelineType<PipelinePathProps>>
+  routePipelineStudioUI: PathFn<PipelineType<PipelinePathProps>>
+  routePipelineStudioYaml: PathFn<PipelineType<PipelinePathProps>>
+  routePipelineDetail: PathFn<PipelineType<PipelinePathProps>>
+  routePipelineList: PathFn<PipelineType<ProjectPathProps>>
+  routePipelineProject: PathFn<PipelineType<ProjectPathProps>>
 }
 
 export const PipelineStudio: React.FC<PipelineStudioProps> = ({

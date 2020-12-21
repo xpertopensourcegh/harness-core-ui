@@ -227,14 +227,14 @@ exports[`Project Details render 1`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipeline-studio/pipelines/-1/"
+            href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipeline-studio/pipelines/-1/"
           >
             <span>
               Create New Pipeline
             </span>
           </a>
           <a
-            href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipelines"
+            href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipelines"
           >
             <span>
               View Pipelines

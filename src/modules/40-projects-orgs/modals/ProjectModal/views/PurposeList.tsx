@@ -68,11 +68,12 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cd}</Text>
           <Link
-            to={routes.toCDPipelineStudio({
+            to={routes.toPipelineStudio({
               orgIdentifier,
               projectIdentifier,
               pipelineIdentifier: '-1',
-              accountId
+              accountId,
+              module: 'cd'
             })}
           >
             {i18n.newProjectWizard.purposeList.linkcd}
@@ -93,11 +94,12 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ci}</Text>
           <Link
-            to={routes.toCIPipelineStudio({
-              accountId,
+            to={routes.toPipelineStudio({
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: '-1'
+              pipelineIdentifier: '-1',
+              accountId,
+              module: 'ci'
             })}
           >
             {i18n.newProjectWizard.purposeList.linkci}
@@ -116,11 +118,12 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cf}</Text>
           <Link
-            to={routes.toCDPipelineStudio({
+            to={routes.toPipelineStudio({
               orgIdentifier,
               projectIdentifier,
               pipelineIdentifier: '-1',
-              accountId
+              accountId,
+              module: 'cd'
             })}
           >
             {i18n.newProjectWizard.purposeList.linkcf}

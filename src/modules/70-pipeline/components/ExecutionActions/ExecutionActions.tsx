@@ -1,16 +1,15 @@
 import React from 'react'
-import { Button, Popover, ButtonProps, useModalHook } from '@wings-software/uikit'
-import { Menu, MenuItem, Dialog } from '@blueprintjs/core'
-import { Link } from 'react-router-dom'
+import { Button, Popover, ButtonProps } from '@wings-software/uikit'
+import { Menu, MenuItem } from '@blueprintjs/core'
+import { Link, useHistory } from 'react-router-dom'
 
 import { useHandleInterrupt } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionComplete, isExecutionInProgress, isExecutionPaused } from '@pipeline/utils/statusHelpers'
-import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import i18n from './ExecutionActions.i18n'
 import css from './ExecutionActions.module.scss'
 
@@ -21,37 +20,34 @@ const commonButtonProps: ButtonProps = {
 
 export interface ExecutionActionsProps {
   executionStatus?: ExecutionStatus
-  inputSetYAML?: string
-  params: {
+  params: PipelineType<{
     orgIdentifier: string
     projectIdentifier: string
     pipelineIdentifier: string
     executionIdentifier: string
     accountId: string
-  }
+  }>
   refetch?(): Promise<void>
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
-  const { executionStatus, params, inputSetYAML } = props
-  const { orgIdentifier, executionIdentifier, accountId, projectIdentifier, pipelineIdentifier } = params
+  const { executionStatus, params } = props
+  const { orgIdentifier, executionIdentifier, accountId, projectIdentifier, pipelineIdentifier, module } = params
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
   const { showSuccess } = useToaster()
-  const [openRerunPipelineModal, hideRerunPipelineModal] = useModalHook(
-    () => (
-      <Dialog isOpen={true} {...runPipelineDialogProps}>
-        <RunPipelineForm
-          inputSetYAML={inputSetYAML}
-          pipelineIdentifier={pipelineIdentifier}
-          onClose={hideRerunPipelineModal}
-          accountId={accountId}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-        />
-      </Dialog>
-    ),
-    [pipelineIdentifier, inputSetYAML, accountId, projectIdentifier, orgIdentifier]
-  )
+  const history = useHistory()
+
+  const reRunPipeline = (): void => {
+    history.push(
+      `${routes.toRunPipeline({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
+        module
+      })}?executionId=${executionIdentifier}`
+    )
+  }
 
   const canPause = isExecutionInProgress(executionStatus) && !isExecutionPaused(executionStatus)
   const canAbort = isExecutionInProgress(executionStatus)
@@ -112,7 +108,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   return (
     <div className={css.main}>
       {canResume ? <Button icon="play" onClick={resumePipleine} {...commonButtonProps} /> : null}
-      {canRerun ? <Button icon="repeat" {...commonButtonProps} onClick={openRerunPipelineModal} /> : null}
+      {canRerun ? <Button icon="repeat" {...commonButtonProps} onClick={reRunPipeline} /> : null}
       {canPause ? <Button icon="pause" onClick={pausePipleine} {...commonButtonProps} /> : null}
       {canAbort ? <Button icon="stop" onClick={abortPipleine} {...commonButtonProps} /> : null}
       <Popover position="bottom-right" minimal>
@@ -120,11 +116,11 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         <Menu>
           <Link
             className="bp3-menu-item"
-            to={routes.toCDPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
+            to={routes.toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
           >
             Edit Pipeline
           </Link>
-          <MenuItem text="Re-run" disabled={!canRerun} onClick={openRerunPipelineModal} />
+          <MenuItem text="Re-run" disabled={!canRerun} onClick={reRunPipeline} />
           <MenuItem text="Pause" onClick={pausePipleine} disabled={!canPause} />
           <MenuItem text="Abort" onClick={abortPipleine} disabled={!canAbort} />
           <MenuItem text="Resume" onClick={resumePipleine} disabled={!canResume} />

@@ -1,6 +1,6 @@
-import type { ResponsePipelineExecutionDetail, StageExecutionSummaryDTO, ExecutionGraph } from 'services/cd-ng'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionSuccess, isExecutionCompletedWithBadState, isExecutionRunning } from '@pipeline/utils/statusHelpers'
+import type { GraphLayoutNode, PipelineExecutionSummary, ExecutionGraph } from 'services/pipeline-ng'
 
 export interface ExecutionPathParams {
   orgIdentifier: string
@@ -10,43 +10,94 @@ export interface ExecutionPathParams {
   accountId: string
 }
 
-export function getPipelineStagesMap(res: ResponsePipelineExecutionDetail): Map<string, StageExecutionSummaryDTO> {
-  const map = new Map<string, StageExecutionSummaryDTO>()
+export function getPipelineStagesMap(
+  layoutNodeMap: PipelineExecutionSummary['layoutNodeMap'],
+  startingNodeId?: string
+): Map<string, GraphLayoutNode> {
+  const map = new Map<string, GraphLayoutNode>()
 
-  function recursiveSetInMap(stages: StageExecutionSummaryDTO[]): void {
-    stages.forEach(({ stage, parallel }) => {
-      if (parallel && Array.isArray(parallel.stageExecutions)) {
-        recursiveSetInMap(parallel.stageExecutions)
+  function recursiveSetInMap(node: GraphLayoutNode): void {
+    if (node.nodeType === NodeTypes.Parallel) {
+      node.edgeLayoutList?.currentNodeChildren?.forEach(item => {
+        if (item && layoutNodeMap?.[item]) {
+          map.set(layoutNodeMap[item].nodeUuid || '', layoutNodeMap[item])
+          return
+        }
+      })
+    }
+    node.edgeLayoutList?.nextIds?.forEach(item => {
+      if (item && layoutNodeMap?.[item]) {
+        recursiveSetInMap(layoutNodeMap[item])
         return
       }
-
-      map.set(stage.stageIdentifier, stage)
     })
+    node.nodeType !== NodeTypes.Parallel && map.set(node.nodeUuid || '', node)
   }
-
-  recursiveSetInMap(res?.data?.pipelineExecution?.stageExecutionSummaryElements || [])
+  if (startingNodeId && layoutNodeMap?.[startingNodeId]) {
+    const node = layoutNodeMap[startingNodeId]
+    recursiveSetInMap(node)
+  }
 
   return map
 }
 
+enum NodeTypes {
+  Parallel = 'parallel',
+  Stage = 'stage'
+}
+export interface ProcessLayoutNodeMapResponse {
+  stage?: GraphLayoutNode
+  parallel?: GraphLayoutNode[]
+}
+
+export const processLayoutNodeMap = (executionSummary?: PipelineExecutionSummary): ProcessLayoutNodeMapResponse[] => {
+  const response: ProcessLayoutNodeMapResponse[] = []
+  if (!executionSummary) {
+    return response
+  }
+  const startingNodeId = executionSummary.startingNodeId
+  const layoutNodeMap = executionSummary.layoutNodeMap
+  if (startingNodeId && layoutNodeMap?.[startingNodeId]) {
+    let node: GraphLayoutNode | undefined = layoutNodeMap[startingNodeId]
+    while (node) {
+      const currentNodeChildren: string[] | undefined = node?.edgeLayoutList?.currentNodeChildren
+      const nextIds: string[] | undefined = node?.edgeLayoutList?.nextIds
+      if (node.nodeType === NodeTypes.Parallel && currentNodeChildren && currentNodeChildren.length > 1) {
+        response.push({ parallel: currentNodeChildren.map(item => layoutNodeMap[item]) })
+        node = layoutNodeMap[node.edgeLayoutList?.nextIds?.[0] || '']
+      } else if (node.nodeType === NodeTypes.Parallel && currentNodeChildren && layoutNodeMap[currentNodeChildren[0]]) {
+        response.push({ stage: layoutNodeMap[currentNodeChildren[0]] })
+        node = layoutNodeMap[node.edgeLayoutList?.nextIds?.[0] || '']
+      } else {
+        response.push({ stage: node })
+        if (nextIds && nextIds.length === 1) {
+          node = layoutNodeMap[nextIds[0]]
+        } else {
+          node = undefined
+        }
+      }
+    }
+  }
+  return response
+}
+
 export function getRunningStageForPipeline(
-  stages: StageExecutionSummaryDTO[],
+  executionSummary?: PipelineExecutionSummary,
   pipelineExecutionStatus?: ExecutionStatus
 ): string | null {
+  if (!executionSummary) {
+    return null
+  }
+  const stages = processLayoutNodeMap(executionSummary)
   const n = stages.length
-
   // for completed pipeline, select the last completed stage
   if (isExecutionSuccess(pipelineExecutionStatus)) {
     const stage = stages[stages.length - 1]
 
     if (stage.stage) {
-      return stage.stage.stageIdentifier
-    } else if (
-      stage.parallel &&
-      Array.isArray(stage.parallel.stageExecutions) &&
-      stage.parallel.stageExecutions[0]?.stage
-    ) {
-      return stage.parallel.stageExecutions[0].stage.stageIdentifier
+      return stage.stage.nodeUuid || ''
+    } else if (stage.parallel && Array.isArray(stage.parallel) && stage.parallel[0]) {
+      return stage.parallel[0].nodeUuid || ''
     }
   }
 
@@ -56,17 +107,17 @@ export function getRunningStageForPipeline(
       const stage = stages[i]
 
       if (stage.stage) {
-        if (isExecutionCompletedWithBadState(stage.stage.executionStatus)) {
-          return stage.stage.stageIdentifier
+        if (isExecutionCompletedWithBadState(stage.stage.status)) {
+          return stage.stage.nodeUuid || ''
         } else {
           continue
         }
-      } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
-        const erorredStage = getRunningStageForPipeline(stage.parallel.stageExecutions, pipelineExecutionStatus)
+      } else if (stage.parallel && Array.isArray(stage.parallel)) {
+        const erorredStage = stage.parallel.filter(item => isExecutionCompletedWithBadState(item.status))[0]
 
         /* istanbul ignore else */
         if (erorredStage) {
-          return erorredStage
+          return erorredStage.nodeUuid || ''
         }
       }
     }
@@ -78,18 +129,18 @@ export function getRunningStageForPipeline(
 
     // for normal stage
     if (stage.stage) {
-      if (isExecutionRunning(stage.stage.executionStatus)) {
-        return stage.stage.stageIdentifier
+      if (isExecutionRunning(stage.stage.status)) {
+        return stage.stage.nodeUuid || ''
       } else {
         continue
       }
       // for parallel stage
-    } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
-      const activeStage = getRunningStageForPipeline(stage.parallel.stageExecutions, pipelineExecutionStatus)
+    } else if (stage.parallel && Array.isArray(stage.parallel)) {
+      const activeStage = stage.parallel.filter(item => isExecutionRunning(item.status))[0]
 
       /* istanbul ignore else */
       if (activeStage) {
-        return activeStage
+        return activeStage.nodeUuid || ''
       }
     }
   }

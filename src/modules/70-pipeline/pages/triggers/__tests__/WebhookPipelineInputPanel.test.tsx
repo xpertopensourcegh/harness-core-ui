@@ -22,11 +22,13 @@ const value: AppStoreContextProps = {
 
 const mockRedirecToWizard = jest.fn()
 jest.mock('services/cd-ng', () => ({
+  useGetConnector: jest.fn(() => ConnectorResponse)
+}))
+jest.mock('services/pipeline-ng', () => ({
   useGetTemplateFromPipeline: jest.fn(() => GetTemplateFromPipelineResponse),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(
     () => GetMergeInputSetFromPipelineTemplateWithListInputResponse
   ),
-  useGetConnector: jest.fn(() => ConnectorResponse),
   useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse)
 }))
 jest.mock('react-router-dom', () => ({

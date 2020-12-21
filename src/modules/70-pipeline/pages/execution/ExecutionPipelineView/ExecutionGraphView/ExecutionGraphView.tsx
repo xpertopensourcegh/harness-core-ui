@@ -35,7 +35,7 @@ export default function ExecutionGraphView(): React.ReactElement {
 
       replaceQueryParams(params)
     } else {
-      const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
+      const selectedStep = pipelineExecutionDetail?.executionGraph?.nodeMap?.[step]
 
       if (isExecutionNotStarted(selectedStep?.status)) {
         return
@@ -54,7 +54,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStageSelection(stage: string): void {
     const selectedStage = pipelineStagesMap.get(stage)
 
-    if (isExecutionNotStarted(selectedStage?.executionStatus)) {
+    if (isExecutionNotStarted(selectedStage?.status)) {
       return
     }
 

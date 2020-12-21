@@ -20,10 +20,11 @@
   }
 }
 .activeTag {
-  background: var(--grey-800);
+  background: var(--blue-500);
   color: var(--white);
   &:hover {
-    background: var(--grey-800);
+    border: 1px solid var(--blue-600);
+    background-color: var(--blue-600);
     color: var(--white);
   }
 }

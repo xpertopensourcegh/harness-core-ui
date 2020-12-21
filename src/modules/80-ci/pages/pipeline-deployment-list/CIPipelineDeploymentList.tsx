@@ -1,30 +1,26 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useModalHook } from '@wings-software/uikit'
-import { Dialog } from '@blueprintjs/core'
-
+import { useHistory, useParams } from 'react-router-dom'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
-import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 
 export default function CIPipelineDeploymentList(): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<PipelinePathProps>()
+  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId, module } = useParams<
+    PipelineType<PipelinePathProps>
+  >()
 
-  const [openModal, hideModal] = useModalHook(
-    () => (
-      <Dialog isOpen={true} {...runPipelineDialogProps}>
-        <RunPipelineForm
-          pipelineIdentifier={pipelineIdentifier}
-          onClose={hideModal}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-          accountId={accountId}
-        />
-      </Dialog>
-    ),
-    [pipelineIdentifier, orgIdentifier, projectIdentifier, accountId]
-  )
+  const history = useHistory()
+  const onRunPipeline = (): void => {
+    history.push(
+      routes.toRunPipeline({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
+        module
+      })
+    )
+  }
 
-  return <PipelineDeploymentList onRunPipeline={openModal} />
+  return <PipelineDeploymentList onRunPipeline={onRunPipeline} />
 }

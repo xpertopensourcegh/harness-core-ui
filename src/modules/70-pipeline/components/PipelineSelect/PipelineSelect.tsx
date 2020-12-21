@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Select as BPSelect, ItemRenderer, ItemListRenderer } from '@blueprintjs/select'
 import { Button, Menu, Spinner } from '@blueprintjs/core'
 
-import { useGetPipelineList, NGPipelineSummaryResponse } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetPipelineList, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 
 import css from './PipelineSelect.module.scss'
@@ -14,9 +14,9 @@ export interface PipelineSelectProps {
   onPipelineSelect(id: string): void
 }
 
-const Select = BPSelect.ofType<NGPipelineSummaryResponse>()
+const Select = BPSelect.ofType<PMSPipelineSummaryResponse>()
 
-const itemRenderer: ItemRenderer<NGPipelineSummaryResponse> = (item, props) => (
+const itemRenderer: ItemRenderer<PMSPipelineSummaryResponse> = (item, props) => (
   <Menu.Item key={item.identifier} text={item.name} active={props.modifiers.active} onClick={props.handleClick} />
 )
 
@@ -40,7 +40,7 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
     props.onPipelineSelect('')
   }
 
-  const itemListRender: ItemListRenderer<NGPipelineSummaryResponse> = itemListProps => (
+  const itemListRender: ItemListRenderer<PMSPipelineSummaryResponse> = itemListProps => (
     <Menu>
       {loading ? (
         <Spinner size={20} />
@@ -55,7 +55,7 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
     </Menu>
   )
 
-  function handleSelect(item: NGPipelineSummaryResponse): void {
+  function handleSelect(item: PMSPipelineSummaryResponse): void {
     props.onPipelineSelect(item.identifier || '')
   }
 

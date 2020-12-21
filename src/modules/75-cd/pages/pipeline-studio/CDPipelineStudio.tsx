@@ -1,47 +1,30 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useModalHook } from '@wings-software/uikit'
-import { Dialog } from '@blueprintjs/core'
+import { useHistory, useParams } from 'react-router-dom'
 import { getCDPipelineStages, stagesMap } from '@cd/components/CDPipelineStages/CDPipelineStages'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
-import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+
 import routes from '@common/RouteDefinitions'
+import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-  }>()
-  const [isRunPipelineOpen, setRunPipelineOpen] = React.useState(true)
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps>
+  >()
 
-  const [openModel, hideModel] = useModalHook(
-    () => (
-      <Dialog isOpen={isRunPipelineOpen} {...runPipelineDialogProps}>
-        <RunPipelineForm
-          pipelineIdentifier={pipelineIdentifier}
-          onClose={closeModel}
-          projectIdentifier={projectIdentifier}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-        />
-      </Dialog>
-    ),
-    [pipelineIdentifier, projectIdentifier, accountId, orgIdentifier]
-  )
-
-  const closeModel = React.useCallback(() => {
-    setRunPipelineOpen(false)
-    hideModel()
-  }, [hideModel])
-
-  const handleRunPipeline = React.useCallback(async () => {
-    openModel()
-  }, [openModel])
+  const history = useHistory()
+  const handleRunPipeline = (): void => {
+    history.push(
+      routes.toRunPipeline({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
+        module
+      })
+    )
+  }
 
   return (
     <PipelineProvider
@@ -54,12 +37,12 @@ const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
     >
       <PipelineStudio
         className={css.container}
-        routePipelineStudio={routes.toCDPipelineStudio}
-        routePipelineStudioUI={routes.toCDPipelineStudioUI}
-        routePipelineStudioYaml={routes.toCDPipelineStudioYaml}
-        routePipelineProject={routes.toCDDeployments}
-        routePipelineDetail={routes.toCDPipelineDetail}
-        routePipelineList={routes.toCDPipelines}
+        routePipelineStudio={routes.toPipelineStudio}
+        routePipelineStudioUI={routes.toPipelineStudioUI}
+        routePipelineStudioYaml={routes.toPipelineStudioYaml}
+        routePipelineProject={routes.toDeployments}
+        routePipelineDetail={routes.toPipelineDetail}
+        routePipelineList={routes.toPipelines}
       >
         {children}
       </PipelineStudio>

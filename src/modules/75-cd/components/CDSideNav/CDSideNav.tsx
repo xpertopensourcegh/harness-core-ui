@@ -15,7 +15,7 @@ export default function CDSideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = params
   const routeMatch = useRouteMatch()
   const history = useHistory()
-
+  const module = 'cd'
   return (
     <Layout.Vertical spacing="small">
       <SidebarLink label="Dashboard" to={routes.toCDHome({ accountId })} />
@@ -39,8 +39,8 @@ export default function CDSideNav(): React.ReactElement {
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
           <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />
-          <SidebarLink label="Deployments" to={routes.toCDDeployments(params)} />
-          <SidebarLink label="Pipelines" to={routes.toCDPipelines(params)} />
+          <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
+          <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
             <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />

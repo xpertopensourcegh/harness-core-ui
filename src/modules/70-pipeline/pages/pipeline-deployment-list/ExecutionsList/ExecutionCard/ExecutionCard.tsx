@@ -4,7 +4,8 @@ import { Card, Icon } from '@wings-software/uikit'
 // import * as BP from '@blueprintjs/core'
 import { Link, useParams } from 'react-router-dom'
 
-import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
+import { isObject } from 'lodash-es'
+import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgo } from '@common/exports'
 // import { ExecutionStatusLabel, ExecutionStageGraph, RenderStageButtonInfo } from '@pipeline/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
@@ -15,26 +16,28 @@ import routes from '@common/RouteDefinitions'
 // import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
 // import ExecutionActionButtons from './ExecutionActionButtons/ExecutionActionButtons'
 // import ExecutionCardMenu from './ExecutionCardMenu/ExecutionCardMenu'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
 import BuildInfo from './ExecutionDetails/BuildInfo'
 import css from './ExecutionCard.module.scss'
 
 export interface ExecutionCardProps {
-  pipelineExecution: PipelineExecutionSummaryDTO
+  pipelineExecution: PipelineExecutionSummary
 }
 
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
   const { pipelineExecution } = props
-  const { orgIdentifier, projectIdentifier, accountId } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { orgIdentifier, projectIdentifier, accountId, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+    }>
+  >()
 
-  // TODO: update these vars based on BE data
-  const HAS_CD = true
-  const HAS_CI = false
+  const HAS_CD = isObject(pipelineExecution?.moduleInfo?.cd)
+  const HAS_CI = isObject(pipelineExecution?.moduleInfo?.ci)
 
   return (
     <Card elevation={0} className={css.card}>
@@ -47,15 +50,16 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           <div>
             <Link
               className={css.title}
-              to={routes.toCDExecutionPiplineView({
+              to={routes.toExecutionPipelineView({
                 orgIdentifier,
-                pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
+                pipelineIdentifier: pipelineExecution?.pipelineIdentifier || 'test',
                 executionIdentifier: pipelineExecution?.planExecutionId || '',
                 projectIdentifier,
-                accountId
+                accountId,
+                module
               })}
             >
-              <span className={css.pipelineName}>{pipelineExecution?.pipelineName}</span>
+              <span className={css.pipelineName}>{pipelineExecution?.name}</span>
               <String
                 className={css.executionId}
                 stringID="execution.pipelineIdentifierText"
@@ -77,36 +81,36 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           </div>
           <MiniExecutionGraph pipelineExecution={pipelineExecution} />
           <div className={css.actions}>
-            <ExecutionStatusLabel status={pipelineExecution.executionStatus} />
+            <ExecutionStatusLabel status={pipelineExecution.status} />
             <ExecutionActions
-              executionStatus={pipelineExecution.executionStatus}
-              inputSetYAML={pipelineExecution.inputSetYaml}
+              executionStatus={pipelineExecution.status}
               params={{
                 accountId,
                 orgIdentifier,
                 pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
                 executionIdentifier: pipelineExecution?.planExecutionId || '',
-                projectIdentifier
+                projectIdentifier,
+                module
               }}
             />
           </div>
         </div>
         <div className={css.footer}>
           <div className={css.triggerInfo}>
-            <UserLabel name={pipelineExecution.triggerInfo?.triggeredBy?.name || 'Anonymous'} />
+            <UserLabel name={pipelineExecution.executionTriggerInfo?.triggeredBy?.name || 'Anonymous'} />
             <String
               className={css.triggerType}
-              stringID={`execution.triggerType.${pipelineExecution.triggerInfo?.triggerType}`}
+              stringID={`execution.triggerType.${pipelineExecution.executionTriggerInfo?.triggerType ?? 'MANUAL'}`}
             />
           </div>
           <div className={css.timers}>
             <Duration
               icon="time"
               iconProps={{ size: 12 }}
-              startTime={pipelineExecution?.startedAt}
-              endTime={pipelineExecution?.endedAt}
+              startTime={pipelineExecution?.startTs}
+              endTime={pipelineExecution?.endTs}
             />
-            <TimeAgo iconProps={{ size: 12 }} icon="calendar" time={pipelineExecution?.startedAt || 0} />
+            <TimeAgo iconProps={{ size: 12 }} icon="calendar" time={pipelineExecution?.startTs || 0} />
           </div>
         </div>
       </div>
