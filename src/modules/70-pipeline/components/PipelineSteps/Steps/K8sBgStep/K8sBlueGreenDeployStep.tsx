@@ -36,6 +36,7 @@ interface K8BGDeployProps {
 
 const K8BGDeployWidget: React.FC<K8BGDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const { getString } = useStrings()
+
   return (
     <>
       <Formik<K8sBGDeployData>
@@ -45,6 +46,7 @@ const K8BGDeployWidget: React.FC<K8BGDeployProps> = ({ initialValues, onUpdate }
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+
           spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >

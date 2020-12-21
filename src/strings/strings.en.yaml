@@ -209,6 +209,13 @@ global:
     titleCreateFile: 'Add new Encrypted File'
     titleEditText: 'Edit Encrypted Text'
     titleEditFile: 'Edit Encrypted File'
+  instanceFieldOptions:
+    percentage: 'percentage'
+    instances: 'instances'
+    percentageText: '% Percentage'
+    instanceText: 'Instance Count'
+    percentagePlaceHolder: 'Percentage'
+    instanceHolder: 'Count'
   delegate:
     DELEGATES: 'Delegates'
     NEW_DELEGATE: 'New Delegate'
