@@ -85,7 +85,7 @@ const routes = {
     ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/governance/${orgIdentifier}`
   ),
   toCreateConnectorFromYaml: withAccountId(() => '/admin/create-connector-from-yaml'),
-  toCreateSecretFromYaml: withAccountId(() => '/admin/create-secret-from-yaml'),
+  toCreateSecretFromYaml: withAccountId(() => '/admin/resources/create-secret-from-yaml'),
 
   /********************************************************************************************************************/
   toCD: (params: Partial<ProjectPathProps>) =>
@@ -529,9 +529,7 @@ const routes = {
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/notifications`
   ),
   /********************************************************************************************************************/
-  toProjectDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) => `/org/${orgIdentifier}/project/${projectIdentifier}`
-  ),
+  toProjectDetails: withAccountId(({ projectIdentifier }: ProjectPathProps) => `/projects/${projectIdentifier}`),
   toProjects: withAccountId(() => '/projects'),
   toProjectsGetStarted: withAccountId(() => '/projects/getstarted'),
   /********************************************************************************************************************/

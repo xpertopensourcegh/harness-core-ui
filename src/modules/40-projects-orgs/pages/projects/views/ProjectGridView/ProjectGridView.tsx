@@ -88,7 +88,9 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
               handleInviteCollaborators={collaborators}
             />
           )}
-          keyOf={(projectDTO: ProjectAggregateDTO) => projectDTO.projectResponse.project.identifier}
+          keyOf={(projectDTO: ProjectAggregateDTO) =>
+            projectDTO.projectResponse.project.identifier + projectDTO.projectResponse.project.orgIdentifier
+          }
         />
       </Container>
       <Container height="10%" className={css.pagination}>

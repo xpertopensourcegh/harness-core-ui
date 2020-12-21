@@ -28,7 +28,13 @@ export interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data: projectAggregateDTO, isPreview, reloadProjects, editProject, handleInviteCollaborators } = props
-  const { projectResponse, organization, admins: adminList, collaborators: collaboratorsList } = projectAggregateDTO
+  const {
+    projectResponse,
+    organization,
+    admins: adminList,
+    collaborators: collaboratorsList,
+    harnessManagedOrg
+  } = projectAggregateDTO
   const data = projectResponse.project || null
   const { projects, updateAppStore } = useAppStore()
   const { getString } = useStrings()
@@ -63,13 +69,14 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         <Container
           onClick={() => {
             !isPreview &&
-              history.push(
-                routes.toProjectDetails({
+              history.push({
+                pathname: routes.toProjectDetails({
                   projectIdentifier: data.identifier,
                   orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                   accountId: data.accountIdentifier || /* istanbul ignore next */ ''
-                })
-              )
+                }),
+                search: `?orgId=${data.orgIdentifier || ''}`
+              })
           }}
         >
           <div className={css.colorBar} style={{ backgroundColor: data.color }} />
@@ -82,7 +89,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               {getString('projectCard.projectName')}
             </Text>
           ) : null}
-          <Text font={{ size: 'small', weight: 'bold' }}>{organization?.name}</Text>
+          {harnessManagedOrg ? null : <Text font={{ size: 'small', weight: 'bold' }}>{organization?.name}</Text>}
           {data.description ? (
             <Text font="small" lineClamp={2} padding={{ top: 'medium' }}>
               {data.description}

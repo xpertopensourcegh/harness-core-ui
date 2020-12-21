@@ -19,7 +19,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ bind }: YamlBui
 describe('CreateSecretFromYamlPage', () => {
   test('render', () => {
     const { container, getByText } = render(
-      <TestWrapper path="/account/:accountId/create-secret-from-yaml" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper path="/account/:accountId/resources/create-secret-from-yaml" pathParams={{ accountId: 'dummy' }}>
         <CreateSecretFromYamlPage mockSchemaData={mockSchemaData as any} />
       </TestWrapper>
     )
