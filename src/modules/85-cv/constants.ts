@@ -1,4 +1,5 @@
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
+import type { AdditionalInfo } from 'services/cv'
 
 export const CVProviders = {
   APP_DYNAMICS: {
@@ -19,6 +20,13 @@ export const RouteVerificationTypeToVerificationType: { [routeType: string]: DSC
 export const VerificationTypeToRouteVerificationType: { [type: string]: string } = {
   APP_DYNAMICS: 'app-dynamics',
   SPLUNK: 'splunk'
+}
+
+export const VerificationJobType: { [key: string]: AdditionalInfo['type'] } = {
+  TEST: 'TEST',
+  CANARY: 'CANARY',
+  BLUE_GREEN: 'BLUE_GREEN',
+  HEALTH: 'HEALTH'
 }
 
 export const connectorId = '7BgBODXQQtuHI4M7hh9PLA' //'WWF95JcuQ-azSNbH4zt-XQ'

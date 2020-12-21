@@ -8,9 +8,9 @@ import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { String, useStrings } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { KubernetesActivitySourceDTO, useRegisterKubernetesSource } from 'services/cv'
+import { useSaveActivitySource } from 'services/cv'
 import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
-import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
+import type { KubernetesActivitySourceDTO, KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 
 import css from './ReviewKubernetesActivitySource.module.scss'
 
@@ -27,7 +27,7 @@ type TableData = {
   environment: string
 }
 
-function transformIncomingData(data: any): TableData[] {
+function transformIncomingData(data: KubernetesActivitySourceInfo): TableData[] {
   const tableData: TableData[] = []
   if (!data?.selectedWorkloads?.size) {
     return tableData
@@ -39,8 +39,8 @@ function transformIncomingData(data: any): TableData[] {
       tableData.push({
         namespace,
         workload,
-        environment: workloadInfo.environmentIdentifier?.label,
-        service: workloadInfo.serviceIdentifier?.label
+        environment: workloadInfo.environmentIdentifier?.label as string,
+        service: workloadInfo.serviceIdentifier?.label as string
       })
     }
   }
@@ -48,28 +48,37 @@ function transformIncomingData(data: any): TableData[] {
   return tableData
 }
 
-function transformToSavePayload(
-  data: KubernetesActivitySourceInfo,
-  tableData: TableData[]
-): KubernetesActivitySourceDTO {
-  const activitySourceDTO: KubernetesActivitySourceDTO = {
+function transformToSavePayload(data: KubernetesActivitySourceInfo): KubernetesActivitySourceDTO {
+  const kubernetesActivitySourceDTO: KubernetesActivitySourceDTO = {
     uuid: data.uuid,
     identifier: data.identifier,
     name: data.name,
     connectorIdentifier: data.connectorRef?.value as string,
-    activitySourceConfigs: []
+    activitySourceConfigs: [],
+    type: 'KUBERNETES'
   }
 
-  for (const activitySourceConfig of tableData) {
-    activitySourceDTO.activitySourceConfigs.push({
-      serviceIdentifier: activitySourceConfig.service,
-      envIdentifier: activitySourceConfig.environment,
-      namespace: activitySourceConfig.namespace,
-      workloadName: activitySourceConfig.workload
-    })
+  for (const namespaceWithWorkload of data.selectedWorkloads) {
+    const [namespace, selectedWorkloads] = namespaceWithWorkload
+    for (const selectedWorkload of selectedWorkloads) {
+      const [workload, workloadInfo] = selectedWorkload
+      if (
+        !workloadInfo?.serviceIdentifier?.value ||
+        !workloadInfo.environmentIdentifier?.value ||
+        !workload ||
+        !namespace
+      )
+        continue
+      kubernetesActivitySourceDTO.activitySourceConfigs.push({
+        serviceIdentifier: workloadInfo.serviceIdentifier.value as string,
+        envIdentifier: workloadInfo.environmentIdentifier.value as string,
+        namespace,
+        workloadName: workload
+      })
+    }
   }
 
-  return activitySourceDTO
+  return kubernetesActivitySourceDTO
 }
 
 function TableColumn(props: CellProps<TableData>): JSX.Element {
@@ -83,7 +92,7 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
   const history = useHistory()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { mutate, error } = useRegisterKubernetesSource({
+  const { mutate, error } = useSaveActivitySource({
     queryParams: {
       ...params
     }
@@ -132,10 +141,10 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
         onPreviousClick={onPrevious}
         nextButtonProps={{ text: getString('submit') }}
         onNextClick={async () => {
-          await mutate(transformToSavePayload(data, tableData))
+          await mutate(transformToSavePayload(data))
           props.onSubmit({
             ...data,
-            type: 'k8sCluster',
+            type: 'KUBERNETES',
             sourceType: ONBOARDING_ENTITIES.ACTIVITY_SOURCE as BaseSetupTabsObject['sourceType']
           })
 

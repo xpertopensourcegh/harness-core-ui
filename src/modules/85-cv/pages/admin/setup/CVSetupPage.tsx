@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Text, Layout, Container, Button, Color, Icon, Link, Card, CardBody, IconName } from '@wings-software/uikit'
 import cx from 'classnames'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
-import { useGetCVSetupStatus, RestResponseCVSetupStatus } from 'services/cv'
+import { useGetCVSetupStatus, RestResponseCVSetupStatus, useGetDefaultHealthVerificationJob } from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
@@ -14,9 +14,10 @@ import { useToaster } from '@common/exports'
 import { SETUP_INDEXDB_ID } from '@cv/constants'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
+import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
 import OnboardedSourceSummary from './OnboardedSourceSummary/OnboardedSourceSummary'
-import { SetupIndexDBData, STEP } from './SetupUtils'
+import { SetupIndexDBData, STEP, getCardLabelByType, getIconBySourceType } from './SetupUtils'
 import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
 
@@ -251,8 +252,136 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
   )
 }
 
-const VerificatiionContent = () => {
-  return <div>{/* TODO */}</div>
+interface VerificatiionContentProps {
+  indexDBData: SetupIndexDBData
+  step: string | null
+}
+
+const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
+  const history = useHistory()
+  const { getString } = useStrings()
+  const [showSummary] = useState(Boolean(props.step))
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { data, loading } = useGetDefaultHealthVerificationJob({
+    queryParams: { accountId, projectIdentifier, orgIdentifier }
+  })
+  return (
+    <Layout.Horizontal>
+      <Container height="100vh" width="100%">
+        OnboardedSourceSummary.tsx
+        <div className={css.monitoringContent}>
+          <Text
+            font={{ size: 'medium', weight: 'bold' }}
+            color={Color.BLACK}
+            margin={{ top: 'xlarge', bottom: 'small' }}
+          >
+            {showSummary
+              ? getString('cv.onboarding.verificationJobs.keepGoing')
+              : getString('cv.onboarding.verificationJobs.heading')}
+          </Text>
+          <Text margin={{ bottom: 'large' }} color={Color.GREY_600}>
+            {getString('cv.onboarding.verificationJobs.infoText')}
+          </Text>
+          {!loading ? (
+            <>
+              <Text color={Color.GREY_600}>{getString('cv.onboarding.verificationJobs.subHeading')}</Text>
+              <div className={css.items}>
+                <Layout.Vertical
+                  spacing="small"
+                  padding={{ right: 'small' }}
+                  onClick={() => {
+                    history.push(
+                      routes.toCVAdminSetupVerificationJobEdit({
+                        accountId,
+                        projectIdentifier,
+                        orgIdentifier,
+                        verificationId: data?.resource?.identifier as string
+                      })
+                    )
+                  }}
+                >
+                  <CVSelectionCard
+                    isSelected={true}
+                    className={css.monitoringCard}
+                    iconProps={{
+                      name: 'health',
+                      size: 20
+                    }}
+                    cardLabel={getString('health')}
+                  />
+                  <Text
+                    color={Color.BLUE_500}
+                    font={{ size: 'small' }}
+                    style={{ maxWidth: 80, textOverflow: 'ellipsis' }}
+                    lineClamp={1}
+                  >
+                    {data?.resource?.jobName}
+                  </Text>
+                </Layout.Vertical>
+                {props.indexDBData?.verificationJobs?.length
+                  ? props.indexDBData.verificationJobs.map((item, index) => {
+                      return (
+                        <Layout.Vertical
+                          spacing="small"
+                          padding={{ right: 'small' }}
+                          key={`${item}${index}`}
+                          onClick={() => {
+                            history.push(
+                              routes.toCVAdminSetupVerificationJobEdit({
+                                accountId,
+                                projectIdentifier,
+                                orgIdentifier,
+                                verificationId: item.identifier
+                              })
+                            )
+                          }}
+                        >
+                          <CVSelectionCard
+                            isSelected={true}
+                            className={css.monitoringCard}
+                            iconProps={{
+                              name: getIconBySourceType(item.type) as IconName,
+                              size: 20
+                            }}
+                            cardLabel={getCardLabelByType(item.type)}
+                          />
+                          <Text
+                            color={Color.BLUE_500}
+                            font={{ size: 'small' }}
+                            style={{ maxWidth: 80, textOverflow: 'ellipsis', textAlign: 'center' }}
+                            lineClamp={1}
+                          >
+                            {item.name}
+                          </Text>
+                        </Layout.Vertical>
+                      )
+                    })
+                  : null}
+              </div>
+            </>
+          ) : (
+            <Text>Checking for default jobs ...</Text>
+          )}
+          <Text margin={{ bottom: 'large' }} color={Color.GREY_600}>
+            {getString('cv.onboarding.verificationJobs.createJobQues')}
+          </Text>
+          <Button
+            text={getString('cv.onboarding.verificationJobs.createJob')}
+            intent="primary"
+            onClick={() =>
+              history.push(
+                routes.toCVAdminSetupVerificationJob({
+                  accountId,
+                  projectIdentifier,
+                  orgIdentifier
+                })
+              )
+            }
+          />
+        </div>
+      </Container>
+    </Layout.Horizontal>
+  )
 }
 
 const CVSetupPage: React.FC<CVSetupPageProps> = props => {
@@ -260,7 +389,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const [monitoringSource, setMonitoringSource] = useState<string>(Status.NOT_VISITED)
   const [verificationJob, setVerificationJob] = useState<string>(Status.NOT_VISITED)
   const [activeStep, setActiveStep] = useState<string>(STEP.ACTIVITY_SOURCE)
-
+  const { getString } = useStrings()
   const location = useLocation()
   const history = useHistory()
   const { showWarning } = useToaster()
@@ -310,7 +439,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 setActivitySource(Status.COMPLETED)
               }
             }
-            // !categories?.includes('MONITORING_SOURCE')
+
             if (step === '2') {
               if (activeStep === STEP.ACTIVITY_SOURCE) {
                 setActiveStep(STEP.MONITORING_SOURCE)
@@ -318,22 +447,17 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 setActivitySource(Status.COMPLETED)
               }
             }
-            // TODO: after verification job
-            // else if (!categories?.includes('VERIFICATION_JOBS')) {
-            //   setActiveStep(STEP.VERIFICATION_JOBS)
-            //   setVerificationJob(Status.ACTIVE)
-            //   setMonitoringSource(Status.COMPLETED)
-            //   setActivitySource(Status.COMPLETED)
-            // }
+            if (step === '3') {
+              if (activeStep === STEP.ACTIVITY_SOURCE) {
+                setActiveStep(STEP.VERIFICATION_JOBS)
+                setVerificationJob(Status.COMPLETED)
+                setActivitySource(Status.COMPLETED)
+                setMonitoringSource(Status.COMPLETED)
+              }
+            }
           }
         })
       }
-
-      //  Not required : Discuss after verification step
-      // else {
-      //   setActiveStep(STEP.ACTIVITY_SOURCE)
-      //   setActivitySource(Status.ACTIVE)
-      // }
     }
   }, [isInitializingDB, setUpDbInstance])
   return (
@@ -415,7 +539,6 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                     ) : (
                       <span className={css.onlyNumber}> 3</span>
                     )}
-                    {/* <div style={{ borderLeft: '1px dashed black', height: 100 }}></div> */}
                   </Layout.Vertical>
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
@@ -449,7 +572,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               />
               <Button
                 intent="primary"
-                text={i18n.NEXT}
+                text={step === '3' ? getString('finish') : getString('next')}
                 rightIcon="chevron-right"
                 onClick={() => {
                   if (activeStep === STEP.ACTIVITY_SOURCE) {
@@ -460,6 +583,8 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                     setActiveStep(STEP.VERIFICATION_JOBS)
                     setVerificationJob(Status.ACTIVE)
                     setMonitoringSource(Status.COMPLETED)
+                  } else if (activeStep === STEP.VERIFICATION_JOBS) {
+                    history.push(routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier }))
                   }
                 }}
               />
@@ -490,7 +615,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 setVerificationJob={setVerificationJob}
               />
             ) : activeStep === STEP.VERIFICATION_JOBS ? (
-              <VerificatiionContent />
+              <VerificatiionContent step={step} indexDBData={indexDBData as SetupIndexDBData} />
             ) : null}
           </Container>
           {data?.resource?.totalNumberOfEnvironments && data?.resource?.totalNumberOfServices ? (

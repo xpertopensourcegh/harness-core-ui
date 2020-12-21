@@ -6,6 +6,42 @@ export const getIconBySourceType = (type: string) => {
       return 'service-appdynamics'
     case 'GoogleCloudOperations':
       return 'service-stackdriver'
+    case 'HEALTH':
+      return 'health'
+    case 'CANARY':
+      return 'canary-outline'
+    case 'BLUE_GREEN':
+      return 'bluegreen'
+    case 'TEST':
+      return 'lab-test'
+    default:
+      return ''
+  }
+}
+
+export const getCardLabelByType = (type: string) => {
+  switch (type) {
+    case 'HEALTH':
+      return 'Health'
+    case 'CANARY':
+      return 'Canary'
+    case 'BLUE_GREEN':
+      return 'BlueGreen'
+    case 'TEST':
+      return 'Test'
+    default:
+      return ''
+  }
+}
+
+export const getMonitoringSourceLabel = (type: string) => {
+  switch (type) {
+    case 'APP_DYNAMICS':
+      return 'App Dynamics'
+    case 'SPLUNK':
+      return 'Splunk'
+    case 'STACKDRIVER':
+      return 'Google Cloud Operations'
     default:
       return ''
   }

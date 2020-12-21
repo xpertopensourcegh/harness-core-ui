@@ -21,7 +21,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
     const onPreviousMock = jest.fn()
     const onSubmitMock = jest.fn()
     const postPayloadMock = jest.fn()
-    const useRegisterKubernetesSourceSpy = jest.spyOn(cvService, 'useRegisterKubernetesSource')
+    const useRegisterKubernetesSourceSpy = jest.spyOn(cvService, 'useSaveActivitySource')
     const routeCVAdminSetupSpy = jest.spyOn(routes, 'toCVAdminSetup')
     useRegisterKubernetesSourceSpy.mockReturnValue({
       mutate: postPayloadMock as unknown
@@ -118,6 +118,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
       connectorIdentifier: 'kubeConnector2',
       identifier: 'solo-dolo-iden',
       name: 'solo-dolo',
+      type: 'KUBERNETES',
       uuid: undefined
     })
   })

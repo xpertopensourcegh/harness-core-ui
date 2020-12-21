@@ -1,5 +1,5 @@
 import type { SelectOption } from '@wings-software/uikit'
-import type { KubernetesActivitySourceDTO } from 'services/cv'
+import type { ActivitySourceDTO } from 'services/cv'
 
 export type WorkloadInfo = {
   serviceIdentifier?: SelectOption
@@ -11,12 +11,25 @@ export type WorkloadInfo = {
 export type KubernetesConnectorType = 'Kubernetes'
 export type NamespaceToWorkload = Map<string, Map<string, WorkloadInfo>> // namespace -> <workloadName, WorkloadInfo>
 export interface KubernetesActivitySourceInfo
-  extends Omit<KubernetesActivitySourceDTO, 'lastUpdatedAt' | 'activitySourceConfigs' | 'connectorIdentifier'> {
+  extends Omit<ActivitySourceDTO, 'lastUpdatedAt' | 'activitySourceConfigs' | 'connectorIdentifier'> {
   selectedNamespaces: string[]
   selectedWorkloads: NamespaceToWorkload
   connectorType: KubernetesConnectorType
   connectorRef?: SelectOption
 }
+
+export interface KubernetesNamespaceWorkloadDTO {
+  serviceIdentifier: string
+  envIdentifier: string
+  namespace: string
+  workloadName: string
+}
+
+export interface KubernetesActivitySourceDTO extends ActivitySourceDTO {
+  connectorIdentifier: string
+  activitySourceConfigs: KubernetesNamespaceWorkloadDTO[]
+}
+
 export function buildKubernetesActivitySourceInfo(): KubernetesActivitySourceInfo {
   return {
     identifier: '',

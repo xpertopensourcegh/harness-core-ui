@@ -14,7 +14,8 @@ import type {
   BuildPathProps,
   EnvironmentPathProps,
   DelegatePathProps,
-  InputSetPathProps
+  InputSetPathProps,
+  VerificationPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -53,6 +54,9 @@ export const executionPathProps: ExecutionPathProps = {
 
 export const connectorPathProps: ConnectorPathProps = {
   connectorId: ':connectorId'
+}
+export const verificationPathProps: VerificationPathProps = {
+  verificationId: ':verificationId'
 }
 
 export const secretPathProps: SecretsPathProps = {

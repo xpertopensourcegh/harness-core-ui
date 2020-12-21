@@ -144,7 +144,6 @@ export function useIndexedDBHook(props?: CVIndexDBHookProps): CVIndexedDBHookRet
         props?.clearStroreList?.map(item => {
           clearDB(item)
         })
-        dbInstance?.close()
       }
     }
   }, [dbInstance])

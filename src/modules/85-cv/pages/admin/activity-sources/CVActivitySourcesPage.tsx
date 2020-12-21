@@ -4,20 +4,21 @@ import type { CellProps } from 'react-table'
 import moment from 'moment'
 import { Classes, Menu, MenuItem, Popover } from '@blueprintjs/core'
 import { Color, Container, Text, TextInput, Icon, Button } from '@wings-software/uikit'
-import { KubernetesActivitySourceDTO, useDeleteKubernetesSource, useListKubernetesSources } from 'services/cv'
+import { ActivitySourceDTO, useDeleteKubernetesSource, useListAllActivitySources } from 'services/cv'
 import { Page, useConfirmationDialog, useToaster } from '@common/exports'
 import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { KubernetesActivitySourceDTO } from '@cv/pages/onboarding/activity-source-setup/kubernetes/KubernetesActivitySourceUtils'
 import css from './CVActivitySourcesPage.module.scss'
 
 type TableData = {
   numberOfEnvironments?: number
   numberOfServices?: number
   name: string
-  type: 'KUBERNETES'
+  type: ActivitySourceDTO['type']
   createdOn?: string
   lastUpdatedOn?: string
   identifier: string
@@ -25,26 +26,33 @@ type TableData = {
 
 const DATE_FORMAT_STRING = 'MMM D, YYYY h:mm a'
 
-function generateTableData(activitySources?: KubernetesActivitySourceDTO[]): TableData[] {
+function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
   if (!activitySources?.length) {
     return []
   }
 
   const tableData: TableData[] = []
   for (const activitySource of activitySources) {
-    if (!activitySources || !activitySource.name) continue
+    if (!activitySource?.name || !activitySource?.identifier) continue
     const environments = new Set<string>()
     const services = new Set<string>()
-    activitySource.activitySourceConfigs?.forEach(config => {
-      services.add(config.serviceIdentifier)
-      environments.add(config.envIdentifier)
-    })
+
+    if (activitySource.type === 'KUBERNETES') {
+      const kubernetesActivitySource = activitySource as KubernetesActivitySourceDTO
+      kubernetesActivitySource?.activitySourceConfigs.forEach(config => {
+        services.add(config.serviceIdentifier)
+        environments.add(config.envIdentifier)
+      })
+    } else if (activitySource.type === 'CD') {
+      // PLEASE ADD CD CASE HERE
+    }
+
     tableData.push({
       numberOfEnvironments: environments.size,
       numberOfServices: services.size,
       name: activitySource.name,
       identifier: activitySource.identifier || '',
-      type: 'KUBERNETES',
+      type: activitySource.type,
       createdOn: moment(activitySource.createdAt).format(DATE_FORMAT_STRING),
       lastUpdatedOn: moment(activitySource.lastUpdatedAt).format(DATE_FORMAT_STRING)
     })
@@ -145,7 +153,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
     debounce: 0,
     filter: undefined
   })
-  const { data, loading, error, refetch: refetchSources } = useListKubernetesSources({
+  const { data, loading, error, refetch: refetchSources } = useListAllActivitySources({
     debounce,
     queryParams: {
       accountId: params.accountId,

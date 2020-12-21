@@ -67,7 +67,7 @@ function metricLabelToMetricType(metricLabel: string): GCOMetricDefinition['risk
       return 'APDEX'
     case 'Other':
     default:
-      return 'OTHER'
+      return 'OTHER' as GCOMetricDefinition['riskProfile']['metricType'] // getting type issue for this
   }
 }
 

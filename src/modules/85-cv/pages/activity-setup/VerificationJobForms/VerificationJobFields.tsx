@@ -1,12 +1,16 @@
-import React, { useMemo, CSSProperties } from 'react'
-import { FormInput, SelectOption, MultiTypeInputType } from '@wings-software/uikit'
+import React, { useMemo, CSSProperties, useEffect, useState } from 'react'
+import { FormInput, SelectOption, MultiTypeInputType, MultiSelectOption } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
+import type { FormikProps } from 'formik'
 import {
   useGetServiceListForProject,
   useGetEnvironmentListForProject,
   EnvironmentResponseDTO,
   ServiceResponseDTO
 } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
+import { useListAllActivitySources, useListAllSupportedDataSource, useListBaselineExecutions } from 'services/cv'
+import { getMonitoringSourceLabel } from '@cv/pages/admin/setup/SetupUtils'
 import i18n from './VerificationJobForms.i18n'
 
 interface BaseFieldProps {
@@ -175,6 +179,48 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
   )
 }
 
+export function BaselineSelect(props: BaseFieldProps): JSX.Element {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const [baselineOption, setBaselineOption] = useState([
+    { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' },
+    { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
+  ])
+  const { data } = useListBaselineExecutions({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier
+    }
+  })
+
+  useEffect(() => {
+    if (data?.resource?.length) {
+      const options = data.resource.map(item => {
+        return {
+          label: new Date(item?.createdAt || 0),
+          value: item.verificationJobInstanceId
+        }
+      })
+      setBaselineOption(baselineOption.concat(options as any))
+    }
+  }, [data])
+
+  const { zIndex } = props
+  const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 5 }), [zIndex]) as CSSProperties
+  return (
+    <FormInput.MultiTypeInput
+      name="baseline"
+      style={style}
+      label={i18n.fieldLabels.baseline}
+      selectItems={baselineOption}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
+    />
+  )
+}
+
+// Remove this after old onboarding is removed
 export function DataSource(props: BaseFieldProps): JSX.Element {
   const selectProps = useMemo(
     () => ({
@@ -199,6 +245,79 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
         },
         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
       }}
+    />
+  )
+}
+
+export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }): JSX.Element {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const [monitoringOptions, setMonitoringOptions] = useState([{ label: 'All', value: 'All' }])
+  const { data } = useListAllSupportedDataSource({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier
+    }
+  })
+  let options: MultiSelectOption[]
+  useEffect(() => {
+    if (data?.resource?.length) {
+      options = data.resource.map(item => {
+        return {
+          label: getMonitoringSourceLabel(item),
+          value: item
+        }
+      })
+      setMonitoringOptions(monitoringOptions.concat(options as any))
+      props.formik.setFieldValue('dataSourceOptions', options)
+    }
+  }, [data])
+  const { zIndex } = props
+  const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
+  return (
+    <FormInput.MultiSelect
+      name="dataSource"
+      style={style}
+      label={i18n.fieldLabels.dataSource}
+      items={monitoringOptions}
+    />
+  )
+}
+
+export const ActivitySource: React.FC<BaseFieldProps> = props => {
+  const { getString } = useStrings()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const [activityOptions, setActivityOptions] = useState([])
+  const { zIndex } = props
+  const { data } = useListAllActivitySources({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      offset: 0,
+      pageSize: 100
+    }
+  })
+
+  useEffect(() => {
+    if (data?.resource?.content?.length) {
+      const options = data.resource.content.map(item => {
+        return {
+          label: item.name,
+          value: { identifier: item.identifier, type: item.type }
+        }
+      })
+      setActivityOptions(options as any)
+    }
+  }, [data])
+
+  const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
+  return (
+    <FormInput.Select
+      name="activitySource"
+      style={style}
+      label={getString('activitySource')}
+      items={activityOptions as SelectOption[]}
     />
   )
 }

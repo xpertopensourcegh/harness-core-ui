@@ -8,6 +8,7 @@ declare const styles: {
   readonly selectedCard: string
   readonly cardIconSelected: string
   readonly cardLabel: string
+  readonly cardLabelPadding: string
   readonly largeCard: string
 }
 export default styles

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Icon, CardBody, Color, Container, Layout, Text } from '@wings-software/uikit'
+import { Card, Icon, CardBody, Color, Container, Layout, Text, CardProps } from '@wings-software/uikit'
 import cx from 'classnames'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import css from './CVSelectionCard.module.scss'
@@ -12,6 +12,8 @@ export interface CVSelectionCardProps {
   isLarge?: boolean
   onCardSelect?: (isSelected: boolean) => void
   cardLabel?: string
+  cardProps?: CardProps
+  cardLabelClassname?: string
 }
 
 export interface CVSelectionCardGroupProps {
@@ -26,6 +28,7 @@ export function CVSelectionCard(props: CVSelectionCardProps): JSX.Element {
   return (
     <Layout.Vertical spacing="small" className={className}>
       <Card
+        {...props.cardProps}
         selected={isSelected}
         interactive={true}
         className={cx(
@@ -48,7 +51,7 @@ export function CVSelectionCard(props: CVSelectionCardProps): JSX.Element {
           {...iconProps}
         />
         {!renderLabelOutsideCard && Boolean(cardLabel) && (
-          <Text color={Color.BLACK} className={css.cardLabel}>
+          <Text color={Color.BLACK} className={cx(css.cardLabel, css.cardLabelPadding)}>
             {cardLabel}
           </Text>
         )}

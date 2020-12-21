@@ -529,6 +529,15 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources`
   ),
+  toCVAdminSetupVerificationJob: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
+      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job`
+  ),
+  toCVAdminSetupVerificationJobEdit: withAccountId(
+    ({ projectIdentifier, orgIdentifier, verificationId }: ProjectPathProps & { verificationId: string }) =>
+      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
+  ),
+
   toCVAdminResourcesConnectors: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors`

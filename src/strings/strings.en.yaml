@@ -21,6 +21,11 @@ global:
   noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
+  blueGreen: BlueGreen
+  canary: Canary
+  test: Test
+  health: Health
+  activitySource: Activity Source
   pipelines: Pipelines
   performance: Performance
   quality: quality
@@ -66,6 +71,7 @@ global:
   save: Save
   back: Back
   next: Next
+  finish: Finish
   continue: Continue
   addPipeline: + Pipeline
   cancel: Cancel
@@ -578,6 +584,13 @@ global:
       activitySources:
         addMoreSources: Add more activity sources
         addedStatus: You have added {{sourceCount}} activity source
+      verificationJobs:
+        heading: Almost there
+        infoText: Verification jobs trigger automatically whenever a relevant change is sourced from an Activity Source. They verify the risk of the change by analyzing the data collected from the Verification Data Sources.
+        subHeading: Default health verification jobs are applied automatically.
+        createJobQues: Would you like to create a new verification job?
+        createJob: Create Job
+        keepGoing: Want to keep going...
       progress:
         heading: 'Your Progress'
         mapServices: 'Map the above {{serviceLabel}} to a monitoring source.'
@@ -687,6 +700,7 @@ global:
           gcoMetrics: 'Google Cloud Operation metrics'
         tabName:
           selectDashboards: 'Select Dashboards'
+
     activitySources:
       name: 'Name your activity source'
       harnessCD:
@@ -733,6 +747,29 @@ global:
             namespace: 'KUBERNETES NAMESPACE'
             workload: 'KUBERNETES WORKLOAD'
             service: 'HARNESS SERVICE'
+    verificationJobs:
+      validation:
+        type: Please select verification job type
+        service: Please select a service
+        environment: Please select a environment
+        duration: Please select duration
+        dataSource: Please select a data source
+      breadcrumb: Verification Jobs
+      details:
+        name: Name of your job
+        tabName: Select Verification Job Type
+        heading: Create your verification job
+        verificationMonitoringSource: Verification Monitoring Sources (select multiple that apply)
+        selectType: Select the type of verification job
+        preDeploymentTests: Pre-Deployment Tests
+        productionDep: Production Deployments
+        postDeploymentTests: Post Deployment Tests
+      configure:
+        tabName: Configure Verification Job
+        heading: Verification Specification
+        preDepText: Create a new pre-deployment test verification job
+        prodDepText: Create a new production deployment verification job
+        postDepText: Create a new post-deployment test verification job
   configureOptions:
     configureOptions: 'configure options'
     defaultValue: 'Default value'

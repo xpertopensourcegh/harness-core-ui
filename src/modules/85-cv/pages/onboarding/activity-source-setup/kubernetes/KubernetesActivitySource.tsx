@@ -3,11 +3,7 @@ import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import { Page } from '@common/exports'
-import {
-  KubernetesActivitySourceDTO,
-  RestResponseKubernetesActivitySourceDTO,
-  useGetKubernetesSource
-} from 'services/cv'
+import { RestResponseActivitySourceDTO, useGetActivitySource } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
@@ -18,7 +14,7 @@ import { SelectKubernetesNamespaces } from './SelectKubernetesNamespaces/SelectK
 import { MapWorkloadsToServices } from './MapWorkloadsToServices/MapWorkloadsToServices'
 import { ReviewKubernetesActivitySource } from './ReviewKubernetesActivitySource/ReviewKubernetesActivitySource'
 import type {
-  // buildKubernetesActivitySourceInfo,
+  KubernetesActivitySourceDTO,
   KubernetesActivitySourceInfo,
   WorkloadInfo
 } from './KubernetesActivitySourceUtils'
@@ -82,10 +78,10 @@ export function KubernetesActivitySource(): JSX.Element {
   })
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & { activitySourceId: string }>()
-  const { loading, error, refetch: fetchKubernetesSource } = useGetKubernetesSource({
+  const { loading, error, refetch: fetchKubernetesSource } = useGetActivitySource({
     lazy: true,
-    resolve: function (activitySource: RestResponseKubernetesActivitySourceDTO) {
-      setCurrentData(transformApiData(activitySource?.resource))
+    resolve: function (activitySource: RestResponseActivitySourceDTO) {
+      setCurrentData(transformApiData(activitySource?.resource as KubernetesActivitySourceDTO))
       return activitySource
     },
     queryParams: {

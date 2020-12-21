@@ -28,11 +28,8 @@ allowpaths:
   - /activity/recent-activity-verifications
   - /activity/list
   - /setup/status
-  - /kubernetes/{identifier}
   - /kubernetes/namespaces
   - /kubernetes/workloads
-  - /kubernetes/source
-  - /kubernetes/sources
   - /alert
   - /alert/list
   - /alert/{identifier}
@@ -40,6 +37,12 @@ allowpaths:
   - /stackdriver/dashboards
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
+  - /activity/sources
+  - /activity/source
+  - /activity/{identifier}
+  - /setup/supported-providers
+  - /verification-job-instance/baseline-executions
+  - /verification-job/default-health-job
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -57,3 +60,8 @@ operationIdOverrides:
   /activity/deployment-activity-verifications/{deploymentTag}.get: getVerificationInstances
   /activity/deployment-activity-verifications-popover-summary/{deploymentTag}.get: getVerificationsPopoverSummary
   /setup/status: getCVSetupStatus
+  /activity/sources.get: listAllActivitySources
+  /activity/source.get: getActivitySource
+  /setup/supported-providers.get: listAllSupportedDataSource
+  /activity/{identifier}: deleteActivitySource
+  /activity/source.post: saveActivitySource

@@ -117,7 +117,13 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
                     ? resultData?.activitySources
                       ? resultData?.activitySources?.concat(item)
                       : item
-                    : resultData?.activitySources
+                    : resultData?.activitySources,
+                verificationJobs:
+                  data?.sourceType === ONBOARDING_ENTITIES.VERIFICATION_JOBS
+                    ? resultData?.verificationJobs
+                      ? resultData?.verificationJobs?.concat(item)
+                      : item
+                    : resultData?.verificationJobs
               })
             } catch (e) {
               showWarning(e)

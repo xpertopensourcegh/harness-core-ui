@@ -340,7 +340,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
                     >
                       Application Monitoring
                     </p>

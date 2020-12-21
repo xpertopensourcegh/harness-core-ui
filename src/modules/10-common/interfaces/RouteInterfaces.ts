@@ -34,6 +34,9 @@ export interface ConnectorPathProps {
   connectorId: string
 }
 
+export interface VerificationPathProps {
+  verificationId: string
+}
 export interface SecretsPathProps {
   secretId: string
 }

@@ -174,7 +174,7 @@ describe('Unit tests for KubernetesActivitySource', () => {
   })
 
   test('Ensure that api is called when id is in params', async () => {
-    const useGetKubernetesSourceSpy = jest.spyOn(cvService, 'useGetKubernetesSource')
+    const useGetKubernetesSourceSpy = jest.spyOn(cvService, 'useGetActivitySource')
     const refetchMock = jest.fn()
     useGetKubernetesSourceSpy.mockReturnValue({
       data: { resource: { content: MockData } },

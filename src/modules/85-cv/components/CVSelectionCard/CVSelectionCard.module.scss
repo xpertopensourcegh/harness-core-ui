@@ -30,8 +30,10 @@
   }
 
   .cardLabel {
-    padding: var(--spacing-xlarge) !important;
-    text-align: center;
+    text-align: center !important;
+  }
+  .cardLabelPadding {
+    padding: var(--spacing-xlarge) 0 !important;
   }
 }
 

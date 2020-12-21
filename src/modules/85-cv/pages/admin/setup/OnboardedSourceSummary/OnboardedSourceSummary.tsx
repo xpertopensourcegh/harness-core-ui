@@ -11,6 +11,7 @@ interface OnboardedSourceSummaryProps {
   buttonText?: string
   iconSize?: number
   setShowSummary: (val: boolean) => void
+  isSub?: boolean
 }
 const OnboardedSourceSummary: React.FC<OnboardedSourceSummaryProps> = props => {
   const history = useHistory()
