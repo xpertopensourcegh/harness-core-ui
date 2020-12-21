@@ -1,30 +1,17 @@
 import React from 'react'
 import { render, act, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { ModuleName } from 'framework/types/ModuleName'
 import { ProjectSelector } from '../ProjectSelector'
 
 import projects from './projects.json'
 
-describe('ProjectSelector', () => {
-  test('render without projects', () => {
-    const handleSelect = jest.fn()
-
-    const { container, getByText } = render(
-      <TestWrapper path="/account/:accountId/cd/home" pathParams={{ accountId: 'dummy' }}>
-        <ProjectSelector onSelect={handleSelect} moduleFilter={ModuleName.CD} />
-      </TestWrapper>
-    )
-
-    expect(container).toMatchSnapshot()
-
-    act(() => {
-      fireEvent.click(getByText('Select Project'))
-    })
-
-    expect(container).toMatchSnapshot()
+jest.mock('services/cd-ng', () => ({
+  useGetProjectList: jest.fn().mockImplementation(() => {
+    return { data: { data: { content: projects } }, refetch: jest.fn(), error: null }
   })
+}))
 
+describe('ProjectSelector', () => {
   test('render with projects', () => {
     const handleSelect = jest.fn()
 

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { ModuleName, useAppStore, useStrings } from 'framework/exports'
+import { ModuleName, useStrings } from 'framework/exports'
 import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
@@ -36,13 +36,9 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     harnessManagedOrg
   } = projectAggregateDTO
   const data = projectResponse.project || null
-  const { projects, updateAppStore } = useAppStore()
   const { getString } = useStrings()
   const history = useHistory()
   const onDeleted = (): void => {
-    const index = projects.findIndex(p => p.identifier === data.identifier)
-    projects.splice(index, 1)
-    updateAppStore({ projects: ([] as Project[]).concat(projects) })
     reloadProjects?.()
   }
   const openDialog = useDeleteProjectDialog(data, onDeleted)

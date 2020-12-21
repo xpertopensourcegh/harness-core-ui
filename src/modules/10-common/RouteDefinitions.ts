@@ -440,37 +440,37 @@ const routes = {
     }: Partial<ProjectPathProps> & Record<'deploymentTag' | 'serviceIdentifier', string>) =>
       !projectIdentifier || !orgIdentifier
         ? CV_HOME
-        : `/cv/org/${orgIdentifier}/project/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}`
+        : `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}`
   ),
   toCVActivityChangesPage: withAccountId(
     ({ activityId, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activityId: string }>) =>
       !activityId || !projectIdentifier || !orgIdentifier
         ? CV_HOME
-        : `/cv/org/${orgIdentifier}/project/${projectIdentifier}/dashboard/activity-changes/${activityId}`
+        : `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/activity-changes/${activityId}`
   ),
   toCVDataSources: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/datasources`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/datasources`
   ),
   toCVServices: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/services`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/onboarding/${dataSourceType}/setup`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
   ),
   toCVDataSourcesProductPage: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/onboarding/${dataSourceType}/product`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/product`
   ),
   toCVSplunkInputTypePage: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/onboarding/${dataSourceType}/input-type`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/input-type`
   ),
   toCVDataSourcesEntityPage: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/onboarding/${dataSourceType}/select-list-entities`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/select-list-entities`
   ),
   toCVActivitySourceSetup: withAccountId(
     ({ activitySource, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activitySource?: string }>) =>
@@ -487,31 +487,31 @@ const routes = {
   ),
   toCVMetricPackConfigureThresholdPage: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/metric-pack/config`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/metric-pack/config`
   ),
   toCVActivityDashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/activities/dashboard`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/dashboard`
   ),
   toCVActivities: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/project/${projectIdentifier}/activities`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities`
   ),
   toCVAdminActivitySources: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/activity-sources`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/activity-sources`
   ),
   toCVActivityDetails: withAccountId(
     ({ activityType, orgIdentifier, projectIdentifier }: ProjectPathProps & { activityType: string }) =>
-      `/cv/${activityType}/org/${orgIdentifier}/project/${projectIdentifier}/activities/setup`
+      `/cv/${activityType}/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/setup`
   ),
   toCVAdminGeneralSettings: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/general-settings`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/general-settings`
   ),
   toCVAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
   ),
   toCVAdminSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -559,14 +559,19 @@ const routes = {
   toProjectsGetStarted: withAccountId(() => '/projects/getstarted'),
   /********************************************************************************************************************/
   toCE: withAccountId(() => '/ce'),
+  toCEDashboard: withAccountId(() => `/ce`),
   toCEHome: withAccountId(() => '/ce/home'),
-  toCEDashboard: withAccountId(
+  toCEProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/dashboard/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  ),
+  toCEProjectOverview: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCECostOptimizationDashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/cost-opimizations/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/cost-opimizations`
   )
 }
 

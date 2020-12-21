@@ -15,7 +15,6 @@ import { getTriggerConfigDefaultProps, pipelineInputInitialValues } from './webh
 import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
 
 const value: AppStoreContextProps = {
-  projects: [],
   strings,
   updateAppStore: jest.fn()
 }

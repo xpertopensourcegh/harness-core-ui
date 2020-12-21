@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
-import { useAppStore } from 'framework/exports'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useGetOrganization, useGetProject } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
@@ -58,8 +57,6 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
     }
   }, [error, loading])
 
-  const { projects, updateAppStore } = useAppStore()
-
   const organizations: SelectOption[] = [
     {
       label: orgData?.data?.organization.name || /* istanbul ignore next */ '',
@@ -81,9 +78,6 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
       )
       showSuccess(i18n.newProjectWizard.aboutProject.editSuccess)
       onSuccess?.()
-      updateAppStore({
-        projects: projects.filter(/* istanbul ignore next */ p => p.identifier !== values.identifier).concat(values)
-      })
       isStep ? nextStep?.({ ...values }) : closeModal?.()
     } catch (e) {
       /* istanbul ignore next */

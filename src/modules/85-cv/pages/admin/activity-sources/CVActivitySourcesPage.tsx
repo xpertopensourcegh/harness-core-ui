@@ -134,8 +134,8 @@ export default function CVActivitySourcesPage(): JSX.Element {
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps>()
   const history = useHistory()
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === params.projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const [{ pageOffset, filter, debounce }, setFilterAndPageOffset] = useState<{
     pageOffset: number
     debounce: number

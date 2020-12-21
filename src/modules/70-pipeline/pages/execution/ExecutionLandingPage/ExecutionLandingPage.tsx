@@ -58,8 +58,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     debounce: 500
   })
 
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const { getString } = useStrings()
   const pipelineStagesMap = React.useMemo(() => {
     return getPipelineStagesMap(

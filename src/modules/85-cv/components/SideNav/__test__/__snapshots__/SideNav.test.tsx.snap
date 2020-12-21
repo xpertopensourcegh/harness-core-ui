@@ -68,7 +68,7 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cv/org/dummy/project/dummy/datasources"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/datasources"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
@@ -78,7 +78,7 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cv/org/dummy/project/dummy/activities"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/activities"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
@@ -88,7 +88,7 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cv/org/dummy/project/dummy/services"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/services"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"
@@ -98,7 +98,7 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cv/org/dummy/project/dummy/metric-pack/config"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/metric-pack/config"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws text"

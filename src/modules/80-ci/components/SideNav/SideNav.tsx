@@ -9,6 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useAppStore } from 'framework/exports'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
@@ -16,15 +17,24 @@ export default function CDSideNav(): React.ReactElement {
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const module = 'ci'
+  const { updateAppStore } = useAppStore()
+
   return (
     <Layout.Vertical spacing="small">
       <SidebarLink label="Dashboard" to={routes.toCIHome({ accountId })} />
       <ProjectSelector
         moduleFilter={ModuleName.CI}
         onSelect={data => {
+          updateAppStore({ selectedProject: data })
           if (projectIdentifier) {
             // changing project
-            history.push(compile(routeMatch.path)({ ...routeMatch.params, projectIdentifier: data.identifier }))
+            history.push(
+              compile(routeMatch.path)({
+                ...routeMatch.params,
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier
+              })
+            )
           } else {
             history.push(
               routes.toCIProjectOverview({

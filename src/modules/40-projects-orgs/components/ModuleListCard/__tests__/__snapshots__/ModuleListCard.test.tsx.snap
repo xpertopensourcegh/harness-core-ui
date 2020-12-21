@@ -481,7 +481,7 @@ exports[`Project Details render 2`] = `
             </span>
           </a>
           <a
-            href="/account/testAcc/cv/org/Cisco_Meraki/project/Portal/datasources"
+            href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/datasources"
           >
             <span>
               Set Up Data Sources

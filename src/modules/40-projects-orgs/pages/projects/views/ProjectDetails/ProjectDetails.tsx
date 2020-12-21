@@ -15,12 +15,14 @@ import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
+import { useQueryParams } from '@common/hooks'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
 
 const ProjectDetails: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, projectIdentifier } = useParams()
+  const { orgId: orgIdentifier } = useQueryParams()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
 

@@ -58,7 +58,7 @@ describe('ActivityVerifications', () => {
     )
     fireEvent.click(container.querySelector('.triger-navigation')!)
     const expectedUrlPart =
-      '/account/testAccountId/cv/org/testOrg/project/testProject/dashboard/deployment/tag1/service/service1'
+      '/account/testAccountId/cv/orgs/testOrg/projects/testProject/dashboard/deployment/tag1/service/service1'
     expect(getByTestId('location').innerHTML).toBe(expectedUrlPart)
   })
 })

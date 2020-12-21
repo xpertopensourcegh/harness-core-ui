@@ -971,7 +971,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Verification
           </p>
           <a
-            href="/account/testAcc/cv/org/testOrg/project/test/datasources"
+            href="/account/testAcc/cv/orgs/testOrg/projects/test/datasources"
           >
             Add New Data Sources
           </a>

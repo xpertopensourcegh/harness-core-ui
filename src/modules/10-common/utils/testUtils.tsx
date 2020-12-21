@@ -52,7 +52,7 @@ export const NotFound = (): JSX.Element => {
 }
 
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
-  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {}, projects = [] } = props
+  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {} } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
   const routePath = compile(path)(pathParams) + search
@@ -63,7 +63,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     <AppStoreContext.Provider
       value={{
         strings,
-        projects,
         updateAppStore: jest.fn(),
         ...defaultAppStoreValues
       }}

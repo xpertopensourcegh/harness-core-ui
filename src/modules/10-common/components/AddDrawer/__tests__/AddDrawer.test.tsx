@@ -9,7 +9,6 @@ import { getTriggerListDefaultProps } from './mockConstants'
 import AddDrawer from '../AddDrawer'
 
 const value: AppStoreContextProps = {
-  projects: [],
   strings,
   updateAppStore: jest.fn()
 }

@@ -7,6 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
+import { ModuleName } from 'framework/exports'
 
 export default function CESideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
@@ -17,13 +18,20 @@ export default function CESideNav(): React.ReactElement {
     <Layout.Vertical spacing="small">
       <SidebarLink label="Dashboard" to={routes.toCEHome({ accountId })} />
       <ProjectSelector
+        moduleFilter={ModuleName.CE}
         onSelect={data => {
           if (projectIdentifier) {
             // changing project
-            history.push(compile(routeMatch.path)({ ...routeMatch.params, projectIdentifier: data.identifier }))
+            history.push(
+              compile(routeMatch.path)({
+                ...routeMatch.params,
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier
+              })
+            )
           } else {
             history.push(
-              routes.toCEDashboard({
+              routes.toCECostOptimizationDashboard({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId

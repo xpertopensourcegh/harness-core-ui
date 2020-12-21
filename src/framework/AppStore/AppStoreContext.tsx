@@ -1,9 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import type { Project } from 'services/cd-ng'
-import { useGetProjectList } from 'services/cd-ng'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { Project, useGetProject } from 'services/cd-ng'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StringsMap = Record<string, Record<string, any>>
@@ -14,16 +12,15 @@ export type StringsMap = Record<string, Record<string, any>>
  * Modules are allowed to read only.
  */
 export interface AppStoreContextProps {
-  readonly projects: Project[]
+  readonly selectedProject?: Project
 
   /** strings for i18n */
   readonly strings: StringsMap
 
-  updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects'>>): void
+  updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void
 }
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
-  projects: [],
   strings: {},
   updateAppStore: () => void 0
 })
@@ -33,29 +30,39 @@ export function useAppStore(): AppStoreContextProps {
 }
 
 export function AppStoreProvider(props: React.PropsWithChildren<{ strings: StringsMap }>): React.ReactElement {
-  const { accountId } = useParams<{ accountId: string }>()
-  const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
-    projects: []
-  })
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>()
 
-  const { loading: projectsLoading, data: projects } = useGetProjectList({
+  const { refetch, data: project } = useGetProject({
+    identifier: projectIdentifier,
     queryParams: {
       accountIdentifier: accountId,
-      pageSize: 500
-    }
+      orgIdentifier
+    },
+    lazy: true
   })
 
   React.useEffect(() => {
     setState(prevState => ({
       ...prevState,
-      projects: projects?.data?.content?.map(response => response.project) || []
+      selectedProject: project?.data?.project
     }))
-  }, [projects?.data?.content])
+  }, [project?.data?.project])
 
-  function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'projects'>>): void {
+  React.useEffect(() => {
+    if (projectIdentifier && orgIdentifier) refetch()
+    if (!projectIdentifier || !orgIdentifier) {
+      setState(prevState => ({
+        ...prevState,
+        selectedProject: undefined
+      }))
+    }
+  }, [projectIdentifier, orgIdentifier])
+
+  function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void {
     setState(prevState => ({
       ...prevState,
-      projects: data.projects || prevState.projects
+      selectedProject: data.selectedProject || prevState?.selectedProject
     }))
   }
 
@@ -67,7 +74,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
         updateAppStore
       }}
     >
-      {projectsLoading ? <PageSpinner /> : props.children}
+      {props.children}
     </AppStoreContext.Provider>
   )
 }

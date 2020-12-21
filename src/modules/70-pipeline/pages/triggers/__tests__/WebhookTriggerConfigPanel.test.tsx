@@ -21,7 +21,6 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const value: AppStoreContextProps = {
-  projects: [],
   strings,
   updateAppStore: jest.fn()
 }

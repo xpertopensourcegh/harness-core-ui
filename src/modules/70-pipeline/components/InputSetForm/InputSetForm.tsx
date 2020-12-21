@@ -198,8 +198,8 @@ export const InputSetForm: React.FC = (): JSX.Element => {
     }
   }, [inputSetIdentifier])
 
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const { getString } = useStrings()
 
   const handleModeSwitch = React.useCallback(

@@ -15,8 +15,8 @@ export default function DeploymentsList(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
   const { getString } = useStrings()
 
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
 
   const [openModal, hideModal] = useModalHook(
     () => (

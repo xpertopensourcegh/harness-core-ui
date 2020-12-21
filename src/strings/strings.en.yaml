@@ -7,6 +7,7 @@ global:
   projectLabel: Project
   orgLabel: Organization
   modules: Modules
+  more: '+{{number}} more'
   lastActivity: last activity
   activity: 'Activity'
   deploymentText: Deployment
@@ -149,6 +150,8 @@ global:
   projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
   addProject: '+ Add Project'
   noProjects: 'No Projects Found'
+  projectSelector:
+    placeholder: 'Start typing to search in all {{number}} items'
   pipelines-studio:
     pipelineUpdated: Pipeline Updated
     errorWhileSaving: Error occurred saving pipeline

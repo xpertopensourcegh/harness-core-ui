@@ -58,13 +58,9 @@ const RedirectToCIHome = (): React.ReactElement => {
 
 const RedirectToCIProject = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
-  const { projects } = useAppStore()
+  const { selectedProject } = useAppStore()
 
-  if (
-    projects.find(
-      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CI)
-    )
-  ) {
+  if (selectedProject?.modules?.includes(ModuleName.CI)) {
     return <Redirect to={routes.toCIProjectOverview(params)} />
   } else {
     return <Redirect to={routes.toCIHome(params)} />

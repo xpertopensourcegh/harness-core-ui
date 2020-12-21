@@ -8,7 +8,7 @@ import { Project, ProjectAggregateDTO, useGetProjectAggregateDTOList } from 'ser
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
-import { ModuleName, useAppStore, String, useStrings } from 'framework/exports'
+import { ModuleName, String, useStrings } from 'framework/exports'
 import { Page } from '@common/components/Page/Page'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import { getModuleIcon } from '@projects-orgs/utils/utils'
@@ -117,11 +117,7 @@ const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ ro
 const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = useState(false)
-  const { projects, updateAppStore } = useAppStore()
   const onDeleted = (): void => {
-    const index = projects.findIndex(p => p.identifier === data.projectResponse.project.identifier)
-    projects.splice(index, 1)
-    updateAppStore({ projects: ([] as Project[]).concat(projects) })
     ;(column as any).refetchProjects()
   }
   const openDialog = useDeleteProjectDialog(data.projectResponse.project, onDeleted)

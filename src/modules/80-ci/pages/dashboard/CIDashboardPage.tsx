@@ -8,8 +8,8 @@ import i18n from './CIDashboardPage.i18n'
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, accountId } = useParams()
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const history = useHistory()
 
   return (

@@ -63,13 +63,9 @@ const RedirectToCDHome = (): React.ReactElement => {
 
 const RedirectToCDProject = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
-  const { projects } = useAppStore()
+  const { selectedProject } = useAppStore()
 
-  if (
-    projects.find(
-      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CD)
-    )
-  ) {
+  if (selectedProject?.modules?.includes(ModuleName.CD)) {
     return <Redirect to={routes.toCDProjectOverview(params)} />
   } else {
     return <Redirect to={routes.toCDHome(params)} />

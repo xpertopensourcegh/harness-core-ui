@@ -39,13 +39,9 @@ const RedirectToCFHome = (): React.ReactElement => {
 
 const RedirectToCFProject = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
-  const { projects } = useAppStore()
+  const { selectedProject } = useAppStore()
 
-  if (
-    projects.find(
-      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CF)
-    )
-  ) {
+  if (selectedProject?.modules?.includes(ModuleName.CF)) {
     return <Redirect to={routes.toCFProjectOverview(params)} />
   } else {
     return <Redirect to={routes.toCFHome(params)} />

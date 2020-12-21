@@ -210,8 +210,8 @@ export function RunPipelineForm({
     pipelineIdentifier
   ])
 
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const { getString } = useStrings()
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {
     return <PageSpinner />

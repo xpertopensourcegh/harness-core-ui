@@ -31,8 +31,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     }>
   >()
 
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
 
   const goToPipelineDetail = React.useCallback(
     (/* istanbul ignore next */ pipelineIdentifier = '-1') => {

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
 import { pick } from 'lodash-es'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-import { useAppStore } from 'framework/exports'
 import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
@@ -31,7 +30,6 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       accountIdentifier: accountId
     }
   })
-  const { projects, updateAppStore } = useAppStore()
 
   const organizations: SelectOption[] =
     orgData?.data?.content?.map(org => {
@@ -65,7 +63,6 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       nextStep?.(dataToSubmit)
       showSuccess(i18n.newProjectWizard.aboutProject.createSuccess)
       onSuccess?.()
-      updateAppStore({ projects: projects.concat(dataToSubmit!) })
     } catch (e) {
       /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)

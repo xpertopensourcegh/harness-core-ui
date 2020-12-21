@@ -12,7 +12,6 @@ import { getValidationSchema } from '../utils/TriggersWizardPageUtils'
 import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
 
 const value: AppStoreContextProps = {
-  projects: [],
   strings,
   updateAppStore: jest.fn()
 }

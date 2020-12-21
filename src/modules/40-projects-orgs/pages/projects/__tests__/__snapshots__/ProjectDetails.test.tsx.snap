@@ -766,7 +766,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/org/testOrg/project/dummy_name/datasources"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/datasources"
                     >
                       <span>
                         Set Up Data Sources

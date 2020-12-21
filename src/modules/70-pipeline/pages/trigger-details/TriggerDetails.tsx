@@ -33,8 +33,8 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const { getString } = useStrings()
   const onEditTriggerName = triggerResponse?.data?.name
 

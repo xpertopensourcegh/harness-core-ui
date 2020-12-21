@@ -8,7 +8,7 @@ import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelec
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
-import { useStrings } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import { ModuleName } from 'framework/types/ModuleName'
 
 export default function CVSideNav(): React.ReactElement {
@@ -16,6 +16,7 @@ export default function CVSideNav(): React.ReactElement {
   const routeMatch = useRouteMatch()
   const { getString } = useStrings()
   const history = useHistory()
+  const { updateAppStore } = useAppStore()
 
   return (
     <Layout.Vertical spacing="small">
@@ -23,9 +24,16 @@ export default function CVSideNav(): React.ReactElement {
       <ProjectSelector
         moduleFilter={ModuleName.CV}
         onSelect={data => {
+          updateAppStore({ selectedProject: data })
           if (projectIdentifier) {
             // changing project
-            history.push(compile(routeMatch.path)({ ...routeMatch.params, projectIdentifier: data.identifier }))
+            history.push(
+              compile(routeMatch.path)({
+                ...routeMatch.params,
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier
+              })
+            )
           } else {
             history.push(
               routes.toCVProjectOverview({

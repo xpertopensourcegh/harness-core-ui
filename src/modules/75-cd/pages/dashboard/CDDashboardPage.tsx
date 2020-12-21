@@ -8,8 +8,7 @@ import i18n from './CDDashboardPage.i18n'
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, accountId } = useParams()
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { selectedProject: project } = useAppStore()
   const history = useHistory()
 
   return (

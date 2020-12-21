@@ -183,9 +183,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     yamlHandler
   ])
 
-  const { projects } = useAppStore()
-  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
-
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>

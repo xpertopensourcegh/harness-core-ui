@@ -13,7 +13,6 @@ import { getDefaultProps } from './mockConstants'
 import Wizard from '../Wizard'
 
 const value: AppStoreContextProps = {
-  projects: [],
   strings,
   updateAppStore: jest.fn()
 }

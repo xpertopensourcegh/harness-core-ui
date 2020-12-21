@@ -51,13 +51,9 @@ const RedirectToCVHome = (): React.ReactElement => {
 
 const RedirectToCVProject = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
-  const { projects } = useAppStore()
+  const { selectedProject } = useAppStore()
 
-  if (
-    projects.find(
-      project => project.identifier === params.projectIdentifier && project.modules?.includes(ModuleName.CV)
-    )
-  ) {
+  if (selectedProject?.modules?.includes(ModuleName.CV)) {
     return <Redirect to={routes.toCVProjectOverview(params)} />
   } else {
     return <Redirect to={routes.toCVHome(params)} />
