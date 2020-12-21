@@ -28,12 +28,13 @@ global:
   update: Update
   visual: VISUAL
   yaml: YAML
+  abort: Abort
   notifications: Notifications
   saveAndPublish: Save and Publish
   unsavedChanges: unsaved changes
   studioText: Studio
   status: Status
-  submit: 'Submit'
+  submit: Submit
   buildText: Build
   pipeline: Pipeline
   pipelineStudio: Pipeline Studio
@@ -136,6 +137,16 @@ global:
     <+steps.step1.output.result> == “success”
     <+environment.name> != “QA”
   failureStrategyTitle: Failure Strategy
+  failureStrategyHelpText: |
+    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
+  failureTypeSelectLabel: On failure of type
+  performAction: Perform Action
+  failureStrategies:
+    Ignore: Ignore Failure
+    StageRollback: Rollback Stage
+    StepGroupRollback: Rollback Step Group
+    ManualIntervention: Manual Intervention
+    EndExecution: End Execution
   preRequisitesTitle: Pre-requisites
   advancedTitle: Advanced
   stepConfiguration: Step Configuration

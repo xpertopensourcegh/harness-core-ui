@@ -1,0 +1,59 @@
+.main {
+  .helpText {
+    font-size: var(--font-size-small);
+  }
+
+  .header,
+  .tabs,
+  .stepList {
+    display: flex;
+    align-items: center;
+  }
+
+  .header {
+    justify-content: space-between;
+    min-height: 22px;
+    margin: var(--spacing-small) 0;
+
+    :global(.bp3-button) {
+      height: 22px !important;
+      font-size: var(--font-size-small) !important;
+    }
+  }
+
+  .tabs {
+    justify-content: flex-start;
+  }
+
+  .stepList {
+    margin: 0 var(--spacing-small) 0 0;
+    padding: 0;
+    column-gap: var(--spacing-small);
+    list-style-type: none !important;
+
+    .stepListItem {
+      display: inline-block;
+    }
+
+    .stepListBtn {
+      width: 22px;
+      height: 22px;
+      min-height: unset;
+      min-width: unset;
+      border-radius: 50% !important;
+
+      &[data-selected='false'] {
+        background: var(--grey-300) !important;
+        color: var(--white) !important;
+        border-color: var(--grey-300) !important;
+      }
+    }
+  }
+}
+
+.errorSelect {
+  .tag {
+    font-size: var(--font-size-small) !important;
+    margin-top: 0 !important;
+  }
+}

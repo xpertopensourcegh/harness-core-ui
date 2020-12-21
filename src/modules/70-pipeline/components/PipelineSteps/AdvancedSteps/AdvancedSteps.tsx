@@ -1,4 +1,5 @@
 import React from 'react'
+import type { FormikProps } from 'formik'
 import { Formik, FormikForm } from '@wings-software/uikit'
 import { debounce } from 'lodash-es'
 
@@ -27,17 +28,17 @@ export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactEle
 
   return (
     <Formik
-      initialValues={{ skipCondition: step.skipCondition }}
+      initialValues={{ skipCondition: step.skipCondition, failureStrategies: step.failureStrategies }}
       validate={debouncedHandleValidate}
       onSubmit={() => {
         //
       }}
     >
-      {() => {
+      {(formikProps: FormikProps<Values>) => {
         return (
           <FormikForm className={css.form}>
             <div>
-              <Accordion>
+              <Accordion activeId="failureStrategy">
                 <Accordion.Panel
                   id="preRequisites"
                   summary={getString('preRequisitesTitle')}
@@ -51,7 +52,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactEle
                 <Accordion.Panel
                   id="failureStrategy"
                   summary={getString('failureStrategyTitle')}
-                  details={<FailureStrategyPanel />}
+                  details={<FailureStrategyPanel formikProps={formikProps} />}
                 />
               </Accordion>
             </div>

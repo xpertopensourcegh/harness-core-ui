@@ -17,4 +17,5 @@ export interface Values {
   tab?: TabTypes
   skipCondition?: string
   shouldKeepOpen?: boolean
+  failureStrategies: any[]
 }
