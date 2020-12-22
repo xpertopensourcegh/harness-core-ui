@@ -1,0 +1,233 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "All log service APIs will be documented here.",
+    "version": "1.0.0",
+    "title": "Log APIs"
+  },
+  "tags": [
+    {
+      "name": "blob",
+      "description": "Blob related endpoints in log service"
+    },
+    {
+      "name": "stream",
+      "description": "Stream endpoints in log service"
+    },
+    {
+      "name": "token",
+      "description": "Token endpoints"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/token": {
+      "get": {
+        "summary": "Generate token",
+        "tags": ["token"],
+        "description": "Generate an account level token to be used for log APIs",
+        "produces": ["text/plain"],
+        "operationId": "getToken",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "accountID",
+            "description": "Account ID to generate a token for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "X-Harness-Token",
+            "description": "Global token to validate token creation request",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/stream": {
+      "get": {
+        "summary": "Stream log response",
+        "tags": ["stream"],
+        "description": "Stream back log response using server sent events (SSE)",
+        "operationId": "logStream",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "accountID",
+            "description": "Account ID to retrieve logs for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "key",
+            "description": "Unique key to retrieve logs for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "X-Harness-Token",
+            "description": "Account level token to ensure allowed access",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Line"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/blob": {
+      "get": {
+        "summary": "Get log response from blob",
+        "tags": ["blob"],
+        "description": "Retrieve log response from blob storage",
+        "produces": ["text/plain"],
+        "operationId": "logBlob",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "accountID",
+            "description": "Account ID to retrieve logs for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "key",
+            "description": "Unique key to retrieve logs for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "X-Harness-Token",
+            "description": "Account level token to ensure allowed access",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Line"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error_msg": {
+          "type": "string",
+          "description": "Details about the error encountered"
+        }
+      }
+    },
+    "Line": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Represents severity of the log (eg INFO, etc)"
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Position of the log line"
+        },
+        "out": {
+          "type": "string",
+          "description": "Actual message that needs to be displayed"
+        },
+        "time": {
+          "type": "string",
+          "description": "Timestamp at which the log was written"
+        },
+        "args": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Token": {
+      "type": "string",
+      "description": "Token used for authentication"
+    }
+  }
+}

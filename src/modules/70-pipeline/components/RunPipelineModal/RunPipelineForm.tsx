@@ -121,7 +121,7 @@ export function RunPipelineForm({
         )
         const data = response.data
         if (response.status === 'SUCCESS') {
-          if (!response.data) {
+          if (response.data) {
             showSuccess(i18n.pipelineRunSuccessFully)
             history.push(
               routes.toExecutionPipelineView({
