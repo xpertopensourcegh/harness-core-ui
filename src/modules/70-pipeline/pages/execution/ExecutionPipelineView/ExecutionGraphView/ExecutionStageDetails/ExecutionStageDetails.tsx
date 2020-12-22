@@ -32,6 +32,7 @@ export enum StepTypes {
   GENERIC_SECTION = 'GENERIC_SECTION',
   SECTION_CHAIN = 'SECTION CHAIN',
   SECTION = 'SECTION',
+  NG_SECTION = 'NG_SECTION',
   K8S_ROLLING = 'K8S_ROLLING',
   FORK = 'FORK',
   HTTP = 'HTTP'
@@ -41,6 +42,7 @@ const IconsMap: { [key in StepTypes]: IconName } = {
   SERVICE: 'main-services',
   GENERIC_SECTION: 'step-group',
   K8S_ROLLING: 'service-kubernetes',
+  NG_SECTION: 'step-group',
   'SECTION CHAIN': 'step-group',
   SECTION: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
@@ -137,7 +139,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.SECTION) {
+        if (nodeData.stepType === StepTypes.NG_SECTION) {
           items.push({
             group: {
               name: nodeData.name || /* istanbul ignore next */ '',

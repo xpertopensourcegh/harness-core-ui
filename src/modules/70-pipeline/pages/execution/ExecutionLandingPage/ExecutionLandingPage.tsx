@@ -54,7 +54,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
-      stageIdentifier: isEmpty(queryParams.stage || autoSelectedStageId)
+      stageNodeId: isEmpty(queryParams.stage || autoSelectedStageId)
         ? undefined
         : queryParams.stage || autoSelectedStageId
     },

@@ -19,7 +19,7 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams<PipelinePathProps>()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<PipelinePathProps>()
   const queryParams = useQueryParams<{ page?: string } & FilterQueryParams>()
   const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()
@@ -29,7 +29,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      // pipelineIdentifiers: pipelineIdentifier
+      pipelineIdentifier,
       //   ? [pipelineIdentifier]
       //   : queryParams.pipeline
       //   ? [queryParams.pipeline]
