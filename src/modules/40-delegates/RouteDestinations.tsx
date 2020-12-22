@@ -7,8 +7,6 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import DelegatesPage from 'modules/40-delegates/pages/delegates/DelegatesPage'
-// import DelegateDetailsPage from '@delegates/pages/delegates/DelegateDetailsPage'
-// import CreateDelegateFromYamlPage from '@delegates/pages/createDelegateFromYaml/CreateDelegateFromYamlPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 
 export default (
