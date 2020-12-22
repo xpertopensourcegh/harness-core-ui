@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import xhr, { XhrPromise } from '@wings-software/xhr-async'
-import MapApplications, { validateTier, updateTier } from '../MapApplications'
+import MapApplications, { validateTier } from '../MapApplications'
 import { ValidationStatus } from '../../AppDOnboardingUtils'
 
 jest.mock('react-router-dom', () => ({
@@ -136,27 +136,7 @@ describe('MapApplications', () => {
     expect(result.validationStatus).toEqual(ValidationStatus.SUCCESS)
   })
 
-  test('updateTier works as expected', () => {
-    const update = jest.fn().mockImplementation(fn =>
-      fn({
-        '22': {
-          name: 'tier1',
-          appId: '22',
-          service: 's1'
-        },
-        '33': {
-          name: 'tier2'
-        }
-      })
-    )
-
-    updateTier(update, 33, { service: 'testServiceName' })
-    expect((update.mock.results[0].value as any)['33'].service).toEqual('testServiceName')
-    updateTier(update, 22, null)
-    expect((update.mock.results[1].value as any)['22']).not.toBeDefined()
-  })
-
-  test('Can select tier, metricPack and hit next', () => {
+  test('Can select tier, metricPack and hit next', async () => {
     jest.spyOn(xhr, 'post').mockImplementation(
       () =>
         Promise.resolve({
@@ -168,22 +148,19 @@ describe('MapApplications', () => {
       <MapApplications
         stepData={{
           applications: {
-            1: {
-              id: 1,
+            app1: {
               name: 'app1',
-              environment: 'qa'
-            }
-          },
-          tiers: {
-            1: {
-              name: 'tier1',
-              appId: 1,
-              service: 'test-service'
-            },
-            2: {
-              name: 'tier2',
-              appId: 1,
-              service: 'test-service2'
+              environment: 'qa',
+              tiers: {
+                tier1: {
+                  name: 'tier1',
+                  service: 'test-service'
+                },
+                tier2: {
+                  name: 'tier2',
+                  service: 'test-service2'
+                }
+              }
             }
           },
           metricPacks: [{ identifier: 'mp1' }]
@@ -191,12 +168,13 @@ describe('MapApplications', () => {
         onCompleteStep={onCompleteStep}
       />
     )
+    await waitFor(() => Promise.resolve())
     fireEvent.click(container.querySelector('.select-tier')!)
     fireEvent.click(container.querySelectorAll('.metricPacks input[type=checkbox]').item(1))
     fireEvent.click(getByText('Next'))
     expect(onCompleteStep).toHaveBeenCalled()
-    const passedTiers: any = onCompleteStep.mock.calls[0][0].tiers
-    expect(passedTiers['1']).not.toBeDefined()
-    expect(passedTiers['2'].service).toEqual('test-service2')
+    const applications: any = onCompleteStep.mock.calls[0][0].applications
+    expect(applications['app1']).toBeDefined()
+    expect(applications['app1'].tiers['tier2'].service).toEqual('test-service2')
   })
 })

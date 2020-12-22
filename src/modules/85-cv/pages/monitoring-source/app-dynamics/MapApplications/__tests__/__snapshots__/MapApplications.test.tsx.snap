@@ -97,6 +97,7 @@ exports[`MapApplications matches snapshot 1`] = `
                 />
               </svg>
             </span>
+            
           </p>
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws"

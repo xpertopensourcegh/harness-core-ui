@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { useSaveDataSourceCVConfigs } from 'services/cv'
+import { useSaveDSConfig } from 'services/cv'
 import ReviewTiersAndApps from '../ReviewTiersAndApps'
 
 jest.mock('react-router-dom', () => ({
@@ -33,34 +33,26 @@ jest.mock('framework/exports', () => ({
 }))
 
 jest.mock('services/cv', () => ({
-  useSaveDataSourceCVConfigs: jest.fn().mockReturnValue({
+  useSaveDSConfig: jest.fn().mockReturnValue({
     loading: false,
     mutate: jest.fn()
   })
 }))
 
-const appsAndTiers = {
-  applications: {
-    1: {
-      id: 1,
-      name: 'app1',
-      environment: 'qa'
-    }
-  },
-  tiers: {
-    22: {
-      id: 22,
-      name: 'tier1',
-      appId: 1,
-      service: 'test-service-a',
-      totalTiers: 10
-    },
-    33: {
-      id: 33,
-      name: 'tier2',
-      appId: 1,
-      service: 'test-service-b',
-      totalTiers: 10
+const applications = {
+  app1: {
+    name: 'app1',
+    environment: 'qa',
+    totalTiers: 2,
+    tiers: {
+      tier1: {
+        name: 'tier1',
+        service: 'test-service-a'
+      },
+      tier2: {
+        name: 'tier2',
+        service: 'test-service-b'
+      }
     }
   }
 }
@@ -71,19 +63,19 @@ describe('ReviewTiersAndApps', () => {
     mutateCallback.mockClear()
   })
   test('matches snapshot', () => {
-    const { container } = render(<ReviewTiersAndApps stepData={{ ...appsAndTiers }} onCompleteStep={jest.fn()} />)
+    const { container } = render(<ReviewTiersAndApps stepData={{ applications }} onCompleteStep={jest.fn()} />)
     expect(container).toMatchSnapshot()
   })
 
   test('onNext handles saving correctly', () => {
-    ;(useSaveDataSourceCVConfigs as any).mockReturnValue({
+    ;(useSaveDSConfig as any).mockReturnValue({
       loading: false,
       mutate: mutateCallback
     })
     const { container } = render(
       <ReviewTiersAndApps
         stepData={{
-          ...appsAndTiers,
+          applications,
           identifier: 'testID',
           connectorRef: { value: 'test' },
           product: 'Application Monitoring',
@@ -94,10 +86,12 @@ describe('ReviewTiersAndApps', () => {
     )
     fireEvent.click(container.querySelector('button[type=submit]')!)
     const payload = mutateCallback.mock.calls[0][0]
-    expect(payload[0].connectorIdentifier).toEqual('test')
-    expect(payload[0].type).toEqual('APP_DYNAMICS')
-    expect(payload[0].accountId).toEqual('accountIdMock')
-    expect(payload[0].productName).toEqual('Application Monitoring')
-    expect(payload[0].applicationName).toEqual('app1')
+    expect(payload.connectorIdentifier).toEqual('test')
+    expect(payload.type).toEqual('APP_DYNAMICS')
+    expect(payload.accountId).toEqual('accountIdMock')
+    expect(payload.productName).toEqual('Application Monitoring')
+    expect(payload.appConfigs[0].applicationName).toEqual('app1')
+    expect(payload.appConfigs[0].envIdentifier).toEqual('qa')
+    expect(payload.appConfigs[0].serviceMappings.length).toEqual(2)
   })
 })

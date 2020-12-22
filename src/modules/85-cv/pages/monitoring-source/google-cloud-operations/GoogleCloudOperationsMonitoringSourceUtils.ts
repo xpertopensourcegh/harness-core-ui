@@ -69,7 +69,6 @@ export function buildGCOMonitoringSourceInfo(params: ProjectPathProps): GCOMonit
     identifier: '',
     product: GCOProduct.CLOUD_METRICS,
     monitoringSourceName: 'MyGoogleCloudOperationsSource',
-    monitoringSourceIdentifier: 'MyGoogleCloudOperationsSource',
     ...params,
     metricPacks: [],
     manuallyInputQueries: [],

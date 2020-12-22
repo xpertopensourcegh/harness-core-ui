@@ -83,8 +83,7 @@ describe('SelectApplications', () => {
     fireEvent.click(container.querySelector('button[type=submit]')!)
     expect(onCompleteStep).toHaveBeenCalled()
     const calledWithArg = onCompleteStep.mock.calls[0][0]
-    expect(calledWithArg.applications['1'].id).toEqual(1)
-    expect(calledWithArg.applications['1'].name).toEqual('app1')
-    expect(calledWithArg.applications['1'].environment).toEqual('env1')
+    expect(calledWithArg.applications['app1'].name).toEqual('app1')
+    expect(calledWithArg.applications['app1'].environment).toEqual('env1')
   })
 })

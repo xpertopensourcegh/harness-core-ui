@@ -78,9 +78,10 @@ interface AppDynamicsMainSetupViewProps {
 function validateConfig(configData: DSConfig): { [fieldName: string]: string } | {} {
   const castConfigData = configData as DSConfigTableData
   const errors: { envIdentifier?: string; metricPackList?: string; tableData?: string } = {}
-  if (!castConfigData.envIdentifier) {
-    errors.envIdentifier = 'Environment is required.'
-  }
+  // TODO - revisit
+  // if (!castConfigData.envIdentifier) {
+  //   errors.envIdentifier = 'Environment is required.'
+  // }
   if (!castConfigData.metricPackList?.length) {
     errors.metricPackList = 'At least one metric pack is required.'
   }

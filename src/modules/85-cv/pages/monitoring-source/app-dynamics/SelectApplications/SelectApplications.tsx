@@ -1,16 +1,19 @@
 import React, { useState, useMemo } from 'react'
 import { Container, Color, Text, Icon, SelectOption } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
+import cloneDeep from 'lodash-es/cloneDeep'
+import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
-import { useGetAppDynamicsApplications } from 'services/cv'
+import { useGetAppDynamicsApplications, AppDynamicsApplication } from 'services/cv'
 import { useGetEnvironmentListForProject, ResponsePageEnvironmentResponseDTO } from 'services/cd-ng'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { EnvironmentSelect } from './EnvironmentSelect'
-import { ApplicationRecord, useValidationErrors } from '../AppDOnboardingUtils'
+import { InternalState, useValidationErrors } from '../AppDOnboardingUtils'
 import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './SelectApplications.module.scss'
 
@@ -20,44 +23,21 @@ interface SelectApplicationsProps {
   onPrevious?: () => void
 }
 
-interface InternalState {
-  [id: string]: ApplicationRecord
-}
-
-interface CellProps {
-  appId: number
-  appData: ApplicationRecord
-  onUpdate?(tierId: number, data: Partial<ApplicationRecord> | null): void
-  options?: Array<SelectOption>
-  onUpdateOptions?(options: Array<SelectOption>): void
+interface EnvironmentCellProps {
+  value?: string
+  disabled?: boolean
+  onSelect(value: string): void
+  options: SelectOption[]
+  onUpdateOptions(options: SelectOption[]): void
 }
 
 const PAGE_SIZE = 5
 
-export function updateApplication(
-  updater: (params: (val: InternalState) => InternalState) => void,
-  appId: number,
-  update: object | null
-) {
-  updater?.(old => {
-    const newState = { ...old }
-    if (update === null) {
-      delete newState[appId]
-    } else {
-      newState[appId] = {
-        ...old[appId],
-        ...update
-      }
-    }
-    return newState
-  })
-}
-
 export default function SelectApplications({ stepData, onCompleteStep, onPrevious }: SelectApplicationsProps) {
   const { getString } = useStrings()
-  const [state, setState] = useState<InternalState>(stepData?.applications || {})
+  const [state, setState] = useState<InternalState>(cloneDeep(stepData?.applications || {}))
   const [environmentOptions, setEnvironmentOptions] = useState<Array<SelectOption>>([])
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const [pageIndex, setPageIndex] = useState(0)
   const [textFilter, setTextFilter] = useState('')
   const { setError, renderError } = useValidationErrors()
@@ -77,8 +57,8 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
   useGetEnvironmentListForProject({
     queryParams: {
       accountId,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
+      orgIdentifier,
+      projectIdentifier
     },
     resolve: (res: ResponsePageEnvironmentResponseDTO) => {
       if (res?.data?.content?.length) {
@@ -93,20 +73,19 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
     }
   })
 
-  const onAppUpdate = (appId: number, update: Partial<ApplicationRecord>) => updateApplication(setState, appId, update)
-
   const onNext = () => {
-    const applications = { ...state }
-    for (const appId of Object.keys(applications)) {
-      if (!applications[appId].environment) {
-        delete applications[appId]
+    const apps = Object.values(state).filter(app => !!app)
+    if (!apps.length) {
+      setError('selectApp', getString('cv.monitoringSources.appD.validations.selectApp'))
+      return
+    }
+    for (const app of apps) {
+      if (!app?.environment) {
+        setError('selectApp', getString('cv.monitoringSources.appD.validations.selectApp'))
+        return
       }
     }
-    if (Object.keys(applications).length) {
-      onCompleteStep({ applications })
-    } else {
-      setError('selectApp', getString('cv.monitoringSources.appD.validations.selectApp'))
-    }
+    onCompleteStep({ applications: state })
   }
 
   return (
@@ -114,7 +93,7 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
       <Container className={styles.sideSpace} />
       <Container className={styles.mainPanel}>
         {loading && <PageSpinner />}
-        <Table
+        <Table<AppDynamicsApplication>
           className={styles.table}
           columns={[
             {
@@ -122,22 +101,24 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
               Header: '',
               disableSortBy: true,
               width: '40px',
-              Cell: function SelectApplicationCellWrapper({ row }: any) {
+              Cell: function SelectAppCell({ row }: CellProps<AppDynamicsApplication>) {
+                const appName = row.original.name!
+                const isSelected = !!state[appName]
                 return (
-                  <SelectApplicationCell
-                    appId={row.original.id}
-                    appData={state[row.original.id]}
-                    onUpdate={(appId: number, update: ApplicationRecord) => {
-                      onAppUpdate(
-                        appId,
-                        update
-                          ? {
-                              ...update,
-                              name: row.original.name
-                            }
-                          : update
-                      )
-                      update && setError('selectApp', undefined)
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={e => {
+                      const update = {
+                        ...state,
+                        [appName]: {
+                          name: appName
+                        }
+                      }
+                      if (!e.target.checked) {
+                        delete update[appName]
+                      }
+                      setState(update)
                     }}
                   />
                 )
@@ -152,8 +133,9 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
               ),
               disableSortBy: true,
               width: '45%',
-              Cell: function ApplicationNameWrapper({ row }: any) {
-                return <Text icon="service-appdynamics">{row.original.name}</Text>
+              accessor: 'name',
+              Cell: function AppName({ value }: CellProps<AppDynamicsApplication>) {
+                return <Text icon="service-appdynamics">{value}</Text>
               }
             },
             {
@@ -170,12 +152,22 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
               ),
               disableSortBy: true,
               width: '45%',
-              Cell: function EnvironmentCellWrapper({ row }: any) {
+              Cell: function EnvironmentCellWrapper({ row }: CellProps<AppDynamicsApplication>) {
+                const appName = row.original.name!
+                const app = state[appName]
                 return (
                   <EnvironmentCell
-                    appId={row.original.id}
-                    appData={state[row.original.id]}
-                    onUpdate={onAppUpdate}
+                    disabled={!app}
+                    value={app?.environment}
+                    onSelect={(environment: string) => {
+                      setState({
+                        ...state,
+                        [appName]: {
+                          ...app!,
+                          environment
+                        }
+                      })
+                    }}
                     options={environmentOptions}
                     onUpdateOptions={setEnvironmentOptions}
                   />
@@ -210,44 +202,21 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
   )
 }
 
-function SelectApplicationCell({ appId, appData, onUpdate }: CellProps) {
-  return (
-    <input
-      type="checkbox"
-      checked={!!appData}
-      onChange={e => {
-        const isChecked = e.target.checked
-        onUpdate?.(
-          appId,
-          isChecked
-            ? {
-                id: appId
-              }
-            : null
-        )
-      }}
-    />
-  )
-}
-
-function EnvironmentCell({ appId, appData, onUpdate, options = [], onUpdateOptions }: CellProps) {
-  const item = useMemo(() => options?.find((opt: SelectOption) => opt.value === appData?.environment), [
-    options,
-    appData
-  ])
+function EnvironmentCell({ value, disabled, onSelect, options = [], onUpdateOptions }: EnvironmentCellProps) {
+  const item = useMemo(() => options?.find((opt: SelectOption) => opt.value === value), [options, value])
   return (
     <Container className={styles.selectEnvironmentCell}>
       <Icon name="harness" margin={{ right: 'small' }} />
       <EnvironmentSelect
         item={item}
-        disabled={!appData}
+        disabled={disabled}
         options={options}
         onSelect={opt => {
-          onUpdate?.(appId, { environment: opt.value as string })
+          onSelect(opt.value as string)
         }}
-        onNewCreated={opt => {
-          onUpdateOptions?.([{ label: opt.name!, value: opt.name! }, ...options])
-          onUpdate?.(appId, { environment: opt.name })
+        onNewCreated={env => {
+          onUpdateOptions?.([{ label: env.name!, value: env.name! }, ...options])
+          onSelect(env.name as string)
         }}
       />
     </Container>

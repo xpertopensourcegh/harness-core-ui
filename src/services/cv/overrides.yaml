@@ -3,12 +3,14 @@ allowpaths:
   - /appdynamics/metric-data
   - /appdynamics/tiers
   - /ds-config
+  - /ds-config/{identifier}
+  - /ds-config/listMonitoringSources
+  - /ds-config/env-to-services
   - /metric-pack
   - /splunk/validation
   - /splunk/saved-searches
   - /timeseries/metric-group-data
   - /timeseries/metric-template
-  - /ds-config/env-to-services
   - /heatmap
   - /heatmap/category-risks
   - /heatmap/env-service-risks
@@ -50,6 +52,10 @@ operationIdOverrides:
   /splunk/validation.get: getSplunkValidation
   /splunk/saved-searches.get: getSplunkSavedSearches
   /ds-config/env-to-services.get: getServices
+  /ds-config/listMonitoringSources.get: getMonitoringSources
+  /ds-config/{identifier}.get: getDSConfig
+  /ds-config.put: saveDSConfig
+  /ds-config.delete: deleteDSConfig
   /heatmap.get: getHeatmap
   /verification-job.put: saveVerificationJob
   /verification-job/list.get: getVerificationJobs

@@ -169,7 +169,6 @@ describe('SelectGCODashboards unit tests', () => {
         identifier: '',
         manuallyInputQueries: [],
         metricPacks: [],
-        monitoringSourceIdentifier: 'MyGoogleCloudOperationsSource',
         monitoringSourceName: 'MyGoogleCloudOperationsSource',
         orgIdentifier: '1234_ORG',
         product: 'Cloud Metrics',

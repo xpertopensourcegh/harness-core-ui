@@ -252,7 +252,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
               },
               {
                 accessor: 'numberOfEnvironments',
-                Header: getString('cv.admin.activitySources.tableColumnNames.services'),
+                Header: getString('numberOfServices'),
                 width: '16.5%',
                 Cell: TableCell
               },

@@ -2,54 +2,31 @@ import React from 'react'
 import { Text, Color, Button, Layout, SelectOption } from '@wings-software/uikit'
 import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
-import type { ServiceResponseDTO } from 'services/cd-ng'
 import { ValidationStatus, TierRecord } from '../AppDOnboardingUtils'
 
-interface CellProps {
-  tierId: number
-  tierData?: TierRecord
-  options?: Array<SelectOption>
-  onValidateTier?(tierId: number): void
-  onUpdate?(tierId: number, data: Partial<TierRecord> | null): void
-  onServiceCreated?(service: ServiceResponseDTO): void
+interface ValidationCellProps {
+  tier?: TierRecord
+  onValidateTier(): void
+  onShowValidationResult(val: TierRecord['validationStatus']): void
 }
 
-export const SelectedCell = ({ tierId, tierData, onUpdate }: CellProps) => {
-  const selected = !!tierData
-  return (
-    <input
-      type="checkbox"
-      className="select-tier"
-      checked={selected}
-      onChange={e => {
-        const isChecked = e.target.checked
-        onUpdate?.(
-          tierId,
-          isChecked
-            ? {
-                id: tierId
-              }
-            : null
-        )
-      }}
-    />
-  )
+interface ServiceCellProps {
+  value?: string
+  disabled?: boolean
+  onSelect(value: string): void
+  options: SelectOption[]
+  onUpdateOptions(options: SelectOption[]): void
 }
 
-export const ValidationCell = ({
-  tierId,
-  tierData,
-  onValidateTier,
-  onShowValidationResult
-}: CellProps & { onShowValidationResult(val: any): void }) => {
+export const ValidationCell = ({ tier, onValidateTier, onShowValidationResult }: ValidationCellProps) => {
   const { getString } = useStrings()
-  const additionalProps = tierData?.metricData
+  const additionalProps = tier?.validationResult
     ? {
-        onClick: () => onShowValidationResult(tierData?.metricData),
+        onClick: () => onShowValidationResult(tier?.validationResult),
         style: { cursor: 'pointer' }
       }
     : {}
-  switch (tierData?.validationStatus) {
+  switch (tier?.validationStatus) {
     case ValidationStatus.IN_PROGRESS:
       return (
         <Text icon="steps-spinner" iconProps={{ size: 16 }}>
@@ -79,9 +56,7 @@ export const ValidationCell = ({
             iconProps={{ size: 12 }}
             color={Color.BLUE_500}
             text={getString('retry')}
-            onClick={() => {
-              onValidateTier?.(tierId)
-            }}
+            onClick={onValidateTier}
           />
         </Layout.Horizontal>
       )
@@ -90,17 +65,19 @@ export const ValidationCell = ({
   }
 }
 
-export const ServiceCell = ({ tierId, tierData, onUpdate, options, onValidateTier, onServiceCreated }: CellProps) => {
-  const selectedOption = options?.find((opt: any) => opt.value === tierData?.service)
+export const ServiceCell = ({ value, disabled, onSelect, options = [], onUpdateOptions }: ServiceCellProps) => {
+  const selectedOption = options?.find((opt: any) => opt.value === value)
   return (
     <ServiceSelectOrCreate
-      disabled={!tierData}
+      disabled={disabled}
       item={selectedOption}
-      options={options || []}
-      onNewCreated={onServiceCreated!}
+      options={options}
+      onNewCreated={service => {
+        onSelect(service.name as string)
+        onUpdateOptions([{ label: service.name!, value: service.name! }, ...options])
+      }}
       onSelect={opt => {
-        onUpdate?.(tierId, { service: opt.value as string })
-        onValidateTier?.(tierId)
+        onSelect(opt.value as string)
       }}
     />
   )

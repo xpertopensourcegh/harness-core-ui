@@ -76,8 +76,13 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
         activitySourceId: identifier
       })
     } else if (sourceType === 'MONITORING_SOURCE') {
-      return ''
-      // Add edit route for monitoring
+      return routes.toCVAdminSetupMonitoringSourceEdit({
+        projectIdentifier,
+        orgIdentifier,
+        accountId,
+        monitoringSource: getRoutePathByType(type),
+        identifier
+      })
     }
   }
   return {

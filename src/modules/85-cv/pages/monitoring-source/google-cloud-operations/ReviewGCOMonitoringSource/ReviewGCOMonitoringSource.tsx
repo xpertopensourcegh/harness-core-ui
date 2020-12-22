@@ -8,10 +8,10 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { BaseSetupTabsObject, ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import routes from '@common/RouteDefinitions'
-import { useSaveDataSourceCVConfigs } from 'services/cv'
+import { useSaveDSConfig } from 'services/cv'
 import type {
   GCODSConfig,
-  GCOMetricDefinition,
+  // GCOMetricDefinition,
   GCOMonitoringSourceInfo
 } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './ReviewGCOMonitoringSource.module.scss'
@@ -53,74 +53,75 @@ function transformIncomingData(data: GCOMonitoringSourceInfo): { tableData: Tabl
   return { tableData, services: Array.from(services.values()) }
 }
 
-function metricLabelToMetricType(metricLabel: string): GCOMetricDefinition['riskProfile']['metricType'] {
-  switch (metricLabel) {
-    case 'Errors':
-      return 'ERROR'
-    case 'Infrastructure':
-      return 'INFRA'
-    case 'Throughput':
-      return 'THROUGHPUT'
-    case 'Response Time':
-      return 'RESP_TIME'
-    case 'Apdex':
-      return 'APDEX'
-    case 'Other':
-    default:
-      return 'OTHER' as GCOMetricDefinition['riskProfile']['metricType'] // getting type issue for this
-  }
-}
+// function metricLabelToMetricType(metricLabel: string): GCOMetricDefinition['riskProfile']['metricType'] {
+//   switch (metricLabel) {
+//     case 'Errors':
+//       return 'ERROR'
+//     case 'Infrastructure':
+//       return 'INFRA'
+//     case 'Throughput':
+//       return 'THROUGHPUT'
+//     case 'Response Time':
+//       return 'RESP_TIME'
+//     case 'Apdex':
+//       return 'APDEX'
+//     case 'Other':
+//     default:
+//       return 'OTHER' as GCOMetricDefinition['riskProfile']['metricType'] // getting type issue for this
+//   }
+// }
 
-function transformToSavePayload(data: GCOMonitoringSourceInfo): GCODSConfig[] {
-  if (!data?.selectedMetrics?.size) {
-    return []
-  }
+function transformToSavePayload(_data: GCOMonitoringSourceInfo): GCODSConfig {
+  return {} as GCODSConfig
+  // if (!data?.selectedMetrics?.size) {
+  //   return []
+  // }
 
-  const gcoDSConfigs = new Map<string, GCODSConfig>()
-  for (const selectedMetricInfo of data.selectedMetrics) {
-    const [selectedMetric, metricInfo] = selectedMetricInfo
-    if (!selectedMetric || !metricInfo) continue
-    const existingDSConfig: GCODSConfig = gcoDSConfigs.get(
-      `${metricInfo.service?.value as string}-${metricInfo.environment?.value as string}`
-    ) || {
-      connectorIdentifier: data.connectorRef?.value as string,
-      accountId: data.accountId,
-      type: 'STACKDRIVER',
-      envIdentifier: metricInfo.environment?.value as string,
-      serviceIdentifier: metricInfo.service?.value as string,
-      identifier: data.identifier,
-      projectIdentifier: data.projectIdentifier,
-      metricDefinitions: [],
-      metricPacks: data.metricPacks || []
-    }
+  // const gcoDSConfigs = new Map<string, GCODSConfig>()
+  // for (const selectedMetricInfo of data.selectedMetrics) {
+  //   const [selectedMetric, metricInfo] = selectedMetricInfo
+  //   if (!selectedMetric || !metricInfo) continue
+  //   const existingDSConfig: GCODSConfig = gcoDSConfigs.get(
+  //     `${metricInfo.service?.value as string}-${metricInfo.environment?.value as string}`
+  //   ) || {
+  //     connectorIdentifier: data.connectorRef?.value as string,
+  //     accountId: data.accountId,
+  //     type: 'STACKDRIVER',
+  //     envIdentifier: metricInfo.environment?.value as string,
+  //     serviceIdentifier: metricInfo.service?.value as string,
+  //     identifier: data.identifier,
+  //     projectIdentifier: data.projectIdentifier,
+  //     metricDefinitions: [],
+  //     metricPacks: data.metricPacks || []
+  //   }
 
-    const [category, metricType] = metricInfo.riskCategory?.split('/') || []
-    const thresholdTypes: GCOMetricDefinition['riskProfile']['thresholdTypes'] = []
-    if (metricInfo.lowerBaselineDeviation) {
-      thresholdTypes.push('ACT_WHEN_LOWER')
-    }
-    if (metricInfo.higherBaselineDeviation) {
-      thresholdTypes.push('ACT_WHEN_HIGHER')
-    }
-    existingDSConfig.metricDefinitions.push({
-      dashboardName: metricInfo.dashboardName as string,
-      metricName: metricInfo.metricName as string,
-      metricTags: Object.keys(metricInfo.metricTags || {}),
-      jsonMetricDefinition: JSON.parse(metricInfo.query || ''),
-      riskProfile: {
-        metricType: metricLabelToMetricType(metricType),
-        category: category as GCOMetricDefinition['riskProfile']['category'],
-        thresholdTypes
-      }
-    })
+  //   const [category, metricType] = metricInfo.riskCategory?.split('/') || []
+  //   const thresholdTypes: GCOMetricDefinition['riskProfile']['thresholdTypes'] = []
+  //   if (metricInfo.lowerBaselineDeviation) {
+  //     thresholdTypes.push('ACT_WHEN_LOWER')
+  //   }
+  //   if (metricInfo.higherBaselineDeviation) {
+  //     thresholdTypes.push('ACT_WHEN_HIGHER')
+  //   }
+  //   existingDSConfig.metricDefinitions.push({
+  //     dashboardName: metricInfo.dashboardName as string,
+  //     metricName: metricInfo.metricName as string,
+  //     metricTags: Object.keys(metricInfo.metricTags || {}),
+  //     jsonMetricDefinition: JSON.parse(metricInfo.query || ''),
+  //     riskProfile: {
+  //       metricType: metricLabelToMetricType(metricType),
+  //       category: category as GCOMetricDefinition['riskProfile']['category'],
+  //       thresholdTypes
+  //     }
+  //   })
 
-    gcoDSConfigs.set(
-      `${metricInfo.service?.value as string}-${metricInfo.environment?.value as string}`,
-      existingDSConfig
-    )
-  }
+  //   gcoDSConfigs.set(
+  //     `${metricInfo.service?.value as string}-${metricInfo.environment?.value as string}`,
+  //     existingDSConfig
+  //   )
+  // }
 
-  return Array.from(gcoDSConfigs.values())
+  // return Array.from(gcoDSConfigs.values())
 }
 
 export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps): JSX.Element {
@@ -129,7 +130,7 @@ export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps)
   const params = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { mutate: saveDSConfigs, error } = useSaveDataSourceCVConfigs({ queryParams: { ...params } })
+  const { mutate: saveDSConfigs, error } = useSaveDSConfig({ queryParams: { ...params } })
   const { tableData, services } = transformIncomingData(data)
 
   useEffect(() => {

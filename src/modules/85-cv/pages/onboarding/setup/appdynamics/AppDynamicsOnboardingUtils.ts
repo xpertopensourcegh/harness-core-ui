@@ -9,8 +9,8 @@ export interface AppDynamicsDSConfig extends DSConfig {
 }
 
 export interface DSConfigTableData extends AppDynamicsDSConfig {
-  tableData: TierAndServiceRow[]
-  metricPackList: MultiSelectOption[]
+  tableData?: TierAndServiceRow[]
+  metricPackList?: MultiSelectOption[]
   services?: MultiSelectOption[]
 }
 
@@ -41,7 +41,6 @@ export function createDefaultConfigObject(
     serviceMappings: [],
     metricPackList: [],
     tableData: [],
-    envIdentifier: '',
     projectIdentifier,
     orgIdentifier,
     productName,

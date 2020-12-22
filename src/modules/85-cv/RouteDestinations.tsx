@@ -43,6 +43,7 @@ import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySo
 import ResourcesPage from '@cv/pages/Resources/ResourcesPage'
 import { useAppStore, ModuleName } from 'framework/exports'
 import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
+import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
 import VerificationJobs from './pages/verification-jobs/VerificationJobsSetup'
 
 const RedirectToCVHome = (): React.ReactElement => {
@@ -193,16 +194,27 @@ export default (
       </RouteWithLayout>
       <RouteWithLayout
         exact
-        path={routes.toCVAdminSetupMonitoringSource({
-          ...accountPathProps,
-          ...projectPathProps,
-          monitoringSource: ':monitoringSource'
-        })}
+        path={[
+          routes.toCVAdminSetupMonitoringSource({
+            ...accountPathProps,
+            ...projectPathProps,
+            monitoringSource: ':monitoringSource'
+          }),
+          routes.toCVAdminSetupMonitoringSourceEdit({
+            ...accountPathProps,
+            ...projectPathProps,
+            monitoringSource: ':monitoringSource',
+            identifier: ':identifier'
+          })
+        ]}
       >
         <MonitoringSource />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCVAdminActivitySources({ ...accountPathProps, ...projectPathProps })}>
         <CVActivitySourcesPage />
+      </RouteWithLayout>
+      <RouteWithLayout exact path={routes.toCVAdminMonitoringSources({ ...accountPathProps, ...projectPathProps })}>
+        <CVMonitoringSourcesPage />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}>
         <VerificationJobs />

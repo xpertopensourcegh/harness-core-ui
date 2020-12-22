@@ -74,7 +74,7 @@ const testWrapperProps: TestWrapperProps = {
 
 describe('Unit tests for ReviewMonitoringSource', () => {
   test('Ensure payload is correct depending on provided data', async () => {
-    const useSaveDataSourceCVConfigsSpy = jest.spyOn(cvService, 'useSaveDataSourceCVConfigs')
+    const useSaveDataSourceCVConfigsSpy = jest.spyOn(cvService, 'useSaveDSConfig')
     const mutateMockFn = jest.fn()
     useSaveDataSourceCVConfigsSpy.mockReturnValue({
       mutate: mutateMockFn as any
@@ -95,70 +95,71 @@ describe('Unit tests for ReviewMonitoringSource', () => {
     }
     fireEvent.click(submitButton)
     await waitFor(() => expect(mutateMockFn).toHaveBeenCalledTimes(1))
-    expect(mutateMockFn).toHaveBeenCalledWith([
-      {
-        accountId: undefined,
-        connectorIdentifier: undefined,
-        envIdentifier: 'env_1',
-        identifier: undefined,
-        metricDefinitions: [
-          {
-            dashboardName: 'dashboard_1',
-            jsonMetricDefinition: {
-              asdads: 'asdasd'
-            },
-            metricName: 'metric_1',
-            metricTags: ['solo-dolo'],
-            riskProfile: {
-              category: 'Performance',
-              metricType: 'THROUGHPUT',
-              thresholdTypes: ['ACT_WHEN_HIGHER']
-            }
-          },
-          {
-            dashboardName: 'dashboard_4',
-            jsonMetricDefinition: {
-              asdads: 'asdasd'
-            },
-            metricName: 'metric_2',
-            metricTags: ['solo-dolo'],
-            riskProfile: {
-              category: 'Performance',
-              metricType: 'OTHER',
-              thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
-            }
-          }
-        ],
-        metricPacks: [],
-        projectIdentifier: undefined,
-        serviceIdentifier: 'service_1',
-        type: 'STACKDRIVER'
-      },
-      {
-        accountId: undefined,
-        connectorIdentifier: undefined,
-        envIdentifier: 'env_1',
-        identifier: undefined,
-        metricDefinitions: [
-          {
-            dashboardName: 'dashboard_6',
-            jsonMetricDefinition: {
-              asdads: 'asdasd'
-            },
-            metricName: 'metric_4',
-            metricTags: ['solo-dolo'],
-            riskProfile: {
-              category: 'Errors',
-              metricType: 'OTHER',
-              thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
-            }
-          }
-        ],
-        metricPacks: [],
-        projectIdentifier: undefined,
-        serviceIdentifier: 'service_2',
-        type: 'STACKDRIVER'
-      }
-    ])
+    expect(mutateMockFn).toHaveBeenCalledWith({})
+    // expect(mutateMockFn).toHaveBeenCalledWith([
+    //   {
+    //     accountId: undefined,
+    //     connectorIdentifier: undefined,
+    //     envIdentifier: 'env_1',
+    //     identifier: undefined,
+    //     metricDefinitions: [
+    //       {
+    //         dashboardName: 'dashboard_1',
+    //         jsonMetricDefinition: {
+    //           asdads: 'asdasd'
+    //         },
+    //         metricName: 'metric_1',
+    //         metricTags: ['solo-dolo'],
+    //         riskProfile: {
+    //           category: 'Performance',
+    //           metricType: 'THROUGHPUT',
+    //           thresholdTypes: ['ACT_WHEN_HIGHER']
+    //         }
+    //       },
+    //       {
+    //         dashboardName: 'dashboard_4',
+    //         jsonMetricDefinition: {
+    //           asdads: 'asdasd'
+    //         },
+    //         metricName: 'metric_2',
+    //         metricTags: ['solo-dolo'],
+    //         riskProfile: {
+    //           category: 'Performance',
+    //           metricType: 'OTHER',
+    //           thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+    //         }
+    //       }
+    //     ],
+    //     metricPacks: [],
+    //     projectIdentifier: undefined,
+    //     serviceIdentifier: 'service_1',
+    //     type: 'STACKDRIVER'
+    //   },
+    //   {
+    //     accountId: undefined,
+    //     connectorIdentifier: undefined,
+    //     envIdentifier: 'env_1',
+    //     identifier: undefined,
+    //     metricDefinitions: [
+    //       {
+    //         dashboardName: 'dashboard_6',
+    //         jsonMetricDefinition: {
+    //           asdads: 'asdasd'
+    //         },
+    //         metricName: 'metric_4',
+    //         metricTags: ['solo-dolo'],
+    //         riskProfile: {
+    //           category: 'Errors',
+    //           metricType: 'OTHER',
+    //           thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+    //         }
+    //       }
+    //     ],
+    //     metricPacks: [],
+    //     projectIdentifier: undefined,
+    //     serviceIdentifier: 'service_2',
+    //     type: 'STACKDRIVER'
+    //   }
+    // ])
   })
 })

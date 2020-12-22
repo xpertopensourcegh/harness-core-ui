@@ -16,6 +16,7 @@ import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 interface SelectProductFieldProps {
   type: 'AppDynamics' | 'GoogleCloudOperations'
   productSelectValidationText?: string
+  isEditMode?: boolean
 }
 
 interface SelectProductProps<T> extends SelectProductFieldProps {
@@ -117,6 +118,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
         createConnectorText={monitoringSource.createConnectorText}
         firstTimeSetupText={monitoringSource.firstTimeSetupText}
         connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
+        identifierDisabled={props.isEditMode}
       />
       <FormInput.CustomRender
         label={monitoringSource?.selectProduct}
@@ -152,7 +154,9 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
 export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
   const history = useHistory()
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { projectIdentifier, orgIdentifier, accountId, identifier } = useParams<
+    ProjectPathProps & { identifier: string }
+  >()
 
   return (
     <Formik
@@ -162,7 +166,7 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
       onSubmit={formData => props.onCompleteStep({ ...formData } as any)}
     >
       <FormikForm>
-        <SelectProductFields type={props.type} />
+        <SelectProductFields type={props.type} isEditMode={!!identifier} />
         <SubmitAndPreviousButtons
           onPreviousClick={() =>
             history.push(

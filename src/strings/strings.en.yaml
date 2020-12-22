@@ -36,6 +36,7 @@ global:
   yaml: YAML
   abort: Abort
   notifications: Notifications
+  numberOfServices: 'Number of Services'
   saveAndPublish: Save and Publish
   unsavedChanges: unsaved changes
   studioText: Studio
@@ -541,6 +542,7 @@ global:
       adminSideNavLinks:
         setup: 'Setup'
         activitySources: 'Activity Sources'
+        monitoringSources: 'Monitoring Sources'
     admin:
       mapsTo: maps to
       notifications:
@@ -581,10 +583,17 @@ global:
         dialogDeleteContent: 'Are you sure you want to delete Activity Source: '
         dialogDeleteTitle: 'Delete Activity Source'
         tableColumnNames:
-          services: 'Number of Services'
           environments: 'Number of Environments'
           createdOn: 'Created on'
           lastUpdatedOn: 'Last Updated on'
+      monitoringSources:
+        searchPlaceholder: 'Search by name, environments, services'
+        newMonitoringSource: 'New Monitoring Source'
+        noDataMessage: 'No Monitoring Sources onboarded'
+        importStatus: 'Import Status'
+        importedOn: 'Imported On'
+        applicationsImported: '{{num}}/{{total}} applications imported'
+        environmentsImported: '{{num}}/{{total}} environments imported'
     onboarding:
       monitoringSources:
         addMoreSources: Add more monitoring sources

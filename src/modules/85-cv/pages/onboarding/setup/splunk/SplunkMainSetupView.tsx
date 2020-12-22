@@ -211,9 +211,10 @@ function validate(values: DSConfig): { [fieldName: string]: string } | {} {
     isValid?: string
     queryName?: string
   } = {}
-  if (!splunkConfig.envIdentifier) {
-    errors.envIdentifier = i18n.fieldValidations.envIdentifier
-  }
+  // TODO - revisit
+  // if (!splunkConfig.envIdentifier) {
+  //   errors.envIdentifier = i18n.fieldValidations.envIdentifier
+  // }
   if (!splunkConfig.eventType) {
     errors.eventType = i18n.fieldValidations.eventType
   }
@@ -328,7 +329,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
   })
   const [thirdPartyGUID, setThirdPartyGUID] = useState<string | undefined>()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const areFirstThreeFilledOut = dsConfig.envIdentifier && dsConfig.serviceIdentifier && dsConfig.queryName
+  const areFirstThreeFilledOut = dsConfig.serviceIdentifier && dsConfig.queryName
 
   useEffect(() => {
     if (dsConfig.query) {

@@ -501,6 +501,10 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/activity-sources`
   ),
+  toCVAdminMonitoringSources: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cv/admin/monitoring-sources/org/${orgIdentifier}/project/${projectIdentifier}`
+  ),
   toCVActivityDetails: withAccountId(
     ({ activityType, orgIdentifier, projectIdentifier }: ProjectPathProps & { activityType: string }) =>
       `/cv/${activityType}/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/setup`
@@ -528,6 +532,15 @@ const routes = {
   toCVAdminResources: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources`
+  ),
+  toCVAdminSetupMonitoringSourceEdit: withAccountId(
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      monitoringSource,
+      identifier
+    }: ProjectPathProps & { monitoringSource: string; identifier: string }) =>
+      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}/${identifier}`
   ),
   toCVAdminSetupVerificationJob: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>

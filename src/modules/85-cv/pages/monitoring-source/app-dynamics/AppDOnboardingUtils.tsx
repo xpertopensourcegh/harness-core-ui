@@ -9,19 +9,21 @@ export enum ValidationStatus {
 }
 
 export interface TierRecord {
-  id: number
   name: string
-  appId: number
   service?: string
   validationStatus?: ValidationStatus
-  metricData?: any
-  totalTiers?: number
+  validationResult?: any
 }
 
 export interface ApplicationRecord {
-  id: number
   name: string
   environment?: string
+  totalTiers?: number
+  tiers?: { [tierName: string]: TierRecord }
+}
+
+export interface InternalState {
+  [appName: string]: ApplicationRecord | undefined
 }
 
 export function useValidationErrors() {

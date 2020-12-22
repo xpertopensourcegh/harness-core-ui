@@ -1,21 +1,29 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { Container, Text, Checkbox, Color, SelectOption } from '@wings-software/uikit'
-import groupBy from 'lodash-es/groupBy'
 import xhr from '@wings-software/xhr-async'
 import qs from 'qs'
 import { useParams } from 'react-router-dom'
+import cloneDeep from 'lodash-es/cloneDeep'
+import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
 import { useGetServiceListForProject } from 'services/cd-ng'
-import { MetricPackArrayRequestBody, MetricPackDTO, useGetAppDynamicsTiers, useGetMetricPacks } from 'services/cv'
+import {
+  MetricPackArrayRequestBody,
+  MetricPackDTO,
+  useGetAppDynamicsTiers,
+  useGetMetricPacks,
+  AppDynamicsTier
+} from 'services/cv'
 import { useStrings } from 'framework/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
-import { SelectedCell, ValidationCell, ServiceCell } from './MapApplicationsTableCells'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { ValidationCell, ServiceCell } from './MapApplicationsTableCells'
 import AppDApplicationSelector from './AppDApplicationSelector'
-import { TierRecord, ValidationStatus, useValidationErrors } from '../AppDOnboardingUtils'
+import { TierRecord, InternalState, ValidationStatus, useValidationErrors } from '../AppDOnboardingUtils'
 import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './MapApplications.module.scss'
 
@@ -23,10 +31,6 @@ export interface MapApplicationsProps {
   stepData?: { [key: string]: any }
   onCompleteStep: (data: object) => void
   onPrevious?: () => void
-}
-
-export interface InternalState {
-  [id: string]: TierRecord
 }
 
 export async function validateTier(metricPacks: MetricPackArrayRequestBody, queryParams: object) {
@@ -46,40 +50,21 @@ export async function validateTier(metricPacks: MetricPackArrayRequestBody, quer
   return {}
 }
 
-export function updateTier(
-  updater: (params: (val: InternalState) => InternalState) => void,
-  tierId: number,
-  update: object | null
-) {
-  updater?.(old => {
-    const newState = { ...old }
-    if (update === null) {
-      delete newState[tierId]
-    } else {
-      newState[tierId] = {
-        ...old[tierId],
-        ...update
-      }
-    }
-    return newState
-  })
-}
-
 const PAGE_SIZE = 10
 
 export default function MapApplications({ stepData, onCompleteStep, onPrevious }: MapApplicationsProps) {
   const { getString } = useStrings()
-  const [selectedAppId, setSelectedAppId] = useState<number>()
+  const [selectedAppName, setSelectedAppName] = useState<string>('')
   const [pageIndex, setPageIndex] = useState(0)
   const [textFilter, setTextFilter] = useState('')
-  const [state, setState] = useState<InternalState>(stepData?.tiers || {})
+  const [state, setState] = useState<InternalState>(cloneDeep(stepData?.applications || {}))
   const [serviceOptions, setServiceOptions] = useState<Array<SelectOption>>([])
   const [metricPacks, setMetricPacks] = useState<Array<{ selected: boolean; data: MetricPackDTO }>>([])
-  const [validationResult, setValidationResult] = useState()
+  const [validationResult, setValidationResult] = useState<TierRecord['validationResult']>()
   const { setError, renderError } = useValidationErrors()
   const haveMPacksChanged = useRef((val: any) => val === metricPacks)
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
 
   useGetServiceListForProject({
     queryParams: {
@@ -123,25 +108,26 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     const statuses: any = {}
     const appErrors: any = {}
     if (state) {
-      const tiersByAppId = groupBy(Object.values(state), 'appId')
-      for (const appId of Object.keys(tiersByAppId)) {
+      for (const app of Object.values(state)) {
+        const appTiers = Object.values(app?.tiers ?? {})
+        if (!appTiers.length) continue
         if (
-          tiersByAppId[appId]
+          appTiers
             .map(t => t.service)
             .filter(s => !!s)
             .some((s, i, a) => a.indexOf(s) >= 0 && a.indexOf(s) !== i)
         ) {
-          appErrors[appId] = getString('cv.monitoringSources.appD.validationMsg')
-          statuses[appId] = 'ERROR'
-        } else if (tiersByAppId[appId].some(val => val.validationStatus === ValidationStatus.ERROR)) {
-          statuses[appId] = 'ERROR'
+          appErrors[app!.name] = getString('cv.monitoringSources.appD.validationMsg')
+          statuses[app!.name] = 'ERROR'
+        } else if (appTiers.some(val => val.validationStatus === ValidationStatus.ERROR)) {
+          statuses[app!.name] = 'ERROR'
         } else if (
-          tiersByAppId[appId].every(
+          appTiers.every(
             val =>
               val.validationStatus === ValidationStatus.SUCCESS || val.validationStatus === ValidationStatus.NO_DATA
           )
         ) {
-          statuses[appId] = 'SUCCESS'
+          statuses[app!.name] = 'SUCCESS'
         }
       }
     }
@@ -151,34 +137,46 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   const { data: tiers, loading: loadingTiers } = useGetAppDynamicsTiers({
     queryParams: {
       accountId,
-      appDynamicsAppId: selectedAppId as number,
+      appName: selectedAppName,
       connectorIdentifier: stepData?.connectorIdentifier,
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string,
       offset: pageIndex,
       pageSize: PAGE_SIZE,
       filter: textFilter
+    },
+    resolve: response => {
+      if (Number.isInteger(response?.resource?.totalItems)) {
+        setState(old => ({
+          ...old,
+          [selectedAppName]: {
+            ...old[selectedAppName]!,
+            totalTiers: response?.resource?.totalItems
+          }
+        }))
+      }
+      return response
     }
   })
 
-  const onValidateTier = async (tierId: number) => {
+  const onValidateTier = async (appName: string, tierName: string) => {
     if (metricPacks.some(mp => mp.selected)) {
-      updateTier(setState, tierId, { validationStatus: ValidationStatus.IN_PROGRESS })
+      onSetTierData(appName, tierName, { validationStatus: ValidationStatus.IN_PROGRESS })
       const payload = metricPacks.filter(mp => mp.selected).map(mp => mp.data)
       const update = await validateTier(payload as MetricPackArrayRequestBody, {
         accountId,
-        appdAppId: selectedAppId as number,
-        appdTierId: tierId,
+        appName,
+        tierName,
         connectorIdentifier: stepData?.connectorIdentifier,
         orgIdentifier: orgIdentifier as string,
         projectIdentifier: projectIdentifier as string,
         requestGuid: String(Date.now())
       })
       if (haveMPacksChanged.current(metricPacks)) {
-        updateTier(setState, tierId, update)
+        onSetTierData(appName, tierName, update)
       }
     } else {
-      updateTier(setState, tierId, { validationStatus: undefined })
+      onSetTierData(appName, tierName, { validationStatus: undefined })
     }
   }
 
@@ -198,13 +196,36 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     setError('metricPacks', undefined)
   }
 
+  const onSetTierData = (appName: string, tierName: string, value?: Partial<TierRecord>) => {
+    setState(old => {
+      const appTiers = { ...(old[appName]?.tiers || {}) }
+      const tier = appTiers[tierName] || {}
+      if (value) {
+        appTiers[tierName] = { ...tier, ...value }
+      } else {
+        delete appTiers[tierName]
+      }
+      return {
+        ...old,
+        [appName]: {
+          ...old[appName]!,
+          tiers: {
+            ...appTiers
+          }
+        }
+      }
+    })
+  }
+
   useEffect(() => {
     haveMPacksChanged.current = (val: any) => val === metricPacks
     if (Object.keys(state).length) {
-      Object.values(state).forEach(tier => {
-        if (tier.service) {
-          onValidateTier(tier.id)
-        }
+      Object.values(state).forEach(app => {
+        Object.values(app?.tiers ?? {}).forEach(tier => {
+          if (tier.service) {
+            onValidateTier(app!.name, tier.name)
+          }
+        })
       })
     }
   }, [metricPacks])
@@ -216,23 +237,26 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
       return
     }
     if (!Object.keys(errors).length) {
-      const tiersData = { ...state }
-      for (const tierId of Object.keys(tiersData)) {
-        if (!tiersData[tierId].service) {
-          delete tiersData[tierId]
-        } else if (tiersData[tierId].validationStatus === ValidationStatus.IN_PROGRESS) {
-          tiersData[tierId].validationStatus = undefined
+      const applications = cloneDeep(state)
+      let foundSomeTiers = false
+      for (const app of Object.values(applications)) {
+        for (const tier of Object.values(app?.tiers ?? {})) {
+          if (!tier.service) {
+            setError('selectTier', getString('cv.monitoringSources.appD.validations.selectTier'))
+            return
+          } else if (tier.validationStatus === ValidationStatus.IN_PROGRESS) {
+            delete tier.validationStatus
+          }
+          foundSomeTiers = true
         }
       }
-      if (Object.keys(tiersData).length) {
-        onCompleteStep({ tiers: tiersData, metricPacks: mPacks })
+      if (foundSomeTiers) {
+        onCompleteStep({ applications, metricPacks: mPacks })
       } else {
         setError('selectTier', getString('cv.monitoringSources.appD.validations.selectTier'))
       }
     }
   }
-
-  const onTierUpdate = (tierId: number, update: Partial<TierRecord>) => updateTier(setState, tierId, update)
 
   return (
     <Container className={styles.tabWrapper}>
@@ -240,10 +264,10 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
         <AppDApplicationSelector
           applications={stepData?.applications}
           statuses={applicationStatuses}
-          selectedAppId={selectedAppId}
-          onSelect={appId => {
+          selectedAppName={selectedAppName}
+          onSelect={appName => {
             setPageIndex(0)
-            setSelectedAppId(appId)
+            setSelectedAppName(appName)
           }}
         />
         <Container className={styles.content}>
@@ -251,9 +275,9 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
             {getString('cv.monitoringSources.appD.mapApplicationsToEnv')}
           </Text>
           <Container className={styles.mappingDetails}>
-            <Text icon="service-appdynamics">{stepData?.applications[selectedAppId!]?.name}</Text>
+            <Text icon="service-appdynamics">{selectedAppName}</Text>
             <Text>{getString('cv.admin.mapsTo')}</Text>
-            <Text icon="harness">{stepData?.applications[selectedAppId!]?.environment}</Text>
+            <Text icon="harness">{stepData?.applications[selectedAppName!]?.environment}</Text>
           </Container>
           <Container className={styles.metricPacks}>
             <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
@@ -275,32 +299,22 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
             {getString('cv.monitoringSources.appD.mapTiersToServices')}
           </Text>
           {loadingTiers && <PageSpinner />}
-          <Table
+          <Table<AppDynamicsTier>
             columns={[
               {
                 id: '1',
                 Header: '',
                 width: '5%',
-                Cell: function SelectedCellWrapper({ row }: any) {
+                disableSortBy: true,
+                accessor: 'name',
+                Cell: function SelectTierCell({ value: tierName }: CellProps<AppDynamicsTier>) {
                   return (
-                    <SelectedCell
-                      tierId={row.original.id}
-                      tierData={state[row.original.id]}
-                      onUpdate={(tierId: number, update: TierRecord) => {
-                        onTierUpdate(
-                          tierId,
-                          update
-                            ? {
-                                ...update,
-                                name: row.original.name,
-                                appId: selectedAppId,
-                                totalTiers: tiers?.resource?.totalItems
-                              }
-                            : update
-                        )
-                        if (update) {
-                          setError('selectTier', undefined)
-                        }
+                    <input
+                      type="checkbox"
+                      className="select-tier"
+                      checked={!!state[selectedAppName]?.tiers?.[tierName]}
+                      onChange={e => {
+                        onSetTierData(selectedAppName, tierName, e.target.checked ? { name: tierName } : undefined)
                       }}
                     />
                   )
@@ -326,12 +340,12 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                 ),
                 width: '30%',
                 disableSortBy: true,
-                Cell: function ValidationCellWrapper({ row }: any) {
+                accessor: 'name',
+                Cell: function ValidationCellWrapper({ value: tierName }: CellProps<AppDynamicsTier>) {
                   return (
                     <ValidationCell
-                      tierId={row.original.id}
-                      tierData={state[row.original.id]}
-                      onValidateTier={onValidateTier}
+                      tier={state[selectedAppName]?.tiers?.[tierName]}
+                      onValidateTier={() => onValidateTier(selectedAppName, tierName)}
                       onShowValidationResult={val => setValidationResult(val)}
                     />
                   )
@@ -352,18 +366,19 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                 ),
                 width: '40%',
                 disableSortBy: true,
-                Cell: function ServiceCellWrapper({ row }: any) {
+                accessor: 'name',
+                Cell: function ServiceCellWrapper({ value: tierName }: any) {
                   return (
                     <ServiceCell
-                      tierId={row.original.id}
-                      tierData={state[row.original.id]}
-                      onUpdate={onTierUpdate}
-                      options={serviceOptions}
-                      onValidateTier={onValidateTier}
-                      onServiceCreated={service => {
-                        setServiceOptions(old => [{ label: service.name!, value: service.identifier! }, ...old])
-                        onTierUpdate(row.original.id, { service: service.identifier })
+                      value={state[selectedAppName]?.tiers?.[tierName]?.service}
+                      disabled={!state[selectedAppName]?.tiers?.[tierName]}
+                      onSelect={service => {
+                        onValidateTier(selectedAppName, tierName)
+                        onSetTierData(selectedAppName, tierName, { name: tierName, service })
+                        setError('selectTier', undefined)
                       }}
+                      options={serviceOptions}
+                      onUpdateOptions={setServiceOptions}
                     />
                   )
                 }
@@ -378,7 +393,9 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               gotoPage: (page: number) => setPageIndex(page)
             }}
           />
-          {!!selectedAppId && errors[selectedAppId] && <Text color={Color.RED_500}>{errors[selectedAppId]}</Text>}
+          {!!selectedAppName && errors[selectedAppName!] && (
+            <Text color={Color.RED_500}>{errors[selectedAppName]}</Text>
+          )}
           {renderError('selectTier')}
           {!loadingTiers && !tiers?.resource?.content?.length && (
             <Container height={250}>

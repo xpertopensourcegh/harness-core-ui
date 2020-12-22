@@ -26,6 +26,7 @@ export interface SelectOrCreateConnectorProps extends ConnectorSelectionProps {
   iconName: IconName
   iconLabel: string
   iconSize?: number
+  identifierDisabled?: boolean
 }
 
 export const SelectOrCreateConnectorFieldNames = {
@@ -122,7 +123,11 @@ export function SelectOrCreateConnector(props: SelectOrCreateConnectorProps): JS
         renderLabelOutsideCard={true}
       />
       <AddDescriptionAndTagsWithIdentifier
-        identifierProps={{ inputLabel: i18n.name, inputName: SelectOrCreateConnectorFieldNames.NAME }}
+        identifierProps={{
+          inputLabel: i18n.name,
+          inputName: SelectOrCreateConnectorFieldNames.NAME,
+          isIdentifierEditable: !props.identifierDisabled
+        }}
       />
       <ConnectorSelection {...connectorSelectionProps} />
     </Container>

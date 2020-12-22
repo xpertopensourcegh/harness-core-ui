@@ -104,6 +104,11 @@ export default function CVSideNav(): React.ReactElement {
               iconName="square"
               to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
             />
+            <AdminSelectorLink
+              label={getString('cv.navLinks.adminSideNavLinks.monitoringSources')}
+              iconName="desktop"
+              to={routes.toCVAdminMonitoringSources({ projectIdentifier, orgIdentifier, accountId })}
+            />
           </AdminSelector>
         </React.Fragment>
       ) : null}

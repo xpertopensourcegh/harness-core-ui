@@ -1,15 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import type { BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetDSConfig, RestResponseDSConfig } from 'services/cv'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import SelectApplications from './SelectApplications/SelectApplications'
 import MapApplications from './MapApplications/MapApplications'
 import ReviewTiersAndApps from './ReviewTiersAndApps/ReviewTiersAndApps'
+import type { InternalState } from './AppDOnboardingUtils'
 
 interface AppDMonitoringSourceDataType extends BaseSetupTabsObject {
   [key: string]: any // Add Types
+}
+
+function transformDSResponse(dsConfig: any) {
+  if (dsConfig) {
+    return {
+      identifier: dsConfig.identifier,
+      name: dsConfig.monitoringSourceName,
+      connectorRef: { label: dsConfig.connectorIdentifier, value: dsConfig.connectorIdentifier },
+      product: dsConfig.productName,
+      metricPacks: dsConfig.appConfigs[0].metricPacks,
+      applications: dsConfig.appConfigs.reduce((acc: InternalState, appConfig: any) => {
+        acc[appConfig.applicationName] = {
+          name: appConfig.applicationName,
+          environment: appConfig.envIdentifier,
+          tiers: appConfig.serviceMappings.reduce(
+            (a: any, mapping: any) => ({
+              ...a,
+              [mapping.tierName]: {
+                name: mapping.tierName,
+                service: mapping.serviceIdentifier
+              }
+            }),
+            {}
+          )
+        }
+        return acc
+      }, {})
+    }
+  }
+  return {}
 }
 
 const AppDMonitoringSource = () => {
@@ -17,6 +51,32 @@ const AppDMonitoringSource = () => {
     AppDMonitoringSourceDataType
   >({ totalTabs: 4 })
   const { getString } = useStrings()
+  const { accountId, projectIdentifier, orgIdentifier, identifier } = useParams<
+    ProjectPathProps & { identifier: string }
+  >()
+  const { refetch: fetchDSConfig } = useGetDSConfig({
+    identifier,
+    lazy: true,
+    resolve: (response: RestResponseDSConfig) => {
+      setCurrentData({
+        ...currentData,
+        ...transformDSResponse(response.resource)
+      })
+      return response
+    }
+  })
+
+  useEffect(() => {
+    if (identifier) {
+      fetchDSConfig({
+        queryParams: {
+          accountId,
+          projectIdentifier,
+          orgIdentifier
+        }
+      })
+    }
+  }, [identifier])
 
   return (
     <CVOnboardingTabs
@@ -38,6 +98,9 @@ const AppDMonitoringSource = () => {
               stepData={currentData}
               type="AppDynamics"
               onCompleteStep={stepData => {
+                if (currentData?.connectorRef?.value !== stepData?.connectorRef?.value) {
+                  stepData = { ...stepData, applications: null }
+                }
                 setCurrentData({ ...currentData, ...stepData })
                 onNext({ data: { ...currentData, ...stepData } })
               }}
@@ -71,7 +134,6 @@ const AppDMonitoringSource = () => {
                 connectorIdentifier: currentData?.connectorRef?.value,
                 productName: currentData?.product,
                 applications: currentData?.applications,
-                tiers: currentData?.tiers,
                 metricPacks: currentData?.metricPacks
               }}
               onCompleteStep={stepData => {

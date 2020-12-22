@@ -1,0 +1,10 @@
+.search {
+  width: 300px !important;
+}
+
+.main {
+  padding: var(--spacing-large) !important;
+  .moreButton {
+    transform: rotate(90deg);
+  }
+}

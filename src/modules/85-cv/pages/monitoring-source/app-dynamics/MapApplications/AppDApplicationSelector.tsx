@@ -5,16 +5,16 @@ import SideNavigation from '../../SideNavigation/SideNavigation'
 import type { ApplicationRecord } from '../AppDOnboardingUtils'
 
 interface AppDApplicationSelectorProps {
-  applications: { [appId: number]: ApplicationRecord }
-  statuses: { [appId: number]: 'WARNING' | 'SUCCESS' | 'ERROR' }
-  selectedAppId?: number
-  onSelect?(id: number): void
+  applications: { [appName: number]: ApplicationRecord }
+  statuses: { [appName: string]: 'WARNING' | 'SUCCESS' | 'ERROR' }
+  selectedAppName?: string
+  onSelect?(appName: string): void
 }
 
 export default function AppDApplicationSelector({
   applications,
   statuses,
-  selectedAppId,
+  selectedAppName,
   onSelect
 }: AppDApplicationSelectorProps) {
   const data = useMemo(() => {
@@ -22,8 +22,8 @@ export default function AppDApplicationSelector({
     Object.values(intermediate).forEach(apps => apps.sort((a, b) => (a.name < b.name ? -1 : 1)))
     const envs = Object.keys(intermediate).sort()
 
-    if (!selectedAppId) {
-      setTimeout(() => onSelect?.(intermediate[envs[0]][0].id))
+    if (!selectedAppName) {
+      setTimeout(() => onSelect?.(intermediate[envs[0]][0].name))
     }
 
     return envs.map((env: string) => {
@@ -32,9 +32,8 @@ export default function AppDApplicationSelector({
         label: env,
         icon: 'harness' as IconName,
         items: apps.map(val => ({
-          id: val.id,
           label: val.name,
-          status: statuses[val.id],
+          status: statuses[val.name],
           leftLogo: { name: 'service-appdynamics' as IconName }
         }))
       }
@@ -44,8 +43,8 @@ export default function AppDApplicationSelector({
   return (
     <SideNavigation
       data={data}
-      isSelectedMapper={(val: any) => val.id === selectedAppId}
-      onSelect={(val: any) => onSelect?.(val.id)}
+      isSelectedMapper={val => val.label === selectedAppName}
+      onSelect={val => onSelect?.(val.label)}
     />
   )
 }
