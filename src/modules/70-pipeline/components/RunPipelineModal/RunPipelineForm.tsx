@@ -281,8 +281,8 @@ export function RunPipelineForm({
             />
           </Layout.Horizontal>
         )}
-        <Formik initialValues={currentPipeline || {}} onSubmit={noop} enableReinitialize>
-          {({ setFieldValue, values }) => {
+        <Formik initialValues={currentPipeline?.pipeline || {}} onSubmit={noop} enableReinitialize>
+          {({ values }) => {
             return (
               <>
                 <Layout.Horizontal
@@ -295,10 +295,6 @@ export function RunPipelineForm({
                         <PipelineInputSetForm
                           originalPipeline={pipeline}
                           template={parse(template.data.inputSetTemplateYaml).pipeline}
-                          pipeline={values.pipeline}
-                          onUpdate={updatedPipeline => {
-                            setFieldValue('pipeline', updatedPipeline)
-                          }}
                         />
                       ) : (
                         <Layout.Horizontal padding="medium" margin="medium">
@@ -325,7 +321,7 @@ export function RunPipelineForm({
                         type="submit"
                         icon="run-pipeline"
                         text={i18n.runPipeline}
-                        onClick={() => handleRunPipeline(values.pipeline as any)}
+                        onClick={() => handleRunPipeline(values as any)}
                       />
                       <Checkbox
                         disabled
@@ -361,7 +357,7 @@ export function RunPipelineForm({
                                 validationSchema={Yup.object().shape({
                                   name: Yup.string().trim().required(i18n.nameIsRequired)
                                 })}
-                                initialValues={{ pipeline: values.pipeline, name: '', identifier: '' } as InputSetDTO}
+                                initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
                               >
                                 {({ submitForm, values: formikValues }) => {
                                   return (

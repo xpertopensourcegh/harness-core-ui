@@ -1,11 +1,11 @@
 import React from 'react'
-import { isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
 import type { IconName } from '@blueprintjs/core'
-import * as Yup from 'yup'
 import { Button, Collapse, Container, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
+import type { FormikErrors } from 'formik'
 import type { NgPipeline } from 'services/cd-ng'
 
 import {
@@ -33,8 +33,8 @@ import routes from '@common/RouteDefinitions'
 import { useAppStore, useStrings } from 'framework/exports'
 import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
+import { clearRuntimeInput, validatePipeline } from '../AbstractSteps/StepUtil'
 import css from './InputSetForm.module.scss'
-
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
   identifier?: string
@@ -173,11 +173,11 @@ export const InputSetForm: React.FC = (): JSX.Element => {
         tags: inputSetObj.tags,
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
-        pipeline: inputYamlObj
+        pipeline: clearRuntimeInput(inputYamlObj)
       }
     }
     return getDefaultInputSet(
-      parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any
+      clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any)
     )
   }, [mergeTemplate, inputSetResponse?.data, template?.data?.inputSetTemplateYaml])
 
@@ -330,14 +330,25 @@ export const InputSetForm: React.FC = (): JSX.Element => {
             <Formik<InputSetDTO>
               initialValues={{ ...inputSet }}
               enableReinitialize={true}
-              validationSchema={Yup.object().shape({
-                name: Yup.string().trim().required(i18n.nameIsRequired)
-              })}
+              validate={values => {
+                const errors: FormikErrors<InputSetDTO> = {}
+                if (isEmpty(values.name)) {
+                  errors.name = i18n.nameIsRequired
+                }
+                if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
+                  errors.pipeline = validatePipeline(
+                    values.pipeline,
+                    parse(template.data.inputSetTemplateYaml).pipeline,
+                    parse(pipeline.data.yamlPipeline).pipeline
+                  ) as any
+                }
+                return errors
+              }}
               onSubmit={values => {
                 handleSubmit(values)
               }}
             >
-              {({ values, setFieldValue }) => {
+              {({ values }) => {
                 return (
                   <>
                     {selectedView === SelectedView.VISUAL ? (
@@ -353,12 +364,9 @@ export const InputSetForm: React.FC = (): JSX.Element => {
                             template?.data?.inputSetTemplateYaml &&
                             parse(template.data.inputSetTemplateYaml) && (
                               <PipelineInputSetForm
-                                originalPipeline={parse(pipeline.data.yamlPipeline || '').pipeline}
-                                template={parse(template.data.inputSetTemplateYaml).pipeline}
-                                pipeline={values.pipeline}
-                                onUpdate={updatedPipeline => {
-                                  setFieldValue('pipeline', updatedPipeline)
-                                }}
+                                path="pipeline"
+                                originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
+                                template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
                               />
                             )}
                         </Layout.Vertical>

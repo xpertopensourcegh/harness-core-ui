@@ -440,6 +440,9 @@ export class S3Step extends PipelineStep<any /*S3StepData*/> {
     return <S3StepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.S3
   // TODO: Add i18n support
   protected stepName = 'Upload to S3'

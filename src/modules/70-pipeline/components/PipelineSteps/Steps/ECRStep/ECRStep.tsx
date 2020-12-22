@@ -611,6 +611,9 @@ export class ECRStep extends PipelineStep<any /*ECRStepData*/> {
   ): JSX.Element {
     return <ECRStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.ECR
   // TODO: Add i18n support

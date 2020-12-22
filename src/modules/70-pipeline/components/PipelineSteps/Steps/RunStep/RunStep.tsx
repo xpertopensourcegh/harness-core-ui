@@ -370,6 +370,9 @@ export class RunStep extends PipelineStep<RunStepData> {
   ): JSX.Element {
     return <RunStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.Run
   protected stepName = i18n.title

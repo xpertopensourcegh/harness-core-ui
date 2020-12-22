@@ -5,7 +5,7 @@ export enum StepType {
   K8sRollingRollback = 'K8sRollingRollback',
   K8sBlueGreenDeploy = 'K8sBlueGreenDeploy',
   StepGroup = 'StepGroup',
-  KubernetesInfraSpec = 'KubernetesInfraSpec',
+  KubernetesDirect = 'KubernetesDirect',
   K8sServiceSpec = 'K8sServiceSpec',
   K8sRollingDeploy = 'K8sRollingDeploy',
   CustomVariable = 'Custom_Variable',

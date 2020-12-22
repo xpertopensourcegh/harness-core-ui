@@ -462,6 +462,9 @@ export class Dependency extends PipelineStep<DependencyData> {
   ): JSX.Element {
     return <DependencyWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.Dependency
   // TODO: Add i18n support

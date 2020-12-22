@@ -131,7 +131,9 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     initialValues: K8RolloutDeployData,
     onUpdate?: (data: K8RolloutDeployData) => void,
     stepViewType?: StepViewType,
-    template?: K8RolloutDeployData
+    inputSetData?: {
+      template?: K8RolloutDeployData
+    }
   ): JSX.Element {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -139,11 +141,14 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={template}
+          template={inputSetData?.template}
         />
       )
     }
     return <K8RolloutDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+  }
+  validateInputSet(): object {
+    return {}
   }
 
   protected type = StepType.K8sRollingDeploy

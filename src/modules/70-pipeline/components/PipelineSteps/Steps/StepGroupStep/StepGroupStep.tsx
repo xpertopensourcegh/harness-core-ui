@@ -51,6 +51,9 @@ export class StepGroupStep extends PipelineStep<StepGroupElement> {
     return <StepGroupWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.StepGroup
   protected stepName = i18n.stepGroup
   protected stepIcon: IconName = 'step-group'

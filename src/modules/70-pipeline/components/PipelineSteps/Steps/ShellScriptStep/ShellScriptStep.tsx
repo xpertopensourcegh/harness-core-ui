@@ -55,6 +55,9 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     return <ShellScriptWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.SHELLSCRIPT
   protected stepName = i18n.shellScriptStep
   protected stepIcon: IconName = 'command-shell-script'

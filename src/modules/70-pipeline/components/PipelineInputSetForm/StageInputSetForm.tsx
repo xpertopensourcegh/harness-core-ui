@@ -1,5 +1,7 @@
 import React from 'react'
 import { Label } from '@wings-software/uikit'
+import { connect } from 'formik'
+import { get, set } from 'lodash-es'
 import { StepViewType, StepWidget } from '@pipeline/exports'
 import type {
   DeploymentStageConfig,
@@ -14,24 +16,7 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
-
-function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[]): ExecutionWrapperConfig | undefined {
-  let responseStep: ExecutionWrapperConfig | undefined = undefined
-  steps?.forEach(item => {
-    if (item.step?.identifier === stepId) {
-      responseStep = item
-    } else if (item.stepGroup?.identifier === stepId) {
-      responseStep = item
-    } else if (item.parallel) {
-      return ((item.parallel as unknown) as StepElement[]).forEach((node: ExecutionWrapper) => {
-        if (node.step.identifier === stepId) {
-          responseStep = node
-        }
-      })
-    }
-  })
-  return responseStep
-}
+import { getStepFromStage } from '../AbstractSteps/StepUtil'
 
 function StepForm({
   template,
@@ -62,18 +47,19 @@ function StepForm({
 export interface StageInputSetFormProps {
   deploymentStage?: DeploymentStageConfig
   deploymentStageTemplate: DeploymentStageConfig
-  deploymentStageInputSet?: DeploymentStageConfig
-  onUpdate: (deploymentStage?: DeploymentStageConfig) => void
+  path: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formik?: any
 }
 
 function ExecutionWrapperInputSetForm(props: {
   stepsTemplate: ExecutionWrapperConfig[]
-  onUpdate: StageInputSetFormProps['onUpdate']
-  deploymentStageInputSet: StageInputSetFormProps['deploymentStageInputSet']
+  formik: StageInputSetFormProps['formik']
+  path: string
   allValues?: ExecutionWrapperConfig[]
   values?: ExecutionWrapperConfig[]
 }): JSX.Element {
-  const { stepsTemplate, allValues, values, onUpdate, deploymentStageInputSet } = props
+  const { stepsTemplate, allValues, values, path, formik } = props
   return (
     <>
       {stepsTemplate?.map((item, index) => {
@@ -92,13 +78,13 @@ function ExecutionWrapperInputSetForm(props: {
                     initialValues.step = { identifier: originalStep.step?.identifier || '' }
                   }
                   initialValues.step = { ...data, identifier: originalStep.step?.identifier || '' }
-                  onUpdate(deploymentStageInputSet)
+                  formik?.setValues(set(formik?.values, `${path}[${index}].step`, initialValues.step))
                 }
               }}
             />
           ) : null
         } else if (item.parallel) {
-          return ((item.parallel as unknown) as StepElement[]).map((nodep: ExecutionWrapper) => {
+          return ((item.parallel as unknown) as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
             if (nodep.step) {
               const originalStep = getStepFromStage(nodep.step?.identifier || '', allValues)
               const initialValues = getStepFromStage(nodep.step?.identifier || '', values)
@@ -114,7 +100,9 @@ function ExecutionWrapperInputSetForm(props: {
                         initialValues.step = { identifier: originalStep.step?.identifier || '' }
                       }
                       initialValues.step = { ...data, identifier: originalStep.step?.identifier || '' }
-                      onUpdate(deploymentStageInputSet)
+                      formik?.setValues(
+                        set(formik?.values, `${path}[${index}].parallel[${indexp}].step`, initialValues.step)
+                      )
                     }
                   }}
                 />
@@ -133,10 +121,10 @@ function ExecutionWrapperInputSetForm(props: {
               >
                 <ExecutionWrapperInputSetForm
                   stepsTemplate={item.stepGroup.steps}
-                  onUpdate={onUpdate}
+                  formik={formik}
+                  path={`${path}[${index}].stepGroup.steps`}
                   allValues={stepGroup?.stepGroup?.steps}
                   values={initialValues?.stepGroup?.steps}
-                  deploymentStageInputSet={deploymentStageInputSet}
                 />
               </CollapseForm>
               {item.stepGroup.rollbackSteps && (
@@ -147,10 +135,10 @@ function ExecutionWrapperInputSetForm(props: {
                 >
                   <ExecutionWrapperInputSetForm
                     stepsTemplate={item.stepGroup.rollbackSteps}
-                    onUpdate={onUpdate}
+                    formik={formik}
+                    path={`${path}[${index}].stepGroup.rollbackSteps`}
                     allValues={stepGroup?.stepGroup?.rollbackSteps}
                     values={initialValues?.stepGroup?.rollbackSteps}
-                    deploymentStageInputSet={deploymentStageInputSet}
                   />
                 </CollapseForm>
               )}
@@ -162,15 +150,16 @@ function ExecutionWrapperInputSetForm(props: {
   )
 }
 
-export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
+export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   deploymentStageTemplate,
   deploymentStage,
-  deploymentStageInputSet,
-  onUpdate
+  path,
+  formik
 }) => {
+  const deploymentStageInputSet = get(formik?.values, path, {})
   return (
     <>
-      {deploymentStageTemplate.service && (
+      {deploymentStageTemplate.service?.serviceDefinition?.type === 'Kubernetes' && (
         <CollapseForm
           header={i18n.service(deploymentStage?.service?.name || '')}
           headerProps={{ font: { size: 'normal' } }}
@@ -186,7 +175,7 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
             onUpdate={(data: any) => {
               if (deploymentStageInputSet?.service?.serviceDefinition?.spec) {
                 deploymentStageInputSet.service.serviceDefinition.spec = data
-                onUpdate(deploymentStageInputSet)
+                formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
               }
             }}
           />
@@ -204,11 +193,12 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
               template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
               initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
               allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
-              type={StepType.KubernetesInfraSpec}
+              type={deploymentStage?.infrastructure?.infrastructureDefinition?.type || StepType.KubernetesDirect}
+              path={`${path}.infrastructure.infrastructureDefinition.spec`}
               onUpdate={data => {
                 if (deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec) {
                   deploymentStageInputSet.infrastructure.infrastructureDefinition.spec = data
-                  onUpdate(deploymentStageInputSet)
+                  formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                 }
               }}
               stepViewType={StepViewType.InputSet}
@@ -229,10 +219,10 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
         <CollapseForm header={i18n.execution} headerProps={{ font: { size: 'normal' } }} headerColor="var(--black)">
           <ExecutionWrapperInputSetForm
             stepsTemplate={deploymentStageTemplate.execution.steps}
-            onUpdate={onUpdate}
+            path={`${path}.execution.steps`}
             allValues={deploymentStage?.execution?.steps}
             values={deploymentStageInputSet?.execution?.steps}
-            deploymentStageInputSet={deploymentStageInputSet}
+            formik={formik}
           />
         </CollapseForm>
       )}
@@ -240,13 +230,14 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
         <CollapseForm header={i18n.rollbackSteps} headerProps={{ font: { size: 'normal' } }} headerColor="var(--black)">
           <ExecutionWrapperInputSetForm
             stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
-            onUpdate={onUpdate}
+            path={`${path}.execution.rollbackSteps`}
             allValues={deploymentStage?.execution?.rollbackSteps}
             values={deploymentStageInputSet?.execution?.rollbackSteps}
-            deploymentStageInputSet={deploymentStageInputSet}
+            formik={formik}
           />
         </CollapseForm>
       )}
     </>
   )
 }
+export const StageInputSetForm = connect(StageInputSetFormInternal)

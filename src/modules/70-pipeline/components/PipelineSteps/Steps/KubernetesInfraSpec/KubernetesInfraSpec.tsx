@@ -9,12 +9,10 @@ import {
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Icon,
-  TextInput
+  Icon
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
-import { FormGroup } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepViewType, ConfigureOptions } from '@pipeline/exports'
@@ -41,7 +39,7 @@ import {
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
-import { loggerFor, ModuleName } from 'framework/exports'
+import { loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './KubernetesInfraSpec.18n'
 import { PipelineStep } from '../../PipelineStep'
@@ -237,10 +235,11 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   )
 }
 
-const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> = ({
+const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & { path: string }> = ({
   onUpdate,
   initialValues,
-  template
+  template,
+  path
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -308,38 +307,18 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
         />
       )}
       {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
-        <FormGroup labelFor="releaseName" label={i18n.releaseName}>
-          <TextInput
-            placeholder={i18n.releaseNamePlaceholder}
-            style={{ width: 400 }}
-            name="releaseName"
-            value={
-              getMultiTypeFromValue(initialValues.releaseName) === MultiTypeInputType.RUNTIME
-                ? ''
-                : initialValues.releaseName || ''
-            }
-            onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, releaseName: event.currentTarget.value })
-            }}
-          ></TextInput>
-        </FormGroup>
+        <FormInput.Text
+          name={`${path}.releaseName`}
+          label={i18n.releaseName}
+          placeholder={i18n.releaseNamePlaceholder}
+        />
       )}
       {getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME && (
-        <FormGroup labelFor="namespace" label={i18n.nameSpaceLabel}>
-          <TextInput
-            placeholder={i18n.nameSpacePlaceholder}
-            style={{ width: 400 }}
-            name="namespace"
-            value={
-              getMultiTypeFromValue(initialValues.namespace) === MultiTypeInputType.RUNTIME
-                ? ''
-                : initialValues.namespace || ''
-            }
-            onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, namespace: event.currentTarget.value })
-            }}
-          ></TextInput>
-        </FormGroup>
+        <FormInput.Text
+          name={`${path}.namespace`}
+          label={i18n.nameSpaceLabel}
+          placeholder={i18n.nameSpacePlaceholder}
+        />
       )}
     </Layout.Vertical>
   )
@@ -353,7 +332,7 @@ const KubernetesDirectRegex = /^.+stage\.spec\.infrastructure\.infrastructureDef
 const KubernetesDirectType = 'KubernetesDirect'
 export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureStep> {
   lastFetched: number
-  protected type = StepType.KubernetesInfraSpec
+  protected type = StepType.KubernetesDirect
   protected defaultValues: K8SDirectInfrastructure = {}
 
   protected stepIcon: IconName = 'service-kubernetes'
@@ -406,11 +385,29 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     })
   }
 
+  validateInputSet(
+    data: K8SDirectInfrastructure,
+    template?: K8SDirectInfrastructureTemplate,
+    getString?: UseStringsReturn['getString']
+  ): object {
+    const errors: K8SDirectInfrastructureTemplate = {}
+    if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
+      errors.namespace = getString?.('fieldRequired', { field: 'Namespace' })
+    }
+    if (isEmpty(data.releaseName) && getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME) {
+      errors.releaseName = getString?.('fieldRequired', { field: 'Release Name' })
+    }
+    return errors
+  }
+
   renderStep(
     initialValues: K8SDirectInfrastructure,
     onUpdate?: ((data: K8SDirectInfrastructure) => void) | undefined,
     stepViewType?: StepViewType | undefined,
-    template?: K8SDirectInfrastructureTemplate
+    inputSetData?: {
+      template?: K8SDirectInfrastructure
+      path: string
+    }
   ): JSX.Element {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -418,18 +415,12 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={template}
+          template={inputSetData?.template}
+          path={inputSetData?.path || ''}
         />
       )
     }
 
-    return (
-      <KubernetesInfraSpecEditable
-        initialValues={initialValues}
-        onUpdate={onUpdate}
-        stepViewType={stepViewType}
-        template={template}
-      />
-    )
+    return <KubernetesInfraSpecEditable initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 }

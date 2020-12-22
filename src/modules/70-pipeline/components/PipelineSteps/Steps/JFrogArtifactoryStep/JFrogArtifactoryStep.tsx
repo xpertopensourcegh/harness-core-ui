@@ -437,6 +437,9 @@ export class JFrogArtifactoryStep extends PipelineStep<any /*JFrogArtifactorySte
   ): JSX.Element {
     return <JFrogArtifactoryStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.JFrogArtifactory
   // TODO: Add i18n support

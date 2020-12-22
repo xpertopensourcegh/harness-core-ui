@@ -373,6 +373,9 @@ export class RestoreCacheGCSStep extends PipelineStep<any /*RestoreCacheGCSStepD
   ): JSX.Element {
     return <RestoreCacheGCSStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.RestoreCacheGCS
   // TODO: Add i18n support

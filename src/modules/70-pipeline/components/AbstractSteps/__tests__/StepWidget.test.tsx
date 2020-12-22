@@ -13,7 +13,9 @@ class StepOne extends Step<object> {
   protected type = 'step-one'
   protected stepName = 'stepOne'
   protected stepIcon: IconName = 'cross'
-
+  validateInputSet(): object {
+    return {}
+  }
   protected defaultValues = { a: 'a' }
   renderStep(values: object, onSubmit: (data: object) => void): JSX.Element {
     return <div onClick={() => onSubmit(values)}>{JSON.stringify(values)}</div>
@@ -24,6 +26,9 @@ class StepTwo extends Step<object> {
   protected type = 'step-two'
   protected stepName = 'stepTwo'
   protected stepIcon: IconName = 'cross'
+  validateInputSet(): object {
+    return {}
+  }
 
   protected defaultValues = { b: 'b' }
   renderStep(values: object, onSubmit: (data: object) => void): JSX.Element {

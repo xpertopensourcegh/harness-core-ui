@@ -354,6 +354,9 @@ export class CustomVariables extends Step<VariableList> {
     )
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.CustomVariable
   protected stepName = i18n.customVariables
   protected stepIcon: IconName = 'variable'

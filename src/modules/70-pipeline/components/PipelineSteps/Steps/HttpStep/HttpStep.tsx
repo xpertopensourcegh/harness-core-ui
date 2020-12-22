@@ -87,6 +87,9 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
 
+  validateInputSet(): object {
+    return {}
+  }
   protected defaultValues: HttpStepData = {
     identifier: '',
     spec: {

@@ -400,6 +400,9 @@ export class GCSStep extends PipelineStep<any /*GCSStepData*/> {
     return <GCSStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.GCS
   // TODO: Add i18n support
   protected stepName = 'Upload to GCS'

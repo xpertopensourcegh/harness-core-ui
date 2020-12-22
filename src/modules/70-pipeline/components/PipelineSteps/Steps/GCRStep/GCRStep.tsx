@@ -611,6 +611,9 @@ export class GCRStep extends PipelineStep<any /*GCRStepData*/> {
   ): JSX.Element {
     return <GCRStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.GCR
   // TODO: Add i18n support

@@ -411,6 +411,9 @@ export class SaveCacheS3Step extends PipelineStep<any /*SaveCacheS3StepData*/> {
   ): JSX.Element {
     return <SaveCacheS3StepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.SaveCacheS3
   // TODO: Add i18n support

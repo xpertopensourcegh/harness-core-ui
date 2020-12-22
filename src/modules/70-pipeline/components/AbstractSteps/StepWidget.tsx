@@ -10,6 +10,7 @@ export interface StepWidgetProps<T extends object = {}> {
   initialValues: T
   allValues?: T
   template?: T
+  path?: string
   stepViewType?: StepViewType
   onUpdate?: (data: T) => void
 }
@@ -20,6 +21,7 @@ export function StepWidget<T extends object = {}>({
   initialValues,
   allValues,
   template,
+  path = '',
   stepViewType = StepViewType.Edit,
   onUpdate
 }: StepWidgetProps<T>): JSX.Element {
@@ -28,6 +30,6 @@ export function StepWidget<T extends object = {}>({
     return <Text intent="warning">{i18n.invalidStep}</Text>
   } else {
     const values = step?.getDefaultValues(initialValues, stepViewType)
-    return <>{step.renderStep(values, onUpdate, stepViewType, template, allValues)}</>
+    return <>{step.renderStep(values, onUpdate, stepViewType, { template, allValues, path })}</>
   }
 }

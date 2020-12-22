@@ -1,4 +1,5 @@
 import type { IconName } from '@wings-software/uikit'
+import { isEmpty } from 'lodash-es'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import type { Step } from './Step'
 
@@ -62,8 +63,11 @@ export abstract class AbstractStepFactory {
     }
   }
 
-  getStep<T extends object>(type: string): Step<T> | undefined {
-    return this.stepBank.get(type) as Step<T>
+  getStep<T extends object>(type?: string): Step<T> | undefined {
+    if (type && !isEmpty(type)) {
+      return this.stepBank.get(type) as Step<T>
+    }
+    return
   }
 
   getStepIcon(type: string): IconName {

@@ -591,6 +591,9 @@ export class DockerHubStep extends PipelineStep<any /*DockerHubStepData*/> {
   ): JSX.Element {
     return <DockerHubStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  validateInputSet(): object {
+    return {}
+  }
 
   protected type = StepType.DockerHub
   // TODO: Add i18n support

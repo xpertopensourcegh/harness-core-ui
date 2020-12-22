@@ -23,8 +23,7 @@ interface WebhookPipelineInputPanelPropsInterface {
 const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterface> = ({ formikProps }): JSX.Element => {
   const {
     values: { inputSetSelected, pipeline, originalPipeline },
-    values,
-    setFieldValue
+    values
   } = formikProps
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -122,10 +121,7 @@ const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterfac
             template={
               (template?.data?.inputSetTemplateYaml && parse(template.data.inputSetTemplateYaml).pipeline) || {}
             }
-            pipeline={values.pipeline}
-            onUpdate={updatedPipeline => {
-              setFieldValue('pipeline', updatedPipeline)
-            }}
+            path="pipeline"
           />
         </>
       ) : (

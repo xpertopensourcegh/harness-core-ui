@@ -275,7 +275,7 @@ export default function DeployInfraSpecifications(): JSX.Element {
               factory={factory}
               key={updateKey}
               initialValues={initialValues || {}}
-              type={StepType.KubernetesInfraSpec}
+              type={StepType.KubernetesDirect}
               stepViewType={StepViewType.Edit}
               onUpdate={value => onUpdateDefinition(value)}
             />

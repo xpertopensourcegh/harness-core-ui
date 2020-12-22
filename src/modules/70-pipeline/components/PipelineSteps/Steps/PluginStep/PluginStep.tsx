@@ -367,6 +367,9 @@ export class PluginStep extends PipelineStep<any /*PluginStepData*/> {
     return <PluginStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.Plugin
   protected stepName = i18n.title
   protected stepIcon: IconName = 'plugin-step'

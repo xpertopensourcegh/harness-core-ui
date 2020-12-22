@@ -133,7 +133,9 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
     initialValues: K8sBGDeployData,
     onUpdate?: (data: K8sBGDeployData) => void,
     stepViewType?: StepViewType,
-    template?: K8sBGDeployData
+    inputSetData?: {
+      template?: K8sBGDeployData
+    }
   ): JSX.Element {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -141,13 +143,16 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={template}
+          template={inputSetData?.template}
         />
       )
     }
     return <K8BGDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
+  validateInputSet(): object {
+    return {}
+  }
   protected type = StepType.K8sBlueGreenDeploy
   protected stepName = 'K8s Blue Green Deploy'
   protected stepIcon: IconName = 'service-kubernetes'

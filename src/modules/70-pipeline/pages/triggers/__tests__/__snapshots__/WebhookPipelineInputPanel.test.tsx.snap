@@ -144,11 +144,11 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                     >
                       <div
                         class="bp3-form-group"
-                        data-id="releaseName-0"
+                        data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-0"
                       >
                         <label
                           class="bp3-label"
-                          for="releaseName"
+                          for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                         >
                           Release name
                            
@@ -160,30 +160,26 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                           class="bp3-form-content"
                         >
                           <div
-                            class="TextInput---main--1ytZ"
+                            class="bp3-input-group"
                           >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                class="bp3-input"
-                                name="releaseName"
-                                placeholder="Specify a release name"
-                                style="width: 400px;"
-                                type="text"
-                                value=""
-                              />
-                            </div>
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                              placeholder="Specify a release name"
+                              type="text"
+                              value="\${input}"
+                            />
                           </div>
                         </div>
                       </div>
                       <div
                         class="bp3-form-group"
-                        data-id="namespace-1"
+                        data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-1"
                       >
                         <label
                           class="bp3-label"
-                          for="namespace"
+                          for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                         >
                           Namespace
                            
@@ -195,20 +191,16 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                           class="bp3-form-content"
                         >
                           <div
-                            class="TextInput---main--1ytZ"
+                            class="bp3-input-group"
                           >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                class="bp3-input"
-                                name="namespace"
-                                placeholder="Specify a namespace"
-                                style="width: 400px;"
-                                type="text"
-                                value=""
-                              />
-                            </div>
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                              placeholder="Specify a namespace"
+                              type="text"
+                              value="\${input}"
+                            />
                           </div>
                         </div>
                       </div>

@@ -1,5 +1,7 @@
 import type { IconName } from '@wings-software/uikit'
+import type { FormikErrors } from 'formik'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import type { UseStringsReturn } from 'framework/exports'
 
 export enum StepViewType {
   InputSet = 'InputSet',
@@ -17,6 +19,7 @@ export abstract class Step<T extends object> {
     RegExp,
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
   >
+  abstract validateInputSet(data: T, template?: T, getString?: UseStringsReturn['getString']): FormikErrors<T>
 
   protected stepPaletteVisible?: boolean // default to true
 
@@ -50,7 +53,10 @@ export abstract class Step<T extends object> {
     initialValues: T,
     onUpdate?: (data: T) => void,
     stepViewType?: StepViewType,
-    template?: T,
-    allValues?: T
+    inputSetData?: {
+      template?: T
+      allValues?: T
+      path: string
+    }
   ): JSX.Element
 }

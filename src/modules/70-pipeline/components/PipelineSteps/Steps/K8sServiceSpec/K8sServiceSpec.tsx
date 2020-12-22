@@ -310,11 +310,16 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   protected stepIcon: IconName = 'service-kubernetes'
   protected stepName = 'Deplyment Service'
   protected stepPaletteVisible = false
+  validateInputSet(): object {
+    return {}
+  }
   renderStep(
     initialValues: K8SDirectServiceStep,
     onUpdate?: ((data: K8SDirectServiceStep) => void) | undefined,
     stepViewType?: StepViewType | undefined,
-    template?: ServiceSpec
+    inputSetData?: {
+      template?: ServiceSpec
+    }
   ): JSX.Element {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -322,7 +327,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={template}
+          template={inputSetData?.template}
         />
       )
     }
