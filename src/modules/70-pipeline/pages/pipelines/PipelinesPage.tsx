@@ -81,8 +81,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
-      // TODO once its enabled from CD BE
-      // module,
+      module,
       orgIdentifier,
       searchTerm: searchParam,
       ...extraParam

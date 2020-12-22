@@ -2,6 +2,7 @@ import React, { useEffect, useRef, createRef, RefObject } from 'react'
 import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
 import type { IconName } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
+import type { FormikErrors } from 'formik'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
@@ -24,6 +25,7 @@ export interface WizardMapInterface {
 interface FormikPropsInterface {
   initialValues: any
   validationSchema?: any
+  validate?: (values: any) => FormikErrors<any>
   validateOnBlur?: boolean
   validateOnChange?: boolean
   enableReinitialize?: boolean

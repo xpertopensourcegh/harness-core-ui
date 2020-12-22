@@ -1,6 +1,7 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
-import { string, array, object } from 'yup'
-import type { GetActionsListQueryParams, NGTriggerConfig, NgPipeline, NGTriggerSource } from 'services/cd-ng'
+import { string, array, object, ObjectSchema } from 'yup'
+import type { NgPipeline } from 'services/cd-ng'
+import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import type { PayloadConditionInterface } from '../views/PayloadConditionsSection'
 
@@ -177,7 +178,7 @@ export const getWizardMap = ({
   panels: getPanels(getString)
 })
 
-export const getValidationSchema = (getString: (key: string) => string): object =>
+export const getValidationSchema = (getString: (key: string) => string): ObjectSchema<object | undefined> =>
   object().shape({
     name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
     identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),

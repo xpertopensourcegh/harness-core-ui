@@ -7,7 +7,7 @@ import { PipelineResponse } from '@pipeline/pages/pipeline-details/__tests__/Pip
 import { accountPathProps, triggerPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import TriggerDetails from '../TriggerDetails'
 import { GetTriggerResponse } from '../TriggerDetailsMock'
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/pipeline-ng', () => ({
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useGetPipelineSummary: jest.fn(() => PipelineResponse)
 }))

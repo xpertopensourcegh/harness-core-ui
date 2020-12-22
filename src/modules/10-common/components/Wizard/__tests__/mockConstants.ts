@@ -1,5 +1,5 @@
 export const getDefaultProps = () => ({
-  formikInitialProps: { initialValues: {}, onSubmit: jest.fn() },
+  formikInitialProps: { initialValues: {}, onSubmit: jest.fn(), validate: jest.fn() },
   onHide: jest.fn(),
   wizardMap: {
     wizardLabel: 'Wizard Title',

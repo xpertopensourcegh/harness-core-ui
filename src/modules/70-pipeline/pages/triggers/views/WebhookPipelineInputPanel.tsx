@@ -14,6 +14,7 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
 
+import { clearRuntimeInput } from '@pipeline/components/AbstractSteps/StepUtil'
 import css from './WebhookPipelineInputPanel.module.scss'
 
 interface WebhookPipelineInputPanelPropsInterface {
@@ -60,7 +61,7 @@ const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterfac
             formikProps.setValues({
               ...values,
               inputSetSelected: selectedInputSets,
-              pipeline: merge(pipeline, pipelineObject.pipeline)
+              pipeline: clearRuntimeInput(merge(pipeline, pipelineObject.pipeline))
             })
           }
         }
@@ -79,7 +80,7 @@ const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterfac
               formikProps.setValues({
                 ...values,
                 inputSetSelected: selectedInputSets,
-                pipeline: merge(pipeline, pipelineObject.pipeline)
+                pipeline: clearRuntimeInput(merge(pipeline, pipelineObject.pipeline))
               })
             }
           }

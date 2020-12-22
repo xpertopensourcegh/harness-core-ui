@@ -52,7 +52,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               className={css.title}
               to={routes.toExecutionPipelineView({
                 orgIdentifier,
-                pipelineIdentifier: pipelineExecution?.pipelineIdentifier || 'test',
+                pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
                 executionIdentifier: pipelineExecution?.planExecutionId || '',
                 projectIdentifier,
                 accountId,

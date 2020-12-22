@@ -3,7 +3,7 @@ import type {
   ResponseMapWebhookSourceRepoListWebhookEvent,
   ResponseListWebhookAction,
   ResponseNGTriggerResponse
-} from 'services/cd-ng'
+} from 'services/pipeline-ng'
 
 export const GetSourceRepoToEventResponse: UseGetReturnData<ResponseMapWebhookSourceRepoListWebhookEvent> = {
   loading: false,

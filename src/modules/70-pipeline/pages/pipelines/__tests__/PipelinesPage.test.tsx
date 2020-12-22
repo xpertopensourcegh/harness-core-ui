@@ -146,6 +146,7 @@ describe('CD Pipeline Page List', () => {
       mock: undefined,
       queryParams: {
         accountIdentifier: 'testAcc',
+        module: 'cd',
         orgIdentifier: 'testOrg',
         projectIdentifier: 'test',
         searchTerm: 'asd'

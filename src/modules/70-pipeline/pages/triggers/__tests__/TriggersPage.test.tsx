@@ -13,7 +13,8 @@ const mockDelete = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status:
 const mockUpdateTriggerStatus = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 const mockRedirecToWizard = jest.fn()
 const mockGetTriggersFunction = jest.fn()
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/pipeline-ng', () => ({
+  useGetPipeline: jest.fn(() => GetPipelineResponse),
   useGetTriggerListForTarget: jest.fn(args => {
     mockGetTriggersFunction(args)
     return GetTriggerListForTargetResponse
@@ -21,9 +22,6 @@ jest.mock('services/cd-ng', () => ({
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useDeleteTrigger: jest.fn().mockImplementation(() => ({ mutate: mockDelete })),
   useUpdateTriggerStatus: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTriggerStatus }))
-}))
-jest.mock('services/pipeline-ng', () => ({
-  useGetPipeline: jest.fn(() => GetPipelineResponse)
 }))
 
 jest.mock('react-router-dom', () => ({

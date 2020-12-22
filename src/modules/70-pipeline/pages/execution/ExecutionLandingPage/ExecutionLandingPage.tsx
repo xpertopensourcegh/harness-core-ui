@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 
+import { isEmpty } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import { Duration } from '@common/components/Duration/Duration'
@@ -53,7 +54,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
-      stageIdentifier: queryParams.stage || autoSelectedStageId
+      stageIdentifier: isEmpty(queryParams.stage || autoSelectedStageId)
+        ? undefined
+        : queryParams.stage || autoSelectedStageId
     },
     debounce: 500
   })

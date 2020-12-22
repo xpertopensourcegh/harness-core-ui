@@ -4,8 +4,9 @@ import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wi
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
-import { noop, pick, merge } from 'lodash-es'
+import { pick, merge, isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
+import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { NgPipeline } from 'services/cd-ng'
 import {
@@ -33,6 +34,7 @@ import { useAppStore, useStrings } from 'framework/exports'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
+import { clearRuntimeInput, validatePipeline } from '../AbstractSteps/StepUtil'
 import css from './RunPipelineModal.module.scss'
 
 export interface RunPipelineFormProps extends PipelinePathProps, AccountPathProps {
@@ -115,7 +117,7 @@ export function RunPipelineForm({
     async (valuesPipeline?: NgPipeline) => {
       try {
         const response = await runPipeline(
-          valuesPipeline ? (stringify({ pipeline: valuesPipeline || '' }) as any) : (valuesPipeline as any)
+          !isEmpty(valuesPipeline) ? (stringify({ pipeline: valuesPipeline }) as any) : ''
         )
         const data = response.data
         if (response.status === 'SUCCESS') {
@@ -242,7 +244,17 @@ export function RunPipelineForm({
                   url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
                 },
-                { url: '#', label: pipeline?.name || '' }
+                {
+                  url: routes.toPipelineDetail({
+                    orgIdentifier,
+                    projectIdentifier,
+                    accountId,
+                    pipelineIdentifier,
+                    module
+                  }),
+                  label: pipeline?.name || ''
+                },
+                { url: '#', label: i18n.runPipeline }
               ]}
             />
             <Layout.Horizontal>
@@ -281,8 +293,27 @@ export function RunPipelineForm({
             />
           </Layout.Horizontal>
         )}
-        <Formik initialValues={currentPipeline?.pipeline || {}} onSubmit={noop} enableReinitialize>
-          {({ values }) => {
+        <Formik
+          initialValues={currentPipeline?.pipeline ? clearRuntimeInput(currentPipeline.pipeline) : {}}
+          onSubmit={values => {
+            handleRunPipeline(values as any)
+          }}
+          enableReinitialize
+          validate={values => {
+            let errors: FormikErrors<InputSetDTO> = {}
+
+            if (values && template?.data?.inputSetTemplateYaml && pipeline) {
+              errors = validatePipeline(
+                values as NgPipeline,
+                parse(template.data.inputSetTemplateYaml).pipeline,
+                pipeline,
+                getString
+              ) as any
+            }
+            return errors
+          }}
+        >
+          {({ values, submitForm }) => {
             return (
               <>
                 <Layout.Horizontal
@@ -321,7 +352,10 @@ export function RunPipelineForm({
                         type="submit"
                         icon="run-pipeline"
                         text={i18n.runPipeline}
-                        onClick={() => handleRunPipeline(values as any)}
+                        onClick={event => {
+                          event.stopPropagation()
+                          submitForm()
+                        }}
                       />
                       <Checkbox
                         disabled
@@ -359,7 +393,7 @@ export function RunPipelineForm({
                                 })}
                                 initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
                               >
-                                {({ submitForm, values: formikValues }) => {
+                                {({ submitForm: submitFormIs, values: formikValues }) => {
                                   return (
                                     <>
                                       <BasicInputSetForm isEdit={false} values={formikValues} />
@@ -373,7 +407,7 @@ export function RunPipelineForm({
                                           text={i18n.save}
                                           onClick={event => {
                                             event.stopPropagation()
-                                            submitForm()
+                                            submitFormIs()
                                           }}
                                         />
                                         <Button className={Classes.POPOVER_DISMISS} text={i18n.cancel} />

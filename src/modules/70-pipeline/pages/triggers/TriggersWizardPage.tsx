@@ -8,17 +8,19 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Wizard } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import routes from '@common/RouteDefinitions'
+import type { NgPipeline } from 'services/cd-ng'
 import {
-  NgPipeline,
-  NGTriggerConfig,
-  NGTriggerSource,
+  useGetPipeline,
+  useGetTemplateFromPipeline,
   useCreateTrigger,
   useGetTrigger,
-  useUpdateTrigger
-} from 'services/cd-ng'
-import { useGetPipeline, useGetTemplateFromPipeline } from 'services/pipeline-ng'
+  useUpdateTrigger,
+  NGTriggerConfig,
+  NGTriggerSource
+} from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { clearRuntimeInput } from '@pipeline/components/AbstractSteps/StepUtil'
 import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {
@@ -85,7 +87,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     setCurrentPipeline(
-      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
+      merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
+        pipeline: NgPipeline
+      }
     )
   }, [template?.data?.inputSetTemplateYaml])
 
@@ -172,12 +176,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   //     setOnEditInitialValues({ ...onEditInitialValues, originalPipeline: onEditoriginalPipeline })
   //   }
   // }, [pipelineResponse])
-
-  useEffect(() => {
-    setCurrentPipeline(
-      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
-    )
-  }, [template?.data?.inputSetTemplateYaml])
 
   const returnToTriggersPage = (): void => {
     history.push(

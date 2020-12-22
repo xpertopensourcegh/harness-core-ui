@@ -1,13 +1,11 @@
 import type { UseGetReturnData } from '@common/utils/testUtils'
+import type { ResponseNGPipelineResponse, ResponseConnectorResponse, NGPipelineResponse } from 'services/cd-ng'
 import type {
-  ResponseNGPipelineResponse,
   ResponseInputSetTemplateResponse,
   ResponseMergeInputSetResponse,
-  ResponseConnectorResponse,
   ResponsePageInputSetSummaryResponse,
-  ResponsePageNGTriggerResponse,
-  NGPipelineResponse
-} from 'services/cd-ng'
+  ResponsePageNGTriggerResponse
+} from 'services/pipeline-ng'
 
 export const GetPipelineResponse: UseGetReturnData<ResponseNGPipelineResponse> = {
   loading: false,

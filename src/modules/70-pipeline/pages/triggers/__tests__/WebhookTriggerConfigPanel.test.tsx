@@ -12,7 +12,7 @@ import { GetSourceRepoToEventResponse, GetActionsListResponse } from './webhookM
 import WebhookTriggerConfigPanel from '../views/WebhookTriggerConfigPanel'
 
 const useGetActionsList = jest.fn()
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/pipeline-ng', () => ({
   useGetSourceRepoToEvent: jest.fn(() => GetSourceRepoToEventResponse),
   useGetActionsList: jest.fn(args => {
     useGetActionsList(args)

@@ -24,7 +24,7 @@ import {
   useDeleteTrigger,
   useUpdateTriggerStatus,
   GetActionsListQueryParams
-} from 'services/cd-ng'
+} from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useStrings } from 'framework/exports'

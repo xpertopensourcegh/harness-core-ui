@@ -339,7 +339,8 @@ export const InputSetForm: React.FC = (): JSX.Element => {
                   errors.pipeline = validatePipeline(
                     values.pipeline,
                     parse(template.data.inputSetTemplateYaml).pipeline,
-                    parse(pipeline.data.yamlPipeline).pipeline
+                    parse(pipeline.data.yamlPipeline).pipeline,
+                    getString
                   ) as any
                 }
                 return errors
