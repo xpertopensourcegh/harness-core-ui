@@ -2,34 +2,17 @@ import React from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import {
-  Button,
-  Color,
-  Layout,
-  Popover,
-  Text,
-  Icon,
-  Switch,
-  IconName,
-  Container,
-  SparkChart
-} from '@wings-software/uikit'
+import { Button, Color, Layout, Popover, Text, Icon, Switch, Container, SparkChart } from '@wings-software/uikit'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { isUndefined, isEmpty, sum } from 'lodash-es'
 import type { tagsType } from '@common/utils/types'
 import Table from '@common/components/Table/Table'
-import {
-  NGTriggerDetailsResponse,
-  useDeleteTrigger,
-  useUpdateTriggerStatus,
-  GetActionsListQueryParams
-} from 'services/pipeline-ng'
+import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTriggerStatus } from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useStrings } from 'framework/exports'
-import { GitSourceProviders } from '../utils/TriggersListUtils'
-import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
+import { getTriggerIcon } from '../utils/TriggersListUtils'
 
 import css from './TriggersListSection.module.scss'
 export interface GoToEditWizardInterface {
@@ -41,6 +24,7 @@ interface TriggersListSectionProps {
   data?: NGTriggerDetailsResponse[] // BE accidentally reversed. Will be changed to NGTriggerResponse later
   refetchTriggerList: () => void
   goToEditWizard: ({ triggerIdentifier, triggerType }: GoToEditWizardInterface) => void
+  goToDetails: ({ triggerIdentifier, triggerType }: GoToEditWizardInterface) => void
 }
 
 // type CustomColumn<T extends object> = Column<T> & {
@@ -54,7 +38,7 @@ interface RenderColumnRow {
 }
 interface RenderColumnMenuColumn {
   refetchTriggerList: () => void
-  goToEditWizard: ({ triggerIdentifier, triggerType }: { triggerIdentifier: string; triggerType: string }) => void
+  goToEditWizard: ({ triggerIdentifier, triggerType }: GoToEditWizardInterface) => void
   showSuccess: (str: string) => void
   showError: (str: string) => void
   getString: (str: string) => string
@@ -159,21 +143,6 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 
 const RenderCenteredColumnHeader = (header: string): JSX.Element => <div className={css.textCentered}>{header}</div>
 
-const getIcon = ({
-  type,
-  webhookSourceRepo
-}: {
-  type: string
-  webhookSourceRepo: GetActionsListQueryParams['sourceRepo'] | undefined | string // string temporary until backend
-}): IconName => {
-  const webhookSourceRepoIconName =
-    webhookSourceRepo && GitSourceProviders[webhookSourceRepo as GetActionsListQueryParams['sourceRepo']]?.iconName
-  if (type === TriggerTypes.WEBHOOK && webhookSourceRepoIconName) {
-    return webhookSourceRepoIconName as IconName
-  }
-  // placeholder for now
-  return GitSourceProviders.GITHUB?.iconName as IconName
-}
 const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
   const data = row.original
   return (
@@ -182,7 +151,7 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
         <Icon
           name={
             data.type
-              ? getIcon({ type: data.type, webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo })
+              ? getTriggerIcon({ type: data.type, webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo })
               : 'deployment-success-new'
           }
           size={26}
@@ -269,7 +238,8 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         name="main-link"
         size={20}
         color="blue500"
-        onClick={() => {
+        onClick={e => {
+          e.stopPropagation()
           copy(webhookUrl)
           ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookUrlCopied'))
         }}
@@ -308,7 +278,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
   return (
-    <div className={css.textCentered}>
+    <div className={css.textCentered} onClick={e => e.stopPropagation()}>
       <Switch
         label=""
         checked={data.enabled}
@@ -335,7 +305,8 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
   data,
   refetchTriggerList,
-  goToEditWizard
+  goToEditWizard,
+  goToDetails
 }): JSX.Element => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -427,6 +398,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
       className={css.table}
       columns={columns}
       data={data || /* istanbul ignore next */ []}
+      onRowClick={item => goToDetails({ triggerIdentifier: item.identifier || '' })}
     />
   )
 }

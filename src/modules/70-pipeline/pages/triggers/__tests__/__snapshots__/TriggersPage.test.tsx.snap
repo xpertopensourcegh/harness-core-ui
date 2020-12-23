@@ -157,7 +157,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
           </div>
         </div>
         <div
-          class="row card"
+          class="row card clickable"
           role="row"
         >
           <div
@@ -490,7 +490,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
           </div>
         </div>
         <div
-          class="row card"
+          class="row card clickable"
           role="row"
         >
           <div
@@ -823,7 +823,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
           </div>
         </div>
         <div
-          class="row card"
+          class="row card clickable"
           role="row"
         >
           <div

@@ -140,7 +140,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
       <Layout.Vertical width="60%" spacing="large">
         <Layout.Horizontal spacing="medium">
           <RenderDetailsTable
-            title={getString('connectors.stepOneName')}
+            title={getString('overview')}
             data={getSecretDetailsRow()}
             className={css.renderDetails}
           />

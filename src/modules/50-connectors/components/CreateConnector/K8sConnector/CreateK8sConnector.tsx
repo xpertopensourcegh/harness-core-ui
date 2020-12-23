@@ -26,7 +26,7 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
     >
       <ConnectorDetailsStep
         type={Connectors.KUBERNETES_CLUSTER}
-        name={getString('connectors.stepOneName')}
+        name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}

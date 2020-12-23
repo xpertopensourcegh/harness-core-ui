@@ -28,7 +28,7 @@ const CreateGcpConnector: React.FC<CreateGCPConnectorProps> = props => {
       >
         <ConnectorDetailsStep
           type={Connectors.GCP}
-          name={getString('connectors.stepOneName')}
+          name={getString('overview')}
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
           mock={props.mock}

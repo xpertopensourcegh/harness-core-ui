@@ -34,7 +34,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
     >
       <ConnectorDetailsStep
         type={Connectors.VAULT}
-        name={getString('connectors.stepOneName')}
+        name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}

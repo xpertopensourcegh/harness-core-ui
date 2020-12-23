@@ -123,7 +123,7 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
 export const isUndefinedOrEmptyString = (str: string | undefined): boolean => isUndefined(str) || str?.trim() === ''
 
 const isRowUnfilled = (payloadCondition: PayloadConditionInterface): boolean => {
-  const truthyValuesLength = Object.values(payloadCondition).filter(val => isUndefinedOrEmptyString(val?.trim()))
+  const truthyValuesLength = Object.values(payloadCondition).filter(val => isUndefinedOrEmptyString(val?.trim?.()))
     ?.length
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
@@ -151,7 +151,7 @@ const getPanels = (getString: (key: string) => string): PanelInterface[] => [
   },
   {
     id: 'Conditions',
-    tabTitle: getString('pipeline-triggers.conditionsLabel'),
+    tabTitle: getString('conditions'),
     checkValidPanel: checkValidPayloadConditions
   },
   {

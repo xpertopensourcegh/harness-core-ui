@@ -55,6 +55,7 @@ import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipel
 import { ModuleName, useAppStore } from 'framework/exports'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import { InputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
+import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -227,11 +228,18 @@ export default (
         </PipelineDetails>
       </RouteWithLayout>
       <RouteWithLayout
+        exact
         path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
       >
         <TriggerDetails>
           <TriggersWizardPage />
         </TriggerDetails>
+      </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+      >
+        <TriggersDetailPage />
       </RouteWithLayout>
       <Route exact path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}>
         <RedirectToExecutionPipeline />

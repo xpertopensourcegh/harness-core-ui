@@ -1,0 +1,339 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-xlarge--xV_9 StyledProps---padding-left-xlarge--3m2O StyledProps---padding-bottom-medium--3R7v StyledProps---padding-right-xlarge--xu-3 StyledProps---background-blue200--2drm"
+  >
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+    >
+      <div
+        class="breadcrumbs"
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+          >
+            test
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
+          >
+            Pipelines
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+          >
+            testsdfsdf
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            Trigger__1
+          </span>
+        </div>
+      </div>
+      <div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          style="align-items: center;"
+        >
+          <span
+            class="bp3-icon StyledProps---main--1Wws"
+          >
+            <svg
+              height="26"
+              viewBox="0 0 24 24"
+              width="26"
+            >
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+              />
+            </svg>
+          </span>
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            data-testid="Trigger__1"
+          >
+            <div
+              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            >
+              <div
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                style="align-items: center;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  style="font-size: 20px;"
+                >
+                  Trigger__1
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                >
+                  Enabled
+                </p>
+                <label
+                  class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+                >
+                  <input
+                    checked=""
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  
+                </label>
+              </div>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Trigger__1
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws panel"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws information"
+      >
+        <div
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+        >
+          <div
+            class="optionBtns"
+          >
+            <div
+              class="item selected"
+            >
+              VISUAL
+            </div>
+            <div
+              class="item"
+            >
+              YAML
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws edit StyledProps---intent-primary--2Xgi"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                    stroke="#555770"
+                  />
+                  <path
+                    d="M6.583 5.146l2.063-2.063"
+                    opacity="0.3"
+                    stroke="#606170"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              Edit
+            </span>
+          </button>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <div
+            class="bp3-card bp3-elevation-0 Card---card--2BXa overview"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+            >
+              Overview
+            </p>
+            <div
+              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Trigger Name
+              </p>
+              <p
+                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                style="--text-line-clamp: 1;"
+              >
+                Trigger__1
+              </p>
+              <hr />
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Description
+              </p>
+              <p
+                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                style="--text-line-clamp: 1;"
+              >
+                -
+              </p>
+              <hr />
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Identifier
+              </p>
+              <p
+                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                style="--text-line-clamp: 1;"
+              >
+                Trigger__1
+              </p>
+              <hr />
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Tags
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card---card--2BXa inputSet"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+            >
+              Details
+            </p>
+            <div
+              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Conditions
+              </p>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+              >
+                &lt;cron expression&gt;
+              </p>
+              <hr />
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                Pipeline Execution Input
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        style="flex: 1;"
+      >
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+          >
+            Last Execution Details
+          </p>
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+                style="display: flex; align-items: center;"
+                tabindex="0"
+              >
+                <span
+                  class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+                  icon="warning-sign"
+                >
+                  <svg
+                    data-icon="warning-sign"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      warning-sign
+                    </desc>
+                    <path
+                      d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                Failed
+              </p>
+            </span>
+          </span>
+        </div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+        >
+          <div>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            >
+              Last execution at: 12/23/2020 5:07:21 AM
+            </p>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

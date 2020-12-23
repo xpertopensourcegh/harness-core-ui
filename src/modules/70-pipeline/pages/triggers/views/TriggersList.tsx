@@ -61,6 +61,18 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
       })
     )
   }
+  const goToDetails = ({ triggerIdentifier }: GoToEditWizardInterface): void => {
+    history.push(
+      routes.toTriggersDetailPage({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
+        triggerIdentifier,
+        module
+      })
+    )
+  }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface): void => {
@@ -109,7 +121,12 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
           onClick: openDrawer
         }}
       >
-        <TriggersListSection data={triggerList} refetchTriggerList={refetch} goToEditWizard={goToEditWizard} />
+        <TriggersListSection
+          data={triggerList}
+          refetchTriggerList={refetch}
+          goToEditWizard={goToEditWizard}
+          goToDetails={goToDetails}
+        />
       </Page.Body>
     </>
   )

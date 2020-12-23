@@ -36,7 +36,6 @@ jest.mock('services/pipeline-ng', () => ({
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useCreateTrigger: jest.fn(() => GetTriggerResponse),
   useUpdateTrigger: jest.fn().mockImplementation(() => ({ mutate: mockUpdate })),
-  useGetConnector: jest.fn(() => ConnectorResponse),
   useGetActionsList: jest.fn(args => {
     useGetActionsList(args)
     return GetActionsListResponse

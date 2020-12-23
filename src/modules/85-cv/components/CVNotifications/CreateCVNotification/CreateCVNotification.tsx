@@ -214,7 +214,7 @@ const CreateCVNotification: React.FC<StepProps<any> & CreateCVNotificationProps>
         />
         <ConditionsForm
           onSuccess={props.onSuccess}
-          name={getString('pipeline-triggers.conditionsLabel')}
+          name={getString('conditions')}
           isEditMode={!!props.isEditMode}
           ruleData={ruleData}
           setRuleData={setRuleData}

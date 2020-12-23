@@ -49,7 +49,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - Conditions Panel', async () => {
       const { container } = render(<WrapperComponent />)
-      await waitFor(() => queryByText(container, result.current.getString('pipeline-triggers.conditionsLabel')))
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
       expect(container).toMatchSnapshot()
     })
   })
@@ -57,7 +57,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
     test('Add Payload Conditions row', async () => {
       const { container } = render(<WrapperComponent />)
 
-      await waitFor(() => queryByText(container, result.current.getString('pipeline-triggers.conditionsLabel')))
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
 
       const addButton = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
       if (!addButton) {
@@ -70,7 +70,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
     test('Delete Payload Conditions row (2nd of 3 rows)', async () => {
       const { container } = render(<WrapperComponent />)
 
-      await waitFor(() => queryByText(container, result.current.getString('pipeline-triggers.conditionsLabel')))
+      await waitFor(() => queryByText(container, result.current.getString('conditions')))
 
       const addButton = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
       if (!addButton) {

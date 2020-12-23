@@ -1,5 +1,5 @@
 import type { UseGetReturnData } from '@common/utils/testUtils'
-import type { ResponseNGTriggerResponse } from 'services/cd-ng'
+import type { ResponseNGTriggerResponse } from 'services/pipeline-ng'
 
 export const GetTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   loading: false,

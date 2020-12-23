@@ -219,7 +219,7 @@ const CVNotificationTable: React.FC<CVNotificationTableProps> = props => {
   const columns: CustomColumn<AlertRuleDTO>[] = useMemo(
     () => [
       {
-        Header: getString('cv.admin.notifications.enabled'),
+        Header: getString('enabledLabel'),
         accessor: 'enabled',
         width: '10%',
         Cell: RenderNotificationSwitch,
@@ -235,7 +235,7 @@ const CVNotificationTable: React.FC<CVNotificationTableProps> = props => {
         disableSortBy: true
       },
       {
-        Header: getString('pipeline-triggers.conditionsLabel'),
+        Header: getString('conditions'),
         accessor: 'alertCondition',
 
         width: '30%',

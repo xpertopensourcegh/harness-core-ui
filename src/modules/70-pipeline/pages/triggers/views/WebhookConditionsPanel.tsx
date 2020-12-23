@@ -36,7 +36,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
       padding="xxlarge"
     >
       <h2 className={css.heading}>
-        {getString('pipeline-triggers.conditionsLabel')}{' '}
+        {getString('conditions')}{' '}
         <Text style={{ display: 'inline-block' }} color="grey400">
           {getString('pipeline-triggers.conditionsPanel.titleOptional')}
         </Text>

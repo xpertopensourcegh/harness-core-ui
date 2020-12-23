@@ -3,11 +3,70 @@ import { Container, Layout, Icon, Color } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGetPipelineSummary, useGetTrigger } from 'services/pipeline-ng'
+import { useGetPipelineSummary, useGetTrigger, ResponseNGTriggerResponse } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './TriggerDetails.module.scss'
+
+export const TriggerBreadcrumbs = ({
+  triggerResponse
+}: {
+  triggerResponse: ResponseNGTriggerResponse | null
+}): JSX.Element => {
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+      pipelineIdentifier: string
+      triggerIdentifier: string
+    }>
+  >()
+
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
+  const { getString } = useStrings()
+  const onEditTriggerName = triggerResponse?.data?.name
+  return (
+    <Breadcrumbs
+      links={[
+        {
+          url: routes.toCDProjectOverview({
+            orgIdentifier,
+            projectIdentifier,
+            accountId
+          }),
+          label: project?.name as string
+        },
+        {
+          url: routes.toPipelines({
+            orgIdentifier,
+            projectIdentifier,
+            accountId,
+            module
+          }),
+          label: getString('pipelines')
+        },
+        {
+          url: routes.toTriggersPage({
+            orgIdentifier,
+            projectIdentifier,
+            accountId,
+            pipelineIdentifier,
+            module
+          }),
+          label: pipeline?.data?.name || ''
+        },
+        { url: '#', label: onEditTriggerName || '' }
+      ]}
+    />
+  )
+}
 
 export default function TriggerDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier, module } = useParams<
@@ -20,6 +79,8 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
     }>
   >()
 
+  const { getString } = useStrings()
+
   const { data: triggerResponse } = useGetTrigger({
     triggerIdentifier,
     queryParams: {
@@ -29,52 +90,12 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<{}>
       targetIdentifier: pipelineIdentifier
     }
   })
-  const { data: pipeline } = useGetPipelineSummary({
-    pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-  })
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
-  const { getString } = useStrings()
-  const onEditTriggerName = triggerResponse?.data?.name
-
   return (
     <>
       <Page.Header
         title={
           <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCDProjectOverview({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId
-                  }),
-                  label: project?.name as string
-                },
-                {
-                  url: routes.toPipelines({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    module
-                  }),
-                  label: getString('pipelines')
-                },
-                {
-                  url: routes.toTriggersPage({
-                    orgIdentifier,
-                    projectIdentifier,
-                    pipelineIdentifier,
-                    accountId,
-                    module
-                  }),
-                  label: pipeline?.data?.name || ''
-                },
-                { url: '#', label: onEditTriggerName || '' }
-              ]}
-            />
+            <TriggerBreadcrumbs triggerResponse={triggerResponse} />
           </Layout.Vertical>
         }
         toolbar={

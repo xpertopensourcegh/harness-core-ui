@@ -1,0 +1,59 @@
+.main {
+  --page-header-height: 113px;
+  background-color: var(--grey-100) !important;
+  padding: var(--spacing-large) var(--spacing-xlarge) !important;
+
+  hr {
+    width: 100%;
+    border-top: 1px line var(--grey-200);
+  }
+  .panel {
+    height: 100%;
+    .edit {
+      border: 1px solid var(--blue-500) !important;
+    }
+
+    .information {
+      flex: 2;
+      padding-right: var(--spacing-medium);
+      border-right: 1px solid var(--grey-200);
+      height: 100%;
+      margin-right: var(--spacing-medium);
+      .overview {
+        flex: 1;
+        min-width: 400px;
+      }
+      .input-set {
+        flex: 1;
+        min-width: 440px;
+      }
+    }
+  }
+}
+
+.editor {
+  width: 100%;
+}
+.optionBtns {
+  display: inline-block;
+  background-color: var(--grey-200);
+  border-radius: 10px;
+  font-size: var(--font-size-xsmall);
+  line-height: 14px;
+  width: 132px;
+
+  .item {
+    display: inline-block;
+    padding: var(--spacing-xsmall) var(--spacing-medium);
+    border-radius: 10px;
+    margin: 2px;
+    cursor: pointer;
+  }
+
+  .selected {
+    font-weight: bold;
+    background-color: var(--grey-400);
+    color: var(--white);
+    cursor: default;
+  }
+}

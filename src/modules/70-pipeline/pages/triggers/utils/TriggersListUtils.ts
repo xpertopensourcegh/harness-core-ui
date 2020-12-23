@@ -1,12 +1,30 @@
 import type { IconName } from '@wings-software/uikit'
 // temporary mock data
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
+import type { GetActionsListQueryParams } from 'services/pipeline-ng'
+import { TriggerTypes } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders = {
   GITHUB: { value: 'GITHUB', iconName: 'github', label: 'GitHub' },
   GITLAB: { value: 'GITLAB', iconName: 'service-gotlab', label: 'GitLab' },
   BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket', label: 'BitBucket' }
   // CUSTOM: { value: 'CUSTOM', iconName: 'build' }
+}
+
+export const getTriggerIcon = ({
+  type,
+  webhookSourceRepo
+}: {
+  type: string
+  webhookSourceRepo: GetActionsListQueryParams['sourceRepo'] | undefined | string // string temporary until backend
+}): IconName => {
+  const webhookSourceRepoIconName =
+    webhookSourceRepo && GitSourceProviders[webhookSourceRepo as GetActionsListQueryParams['sourceRepo']]?.iconName
+  if (type === TriggerTypes.WEBHOOK && webhookSourceRepoIconName) {
+    return webhookSourceRepoIconName as IconName
+  }
+  // placeholder for now
+  return GitSourceProviders.GITHUB?.iconName as IconName
 }
 
 const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInterface => ({
