@@ -13,6 +13,7 @@ import css from './SelectActivitySource.module.scss'
 
 export interface SelectActivitySourceProps {
   data?: KubernetesActivitySourceInfo
+  isEditMode?: boolean
   onSubmit?: (data: KubernetesActivitySourceInfo) => void
 }
 
@@ -75,7 +76,7 @@ function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectio
 }
 
 export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Element {
-  const { onSubmit, data } = props
+  const { onSubmit, data, isEditMode } = props
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
@@ -90,7 +91,9 @@ export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Elem
           <Heading level="3" color={Color.BLACK} font={{ size: 'medium' }} className={css.heading}>
             {i18n.selectActivitySource}
           </Heading>
-          <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource }} />
+          <AddDescriptionAndTagsWithIdentifier
+            identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource, isIdentifierEditable: !isEditMode }}
+          />
           <Text color={Color.BLACK} className={css.infraSpecification}>
             {i18n.infraSpecification}
           </Text>

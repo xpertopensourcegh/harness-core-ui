@@ -273,7 +273,9 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           width: '30%',
           disableSortBy: true,
           Cell: function ServiceIdentifier(tableProps: CellProps<WorkloadInfo>) {
-            return (
+            return loading ? (
+              <Container height={16} className={Classes.SKELETON} />
+            ) : (
               <ServiceSelectOrCreate
                 item={tableProps.value}
                 className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
@@ -312,7 +314,9 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           width: '35%',
           disableSortBy: true,
           Cell: function EnvironmentIdentifier(tableProps: CellProps<WorkloadInfo>) {
-            return (
+            return loading ? (
+              <Container height={16} className={Classes.SKELETON} />
+            ) : (
               <EnvironmentSelect
                 options={environmentOptions || []}
                 className={cx(css.selectWidth, loading ? Classes.SKELETON : undefined)}
@@ -326,9 +330,10 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
                     return
                   }
                   const envOption = { label: createdEnv.name, value: createdEnv.identifier }
-                  setEnvironmentOptions(
-                    generateUpdatedServiceOptions(environmentOptions, { label: '', value: -1 }, envOption)
-                  )
+                  setEnvironmentOptions([
+                    envOption,
+                    ...generateUpdatedServiceOptions(environmentOptions, { label: '', value: -1 }, envOption)
+                  ])
                   onClickWorkload({ ...tableProps.row.original, environmentIdentifier: envOption })
                   setTableData(updateTableRow(tableData, 'environmentIdentifier', envOption, tableProps.row.index))
                 }}

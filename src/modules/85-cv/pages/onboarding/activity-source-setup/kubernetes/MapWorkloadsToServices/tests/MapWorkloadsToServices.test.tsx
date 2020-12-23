@@ -205,7 +205,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     const refetchMock = jest.fn()
     const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
     useGetWorkloadSpy.mockReturnValue({
-      data: { resource: { content: ['workload1', 'workload2'] } },
+      data: { resource: { content: ['workload1', 'workload2', 'workload3'] } },
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
@@ -240,6 +240,15 @@ describe('Unit tests for MapWorkloadsToServices', () => {
                       selected: true,
                       workload: 'workload1'
                     }
+                  ],
+                  [
+                    'workload3',
+                    {
+                      environmentIdentifier: { label: 'env_1', value: 'env_1' },
+                      serviceIdentifier: { label: 'service_1', value: 'service_1' },
+                      selected: true,
+                      workload: 'workload3'
+                    }
                   ]
                 ])
               ],
@@ -263,12 +272,12 @@ describe('Unit tests for MapWorkloadsToServices', () => {
       </TestWrapper>
     )
 
+    // click on drop down caret to bring up enu of drop down options
     await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).not.toBeNull())
-    const envDropdown = container.querySelectorAll('[data-icon="caret-down"]')
+    const envDropdown = container.querySelectorAll('.bp3-input-action [data-icon="caret-down"]')
     if (!envDropdown[1]) {
       throw new Error('env was not found.')
     }
-
     fireEvent.click(envDropdown[1])
     await waitFor(() => expect(document.body.querySelector(`[class*="bp3-menu"]`)).not.toBeNull())
 
@@ -277,7 +286,10 @@ describe('Unit tests for MapWorkloadsToServices', () => {
       throw new Error('brp3 menu not rendered.')
     }
 
+    // click on add new env option
     fireEvent.click(menu.children[0])
+
+    //expect modal to be visibl and fill modal content
     await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog-container"]')).not.toBeNull())
 
     const input = document.body.querySelector('input[name="name"]')
@@ -296,7 +308,19 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     fireEvent.click(submitButton)
     await waitFor(() => expect(createEnvMock).toHaveBeenCalledTimes(1))
     fireEvent.click(document.body)
+
+    // expect modal to have disappeared and the newly created option to be selected
     await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog-container"]')).toBeNull())
     await waitFor(() => expect(container.querySelector('input[value="solo-dolo-5"]')).not.toBeNull())
+
+    // ensure created option is in all dropdowns for env for each table row
+    fireEvent.click(container.querySelectorAll('.bp3-input-action [data-icon="caret-down"]')[3])
+    await waitFor(() => expect(document.body.querySelector(`[class*="bp3-menu"]`)).not.toBeNull())
+
+    const menu2 = document.body.querySelector(`[class*="bp3-menu"]`)
+    if (!menu2) {
+      throw new Error('brp3 menu not rendered.')
+    }
+    expect(menu2.children[1]?.innerHTML).toEqual('solo-dolo-5')
   })
 })

@@ -119,6 +119,7 @@ export function KubernetesActivitySource(): JSX.Element {
           title: tabTitles[index],
           component: React.createElement(tabComponent, {
             data: currentData as KubernetesActivitySourceInfo,
+            isEditMode: Boolean(params.activitySourceId),
             onSubmit: (submittedInfo: KubernetesActivitySourceInfo) => {
               if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
               onNext({ data: { ...currentData, ...submittedInfo } })
