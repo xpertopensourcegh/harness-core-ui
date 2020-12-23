@@ -261,7 +261,7 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 }: {
   column: { accountId: string; getString: (str: string) => string }
 }) => {
-  const webhookUrl = window.location.origin + `/ng/api/webhook/trigger?accountIdentifier=${column.accountId}`
+  const webhookUrl = window.location.origin + `/pipeline/api/webhook/trigger?accountIdentifier=${column.accountId}`
   return (
     <div className={css.textCentered}>
       <Icon
