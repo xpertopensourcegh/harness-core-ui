@@ -63,7 +63,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     <AppStoreContext.Provider
       value={{
         strings,
-        updateAppStore: jest.fn(),
+        updateAppStore: () => void 0,
         ...defaultAppStoreValues
       }}
     >

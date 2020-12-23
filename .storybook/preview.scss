@@ -1,0 +1,5 @@
+body {
+  /* overriding App.scss to make it work inside Storybook */
+  min-width: unset !important;
+  min-height: unset !important;
+}

@@ -5,10 +5,17 @@ import { Icon, Pagination, PaginationProps } from '@wings-software/uikit'
 
 import css from './Table.module.scss'
 
-interface TableProps<Data extends object> {
+export interface TableProps<Data extends object> {
+  /**
+   * Column Configuration
+   */
   columns: Column<Data>[]
   data: Data[]
   className?: string
+  /**
+   * Is the table sortable?
+   * @default true
+   */
   sortable?: boolean
   hideHeaders?: boolean
   pagination?: PaginationProps
