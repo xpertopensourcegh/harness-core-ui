@@ -45,10 +45,10 @@ module.exports = {
   },
   coverageThreshold: {
     global: {
-      statements: 50,
-      branches: 30,
-      functions: 30,
-      lines: 50
+      statements: 70,
+      branches: 50,
+      functions: 50,
+      lines: 70
     }
   },
   transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es)/)']
