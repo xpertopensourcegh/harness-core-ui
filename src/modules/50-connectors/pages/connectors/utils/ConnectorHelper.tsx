@@ -11,6 +11,16 @@ export const AuthTypes = {
   ANNONYMOUS: 'Anonymous'
 }
 
+export const GitAuthTypes = {
+  USER_PASSWORD: 'UsernameAndPassword',
+  USER_TOKEN: 'UsernameAndToken'
+}
+
+export const GitAPIAuthTypes = {
+  GITHUB_APP: 'GithubApp',
+  TOKEN: 'Token'
+}
+
 export const dockerProviderTypes = {
   CLIENT_KEY_CERT: 'ClientKeyCert',
   USER_PASSWORD: 'UsernamePassword',
@@ -39,12 +49,14 @@ export const getKubInitialValues = () => {
   }
 }
 
-export const getHeadingByType = (type: string) => {
+export const getHeadingByType = (type: string): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return i18n.k8sClusterDetails
     case Connectors.GIT:
       return i18n.gitConnectorDetails
+    case Connectors.GITHUB:
+      return i18n.githubConnectorDetails
     case Connectors.VAULT:
       return i18n.hashicorpVaultDetails
     case Connectors.GCP_KMS:
@@ -65,7 +77,7 @@ export const getHeadingByType = (type: string) => {
     case Connectors.GCP:
       return i18n.gcpConnectorDetails
     default:
-      return null
+      return ''
   }
 }
 
@@ -75,6 +87,8 @@ export const getConnectorTitleTextByType = (type: string): string => {
       return i18n.LABEL.k8sCluster
     case Connectors.GIT:
       return i18n.LABEL.gitConnector
+    case Connectors.GITHUB:
+      return i18n.LABEL.githubConnector
     case Connectors.VAULT:
       return i18n.LABEL.hashicorpVault
     case Connectors.GCP_KMS:
@@ -105,6 +119,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'app-kubernetes'
     case Connectors.GIT:
       return 'service-github'
+    case Connectors.GITHUB:
+      return 'github'
     case Connectors.VAULT:
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:

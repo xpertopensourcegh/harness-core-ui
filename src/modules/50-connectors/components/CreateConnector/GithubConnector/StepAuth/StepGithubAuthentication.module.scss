@@ -6,42 +6,10 @@
     color: var(--grey-800);
   }
 
-  .clusterWrapper {
+  .stepFormWrapper {
     padding: 2px;
     min-height: 480px;
     overflow: auto;
-
-    .cardRow {
-      display: flex;
-      margin-bottom: var(--spacing-large);
-      .card {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 80px;
-
-        .textInfo {
-          margin: var(--spacing-small) var(--spacing-small) var(--spacing-small) var(--spacing-large);
-        }
-      }
-
-      .selectedCard {
-        background-color: var(--blue-200);
-        border: 2px solid var(--grey-200) !important;
-      }
-
-      :global {
-        .bp3-card {
-          width: 42%;
-          display: flex;
-          justify-content: space-between;
-          padding: 0;
-          margin-right: 4%;
-          border-radius: 8px;
-          background-color: var(--white);
-        }
-      }
-    }
 
     :global {
       .bp3-input,
@@ -66,7 +34,7 @@
         .bp3-input-group {
           .bp3-input {
             width: 100% !important;
-            border: none;
+            border: none !important;
             padding: var(--spacing-small) 0;
             min-width: 190px;
             text-align: end !important;

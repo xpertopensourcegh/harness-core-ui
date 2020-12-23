@@ -43,6 +43,8 @@ const getLabelByType = (type: string): string => {
       return i18n.NAME_LABEL.Kubernetes
     case Connectors.GIT:
       return i18n.NAME_LABEL.GIT
+    case Connectors.GITHUB:
+      return i18n.NAME_LABEL.Github
     case Connectors.DOCKER:
       return i18n.NAME_LABEL.Docker
     case Connectors.GCP:
@@ -166,6 +168,59 @@ const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
     {
       label: i18n.GIT.sshKey,
       value: connector?.spec?.spec?.sshKeyRef ? i18n.k8sCluster.encrypted : null
+    }
+  ]
+}
+
+const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: i18n.Github.configure,
+      value: connector?.spec?.type
+    },
+    {
+      label: i18n.Github.connection,
+      value: connector?.spec?.authentication?.type
+    },
+    {
+      label: i18n.Github.url,
+      value: connector?.spec?.url
+    },
+    {
+      label: i18n.Github.authType,
+      value: connector?.spec?.authentication?.spec?.type
+    },
+    {
+      label: i18n.Github.username,
+      value: connector?.spec?.authentication?.spec?.spec?.username
+    },
+    {
+      label: i18n.Github.password,
+      value: connector?.spec?.authentication?.spec?.spec?.passwordRef ? i18n.k8sCluster.encrypted : null
+    },
+    {
+      label: i18n.Github.accessToken,
+      value:
+        connector?.spec?.authentication?.spec?.spec?.tokenRef || connector?.spec?.apiAccess?.spec?.tokenRef
+          ? i18n.k8sCluster.encrypted
+          : null
+    },
+    {
+      label: i18n.Github.sshKey,
+      value: connector?.spec?.authentication?.spec?.spec?.sshKeyRef ? i18n.k8sCluster.encrypted : null
+    },
+
+    {
+      label: i18n.Github.apiAccessAuthType,
+      value: connector?.spec?.apiAccess?.type
+    },
+    {
+      label: i18n.Github.installationId,
+      value: connector?.spec?.apiAccess?.spec?.installationId
+    },
+    {
+      label: i18n.Github.applicationId,
+      value: connector?.spec?.apiAccess?.spec?.applicationId
     }
   ]
 }
@@ -335,6 +390,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getKubernetesSchema(connector)
     case Connectors.GIT:
       return getGitSchema(connector)
+    case Connectors.GITHUB:
+      return getGithubSchema(connector)
     case Connectors.DOCKER:
       return getDockerSchema(connector)
     case Connectors.GCP:

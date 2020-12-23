@@ -119,6 +119,7 @@ global:
   allowedValues: 'Allowed values'
   serviceAccount: Service Account
   usernamePassword: 'Username and Password'
+  usernameToken: 'Username and Token'
   annonymous: 'Anonymous (no credentials required)'
   saveAndContinue: 'Save and Continue'
   addressErrorFields: 'Please address all error fields before submitting.'
@@ -174,6 +175,9 @@ global:
   projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
   addProject: '+ Add Project'
   noProjects: 'No Projects Found'
+  HTTPS: 'HTTPS'
+  SSH: 'SSH'
+  SSH_KEY: 'SSH Key'
   projectSelector:
     placeholder: 'Start typing to search in all {{number}} items'
   pipelines-studio:
@@ -455,6 +459,11 @@ global:
     name: 'Name is a required field'
     identifier: 'Identifier is required'
     validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
+    duplicateIdError: 'Duplicate identifier'
+    username: 'Username is a required field'
+    authType: 'Auth type is required'
+    installationId: 'GitHub Installation ID is required'
+    applicationId: 'GitHub Application ID is required'
     UrlRequired: URL is required
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
   connectors:
@@ -462,10 +471,10 @@ global:
     delegateOutClusterInfo2: 'Manually enter master url and credentials'
     delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
     stepThreeName: 'Test Connection'
+    authTitle: 'Authentication'
     k8:
       stepTwoName: 'Cluster Details'
       masterUrlLabel: 'Master URL'
-      authTitle: 'Authentication'
       serviceAccountToken: 'Service Account Token'
       skipDefaultValidation: 'Skip default namespace validation'
       OIDCUsername: 'OIDC Username'
@@ -489,6 +498,23 @@ global:
         clientKeyCertificate: 'Client Key Certificate'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
+    git:
+      stepTwoName: 'Github Connection Details'
+      urlType: 'URL Type'
+      gitAccount: 'Git Account'
+      gitRepository: 'Git Repository'
+      connectionType: 'Connection Type'
+      url: 'GitHub Account URL'
+      urlPlaceholder: 'https://www.github.com/account/'
+      urlPlaceholderSSH: 'git@github.com:account/'
+      accessToken: 'Personal Access Token'
+      enableAPIAccess: 'Enable API access'
+      APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
+      APIAuthentication: 'API Authentication'
+      gitHubApp: 'GitHub App'
+      installationId: 'GitHub Installation ID'
+      applicationId: 'GitHub Application ID'
+      privateKey: 'GitHub Private Key'
     docker:
       stepTwoName: 'Docker Registry Details'
       dockerRegistryURL: 'Docker Registry URL'

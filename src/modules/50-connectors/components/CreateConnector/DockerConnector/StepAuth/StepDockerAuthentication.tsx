@@ -114,7 +114,6 @@ const StepDockerAuthentication: React.FC<
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
-      props.onConnectorCreated?.()
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
     } catch (e) {
@@ -196,7 +195,7 @@ const StepDockerAuthentication: React.FC<
               ></FormInput.RadioGroup>
               <Container className={css.authHeaderRow}>
                 <Text className={css.authTitle} inline>
-                  {getString('connectors.k8.authTitle')}
+                  {getString('connectors.authTitle')}
                 </Text>
                 <FormInput.Select name="authType" items={authOptions} disabled={false} />
               </Container>

@@ -2,7 +2,8 @@ export default {
   // Note: Deprecating this file, as we are adding these to strings.en.yaml
   // Todo: Delete this once all usage in helpers are migrated
   k8sClusterDetails: 'Kubernetes Cluster Overview',
-  gitConnectorDetails: 'GIT Connector Details',
+  gitConnectorDetails: 'Git Connector Details',
+  githubConnectorDetails: 'GitHub Connector Overview',
   secretManagerDetails: 'Secret Manager Details',
   dockerConnectorDetails: 'Overview',
   gcpConnectorDetails: 'Google Cloud Provider Overview',
@@ -11,6 +12,7 @@ export default {
     k8sCluster: 'Kubernetes Cluster',
     gcpConnector: 'GCP Connector',
     gitConnector: 'GIT Connector',
+    githubConnector: 'GitHub Connector',
     hashicorpVault: 'HashiCorp Vault',
     secretManager: 'Secret Manager',
     appdynamics: 'AppDynamics connector',

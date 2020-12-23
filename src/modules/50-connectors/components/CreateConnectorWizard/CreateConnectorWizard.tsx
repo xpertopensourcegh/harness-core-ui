@@ -1,9 +1,10 @@
 import React from 'react'
 import { Connectors } from '@connectors/constants'
-import CreateGITConnector from '@connectors/components/CreateConnector/GITConnector/CreateGITConnector'
-import CreateK8sConnector from '@connectors/components/CreateConnector/K8sConnector/CreateK8sConnector'
-import CreateHashiCorpVault from '@connectors/components/CreateConnector/HashiCorpVault/CreateHashiCorpVault'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+import CreateGITConnector from '../CreateConnector/GITConnector/CreateGITConnector'
+import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
+import CreateK8sConnector from '../CreateConnector/K8sConnector/CreateK8sConnector'
+import CreateHashiCorpVault from '../CreateConnector/HashiCorpVault/CreateHashiCorpVault'
 import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector'
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
 import CreateDockerConnector from '../CreateConnector/DockerConnector/CreateDockerConnector'
@@ -44,6 +45,15 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           orgIdentifier={orgIdentifier}
           onSuccess={props.onSuccess}
           projectIdentifier={projectIdentifier}
+        />
+      )
+    case Connectors.GITHUB:
+      return (
+        <CreateGithubConnector
+          onConnectorCreated={props.onSuccess}
+          hideLightModal={hideLightModal}
+          isEditMode={props.isEditMode}
+          connectorInfo={props.connectorInfo}
         />
       )
     case Connectors.VAULT:

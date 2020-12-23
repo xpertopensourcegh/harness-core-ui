@@ -159,6 +159,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     },
     onClose: () => {
       state.setEnableEdit(false)
+      props.refetchConnector()
     }
   })
 

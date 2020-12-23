@@ -13,6 +13,8 @@ interface ActivityStatusType {
 export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
   GIT: 'Git',
+  GITHUB: 'Github',
+  GITLAB: 'Gitlab',
   VAULT: 'Vault',
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',

@@ -4,7 +4,7 @@ import { Connectors, ConnectorInfoText, EntityTypes } from '@connectors/constant
 import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { AuthTypes } from './ConnectorHelper'
+import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export const getScopeFromString = (value: string) => {
   return value?.indexOf('.') < 0 ? Scope.PROJECT : value?.split('.')[0]
@@ -39,6 +39,16 @@ export const DockerProviderType = {
   HARBOUR: 'Harbor',
   QUAY: 'Quay',
   OTHER: 'Other'
+}
+
+export const GitUrlType = {
+  ACCOUNT: 'Account',
+  REPO: 'Repo'
+}
+
+export const GitConnectionType = {
+  HTTPS: 'Http',
+  SSH: 'Ssh'
 }
 
 export interface SecretReferenceInterface {
@@ -129,6 +139,67 @@ export const buildKubPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+const getGithubAuthSpec = (formData: FormData) => {
+  const { authType = '' } = formData
+  switch (authType) {
+    case GitAuthTypes.USER_PASSWORD:
+      return {
+        username: formData.username,
+        passwordRef: formData.password.referenceString
+      }
+    case GitAuthTypes.USER_TOKEN:
+      return {
+        username: formData.username,
+        tokenRef: formData.accessToken.referenceString
+      }
+    default:
+      return {}
+  }
+}
+
+export const buildGithubPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData?.description,
+    projectIdentifier: formData?.projectIdentifier,
+    orgIdentifier: formData?.orgIdentifier,
+    identifier: formData.identifier,
+    tags: formData?.tags,
+    type: Connectors.GITHUB,
+    spec: {
+      type: formData.urlType,
+      url: formData.url,
+      authentication: {
+        type: formData.connectionType,
+        spec:
+          formData.connectionType === GitConnectionType.SSH
+            ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
+            : {
+                type: formData.authType,
+                spec: getGithubAuthSpec(formData)
+              }
+      },
+      apiAccess: { type: formData.apiAuthType, spec: {} }
+    }
+  }
+
+  if (formData.enableAPIAccess) {
+    savedData.spec.apiAccess.spec =
+      formData.apiAuthType === GitAPIAuthTypes.TOKEN
+        ? {
+            tokenRef: formData.accessToken.referenceString
+          }
+        : {
+            installationId: formData.installationId,
+            applicationId: formData.applicationId,
+            privateKeyRef: formData.privateKey.referenceString
+          }
+  } else {
+    delete savedData.spec.apiAccess
+  }
+  return { connector: savedData }
+}
+
 export const setSecretField = async (
   secretString: string,
   scopeQueryParams: GetSecretV2QueryParams
@@ -158,6 +229,33 @@ export const setSecretField = async (
       referenceString: secretString
     }
   }
+}
+
+export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const authData = connectorInfo?.spec?.authentication
+  const formData = {
+    sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
+    authType: authData?.spec?.type,
+    username: authData?.spec?.spec?.username,
+    password: await setSecretField(authData?.spec?.spec?.passwordRef, scopeQueryParams),
+    accessToken: await setSecretField(
+      authData?.spec?.spec?.tokenRef || connectorInfo?.spec?.apiAccess?.spec?.tokenRef,
+      scopeQueryParams
+    ),
+    enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
+    apiAuthType: connectorInfo?.spec?.apiAccess?.type,
+    installationId: connectorInfo?.spec?.apiAccess?.spec?.installationId,
+    applicationId: connectorInfo?.spec?.apiAccess?.spec?.applicationId,
+    privateKey: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef, scopeQueryParams)
+  }
+
+  return formData
 }
 
 export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
@@ -444,6 +542,10 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-kubernetes'
     case Connectors.GIT:
       return 'service-github'
+    case Connectors.GITHUB:
+      return 'github'
+    case Connectors.GITLAB:
+      return 'service-gotlab'
     case 'Vault': // TODO: use enum when backend fixes it
     case 'Local': // TODO: use enum when backend fixes it
       return 'secret-manager'
