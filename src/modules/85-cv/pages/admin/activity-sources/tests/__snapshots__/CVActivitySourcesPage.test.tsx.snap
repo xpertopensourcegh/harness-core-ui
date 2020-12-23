@@ -314,7 +314,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws more"
+                    class="bp3-icon StyledProps---main--1Wws"
                   >
                     <svg
                       height="16"
@@ -416,7 +416,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws more"
+                    class="bp3-icon StyledProps---main--1Wws"
                   >
                     <svg
                       height="16"

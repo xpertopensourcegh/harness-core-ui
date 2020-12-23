@@ -7,8 +7,8 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import { DashboardWidgetMetricNav } from '../DashboardWidgetMetricNav'
-import { FieldNames } from '../../../ManualInputQueryModal/ManualInputQueryModal'
+import { GCODashboardWidgetMetricNav } from '../GCODashboardWidgetMetricNav'
+import { FieldNames, MANUAL_INPUT_QUERY } from '../../../ManualInputQueryModal/ManualInputQueryModal'
 
 const MockDashboards: cvService.StackdriverDashboardDTO[] = [
   {
@@ -97,7 +97,7 @@ describe('unit tests for dashboard widget metric', () => {
           activitySourceId: '1234_sourceId'
         }}
       >
-        <DashboardWidgetMetricNav
+        <GCODashboardWidgetMetricNav
           gcoDashboards={MockDashboards}
           connectorIdentifier={MockConnectorIdentifier}
           onSelectMetric={mockMetricSelect}
@@ -120,7 +120,8 @@ describe('unit tests for dashboard widget metric', () => {
       MockWidgetResponse[0]?.dataSetList?.[0].metricName,
       JSON.stringify(MockWidgetResponse[0]?.dataSetList?.[0].timeSeriesQuery),
       MockWidgetResponse[0]?.widgetName,
-      MockDashboards[0].name
+      MockDashboards[0].name,
+      '/dashboard_1/12'
     )
 
     const secondDashboard = container.querySelectorAll(`li.${Classes.TREE_NODE} .bp3-tree-node-content svg`)
@@ -157,7 +158,7 @@ describe('unit tests for dashboard widget metric', () => {
           activitySourceId: '1234_sourceId'
         }}
       >
-        <DashboardWidgetMetricNav
+        <GCODashboardWidgetMetricNav
           gcoDashboards={MockDashboards}
           connectorIdentifier={MockConnectorIdentifier}
           onSelectMetric={jest.fn()}
@@ -205,7 +206,7 @@ describe('unit tests for dashboard widget metric', () => {
           activitySourceId: '1234_sourceId'
         }}
       >
-        <DashboardWidgetMetricNav
+        <GCODashboardWidgetMetricNav
           gcoDashboards={MockDashboards}
           connectorIdentifier={MockConnectorIdentifier}
           onSelectMetric={mockMetricSelect}
@@ -235,7 +236,46 @@ describe('unit tests for dashboard widget metric', () => {
 
     // expect selected metric prop to be called and the manual input query to be selected
     await waitFor(() => expect(document.body.querySelector(`[class*="${Classes.DIALOG_HEADER}"]`)))
-    expect(mockMetricSelect).toHaveBeenNthCalledWith(2, 'solo-dolo', '', '', '')
+    expect(mockMetricSelect).toHaveBeenNthCalledWith(2, 'solo-dolo', MANUAL_INPUT_QUERY, '', '', '')
     expect(container.querySelector(`.${Classes.TREE_NODE_SELECTED} p`)?.innerHTML).toEqual('solo-dolo')
+  })
+
+  test('Ensure that when only manual input query is provided, it is properly selected in the nav', async () => {
+    const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
+    useGetStackdriverDashboardDetailSpy.mockReturnValue({
+      data: { resource: MockWidgetResponse },
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+    const mockMetricSelect = jest.fn()
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVActivitySourceEditSetup({
+          ...accountPathProps,
+          ...projectPathProps,
+          activitySource: ':activitySource',
+          activitySourceId: ':activitySourceId'
+        })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          activitySource: '1234_activitySource',
+          activitySourceId: '1234_sourceId'
+        }}
+      >
+        <GCODashboardWidgetMetricNav
+          gcoDashboards={[]}
+          manuallyInputQueries={['solo-dolo', 'semi-auto']}
+          connectorIdentifier={MockConnectorIdentifier}
+          onSelectMetric={mockMetricSelect}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    expect(container.querySelector('ul[class*="bp3-tree-node-list"][class*="root"]')?.children.length).toBe(1)
+    expect(container.querySelector('ul li[class*="expanded"]')).not.toBeNull()
+    expect(mockMetricSelect).toHaveBeenNthCalledWith(1, 'solo-dolo', MANUAL_INPUT_QUERY, '', '', '')
+    expect(container.querySelector('li[class*="selected"] p')?.innerHTML).toEqual('solo-dolo')
   })
 })

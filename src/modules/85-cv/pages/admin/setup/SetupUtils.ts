@@ -1,10 +1,10 @@
 export const getIconBySourceType = (type: string) => {
   switch (type) {
-    case 'K8sCluster':
+    case 'KUBERNETES':
       return 'service-kubernetes'
     case 'AppDynamics':
       return 'service-appdynamics'
-    case 'GoogleCloudOperations':
+    case 'STACKDRIVER':
       return 'service-stackdriver'
     case 'HEALTH':
       return 'health'

@@ -705,7 +705,7 @@ global:
           manuallyInputQueriesLabel: 'Manually input queries'
           viewQuery: 'View Query'
           baselineDeviation: 'Deviation compared to baseline'
-          operationsQueryLabel: 'Operations query (Remove any Group By clauses to create a single metric)'
+          operationsQueryLabel: 'Operations query'
           mapMetricToServiceAndEnvironment: 'Map Stackdriver Metric to a Harness Service and Environment'
           querySpecifications: 'Query Specifications'
           configureRiskProfile: 'Configure Risk Profile'

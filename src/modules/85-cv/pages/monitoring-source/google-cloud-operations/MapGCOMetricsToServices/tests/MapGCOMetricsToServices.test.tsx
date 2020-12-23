@@ -31,9 +31,9 @@ jest.mock('lodash-es', () => ({
   noop: jest.fn()
 }))
 
-jest.mock('../DashboardWidgetMetricNav/DashboardWidgetMetricNav', () => ({
-  ...(jest.requireActual('../DashboardWidgetMetricNav/DashboardWidgetMetricNav') as object),
-  DashboardWidgetMetricNav: function MockMetricNav(props: any) {
+jest.mock('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav', () => ({
+  ...(jest.requireActual('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav') as object),
+  GCODashboardWidgetMetricNav: function MockMetricNav(props: any) {
     return (
       <Container
         className="metricWidgetNav"

@@ -8,12 +8,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { BaseSetupTabsObject, ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import routes from '@common/RouteDefinitions'
-import { useSaveDSConfig } from 'services/cv'
-import type {
-  GCODSConfig,
-  // GCOMetricDefinition,
-  GCOMonitoringSourceInfo
-} from '../GoogleCloudOperationsMonitoringSourceUtils'
+import { TimeSeriesMetricDefinition, useSaveDSConfig } from 'services/cv'
+import type { GCODSConfig, GCODefinition, GCOMonitoringSourceInfo } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './ReviewGCOMonitoringSource.module.scss'
 
 interface ReviewGCOMonitoringSourceProps {
@@ -29,7 +25,11 @@ type TableData = {
 }
 
 function TableColumn(props: CellProps<TableData>): JSX.Element {
-  return <Text color={Color.BLACK}>{props.value}</Text>
+  return (
+    <Text color={Color.BLACK} lineClamp={1} width="100%" className={css.textOverflow}>
+      {props.value}
+    </Text>
+  )
 }
 
 function transformIncomingData(data: GCOMonitoringSourceInfo): { tableData: TableData[]; services: string[] } {
@@ -53,75 +53,54 @@ function transformIncomingData(data: GCOMonitoringSourceInfo): { tableData: Tabl
   return { tableData, services: Array.from(services.values()) }
 }
 
-// function metricLabelToMetricType(metricLabel: string): GCOMetricDefinition['riskProfile']['metricType'] {
-//   switch (metricLabel) {
-//     case 'Errors':
-//       return 'ERROR'
-//     case 'Infrastructure':
-//       return 'INFRA'
-//     case 'Throughput':
-//       return 'THROUGHPUT'
-//     case 'Response Time':
-//       return 'RESP_TIME'
-//     case 'Apdex':
-//       return 'APDEX'
-//     case 'Other':
-//     default:
-//       return 'OTHER' as GCOMetricDefinition['riskProfile']['metricType'] // getting type issue for this
-//   }
-// }
+function transformToSavePayload(data: GCOMonitoringSourceInfo): GCODSConfig {
+  if (!data?.selectedMetrics?.size) {
+    return { metricConfigurations: [] }
+  }
 
-function transformToSavePayload(_data: GCOMonitoringSourceInfo): GCODSConfig {
-  return {} as GCODSConfig
-  // if (!data?.selectedMetrics?.size) {
-  //   return []
-  // }
+  const gcoDSConfig: GCODSConfig = {
+    metricConfigurations: [],
+    identifier: data.identifier,
+    orgIdentifier: data.orgIdentifier,
+    projectIdentifier: data.projectIdentifier,
+    monitoringSourceName: data.name,
+    type: 'STACKDRIVER',
+    connectorIdentifier: data.connectorRef?.value as string,
+    accountId: data.accountId
+  }
+  for (const selectedMetricInfo of data.selectedMetrics) {
+    const [selectedMetric, metricInfo] = selectedMetricInfo
+    if (!selectedMetric || !metricInfo) continue
+    const [category, metricType] = metricInfo.riskCategory?.split('/') || []
 
-  // const gcoDSConfigs = new Map<string, GCODSConfig>()
-  // for (const selectedMetricInfo of data.selectedMetrics) {
-  //   const [selectedMetric, metricInfo] = selectedMetricInfo
-  //   if (!selectedMetric || !metricInfo) continue
-  //   const existingDSConfig: GCODSConfig = gcoDSConfigs.get(
-  //     `${metricInfo.service?.value as string}-${metricInfo.environment?.value as string}`
-  //   ) || {
-  //     connectorIdentifier: data.connectorRef?.value as string,
-  //     accountId: data.accountId,
-  //     type: 'STACKDRIVER',
-  //     envIdentifier: metricInfo.environment?.value as string,
-  //     serviceIdentifier: metricInfo.service?.value as string,
-  //     identifier: data.identifier,
-  //     projectIdentifier: data.projectIdentifier,
-  //     metricDefinitions: [],
-  //     metricPacks: data.metricPacks || []
-  //   }
+    const thresholdTypes: GCODefinition['riskProfile']['thresholdTypes'] = []
+    if (metricInfo.lowerBaselineDeviation) {
+      thresholdTypes.push('ACT_WHEN_LOWER')
+    }
+    if (metricInfo.higherBaselineDeviation) {
+      thresholdTypes.push('ACT_WHEN_HIGHER')
+    }
 
-  //   const [category, metricType] = metricInfo.riskCategory?.split('/') || []
-  //   const thresholdTypes: GCOMetricDefinition['riskProfile']['thresholdTypes'] = []
-  //   if (metricInfo.lowerBaselineDeviation) {
-  //     thresholdTypes.push('ACT_WHEN_LOWER')
-  //   }
-  //   if (metricInfo.higherBaselineDeviation) {
-  //     thresholdTypes.push('ACT_WHEN_HIGHER')
-  //   }
-  //   existingDSConfig.metricDefinitions.push({
-  //     dashboardName: metricInfo.dashboardName as string,
-  //     metricName: metricInfo.metricName as string,
-  //     metricTags: Object.keys(metricInfo.metricTags || {}),
-  //     jsonMetricDefinition: JSON.parse(metricInfo.query || ''),
-  //     riskProfile: {
-  //       metricType: metricLabelToMetricType(metricType),
-  //       category: category as GCOMetricDefinition['riskProfile']['category'],
-  //       thresholdTypes
-  //     }
-  //   })
+    gcoDSConfig.metricConfigurations.push({
+      serviceIdentifier: metricInfo.service?.value as string,
+      envIdentifier: metricInfo.environment?.value as string,
+      metricDefinition: {
+        dashboardName: metricInfo.dashboardName as string,
+        dashboardPath: metricInfo.dashboardPath as string,
+        metricName: metricInfo.metricName as string,
+        metricTags: Object.keys(metricInfo.metricTags || {}),
+        isManualQuery: metricInfo.isManualQuery,
+        jsonMetricDefinition: JSON.parse(metricInfo.query || ''),
+        riskProfile: {
+          metricType: metricType as TimeSeriesMetricDefinition['metricType'],
+          category: category as GCODefinition['riskProfile']['category'],
+          thresholdTypes
+        }
+      }
+    })
+  }
 
-  //   gcoDSConfigs.set(
-  //     `${metricInfo.service?.value as string}-${metricInfo.environment?.value as string}`,
-  //     existingDSConfig
-  //   )
-  // }
-
-  // return Array.from(gcoDSConfigs.values())
+  return gcoDSConfig
 }
 
 export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps): JSX.Element {
@@ -180,7 +159,7 @@ export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps)
             ...data,
             sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE as BaseSetupTabsObject['sourceType']
           })
-          history.push(`${routes.toCVAdminSetup(params)}?step=1`)
+          history.push(`${routes.toCVAdminSetup(params)}?step=2`)
         }}
       />
     </Container>

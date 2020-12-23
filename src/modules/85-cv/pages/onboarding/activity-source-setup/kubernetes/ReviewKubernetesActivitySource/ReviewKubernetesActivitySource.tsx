@@ -144,7 +144,6 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
           await mutate(transformToSavePayload(data))
           props.onSubmit({
             ...data,
-            type: 'KUBERNETES',
             sourceType: ONBOARDING_ENTITIES.ACTIVITY_SOURCE as BaseSetupTabsObject['sourceType']
           })
 

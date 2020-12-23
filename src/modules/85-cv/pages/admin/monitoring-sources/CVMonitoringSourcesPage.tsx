@@ -20,7 +20,8 @@ const DATE_FORMAT_STRING = 'MMM D, YYYY h:mm a'
 const getRouteType = (type: string) => {
   const typeMappings: any = {
     AppDynamics: 'AppDynamics',
-    APP_DYNAMICS: 'AppDynamics'
+    APP_DYNAMICS: 'AppDynamics',
+    STACKDRIVER: 'STACKDRIVER'
   }
   return getRoutePathByType(typeMappings[type])
 }
@@ -182,7 +183,12 @@ export default function CVMonitoringSourcesPage() {
 }
 
 function TypeTableCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
-  return <Container>{tableProps.value === 'APP_DYNAMICS' && <Icon name="service-appdynamics" size={18} />}</Container>
+  return (
+    <Container>
+      {tableProps.value === 'APP_DYNAMICS' && <Icon name="service-appdynamics" size={18} />}
+      {tableProps.value === 'STACKDRIVER' && <Icon name="service-stackdriver" size={18} />}
+    </Container>
+  )
 }
 
 function ImportStatusCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
@@ -236,7 +242,7 @@ function ImportedOnCell(
           </Menu>
         }
       >
-        <Button className={styles.moreButton} minimal icon="main-more" color={Color.GREY_350} />
+        <Button minimal icon="main-more" color={Color.GREY_350} />
       </Popover>
     </Container>
   )

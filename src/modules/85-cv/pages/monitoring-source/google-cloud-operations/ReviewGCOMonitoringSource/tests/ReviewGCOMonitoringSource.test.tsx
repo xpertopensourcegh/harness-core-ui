@@ -11,9 +11,14 @@ import { GCOProduct } from '../../GoogleCloudOperationsMonitoringSourceUtils'
 
 const MockData: GCOMonitoringSourceInfo = {
   selectedDashboards: [],
-  manuallyInputQueries: [],
-  metricPacks: [],
+  accountId: '1234_accountId',
+  projectIdentifier: '1234_PROJECT',
+  orgIdentifier: '1234_orgIdentifier',
+  name: 'solo-dolo',
+  identifier: 'semi-auto14',
   product: GCOProduct.CLOUD_METRICS,
+  type: 'STACKDRIVER',
+  connectorRef: { value: 'connectorRef', label: 'sdfsf' },
   selectedMetrics: new Map([
     [
       'metric_1',
@@ -21,10 +26,11 @@ const MockData: GCOMonitoringSourceInfo = {
         service: { label: 'service_1', value: 'service_1' },
         environment: { label: 'env_1', value: 'env_1' },
         dashboardName: 'dashboard_1',
+        dashboardPath: 'dashPath_1',
         metricName: 'metric_1',
         query: '{"asdads": "asdasd"}',
         metricTags: { 'solo-dolo': '' },
-        riskCategory: 'Performance/Throughput',
+        riskCategory: 'Performance/THROUGHPUT',
         higherBaselineDeviation: true,
         lowerBaselineDeviation: false,
         isManualQuery: false
@@ -36,10 +42,11 @@ const MockData: GCOMonitoringSourceInfo = {
         service: { label: 'service_1', value: 'service_1' },
         environment: { label: 'env_1', value: 'env_1' },
         dashboardName: 'dashboard_4',
+        dashboardPath: 'dashPath_4',
         metricName: 'metric_2',
         query: '{"asdads": "asdasd"}',
         metricTags: { 'solo-dolo': '' },
-        riskCategory: 'Performance/Other',
+        riskCategory: 'Performance/RESP_TIME',
         higherBaselineDeviation: true,
         lowerBaselineDeviation: true,
         isManualQuery: false
@@ -51,10 +58,11 @@ const MockData: GCOMonitoringSourceInfo = {
         service: { label: 'service_2', value: 'service_2' },
         environment: { label: 'env_1', value: 'env_1' },
         dashboardName: 'dashboard_6',
+        dashboardPath: 'dashPath_6',
         metricName: 'metric_4',
         query: '{"asdads": "asdasd"}',
         metricTags: { 'solo-dolo': '' },
-        riskCategory: 'Errors',
+        riskCategory: 'Errors/ERRORS',
         higherBaselineDeviation: true,
         lowerBaselineDeviation: true,
         isManualQuery: false
@@ -95,71 +103,73 @@ describe('Unit tests for ReviewMonitoringSource', () => {
     }
     fireEvent.click(submitButton)
     await waitFor(() => expect(mutateMockFn).toHaveBeenCalledTimes(1))
-    expect(mutateMockFn).toHaveBeenCalledWith({})
-    // expect(mutateMockFn).toHaveBeenCalledWith([
-    //   {
-    //     accountId: undefined,
-    //     connectorIdentifier: undefined,
-    //     envIdentifier: 'env_1',
-    //     identifier: undefined,
-    //     metricDefinitions: [
-    //       {
-    //         dashboardName: 'dashboard_1',
-    //         jsonMetricDefinition: {
-    //           asdads: 'asdasd'
-    //         },
-    //         metricName: 'metric_1',
-    //         metricTags: ['solo-dolo'],
-    //         riskProfile: {
-    //           category: 'Performance',
-    //           metricType: 'THROUGHPUT',
-    //           thresholdTypes: ['ACT_WHEN_HIGHER']
-    //         }
-    //       },
-    //       {
-    //         dashboardName: 'dashboard_4',
-    //         jsonMetricDefinition: {
-    //           asdads: 'asdasd'
-    //         },
-    //         metricName: 'metric_2',
-    //         metricTags: ['solo-dolo'],
-    //         riskProfile: {
-    //           category: 'Performance',
-    //           metricType: 'OTHER',
-    //           thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
-    //         }
-    //       }
-    //     ],
-    //     metricPacks: [],
-    //     projectIdentifier: undefined,
-    //     serviceIdentifier: 'service_1',
-    //     type: 'STACKDRIVER'
-    //   },
-    //   {
-    //     accountId: undefined,
-    //     connectorIdentifier: undefined,
-    //     envIdentifier: 'env_1',
-    //     identifier: undefined,
-    //     metricDefinitions: [
-    //       {
-    //         dashboardName: 'dashboard_6',
-    //         jsonMetricDefinition: {
-    //           asdads: 'asdasd'
-    //         },
-    //         metricName: 'metric_4',
-    //         metricTags: ['solo-dolo'],
-    //         riskProfile: {
-    //           category: 'Errors',
-    //           metricType: 'OTHER',
-    //           thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
-    //         }
-    //       }
-    //     ],
-    //     metricPacks: [],
-    //     projectIdentifier: undefined,
-    //     serviceIdentifier: 'service_2',
-    //     type: 'STACKDRIVER'
-    //   }
-    // ])
+    expect(mutateMockFn).toHaveBeenCalledWith({
+      accountId: MockData.accountId,
+      connectorIdentifier: MockData.connectorRef?.value,
+      identifier: 'semi-auto14',
+      type: 'STACKDRIVER',
+      monitoringSourceName: 'solo-dolo',
+      orgIdentifier: MockData.orgIdentifier,
+      projectIdentifier: MockData.projectIdentifier,
+      metricConfigurations: [
+        {
+          envIdentifier: 'env_1',
+          serviceIdentifier: 'service_1',
+          metricDefinition: {
+            dashboardName: 'dashboard_1',
+            dashboardPath: 'dashPath_1',
+            isManualQuery: false,
+            jsonMetricDefinition: {
+              asdads: 'asdasd'
+            },
+            metricName: 'metric_1',
+            metricTags: ['solo-dolo'],
+            riskProfile: {
+              category: 'Performance',
+              metricType: 'THROUGHPUT',
+              thresholdTypes: ['ACT_WHEN_HIGHER']
+            }
+          }
+        },
+        {
+          envIdentifier: 'env_1',
+          serviceIdentifier: 'service_1',
+          metricDefinition: {
+            dashboardName: 'dashboard_4',
+            dashboardPath: 'dashPath_4',
+            isManualQuery: false,
+            jsonMetricDefinition: {
+              asdads: 'asdasd'
+            },
+            metricName: 'metric_2',
+            metricTags: ['solo-dolo'],
+            riskProfile: {
+              category: 'Performance',
+              metricType: 'RESP_TIME',
+              thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+            }
+          }
+        },
+        {
+          envIdentifier: 'env_1',
+          serviceIdentifier: 'service_2',
+          metricDefinition: {
+            dashboardName: 'dashboard_6',
+            dashboardPath: 'dashPath_6',
+            isManualQuery: false,
+            jsonMetricDefinition: {
+              asdads: 'asdasd'
+            },
+            metricName: 'metric_4',
+            metricTags: ['solo-dolo'],
+            riskProfile: {
+              category: 'Errors',
+              metricType: 'ERRORS',
+              thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+            }
+          }
+        }
+      ]
+    })
   })
 })

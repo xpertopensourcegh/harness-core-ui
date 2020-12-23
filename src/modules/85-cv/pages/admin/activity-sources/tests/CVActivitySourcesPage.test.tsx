@@ -104,7 +104,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     const tableRows = container.querySelectorAll('[role="row"]')
     expect(tableRows.length).toBe(3)
 
-    const threeDotMenu = tableRows[1].querySelector('[class*="more"]')
+    const threeDotMenu = tableRows[1].querySelector('.bp3-popover-target span')
     if (!threeDotMenu) {
       throw Error('No 3 dot menu')
     }

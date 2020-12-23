@@ -12,7 +12,8 @@ import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { ManualInputQueryModal } from '../ManualInputQueryModal/ManualInputQueryModal'
-import type { GCOMonitoringSourceInfo } from '../GoogleCloudOperationsMonitoringSourceUtils'
+import { buildGCOMetricInfo, GCOMonitoringSourceInfo } from '../GoogleCloudOperationsMonitoringSourceUtils'
+import { getManuallyCreatedQueries } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './SelectGCODashboards.module.scss'
 
 export interface SelectDashboardProps {
@@ -120,12 +121,15 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
         />
         {isModalOpen && (
           <ManualInputQueryModal
-            manuallyInputQueries={propsData.manuallyInputQueries}
+            manuallyInputQueries={getManuallyCreatedQueries(propsData.selectedMetrics)}
             onSubmit={values => {
-              if (!propsData.manuallyInputQueries) {
-                propsData.manuallyInputQueries = []
+              if (!propsData.selectedMetrics) {
+                propsData.selectedMetrics = new Map()
               }
-              propsData.manuallyInputQueries.push(values.metricName)
+              propsData.selectedMetrics.set(
+                values.metricName,
+                buildGCOMetricInfo({ isManualQuery: true, metricName: values.metricName })
+              )
               onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
             }}
             closeModal={() => setIsModalOpen(false)}
@@ -218,12 +222,15 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
       />
       {isModalOpen && (
         <ManualInputQueryModal
-          manuallyInputQueries={propsData.manuallyInputQueries}
+          manuallyInputQueries={getManuallyCreatedQueries(propsData.selectedMetrics)}
           onSubmit={values => {
-            if (!propsData.manuallyInputQueries) {
-              propsData.manuallyInputQueries = []
+            if (!propsData.selectedMetrics) {
+              propsData.selectedMetrics = new Map()
             }
-            propsData.manuallyInputQueries.push(values.metricName)
+            propsData.selectedMetrics.set(
+              values.metricName,
+              buildGCOMetricInfo({ isManualQuery: true, metricName: values.metricName })
+            )
             onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
           }}
           closeModal={() => setIsModalOpen(false)}

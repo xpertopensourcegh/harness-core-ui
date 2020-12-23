@@ -28,13 +28,13 @@ export const MonitoringSourceSetupRoutePaths = {
 
 export const getRoutePathByType = (type: string) => {
   switch (type) {
-    case 'k8sCluster':
+    case 'KUBERNETES':
       return ActivitySourceSetupRoutePaths.KUBERNETES
     case 'HarnessCD_1.0':
       return ActivitySourceSetupRoutePaths.HARNESS_CD
     case 'AppDynamics':
       return MonitoringSourceSetupRoutePaths.APP_DYNAMICS
-    case 'GoogleCloudOperations':
+    case 'STACKDRIVER':
       return MonitoringSourceSetupRoutePaths.GoogleCloudOperations
     default:
       return ''

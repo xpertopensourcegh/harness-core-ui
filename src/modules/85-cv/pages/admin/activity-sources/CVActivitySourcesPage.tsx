@@ -127,7 +127,6 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
       >
         <Icon
           name="main-more"
-          className={css.more}
           onClick={e => {
             e.stopPropagation()
             setIsPopoverOpen(isOpen => !isOpen)

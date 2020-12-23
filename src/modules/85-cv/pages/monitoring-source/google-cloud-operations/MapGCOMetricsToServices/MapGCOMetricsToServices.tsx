@@ -12,7 +12,7 @@ import {
   Icon
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import { debounce } from 'lodash-es'
+import { debounce, isNumber } from 'lodash-es'
 import MonacoEditor from 'react-monaco-editor'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
@@ -33,13 +33,15 @@ import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { DashboardWidgetMetricNav } from './DashboardWidgetMetricNav/DashboardWidgetMetricNav'
+import { GCODashboardWidgetMetricNav } from './GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav'
 import { chartsConfig } from './GCOWidgetChartConfig'
 import { MANUAL_INPUT_QUERY } from '../ManualInputQueryModal/ManualInputQueryModal'
 import {
   buildGCOMetricInfo,
   GCOMetricInfo,
-  GCOMonitoringSourceInfo
+  GCOMonitoringSourceInfo,
+  getManuallyCreatedQueries,
+  formatJSON
 } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './MapGCOMetricsToServices.module.scss'
 
@@ -53,9 +55,6 @@ interface MapMetricToServiceAndEnvironmentProps {
   metricName: string
 }
 
-interface ConfigureRiskProfileProps {
-  setMetricPacks: (metricPacks?: MetricPackDTO[]) => void
-}
 interface ValidationChartProps {
   loading: boolean
   error?: string
@@ -86,23 +85,32 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
+function ensureFieldsAreFilled(values: GCOMetricInfo): boolean {
+  return Boolean(
+    values?.query?.length &&
+      values.riskCategory &&
+      (values.higherBaselineDeviation || values.lowerBaselineDeviation) &&
+      values.environment &&
+      values.service &&
+      values.metricName?.length &&
+      values.metricTags
+  )
+}
+
 function validate(
   values: GCOMetricInfo,
   selectedMetrics: Map<string, GCOMetricInfo>,
   validationString: string
 ): { [key: string]: string } | undefined {
   const errors = { [OVERALL]: '' }
-  const totalFields = Object.keys(FieldNames).length - 1
-  let metricWithValues = false
   for (const entry of selectedMetrics) {
     const [, metricInfo] = entry
-    metricWithValues = Object.values(metricInfo).filter(val => val ?? false).length >= totalFields
-    if (metricWithValues) {
-      break
+    if (ensureFieldsAreFilled(metricInfo)) {
+      return
     }
   }
 
-  if (metricWithValues || Object.values(values).filter(val => val ?? false).length >= totalFields) {
+  if (ensureFieldsAreFilled(values)) {
     return
   }
 
@@ -110,14 +118,26 @@ function validate(
   return errors
 }
 
-function formatJSON(val?: string): string | undefined {
-  try {
-    if (!val) return
-    const res = JSON.parse(val)
-    return JSON.stringify(res, null, 2)
-  } catch (e) {
-    return
+function initializeSelectedMetrics(
+  selectedDashboards: GCOMonitoringSourceInfo['selectedDashboards'],
+  selectedMetrics?: GCOMonitoringSourceInfo['selectedMetrics']
+): GCOMonitoringSourceInfo['selectedMetrics'] {
+  if (!selectedMetrics?.size) {
+    return new Map()
   }
+
+  const updatedMap = new Map(selectedMetrics)
+  for (const entry of updatedMap) {
+    const [metricName, metricInfo] = entry
+    if (
+      !selectedDashboards.find(dashboard => dashboard?.name === metricInfo?.dashboardName) &&
+      !metricInfo.isManualQuery
+    ) {
+      updatedMap.delete(metricName)
+    }
+  }
+
+  return updatedMap
 }
 
 function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
@@ -135,7 +155,7 @@ function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
 
         riskCategoryOptions.push({
           label: metricPack.category !== metric.name ? `${metricPack.category}/${metric.name}` : metricPack.category,
-          value: `${metricPack.category}/${metric.name}`
+          value: `${metricPack.category}/${metric.type}`
         })
       }
     }
@@ -149,17 +169,22 @@ function transformSampleDataIntoHighchartOptions(sampleData?: TimeSeriesSampleDT
     return {}
   }
 
-  const seriesData: Highcharts.SeriesLineOptions[] = [{ name: 'sampleData', data: [], type: 'line' }]
+  const seriesData = new Map<string, Highcharts.SeriesLineOptions>()
   for (const data of sampleData) {
-    if (!data || !data.timestamp || !data.metricValue) continue
-    seriesData?.[0]?.data?.push([data.timestamp, data.metricValue])
+    if (!data || !data.timestamp || !data.txnName || !isNumber(data.metricValue)) continue
+    let highchartsOptions = seriesData.get(data.txnName)
+    if (!highchartsOptions) {
+      highchartsOptions = { name: data.txnName, data: [], type: 'line' }
+      seriesData.set(data.txnName, highchartsOptions)
+    }
+
+    highchartsOptions.data?.push([data.timestamp, data.metricValue])
   }
 
-  return chartsConfig(seriesData)
+  return chartsConfig(Array.from(seriesData.values()).slice(0, 5))
 }
 
-function ConfigureRiskProfile(props: ConfigureRiskProfileProps): JSX.Element {
-  const { setMetricPacks } = props
+function ConfigureRiskProfile(): JSX.Element {
   const { getString } = useStrings()
   const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data } = useGetMetricPacks({
@@ -169,7 +194,6 @@ function ConfigureRiskProfile(props: ConfigureRiskProfileProps): JSX.Element {
 
   useEffect(() => {
     setRiskCategoryOptions(getRiskCategoryOptions(data?.resource))
-    setMetricPacks(data?.resource)
   }, [data])
 
   return (
@@ -360,12 +384,14 @@ function TextAreaLabel({ onExpandQuery }: { onExpandQuery: () => void }): JSX.El
 export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JSX.Element {
   const { data, onPrevious, onNext } = props
   const { getString } = useStrings()
-  const [updatedData, setUpdatedData] = useState(data.selectedMetrics || new Map())
+  const [updatedData, setUpdatedData] = useState(
+    initializeSelectedMetrics(data.selectedDashboards || [], data.selectedMetrics)
+  )
   const [selectedMetric, setSelectedMetric] = useState<string>()
-  const [metricPacks, setMetricPack] = useState<MetricPackDTO[] | undefined>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [error, setError] = useState<string | undefined>()
-  const { loading, mutate, cancel } = useGetStackdriverSampleData({
+  const [loading, setLoading] = useState<boolean>(false)
+  const { mutate, cancel } = useGetStackdriverSampleData({
     queryParams: {
       orgIdentifier,
       projectIdentifier,
@@ -381,6 +407,8 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
       cancel()
       try {
         if (updatedQueryValue?.length) {
+          setLoading(true)
+          setError(undefined)
           const response = await mutate(JSON.parse(updatedQueryValue))
           if (response?.data?.errorMessage?.length) {
             setError(response.data.errorMessage)
@@ -389,9 +417,17 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
             setError(undefined)
             setSampleData(transformSampleDataIntoHighchartOptions(response?.data?.sampleData || []))
           }
+          setLoading(false)
+        } else {
+          setError(undefined)
+          setSampleData(transformSampleDataIntoHighchartOptions([]))
         }
       } catch (e) {
+        if (e.message?.includes('The user aborted a request.')) {
+          return
+        }
         if (e.name === 'SyntaxError') onError?.()
+        setLoading(false)
       }
     },
     [mutate, cancel]
@@ -406,7 +442,14 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
           if (selectedMetric) {
             updatedData.set(selectedMetric, { ...values })
           }
-          onNext({ ...data, selectedMetrics: new Map(updatedData), metricPacks: metricPacks || [] })
+          const filteredData = new Map()
+          for (const metric of updatedData) {
+            const [metricName, metricInfo] = metric
+            if (ensureFieldsAreFilled(metricInfo)) {
+              filteredData.set(metricName, metricInfo)
+            }
+          }
+          onNext({ ...data, selectedMetrics: filteredData })
         }}
         validateOnChange={false}
         validateOnBlur={false}
@@ -420,30 +463,33 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
       >
         {formikProps => (
           <Container className={css.form}>
-            <DashboardWidgetMetricNav
+            <GCODashboardWidgetMetricNav
               className={css.leftNav}
               connectorIdentifier={data.connectorRef?.value as string}
-              manuallyInputQueries={data.manuallyInputQueries}
+              manuallyInputQueries={getManuallyCreatedQueries(updatedData)}
               gcoDashboards={data.selectedDashboards}
               showSpinnerOnLoad={!selectedMetric}
-              onSelectMetric={(metricName, query, widget, dashboardName) => {
+              onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath) => {
                 let metricInfo = updatedData.get(metricName)
                 if (!metricInfo) {
                   metricInfo = buildGCOMetricInfo({
                     metricName,
                     query,
                     metricTags: { [widget]: '' },
-                    isManualQuery: metricName === MANUAL_INPUT_QUERY,
-                    dashboardName
+                    isManualQuery: query === MANUAL_INPUT_QUERY,
+                    dashboardName,
+                    dashboardPath
                   })
-                } else {
-                  metricInfo.query = formatJSON(metricInfo.query)
                 }
+
+                metricInfo.query = formatJSON(metricInfo.query)
                 updatedData.set(metricName, metricInfo)
-                updatedData.set(selectedMetric as string, { ...formikProps.values })
+                if (selectedMetric) {
+                  updatedData.set(selectedMetric as string, { ...formikProps.values })
+                }
+
                 setUpdatedData(new Map(updatedData))
                 setSelectedMetric(metricName)
-                setError(undefined)
                 onQueryChange(metricInfo.query, () =>
                   formikProps.setFieldError(
                     FieldNames.QUERY,
@@ -533,7 +579,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                 )}
               </Container>
               <MapMetricToServiceAndEnvironment metricName={formikProps.values.metricName || ''} />
-              <ConfigureRiskProfile setMetricPacks={setMetricPack} />
+              <ConfigureRiskProfile />
               <FormInput.Text name={OVERALL} className={css.hiddenField} />
               <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
             </FormikForm>

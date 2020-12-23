@@ -1,13 +1,16 @@
 import type { SelectOption } from '@wings-software/uikit'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { DSConfig, StackdriverDashboardDTO, TimeSeriesMetricDefinition, MetricPackDTO } from 'services/cv'
+import type { DSConfig, TimeSeriesMetricDefinition, StackdriverDashboardDTO } from 'services/cv'
 
 export const GCOProduct = {
   CLOUD_METRICS: 'Cloud Metrics'
 }
 
+export const MANUAL_QUERY_DASHBOARD = 'Manual_Query_Dashboard'
+
 export interface GCOMetricInfo {
   dashboardName?: string
+  dashboardPath?: string
   metricName?: string
   query?: string
   environment?: SelectOption
@@ -20,44 +23,56 @@ export interface GCOMetricInfo {
 }
 
 export interface GCOMonitoringSourceInfo
-  extends Omit<DSConfig, 'lastUpdatedAt' | 'activitySourceConfigs' | 'connectorIdentifier'> {
+  extends Omit<DSConfig, 'lastUpdatedAt' | 'activitySourceConfigs' | 'connectorIdentifier' | 'monitoringSourceName'> {
   selectedMetrics: Map<string, GCOMetricInfo>
   selectedDashboards: StackdriverDashboardDTO[]
   connectorRef?: SelectOption
-  manuallyInputQueries: string[]
   product: string
-  metricPacks: MetricPackDTO[]
+  name?: string
 }
 
-export interface GCOMetricDefinition {
+// --------------------------------------  DTO's for backend --------------------------------------
+export interface GCODefinition {
+  isManualQuery?: boolean
+  jsonMetricDefinition: object
+  metricName: string
+  dashboardName: string
+  dashboardPath: string
   metricTags: string[]
   riskProfile: {
     category: 'Performance' | 'Errors' | 'Infrastructure'
     metricType: TimeSeriesMetricDefinition['metricType']
     thresholdTypes: TimeSeriesMetricDefinition['thresholdType'][]
   }
-  metricName: string
-  dashboardName: string
-  isManualQuery?: boolean
-  jsonMetricDefinition: object
+}
+
+export interface GCOConfiguration {
+  metricDefinition: GCODefinition
+  serviceIdentifier: string
+  envIdentifier: string
 }
 
 export interface GCODSConfig extends DSConfig {
-  serviceIdentifier: string
-  metricDefinitions: GCOMetricDefinition[]
-  metricPacks: MetricPackDTO[]
+  metricConfigurations: GCOConfiguration[]
 }
+
+// ------------------------------------------------------------------------------------------------
 
 export function buildGCOMetricInfo({
   dashboardName,
   metricName,
   query,
   metricTags,
-  isManualQuery
-}: Pick<GCOMetricInfo, 'dashboardName' | 'metricName' | 'query' | 'metricTags' | 'isManualQuery'>): GCOMetricInfo {
+  isManualQuery,
+  dashboardPath
+}: Pick<
+  GCOMetricInfo,
+  'dashboardName' | 'metricName' | 'query' | 'metricTags' | 'isManualQuery' | 'dashboardPath'
+>): GCOMetricInfo {
   return {
-    dashboardName,
+    dashboardName: isManualQuery ? MANUAL_QUERY_DASHBOARD : dashboardName,
     metricName,
+    dashboardPath,
     query,
     metricTags,
     isManualQuery
@@ -66,14 +81,34 @@ export function buildGCOMetricInfo({
 
 export function buildGCOMonitoringSourceInfo(params: ProjectPathProps): GCOMonitoringSourceInfo {
   return {
-    identifier: '',
+    identifier: 'MyGoogleCloudOperationsSource',
     product: GCOProduct.CLOUD_METRICS,
-    monitoringSourceName: 'MyGoogleCloudOperationsSource',
+    name: 'MyGoogleCloudOperationsSource',
     ...params,
-    metricPacks: [],
-    manuallyInputQueries: [],
-    selectedMetrics: new Map<string, GCOMetricInfo>(),
     selectedDashboards: [],
+    selectedMetrics: new Map<string, GCOMetricInfo>(),
     type: 'STACKDRIVER'
+  }
+}
+
+export function getManuallyCreatedQueries(selectedMetrics: GCOMonitoringSourceInfo['selectedMetrics']): string[] {
+  if (!selectedMetrics?.size) return []
+  const manualQueries: string[] = []
+  for (const entry of selectedMetrics) {
+    const [metricName, metricInfo] = entry
+    if (metricName && metricInfo?.isManualQuery) {
+      manualQueries.push(metricName)
+    }
+  }
+  return manualQueries
+}
+
+export function formatJSON(val?: string): string | undefined {
+  try {
+    if (!val) return
+    const res = JSON.parse(val)
+    return JSON.stringify(res, null, 2)
+  } catch (e) {
+    return
   }
 }

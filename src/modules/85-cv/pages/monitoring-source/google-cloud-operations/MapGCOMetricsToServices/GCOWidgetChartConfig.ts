@@ -5,6 +5,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
       backgroundColor: 'transparent',
       height: 200,
       type: 'line',
+      zoomType: 'xy',
       spacing: [5, 2, 5, 2]
     },
     credits: undefined,
@@ -32,7 +33,6 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
       }
     },
     yAxis: {
-      // labels: { enabled: false },
       lineWidth: 1,
       tickLength: 5,
       tickAmount: 5,
@@ -47,7 +47,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
     plotOptions: {
       series: {
         stickyTracking: false,
-        lineWidth: 1.5,
+        lineWidth: 2,
         turboThreshold: 50000
       },
       line: {
@@ -58,9 +58,9 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
     },
     tooltip: {
       formatter: function tooltipFormatter(this: any): string {
-        return `<section class="serviceGuardTimeSeriesTooltip"><p>${moment(this.x).format(
-          'M/D/YYYY h:m a'
-        )}</p><br/><p>Value: ${this.y.toFixed(2)}</p></section>`
+        return `<section class="serviceGuardTimeSeriesTooltip"><p>${this.series?.name}</p><br/><p>${moment(
+          this.x
+        ).format('M/D/YYYY h:m a')}</p><br/><p>Value: ${this.y.toFixed(2)}</p></section>`
       },
       outside: true
     },

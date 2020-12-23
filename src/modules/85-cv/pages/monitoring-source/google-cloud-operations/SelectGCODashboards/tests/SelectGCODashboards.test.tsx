@@ -166,10 +166,8 @@ describe('SelectGCODashboards unit tests', () => {
     await waitFor(() =>
       expect(onSubmitFunc).toHaveBeenCalledWith({
         accountId: '1234_account',
-        identifier: '',
-        manuallyInputQueries: [],
-        metricPacks: [],
-        monitoringSourceName: 'MyGoogleCloudOperationsSource',
+        identifier: 'MyGoogleCloudOperationsSource',
+        name: 'MyGoogleCloudOperationsSource',
         orgIdentifier: '1234_ORG',
         product: 'Cloud Metrics',
         projectIdentifier: '1234_project',

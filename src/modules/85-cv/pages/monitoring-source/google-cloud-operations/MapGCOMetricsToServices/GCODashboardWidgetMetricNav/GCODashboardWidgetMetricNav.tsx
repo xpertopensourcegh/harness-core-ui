@@ -2,21 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { Color, Container, Link, Text } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Classes, ITreeNode, Tree } from '@blueprintjs/core'
+import { Classes, ITreeNode, PopoverInteractionKind, Tree } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/exports'
 import { StackdriverDashboardDetail, StackdriverDashboardDTO, useGetStackdriverDashboardDetail } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ManualInputQueryModal, MANUAL_INPUT_QUERY } from '../../ManualInputQueryModal/ManualInputQueryModal'
-import css from './DashboardWidgetMetricNav.module.scss'
+import css from './GCODashboardWidgetMetricNav.module.scss'
 
-export interface DashboardWidgetMetricNavProps {
+export interface GCODashboardWidgetMetricNavProps {
   className?: string
   gcoDashboards: StackdriverDashboardDTO[]
   manuallyInputQueries?: string[]
   connectorIdentifier: string
-  onSelectMetric: (selectedMetric: string, query: string, widgetName: string, dashboard: string) => void
+  onSelectMetric: (
+    selectedMetric: string,
+    query: string,
+    widgetName: string,
+    dashboard: string,
+    dashboardPath: string
+  ) => void
   showSpinnerOnLoad?: boolean
 }
 
@@ -73,22 +79,20 @@ type NodeDataType = {
   data?: any
 }
 
-function initializeSelectedMetric(
-  manuallyInputQueries?: string[],
-  gcoDashboards?: StackdriverDashboardDTO[]
-): ITreeNode | undefined {
-  if (gcoDashboards?.length || !manuallyInputQueries?.length) {
-    return
-  }
+function initializeSelectedMetric(gcoDashboards?: StackdriverDashboardDTO[]): number[] | undefined {
+  return gcoDashboards?.length ? [1, 0, 0] : [0, 0]
+}
 
-  return {
-    id: manuallyInputQueries[0],
-    hasCaret: false,
-    label: (
-      <Text color={Color.BLACK} width={170} lineClamp={1} className={css.textOverflow}>
-        {manuallyInputQueries[0]}
-      </Text>
-    )
+function deselectMetric(navContent: ITreeNode[], nodePath?: number[]): void {
+  if (!nodePath?.length) return
+
+  let currNode = navContent[nodePath[0]]
+  navContent[nodePath[0]] = currNode
+  for (let pathIndex = 1; pathIndex < nodePath.length; pathIndex++) {
+    currNode = currNode.childNodes?.[nodePath[pathIndex]] || ({} as ITreeNode)
+    if (currNode && pathIndex === nodePath.length - 1) {
+      currNode.isSelected = false
+    }
   }
 }
 
@@ -185,6 +189,10 @@ function transformDashboardsToTreeNodes(
   if (treeNodes[1]) {
     treeNodes[1].isExpanded = true
     treeNodes[1].childNodes = LoadingSkeleton
+    // when there are no selected dsahboards and only a manual query
+  } else if (treeNodes[0].childNodes?.length) {
+    treeNodes[0].childNodes[0].isSelected = true
+    treeNodes[0].isExpanded = true
   }
 
   return treeNodes
@@ -192,13 +200,15 @@ function transformDashboardsToTreeNodes(
 
 function transformWidgetsToTreeNodes(
   gcoWidgets: StackdriverDashboardDetail[],
-  isFirstLoad: boolean
-): { treeNodes: ITreeNode<NodeDataType>[]; selectedMetric?: ITreeNode<NodeDataType> } {
+  isFirstLoad: boolean,
+  dashboardIndex: number
+): { treeNodes: ITreeNode<NodeDataType>[]; selectedMetricPath?: number[]; selectedMetric?: ITreeNode<NodeDataType> } {
   if (!gcoWidgets?.length) {
     return { treeNodes: [] }
   }
 
   const treeNodes: ITreeNode<NodeDataType>[] = []
+  let selectedMetricPath: number[] = []
   let selectedMetric: ITreeNode<NodeDataType> = {} as ITreeNode<NodeDataType>
   for (let widgetIndex = 0; widgetIndex < gcoWidgets.length; widgetIndex++) {
     const widget = gcoWidgets[widgetIndex]
@@ -226,6 +236,7 @@ function transformWidgetsToTreeNodes(
       )
       if (isFirstLoad && dataSetIndex === 0 && widgetIndex === 0) {
         metric.isSelected = true
+        selectedMetricPath = [dashboardIndex, 0, 0]
         selectedMetric = metric
       }
       treeNode.childNodes?.push(metric)
@@ -234,19 +245,25 @@ function transformWidgetsToTreeNodes(
     treeNodes.push(treeNode)
   }
 
-  return { treeNodes, selectedMetric: selectedMetric }
+  return { treeNodes, selectedMetricPath, selectedMetric }
 }
 
 function TreeNodeLabel(props: TreeNodeLabelProps): JSX.Element {
   const { width, label } = props
   return (
-    <Text color={Color.BLACK} width={width} lineClamp={1} className={css.textOverflow}>
+    <Text
+      color={Color.BLACK}
+      width={width}
+      lineClamp={1}
+      className={css.textOverflow}
+      tooltipProps={{ interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY }}
+    >
       {label}
     </Text>
   )
 }
 
-export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): JSX.Element {
+export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavProps): JSX.Element {
   const {
     className,
     connectorIdentifier,
@@ -256,9 +273,10 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
     manuallyInputQueries = []
   } = props
   const { projectIdentifier, accountId, orgIdentifier } = useParams<ProjectPathProps>()
-  const [selectedMetric, setSelectedMetric] = useState<ITreeNode | undefined>(
-    initializeSelectedMetric(manuallyInputQueries, gcoDashboards)
+  const [selectedMetricPath, setSelectedMetricPath] = useState<number[] | undefined>(
+    initializeSelectedMetric(gcoDashboards)
   )
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
   const [selectedDashboard, setSelectedDashboard] = useState<StackdriverDashboardDTO | undefined>(
     gcoDashboards?.filter(dashboard => dashboard?.path && dashboard.name)[0] || []
   )
@@ -271,28 +289,38 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
   const { error, loading, data, refetch: fetchDetails } = useGetStackdriverDashboardDetail({ lazy: true })
   useEffect(() => {
     const selectedDashIndex = navContent.findIndex(treeNode => treeNode.id === selectedDashboard?.name)
-    if (selectedDashIndex === -1) {
+    if (selectedDashIndex === -1 || loading) {
       return
     }
-    if (error?.message || (!loading && !data?.resource?.length)) {
+    if (error?.message || (!data?.resource?.length && !isFirstLoad)) {
       navContent[selectedDashIndex].isExpanded = false
       navContent[selectedDashIndex].childNodes = []
       setNavContent([...navContent])
       if (error?.message) {
         showError(error.message, 5000)
       }
-    } else if (!loading && data?.resource?.length) {
-      const { treeNodes, selectedMetric: metric } = transformWidgetsToTreeNodes(data.resource, !selectedMetric)
+    } else if (data?.resource?.length) {
+      const { treeNodes, selectedMetricPath: metricPath, selectedMetric: metric } = transformWidgetsToTreeNodes(
+        data.resource,
+        isFirstLoad,
+        selectedDashIndex
+      )
       navContent[selectedDashIndex].childNodes = treeNodes
       setNavContent([...navContent])
-      setSelectedMetric(metric)
       const { data: datum } = metric?.nodeData || {}
-      onSelectMetric(
-        metric?.id as string,
-        JSON.stringify(datum?.query),
-        datum?.widget,
-        selectedDashboard?.name as string
-      )
+      if (isFirstLoad) {
+        setSelectedMetricPath(metricPath)
+        onSelectMetric(
+          metric?.id as string,
+          JSON.stringify(datum?.query),
+          datum?.widget,
+          selectedDashboard?.name as string,
+          selectedDashboard?.path as string
+        )
+      }
+      if (isFirstLoad) {
+        setIsFirstLoad(false)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading])
@@ -311,6 +339,13 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
     }
   }, [selectedDashboard?.path])
 
+  // when only manually input query is selected on load, run this hook
+  useEffect(() => {
+    if (!loading && isFirstLoad && selectedMetricPath?.toString() === '0,0') {
+      onSelectMetric(navContent[0]?.childNodes?.[0]?.id as string, MANUAL_INPUT_QUERY, '', '', '')
+    }
+  }, [])
+
   return (
     <Container width={250} className={cx(css.main, className)}>
       {loading && showSpinnerOnLoad && <PageSpinner />}
@@ -318,6 +353,7 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
         {getString('cv.monitoringSources.gco.addManualInputQuery')}
       </Link>
       <Tree
+        className={css.treeNodeContainer}
         contents={navContent}
         onNodeExpand={(node, nodePath) => {
           const { type, data: datum } = node.nodeData || {}
@@ -338,38 +374,49 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
           setNavContent([...navContent])
         }}
         onNodeClick={(node, nodePath) => {
-          const { isExpanded, id, childNodes, nodeData } = node
+          const { isExpanded = false, id, childNodes, nodeData } = node
           const { data: datum, type } = nodeData || {}
           switch (nodePath.length) {
             case NodeDepth.DASHBOARD:
               navContent.forEach(dashboard => (dashboard.isExpanded = false))
               node.isExpanded = !isExpanded
-              if (type !== NodeType.MANUAL_INPUT_QUERY && isExpanded && !childNodes?.length) {
+              if (type !== NodeType.MANUAL_INPUT_QUERY && node.isExpanded && !childNodes?.length) {
                 node.childNodes = LoadingSkeleton
                 setSelectedDashboard({ name: id as string, path: datum })
               }
               break
             case NodeDepth.WIDGET:
+              if (nodePath.toString() === selectedMetricPath?.toString()) {
+                return
+              }
               if (type === NodeType.MANUAL_INPUT_METRIC) {
-                if (selectedMetric) selectedMetric.isSelected = false
                 node.isSelected = true
-                setSelectedMetric(node)
+                deselectMetric(navContent, selectedMetricPath)
+                setSelectedMetricPath(nodePath)
                 setSelectedDashboard(undefined)
-                onSelectMetric(id as string, '', '', '')
+                onSelectMetric(node.id as string, MANUAL_INPUT_QUERY, '', '', '')
               } else {
                 node.isExpanded = !isExpanded
               }
               break
             case NodeDepth.METRIC:
-              if (selectedMetric) selectedMetric.isSelected = false
+              if (nodePath.toString() === selectedMetricPath?.toString()) {
+                return
+              }
               node.isSelected = true
-              setSelectedMetric(node)
-              onSelectMetric(id as string, JSON.stringify(datum.query), datum.widget, selectedDashboard?.name as string)
+              deselectMetric(navContent, selectedMetricPath)
+              setSelectedMetricPath(nodePath)
+              onSelectMetric(
+                id as string,
+                JSON.stringify(datum.query),
+                datum.widget,
+                selectedDashboard?.name as string,
+                selectedDashboard?.path as string
+              )
               break
             default:
               break
           }
-
           setNavContent([...navContent])
         }}
       />
@@ -377,20 +424,18 @@ export function DashboardWidgetMetricNav(props: DashboardWidgetMetricNavProps): 
         <ManualInputQueryModal
           manuallyInputQueries={manuallyInputQueries}
           onSubmit={values => {
-            if (selectedMetric) {
-              selectedMetric.isSelected = false
-            }
+            deselectMetric(navContent, selectedMetricPath)
             setSelectedDashboard(undefined)
-            const newMetric = generateTreeNode(NodeType.MANUAL_INPUT_METRIC, undefined, values.metricName)
-            newMetric.isSelected = true
             navContent.forEach(dashboard => (dashboard.isExpanded = false))
             if (navContent[0]?.nodeData?.type === NodeType.MANUAL_INPUT_QUERY) {
+              const newMetric = generateTreeNode(NodeType.MANUAL_INPUT_METRIC, undefined, values.metricName)
+              newMetric.isSelected = true
               navContent[0].childNodes?.unshift(newMetric)
               navContent[0].isExpanded = true
             }
             setNavContent([...navContent])
-            setSelectedMetric(newMetric)
-            onSelectMetric(values.metricName, '', '', '')
+            setSelectedMetricPath([0, 0])
+            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY, '', '', '')
           }}
           closeModal={() => setIsModalOpen(false)}
         />

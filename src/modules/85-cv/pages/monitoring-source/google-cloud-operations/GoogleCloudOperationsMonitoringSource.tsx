@@ -5,41 +5,112 @@ import { useStrings } from 'framework/exports'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import { Page } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetDataSourceConfigs } from 'services/cv'
+import { useGetDSConfig } from 'services/cv'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
 import { MapGCOMetricsToServices } from './MapGCOMetricsToServices/MapGCOMetricsToServices'
-import { buildGCOMonitoringSourceInfo, GCOMonitoringSourceInfo } from './GoogleCloudOperationsMonitoringSourceUtils'
+import {
+  buildGCOMonitoringSourceInfo,
+  GCODSConfig,
+  GCOMonitoringSourceInfo,
+  GCOProduct
+} from './GoogleCloudOperationsMonitoringSourceUtils'
 import { ReviewGCOMonitoringSource } from './ReviewGCOMonitoringSource/ReviewGCOMonitoringSource'
 
 const DefaultValue = {
   name: `MyGoogleCloudOperationsSource`
 }
 
+export function transformGetResponse(
+  gcoConfig: GCODSConfig,
+  params: ProjectPathProps & { identifier: string }
+): GCOMonitoringSourceInfo {
+  const gcoInfo: GCOMonitoringSourceInfo = buildGCOMonitoringSourceInfo(params)
+  if (!gcoConfig) {
+    return gcoConfig
+  }
+
+  gcoInfo.accountId = gcoConfig.accountId
+  gcoInfo.identifier = gcoConfig.identifier
+  gcoInfo.name = gcoConfig.monitoringSourceName
+  gcoInfo.type = 'STACKDRIVER'
+  gcoInfo.orgIdentifier = gcoConfig.orgIdentifier
+  gcoInfo.projectIdentifier = gcoConfig.projectIdentifier
+  gcoInfo.connectorRef = {
+    label: gcoConfig.connectorIdentifier as string,
+    value: gcoConfig.connectorIdentifier as string
+  }
+  gcoInfo.product = GCOProduct.CLOUD_METRICS
+  gcoInfo.selectedDashboards = []
+  gcoInfo.selectedMetrics = new Map()
+
+  for (const config of gcoConfig.metricConfigurations) {
+    const { envIdentifier, serviceIdentifier, metricDefinition } = config
+    if (
+      !envIdentifier ||
+      !serviceIdentifier ||
+      !metricDefinition ||
+      !metricDefinition.dashboardName ||
+      !metricDefinition.dashboardPath ||
+      !metricDefinition.metricName
+    )
+      continue
+
+    const metricTags: any = {}
+    for (const tag of metricDefinition.metricTags || []) {
+      metricTags[tag] = ''
+    }
+
+    gcoInfo.selectedDashboards.push({ name: metricDefinition.dashboardName, path: metricDefinition.dashboardPath })
+    gcoInfo.selectedMetrics.set(metricDefinition.metricName, {
+      metricName: metricDefinition.metricName,
+      metricTags,
+      dashboardName: metricDefinition.dashboardName,
+      dashboardPath: metricDefinition.dashboardPath,
+      service: { label: serviceIdentifier, value: serviceIdentifier },
+      environment: { label: envIdentifier, value: envIdentifier },
+      isManualQuery: metricDefinition.isManualQuery,
+      riskCategory: `${metricDefinition.riskProfile?.category}/${metricDefinition.riskProfile?.metricType}`,
+      higherBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER'),
+      lowerBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER'),
+      query: JSON.stringify(metricDefinition.jsonMetricDefinition, null, 2)
+    })
+  }
+
+  return gcoInfo
+}
+
 export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
   const { getString } = useStrings()
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<GCOMonitoringSourceInfo>({ totalTabs: 4 })
-  const params = useParams<ProjectPathProps & { monitoringSourceId: string }>()
+  const params = useParams<ProjectPathProps & { identifier: string }>()
 
-  const { loading, error, refetch: fetchGCOSource } = useGetDataSourceConfigs({
+  const { loading, error, refetch: fetchGCOSource } = useGetDSConfig({
+    identifier: params.identifier,
     queryParams: {
-      accountId: params.accountId
+      accountId: params.accountId,
+      orgIdentifier: params.orgIdentifier,
+      projectIdentifier: params.projectIdentifier
     },
-    lazy: true
+    lazy: true,
+    resolve: function (response) {
+      setCurrentData(transformGetResponse(response?.resource as GCODSConfig, params))
+      return response
+    }
   })
 
   useEffect(() => {
-    if (params.monitoringSourceId && !currentData) {
+    if (params.identifier && !currentData) {
       fetchGCOSource()
     }
   }, [params])
 
   return (
-    <Page.Body loading={loading} error={error?.message}>
+    <Page.Body loading={loading} error={error?.message} retryOnError={() => fetchGCOSource()}>
       <CVOnboardingTabs
         iconName="service-stackdriver"
-        defaultEntityName={currentData?.monitoringSourceName || DefaultValue.name}
-        setName={val => setCurrentData({ ...currentData, monitoringSourceName: val } as GCOMonitoringSourceInfo)}
+        defaultEntityName={currentData?.name || DefaultValue.name}
+        setName={val => setCurrentData({ ...currentData, name: val } as GCOMonitoringSourceInfo)}
         onNext={onNext}
         {...tabInfo}
         tabProps={[
@@ -51,6 +122,10 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
                 stepData={currentData || buildGCOMonitoringSourceInfo(params)}
                 type="GoogleCloudOperations"
                 onCompleteStep={data => {
+                  if (currentData?.connectorRef?.value && data.connectorRef?.value !== currentData.connectorRef.value) {
+                    data.selectedDashboards = []
+                    data.selectedMetrics = new Map()
+                  }
                   setCurrentData(data)
                   onNext({ data })
                 }}
