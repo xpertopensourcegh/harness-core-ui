@@ -1395,7 +1395,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 25%;"
+          style="width: 20%;"
           title="Toggle SortBy"
         >
           PIPELINE
@@ -1423,7 +1423,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           DESCRIPTION
         </div>
@@ -1439,9 +1439,17 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 20%;"
+          style="width: 10%;"
         >
           ACTIVITY
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 20%;"
+        >
+          LAST RUN
         </div>
         <div
           class="cell"
@@ -1455,7 +1463,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           
         </div>
@@ -1467,7 +1475,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <div
             class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
@@ -1518,7 +1526,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
@@ -1578,7 +1586,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 10%;"
         >
           <span
             class="activityChart"
@@ -1727,6 +1735,27 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
+          style="width: 20%;"
+        >
+          <div
+            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            data-testid="pipeline1"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Last run:
+            </p>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Never
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
           style="width: 10%;"
         >
           <p
@@ -1738,7 +1767,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           <div
             class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
@@ -1786,7 +1815,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <div
             class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
@@ -1807,7 +1836,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
@@ -1867,7 +1896,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 10%;"
         >
           <span
             class="activityChart"
@@ -2016,6 +2045,27 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
+          style="width: 20%;"
+        >
+          <div
+            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            data-testid="pipeline2"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Last run:
+            </p>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Never
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
           style="width: 10%;"
         >
           <p
@@ -2027,7 +2077,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 5%;"
+          style="width: 10%;"
         >
           <div
             class="Layout---horizontal--3rmQ StyledProps---main--1Wws"

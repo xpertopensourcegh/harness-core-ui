@@ -5,6 +5,7 @@ import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
@@ -149,6 +150,19 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   )
 }
 
+const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+  const rowdata = row.original
+
+  return (
+    <Layout.Vertical spacing="xsmall" data-testid={rowdata.identifier}>
+      <Text color={Color.GREY_400}>Last run:</Text>
+      <Text color={Color.GREY_400}>
+        {rowdata.lastExecutionTs ? formatDatetoLocale(rowdata.lastExecutionTs) : 'Never'}
+      </Text>
+    </Layout.Vertical>
+  )
+}
+
 const RenderErrors: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   return <Text color={Color.RED_600}>{row.original.numOfErrors || '-'}</Text>
 }
@@ -179,13 +193,13 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: getString('pipeline').toUpperCase(),
         accessor: 'name',
-        width: '25%',
+        width: '20%',
         Cell: RenderColumnPipeline
       },
       {
         Header: getString('description').toUpperCase(),
         accessor: 'description',
-        width: '25%',
+        width: '20%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
@@ -199,8 +213,15 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: getString('activity').toUpperCase(),
         accessor: 'deployments',
-        width: '20%',
+        width: '10%',
         Cell: RenderActivity,
+        disableSortBy: true
+      },
+      {
+        Header: getString('lastExecutionTs').toUpperCase(),
+        accessor: 'lastExecutionTs',
+        width: '20%',
+        Cell: RenderLastRunDate,
         disableSortBy: true
       },
       {
@@ -213,7 +234,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: '',
         accessor: 'tags',
-        width: '5%',
+        width: '10%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         refetchPipeline,

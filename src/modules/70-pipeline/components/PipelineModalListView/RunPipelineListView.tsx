@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
 import { Layout, Color, Text, Button } from '@wings-software/uikit'
 import Table from '@common/components/Table/Table'
+import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 
@@ -71,11 +72,12 @@ export default function RunPipelineListView({
   const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
 
-    // Adding hardcoded Last run value. Needs to be changed after api changes
     return (
       <Layout.Vertical spacing="xsmall" data-testid={rowdata.identifier}>
         <Text color={Color.GREY_400}>Last run:</Text>
-        <Text color={Color.GREY_400}>mm/dd/yy hh:ss</Text>
+        <Text color={Color.GREY_400}>
+          {rowdata.lastExecutionTs ? formatDatetoLocale(rowdata.lastExecutionTs) : 'Never'}
+        </Text>
       </Layout.Vertical>
     )
   }
@@ -99,7 +101,7 @@ export default function RunPipelineListView({
         Cell: RenderColumnPipeline
       },
       {
-        accessor: 'identifier',
+        accessor: 'lastExecutionTs',
         width: '20%',
         Cell: RenderLastRunDate
       },

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Button, Text, Color, Container, ExpandingSearchInput } from '@wings-software/uikit'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetPipelineList } from 'services/cd-ng'
+import { useGetPipelineList } from 'services/pipeline-ng'
 import { Page } from '@common/exports'
 import { String } from 'framework/exports'
 import RunPipelineListView from './RunPipelineListView'

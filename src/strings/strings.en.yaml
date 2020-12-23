@@ -53,6 +53,7 @@ global:
   manifestsText: Manifest
   fileFolderPathText: File / Folder Path
   addFileText: + Add File
+  lastExecutionTs: 'Last Run'
   multipleFilesHelpText:
     'Multiple files can be overlaid together. They are applied in the order specified - first one gets
     applied first, and the subsequent ones get layered in the order and overrides any previously
