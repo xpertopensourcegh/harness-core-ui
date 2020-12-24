@@ -26,7 +26,6 @@ import DataSourceListEntityPage from '@cv/pages/onboarding/list-entity-select/Da
 import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
 import MetricPackConfigure from '@cv/pages/metric-pack/MetricPackConfigure'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
-import ActivitiesPage from '@cv/pages/activities/ActivitiesPage'
 import ActivitySetupPage from '@cv/pages/activity-setup/ActivitySetupPage'
 import CVGeneralSettingsPage from '@cv/pages/admin/general-settings/CVGeneralSettingsPage'
 import CVGovernancePage from '@cv/pages/admin/governance/CVGovernancePage'
@@ -173,9 +172,6 @@ export default (
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCVActivityDashboard({ ...accountPathProps, ...projectPathProps })}>
         <ActivityDashBoardPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVActivities({ ...accountPathProps, ...projectPathProps })}>
-        <ActivitiesPage />
       </RouteWithLayout>
       <RouteWithLayout
         exact

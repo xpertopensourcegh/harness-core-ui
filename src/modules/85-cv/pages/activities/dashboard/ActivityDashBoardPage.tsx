@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CircularPercentageChart, Color, Container, Text } from '@wings-software/uikit'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import { Page } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
 import i18n from './ActivityDashboardPage.i18n'
 import { ActivityTimeline } from './ActivityTimeline/ActivityTimeline'
@@ -14,6 +16,20 @@ interface ActivityCardContentProps {
   activity: Activity
 }
 
+const ActivityTypes = {
+  DEPLOYMENT: 'DEPLOYMENT',
+  OTHER_CHANGES: 'OTHER',
+  INFRASTRUCTURE: 'INFRASTRUCTURE',
+  CONFIG_CHANGES: 'CONFIG'
+}
+
+const ActivityTypesToIcon: { [key: string]: IconProps } = {
+  [ActivityTypes.DEPLOYMENT]: { name: 'nav-cd', size: 20 },
+  [ActivityTypes.INFRASTRUCTURE]: { name: 'service-kubernetes', size: 20 },
+  [ActivityTypes.CONFIG_CHANGES]: { name: 'wrench', size: 15, color: Color.GREEN_500 },
+  [ActivityTypes.OTHER_CHANGES]: { name: 'wrench', size: 15, color: Color.GREEN_500 }
+}
+
 function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
   const { activity } = props
   return (
@@ -22,10 +38,7 @@ function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
         value={activity.progress}
         size={30}
         color={Color.BLUE_500}
-        icon={{
-          name: 'nav-cd',
-          size: 20
-        }}
+        icon={activity?.activityType ? ActivityTypesToIcon[activity.activityType] : { name: 'circle', size: 20 }}
         font={{ size: 'small' }}
       />
       <Text color={Color.BLACK} lineClamp={2} font={{ size: 'small' }} style={{ marginTop: 'var(--spacing-xsmall)' }}>
@@ -34,13 +47,6 @@ function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
       <Text>{new Date(activity.startTime).toLocaleString()}</Text>
     </Container>
   )
-}
-
-const ActivityTypes = {
-  DEPLOYMENT: 'DEPLOYMENT',
-  OTHER_CHANGES: 'OTHER CHANGES',
-  INFRASTRUCTURE: 'INFRASTRUCTURE',
-  CONFIG_CHANGES: 'CONFIG CHANGES'
 }
 
 function generateActivityTracks(startTime: number, endTime: number): ActivityTrackProps[] {
@@ -60,8 +66,9 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
     {
       trackName: i18n.activityTrackTitle.configChanges,
       trackIcon: {
-        name: 'nav-cd',
-        size: 22
+        name: 'wrench',
+        size: 16,
+        color: Color.GREEN_500
       },
       startTime,
       endTime,
@@ -72,8 +79,8 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
     {
       trackName: i18n.activityTrackTitle.infrastructure,
       trackIcon: {
-        name: 'nav-cd',
-        size: 22
+        name: 'service-kubernetes',
+        size: 20
       },
       startTime,
       endTime,
@@ -84,8 +91,9 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
     {
       trackName: i18n.activityTrackTitle.otherChanges,
       trackIcon: {
-        name: 'service-kubernetes',
-        size: 22
+        name: 'wrench',
+        size: 16,
+        color: Color.GREEN_500
       },
       startTime,
       endTime,
@@ -96,7 +104,64 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
   ]
 }
 
-const timelineStartTime = Math.round(new Date().getTime() / (5 * 60000)) * 5 * 60000
+function transformGetApi(
+  timelineEndTime: number,
+  response: RestResponseListActivityDashboardDTO | null
+): ActivityTrackProps[] {
+  if (!response?.resource?.length) return []
+  const { resource: activities } = response
+  const timelineActivityData = generateActivityTracks(timelineStartTime, timelineEndTime)
+  const activityTypeToTrackIndex = {
+    DEPLOYMENT: 0,
+    CONFIG: 1,
+    INFRASTRUCTURE: 2,
+    CUSTOM: 3,
+    OTHER: 3,
+    KUBERNETES: 2
+  }
+  for (const activity of activities) {
+    const {
+      activityType,
+      activityId,
+      activityName,
+      activityStartTime,
+      environmentIdentifier,
+      serviceIdentifier,
+      environmentName,
+      activityVerificationSummary
+    } = activity || {}
+
+    if (
+      !activityType ||
+      !activityId ||
+      !activityName ||
+      !activityStartTime ||
+      !environmentIdentifier ||
+      !serviceIdentifier ||
+      !activityVerificationSummary
+    ) {
+      continue
+    }
+
+    timelineActivityData[activityTypeToTrackIndex[activityType]]?.activities.push({
+      startTime: activityStartTime,
+      progress: activityVerificationSummary.progressPercentage || 0,
+      activityName,
+      riskScore: activityVerificationSummary.riskScore || -1,
+      activityType,
+      environmentName,
+      serviceIdentifier,
+      uuid: activityId
+    })
+  }
+  for (const track of timelineActivityData) {
+    track.activities.sort((a, b) => b.startTime - a.startTime)
+  }
+
+  return timelineActivityData
+}
+
+const timelineStartTime = Math.round(Date.now() / (5 * 60000)) * 5 * 60000
 
 // function generateMockData(startTime: number, endTime: number, mockData: ActivityTrackProps[]): ActivityTrackProps[] {
 //   for (let activityTypeIndex = 0; activityTypeIndex < Object.keys(ActivityTypes).length; activityTypeIndex++) {
@@ -133,7 +198,7 @@ function renderSummaryCardContent(data: Activity): JSX.Element {
 }
 
 export default function ActivityDashboardPage(): JSX.Element {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const timelineEndTime = moment(timelineStartTime).startOf('month').valueOf()
   // const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
   //   generateMockData(
@@ -145,68 +210,19 @@ export default function ActivityDashboardPage(): JSX.Element {
   const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
     generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf())
   )
-  const { loading, error, refetch: refetchActivities } = useListActivitiesForDashboard({
+  const { loading, error, refetch: refetchActivities, data } = useListActivitiesForDashboard({
     queryParams: {
       accountId,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      projectIdentifier,
+      orgIdentifier,
       startTime: timelineEndTime,
       endTime: timelineStartTime
-    },
-    resolve: (response: RestResponseListActivityDashboardDTO) => {
-      if (!response?.resource?.length) return response
-      const { resource: activities } = response
-      const timelineActivityData = generateActivityTracks(timelineStartTime, timelineEndTime)
-      const activityTypeToTrackIndex = {
-        DEPLOYMENT: 0,
-        INFRASTRUCTURE: 2,
-        CUSTOM: 3,
-        CONFIG: 4,
-        OTHER: 5,
-        KUBERNETES: 6
-      }
-      for (const activity of activities) {
-        const {
-          activityType,
-          activityId,
-          activityName,
-          activityStartTime,
-          environmentIdentifier,
-          serviceIdentifier,
-          environmentName,
-          activityVerificationSummary
-        } = activity || {}
-
-        if (
-          !activityType ||
-          !activityId ||
-          !activityName ||
-          !activityStartTime ||
-          !environmentIdentifier ||
-          !serviceIdentifier ||
-          !activityVerificationSummary
-        ) {
-          continue
-        }
-
-        timelineActivityData[activityTypeToTrackIndex[activityType]]?.activities.push({
-          startTime: activityStartTime,
-          progress: activityVerificationSummary.progressPercentage || 0,
-          activityName,
-          riskScore: activityVerificationSummary.riskScore || -1,
-          activityType,
-          environmentName,
-          serviceIdentifier,
-          uuid: activityId
-        })
-      }
-      for (const track of timelineActivityData) {
-        track.activities.sort((a, b) => b.startTime - a.startTime)
-      }
-      setTimelineData(timelineActivityData)
-      return response
     }
   })
+
+  useEffect(() => {
+    setTimelineData(transformGetApi(timelineEndTime, data))
+  }, [data, timelineEndTime])
 
   return (
     <>
@@ -222,8 +238,8 @@ export default function ActivityDashboardPage(): JSX.Element {
                 startTime: endTime,
                 endTime: startTime,
                 accountId,
-                projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string
+                projectIdentifier,
+                orgIdentifier
               }
             })
           }}

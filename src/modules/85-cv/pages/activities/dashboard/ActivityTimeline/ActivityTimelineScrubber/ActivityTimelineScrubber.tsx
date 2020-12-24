@@ -64,7 +64,7 @@ export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): 
 
   useLayoutEffect(() => {
     setlaneHeight(timelineContainerRef?.getBoundingClientRect().height || 0)
-  }, [timelineContainerRef])
+  }, [timelineContainerRef?.getBoundingClientRect])
 
   useEffect(() => {
     if (laneRef?.current && scrubberLaneRef) {

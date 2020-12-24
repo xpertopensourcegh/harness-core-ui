@@ -62,7 +62,7 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
         props.onSuccess()
       } else {
         history.push(
-          routes.toCVActivities({
+          routes.toCVActivityDashboard({
             orgIdentifier: orgIdentifier as string,
             projectIdentifier: projectIdentifier as string,
             accountId

@@ -55,7 +55,10 @@ export default function CVSideNav(): React.ReactElement {
             label="Data Sources"
             to={routes.toCVDataSources({ accountId, projectIdentifier, orgIdentifier })}
           />
-          <SidebarLink label="Activities" to={routes.toCVActivities({ accountId, projectIdentifier, orgIdentifier })} />
+          <SidebarLink
+            label="Activities"
+            to={routes.toCVActivityDashboard({ accountId, projectIdentifier, orgIdentifier })}
+          />
           <SidebarLink label="Services" to={routes.toCVServices({ accountId, projectIdentifier, orgIdentifier })} />
           <SidebarLink
             label="Metric Packs"
