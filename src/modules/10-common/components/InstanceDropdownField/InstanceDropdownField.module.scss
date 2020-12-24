@@ -1,10 +1,5 @@
 .formGroup {
   position: relative;
-  :global {
-    .bp3-form-content {
-      display: flex;
-    }
-  }
 }
 
 .instancePopover {

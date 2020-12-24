@@ -20,11 +20,11 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import css from './InstanceDropdownField.module.scss'
 
 export enum InstanceTypes {
-  Percentage = 'percentage',
-  Instances = 'instances'
+  Percentage = 'Percentage',
+  Instances = 'Count'
 }
 export interface InstanceFieldValue {
-  type: InstanceTypes
+  instanceType: InstanceTypes
   instance: number
 }
 interface InstanceDropdownFieldProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
@@ -45,7 +45,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
 }): JSX.Element => {
   const { getString } = useStrings()
   const selectedText =
-    value.type === InstanceTypes.Percentage
+    value.instanceType === InstanceTypes.Percentage
       ? getString('instanceFieldOptions.percentageText')
       : getString('instanceFieldOptions.instanceText')
   return (
@@ -56,13 +56,13 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
         textProps={{
           type: 'number',
           placeholder:
-            value.type === InstanceTypes.Percentage
+            value.instanceType === InstanceTypes.Percentage
               ? getString('instanceFieldOptions.percentagePlaceHolder')
               : getString('instanceFieldOptions.instanceHolder'),
           ...textProps
         }}
         onChange={val => {
-          onChange?.({ ...value, instance: (val as unknown) as number })
+          /* istanbul ignore next */ onChange?.({ ...value, instance: (val as unknown) as number })
         }}
         value={(value.instance as unknown) as string}
       />
@@ -73,14 +73,14 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
             <MenuItem
               text={getString('instanceFieldOptions.percentageText')}
               onClick={() => {
-                onChange?.({ ...value, type: InstanceTypes.Percentage })
+                onChange?.({ ...value, instanceType: InstanceTypes.Percentage })
               }}
               data-name="percentage"
             />
             <MenuItem
               text={getString('instanceFieldOptions.instanceText')}
               onClick={() => {
-                onChange?.({ ...value, type: InstanceTypes.Instances })
+                onChange?.({ ...value, instanceType: InstanceTypes.Instances })
               }}
               data-name="instances"
             />
@@ -120,16 +120,17 @@ const FormInstanceDropdownField: React.FC<FormInstanceDropdownFieldProps> = (pro
       label={label}
       name={name}
       textProps={{ ...textProps }}
-      value={{ instance: value, type: typeValue }}
+      value={{ instance: value, instanceType: typeValue }}
       intent={intent}
       helperText={helperText}
       onChange={valueObj => {
+        /* istanbul ignore next */
         formik.setFieldValue(name, valueObj.instance)
-        formik.setFieldValue(typeName, valueObj.type)
+        formik.setFieldValue(typeName, valueObj.instanceType)
       }}
       {...rest}
     />
   )
 }
 
-export const FormMultiTypeTextAreaField = connect(FormInstanceDropdownField)
+export const FormInstanceDropdown = connect(FormInstanceDropdownField)

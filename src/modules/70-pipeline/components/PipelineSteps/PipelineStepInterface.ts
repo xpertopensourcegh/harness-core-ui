@@ -4,6 +4,7 @@ export enum StepType {
   APPROVAL = 'Approval',
   K8sRollingRollback = 'K8sRollingRollback',
   K8sBlueGreenDeploy = 'K8sBlueGreenDeploy',
+  K8sCanaryDeploy = 'K8sCanaryDeploy',
   StepGroup = 'StepGroup',
   KubernetesDirect = 'KubernetesDirect',
   K8sServiceSpec = 'K8sServiceSpec',

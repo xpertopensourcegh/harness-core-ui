@@ -379,13 +379,19 @@ global:
     limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
     limitCPUExample: 'Ex: 1'
     timeoutLabel: Timeout
+    instanceLabel: 'Instances'
+    typeName: 'instanceType'
     awsConnectorLabel: Amazon Web Services Connector
     gcpConnectorLabel: Google Cloud Platform Connector
     k8sRolloutDeploy: 'K8s Rollout Deploy'
     k8sBGDeploy: 'K8s Blue Green Deploy'
+    k8sCanaryDeploy: 'K8s Canary Deploy'
     skipDryRun: 'Skip Dry Run'
     stepNameRequired: 'Step Name is required'
     timeoutRequired: 'Timeout is required'
+    lessThanZero: 'Instance cannot be less than zero.'
+    morethanHundred: 'Instance cannot be more than 100.'
+    instancesRequired: 'Instance is required.'
     gcr:
       title: 'Build and Upload to GCR'
     ecr:

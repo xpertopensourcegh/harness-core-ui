@@ -21,6 +21,7 @@ import { UserLabel } from './UserLabel/UserLabel'
 import { FormMultiTypeTextAreaField, MultiTypeTextArea } from './MultiTypeTextArea/MultiTypeTextArea'
 import { FormMultiTypeCheckboxField, MultiTypeCheckbox } from './MultiTypeCheckbox/MultiTypeCheckbox'
 import { FormMultiTypeRadioGroupField, MultiTypeRadioGroup } from './MultiTypeRadioGroup/MultiTypeRadioGroup'
+import { InstanceDropdownField, FormInstanceDropdown } from './InstanceDropdownField/InstanceDropdownField'
 import Wizard from './Wizard/Wizard'
 
 export {
@@ -48,6 +49,8 @@ export {
   FormMultiTypeTextAreaField,
   FormMultiTypeCheckboxField,
   FormMultiTypeRadioGroupField,
+  InstanceDropdownField,
+  FormInstanceDropdown,
   MultiTypeCheckbox,
   UserLabel,
   Wizard
