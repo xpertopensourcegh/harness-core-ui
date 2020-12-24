@@ -51,11 +51,16 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
         >
-          <img
-            alt="user"
-            class="avatar"
-            src="test-file-stub"
-          />
+          <div
+            class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+          >
+            <div
+              class="Avatar---AvatarInner--C7qT"
+              style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+            >
+              U
+            </div>
+          </div>
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws committed StyledProps---font-xsmall--1PyC StyledProps---margin-right-xlarge--dUdp"
           >

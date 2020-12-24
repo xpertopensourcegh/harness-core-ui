@@ -1,13 +1,11 @@
 import React from 'react'
 import copy from 'copy-to-clipboard'
 import moment from 'moment'
-import { Card, Container, Text, Icon } from '@wings-software/uikit'
+import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uikit'
 import { useToaster } from '@common/exports'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
 import type { CIBuildCommit } from 'services/ci'
 import i18n from './BuildCommits.i18n'
-// TODO: Delete once commit contains user's avatar url
-import avatar from './images/avatar.jpg'
 import { BuildPageContext } from '../../context/BuildPageContext'
 import css from './BuildCommits.module.scss'
 
@@ -15,6 +13,19 @@ interface CommitsGroupedByTimestamp {
   timeStamp: number
   commits: CIBuildCommit[]
 }
+
+// NOTE: colors here are closest
+// match to provided in mockup.
+// Can be switched once mockup one's
+// will made it to uikit
+const AVATAR_COLORS = [
+  Color.BLUE_700,
+  Color.SEA_GREEN_500,
+  Color.ORANGE_500,
+  Color.PURPLE_900,
+  Color.GREEN_800,
+  Color.RED_600
+]
 
 const BuildCommits: React.FC = () => {
   const { buildData } = React.useContext(BuildPageContext)
@@ -49,9 +60,11 @@ const BuildCommits: React.FC = () => {
               {i18n.commitsOn} {moment(timeStamp).format('MMM D, YYYY')}
             </Text>
           </div>
-          {commits.map(({ id = '', message = '', timeStamp: commitTimestamp = 0, ownerId, ownerName }) => {
+          {commits.map(({ id = '', message = '', timeStamp: commitTimestamp = 0, ownerId, ownerName }, index) => {
             const [title, description] = message.split('\n\n')
-
+            // we should use only first part of a name
+            // in order to show a single letter
+            const firstName = ownerName?.split(' ')[0]
             return (
               <Card className={css.commit} key={id}>
                 <div>
@@ -65,7 +78,15 @@ const BuildCommits: React.FC = () => {
                   )}
                 </div>
                 <Container flex>
-                  <img className={css.avatar} src={avatar} alt={ownerName} />
+                  {/* @TODO: once response includes avatar reference,
+                   * we should pass it to Avatar component
+                   */}
+                  <Avatar
+                    className={css.avatar}
+                    name={firstName}
+                    size={'xsmall'}
+                    backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
+                  />
                   <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>
                     {ownerId} {i18n.committed} {getTimeAgo(commitTimestamp)}
                   </Text>
