@@ -161,6 +161,7 @@ global:
     StepGroupRollback: Rollback Step Group
     ManualIntervention: Manual Intervention
     EndExecution: End Execution
+  onTimeoutLabel: Post timeout action
   preRequisitesTitle: Pre-requisites
   advancedTitle: Advanced
   stepConfiguration: Step Configuration

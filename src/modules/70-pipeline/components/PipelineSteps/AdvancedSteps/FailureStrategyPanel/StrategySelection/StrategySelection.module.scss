@@ -79,3 +79,23 @@
     opacity: 0;
   }
 }
+
+.step {
+  position: relative;
+}
+
+.retryStep {
+  .retryStepIntervals {
+    .row {
+      display: flex;
+      align-items: center;
+      column-gap: var(--spacing-small);
+      margin-bottom: var(--spacing-medium);
+
+      :global(.bp3-form-group) {
+        margin-bottom: 0;
+        flex: 1 0 auto;
+      }
+    }
+  }
+}

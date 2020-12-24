@@ -5,5 +5,9 @@ declare const styles: {
   readonly strategyIcon: string
   readonly icon: string
   readonly checkMark: string
+  readonly step: string
+  readonly retryStep: string
+  readonly retryStepIntervals: string
+  readonly row: string
 }
 export default styles
