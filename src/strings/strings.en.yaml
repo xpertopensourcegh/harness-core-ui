@@ -420,7 +420,7 @@ global:
       create:
         aboutYourStage: 'About Your Stage'
         stageNameRequiredError: 'Stage Name is required'
-        skipGitCloneHelperText: 'Text: how it matters?'
+        skipGitCloneHelperText: 'Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage'
         configureCodebase: 'Configure Codebase'
         configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
         connectorLabel: 'Connector'

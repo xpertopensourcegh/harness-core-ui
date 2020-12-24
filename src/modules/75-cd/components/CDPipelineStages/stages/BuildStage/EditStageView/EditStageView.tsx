@@ -195,10 +195,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 label={getString('skipGitCloneLabel')}
                 onChange={e => formikProps.setFieldValue('skipGitClone', e.currentTarget.checked)}
               />
-              <Text font="xsmall" padding={{ left: 'large' }}>
+              <div className={css.skipGitInfo}>
                 <Button icon="info" minimal tooltip={getString('details')} iconProps={{ size: 8 }} />
-                {getString('pipelineSteps.build.create.skipGitCloneHelperText')}
-              </Text>
+                <Text font="xsmall">{getString('pipelineSteps.build.create.skipGitCloneHelperText')}</Text>
+              </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Git Clone step */}
               {!ciCodebase && !formikProps.values.skipGitClone && (
                 <div className={css.configureCodebase}>

@@ -45,3 +45,9 @@
   font-size: 14px;
   padding-left: var(--spacing-medium);
 }
+
+.skipGitInfo {
+  display: flex;
+  align-items: flex-end;
+  padding-left: var(--spacing-large);
+}
