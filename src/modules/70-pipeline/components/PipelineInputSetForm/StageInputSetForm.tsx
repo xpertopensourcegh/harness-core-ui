@@ -16,7 +16,7 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
-import { getStepFromStage } from '../AbstractSteps/StepUtil'
+import { getStepFromStage } from '../PipelineStudio/StepUtil'
 
 function StepForm({
   template,

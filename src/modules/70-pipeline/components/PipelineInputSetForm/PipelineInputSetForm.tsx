@@ -5,7 +5,7 @@ import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
 import { StageInputSetForm } from './StageInputSetForm'
-import { getStageFromPipeline } from '../AbstractSteps/StepUtil'
+import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {

@@ -3,24 +3,46 @@
 exports[`Test K8sRolloutDeployStep should render edit view 1`] = `
 <div>
   <div
-    class="bp3-form-group"
+    class="OverlaySpinner---overlaySpinner--3Bs3"
   >
     <div
-      class="bp3-form-content"
+      class="bp3-form-group"
     >
-      <label
-        class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy checkbox StyledProps---main--1Wws"
+      <div
+        class="bp3-form-content"
       >
-        <input
-          name="spec.skipDryRun"
-          type="checkbox"
-        />
-        <span
-          class="bp3-control-indicator"
-        />
-        Skip Dry Run
-      </label>
+        <label
+          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy Checkbox---checkbox--2kFy checkbox StyledProps---main--1Wws StyledProps---inline--1f52"
+        >
+          <input
+            name="spec.skipDryRun"
+            type="checkbox"
+          />
+          <span
+            class="bp3-control-indicator"
+          />
+          Skip Dry Run
+        </label>
+      </div>
     </div>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -141,8 +163,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                   style="align-items: center;"
                 >
                   <div
-                    class="bp3-form-group duration"
-                    style="width: 100%;"
+                    class="bp3-form-group"
                   >
                     <label
                       class="bp3-label"
@@ -161,11 +182,12 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group bp3-fill"
                         >
                           <input
                             class="bp3-input"
                             name="spec.timeout"
+                            placeholder="Enter w/d/h/m/s/ms"
                             type="text"
                             value="10m"
                           />
@@ -398,8 +420,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
                   style="align-items: center;"
                 >
                   <div
-                    class="bp3-form-group duration"
-                    style="width: 100%;"
+                    class="bp3-form-group"
                   >
                     <label
                       class="bp3-label"
@@ -418,11 +439,12 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group bp3-fill"
                         >
                           <input
                             class="bp3-input"
                             name="spec.timeout"
+                            placeholder="Enter w/d/h/m/s/ms"
                             type="text"
                             value="10m"
                           />

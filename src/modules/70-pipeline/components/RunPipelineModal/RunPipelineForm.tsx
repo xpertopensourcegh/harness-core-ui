@@ -34,7 +34,7 @@ import { useAppStore, useStrings } from 'framework/exports'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
-import { clearRuntimeInput, validatePipeline } from '../AbstractSteps/StepUtil'
+import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import css from './RunPipelineModal.module.scss'
 
 export interface RunPipelineFormProps extends PipelinePathProps, AccountPathProps {

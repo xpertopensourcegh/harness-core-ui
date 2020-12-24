@@ -38,7 +38,7 @@ export interface ExecutionLayoutProps {
   defaultLayout?: ExecutionLayoutState
 }
 
-export default function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
+function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
   const [child1, child2, child3] = React.Children.toArray(props.children)
   const [layoutState, setLayoutState] = React.useState(props.defaultLayout || ExecutionLayoutState.NONE)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
@@ -131,3 +131,4 @@ export default function ExecutionLayout(props: React.PropsWithChildren<Execution
 }
 
 ExecutionLayout.Toggle = ExcecutionLayoutToggle
+export default ExecutionLayout

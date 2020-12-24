@@ -33,7 +33,7 @@ import routes from '@common/RouteDefinitions'
 import { useAppStore, useStrings } from 'framework/exports'
 import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
-import { clearRuntimeInput, validatePipeline } from '../AbstractSteps/StepUtil'
+import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline

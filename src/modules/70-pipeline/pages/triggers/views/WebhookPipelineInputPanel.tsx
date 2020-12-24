@@ -14,7 +14,7 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
 
-import { clearRuntimeInput } from '@pipeline/components/AbstractSteps/StepUtil'
+import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import css from './WebhookPipelineInputPanel.module.scss'
 
 interface WebhookPipelineInputPanelPropsInterface {

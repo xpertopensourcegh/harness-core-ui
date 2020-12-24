@@ -20,7 +20,7 @@ import {
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { clearRuntimeInput } from '@pipeline/components/AbstractSteps/StepUtil'
+import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {

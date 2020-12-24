@@ -6,19 +6,17 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  TextInput,
-  Checkbox
+  MultiTypeInputType
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-// import { get } from 'lodash-es'
-import { FormGroup } from '@blueprintjs/core'
+import { isEmpty } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import Accordion from '@common/components/Accordion/Accordion'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@pipeline/components/ConfigureOptions/ConfigureOptions'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -31,7 +29,10 @@ interface K8RolloutDeployProps {
   initialValues: K8RolloutDeployData
   onUpdate?: (data: K8RolloutDeployData) => void
   stepViewType?: StepViewType
-  template?: K8RolloutDeployData
+  inputSetData?: {
+    template?: K8RolloutDeployData
+    path?: string
+  }
 }
 
 const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
@@ -59,11 +60,9 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
                     <>
                       <FormInput.InputWithIdentifier inputLabel={getString('name')} />
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <FormInput.MultiTextInput
+                        <FormMultiTypeDurationField
                           name="spec.timeout"
                           label={getString('pipelineSteps.timeoutLabel')}
-                          className={stepCss.duration}
-                          style={{ width: '100%' }}
                         />
                         {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
@@ -96,31 +95,22 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
   )
 }
 
-const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ onUpdate, initialValues, template }) => {
+const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
   return (
     <>
-      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.timeoutLabel')}>
-          <TextInput
-            name="spec.timeout"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, timeout: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
+        <FormMultiTypeDurationField
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          label={getString('pipelineSteps.timeoutLabel')}
+        />
       )}
-      {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormGroup>
-          <Checkbox
-            name="spec.skipDryRun"
-            className={stepCss.checkbox}
-            label={getString('pipelineSteps.skipDryRun')}
-            onChange={event => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, skipDryRun: event.currentTarget.checked } })
-            }}
-          />
-        </FormGroup>
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipDryRun')}
+        />
       )}
     </>
   )
@@ -133,6 +123,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     stepViewType?: StepViewType,
     inputSetData?: {
       template?: K8RolloutDeployData
+      path?: string
     }
   ): JSX.Element {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -141,14 +132,23 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={inputSetData?.template}
+          inputSetData={inputSetData}
         />
       )
     }
     return <K8RolloutDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
-  validateInputSet(): object {
-    return {}
+  validateInputSet(
+    data: K8RolloutDeployData,
+    template: K8RolloutDeployData,
+    getString?: UseStringsReturn['getString']
+  ): object {
+    const errors = {} as any
+    if (isEmpty(data?.spec?.timeout) && getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      errors.spec = {}
+      errors.spec.timeout = getString?.('fieldRequired', { field: 'Timeout' })
+    }
+    return errors
   }
 
   protected type = StepType.K8sRollingDeploy
