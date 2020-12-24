@@ -1,24 +1,32 @@
 import React, { useState } from 'react'
 
 import { Button, Text, Color, Container, ExpandingSearchInput } from '@wings-software/uikit'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetPipelineList } from 'services/pipeline-ng'
+import { useParams } from 'react-router-dom'
+import { ResponsePagePMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
 import { Page } from '@common/exports'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
+import type { UseGetMockData } from '@common/utils/testUtils'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import RunPipelineListView from './RunPipelineListView'
 import css from './PipelineModalListView.module.scss'
-export interface PipelineModalListViewProps extends ProjectPathProps, AccountPathProps {
+
+interface PipelineModalListViewProps {
   onClose: () => void
+  mockData?: UseGetMockData<ResponsePagePMSPipelineSummaryResponse>
 }
 
-export default function PipelineModalListView({
-  accountId,
-  orgIdentifier,
-  projectIdentifier,
-  onClose
-}: PipelineModalListViewProps): React.ReactElement {
+export default function PipelineModalListView({ onClose, mockData }: PipelineModalListViewProps): React.ReactElement {
   const [page, setPage] = useState(0)
   const [searchParam, setSearchParam] = React.useState('')
+  const { getString } = useStrings()
+
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<
+    PipelineType<{
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+    }>
+  >()
 
   const { data, loading, refetch } = useGetPipelineList({
     queryParams: {
@@ -27,8 +35,10 @@ export default function PipelineModalListView({
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
+      module,
       searchTerm: searchParam
-    }
+    },
+    mock: mockData
   })
 
   const handleSearch = (query: string): void => {
@@ -51,7 +61,13 @@ export default function PipelineModalListView({
       />
       <Page.Body className={css.main} loading={loading}>
         <div className={css.searchContainer}>
-          <ExpandingSearchInput defaultValue={searchParam} className={css.search} onChange={handleSearch} />
+          <ExpandingSearchInput
+            placeholder={getString('search')}
+            throttle={200}
+            defaultValue={searchParam}
+            className={css.search}
+            onChange={handleSearch}
+          />
         </div>
 
         {!data?.data?.content?.length ? (

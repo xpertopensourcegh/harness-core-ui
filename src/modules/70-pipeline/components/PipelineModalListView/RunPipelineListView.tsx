@@ -73,7 +73,7 @@ export default function RunPipelineListView({
     const rowdata = row.original
 
     return (
-      <Layout.Vertical spacing="xsmall" data-testid={rowdata.identifier}>
+      <Layout.Vertical spacing="xsmall">
         <Text color={Color.GREY_400}>Last run:</Text>
         <Text color={Color.GREY_400}>
           {rowdata.lastExecutionTs ? formatDatetoLocale(rowdata.lastExecutionTs) : 'Never'}

@@ -1,0 +1,404 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PipelineModal List View render empty list view 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---font-medium--2b-0"
+    >
+      <span>
+        Run Pipeline
+      </span>
+    </p>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+          icon="cross"
+        >
+          <svg
+            data-icon="cross"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              cross
+            </desc>
+            <path
+              d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+  >
+    <div
+      class="searchContainer"
+    >
+      <div
+        class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+        data-name=""
+      >
+        <span
+          class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+          icon="search"
+        >
+          <svg
+            data-icon="search"
+            height="14"
+            viewBox="0 0 16 16"
+            width="14"
+          >
+            <desc>
+              search
+            </desc>
+            <path
+              d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <input
+          class="bp3-input "
+          dir="auto"
+          placeholder="Search"
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="noResultSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+      >
+        <span>
+          No results found.
+        </span>
+      </p>
+    </div>
+    <div
+      class="table table"
+    >
+      <div
+        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+      >
+        <span
+          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+        >
+          Showing 
+          <strong>
+            0
+          </strong>
+           of 
+          <strong>
+            0
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PipelineModal List View render list view 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---font-medium--2b-0"
+    >
+      <span>
+        Run Pipeline
+      </span>
+    </p>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+          icon="cross"
+        >
+          <svg
+            data-icon="cross"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              cross
+            </desc>
+            <path
+              d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+  >
+    <div
+      class="searchContainer"
+    >
+      <div
+        class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+        data-name=""
+      >
+        <span
+          class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+          icon="search"
+        >
+          <svg
+            data-icon="search"
+            height="14"
+            viewBox="0 0 16 16"
+            width="14"
+          >
+            <desc>
+              search
+            </desc>
+            <path
+              d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <input
+          class="bp3-input "
+          dir="auto"
+          placeholder="Search"
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="table table"
+    >
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 60%;"
+        >
+          <div
+            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            data-testid="pipeline1"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+            >
+              pipeline1
+            </p>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              pipeline1 description
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <div
+            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Last run:
+            </p>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Never
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <defs>
+                  <path
+                    d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                    id="run-pipeline_svg__a"
+                  />
+                </defs>
+                <clippath
+                  id="run-pipeline_svg__b"
+                >
+                  <use
+                    overflow="visible"
+                    xlink:href="#run-pipeline_svg__a"
+                  />
+                </clippath>
+                <path
+                  clip-path="url(#run-pipeline_svg__b)"
+                  d="M-5-5h26v26H-5z"
+                  fill="#54b610"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              <span>
+                Run Pipeline
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 60%;"
+        >
+          <div
+            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            data-testid="pipeline2"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+            >
+              pipeline2
+            </p>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              pipeline2 description
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <div
+            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Last run:
+            </p>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            >
+              Never
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <defs>
+                  <path
+                    d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                    id="run-pipeline_svg__a"
+                  />
+                </defs>
+                <clippath
+                  id="run-pipeline_svg__b"
+                >
+                  <use
+                    overflow="visible"
+                    xlink:href="#run-pipeline_svg__a"
+                  />
+                </clippath>
+                <path
+                  clip-path="url(#run-pipeline_svg__b)"
+                  d="M-5-5h26v26H-5z"
+                  fill="#54b610"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              <span>
+                Run Pipeline
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+      >
+        <span
+          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+        >
+          Showing 
+          <strong>
+            4
+          </strong>
+           of 
+          <strong>
+            4
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

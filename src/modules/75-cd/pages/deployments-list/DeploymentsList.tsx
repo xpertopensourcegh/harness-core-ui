@@ -21,12 +21,7 @@ export default function DeploymentsList(): React.ReactElement {
   const [openModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} style={{ minWidth: 800 }}>
-        <PipelineModalListView
-          onClose={hideModal}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-          accountId={accountId}
-        />
+        <PipelineModalListView onClose={hideModal} />
       </Dialog>
     ),
     [projectIdentifier, orgIdentifier, accountId]

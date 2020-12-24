@@ -1739,7 +1739,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
         >
           <div
             class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-            data-testid="pipeline1"
           >
             <p
               class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
@@ -2049,7 +2048,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
         >
           <div
             class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-            data-testid="pipeline2"
           >
             <p
               class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
