@@ -48,9 +48,13 @@ enum VariableTypes {
 const secretsOptions: Map<string, string> = new Map()
 
 const RUNTIME_INPUT_VALUE = '{input}'
-const isValueAnExpression = (value: string): boolean => /^\${.*}$/.test(value)
 
-const valueToType = (value: string | undefined = '', allowableTypes?: MultiTypeInputType[]): MultiTypeInputType => {
+export const isValueAnExpression = (value: string): boolean => /^\${.*}$/.test(value)
+
+export const valueToType = (
+  value: string | undefined = '',
+  allowableTypes?: MultiTypeInputType[]
+): MultiTypeInputType => {
   if (typeof value === 'string') {
     value = value.toLocaleLowerCase().trim()
     if (value.startsWith(RUNTIME_INPUT_VALUE)) return MultiTypeInputType.RUNTIME
@@ -62,7 +66,7 @@ const valueToType = (value: string | undefined = '', allowableTypes?: MultiTypeI
   return MultiTypeInputType.FIXED
 }
 
-const getSecretKey = (secret: SecretDTOV2): string =>
+export const getSecretKey = (secret: SecretDTOV2): string =>
   `${secret.orgIdentifier ? Scope.ORG : secret.projectIdentifier ? Scope.PROJECT : Scope.ACCOUNT}.${
     secret.identifier
   }` || ''
@@ -258,10 +262,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                         >
                           {getString('removeLabel')}
                         </span>
-                        <FormInput.TextArea
-                          name="description"
-                          label={getString('pipelineSteps.build.stageSpecifications.descriptionLabel')}
-                        />
+                        <FormInput.TextArea name={'description'} label={getString('description')} />
                       </div>
                     )}
 
@@ -277,8 +278,8 @@ export default function BuildStageSpecifications(): JSX.Element {
                           {getString('removeLabel')}
                         </span>
                         <FormInput.TagInput
-                          name={getString('pipelineSteps.build.stageSpecifications.addTags')}
-                          label={getString('pipelineSteps.build.stageSpecifications.tagsLabel')}
+                          name="tags"
+                          label={getString('tagsLabel')}
                           items={[]}
                           labelFor={name => name as string}
                           itemFromNewTag={newTag => newTag}
