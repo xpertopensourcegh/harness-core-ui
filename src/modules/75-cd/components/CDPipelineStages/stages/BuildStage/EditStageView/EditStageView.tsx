@@ -77,9 +77,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     name: data?.stage.name
   }
 
-  if (data?.stage.description) initialValues.description = data?.stage.description
-  if (data?.stage.spec?.skipGitClone) initialValues.skipGitClone = data?.stage.spec?.skipGitClone
-  if (ciCodebase2?.repositoryName) initialValues.repositoryName = ciCodebase2?.repositoryName
+  if (data?.stage.description) initialValues.description = data.stage.description
+  if (data?.stage.spec?.skipGitClone) initialValues.skipGitClone = data.stage.spec.skipGitClone
+  if (ciCodebase2?.repositoryName) initialValues.repositoryName = ciCodebase2.repositoryName
 
   const connectorId = getIdentifierFromValue((ciCodebase2?.connectorRef as string) || '')
   const initialScope = getScopeFromValue((ciCodebase2?.connectorRef as string) || '')
@@ -115,7 +115,13 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.build.create.stageNameRequiredError')),
+        name: Yup.string()
+          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('pipelineSteps.build.create.stageNameRegExpError'))
+          .required(getString('pipelineSteps.build.create.stageNameRequiredError')),
+        description: Yup.string().matches(
+          /^(?![0-9])[0-9a-zA-Z_$]*$/,
+          getString('pipelineSteps.build.create.stageDescriptionRegExpError')
+        ),
         ...(!ciCodebase2 &&
           !values.skipGitClone && {
             connectorRef: Yup.mixed().required(getString('pipelineSteps.build.create.connectorRequiredError')),
@@ -214,6 +220,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     {getString('pipelineSteps.build.create.configureCodebaseHelperText')}
                   </Text>
                   <ConnectorReferenceField
+                    error={formikProps.errors.connectorRef}
                     name="connectorRef"
                     type="Git"
                     selected={formikProps.values.connectorRef}

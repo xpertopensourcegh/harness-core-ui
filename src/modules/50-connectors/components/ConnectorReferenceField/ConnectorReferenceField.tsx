@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormGroup, IFormGroupProps } from '@blueprintjs/core'
+import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
 import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
 import cx from 'classnames'
 import {
@@ -37,6 +37,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   defaultScope?: Scope
   width?: number
   type?: ConnectorInfoDTO['type']
+  error?: string
 }
 
 interface ConnectorReferenceDTO extends ConnectorInfoDTO {
@@ -198,6 +199,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     label,
     width = 400,
     placeholder,
+    error,
     ...rest
   } = props
   const { openConnectorModal } = useCreateConnectorModal({
@@ -208,10 +210,13 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     }
   })
 
+  const helperText = error ? error : undefined
+  const intent = error ? Intent.DANGER : Intent.NONE
+
   const { getString } = useStrings()
 
   return (
-    <FormGroup {...rest} label={label}>
+    <FormGroup {...rest} label={label} helperText={helperText} intent={intent}>
       <ReferenceSelect<ConnectorReferenceDTO>
         onChange={(connector, scope) => {
           props.onChange?.(connector, scope)
