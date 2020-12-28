@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { CircularPercentageChart, Color, Container, Text } from '@wings-software/uikit'
-import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import moment from 'moment'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import { Page } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
 import i18n from './ActivityDashboardPage.i18n'
@@ -11,9 +12,15 @@ import { ActivityTimeline } from './ActivityTimeline/ActivityTimeline'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import { DeploymentSummaryCardView } from './SummaryCardViews/DeploymentSummaryCardView/DeploymentSummaryCardView'
 import type { ActivityTrackProps } from './ActivityTimeline/ActivityTrack/ActivityTrack'
+import { aggregateActivityByType } from './ActivityDashboardPageUtils'
+import css from './ActivityDashBoardPage.module.scss'
 
 interface ActivityCardContentProps {
   activity: Activity
+}
+
+interface AggregateActivityCardPrps {
+  activities: Activity[]
 }
 
 const ActivityTypes = {
@@ -41,10 +48,49 @@ function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
         icon={activity?.activityType ? ActivityTypesToIcon[activity.activityType] : { name: 'circle', size: 20 }}
         font={{ size: 'small' }}
       />
-      <Text color={Color.BLACK} lineClamp={2} font={{ size: 'small' }} style={{ marginTop: 'var(--spacing-xsmall)' }}>
+      <Text lineClamp={2} className={css.cardText}>
         {activity.activityName}
       </Text>
-      <Text>{new Date(activity.startTime).toLocaleString()}</Text>
+      <Text font={{ size: 'small' }} style={{ marginTop: '2px' }}>
+        {moment(activity.startTime).format('MMM D, YYYY h:mm a')}
+      </Text>
+    </Container>
+  )
+}
+
+function AggregateActivityCard(props: AggregateActivityCardPrps): JSX.Element {
+  const { activities } = props
+  const { getString } = useStrings()
+  const aggregatedEvents = aggregateActivityByType(getString, activities)
+
+  return (
+    <Container>
+      <CircularPercentageChart
+        value={100}
+        size={30}
+        color={Color.BLUE_500}
+        icon={
+          activities?.[0]?.activityType ? ActivityTypesToIcon[activities[0].activityType] : { name: 'circle', size: 20 }
+        }
+        font={{ size: 'small' }}
+      />
+      {Array.from(aggregatedEvents.entries()).map(aggregatedEvent => {
+        const [eventType, event] = aggregatedEvent
+        if (event.totalCount === 0) return null
+        return (
+          <Text
+            key={eventType}
+            lineClamp={1}
+            className={css.cardText}
+            icon={event.iconProps.name}
+            iconProps={{
+              size: event.iconProps.size
+            }}
+          >
+            {`${event.totalCount} ${eventType}`}
+          </Text>
+        )
+      })}
     </Container>
   )
 }
@@ -60,6 +106,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       startTime,
       endTime,
       cardContent: renderActivityCardContent,
+      aggregateCoverCard: renderAggregateActivityCard,
       onActivityClick: () => undefined,
       activities: []
     },
@@ -73,6 +120,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       startTime,
       endTime,
       cardContent: renderActivityCardContent,
+      aggregateCoverCard: renderAggregateActivityCard,
       onActivityClick: () => undefined,
       activities: []
     },
@@ -85,6 +133,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       startTime,
       endTime,
       cardContent: renderActivityCardContent,
+      aggregateCoverCard: renderAggregateActivityCard,
       onActivityClick: () => undefined,
       activities: []
     },
@@ -98,6 +147,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       startTime,
       endTime,
       cardContent: renderActivityCardContent,
+      aggregateCoverCard: renderAggregateActivityCard,
       onActivityClick: () => undefined,
       activities: []
     }
@@ -147,6 +197,7 @@ function transformGetApi(
       startTime: activityStartTime,
       progress: activityVerificationSummary.progressPercentage || 0,
       activityName,
+      activityStatus: activity.verificationStatus,
       riskScore: activityVerificationSummary.riskScore || -1,
       activityType,
       environmentName,
@@ -187,6 +238,10 @@ const timelineStartTime = Math.round(Date.now() / (5 * 60000)) * 5 * 60000
 
 function renderActivityCardContent(data: Activity): JSX.Element {
   return <ActivityCardContent activity={data} />
+}
+
+function renderAggregateActivityCard(activities: Activity[]): JSX.Element {
+  return <AggregateActivityCard activities={activities} />
 }
 
 function renderSummaryCardContent(data: Activity): JSX.Element {

@@ -39,7 +39,7 @@ function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
 
     if (activitySource.type === 'KUBERNETES') {
       const kubernetesActivitySource = activitySource as KubernetesActivitySourceDTO
-      kubernetesActivitySource?.activitySourceConfigs.forEach(config => {
+      kubernetesActivitySource?.activitySourceConfigs?.forEach(config => {
         services.add(config.serviceIdentifier)
         environments.add(config.envIdentifier)
       })

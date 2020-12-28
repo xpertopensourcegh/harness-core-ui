@@ -65,6 +65,7 @@ global:
   plus: +
   passed: Passed
   failed: Failed
+  inProgress: In Progress
   todo: TODO - implement this
   identifier: 'Identifier'
   name: Name

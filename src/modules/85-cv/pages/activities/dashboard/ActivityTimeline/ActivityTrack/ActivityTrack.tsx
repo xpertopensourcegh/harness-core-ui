@@ -10,6 +10,7 @@ export interface ActivityTrackProps {
   trackName: string
   trackIcon: IconProps
   cardContent: (activity: Activity) => JSX.Element
+  aggregateCoverCard?: (activities: Activity[]) => JSX.Element
   onActivityClick: (activity: Activity | null) => void
   activities: Activity[]
   startTime: number
@@ -19,6 +20,7 @@ export interface ActivityTrackProps {
 
 interface ActivityCardProps {
   cardContent: ActivityTrackProps['cardContent']
+  aggregateCoverCard: ActivityTrackProps['aggregateCoverCard']
   activityBucket: ActivityBucket
   onActivityClick: ActivityTrackProps['onActivityClick']
   selectedActivityId?: string
@@ -29,7 +31,7 @@ const TRACK_WIDTH = 140
 const ACTIVITY_SELECTION_EVENT = 'SelectActivityCardEvent'
 
 function ActivityCard(props: ActivityCardProps): JSX.Element {
-  const { cardContent, activityBucket, onActivityClick, selectedActivityId } = props
+  const { cardContent, activityBucket, onActivityClick, selectedActivityId, aggregateCoverCard } = props
   const [isExpandedView, setExpandView] = useState(false)
   const { activities } = activityBucket
   const activitiesToRender = isExpandedView ? activities : [activities[0]]
@@ -52,23 +54,40 @@ function ActivityCard(props: ActivityCardProps): JSX.Element {
       >
         <Container />
       </Overlay>
-      {activitiesToRender.map((activity, index) => (
-        <div key={activity.uuid}>
-          <Card
-            interactive={true}
-            elevation={1}
-            className={cx(css.activityCardContent, selectedActivityId === activity.uuid ? css.selectedCard : undefined)}
-            style={{ height: ACTIVITY_CARD_HEIGHT }}
-            onClick={() => {
-              if (selectedActivityId !== activity.uuid) {
-                onActivityClick({ ...activity, offset: index * ACTIVITY_CARD_HEIGHT })
-              }
-            }}
-          >
-            {cardContent?.(activity)}
-          </Card>
-        </div>
-      ))}
+      {activities.length > 1 && aggregateCoverCard && !isExpandedView ? (
+        <Card
+          interactive={true}
+          elevation={1}
+          className={css.activityCardContent}
+          style={{ height: ACTIVITY_CARD_HEIGHT }}
+          onClick={toggleExpandCallback(!isExpandedView)}
+        >
+          {aggregateCoverCard(activities)}
+        </Card>
+      ) : (
+        activitiesToRender.map((activity, index) => (
+          <div key={activity.uuid}>
+            <Card
+              interactive={true}
+              elevation={1}
+              className={cx(
+                css.activityCardContent,
+                selectedActivityId === activity.uuid ? css.selectedCard : undefined
+              )}
+              style={{ height: ACTIVITY_CARD_HEIGHT }}
+              onClick={() => {
+                if (selectedActivityId !== activity.uuid) {
+                  onActivityClick({ ...activity, offset: index * ACTIVITY_CARD_HEIGHT })
+                } else {
+                  onActivityClick(null)
+                }
+              }}
+            >
+              {cardContent?.(activity)}
+            </Card>
+          </div>
+        ))
+      )}
       {activities.length > 1 && (
         <Text
           background={Color.BLUE_600}
@@ -85,7 +104,7 @@ function ActivityCard(props: ActivityCardProps): JSX.Element {
 }
 
 function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
-  const { cardContent, activityBucket, onActivityClick, timelineContainerRef } = props
+  const { cardContent, activityBucket, onActivityClick, timelineContainerRef, aggregateCoverCard } = props
   const [isVisible, setVisible] = useState(false)
   const [selectedActivityId, setSelected] = useState<string | undefined>()
   const cardRef = useRef<HTMLDivElement>(null)
@@ -128,6 +147,7 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
           activityBucket={activityBucket}
           cardContent={cardContent}
           selectedActivityId={selectedActivityId}
+          aggregateCoverCard={aggregateCoverCard}
           onActivityClick={selectedActivity => {
             document.dispatchEvent(
               new CustomEvent(ACTIVITY_SELECTION_EVENT, {
@@ -157,7 +177,8 @@ export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
     startTime,
     endTime,
     onActivityClick,
-    timelineContainerRef
+    timelineContainerRef,
+    aggregateCoverCard
   } = props
   const { activityBuckets, timelineHeight } = useMemo(() => placeActivitiesOnTrack(startTime, endTime, activities), [
     startTime,
@@ -187,6 +208,7 @@ export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
       {activityBuckets.map((intervalBucket, index) => (
         <ActivityCardWrapper
           key={index}
+          aggregateCoverCard={aggregateCoverCard}
           timelineContainerRef={timelineContainerRef}
           activityBucket={intervalBucket}
           cardContent={cardContent}
