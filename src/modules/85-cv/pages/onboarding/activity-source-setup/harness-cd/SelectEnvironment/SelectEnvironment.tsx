@@ -11,11 +11,11 @@ import { Environment, useGetListEnvironments } from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import { EnvironmentSelect } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
 import { useGetEnvironmentListForProject, EnvironmentResponseDTO } from 'services/cd-ng'
-
-import css from '../SelectApplication/SelectApplication.module.scss'
+import css from './SelectEnvironment.module.scss'
 
 export interface SelectEnvironmentProps {
   initialValues?: any
@@ -46,7 +46,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const { getString } = useStrings()
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [environmentOptions, setEnvironmentOptions] = useState<any>([])
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { data, loading, error, refetch: refetchEnvironments } = useGetListEnvironments({
     lazy: true
   })
@@ -162,7 +162,10 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   }
 
   return (
-    <Container>
+    <Container className={css.main}>
+      <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
+        {getString('cv.activitySources.harnessCD.environment.infoText')}
+      </Text>
       <Formik
         initialValues={{ selectedEnvironments: props.initialValues.selectedEnvironments || [] }}
         onSubmit={onNext}
@@ -170,92 +173,86 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
         {(formik: FormikProps<{ selectedEnvironments: Array<TableData> }>) => {
           return (
             <FormikForm>
-              <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
-                <Text margin={{ top: 'large', bottom: 'large' }}>
-                  {getString('cv.activitySources.harnessCD.environment.infoText')}
-                </Text>
+              <Table<TableData>
+                onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+                columns={[
+                  {
+                    Header: getString('cv.activitySources.harnessCD.environment.harnessEnv'),
+                    accessor: 'name',
 
-                <Table<TableData>
-                  columns={[
-                    {
-                      Header: getString('cv.activitySources.harnessCD.environment.harnessEnv'),
-                      accessor: 'name',
+                    width: '33%',
+                    Cell: function RenderApplications(tableProps) {
+                      const rowData: TableData = tableProps?.row?.original as TableData
 
-                      width: '33%',
-                      Cell: function RenderApplications(tableProps) {
-                        const rowData: TableData = tableProps?.row?.original as TableData
-
-                        return (
-                          <Layout.Horizontal spacing="small">
-                            <input
-                              style={{ cursor: 'pointer' }}
-                              type="checkbox"
-                              checked={rowData.selected}
-                              onChange={e => {
-                                onUpdateData(tableProps.row.index, { selected: e.target.checked })
-                              }}
-                            />
-                            <Icon name="cd-main" />
-                            <Text color={Color.BLACK}>{rowData.name}</Text>
-                          </Layout.Horizontal>
-                        )
-                      },
-                      disableSortBy: true
+                      return (
+                        <Layout.Horizontal spacing="small">
+                          <input
+                            style={{ cursor: 'pointer' }}
+                            type="checkbox"
+                            checked={rowData.selected}
+                            onChange={e => {
+                              onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                            }}
+                          />
+                          <Icon name="cd-main" />
+                          <Text color={Color.BLACK}>{rowData.name}</Text>
+                        </Layout.Horizontal>
+                      )
                     },
-                    {
-                      Header: getString('cv.activitySources.harnessCD.harnessApps'),
-                      accessor: 'appName',
+                    disableSortBy: true
+                  },
+                  {
+                    Header: getString('cv.activitySources.harnessCD.harnessApps'),
+                    accessor: 'appName',
 
-                      width: '33%',
-                      Cell: RenderColumnApplication,
+                    width: '33%',
+                    Cell: RenderColumnApplication,
 
-                      disableSortBy: true
+                    disableSortBy: true
+                  },
+                  {
+                    Header: getString('cv.activitySources.harnessCD.environment.env'),
+                    accessor: 'environment',
+
+                    width: '33%',
+                    Cell: function EnvironmentCell({ row, value }) {
+                      return (
+                        <Layout.Horizontal>
+                          <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
+                          <EnvironmentSelect
+                            item={value}
+                            options={environmentOptions}
+                            onSelect={val => {
+                              onUpdateData(row.index, { environment: val })
+                            }}
+                            onNewCreated={(val: EnvironmentResponseDTO) => {
+                              setEnvironmentOptions([{ label: val.name, value: val.identifier }, ...environmentOptions])
+                              onUpdateData(row.index, { environment: { label: val.name, value: val.identifier } })
+                            }}
+                          />
+                        </Layout.Horizontal>
+                      )
                     },
-                    {
-                      Header: getString('cv.activitySources.harnessCD.environment.env'),
-                      accessor: 'environment',
 
-                      width: '33%',
-                      Cell: function EnvironmentCell({ row, value }) {
-                        return (
-                          <Layout.Horizontal>
-                            <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
-                            <EnvironmentSelect
-                              item={value}
-                              options={environmentOptions}
-                              onSelect={val => onUpdateData(row.index, { environment: val })}
-                              onNewCreated={(val: EnvironmentResponseDTO) => {
-                                setEnvironmentOptions([
-                                  { label: val.name, value: val.identifier },
-                                  ...environmentOptions
-                                ])
-                                onUpdateData(row.index, { environment: { label: val.name, value: val.identifier } })
-                              }}
-                            />
-                          </Layout.Horizontal>
-                        )
-                      },
-
-                      disableSortBy: true
+                    disableSortBy: true
+                  }
+                ]}
+                data={tableData || []}
+                pagination={{
+                  itemCount: (data?.resource as any)?.total || 0,
+                  pageSize: (data?.resource as any)?.pageSize || 10,
+                  pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
+                  pageIndex: page || 0,
+                  gotoPage: pageNumber => {
+                    setPage(pageNumber)
+                    if (pageNumber) {
+                      setOffset(pageNumber * 10 + 1)
+                    } else {
+                      setOffset(0)
                     }
-                  ]}
-                  data={tableData || []}
-                  pagination={{
-                    itemCount: (data?.resource as any)?.total || 0,
-                    pageSize: (data?.resource as any)?.pageSize || 10,
-                    pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
-                    pageIndex: page || 0,
-                    gotoPage: pageNumber => {
-                      setPage(pageNumber)
-                      if (pageNumber) {
-                        setOffset(pageNumber * 10 + 1)
-                      } else {
-                        setOffset(0)
-                      }
-                    }
-                  }}
-                />
-              </Container>
+                  }
+                }}
+              />
               <SubmitAndPreviousButtons
                 onPreviousClick={props.onPrevious}
                 onNextClick={() => {

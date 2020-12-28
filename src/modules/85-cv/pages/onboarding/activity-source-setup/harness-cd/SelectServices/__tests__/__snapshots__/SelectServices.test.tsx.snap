@@ -3,8 +3,13 @@
 exports[`Select Services render services for application 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
   >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-large--1jL3 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification data source to your servcies.
+    </p>
     <div
       class="OverlaySpinner---overlaySpinner--3Bs3"
     >
@@ -13,138 +18,131 @@ exports[`Select Services render services for application 1`] = `
       >
         <div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-xxxlarge--3gf7"
-            style="margin: auto; width: 60%;"
+            class="table"
           >
-            <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-large--1jL3"
-            >
-               
-              The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification data source to your servcies.
-            </p>
             <div
-              class="table"
+              class="header"
+              role="row"
             >
               <div
-                class="header"
-                role="row"
+                class="cell"
+                colspan="1"
+                role="columnheader"
+                style="width: 33%;"
+              >
+                HARNESS CD 1.0 SERVICES
+              </div>
+              <div
+                class="cell"
+                colspan="1"
+                role="columnheader"
+                style="width: 33%;"
+              >
+                HARNESS CD 1.0 APPLICATION
+              </div>
+              <div
+                class="cell"
+                colspan="1"
+                role="columnheader"
+                style="width: 33%;"
+              >
+                HARNESS CV 2.0 SERVICES
+              </div>
+            </div>
+            <div
+              class="row card clickable"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 33%;"
               >
                 <div
-                  class="cell"
-                  colspan="1"
-                  role="columnheader"
-                  style="width: 33%;"
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                 >
-                  HARNESS CD 1.0 SERVICES
-                </div>
-                <div
-                  class="cell"
-                  colspan="1"
-                  role="columnheader"
-                  style="width: 33%;"
-                >
-                  HARNESS CD 1.0 APPLICATION
-                </div>
-                <div
-                  class="cell"
-                  colspan="1"
-                  role="columnheader"
-                  style="width: 33%;"
-                >
-                  HARNESS CV 2.0 SERVICES
+                  <input
+                    style="cursor: pointer;"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws"
+                  >
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 26 21"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        fill="url(#cd-main_svg__paint0_linear)"
+                        fill-rule="evenodd"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cd-main_svg__paint0_linear"
+                          x1="3.557"
+                          x2="8.848"
+                          y1="9.622"
+                          y2="18.787"
+                        >
+                          <stop
+                            stop-color="#62F91F"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#5EAA53"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  >
+                    Archive
+                  </p>
                 </div>
               </div>
               <div
-                class="row card"
-                role="row"
+                class="cell"
+                role="cell"
+                style="width: 33%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                >
+                  appName
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 33%;"
               >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 33%;"
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
                 >
-                  <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-top-small--1_l5"
                   >
-                    <input
-                      style="cursor: pointer;"
-                      type="checkbox"
-                    />
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                    <svg
+                      height="20"
+                      viewBox="0 0 25 25"
+                      width="20"
                     >
-                      <svg
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 26 21"
-                        width="16"
-                      >
-                        <path
-                          clip-rule="evenodd"
-                          d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                          fill="url(#cd-main_svg__paint0_linear)"
-                          fill-rule="evenodd"
-                        />
-                        <defs>
-                          <lineargradient
-                            gradientUnits="userSpaceOnUse"
-                            id="cd-main_svg__paint0_linear"
-                            x1="3.557"
-                            x2="8.848"
-                            y1="9.622"
-                            y2="18.787"
-                          >
-                            <stop
-                              stop-color="#62F91F"
-                            />
-                            <stop
-                              offset="1"
-                              stop-color="#5EAA53"
-                            />
-                          </lineargradient>
-                        </defs>
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                    >
-                      Archive
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="cell"
-                  role="cell"
-                  style="width: 33%;"
-                >
-                  <p
+                      <path
+                        d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+                        fill="#4facdf"
+                      />
+                    </svg>
+                  </span>
+                  <div
                     class="StyledProps---font--2ipy StyledProps---main--1Wws"
                   >
-                    appName
-                  </p>
-                </div>
-                <div
-                  class="cell"
-                  role="cell"
-                  style="width: 33%;"
-                >
-                  <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
-                  >
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-top-small--1_l5"
-                    >
-                      <svg
-                        height="20"
-                        viewBox="0 0 25 25"
-                        width="20"
-                      >
-                        <path
-                          d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
-                          fill="#4facdf"
-                        />
-                      </svg>
-                    </span>
                     <div
                       class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
                     >
@@ -157,7 +155,7 @@ exports[`Select Services render services for application 1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            placeholder="select or create an service"
+                            placeholder="Select or create a service"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -191,97 +189,101 @@ exports[`Select Services render services for application 1`] = `
                   </div>
                 </div>
               </div>
+            </div>
+            <div
+              class="row card clickable"
+              role="row"
+            >
               <div
-                class="row card"
-                role="row"
+                class="cell"
+                role="cell"
+                style="width: 33%;"
               >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 33%;"
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                 >
-                  <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  <input
+                    style="cursor: pointer;"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws"
                   >
-                    <input
-                      style="cursor: pointer;"
-                      type="checkbox"
-                    />
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 26 21"
+                      width="16"
                     >
-                      <svg
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 26 21"
-                        width="16"
-                      >
-                        <path
-                          clip-rule="evenodd"
-                          d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                          fill="url(#cd-main_svg__paint0_linear)"
-                          fill-rule="evenodd"
-                        />
-                        <defs>
-                          <lineargradient
-                            gradientUnits="userSpaceOnUse"
-                            id="cd-main_svg__paint0_linear"
-                            x1="3.557"
-                            x2="8.848"
-                            y1="9.622"
-                            y2="18.787"
-                          >
-                            <stop
-                              stop-color="#62F91F"
-                            />
-                            <stop
-                              offset="1"
-                              stop-color="#5EAA53"
-                            />
-                          </lineargradient>
-                        </defs>
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                    >
-                      Test Service
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="cell"
-                  role="cell"
-                  style="width: 33%;"
-                >
+                      <path
+                        clip-rule="evenodd"
+                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        fill="url(#cd-main_svg__paint0_linear)"
+                        fill-rule="evenodd"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cd-main_svg__paint0_linear"
+                          x1="3.557"
+                          x2="8.848"
+                          y1="9.622"
+                          y2="18.787"
+                        >
+                          <stop
+                            stop-color="#62F91F"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#5EAA53"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
                   >
-                    appName
+                    Test Service
                   </p>
                 </div>
-                <div
-                  class="cell"
-                  role="cell"
-                  style="width: 33%;"
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 33%;"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
                 >
-                  <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  appName
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 33%;"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                >
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-top-small--1_l5"
                   >
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-top-small--1_l5"
+                    <svg
+                      height="20"
+                      viewBox="0 0 25 25"
+                      width="20"
                     >
-                      <svg
-                        height="20"
-                        viewBox="0 0 25 25"
-                        width="20"
-                      >
-                        <path
-                          d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
-                          fill="#4facdf"
-                        />
-                      </svg>
-                    </span>
+                      <path
+                        d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+                        fill="#4facdf"
+                      />
+                    </svg>
+                  </span>
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  >
                     <div
                       class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
                     >
@@ -294,7 +296,7 @@ exports[`Select Services render services for application 1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            placeholder="select or create an service"
+                            placeholder="Select or create a service"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -328,22 +330,22 @@ exports[`Select Services render services for application 1`] = `
                   </div>
                 </div>
               </div>
-              <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+            >
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
               >
-                <span
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
-                >
-                  Showing 
-                  <strong>
-                    2
-                  </strong>
-                   of 
-                  <strong>
-                    2
-                  </strong>
-                </span>
-              </div>
+                Showing 
+                <strong>
+                  2
+                </strong>
+                 of 
+                <strong>
+                  2
+                </strong>
+              </span>
             </div>
           </div>
           <div

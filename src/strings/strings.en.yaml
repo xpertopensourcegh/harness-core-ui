@@ -579,6 +579,7 @@ global:
     hostNamePlaceholder: '${host}'
     harnessService: 'Harness Service'
     harnessEnvironment: 'Harness Environment'
+    selectOrCreateEnv: 'Select or create an environment'
     navLinks:
       dataSource: 'Data Sources'
       activities: 'Activities'
@@ -681,7 +682,7 @@ global:
           validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
           product: 'Product selection is required.'
     newService: New Service
-    selectCreateService: select or create an service
+    selectCreateService: Select or create a service
     monitoringSources:
       mapMetricsToServices: 'Map Metrics to Harness Services'
       appD:
@@ -786,8 +787,7 @@ global:
         harnessApps: 'HARNESS CD 1.0 APPLICATION'
         application:
           noData: 'No applications were found'
-          infoTextOne: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications.'
-          infoTextTwo: 'Select which applications and services you’d like to import over to your current project.'
+          infoText: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications. Select which applications and services you’d like to import over to your current project.'
           servicesToBeImported: 'HARNESS SERVICES (TO BE IMPORTED)'
         environment:
           noData: 'No environments were found'

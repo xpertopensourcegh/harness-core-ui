@@ -3,7 +3,5 @@
 declare const styles: {
   readonly main: string
   readonly loadingErrorNoData: string
-  readonly serviceCol: string
-  readonly serviceColHeader: string
 }
 export default styles

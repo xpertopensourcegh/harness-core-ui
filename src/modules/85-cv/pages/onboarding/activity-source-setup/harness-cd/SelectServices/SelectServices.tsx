@@ -11,11 +11,12 @@ import { RestResponsePageResponseApplication, Service, useGetListServices } from
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { useGetServiceListForProject, ResponsePageServiceResponseDTO, ServiceResponseDTO } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import css from '../SelectApplication/SelectApplication.module.scss'
+import css from './SelectServices.module.scss'
 
 export interface SelectServicesProps {
   initialValues?: any
@@ -48,7 +49,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   const { getString } = useStrings()
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [serviceOptions, setServiceOptions] = useState<any>([])
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [offset, setOffset] = useState(0)
   const { data, loading, error, refetch } = useGetListServices({
@@ -79,7 +80,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   useEffect(() => {
     const appIds = Object.keys(props.initialValues.applications)
     refetch({
-      queryParams: { appId: appIds, offset: String(offset), limit: '10' },
+      queryParams: { appId: appIds, offset: String(offset), limit: '7' },
       queryParamStringifyOptions: { arrayFormat: 'repeat' }
     })
   }, [props.initialValues.selectedApplications])
@@ -163,7 +164,10 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     }
   }
   return (
-    <Container>
+    <Container className={css.main}>
+      <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
+        {getString('cv.activitySources.harnessCD.service.infoText')}
+      </Text>
       <Formik
         initialValues={{ selectedServices: props.initialValues.selectedServices || [] }}
         onSubmit={() => {
@@ -173,90 +177,84 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
         {(formik: FormikProps<{ selectedServices: Array<TableData> }>) => {
           return (
             <FormikForm>
-              <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
-                <Text margin={{ top: 'large', bottom: 'large' }}>
-                  {' '}
-                  {getString('cv.activitySources.harnessCD.service.infoText')}
-                </Text>
+              <Table<TableData>
+                onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+                columns={[
+                  {
+                    Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
+                    accessor: 'name',
 
-                <Table<TableData>
-                  columns={[
-                    {
-                      Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
-                      accessor: 'name',
+                    width: '33%',
+                    Cell: function RenderApplications(tableProps) {
+                      const rowData: TableData = tableProps?.row?.original as TableData
 
-                      width: '33%',
-                      Cell: function RenderApplications(tableProps) {
-                        const rowData: TableData = tableProps?.row?.original as TableData
-
-                        return (
-                          <Layout.Horizontal spacing="small">
-                            <input
-                              style={{ cursor: 'pointer' }}
-                              type="checkbox"
-                              checked={rowData.selected}
-                              onChange={e => {
-                                onUpdateData(tableProps.row.index, { selected: e.target.checked })
-                              }}
-                            />
-                            <Icon name="cd-main" />
-                            <Text color={Color.BLACK}>{rowData.name}</Text>
-                          </Layout.Horizontal>
-                        )
-                      },
-                      disableSortBy: true
+                      return (
+                        <Layout.Horizontal spacing="small">
+                          <input
+                            style={{ cursor: 'pointer' }}
+                            type="checkbox"
+                            checked={rowData.selected}
+                            onChange={e => {
+                              onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                            }}
+                          />
+                          <Icon name="cd-main" />
+                          <Text color={Color.BLACK}>{rowData.name}</Text>
+                        </Layout.Horizontal>
+                      )
                     },
-                    {
-                      Header: getString('cv.activitySources.harnessCD.harnessApps'),
-                      accessor: 'appName',
+                    disableSortBy: true
+                  },
+                  {
+                    Header: getString('cv.activitySources.harnessCD.harnessApps'),
+                    accessor: 'appName',
 
-                      width: '33%',
-                      Cell: RenderColumnApplication,
+                    width: '33%',
+                    Cell: RenderColumnApplication,
 
-                      disableSortBy: true
+                    disableSortBy: true
+                  },
+                  {
+                    Header: getString('cv.activitySources.harnessCD.service.services'),
+                    accessor: 'service',
+
+                    width: '33%',
+                    Cell: function ServiceCell({ row, value }) {
+                      return (
+                        <Layout.Horizontal>
+                          <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
+                          <ServiceSelectOrCreate
+                            item={value}
+                            options={serviceOptions}
+                            onSelect={val => onUpdateData(row.index, { service: val })}
+                            onNewCreated={(val: ServiceResponseDTO) => {
+                              setServiceOptions([{ label: val.name, value: val.identifier }, ...serviceOptions])
+                              onUpdateData(row.index, { service: { label: val.name, value: val.identifier } })
+                            }}
+                          />
+                        </Layout.Horizontal>
+                      )
                     },
-                    {
-                      Header: getString('cv.activitySources.harnessCD.service.services'),
-                      accessor: 'service',
 
-                      width: '33%',
-                      Cell: function ServiceCell({ row, value }) {
-                        return (
-                          <Layout.Horizontal>
-                            <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
-                            <ServiceSelectOrCreate
-                              item={value}
-                              options={serviceOptions}
-                              onSelect={val => onUpdateData(row.index, { service: val })}
-                              onNewCreated={(val: ServiceResponseDTO) => {
-                                setServiceOptions([{ label: val.name, value: val.identifier }, ...serviceOptions])
-                                onUpdateData(row.index, { service: { label: val.name, value: val.identifier } })
-                              }}
-                            />
-                          </Layout.Horizontal>
-                        )
-                      },
-
-                      disableSortBy: true
+                    disableSortBy: true
+                  }
+                ]}
+                data={tableData || []}
+                pagination={{
+                  itemCount: (data?.resource as any)?.total || 0,
+                  pageSize: (data?.resource as any)?.pageSize || 10,
+                  pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
+                  pageIndex: page || 0,
+                  gotoPage: pageNumber => {
+                    setPage(pageNumber)
+                    if (pageNumber) {
+                      setOffset(pageNumber * 10 + 1)
+                    } else {
+                      setOffset(0)
                     }
-                  ]}
-                  data={tableData || []}
-                  pagination={{
-                    itemCount: (data?.resource as any)?.total || 0,
-                    pageSize: (data?.resource as any)?.pageSize || 10,
-                    pageCount: Math.ceil((data?.resource as any)?.total / 10) || -1,
-                    pageIndex: page || 0,
-                    gotoPage: pageNumber => {
-                      setPage(pageNumber)
-                      if (pageNumber) {
-                        setOffset(pageNumber * 10 + 1)
-                      } else {
-                        setOffset(0)
-                      }
-                    }
-                  }}
-                />
-              </Container>
+                  }
+                }}
+              />
               <SubmitAndPreviousButtons
                 onPreviousClick={props.onPrevious}
                 onNextClick={() => {

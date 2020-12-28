@@ -218,6 +218,10 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
     <Table<WorkloadInfo>
       className={css.workloadTable}
       data={tableData}
+      onRowClick={(data, index) => {
+        onClickWorkload({ ...data, selected: !data.selected })
+        setTableData(updateTableRow(tableData, 'selected', !data.selected, index))
+      }}
       pagination={{
         pageSize: pageSize || 0,
         pageIndex: pageIndex,
@@ -252,16 +256,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           disableSortBy: true,
           Cell: function Workload(tableProps: CellProps<WorkloadInfo>) {
             return (
-              <Text
-                color={Color.BLACK}
-                className={loading ? Classes.SKELETON : undefined}
-                onClick={() => {
-                  onClickWorkload({ ...tableProps.row.original, selected: !tableProps.row.original.selected })
-                  setTableData(
-                    updateTableRow(tableData, 'selected', !tableProps.row.original.selected, tableProps.row.index)
-                  )
-                }}
-              >
+              <Text color={Color.BLACK} className={loading ? Classes.SKELETON : undefined}>
                 {tableProps.value}
               </Text>
             )

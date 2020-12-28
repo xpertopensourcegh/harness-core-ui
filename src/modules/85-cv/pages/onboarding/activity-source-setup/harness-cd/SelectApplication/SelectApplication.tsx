@@ -11,6 +11,7 @@ import { useGetListApplications, Application, RestResponsePageResponseApplicatio
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import css from './SelectApplication.module.scss'
@@ -34,7 +35,7 @@ const RenderColumnServicesCount: Renderer<CellProps<TableData>> = ({ row }) => {
 }
 const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [offset, setOffset] = useState(0)
   const [disable, setDisable] = useState<boolean>(true)
@@ -135,11 +136,10 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
   const totalpages = Math.ceil((data?.resource as any)?.total / 10)
 
   return (
-    <Container>
-      <Layout.Vertical spacing="small">
-        <Text margin={{ left: 'large' }}>{getString('cv.activitySources.harnessCD.application.infoTextOne')}</Text>
-        <Text margin={{ left: 'large' }}>{getString('cv.activitySources.harnessCD.application.infoTextTwo')}</Text>
-      </Layout.Vertical>
+    <Container className={css.main}>
+      <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
+        {getString('cv.activitySources.harnessCD.application.infoText')}
+      </Text>
       <Formik
         initialValues={{
           selectedApplications: props.stepData.applications || []
@@ -149,66 +149,65 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
         {(formik: FormikProps<{ selectedApplications: Array<Application> }>) => {
           return (
             <FormikForm>
-              <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
-                <Table<TableData>
-                  columns={[
-                    {
-                      Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
-                      accessor: 'selected',
+              <Table<TableData>
+                onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+                columns={[
+                  {
+                    Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
+                    accessor: 'selected',
 
-                      width: '50%',
-                      Cell: function RenderApplications(tableProps) {
-                        const rowData: TableData = tableProps.row?.original as TableData
+                    width: '50%',
+                    Cell: function RenderApplications(tableProps) {
+                      const rowData: TableData = tableProps.row?.original
 
-                        return (
-                          <Layout.Horizontal spacing="small">
-                            <input
-                              style={{ cursor: 'pointer' }}
-                              type="checkbox"
-                              checked={rowData.selected}
-                              onChange={e => {
-                                onUpdateData(tableProps.row.index, { selected: e.target.checked })
-                              }}
-                            />
-                            <Icon name="cd-main" />
-                            <Text color={Color.BLACK}>{rowData.name}</Text>
-                          </Layout.Horizontal>
-                        )
-                      },
-
-                      disableSortBy: true
+                      return (
+                        <Layout.Horizontal spacing="small">
+                          <input
+                            style={{ cursor: 'pointer' }}
+                            type="checkbox"
+                            checked={rowData.selected}
+                            onChange={e => {
+                              onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                            }}
+                          />
+                          <Icon name="cd-main" />
+                          <Text color={Color.BLACK}>{rowData.name}</Text>
+                        </Layout.Horizontal>
+                      )
                     },
-                    {
-                      Header: (
-                        <div className={css.serviceColHeader}>
-                          {getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
-                        </div>
-                      ),
-                      id: 'serviceCount',
 
-                      width: '50%',
-                      Cell: RenderColumnServicesCount,
+                    disableSortBy: true
+                  },
+                  {
+                    Header: (
+                      <div className={css.serviceColHeader}>
+                        {getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
+                      </div>
+                    ),
+                    id: 'serviceCount',
 
-                      disableSortBy: true
+                    width: '50%',
+                    Cell: RenderColumnServicesCount,
+
+                    disableSortBy: true
+                  }
+                ]}
+                data={tableData}
+                pagination={{
+                  itemCount: (data?.resource as any)?.total || 0,
+                  pageSize: (data?.resource as any)?.pageSize || 10,
+                  pageCount: totalpages || -1,
+                  pageIndex: page || 0,
+                  gotoPage: pageNumber => {
+                    setPage(pageNumber)
+                    if (pageNumber) {
+                      setOffset(pageNumber * 10 + 1)
+                    } else {
+                      setOffset(0)
                     }
-                  ]}
-                  data={tableData}
-                  pagination={{
-                    itemCount: (data?.resource as any)?.total || 0,
-                    pageSize: (data?.resource as any)?.pageSize || 10,
-                    pageCount: totalpages || -1,
-                    pageIndex: page || 0,
-                    gotoPage: pageNumber => {
-                      setPage(pageNumber)
-                      if (pageNumber) {
-                        setOffset(pageNumber * 10 + 1)
-                      } else {
-                        setOffset(0)
-                      }
-                    }
-                  }}
-                />
-              </Container>
+                  }
+                }}
+              />
               <SubmitAndPreviousButtons
                 nextButtonProps={{ disabled: disable }}
                 onPreviousClick={props.onPrevious}

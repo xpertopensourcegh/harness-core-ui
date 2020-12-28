@@ -38,7 +38,7 @@ export function EnvironmentSelect({
   onNewCreated,
   className
 }: EnvironmentSelectProps) {
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { mutate: createEnvironment, loading } = useCreateEnvironment({ queryParams: { accountId } })
   const selectOptions = useMemo(
@@ -143,13 +143,15 @@ export function EnvironmentSelect({
   }
 
   return (
-    <Select
-      value={item}
-      className={className}
-      disabled={disabled}
-      items={selectOptions}
-      inputProps={{ placeholder: 'select or create an environment' }}
-      onChange={onSelectChange}
-    />
+    <Container onClick={e => e.stopPropagation()}>
+      <Select
+        value={item}
+        className={className}
+        disabled={disabled}
+        items={selectOptions}
+        inputProps={{ placeholder: getString('cv.selectOrCreateEnv') }}
+        onChange={onSelectChange}
+      />
+    </Container>
   )
 }

@@ -3,22 +3,13 @@
 exports[`SelectApplication render 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
   >
-    <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-large--1jL3 StyledProps---color--8PuS StyledProps---color-black--2kJn"
     >
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-large--2eY9"
-      >
-        Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications.
-      </p>
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-large--2eY9"
-      >
-        Select which applications and services you’d like to import over to your current project.
-      </p>
-    </div>
+      Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications. Select which applications and services you’d like to import over to your current project.
+    </p>
     <div
       class="OverlaySpinner---overlaySpinner--3Bs3"
     >
@@ -27,264 +18,259 @@ exports[`SelectApplication render 1`] = `
       >
         <div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-xxxlarge--3gf7"
-            style="margin: auto; width: 60%;"
+            class="table"
           >
             <div
-              class="table"
+              class="header"
+              role="row"
             >
               <div
-                class="header"
-                role="row"
+                class="cell"
+                colspan="1"
+                role="columnheader"
+                style="width: 50%;"
+              >
+                HARNESS CD 1.0 APPLICATION
+              </div>
+              <div
+                class="cell"
+                colspan="1"
+                role="columnheader"
+                style="width: 50%;"
               >
                 <div
-                  class="cell"
-                  colspan="1"
-                  role="columnheader"
-                  style="width: 50%;"
+                  class="serviceColHeader"
                 >
-                  HARNESS CD 1.0 APPLICATION
+                  HARNESS SERVICES (TO BE IMPORTED)
                 </div>
+              </div>
+            </div>
+            <div
+              class="row card clickable"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 50%;"
+              >
                 <div
-                  class="cell"
-                  colspan="1"
-                  role="columnheader"
-                  style="width: 50%;"
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                 >
-                  <div
-                    class="serviceColHeader"
+                  <input
+                    checked=""
+                    style="cursor: pointer;"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws"
                   >
-                    HARNESS SERVICES (TO BE IMPORTED)
-                  </div>
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 26 21"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        fill="url(#cd-main_svg__paint0_linear)"
+                        fill-rule="evenodd"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cd-main_svg__paint0_linear"
+                          x1="3.557"
+                          x2="8.848"
+                          y1="9.622"
+                          y2="18.787"
+                        >
+                          <stop
+                            stop-color="#62F91F"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#5EAA53"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  >
+                    Test App
+                  </p>
                 </div>
               </div>
               <div
-                class="row card"
-                role="row"
+                class="cell"
+                role="cell"
+                style="width: 50%;"
               >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 50%;"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
                 >
-                  <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
-                  >
-                    <input
-                      checked=""
-                      style="cursor: pointer;"
-                      type="checkbox"
-                    />
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
-                    >
-                      <svg
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 26 21"
-                        width="16"
-                      >
-                        <path
-                          clip-rule="evenodd"
-                          d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                          fill="url(#cd-main_svg__paint0_linear)"
-                          fill-rule="evenodd"
-                        />
-                        <defs>
-                          <lineargradient
-                            gradientUnits="userSpaceOnUse"
-                            id="cd-main_svg__paint0_linear"
-                            x1="3.557"
-                            x2="8.848"
-                            y1="9.622"
-                            y2="18.787"
-                          >
-                            <stop
-                              stop-color="#62F91F"
-                            />
-                            <stop
-                              offset="1"
-                              stop-color="#5EAA53"
-                            />
-                          </lineargradient>
-                        </defs>
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                    >
-                      Test App
-                    </p>
-                  </div>
+                  2
                 </div>
+              </div>
+            </div>
+            <div
+              class="row card clickable"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 50%;"
+              >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 50%;"
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                 >
-                  <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
+                  <input
+                    style="cursor: pointer;"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws"
                   >
-                    2
-                  </div>
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 26 21"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        fill="url(#cd-main_svg__paint0_linear)"
+                        fill-rule="evenodd"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cd-main_svg__paint0_linear"
+                          x1="3.557"
+                          x2="8.848"
+                          y1="9.622"
+                          y2="18.787"
+                        >
+                          <stop
+                            stop-color="#62F91F"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#5EAA53"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  >
+                    Abaris
+                  </p>
                 </div>
               </div>
               <div
-                class="row card"
-                role="row"
+                class="cell"
+                role="cell"
+                style="width: 50%;"
               >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 50%;"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
                 >
-                  <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
-                  >
-                    <input
-                      style="cursor: pointer;"
-                      type="checkbox"
-                    />
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
-                    >
-                      <svg
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 26 21"
-                        width="16"
-                      >
-                        <path
-                          clip-rule="evenodd"
-                          d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                          fill="url(#cd-main_svg__paint0_linear)"
-                          fill-rule="evenodd"
-                        />
-                        <defs>
-                          <lineargradient
-                            gradientUnits="userSpaceOnUse"
-                            id="cd-main_svg__paint0_linear"
-                            x1="3.557"
-                            x2="8.848"
-                            y1="9.622"
-                            y2="18.787"
-                          >
-                            <stop
-                              stop-color="#62F91F"
-                            />
-                            <stop
-                              offset="1"
-                              stop-color="#5EAA53"
-                            />
-                          </lineargradient>
-                        </defs>
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                    >
-                      Abaris
-                    </p>
-                  </div>
+                  1
                 </div>
+              </div>
+            </div>
+            <div
+              class="row card clickable"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 50%;"
+              >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 50%;"
+                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                 >
-                  <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
+                  <input
+                    style="cursor: pointer;"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-icon StyledProps---main--1Wws"
                   >
-                    1
-                  </div>
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 26 21"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        fill="url(#cd-main_svg__paint0_linear)"
+                        fill-rule="evenodd"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cd-main_svg__paint0_linear"
+                          x1="3.557"
+                          x2="8.848"
+                          y1="9.622"
+                          y2="18.787"
+                        >
+                          <stop
+                            stop-color="#62F91F"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#5EAA53"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  >
+                    Harness Sample App
+                  </p>
                 </div>
               </div>
               <div
-                class="row card"
-                role="row"
+                class="cell"
+                role="cell"
+                style="width: 50%;"
               >
                 <div
-                  class="cell"
-                  role="cell"
-                  style="width: 50%;"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
                 >
-                  <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
-                  >
-                    <input
-                      style="cursor: pointer;"
-                      type="checkbox"
-                    />
-                    <span
-                      class="bp3-icon StyledProps---main--1Wws"
-                    >
-                      <svg
-                        fill="none"
-                        height="16"
-                        viewBox="0 0 26 21"
-                        width="16"
-                      >
-                        <path
-                          clip-rule="evenodd"
-                          d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                          fill="url(#cd-main_svg__paint0_linear)"
-                          fill-rule="evenodd"
-                        />
-                        <defs>
-                          <lineargradient
-                            gradientUnits="userSpaceOnUse"
-                            id="cd-main_svg__paint0_linear"
-                            x1="3.557"
-                            x2="8.848"
-                            y1="9.622"
-                            y2="18.787"
-                          >
-                            <stop
-                              stop-color="#62F91F"
-                            />
-                            <stop
-                              offset="1"
-                              stop-color="#5EAA53"
-                            />
-                          </lineargradient>
-                        </defs>
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                    >
-                      Harness Sample App
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="cell"
-                  role="cell"
-                  style="width: 50%;"
-                >
-                  <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
-                  >
-                    2
-                  </div>
+                  2
                 </div>
               </div>
-              <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+            >
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
               >
-                <span
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
-                >
-                  Showing 
-                  <strong>
-                    3
-                  </strong>
-                   of 
-                  <strong>
-                    3
-                  </strong>
-                </span>
-              </div>
+                Showing 
+                <strong>
+                  3
+                </strong>
+                 of 
+                <strong>
+                  3
+                </strong>
+              </span>
             </div>
           </div>
           <div

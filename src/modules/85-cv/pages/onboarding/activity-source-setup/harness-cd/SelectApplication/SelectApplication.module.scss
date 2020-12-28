@@ -1,3 +1,5 @@
+@import '../CVHarnessCDTables.module';
+
 .serviceCol {
   text-align: end;
   margin-right: var(--spacing-xxlarge) !important;
@@ -5,11 +7,4 @@
 .serviceColHeader {
   text-align: end;
   margin-right: var(--spacing-xxlarge);
-}
-
-.loadingErrorNoData {
-  position: absolute;
-  top: 50%;
-  left: 52%;
-  transform: translateX(-50%);
 }

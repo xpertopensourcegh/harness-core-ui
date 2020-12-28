@@ -111,13 +111,15 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
   }
 
   return (
-    <Select
-      value={props.item}
-      className={props.className}
-      disabled={props.disabled}
-      items={selectOptions}
-      inputProps={{ placeholder: getString('cv.selectCreateService') }}
-      onChange={onSelectChange}
-    />
+    <Container onClick={e => e.stopPropagation()}>
+      <Select
+        value={props.item}
+        className={props.className}
+        disabled={props.disabled}
+        items={selectOptions}
+        inputProps={{ placeholder: getString('cv.selectCreateService') }}
+        onChange={onSelectChange}
+      />
+    </Container>
   )
 }
