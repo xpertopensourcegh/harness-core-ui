@@ -3,6 +3,7 @@ import { Container, Text, Color, Button } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './ActivityVerifications.i18n'
 import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
@@ -20,13 +21,14 @@ const RECENT_VERIFICATIONS_COLUMN_NAMES = Object.values(i18n.activityVerificatio
 
 export default function ActivityVerifications(): JSX.Element {
   const history = useHistory()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const { data } = useGetRecentDeploymentActivityVerifications({
     queryParams: {
       accountId: accountId as string,
       projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string
-    }
+      orgIdentifier: orgIdentifier as string,
+      size: 5
+    } as any // Size not supported ?
   })
 
   return (
@@ -67,6 +69,15 @@ export default function ActivityVerifications(): JSX.Element {
           }}
           minimal
           intent="primary"
+          onClick={() =>
+            history.push(
+              routes.toCVActivityDashboard({
+                accountId,
+                projectIdentifier,
+                orgIdentifier
+              })
+            )
+          }
         >
           {i18n.viewAllActivities}
         </Button>

@@ -84,7 +84,7 @@ const getModuleLinks = (
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cv}</Text>
-          <Link to={routes.toCVDataSources({ accountId, orgIdentifier, projectIdentifier })}>
+          <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}>
             {i18n.newProjectWizard.purposeList.linkcv}
           </Link>
         </Layout.Vertical>

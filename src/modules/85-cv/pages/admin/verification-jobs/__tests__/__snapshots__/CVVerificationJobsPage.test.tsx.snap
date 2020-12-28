@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CVVerificationJobsPage matches snapshot 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <div
+      class="breadcrumbs"
+    >
+      <div>
+        <a
+          class="breadcrumb"
+          href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/dashboard"
+        >
+          1234_project
+        </a>
+        <span
+          class="separator"
+        >
+          /
+        </span>
+      </div>
+      <div>
+        <span
+          class="lastBreadcrumb"
+        >
+          Verification Jobs
+        </span>
+      </div>
+    </div>
+    <div
+      class="TextInput---main--1ytZ"
+    >
+      <div
+        class="bp3-input-group search"
+      >
+        <span
+          class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+          icon="search"
+        >
+          <svg
+            data-icon="search"
+            height="12"
+            viewBox="0 0 16 16"
+            width="12"
+          >
+            <desc>
+              search
+            </desc>
+            <path
+              d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <input
+          class="bp3-input"
+          placeholder="Search by name, environments, services"
+          type="text"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      style="width: 100%; height: 100%;"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        style="align-items: center; margin-top: -48px; width: 470px;"
+      >
+        <span
+          class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          icon="warning-sign"
+        >
+          <svg
+            data-icon="warning-sign"
+            height="48"
+            viewBox="0 0 20 20"
+            width="48"
+          >
+            <desc>
+              warning-sign
+            </desc>
+            <path
+              d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <h2
+          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          level="2"
+        >
+          No Verification Jobs to show
+        </h2>
+        <button
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            New Verification Job
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

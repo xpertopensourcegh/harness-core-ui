@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import moment from 'moment'
-import { Classes, Menu, MenuItem, Popover } from '@blueprintjs/core'
 import { Color, Container, Text, TextInput, Icon, Button } from '@wings-software/uikit'
 import { ActivitySourceDTO, useDeleteKubernetesSource, useListAllActivitySources } from 'services/cv'
-import { Page, useConfirmationDialog, useToaster } from '@common/exports'
+import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { KubernetesActivitySourceDTO } from '@cv/pages/onboarding/activity-source-setup/kubernetes/KubernetesActivitySourceUtils'
+import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
 import css from './CVActivitySourcesPage.module.scss'
 
 type TableData = {
@@ -75,7 +75,6 @@ function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
 
 function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
   const params = useParams<ProjectPathProps>()
-  const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false)
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { mutate } = useDeleteKubernetesSource({
@@ -85,54 +84,25 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
       orgIdentifier: params.orgIdentifier
     }
   })
-  const { openDialog } = useConfirmationDialog({
-    contentText: `${getString('cv.admin.activitySources.dialogDeleteContent')}${tableProps.row.original?.name} ?`,
-    titleText: getString('cv.admin.activitySources.dialogDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    onCloseDialog: function (shouldDeleteActivitySource: boolean) {
-      setIsPopoverOpen(false)
-      if (shouldDeleteActivitySource) {
-        mutate(tableProps.row.original?.identifier)
-          .then(() => {
-            tableProps.onDelete()
-          })
-          .catch(error => {
-            showError(error?.message, 3500)
-          })
-      }
-    }
-  })
+
+  const onDelete = () => {
+    mutate(tableProps.row.original?.identifier)
+      .then(() => {
+        tableProps.onDelete()
+      })
+      .catch(error => {
+        showError(error?.message, 3500)
+      })
+  }
+
   return (
     <Container flex>
       <Text color={Color.BLACK}>{tableProps.value}</Text>
-      <Popover
-        isOpen={isPopoverOpen}
-        onInteraction={nextOpenState => {
-          setIsPopoverOpen(nextOpenState)
-        }}
-        className={Classes.DARK}
-        content={
-          <Menu>
-            <MenuItem
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation()
-                openDialog()
-              }}
-              text={getString('delete')}
-              icon="trash"
-            />
-          </Menu>
-        }
-      >
-        <Icon
-          name="main-more"
-          onClick={e => {
-            e.stopPropagation()
-            setIsPopoverOpen(isOpen => !isOpen)
-          }}
-        />
-      </Popover>
+      <ContextMenuActions
+        titleText={getString('cv.admin.activitySources.dialogDeleteTitle')}
+        contentText={`${getString('cv.admin.activitySources.dialogDeleteContent')}${tableProps.row.original?.name} ?`}
+        onDelete={onDelete}
+      />
     </Container>
   )
 }

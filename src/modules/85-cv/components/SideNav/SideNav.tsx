@@ -52,10 +52,6 @@ export default function CVSideNav(): React.ReactElement {
             to={routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier })}
           />
           <SidebarLink
-            label="Data Sources"
-            to={routes.toCVDataSources({ accountId, projectIdentifier, orgIdentifier })}
-          />
-          <SidebarLink
             label="Activities"
             to={routes.toCVActivityDashboard({ accountId, projectIdentifier, orgIdentifier })}
           />
@@ -111,6 +107,11 @@ export default function CVSideNav(): React.ReactElement {
               label={getString('cv.navLinks.adminSideNavLinks.monitoringSources')}
               iconName="desktop"
               to={routes.toCVAdminMonitoringSources({ projectIdentifier, orgIdentifier, accountId })}
+            />
+            <AdminSelectorLink
+              label={getString('verificationJobs')}
+              iconName="confirm"
+              to={routes.toCVAdminVerificationJobs({ projectIdentifier, orgIdentifier, accountId })}
             />
           </AdminSelector>
         </React.Fragment>

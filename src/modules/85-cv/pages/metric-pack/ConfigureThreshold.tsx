@@ -91,7 +91,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   const [metricOptions, setMetricOptions] = useState(dummyMetricOptions)
   const [metricPackIdentifier, setMetricPackIdentifier] = useState('')
   const [inProgress, setInProgress] = useState(false)
-  const { projectIdentifier, accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   useEffect(() => {
     const { metricPack, dataSourceType, hints } = props
@@ -111,7 +111,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
 
   async function fetchExistingMetrics(dataSourceType: any, metricpackName: string): Promise<void> {
     setInProgress(true)
-    const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=${metricpackName}`
+    const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=${metricpackName}&orgIdentifier=${orgIdentifier}`
     const { response }: any = await getMerics(accountId, queryParams)
 
     setIgnoreMetrics(
@@ -160,7 +160,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   async function saveMetrics(values: any): Promise<void> {
     setInProgress(true)
     const payload = mapValuestoPayload(values.metrics.failMetrics, values.metrics.ignoreMetrics)
-    const queryParams = `&dataSourceType=${props.dataSourceType}&projectIdentifier=${projectIdentifier}`
+    const queryParams = `&dataSourceType=${props.dataSourceType}&projectIdentifier=${projectIdentifier}&orgIdentifier=${orgIdentifier}`
     await saveMerics(payload, accountId, queryParams)
     setInProgress(false)
   }

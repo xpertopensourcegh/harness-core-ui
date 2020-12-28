@@ -21,6 +21,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { getConfig } from 'services/config'
 import { ValidationCell, ServiceCell } from './MapApplicationsTableCells'
 import AppDApplicationSelector from './AppDApplicationSelector'
 import { TierRecord, InternalState, ValidationStatus, useValidationErrors } from '../AppDOnboardingUtils'
@@ -34,7 +35,7 @@ export interface MapApplicationsProps {
 }
 
 export async function validateTier(metricPacks: MetricPackArrayRequestBody, queryParams: object) {
-  const url = `/cv/api/appdynamics/metric-data?${qs.stringify(queryParams)}`
+  const url = `${getConfig('cv/api')}/appdynamics/metric-data?${qs.stringify(queryParams)}`
   const { response }: any = await xhr.post(url, { data: metricPacks })
   if (response?.resource?.length) {
     let status

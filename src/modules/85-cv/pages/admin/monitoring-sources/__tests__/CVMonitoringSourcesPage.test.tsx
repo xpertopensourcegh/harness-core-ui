@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, screen } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import * as reactRouterDom from 'react-router-dom'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
@@ -15,6 +15,15 @@ jest.mock('react-router-dom', () => ({
     }
   })
 }))
+
+jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: any) => {
+  return (
+    <>
+      <div className="context-menu-mock-edit" onClick={props.onEdit} />
+      <div className="context-menu-mock-delete" onClick={props.onDelete} />
+    </>
+  )
+})
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVAdminMonitoringSources({ ...accountPathProps, ...projectPathProps }),
@@ -79,8 +88,7 @@ describe('CVMonitoringSourcesPage', () => {
         <CVMonitoringSourcesPage />
       </TestWrapper>
     )
-    fireEvent.click(container.querySelector('div.cell button')!)
-    fireEvent.click(screen.getByText('Edit'))
+    fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
     expect(push).toHaveBeenCalled()
     expect(push.mock.calls[0][0]).toEqual(
       '/account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/monitoring-source/app-dynamics/nameTTID'
@@ -95,8 +103,7 @@ describe('CVMonitoringSourcesPage', () => {
         <CVMonitoringSourcesPage />
       </TestWrapper>
     )
-    fireEvent.click(container.querySelector('div.cell button')!)
-    fireEvent.click(screen.getByText('Delete'))
+    fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
     expect(mutate).toHaveBeenCalled()
   })
 })

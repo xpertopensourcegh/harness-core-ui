@@ -8,6 +8,10 @@ $moreIconWidth: 16px;
     display: flex;
     align-items: center;
   }
+  p,
+  a {
+    white-space: nowrap !important;
+  }
 }
 
 .main {

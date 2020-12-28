@@ -214,7 +214,7 @@ export default function ActivityChanges(): JSX.Element {
       accountId,
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string,
-      size: 3
+      size: 5
     }
   })
 
@@ -246,7 +246,7 @@ export default function ActivityChanges(): JSX.Element {
           buttonText={i18n.noActivitiesButtonText}
           onClick={() =>
             history.push(
-              routes.toCVDataSources({
+              routes.toCVAdminSetup({
                 projectIdentifier: projectIdentifier as string,
                 orgIdentifier: orgIdentifier as string,
                 accountId
@@ -323,6 +323,15 @@ export default function ActivityChanges(): JSX.Element {
         }}
         minimal
         intent="primary"
+        onClick={() =>
+          history.push(
+            routes.toCVActivityDashboard({
+              accountId,
+              projectIdentifier,
+              orgIdentifier
+            })
+          )
+        }
       >
         {i18n.viewAllActivities}
       </Button>

@@ -27,6 +27,8 @@ global:
   test: Test
   health: Health
   activitySource: Activity Source
+  dataSource: Data Source
+  sensitivity: Sensitivity
   pipelines: Pipelines
   performance: Performance
   quality: quality
@@ -34,6 +36,7 @@ global:
   update: Update
   visual: VISUAL
   yaml: YAML
+  verificationJobs: Verification Jobs
   abort: Abort
   conditions: Conditions
   notifications: Notifications
@@ -43,6 +46,7 @@ global:
   studioText: Studio
   status: Status
   submit: Submit
+  services: Services
   buildText: Build
   pipeline: Pipeline
   pipelineStudio: Pipeline Studio
@@ -579,7 +583,6 @@ global:
       dataSource: 'Data Sources'
       activities: 'Activities'
       dashboard: 'Dashboard'
-      services: 'Services'
       adminSideNavLinks:
         setup: 'Setup'
         activitySources: 'Activity Sources'
@@ -634,6 +637,18 @@ global:
         importedOn: 'Imported On'
         applicationsImported: '{{num}}/{{total}} applications imported'
         environmentsImported: '{{num}}/{{total}} environments imported'
+        confirmDeleteTitle: Delete Monitoring Source
+        confirmDeleteContent: 'Are you sure you want to delete Monitoring Source: {{ name }}'
+      verificationJobs:
+        newVerificationJob: 'New Verification Job'
+        noDataMessage: 'No Verification Jobs to show'
+        jobTypes:
+          test: Test Verification
+          canary: Canary Verification
+          blueGreen: Blue Green Verification
+          health: Health Verification
+        confirmDeleteTitle: Delete Verification Job
+        confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
     onboarding:
       monitoringSources:
         addMoreSources: Add more monitoring sources
@@ -811,7 +826,6 @@ global:
         environment: Please select a environment
         duration: Please select duration
         dataSource: Please select a data source
-      breadcrumb: Verification Jobs
       details:
         name: Name of your job
         tabName: Select Verification Job Type

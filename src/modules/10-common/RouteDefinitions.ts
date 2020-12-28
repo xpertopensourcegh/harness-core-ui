@@ -511,6 +511,10 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cv/admin/monitoring-sources/org/${orgIdentifier}/project/${projectIdentifier}`
   ),
+  toCVAdminVerificationJobs: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cv/admin/verification-jobs/org/${orgIdentifier}/project/${projectIdentifier}`
+  ),
   toCVActivityDetails: withAccountId(
     ({ activityType, orgIdentifier, projectIdentifier }: ProjectPathProps & { activityType: string }) =>
       `/cv/${activityType}/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/setup`

@@ -34,16 +34,6 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/datasources"
-    >
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
-      >
-        Data Sources
-      </p>
-    </a>
-    <a
-      class="link"
       href="/account/dummy/cv/orgs/dummy/projects/dummy/activities/dashboard"
     >
       <p

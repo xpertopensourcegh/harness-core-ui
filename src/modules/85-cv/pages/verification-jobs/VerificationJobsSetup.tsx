@@ -107,7 +107,7 @@ const VerificationJobsSetup = (): JSX.Element => {
       <OnBoardingPageHeader
         breadCrumbs={[
           {
-            label: getString('cv.verificationJobs.breadcrumb'),
+            label: getString('verificationJobs'),
             url: routes.toCVAdminSetupVerificationJob({
               projectIdentifier,
               orgIdentifier,

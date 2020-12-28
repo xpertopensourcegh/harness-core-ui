@@ -1,6 +1,7 @@
 import xhr from '@wings-software/xhr-async'
+import { getConfig } from 'services/config'
 
-const prefix = 'https://localhost:9090/api/cv-nextgen/metric-pack/thresholds'
+const prefix = `${getConfig('cv/api')}/metric-pack/thresholds`
 
 export async function saveMerics(payload: any, accId: any, queryParams: any) {
   const url = prefix + `?accountId=${accId}${queryParams}`

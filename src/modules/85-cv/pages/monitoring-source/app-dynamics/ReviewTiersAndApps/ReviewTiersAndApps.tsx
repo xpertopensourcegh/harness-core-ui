@@ -14,6 +14,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
+import { getConfig } from 'services/config'
 import { ApplicationRecord, InternalState, ValidationStatus } from '../AppDOnboardingUtils'
 
 interface ReviewTiersAndAppsProps {
@@ -41,7 +42,7 @@ async function fetchTiersNumber(
   appName: string,
   connectorIdentifier: string
 ) {
-  const url = `/cv/api/appdynamics/tiers?${qs.stringify({
+  const url = `${getConfig('cv/api')}/appdynamics/tiers?${qs.stringify({
     accountId,
     projectIdentifier,
     orgIdentifier,

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
-import { Container, Icon, Text, Color, Button, TextInput } from '@wings-software/uikit'
-import { Popover, Menu, MenuItem, Position } from '@blueprintjs/core'
+import { Container, Icon, Text, Button, TextInput } from '@wings-software/uikit'
 import moment from 'moment'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -13,6 +12,7 @@ import { useGetMonitoringSources, MonitoringSource, useDeleteDSConfig } from 'se
 import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { getRoutePathByType } from '@cv/utils/routeUtils'
+import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
 import styles from './CVMonitoringSourcesPage.module.scss'
 
 const DATE_FORMAT_STRING = 'MMM D, YYYY h:mm a'
@@ -44,7 +44,7 @@ export default function CVMonitoringSourcesPage() {
     debounce: 400
   })
 
-  const { mutate: deleteMonitoringSource } = useDeleteDSConfig({})
+  const { mutate: deleteMonitoringSource, loading: isDeleting } = useDeleteDSConfig({})
 
   const onCreateNew = () =>
     history.push(
@@ -52,7 +52,7 @@ export default function CVMonitoringSourcesPage() {
         accountId,
         projectIdentifier,
         orgIdentifier
-      })
+      }) + '?step=2'
     )
 
   const onEdit = (identifier: string, type: string) =>
@@ -132,9 +132,12 @@ export default function CVMonitoringSourcesPage() {
           margin={{ bottom: 'small' }}
           onClick={onCreateNew}
         />
-        {loading && <PageSpinner />}
+        {(loading || isDeleting) && <PageSpinner />}
         {content?.length && (
           <Table<MonitoringSource>
+            onRowClick={val => {
+              onEdit(val.monitoringSourceIdentifier!, val.type!)
+            }}
             columns={[
               {
                 Header: getString('name'),
@@ -222,28 +225,18 @@ function ImportedOnCell(
     onDelete(id?: string): void
   }
 ): JSX.Element {
+  const { getString } = useStrings()
   return (
     <Container flex>
       <Text>{moment(props.value).format(DATE_FORMAT_STRING)}</Text>
-      <Popover
-        position={Position.BOTTOM}
-        content={
-          <Menu>
-            <MenuItem
-              icon="edit"
-              text={<String stringID="edit" />}
-              onClick={() => props?.onEdit(props.row.original.monitoringSourceIdentifier, props.row.original.type)}
-            />
-            <MenuItem
-              icon="trash"
-              text={<String stringID="delete" />}
-              onClick={() => props?.onDelete(props.row.original.monitoringSourceIdentifier)}
-            />
-          </Menu>
-        }
-      >
-        <Button minimal icon="main-more" color={Color.GREY_350} />
-      </Popover>
+      <ContextMenuActions
+        onEdit={() => props?.onEdit(props.row.original.monitoringSourceIdentifier, props.row.original.type)}
+        onDelete={() => props?.onDelete(props.row.original.monitoringSourceIdentifier)}
+        titleText={getString('cv.admin.monitoringSources.confirmDeleteTitle')}
+        contentText={getString('cv.admin.monitoringSources.confirmDeleteContent', {
+          name: props.row.original.monitoringSourceName
+        })}
+      />
     </Container>
   )
 }
