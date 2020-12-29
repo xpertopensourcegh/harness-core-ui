@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import cx from 'classnames'
 import { Card, Icon } from '@wings-software/uikit'
 // import * as BP from '@blueprintjs/core'
@@ -19,7 +19,10 @@ import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
-import BuildInfo from './ExecutionDetails/BuildInfo'
+import BuildInfo from './ExecutionDetails/BuildInfo/BuildInfo'
+import { CommitsList } from './CommitsList/CommitsList'
+// TODO: remove hardcoded types
+import type { CIBuildCommit, CIBuildResponseDTO } from './ExecutionDetails/Types/types'
 import css from './ExecutionCard.module.scss'
 
 export interface ExecutionCardProps {
@@ -36,8 +39,24 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
     }>
   >()
 
+  const [showCommits, setShowCommits] = useState(false)
+
   const HAS_CD = isObject(pipelineExecution?.moduleInfo?.cd)
   const HAS_CI = isObject(pipelineExecution?.moduleInfo?.ci)
+
+  // TODO: remove type cast
+  const ciBuildData = (pipelineExecution?.moduleInfo?.ci?.ciExecutionInfoDTO as unknown) as CIBuildResponseDTO
+
+  const getCommits = (build: CIBuildResponseDTO): CIBuildCommit[] => {
+    switch (build.event) {
+      case 'branch':
+        return build?.branch?.commits || []
+      case 'pullRequest':
+        return build?.pullRequest?.commits || []
+      default:
+        return []
+    }
+  }
 
   return (
     <Card elevation={0} className={css.card}>
@@ -67,10 +86,20 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               />
             </Link>
             {HAS_CI ? (
-              <div className={css.ciData}>
-                <String className={css.sectionTitle} stringID="buildText" />
-                <BuildInfo pipelineExecution={pipelineExecution} />
-              </div>
+              <>
+                <div className={css.ciData}>
+                  <String className={css.sectionTitle} stringID="buildText" />
+                  <BuildInfo
+                    toggleCommits={() => {
+                      setShowCommits(!showCommits)
+                    }}
+                    showCommits={showCommits}
+                    buildData={ciBuildData}
+                    className={css.buildInfo}
+                  />
+                </div>
+                {showCommits ? <CommitsList commits={getCommits(ciBuildData)} /> : null}
+              </>
             ) : null}
             {HAS_CD ? (
               <div className={css.cdData}>

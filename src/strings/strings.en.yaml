@@ -146,6 +146,8 @@ global:
   skipped: 'Step has been skipped.'
   skipCondition: 'Skip condition:'
   learnMore: Learn more
+  clipboardCopySuccess: Successfully copied to clipboard
+  clipboardCopyFail: Copy to clipboard has failed
   skipConditionsTitle: Skip Conditions
   skipConditionTitle: Skip Condition
   skipConditionLabel: If the JEXL condition evaluates to true, skip this step
@@ -246,6 +248,9 @@ global:
     NEW_DELEGATE: 'New Delegate'
   execution:
     pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
+    latestCommit: 'Latest commit:'
+    latestNCommits: 'Last {{numberOfCommits}} commits:'
+    prSymbol: '#'
     triggerType: # text for trigger types
       MANUAL: Manually
       WEBHOOK: Webhook

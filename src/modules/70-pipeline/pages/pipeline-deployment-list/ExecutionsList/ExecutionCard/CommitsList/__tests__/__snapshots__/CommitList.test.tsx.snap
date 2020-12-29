@@ -1,0 +1,727 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Commit list snapshot tests renders commits properly 1`] = `
+<div>
+  <div
+    class="commitsOuter"
+    style="height: 96px;"
+  >
+    <div
+      class="commitsInner"
+    >
+      <span
+        class="commitsHeader"
+      >
+        Last 2 commits:
+      </span>
+      <div
+        class="commitsHolder"
+      >
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 0
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-0
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                0123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 1
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-1
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                1123456
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="commitsFooter"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Commit list snapshot tests renders commits properly 2`] = `
+<div>
+  <div
+    class="commitsOuter"
+    style="height: 210px;"
+  >
+    <div
+      class="commitsInner"
+    >
+      <span
+        class="commitsHeader"
+      >
+        Last 5 commits:
+      </span>
+      <div
+        class="commitsHolder"
+      >
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 0
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-0
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                0123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 1
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-1
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                1123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 2
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-2
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                2123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 3
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-3
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                3123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 4
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-4
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                4123456
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="commitsFooter"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Commit list snapshot tests renders commits properly 3`] = `
+<div>
+  <div
+    class="commitsOuter"
+    style="height: 210px;"
+  >
+    <div
+      class="commitsInner"
+    >
+      <span
+        class="commitsHeader"
+      >
+        Last 5 commits:
+      </span>
+      <div
+        class="commitsHolder"
+      >
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 0
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-0
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                0123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 1
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-1
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                1123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 2
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-2
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                2123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 3
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-3
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                3123456
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="commitItem"
+        >
+          <div
+            class="commitMessage"
+          >
+            Commit message 4
+          </div>
+          <div>
+            <div
+              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+            >
+              <div
+                class="Avatar---AvatarInner--C7qT"
+                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              >
+                O
+              </div>
+            </div>
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+            >
+              owner-id-4
+            </span>
+            <div
+              class="commitHash"
+            >
+              <span
+                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                icon="clipboard"
+              >
+                <svg
+                  data-icon="clipboard"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    clipboard
+                  </desc>
+                  <path
+                    d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              >
+                4123456
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="commitsFooter"
+      />
+    </div>
+  </div>
+</div>
+`;

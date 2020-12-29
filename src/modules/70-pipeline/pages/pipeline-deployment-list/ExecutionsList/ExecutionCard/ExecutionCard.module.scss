@@ -36,6 +36,11 @@
     column-gap: var(--spacing-xxxlarge);
   }
 
+  .content {
+    // NOTE: .commitsInner  has absolute positioning and fit to .content
+    position: relative;
+  }
+
   .footer {
     padding-top: var(--spacing-medium);
     border-top: 1px solid var(--grey-300);
@@ -99,7 +104,6 @@
     text-transform: uppercase;
     color: var(--grey-400);
     font-size: var(--font-size-small);
-    font-weight: bold;
   }
 
   .actions {
@@ -146,7 +150,6 @@
 }
 
 .buildInfo {
-  font-size: var(--font-size-small);
   margin-top: var(--spacing-xsmall);
 }
 
