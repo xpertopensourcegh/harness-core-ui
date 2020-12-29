@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties, ReactChild } from 'react'
 import { MultiTypeInputType, Button, IconName, Icon, Color, getMultiTypeFromValue } from '@wings-software/uikit'
 import { Popover, Menu, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -13,9 +13,10 @@ import css from './MultiTypeFieldSelctor.module.scss'
 export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
   children: Exclude<React.ReactNode, null | undefined>
   name: string
-  label: string
+  label: string | ReactChild
   formik?: FormikContext<any>
   defaultValueToReset?: unknown
+  style?: CSSProperties
 }
 
 const TypeIcon: Record<MultiTypeInputType, IconName> = {
@@ -42,6 +43,7 @@ function TypeSelector(props: {
       minimal
       wrapperTagName="div"
       targetTagName="div"
+      className={css.typeSelectorWrapper}
       targetClassName={css.typeSelector}
     >
       <Button minimal className={css.btn}>
@@ -99,6 +101,7 @@ export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): Reac
   return (
     <FormGroup
       {...rest}
+      className={type === MultiTypeInputType.RUNTIME ? css.formGroup : ''}
       labelFor={name}
       helperText={helperText}
       intent={intent}
@@ -109,7 +112,7 @@ export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): Reac
             label
           ) : (
             <span>
-              {label} <b>{RUNTIME_INPUT_VALUE}</b>
+              {label} <b>{value}</b>
             </span>
           )}
           <TypeSelector type={type} onChange={handleChange} />

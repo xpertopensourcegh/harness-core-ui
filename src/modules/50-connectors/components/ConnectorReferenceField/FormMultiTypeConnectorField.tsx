@@ -1,14 +1,21 @@
 import React from 'react'
-import { ExpressionAndRuntimeTypeProps, MultiTypeInputValue } from '@wings-software/uikit'
-import { FormikContext, isObject, connect } from 'formik'
+import {
+  ExpressionAndRuntimeTypeProps,
+  getMultiTypeFromValue,
+  MultiTypeInputValue,
+  MultiTypeInputType
+} from '@wings-software/uikit'
+import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
+import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/exports'
+import { errorCheck } from '@common/utils/formikHelpers'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { MultiTypeReferenceInput } from '@common/components/ReferenceSelect/ReferenceSelect'
+import { MultiTypeReferenceInput, ReferenceSelectProps } from '@common/components/ReferenceSelect/ReferenceSelect'
 import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,
@@ -16,27 +23,30 @@ import {
   getSelectedRenderer
 } from './ConnectorReferenceField'
 
+export interface MultiTypeConnectorFieldConfigureOptionsProps
+  extends Omit<ConfigureOptionsProps, 'value' | 'type' | 'variableName'> {
+  variableName?: ConfigureOptionsProps['variableName']
+}
 export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
   onChange?: ExpressionAndRuntimeTypeProps['onChange']
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
+  formik?: FormikContext<any>
   isNewConnectorLabelVisible?: boolean
+  configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps
+  enableConfigureOptions?: boolean
+  style?: React.CSSProperties
 }
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
 }
-const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
-  (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
-  get(formik?.errors, name) &&
-  !isObject(get(formik?.errors, name))
 
-export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = props => {
+export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): React.ReactElement => {
   const {
     defaultScope,
     accountIdentifier,
     projectIdentifier,
     orgIdentifier,
     type = 'K8sCluster',
+    category,
     name,
     label,
     onChange,
@@ -44,6 +54,9 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
     formik,
     placeholder,
     isNewConnectorLabelVisible = true,
+    configureOptionsProps,
+    enableConfigureOptions = true,
+    style,
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -70,8 +83,32 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
     }
   })
 
-  return (
-    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
+  const optionalReferenceSelectProps: Pick<
+    ReferenceSelectProps<ConnectorConfigDTO>,
+    'createNewHandler' | 'editRenderer'
+  > = {}
+
+  // TODO: Add support for multi type connectors
+  if (typeof type === 'string') {
+    optionalReferenceSelectProps.createNewHandler = () => {
+      openConnectorModal(false, type, undefined)
+    }
+  }
+
+  // TODO: Add support for multi type connectors
+  if (typeof type === 'string') {
+    optionalReferenceSelectProps.editRenderer = getEditRenderer(selected, openConnectorModal, type)
+  }
+
+  const component = (
+    <FormGroup
+      {...rest}
+      labelFor={name}
+      helperText={helperText}
+      intent={intent}
+      disabled={disabled}
+      style={{ marginBottom: 0 }}
+    >
       <MultiTypeReferenceInput<ConnectorReferenceDTO>
         name={name}
         referenceSelectProps={{
@@ -81,6 +118,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
             projectIdentifier,
             orgIdentifier,
             type,
+            category,
             name,
             selected,
             width,
@@ -90,11 +128,8 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
             openConnectorModal
           }),
           isNewConnectorLabelVisible: isNewConnectorLabelVisible,
-          createNewHandler: () => {
-            openConnectorModal(false, type, undefined)
-          },
-          editRenderer: getEditRenderer(selected, openConnectorModal, type),
-          selectedRenderer: getSelectedRenderer(selected)
+          selectedRenderer: getSelectedRenderer(selected),
+          ...optionalReferenceSelectProps
         }}
         onChange={(val, valueType) => {
           formik?.setFieldValue(name, val)
@@ -103,6 +138,35 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
         value={selected}
       />
     </FormGroup>
+  )
+
+  return (
+    <div style={style}>
+      {label}
+      {enableConfigureOptions ? (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {component}
+          {getMultiTypeFromValue(selected) === MultiTypeInputType.RUNTIME && (
+            <ConfigureOptions
+              value={selected}
+              type={getString('string')}
+              variableName={name}
+              showRequiredField={false}
+              showDefaultField={false}
+              showAdvanced={true}
+              onChange={val => {
+                formik?.setFieldValue(name, val)
+                onChange?.(val, MultiTypeInputValue.STRING)
+              }}
+              style={{ marginLeft: 'var(--spacing-medium)' }}
+              {...configureOptionsProps}
+            />
+          )}
+        </div>
+      ) : (
+        component
+      )}
+    </div>
   )
 }
 

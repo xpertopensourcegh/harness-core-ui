@@ -319,7 +319,7 @@ exports[`Http Step edit mode works 1`] = `
                       >
                         Header
                         <div
-                          class="bp3-popover-wrapper"
+                          class="bp3-popover-wrapper typeSelectorWrapper"
                         >
                           <div
                             class="bp3-popover-target typeSelector"
@@ -348,7 +348,7 @@ exports[`Http Step edit mode works 1`] = `
                                 <span
                                   class="btnText"
                                 >
-                                  Fixed input list
+                                  Fixed value
                                 </span>
                               </span>
                             </button>
@@ -532,6 +532,7 @@ exports[`Http Step edit mode works 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="TextInput---main--1ytZ"
@@ -625,6 +626,7 @@ exports[`Http Step edit mode works 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"
@@ -1020,7 +1022,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                   class="formGroup"
                 >
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group formGroup"
                   >
                     <label
                       class="bp3-label"
@@ -1037,7 +1039,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                           </b>
                         </span>
                         <div
-                          class="bp3-popover-wrapper"
+                          class="bp3-popover-wrapper typeSelectorWrapper"
                         >
                           <div
                             class="bp3-popover-target typeSelector"
@@ -1104,6 +1106,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="TextInput---main--1ytZ"
@@ -1197,6 +1200,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="TextInput---main--1ytZ"
@@ -1603,7 +1607,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                       >
                         Header
                         <div
-                          class="bp3-popover-wrapper"
+                          class="bp3-popover-wrapper typeSelectorWrapper"
                         >
                           <div
                             class="bp3-popover-target typeSelector"
@@ -1632,7 +1636,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                                 <span
                                   class="btnText"
                                 >
-                                  Fixed input list
+                                  Fixed value
                                 </span>
                               </span>
                             </button>
@@ -1816,6 +1820,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <textarea
                           class="bp3-input input"
@@ -1872,6 +1877,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"

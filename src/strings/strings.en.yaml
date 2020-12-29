@@ -99,9 +99,15 @@ global:
   stageDetails: Stage Details
   stageNameLabel: Stage Name
   tagsLabel: Tags
+  tagsInfo: Specify one or more tags for the Docker image
   removeLabel: 'remove'
   keyLabel: Key
   valueLabel: Value
+  commandLabel: Command
+  commandInfo: Posix shell script executed inside the container. The script is invoked as if it were the container’s entrypoint.
+  commandPlaceholder: |
+    npm install
+    npm test
   repositoryUrlLabel: Repository URL
   UrlLabel: URL
   methodLabel: Method
@@ -111,14 +117,23 @@ global:
   variableLabel: 'Variable'
   variableNameLabel: Variable Name
   imageLabel: Image
+  imagePlaceholder: maven:3.6.3-jdk-8
+  pluginImagePlaceholder: plugins/slack
+  pluginImageInfo: The name of the Plugin Docker image. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries
+  dependencyImagePlaceholder: mysql:5
+  imageInfo: The name of the Docker image to use to run commands on. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries.
+  imageNameLabel: Image Name
+  imageNameInfo: The image's name. It can be different than the image's local name.
   encryptedKeyLabel: Encrypted Key
   environment: 'Environment'
+  environmentVariables: 'Environment Variables'
+  environmentVariablesInfo: Environment variables injected into the container to be used in the “command” property
   service: 'Service'
-  addEnvironment: '+ Add Environment'
-  entryPointsLabel: 'Entry Points'
-  addEntryPoint: '+ Add Entry Point'
-  argumentsLabel: 'Arguments'
-  addArgument: '+ Add Argument'
+  plusAdd: '+ Add'
+  entryPointLabel: 'Entry Point'
+  entryPointInfo: Overrides the image ENTRYPOINT
+  argsLabel: 'Arguments'
+  argsInfo: Overrides the image COMMAND
   dependencyNameLabel: 'Dependency Name'
   cloneCodebaseLabel: 'Clone Codebase'
   allowedValues: 'Allowed values'
@@ -185,6 +200,10 @@ global:
   projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
   addProject: '+ Add Project'
   noProjects: 'No Projects Found'
+  string: 'String'
+  number: 'Number'
+  list: 'List'
+  map: 'Map'
   HTTPS: 'HTTPS'
   SSH: 'SSH'
   SSH_KEY: 'SSH Key'
@@ -201,7 +220,7 @@ global:
     errorWhileSaving: Error occurred saving pipeline
     pipelineUpdatedError: Pipeline is updated in the backend by someone so do you want to take the latest pipeline, this may you loose the local pipeline saved?
   inputTypes:
-    FIXED: Fixed input list
+    FIXED: Fixed value
     RUNTIME: Runtime input
     EXPRESSION: Expression
   adminSideNavLinks:
@@ -317,7 +336,6 @@ global:
       operator: 'Operator'
       matchesValue: 'Matches Value'
       jexlConditions: 'JEXL Conditions'
-      plusAdd: '+ Add'
     pipelineInputPanel:
       noRuntimeInputs: 'No Runtime inputs'
   repo-provider:
@@ -360,48 +378,111 @@ global:
   pipelineSteps:
     stepNameLabel: Step Name
     connectorLabel: 'Container Registry'
-    registryLabel: 'Registry'
+    connectorInfo: 'Container Registry to use to download the image use to run commands on'
+    dependencyConnectorInfo: Container Registry to use to pull the service dependency image from
+    gcrConnectorInfo: GCP connector to use for uploading the image to GCR
+    ecrConnectorInfo: AWS connector to use for uploading the image to ECR
+    s3ConnectorInfo: AWS connector to use for uploading the artifact(s) to S3
+    gcsConnectorInfo: GCP connector to use for uploading the artifact(s) to GCS
+    hostLabel: Host
+    hostPlaceholder: us.gcr.io
+    hostInfo: GCR Host
+    projectIDLabel: Project ID
+    projectIDInfo: GCR Project ID
     cacheFromLabel: 'Cache From'
     autoTagLabel: 'Auto-Tag'
     autoTagSuffixLabel: 'Auto-Tag Suffix'
-    settings: 'Settings'
-    addSetting: '+ Add Setting'
+    settingsLabel: 'Settings'
+    settingsInfo: Plugin specific settings. Please refer to the plugin's documentation page
     repoLabel: 'Repository'
+    repoInfo: For example, plugins/s3-cache
     dockerfileLabel: 'Dockerfile'
+    dockerfileInfo: If not provided assumed to be in the root folder of the codebase
     endpointLabel: 'Endpoint URL'
+    endpointPlaceholder: http://minio.company.com
+    endpointInfo: Endpoint for S3 compatible providers (not needed for AWS).
     contextLabel: 'Context'
+    contextInfo: Either a path to a directory containing a Dockerfile, or a url to a git repository
     labelsLabel: 'Labels'
-    addLabel: '+ Label'
+    labelsInfo: Use Labels to add metadata to the Docker image
     regionLabel: 'Region'
+    regionPlaceholder: us-east-1
+    regionInfo: AWS Region
+    accountLabel: Account ID
+    accountInfo: AWS Account ID
+    reportPathsLabel: Report Paths
+    reportPathsInfo: Each path should lead to file(s) that stores results in the JUnit XML format.  Regex is supported.
     buildArgsLabel: 'Build Arguments'
-    addBuildArg: '+ Build Argument'
+    buildArgsInfo: Build-time variables
     bucketLabel: 'Bucket'
+    bucketInfo: AWS Bucket
+    S3BucketInfo: S3 Bucket
+    GCSBucketInfo: GCS Bucket
     targetLabel: 'Target'
+    artifactsTargetPlaceholder: path/in/bucket
+    targetInfo: Build the specified stage as defined inside the Dockerfile
+    artifactsTargetInfo: The path to store the cache in, relatively to the bucket. If not provided the cache will be save to [bucket]/[key]
+    jFrogArtifactoryTargetInfo: Repository name relative to the server URL in the connector. If pom.xml is not present then target should be full path to artifacts folder (groupID/artifactID/version)
+    outputVariablesLabel: 'Output Variables'
+    outputVariablesInfo: 'Output Variables can be used to expose Environment Variables to be used by other steps/stages of the pipeline'
     sourcePathLabel: 'Source Path'
+    sourcePathInfo: Use regex to upload multiple files
     optionalConfiguration: 'OPTIONAL CONFIGURATIONS'
     pullLabel: 'Image Pull Policy'
+    pullInfo: |
+      Determine the pull policy of the Docker image:
+
+      The default behavior is downloading an image if it doesn’t exist in the local cache, unless the “latest” tag is used either explicitly or implicitly.
+
+      “If not exists” - only pull the image if not found in the local cache.
+
+      “always” - always pull the newest version of the image.
+
+      “never” - always use image from local cache, if available.
     pullIfNotExistsLabel: 'If not exists'
     pullNeverLabel: 'Never'
     pullAlwaysLabel: 'Always'
     sourcePathsLabel: 'Source Paths'
-    addSourcePath: '+ Add Source Path'
+    sourcePathsInfo: 'A list of files. Expressions are supported. For example: target/*.jar'
+    cacheSourcePathsInfo: A list of files/folders to cache
     pomFileLabel: 'POM File'
+    pomFileInfo: Path to the pom.xml file
     setContainerResources: 'Set container Resources'
-    setContainerResourcesTooltip: Resources limits allow setting maximum values for the resources the container is allowed to use at runtime
+    setContainerResourcesTooltip: |
+      Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.   
+
+      Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki. 
+
+      Use “Limit CPU” to limit the number of cores that the container can use. Limits for CPU resources are measured in cpu units. Fractional requests are allowed. The expression 0.1 is equivalent to the expression 100m, which can be read as "one hundred millicpu"
     limitMemoryLabel: 'Limit Memory'
-    limitMemoryPlaceholder: '512'
+    limitMemoryPlaceholder: '128Mi'
     limitCPULabel: 'Limit CPU'
-    limitCPUPlaceholder: '1'
-    limitMemoryUnitMiLabel: 'Mi'
+    limitCPUPlaceholder: '0.2'
+    limitMemoryUnitMiLabel: Mi
     limitMemoryUnitGiLabel: 'Gi'
-    outputVariablesLabel: 'Output Variables'
     limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
     limitCPUExample: 'Ex: 1'
-    timeoutLabel: Timeout
+    timeoutLabel: 'Timeout'
+    timeoutPlaceholder: '120s'
+    timeoutInfo: |
+      You can use:
+
+      w for weeks
+      d for days
+      h for hours
+      m for minutes
+      s for seconds
+      ms for milliseconds
     instanceLabel: 'Instances'
     typeName: 'instanceType'
-    awsConnectorLabel: Amazon Web Services Connector
-    gcpConnectorLabel: Google Cloud Platform Connector
+    awsConnectorLabel: AWS Connector
+    awsConnectorInfo: AWS connector to use for saving the cache to S3
+    restoreCacheAwsConnectorInfo: AWS connector to use for restoring the cache from S3
+    gcpConnectorLabel: GCP Connector
+    gcpConnectorInfo: GCP connector to use for saving the cache to GCS
+    restoreCacheGcpConnectorInfo: GCP connector to use for restoring the cache from GCS
+    dockerHubConnectorLabel: Docker Hub Registry
+    dockerHubConnectorInfo: Docker Hub Container Registry to use for uploading the image
     k8sRolloutDeploy: 'K8s Rollout Deploy'
     k8sBGDeploy: 'K8s Blue Green Deploy'
     k8sCanaryDeploy: 'K8s Canary Deploy'
@@ -411,10 +492,12 @@ global:
     lessThanZero: 'Instance cannot be less than zero.'
     morethanHundred: 'Instance cannot be more than 100.'
     instancesRequired: 'Instance is required.'
+    keyInfo: The key the cache will be identified by. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
+    restoreCacheKeyInfo: The key that can be used to restore this cache. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
     gcr:
-      title: 'Build and Upload to GCR'
+      title: 'Build and Push to GCR'
     ecr:
-      title: 'Build and Upload to ECR'
+      title: 'Build and Push to ECR'
     saveCacheGCS:
       title: 'Save Cache to GCS'
     restoreCacheGCS:
@@ -424,13 +507,17 @@ global:
     restoreCacheS3:
       title: 'Restore Cache From S3'
     dockerHub:
-      title: 'Build and Upload to DockerHub'
+      title: 'Build and Push to DockerHub'
     gcs:
-      title: 'Upload to GCS'
+      title: 'Upload Artifacts to GCS'
     s3:
-      title: 'Upload to S3'
+      title: 'Upload Artifacts to S3'
     jFrogArtifactory:
       title: 'Upload Artifacts to JFrog Artifactory'
+    run:
+      title: 'Configure Run Step'
+    plugin:
+      title: 'Configure Plugin Step'
     build:
       delete:
         confirmDeleteTitle: 'Are you sure you want to remove this stage '
@@ -483,9 +570,30 @@ global:
           artifacts: 'Artifacts'
           manifests: 'Manifests'
   validation:
-    name: 'Name is a required field'
-    identifier: 'Identifier is required'
-    validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
+    nameRequired: Name is a required field
+    stepNameRequired: Step Name is a required field
+    identifierRequired: Identifier is a required field
+    connectorRefRequired: Container Registry is a required field
+    AWSConnectorRefRequired: AWS connector is a required field
+    GCPConnectorRefRequired: GCP connector is a required field
+    dockerHubConnectorRefRequired: Docker Hub Registry is a required field
+    imageRequired: Image is a required field
+    commandRequired: Command is a required field
+    limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
+    keyRequired: Key is a required field
+    valueRequired: Value is a required field
+    validIdRegex: Identifier can only contain alphanumerics, _ and $
+    # Replace if validIdRegex will apply the same rules
+    validStepIdRegex: Identifier can only contain alphanumerics and _
+    validKeyRegex: Keys can only contain alphanumerics and _
+    validOutputVariableRegex: Output variables can only contain alphanumerics and _
+    validReportPathRegex: Report paths should end with .xml
+    validStepNameRegex: Step Name can only contain alphanumerics, spaces, _ and -
+    illegalIdentifier: 'Identifier must not be one of the following values: or, and, eq, ne, lt, gt, le, ge, div, mod, not, null, true, false, new, var, return'
+    uniqueStepId: Identifier should be unique across the steps
+    uniqueKeys: Keys should be unique
+    uniqueValues: Values should be unique
+    matchPattern: Invalid value, please look for info above to read more
     duplicateIdError: 'Duplicate identifier'
     username: 'Username is a required field'
     authType: 'Auth type is required'
@@ -493,6 +601,21 @@ global:
     applicationId: 'GitHub Application ID is required'
     UrlRequired: URL is required
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
+    tagsRequired: Tags is a required field
+    environmentVariablesRequired: Environment Variables is a required field
+    settingsRequired: Settings is a required field
+    labelsRequired: Labels is a required field
+    buildArgsRequired: Build Arguments is a required field
+    imageNameRequired: Image Name is a required field
+    regionRequired: Region is a required field
+    accountRequired: Account ID is a required field
+    repoRequired: Repository is a required field
+    bucketRequired: Bucket is a required field
+    sourcePathRequired: Source Path is a required field
+    targetRequired: Target is a required field
+    sourcePathsRequired: Source Paths is a required field
+    hostRequired: Host is a required field
+    projectIDRequired: Project ID is a required field
   connectors:
     delegateOutClusterInfo1: 'Specify credentials here'
     delegateOutClusterInfo2: 'Manually enter master url and credentials'

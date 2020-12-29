@@ -15,7 +15,7 @@ import { connect } from 'formik'
 import { get } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { errorCheck } from '@common/utils/formikHelpers'
-// import { ConfigureOptions } from '@pipeline/components/ConfigureOptions/ConfigureOptions'
+// import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import css from './InstanceDropdownField.module.scss'
 

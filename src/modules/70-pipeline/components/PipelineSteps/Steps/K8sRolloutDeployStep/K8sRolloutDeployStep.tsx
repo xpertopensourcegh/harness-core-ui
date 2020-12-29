@@ -14,7 +14,7 @@ import { StepViewType } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import Accordion from '@common/components/Accordion/Accordion'
 import { FormMultiTypeCheckboxField } from '@common/components'
-import { ConfigureOptions } from '@pipeline/components/ConfigureOptions/ConfigureOptions'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
@@ -63,6 +63,7 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
                         <FormMultiTypeDurationField
                           name="spec.timeout"
                           label={getString('pipelineSteps.timeoutLabel')}
+                          multiTypeDurationProps={{ enableConfigureOptions: false }}
                         />
                         {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
@@ -103,6 +104,7 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
         <FormMultiTypeDurationField
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
+          multiTypeDurationProps={{ enableConfigureOptions: false }}
         />
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (

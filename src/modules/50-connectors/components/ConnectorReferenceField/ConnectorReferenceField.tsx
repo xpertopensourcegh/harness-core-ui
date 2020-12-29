@@ -7,7 +7,9 @@ import {
   ConnectorInfoDTO,
   getConnectorListPromise,
   ConnectorConfigDTO,
-  ConnectorResponse
+  GetConnectorListQueryParams,
+  ConnectorResponse,
+  getConnectorListV2Promise
 } from 'services/cd-ng'
 import { EntityReferenceResponse, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from '@connectors/exports'
@@ -23,7 +25,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   accountIdentifier: string
   name: string
   placeholder: string
-  label: string
+  label: string | React.ReactElement
   projectIdentifier?: string
   selected?: {
     label: string
@@ -36,7 +38,8 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   orgIdentifier?: string
   defaultScope?: Scope
   width?: number
-  type?: ConnectorInfoDTO['type']
+  type?: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
+  category?: GetConnectorListQueryParams['category']
   error?: string
 }
 
@@ -92,7 +95,7 @@ export function getSelectedRenderer(selected: ConnectorReferenceFieldProps['sele
 interface GetReferenceFieldMethodProps extends ConnectorReferenceFieldProps {
   getString(key: string, vars?: Record<string, any>): string
   openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal']
-  type: ConnectorInfoDTO['type']
+  type: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
 }
 
 export function getReferenceFieldProps({
@@ -101,6 +104,7 @@ export function getReferenceFieldProps({
   projectIdentifier,
   orgIdentifier,
   type = 'K8sCluster',
+  category,
   name,
   width,
   selected,
@@ -117,15 +121,30 @@ export function getReferenceFieldProps({
     createNewLabel: getString('newConnector'),
     recordClassName: css.listItem,
     fetchRecords: (scope, search = '', done) => {
-      getConnectorListPromise({
-        queryParams: {
-          accountIdentifier,
-          type,
-          searchTerm: search,
-          projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
-          orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined
-        }
-      })
+      const request = Array.isArray(type)
+        ? getConnectorListV2Promise({
+            queryParams: {
+              accountIdentifier
+            },
+            body: {
+              type,
+              projectIdentifier: scope === Scope.PROJECT ? [projectIdentifier as string] : undefined,
+              orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? [orgIdentifier as string] : undefined
+            }
+          })
+        : getConnectorListPromise({
+            queryParams: {
+              accountIdentifier,
+              // If we also pass "type" along with "category", "category" will be ignored
+              ...(!category && { type }),
+              category,
+              searchTerm: search,
+              projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
+              orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined
+            }
+          })
+
+      return request
         .then(responseData => {
           if (responseData?.data?.content) {
             const connectors = responseData.data.content
@@ -168,7 +187,10 @@ export function getReferenceFieldProps({
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
-                openConnectorModal(true, type, item.record)
+                // TODO: Add support for multi type connectors
+                if (typeof type === 'string') {
+                  openConnectorModal(true, type, item.record)
+                }
               }}
               style={{
                 color: 'var(--blue-450)'
@@ -215,6 +237,23 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
 
   const { getString } = useStrings()
 
+  const optionalReferenceSelectProps: Pick<
+    ReferenceSelectProps<ConnectorConfigDTO>,
+    'createNewHandler' | 'editRenderer'
+  > = {}
+
+  // TODO: Add support for multi type connectors
+  if (typeof type === 'string') {
+    optionalReferenceSelectProps.createNewHandler = () => {
+      openConnectorModal(false, type, undefined)
+    }
+  }
+
+  // TODO: Add support for multi type connectors
+  if (typeof type === 'string') {
+    optionalReferenceSelectProps.editRenderer = getEditRenderer(selected, openConnectorModal, type)
+  }
+
   return (
     <FormGroup {...rest} label={label} helperText={helperText} intent={intent}>
       <ReferenceSelect<ConnectorReferenceDTO>
@@ -235,11 +274,8 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           getString,
           openConnectorModal
         })}
-        createNewHandler={() => {
-          openConnectorModal(false, type, undefined)
-        }}
-        editRenderer={getEditRenderer(selected, openConnectorModal, type)}
         selectedRenderer={getSelectedRenderer(selected)}
+        {...optionalReferenceSelectProps}
       />
     </FormGroup>
   )

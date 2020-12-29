@@ -350,6 +350,7 @@ function ManifestListView({
                     width={350}
                     isNewConnectorLabelVisible={false}
                     type={'Git'}
+                    enableConfigureOptions={false}
                   />
                 </div>
                 {getManifestInitialValues().gitFetchType === gitFetchTypes[0].value && (

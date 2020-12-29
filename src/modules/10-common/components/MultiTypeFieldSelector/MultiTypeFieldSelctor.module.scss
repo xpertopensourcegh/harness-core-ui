@@ -1,7 +1,12 @@
+.typeSelectorWrapper {
+  margin-top: 0 !important;
+}
+
 .typeSelector {
   display: inline-block;
 
   .btn {
+    height: 26px !important;
     padding: 0 !important;
     min-height: unset !important;
 
@@ -9,7 +14,7 @@
       display: inline-flex;
       align-items: center;
       height: 100%;
-      width: 140px;
+      width: 125px;
       height: 26px;
       position: relative;
     }
@@ -23,7 +28,7 @@
       padding: var(--spacing-small);
       height: 100%;
       background: var(--white);
-      min-width: 120px !important;
+      min-width: 105px !important;
       position: absolute;
       left: 0;
       top: 0;
@@ -63,6 +68,14 @@
           background-color: var(--purple-500) !important;
         }
       }
+    }
+  }
+}
+
+.formGroup {
+  :global {
+    .bp3-label {
+      margin-bottom: 0 !important;
     }
   }
 }

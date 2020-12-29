@@ -21,7 +21,7 @@ import isEqual from 'lodash-es/isEqual'
 import cloneDeep from 'lodash-es/cloneDeep'
 import noop from 'lodash-es/noop'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
-import { ConfigureOptions } from '@pipeline/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { SecretDTOV2, NgPipeline } from 'services/cd-ng'
@@ -256,7 +256,7 @@ export const CustomVariables: React.FC = (): JSX.Element => {
                     <Formik
                       initialValues={selectedVariable}
                       validationSchema={yup.object().shape({
-                        name: yup.string().trim().required(getString('validation.name')),
+                        name: yup.string().trim().required(getString('validation.nameRequired')),
                         type: yup.string().trim().required()
                       })}
                       onSubmit={(values: { name: string; type: string }): void => {

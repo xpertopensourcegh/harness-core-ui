@@ -12,8 +12,8 @@ import { PipelineVariables } from '../PipelineVariables/PipelineVariables'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
-import { PipelineConfigureService } from '../PipelineConfigureService/PipelineConfigureService'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
+import { StepWidget } from '../../AbstractSteps/StepWidget'
 
 import css from './RightDrawer.module.scss'
 
@@ -73,8 +73,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
               if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
               if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+              if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
 
               // Delete values if they were already added and now removed
+              if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
               if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
               if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
 
@@ -132,19 +134,22 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
-        <PipelineConfigureService
-          step={data.stepConfig.node}
-          stepsFactory={stepsFactory}
-          onSubmit={item => {
+        <StepWidget
+          initialValues={data.stepConfig.node}
+          type={data.stepConfig.node.type}
+          factory={stepsFactory}
+          onUpdate={item => {
             if (data.stepConfig?.addOrEdit === 'add') {
               const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
-              addService(pipelineStage?.stage.spec.dependencies, {
+              addService(pipelineStage?.stage.spec.serviceDependencies, {
                 identifier: item.identifier,
                 name: item.name,
-                ...(item.description && { description: item.description }),
                 type: StepType.Dependency,
+                ...(item.description && { description: item.description }),
+                ...(item.timeout && { timeout: item.timeout }),
                 spec: item.spec
               })
+              updatePipeline(pipeline)
               updatePipelineView({
                 ...pipelineView,
                 isDrawerOpened: false,
@@ -153,10 +158,16 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             } else if (data.stepConfig?.addOrEdit === 'edit') {
               const node = data?.stepConfig?.node
               if (node) {
-                node.name = item.name
-                node.identifier = item.identifier
-                node.description = item.description
-                node.spec = item.spec
+                if (item.identifier) node.identifier = item.identifier
+                if (item.name) node.name = item.name
+                if (item.description) node.description = item.description
+                if (item.timeout) node.timeout = item.timeout
+                if (item.spec) node.spec = item.spec
+
+                // Delete values if they were already added and now removed
+                if (node.description && !item.description) delete node.description
+                if (node.timeout && !item.timeout) delete node.timeout
+
                 updatePipeline(pipeline)
               }
               updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })

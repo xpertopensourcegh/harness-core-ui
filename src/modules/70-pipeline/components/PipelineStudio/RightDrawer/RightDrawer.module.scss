@@ -16,3 +16,9 @@
     }
   }
 }
+
+:global {
+  .bp3-popover-content p {
+    white-space: break-spaces !important;
+  }
+}

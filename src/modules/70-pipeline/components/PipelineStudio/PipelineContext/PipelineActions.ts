@@ -29,13 +29,13 @@ export enum DrawerTypes {
 }
 
 export const DrawerSizes: { [key: string]: number } = {
-  StepConfig: 480,
+  StepConfig: 600,
   AddCommand: 700,
   PipelineVariables: 450,
   Templates: 450,
   ExecutionStrategy: 1000,
   AddService: 485,
-  ConfigureService: 740
+  ConfigureService: 600
 }
 
 export enum SplitViewTypes {

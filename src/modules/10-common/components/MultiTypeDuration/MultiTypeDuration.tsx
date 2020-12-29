@@ -14,10 +14,11 @@ import {
 } from '@wings-software/uikit'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
-
+import { useStrings } from 'framework/exports'
+import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { errorCheck } from '@common/utils/formikHelpers'
 
-function isValidTimeString(value: string): boolean {
+export function isValidTimeString(value: string): boolean {
   return !DurationInputHelpers.UNIT_LESS_REGEX.test(value) && DurationInputHelpers.VALID_SYNTAX_REGEX.test(value)
 }
 
@@ -38,30 +39,76 @@ function MultiTypeDurationFixedTypeComponent(
   )
 }
 
+interface MultiTypeDurationConfigureOptionsProps
+  extends Omit<ConfigureOptionsProps, 'value' | 'type' | 'variableName' | 'onChange'> {
+  variableName?: ConfigureOptionsProps['variableName']
+}
+
 export interface MultiTypeDurationProps
   extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   inputGroupProps?: Omit<IInputGroupProps & HTMLInputProps, 'onChange' | 'value'>
+  enableConfigureOptions?: boolean
+  configureOptionsProps?: MultiTypeDurationConfigureOptionsProps
 }
 
 export function MultiTypeDuration(props: MultiTypeDurationProps): React.ReactElement {
-  const { inputGroupProps, ...rest } = props
+  const {
+    name,
+    value,
+    onChange,
+    enableConfigureOptions = true,
+    configureOptionsProps,
+    inputGroupProps,
+    ...rest
+  } = props
 
-  return (
+  const { getString } = useStrings()
+
+  const expressionAndRuntimeTypeComponent = (
     <ExpressionAndRuntimeType
+      name={name}
+      value={value}
+      onChange={onChange}
+      style={{ flexGrow: 1 }}
       {...rest}
       fixedTypeComponentProps={inputGroupProps}
       fixedTypeComponent={MultiTypeDurationFixedTypeComponent}
     />
   )
+
+  return (
+    <>
+      {enableConfigureOptions ? (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {expressionAndRuntimeTypeComponent}
+          {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
+            <ConfigureOptions
+              value={value as string}
+              type={getString('string')}
+              variableName={name}
+              showRequiredField={false}
+              showDefaultField={false}
+              showAdvanced={true}
+              onChange={val => onChange?.(val, MultiTypeInputValue.STRING)}
+              style={{ marginLeft: 'var(--spacing-medium)' }}
+              {...configureOptionsProps}
+            />
+          )}
+        </div>
+      ) : (
+        expressionAndRuntimeTypeComponent
+      )}
+    </>
+  )
 }
 
 export interface FormMultiTypeDurationProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
-  label: string
+  label: string | React.ReactElement
   name: string
   placeholder?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: FormikContext<any>
-  multiTypeDurationProps?: Omit<MultiTypeDurationProps, 'onChange' | 'value'>
+  multiTypeDurationProps?: Omit<MultiTypeDurationProps, 'name' | 'onChange' | 'value'>
   onChange?: MultiTypeDurationProps['onChange']
 }
 
@@ -127,7 +174,7 @@ export interface GetDurationValidationSchemaProps {
   minimum?: string
   maximum?: string
   inValidSyntaxMessage?: string
-  minimunErrorMessage?: string
+  minimumErrorMessage?: string
   maximumErrorMessage?: string
 }
 
@@ -146,7 +193,9 @@ export function getDurationValidationSchema(
 
   return Yup.string().test({
     test(value: string): boolean | Yup.ValidationError {
-      const { inValidSyntaxMessage, maximumErrorMessage, minimunErrorMessage } = props
+      const { inValidSyntaxMessage, maximumErrorMessage, minimumErrorMessage } = props
+
+      if (!value) return true
 
       if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
         return true
@@ -162,7 +211,7 @@ export function getDurationValidationSchema(
 
         if (time < minTime) {
           return this.createError({
-            message: minimunErrorMessage || `Value must be greater than or equal to "${timeToDisplayText(minTime)}"`
+            message: minimumErrorMessage || `Value must be greater than or equal to "${timeToDisplayText(minTime)}"`
           })
         }
       }

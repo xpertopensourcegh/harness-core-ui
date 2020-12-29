@@ -31,7 +31,7 @@ const CanaryBlueGreenVerificationJob: React.FC<VerificationJobsDetailsProps> = p
       <Formik
         initialValues={{ ...props.stepData }}
         validationSchema={Yup.object().shape({
-          service: Yup.string().trim().required(getString('validation.name')),
+          service: Yup.string().trim().required(getString('validation.nameRequired')),
           environment: Yup.string().required(getString('cv.verificationJobs.validation.environment')),
           duration: Yup.string().required(getString('cv.verificationJobs.validation.duration'))
         })}

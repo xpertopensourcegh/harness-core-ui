@@ -16,12 +16,12 @@ import { useStrings } from 'framework/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import {
-  ConfigureOptions,
   PipelineContext,
   getStageFromPipeline,
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex
 } from '@pipeline/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
@@ -257,11 +257,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                             name="connectorRef"
                             selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
                             label={''}
-                            placeholder={
-                              loading
-                                ? getString('pipelineSteps.build.infraSpecifications.loading')
-                                : getString('pipelineSteps.build.infraSpecifications.connectorPlaceholder')
-                            }
+                            placeholder={loading ? getString('loading') : getString('select')}
                             disabled={loading}
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}

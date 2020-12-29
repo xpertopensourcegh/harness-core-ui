@@ -15,7 +15,8 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { StepViewType, ConfigureOptions } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import {
   K8SDirectInfrastructure,
   useGetConnector,
@@ -155,6 +156,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={400}
+                  enableConfigureOptions={false}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions

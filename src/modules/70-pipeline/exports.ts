@@ -22,7 +22,6 @@ export { AbstractStepFactory } from './components/AbstractSteps/AbstractStepFact
 export { Step, StepViewType } from './components/AbstractSteps/Step'
 export { StepWidget } from './components/AbstractSteps/StepWidget'
 export { CanvasButtons, CanvasButtonsActions } from './components/CanvasButtons/CanvasButtons'
-export { ConfigureOptions } from './components/ConfigureOptions/ConfigureOptions'
 
 export {
   Diagram,

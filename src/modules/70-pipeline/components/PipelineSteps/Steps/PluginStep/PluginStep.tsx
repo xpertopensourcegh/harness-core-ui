@@ -5,90 +5,160 @@ import {
   FormInput,
   Button,
   getMultiTypeFromValue,
-  IconName,
   MultiTypeInputType,
-  Layout,
+  IconName,
   FormikForm
 } from '@wings-software/uikit'
-import { FieldArray } from 'formik'
-import * as yup from 'yup'
-import cx from 'classnames'
-import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
+import { PipelineContext, StepViewType, getStageFromPipeline } from '@pipeline/exports'
+import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import {
-  getIdentifierFromValue,
-  getScopeFromDTO,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useConnectorRef } from '../StepsUseConnectorRef'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
-import i18n from './PluginStep.i18n'
-import css from './PluginStep.module.scss'
-import stepCss from '../Steps.module.scss'
+import {
+  getInitialValuesInCorrectFormat,
+  getFormValuesInCorrectFormat,
+  Types as TransformValuesTypes
+} from '../StepsTransformValuesUtils'
+import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import type { MultiTypeMapType, MultiTypeMapUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
+import css from '../Steps.module.scss'
 
-export enum LimitMemoryUnits {
-  Mi = 'Mi',
-  Gi = 'Gi'
+export interface PluginStepSpec {
+  connectorRef: string
+  image: string
+  settings?: MultiTypeMapType
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // pull?: MultiTypePullOption
+  resources?: Resources
 }
 
-const validationSchema = yup.object().shape({
-  identifier: yup.string().trim().required(),
-  name: yup.string(),
-  description: yup.string(),
-  spec: yup
-    .object()
-    .shape({
-      connectorRef: yup.mixed().required(),
-      image: yup.string().trim().required(),
-      settings: yup.array().compact().required(),
-      limitCPU: yup.number().min(0),
-      limitMemory: yup.number().min(0)
-    })
-    .required()
-})
+export interface PluginStepData {
+  identifier: string
+  name?: string
+  description?: string
+  type: string
+  timeout?: string
+  spec: PluginStepSpec
+}
+
+export interface PluginStepSpecUI extends Omit<PluginStepSpec, 'connectorRef' | 'settings' | 'pull' | 'resources'> {
+  connectorRef: MultiTypeConnectorRef
+  settings?: MultiTypeMapUIType
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // pull?: MultiTypeSelectOption
+  limitMemory?: string
+  limitCPU?: string
+}
+
+// Interface for the form
+export interface PluginStepDataUI extends Omit<PluginStepData, 'spec'> {
+  spec: PluginStepSpecUI
+}
 
 export interface PluginStepWidgetProps {
-  initialValues: any //PluginStepData
-  onUpdate?: (data: any) => void //PluginStepData
+  initialValues: PluginStepData
+  onUpdate?: (data: PluginStepData) => void
   stepViewType?: StepViewType
 }
 
-// TODO: Fix types
-function getInitialValuesInCorrectFormat(initialValues: any): any {
-  const settings = Object.keys(initialValues.spec.settings || {}).map(key => ({
-    key: key,
-    value: initialValues.spec.settings![key]
-  }))
-
-  if (settings.length === 0) {
-    settings.push({ key: '', value: '' })
+const transformValuesFields = [
+  {
+    name: 'identifier',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'name',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'description',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'spec.connectorRef',
+    type: TransformValuesTypes.ConnectorRef
+  },
+  {
+    name: 'spec.image',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'spec.settings',
+    type: TransformValuesTypes.Map
+  },
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // {
+  //   name: 'spec.pull',
+  //   type: TransformValuesTypes.Pull
+  // },
+  {
+    name: 'spec.limitMemory',
+    type: TransformValuesTypes.LimitMemory
+  },
+  {
+    name: 'spec.limitCPU',
+    type: TransformValuesTypes.LimitCPU
+  },
+  {
+    name: 'timeout',
+    type: TransformValuesTypes.Text
   }
+]
 
-  return {
-    identifier: initialValues.identifier,
-    name: initialValues.name,
-    description: initialValues.description,
-    spec: {
-      connectorRef: initialValues.spec?.connectorRef,
-      image: initialValues.spec?.image,
-      settings,
-      limitMemory: initialValues.spec?.resources?.limit?.memory, // ?.match(/\d+/g)?.join('')
-      limitMemoryUnits: LimitMemoryUnits.Mi,
-      limitCPU: initialValues.spec?.resources?.limit?.cpu
-    }
+const validateFields = [
+  {
+    name: 'identifier',
+    type: ValidationFieldTypes.Identifier,
+    required: true
+  },
+  {
+    name: 'name',
+    type: ValidationFieldTypes.Name,
+    required: true
+  },
+  {
+    name: 'spec.connectorRef',
+    type: ValidationFieldTypes.ConnectorRef,
+    required: true
+  },
+  {
+    name: 'spec.image',
+    type: ValidationFieldTypes.Image,
+    required: true
+  },
+  {
+    name: 'spec.settings',
+    type: ValidationFieldTypes.Settings,
+    required: true
+  },
+  {
+    name: 'spec.limitMemory',
+    type: ValidationFieldTypes.LimitMemory
+  },
+  {
+    name: 'spec.limitCPU',
+    type: ValidationFieldTypes.LimitCPU
+  },
+  {
+    name: 'timeout',
+    type: ValidationFieldTypes.Timeout
   }
-}
+]
 
 export const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
-    state: { pipelineView },
+    state: { pipeline, pipelineView },
     updatePipelineView
   } = React.useContext(PipelineContext)
+
+  const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -96,47 +166,27 @@ export const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValue
     accountId: string
   }>()
 
-  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
-  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
+  const { connector, loading } = useConnectorRef(initialValues.spec.connectorRef)
 
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorId,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    lazy: true,
-    debounce: 300
-  })
+  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
 
-  React.useEffect(() => {
-    if (
-      !isEmpty(initialValues.spec.connectorRef) &&
-      getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
-    ) {
-      refetch()
-    }
-  }, [initialValues.spec.connectorRef])
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // const pullOptions = usePullOptions()
 
-  const values = getInitialValuesInCorrectFormat(initialValues)
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(initialValues, transformValuesFields, {
+  //   pullOptions
+  // })
+  const values = getInitialValuesInCorrectFormat<PluginStepData, PluginStepDataUI>(initialValues, transformValuesFields)
 
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.spec.connectorRef = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope
-    }
-  } else {
-    // do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)
-    if (!loading) {
-      values.spec.connectorRef = initialValues.spec.connectorRef
-    }
+  if (!loading) {
+    values.spec.connectorRef = connector
   }
+
+  const validate = useValidate<PluginStepDataUI>(validateFields, {
+    initialValues,
+    steps: currentStage?.stage.spec.execution.steps
+  })
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -148,208 +198,101 @@ export const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValue
 
   return (
     <>
-      <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {i18n.title}
+      <Text className={css.boldLabel} font={{ size: 'medium' }}>
+        {getString('pipelineSteps.plugin.title')}
       </Text>
       <Formik
         enableReinitialize={true}
         initialValues={values}
-        validationSchema={validationSchema}
-        onSubmit={_values => {
-          const settings: { [key: string]: string } = {}
-          _values.spec.settings.forEach((pair: { key: string; value: string }) => {
-            // skip empty
-            if (pair.key) {
-              settings[pair.key] = pair.value
-            }
-          })
-
-          // TODO: Use appropriate interface
-          const schemaValues: any = {
-            identifier: _values.identifier,
-            ...(_values.name && { name: _values.name }),
-            ...(_values.description && { description: _values.description }),
-            spec: {
-              ...((_values.spec.connectorRef?.value || _values.spec.connectorRef) && {
-                connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef
-              }),
-              ...(_values.spec.image && { image: _values.spec.image }),
-              ...(!isEmpty(settings) && { settings }),
-              ...((_values.spec.limitMemory || _values.spec.limitCPU) && {
-                resources: {
-                  limit: {
-                    ...(_values.spec.limitMemory && { memory: parseInt(_values.spec.limitMemory, 10) }),
-                    ...(_values.spec.limitCPU && { cpu: parseInt(_values.spec.limitCPU, 10) })
-                  }
-                }
-              })
-            }
-          }
-
-          // if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
-          //   schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
-          // }
-
+        validate={validate}
+        onSubmit={(_values: PluginStepDataUI) => {
+          const schemaValues = getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(
+            _values,
+            transformValuesFields
+          )
           onUpdate?.(schemaValues)
         }}
       >
-        {({ values: formValues, setFieldValue, handleSubmit }) => (
+        {({ values: formValues }) => (
           <FormikForm>
             <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier inputName="name" idName="identifier" inputLabel={i18n.stepNameLabel} />
-              <FormInput.TextArea name="description" label={i18n.descriptionLabel} />
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormMultiTypeConnectorField
-                  type={'' as any}
-                  name="spec.connectorRef"
-                  label=""
-                  placeholder={loading ? i18n.loading : i18n.connectorPlaceholder}
-                  disabled={loading}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                />
-                {getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.connectorRef as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{i18n.connectorLabel}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.connectorRef"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      setFieldValue('spec.connectorRef', value)
-                    }}
-                  />
-                )}
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{i18n.imageLabel}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.image" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.image) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.image as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{i18n.imageLabel}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.image"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.image', value)}
-                  />
-                )}
-              </div>
-              <Text margin={{ top: 'medium' }}>{i18n.settings}</Text>
-              <FieldArray
-                name="spec.settings"
-                render={({ push, remove }) => (
-                  <>
-                    {formValues.spec.settings.map((_settings: string, index: number) => (
-                      <div className={css.fieldsGroup} key={index}>
-                        <FormInput.Text
-                          name={`spec.settings[${index}].key`}
-                          placeholder={i18n.settingsKeyPlaceholder}
-                          style={{ flexGrow: 1 }}
-                        />
-                        <FormInput.MultiTextInput
-                          label=""
-                          name={`spec.settings[${index}].value`}
-                          placeholder={i18n.settingsValuePlaceholder}
-                          style={{ flexGrow: 1 }}
-                        />
-                        {getMultiTypeFromValue(formValues.spec.settings[index].value) ===
-                          MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={formValues.spec.settings[index].value as string}
-                            type={
-                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{i18n.settingsValuePlaceholder}</Text>
-                              </Layout.Horizontal>
-                            }
-                            variableName={`spec.settings[${index}].value`}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => setFieldValue(`spec.settings[${index}].value`, value)}
-                          />
-                        )}
-
-                        {formValues.spec.settings.length > 1 && (
-                          <Button
-                            intent="primary"
-                            icon="ban-circle"
-                            iconProps={{ size: 20 }}
-                            minimal
-                            onClick={() => remove(index)}
-                          />
-                        )}
-                      </div>
-                    ))}
+              <FormInput.InputWithIdentifier
+                inputName="name"
+                idName="identifier"
+                inputLabel={getString('pipelineSteps.stepNameLabel')}
+              />
+              <FormMultiTypeTextAreaField
+                className={css.removeBpLabelMargin}
+                name="description"
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+              />
+              <FormMultiTypeConnectorField
+                label={
+                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                    {getString('pipelineSteps.connectorLabel')}
                     <Button
-                      intent="primary"
+                      icon="question"
                       minimal
-                      text={i18n.addSetting}
-                      onClick={() => push({ key: '', value: '' })}
+                      tooltip={getString('pipelineSteps.connectorInfo')}
+                      iconProps={{ size: 14 }}
                     />
-                  </>
-                )}
+                  </Text>
+                }
+                type={['Gcp', 'Aws', 'DockerRegistry']}
+                width={getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+                name="spec.connectorRef"
+                placeholder={loading ? getString('loading') : getString('select')}
+                disabled={loading}
+                accountIdentifier={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                style={{ marginBottom: 0 }}
+              />
+              <MultiTypeTextField
+                name="spec.image"
+                label={
+                  <Text margin={{ top: 'small' }}>
+                    {getString('imageLabel')}
+                    <Button icon="question" minimal tooltip={getString('pluginImageInfo')} iconProps={{ size: 14 }} />
+                  </Text>
+                }
+                multiTextInputProps={{
+                  placeholder: getString('pluginImagePlaceholder')
+                }}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeMap
+                name="spec.settings"
+                multiTypeFieldSelectorProps={{
+                  label: (
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('pipelineSteps.settingsLabel')}
+                      <Button
+                        icon="question"
+                        minimal
+                        tooltip={getString('pipelineSteps.settingsInfo')}
+                        iconProps={{ size: 14 }}
+                      />
+                    </Text>
+                  )
+                }}
               />
             </div>
             <div className={css.fieldsSection}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {i18n.optionalConfiguration}
+                {getString('pipelineSteps.optionalConfiguration')}
               </Text>
-              <Text margin={{ top: 'medium' }}>
-                {i18n.setContainerResources}
-                <Button icon="question" minimal tooltip={i18n.setContainerResourcesTooltip} />
-              </Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <div>
-                  <FormInput.Text
-                    name="spec.limitMemory"
-                    label={i18n.limitMemoryLabel}
-                    placeholder={i18n.limitMemoryPlaceholder}
-                  />
-                  <Text font="xsmall" margin={{ top: 'small' }}>
-                    {i18n.limitMemoryExample}
-                  </Text>
-                </div>
-                <FormInput.Select
-                  name="spec.limitMemoryUnits"
-                  items={[
-                    { label: i18n.limitMemoryUnitMiLabel, value: LimitMemoryUnits.Mi },
-                    { label: i18n.limitMemoryUnitGiLabel, value: LimitMemoryUnits.Gi }
-                  ]}
-                />
-                <div>
-                  <FormInput.Text
-                    name="spec.limitCPU"
-                    label={i18n.limitCPULabel}
-                    placeholder={i18n.limitCPUPlaceholder}
-                  />
-                  <Text font="xsmall" margin={{ top: 'small' }}>
-                    {i18n.limitCPUExample}
-                  </Text>
-                </div>
-              </div>
+              <StepCommonFields />
             </div>
             <div className={css.buttonsWrapper}>
               <Button
-                onClick={() => handleSubmit()}
                 intent="primary"
                 type="submit"
-                text={i18n.save}
+                text={getString('save')}
                 margin={{ right: 'xxlarge' }}
+                data-testid={'submit'}
               />
-              <Button text={i18n.cancel} minimal onClick={handleCancelClick} />
+              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
         )}
@@ -358,24 +301,29 @@ export const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValue
   )
 }
 
-export class PluginStep extends PipelineStep<any /*PluginStepData*/> {
+export class PluginStep extends PipelineStep<PluginStepData> {
   renderStep(
-    initialValues: any, //PluginStepData
-    onUpdate?: (data: any) => void, //PluginStepData
+    initialValues: PluginStepData,
+    onUpdate?: (data: PluginStepData) => void,
     stepViewType?: StepViewType
   ): JSX.Element {
     return <PluginStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
-
   validateInputSet(): object {
     return {}
   }
+
   protected type = StepType.Plugin
-  protected stepName = i18n.title
+  protected stepName = 'Configure Plugin Step'
   protected stepIcon: IconName = 'plugin-step'
 
-  protected defaultValues: any /*PluginStepData*/ = {
+  protected defaultValues: PluginStepData = {
     identifier: '',
-    spec: {}
+    type: StepType.Plugin as string,
+    spec: {
+      connectorRef: '',
+      image: '',
+      settings: {}
+    }
   }
 }

@@ -5,93 +5,77 @@
     "stepsData": [],
     "stepCategories": [
       {
-        "name": "Issue tracking",
-        "stepsData": [
-          {
-            "type": "Placeholder",
-            "name": "JIRA"
-          },
-          {
-            "type": "Placeholder",
-            "name": "ServiceNow"
-          }
-        ],
-        "stepCategories": []
-      },
-      {
-        "name": "Flow cart",
-        "stepsData": [
-          {
-            "type": "Placeholder",
-            "name": "Approval Step"
-          }
-        ],
-        "stepCategories": []
-      },
-      {
-        "name": "Utility",
-        "stepsData": [
-          {
-            "type": "Placeholder",
-            "name": "HTTP"
-          },
-          {
-            "type": "Placeholder",
-            "name": "Email"
-          }
-        ],
-        "stepCategories": []
-      },
-      {
         "name": "Build",
         "stepsData": [
           {
-            "type": "run",
+            "type": "Run",
             "name": "Run"
           },
           {
-            "type": "plugin",
+            "type": "Plugin",
             "name": "Plugin"
           },
           {
-            "type": "buildAndPushGCR",
-            "name": "Build and Upload to GCR"
-          },
-          {
-            "type": "buildAndPushECR",
-            "name": "Build and Upload to ECR"
-          },
-          {
-            "type": "saveCacheGCS",
-            "name": "Save Cache to GCS"
-          },
-          {
-            "type": "restoreCacheGCS",
-            "name": "Restore Cache From GCS"
-          },
-          {
-            "type": "saveCacheS3",
-            "name": "Save Cache to S3"
-          },
-          {
-            "type": "restoreCacheS3",
+            "type": "RestoreCacheS3",
             "name": "Restore Cache From S3"
           },
           {
-            "type": "buildAndPushDockerHub",
-            "name": "Build and Upload to DockerHub"
+            "type": "RestoreCacheGCS",
+            "name": "Restore Cache From GCS"
           },
           {
-            "type": "uploadToGCS",
-            "name": "Upload to GCS"
+            "type": "SaveCacheS3",
+            "name": "Save Cache to S3"
           },
           {
-            "type": "uploadToS3",
-            "name": "Upload to S3"
+            "type": "SaveCacheGCS",
+            "name": "Save Cache to GCS"
           },
           {
-            "type": "uploadToArtifactory",
+            "type": "BuildAndPushDockerHub",
+            "name": "Build and Push to DockerHub"
+          },
+          {
+            "type": "BuildAndPushGCR",
+            "name": "Build and Push to GCR"
+          },
+          {
+            "type": "BuildAndPushECR",
+            "name": "Build and Push to ECR"
+          },
+          {
+            "type": "UploadToArtifactory",
             "name": "Upload Artifacts to JFrog Artifactory"
+          }
+        ],
+        "stepCategories": []
+      },
+      {
+        "name": "Artifacts",
+        "stepsData": [
+          {
+            "type": "BuildAndPushDockerHub",
+            "name": "Build and Push to DockerHub"
+          },
+          {
+            "type": "BuildAndPushGCR",
+            "name": "Build and Push to GCR"
+          },
+          {
+            "type": "BuildAndPushECR",
+            "name": "Build and Push to ECR"
+          },
+          {
+            "type": "UploadToArtifactory",
+            "name": "Upload Artifacts to JFrog Artifactory"
+          },
+          {
+            "type": "S3Upload",
+            "name": "Upload Artifacts to S3"
+          },
+          {
+            "type": "GCSUpload",
+            "name": "Upload Artifacts to GCS"
           }
         ],
         "stepCategories": []

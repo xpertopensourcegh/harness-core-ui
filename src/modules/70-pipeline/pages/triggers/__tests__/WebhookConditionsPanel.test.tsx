@@ -59,7 +59,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
 
       await waitFor(() => queryByText(container, result.current.getString('conditions')))
 
-      const addButton = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
+      const addButton = queryByText(container, result.current.getString('plusAdd'))
       if (!addButton) {
         throw Error('no add button')
       }
@@ -72,7 +72,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
 
       await waitFor(() => queryByText(container, result.current.getString('conditions')))
 
-      const addButton = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
+      const addButton = queryByText(container, result.current.getString('plusAdd'))
       if (!addButton) {
         throw Error('no add button')
       }
@@ -80,14 +80,14 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
       await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(1))
 
-      const addButton2 = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
+      const addButton2 = queryByText(container, result.current.getString('plusAdd'))
       if (!addButton2) {
         throw Error('no add button')
       }
       fireEvent.click(addButton2)
       await waitFor(() => expect(container.querySelectorAll('[class*="payloadConditions"').length).toEqual(2))
 
-      const addButton3 = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
+      const addButton3 = queryByText(container, result.current.getString('plusAdd'))
       if (!addButton3) {
         throw Error('no add button')
       }
@@ -165,7 +165,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
 
     test('Payload Conditions Row validation with all values or none filled', async () => {
       const { container, getByText } = render(<WrapperComponent />)
-      const addButton2 = queryByText(container, result.current.getString('pipeline-triggers.conditionsPanel.plusAdd'))
+      const addButton2 = queryByText(container, result.current.getString('plusAdd'))
 
       if (!addButton2) {
         throw Error('no add button')

@@ -34,7 +34,11 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
   return (
     <div className={css.step}>
       <StrategyIcon strategy={Strategy.ManualIntervention} checked onChange={handleChange} />
-      <FormMultiTypeDurationField name={`${name}.spec.timeout`} label="Timeout" />
+      <FormMultiTypeDurationField
+        name={`${name}.spec.timeout`}
+        label="Timeout"
+        multiTypeDurationProps={{ enableConfigureOptions: false }}
+      />
       <StrategySelection
         label={getString('onTimeoutLabel')}
         name={`${name}.spec.onTimeout.action`}
@@ -97,7 +101,11 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
 
                     return (
                       <div className={css.row} key={key}>
-                        <FormMultiTypeDurationField name={`${name}.spec.retryIntervals[${i}]`} label="" />
+                        <FormMultiTypeDurationField
+                          name={`${name}.spec.retryIntervals[${i}]`}
+                          label=""
+                          multiTypeDurationProps={{ enableConfigureOptions: false }}
+                        />
                         <Button minimal small icon="trash" onClick={handleRemove} data-testid="remove-retry-interval" />
                       </div>
                     )

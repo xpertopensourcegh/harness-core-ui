@@ -95,7 +95,7 @@ export const PayloadConditionsSection: React.FC<PayloadConditionsSectionInterfac
           else setFieldValue('payloadConditions', [...payloadConditions, emptyRow])
         }}
       >
-        {getString('pipeline-triggers.conditionsPanel.plusAdd')}
+        {getString('plusAdd')}
       </Text>
     </section>
   )

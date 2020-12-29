@@ -5,76 +5,159 @@ import {
   FormInput,
   Button,
   getMultiTypeFromValue,
-  IconName,
   MultiTypeInputType,
-  Layout,
+  IconName,
   FormikForm
 } from '@wings-software/uikit'
-import { isEmpty } from 'lodash-es'
-import { FieldArray } from 'formik'
-import * as yup from 'yup'
-import cx from 'classnames'
 import { useParams } from 'react-router-dom'
+import { PipelineContext, StepViewType, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
-import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import {
-  getIdentifierFromValue,
-  getScopeFromDTO,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
+import { useConnectorRef } from '../StepsUseConnectorRef'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
-import { removeEmptyKeys } from '../StepsUtils'
-import css from './JFrogArtifactoryStep.module.scss'
-import stepCss from '../Steps.module.scss'
+import {
+  getInitialValuesInCorrectFormat,
+  getFormValuesInCorrectFormat,
+  Types as TransformValuesTypes
+} from '../StepsTransformValuesUtils'
+import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
+import type { MultiTypeConnectorRef, MultiTypeListType, Resources, MultiTypeListUIType } from '../StepsTypes'
+import css from '../Steps.module.scss'
 
-export enum LimitMemoryUnits {
-  Mi = 'Mi',
-  Gi = 'Gi'
+export interface JFrogArtifactoryStepSpec {
+  connectorRef: string
+  target: string
+  sourcePaths: MultiTypeListType
+  pomFile?: string
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // pull?: MultiTypePullOption
+  resources?: Resources
 }
 
-const validationSchema = yup.object().shape({
-  identifier: yup.string().trim().required(),
-  name: yup.string(),
-  spec: yup
-    .object()
-    .shape({
-      connectorRef: yup.mixed().required(),
-      target: yup.string().trim().required(),
-      sourcePaths: yup.array().compact().required(),
-      pomFile: yup.string(),
-      pull: yup.string(),
-      limitCPU: yup
-        .number()
-        .transform((v, o) => (o === '' ? null : v))
-        .nullable(true)
-        .min(0),
-      limitMemory: yup
-        .number()
-        .transform((v, o) => (o === '' ? null : v))
-        .nullable(true)
-        .min(0),
-      timeout: yup.string()
-    })
-    .required()
-})
+export interface JFrogArtifactoryStepData {
+  identifier: string
+  name?: string
+  type: string
+  timeout?: string
+  spec: JFrogArtifactoryStepSpec
+}
+
+export interface JFrogArtifactoryStepSpecUI
+  extends Omit<JFrogArtifactoryStepSpec, 'connectorRef' | 'sourcePaths' | 'pull' | 'resources'> {
+  connectorRef: MultiTypeConnectorRef
+  sourcePaths: MultiTypeListUIType
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // pull?: MultiTypeSelectOption
+  limitMemory?: string
+  limitCPU?: string
+}
+
+// Interface for the form
+export interface JFrogArtifactoryStepDataUI extends Omit<JFrogArtifactoryStepData, 'spec'> {
+  spec: JFrogArtifactoryStepSpecUI
+}
 
 export interface JFrogArtifactoryStepWidgetProps {
-  initialValues: any //JFrogArtifactoryStepData
-  onUpdate?: (data: any) => void //JFrogArtifactoryStepData
+  initialValues: JFrogArtifactoryStepData
+  onUpdate?: (data: JFrogArtifactoryStepData) => void
   stepViewType?: StepViewType
 }
+
+const transformValuesFields = [
+  {
+    name: 'identifier',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'name',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'spec.connectorRef',
+    type: TransformValuesTypes.ConnectorRef
+  },
+  {
+    name: 'spec.target',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'spec.sourcePaths',
+    type: TransformValuesTypes.List
+  },
+  {
+    name: 'spec.pomFile',
+    type: TransformValuesTypes.Text
+  },
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // {
+  //   name: 'spec.pull',
+  //   type: TransformValuesTypes.Pull
+  // },
+  {
+    name: 'spec.limitMemory',
+    type: TransformValuesTypes.LimitMemory
+  },
+  {
+    name: 'spec.limitCPU',
+    type: TransformValuesTypes.LimitCPU
+  },
+  {
+    name: 'timeout',
+    type: TransformValuesTypes.Text
+  }
+]
+
+const validateFields = [
+  {
+    name: 'identifier',
+    type: ValidationFieldTypes.Identifier,
+    required: true
+  },
+  {
+    name: 'name',
+    type: ValidationFieldTypes.Name,
+    required: true
+  },
+  {
+    name: 'spec.connectorRef',
+    type: ValidationFieldTypes.ConnectorRef,
+    required: true
+  },
+  {
+    name: 'spec.target',
+    type: ValidationFieldTypes.Target,
+    required: true
+  },
+  {
+    name: 'spec.sourcePaths',
+    type: ValidationFieldTypes.SourcePaths,
+    required: true
+  },
+  {
+    name: 'spec.limitMemory',
+    type: ValidationFieldTypes.LimitMemory
+  },
+  {
+    name: 'spec.limitCPU',
+    type: ValidationFieldTypes.LimitCPU
+  },
+  {
+    name: 'timeout',
+    type: ValidationFieldTypes.Timeout
+  }
+]
 
 export const JFrogArtifactoryStepWidget: React.FC<JFrogArtifactoryStepWidgetProps> = ({
   initialValues,
   onUpdate
 }): JSX.Element => {
   const {
-    state: { pipelineView },
+    state: { pipeline, pipelineView },
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -86,73 +169,30 @@ export const JFrogArtifactoryStepWidget: React.FC<JFrogArtifactoryStepWidgetProp
     accountId: string
   }>()
 
-  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '')
-  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '')
+  const { connector, loading } = useConnectorRef(initialValues.spec.connectorRef)
 
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorId,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    lazy: true,
-    debounce: 300
+  const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
+
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // const pullOptions = usePullOptions()
+
+  // TODO: Right now we do not support Image Pull Policy but will do in the future
+  // const values = getInitialValuesInCorrectFormat<JFrogArtifactoryStepData, JFrogArtifactoryStepDataUI>(initialValues, transformValuesFields, {
+  //   pullOptions
+  // })
+  const values = getInitialValuesInCorrectFormat<JFrogArtifactoryStepData, JFrogArtifactoryStepDataUI>(
+    initialValues,
+    transformValuesFields
+  )
+
+  if (!loading) {
+    values.spec.connectorRef = connector
+  }
+
+  const validate = useValidate<JFrogArtifactoryStepDataUI>(validateFields, {
+    initialValues,
+    steps: currentStage?.stage.spec.execution.steps
   })
-
-  React.useEffect(() => {
-    if (
-      !isEmpty(initialValues.spec.connectorRef) &&
-      getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
-    ) {
-      refetch()
-    }
-  }, [initialValues.spec.connectorRef])
-
-  const pullOptions = [
-    { label: getString('pipelineSteps.pullIfNotExistsLabel'), value: 'ifNotExists' },
-    { label: getString('pipelineSteps.pullNeverLabel'), value: 'never' },
-    { label: getString('pipelineSteps.pullAlwaysLabel'), value: 'always' }
-  ]
-
-  // Fix typings
-  function getInitialValuesInCorrectFormat(): any {
-    const sourcePaths = initialValues.spec.sourcePaths?.length > 0 ? initialValues.spec.sourcePaths : ['']
-    const pull = pullOptions.find(({ value }) => value === initialValues.spec.pull)
-    const limitMemory = initialValues.spec?.resources?.limit?.memory
-    const limitCPU = initialValues.spec?.resources?.limit?.cpu
-
-    return removeEmptyKeys({
-      ...initialValues,
-      spec: {
-        ...initialValues.spec,
-        sourcePaths,
-        limitMemoryUnits: LimitMemoryUnits.Mi,
-        pull,
-        limitMemory,
-        limitCPU
-      }
-    })
-  }
-
-  const values = getInitialValuesInCorrectFormat()
-
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.spec.connectorRef = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope
-    }
-  } else {
-    // do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)
-    if (!loading) {
-      values.spec.connectorRef = initialValues.spec.connectorRef
-    }
-  }
 
   const handleCancelClick = (): void => {
     updatePipelineView({
@@ -164,47 +204,22 @@ export const JFrogArtifactoryStepWidget: React.FC<JFrogArtifactoryStepWidgetProp
 
   return (
     <>
-      <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
+      <Text className={css.boldLabel} font={{ size: 'medium' }}>
         {getString('pipelineSteps.jFrogArtifactory.title')}
       </Text>
       <Formik
         enableReinitialize={true}
         initialValues={values}
-        validationSchema={validationSchema}
-        onSubmit={_values => {
-          const resources: { limit?: { memory?: number; cpu?: number } } = {}
-
-          if (_values.spec.limitMemory || _values.spec.limitCPU) {
-            resources.limit = {}
-
-            if (_values.spec.limitMemory) {
-              resources.limit.memory = parseInt(_values.spec.limitMemory, 10)
-            }
-
-            if (_values.spec.limitCPU) {
-              resources.limit.cpu = parseInt(_values.spec.limitCPU, 10)
-            }
-          }
-
-          delete _values.spec.limitMemory
-          delete _values.spec.limitMemoryUnits
-          delete _values.spec.limitCPU
-
-          const schemaValues = {
-            identifier: _values.identifier,
-            name: _values.name,
-            spec: {
-              ..._values.spec,
-              connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
-              pull: _values.spec.pull?.value || _values.spec.pull,
-              resources
-            }
-          }
-
-          onUpdate?.(removeEmptyKeys(schemaValues))
+        validate={validate}
+        onSubmit={(_values: JFrogArtifactoryStepDataUI) => {
+          const schemaValues = getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
+            _values,
+            transformValuesFields
+          )
+          onUpdate?.(schemaValues)
         }}
       >
-        {({ values: formValues, setFieldValue, handleSubmit }) => (
+        {({ values: formValues }) => (
           <FormikForm>
             <div className={css.fieldsSection}>
               <FormInput.InputWithIdentifier
@@ -212,213 +227,78 @@ export const JFrogArtifactoryStepWidget: React.FC<JFrogArtifactoryStepWidgetProp
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormMultiTypeConnectorField
-                  name="spec.connectorRef"
-                  type="Artifactory"
-                  label=""
-                  placeholder={loading ? getString('loading') : getString('select')}
-                  disabled={loading}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                />
-                {getMultiTypeFromValue(formValues?.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues?.spec.connectorRef as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.connectorLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.connectorRef"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      setFieldValue('spec.connectorRef', value)
-                    }}
-                  />
-                )}
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.targetLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.target" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.target) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.target as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.targetLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.target"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.target', value)}
-                  />
-                )}
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.sourcePathsLabel')}</Text>
-              <FieldArray
-                name="spec.sourcePaths"
-                render={({ push, remove }) => (
-                  <div>
-                    {formValues.spec.sourcePaths &&
-                      formValues.spec.sourcePaths.map((_sourcePath: string, index: number) => (
-                        <div className={css.fieldsGroup} key={index}>
-                          <FormInput.MultiTextInput
-                            label=""
-                            name={`spec.sourcePaths[${index}]`}
-                            style={{ flexGrow: 1 }}
-                          />
-                          {getMultiTypeFromValue(formValues.spec.sourcePaths[index]) === MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={formValues.spec.sourcePaths[index] as string}
-                              type={
-                                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                  <Text>{getString('pipelineSteps.sourcePathsLabel')}</Text>
-                                </Layout.Horizontal>
-                              }
-                              variableName={`spec.sourcePaths[${index}]`}
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => setFieldValue(`spec.sourcePaths[${index}]`, value)}
-                            />
-                          )}
-
-                          {formValues.spec.sourcePaths.length > 1 && (
-                            <Button
-                              intent="primary"
-                              icon="ban-circle"
-                              iconProps={{ size: 20 }}
-                              minimal
-                              onClick={() => remove(index)}
-                            />
-                          )}
-                        </div>
-                      ))}
+              <FormMultiTypeConnectorField
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>}
+                type={'Artifactory'}
+                width={getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+                name="spec.connectorRef"
+                placeholder={loading ? getString('loading') : getString('select')}
+                disabled={loading}
+                accountIdentifier={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeTextField
+                name="spec.target"
+                label={
+                  <Text>
+                    {getString('pipelineSteps.targetLabel')}
                     <Button
-                      intent="primary"
+                      icon="question"
                       minimal
-                      text={getString('pipelineSteps.addSourcePath')}
-                      onClick={() => push('')}
+                      tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
+                      iconProps={{ size: 14 }}
                     />
-                  </div>
-                )}
+                  </Text>
+                }
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <MultiTypeList
+                name="spec.sourcePaths"
+                multiTypeFieldSelectorProps={{
+                  label: (
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('pipelineSteps.sourcePathsLabel')}
+                      <Button
+                        icon="question"
+                        minimal
+                        tooltip={getString('pipelineSteps.sourcePathsInfo')}
+                        iconProps={{ size: 14 }}
+                      />
+                    </Text>
+                  )
+                }}
               />
             </div>
             <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.pomFileLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.pomFile" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.pomFile) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.pomFile as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.pomFileLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.pomFile"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.pomFile', value)}
-                  />
-                )}
-              </div>
-              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.pullLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
-                <FormInput.MultiTypeInput name="spec.pull" label="" selectItems={pullOptions} style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.pull) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.pull as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.pullLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.pull"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.pull', value)}
-                  />
-                )}
-              </div>
-              <div>
-                <Text>
-                  {getString('pipelineSteps.setContainerResources')}
-                  <Button icon="question" minimal tooltip={getString('pipelineSteps.setContainerResourcesTooltip')} />
-                </Text>
-                <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                  <div>
-                    <FormInput.Text
-                      name="spec.limitMemory"
-                      inputGroup={{ type: 'number', min: 0 }}
-                      label={getString('pipelineSteps.limitMemoryLabel')}
-                      placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
+              <MultiTypeTextField
+                name="spec.pomFile"
+                label={
+                  <Text>
+                    {getString('pipelineSteps.pomFileLabel')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.pomFileInfo')}
+                      iconProps={{ size: 14 }}
                     />
-                    <Text font="xsmall" margin={{ top: 'small' }}>
-                      {getString('pipelineSteps.limitMemoryExample')}
-                    </Text>
-                  </div>
-                  <FormInput.Select
-                    name="spec.limitMemoryUnits"
-                    items={[
-                      { label: getString('pipelineSteps.limitMemoryUnitMiLabel'), value: LimitMemoryUnits.Mi },
-                      { label: getString('pipelineSteps.limitMemoryUnitGiLabel'), value: LimitMemoryUnits.Gi }
-                    ]}
-                  />
-                  <div>
-                    <FormInput.Text
-                      name="spec.limitCPU"
-                      inputGroup={{ type: 'number', min: 0 }}
-                      label={getString('pipelineSteps.limitCPULabel')}
-                      placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
-                    />
-                    <Text font="xsmall" margin={{ top: 'small' }}>
-                      {getString('pipelineSteps.limitCPUExample')}
-                    </Text>
-                  </div>
-                </div>
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.timeoutLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.timeout" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.timeout as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.timeoutLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.timeout"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.timeout', value)}
-                  />
-                )}
-              </div>
-              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
+                  </Text>
+                }
+                style={{ marginBottom: 'var(--spacing-small)' }}
+              />
+              <StepCommonFields />
             </div>
             <div className={css.buttonsWrapper}>
               <Button
-                onClick={() => handleSubmit()}
                 intent="primary"
                 type="submit"
                 text={getString('save')}
                 margin={{ right: 'xxlarge' }}
+                data-testid={'submit'}
               />
               <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
@@ -429,10 +309,10 @@ export const JFrogArtifactoryStepWidget: React.FC<JFrogArtifactoryStepWidgetProp
   )
 }
 
-export class JFrogArtifactoryStep extends PipelineStep<any /*JFrogArtifactoryStepData*/> {
+export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData> {
   renderStep(
-    initialValues: any, //JFrogArtifactoryStepData
-    onUpdate?: (data: any) => void, //JFrogArtifactoryStepData
+    initialValues: JFrogArtifactoryStepData,
+    onUpdate?: (data: JFrogArtifactoryStepData) => void,
     stepViewType?: StepViewType
   ): JSX.Element {
     return <JFrogArtifactoryStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
@@ -442,12 +322,16 @@ export class JFrogArtifactoryStep extends PipelineStep<any /*JFrogArtifactorySte
   }
 
   protected type = StepType.JFrogArtifactory
-  // TODO: Add i18n support
-  protected stepName = 'Build and Upload to JFrogArtifactory'
+  protected stepName = 'Upload Artifacts to JFrog Artifactory'
   protected stepIcon: IconName = 'service-artifactory'
 
-  protected defaultValues: any /*JFrogArtifactoryStepData*/ = {
+  protected defaultValues: JFrogArtifactoryStepData = {
     identifier: '',
-    spec: {}
+    type: StepType.JFrogArtifactory as string,
+    spec: {
+      connectorRef: '',
+      target: '',
+      sourcePaths: []
+    }
   }
 }

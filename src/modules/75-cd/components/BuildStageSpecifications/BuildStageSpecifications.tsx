@@ -24,7 +24,8 @@ import { SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
-import { ConfigureOptions, PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)

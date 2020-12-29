@@ -26,12 +26,12 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
       <Formik
         initialValues={{ ...props.stepData }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('validation.name')),
+          name: Yup.string().trim().required(getString('validation.nameRequired')),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
               .trim()
-              .required(getString('validation.identifier'))
+              .required(getString('validation.identifierRequired'))
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
               .notOneOf(StringUtils.illegalIdentifiers)
           }),

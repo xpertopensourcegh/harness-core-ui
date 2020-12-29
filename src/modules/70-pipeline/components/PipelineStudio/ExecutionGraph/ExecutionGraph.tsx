@@ -89,7 +89,7 @@ export interface ExecutionGraphProp {
   allowAddGroup?: boolean
   /*Hide or show rollback button*/
   hasRollback?: boolean
-  /*Set to true if  model has spec.dependencies array */
+  /*Set to true if  model has spec.serviceDependencies array */
   hasDependencies?: boolean
   stepsFactory: AbstractStepFactory // REQUIRED (pass to addUpdateGraph)
   stage: StageElementWrapper
@@ -415,15 +415,15 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
       if (data?.stage?.spec?.execution) {
         getStepsState(data.stage.spec.execution, state.states)
 
-        if (hasDependencies && data?.stage?.spec?.dependencies) {
-          getDependenciesState(data.stage.spec.dependencies, state.states)
+        if (hasDependencies && data?.stage?.spec?.serviceDependencies) {
+          getDependenciesState(data.stage.spec.serviceDependencies, state.states)
         }
 
         setState(prevState => ({
           ...prevState,
           states: state.states,
           stepsData: data.stage.spec.execution,
-          dependenciesData: data.stage.spec.dependencies
+          dependenciesData: data.stage.spec.serviceDependencies
         }))
       } else {
         // there is a bag

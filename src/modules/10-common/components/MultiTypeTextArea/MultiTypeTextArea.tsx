@@ -4,11 +4,15 @@ import {
   ExpressionAndRuntimeType,
   ExpressionAndRuntimeTypeProps,
   MultiTypeInputValue,
-  FixedTypeComponentProps
+  FixedTypeComponentProps,
+  getMultiTypeFromValue,
+  MultiTypeInputType
 } from '@wings-software/uikit'
 import { connect } from 'formik'
 import { get } from 'lodash-es'
 import cx from 'classnames'
+import { useStrings } from 'framework/exports'
+import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { errorCheck } from '@common/utils/formikHelpers'
 
@@ -31,28 +35,65 @@ function MultiTypeTextAreaFixedTypeComponent(
   )
 }
 
+interface MultiTypeTextAreaConfigureOptionsProps
+  extends Omit<ConfigureOptionsProps, 'value' | 'type' | 'variableName' | 'onChange'> {
+  variableName?: ConfigureOptionsProps['variableName']
+}
+
 export interface MultiTypeTextAreaProps
   extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   textAreaProps?: Omit<ITextAreaProps, 'onChange' | 'value'>
+  enableConfigureOptions?: boolean
+  configureOptionsProps?: MultiTypeTextAreaConfigureOptionsProps
 }
 
-export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = ({ textAreaProps, ...rest }) => {
-  return (
+export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
+  const { name, value, onChange, enableConfigureOptions = true, textAreaProps, configureOptionsProps, ...rest } = props
+  const { getString } = useStrings()
+  const expressionAndRuntimeTypeComponent = (
     <ExpressionAndRuntimeType
+      name={name}
+      value={value}
+      onChange={onChange}
       {...rest}
       fixedTypeComponentProps={textAreaProps}
       fixedTypeComponent={MultiTypeTextAreaFixedTypeComponent}
+      style={{ flexGrow: 1 }}
     />
+  )
+  return (
+    <>
+      {enableConfigureOptions ? (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {expressionAndRuntimeTypeComponent}
+          {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
+            <ConfigureOptions
+              value={value as string}
+              type={getString('string')}
+              variableName={name}
+              showRequiredField={false}
+              showDefaultField={false}
+              showAdvanced={true}
+              onChange={val => onChange?.(val, MultiTypeInputValue.STRING)}
+              style={{ marginLeft: 'var(--spacing-medium)' }}
+              {...configureOptionsProps}
+            />
+          )}
+        </div>
+      ) : (
+        expressionAndRuntimeTypeComponent
+      )}
+    </>
   )
 }
 
 export interface FormMultiTypeTextAreaProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
-  label: string
+  label: string | React.ReactElement
   name: string
   placeholder?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
-  multiTypeTextArea?: Omit<MultiTypeTextAreaProps, 'onChange'>
+  multiTypeTextArea?: Omit<MultiTypeTextAreaProps, 'name' | 'onChange'>
   onChange?: MultiTypeTextAreaProps['onChange']
 }
 

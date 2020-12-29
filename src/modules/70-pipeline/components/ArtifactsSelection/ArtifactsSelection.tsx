@@ -382,6 +382,7 @@ export default function ArtifactsSelection({
                     width={350}
                     isNewConnectorLabelVisible={false}
                     type={'DockerRegistry'}
+                    enableConfigureOptions={false}
                   />
                   <FormInput.MultiTextInput
                     label={i18n.existingDocker.imageName}

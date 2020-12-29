@@ -9,7 +9,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { useStrings } from 'framework/exports'
-import { ConfigureOptions } from '@pipeline/components/ConfigureOptions/ConfigureOptions'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import type { HttpStepHeader } from './types'
 import css from './HttpStep.module.scss'
@@ -107,7 +107,11 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
         </MultiTypeFieldSelector>
       </div>
       <div className={stepCss.formGroup}>
-        <FormMultiTypeTextAreaField name="spec.requestBody" label={getString('requestBodyLabel')} />
+        <FormMultiTypeTextAreaField
+          name="spec.requestBody"
+          label={getString('requestBodyLabel')}
+          multiTypeTextArea={{ enableConfigureOptions: false }}
+        />
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.requestBody}
@@ -121,7 +125,11 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
         )}
       </div>
       <div className={stepCss.formGroup}>
-        <FormMultiTypeDurationField name="spec.timeout" label={getString('pipelineSteps.timeoutLabel')} />
+        <FormMultiTypeDurationField
+          name="spec.timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          multiTypeDurationProps={{ enableConfigureOptions: false }}
+        />
         {getMultiTypeFromValue(formValues.spec.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.timeout}

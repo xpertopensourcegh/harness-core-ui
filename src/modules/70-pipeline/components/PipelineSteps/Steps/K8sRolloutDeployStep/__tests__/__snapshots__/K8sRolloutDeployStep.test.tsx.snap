@@ -180,6 +180,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"
@@ -437,6 +438,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"

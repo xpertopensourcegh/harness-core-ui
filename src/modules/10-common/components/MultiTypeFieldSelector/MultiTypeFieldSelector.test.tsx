@@ -30,13 +30,13 @@ function TestComponent({ onSubmit, initialValues, ...props }: TestProps) {
 }
 
 describe('<MultiTypeFieldSelector /> tests', () => {
-  test('"Fixed input list" renders children', async () => {
+  test('"Fixed value" renders children', async () => {
     const onSubmit = jest.fn()
     const { container, getByTestId } = render(
       <TestComponent onSubmit={onSubmit} initialValues={{ test: 'Some Value' }} />
     )
 
-    expect(container).toMatchSnapshot('Fixed input list')
+    expect(container).toMatchSnapshot('Fixed value')
     expect(getByTestId('children')).toMatchInlineSnapshot(`
       <div
         data-testid="children"
@@ -48,13 +48,13 @@ describe('<MultiTypeFieldSelector /> tests', () => {
     `)
   })
 
-  test('Change from "Fixed input list" to "Runtime input" updates value', async () => {
+  test('Change from "Fixed value" to "Runtime input" updates value', async () => {
     const onSubmit = jest.fn()
     const { container, getByTestId } = render(
       <TestComponent onSubmit={onSubmit} initialValues={{ test: 'Some Value' }} />
     )
 
-    const fil = await findByText(container, 'Fixed input list')
+    const fil = await findByText(container, 'Fixed value')
 
     fireEvent.click(fil.closest('button')!)
 
@@ -88,7 +88,7 @@ describe('<MultiTypeFieldSelector /> tests', () => {
     expect(container).toMatchSnapshot('Runtime input')
     expect(() => getByTestId('children')).toThrow()
   })
-  test('Change from "Runtime input" to "Fixed input list" updates value', async () => {
+  test('Change from "Runtime input" to "Fixed value" updates value', async () => {
     const onSubmit = jest.fn()
     const { container, getByTestId } = render(
       <TestComponent onSubmit={onSubmit} initialValues={{ test: RUNTIME_INPUT_VALUE }} />
@@ -97,10 +97,10 @@ describe('<MultiTypeFieldSelector /> tests', () => {
     const ri = await findByText(document.body, 'Runtime input')
     fireEvent.click(ri)
 
-    const fil = await findByText(document.body, 'Fixed input list')
+    const fil = await findByText(document.body, 'Fixed value')
     fireEvent.click(fil)
 
-    expect(container).toMatchSnapshot('Fixed input list')
+    expect(container).toMatchSnapshot('Fixed value')
     expect(getByTestId('children')).toMatchInlineSnapshot(`
       <div
         data-testid="children"

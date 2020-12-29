@@ -94,7 +94,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   React.useEffect(() => {
     if (layoutRef.current) {
       const parent = layoutRef.current.parentElement
-      if (parent) {
+      if (parent && parent.scrollTo) {
         parent.scrollTo(0, 0)
       }
     }
@@ -107,8 +107,8 @@ export default function BuildStageSetupShell(): JSX.Element {
         if (!data.stage.spec.execution.steps) {
           data.stage.spec.execution.steps = []
         }
-        if (!data.stage.spec.dependencies) {
-          data.stage.spec.dependencies = []
+        if (!data.stage.spec.serviceDependencies) {
+          data.stage.spec.serviceDependencies = []
         }
       }
     }

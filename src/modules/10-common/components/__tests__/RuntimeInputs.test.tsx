@@ -24,7 +24,13 @@ const SampleComponent: React.FC<{
             { label: 'Option 2', value: 'option2' }
           ]}
         />
-        <FormMultiTypeTextAreaField name="textAreaValue" label="TextArea" />
+        <FormMultiTypeTextAreaField
+          name="textAreaValue"
+          label="TextArea"
+          multiTypeTextArea={{
+            enableConfigureOptions: false
+          }}
+        />
       </FormikForm>
     </Formik>
   )

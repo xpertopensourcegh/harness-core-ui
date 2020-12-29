@@ -89,6 +89,7 @@ const FirstStep = (props: any): JSX.Element => {
                 width={400}
                 isNewConnectorLabelVisible={false}
                 type={'Git'}
+                enableConfigureOptions={false}
               />
               <Button
                 intent="primary"

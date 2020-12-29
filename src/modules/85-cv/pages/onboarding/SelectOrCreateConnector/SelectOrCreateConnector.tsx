@@ -90,6 +90,7 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
             isNewConnectorLabelVisible={false}
             type={connectorType}
             className={css.connectorReference}
+            enableConfigureOptions={false}
           />
         )}
         <Link

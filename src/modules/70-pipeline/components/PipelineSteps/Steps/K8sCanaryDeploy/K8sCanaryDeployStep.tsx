@@ -18,7 +18,7 @@ import Accordion from '@common/components/Accordion/Accordion'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { ConfigureOptions } from '@pipeline/components/ConfigureOptions/ConfigureOptions'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
@@ -114,6 +114,7 @@ const K8CanaryDeployWidget: React.FC<K8sCanaryDeployProps> = ({ initialValues, o
                           name="spec.timeout"
                           label={getString('pipelineSteps.timeoutLabel')}
                           className={stepCss.duration}
+                          multiTypeDurationProps={{ enableConfigureOptions: false }}
                         />
                         {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions

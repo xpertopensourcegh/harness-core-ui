@@ -283,6 +283,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"
@@ -667,6 +668,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="TextInput---main--1ytZ"
@@ -1061,6 +1063,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"
@@ -1413,6 +1416,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"
@@ -1765,6 +1769,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"
@@ -2127,6 +2132,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                     >
                       <div
                         class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        style="flex-grow: 1;"
                       >
                         <div
                           class="bp3-input-group bp3-fill"

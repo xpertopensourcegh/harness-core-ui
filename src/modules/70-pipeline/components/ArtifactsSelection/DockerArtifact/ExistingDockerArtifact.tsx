@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from '@common/exports'
-import { ConfigureOptions } from '@pipeline/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { getIconByType } from '@connectors/exports'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'
@@ -68,6 +68,7 @@ function ExampleStep({
                   width={410}
                   isNewConnectorLabelVisible={false}
                   type={'DockerRegistry'}
+                  enableConfigureOptions={false}
                 />
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
                   <div className={css.configureOptions}>
