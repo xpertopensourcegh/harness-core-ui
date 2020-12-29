@@ -70,8 +70,8 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   useGetServiceListForProject({
     queryParams: {
       accountId,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
+      orgIdentifier,
+      projectIdentifier
     },
     resolve: res => {
       if (res?.data?.content?.length) {
@@ -89,7 +89,8 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   useGetMetricPacks({
     queryParams: {
       accountId: accountId,
-      projectIdentifier: projectIdentifier as string,
+      orgIdentifier,
+      projectIdentifier,
       dataSourceType: 'APP_DYNAMICS'
     },
     resolve: res => {

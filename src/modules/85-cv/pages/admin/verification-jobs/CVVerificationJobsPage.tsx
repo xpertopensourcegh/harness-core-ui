@@ -26,9 +26,9 @@ export default function CVVerificationJobsPage() {
       orgIdentifier,
       projectIdentifier,
       offset: page,
-      pageSize: 3,
+      pageSize: 10,
       filter: textFilter
-    },
+    } as any, // TODO - swagger issue, remove when fixed
     debounce: 400
   })
 
@@ -45,7 +45,7 @@ export default function CVVerificationJobsPage() {
 
   const onDelete = async (identifier?: string) => {
     await deleteVerificationJob('' as any, { queryParams: { accountId, identifier } })
-    const { pageItemCount, pageIndex } = data?.resource ?? {}
+    const { pageItemCount, pageIndex } = (data?.resource ?? {}) as any // TODO - swagger issue, remove when fixed
     if (pageIndex! > 0 && pageItemCount === 1) {
       setPage(page - 1)
     } else {

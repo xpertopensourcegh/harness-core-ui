@@ -186,9 +186,9 @@ function transformSampleDataIntoHighchartOptions(sampleData?: TimeSeriesSampleDT
 
 function ConfigureRiskProfile(): JSX.Element {
   const { getString } = useStrings()
-  const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data } = useGetMetricPacks({
-    queryParams: { projectIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
+    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
   })
   const [riskCategoryOptions, setRiskCategoryOptions] = useState<IOptionProps[]>([])
 
