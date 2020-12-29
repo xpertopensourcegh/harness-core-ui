@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash-es'
-import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import { MetricCategoryNames } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
@@ -12,6 +12,120 @@ import i18n from '../RecentActivityChanges.i18n'
 const MockData = [
   {
     activityType: 'DEPLOYMENT',
+    activityName: 'Configuration Change',
+    serviceIdentifier: 'Manager',
+    preActivityRisks: [
+      {
+        category: MetricCategoryNames.INFRASTRUCTURE,
+        risk: 55
+      },
+      {
+        category: MetricCategoryNames.ERRORS,
+        risk: 25
+      },
+      {
+        category: MetricCategoryNames.PERFORMANCE,
+        risk: 30
+      }
+    ],
+    progressPercentage: 43,
+    activityStartTime: new Date().getTime(),
+    status: 'IN_PROGRESS',
+    overallRisk: 52,
+    remainingTimeMs: 10,
+    postActivityRisks: [
+      {
+        category: MetricCategoryNames.INFRASTRUCTURE,
+        risk: 55
+      },
+      {
+        category: MetricCategoryNames.ERRORS,
+        risk: 25
+      },
+      {
+        category: MetricCategoryNames.PERFORMANCE,
+        risk: 15
+      }
+    ]
+  },
+  {
+    activityType: 'KUBERNETES',
+    activityName: 'Configuration Change',
+    serviceIdentifier: 'Manager',
+    preActivityRisks: [
+      {
+        category: MetricCategoryNames.INFRASTRUCTURE,
+        risk: 55
+      },
+      {
+        category: MetricCategoryNames.ERRORS,
+        risk: 25
+      },
+      {
+        category: MetricCategoryNames.PERFORMANCE,
+        risk: 30
+      }
+    ],
+    progressPercentage: 43,
+    activityStartTime: new Date().getTime(),
+    status: 'IN_PROGRESS',
+    overallRisk: 52,
+    remainingTimeMs: 10,
+    postActivityRisks: [
+      {
+        category: MetricCategoryNames.INFRASTRUCTURE,
+        risk: 55
+      },
+      {
+        category: MetricCategoryNames.ERRORS,
+        risk: 25
+      },
+      {
+        category: MetricCategoryNames.PERFORMANCE,
+        risk: 15
+      }
+    ]
+  },
+  {
+    activityType: 'INFRASTRUCTURE',
+    activityName: 'Configuration Change',
+    serviceIdentifier: 'Manager',
+    preActivityRisks: [
+      {
+        category: MetricCategoryNames.INFRASTRUCTURE,
+        risk: 55
+      },
+      {
+        category: MetricCategoryNames.ERRORS,
+        risk: 25
+      },
+      {
+        category: MetricCategoryNames.PERFORMANCE,
+        risk: 30
+      }
+    ],
+    progressPercentage: 43,
+    activityStartTime: new Date().getTime(),
+    status: 'FAILED',
+    overallRisk: 52,
+    remainingTimeMs: 10,
+    postActivityRisks: [
+      {
+        category: MetricCategoryNames.INFRASTRUCTURE,
+        risk: 55
+      },
+      {
+        category: MetricCategoryNames.ERRORS,
+        risk: 25
+      },
+      {
+        category: MetricCategoryNames.PERFORMANCE,
+        risk: 15
+      }
+    ]
+  },
+  {
+    activityType: 'OTHER',
     activityName: 'Configuration Change',
     serviceIdentifier: 'Manager',
     preActivityRisks: [
@@ -122,10 +236,7 @@ describe('Unit tests for RecentActivityChanges', () => {
     await waitFor(() => expect(container.querySelectorAll(`[class*="${Classes.SKELETON}"]`).length).toBe(3))
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Ensure that when no data is returned, the no data card is displayed', async () => {
-    // const routeSpy = jest.spyOn(routeCVDataSources, 'url')
-
+  test('Ensure that when no data is returned, the no data card is displayed', async () => {
     const { container, getByText } = render(
       <TestWrapper
         path={TEST_PATH}
@@ -136,7 +247,6 @@ describe('Unit tests for RecentActivityChanges', () => {
         }}
       >
         <RecentActivityChanges />
-        <NotFound />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
@@ -144,7 +254,6 @@ describe('Unit tests for RecentActivityChanges', () => {
     const goToDataSourcesButton = getByText(i18n.noActivitiesButtonText)
     expect(goToDataSourcesButton).not.toBeNull()
     goToDataSourcesButton.click()
-    // await waitFor(() => expect(routeSpy).toHaveBeenCalled())
   })
 
   test('Ensure that when an error happens, error card is displayed', async () => {
@@ -183,13 +292,13 @@ describe('Unit tests for RecentActivityChanges', () => {
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
 
     const dataRows = container.querySelectorAll('[class*="dataRow"]')
-    expect(dataRows.length).toBe(1)
+    expect(dataRows.length).toBe(4)
 
     const dataColumns = container.querySelectorAll('[class*="dataColumn"]')
-    expect(dataColumns.length).toBe(2)
+    expect(dataColumns.length).toBe(8)
 
     const riskScores = container.querySelectorAll('[class*="riskScore"]')
-    expect(riskScores.length).toBe(6)
+    expect(riskScores.length).toBe(24)
     expect(riskScores[0].innerHTML).toEqual('30')
     expect(riskScores[1].innerHTML).toEqual('25')
     expect(riskScores[2].innerHTML).toEqual('55')
@@ -200,7 +309,7 @@ describe('Unit tests for RecentActivityChanges', () => {
 
   test('Ensure right status messaging is displayed on top of progress bar for in progress with time remaining', async () => {
     // in progress with time remaining
-    const { container, getByText } = render(
+    const { container, getAllByText } = render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -213,7 +322,10 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(getByText(`${i18n.verificationProgressText.inProgress} (0 ${i18n.verificationProgressText.remainingTime})`))
+    expect(
+      getAllByText(`${i18n.verificationProgressText.inProgress} (0 ${i18n.verificationProgressText.remainingTime})`)
+        .length
+    ).toBe(3)
     const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
     expect(progressMeter?.getAttribute('style')).toEqual('width: 43%;')
     expect(progressMeter?.getAttribute('class')).toContain('heatmapColor6')

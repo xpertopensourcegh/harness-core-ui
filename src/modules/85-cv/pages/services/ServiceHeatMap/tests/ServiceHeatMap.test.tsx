@@ -9,9 +9,11 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ServiceHeatMap from '../ServiceHeatMap'
 
-jest.mock('../../analysis-drilldown-view/MetricAnalysisView/MetricAnalysisView', () => () => (
-  <Container className="metricAnalysisView" />
-))
+jest.mock('../../analysis-drilldown-view/MetricAnalysisView/MetricAnalysisView', () => ({
+  MetricAnalysisView: function MockComponent() {
+    return <Container className="metricAnalysisView" />
+  }
+}))
 jest.mock('../../analysis-drilldown-view/LogAnalysisView/LogAnalysisView', () => () => (
   <Container className="logAnalysisView" />
 ))

@@ -12,6 +12,7 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import { PageError } from '@common/components/Page/PageError'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import i18n from './MetricAnalysisView.i18n'
@@ -29,7 +30,7 @@ interface MetricAnalysisViewProps {
   showHistorySelection?: boolean
 }
 
-function generatePointsForTimeSeries(
+export function generatePointsForTimeSeries(
   data: RestResponsePageTimeSeriesMetricDataDTO,
   startTime: number,
   endTime: number
@@ -74,7 +75,7 @@ function generatePointsForTimeSeries(
   return data
 }
 
-export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element {
+export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element {
   const {
     className,
     startTime,
@@ -85,16 +86,16 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
     serviceIdentifier,
     showHistorySelection
   } = props
-  const { orgIdentifier = '', projectIdentifier = '', accountId = '' } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const finalStartTime = historyStartTime ?? startTime
   const queryParams = useMemo(
     () => ({
       accountId,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string,
+      orgIdentifier,
+      projectIdentifier,
       environmentIdentifier,
       serviceIdentifier,
-      monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
+      monitoringCategory: categoryName ? categoryNameToCategoryType(categoryName) : undefined,
       startTime: finalStartTime,
       endTime
     }),
@@ -138,6 +139,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   if (allMetricDataError || anomalousError) {
     return (
       <PageError
+        className={css.error}
         message={allMetricDataError?.message ?? anomalousError?.message}
         onClick={() => {
           if (isViewingAnomalousData) {
@@ -152,7 +154,6 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
 
   const data = isViewingAnomalousData ? anomalousMetricData : allMetricData
   const { pageSize, totalPages = 0, content, totalItems = 0, pageIndex } = (data?.resource as any) || {}
-
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.header}>
@@ -176,7 +177,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
         <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={70} />
       </Container>
       {(loadingAllMetricData || loadingAnomalousData) && (
-        <Container className={css.errorOrLoading} margin="medium">
+        <Container className={css.loading} margin="medium">
           <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
         </Container>
       )}

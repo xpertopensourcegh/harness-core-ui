@@ -6,6 +6,7 @@ declare const styles: {
   readonly fadeIn: string
   readonly header: string
   readonly timeline: string
-  readonly errorOrLoading: string
+  readonly error: string
+  readonly loading: string
 }
 export default styles

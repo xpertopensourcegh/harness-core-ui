@@ -15,7 +15,12 @@
   }
 }
 
-.errorOrLoading {
+.error {
+  position: relative;
+  top: 50px;
+}
+
+.loading {
   display: block;
   text-align: center;
   position: relative;

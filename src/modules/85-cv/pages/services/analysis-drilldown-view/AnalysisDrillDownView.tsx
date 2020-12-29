@@ -3,7 +3,7 @@ import { Container, Tabs, Tab } from '@wings-software/uikit'
 import cx from 'classnames'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import i18n from './AnalysisDrillDownView.i18n'
-import MetricAnalysisView from './MetricAnalysisView/MetricAnalysisView'
+import { MetricAnalysisView } from './MetricAnalysisView/MetricAnalysisView'
 import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
 import css from './AnalysisDrillDownView.module.scss'
 

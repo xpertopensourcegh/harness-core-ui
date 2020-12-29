@@ -4,7 +4,11 @@ import { Classes } from '@blueprintjs/core'
 import { Container, ModalProvider } from '@wings-software/uikit'
 import useAnalysisDrillDownView from '../useAnalysisDrillDownView'
 
-jest.mock('../MetricAnalysisView/MetricAnalysisView', () => () => <Container className="metricAnalysisView" />)
+jest.mock('../MetricAnalysisView/MetricAnalysisView', () => ({
+  MetricAnalysisView: function MockComponent() {
+    return <Container className="metricAnalysisView" />
+  }
+}))
 jest.mock('../LogAnalysisView/LogAnalysisView.tsx', () => () => <Container className="logAnalysisView" />)
 
 function WrapperComponent(): JSX.Element {

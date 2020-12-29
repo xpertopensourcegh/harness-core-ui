@@ -4,8 +4,12 @@ import { Container } from '@wings-software/uikit'
 import { AnalysisDrillDownView } from '../AnalysisDrillDownView'
 import i18n from '../AnalysisDrillDownView.i18n'
 
-jest.mock('../MetricAnalysisView/MetricAnalysisView', () => () => <Container className="metricAnalysisView" />)
-jest.mock('../LogAnalysisView/LogAnalysisView.tsx', () => () => <Container className="logAnalysisView" />)
+jest.mock('../MetricAnalysisView/MetricAnalysisView', () => ({
+  MetricAnalysisView: function MockComponent() {
+    return <Container className="metricAnalysisView" />
+  }
+}))
+jest.mock('../LogAnalysisView/LogAnalysisView', () => () => <Container className="logAnalysisView" />)
 
 describe('Unit tests for Analysis Drill down view', () => {
   test('Ensure no data card is rendered when timestamps are invalid', async () => {

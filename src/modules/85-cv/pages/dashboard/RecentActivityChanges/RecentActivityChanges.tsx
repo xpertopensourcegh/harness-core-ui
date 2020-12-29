@@ -11,6 +11,7 @@ import {
   MetricCategoriesWithRiskScore
 } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import { useGetRecentActivityVerificationResults, ActivityVerificationResultDTO, CategoryRisk } from 'services/cv'
 import i18n from './RecentActivityChanges.i18n'
@@ -166,8 +167,11 @@ function activityTypeToIcon(activityType: ActivityVerificationResultDTO['activit
   switch (activityType) {
     case 'DEPLOYMENT':
       return 'nav-cd'
+    case 'KUBERNETES':
     case 'INFRASTRUCTURE':
       return 'service-kubernetes'
+    case 'CONFIG':
+    case 'OTHER':
     case 'CUSTOM':
       return 'wrench'
     default:
@@ -208,7 +212,7 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
 
 export default function ActivityChanges(): JSX.Element {
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { loading, error, data, refetch: refetchActivities } = useGetRecentActivityVerificationResults({
     queryParams: {
       accountId,
