@@ -12,5 +12,6 @@ declare const styles: {
   readonly copy: string
   readonly snippetIcon: string
   readonly tooltipLabel: string
+  readonly popoverContent: string
 }
 export default styles

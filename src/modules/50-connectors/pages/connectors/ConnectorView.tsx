@@ -20,6 +20,8 @@ import type { ConnectorConnectivityDetails, ResponseYamlSnippets, ResponseString
 import { useGetYamlSchema } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
+import { PageSpinner } from '@common/components'
+import { useStrings } from 'framework/exports'
 import SavedConnectorDetails, {
   RenderDetailsSection,
   getActivityDetails
@@ -68,6 +70,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
   const [snippetYaml, setSnippetYaml] = React.useState<string>()
+  const [isUpdating, setIsUpdating] = React.useState<boolean>(false)
+  const { getString } = useStrings()
 
   const state: ConnectorViewState = {
     enableEdit,
@@ -84,6 +88,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const { showSuccess, showError } = useToaster()
 
   const onSubmit = async (connectorPayload: ConnectorRequestBody) => {
+    setIsUpdating(true)
     try {
       const data = await props.updateConnector(connectorPayload)
       if (data) {
@@ -92,8 +97,13 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         state.setEnableEdit(false)
       }
     } catch (error) {
-      showError(error.data?.message)
+      if (error.data?.message) {
+        showError(error.data?.message)
+      } else {
+        showError(getString('somethingWentWrong'))
+      }
     }
+    setIsUpdating(false)
   }
 
   const handleModeSwitch = (targetMode: string): void => {
@@ -123,7 +133,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     }
   }
 
+  /* excluding below method from coverage since it's called only by YAMLBuilder */
+  /* istanbul ignore next */
   const handleSaveYaml = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    event.stopPropagation()
     event.preventDefault()
     const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
     const yamlString = getLatestYaml?.() || ''
@@ -132,7 +145,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
       if (connectorJSONEq) {
         const errorMap = getYAMLValidationErrorMap?.()
         if (errorMap && errorMap.size > 0) {
-          showError(getValidationErrorMessagesForToaster(errorMap), 5000)
+          showError(getString('connectors.yamlError'))
         } else {
           onSubmit(connectorJSONEq)
         }
@@ -140,7 +153,16 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         setConnectorForYaml(connectorJSONEq?.connector)
       }
     } catch (err) {
-      showError(`${err.name}: ${err.message}`)
+      if (err?.toString().includes('YAMLSemanticError')) {
+        showError(getString('connectors.yamlError'))
+        return
+      }
+      const { name, message } = err
+      if (name && message) {
+        showError(`${name}: ${message}`)
+      } else {
+        showError(getString('somethingWentWrong'))
+      }
     }
   }
 
@@ -170,16 +192,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     }
   }, [props.response])
 
-  //TODO enable it later on
-  // useEffect(() => {
-  //   const enableBtn =
-  //     yamlHandler && yamlHandler.getYAMLValidationErrorMap()
-  //       ? yamlHandler?.getYAMLValidationErrorMap()?.size === 0
-  //       : true
-  //   setIsValidYAML(enableBtn)
-  // }, [enableEdit])
-
-  const { data: snippet, refetch, loading } = useGetYamlSnippet({
+  const { data: snippet, refetch } = useGetYamlSnippet({
     identifier: '',
     requestOptions: { headers: { accept: 'application/json' } },
     lazy: true,
@@ -188,17 +201,17 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
 
   useEffect(() => {
     setSnippetYaml(snippet?.data)
-  }, [loading])
+  }, [snippet])
 
-  const onSnippetCopy = (_identifier: string): void => {
-    refetch({
+  const onSnippetCopy = async (identifier: string): Promise<void> => {
+    await refetch({
       pathParams: {
-        identifier: _identifier
+        identifier
       }
     })
   }
 
-  const { data: snippetMetaData } = useGetYamlSnippetMetadata({
+  const { data: snippetMetaData, loading: isFetchingSnippets } = useGetYamlSnippetMetadata({
     queryParams: {
       tags: getSnippetTags('Connectors', props.type)
     },
@@ -218,7 +231,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
 
   return (
     <Layout.Vertical padding={{ top: 'large', left: 'huge', bottom: 'large', right: 'huge' }}>
-      <Container className={css.buttonContainer}>
+      <Container className={cx(css.buttonContainer, { [css.yamlView]: selectedView === SelectedView.YAML })}>
         {state.enableEdit ? null : (
           <div className={css.optionBtns}>
             <div
@@ -241,6 +254,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         )}
         {state.enableEdit ? null : (
           <Button
+            id="editDetailsBtn"
             className={css.editButton}
             text={i18n.EDIT_DETAILS}
             icon="edit"
@@ -253,8 +267,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
       </Container>
 
       <Layout.Horizontal>
+        {isUpdating ? <PageSpinner message={getString('connectors.updating')} /> : null}
         {enableEdit ? (
-          selectedView === SelectedView.VISUAL ? null : (
+          selectedView === SelectedView.VISUAL ? null : isFetchingSnippets ? (
+            <PageSpinner />
+          ) : (
             <div className={css.editor}>
               <YamlBuilder
                 {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })}
@@ -264,6 +281,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
                 schema={connectorSchema?.data}
               />
               <Button
+                id="saveYAMLChanges"
                 intent="primary"
                 text={i18n.submit}
                 onClick={handleSaveYaml}

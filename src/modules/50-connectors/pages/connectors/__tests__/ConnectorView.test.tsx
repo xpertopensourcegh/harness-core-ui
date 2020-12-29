@@ -1,4 +1,4 @@
-import { render, waitFor, queryByText } from '@testing-library/react'
+import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import React from 'react'
 import type { ConnectorResponse, Connector } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -8,11 +8,14 @@ import { GitHttp } from './mockData'
 import * as mockMetaData from './snippets.metadata.json'
 import * as mockSnippetData from './snippet.json'
 
-jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', jest.fn())
+jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+  const ComponentToMock = () => <div />
+  return ComponentToMock
+})
 
 describe('Connector Details Page', () => {
-  test('Rendring connector deatils', async () => {
-    const { container } = render(
+  const setup = () =>
+    render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorView
           type={'Git'}
@@ -25,7 +28,46 @@ describe('Connector Details Page', () => {
         ></ConnectorView>
       </TestWrapper>
     )
+
+  test('Rendering connector details', async () => {
+    const { container } = setup()
     await waitFor(() => queryByText(container, 'Connector Activity'))
     expect(container).toMatchSnapshot('view text')
+  })
+
+  test('Edit details test', async () => {
+    const { container } = setup()
+    await waitFor(() => {
+      const editDetailsBtn = container?.querySelector('#editDetailsBtn')
+      fireEvent.click(editDetailsBtn!)
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Switch to Visual->YAML->Visual view', async () => {
+    const { container, getByText } = setup()
+    await waitFor(() => {
+      const switchToYAML = getByText('YAML')
+      expect(switchToYAML).toBeDefined()
+      fireEvent.click(switchToYAML)
+    })
+    await waitFor(() => {
+      const switchToVisual = getByText('VISUAL')
+      expect(switchToVisual).toBeDefined()
+      fireEvent.click(switchToVisual)
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Edit and save connector YAML', async () => {
+    const { container, getByText } = setup()
+    const switchToYAML = getByText('YAML')
+    expect(switchToYAML).toBeDefined()
+    fireEvent.click(switchToYAML)
+    await waitFor(() => {
+      const editDetailsBtn = container?.querySelector('#editDetailsBtn')
+      fireEvent.click(editDetailsBtn!)
+    })
+    expect(container).toMatchSnapshot()
   })
 })

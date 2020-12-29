@@ -1,44 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Position, PopoverInteractionKind } from '@blueprintjs/core'
+import { Position, PopoverInteractionKind, Spinner, Intent } from '@blueprintjs/core'
 import { Popover } from '@blueprintjs/core'
-import copy from 'copy-to-clipboard'
-import type { MouseEvent } from 'react'
 
 import { Icon, IconName } from '@wings-software/uikit'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import type { YamlSnippetMetaData } from 'services/cd-ng'
-import i18n from './Snippet.i18n'
+import { useStrings } from 'framework/exports'
 
 import css from './Snippet.module.scss'
 
 type SnippetInterface = YamlSnippetMetaData & {
-  onSnippetCopy?: (identifier: string) => void
+  onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
 }
 
 const Snippet: React.FC<SnippetInterface> = props => {
+  const { getString } = useStrings()
   const { name, description, version, identifier, iconTag, onSnippetCopy, snippetYaml } = props
-  const [tooltipLabel, setTooltipLabel] = useState(i18n.copyToClipboard)
-
-  const onCopy = (): void => {
-    setTooltipLabel(i18n.copied)
-  }
-
-  const copyToClipboard = (event: MouseEvent): void => {
-    event.preventDefault()
-    if (identifier) {
-      onSnippetCopy?.(identifier)
-    }
-  }
+  const [tooltipLabel, setTooltipLabel] = useState(getString('snippets.copyToClipboard'))
+  const [isFetching, setIsFetching] = useState<boolean>(false)
 
   useEffect(() => {
-    copy(snippetYaml as string)
-    onCopy()
+    navigator?.clipboard?.writeText(snippetYaml || '')
   }, [snippetYaml])
 
   const getPopoverContent = (): JSX.Element => {
-    return <span className={css.tooltipLabel}>{tooltipLabel}</span>
+    return (
+      <div className={css.popoverContent}>
+        <span className={css.tooltipLabel}>{tooltipLabel} </span>
+        {isFetching ? <Spinner size={Spinner.SIZE_SMALL} intent={Intent.PRIMARY} /> : null}
+      </div>
+    )
   }
 
   return (
@@ -52,7 +45,7 @@ const Snippet: React.FC<SnippetInterface> = props => {
         </div>
         <div className={css.description}>{description}</div>
         <div className={css.snippetVersion}>
-          {i18n.version} {version}
+          {getString('snippets.version')} {version}
         </div>
       </div>
       <Popover
@@ -60,10 +53,25 @@ const Snippet: React.FC<SnippetInterface> = props => {
         position={Position.BOTTOM}
         interactionKind={PopoverInteractionKind.HOVER}
         content={getPopoverContent()}
-        onOpening={() => setTooltipLabel(i18n.copyToClipboard)}
+        onOpening={() => setTooltipLabel(getString('snippets.copyToClipboard'))}
       >
         <div className={css.copy}>
-          <Icon name="copy" size={20} className={css.snippetIcon} onClick={event => copyToClipboard(event)} />
+          <Icon
+            name="copy"
+            size={20}
+            className={css.snippetIcon}
+            onClick={async (event: React.MouseEvent<HTMLHeadingElement, globalThis.MouseEvent>) => {
+              event.preventDefault()
+              event.stopPropagation()
+              setIsFetching(true)
+              setTooltipLabel(getString('fetching').concat('...'))
+              if (identifier) {
+                await onSnippetCopy?.(identifier)
+              }
+              setTooltipLabel(getString('snippets.copied'))
+              setIsFetching(false)
+            }}
+          />
         </div>
       </Popover>
     </div>

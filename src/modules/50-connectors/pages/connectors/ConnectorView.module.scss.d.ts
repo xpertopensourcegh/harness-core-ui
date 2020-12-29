@@ -12,6 +12,7 @@ declare const styles: {
   readonly optionBtns: string
   readonly item: string
   readonly selected: string
+  readonly yamlView: string
   readonly editButton: string
   readonly connectorDetailsWrapper: string
   readonly disabled: string

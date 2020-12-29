@@ -60,8 +60,13 @@
 }
 
 .tooltipLabel {
-  background-color: black;
   color: white;
-  padding: var(--spacing-xsmall) var(--spacing-small);
+  padding-right: var(--spacing-small);
+}
+
+.popoverContent {
+  display: flex;
+  background-color: black;
   border-radius: 5px;
+  padding: var(--spacing-xsmall) var(--spacing-small);
 }

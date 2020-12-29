@@ -13,7 +13,7 @@ interface SnippetDetailsProps {
   selectedIcon?: string
   snippets?: YamlSnippetMetaData[]
   height?: React.CSSProperties['height']
-  onSnippetCopy?: (identifier: string) => void
+  onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
 }
 

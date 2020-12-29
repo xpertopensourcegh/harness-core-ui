@@ -31,7 +31,6 @@
 
 .buttonContainer {
   display: flex;
-  width: 45%;
   justify-content: space-between;
   margin-bottom: var(--spacing-large) !important;
 
@@ -57,6 +56,11 @@
       cursor: default;
     }
   }
+}
+
+.yamlView {
+  width: 70%;
+  padding-right: var(--spacing-medium) !important;
 }
 
 .editButton {

@@ -18,6 +18,7 @@ import type {
 } from '@common/interfaces/YAMLBuilderProps'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
 import { validateYAMLWithSchema } from '@common/utils/YamlUtils'
+import { sanitize } from '@common/utils/JSONUtils'
 import {
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
@@ -29,6 +30,8 @@ import { debounce } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
+import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { useStrings } from 'framework/exports'
 
 //@ts-ignore
 monaco.editor.defineTheme('vs', {
@@ -80,6 +83,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const editorRef = useRef<MonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
   const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
+  const editorVersionRef = useRef<number>()
   yamlRef.current = currentYaml
   yamlValidationErrorsRef.current = yamlValidationErrors
   const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
@@ -87,7 +91,18 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
+  const KEY_CODE_FOR_CHAR_V = 'KeyV'
   const { showError } = useToaster()
+  const { getString } = useStrings()
+  let expressionCompletionDisposer: { dispose: () => void }
+  let runTimeCompletionDisposer: { dispose: () => void }
+
+  const editorHasUnsavedChanges = (): boolean => {
+    const currentVersionId = editorRef?.current?.editor?.getModel()?.getAlternativeVersionId()
+    return editorVersionRef.current !== currentVersionId
+  }
+
+  /* #region Bootstrap editor with schema */
 
   const handler = React.useMemo(
     () =>
@@ -105,9 +120,13 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const replacer = (_key: string, value: unknown) => (typeof value === 'undefined' ? '' : value)
 
   const verifyIncomingJSON = (jsonObj: Record<string, any> | undefined): void => {
-    const sanitizedJSON = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/null/g, '""'))
-    if (sanitizedJSON && Object.keys(sanitizedJSON).length > 0) {
-      const yamlEqOfJSON = stringify(sanitizedJSON)
+    const jsonObjWithoutNulls = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/null/g, '""')) as Record<
+      string,
+      any
+    >
+    const sanitizedJSONObj = sanitize(jsonObjWithoutNulls)
+    if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
+      const yamlEqOfJSON = stringify(sanitizedJSONObj)
       const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
       setCurrentYaml(sanitizedYAML)
       verifyYAMLValidity(sanitizedYAML)
@@ -147,14 +166,35 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
   }
 
-  /* Handle various interactions with the editor */
+  /* #endregion */
+
+  /* #region Handle various interactions with the editor */
+  const { openDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('continueWithoutSavingText'),
+    titleText: getString('continueWithoutSavingTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        navigator.clipboard
+          ?.readText()
+          .then(text => {
+            onYamlChange(text)
+          })
+          .catch(err => {
+            showError(err, 5000)
+          })
+      }
+    }
+  })
+
   const onYamlChange = (updatedYaml: string): void => {
     setCurrentYaml(updatedYaml)
     verifyYAMLValidity(updatedYaml)
   }
 
   const verifyYAMLValidity = (currentYaml: string): void => {
-    if (schema) {
+    if (schema && currentYaml) {
       validateYAMLWithSchema(currentYaml, [getSchemaWithLanguageSettings(schema)])
         .then((validationErrors: Diagnostic[]) => {
           if (validationErrors && Array.isArray(validationErrors)) {
@@ -173,11 +213,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   const editorDidMount = (editor: any) => {
-    if (editor) {
-      if (!props.isReadOnlyMode) {
-        editor.focus()
-      }
-      editor.onKeyDown((event: KeyboardEvent) => handleEditorKeyDownEvent(event, editor))
+    editorVersionRef.current = editor?.getModel()?.getAlternativeVersionId()
+    if (!props.isReadOnlyMode) {
+      editor?.focus()
+      editor?.onKeyDown((event: KeyboardEvent) => handleEditorKeyDownEvent(event, editor))
     }
   }
 
@@ -190,6 +229,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
+  /* #endregion */
+
+  /* #region Custom invocations */
+
   /** Expressions support */
   const getExpressionFromCurrentLine = (editor: any): string => {
     const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
@@ -197,7 +240,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     return expression
   }
 
-  let expressionCompletionDisposer: { dispose: () => void }
   function registerCompletionItemProviderForExpressions(
     editor: any,
     triggerCharacters: string[],
@@ -221,7 +263,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   /** Run-time Inputs support */
-  let runTimeCompletionDisposer: { dispose: () => void }
   function registerCompletionItemProviderForRTInputs(
     editor: any,
     suggestionsPromise: Promise<CompletionItemInterface[]>
@@ -251,11 +292,17 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
+  /* #endregion */
+
   const handleEditorKeyDownEvent = (event: KeyboardEvent, editor: any): void => {
-    const { shiftKey, code } = event
+    const { shiftKey, code, ctrlKey, metaKey } = event
     //TODO Need to check hotkey for cross browser/cross OS compatibility
     //TODO Need to debounce this function call for performance optimization
-    if (shiftKey) {
+    if ((ctrlKey || metaKey) && code === KEY_CODE_FOR_CHAR_V) {
+      if (editorHasUnsavedChanges()) {
+        openDialog()
+      }
+    } else if (shiftKey) {
       if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
         const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
         disposePreviousSuggestions()

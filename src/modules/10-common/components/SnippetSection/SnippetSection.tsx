@@ -14,7 +14,7 @@ export interface SnippetSectionProps {
   height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']
   snippets?: YamlSnippetMetaData[]
-  onSnippetCopy?: (identifier: string) => void
+  onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
 }
 
@@ -39,21 +39,17 @@ const SnippetSection: React.FC<SnippetSectionProps> = props => {
     }
   }
 
-  const getIconCategories = (_snippetList?: YamlSnippetMetaData[]): IconName[] | null => {
-    if (!_snippetList) {
+  const getIconCategories = (_snippets?: YamlSnippetMetaData[]): IconName[] | null => {
+    if (!_snippets) {
       return null
     }
-    return [...new Set(_snippetList.map(snippet => getIconNameForTag(snippet?.iconTag || '')))]
+    return [...new Set(_snippets.map(snippet => getIconNameForTag(snippet?.iconTag || '')))]
   }
 
   const getIconList = (): React.ReactElement | null => {
-    const _snippetList = snippets
-    if (!_snippetList) {
-      return null
-    }
     return (
       <React.Fragment>
-        {getIconCategories(_snippetList)?.map(icon => (
+        {getIconCategories(snippets)?.map(icon => (
           <div
             className={cx(css.snippetIcon, { [css.active]: icon === selectedIcon })}
             key={icon}

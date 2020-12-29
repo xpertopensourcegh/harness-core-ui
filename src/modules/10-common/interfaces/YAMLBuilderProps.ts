@@ -27,7 +27,7 @@ export interface YamlBuilderProps {
   showSnippetSection?: boolean
   showIconMenu?: boolean
   snippets?: YamlSnippetMetaData[]
-  onSnippetCopy?: (identifier: string) => void
+  onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
   //TODO @vardan Remove "Record<string, string | any>" from type once pipeline schema is migrated to new framework
   schema?: string | Record<string, string | any>

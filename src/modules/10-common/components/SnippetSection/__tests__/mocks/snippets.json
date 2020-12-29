@@ -1,0 +1,25 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "yamlSnippets": [
+      {
+        "name": "K8s Inherit from Delegate",
+        "description": "K8s Inherit from Delegate",
+        "version": "0.1",
+        "identifier": "k8s-inherit-from-delegate-0-1",
+        "tags": ["k8s", "connector"],
+        "iconTag": "k8s"
+      },
+      {
+        "name": "K8s Cluster with Service Account",
+        "description": "K8s Cluster with Service Account",
+        "version": "0.1",
+        "identifier": "k8s-cluster-with-service-account-0-1",
+        "tags": ["k8s", "connector"],
+        "iconTag": "k8s"
+      }
+    ]
+  },
+  "metaData": null,
+  "correlationId": "19cf64cc-6dad-4c15-b22f-f7f27fba286f"
+}

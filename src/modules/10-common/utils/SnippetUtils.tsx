@@ -35,6 +35,9 @@ export const getSnippetTags = (
         case 'DockerRegistry':
           tags.push('docker')
           break
+        case 'Git':
+          tags.push('git')
+          break
       }
       break
     default:
