@@ -229,12 +229,13 @@ exports[`BuildStageSpecifications tests clicking on description and tags shows c
                   class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
                 >
                   <input
+                    checked=""
                     type="checkbox"
                   />
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip Git Clone
+                  Clone Codebase
                 </label>
               </div>
             </form>
@@ -543,12 +544,13 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
                 >
                   <input
+                    checked=""
                     type="checkbox"
                   />
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip Git Clone
+                  Clone Codebase
                 </label>
               </div>
             </form>

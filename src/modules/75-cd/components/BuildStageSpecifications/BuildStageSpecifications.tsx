@@ -110,7 +110,7 @@ export default function BuildStageSpecifications(): JSX.Element {
     name: string
     description: string
     tags: null | string[]
-    skipGitClone: boolean
+    cloneCodebase: boolean
     workspace: string
     sharedPaths: string[]
     customVariables: { name: string; type: string; value?: string }[]
@@ -121,12 +121,12 @@ export default function BuildStageSpecifications(): JSX.Element {
     const identifier = pipelineData?.identifier || ''
     const name = pipelineData?.name || ''
     const description = pipelineData?.description || ''
-    const skipGitClone = spec?.skipGitClone || false
+    const cloneCodebase = spec?.cloneCodebase || true
     const workspace = spec?.workspace || ''
     const sharedPaths = spec?.sharedPaths || []
     const customVariables = spec?.customVariables || []
 
-    return { identifier, name, description, tags: null, skipGitClone, workspace, sharedPaths, customVariables }
+    return { identifier, name, description, tags: null, cloneCodebase, workspace, sharedPaths, customVariables }
   }
 
   const handleValidate = (values: any): void => {
@@ -149,7 +149,7 @@ export default function BuildStageSpecifications(): JSX.Element {
       //   delete pipelineData.tags
       // }
 
-      spec.skipGitClone = values.skipGitClone
+      spec.cloneCodebase = values.cloneCodebase
 
       if (values.workspace) {
         spec.workspace = values.workspace
@@ -204,7 +204,6 @@ export default function BuildStageSpecifications(): JSX.Element {
       secretsOptions.set(key, secret.name || '')
     }
   })
-
   return (
     <Layout.Vertical>
       <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
@@ -300,9 +299,9 @@ export default function BuildStageSpecifications(): JSX.Element {
                     )}
 
                     <Switch
-                      checked={formValues.skipGitClone}
-                      label={getString('skipGitCloneLabel')}
-                      onChange={e => setFieldValue('skipGitClone', e.currentTarget.checked)}
+                      checked={formValues.cloneCodebase}
+                      label={getString('cloneCodebaseLabel')}
+                      onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
                     />
                   </FormikForm>
                 </div>

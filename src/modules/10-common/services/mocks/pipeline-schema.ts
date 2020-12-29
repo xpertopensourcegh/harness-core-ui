@@ -96,9 +96,9 @@ export const pipelineSchema = {
                           type: 'string',
                           default: '~/harness'
                         },
-                        skipGitClone: {
+                        cloneCodebase: {
                           type: 'boolean',
-                          default: false
+                          default: true
                         },
                         sharedPaths: {
                           items: {

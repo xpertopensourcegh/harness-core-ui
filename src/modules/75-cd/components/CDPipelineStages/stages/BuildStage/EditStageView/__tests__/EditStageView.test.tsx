@@ -30,7 +30,7 @@ const getStepData = () => {
       name: 'name1',
       description: 'desc1',
       spec: {
-        skipGitClone: true
+        cloneCodebase: false
       }
     }
   }
@@ -73,7 +73,7 @@ describe('EditStageView save', () => {
 
     expect(submitFn).toBeCalled()
   })
-  test('should call save when data are not valid', async () => {
+  test('should not call save when data are not valid', async () => {
     const submitFn = jest.fn()
     const { getByText } = renderComponent(undefined, submitFn)
 

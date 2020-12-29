@@ -120,7 +120,7 @@ global:
   argumentsLabel: 'Arguments'
   addArgument: '+ Add Argument'
   dependencyNameLabel: 'Dependency Name'
-  skipGitCloneLabel: Skip Git Clone
+  cloneCodebaseLabel: 'Clone Codebase'
   allowedValues: 'Allowed values'
   serviceAccount: Service Account
   usernamePassword: 'Username and Password'
@@ -438,7 +438,7 @@ global:
       create:
         aboutYourStage: 'About Your Stage'
         stageNameRequiredError: 'Stage Name is required'
-        skipGitCloneHelperText: 'Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage'
+        cloneCodebaseHelperText: 'Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage'
         stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
         stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'
         configureCodebase: 'Configure Codebase'

@@ -40,7 +40,7 @@ interface Values {
   identifier: string
   name: string
   description?: string
-  skipGitClone?: boolean
+  cloneCodebase?: boolean
   connectorRef?: ConnectorReferenceFieldProps['selected']
   repositoryName?: string
 }
@@ -52,7 +52,6 @@ interface CodeBase2 {
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChange }): JSX.Element => {
   const { getString } = useStrings()
-
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
 
@@ -74,12 +73,13 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
 
   const initialValues: Values = {
     identifier: data?.stage.identifier,
-    name: data?.stage.name
+    name: data?.stage.name,
+    cloneCodebase: data?.stage.spec?.cloneCodebase || true
   }
 
-  if (data?.stage.description) initialValues.description = data.stage.description
-  if (data?.stage.spec?.skipGitClone) initialValues.skipGitClone = data.stage.spec.skipGitClone
-  if (ciCodebase2?.repositoryName) initialValues.repositoryName = ciCodebase2.repositoryName
+  if (data?.stage.description) initialValues.description = data?.stage.description
+  if (data?.stage.spec?.cloneCodebase) initialValues.cloneCodebase = data?.stage.spec?.cloneCodebase
+  if (ciCodebase2?.repositoryName) initialValues.repositoryName = ciCodebase2?.repositoryName
 
   const connectorId = getIdentifierFromValue((ciCodebase2?.connectorRef as string) || '')
   const initialScope = getScopeFromValue((ciCodebase2?.connectorRef as string) || '')
@@ -123,7 +123,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
           getString('pipelineSteps.build.create.stageDescriptionRegExpError')
         ),
         ...(!ciCodebase2 &&
-          !values.skipGitClone && {
+          values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('pipelineSteps.build.create.connectorRequiredError')),
             ...(connectionType === 'Account' && {
               repositoryName: Yup.string().required(getString('pipelineSteps.build.create.repositoryUrlRequiredError'))
@@ -141,7 +141,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const handleSubmit = (values: Values): void => {
     if (data) {
       // TODO: Add Codebase verification
-      if (!values.skipGitClone && values.connectorRef) {
+      if (values.cloneCodebase && values.connectorRef) {
         pipeline.ciCodebase = ({
           connectorRef: values.connectorRef.value,
           ...(values.repositoryName && { repositoryName: values.repositoryName })
@@ -153,7 +153,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       data.stage.name = values.name
 
       if (values.description) data.stage.description = values.description
-      if (values.skipGitClone) data.stage.spec.skipGitClone = values.skipGitClone
+      if (values.cloneCodebase) data.stage.spec.cloneCodebase = values.cloneCodebase
 
       onSubmit?.(data, values.identifier)
     }
@@ -198,15 +198,16 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 </Collapse>
               </div>
               <Switch
-                label={getString('skipGitCloneLabel')}
-                onChange={e => formikProps.setFieldValue('skipGitClone', e.currentTarget.checked)}
+                label={getString('cloneCodebaseLabel')}
+                onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                defaultChecked={formikProps.values.cloneCodebase}
               />
-              <div className={css.skipGitInfo}>
+              <div className={css.cloneCodebaseInfo}>
                 <Button icon="info" minimal tooltip={getString('details')} iconProps={{ size: 8 }} />
-                <Text font="xsmall">{getString('pipelineSteps.build.create.skipGitCloneHelperText')}</Text>
+                <Text font="xsmall">{getString('pipelineSteps.build.create.cloneCodebaseHelperText')}</Text>
               </div>
-              {/* We don't need to configure CI Codebase if it is already configured or we are skipping Git Clone step */}
-              {!ciCodebase && !formikProps.values.skipGitClone && (
+              {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}
+              {!ciCodebase && formikProps.values.cloneCodebase && (
                 <div className={css.configureCodebase}>
                   <Text
                     font={{ size: 'medium', weight: 'semi-bold' }}

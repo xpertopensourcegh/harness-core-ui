@@ -7,6 +7,6 @@ declare const styles: {
   readonly stageCreate: string
   readonly configureCodebase: string
   readonly predefinedValue: string
-  readonly skipGitInfo: string
+  readonly cloneCodebaseInfo: string
 }
 export default styles
