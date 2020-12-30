@@ -24,7 +24,7 @@ jest.mock('services/cd-ng', () => ({
 
 describe('PurposeList test', () => {
   test('initializes ok ', async () => {
-    const { container, getAllByText } = render(
+    const { container, getByTestId } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
         <PurposeList data={project} />
       </TestWrapper>
@@ -32,34 +32,89 @@ describe('PurposeList test', () => {
     expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
     expect(container).toMatchSnapshot()
     await act(async () => {
-      const enablecd = getAllByText('Enable')[0]
+      const enablecd = getByTestId('CD')
       fireEvent.click(enablecd)
     })
-    expect(addModule).toBeCalled()
+    expect(addModule).toHaveBeenCalledWith({
+      project: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'test',
+        color: '#e6b800',
+        modules: ['CD'],
+        description: 'test',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
+    })
     addModule.mockReset()
     await act(async () => {
-      const enablecv = getAllByText('Enable')[0]
+      const enablecv = getByTestId('CV')
       fireEvent.click(enablecv)
     })
-    expect(addModule).toBeCalled()
+    expect(addModule).toHaveBeenCalledWith({
+      project: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'test',
+        color: '#e6b800',
+        modules: ['CD', 'CV'],
+        description: 'test',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
+    })
     addModule.mockReset()
     await act(async () => {
-      const enableci = getAllByText('Enable')[0]
+      const enableci = getByTestId('CI')
       fireEvent.click(enableci)
     })
-    expect(addModule).toBeCalled()
+    expect(addModule).toHaveBeenCalledWith({
+      project: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'test',
+        color: '#e6b800',
+        modules: ['CD', 'CV', 'CI'],
+        description: 'test',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
+    })
     addModule.mockReset()
     await act(async () => {
-      const enablece = getAllByText('Enable')[0]
+      const enablece = getByTestId('CE')
       fireEvent.click(enablece)
     })
-    expect(addModule).toBeCalled()
+    expect(addModule).toHaveBeenCalledWith({
+      project: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'test',
+        color: '#e6b800',
+        modules: ['CD', 'CV', 'CI', 'CE'],
+        description: 'test',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
+    })
     addModule.mockReset()
     await act(async () => {
-      const enablecf = getAllByText('Enable')[0]
+      const enablecf = getByTestId('CF')
       fireEvent.click(enablecf)
     })
-    expect(addModule).toBeCalled()
+    expect(addModule).toHaveBeenCalledWith({
+      project: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'test',
+        color: '#e6b800',
+        modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
+        description: 'test',
+        tags: { tag1: '', tag2: 'tag3' }
+      }
+    })
     expect(container).toMatchSnapshot()
   })
 })

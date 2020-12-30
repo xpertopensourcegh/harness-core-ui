@@ -89,6 +89,7 @@ exports[`PurposeList test initializes ok  1`] = `
               </p>
               <button
                 class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                data-testid="CD"
                 type="button"
               >
                 <span
@@ -168,6 +169,7 @@ exports[`PurposeList test initializes ok  1`] = `
               </p>
               <button
                 class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                data-testid="CV"
                 type="button"
               >
                 <span
@@ -247,6 +249,7 @@ exports[`PurposeList test initializes ok  1`] = `
               </p>
               <button
                 class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                data-testid="CI"
                 type="button"
               >
                 <span
@@ -326,6 +329,7 @@ exports[`PurposeList test initializes ok  1`] = `
               </p>
               <button
                 class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                data-testid="CE"
                 type="button"
               >
                 <span
@@ -405,6 +409,7 @@ exports[`PurposeList test initializes ok  1`] = `
               </p>
               <button
                 class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                data-testid="CF"
                 type="button"
               >
                 <span

@@ -142,28 +142,17 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
   const { showSuccess, showError } = useToaster()
   const { mutate: updateProject } = usePutProject({
-    identifier: '',
+    identifier: projectData.identifier,
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: ''
+      orgIdentifier: projectData.orgIdentifier
     }
   })
   const addModule = async (module: Required<Project>['modules'][number]): Promise<void> => {
     projectData.modules?.push(module)
     const dataToSubmit: Project = projectData
     try {
-      await updateProject(
-        { project: dataToSubmit },
-        {
-          pathParams: {
-            identifier: projectData.identifier
-          },
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier: projectData.orgIdentifier
-          }
-        }
-      )
+      await updateProject({ project: dataToSubmit })
       showSuccess(i18n.moduleSuccess)
       onSuccess?.()
       const newSelected = [...selected, module]
@@ -213,6 +202,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
                     <Button
                       font={{ size: 'small', weight: 'semi-bold' }}
                       className={css.enable}
+                      data-testid={option.module}
                       onClick={() => {
                         addModule(option.module)
                       }}
