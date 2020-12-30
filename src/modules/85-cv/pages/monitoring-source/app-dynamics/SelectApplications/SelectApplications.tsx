@@ -65,7 +65,7 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
         setEnvironmentOptions(
           res?.data?.content?.map(env => ({
             label: env.name as string,
-            value: env.name as string
+            value: env.identifier as string
           }))
         )
       }
