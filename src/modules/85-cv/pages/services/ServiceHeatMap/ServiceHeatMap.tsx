@@ -1,9 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Color, Container, OverlaySpinner, Text, TextProps } from '@wings-software/uikit'
 import moment from 'moment'
+import { isNumber } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import HeatMap, { CellStatusValues, SerieConfig } from '@common/components/HeatMap/HeatMap'
 import { HeatMapDTO, useGetHeatmap } from 'services/cv'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import { useStrings } from 'framework/exports'
 import useAnalysisDrillDownView from '../analysis-drilldown-view/useAnalysisDrillDownView'
@@ -32,7 +34,7 @@ function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
       )}
       <Container className={css.overallScoreContent}>
         <Text font={{ size: 'small' }}>{i18n.heatMapTooltipText.overallRiskScore}</Text>
-        <RiskScoreTile riskScore={Math.floor((cell?.riskScore || 0) * 100)} isSmall />
+        <RiskScoreTile riskScore={isNumber(cell?.riskScore) ? Math.floor(cell.riskScore * 100) : -1} isSmall />
       </Container>
     </Container>
   ) : (
@@ -60,8 +62,7 @@ function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[]): string {
 export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element {
   const { serviceIdentifier, environmentIdentifier, startTime, endTime } = props
   const { openDrillDown } = useAnalysisDrillDownView()
-  const [heatmapData, setHeatmapData] = useState<SerieConfig[]>([])
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const categoryNames: any = {
@@ -74,20 +75,18 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
     return entry && entry[0]
   }
 
-  const { loading: loadingHeatmap, refetch: getHeatmap } = useGetHeatmap({
-    lazy: true,
-    resolve: response => {
-      setHeatmapData(
-        !response?.resource
-          ? []
-          : Object.keys(response.resource).map((key: string) => ({
-              name: categoryNames[key],
-              data: response?.resource[key]
-            }))
-      )
-      return response
+  const { loading: loadingHeatmap, refetch: getHeatmap, data: rawHeatMapData } = useGetHeatmap({ lazy: true })
+
+  const heatmapData: SerieConfig[] = useMemo(() => {
+    if (!rawHeatMapData?.resource) return []
+    const mappedData = []
+    for (const datum of Object.keys(rawHeatMapData.resource)) {
+      if (categoryNames[datum] && rawHeatMapData.resource[datum]) {
+        mappedData.push({ name: categoryNames[datum], data: rawHeatMapData?.resource[datum] })
+      }
     }
-  })
+    return mappedData
+  }, [rawHeatMapData])
 
   useEffect(() => {
     if (!startTime || !endTime) return
@@ -96,8 +95,8 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
         accountId: accountId,
         envIdentifier: environmentIdentifier,
         serviceIdentifier,
-        projectIdentifier: projectIdentifier as string,
-        orgIdentifier: orgIdentifier as string,
+        projectIdentifier,
+        orgIdentifier,
         startTimeMs: startTime,
         endTimeMs: endTime
       }
@@ -126,7 +125,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
           onCellClick={(cell: HeatMapDTO, rowData) => {
             if (cell.startTime && cell.endTime) {
               openDrillDown({
-                categoryRiskScore: cell.riskScore ? Math.floor(cell.riskScore * 100) : 0,
+                categoryRiskScore: isNumber(cell.riskScore) ? Math.floor(cell.riskScore * 100) : -1,
                 analysisProps: {
                   startTime: cell.startTime,
                   endTime: cell.endTime,
