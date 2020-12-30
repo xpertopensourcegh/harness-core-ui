@@ -43,6 +43,16 @@ export default function CVVerificationJobsPage() {
       }) + '?step=3'
     )
 
+  const onEdit = (verificationId: string) =>
+    history.push(
+      routes.toCVAdminSetupVerificationJobEdit({
+        accountId,
+        projectIdentifier,
+        orgIdentifier,
+        verificationId
+      })
+    )
+
   const onDelete = async (identifier?: string) => {
     await deleteVerificationJob('' as any, { queryParams: { accountId, identifier } })
     const { pageItemCount, pageIndex } = (data?.resource ?? {}) as any // TODO - swagger issue, remove when fixed
@@ -104,6 +114,7 @@ export default function CVVerificationJobsPage() {
         />
         {(loading || isDeleting) && <PageSpinner />}
         <Table<VerificationJobDTO>
+          onRowClick={val => onEdit(val.identifier!)}
           columns={[
             {
               Header: getString('name'),
@@ -157,7 +168,13 @@ export default function CVVerificationJobsPage() {
               Header: getString('execution.triggerType.WEBHOOK'),
               width: '15%',
               Cell: function WebHookCellWrapper(props: CellProps<VerificationJobDTO>) {
-                return <WebHookCell {...props} onDelete={() => onDelete(props.row.original.identifier)} />
+                return (
+                  <WebHookCell
+                    {...props}
+                    onDelete={() => onDelete(props.row.original.identifier)}
+                    onEdit={() => onEdit(props.row.original.identifier!)}
+                  />
+                )
               }
             }
           ]}
@@ -198,7 +215,7 @@ function TypeCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
       )
     case 'CANARY':
       return (
-        <Text icon="canary" iconProps={iconProps}>
+        <Text icon="canary-outline" iconProps={iconProps}>
           <String stringID="cv.admin.verificationJobs.jobTypes.canary" />
         </Text>
       )
@@ -251,7 +268,7 @@ function SensitivityCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element
   return <Text>{data.sensitivity}</Text>
 }
 
-function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): void }): JSX.Element {
+function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): void; onEdit(): void }): JSX.Element {
   const { getString } = useStrings()
   return (
     <Container flex>
@@ -262,6 +279,7 @@ function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): v
           jobName: tableProps.row.original.jobName
         })}
         onDelete={tableProps.onDelete}
+        onEdit={tableProps.onEdit}
       />
     </Container>
   )
