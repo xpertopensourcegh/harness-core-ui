@@ -1,0 +1,44 @@
+.firstep {
+  padding: var(--spacing-small) 0 0 var(--spacing-small) !important;
+
+  .heading {
+    color: var(--grey-800);
+    font-size: var(--font-size-medium);
+    letter-spacing: 0;
+  }
+
+  .connectorForm {
+    .formElm {
+      width: 54%;
+    }
+  }
+
+  :global {
+    .link {
+      cursor: pointer;
+      color: var(--blue-500);
+      &:hover {
+        color: var(--blue-600);
+      }
+    }
+    .bp3-input-group {
+      .bp3-input {
+        height: 36px;
+      }
+    }
+    textarea {
+      height: 96px;
+    }
+  }
+
+  .saveBtn {
+    border-radius: 6px;
+    height: 36px;
+    color: var(--blue-500) !important;
+    border-color: var(--blue-500) !important;
+    > span {
+      font-size: var(--font-size-normal);
+      letter-spacing: 0.2px;
+    }
+  }
+}

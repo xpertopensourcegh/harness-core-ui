@@ -139,7 +139,7 @@ export const buildKubPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-const getGithubAuthSpec = (formData: FormData) => {
+const getGitAuthSpec = (formData: FormData) => {
   const { authType = '' } = formData
   switch (authType) {
     case GitAuthTypes.USER_PASSWORD:
@@ -176,7 +176,50 @@ export const buildGithubPayload = (formData: FormData) => {
             ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
             : {
                 type: formData.authType,
-                spec: getGithubAuthSpec(formData)
+                spec: getGitAuthSpec(formData)
+              }
+      },
+      apiAccess: { type: formData.apiAuthType, spec: {} }
+    }
+  }
+
+  if (formData.enableAPIAccess) {
+    savedData.spec.apiAccess.spec =
+      formData.apiAuthType === GitAPIAuthTypes.TOKEN
+        ? {
+            tokenRef: formData.accessToken.referenceString
+          }
+        : {
+            installationId: formData.installationId,
+            applicationId: formData.applicationId,
+            privateKeyRef: formData.privateKey.referenceString
+          }
+  } else {
+    delete savedData.spec.apiAccess
+  }
+  return { connector: savedData }
+}
+
+export const buildGitlabPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData?.description,
+    projectIdentifier: formData?.projectIdentifier,
+    orgIdentifier: formData?.orgIdentifier,
+    identifier: formData.identifier,
+    tags: formData?.tags,
+    type: Connectors.GITLAB,
+    spec: {
+      type: formData.urlType,
+      url: formData.url,
+      authentication: {
+        type: formData.connectionType,
+        spec:
+          formData.connectionType === GitConnectionType.SSH
+            ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
+            : {
+                type: formData.authType,
+                spec: getGitAuthSpec(formData)
               }
       },
       apiAccess: { type: formData.apiAuthType, spec: {} }
@@ -203,9 +246,9 @@ export const buildGithubPayload = (formData: FormData) => {
 export const setSecretField = async (
   secretString: string,
   scopeQueryParams: GetSecretV2QueryParams
-): Promise<SecretReferenceInterface | null> => {
+): Promise<SecretReferenceInterface | void> => {
   if (!secretString) {
-    return null
+    return undefined
   } else {
     const secretScope = getScopeFromString(secretString)
 
@@ -231,7 +274,7 @@ export const setSecretField = async (
   }
 }
 
-export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
   const scopeQueryParams: GetSecretV2QueryParams = {
     accountIdentifier: accountId,
     projectIdentifier: connectorInfo.projectIdentifier,

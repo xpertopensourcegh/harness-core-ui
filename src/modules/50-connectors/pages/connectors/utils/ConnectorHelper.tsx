@@ -12,8 +12,8 @@ export const AuthTypes = {
 }
 
 export const GitAuthTypes = {
-  USER_PASSWORD: 'UsernameAndPassword',
-  USER_TOKEN: 'UsernameAndToken'
+  USER_PASSWORD: 'UsernamePassword',
+  USER_TOKEN: 'UsernameToken'
 }
 
 export const GitAPIAuthTypes = {
@@ -57,6 +57,8 @@ export const getHeadingByType = (type: string): string => {
       return i18n.gitConnectorDetails
     case Connectors.GITHUB:
       return i18n.githubConnectorDetails
+    case Connectors.GITLAB:
+      return i18n.githubConnectorDetails
     case Connectors.VAULT:
       return i18n.hashicorpVaultDetails
     case Connectors.GCP_KMS:
@@ -89,6 +91,8 @@ export const getConnectorTitleTextByType = (type: string): string => {
       return i18n.LABEL.gitConnector
     case Connectors.GITHUB:
       return i18n.LABEL.githubConnector
+    case Connectors.GITLAB:
+      return i18n.LABEL.gitlabConnector
     case Connectors.VAULT:
       return i18n.LABEL.hashicorpVault
     case Connectors.GCP_KMS:
@@ -121,6 +125,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-github'
     case Connectors.GITHUB:
       return 'github'
+    case Connectors.GITLAB:
+      return 'service-gotlab'
     case Connectors.VAULT:
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:

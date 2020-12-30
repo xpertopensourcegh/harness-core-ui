@@ -57,7 +57,7 @@ exports[`Create Github connector Wizard Gitsub step one 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
       </div>
       <div
@@ -126,7 +126,10 @@ exports[`Create Github connector Wizard Gitsub step one 1`] = `
                             <span
                               class="InputWithIdentifier---idInput--w8_T"
                               contenteditable="true"
-                            />
+                            >
+                              dummyname
+                              
+                            </span>
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
                               icon="edit"
@@ -173,7 +176,7 @@ exports[`Create Github connector Wizard Gitsub step one 1`] = `
                                   class="bp3-input"
                                   name="name"
                                   type="text"
-                                  value=""
+                                  value="dummyname"
                                 />
                               </div>
                             </div>
@@ -312,9 +315,9 @@ exports[`Create Github connector Wizard Gitsub step one 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="https://www.github.com/account/"
+                          placeholder="git@github.com:account/"
                           type="text"
-                          value=""
+                          value="githubTestUrl"
                         />
                       </div>
                     </div>
@@ -403,7 +406,7 @@ exports[`Create Github connector Wizard Gitsub step one 2`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
       </div>
       <div
@@ -472,7 +475,10 @@ exports[`Create Github connector Wizard Gitsub step one 2`] = `
                             <span
                               class="InputWithIdentifier---idInput--w8_T"
                               contenteditable="true"
-                            />
+                            >
+                              dummyname
+                              
+                            </span>
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
                               icon="edit"
@@ -519,7 +525,7 @@ exports[`Create Github connector Wizard Gitsub step one 2`] = `
                                   class="bp3-input"
                                   name="name"
                                   type="text"
-                                  value=""
+                                  value="dummyname"
                                 />
                               </div>
                             </div>
@@ -722,9 +728,9 @@ exports[`Create Github connector Wizard Gitsub step one 2`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="https://www.github.com/account/"
+                          placeholder="git@github.com:account/"
                           type="text"
-                          value=""
+                          value="githubTestUrl"
                         />
                       </div>
                     </div>
@@ -749,6 +755,555 @@ exports[`Create Github connector Wizard Gitsub step one 2`] = `
               </div>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Github connector Wizard Gitsub step one 3`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 24 24"
+            width="37"
+          >
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GitHub Connector
+      </span>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+      >
+        <span
+          class="StepWizard---completedIcon--yi-5"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          GitHub Connection Details
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          GitHub Connection Details
+        </p>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws stepFormWrapper"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---font-weight-bold--22XZ"
+                >
+                  Authentication
+                </p>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-0"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    SSH Key
+                  </label>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="align-items: center; width: 100%;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span>
+                          Create or Select a Secret
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="enableAPIAccess-1"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    >
+                      <input
+                        name="enableAPIAccess"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Enable API access
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save and Continue
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Github connector Wizard Gitsub step one 4`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 24 24"
+            width="37"
+          >
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GitHub Connector
+      </span>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+      >
+        <span
+          class="StepWizard---completedIcon--yi-5"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          GitHub Connection Details
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          GitHub Connection Details
+        </p>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws stepFormWrapper"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---font-weight-bold--22XZ"
+                >
+                  Authentication
+                </p>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-0"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    SSH Key
+                  </label>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="align-items: center; width: 100%;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span>
+                          Create or Select a Secret
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-danger--1PFK"
+                  >
+                    SSH key is required
+                  </p>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="enableAPIAccess-1"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    >
+                      <input
+                        name="enableAPIAccess"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Enable API access
+                    </label>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---margin-bottom-small--3Kji"
+                >
+                  API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses
+                </p>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+                >
+                  <span
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+                  >
+                    API Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="apiAuthType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Personal Access Token"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    Personal Access Token
+                  </label>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="align-items: center; width: 100%;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span>
+                          Create or Select a Secret
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-danger--1PFK"
+                  >
+                    Access token  is required
+                  </p>
+                </div>
+                 
+              </div>
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save and Continue
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -813,7 +1368,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
       </div>
       <div
@@ -1086,7 +1641,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                           name="url"
                           placeholder="https://www.github.com/account/"
                           type="text"
-                          value="https://github.com/sunnykesh"
+                          value="https://github.com/dev"
                         />
                       </div>
                     </div>
@@ -1193,7 +1748,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
       </div>
       <div
@@ -1223,7 +1778,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
         <p
           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
         <div
           class="OverlaySpinner---overlaySpinner--3Bs3"
@@ -1322,7 +1877,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         class="bp3-input"
                         name="username"
                         type="text"
-                        value="sunnykesh"
+                        value="dev"
                       />
                     </div>
                   </div>
@@ -1448,368 +2003,6 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
         GitHub Connector
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
-      >
-        <span
-          class="StepWizard---number--1LKy"
-        >
-          1
-        </span>
-        <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Overview
-        </p>
-      </div>
-      <div
-        class="StepWizard---navStep--2trN"
-      >
-        <span
-          class="StepWizard---number--1LKy"
-        >
-          2
-        </span>
-        <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Github Connection Details
-        </p>
-      </div>
-      <div
-        class="StepWizard---navStep--2trN"
-      >
-        <span
-          class="StepWizard---number--1LKy"
-        >
-          3
-        </span>
-        <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Test Connection
-        </p>
-      </div>
-    </div>
-    <div
-      class="StepWizard---stepDetails--Uaxx"
-    >
-       
-      <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
-      >
-        <div
-          class="heading"
-        >
-          GitHub Connector Overview
-        </div>
-        <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
-        >
-          <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
-          >
-            <form
-              class="FormikForm---main--1N87"
-            >
-              <div>
-                <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                  style="min-height: 460px;"
-                >
-                  <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
-                  >
-                    <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
-                    >
-                      <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
-                      >
-                        <div
-                          class="InputWithIdentifier---txtNameContainer--20iZ"
-                        >
-                          <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
-                          >
-                            <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                            >
-                              ID
-                              :
-                            </p>
-                            <span
-                              class="InputWithIdentifier---idInput--w8_T"
-                              contenteditable="false"
-                              disabled=""
-                            >
-                              asasas
-                            </span>
-                          </div>
-                          <div
-                            class="bp3-form-group"
-                            data-id="name-0"
-                          >
-                            <label
-                              class="bp3-label"
-                              for="name"
-                            >
-                              Name
-                               
-                              <span
-                                class="bp3-text-muted"
-                              />
-                            </label>
-                            <div
-                              class="bp3-form-content"
-                            >
-                              <div
-                                class="bp3-input-group"
-                              >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="name"
-                                  type="text"
-                                  value="GithubWorking1"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
-                        style="justify-content: center;"
-                      >
-                        <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
-                        >
-                          + Tags
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
-                    >
-                      <div
-                        class="bp3-form-group expandedDescription"
-                        data-id="description-1"
-                      >
-                        <label
-                          class="bp3-label"
-                          for="description"
-                        >
-                          <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
-                          >
-                            <span
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                            >
-                              Description
-                            </span>
-                            <span
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
-                            >
-                              remove
-                            </span>
-                          </div>
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <textarea
-                            autocomplete="off"
-                            class="bp3-input bp3-fill"
-                            name="description"
-                          >
-                            connector before demo
-                          </textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                  >
-                    URL Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="urlType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                        >
-                          <input
-                            checked=""
-                            name="urlType"
-                            type="radio"
-                            value="Account"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          Git Account
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                        >
-                          <input
-                            name="urlType"
-                            type="radio"
-                            value="Repo"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          Git Repository
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                  >
-                    Connection Type
-                  </p>
-                  <div
-                    class="bp3-form-group"
-                    data-id="connectionType-3"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                        >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTPS
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group formElm"
-                    data-id="url-4"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="url"
-                    >
-                      GitHub Account URL
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="url"
-                          placeholder="https://www.github.com/account/"
-                          type="text"
-                          value="https://github.com/sunnykesh"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
-                >
-                  <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-                    type="submit"
-                  >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      <span>
-                        Save and Continue
-                      </span>
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Create Github connector Wizard should form for edit http and authtype username-token with API access 2`] = `
-<div>
-  <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
-  >
-    <div
-      class="StepWizard---navBarList--2ILN"
-    >
-      <span
-        class="StepWizard---header--2qTm"
-      >
-        <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-        >
-          <svg
-            height="37"
-            viewBox="0 0 24 24"
-            width="37"
-          >
-            <path
-              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
-      >
-        GitHub Connector
-      </span>
-      <div
         class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
       >
         <span
@@ -1854,7 +2047,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
       </div>
       <div
@@ -1884,7 +2077,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
         <p
           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
         >
-          Github Connection Details
+          GitHub Connection Details
         </p>
         <div
           class="OverlaySpinner---overlaySpinner--3Bs3"
@@ -1983,7 +2176,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         class="bp3-input"
                         name="username"
                         type="text"
-                        value="sunnykesh"
+                        value="dev"
                       />
                     </div>
                   </div>
@@ -2242,6 +2435,423 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       </span>
                     </button>
                   </div>
+                </div>
+                 
+              </div>
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save and Continue
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Github connector Wizard should form for edit http and authtype username-token with API access 2`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 24 24"
+            width="37"
+          >
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GitHub Connector
+      </span>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+      >
+        <span
+          class="StepWizard---completedIcon--yi-5"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          GitHub Connection Details
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          GitHub Connection Details
+        </p>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws stepFormWrapper"
+              >
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+                >
+                  <span
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group"
+                    data-id="authType-0"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Username and Token"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="username-1"
+                >
+                  <label
+                    class="bp3-label"
+                    for="username"
+                  >
+                    Username
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="username"
+                        type="text"
+                        value="dev"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-2"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    Personal Access Token
+                  </label>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="align-items: center; width: 100%;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span>
+                          githubPassword
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="enableAPIAccess-3"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    >
+                      <input
+                        checked=""
+                        name="enableAPIAccess"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Enable API access
+                    </label>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---margin-bottom-small--3Kji"
+                >
+                  API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses
+                </p>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+                >
+                  <span
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+                  >
+                    API Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group"
+                    data-id="apiAuthType-4"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="apiAuthType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Personal Access Token"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-5"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    Personal Access Token
+                  </label>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="align-items: center; width: 100%;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span>
+                          githubPassword
+                        </span>
+                      </div>
+                    </span>
+                  </button>
                 </div>
                  
               </div>

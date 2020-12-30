@@ -17,7 +17,7 @@ import {
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
-  buildGithubPayload,
+  buildGitlabPayload,
   SecretReferenceInterface,
   setupGitFormData,
   GitConnectionType
@@ -35,20 +35,20 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
 import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import css from './StepGithubAuthentication.module.scss'
+import css from './StepGitlabAuthentication.module.scss'
 
-interface StepGithubAuthenticationProps extends ConnectorInfoDTO {
+interface StepGitlabAuthenticationProps extends ConnectorInfoDTO {
   name: string
   isEditMode?: boolean
 }
 
-interface GithubAuthenticationProps {
+interface GitlabAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   connectorInfo: ConnectorInfoDTO | void
 }
 
-interface GithubFormInterface {
+interface GitlabFormInterface {
   connectionType: string
   authType: string
   username: string
@@ -62,7 +62,7 @@ interface GithubFormInterface {
   apiAuthType: string
 }
 
-const defaultInitialFormData: GithubFormInterface = {
+const defaultInitialFormData: GitlabFormInterface = {
   connectionType: GitConnectionType.HTTPS,
   authType: GitAuthTypes.USER_PASSWORD,
   username: '',
@@ -76,7 +76,7 @@ const defaultInitialFormData: GithubFormInterface = {
   apiAuthType: GitAPIAuthTypes.TOKEN
 }
 
-const RenderGithubAuthForm: React.FC<FormikProps<GithubFormInterface>> = props => {
+const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props => {
   const { getString } = useStrings()
   switch (props.values.authType) {
     case GitAuthTypes.USER_PASSWORD:
@@ -98,21 +98,9 @@ const RenderGithubAuthForm: React.FC<FormikProps<GithubFormInterface>> = props =
   }
 }
 
-const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props => {
+const RenderAPIAccessForm: React.FC<FormikProps<GitlabFormInterface>> = props => {
   const { getString } = useStrings()
   switch (props.values.apiAuthType) {
-    case GitAPIAuthTypes.GITHUB_APP:
-      return (
-        <>
-          <Container className={css.formRow}>
-            <FormInput.Text name="installationId" label={getString('connectors.git.installationId')} />
-            <FormInput.Text name="applicationId" label={getString('connectors.git.applicationId')} />
-          </Container>
-          <Container className={css.formRow}>
-            <SecretInput name="privateKey" label={getString('connectors.git.privateKey')} />
-          </Container>
-        </>
-      )
     case GitAPIAuthTypes.TOKEN:
       return (
         <>
@@ -124,17 +112,13 @@ const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props =>
   }
 }
 
-const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = formikProps => {
+const RenderAPIAccessFormWrapper: React.FC<FormikProps<GitlabFormInterface>> = formikProps => {
   const { getString } = useStrings()
 
   const apiAuthOptions: Array<SelectOption> = [
     {
       label: getString('connectors.git.accessToken'),
       value: GitAPIAuthTypes.TOKEN
-    },
-    {
-      label: getString('connectors.git.gitHubApp'),
-      value: GitAPIAuthTypes.GITHUB_APP
     }
   ]
 
@@ -154,8 +138,8 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
   )
 }
 
-const StepGithubAuthentication: React.FC<
-  StepProps<StepGithubAuthenticationProps> & GithubAuthenticationProps
+const StepGitlabAuthentication: React.FC<
+  StepProps<StepGitlabAuthenticationProps> & GitlabAuthenticationProps
 > = props => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -186,7 +170,7 @@ const StepGithubAuthentication: React.FC<
       await createConnector(data)
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullCreate', { name: prevStepData?.name }))
-      nextStep?.({ ...prevStepData, ...stepData } as StepGithubAuthenticationProps)
+      nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -200,7 +184,7 @@ const StepGithubAuthentication: React.FC<
       await updateConnector(data)
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullUpdate', { name: prevStepData?.name }))
-      nextStep?.({ ...prevStepData, ...stepData } as StepGithubAuthenticationProps)
+      nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
@@ -211,7 +195,7 @@ const StepGithubAuthentication: React.FC<
     if (loadingConnectorSecrets) {
       if (props.isEditMode && props.connectorInfo) {
         setupGitFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as GithubFormInterface)
+          setInitialValues(data as GitlabFormInterface)
           setLoadingConnectorSecrets(false)
         })
       }
@@ -223,7 +207,7 @@ const StepGithubAuthentication: React.FC<
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.git.githubStepTwoName')}
+        {getString('connectors.git.gitlabStepTwoName')}
       </Text>
 
       <Formik
@@ -241,9 +225,8 @@ const StepGithubAuthentication: React.FC<
             then: Yup.object().required(getString('validation.sshKey')),
             otherwise: Yup.object().nullable()
           }),
-          password: Yup.object().when(['connectionType', 'authType'], {
-            is: (connectionType, authType) =>
-              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_PASSWORD,
+          password: Yup.object().when('authType', {
+            is: val => val === GitAuthTypes.USER_PASSWORD,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
           }),
@@ -254,22 +237,9 @@ const StepGithubAuthentication: React.FC<
             then: Yup.object().required(getString('validation.accessToken')),
             otherwise: Yup.object().nullable()
           }),
-          privateKey: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
-            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
-            then: Yup.object().required(getString('validation.privateKey')),
-            otherwise: Yup.object().nullable()
-          }),
           apiAuthType: Yup.string().when('enableAPIAccess', {
             is: val => val,
             then: Yup.string().trim().required(getString('validation.authType'))
-          }),
-          installationId: Yup.string().when('apiAuthType', {
-            is: val => val === GitAPIAuthTypes.GITHUB_APP,
-            then: Yup.string().trim().required(getString('validation.installationId'))
-          }),
-          applicationId: Yup.string().when('apiAuthType', {
-            is: val => val === GitAPIAuthTypes.GITHUB_APP,
-            then: Yup.string().trim().required(getString('validation.applicationId'))
           })
         })}
         onSubmit={stepData => {
@@ -279,7 +249,8 @@ const StepGithubAuthentication: React.FC<
             projectIdentifier: projectIdentifier,
             orgIdentifier: orgIdentifier
           }
-          const data = buildGithubPayload(connectorData)
+
+          const data = buildGitlabPayload(connectorData)
 
           if (props.isEditMode) {
             handleUpdate(data, stepData)
@@ -308,7 +279,7 @@ const StepGithubAuthentication: React.FC<
                     <FormInput.Select name="authType" items={authOptions} disabled={false} />
                   </Container>
 
-                  <RenderGithubAuthForm {...formikProps} />
+                  <RenderGitlabAuthForm {...formikProps} />
                 </>
               )}
 
@@ -334,4 +305,4 @@ const StepGithubAuthentication: React.FC<
   )
 }
 
-export default StepGithubAuthentication
+export default StepGitlabAuthentication

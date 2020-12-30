@@ -45,6 +45,8 @@ const getLabelByType = (type: string): string => {
       return i18n.NAME_LABEL.GIT
     case Connectors.GITHUB:
       return i18n.NAME_LABEL.Github
+    case Connectors.GITLAB:
+      return i18n.NAME_LABEL.Gitlab
     case Connectors.DOCKER:
       return i18n.NAME_LABEL.Docker
     case Connectors.GCP:
@@ -392,6 +394,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getGitSchema(connector)
     case Connectors.GITHUB:
       return getGithubSchema(connector)
+    case Connectors.GITLAB:
+      return getGithubSchema(connector) // GitHub schema will work for GitLab too
     case Connectors.DOCKER:
       return getDockerSchema(connector)
     case Connectors.GCP:

@@ -28,7 +28,7 @@ import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDes
 import { String, useStrings } from 'framework/exports'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
-import css from './ConnectorDetailsStep.module.scss'
+import css from './GitlabDetailsStep.module.scss'
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
@@ -51,7 +51,7 @@ interface DetailsStepInterface {
   url: string
 }
 
-const GithubDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
+const GitlabDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const mounted = useRef(false)
@@ -195,13 +195,13 @@ const GithubDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetai
                     name="url"
                     label={
                       formikProps.values.urlType === GitUrlType.ACCOUNT
-                        ? getString('connectors.git.gitHubAccountUrl')
-                        : getString('connectors.git.gitHubRepoUrl')
+                        ? getString('connectors.git.gitLabAccountUrl')
+                        : getString('connectors.git.gitLabRepoUrl')
                     }
                     placeholder={
                       formikProps.values.connectionType === GitConnectionType.HTTPS
-                        ? getString('connectors.git.gitHubUrlPlaceholder')
-                        : getString('connectors.git.gitHubUrlPlaceholderSSH')
+                        ? getString('connectors.git.gitLabUrlPlaceholder')
+                        : getString('connectors.git.gitLabUrlPlaceholderSSH')
                     }
                   />
                 </Container>
@@ -219,4 +219,4 @@ const GithubDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetai
   )
 }
 
-export default GithubDetailsStep
+export default GitlabDetailsStep

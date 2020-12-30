@@ -597,10 +597,14 @@ global:
     matchPattern: Invalid value, please look for info above to read more
     duplicateIdError: 'Duplicate identifier'
     username: 'Username is a required field'
+    password: 'Password is a required field'
     authType: 'Auth type is required'
     installationId: 'GitHub Installation ID is required'
     applicationId: 'GitHub Application ID is required'
     UrlRequired: URL is required
+    sshKey: SSH key is required
+    privateKey: 'GitHub Private Key is required'
+    accessToken: Access token  is required
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
     tagsRequired: Tags is a required field
     environmentVariablesRequired: Environment Variables is a required field
@@ -624,6 +628,8 @@ global:
     stepThreeName: 'Test Connection'
     authTitle: 'Authentication'
     updating: Updating connector
+    successfullCreate: 'Connector {{name}} created successfully'
+    successfullUpdate: 'Connector {{name}} updated successfully'
     connectorNotFound: Connector not found.
     yamlError: Invalid or malformed yaml. Please fix the yaml and try again.
     k8:
@@ -653,14 +659,20 @@ global:
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
     git:
-      stepTwoName: 'Github Connection Details'
+      githubStepTwoName: 'GitHub Connection Details'
+      gitlabStepTwoName: 'GitLab Connection Details'
       urlType: 'URL Type'
       gitAccount: 'Git Account'
       gitRepository: 'Git Repository'
       connectionType: 'Connection Type'
-      url: 'GitHub Account URL'
-      urlPlaceholder: 'https://www.github.com/account/'
-      urlPlaceholderSSH: 'git@github.com:account/'
+      gitHubAccountUrl: 'GitHub Account URL'
+      gitLabAccountUrl: 'Gitlab Account URL'
+      gitHubRepoUrl: 'GitHub Repository URL'
+      gitLabRepoUrl: 'GitLab Repository URL'
+      gitHubUrlPlaceholder: 'https://www.github.com/account/'
+      gitHubUrlPlaceholderSSH: 'git@github.com:account/'
+      gitLabUrlPlaceholder: 'https://www.gitlab.com/account/'
+      gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
       accessToken: 'Personal Access Token'
       enableAPIAccess: 'Enable API access'
       APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'

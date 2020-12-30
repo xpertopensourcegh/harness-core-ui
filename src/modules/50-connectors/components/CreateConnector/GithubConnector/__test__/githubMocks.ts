@@ -9,12 +9,12 @@ export const usernamePassword = {
   tags: {},
   type: 'Github',
   spec: {
-    url: 'https://github.com/sunnykesh',
+    url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
       spec: {
-        type: 'UsernameAndPassword',
-        spec: { username: 'sunnykesh', usernameRef: null, passwordRef: 'account.githubPassword' }
+        type: 'UsernamePassword',
+        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
       }
     },
     apiAccess: null,
@@ -22,7 +22,7 @@ export const usernamePassword = {
   }
 }
 
-export const usernameTokenWithAPIAccess = {
+export const usernameTokenWithAPIAccessGithubApp = {
   name: 'GithubWorking1',
   identifier: 'asasas',
   description: 'connector before demo',
@@ -31,17 +31,42 @@ export const usernameTokenWithAPIAccess = {
   tags: {},
   type: 'Github',
   spec: {
-    url: 'https://github.com/sunnykesh',
+    url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
       spec: {
-        type: 'UsernameAndToken',
-        spec: { username: 'sunnykesh', usernameRef: null, tokenRef: 'account.githubPassword' }
+        type: 'UsernameToken',
+        spec: { username: 'dev', usernameRef: null, tokenRef: 'account.githubPassword' }
       }
     },
     apiAccess: {
       type: 'GithubApp',
       spec: { installationId: '1234', applicationId: '1234', privateKeyRef: 'account.githubPassword' }
+    },
+    type: 'Account'
+  }
+}
+
+export const usernameTokenWithAPIAccessToken = {
+  name: 'GithubWorking1',
+  identifier: 'asasas',
+  description: 'connector before demo',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  tags: {},
+  type: 'Github',
+  spec: {
+    url: 'https://github.com/dev',
+    authentication: {
+      type: 'Http',
+      spec: {
+        type: 'UsernameToken',
+        spec: { username: 'dev', usernameRef: null, tokenRef: 'account.githubPassword' }
+      }
+    },
+    apiAccess: {
+      type: 'Token',
+      spec: { tokenRef: 'account.githubPassword' }
     },
     type: 'Account'
   }

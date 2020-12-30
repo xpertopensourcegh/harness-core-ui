@@ -3,19 +3,13 @@ import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
-import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
+import { InputTypes, clickSubmit, fillAtForm } from '@common/utils/JestFormHelper'
 
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import i18n from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags.i18n'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import CreateGithubConnector from '../CreateGithubConnector'
-import {
-  mockResponse,
-  mockSecret,
-  usernamePassword,
-  usernameTokenWithAPIAccessGithubApp,
-  usernameTokenWithAPIAccessToken
-} from './githubMocks'
+import CreateGitlabConnector from '../CreateGitlabConnector'
+import { mockResponse, mockSecret, sshAuthWithAPIAccessToken, usernamePassword } from './gitlabMocks'
 
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
@@ -30,13 +24,13 @@ jest.mock('services/cd-ng', () => ({
   getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
 }))
 
-describe('Create Github connector Wizard', () => {
-  test('Gitsub step one', async () => {
+describe('Create Gitlab connector Wizard', () => {
+  test('Creating gitlab step one for SSH key', async () => {
     const description = 'dummy description'
 
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGithubConnector
+        <CreateGitlabConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={false}
@@ -78,7 +72,7 @@ describe('Create Github connector Wizard', () => {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'url',
-        value: 'githubTestUrl'
+        value: 'gitlabTestUrl'
       }
     ])
 
@@ -93,50 +87,83 @@ describe('Create Github connector Wizard', () => {
     })
     //step 2
     expect(container).toMatchSnapshot()
-    fillAtForm([
-      {
-        container,
-        type: InputTypes.CHECKBOX,
-        fieldId: 'enableAPIAccess'
-      }
-    ])
     await act(async () => {
       clickSubmit(container)
     })
-    expect(container).toMatchSnapshot() //Form validation for required fields
+    expect(container).toMatchSnapshot() // Form validation for all required fields
     expect(createConnector).toBeCalledTimes(0)
   })
 
-  test('should form for edit http and authtype username', async () => {
-    const { container } = render(
+  test('Creating gitlab step one and step two for HTTPS', async () => {
+    const description = 'dummy description'
+
+    const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGithubConnector
+        <CreateGitlabConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
-          isEditMode={true}
-          connectorInfo={usernamePassword as ConnectorInfoDTO}
+          isEditMode={false}
+          connectorInfo={(null as unknown) as void}
           mock={mockResponse}
         />
       </TestWrapper>
     )
 
-    expect(container).toMatchSnapshot()
+    expect(queryByText(container, 'Name')).not.toBeNull()
+    fireEvent.click(getByText(i18n.addDescriptionLabel))
+    // fill step 1
+    fillAtForm([
+      {
+        container,
+        type: InputTypes.TEXTFIELD,
+        fieldId: 'name',
+        value: 'dummyname'
+      },
+      {
+        container,
+        type: InputTypes.TEXTAREA,
+        fieldId: 'description',
+        value: description
+      },
+      {
+        container,
+        type: InputTypes.RADIOS,
+        fieldId: 'urlType',
+        value: GitUrlType.REPO
+      },
+      {
+        container,
+        type: InputTypes.RADIOS,
+        fieldId: 'connectionType',
+        value: GitConnectionType.HTTPS
+      },
+      {
+        container,
+        type: InputTypes.TEXTFIELD,
+        fieldId: 'url',
+        value: 'gitlabTestUrl'
+      }
+    ])
     await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
+      clickSubmit(container)
     })
-    // step 2
-    expect(queryByText(container, 'Enable API access')).toBeDefined()
-    expect(container).toMatchSnapshot()
+    //step 2
+    await act(async () => {
+      clickSubmit(container)
+    })
+    expect(container).toMatchSnapshot() // Form validation for all required fields
+    expect(createConnector).toBeCalledTimes(0)
   })
 
-  test('should form for edit http and authtype username-token with API access', async () => {
+  test('should be able to edit ssh with API access', async () => {
+    updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGithubConnector
+        <CreateGitlabConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
-          connectorInfo={usernameTokenWithAPIAccessGithubApp as ConnectorInfoDTO}
+          connectorInfo={sshAuthWithAPIAccessToken as ConnectorInfoDTO}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -156,41 +183,40 @@ describe('Create Github connector Wizard', () => {
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
       connector: {
-        description: 'connector before demo',
+        description: 'connector description',
         identifier: 'asasas',
-        name: 'GithubWorking1',
+        name: 'GitlabWorking',
         orgIdentifier: undefined,
         projectIdentifier: undefined,
         spec: {
           type: 'Account',
-          url: 'https://github.com/dev',
+          url: 'https://gitlab.com/dev',
           authentication: {
-            type: 'Http',
-            spec: { type: 'UsernameToken', spec: { tokenRef: 'account.githubPassword', username: 'dev' } }
+            type: 'Ssh',
+            spec: { spec: { sshKeyRef: 'account.gitlabPassword' } }
           },
           apiAccess: {
-            type: 'GithubApp',
+            type: 'Token',
             spec: {
-              applicationId: '1234',
-              installationId: '1234',
-              privateKeyRef: 'account.githubPassword'
+              tokenRef: 'account.gitlabPassword'
             }
           }
         },
         tags: {},
-        type: 'Github'
+        type: 'Gitlab'
       }
     })
   })
 
-  test('should form for edit http and authtype username-token with API access', async () => {
+  test('should be able to edit  usernamePassword without API access', async () => {
+    updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGithubConnector
+        <CreateGitlabConnector
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
-          connectorInfo={usernameTokenWithAPIAccessToken as ConnectorInfoDTO}
+          connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
         />
       </TestWrapper>
@@ -201,5 +227,31 @@ describe('Create Github connector Wizard', () => {
     // step 2
     expect(queryByText(container, 'Enable API access')).toBeDefined()
     expect(container).toMatchSnapshot()
+
+    //updating connector
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    expect(updateConnector).toBeCalledTimes(1)
+    expect(updateConnector).toBeCalledWith({
+      connector: {
+        description: 'connector description',
+        identifier: 'asasas',
+        name: 'GitlabWorking',
+        orgIdentifier: undefined,
+        projectIdentifier: undefined,
+        spec: {
+          type: 'Account',
+          url: 'https://gitlab.com/dev',
+          authentication: {
+            type: 'Http',
+            spec: { type: 'UsernamePassword', spec: { passwordRef: 'account.gitlabPassword', username: 'dev' } }
+          }
+        },
+        tags: {},
+        type: 'Gitlab'
+      }
+    })
   })
 })

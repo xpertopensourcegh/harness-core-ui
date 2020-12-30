@@ -3,6 +3,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import CreateGITConnector from '../CreateConnector/GITConnector/CreateGITConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
+import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
 import CreateK8sConnector from '../CreateConnector/K8sConnector/CreateK8sConnector'
 import CreateHashiCorpVault from '../CreateConnector/HashiCorpVault/CreateHashiCorpVault'
 import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector'
@@ -50,6 +51,15 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.GITHUB:
       return (
         <CreateGithubConnector
+          onConnectorCreated={props.onSuccess}
+          hideLightModal={hideLightModal}
+          isEditMode={props.isEditMode}
+          connectorInfo={props.connectorInfo}
+        />
+      )
+    case Connectors.GITLAB:
+      return (
+        <CreateGitlabConnector
           onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
           isEditMode={props.isEditMode}
