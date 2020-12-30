@@ -2,6 +2,7 @@ import React from 'react'
 import { connect, FormikContext } from 'formik'
 import { Layout, Icon, Button, Text } from '@wings-software/uikit'
 
+import { get } from 'lodash-es'
 import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretModal/useCreateOrSelectSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type {
@@ -55,7 +56,9 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
           </Layout.Horizontal>
         }
       />
-      {formik.touched && formik.errors[name] ? <Text intent={'danger'}>{formik.errors[name]}</Text> : null}
+      {(get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) && formik.errors[name] ? (
+        <Text intent={'danger'}>{formik.errors[name]}</Text>
+      ) : null}
     </div>
   )
 }
