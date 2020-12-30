@@ -1,10 +1,12 @@
 import moment from 'moment'
+import type { ActivityDashboardDTO } from 'services/cv'
 import type { Activity } from '../ActivityTrack/ActivityTrackUtils'
 
 export type ScrubberLaneActivity = {
   riskScores: number[] // all scores that are aggregated
   overallRiskScore: number // an average score for each activity in activities array
   positionTop: number // position from top of the scrubber lane value
+  status: ActivityDashboardDTO['verificationStatus'] // indicates whether the verfication passed or failed
 }
 
 export function getMonthIncrements(startTime: number, endTime: number): number[] {
@@ -42,7 +44,8 @@ export function positionScrubberPoints(
     {
       riskScores: [activities[0].riskScore],
       overallRiskScore: activities[0].riskScore,
-      positionTop: (scrubberLaneHeight * (timelineStartTime - activities[0].startTime)) / totalTimeDifference
+      positionTop: (scrubberLaneHeight * (timelineStartTime - activities[0].startTime)) / totalTimeDifference,
+      status: activities[0].activityStatus
     }
   ]
 
@@ -59,7 +62,8 @@ export function positionScrubberPoints(
       laneActivities.push({
         riskScores: [activity.riskScore],
         overallRiskScore: activity.riskScore,
-        positionTop
+        positionTop,
+        status: activity.activityStatus
       })
     }
   }

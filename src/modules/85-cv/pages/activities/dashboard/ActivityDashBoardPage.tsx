@@ -12,7 +12,7 @@ import { ActivityTimeline } from './ActivityTimeline/ActivityTimeline'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import { DeploymentSummaryCardView } from './SummaryCardViews/DeploymentSummaryCardView/DeploymentSummaryCardView'
 import type { ActivityTrackProps } from './ActivityTimeline/ActivityTrack/ActivityTrack'
-import { aggregateActivityByType } from './ActivityDashboardPageUtils'
+import { aggregateActivityByType, activityStatusToColor } from './ActivityDashboardPageUtils'
 import css from './ActivityDashBoardPage.module.scss'
 
 interface ActivityCardContentProps {
@@ -44,7 +44,7 @@ function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
       <CircularPercentageChart
         value={activity.progress}
         size={30}
-        color={Color.BLUE_500}
+        color={activityStatusToColor(activity.activityStatus)}
         icon={activity?.activityType ? ActivityTypesToIcon[activity.activityType] : { name: 'circle', size: 20 }}
         font={{ size: 'small' }}
       />
@@ -66,7 +66,7 @@ function AggregateActivityCard(props: AggregateActivityCardPrps): JSX.Element {
   return (
     <Container>
       <CircularPercentageChart
-        value={100}
+        value={0}
         size={30}
         color={Color.BLUE_500}
         icon={

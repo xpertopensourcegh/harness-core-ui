@@ -1,10 +1,9 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Container } from '@wings-software/uikit'
-import cx from 'classnames'
 import Draggable from 'react-draggable'
-import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
 import { getScrubberLaneDataHeight, positionScrubberPoints } from './ActivityTimelineScrubberUtils'
 import type { Activity } from '../ActivityTrack/ActivityTrackUtils'
+import { activityStatusToColor } from '../../ActivityDashboardPageUtils'
 import css from './ActivityTimelineScrubber.module.scss'
 
 export interface ActivityTimelineScrubberProps {
@@ -61,7 +60,6 @@ export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): 
   } = props
   const [laneHeight, setlaneHeight] = useState<number | undefined>()
   const laneRef = useRef<HTMLDivElement>(null)
-
   useLayoutEffect(() => {
     setlaneHeight(timelineContainerRef?.getBoundingClientRect().height || 0)
   }, [timelineContainerRef?.getBoundingClientRect])
@@ -90,10 +88,8 @@ export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): 
               height={4}
               width={4}
               key={activity.positionTop}
-              className={cx(
-                css.activity,
-                activity.overallRiskScore > -1 ? getColorStyle(activity.overallRiskScore, 0, 100) : css.noRiskScore
-              )}
+              background={activityStatusToColor(activity.status)}
+              className={css.activityDot}
               style={{ position: 'absolute', top: activity.positionTop }}
             />
           ))}

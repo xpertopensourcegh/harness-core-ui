@@ -1,5 +1,6 @@
 import { isNumber } from 'lodash-es'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { Color } from '@wings-software/uikit'
 import type { UseStringsReturn } from 'framework/exports'
 import type { ActivityDashboardDTO } from 'services/cv'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'
@@ -41,4 +42,19 @@ export function aggregateActivityByType(
   }
 
   return aggregatedEvents
+}
+
+export function activityStatusToColor(status: ActivityDashboardDTO['verificationStatus']): string {
+  switch (status) {
+    case 'VERIFICATION_FAILED':
+    case 'ERROR':
+      return Color.RED_500
+    case 'IN_PROGRESS':
+      return Color.BLUE_500
+    case 'VERIFICATION_PASSED':
+      return Color.GREEN_500
+    case 'NOT_STARTED':
+    default:
+      return Color.GREY_350
+  }
 }

@@ -2,10 +2,6 @@
   cursor: grabbing !important;
 }
 
-.noRiskScore {
-  background-color: var(--grey-350) !important;
-}
-
 .scrubber {
   width: 80% !important;
   position: absolute;
@@ -35,7 +31,7 @@
       &:not(:last-of-type) {
         margin-right: 9px !important;
       }
-      .activity {
+      .activityDot {
         border-radius: 50%;
         opacity: 0.7;
       }
