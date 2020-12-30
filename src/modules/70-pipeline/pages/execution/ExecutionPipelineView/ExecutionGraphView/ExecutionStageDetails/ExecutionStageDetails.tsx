@@ -14,10 +14,26 @@ import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType,
   ExecutionPipeline,
-  StageOptions
+  StageOptions,
+  ExecutionPipelineItem,
+  ExecutionPipelineGroupInfo
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 
 import css from './ExecutionStageDetails.module.scss'
+
+export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
+
+// TODO: remove use DTO
+export interface ServiceDependency {
+  identifier: string
+  name: string | null
+  image: string
+  status: string
+  startTime: string
+  endTime: string | null
+  errorMessage: string | null
+  errorReason: string | null
+}
 
 export interface ExecutionStageDetailsProps {
   onStepSelect(step?: string): void
@@ -50,10 +66,51 @@ const IconsMap: { [key in StepTypes]: IconName } = {
   HTTP: 'command-http'
 }
 
+const addServiceToArray = (service: ServiceDependency, arr: ExecutionPipelineNode<ExecutionNode>[]): void => {
+  const stepItem: ExecutionPipelineItem<ExecutionNode> = {
+    identifier: service.identifier as string,
+    name: service.name as string,
+    type: ExecutionPipelineNodeType.NORMAL,
+    status: service.status as any,
+    icon: 'dependency-step',
+    data: service as ExecutionNode
+  }
+
+  // add step node
+  const stepNode: ExecutionPipelineNode<ExecutionNode> = { item: stepItem }
+  arr.push(stepNode)
+}
+
+const addDependencies = (
+  dependencies: ServiceDependency[],
+  stepsPipelineNodes: ExecutionPipelineNode<ExecutionNode>[]
+): void => {
+  if (dependencies && dependencies.length > 0) {
+    const items: ExecutionPipelineNode<ExecutionNode>[] = []
+
+    dependencies.forEach(_service => addServiceToArray(_service, items))
+
+    const dependenciesGroup: ExecutionPipelineGroupInfo<ExecutionNode> = {
+      identifier: STATIC_SERVICE_GROUP_NAME,
+      name: 'Dependencies', // TODO: use getString('execution.dependencyGroupName'),
+      status: '' as any,
+      data: {},
+      icon: 'step-group',
+      showLines: false,
+      isOpen: true,
+      items: [{ parallel: items }]
+    }
+
+    // dependency goes at the begining
+    stepsPipelineNodes.unshift({ group: dependenciesGroup })
+  }
+}
+
 const processNodeData = (
   children: string[],
   nodeMap: ExecutionGraph['nodeMap'],
-  nodeAdjacencyListMap: ExecutionGraph['nodeAdjacencyListMap']
+  nodeAdjacencyListMap: ExecutionGraph['nodeAdjacencyListMap'],
+  rootNodes: Array<ExecutionPipelineNode<ExecutionNode>>
 ): Array<ExecutionPipelineNode<ExecutionNode>> => {
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
   children?.forEach(item => {
@@ -63,7 +120,8 @@ const processNodeData = (
         parallel: processNodeData(
           nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
           nodeMap,
-          nodeAdjacencyListMap
+          nodeAdjacencyListMap,
+          rootNodes
         )
       })
     } else if (nodeData?.stepType === StepTypes.SECTION_CHAIN || nodeData?.stepType === StepTypes.SECTION) {
@@ -79,21 +137,31 @@ const processNodeData = (
           items: processNodeData(
             nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
             nodeMap,
-            nodeAdjacencyListMap
+            nodeAdjacencyListMap,
+            rootNodes
           )
         }
       })
     } else {
-      items.push({
-        item: {
-          name: nodeData?.name || /* istanbul ignore next */ '',
-          icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
-          identifier: item,
-          status: nodeData?.status as any,
-          type: ExecutionPipelineNodeType.NORMAL,
-          data: nodeData
-        }
-      })
+      if (nodeData?.stepType === 'LITE_ENGINE_TASK') {
+        // NOTE: LITE_ENGINE_TASK contains information about dependencies
+        const serviceDependencyList: ServiceDependency[] = ((nodeData as any)?.outcomes as any)?.find(
+          (_item: any) => !!_item.serviceDependencyList
+        )?.serviceDependencyList
+
+        addDependencies(serviceDependencyList, rootNodes)
+      } else {
+        items.push({
+          item: {
+            name: nodeData?.name || /* istanbul ignore next */ '',
+            icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+            identifier: item,
+            status: nodeData?.status as any,
+            type: ExecutionPipelineNodeType.NORMAL,
+            data: nodeData
+          }
+        })
+      }
     }
     const nextIds = nodeAdjacencyListMap?.[item].nextIds || /* istanbul ignore next */ []
     nextIds.forEach(id => {
@@ -103,7 +171,8 @@ const processNodeData = (
           parallel: processNodeData(
             nodeAdjacencyListMap?.[id].children || /* istanbul ignore next */ [],
             nodeMap,
-            nodeAdjacencyListMap
+            nodeAdjacencyListMap,
+            rootNodes
           )
         })
       } else {
@@ -120,7 +189,7 @@ const processNodeData = (
       }
       const nextLevels = nodeAdjacencyListMap?.[id].nextIds
       if (nextLevels) {
-        items.push(...processNodeData(nextLevels, nodeMap, nodeAdjacencyListMap))
+        items.push(...processNodeData(nextLevels, nodeMap, nodeAdjacencyListMap, rootNodes))
       }
     })
   })
@@ -151,7 +220,8 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
               items: processNodeData(
                 nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                 graph?.nodeMap,
-                graph?.nodeAdjacencyListMap
+                graph?.nodeAdjacencyListMap,
+                items
               )
             }
           })
@@ -160,7 +230,8 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
             parallel: processNodeData(
               nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
               graph?.nodeMap,
-              graph?.nodeAdjacencyListMap
+              graph?.nodeAdjacencyListMap,
+              items
             )
           })
         } else {

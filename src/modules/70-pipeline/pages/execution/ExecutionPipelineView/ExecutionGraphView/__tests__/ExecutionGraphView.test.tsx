@@ -60,6 +60,7 @@ jest.mock('@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram', ()
 
 const contextValue: ExecutionContextParams = {
   pipelineExecutionDetail: mock.data as any,
+  allNodeMap: mock.data.executionGraph.nodeMap as any,
   pipelineStagesMap: getPipelineStagesMap(
     mock.data.pipelineExecutionSummary.layoutNodeMap as any,
     mock.data.pipelineExecutionSummary.startingNodeId

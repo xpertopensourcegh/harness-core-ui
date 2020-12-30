@@ -9,6 +9,7 @@ import mock from '../../ExecutionGraphView/__tests__/mock.json'
 
 const contextValue: ExecutionContextParams = {
   pipelineExecutionDetail: mock.data as any,
+  allNodeMap: mock.data.executionGraph.nodeMap as any,
   pipelineStagesMap: getPipelineStagesMap(
     mock.data.pipelineExecutionSummary.layoutNodeMap as any,
     mock.data.pipelineExecutionSummary.startingNodeId

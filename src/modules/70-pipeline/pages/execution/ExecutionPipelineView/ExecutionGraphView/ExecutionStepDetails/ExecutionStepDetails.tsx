@@ -14,9 +14,9 @@ export interface ExecutionStepDetailsProps {
 
 export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): React.ReactElement {
   const { selectedStep } = props
-  const { pipelineExecutionDetail } = useExecutionContext()
+  const { allNodeMap } = useExecutionContext()
 
-  const step = pipelineExecutionDetail?.executionGraph?.nodeMap?.[selectedStep] || {}
+  const step = allNodeMap?.[selectedStep] || {}
 
   return (
     <div className={css.main}>

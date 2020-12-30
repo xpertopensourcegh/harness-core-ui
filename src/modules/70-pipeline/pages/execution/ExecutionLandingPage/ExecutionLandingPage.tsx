@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
+import type { ExecutionNode } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -32,6 +33,22 @@ import RightBar from './RightBar/RightBar'
 import css from './ExecutionLandingPage.module.scss'
 
 export const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
+
+// TODO: remove 'any' once DTO is ready
+/** Add dependency services to nodeMap */
+const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any }): void => {
+  const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === 'LITE_ENGINE_TASK')
+  if (liteEngineTask) {
+    // NOTE: LITE_ENGINE_TASK contains information about dependency services
+    const serviceDependencyList: ExecutionNode[] =
+      ((liteEngineTask as any)?.outcomes as any)?.find((_item: any) => !!_item.serviceDependencyList)
+        ?.serviceDependencyList || []
+
+    serviceDependencyList.forEach(service => {
+      nodeMap[(service as any).identifier] = service
+    })
+  }
+}
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
   const [showDetail, setShowDetails] = React.useState(false)
@@ -70,6 +87,14 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       data?.data?.pipelineExecutionSummary?.startingNodeId
     )
   }, [data?.data?.pipelineExecutionSummary?.layoutNodeMap, data?.data?.pipelineExecutionSummary?.startingNodeId])
+
+  // combine steps and dependencies(ci stage)
+  const allNodeMap = React.useMemo(() => {
+    const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
+    // NOTE: add dependencies from "LITE_ENGINE_TASK" (ci stage)
+    addServiceDependenciesFromLiteTaskEngine(nodeMap)
+    return nodeMap
+  }, [data?.data?.executionGraph?.nodeMap])
 
   function toggleDetails(): void {
     setShowDetails(status => !status)
@@ -134,6 +159,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     <ExecutionContext.Provider
       value={{
         pipelineExecutionDetail: data?.data || null,
+        allNodeMap,
         pipelineStagesMap,
         selectedStageId,
         selectedStepId,
