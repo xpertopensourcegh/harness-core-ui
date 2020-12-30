@@ -107,9 +107,7 @@ describe('Project Page List', () => {
       fireEvent.change(form?.querySelector('input[name="name"]')!, {
         target: { value: 'dummy name' }
       })
-      fireEvent.change(form?.querySelector('input[name="orgIdentifier"]')!, {
-        target: { value: 'testOrg' }
-      })
+
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
       await waitFor(() => getByText(document.body, 'Invite Collaborators'))
       fireEvent.click(getByText(document.body, 'Back')!)

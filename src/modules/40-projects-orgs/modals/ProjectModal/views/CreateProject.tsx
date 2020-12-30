@@ -31,8 +31,10 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     }
   })
 
+  let defaultOrg
   const organizations: SelectOption[] =
     orgData?.data?.content?.map(org => {
+      if (org.harnessManaged) defaultOrg = org.organization.identifier
       return {
         label: org.organization.name,
         value: org.organization.identifier
@@ -73,7 +75,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       disableSelect={orgIdentifier ? true : false}
       enableEdit={true}
       disableSubmit={saving}
-      initialOrgIdentifier={orgIdentifier || i18n.newProjectWizard.aboutProject.default}
+      initialOrgIdentifier={orgIdentifier || defaultOrg}
       initialModules={modules}
       organizationItems={organizations}
       title={i18n.newProjectWizard.aboutProject.name}

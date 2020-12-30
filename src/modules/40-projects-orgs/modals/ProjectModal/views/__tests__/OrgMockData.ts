@@ -24,7 +24,8 @@ export const orgMockData: ResponsePageOrganizationResponse = {
           name: 'default',
           description: 'default',
           tags: { tag1: '', tag2: 'tag3' }
-        }
+        },
+        harnessManaged: true
       }
     ],
     pageIndex: 0,

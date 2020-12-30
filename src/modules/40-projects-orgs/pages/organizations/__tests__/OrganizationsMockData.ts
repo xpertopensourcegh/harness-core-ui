@@ -18,11 +18,12 @@ export const orgMockData = {
         {
           organization: {
             accountIdentifier: 'testAcc',
-            identifier: 'testOrg2',
-            name: 'test org 2',
-            description: '',
-            tags: {}
-          }
+            identifier: 'default',
+            name: 'default',
+            description: 'default',
+            tags: { tag1: '', tag2: 'tag3' }
+          },
+          harnessManaged: true
         }
       ],
       pageIndex: 0,
