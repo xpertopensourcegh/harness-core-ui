@@ -31,7 +31,7 @@ export default function CESideNav(): React.ReactElement {
             )
           } else {
             history.push(
-              routes.toCECostOptimizationDashboard({
+              routes.toCECODashboard({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId
@@ -44,7 +44,7 @@ export default function CESideNav(): React.ReactElement {
         <React.Fragment>
           <SidebarLink
             label="Cost Optimization"
-            to={routes.toCECostOptimizationDashboard({ accountId, projectIdentifier, orgIdentifier })}
+            to={routes.toCECODashboard({ accountId, projectIdentifier, orgIdentifier })}
           />
         </React.Fragment>
       ) : null}

@@ -1,0 +1,854 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Lightwing API documentation",
+    "version": "1.0.0",
+    "title": "Lightwing APIs",
+    "contact": {
+      "email": "navaneeth@lightwing.io"
+    }
+  },
+  "host": "localhost:9090",
+  "basePath": "/orgs",
+  "tags": [
+    {
+      "name": "services",
+      "description": "Autostopping APIs"
+    }
+  ],
+  "schemes": ["https"],
+  "paths": {
+    "/orgs/{org_id}/projects/{project_id}/services": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["services"],
+        "summary": "Gets all Autostopping Gateways",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "getServices",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServicesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["services"],
+        "summary": "Create/Update Autostopping gateway",
+        "operationId": "saveService",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Service definition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveServiceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServicesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/{id}": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "number"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["services"],
+        "summary": "Gets autostopping gateway by id",
+        "description": "Get service definition of auto stopping gateway",
+        "operationId": "GetServiceDefinitionByID",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceDefinitionByIDResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/{id}/stats": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "number"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["services"],
+        "summary": "Get statuses of given autostopping gateway",
+        "description": "Returns duartion of idle time and down time",
+        "operationId": "GetServiceStats",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceStatsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/services/{id}/requests": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "number"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["services"],
+        "summary": "Get service usage records",
+        "description": "Returns service usage records of requested autostopping gateway",
+        "operationId": "GetServiceRequests",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceUsageResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/accounts": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["accounts"],
+        "summary": "Lists all accounts under an org",
+        "description": "Returns all the accounts under the requesting organization",
+        "operationId": "AllAccounts",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllAccountsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/resources": {
+      "post": {
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceFilterBody"
+            }
+          }
+        ],
+        "tags": ["AllResourcesOfAccount"],
+        "summary": "Lists all resources under an account",
+        "description": "Returns all resources under an account matching the given filter",
+        "operationId": "AllResourcesOfAccount",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "schema": {
+                "$ref": "#/definitions/AllResourcesOfAccountResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/accounts/{accountID}/instance_nsg}": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountID",
+          "in": "path",
+          "required": true,
+          "type": "number"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "filter",
+          "in": "body",
+          "schema": {
+            "$ref": "#/definitions/ResourceFilterBody"
+          }
+        }
+      ],
+      "post": {
+        "tags": ["Resources"],
+        "summary": "Network security groups of an instance",
+        "description": "Returns all the network security group definitions ",
+        "operationId": "SecurityGroupsOfInstances",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SecurityGroupsOfInstancesResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Service": {
+      "type": "object",
+      "required": ["name", "fulfilment", "kind", "org_id", "cloud_account_id"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "project_id": {
+          "type": "string"
+        },
+        "fulfilment": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "cloud_account_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "idle_time_mins": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "host_name": {
+          "type": "string"
+        },
+        "health_check": {
+          "type": "object",
+          "$ref": "#/definitions/HealthCheck"
+        },
+        "custom_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "match_all_subdomains": {
+          "type": "boolean"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "routing": {
+          "type": "object",
+          "$ref": "#/definitions/RoutingData"
+        },
+        "opts": {
+          "type": "object",
+          "$ref": "#/definitions/Opts"
+        }
+      }
+    },
+    "ServiceDep": {
+      "type": "object",
+      "properties": {
+        "service_id": {
+          "type": "int",
+          "format": "int64"
+        },
+        "dep_id": {
+          "type": "int",
+          "format": "int64"
+        },
+        "delay_secs": {
+          "type": "int"
+        }
+      }
+    },
+    "SaveServiceRequest": {
+      "type": "object",
+      "properties": {
+        "deps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceDep"
+          }
+        },
+        "service": {
+          "type": "object",
+          "$ref": "#/definitions/Service"
+        },
+        "apply_now": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FirewallRule": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        }
+      }
+    },
+    "NetworkSecurityGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "inbound_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FirewallRule"
+          }
+        },
+        "outbound_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FirewallRule"
+          }
+        }
+      }
+    },
+    "SecurityGroupsOfInstancesResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#/definitions/NetworkSecurityGroup"
+        }
+      }
+    },
+    "Resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "availability_zone": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "launch_time": {
+          "type": "string"
+        },
+        "ipv4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "private_ipv4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "object",
+          "description": "tag key as attribute key and tag value as attribute value"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "provider_name": {
+          "type": "string"
+        },
+        "is_spot": {
+          "type": "boolean"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "cloud_account_id": {
+          "type": "number"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "provider_type": {
+          "type": "string"
+        }
+      }
+    },
+    "ResourcesResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Resource"
+          }
+        }
+      }
+    },
+    "AllResourcesOfAccountResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Resource"
+          }
+        }
+      }
+    },
+    "ResourceFilterBody": {
+      "type": "object",
+      "properties": {
+        "Text": {
+          "type": "string",
+          "description": "String representation of TOML filter"
+        }
+      }
+    },
+    "ServiceUsageRecord": {
+      "type": "object",
+      "properties": {
+        "service_id": {
+          "type": "number"
+        },
+        "path": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "idle_time_mins": {
+          "type": "number"
+        }
+      }
+    },
+    "Account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "org_id": {
+          "type": "number"
+        },
+        "created_by": {
+          "type": "number"
+        },
+        "service_provider": {
+          "type": "string"
+        }
+      }
+    },
+    "AllAccountsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Account"
+          }
+        }
+      }
+    },
+    "ServicesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Service"
+          }
+        }
+      }
+    },
+    "ServiceUsageResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ServiceUsageRecord"
+      }
+    },
+    "ServiceSaveRequest": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "object",
+          "$ref": "#/definitions/Service"
+        }
+      }
+    },
+    "ServiceStats": {
+      "type": "object",
+      "properties": {
+        "service_id": {
+          "type": "number"
+        },
+        "idle_time_percentage": {
+          "type": "number"
+        },
+        "down_time_mins": {
+          "type": "number"
+        },
+        "total_time_mins": {
+          "type": "number"
+        }
+      }
+    },
+    "ServiceDepTree": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "object",
+          "$ref": "#/definitions/Service"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceDepTree"
+          }
+        }
+      }
+    },
+    "ServiceStatsResponse": {
+      "type": "object",
+      "properties": {
+        "stats": {
+          "type": "object",
+          "$ref": "#/definitions/ServiceStats"
+        },
+        "dep_tree": {
+          "type": "object",
+          "$ref": "#/definitions/ServiceDepTree"
+        }
+      }
+    },
+    "InstanceBasedRoutingData": {
+      "type": "object",
+      "properties": {
+        "filter_text": {
+          "type": "string"
+        }
+      }
+    },
+    "HealthCheck": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "type": "int"
+        },
+        "timeout": {
+          "type": "int"
+        }
+      }
+    },
+    "Opts": {
+      "type": "object",
+      "properties": {
+        "preserve_private_ip": {
+          "type": "boolean"
+        },
+        "delete_cloud_resources": {
+          "type": "boolean"
+        },
+        "always_use_private_ip": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PortConfig": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "target_protocol": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "target_port": {
+          "type": "integer"
+        },
+        "server_name": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "enum": ["forward", "redirect"]
+        },
+        "redirect_url": {
+          "type": "string"
+        },
+        "routing_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutingRule"
+          }
+        }
+      }
+    },
+    "ServiceDependency": {
+      "type": "object",
+      "properties": {
+        "service_id": {
+          "type": "number"
+        },
+        "dep_id": {
+          "type": "number"
+        },
+        "delay_secs": {
+          "type": "number"
+        }
+      }
+    },
+    "ServiceDefinitionByIDResponse": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "object",
+          "$ref": "#/definitions/Service"
+        },
+        "deps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceDependency"
+          }
+        }
+      }
+    },
+    "RoutingRule": {
+      "type": "object",
+      "properties": {
+        "path_match": {
+          "type": "string"
+        }
+      }
+    },
+    "RoutingData": {
+      "type": "object",
+      "properties": {
+        "instance": {
+          "type": "object",
+          "$ref": "#/definitions/InstanceBasedRoutingData"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PortConfig"
+          }
+        },
+        "lb": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

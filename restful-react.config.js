@@ -84,5 +84,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("cf")}`
     }
+  },
+  lw: {
+    output: 'src/services/lw/index.tsx',
+    file: 'src/services/lw/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("lw/api")}`
+    }
   }
 }

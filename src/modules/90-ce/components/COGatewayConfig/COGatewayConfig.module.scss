@@ -1,0 +1,80 @@
+.rowItem {
+  padding: var(--spacing-large) !important;
+  background: white !important;
+  box-shadow: 0px 1px 5px 1px var(--grey-250);
+  border-radius: 8px;
+  margin-bottom: var(--spacing-large);
+  span.type,
+  span.server {
+    color: var(--grey-900) !important;
+    font-weight: 900;
+  }
+  font-size: 14px !important;
+  > p {
+    cursor: pointer;
+    color: var(--blue-500) !important;
+  }
+}
+.instanceTypeViewGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: var(--spacing-large);
+  grid-row-gap: 0px;
+
+  > div {
+    background-color: var(--white) !important;
+  }
+}
+.card {
+  padding: 10px;
+}
+.instanceTable {
+  th {
+    font-size: 11px;
+  }
+  tbody {
+    background: #ffffff;
+    box-shadow: 0px 0px 8px 1px rgba(26, 19, 106, 0.05);
+    border-radius: 4px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 21px;
+  }
+  tr {
+    height: 63.33px;
+  }
+}
+.healthCheckTable {
+  align-items: center;
+  width: 479px;
+  th {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 150%;
+  }
+  tbody {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 14px;
+    background-color: #ffffff;
+  }
+}
+.page {
+  overflow: scroll;
+  max-height: 85vh;
+}
+.instanceSelection {
+  background: 'var(--grey-100)';
+}
+.switchFont {
+  font-size: 12px;
+  line-height: 20px;
+  font-family: 'Archivo';
+}
+.helpSidebar {
+  max-height: 60vh !important;
+  top: 65px !important;
+}

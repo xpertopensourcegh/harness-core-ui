@@ -601,9 +601,13 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
-  toCECostOptimizationDashboard: withAccountId(
+  toCECODashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/cost-opimizations`
+      `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  ),
+  toCECOCreateGateway: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/cost-opimization/orgs/${orgIdentifier}/projects/${projectIdentifier}/create-gateway`
   )
 }
 

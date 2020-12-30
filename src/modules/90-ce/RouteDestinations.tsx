@@ -7,11 +7,12 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
-import { MinimalLayout } from '@common/layouts'
 import CESideNav from '@ce/components/CESideNav/CESideNav'
 import { ModuleName, useAppStore } from 'framework/exports'
 import CEHomePage from './pages/home/CEHomePage'
 import CEDashboardPage from './pages/dashboard/CEDashboardPage'
+import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
+import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -23,7 +24,7 @@ const RedirectToCEProject = (): React.ReactElement => {
   const { selectedProject } = useAppStore()
 
   if (selectedProject?.modules?.includes(ModuleName.CD)) {
-    return <Redirect to={routes.toCECostOptimizationDashboard(params)} />
+    return <Redirect to={routes.toCECODashboard(params)} />
   } else {
     return <Redirect to={routes.toCDHome(params)} />
   }
@@ -44,11 +45,11 @@ export default (
       <RouteWithLayout path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })} exact>
         <CEDashboardPage />
       </RouteWithLayout>
-      <RouteWithLayout path={routes.toCECostOptimizationDashboard({ ...accountPathProps, ...projectPathProps })} exact>
-        <CEDashboardPage />
+      <RouteWithLayout path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })} exact>
+        <CECODashboardPage />
       </RouteWithLayout>
-      <RouteWithLayout layout={MinimalLayout} exact path={routes.toCEHome({ ...accountPathProps })}>
-        <CEDashboardPage />
+      <RouteWithLayout path={routes.toCECOCreateGateway({ ...accountPathProps, ...projectPathProps })} exact>
+        <CECOCreateGatewayPage />
       </RouteWithLayout>
     </SidebarProvider>
   </Route>
