@@ -1,0 +1,25 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "connector": {
+      "name": "Sample",
+      "identifier": "Sample",
+      "description": "",
+      "orgIdentifier": null,
+      "projectIdentifier": null,
+      "tags": {},
+      "type": "DockerRegistry",
+      "spec": {
+        "dockerRegistryUrl": "Sample",
+        "providerType": "DockerHub",
+        "auth": { "type": "UsernamePassword", "spec": { "username": "Sample", "passwordRef": "account.Sample" } }
+      }
+    },
+    "createdAt": 1608714646248,
+    "lastModifiedAt": 1608714646248,
+    "status": null,
+    "harnessManaged": false
+  },
+  "metaData": null,
+  "correlationId": "Sample"
+}

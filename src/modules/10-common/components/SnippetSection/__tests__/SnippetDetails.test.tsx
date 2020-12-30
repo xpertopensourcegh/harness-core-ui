@@ -20,7 +20,7 @@ describe('Snippet Test', () => {
         <SnippetDetails {...props} />
       </TestWrapper>
     )
-    expect(getByText(container, `${props.entityType} SNIPPETS`)).toBeDefined()
+    expect(getByText(container, `${props.entityType.toUpperCase()} SNIPPETS`)).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 

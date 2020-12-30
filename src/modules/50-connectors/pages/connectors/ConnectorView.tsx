@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Layout, Container } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
-import { useToaster } from 'modules/10-common/exports'
+import { useToaster, useConfirmationDialog } from 'modules/10-common/exports'
 import {
   ConnectorInfoDTO,
   ConnectorRequestBody,
@@ -171,7 +171,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     entityType: 'Connectors',
     existingJSON: { connector: connectorForYaml },
     bind: setYamlHandler,
-    width: 900
+    isReadOnlyMode: true
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
@@ -229,9 +229,42 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     mock: props.mockSchemaData
   })
 
+  const renderDetailsSection = (): JSX.Element => {
+    return (
+      <RenderDetailsSection
+        title={i18n.title.connectorActivity}
+        data={getActivityDetails({
+          createdAt: props.response.createdAt || 0,
+          lastTested: lastTested || props.response.status?.lastTestedAt || 0,
+          lastUpdated: (props.response.lastModifiedAt as number) || 0,
+          lastConnectionSuccess: lastConnected || props.response.status?.lastConnectedAt || 0,
+          status: status || props.response.status?.status || ''
+        })}
+      />
+    )
+  }
+
+  const { openDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('continueWithoutSavingText'),
+    titleText: getString('continueWithoutSavingTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        setEnableEdit(false)
+      }
+    }
+  })
+
+  const resetEditor = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    event.preventDefault()
+    event.stopPropagation()
+    openDialog()
+  }
+
   return (
     <Layout.Vertical padding={{ top: 'large', left: 'huge', bottom: 'large', right: 'huge' }}>
-      <Container className={cx(css.buttonContainer, { [css.yamlView]: selectedView === SelectedView.YAML })}>
+      <Container className={css.buttonContainer}>
         {state.enableEdit ? null : (
           <div className={css.optionBtns}>
             <div
@@ -272,22 +305,26 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
           selectedView === SelectedView.VISUAL ? null : isFetchingSnippets ? (
             <PageSpinner />
           ) : (
-            <div className={css.editor}>
+            <div className={css.fullWidth}>
               <YamlBuilder
                 {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })}
                 snippets={snippetMetaData?.data?.yamlSnippets}
                 onSnippetCopy={onSnippetCopy}
                 snippetYaml={snippetYaml}
                 schema={connectorSchema?.data}
+                isReadOnlyMode={false}
               />
-              <Button
-                id="saveYAMLChanges"
-                intent="primary"
-                text={i18n.submit}
-                onClick={handleSaveYaml}
-                margin={{ top: 'large' }}
-                title={isValidYAML ? '' : i18n.invalidYAML}
-              />
+              <Layout.Horizontal spacing="small">
+                <Button
+                  id="saveYAMLChanges"
+                  intent="primary"
+                  text={getString('saveChanges')}
+                  onClick={handleSaveYaml}
+                  margin={{ top: 'large' }}
+                  title={isValidYAML ? '' : i18n.invalidYAML}
+                />
+                <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+              </Layout.Horizontal>
             </div>
           )
         ) : selectedView === SelectedView.VISUAL ? (
@@ -295,16 +332,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
             <SavedConnectorDetails connector={connector}></SavedConnectorDetails>
             <Container className={css.connectorDetailsWrapper}>
               <Layout.Vertical>
-                <RenderDetailsSection
-                  title={i18n.title.connectorActivity}
-                  data={getActivityDetails({
-                    createdAt: props.response.createdAt || 0,
-                    lastTested: lastTested || props.response.status?.lastTestedAt || 0,
-                    lastUpdated: (props.response.lastModifiedAt as number) || 0,
-                    lastConnectionSuccess: lastConnected || props.response.status?.lastConnectedAt || 0,
-                    status: status || props.response.status?.status || ''
-                  })}
-                ></RenderDetailsSection>
+                {renderDetailsSection()}
                 <TestConnection
                   connectorName={connector?.name || ''}
                   connectorIdentifier={connector?.identifier || ''}
@@ -318,9 +346,12 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
             </Container>
           </>
         ) : (
-          <div className={css.editor}>
-            <YamlBuilder {...yamlBuilderReadOnlyModeProps} isReadOnlyMode={true} showSnippetSection={false} />
-          </div>
+          <Layout.Horizontal spacing="medium" className={css.fullWidth}>
+            <div className={css.yamlView}>
+              <YamlBuilder {...yamlBuilderReadOnlyModeProps} showSnippetSection={false} />
+            </div>
+            <div className={css.fullWidth}>{renderDetailsSection()}</div>
+          </Layout.Horizontal>
         )}
       </Layout.Horizontal>
     </Layout.Vertical>

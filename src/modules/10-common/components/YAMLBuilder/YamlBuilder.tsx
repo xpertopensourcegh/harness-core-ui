@@ -75,7 +75,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     snippets,
     onSnippetCopy,
     snippetYaml,
-    schema
+    schema,
+    needEditorReset
   } = props
   const params = useParams()
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
@@ -134,8 +135,14 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   useEffect(() => {
-    verifyIncomingJSON(existingJSON)
+    if (!editorHasUnsavedChanges()) {
+      verifyIncomingJSON(existingJSON)
+    }
   }, [existingJSON])
+
+  useEffect(() => {
+    editorRef?.current?.editor?.getModel()?.setValue('')
+  }, [needEditorReset])
 
   useEffect(() => {
     if (schema) {
@@ -216,8 +223,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     editorVersionRef.current = editor?.getModel()?.getAlternativeVersionId()
     if (!props.isReadOnlyMode) {
       editor?.focus()
-      editor?.onKeyDown((event: KeyboardEvent) => handleEditorKeyDownEvent(event, editor))
     }
+    editor?.onKeyDown((event: KeyboardEvent) => handleEditorKeyDownEvent(event, editor))
   }
 
   const disposePreviousSuggestions = (): void => {

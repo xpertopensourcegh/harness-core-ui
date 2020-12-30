@@ -6,9 +6,9 @@ import { Link, useParams, useLocation } from 'react-router-dom'
 import { Page } from 'modules/10-common/exports'
 import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
 import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services/cd-ng'
-
+import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { useStrings } from 'framework/exports'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
-
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import i18n from './ConnectorDetailsPage.i18n'
@@ -24,7 +24,8 @@ const categories: Categories = {
   activityHistory: i18n.activityHistory
 }
 
-const ConnectorDetailsPage: React.FC = () => {
+const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
+  const { getString } = useStrings()
   const [activeCategory, setActiveCategory] = React.useState(0)
   const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams()
   const { pathname } = useLocation()
@@ -34,7 +35,8 @@ const ConnectorDetailsPage: React.FC = () => {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string
-    }
+    },
+    mock: props.mockData
   })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const renderTitle = () => {
@@ -77,13 +79,17 @@ const ConnectorDetailsPage: React.FC = () => {
       />
       <Page.Body>
         {activeCategory === 0 ? (
-          !loading && data?.data?.connector?.type ? (
-            <ConnectorView
-              type={data.data.connector.type}
-              updateConnector={updateConnector}
-              response={data.data || ({} as ConnectorResponse)}
-              refetchConnector={refetch}
-            />
+          !loading ? (
+            data?.data?.connector?.type ? (
+              <ConnectorView
+                type={data.data.connector.type}
+                updateConnector={updateConnector}
+                response={data.data || ({} as ConnectorResponse)}
+                refetchConnector={refetch}
+              />
+            ) : (
+              <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
+            )
           ) : (
             <PageSpinner />
           )

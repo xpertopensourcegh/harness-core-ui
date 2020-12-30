@@ -213,6 +213,7 @@ global:
     version: Version
   fetching: Fetching
   somethingWentWrong: Something went wrong
+  saveChanges: Save Changes
   projectSelector:
     placeholder: 'Start typing to search in all {{number}} items'
   pipelines-studio:
@@ -623,6 +624,7 @@ global:
     stepThreeName: 'Test Connection'
     authTitle: 'Authentication'
     updating: Updating connector
+    connectorNotFound: Connector not found.
     yamlError: Invalid or malformed yaml. Please fix the yaml and try again.
     k8:
       stepTwoName: 'Cluster Details'

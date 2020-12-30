@@ -47,7 +47,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
         <div
           class="title"
         >
-          Connectors
+          CONNECTORS
            
           SNIPPETS
         </div>

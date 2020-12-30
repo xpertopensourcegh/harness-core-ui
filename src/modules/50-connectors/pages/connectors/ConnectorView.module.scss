@@ -22,9 +22,14 @@
   }
 }
 
-.editor {
-  width: 100%;
+.fullWidth {
+  width: 100% !important;
 }
+
+.readOnly {
+  width: 70%;
+}
+
 .connectorWrp {
   padding: var(--spacing-xlarge);
 }

@@ -6,27 +6,41 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
     class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer yamlView"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
     />
     <div
       class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
     >
       <div
-        class="editor"
+        class="fullWidth"
       >
         <div />
-        <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-large--1oBg"
-          id="saveYAMLChanges"
-          title=""
-          type="button"
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
         >
-          <span
-            class="bp3-button-text"
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-large--1oBg"
+            id="saveYAMLChanges"
+            title=""
+            type="button"
           >
-            SAVE CHANGES
-          </span>
-        </button>
+            <span
+              class="bp3-button-text"
+            >
+              Save Changes
+            </span>
+          </button>
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---margin-top-large--1oBg"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Cancel
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -168,7 +182,7 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
     class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer yamlView"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
     >
       <div
         class="optionBtns"
@@ -219,9 +233,26 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
       class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
     >
       <div
-        class="editor"
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws fullWidth"
       >
-        <div />
+        <div
+          class="yamlView"
+        >
+          <div />
+        </div>
+        <div
+          class="fullWidth"
+        >
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+            >
+              Connector Activity
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

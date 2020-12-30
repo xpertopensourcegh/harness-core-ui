@@ -31,6 +31,7 @@ export interface YamlBuilderProps {
   snippetYaml?: string
   //TODO @vardan Remove "Record<string, string | any>" from type once pipeline schema is migrated to new framework
   schema?: string | Record<string, string | any>
+  needEditorReset?: boolean
 }
 
 export interface CompletionItemInterface {

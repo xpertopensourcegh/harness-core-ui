@@ -8,7 +8,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
     <div
       class="title"
     >
-      Connectors
+      CONNECTORS
        
       SNIPPETS
     </div>
@@ -241,7 +241,7 @@ exports[`Snippet Test Search a snippet 1`] = `
     <div
       class="title"
     >
-      Connectors
+      CONNECTORS
        
       SNIPPETS
     </div>

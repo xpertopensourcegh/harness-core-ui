@@ -6,7 +6,8 @@ declare const styles: {
   readonly header: string
   readonly name: string
   readonly submitBtn: string
-  readonly editor: string
+  readonly fullWidth: string
+  readonly readOnly: string
   readonly connectorWrp: string
   readonly buttonContainer: string
   readonly optionBtns: string

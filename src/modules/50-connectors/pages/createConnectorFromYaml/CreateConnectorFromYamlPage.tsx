@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button } from '@wings-software/uikit'
+import { Container, Button, Layout } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useCreateConnector, useGetYamlSnippetMetadata, useGetYamlSchema, useGetYamlSnippet } from 'services/cd-ng'
-import { useToaster } from '@common/exports'
+import { useToaster, useConfirmationDialog } from '@common/exports'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
@@ -22,6 +22,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { showSuccess, showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const [snippetYaml, setSnippetYaml] = React.useState<string>()
+  const [needEditorReset, setNeedEditorReset] = React.useState<boolean>(false)
   const { getString } = useStrings()
 
   const handleCreate = async (): Promise<void> => {
@@ -84,6 +85,24 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     }
   })
 
+  const { openDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('continueWithoutSavingText'),
+    titleText: getString('continueWithoutSavingTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        setNeedEditorReset(true)
+      }
+    }
+  })
+
+  const resetEditor = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    event.preventDefault()
+    event.stopPropagation()
+    openDialog()
+  }
+
   return (
     <>
       <PageHeader title={i18n.title} />
@@ -101,9 +120,18 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               schema={connectorSchema?.data || ''}
               onSnippetCopy={onSnippetCopy}
               snippetYaml={snippetYaml}
+              needEditorReset={needEditorReset}
             />
           )}
-          <Button text="Create" intent="primary" margin={{ top: 'xlarge' }} onClick={handleCreate} />
+          <Layout.Horizontal spacing="small">
+            <Button
+              text={getString('saveChanges')}
+              intent="primary"
+              margin={{ top: 'xlarge' }}
+              onClick={handleCreate}
+            />
+            <Button text={getString('cancel')} margin={{ top: 'xlarge' }} onClick={resetEditor} />
+          </Layout.Horizontal>
         </Container>
       </PageBody>
     </>
