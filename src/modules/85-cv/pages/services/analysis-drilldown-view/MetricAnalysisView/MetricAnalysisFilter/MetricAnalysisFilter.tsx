@@ -8,7 +8,7 @@ export const MetricAnalysisFilterType = {
   ALL_METRICS: 'ALL_METRICS'
 }
 
-const FILTER_OPTIONS: SelectOption[] = [
+export const FILTER_OPTIONS: SelectOption[] = [
   {
     label: i18n.filterByDropdownOptionLabels.anomalous,
     value: MetricAnalysisFilterType.ANOMALOUS
@@ -21,11 +21,12 @@ const FILTER_OPTIONS: SelectOption[] = [
 
 interface MetricAnalysisFilterProps {
   onChangeFilter?: (updatedOption: string) => void
+  defaultFilterValue?: SelectOption
 }
 
 export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Element {
-  const { onChangeFilter } = props
-  const [selectedOption, setSelectedOption] = useState(FILTER_OPTIONS[0])
+  const { onChangeFilter, defaultFilterValue } = props
+  const [selectedOption, setSelectedOption] = useState(defaultFilterValue || FILTER_OPTIONS[0])
   return (
     <Container className={css.main}>
       <Container className={css.filterOptionContainer}>

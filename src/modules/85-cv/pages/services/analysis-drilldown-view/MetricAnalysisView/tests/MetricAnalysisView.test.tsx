@@ -6,6 +6,7 @@ import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { MetricAnalysisView, generatePointsForTimeSeries } from '../MetricAnalysisView'
+import { FILTER_OPTIONS } from '../MetricAnalysisFilter/MetricAnalysisFilter'
 
 const MockAnomalousData: cvService.RestResponsePageTimeSeriesMetricDataDTO = {
   metaData: {},
@@ -178,5 +179,84 @@ describe('Unit tests for Metric Analysis view', () => {
 
     fireEvent.click(getByText('Retry'))
     await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(2))
+  })
+
+  test('Ensure that filter sticks to selected value after error happens', async () => {
+    const useGetMetricDataSpy = jest.spyOn(cvService, 'useGetMetricData')
+    const useGetAnomalousMetricDashboardData = jest.spyOn(cvService, 'useGetAnomalousMetricDashboardData')
+    const anomalousRefetch = jest.fn()
+    const nonAnomalousRefetch = jest.fn()
+    useGetMetricDataSpy.mockReturnValue({
+      data: { resource: [] },
+      refetch: nonAnomalousRefetch as any,
+      cancel: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+
+    useGetAnomalousMetricDashboardData.mockReturnValue({
+      data: MockAnomalousData,
+      refetch: anomalousRefetch as any,
+      cancel: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+
+    const { container, getByText, rerender } = render(
+      <TestWrapper
+        path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <MetricAnalysisView startTime={1609206900000} endTime={1609221300000} />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
+
+    // switch from anomalous to non-anomalous view
+    const caretDown = container.querySelector('[data-icon="caret-down"]')
+    if (!caretDown) {
+      throw Error('Select is not rendered.')
+    }
+    fireEvent.click(caretDown)
+    await waitFor(() => expect(container.querySelector('[class*="menuItem"]')).not.toBeNull())
+
+    const menuItem = document.querySelectorAll('[class*="menuItem"]')
+    if (!menuItem) {
+      throw Error('Menu item was not rendered.')
+    }
+
+    useGetMetricDataSpy.mockReturnValue({
+      error: { message: 'mockErrorMessage' },
+      refetch: nonAnomalousRefetch as any,
+      cancel: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+    fireEvent.click(menuItem[1])
+    await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(1))
+    expect(getByText('mockErrorMessage')).not.toBeNull()
+
+    // return a value so error disappears and filter drop down is rendered
+    useGetMetricDataSpy.mockReturnValue({
+      data: MockAnomalousData,
+      refetch: anomalousRefetch as any,
+      cancel: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+
+    // re-render while error is there and ensure that all metrics is still the option in the drop down
+    rerender(
+      <TestWrapper
+        path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <MetricAnalysisView startTime={1609221300000} endTime={1609221300000 + 60 * 1000} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
+    expect(container.querySelector(`input[value="${FILTER_OPTIONS[1].label}"]`)).not.toBeNull()
   })
 })

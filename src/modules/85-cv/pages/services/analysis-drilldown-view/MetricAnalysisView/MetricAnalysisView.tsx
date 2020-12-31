@@ -14,7 +14,7 @@ import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import { PageError } from '@common/components/Page/PageError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
-import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
+import { FILTER_OPTIONS, MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import i18n from './MetricAnalysisView.i18n'
 import { categoryNameToCategoryType } from '../../CVServicePageUtils'
 import css from './MetricAnalysisView.module.scss'
@@ -158,6 +158,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
     <Container className={cx(css.main, className)}>
       <Container className={css.header}>
         <MetricAnalysisFilter
+          defaultFilterValue={isViewingAnomalousData ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
           onChangeFilter={() => {
             cancelAllMetricDataCall()
             cancelAnomalousCall()
