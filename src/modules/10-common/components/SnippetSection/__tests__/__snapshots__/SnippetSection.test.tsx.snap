@@ -47,9 +47,13 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
         <div
           class="title"
         >
-          CONNECTORS
+          <span
+            style="text-transform: capitalize;"
+          >
+            Connector
+          </span>
            
-          SNIPPETS
+          Snippets
         </div>
         <div
           class="searchBar"

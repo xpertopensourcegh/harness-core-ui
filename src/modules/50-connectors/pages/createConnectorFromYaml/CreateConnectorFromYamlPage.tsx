@@ -16,7 +16,7 @@ import { useStrings } from 'framework/exports'
 import i18n from './CreateConnectorFromYaml.i18n'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
@@ -24,6 +24,14 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const [snippetYaml, setSnippetYaml] = React.useState<string>()
   const [needEditorReset, setNeedEditorReset] = React.useState<boolean>(false)
   const { getString } = useStrings()
+
+  const rerouteBasedOnContext = (connectorId: string): void => {
+    if (orgIdentifier) {
+      history.push(routes.toCDResourcesConnectorDetails({ projectIdentifier, orgIdentifier, connectorId, accountId }))
+    } else {
+      history.push(routes.toResourcesConnectorDetails({ connectorId, accountId }))
+    }
+  }
 
   const handleCreate = async (): Promise<void> => {
     const yamlData = yamlHandler?.getLatestYaml()
@@ -39,14 +47,19 @@ const CreateConnectorFromYamlPage: React.FC = () => {
         const { status } = await createConnector(jsonData as any)
         if (status !== 'ERROR') {
           showSuccess(i18n.successfullyCreated)
-          history.push(
-            routes.toResourcesConnectorDetails({ connectorId: jsonData.connector?.['identifier'], accountId })
-          )
+          rerouteBasedOnContext(jsonData.connector?.['identifier'])
         } else {
           showError(getString('somethingWentWrong'))
         }
       } catch (err) {
-        showError(err?.message)
+        if (err?.data?.message) {
+          showError(err?.data?.message)
+          return
+        }
+        if (err?.message) {
+          showError(err?.message)
+          return
+        }
       }
     }
   }

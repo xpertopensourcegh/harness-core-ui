@@ -56,6 +56,7 @@ import { ModuleName, useAppStore } from 'framework/exports'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import { InputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -179,6 +180,9 @@ export default (
         <ResourcesPage>
           <ConnectorsPage />
         </ResourcesPage>
+      </RouteWithLayout>
+      <RouteWithLayout exact path={routes.toCDCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}>
+        <CreateConnectorFromYamlPage />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}>
         <ResourcesPage>

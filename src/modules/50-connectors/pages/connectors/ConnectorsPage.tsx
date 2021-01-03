@@ -103,10 +103,18 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
     }
   })
 
+  const rerouteBasedOnContext = (): void => {
+    if (orgIdentifier) {
+      history.push(routes.toCDCreateConnectorFromYaml({ projectIdentifier, orgIdentifier, accountId }))
+    } else {
+      history.push(routes.toCreateConnectorFromYaml({ accountId }))
+    }
+  }
+
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface): void => {
       if (val.value === 'YAML') {
-        history.push(routes.toCreateConnectorFromYaml({ accountId }))
+        rerouteBasedOnContext()
       }
       openConnectorModal(false, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()

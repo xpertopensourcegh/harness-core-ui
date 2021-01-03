@@ -8,9 +8,13 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
     <div
       class="title"
     >
-      CONNECTORS
+      <span
+        style="text-transform: capitalize;"
+      >
+        Connector
+      </span>
        
-      SNIPPETS
+      Snippets
     </div>
     <div
       class="searchBar"
@@ -241,9 +245,13 @@ exports[`Snippet Test Search a snippet 1`] = `
     <div
       class="title"
     >
-      CONNECTORS
+      <span
+        style="text-transform: capitalize;"
+      >
+        Connector
+      </span>
        
-      SNIPPETS
+      Snippets
     </div>
     <div
       class="searchBar"

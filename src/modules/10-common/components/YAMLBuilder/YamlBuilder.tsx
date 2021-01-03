@@ -30,8 +30,6 @@ import { debounce } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
-import { useStrings } from 'framework/exports'
 
 //@ts-ignore
 monaco.editor.defineTheme('vs', {
@@ -92,9 +90,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
-  const KEY_CODE_FOR_CHAR_V = 'KeyV'
   const { showError } = useToaster()
-  const { getString } = useStrings()
   let expressionCompletionDisposer: { dispose: () => void }
   let runTimeCompletionDisposer: { dispose: () => void }
 
@@ -141,7 +137,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }, [existingJSON])
 
   useEffect(() => {
-    editorRef?.current?.editor?.getModel()?.setValue('')
+    if (needEditorReset) {
+      editorRef?.current?.editor?.getModel()?.setValue('')
+    }
   }, [needEditorReset])
 
   useEffect(() => {
@@ -176,24 +174,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   /* #endregion */
 
   /* #region Handle various interactions with the editor */
-  const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
-    contentText: getString('continueWithoutSavingText'),
-    titleText: getString('continueWithoutSavingTitle'),
-    confirmButtonText: getString('confirm'),
-    onCloseDialog: isConfirmed => {
-      if (isConfirmed) {
-        navigator.clipboard
-          ?.readText()
-          .then(text => {
-            onYamlChange(text)
-          })
-          .catch(err => {
-            showError(err, 5000)
-          })
-      }
-    }
-  })
 
   const onYamlChange = (updatedYaml: string): void => {
     setCurrentYaml(updatedYaml)
@@ -302,14 +282,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   /* #endregion */
 
   const handleEditorKeyDownEvent = (event: KeyboardEvent, editor: any): void => {
-    const { shiftKey, code, ctrlKey, metaKey } = event
+    const { shiftKey, code } = event
     //TODO Need to check hotkey for cross browser/cross OS compatibility
     //TODO Need to debounce this function call for performance optimization
-    if ((ctrlKey || metaKey) && code === KEY_CODE_FOR_CHAR_V) {
-      if (editorHasUnsavedChanges()) {
-        openDialog()
-      }
-    } else if (shiftKey) {
+    if (shiftKey) {
       if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
         const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
         disposePreviousSuggestions()

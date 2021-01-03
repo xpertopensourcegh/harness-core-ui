@@ -49,7 +49,7 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
   return (
     <div className={css.main}>
       <div className={css.title}>
-        {entityType.toUpperCase()}&nbsp;
+        <span style={{ textTransform: 'capitalize' }}>{entityType.replace(/s$/, '')}</span>&nbsp;
         {i18n.title}
       </div>
       <div className={css.searchBar}>
