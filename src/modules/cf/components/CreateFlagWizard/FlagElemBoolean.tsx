@@ -21,8 +21,6 @@ import css from './FlagElemVariations.module.scss'
 
 interface FlagElemVariationsProps {
   toggleFlagType: (newFlag: string) => void
-  testFlagClicked: boolean
-  onTestFlag: () => void
   flagTypeOptions: SelectOption[]
   onWizardStepSubmit: (data: FeatureFlagRequestRequestBody) => void
   projectIdentifier?: string | number | null | undefined
@@ -52,8 +50,6 @@ interface FeatureErrors {
 const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
   const {
     toggleFlagType,
-    testFlagClicked,
-    onTestFlag,
     flagTypeOptions,
     prevStepData,
     previousStep,
@@ -121,10 +117,6 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         // TODO: WIP
         validate={validateForm}
         onSubmit={vals => {
-          if (testFlagClicked) {
-            // When user clicks on third optional step, load it's component
-            return nextStep?.({ ...prevStepData, ...vals })
-          }
           const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
           onWizardStepSubmit(data)
         }}
@@ -192,18 +184,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                 <Text color={Color.BLACK} inline>
                   {i18n.varSettingsFlag.defaultRules}
                 </Text>
-                <Text
-                  inline
-                  margin={{ left: 'xsmall' }}
-                  tooltip={i18n.varSettingsFlag.defaultRulesTooltip}
-                  color={Color.BLACK}
-                  icon="info-sign"
-                  iconProps={{ size: 10, color: Color.BLUE_500 }}
-                  tooltipProps={{
-                    isDark: true,
-                    portalClassName: css.tooltipMultiFlag
-                  }}
-                />
+
                 <Layout.Vertical margin={{ top: 'medium' }}>
                   <Container>
                     <Layout.Horizontal>
@@ -234,12 +215,14 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                   loading={isLoadingCreateFeatureFlag}
                 />
                 <Button
-                  type="submit"
+                  type="button"
                   text={i18n.varSettingsFlag.testFlagOption.toUpperCase()}
-                  onClick={onTestFlag}
                   rightIcon="chevron-right"
                   minimal
                   className={css.testFfBtn}
+                  onClick={() => {
+                    nextStep?.({ ...prevStepData })
+                  }}
                 />
               </Layout.Horizontal>
             </Layout.Vertical>

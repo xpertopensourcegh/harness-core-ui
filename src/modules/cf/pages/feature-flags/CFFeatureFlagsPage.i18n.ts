@@ -8,8 +8,8 @@ export default {
   saveFilters: 'Save Filters',
   details: 'Details',
   status: 'Status',
-  results: 'Results',
-  owners: 'Owners',
+  lastUpdated: 'Last Updated',
+  active: 'Active',
   tags: 'Tags',
   boolean: 'Boolean',
   multivariate: 'Multivariate',
@@ -19,6 +19,8 @@ export default {
   cancel: 'Cancel',
   selectEnv: 'Select environment',
   edit: 'Edit',
+  yes: 'Yes',
+  no: 'No',
   deleteDialog: {
     textSubject: (flagName: string) => `Are you sure you want to delete ${flagName} flag?`,
     textHeader: 'Delete Flag'

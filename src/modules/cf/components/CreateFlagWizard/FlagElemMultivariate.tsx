@@ -23,8 +23,6 @@ import css from './FlagElemVariations.module.scss'
 
 interface FlagElemVariationsProps {
   toggleFlagType: (newFlag: string) => void
-  testFlagClicked: boolean
-  onTestFlag: () => void
   flagTypeOptions: SelectOption[]
   onWizardStepSubmit: (data: FeatureFlagRequestRequestBody) => void
   projectIdentifier?: string | number | null | undefined
@@ -49,8 +47,6 @@ const flagVariationOptions = [
 const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
   const {
     toggleFlagType,
-    testFlagClicked,
-    onTestFlag,
     flagTypeOptions,
     prevStepData,
     previousStep,
@@ -129,10 +125,6 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
           ...prevStepData
         }}
         onSubmit={vals => {
-          // When user clicks on third optional step, load it's component
-          if (testFlagClicked) {
-            return nextStep?.({ ...prevStepData, ...vals })
-          }
           const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
           onWizardStepSubmit(data)
         }}
@@ -257,7 +249,9 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                 <Button
                   type="submit"
                   text={i18n.varSettingsFlag.testFlagOption.toUpperCase()}
-                  onClick={onTestFlag}
+                  onClick={() => {
+                    nextStep?.({ ...prevStepData })
+                  }}
                   rightIcon="chevron-right"
                   minimal
                   className={css.testFfBtn}

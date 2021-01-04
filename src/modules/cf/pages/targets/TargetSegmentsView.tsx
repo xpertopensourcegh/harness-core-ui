@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Menu, Spinner } from '@blueprintjs/core'
-import { Card, Container, Icon, Layout, Popover, Text } from '@wings-software/uikit'
+import { Container, Button, Layout, Text } from '@wings-software/uikit'
 import type { Column } from 'react-table'
 import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
@@ -12,18 +12,29 @@ import CreateTargetSegmentModal from './CreateTargetSegmentModal'
 import css from './CFTargetsPage.module.scss'
 
 const UsedByCell: React.FC<any> = ({ value }: any) => {
-  const [open, setOpen] = useState(false)
   const { getString } = useStrings()
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }}>
       <Text>{value.length} flags</Text>
-      <Popover isOpen={open} onInteraction={setOpen}>
-        <Icon size={24} name="Options" />
-        <Menu>
-          <Menu.Item icon="edit" text={getString('edit')} />
-          <Menu.Item icon="cross" text={getString('delete')} />
-        </Menu>
-      </Popover>
+      <Container
+        style={{ textAlign: 'right' }}
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation()
+        }}
+      >
+        <Button
+          minimal
+          icon="Options"
+          iconProps={{ size: 24 }}
+          tooltip={
+            <Menu style={{ minWidth: 'unset' }}>
+              <Menu.Item icon="edit" text={getString('edit')} />
+              <Menu.Item icon="cross" text={getString('delete')} />
+            </Menu>
+          }
+          tooltipProps={{ isDark: true, interactionKind: 'click' }}
+        />
+      </Container>
     </Layout.Horizontal>
   )
 }
@@ -105,10 +116,10 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
 
   return (
     <Page.Body>
-      <Card style={{ width: '100%' }}>
+      <Container className={css.header}>
         <CreateTargetSegmentModal project={project} environment={environment} onCreate={onCreateSegment} />
-      </Card>
-      <Container flex padding="medium">
+      </Container>
+      <Container flex className={css.content}>
         <Table<Segment>
           className={css.table}
           columns={columnDefs}

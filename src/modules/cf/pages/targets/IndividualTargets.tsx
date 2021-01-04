@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import moment from 'moment'
-import { Card, Container, Icon, Layout, Popover, Text } from '@wings-software/uikit'
+import { Container, Button, Layout, Text } from '@wings-software/uikit'
 import { Menu, Spinner } from '@blueprintjs/core'
 import type { Column } from 'react-table'
 import { useStrings } from 'framework/exports'
@@ -17,18 +17,29 @@ const PlaceholderCell: React.FC<any> = () => <Text>TBD</Text>
 const TableCell: React.FC<any> = ({ value }) => <Text>{value}</Text>
 
 const LastUpdatedCell: React.FC<any> = ({ value }: any) => {
-  const [open, setOpen] = useState(false)
   const { getString } = useStrings()
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }}>
       <ReactTimeago date={moment(value).toDate()} />
-      <Popover isOpen={open} onInteraction={setOpen}>
-        <Icon size={24} name="Options" />
-        <Menu>
-          <Menu.Item icon="edit" text={getString('edit')} />
-          <Menu.Item icon="cross" text={getString('delete')} />
-        </Menu>
-      </Popover>
+      <Container
+        style={{ textAlign: 'right' }}
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation()
+        }}
+      >
+        <Button
+          minimal
+          icon="Options"
+          iconProps={{ size: 24 }}
+          tooltip={
+            <Menu style={{ minWidth: 'unset' }}>
+              <Menu.Item icon="edit" text={getString('edit')} />
+              <Menu.Item icon="cross" text={getString('delete')} />
+            </Menu>
+          }
+          tooltipProps={{ isDark: true, interactionKind: 'click' }}
+        />
+      </Container>
     </Layout.Horizontal>
   )
 }
@@ -171,15 +182,23 @@ const IndividualTargets: React.FC<IndividualProps> = ({
 
   return (
     <Page.Body>
-      <Card style={{ width: '100%' }}>
+      <Container style={{ width: '100%' }} className={css.header}>
         <CreateTargetModal
           loading={loadingCreateTarget || loadingBulk}
           onSubmitTargets={handleTargetCreation}
           onSubmitUpload={handleTargetUpload}
         />
-      </Card>
-      <Container flex padding="medium">
-        <Table<Target> className={css.table} columns={columnDefs} data={targets} pagination={pagination} />
+      </Container>
+      <Container flex className={css.content}>
+        <Table<Target>
+          className={css.table}
+          columns={columnDefs}
+          data={targets}
+          pagination={pagination}
+          onRowClick={() => {
+            alert('TBD')
+          }}
+        />
       </Container>
     </Page.Body>
   )

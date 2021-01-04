@@ -8,6 +8,7 @@ export default {
   trueFlag: 'True',
   falseFlag: 'False',
   saveAndContinue: 'Save and Continue',
+  next: 'Next',
   percentage: 'Percentage Rollout',
   back: 'Back',
   close: 'Close',
@@ -58,5 +59,6 @@ export default {
     verifyText:
       "Once you're done, run your application so that we can verify that we are able to receive analytic events for your feature.",
     testFlagTargetHeading: 'Testing feature flag on production environment'
-  }
+  },
+  confirmClose: 'Are you sure you want to close this modal?'
 }

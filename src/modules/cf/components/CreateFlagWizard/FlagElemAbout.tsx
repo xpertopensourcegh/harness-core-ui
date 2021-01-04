@@ -100,12 +100,10 @@ const FlagElemAbout: React.FC<StepProps<any>> = props => {
                       portalClassName: css.tooltipAboutFlag
                     }}
                     inline
-                    icon="info-sign"
-                    iconProps={{ size: 10, color: Color.BLUE_500 }}
                   />
                 </Layout.Horizontal>
               </Container>
-              <Button type="submit" text={i18n.saveAndContinue} className={css.aboutFlagContainerBtn} />
+              <Button type="submit" text={i18n.next} className={css.aboutFlagContainerBtn} />
             </Container>
           </Form>
         )}

@@ -12,6 +12,10 @@
   padding: var(--spacing-medium) var(--spacing-large) !important;
   border: 1px solid var(--grey-300);
   align-items: center;
+  background-color: var(--white) !important;
+  position: sticky;
+  top: 0;
+
   .ff-page-btns-search {
     margin-right: var(--spacing-small) !important;
     & > span {
@@ -42,16 +46,11 @@
 .ff-list-container {
   height: calc(100% - 80px);
   overflow: auto;
+  background: var(--grey-100) !important;
 }
 
 .ff-table-container {
   padding: var(--spacing-medium) var(--spacing-large) !important;
-  & > div {
-    overflow: auto;
-    div[role='row'] {
-      box-shadow: 0 0 15px var(--grey-300);
-    }
-  }
 }
 
 .tags-popover {
@@ -74,5 +73,29 @@
     color: var(--black);
     font-weight: bold;
     margin-bottom: var(--spacing-medium);
+  }
+}
+
+.generalInfo {
+  flex-grow: 1;
+  align-items: baseline !important;
+  width: calc(100% - 100px) !important;
+
+  > span {
+    width: 100%;
+    > span {
+      width: 100%;
+    }
+  }
+
+  & + span:last-of-type {
+    align-self: center;
+  }
+
+  .name {
+    max-width: 800px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

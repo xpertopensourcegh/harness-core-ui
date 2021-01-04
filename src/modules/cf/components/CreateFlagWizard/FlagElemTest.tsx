@@ -141,8 +141,9 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
         // }
         // TODO: When the user is on edit targeting page only submit the Formik from this step
 
-        alert('To be implemented...')
-        hideModal?.()
+        if (confirm(i18n.confirmClose)) {
+          hideModal?.()
+        }
       }}
     >
       {formikProps => (

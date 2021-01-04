@@ -12,3 +12,17 @@
 .upload {
   cursor: pointer;
 }
+
+.header {
+  padding: var(--spacing-medium) var(--spacing-large) !important;
+  border: 1px solid var(--grey-300);
+  align-items: center;
+  background-color: var(--white) !important;
+  position: sticky;
+  top: 0;
+}
+
+.content {
+  padding: var(--spacing-medium) var(--spacing-large) !important;
+  background: var(--grey-100) !important;
+}

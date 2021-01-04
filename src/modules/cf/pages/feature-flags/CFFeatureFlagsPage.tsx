@@ -10,12 +10,11 @@ import {
   Button,
   FlexExpander,
   Select,
-  Popover,
   SelectOption
 } from '@wings-software/uikit'
+import ReactTimeago from 'react-timeago'
 import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
-import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
@@ -36,42 +35,44 @@ const RenderColumnFlag: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
 
   return (
-    <Layout.Horizontal flex>
-      {/* FIXME: Check with BE */}
-      {/* <Switch checked={data.isChecked} /> */}
-      <Layout.Vertical>
-        <Layout.Horizontal flex>
-          <Text color={Color.BLACK} font={{ weight: 'bold', size: 'medium' }} margin={{ right: 'xsmall' }}>
-            {data.name}
-          </Text>
-          <Text color={Color.GREY_450} font={{ size: 'small' }}>
-            ( {i18n.created.toLowerCase()}
-            <span style={{ marginLeft: '3px' }}>{moment(data.createdAt).format(`YY[yrs] [and] D [days ago]`)} )</span>
-          </Text>
-        </Layout.Horizontal>
+    <Layout.Horizontal>
+      <Layout.Vertical flex className={css.generalInfo}>
+        <Text
+          color={Color.BLACK}
+          font={{ weight: 'bold', size: 'medium' }}
+          margin={{ right: 'xsmall' }}
+          className={css.name}
+          tooltip={<Text padding="large">{data.name}</Text>}
+        >
+          {data.name}
+        </Text>
         <Text>{data.description}</Text>
         <Text color={Color.GREY_450} font={{ size: 'small' }}>
           {data.identifier}
         </Text>
       </Layout.Vertical>
-      <Container margin={{ right: 'medium' }}>
-        <Text
-          icon="main-tags"
-          tooltip={
-            data?.tags?.length ? (
-              <>
-                <Text>{i18n.tags.toUpperCase()}</Text>
-                {data.tags.map((elem, i) => (
-                  <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
-                ))}
-              </>
-            ) : undefined
-          }
-          tooltipProps={{ portalClassName: css.tagsPopover, position: Position.RIGHT }}
-        >
-          {data?.tags?.length ? data.tags.length : 0}
-        </Text>
-      </Container>
+      <Text
+        width="100px"
+        flex
+        icon="main-tags"
+        style={{ justifyContent: 'center' }}
+        tooltip={
+          data?.tags?.length ? (
+            <>
+              <Text>{i18n.tags.toUpperCase()}</Text>
+              {data.tags.map((elem, i) => (
+                <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
+              ))}
+            </>
+          ) : undefined
+        }
+        tooltipProps={{
+          portalClassName: css.tagsPopover,
+          position: Position.RIGHT
+        }}
+      >
+        {data?.tags?.length || 0}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -96,59 +97,22 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   )
 }
 
-const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => {
-  const data = row.original
+const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => (
+  <Text>{row.original.envProperties?.state?.toLocaleUpperCase()}</Text>
+)
 
-  return (
-    // FIXME: Check this with BE
-    <Layout.Vertical>
-      <Text>Lorem ipsum</Text>
-      <Text color={Color.GREY_450} font={{ size: 'small' }}>
-        {moment(data.modifiedAt).format('MM/DD/YYYY')}
-      </Text>
-    </Layout.Vertical>
-  )
+const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
+  return row.original?.modifiedAt ? (
+    <Layout.Horizontal spacing="small">
+      <Icon name="activity" />
+      <ReactTimeago date={row.original?.modifiedAt} />
+    </Layout.Horizontal>
+  ) : null
 }
 
-const RenderColumnResults: Renderer<CellProps<Feature>> = () => {
-  // const data = row.original
-
-  {
-    /* TODO: Check with BE about results tooltip */
-  }
-  return (
-    <>
-      {/* FIXME: Check with BE */}
-      <div style={{ backgroundColor: '#ccc', height: '15px', width: '60px' }}></div>
-      <Text>Lorem Ipsum</Text>
-    </>
-  )
-}
-
-const RenderColumnOwners: Renderer<CellProps<Feature>> = ({ row }) => {
-  const data = row.original
-
-  return (
-    <Text
-      tooltip={data?.owner?.join(',')}
-      tooltipProps={{ isDark: true }}
-      flex
-      style={{ justifyContent: 'flex-start' }}
-    >
-      {/* FIXME: Check with BE */}
-      {/* <img src="" alt={data.owner} /> */}
-      <Icon name="main-user" size={20} style={{ position: 'relative', zIndex: 1 }} />
-      <Button
-        icon="add"
-        minimal
-        intent="primary"
-        iconProps={{ size: 20 }}
-        style={{ marginLeft: '-5px', border: 0 }}
-        onClick={() => alert('To be implemented')}
-      />
-    </Text>
-  )
-}
+const RenderColumnActive: Renderer<CellProps<Feature>> = ({ row }) => (
+  <Text>{row.original.archived ? i18n.no : i18n.yes}</Text>
+)
 
 interface ColumnMenuProps {
   cell: Cell<Feature>
@@ -158,8 +122,6 @@ interface ColumnMenuProps {
 const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
   const data = row.original
   const { showError } = useToaster()
-
-  const [menuOpen, setMenuOpen] = useState(false)
 
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
@@ -207,44 +169,39 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   }
 
   return (
-    <Layout.Horizontal flex>
-      {/* TODO: Check with BE about pin */}
-      <Icon name="pin" margin={{ right: 'small' }} />
-      <Popover
-        isOpen={menuOpen}
-        onInteraction={nextOpenState => {
-          setMenuOpen(nextOpenState)
-        }}
-      >
-        <Button
-          minimal
-          icon="more"
-          onClick={e => {
-            e.stopPropagation()
-            setMenuOpen(true)
-          }}
-        />
-        <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item
-            icon="edit"
-            text={i18n.edit}
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation()
-              onDetailPage()
-            }}
-          />
-          <Menu.Item
-            icon="trash"
-            text={i18n.delete}
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation()
-              openDeleteFlagDialog()
-              setMenuOpen(false)
-            }}
-          />
-        </Menu>
-      </Popover>
-    </Layout.Horizontal>
+    <Container
+      style={{ textAlign: 'right' }}
+      onClick={(e: React.MouseEvent) => {
+        e.stopPropagation()
+      }}
+    >
+      <Button
+        minimal
+        icon="Options"
+        iconProps={{ size: 24 }}
+        tooltipProps={{ isDark: true, interactionKind: 'click' }}
+        tooltip={
+          <Menu style={{ minWidth: 'unset' }}>
+            <Menu.Item
+              icon="edit"
+              text={i18n.edit}
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation()
+                onDetailPage()
+              }}
+            />
+            <Menu.Item
+              icon="trash"
+              text={i18n.delete}
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation()
+                openDeleteFlagDialog()
+              }}
+            />
+          </Menu>
+        }
+      />
+    </Container>
   )
 }
 
@@ -258,7 +215,8 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   const { showError } = useToaster()
 
-  const { projectIdentifier } = useParams<any>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
+  const history = useHistory()
 
   const { data: environments, loading: envsLoading, error: envsError } = useEnvironments({
     project: projectIdentifier as string,
@@ -294,7 +252,7 @@ const CFFeatureFlagsPage: React.FC = () => {
       {
         Header: i18n.featureFlag.toUpperCase(),
         accessor: row => row.name,
-        width: '35%',
+        width: '50%',
         Cell: RenderColumnFlag
       },
       {
@@ -306,22 +264,22 @@ const CFFeatureFlagsPage: React.FC = () => {
       {
         Header: i18n.status.toUpperCase(),
         accessor: 'archived',
-        width: '20%',
+        width: '10%',
         Cell: RenderColumnStatus
       },
       {
-        Header: i18n.results.toUpperCase(),
+        Header: i18n.lastUpdated.toUpperCase(),
         // TODO: Check for the accessor field
         accessor: 'prerequisites',
         width: '15%',
-        Cell: RenderColumnResults,
+        Cell: RenderColumnLastUpdated,
         disableSortBy: true
       },
       {
-        Header: i18n.owners.toUpperCase(),
+        Header: i18n.active.toUpperCase(),
         accessor: row => row.owner,
-        width: '10%',
-        Cell: RenderColumnOwners,
+        width: '5%',
+        Cell: RenderColumnActive,
         disableSortBy: true
       },
       {
@@ -410,6 +368,17 @@ const CFFeatureFlagsPage: React.FC = () => {
             <Table<Feature>
               columns={columns}
               data={flagList?.features || []}
+              onRowClick={feature => {
+                history.push(
+                  routes.toCFFeatureFlagsDetail({
+                    orgIdentifier: orgIdentifier as string,
+                    projectIdentifier: projectIdentifier as string,
+                    environmentIdentifier: environment?.value as string,
+                    featureFlagIdentifier: feature.identifier,
+                    accountId
+                  })
+                )
+              }}
               pagination={{
                 itemCount: flagList?.itemCount || 0,
                 pageSize: flagList?.pageSize || 7,

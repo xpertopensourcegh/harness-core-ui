@@ -10,5 +10,7 @@ declare const styles: {
   readonly ffListContainer: string
   readonly ffTableContainer: string
   readonly tagsPopover: string
+  readonly generalInfo: string
+  readonly name: string
 }
 export default styles

@@ -26,14 +26,9 @@ const flagTypeOptions: SelectOption[] = [
 
 const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { flagTypeView, toggleFlagType, hideModal } = props
-
-  const [testFlagClicked, setTestFlagClicked] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-
   const { showError } = useToaster()
-
   const { projectIdentifier, orgIdentifier, environmentIdentifier, accountId } = useParams()
-
   const history = useHistory()
 
   const {
@@ -43,10 +38,6 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   } = useCreateFeatureFlag({
     queryParams: SharedQueryParams
   })
-
-  const onTestFlag = (): void => {
-    setTestFlagClicked(true)
-  }
 
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
@@ -62,22 +53,18 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     /*--- END ONLY FOR DEV ---*/
 
     if (formData) {
-      createFeatureFlag(formData)
-        .then(() => {
-          hideModal()
-          history.push(
-            routes.toCFFeatureFlagsDetail({
-              orgIdentifier: orgIdentifier as string,
-              projectIdentifier: projectIdentifier as string,
-              featureFlagIdentifier: formData.identifier,
-              environmentIdentifier: (environmentIdentifier ?? 'production') as string,
-              accountId
-            })
-          )
-        })
-        .catch(e => {
-          showError(e)
-        })
+      createFeatureFlag(formData).then(() => {
+        hideModal()
+        history.push(
+          routes.toCFFeatureFlagsDetail({
+            orgIdentifier: orgIdentifier as string,
+            projectIdentifier: projectIdentifier as string,
+            featureFlagIdentifier: formData.identifier,
+            environmentIdentifier: (environmentIdentifier ?? 'production') as string,
+            accountId
+          })
+        )
+      })
     } else {
       hideModal()
     }
@@ -85,7 +72,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
 
   // TODO: Show more meaningful error
   if (errorCreateFlag) {
-    showError('Error on create flag...')
+    showError(errorCreateFlag.message)
   }
 
   return (
@@ -95,8 +82,6 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         <FlagElemBoolean
           name={i18n.varSettingsFlag.variationSettingsHeading}
           toggleFlagType={toggleFlagType}
-          testFlagClicked={testFlagClicked}
-          onTestFlag={onTestFlag}
           flagTypeOptions={flagTypeOptions}
           onWizardStepSubmit={onWizardStepSubmit}
           projectIdentifier={projectIdentifier}
@@ -107,8 +92,6 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         <FlagElemMultivariate
           name={i18n.varSettingsFlag.variationSettingsHeading}
           toggleFlagType={toggleFlagType}
-          testFlagClicked={testFlagClicked}
-          onTestFlag={onTestFlag}
           flagTypeOptions={flagTypeOptions}
           onWizardStepSubmit={onWizardStepSubmit}
           projectIdentifier={projectIdentifier}
