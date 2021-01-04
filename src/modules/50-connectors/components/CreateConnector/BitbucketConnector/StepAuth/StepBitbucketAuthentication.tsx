@@ -17,9 +17,9 @@ import {
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
-  buildGitlabPayload,
+  buildBitbucketPayload,
   SecretReferenceInterface,
-  setupGitFormData,
+  setupBitbucketFormData,
   GitConnectionType
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/exports'
@@ -35,111 +35,51 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
 import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import css from './StepGitlabAuthentication.module.scss'
+import css from './StepBitbucketAuthentication.module.scss'
 
-interface StepGitlabAuthenticationProps extends ConnectorInfoDTO {
+interface StepBitbucketAuthenticationProps extends ConnectorInfoDTO {
   name: string
   isEditMode?: boolean
 }
 
-interface GitlabAuthenticationProps {
+interface BitbucketAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   connectorInfo: ConnectorInfoDTO | void
 }
 
-interface GitlabFormInterface {
+interface BitbucketFormInterface {
   connectionType: string
   authType: string
   username: string
   password: SecretReferenceInterface | void
-  accessToken: SecretReferenceInterface | void
-  installationId: string
-  applicationId: string
-  privateKey: SecretReferenceInterface | void
   sshKey: SecretReferenceInterface | void
   enableAPIAccess: boolean
   apiAuthType: string
 }
 
-const defaultInitialFormData: GitlabFormInterface = {
+const defaultInitialFormData: BitbucketFormInterface = {
   connectionType: GitConnectionType.HTTPS,
   authType: GitAuthTypes.USER_PASSWORD,
   username: '',
   password: undefined,
-  accessToken: undefined,
-  installationId: '',
-  applicationId: '',
-  privateKey: undefined,
   sshKey: undefined,
   enableAPIAccess: false,
   apiAuthType: GitAPIAuthTypes.TOKEN
 }
 
-const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props => {
+const RenderBitbucketAuthForm: React.FC<FormikProps<BitbucketFormInterface>> = () => {
   const { getString } = useStrings()
-  switch (props.values.authType) {
-    case GitAuthTypes.USER_PASSWORD:
-      return (
-        <>
-          <FormInput.Text name="username" label={getString('username')} />
-          <SecretInput name="password" label={getString('password')} />
-        </>
-      )
-    case GitAuthTypes.USER_TOKEN:
-      return (
-        <>
-          <FormInput.Text name="username" label={getString('username')} />
-          <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
-        </>
-      )
-    default:
-      return null
-  }
-}
-
-const RenderAPIAccessForm: React.FC<FormikProps<GitlabFormInterface>> = props => {
-  const { getString } = useStrings()
-  switch (props.values.apiAuthType) {
-    case GitAPIAuthTypes.TOKEN:
-      return (
-        <>
-          <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
-        </>
-      )
-    default:
-      return null
-  }
-}
-
-const RenderAPIAccessFormWrapper: React.FC<FormikProps<GitlabFormInterface>> = formikProps => {
-  const { getString } = useStrings()
-
-  const apiAuthOptions: Array<SelectOption> = [
-    {
-      label: getString('connectors.git.accessToken'),
-      value: GitAPIAuthTypes.TOKEN
-    }
-  ]
-
   return (
     <>
-      <Text font="small" margin={{ bottom: 'small' }}>
-        {getString('connectors.git.APIAccessDescriptipn')}
-      </Text>
-      <Container className={css.authHeaderRow}>
-        <Text className={css.authTitle} inline>
-          {getString('connectors.git.APIAuthentication')}
-        </Text>
-        <FormInput.Select name="apiAuthType" items={apiAuthOptions} />
-      </Container>
-      <RenderAPIAccessForm {...formikProps} />{' '}
+      <FormInput.Text name="username" label={getString('username')} />
+      <SecretInput name="password" label={getString('password')} />
     </>
   )
 }
 
-const StepGitlabAuthentication: React.FC<
-  StepProps<StepGitlabAuthenticationProps> & GitlabAuthenticationProps
+const StepBitbucketAuthentication: React.FC<
+  StepProps<StepBitbucketAuthenticationProps> & BitbucketAuthenticationProps
 > = props => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -156,10 +96,6 @@ const StepGitlabAuthentication: React.FC<
     {
       label: getString('usernamePassword'),
       value: GitAuthTypes.USER_PASSWORD
-    },
-    {
-      label: getString('usernameToken'),
-      value: GitAuthTypes.USER_TOKEN
     }
   ]
 
@@ -170,7 +106,7 @@ const StepGitlabAuthentication: React.FC<
       await createConnector(data)
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullCreate', { name: prevStepData?.name }))
-      nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
+      nextStep?.({ ...prevStepData, ...stepData } as StepBitbucketAuthenticationProps)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -184,7 +120,7 @@ const StepGitlabAuthentication: React.FC<
       await updateConnector(data)
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullUpdate', { name: prevStepData?.name }))
-      nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
+      nextStep?.({ ...prevStepData, ...stepData } as StepBitbucketAuthenticationProps)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
@@ -194,8 +130,8 @@ const StepGitlabAuthentication: React.FC<
   useEffect(() => {
     if (loadingConnectorSecrets) {
       if (props.isEditMode && props.connectorInfo) {
-        setupGitFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as GitlabFormInterface)
+        setupBitbucketFormData(props.connectorInfo, accountId).then(data => {
+          setInitialValues(data as BitbucketFormInterface)
           setLoadingConnectorSecrets(false)
         })
       }
@@ -207,7 +143,7 @@ const StepGitlabAuthentication: React.FC<
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.git.gitlabStepTwoName')}
+        {getString('connectors.git.githubStepTwoName')}
       </Text>
 
       <Formik
@@ -225,21 +161,10 @@ const StepGitlabAuthentication: React.FC<
             then: Yup.object().required(getString('validation.sshKey')),
             otherwise: Yup.object().nullable()
           }),
-          password: Yup.object().when('authType', {
-            is: val => val === GitAuthTypes.USER_PASSWORD,
+          password: Yup.object().when('connectionType', {
+            is: val => val === GitConnectionType.HTTPS,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
-          }),
-          accessToken: Yup.object().when(['connectionType', 'authType', 'enableAPIAccess', 'apiAuthType'], {
-            is: (connectionType, authType, enableAPIAccess, apiAuthType) =>
-              (connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_TOKEN) ||
-              (enableAPIAccess && apiAuthType === GitAPIAuthTypes.TOKEN),
-            then: Yup.object().required(getString('validation.accessToken')),
-            otherwise: Yup.object().nullable()
-          }),
-          apiAuthType: Yup.string().when('enableAPIAccess', {
-            is: val => val,
-            then: Yup.string().trim().required(getString('validation.authType'))
           })
         })}
         onSubmit={stepData => {
@@ -249,8 +174,7 @@ const StepGitlabAuthentication: React.FC<
             projectIdentifier: projectIdentifier,
             orgIdentifier: orgIdentifier
           }
-
-          const data = buildGitlabPayload(connectorData)
+          const data = buildBitbucketPayload(connectorData)
 
           if (props.isEditMode) {
             handleUpdate(data, stepData)
@@ -279,7 +203,7 @@ const StepGitlabAuthentication: React.FC<
                     <FormInput.Select name="authType" items={authOptions} disabled={false} />
                   </Container>
 
-                  <RenderGitlabAuthForm {...formikProps} />
+                  <RenderBitbucketAuthForm {...formikProps} />
                 </>
               )}
 
@@ -288,7 +212,6 @@ const StepGitlabAuthentication: React.FC<
                 label={getString('connectors.git.enableAPIAccess')}
                 padding={{ left: 'xxlarge' }}
               />
-              {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
             </Container>
 
             <Button
@@ -305,4 +228,4 @@ const StepGitlabAuthentication: React.FC<
   )
 }
 
-export default StepGitlabAuthentication
+export default StepBitbucketAuthentication

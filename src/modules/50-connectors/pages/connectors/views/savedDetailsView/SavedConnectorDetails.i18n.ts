@@ -19,6 +19,7 @@ export default {
     GIT: 'GIT Connector Name',
     Github: 'GitHub Connector Name',
     Gitlab: 'GitLab Connector Name',
+    Bitbucket: 'Bitbucket Connector Name',
     Docker: 'Docker Connector Name',
     GCP: 'GCP Connector Name',
     AWS: 'AWS Connector Name',

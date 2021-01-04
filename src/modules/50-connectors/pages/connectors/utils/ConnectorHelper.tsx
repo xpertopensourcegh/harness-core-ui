@@ -59,6 +59,8 @@ export const getHeadingByType = (type: string): string => {
       return i18n.githubConnectorDetails
     case Connectors.GITLAB:
       return i18n.githubConnectorDetails
+    case Connectors.BITBUCKET:
+      return i18n.bitbucketConnectorDetails
     case Connectors.VAULT:
       return i18n.hashicorpVaultDetails
     case Connectors.GCP_KMS:
@@ -93,6 +95,8 @@ export const getConnectorTitleTextByType = (type: string): string => {
       return i18n.LABEL.githubConnector
     case Connectors.GITLAB:
       return i18n.LABEL.gitlabConnector
+    case Connectors.BITBUCKET:
+      return i18n.LABEL.bitbucketConnector
     case Connectors.VAULT:
       return i18n.LABEL.hashicorpVault
     case Connectors.GCP_KMS:
@@ -127,6 +131,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'github'
     case Connectors.GITLAB:
       return 'service-gotlab'
+    case Connectors.BITBUCKET:
+      return 'bitbucket-new'
     case Connectors.VAULT:
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:

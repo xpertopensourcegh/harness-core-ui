@@ -236,6 +236,43 @@ export const buildGitlabPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+export const buildBitbucketPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData?.description,
+    projectIdentifier: formData?.projectIdentifier,
+    orgIdentifier: formData?.orgIdentifier,
+    identifier: formData.identifier,
+    tags: formData?.tags,
+    type: Connectors.BITBUCKET,
+    spec: {
+      type: formData.urlType,
+      url: formData.url,
+      authentication: {
+        type: formData.connectionType,
+        spec:
+          formData.connectionType === GitConnectionType.SSH
+            ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
+            : {
+                type: formData.authType,
+                spec: getGitAuthSpec(formData)
+              }
+      },
+      apiAccess: { type: GitAuthTypes.USER_PASSWORD, spec: {} }
+    }
+  }
+
+  if (formData.enableAPIAccess) {
+    savedData.spec.apiAccess.spec = {
+      username: formData.username,
+      passwordRef: formData.password.referenceString
+    }
+  } else {
+    delete savedData.spec.apiAccess
+  }
+  return { connector: savedData }
+}
+
 export const setSecretField = async (
   secretString: string,
   scopeQueryParams: GetSecretV2QueryParams
@@ -289,6 +326,26 @@ export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountI
     installationId: connectorInfo?.spec?.apiAccess?.spec?.installationId,
     applicationId: connectorInfo?.spec?.apiAccess?.spec?.applicationId,
     privateKey: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef, scopeQueryParams)
+  }
+
+  return formData
+}
+
+export const setupBitbucketFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const authData = connectorInfo?.spec?.authentication
+  const formData = {
+    sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
+    authType: authData?.spec?.type,
+    username: authData?.spec?.spec?.username,
+    password: await setSecretField(authData?.spec?.spec?.passwordRef, scopeQueryParams),
+    enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
+    apiAuthType: connectorInfo?.spec?.apiAccess?.type
   }
 
   return formData
@@ -596,6 +653,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'github'
     case Connectors.GITLAB:
       return 'service-gotlab'
+    case Connectors.BITBUCKET:
+      return 'bitbucket'
     case 'Vault': // TODO: use enum when backend fixes it
     case 'Local': // TODO: use enum when backend fixes it
       return 'secret-manager'

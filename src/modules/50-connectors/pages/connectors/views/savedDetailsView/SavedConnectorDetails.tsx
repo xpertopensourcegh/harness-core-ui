@@ -47,6 +47,8 @@ const getLabelByType = (type: string): string => {
       return i18n.NAME_LABEL.Github
     case Connectors.GITLAB:
       return i18n.NAME_LABEL.Gitlab
+    case Connectors.BITBUCKET:
+      return i18n.NAME_LABEL.Bitbucket
     case Connectors.DOCKER:
       return i18n.NAME_LABEL.Docker
     case Connectors.GCP:
@@ -198,18 +200,15 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: i18n.Github.password,
-      value: connector?.spec?.authentication?.spec?.spec?.passwordRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.authentication?.spec?.spec?.passwordRef
     },
     {
       label: i18n.Github.accessToken,
-      value:
-        connector?.spec?.authentication?.spec?.spec?.tokenRef || connector?.spec?.apiAccess?.spec?.tokenRef
-          ? i18n.k8sCluster.encrypted
-          : null
+      value: connector?.spec?.authentication?.spec?.spec?.tokenRef || connector?.spec?.apiAccess?.spec?.tokenRef
     },
     {
       label: i18n.Github.sshKey,
-      value: connector?.spec?.authentication?.spec?.spec?.sshKeyRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.authentication?.spec?.spec?.sshKeyRef
     },
 
     {
@@ -393,9 +392,9 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
     case Connectors.GIT:
       return getGitSchema(connector)
     case Connectors.GITHUB:
-      return getGithubSchema(connector)
     case Connectors.GITLAB:
-      return getGithubSchema(connector) // GitHub schema will work for GitLab too
+    case Connectors.BITBUCKET:
+      return getGithubSchema(connector) // GitHub schema will work for GitLab, Bitbucket too
     case Connectors.DOCKER:
       return getDockerSchema(connector)
     case Connectors.GCP:

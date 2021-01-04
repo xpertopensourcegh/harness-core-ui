@@ -297,7 +297,7 @@ const StepGithubAuthentication: React.FC<
                   <Text font={{ weight: 'bold' }} className={css.authTitle}>
                     {getString('connectors.authTitle')}
                   </Text>
-                  <SecretInput name="sshKey" label={getString('SSH_KEY')} />
+                  <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
                 </>
               ) : (
                 <>
