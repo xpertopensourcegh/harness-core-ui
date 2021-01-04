@@ -1,0 +1,20 @@
+.label {
+  display: flex;
+  justify-content: space-between;
+
+  :global {
+    .bp3-input-group {
+      width: 100px;
+      .bp3-input {
+        width: 100% !important;
+        border: none;
+        padding: var(--spacing-small) 0;
+        min-width: 100px;
+        text-align: end !important;
+      }
+    }
+  }
+}
+.textCss {
+  margin-bottom: 0px !important;
+}

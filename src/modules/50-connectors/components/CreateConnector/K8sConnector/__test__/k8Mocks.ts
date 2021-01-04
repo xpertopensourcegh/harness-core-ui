@@ -40,7 +40,7 @@ export const serviceAccount = {
 
 export const oidcMock = {
   name: 'k8Connector',
-  identifier: 'k8',
+  identifier: 'k8Connector',
   description: 'k8 descriptipn',
   orgIdentifier: '',
   projectIdentifier: '',
@@ -54,11 +54,11 @@ export const oidcMock = {
         auth: {
           type: 'OpenIdConnect',
           spec: {
-            oidcIssuerUrl: null,
+            oidcIssuerUrl: 'issueUrl',
             oidcUsername: 'OIDC username ',
             oidcClientIdRef: 'account.clientKey',
-            oidcPasswordRef: 'account.clientPassphrase',
-            oidcSecretRef: 'account.k8certificate',
+            oidcPasswordRef: 'clientPassphrase',
+            oidcSecretRef: 'org.k8certificate',
             oidcScopes: 'account'
           }
         }
@@ -112,6 +112,46 @@ export const mockSecret = {
   },
   metaData: null,
   correlationId: 'testCorrelationId'
+}
+
+export const projectMockSecret = {
+  status: 'SUCCESS',
+  data: {
+    secret: {
+      type: 'SecretText',
+      name: 'projectlevel',
+      identifier: 'projectlevel',
+      orgIdentifier: 'OrgOneTwo',
+      projectIdentifier: 'hello',
+      tags: {},
+      description: '',
+      spec: { secretManagerIdentifier: 'harnessSecretManager', valueType: 'Inline', value: null }
+    },
+    createdAt: 1608744768482,
+    updatedAt: 1608744768482,
+    draft: false
+  },
+  metaData: null,
+  correlationId: 'd8ceee4f-5bae-4c17-8dff-09e954dbbe46'
+}
+export const orgtMockSecret = {
+  status: 'SUCCESS',
+  data: {
+    secret: {
+      type: 'SecretText',
+      name: 'projectlevel',
+      identifier: 'projectlevel',
+      orgIdentifier: 'OrgOneTwo',
+      tags: {},
+      description: '',
+      spec: { secretManagerIdentifier: 'harnessSecretManager', valueType: 'Inline', value: null }
+    },
+    createdAt: 1608744768482,
+    updatedAt: 1608744768482,
+    draft: false
+  },
+  metaData: null,
+  correlationId: 'd8ceee4f-5bae-4c17-8dff-09e954dbbe46'
 }
 
 export const mockResponse: ResponseBoolean = {

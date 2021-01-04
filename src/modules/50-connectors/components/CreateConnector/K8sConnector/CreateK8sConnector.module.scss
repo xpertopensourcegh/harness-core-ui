@@ -47,15 +47,14 @@
       .bp3-input,
       .bp3-button,
       .bp3-checkbox {
-        width: 42%;
         height: 36px;
       }
     }
 
     .authHeaderRow {
+      width: 42%;
       display: flex;
       justify-content: space-between;
-      width: 42%;
 
       .authTitle {
         font-size: var(font-size-normal);
@@ -94,4 +93,10 @@
       margin-top: var(--spacing-large);
     }
   }
+}
+.formFieldWidth {
+  width: 42%;
+}
+.applyFlex {
+  display: flex !important;
 }

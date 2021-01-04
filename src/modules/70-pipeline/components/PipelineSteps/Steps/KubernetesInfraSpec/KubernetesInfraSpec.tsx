@@ -369,7 +369,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
       if (obj.type === KubernetesDirectType) {
         return getConnectorListV2Promise({
           queryParams: { accountIdentifier: accountId },
-          body: { type: ['K8sCluster'] }
+          body: { types: ['K8sCluster'] }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({

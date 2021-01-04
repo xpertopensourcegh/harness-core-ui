@@ -20,14 +20,18 @@ import {
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesStatus: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
+  })
 }))
 
 jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
-  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 describe('Create Github connector Wizard', () => {
@@ -201,5 +205,35 @@ describe('Create Github connector Wizard', () => {
     // step 2
     expect(queryByText(container, 'Enable API access')).toBeDefined()
     expect(container).toMatchSnapshot()
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    expect(updateConnector).toBeCalledWith({
+      connector: {
+        name: 'GithubWorking1',
+        identifier: 'asasas',
+        description: 'connector before demo',
+        orgIdentifier: undefined,
+        projectIdentifier: undefined,
+        tags: {},
+        type: 'Github',
+        spec: {
+          url: 'https://github.com/dev',
+          authentication: {
+            type: 'Http',
+            spec: {
+              type: 'UsernameToken',
+              spec: { username: 'dev', tokenRef: 'account.githubPassword' }
+            }
+          },
+          apiAccess: {
+            type: 'GithubApp',
+            spec: { installationId: '1234', applicationId: '1234', privateKeyRef: 'account.githubPassword' }
+          },
+          type: 'Account'
+        }
+      }
+    })
   })
 })

@@ -91,9 +91,7 @@ export const getPipelineExecutionDetails = (): ResponsePipelineExecutionDetail =
         startedAt: 0,
         endedAt: 10,
         triggerInfo: {
-          triggeredBy: {
-            name: 'admin'
-          },
+          triggeredBy: {},
           triggerType: 'MANUAL'
         },
         stageExecutionSummaryElements: statusAr.map((status, index) => {

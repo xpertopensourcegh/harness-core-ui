@@ -93,6 +93,8 @@ global:
   deleted: deleted
   showAll: Show All
   categories: Categories
+  plaintext: Plaintext
+  encrypted: Encrypted
   noSearchResultsFoundPeriod: No results found.
   description: Description
   recentlyUsed: Recently Used
@@ -637,6 +639,7 @@ global:
       masterUrlLabel: 'Master URL'
       serviceAccountToken: 'Service Account Token'
       skipDefaultValidation: 'Skip default namespace validation'
+      OIDCIssuerUrl: OIDC Issuer URL
       OIDCUsername: 'OIDC Username'
       OIDCPassword: 'OIDC Password'
       OIDCClientId: 'OIDC Client ID'

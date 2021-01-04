@@ -12,5 +12,7 @@ declare const styles: {
   readonly authTitle: string
   readonly formRow: string
   readonly saveButton: string
+  readonly formFieldWidth: string
+  readonly applyFlex: string
 }
 export default styles

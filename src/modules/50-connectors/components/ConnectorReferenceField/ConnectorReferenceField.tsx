@@ -9,7 +9,8 @@ import {
   ConnectorConfigDTO,
   GetConnectorListQueryParams,
   ConnectorResponse,
-  getConnectorListV2Promise
+  getConnectorListV2Promise,
+  ConnectorFilterProperties
 } from 'services/cd-ng'
 import { EntityReferenceResponse, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from '@connectors/exports'
@@ -127,10 +128,10 @@ export function getReferenceFieldProps({
               accountIdentifier
             },
             body: {
-              type,
+              types: type,
               projectIdentifier: scope === Scope.PROJECT ? [projectIdentifier as string] : undefined,
               orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? [orgIdentifier as string] : undefined
-            }
+            } as ConnectorFilterProperties
           })
         : getConnectorListPromise({
             queryParams: {

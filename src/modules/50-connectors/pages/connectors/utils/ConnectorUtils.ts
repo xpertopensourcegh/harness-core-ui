@@ -1,9 +1,10 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uikit'
-import { Connectors, ConnectorInfoText, EntityTypes } from '@connectors/constants'
+import { Connectors, EntityTypes } from '@connectors/constants'
 import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export const getScopeFromString = (value: string) => {
@@ -57,24 +58,14 @@ export interface SecretReferenceInterface {
   referenceString: string
 }
 
-export const getScopedSecretString = (scope: string, identifier: string) => {
-  switch (scope) {
-    case Scope.PROJECT:
-      return identifier
-    case Scope.ACCOUNT:
-      return `account.${identifier}`
-    case Scope.ORG:
-      return `org.${identifier}`
-  }
-}
-
 const buildAuthTypePayload = (formData: FormData) => {
   const { authType = '' } = formData
 
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
       return {
-        username: formData.username,
+        username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+        usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
         passwordRef: formData.password.referenceString
       }
     case AuthTypes.SERVICE_ACCOUNT:
@@ -83,7 +74,9 @@ const buildAuthTypePayload = (formData: FormData) => {
       }
     case AuthTypes.OIDC:
       return {
-        oidcUsername: formData.oidcUsername,
+        oidcIssuerUrl: formData.oidcIssuerUrl,
+        oidcUsername: formData.oidcUsername.type === ValueType.TEXT ? formData.oidcUsername.value : undefined,
+        oidcUsernameRef: formData.oidcUsername.type === ValueType.ENCRYPTED ? formData.oidcUsername.value : undefined,
         oidcPasswordRef: formData.oidcPassword.referenceString,
         oidcClientIdRef: formData.oidcCleintId.referenceString,
         oidcSecretRef: formData.oidcCleintSecret.referenceString,
@@ -309,10 +302,23 @@ export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accou
   }
   const authdata = connectorInfo.spec.credential?.spec?.auth?.spec
   return {
-    username: authdata.username,
+    username:
+      authdata.username || authdata.usernameRef
+        ? {
+            value: authdata.username || authdata.usernameRef,
+            type: authdata.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
     password: await setSecretField(authdata.passwordRef, scopeQueryParams),
     serviceAccountToken: await setSecretField(authdata.serviceAccountTokenRef, scopeQueryParams),
-    oidcUsername: authdata.oidcUsername,
+    oidcIssuerUrl: authdata.oidcIssuerUrl,
+    oidcUsername:
+      authdata.oidcUsername || authdata.oidcUsernameRef
+        ? {
+            value: authdata.oidcUsername || authdata.oidcUsernameRef,
+            type: authdata.oidcUsernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
     oidcPassword: await setSecretField(authdata.oidcPasswordRef, scopeQueryParams),
     oidcCleintId: await setSecretField(authdata.oidcClientIdRef, scopeQueryParams),
     oidcCleintSecret: await setSecretField(authdata.oidcSecretRef, scopeQueryParams),
@@ -576,6 +582,7 @@ export const buildArtifactoryPayload = (formData: FormData) => {
           : null
     }
   }
+
   return { connector: savedData }
 }
 
@@ -608,15 +615,6 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     default:
       return 'cog'
-  }
-}
-
-export const getInfoTextByType = (type: string) => {
-  switch (type) {
-    case Connectors.KUBERNETES_CLUSTER:
-      return ConnectorInfoText.KUBERNETES_CLUSTER
-    default:
-      return ''
   }
 }
 
