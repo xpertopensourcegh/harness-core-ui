@@ -452,9 +452,9 @@ global:
     pomFileInfo: Path to the pom.xml file
     setContainerResources: 'Set container Resources'
     setContainerResourcesTooltip: |
-      Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.   
+      Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.
 
-      Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki. 
+      Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki.
 
       Use “Limit CPU” to limit the number of cores that the container can use. Limits for CPU resources are measured in cpu units. Fractional requests are allowed. The expression 0.1 is equivalent to the expression 100m, which can be read as "one hundred millicpu"
     limitMemoryLabel: 'Limit Memory'
@@ -1024,6 +1024,29 @@ global:
       minOneAllowedValue: 'Minimum one allowed value'
     notValidExpression: 'Not a valid input Expression'
     advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
+  ci:
+    testsReports:
+      totalExecutedTest: Total Executed Tests
+      failedTests: Failed Tests
+      failureRate: Failure Rate
+      skipped: Skipped
+      failureMessage: Failure Message
+      stackTrace: Stack Trace
+      consoleOutput: Console Output
+      testSuite: 'Test Suite:'
+      duration: Duration
+      totalTests: Total Tests
+      testCaseName: TEST CASE NAME
+      className: CLASS NAME
+      result: RESULT
+      testCasesExecution: Test Cases Execution
+      showOnlyFailedTests: Show only failed tests
+      hangTight: Hang tight! Report is being generated...
+      nothing: Nothing here!
+      notfound: No tests were found to analyze.
+      learnMore: Learn how to enable Unit test reporting
+      resultLabel: TEST CASE EXECUTION RESULT
+      sortBy: 'Sort by:'
   orgs:
     searchPlaceHolder: 'Search Organizations by name, tags'
   pipeline-list:

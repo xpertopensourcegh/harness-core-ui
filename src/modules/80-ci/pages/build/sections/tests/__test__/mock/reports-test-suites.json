@@ -1,0 +1,145 @@
+{
+  "data": {
+    "totalPages": 42,
+    "totalItems": 621,
+    "pageItemCount": 15,
+    "pageSize": 15
+  },
+  "content": [
+    {
+      "name": "software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest",
+      "duration_ms": 697077,
+      "total_tests": 21,
+      "failed_tests": 1,
+      "skipped_tests": 0,
+      "passed_tests": 20,
+      "fail_pct": 0.0476
+    },
+    {
+      "name": "software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest",
+      "duration_ms": 498506,
+      "total_tests": 15,
+      "failed_tests": 2,
+      "skipped_tests": 1,
+      "passed_tests": 13,
+      "fail_pct": 0.1333
+    },
+    {
+      "name": "io.harness.PipelineTest",
+      "duration_ms": 452524,
+      "total_tests": 3,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 3,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.SSOProviderTest",
+      "duration_ms": 423953,
+      "total_tests": 3,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 3,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest",
+      "duration_ms": 401887,
+      "total_tests": 4,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 4,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.ConnectionTest",
+      "duration_ms": 385908,
+      "total_tests": 2,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 2,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.ConnectorTest",
+      "duration_ms": 383188,
+      "total_tests": 2,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 2,
+      "fail_pct": 0
+    },
+    {
+      "name": "software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest",
+      "duration_ms": 368509,
+      "total_tests": 6,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 6,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.VerificationComponentTest",
+      "duration_ms": 345211,
+      "total_tests": 1,
+      "failed_tests": 1,
+      "skipped_tests": 0,
+      "passed_tests": 0,
+      "fail_pct": 100
+    },
+    {
+      "name": "software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest",
+      "duration_ms": 310955,
+      "total_tests": 2,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 2,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.managerclient.VerificationManagerClientHelperTest",
+      "duration_ms": 309090,
+      "total_tests": 4,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 4,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.ChangeSetTest",
+      "duration_ms": 301357,
+      "total_tests": 5,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 5,
+      "fail_pct": 0
+    },
+    {
+      "name": "software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest",
+      "duration_ms": 297267,
+      "total_tests": 8,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 8,
+      "fail_pct": 0
+    },
+    {
+      "name": "io.harness.userGroup.AddAppPermissionTest",
+      "duration_ms": 293244,
+      "total_tests": 1,
+      "failed_tests": 0,
+      "skipped_tests": 0,
+      "passed_tests": 1,
+      "fail_pct": 0
+    },
+    {
+      "name": "software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest",
+      "duration_ms": 293194,
+      "total_tests": 20,
+      "failed_tests": 4,
+      "skipped_tests": 1,
+      "passed_tests": 15,
+      "fail_pct": 0
+    }
+  ]
+}

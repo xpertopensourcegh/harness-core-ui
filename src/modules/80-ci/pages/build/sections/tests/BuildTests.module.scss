@@ -1,0 +1,186 @@
+.mainContainer {
+  height: calc(100vh - 150px);
+  overflow: auto;
+}
+
+.leftContainer {
+  flex-shrink: 0;
+  width: 515px;
+  position: sticky;
+  top: 0;
+}
+
+.widget {
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 0px 1px 4px rgba(0, 12, 120, 0.15);
+  padding-top: var(--spacing-small);
+  padding-bottom: var(--spacing-small);
+}
+
+.overview {
+  .stats {
+    border-radius: 5px;
+    .statsNumber {
+      display: block;
+      font-size: 23px;
+      font-weight: bold;
+    }
+  }
+
+  .graphWrapper {
+    border-radius: 5px;
+  }
+
+  .graphContainer {
+    max-height: 255px;
+    overflow: auto;
+
+    .graph {
+      --cell-size: 14px;
+      --cell-gap: 2px;
+
+      padding: 0 !important;
+      margin: 0;
+      display: grid;
+      grid-gap: var(--cell-gap);
+      overflow: hidden;
+
+      grid-template-columns: repeat(28, 1fr);
+      grid-template-rows: 1fr 1fr;
+
+      li {
+        background-color: var(--green-450);
+        border-radius: 2px;
+        height: var(--cell-size);
+        width: var(--cell-size);
+      }
+
+      li[data-status='failed'],
+      li[data-status='error'] {
+        background-color: var(--orange-500);
+      }
+
+      li[data-status='skipped'] {
+        background-color: var(--grey-300);
+      }
+    }
+  }
+
+  .overviewResultLabel {
+    white-space: nowrap !important;
+    overflow: hidden;
+
+    &:after {
+      background-color: var(--grey-300);
+      content: '';
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      left: 10px;
+      width: 100%;
+    }
+  }
+}
+
+.testCasesHeader,
+.rightContainer {
+  flex-grow: 1;
+}
+
+.testSuite {
+  margin-bottom: var(--spacing-small) !important;
+
+  &.expanded {
+    padding-bottom: 0 !important;
+  }
+
+  .testSuiteHeading {
+    &:first-of-type {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+
+      span {
+        display: inline-block;
+        padding-left: var(--spacing-xxsmall);
+      }
+    }
+
+    span {
+      color: var(--black);
+      display: block;
+    }
+  }
+
+  .testSuiteName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(50vw - 600px);
+  }
+
+  .progressBar {
+    width: 150px;
+    height: 12px;
+    margin-right: var(--spacing-large);
+  }
+
+  .testSuiteTable {
+    padding-left: var(--spacing-xlarge);
+    padding-right: var(--spacing-medium);
+    overflow: hidden;
+
+    .testCell {
+      > span {
+        width: 100%;
+
+        > span {
+          width: 100%;
+        }
+      }
+
+      .text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.failed {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.select {
+  width: auto !important;
+}
+
+.testPopoverBody {
+  max-width: 800px;
+
+  .testPopoverHeading {
+    border-bottom: 1px solid var(--grey-300);
+    padding-bottom: var(--spacing-small) !important;
+  }
+
+  .testPopoverDetail {
+    padding-top: var(--spacing-small) !important;
+    max-height: 200px;
+    overflow: auto;
+  }
+}
+
+.loadingContainer {
+  width: 315px !important;
+  margin: 0 auto !important;
+  padding-top: 140px !important;
+  text-align: center;
+
+  .progress {
+    > div {
+      background-color: #0092e4 !important;
+    }
+  }
+}

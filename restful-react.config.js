@@ -66,6 +66,15 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ci')")
   },
+  'ti-service': {
+    output: 'src/services/ti-service/index.tsx',
+    file: 'src/services/ti-service/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("")}`
+    }
+  },
   cv: {
     output: 'src/services/cv/index.tsx',
     file: 'src/services/cv/swagger.json',

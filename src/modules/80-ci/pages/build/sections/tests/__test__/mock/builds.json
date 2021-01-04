@@ -1,0 +1,1395 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": 2445,
+    "startTime": 1606996247667,
+    "endTime": 0,
+    "pipeline": { "id": "clang-format-pipeline", "name": "Clang format check" },
+    "triggerType": "manual",
+    "graph": {
+      "planExecutionId": "ogpjLtHLTp2PDqrecKorfg",
+      "startTs": 1606996247593,
+      "endTs": 1606996449899,
+      "status": "FAILED",
+      "rootNodeIds": ["TZWyBeFjSMe_vy4Uq9bo0Q"],
+      "adjacencyList": {
+        "graphVertexMap": {
+          "AxnTHxlwQ9i1bYiBmJ6FVA": {
+            "uuid": "AxnTHxlwQ9i1bYiBmJ6FVA",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                },
+                {
+                  "setupId": "F2GzqOzHSgSwmFi4AaNr2A",
+                  "runtimeId": "jzT26vuxTsKMeFH3MrozZA",
+                  "identifier": "stages",
+                  "stepType": "SECTION_CHAIN",
+                  "group": "STAGES"
+                },
+                {
+                  "setupId": "Cfe3dbJYTm2y9ROLf1SbAQ",
+                  "runtimeId": "K6_LpiZDQ8i3xQOWB0Rrkg",
+                  "identifier": "fomat-check",
+                  "stepType": "INTEGRATION_STAGE_STEP",
+                  "group": "INTEGRATION_STAGE"
+                },
+                {
+                  "setupId": "3NS9-MzNTviU9CNPFwCiaQ",
+                  "runtimeId": "bPpYVrv6TeO4wKxW1qPmQQ",
+                  "identifier": "EXECUTION",
+                  "stepType": "SECTION_CHAIN",
+                  "group": ""
+                },
+                {
+                  "setupId": "BIPW9jX7QZ-GGyU1B0ULow",
+                  "runtimeId": "AxnTHxlwQ9i1bYiBmJ6FVA",
+                  "identifier": "fomat-check",
+                  "stepType": "RUN",
+                  "group": "STEP"
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "BIPW9jX7QZ-GGyU1B0ULow",
+            "identifier": "fomat-check",
+            "name": "fomat-check",
+            "startTs": 1606996312594,
+            "endTs": 1606996445840,
+            "lastUpdatedAt": 1606996445840,
+            "stepType": "RUN",
+            "status": "FAILED",
+            "failureInfo": {
+              "errorMessage": "rpc error: code \u003d Unknown desc \u003d exit status 123",
+              "failureTypes": ["APPLICATION_FAILURE"]
+            },
+            "stepParameters": {
+              "type": "run",
+              "port": 9001,
+              "identifier": "fomat-check",
+              "retry": 1,
+              "timeout": 3600,
+              "command": [
+                "set -x",
+                "mkdir -p /tmp",
+                "export HOME=/tmp",
+                "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                "export repoPath=\"$(pwd)\"",
+                "bash scripts/bazel/generate_credentials.sh || true",
+                "scripts/jenkins/code-format-check.sh"
+              ],
+              "image": "harness/manager-onprem:clangformatimage",
+              "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+              "facilitatorType": "ASYNC",
+              "stepType": { "type": "RUN" },
+              "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+            },
+            "mode": "ASYNC",
+            "executableResponsesMetadata": [{}],
+            "interruptHistories": [],
+            "outcomes": [],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          },
+          "jzT26vuxTsKMeFH3MrozZA": {
+            "uuid": "jzT26vuxTsKMeFH3MrozZA",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                },
+                {
+                  "setupId": "F2GzqOzHSgSwmFi4AaNr2A",
+                  "runtimeId": "jzT26vuxTsKMeFH3MrozZA",
+                  "identifier": "stages",
+                  "stepType": "SECTION_CHAIN",
+                  "group": "STAGES"
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "F2GzqOzHSgSwmFi4AaNr2A",
+            "identifier": "stages",
+            "name": "stages",
+            "startTs": 1606996247869,
+            "endTs": 1606996448870,
+            "lastUpdatedAt": 1606996448870,
+            "stepType": "SECTION_CHAIN",
+            "status": "FAILED",
+            "stepParameters": { "childNodeIds": ["Cfe3dbJYTm2y9ROLf1SbAQ"] },
+            "mode": "CHILD_CHAIN",
+            "executableResponsesMetadata": [{}],
+            "interruptHistories": [],
+            "outcomes": [],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          },
+          "cYzH2AcCTlO98KPZp4XJXQ": {
+            "uuid": "cYzH2AcCTlO98KPZp4XJXQ",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                },
+                {
+                  "setupId": "F2GzqOzHSgSwmFi4AaNr2A",
+                  "runtimeId": "jzT26vuxTsKMeFH3MrozZA",
+                  "identifier": "stages",
+                  "stepType": "SECTION_CHAIN",
+                  "group": "STAGES"
+                },
+                {
+                  "setupId": "Cfe3dbJYTm2y9ROLf1SbAQ",
+                  "runtimeId": "K6_LpiZDQ8i3xQOWB0Rrkg",
+                  "identifier": "fomat-check",
+                  "stepType": "INTEGRATION_STAGE_STEP",
+                  "group": "INTEGRATION_STAGE"
+                },
+                {
+                  "setupId": "3NS9-MzNTviU9CNPFwCiaQ",
+                  "runtimeId": "bPpYVrv6TeO4wKxW1qPmQQ",
+                  "identifier": "EXECUTION",
+                  "stepType": "SECTION_CHAIN",
+                  "group": ""
+                },
+                {
+                  "setupId": "G-IdfbE4Tk2tubFsd8mrug",
+                  "runtimeId": "cYzH2AcCTlO98KPZp4XJXQ",
+                  "identifier": "liteEngineTask1",
+                  "stepType": "LITE_ENGINE_TASK",
+                  "group": "STEP"
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "G-IdfbE4Tk2tubFsd8mrug",
+            "identifier": "liteEngineTask1",
+            "name": "liteEngineTask1",
+            "startTs": 1606996248177,
+            "endTs": 1606996266503,
+            "lastUpdatedAt": 1606996266503,
+            "stepType": "LITE_ENGINE_TASK",
+            "status": "SUCCEEDED",
+            "stepParameters": {
+              "type": "liteEngineTask",
+              "accountId": "zEaak-FLS425IEO7OLzMUg",
+              "identifier": "liteEngineTask1",
+              "retry": 0,
+              "timeout": 1200,
+              "buildJobEnvInfo": {
+                "type": "K8",
+                "podsSetupInfo": {
+                  "podSetupInfoList": [
+                    {
+                      "podSetupParams": {
+                        "containerDefinitionInfos": [
+                          {
+                            "name": "step-1",
+                            "containerImageDetails": { "imageDetails": { "name": "drone/git", "tag": "" } },
+                            "containerType": "PLUGIN",
+                            "containerResourceParams": {
+                              "resourceRequestMemoryMiB": 1,
+                              "resourceLimitMemoryMiB": 200,
+                              "resourceRequestMilliCpu": 1,
+                              "resourceLimitMilliCpu": 200
+                            },
+                            "stepIdentifier": "harness-git-clone",
+                            "stepName": "Git clone",
+                            "commands": ["/step-exec/.harness/bin/ci-addon"],
+                            "args": ["--port", "9000"],
+                            "ports": [9000],
+                            "envVars": {
+                              "DRONE_BUILD_NUMBER": "2445",
+                              "PLUGIN_DEPTH": "1",
+                              "DRONE_COMMIT_BRANCH": "vuk/crud_apis_for_alert_and_notifications_settings"
+                            },
+                            "mainLiteEngine": false
+                          },
+                          {
+                            "name": "step-2",
+                            "containerImageDetails": {
+                              "imageDetails": { "name": "harness/manager-onprem", "tag": "clangformatimage" }
+                            },
+                            "containerType": "RUN",
+                            "containerResourceParams": {
+                              "resourceRequestMemoryMiB": 1,
+                              "resourceLimitMemoryMiB": 6000,
+                              "resourceRequestMilliCpu": 1,
+                              "resourceLimitMilliCpu": 2000
+                            },
+                            "stepIdentifier": "fomat-check",
+                            "commands": ["/step-exec/.harness/bin/ci-addon"],
+                            "args": ["--port", "9001"],
+                            "ports": [9001],
+                            "envVars": {
+                              "PLATFORM": "jenkins",
+                              "OVERRIDE_LOCAL_M2": "/step-exec/workspace/.m2/repository",
+                              "JDK": "open-8u242",
+                              "MAVEN_OPTS": "-Xmx2048m",
+                              "DRONE_COMMIT_BRANCH": "vuk/crud_apis_for_alert_and_notifications_settings",
+                              "DRONE_BUILD_NUMBER": "2445",
+                              "SNAPSHOT_PREFIX": "snapshot-",
+                              "VERSION": "1.0"
+                            },
+                            "secretVariables": [
+                              { "type": "secret", "name": "JFROG_USERNAME", "value": "account.JFROG_USERNAME1" },
+                              { "type": "secret", "name": "JFROG_PASSWORD", "value": "account.JFROG_PASSWORD" },
+                              {
+                                "type": "secret",
+                                "name": "REPLACE_USERNAME_HERE1",
+                                "value": "account.REPLACE_USERNAME_HERE1"
+                              },
+                              {
+                                "type": "secret",
+                                "name": "REPLACE_PASSWORD_HERE1",
+                                "value": "account.REPLACE_PASSWORD_HERE1"
+                              },
+                              {
+                                "type": "secret",
+                                "name": "HARNESS_GENERATION_PASSPHRASE",
+                                "value": "account.HARNESS_GENERATION_PASSPHRASE1"
+                              },
+                              { "type": "secret", "name": "GCP_KEY", "value": "account.GCP_KEY" }
+                            ],
+                            "mainLiteEngine": false
+                          }
+                        ]
+                      },
+                      "pvcParamsList": [
+                        {
+                          "volumeName": "step-exec",
+                          "claimName": "harnessci-fomatcheck-p6b5msp1-step-exec",
+                          "storageClass": "faster",
+                          "sizeMib": 25600,
+                          "present": false
+                        }
+                      ],
+                      "volumeToMountPath": { "step-exec": "/step-exec" },
+                      "name": "harnessci-fomatcheck-p6b5msp1",
+                      "stageMemoryRequest": 6000,
+                      "stageCpuRequest": 2000,
+                      "serviceIdList": [],
+                      "serviceGrpcPortList": [],
+                      "workDirPath": "/step-exec/workspace"
+                    }
+                  ]
+                },
+                "workDir": "workspace",
+                "publishStepConnectorIdentifier": []
+              },
+              "steps": {
+                "steps": [
+                  {
+                    "step": {
+                      "identifier": "harness-git-clone",
+                      "name": "Git clone",
+                      "type": "plugin",
+                      "childrenToWalk": {
+                        "visitableChildList": [
+                          {
+                            "fieldName": "stepSpecType",
+                            "value": {
+                              "port": 9000,
+                              "identifier": "harness-git-clone",
+                              "name": "Git clone",
+                              "retry": 1,
+                              "timeout": 7200,
+                              "settings": { "depth": "1" },
+                              "image": "drone/git",
+                              "displayName": "Git clone",
+                              "facilitatorType": "ASYNC",
+                              "stepType": { "type": "PLUGIN" },
+                              "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                            }
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "levelNode": { "qualifierName": "step" },
+                      "spec": {
+                        "port": 9000,
+                        "identifier": "harness-git-clone",
+                        "name": "Git clone",
+                        "retry": 1,
+                        "timeout": 7200,
+                        "settings": { "depth": "1" },
+                        "image": "drone/git",
+                        "displayName": "Git clone",
+                        "facilitatorType": "ASYNC",
+                        "stepType": { "type": "PLUGIN" },
+                        "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                      }
+                    }
+                  },
+                  {
+                    "step": {
+                      "identifier": "fomat-check",
+                      "type": "run",
+                      "childrenToWalk": {
+                        "visitableChildList": [
+                          {
+                            "fieldName": "stepSpecType",
+                            "value": {
+                              "port": 9001,
+                              "identifier": "fomat-check",
+                              "retry": 1,
+                              "timeout": 3600,
+                              "command": [
+                                "set -x",
+                                "mkdir -p /tmp",
+                                "export HOME=/tmp",
+                                "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                                "export repoPath=\"$(pwd)\"",
+                                "bash scripts/bazel/generate_credentials.sh || true",
+                                "scripts/jenkins/code-format-check.sh"
+                              ],
+                              "image": "harness/manager-onprem:clangformatimage",
+                              "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                              "facilitatorType": "ASYNC",
+                              "stepType": { "type": "RUN" },
+                              "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                            }
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "levelNode": { "qualifierName": "step" },
+                      "spec": {
+                        "port": 9001,
+                        "identifier": "fomat-check",
+                        "retry": 1,
+                        "timeout": 3600,
+                        "command": [
+                          "set -x",
+                          "mkdir -p /tmp",
+                          "export HOME=/tmp",
+                          "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                          "export repoPath=\"$(pwd)\"",
+                          "bash scripts/bazel/generate_credentials.sh || true",
+                          "scripts/jenkins/code-format-check.sh"
+                        ],
+                        "image": "harness/manager-onprem:clangformatimage",
+                        "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                        "facilitatorType": "ASYNC",
+                        "stepType": { "type": "RUN" },
+                        "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                      }
+                    }
+                  }
+                ],
+                "rollbackSteps": [],
+                "childrenToWalk": {
+                  "visitableChildList": [
+                    {
+                      "fieldName": "steps",
+                      "value": {
+                        "identifier": "harness-git-clone",
+                        "name": "Git clone",
+                        "type": "plugin",
+                        "childrenToWalk": {
+                          "visitableChildList": [
+                            {
+                              "fieldName": "stepSpecType",
+                              "value": {
+                                "port": 9000,
+                                "identifier": "harness-git-clone",
+                                "name": "Git clone",
+                                "retry": 1,
+                                "timeout": 7200,
+                                "settings": { "depth": "1" },
+                                "image": "drone/git",
+                                "displayName": "Git clone",
+                                "facilitatorType": "ASYNC",
+                                "stepType": { "type": "PLUGIN" },
+                                "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                              }
+                            }
+                          ],
+                          "empty": false
+                        },
+                        "levelNode": { "qualifierName": "step" },
+                        "spec": {
+                          "port": 9000,
+                          "identifier": "harness-git-clone",
+                          "name": "Git clone",
+                          "retry": 1,
+                          "timeout": 7200,
+                          "settings": { "depth": "1" },
+                          "image": "drone/git",
+                          "displayName": "Git clone",
+                          "facilitatorType": "ASYNC",
+                          "stepType": { "type": "PLUGIN" },
+                          "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                        }
+                      }
+                    },
+                    {
+                      "fieldName": "steps",
+                      "value": {
+                        "identifier": "fomat-check",
+                        "type": "run",
+                        "childrenToWalk": {
+                          "visitableChildList": [
+                            {
+                              "fieldName": "stepSpecType",
+                              "value": {
+                                "port": 9001,
+                                "identifier": "fomat-check",
+                                "retry": 1,
+                                "timeout": 3600,
+                                "command": [
+                                  "set -x",
+                                  "mkdir -p /tmp",
+                                  "export HOME=/tmp",
+                                  "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                                  "export repoPath=\"$(pwd)\"",
+                                  "bash scripts/bazel/generate_credentials.sh || true",
+                                  "scripts/jenkins/code-format-check.sh"
+                                ],
+                                "image": "harness/manager-onprem:clangformatimage",
+                                "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                                "facilitatorType": "ASYNC",
+                                "stepType": { "type": "RUN" },
+                                "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                              }
+                            }
+                          ],
+                          "empty": false
+                        },
+                        "levelNode": { "qualifierName": "step" },
+                        "spec": {
+                          "port": 9001,
+                          "identifier": "fomat-check",
+                          "retry": 1,
+                          "timeout": 3600,
+                          "command": [
+                            "set -x",
+                            "mkdir -p /tmp",
+                            "export HOME=/tmp",
+                            "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                            "export repoPath=\"$(pwd)\"",
+                            "bash scripts/bazel/generate_credentials.sh || true",
+                            "scripts/jenkins/code-format-check.sh"
+                          ],
+                          "image": "harness/manager-onprem:clangformatimage",
+                          "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                          "facilitatorType": "ASYNC",
+                          "stepType": { "type": "RUN" },
+                          "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                        }
+                      }
+                    }
+                  ],
+                  "empty": false
+                },
+                "levelNode": { "qualifierName": "execution" }
+              },
+              "usePVC": false,
+              "ciCodebase": { "type": "GitHub", "spec": { "connectorRef": "account.portalAleks" } },
+              "skipGitClone": false,
+              "facilitatorType": "TASK_V3",
+              "stepType": { "type": "LITE_ENGINE_TASK" },
+              "nonYamlInfo": { "stepInfoType": "LITE_ENGINE_TASK", "stepType": { "type": "LITE_ENGINE_TASK" } }
+            },
+            "mode": "TASK_V3",
+            "executableResponsesMetadata": [{}],
+            "interruptHistories": [],
+            "outcomes": [{ "type": "dependencyOutcome", "serviceDependencyList": [], "type": "dependencyOutcome" }],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          },
+          "bPpYVrv6TeO4wKxW1qPmQQ": {
+            "uuid": "bPpYVrv6TeO4wKxW1qPmQQ",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                },
+                {
+                  "setupId": "F2GzqOzHSgSwmFi4AaNr2A",
+                  "runtimeId": "jzT26vuxTsKMeFH3MrozZA",
+                  "identifier": "stages",
+                  "stepType": "SECTION_CHAIN",
+                  "group": "STAGES"
+                },
+                {
+                  "setupId": "Cfe3dbJYTm2y9ROLf1SbAQ",
+                  "runtimeId": "K6_LpiZDQ8i3xQOWB0Rrkg",
+                  "identifier": "fomat-check",
+                  "stepType": "INTEGRATION_STAGE_STEP",
+                  "group": "INTEGRATION_STAGE"
+                },
+                {
+                  "setupId": "3NS9-MzNTviU9CNPFwCiaQ",
+                  "runtimeId": "bPpYVrv6TeO4wKxW1qPmQQ",
+                  "identifier": "EXECUTION",
+                  "stepType": "SECTION_CHAIN",
+                  "group": ""
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "3NS9-MzNTviU9CNPFwCiaQ",
+            "identifier": "EXECUTION",
+            "name": "Execution",
+            "startTs": 1606996248076,
+            "endTs": 1606996446893,
+            "lastUpdatedAt": 1606996446893,
+            "stepType": "SECTION_CHAIN",
+            "status": "FAILED",
+            "stepParameters": {
+              "childNodeIds": ["G-IdfbE4Tk2tubFsd8mrug", "0nNJNLdpSfeJuXHB85qCVQ", "BIPW9jX7QZ-GGyU1B0ULow"]
+            },
+            "mode": "CHILD_CHAIN",
+            "executableResponsesMetadata": [{}, {}, {}],
+            "interruptHistories": [],
+            "outcomes": [],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          },
+          "TZWyBeFjSMe_vy4Uq9bo0Q": {
+            "uuid": "TZWyBeFjSMe_vy4Uq9bo0Q",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "PCtJwqLISIutvGMdraXHRw",
+            "identifier": "clang-format-pipeline",
+            "name": "Clang format check",
+            "startTs": 1606996247680,
+            "endTs": 1606996449880,
+            "lastUpdatedAt": 1606996449880,
+            "stepType": "CI_PIPELINE_SETUP",
+            "status": "FAILED",
+            "stepParameters": {
+              "ngPipeline": {
+                "pipeline": {
+                  "name": "Clang format check",
+                  "identifier": "clang-format-pipeline",
+                  "description": {
+                    "value": "Format checks for PR",
+                    "jsonFieldValue": "Format checks for PR",
+                    "finalValue": "Format checks for PR",
+                    "visitorFieldType": { "type": "PARAMETER_FIELD" },
+                    "expression": false,
+                    "jsonResponseField": false,
+                    "typeString": false,
+                    "type": { "type": "PARAMETER_FIELD" }
+                  },
+                  "ciCodebase": { "type": "GitHub", "spec": { "connectorRef": "account.portalAleks" } },
+                  "stages": [
+                    {
+                      "stage": {
+                        "identifier": "fomat-check",
+                        "type": "ci",
+                        "spec": {
+                          "runParallel": false,
+                          "skipGitClone": false,
+                          "infrastructure": {
+                            "type": "kubernetes-direct",
+                            "spec": { "connectorRef": "account.cidelegate", "namespace": "harness-delegate" }
+                          },
+                          "gitConnector": {
+                            "type": "git",
+                            "identifier": "account.portalAleks",
+                            "spec": { "authScheme": { "type": "ssh", "sshKey": "git-ssh" }, "repo": "master" }
+                          },
+                          "container": {
+                            "identifier": "account.harnessimage",
+                            "connector": "account.harnessimage",
+                            "imagePath": "harness/manager-onprem:mvnbaseimage",
+                            "resources": {
+                              "limit": { "memory": 3000, "cpu": 1500 },
+                              "reserve": { "memory": 9000, "cpu": 2000 }
+                            }
+                          },
+                          "customVariables": [
+                            { "type": "secret", "name": "JFROG_USERNAME", "value": "account.JFROG_USERNAME1" },
+                            { "type": "secret", "name": "JFROG_PASSWORD", "value": "account.JFROG_PASSWORD" },
+                            {
+                              "type": "secret",
+                              "name": "REPLACE_USERNAME_HERE1",
+                              "value": "account.REPLACE_USERNAME_HERE1"
+                            },
+                            {
+                              "type": "secret",
+                              "name": "REPLACE_PASSWORD_HERE1",
+                              "value": "account.REPLACE_PASSWORD_HERE1"
+                            },
+                            {
+                              "type": "secret",
+                              "name": "HARNESS_GENERATION_PASSPHRASE",
+                              "value": "account.HARNESS_GENERATION_PASSPHRASE1"
+                            },
+                            { "type": "secret", "name": "GCP_KEY", "value": "account.GCP_KEY" },
+                            { "type": "text", "name": "VERSION", "value": "1.0" },
+                            { "type": "text", "name": "SNAPSHOT_PREFIX", "value": "snapshot-" },
+                            { "type": "text", "name": "MAVEN_OPTS", "value": "-Xmx2048m" },
+                            { "type": "text", "name": "JDK", "value": "open-8u242" },
+                            {
+                              "type": "text",
+                              "name": "OVERRIDE_LOCAL_M2",
+                              "value": "/step-exec/workspace/.m2/repository"
+                            },
+                            { "type": "text", "name": "PLATFORM", "value": "jenkins" }
+                          ],
+                          "execution": {
+                            "steps": [
+                              {
+                                "step": {
+                                  "identifier": "liteEngineTask1",
+                                  "type": "liteEngineTask",
+                                  "spec": {
+                                    "accountId": "zEaak-FLS425IEO7OLzMUg",
+                                    "identifier": "liteEngineTask1",
+                                    "retry": 0,
+                                    "timeout": 1200,
+                                    "buildJobEnvInfo": {
+                                      "type": "K8",
+                                      "podsSetupInfo": {
+                                        "podSetupInfoList": [
+                                          {
+                                            "podSetupParams": {
+                                              "containerDefinitionInfos": [
+                                                {
+                                                  "name": "step-1",
+                                                  "containerImageDetails": {
+                                                    "imageDetails": { "name": "drone/git", "tag": "" }
+                                                  },
+                                                  "containerType": "PLUGIN",
+                                                  "containerResourceParams": {
+                                                    "resourceRequestMemoryMiB": 1,
+                                                    "resourceLimitMemoryMiB": 200,
+                                                    "resourceRequestMilliCpu": 1,
+                                                    "resourceLimitMilliCpu": 200
+                                                  },
+                                                  "stepIdentifier": "harness-git-clone",
+                                                  "stepName": "Git clone",
+                                                  "commands": ["/step-exec/.harness/bin/ci-addon"],
+                                                  "args": ["--port", "9000"],
+                                                  "ports": [9000],
+                                                  "envVars": {
+                                                    "DRONE_BUILD_NUMBER": "2445",
+                                                    "PLUGIN_DEPTH": "1",
+                                                    "DRONE_COMMIT_BRANCH": "vuk/crud_apis_for_alert_and_notifications_settings"
+                                                  },
+                                                  "mainLiteEngine": false
+                                                },
+                                                {
+                                                  "name": "step-2",
+                                                  "containerImageDetails": {
+                                                    "imageDetails": {
+                                                      "name": "harness/manager-onprem",
+                                                      "tag": "clangformatimage"
+                                                    }
+                                                  },
+                                                  "containerType": "RUN",
+                                                  "containerResourceParams": {
+                                                    "resourceRequestMemoryMiB": 1,
+                                                    "resourceLimitMemoryMiB": 6000,
+                                                    "resourceRequestMilliCpu": 1,
+                                                    "resourceLimitMilliCpu": 2000
+                                                  },
+                                                  "stepIdentifier": "fomat-check",
+                                                  "commands": ["/step-exec/.harness/bin/ci-addon"],
+                                                  "args": ["--port", "9001"],
+                                                  "ports": [9001],
+                                                  "envVars": {
+                                                    "PLATFORM": "jenkins",
+                                                    "OVERRIDE_LOCAL_M2": "/step-exec/workspace/.m2/repository",
+                                                    "JDK": "open-8u242",
+                                                    "MAVEN_OPTS": "-Xmx2048m",
+                                                    "DRONE_COMMIT_BRANCH": "vuk/crud_apis_for_alert_and_notifications_settings",
+                                                    "DRONE_BUILD_NUMBER": "2445",
+                                                    "SNAPSHOT_PREFIX": "snapshot-",
+                                                    "VERSION": "1.0"
+                                                  },
+                                                  "secretVariables": [
+                                                    {
+                                                      "type": "secret",
+                                                      "name": "JFROG_USERNAME",
+                                                      "value": "account.JFROG_USERNAME1"
+                                                    },
+                                                    {
+                                                      "type": "secret",
+                                                      "name": "JFROG_PASSWORD",
+                                                      "value": "account.JFROG_PASSWORD"
+                                                    },
+                                                    {
+                                                      "type": "secret",
+                                                      "name": "REPLACE_USERNAME_HERE1",
+                                                      "value": "account.REPLACE_USERNAME_HERE1"
+                                                    },
+                                                    {
+                                                      "type": "secret",
+                                                      "name": "REPLACE_PASSWORD_HERE1",
+                                                      "value": "account.REPLACE_PASSWORD_HERE1"
+                                                    },
+                                                    {
+                                                      "type": "secret",
+                                                      "name": "HARNESS_GENERATION_PASSPHRASE",
+                                                      "value": "account.HARNESS_GENERATION_PASSPHRASE1"
+                                                    },
+                                                    { "type": "secret", "name": "GCP_KEY", "value": "account.GCP_KEY" }
+                                                  ],
+                                                  "mainLiteEngine": false
+                                                }
+                                              ]
+                                            },
+                                            "pvcParamsList": [
+                                              {
+                                                "volumeName": "step-exec",
+                                                "claimName": "harnessci-fomatcheck-p6b5msp1-step-exec",
+                                                "storageClass": "faster",
+                                                "sizeMib": 25600,
+                                                "present": false
+                                              }
+                                            ],
+                                            "volumeToMountPath": { "step-exec": "/step-exec" },
+                                            "name": "harnessci-fomatcheck-p6b5msp1",
+                                            "stageMemoryRequest": 6000,
+                                            "stageCpuRequest": 2000,
+                                            "serviceIdList": [],
+                                            "serviceGrpcPortList": [],
+                                            "workDirPath": "/step-exec/workspace"
+                                          }
+                                        ]
+                                      },
+                                      "workDir": "workspace",
+                                      "publishStepConnectorIdentifier": []
+                                    },
+                                    "steps": {
+                                      "steps": [
+                                        {
+                                          "step": {
+                                            "identifier": "harness-git-clone",
+                                            "name": "Git clone",
+                                            "type": "plugin",
+                                            "spec": {
+                                              "port": 9000,
+                                              "identifier": "harness-git-clone",
+                                              "name": "Git clone",
+                                              "retry": 1,
+                                              "timeout": 7200,
+                                              "settings": { "depth": "1" },
+                                              "image": "drone/git",
+                                              "nonYamlInfo": {
+                                                "stepInfoType": "PLUGIN",
+                                                "stepType": { "type": "PLUGIN" }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "step": {
+                                            "identifier": "fomat-check",
+                                            "type": "run",
+                                            "spec": {
+                                              "port": 9001,
+                                              "identifier": "fomat-check",
+                                              "retry": 1,
+                                              "timeout": 3600,
+                                              "command": [
+                                                "set -x",
+                                                "mkdir -p /tmp",
+                                                "export HOME=/tmp",
+                                                "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                                                "export repoPath=\"$(pwd)\"",
+                                                "bash scripts/bazel/generate_credentials.sh || true",
+                                                "scripts/jenkins/code-format-check.sh"
+                                              ],
+                                              "image": "harness/manager-onprem:clangformatimage",
+                                              "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                                              "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "rollbackSteps": []
+                                    },
+                                    "usePVC": false,
+                                    "ciCodebase": {
+                                      "type": "GitHub",
+                                      "spec": { "connectorRef": "account.portalAleks" }
+                                    },
+                                    "skipGitClone": false,
+                                    "nonYamlInfo": {
+                                      "stepInfoType": "LITE_ENGINE_TASK",
+                                      "stepType": { "type": "LITE_ENGINE_TASK" }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "step": {
+                                  "identifier": "harness-git-clone",
+                                  "name": "Git clone",
+                                  "type": "plugin",
+                                  "spec": {
+                                    "port": 9000,
+                                    "identifier": "harness-git-clone",
+                                    "name": "Git clone",
+                                    "retry": 1,
+                                    "timeout": 7200,
+                                    "settings": { "depth": "1" },
+                                    "image": "drone/git",
+                                    "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                                  }
+                                }
+                              },
+                              {
+                                "step": {
+                                  "identifier": "fomat-check",
+                                  "type": "run",
+                                  "spec": {
+                                    "port": 9001,
+                                    "identifier": "fomat-check",
+                                    "retry": 1,
+                                    "timeout": 3600,
+                                    "command": [
+                                      "set -x",
+                                      "mkdir -p /tmp",
+                                      "export HOME=/tmp",
+                                      "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                                      "export repoPath=\"$(pwd)\"",
+                                      "bash scripts/bazel/generate_credentials.sh || true",
+                                      "scripts/jenkins/code-format-check.sh"
+                                    ],
+                                    "image": "harness/manager-onprem:clangformatimage",
+                                    "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                                    "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                                  }
+                                }
+                              }
+                            ],
+                            "rollbackSteps": []
+                          },
+                          "type": "ci"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "ciExecutionArgs": {
+                "executionSource": { "type": "MANUAL", "branch": "vuk/crud_apis_for_alert_and_notifications_settings" },
+                "buildNumberDetails": {
+                  "buildNumber": 2445,
+                  "accountIdentifier": "zEaak-FLS425IEO7OLzMUg",
+                  "projectIdentifier": "citestproject",
+                  "orgIdentifier": "default",
+                  "uuid": "5fb662abb8bc88ebc85649b4"
+                }
+              },
+              "fieldToExecutionNodeIdMap": { "stages": "F2GzqOzHSgSwmFi4AaNr2A" }
+            },
+            "mode": "CHILD",
+            "executableResponsesMetadata": [{}],
+            "interruptHistories": [],
+            "outcomes": [],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          },
+          "K6_LpiZDQ8i3xQOWB0Rrkg": {
+            "uuid": "K6_LpiZDQ8i3xQOWB0Rrkg",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                },
+                {
+                  "setupId": "F2GzqOzHSgSwmFi4AaNr2A",
+                  "runtimeId": "jzT26vuxTsKMeFH3MrozZA",
+                  "identifier": "stages",
+                  "stepType": "SECTION_CHAIN",
+                  "group": "STAGES"
+                },
+                {
+                  "setupId": "Cfe3dbJYTm2y9ROLf1SbAQ",
+                  "runtimeId": "K6_LpiZDQ8i3xQOWB0Rrkg",
+                  "identifier": "fomat-check",
+                  "stepType": "INTEGRATION_STAGE_STEP",
+                  "group": "INTEGRATION_STAGE"
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "Cfe3dbJYTm2y9ROLf1SbAQ",
+            "identifier": "fomat-check",
+            "name": "fomat-check",
+            "startTs": 1606996247975,
+            "endTs": 1606996447866,
+            "lastUpdatedAt": 1606996447866,
+            "stepType": "INTEGRATION_STAGE_STEP",
+            "status": "FAILED",
+            "stepParameters": {
+              "integrationStage": {
+                "type": "ci",
+                "runParallel": false,
+                "skipGitClone": false,
+                "infrastructure": {
+                  "type": "kubernetes-direct",
+                  "spec": { "connectorRef": "account.cidelegate", "namespace": "harness-delegate" }
+                },
+                "gitConnector": {
+                  "type": "git",
+                  "identifier": "account.portalAleks",
+                  "spec": { "authScheme": { "type": "ssh", "sshKey": "git-ssh" }, "repo": "master" }
+                },
+                "container": {
+                  "identifier": "account.harnessimage",
+                  "connector": "account.harnessimage",
+                  "imagePath": "harness/manager-onprem:mvnbaseimage",
+                  "resources": { "limit": { "memory": 3000, "cpu": 1500 }, "reserve": { "memory": 9000, "cpu": 2000 } }
+                },
+                "customVariables": [
+                  { "type": "secret", "name": "JFROG_USERNAME", "value": "account.JFROG_USERNAME1" },
+                  { "type": "secret", "name": "JFROG_PASSWORD", "value": "account.JFROG_PASSWORD" },
+                  { "type": "secret", "name": "REPLACE_USERNAME_HERE1", "value": "account.REPLACE_USERNAME_HERE1" },
+                  { "type": "secret", "name": "REPLACE_PASSWORD_HERE1", "value": "account.REPLACE_PASSWORD_HERE1" },
+                  {
+                    "type": "secret",
+                    "name": "HARNESS_GENERATION_PASSPHRASE",
+                    "value": "account.HARNESS_GENERATION_PASSPHRASE1"
+                  },
+                  { "type": "secret", "name": "GCP_KEY", "value": "account.GCP_KEY" },
+                  { "type": "text", "name": "VERSION", "value": "1.0" },
+                  { "type": "text", "name": "SNAPSHOT_PREFIX", "value": "snapshot-" },
+                  { "type": "text", "name": "MAVEN_OPTS", "value": "-Xmx2048m" },
+                  { "type": "text", "name": "JDK", "value": "open-8u242" },
+                  { "type": "text", "name": "OVERRIDE_LOCAL_M2", "value": "/step-exec/workspace/.m2/repository" },
+                  { "type": "text", "name": "PLATFORM", "value": "jenkins" }
+                ],
+                "execution": {
+                  "steps": [
+                    {
+                      "step": {
+                        "identifier": "liteEngineTask1",
+                        "type": "liteEngineTask",
+                        "spec": {
+                          "accountId": "zEaak-FLS425IEO7OLzMUg",
+                          "identifier": "liteEngineTask1",
+                          "retry": 0,
+                          "timeout": 1200,
+                          "buildJobEnvInfo": {
+                            "type": "K8",
+                            "podsSetupInfo": {
+                              "podSetupInfoList": [
+                                {
+                                  "podSetupParams": {
+                                    "containerDefinitionInfos": [
+                                      {
+                                        "name": "step-1",
+                                        "containerImageDetails": { "imageDetails": { "name": "drone/git", "tag": "" } },
+                                        "containerType": "PLUGIN",
+                                        "containerResourceParams": {
+                                          "resourceRequestMemoryMiB": 1,
+                                          "resourceLimitMemoryMiB": 200,
+                                          "resourceRequestMilliCpu": 1,
+                                          "resourceLimitMilliCpu": 200
+                                        },
+                                        "stepIdentifier": "harness-git-clone",
+                                        "stepName": "Git clone",
+                                        "commands": ["/step-exec/.harness/bin/ci-addon"],
+                                        "args": ["--port", "9000"],
+                                        "ports": [9000],
+                                        "envVars": {
+                                          "DRONE_BUILD_NUMBER": "2445",
+                                          "PLUGIN_DEPTH": "1",
+                                          "DRONE_COMMIT_BRANCH": "vuk/crud_apis_for_alert_and_notifications_settings"
+                                        },
+                                        "mainLiteEngine": false
+                                      },
+                                      {
+                                        "name": "step-2",
+                                        "containerImageDetails": {
+                                          "imageDetails": {
+                                            "name": "harness/manager-onprem",
+                                            "tag": "clangformatimage"
+                                          }
+                                        },
+                                        "containerType": "RUN",
+                                        "containerResourceParams": {
+                                          "resourceRequestMemoryMiB": 1,
+                                          "resourceLimitMemoryMiB": 6000,
+                                          "resourceRequestMilliCpu": 1,
+                                          "resourceLimitMilliCpu": 2000
+                                        },
+                                        "stepIdentifier": "fomat-check",
+                                        "commands": ["/step-exec/.harness/bin/ci-addon"],
+                                        "args": ["--port", "9001"],
+                                        "ports": [9001],
+                                        "envVars": {
+                                          "PLATFORM": "jenkins",
+                                          "OVERRIDE_LOCAL_M2": "/step-exec/workspace/.m2/repository",
+                                          "JDK": "open-8u242",
+                                          "MAVEN_OPTS": "-Xmx2048m",
+                                          "DRONE_COMMIT_BRANCH": "vuk/crud_apis_for_alert_and_notifications_settings",
+                                          "DRONE_BUILD_NUMBER": "2445",
+                                          "SNAPSHOT_PREFIX": "snapshot-",
+                                          "VERSION": "1.0"
+                                        },
+                                        "secretVariables": [
+                                          {
+                                            "type": "secret",
+                                            "name": "JFROG_USERNAME",
+                                            "value": "account.JFROG_USERNAME1"
+                                          },
+                                          {
+                                            "type": "secret",
+                                            "name": "JFROG_PASSWORD",
+                                            "value": "account.JFROG_PASSWORD"
+                                          },
+                                          {
+                                            "type": "secret",
+                                            "name": "REPLACE_USERNAME_HERE1",
+                                            "value": "account.REPLACE_USERNAME_HERE1"
+                                          },
+                                          {
+                                            "type": "secret",
+                                            "name": "REPLACE_PASSWORD_HERE1",
+                                            "value": "account.REPLACE_PASSWORD_HERE1"
+                                          },
+                                          {
+                                            "type": "secret",
+                                            "name": "HARNESS_GENERATION_PASSPHRASE",
+                                            "value": "account.HARNESS_GENERATION_PASSPHRASE1"
+                                          },
+                                          { "type": "secret", "name": "GCP_KEY", "value": "account.GCP_KEY" }
+                                        ],
+                                        "mainLiteEngine": false
+                                      }
+                                    ]
+                                  },
+                                  "pvcParamsList": [
+                                    {
+                                      "volumeName": "step-exec",
+                                      "claimName": "harnessci-fomatcheck-p6b5msp1-step-exec",
+                                      "storageClass": "faster",
+                                      "sizeMib": 25600,
+                                      "present": false
+                                    }
+                                  ],
+                                  "volumeToMountPath": { "step-exec": "/step-exec" },
+                                  "name": "harnessci-fomatcheck-p6b5msp1",
+                                  "stageMemoryRequest": 6000,
+                                  "stageCpuRequest": 2000,
+                                  "serviceIdList": [],
+                                  "serviceGrpcPortList": [],
+                                  "workDirPath": "/step-exec/workspace"
+                                }
+                              ]
+                            },
+                            "workDir": "workspace",
+                            "publishStepConnectorIdentifier": []
+                          },
+                          "steps": {
+                            "steps": [
+                              {
+                                "step": {
+                                  "identifier": "harness-git-clone",
+                                  "name": "Git clone",
+                                  "type": "plugin",
+                                  "spec": {
+                                    "port": 9000,
+                                    "identifier": "harness-git-clone",
+                                    "name": "Git clone",
+                                    "retry": 1,
+                                    "timeout": 7200,
+                                    "settings": { "depth": "1" },
+                                    "image": "drone/git",
+                                    "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                                  }
+                                }
+                              },
+                              {
+                                "step": {
+                                  "identifier": "fomat-check",
+                                  "type": "run",
+                                  "spec": {
+                                    "port": 9001,
+                                    "identifier": "fomat-check",
+                                    "retry": 1,
+                                    "timeout": 3600,
+                                    "command": [
+                                      "set -x",
+                                      "mkdir -p /tmp",
+                                      "export HOME=/tmp",
+                                      "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                                      "export repoPath=\"$(pwd)\"",
+                                      "bash scripts/bazel/generate_credentials.sh || true",
+                                      "scripts/jenkins/code-format-check.sh"
+                                    ],
+                                    "image": "harness/manager-onprem:clangformatimage",
+                                    "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                                    "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                                  }
+                                }
+                              }
+                            ],
+                            "rollbackSteps": []
+                          },
+                          "usePVC": false,
+                          "ciCodebase": { "type": "GitHub", "spec": { "connectorRef": "account.portalAleks" } },
+                          "skipGitClone": false,
+                          "nonYamlInfo": {
+                            "stepInfoType": "LITE_ENGINE_TASK",
+                            "stepType": { "type": "LITE_ENGINE_TASK" }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": {
+                        "identifier": "harness-git-clone",
+                        "name": "Git clone",
+                        "type": "plugin",
+                        "spec": {
+                          "port": 9000,
+                          "identifier": "harness-git-clone",
+                          "name": "Git clone",
+                          "retry": 1,
+                          "timeout": 7200,
+                          "settings": { "depth": "1" },
+                          "image": "drone/git",
+                          "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+                        }
+                      }
+                    },
+                    {
+                      "step": {
+                        "identifier": "fomat-check",
+                        "type": "run",
+                        "spec": {
+                          "port": 9001,
+                          "identifier": "fomat-check",
+                          "retry": 1,
+                          "timeout": 3600,
+                          "command": [
+                            "set -x",
+                            "mkdir -p /tmp",
+                            "export HOME=/tmp",
+                            "export BAZEL_OUTPUT_BASE=/tmp/bazel",
+                            "export repoPath=\"$(pwd)\"",
+                            "bash scripts/bazel/generate_credentials.sh || true",
+                            "scripts/jenkins/code-format-check.sh"
+                          ],
+                          "image": "harness/manager-onprem:clangformatimage",
+                          "resources": { "limit": { "memory": 6000, "cpu": 2000 } },
+                          "nonYamlInfo": { "stepInfoType": "RUN", "stepType": { "type": "RUN" } }
+                        }
+                      }
+                    }
+                  ],
+                  "rollbackSteps": []
+                }
+              },
+              "buildNumberDetails": {
+                "buildNumber": 2445,
+                "accountIdentifier": "zEaak-FLS425IEO7OLzMUg",
+                "projectIdentifier": "citestproject",
+                "orgIdentifier": "default",
+                "uuid": "5fb662abb8bc88ebc85649b4"
+              },
+              "integrationStageIdentifier": "fomat-check",
+              "fieldToExecutionNodeIdMap": { "io/harness/beans/execution": "3NS9-MzNTviU9CNPFwCiaQ" }
+            },
+            "mode": "CHILD",
+            "executableResponsesMetadata": [{}],
+            "interruptHistories": [],
+            "outcomes": [],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          },
+          "n40-U9uqSwe8Bm_S7amcVw": {
+            "uuid": "n40-U9uqSwe8Bm_S7amcVw",
+            "ambiance": {
+              "setupAbstractions": {
+                "accountId": "zEaak-FLS425IEO7OLzMUg",
+                "orgIdentifier": "default",
+                "userEmail": "harsh.jain@harness.io",
+                "projectIdentifier": "citestproject",
+                "userName": "harsh jain",
+                "userId": "harsh",
+                "pipelineId": "clang-format-pipeline"
+              },
+              "levels": [
+                {
+                  "setupId": "PCtJwqLISIutvGMdraXHRw",
+                  "runtimeId": "TZWyBeFjSMe_vy4Uq9bo0Q",
+                  "identifier": "clang-format-pipeline",
+                  "stepType": "CI_PIPELINE_SETUP",
+                  "group": ""
+                },
+                {
+                  "setupId": "F2GzqOzHSgSwmFi4AaNr2A",
+                  "runtimeId": "jzT26vuxTsKMeFH3MrozZA",
+                  "identifier": "stages",
+                  "stepType": "SECTION_CHAIN",
+                  "group": "STAGES"
+                },
+                {
+                  "setupId": "Cfe3dbJYTm2y9ROLf1SbAQ",
+                  "runtimeId": "K6_LpiZDQ8i3xQOWB0Rrkg",
+                  "identifier": "fomat-check",
+                  "stepType": "INTEGRATION_STAGE_STEP",
+                  "group": "INTEGRATION_STAGE"
+                },
+                {
+                  "setupId": "3NS9-MzNTviU9CNPFwCiaQ",
+                  "runtimeId": "bPpYVrv6TeO4wKxW1qPmQQ",
+                  "identifier": "EXECUTION",
+                  "stepType": "SECTION_CHAIN",
+                  "group": ""
+                },
+                {
+                  "setupId": "0nNJNLdpSfeJuXHB85qCVQ",
+                  "runtimeId": "n40-U9uqSwe8Bm_S7amcVw",
+                  "identifier": "harness-git-clone",
+                  "stepType": "PLUGIN",
+                  "group": "STEP"
+                }
+              ],
+              "planExecutionId": "ogpjLtHLTp2PDqrecKorfg"
+            },
+            "planNodeId": "0nNJNLdpSfeJuXHB85qCVQ",
+            "identifier": "harness-git-clone",
+            "name": "Git clone",
+            "startTs": 1606996267590,
+            "endTs": 1606996311576,
+            "lastUpdatedAt": 1606996311576,
+            "stepType": "PLUGIN",
+            "status": "SUCCEEDED",
+            "stepParameters": {
+              "type": "plugin",
+              "port": 9000,
+              "identifier": "harness-git-clone",
+              "name": "Git clone",
+              "retry": 1,
+              "timeout": 7200,
+              "settings": { "depth": "1" },
+              "image": "drone/git",
+              "displayName": "Git clone",
+              "facilitatorType": "ASYNC",
+              "stepType": { "type": "PLUGIN" },
+              "nonYamlInfo": { "stepInfoType": "PLUGIN", "stepType": { "type": "PLUGIN" } }
+            },
+            "mode": "ASYNC",
+            "executableResponsesMetadata": [{}],
+            "interruptHistories": [],
+            "outcomes": [
+              {
+                "type": "ciStepOutcome",
+                "output": { "type": "MAP", "map": {}, "type": "MAP" },
+                "type": "ciStepOutcome"
+              }
+            ],
+            "retryIds": [],
+            "progressDataMap": {},
+            "skipType": "NOOP"
+          }
+        },
+        "adjacencyMap": {
+          "AxnTHxlwQ9i1bYiBmJ6FVA": { "edges": [], "nextIds": [] },
+          "jzT26vuxTsKMeFH3MrozZA": { "edges": ["K6_LpiZDQ8i3xQOWB0Rrkg"], "nextIds": [] },
+          "cYzH2AcCTlO98KPZp4XJXQ": { "edges": [], "nextIds": ["n40-U9uqSwe8Bm_S7amcVw"] },
+          "bPpYVrv6TeO4wKxW1qPmQQ": { "edges": ["cYzH2AcCTlO98KPZp4XJXQ"], "nextIds": [] },
+          "TZWyBeFjSMe_vy4Uq9bo0Q": { "edges": ["jzT26vuxTsKMeFH3MrozZA"], "nextIds": [] },
+          "K6_LpiZDQ8i3xQOWB0Rrkg": { "edges": ["bPpYVrv6TeO4wKxW1qPmQQ"], "nextIds": [] },
+          "n40-U9uqSwe8Bm_S7amcVw": { "edges": [], "nextIds": ["AxnTHxlwQ9i1bYiBmJ6FVA"] }
+        }
+      }
+    }
+  },
+  "metaData": null,
+  "correlationId": null
+}
