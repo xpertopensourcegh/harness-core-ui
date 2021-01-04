@@ -147,9 +147,9 @@ exports[`Http Step edit mode works 1`] = `
                               class="bp3-input"
                               disabled=""
                               name="spec.url"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -544,9 +544,9 @@ exports[`Http Step edit mode works 1`] = `
                               class="bp3-input"
                               disabled=""
                               name="spec.requestBody"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -864,9 +864,9 @@ exports[`Http Step renders runtime inputs 1`] = `
                               class="bp3-input"
                               disabled=""
                               name="spec.url"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -957,9 +957,9 @@ exports[`Http Step renders runtime inputs 1`] = `
                               class="bp3-input"
                               disabled=""
                               name="spec.method"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -1035,7 +1035,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                           Header
                            
                           <b>
-                            \${input}
+                            &lt;+input&gt;
                           </b>
                         </span>
                         <div
@@ -1118,9 +1118,9 @@ exports[`Http Step renders runtime inputs 1`] = `
                               class="bp3-input"
                               disabled=""
                               name="spec.requestBody"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -1212,9 +1212,9 @@ exports[`Http Step renders runtime inputs 1`] = `
                               class="bp3-input"
                               disabled=""
                               name="spec.timeout"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>

@@ -49,7 +49,7 @@ describe('ManifestSelection tests', () => {
     const runtimeInputButton = await findByText(document.body, 'Runtime input')
     expect(runtimeInputButton).toBeDefined()
     fireEvent.click(runtimeInputButton as HTMLElement)
-    const inputName = container.querySelector('input[value="${input}"]')
+    const inputName = container.querySelector('input[value="<+input>"]')
     expect(inputName).toBeDefined()
     const saveButton = container.querySelector('button[type="submit"]')
     expect(saveButton).toBeDefined()

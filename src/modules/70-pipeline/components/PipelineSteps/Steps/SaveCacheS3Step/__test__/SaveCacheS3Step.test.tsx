@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseGetReturnData } from '@common/utils/testUtils'
@@ -58,19 +59,19 @@ describe('Save Cache S3 Step', () => {
     const initialValues = {
       identifier: 'My_Save_Cache_S3_Step',
       name: 'My Save Cache S3 Step',
-      timeout: '${input}',
+      timeout: RUNTIME_INPUT_VALUE,
       spec: {
-        connectorRef: '${input}',
-        region: '${input}',
-        bucket: '${input}',
-        endpoint: '${input}',
-        key: '${input}',
-        sourcePaths: '${input}',
-        target: '${input}',
+        connectorRef: RUNTIME_INPUT_VALUE,
+        region: RUNTIME_INPUT_VALUE,
+        bucket: RUNTIME_INPUT_VALUE,
+        endpoint: RUNTIME_INPUT_VALUE,
+        key: RUNTIME_INPUT_VALUE,
+        sourcePaths: RUNTIME_INPUT_VALUE,
+        target: RUNTIME_INPUT_VALUE,
         resources: {
           limits: {
-            cpu: '${input}',
-            memory: '${input}'
+            cpu: RUNTIME_INPUT_VALUE,
+            memory: RUNTIME_INPUT_VALUE
           }
         }
       }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
 // import { render, queryByAttribute, fireEvent, act } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseGetReturnData } from '@common/utils/testUtils'
@@ -59,26 +60,26 @@ describe('Run Step', () => {
     const initialValues = {
       identifier: 'My_Run_Step',
       name: 'My Run Step',
-      description: '${input}',
-      timeout: '${input}',
+      description: RUNTIME_INPUT_VALUE,
+      timeout: RUNTIME_INPUT_VALUE,
       spec: {
-        connectorRef: '${input}',
-        image: '${input}',
-        command: '${input}',
+        connectorRef: RUNTIME_INPUT_VALUE,
+        image: RUNTIME_INPUT_VALUE,
+        command: RUNTIME_INPUT_VALUE,
         reports: {
           type: 'JUnit',
           spec: {
-            paths: '${input}'
+            paths: RUNTIME_INPUT_VALUE
           }
         },
-        envVariables: '${input}',
-        outputVariables: '${input}',
+        envVariables: RUNTIME_INPUT_VALUE,
+        outputVariables: RUNTIME_INPUT_VALUE,
         // TODO: Right now we do not support Image Pull Policy but will do in the future
-        // pull: '${input}',
+        // pull: RUNTIME_INPUT_VALUE,
         resources: {
           limits: {
-            cpu: '${input}',
-            memory: '${input}'
+            cpu: RUNTIME_INPUT_VALUE,
+            memory: RUNTIME_INPUT_VALUE
           }
         }
       }

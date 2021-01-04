@@ -977,10 +977,10 @@ exports[`GCS Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.connectorRef"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           style="width: 487px;"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -1100,9 +1100,9 @@ exports[`GCS Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.bucket"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -1221,9 +1221,9 @@ exports[`GCS Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.sourcePath"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -1351,9 +1351,9 @@ exports[`GCS Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.target"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -1482,9 +1482,9 @@ exports[`GCS Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.limitMemory"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>
@@ -1577,9 +1577,9 @@ exports[`GCS Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.limitCPU"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>
@@ -1708,9 +1708,9 @@ exports[`GCS Step renders runtime inputs 1`] = `
                         class="bp3-input"
                         disabled=""
                         name="timeout"
-                        placeholder="\${input}"
+                        placeholder="<+input>"
                         type="text"
-                        value="\${input}"
+                        value="<+input>"
                       />
                     </div>
                   </div>

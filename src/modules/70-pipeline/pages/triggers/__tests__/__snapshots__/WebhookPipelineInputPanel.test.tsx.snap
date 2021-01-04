@@ -168,7 +168,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                               placeholder="Specify a release name"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -199,7 +199,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                               placeholder="Specify a namespace"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>

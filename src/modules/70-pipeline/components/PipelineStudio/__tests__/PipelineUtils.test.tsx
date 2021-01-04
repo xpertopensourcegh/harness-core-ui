@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { Tree } from '@blueprintjs/core'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { getPipelineTree } from '../PipelineUtils'
 
 describe('Test Pipeline Utils', () => {
@@ -62,7 +63,11 @@ describe('Test Pipeline Utils', () => {
                     environment: { name: 'qa', identifier: 'qa', description: '', type: 'PreProduction' },
                     infrastructureDefinition: {
                       type: 'KubernetesDirect',
-                      spec: { connectorRef: '${input}', namespace: '${input}', releaseName: '${input}' }
+                      spec: {
+                        connectorRef: RUNTIME_INPUT_VALUE,
+                        namespace: RUNTIME_INPUT_VALUE,
+                        releaseName: RUNTIME_INPUT_VALUE
+                      }
                     }
                   }
                 }

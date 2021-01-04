@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
@@ -22,7 +23,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sBlueGreenDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' }
         }}
         type={StepType.K8sBlueGreenDeploy}
         stepViewType={StepViewType.Edit}
@@ -34,12 +35,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{ identifier: 'Test_A', type: 'K8sBlueGreenDeploy', spec: { skipDryRun: false } }}
-        template={{ identifier: 'Test_A', type: 'K8sBlueGreenDeploy', spec: { skipDryRun: '${input}' } }}
+        template={{ identifier: 'Test_A', type: 'K8sBlueGreenDeploy', spec: { skipDryRun: RUNTIME_INPUT_VALUE } }}
         allValues={{
           type: 'K8sBlueGreenDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' }
         }}
         type={StepType.K8sBlueGreenDeploy}
         stepViewType={StepViewType.InputSet}

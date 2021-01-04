@@ -54,21 +54,6 @@ enum VariableTypes {
   Secret = 'secret'
 }
 
-const RUNTIME_INPUT_VALUE = '{input}'
-const isValueAnExpression = (value: string): boolean => /^\${.*}$/.test(value)
-
-const valueToType = (value: string | undefined = '', allowableTypes?: MultiTypeInputType[]): MultiTypeInputType => {
-  if (typeof value === 'string') {
-    value = value.toLocaleLowerCase().trim()
-    if (value.startsWith(RUNTIME_INPUT_VALUE)) return MultiTypeInputType.RUNTIME
-    if (isValueAnExpression(value)) return MultiTypeInputType.EXPRESSION
-  }
-  if (!value && allowableTypes?.length) {
-    return allowableTypes[0]
-  }
-  return MultiTypeInputType.FIXED
-}
-
 export const CustomVariables: React.FC = (): JSX.Element => {
   const {
     state: {
@@ -166,7 +151,7 @@ export const CustomVariables: React.FC = (): JSX.Element => {
                           <div>
                             {type === VariableTypes.Secret && (
                               <div className={css.secretContainer}>
-                                {valueToType(value) === MultiTypeInputType.FIXED && (
+                                {getMultiTypeFromValue(value) === MultiTypeInputType.FIXED && (
                                   <div className={css.fixed}>
                                     <Popover position={Position.BOTTOM}>
                                       <div className={css.icon}>

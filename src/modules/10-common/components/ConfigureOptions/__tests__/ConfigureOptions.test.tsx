@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor, getByText as getByTextBody } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { ConfigureOptions, ConfigureOptionsProps } from '../ConfigureOptions'
 
@@ -33,7 +34,7 @@ describe('Test ConfigureOptions', () => {
   test('should render configure options', async () => {
     const { container } = render(
       <TestWrapper>
-        <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
+        <ConfigureOptions {...getProps(RUNTIME_INPUT_VALUE, 'test', 'var-test')} />
       </TestWrapper>
     )
     const btn = container.querySelector('#configureOptions')
@@ -59,7 +60,7 @@ describe('Test ConfigureOptions', () => {
     onChange.mockReset()
     const { container } = render(
       <TestWrapper>
-        <ConfigureOptions {...getProps('${input}.regex(^a$)', 'test', 'var-test')} />
+        <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^a$)`, 'test', 'var-test')} />
       </TestWrapper>
     )
     const btn = container.querySelector('#configureOptions')
@@ -70,7 +71,7 @@ describe('Test ConfigureOptions', () => {
     const submitBtn = getByTextBody(dialog, 'Submit')
     fireEvent.click(submitBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
-    expect(onChange).toBeCalledWith('${input}.regex(^a$)', '', true)
+    expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.regex(^a$)`, '', true)
   })
 
   test('test allowed values', async () => {
@@ -78,7 +79,7 @@ describe('Test ConfigureOptions', () => {
     const { container } = render(
       <TestWrapper>
         <ConfigureOptions
-          {...getProps('${input}.allowedValues(abc,xyz)', 'test', 'var-test')}
+          {...getProps(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, 'test', 'var-test')}
           showRequiredField={true}
         />
       </TestWrapper>
@@ -91,7 +92,7 @@ describe('Test ConfigureOptions', () => {
     const submitBtn = getByTextBody(dialog, 'Submit')
     fireEvent.click(submitBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
-    expect(onChange).toBeCalledWith('${input}.allowedValues(abc,xyz)', '', true)
+    expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, '', true)
   })
 
   test('test allowed advanced values', async () => {
@@ -100,7 +101,7 @@ describe('Test ConfigureOptions', () => {
       <TestWrapper>
         <ConfigureOptions
           {...getProps(
-            '${input}.allowedValues(jexl(${env.type} == “prod” ? aws1, aws2 : aws3, aws4))',
+            `${RUNTIME_INPUT_VALUE}.allowedValues(jexl(\${env.type} == “prod” ? aws1, aws2 : aws3, aws4))`,
             'test',
             'var-test'
           )}
@@ -118,7 +119,7 @@ describe('Test ConfigureOptions', () => {
     fireEvent.click(submitBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
     expect(onChange).toBeCalledWith(
-      '${input}.allowedValues(jexl(${env.type} == “prod” ? aws1, aws2 : aws3, aws4))',
+      `${RUNTIME_INPUT_VALUE}.allowedValues(jexl(\${env.type} == “prod” ? aws1, aws2 : aws3, aws4))`,
       '',
       true
     )
@@ -128,7 +129,7 @@ describe('Test ConfigureOptions', () => {
     onChange.mockReset()
     const { container } = render(
       <TestWrapper>
-        <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
+        <ConfigureOptions {...getProps(RUNTIME_INPUT_VALUE, 'test', 'var-test')} />
       </TestWrapper>
     )
     const btn = container.querySelector('#configureOptions')
@@ -145,7 +146,7 @@ describe('Test ConfigureOptions', () => {
     onChange.mockReset()
     const { container } = render(
       <TestWrapper>
-        <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} fetchValues={undefined} />
+        <ConfigureOptions {...getProps(RUNTIME_INPUT_VALUE, 'test', 'var-test')} fetchValues={undefined} />
       </TestWrapper>
     )
     const btn = container.querySelector('#configureOptions')

@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseGetReturnData } from '@common/utils/testUtils'
@@ -58,22 +59,22 @@ describe('DockerHub Step', () => {
     const initialValues = {
       identifier: 'My_DockerHub_Step',
       name: 'My DockerHub Step',
-      timeout: '${input}',
+      timeout: RUNTIME_INPUT_VALUE,
       spec: {
-        connectorRef: '${input}',
-        repo: '${input}',
-        tags: '${input}',
-        dockerfile: '${input}',
-        context: '${input}',
-        labels: '${input}',
-        buildArgs: '${input}',
-        target: '${input}',
+        connectorRef: RUNTIME_INPUT_VALUE,
+        repo: RUNTIME_INPUT_VALUE,
+        tags: RUNTIME_INPUT_VALUE,
+        dockerfile: RUNTIME_INPUT_VALUE,
+        context: RUNTIME_INPUT_VALUE,
+        labels: RUNTIME_INPUT_VALUE,
+        buildArgs: RUNTIME_INPUT_VALUE,
+        target: RUNTIME_INPUT_VALUE,
         // TODO: Right now we do not support Image Pull Policy but will do in the future
-        // pull: '${input}',
+        // pull: RUNTIME_INPUT_VALUE,
         resources: {
           limits: {
-            cpu: '${input}',
-            memory: '${input}'
+            cpu: RUNTIME_INPUT_VALUE,
+            memory: RUNTIME_INPUT_VALUE
           }
         }
       }

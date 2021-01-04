@@ -2476,10 +2476,10 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.connectorRef"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           style="width: 487px;"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -2598,9 +2598,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.host"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -2719,9 +2719,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.projectID"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -2840,9 +2840,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.imageName"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -2954,7 +2954,7 @@ exports[`GCR Step renders runtime inputs 1`] = `
                     </p>
                      
                     <b>
-                      \${input}
+                      &lt;+input&gt;
                     </b>
                   </span>
                   <div
@@ -3097,9 +3097,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.dockerfile"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -3218,9 +3218,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.context"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -3332,7 +3332,7 @@ exports[`GCR Step renders runtime inputs 1`] = `
                     </p>
                      
                     <b>
-                      \${input}
+                      &lt;+input&gt;
                     </b>
                   </span>
                   <div
@@ -3459,7 +3459,7 @@ exports[`GCR Step renders runtime inputs 1`] = `
                     </p>
                      
                     <b>
-                      \${input}
+                      &lt;+input&gt;
                     </b>
                   </span>
                   <div
@@ -3593,9 +3593,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.target"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -3724,9 +3724,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.limitMemory"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>
@@ -3819,9 +3819,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.limitCPU"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>
@@ -3950,9 +3950,9 @@ exports[`GCR Step renders runtime inputs 1`] = `
                         class="bp3-input"
                         disabled=""
                         name="timeout"
-                        placeholder="\${input}"
+                        placeholder="<+input>"
                         type="text"
-                        value="\${input}"
+                        value="<+input>"
                       />
                     </div>
                   </div>

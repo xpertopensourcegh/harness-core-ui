@@ -38,21 +38,6 @@ export interface Variable extends Omit<NGVariable, 'value'> {
 
 type VariableList = { variables: Variable[] }
 
-const RUNTIME_INPUT_VALUE = '{input}'
-const isValueAnExpression = (value: string): boolean => /^\${.*}$/.test(value)
-
-const valueToType = (value: string | undefined = '', allowableTypes?: MultiTypeInputType[]): MultiTypeInputType => {
-  if (typeof value === 'string') {
-    value = value.toLocaleLowerCase().trim()
-    if (value.startsWith(RUNTIME_INPUT_VALUE)) return MultiTypeInputType.RUNTIME
-    if (isValueAnExpression(value)) return MultiTypeInputType.EXPRESSION
-  }
-  if (!value && allowableTypes?.length) {
-    return allowableTypes[0]
-  }
-  return MultiTypeInputType.FIXED
-}
-
 interface CustomVariableEditableProps {
   initialValues: VariableList
   secrets: SecretDTOV2[] | undefined
@@ -179,7 +164,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
           <div className={css.valueRow}>
             {variable.type === VariableTypes.Secret && (
               <div className={css.secretContainer}>
-                {valueToType(variable.value) === MultiTypeInputType.FIXED && (
+                {getMultiTypeFromValue(variable.value) === MultiTypeInputType.FIXED && (
                   <div className={css.fixed}>
                     <Popover position={Position.BOTTOM}>
                       <div className={css.icon}>

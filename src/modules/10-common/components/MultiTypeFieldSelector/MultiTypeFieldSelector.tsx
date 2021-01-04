@@ -1,12 +1,20 @@
 import React, { CSSProperties, ReactChild } from 'react'
-import { MultiTypeInputType, Button, IconName, Icon, Color, getMultiTypeFromValue } from '@wings-software/uikit'
+import {
+  MultiTypeInputType,
+  Button,
+  IconName,
+  Icon,
+  Color,
+  getMultiTypeFromValue,
+  RUNTIME_INPUT_VALUE
+} from '@wings-software/uikit'
 import { Popover, Menu, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
 
 import { String } from 'framework/exports'
-import { errorCheck, RUNTIME_INPUT_VALUE } from '@common/utils/formikHelpers'
+import { errorCheck } from '@common/utils/formikHelpers'
 
 import css from './MultiTypeFieldSelctor.module.scss'
 

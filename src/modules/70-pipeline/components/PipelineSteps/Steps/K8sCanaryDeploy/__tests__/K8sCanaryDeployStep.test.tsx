@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
@@ -23,8 +24,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '${input}' },
-          instances: '${input}',
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE },
+          instances: RUNTIME_INPUT_VALUE,
           instanceType: 'Count'
         }}
         type={StepType.K8sCanaryDeploy}
@@ -37,12 +38,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: false } }}
-        template={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: '${input}' } }}
+        template={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: RUNTIME_INPUT_VALUE } }}
         allValues={{
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' }
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.InputSet}
@@ -55,12 +56,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: false } }}
-        template={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: '${input}' } }}
+        template={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: RUNTIME_INPUT_VALUE } }}
         allValues={{
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' }
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
@@ -81,13 +82,13 @@ describe('Test K8sBlueGreenDeployStep', () => {
         template={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: '${input}' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
         }}
         allValues={{
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' },
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' },
           instances: -1,
           instanceType: 'percentage'
         }}
@@ -120,13 +121,13 @@ describe('Test K8sBlueGreenDeployStep', () => {
         template={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: '${input}' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
         }}
         allValues={{
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' },
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' },
           instances: 10,
           instanceType: InstanceTypes.Instances
         }}
@@ -174,13 +175,13 @@ describe('Test K8sBlueGreenDeployStep', () => {
         template={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: '${input}' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
         }}
         allValues={{
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: '${input}', timeout: '10m' },
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' },
           instances: 10,
           instanceType: InstanceTypes.Percentage
         }}
@@ -235,7 +236,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
         template={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: '${input}' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
         }}
         allValues={{
           identifier: 'Test_A',
@@ -300,7 +301,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
         template={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: '${input}' }
+          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
         }}
         allValues={{
           identifier: 'Test_A',

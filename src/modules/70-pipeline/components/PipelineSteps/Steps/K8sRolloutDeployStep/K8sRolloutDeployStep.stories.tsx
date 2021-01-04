@@ -2,7 +2,7 @@ import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 // import { select } from '@storybook/addon-knobs'
 // import yaml from 'yaml'
-import { Card } from '@wings-software/uikit'
+import { Card, RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -53,12 +53,12 @@ K8sRolloutDeployStep.args = {
   template: {
     identifier: 'Test_A',
     type: StepType.K8sRollingDeploy,
-    spec: { skipDryRun: '${input}', timeout: '${input}' }
+    spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
   },
   allValues: {
     type: StepType.K8sRollingDeploy,
     name: 'Test A',
     identifier: 'Test_A',
-    spec: { skipDryRun: '${input}', timeout: '${input}' }
+    spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
   }
 }

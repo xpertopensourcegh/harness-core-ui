@@ -1,3 +1,4 @@
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import type { WebhookTriggerConfigPanelPropsInterface } from '../views/WebhookTriggerConfigPanel'
 export const triggerConfigInitialValues = { identifier: '', sourceRepo: 'GITHUB', triggerType: 'Webhook' }
 // export const triggerConfigInitialValues = { identifier: '', sourceRepo: 'GITHUB', triggerType: 'Webhook' }
@@ -15,8 +16,8 @@ export const pipelineInputInitialValues = {
               infrastructureDefinition: {
                 type: 'KubernetesDirect',
                 spec: {
-                  namespace: '${input}',
-                  releaseName: '${input}'
+                  namespace: RUNTIME_INPUT_VALUE,
+                  releaseName: RUNTIME_INPUT_VALUE
                 }
               }
             }
@@ -37,8 +38,8 @@ export const pipelineInputInitialValues = {
               infrastructureDefinition: {
                 type: 'KubernetesDirect',
                 spec: {
-                  namespace: '${input}',
-                  releaseName: '${input}'
+                  namespace: RUNTIME_INPUT_VALUE,
+                  releaseName: RUNTIME_INPUT_VALUE
                 }
               }
             }

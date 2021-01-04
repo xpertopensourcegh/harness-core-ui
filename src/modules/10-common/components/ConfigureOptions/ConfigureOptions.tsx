@@ -7,7 +7,8 @@ import {
   FormInput,
   SelectOption,
   MultiSelectOption,
-  Layout
+  Layout,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uikit'
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -36,10 +37,10 @@ export enum Validation {
   Regex = 'Regex'
 }
 
-export const RuntimeInputExpression = '${input}'
 export const AllowedExpression = 'allowedValues'
 export const RegexExpression = 'regex'
-export const RegExInputExpression = /^\$\{input\}.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?$/
+// eslint-disable-next-line no-useless-escape
+export const RegExInputExpression = /^\<\+input\>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?$/
 const RegExpression = /jexl\((.*?)\)/
 const JEXL = 'jexl'
 
@@ -136,7 +137,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
             })
           })}
           onSubmit={data => {
-            let inputStr = RuntimeInputExpression
+            let inputStr = RUNTIME_INPUT_VALUE
             if (
               data.validation === Validation.AllowedValues &&
               (data.allowedValues?.length > 0 || data.advancedValue.length > 0)

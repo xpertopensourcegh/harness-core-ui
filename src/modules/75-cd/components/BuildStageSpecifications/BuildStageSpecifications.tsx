@@ -48,25 +48,6 @@ enum VariableTypes {
 
 const secretsOptions: Map<string, string> = new Map()
 
-const RUNTIME_INPUT_VALUE = '{input}'
-
-export const isValueAnExpression = (value: string): boolean => /^\${.*}$/.test(value)
-
-export const valueToType = (
-  value: string | undefined = '',
-  allowableTypes?: MultiTypeInputType[]
-): MultiTypeInputType => {
-  if (typeof value === 'string') {
-    value = value.toLocaleLowerCase().trim()
-    if (value.startsWith(RUNTIME_INPUT_VALUE)) return MultiTypeInputType.RUNTIME
-    if (isValueAnExpression(value)) return MultiTypeInputType.EXPRESSION
-  }
-  if (!value && allowableTypes?.length) {
-    return allowableTypes[0]
-  }
-  return MultiTypeInputType.FIXED
-}
-
 export const getSecretKey = (secret: SecretDTOV2): string =>
   `${secret.orgIdentifier ? Scope.ORG : secret.projectIdentifier ? Scope.PROJECT : Scope.ACCOUNT}.${
     secret.identifier
@@ -417,7 +398,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                     <div>
                                       {type === VariableTypes.Secret && (
                                         <div className={css.secretContainer}>
-                                          {valueToType(value) === MultiTypeInputType.FIXED && (
+                                          {getMultiTypeFromValue(value) === MultiTypeInputType.FIXED && (
                                             <div className={css.fixed}>
                                               <Popover position={Position.BOTTOM}>
                                                 <div className={css.icon}>

@@ -1,9 +1,8 @@
 import React from 'react'
 import { queryByAttribute, act, fireEvent, findByText, render } from '@testing-library/react'
-import { MultiTypeInputType } from '@wings-software/uikit'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { SecretDTOV2 } from 'services/cd-ng'
-import BuildStageSpecifications, { getSecretKey, valueToType, isValueAnExpression } from '../BuildStageSpecifications'
+import BuildStageSpecifications, { getSecretKey } from '../BuildStageSpecifications'
 import mockData from './mockData.json'
 
 jest.mock('services/cd-ng', () => ({
@@ -76,27 +75,5 @@ describe('BuildStageSpecifications tests', () => {
     expect(getSecretKey(mockSecretDataBase)).toEqual('account.testId')
     expect(getSecretKey(mockSecretDataNoOrg)).toEqual('project.testId')
     expect(getSecretKey(mockSecretDataNoProject)).toEqual('org.testId')
-  })
-  test('valueToType works correctly', async () => {
-    const allowableTypes: MultiTypeInputType[] = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-    // 1. no allowable
-    // 1.1. value is string
-    expect(valueToType('value')).toEqual(MultiTypeInputType.FIXED)
-    expect(valueToType('{input}')).toEqual(MultiTypeInputType.RUNTIME)
-    expect(valueToType('${test}')).toEqual(MultiTypeInputType.EXPRESSION)
-    // 1.2. value is undefined
-    expect(valueToType(undefined)).toEqual(MultiTypeInputType.FIXED)
-    // 2. with allowable
-    // 2.1. value is string
-    expect(valueToType('value', allowableTypes)).toEqual(MultiTypeInputType.FIXED)
-    expect(valueToType('{input}', allowableTypes)).toEqual(MultiTypeInputType.RUNTIME)
-    expect(valueToType('${test}', allowableTypes)).toEqual(MultiTypeInputType.EXPRESSION)
-    // 2.2. value is undefined
-    expect(valueToType('undefined', allowableTypes)).toEqual(allowableTypes[0])
-  })
-  test('isValueAnExpression works correctly', async () => {
-    expect(isValueAnExpression('')).toBeFalsy()
-    expect(isValueAnExpression('1234')).toBeFalsy()
-    expect(isValueAnExpression('${test}')).toBeTruthy()
   })
 })

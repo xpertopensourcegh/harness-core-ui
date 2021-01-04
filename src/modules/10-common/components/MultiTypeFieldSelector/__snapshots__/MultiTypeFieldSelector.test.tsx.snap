@@ -94,7 +94,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
             Test Label
              
             <b>
-              \${input}
+              &lt;+input&gt;
             </b>
           </span>
           <div
@@ -246,7 +246,7 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: Run
             Test Label
              
             <b>
-              \${input}
+              &lt;+input&gt;
             </b>
           </span>
           <div

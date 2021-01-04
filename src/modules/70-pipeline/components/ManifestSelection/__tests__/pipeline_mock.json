@@ -28,7 +28,7 @@
                         "store": {
                           "type": "Git",
                           "spec": {
-                            "connectorRef": "${input}",
+                            "connectorRef": "<+input>",
                             "gitFetchType": "Branch",
                             "branch": "branch",
                             "commitId": null,
@@ -46,7 +46,7 @@
                         "store": {
                           "type": "Git",
                           "spec": {
-                            "connectorRef": "${input}",
+                            "connectorRef": "<+input>",
                             "gitFetchType": "Branch",
                             "branch": "branch",
                             "commitId": null,
@@ -64,11 +64,11 @@
                         "store": {
                           "type": "Git",
                           "spec": {
-                            "connectorRef": "${input}",
+                            "connectorRef": "<+input>",
                             "gitFetchType": "Branch",
                             "branch": "br1",
                             "commitId": null,
-                            "paths": "${input}"
+                            "paths": "<+input>"
                           }
                         }
                       }
@@ -82,7 +82,7 @@
                         "store": {
                           "type": "Git",
                           "spec": {
-                            "connectorRef": "${input}",
+                            "connectorRef": "<+input>",
                             "gitFetchType": "Branch",
                             "branch": "br2",
                             "commitId": null,

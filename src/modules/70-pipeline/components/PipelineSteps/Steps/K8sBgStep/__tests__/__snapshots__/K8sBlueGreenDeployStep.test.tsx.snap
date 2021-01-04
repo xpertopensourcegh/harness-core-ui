@@ -251,9 +251,9 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step 1`] = 
                             class="bp3-input"
                             disabled=""
                             name="spec.skipDryRun"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>

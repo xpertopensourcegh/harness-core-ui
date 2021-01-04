@@ -242,9 +242,9 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                     class="bp3-input"
                     disabled=""
                     name="checkboxValue"
-                    placeholder="\${input}"
+                    placeholder="<+input>"
                     type="text"
-                    value="\${input}"
+                    value="<+input>"
                   />
                 </div>
               </div>
@@ -307,9 +307,9 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                     class="bp3-input"
                     disabled=""
                     name="radioValue"
-                    placeholder="\${input}"
+                    placeholder="<+input>"
                     type="text"
-                    value="\${input}"
+                    value="<+input>"
                   />
                 </div>
               </div>
@@ -373,9 +373,9 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                     class="bp3-input"
                     disabled=""
                     name="textAreaValue"
-                    placeholder="\${input}"
+                    placeholder="<+input>"
                     type="text"
-                    value="\${input}"
+                    value="<+input>"
                   />
                 </div>
               </div>

@@ -548,10 +548,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                               class="bp3-input"
                               disabled=""
                               name="instances"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               style="width: 352px;"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -680,9 +680,9 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                               class="bp3-input"
                               disabled=""
                               name="spec.timeout"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>
@@ -773,9 +773,9 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                               class="bp3-input"
                               disabled=""
                               name="spec.skipDryRun"
-                              placeholder="\${input}"
+                              placeholder="<+input>"
                               type="text"
-                              value="\${input}"
+                              value="<+input>"
                             />
                           </div>
                         </div>

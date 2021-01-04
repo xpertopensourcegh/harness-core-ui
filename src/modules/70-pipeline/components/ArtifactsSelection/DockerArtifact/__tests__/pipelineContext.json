@@ -24,7 +24,7 @@
                       "sidecars": [],
                       "primary": {
                         "type": "Dockerhub",
-                        "spec": { "connectorRef": "${input}", "imagePath": "${input}" }
+                        "spec": { "connectorRef": "<+input>", "imagePath": "<+input>" }
                       }
                     },
                     "manifests": [],

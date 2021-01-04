@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
@@ -23,12 +24,12 @@ describe('Http Step', () => {
       identifier: 'My_Http_Step',
       name: 'My Http Step',
       spec: {
-        method: '${input}',
-        url: '${input}',
-        requestBody: '${input}',
-        timeout: '${input}',
-        headers: '${input}',
-        outputVariables: '${input}'
+        method: RUNTIME_INPUT_VALUE,
+        url: RUNTIME_INPUT_VALUE,
+        requestBody: RUNTIME_INPUT_VALUE,
+        timeout: RUNTIME_INPUT_VALUE,
+        headers: RUNTIME_INPUT_VALUE,
+        outputVariables: RUNTIME_INPUT_VALUE
       }
     }
     const { container } = render(
@@ -44,8 +45,8 @@ describe('Http Step', () => {
       name: 'My Http Step',
       spec: {
         method: 'POST',
-        url: '${input}',
-        requestBody: '${input}',
+        url: RUNTIME_INPUT_VALUE,
+        requestBody: RUNTIME_INPUT_VALUE,
         timeout: '10s',
         headers: [
           {

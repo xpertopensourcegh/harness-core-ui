@@ -2282,9 +2282,9 @@ exports[`Run Step renders runtime inputs 1`] = `
                         class="bp3-input"
                         disabled=""
                         name="description"
-                        placeholder="\${input}"
+                        placeholder="<+input>"
                         type="text"
-                        value="\${input}"
+                        value="<+input>"
                       />
                     </div>
                   </div>
@@ -2405,10 +2405,10 @@ exports[`Run Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.connectorRef"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           style="width: 487px;"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -2527,9 +2527,9 @@ exports[`Run Step renders runtime inputs 1`] = `
                           class="bp3-input"
                           disabled=""
                           name="spec.image"
-                          placeholder="\${input}"
+                          placeholder="<+input>"
                           type="text"
-                          value="\${input}"
+                          value="<+input>"
                         />
                       </div>
                     </div>
@@ -2657,9 +2657,9 @@ exports[`Run Step renders runtime inputs 1`] = `
                         class="bp3-input"
                         disabled=""
                         name="spec.command"
-                        placeholder="\${input}"
+                        placeholder="<+input>"
                         type="text"
-                        value="\${input}"
+                        value="<+input>"
                       />
                     </div>
                   </div>
@@ -2779,7 +2779,7 @@ exports[`Run Step renders runtime inputs 1`] = `
                     </p>
                      
                     <b>
-                      \${input}
+                      &lt;+input&gt;
                     </b>
                   </span>
                   <div
@@ -2906,7 +2906,7 @@ exports[`Run Step renders runtime inputs 1`] = `
                     </p>
                      
                     <b>
-                      \${input}
+                      &lt;+input&gt;
                     </b>
                   </span>
                   <div
@@ -3033,7 +3033,7 @@ exports[`Run Step renders runtime inputs 1`] = `
                     </p>
                      
                     <b>
-                      \${input}
+                      &lt;+input&gt;
                     </b>
                   </span>
                   <div
@@ -3177,9 +3177,9 @@ exports[`Run Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.limitMemory"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>
@@ -3272,9 +3272,9 @@ exports[`Run Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.limitCPU"
-                            placeholder="\${input}"
+                            placeholder="<+input>"
                             type="text"
-                            value="\${input}"
+                            value="<+input>"
                           />
                         </div>
                       </div>
@@ -3403,9 +3403,9 @@ exports[`Run Step renders runtime inputs 1`] = `
                         class="bp3-input"
                         disabled=""
                         name="timeout"
-                        placeholder="\${input}"
+                        placeholder="<+input>"
                         type="text"
-                        value="\${input}"
+                        value="<+input>"
                       />
                     </div>
                   </div>

@@ -108,7 +108,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
                 style="--text-line-clamp: 1; width: 470px;"
               >
-                \${input}
+                &lt;+input&gt;
               </p>
             </span>
             <span>
@@ -116,7 +116,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
                 style="--text-line-clamp: 1; width: 110px;"
               >
-                \${input}
+                &lt;+input&gt;
               </p>
             </span>
             <span>
@@ -294,7 +294,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
                 style="--text-line-clamp: 1; width: 470px;"
               >
-                \${input}
+                &lt;+input&gt;
               </p>
             </span>
             <span>
@@ -302,7 +302,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
                 style="--text-line-clamp: 1; width: 110px;"
               >
-                \${input}
+                &lt;+input&gt;
               </p>
             </span>
             <span>
@@ -480,7 +480,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
                 style="--text-line-clamp: 1; width: 470px;"
               >
-                \${input}
+                &lt;+input&gt;
               </p>
             </span>
             <span>
@@ -488,7 +488,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
                 style="--text-line-clamp: 1; width: 110px;"
               >
-                \${input}
+                &lt;+input&gt;
               </p>
             </span>
             <span>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Formik, FormikForm } from '@wings-software/uikit'
+import { Formik, FormikForm, RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import { FormMultiTypeCheckboxField } from '../MultiTypeCheckbox/MultiTypeCheckbox'
 import { FormMultiTypeRadioGroupField } from '../MultiTypeRadioGroup/MultiTypeRadioGroup'
 import { FormMultiTypeTextAreaField } from '../MultiTypeTextArea/MultiTypeTextArea'
@@ -47,7 +47,11 @@ describe('RuntimeInput Tests for checkbox, RadioGroup and Text Area', () => {
   })
   test('should render with default runtimeInput values', () => {
     const { container } = render(
-      <SampleComponent textAreaValue="${input}" checkboxValue="${input}" radioValue="${input}" />
+      <SampleComponent
+        textAreaValue={RUNTIME_INPUT_VALUE}
+        checkboxValue={RUNTIME_INPUT_VALUE}
+        radioValue={RUNTIME_INPUT_VALUE}
+      />
     )
     expect(container).toMatchSnapshot()
   })

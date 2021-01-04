@@ -1,3 +1,4 @@
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseNGPipelineResponse, ResponseConnectorResponse, NGPipelineResponse } from 'services/cd-ng'
 import type {
@@ -65,8 +66,8 @@ export const GetPipelineResponse: UseGetReturnData<ResponseNGPipelineResponse> =
                       metadata: null,
                       spec: {
                         connectorRef: 'connector',
-                        namespace: '${input}',
-                        releaseName: '${input}',
+                        namespace: RUNTIME_INPUT_VALUE,
+                        releaseName: RUNTIME_INPUT_VALUE,
                         metadata: null
                       }
                     },
@@ -126,7 +127,7 @@ export const GetPipelineResponse: UseGetReturnData<ResponseNGPipelineResponse> =
       },
       executionsPlaceHolder: [],
       yamlPipeline:
-        'pipeline:\n  name: p1\n  identifier: p1\n  description: ""\n  stages:\n    - stage:\n        name: stage-1\n        identifier: stage1\n        description: ""\n        type: Deployment\n        spec:\n          service:\n            identifier: service1\n            name: service-1\n            description: ""\n            serviceDefinition:\n              type: Kubernetes\n              spec:\n                artifacts:\n                  sidecars: []\n                manifests: []\n                artifactOverrideSets: []\n                manifestOverrideSets: []\n          infrastructure:\n            environment:\n              name: env-1\n              identifier: env1\n              description: ""\n              type: PreProduction\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: connector\n                namespace: ${input}\n                releaseName: ${input}\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  spec:\n                    timeout: 10m\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  spec:\n                    timeout: 10m\n',
+        'pipeline:\n  name: p1\n  identifier: p1\n  description: ""\n  stages:\n    - stage:\n        name: stage-1\n        identifier: stage1\n        description: ""\n        type: Deployment\n        spec:\n          service:\n            identifier: service1\n            name: service-1\n            description: ""\n            serviceDefinition:\n              type: Kubernetes\n              spec:\n                artifacts:\n                  sidecars: []\n                manifests: []\n                artifactOverrideSets: []\n                manifestOverrideSets: []\n          infrastructure:\n            environment:\n              name: env-1\n              identifier: env1\n              description: ""\n              type: PreProduction\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: connector\n                namespace: <+input>\n                releaseName: <+input>\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  spec:\n                    timeout: 10m\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  spec:\n                    timeout: 10m\n',
       version: 8
     } as unknown) as NGPipelineResponse,
     metaData: (null as unknown) as undefined,
@@ -142,7 +143,7 @@ export const GetTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetT
     status: 'SUCCESS',
     data: {
       inputSetTemplateYaml:
-        'pipeline:\n  identifier: "p1"\n  stages:\n  - stage:\n      identifier: "stage1"\n      type: "Deployment"\n      spec:\n        infrastructure:\n          infrastructureDefinition:\n            type: "KubernetesDirect"\n            spec:\n              namespace: "${input}"\n              releaseName: "${input}"\n'
+        'pipeline:\n  identifier: "p1"\n  stages:\n  - stage:\n      identifier: "stage1"\n      type: "Deployment"\n      spec:\n        infrastructure:\n          infrastructureDefinition:\n            type: "KubernetesDirect"\n            spec:\n              namespace: "<+input>"\n              releaseName: "<+input>"\n'
     },
     metaData: (null as unknown) as undefined,
     correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'
@@ -171,7 +172,7 @@ export const GetMergeInputSetFromPipelineTemplateWithListInputResponse: UseGetRe
     status: 'SUCCESS',
     data: {
       inputSetTemplateYaml:
-        'pipeline:\n  identifier: "p1"\n  stages:\n  - stage:\n      identifier: "stage1"\n      type: "Deployment"\n      spec:\n        infrastructure:\n          infrastructureDefinition:\n            type: "KubernetesDirect"\n            spec:\n              namespace: "${input}"\n              releaseName: "${input}"\n'
+        'pipeline:\n  identifier: "p1"\n  stages:\n  - stage:\n      identifier: "stage1"\n      type: "Deployment"\n      spec:\n        infrastructure:\n          infrastructureDefinition:\n            type: "KubernetesDirect"\n            spec:\n              namespace: "<+input>"\n              releaseName: "<+input>"\n'
     },
     metaData: null,
     correlationId: '2197e87f-64d4-44a4-91c7-607337cf4394'

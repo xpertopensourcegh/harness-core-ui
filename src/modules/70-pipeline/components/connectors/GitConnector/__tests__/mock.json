@@ -23,7 +23,7 @@
                       "sidecar": {
                         "type": "Dockerhub",
                         "identifier": "sidecar1",
-                        "spec": { "connectorRef": "account.harnessimage", "imagePath": "${input}" }
+                        "spec": { "connectorRef": "account.harnessimage", "imagePath": "<+input>" }
                       }
                     }
                   ],
@@ -40,7 +40,7 @@
                           "spec": {
                             "connectorRef": "account.dronegit",
                             "gitFetchType": "Branch",
-                            "branch": "${input}",
+                            "branch": "<+input>",
                             "commitId": "",
                             "paths": ["specs"]
                           }
@@ -58,7 +58,7 @@
             "environment": { "name": "infra", "identifier": "infra", "description": "", "type": "PreProduction" },
             "infrastructureDefinition": {
               "type": "KubernetesDirect",
-              "spec": { "connectorRef": "account.adsds", "namespace": "${input}", "releaseName": "${input}" }
+              "spec": { "connectorRef": "account.adsds", "namespace": "<+input>", "releaseName": "<+input>" }
             }
           },
           "execution": {
@@ -68,7 +68,7 @@
                   "name": "Rollout Deployment",
                   "identifier": "rolloutDeployment",
                   "type": "K8sRollingDeploy",
-                  "spec": { "timeout": "${input}", "skipDryRun": false }
+                  "spec": { "timeout": "<+input>", "skipDryRun": false }
                 }
               }
             ]
