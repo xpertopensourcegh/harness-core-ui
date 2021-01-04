@@ -590,7 +590,10 @@ const routes = {
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/notifications`
   ),
   /********************************************************************************************************************/
-  toProjectDetails: withAccountId(({ projectIdentifier }: ProjectPathProps) => `/projects/${projectIdentifier}`),
+  toProjectDetails: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`
+  ),
   toProjects: withAccountId(() => '/projects'),
   toProjectsGetStarted: withAccountId(() => '/projects/getstarted'),
   /********************************************************************************************************************/

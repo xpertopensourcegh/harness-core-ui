@@ -182,11 +182,11 @@ describe('Project Page List', () => {
       await waitFor(() => getByTestId('location'))
       expect(
         getByTestId('location').innerHTML.endsWith(
-          `${routes.toProjectDetails({
+          routes.toProjectDetails({
             accountId: projectPageMock.data.data.content[0].projectResponse.project.accountIdentifier,
             orgIdentifier: projectPageMock.data.data.content[0].projectResponse.project.orgIdentifier,
             projectIdentifier: projectPageMock.data.data.content[0].projectResponse.project.identifier
-          })}?orgId=${projectPageMock.data.data.content[0].projectResponse.project.orgIdentifier}`
+          })
         )
       ).toBeTruthy()
     }),

@@ -70,8 +70,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   projectIdentifier: data.identifier,
                   orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                   accountId: data.accountIdentifier || /* istanbul ignore next */ ''
-                }),
-                search: `?orgId=${data.orgIdentifier || ''}`
+                })
               })
           }}
         >

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Color, Container, Icon, Layout, Popover, Text, AvatarGroup } from '@wings-software/uikit'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTO } from 'services/cd-ng'
-import { ModuleName, useStrings } from 'framework/exports'
+import { ModuleName, useAppStore, useStrings } from 'framework/exports'
 import ModuleListCard from '@projects-orgs/components/ModuleListCard/ModuleListCard'
 import ModuleEnableCard from '@projects-orgs/components/ModuleEnableCard/ModuleEnableCard'
 import { getEnableModules } from '@projects-orgs/utils/utils'
@@ -15,17 +15,15 @@ import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
-import { useQueryParams } from '@common/hooks'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
 
 const ProjectDetails: React.FC = () => {
-  const { accountId, projectIdentifier } = useParams()
-  const { orgId: orgIdentifier } = useQueryParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
-
+  const { updateAppStore } = useAppStore()
   const { data, loading, error, refetch } = useGetProjectAggregateDTO({
     identifier: projectIdentifier,
     queryParams: {
@@ -58,6 +56,10 @@ const ProjectDetails: React.FC = () => {
     history.push(routes.toProjects({ accountId }))
   }
   const openDialog = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
+
+  useEffect(() => {
+    updateAppStore({ selectedProject: projectData })
+  }, [projectData])
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
