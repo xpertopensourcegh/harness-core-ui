@@ -11,7 +11,8 @@ import {
   environmentPathProps,
   connectorPathProps,
   secretPathProps,
-  segmentPathProps
+  segmentPathProps,
+  targetPathProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -20,6 +21,7 @@ import CFDashboardPage from '@cf/pages/dashboard/CFDashboardPage'
 import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
 import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'
 import CFTargetsPage from '@cf/pages/targets/CFTargetsPage'
+import CFTargetDetailsPage from '@cf/pages/target-details/CFTargetDetailsPage'
 import CFSegmentDetailsPage from '@cf/pages/segment-details/CFSegmentDetailsPage'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
 import SidebarProvider from '@common/navigation/SidebarProvider'
@@ -96,8 +98,21 @@ export default (
           ...segmentPathProps,
           ...environmentPathProps
         })}
+        exact
       >
         <CFSegmentDetailsPage />
+      </RouteWithLayout>
+
+      <RouteWithLayout
+        path={routes.toCFTargetDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...targetPathProps,
+          ...environmentPathProps
+        })}
+        exact
+      >
+        <CFTargetDetailsPage />
       </RouteWithLayout>
 
       <RouteWithLayout path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })} exact>

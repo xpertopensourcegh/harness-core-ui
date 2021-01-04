@@ -15,7 +15,8 @@ import type {
   AccountPathProps,
   SegmentPathProps,
   PipelineType,
-  InputSetPathProps
+  InputSetPathProps,
+  TargetPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -395,7 +396,16 @@ const routes = {
       environmentIdentifier,
       segmentIdentifier
     }: ProjectPathProps & SegmentPathProps & EnvironmentPathProps) =>
-      `/cf/targets/orgs/${orgIdentifier}/projects/${projectIdentifier}/environments/${environmentIdentifier}/segments/${segmentIdentifier}`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/targets/environments/${environmentIdentifier}/target-segment/${segmentIdentifier}`
+  ),
+  toCFTargetDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      environmentIdentifier,
+      targetIdentifier
+    }: ProjectPathProps & TargetPathProps & EnvironmentPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/targets/environments/${environmentIdentifier}/target/${targetIdentifier}`
   ),
   toCFWorkflows: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

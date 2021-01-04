@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
+import { useHistory } from 'react-router-dom'
 import moment from 'moment'
 import { Container, Button, Layout, Text } from '@wings-software/uikit'
 import { Menu, Spinner } from '@blueprintjs/core'
 import type { Column } from 'react-table'
 import { useStrings } from 'framework/exports'
+import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import { Page, useToaster } from '@common/exports'
 import { Target, useCreateTarget } from 'services/cf'
@@ -48,6 +50,8 @@ interface IndividualProps {
   targets: Target[]
   environment: string
   project: string
+  orgIdentifier: string
+  accountId: string
   loading?: boolean
   pagination?: {
     itemCount: number
@@ -70,6 +74,8 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   project,
   environment,
   pagination,
+  orgIdentifier,
+  accountId,
   onCreateTargets
 }) => {
   const { getString } = useStrings()
@@ -77,6 +83,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   const { showError } = useToaster()
 
   const [loadingBulk, setLoadingBulk] = useState<boolean>(false)
+  const history = useHistory()
 
   const { mutate: createTarget, loading: loadingCreateTarget } = useCreateTarget({
     queryParams: SharedQueryParams
@@ -172,6 +179,18 @@ const IndividualTargets: React.FC<IndividualProps> = ({
       .then((ts: TargetData[]) => handleTargetCreation(ts, hideModal))
   }
 
+  const handleRowClick = ({ identifier }: Target) => {
+    history.push(
+      routes.toCFTargetDetails({
+        targetIdentifier: identifier as string,
+        environmentIdentifier: environment,
+        projectIdentifier: project,
+        orgIdentifier,
+        accountId
+      })
+    )
+  }
+
   if (loading) {
     return (
       <Container flex style={{ justifyContent: 'center', height: '100%' }}>
@@ -195,9 +214,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
           columns={columnDefs}
           data={targets}
           pagination={pagination}
-          onRowClick={() => {
-            alert('TBD')
-          }}
+          onRowClick={handleRowClick}
         />
       </Container>
     </Page.Body>

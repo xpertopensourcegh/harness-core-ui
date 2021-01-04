@@ -52,6 +52,9 @@ export interface FeatureFlagPathProps {
 export interface SegmentPathProps {
   segmentIdentifier: string
 }
+export interface TargetPathProps {
+  targetIdentifier: string
+}
 
 export interface EnvironmentPathProps {
   environmentIdentifier: string

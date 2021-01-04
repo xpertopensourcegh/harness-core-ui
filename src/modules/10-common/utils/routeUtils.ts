@@ -15,7 +15,8 @@ import type {
   EnvironmentPathProps,
   DelegatePathProps,
   InputSetPathProps,
-  VerificationPathProps
+  VerificationPathProps,
+  TargetPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -90,6 +91,10 @@ export const environmentPathProps: EnvironmentPathProps = {
 
 export const segmentPathProps: SegmentPathProps = {
   segmentIdentifier: ':segmentIdentifier'
+}
+
+export const targetPathProps: TargetPathProps = {
+  targetIdentifier: ':targetIdentifier'
 }
 
 export function withAccountId<T>(fn: (args: T) => string) {

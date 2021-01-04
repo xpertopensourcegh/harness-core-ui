@@ -203,6 +203,8 @@ const CFTargetsPage: React.FC = () => {
           pagination={{ ...omit(targetsData, ['targets']), gotoPage: setTargetPage }}
           environment={environment?.value as string}
           project={projectIdentifier}
+          orgIdentifier={orgIdentifier}
+          accountId={accountId}
           onCreateTargets={fetchTargets}
         />
       ) : (
