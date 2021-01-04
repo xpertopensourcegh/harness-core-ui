@@ -6,11 +6,11 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { factory, TestStepWidget } from '../__tests__/StepTestUtil'
-import { K8RolloutDeployStep } from './K8sRolloutDeployStep'
-factory.registerStep(new K8RolloutDeployStep())
+import { K8sRollingRollbackStep } from './K8sRollingRollback'
+factory.registerStep(new K8sRollingRollbackStep())
 
 export default {
-  title: 'Pipelines / Pipeline Steps / K8sRolloutDeployStep',
+  title: 'Pipelines / Pipeline Steps / K8sRollingRollbackStep',
   // eslint-disable-next-line react/display-name
   component: TestStepWidget,
   argTypes: {
@@ -30,7 +30,7 @@ export default {
   }
 } as Meta
 
-export const K8sRolloutDeployStep: Story<Omit<StepWidgetProps, 'factory'>> = args => {
+export const K8sRollingRollback: Story<Omit<StepWidgetProps, 'factory'>> = args => {
   const [value, setValue] = React.useState({})
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '480px 1fr', columnGap: '20px' }}>
@@ -43,20 +43,20 @@ export const K8sRolloutDeployStep: Story<Omit<StepWidgetProps, 'factory'>> = arg
     </div>
   )
 }
-K8sRolloutDeployStep.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.K8sRollingDeploy },
-  type: StepType.K8sRollingDeploy,
+K8sRollingRollback.args = {
+  initialValues: { identifier: 'Test_A', type: StepType.K8sRollingRollback },
+  type: StepType.K8sRollingRollback,
   stepViewType: StepViewType.Edit,
   path: '',
   template: {
     identifier: 'Test_A',
-    type: StepType.K8sRollingDeploy,
-    spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
+    type: StepType.K8sRollingRollback,
+    spec: { timeout: RUNTIME_INPUT_VALUE }
   },
   allValues: {
-    type: StepType.K8sRollingDeploy,
+    type: StepType.K8sRollingRollback,
     name: 'Test A',
     identifier: 'Test_A',
-    spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
+    spec: { timeout: RUNTIME_INPUT_VALUE }
   }
 }

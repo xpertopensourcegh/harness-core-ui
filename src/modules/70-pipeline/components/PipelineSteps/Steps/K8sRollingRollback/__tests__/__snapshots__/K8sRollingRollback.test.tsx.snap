@@ -1,0 +1,428 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test K8sRollingRollback Step should render edit view 1`] = `
+<div>
+  <div
+    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+    >
+      <div
+        class="OverlaySpinner---overlaySpinner--3Bs3"
+      >
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+        >
+          <div
+            class="accordion"
+          >
+            <div
+              class="panel"
+              data-open="true"
+              data-testid="details-panel"
+            >
+              <div
+                class="summary"
+                data-testid="details-summary"
+              >
+                <div
+                  class="label"
+                >
+                  K8s Rolling Rollback
+                </div>
+                <div
+                  class="chevron"
+                />
+              </div>
+              <div
+                class="bp3-collapse"
+                style="height: auto; overflow-y: visible; transition: none;"
+              >
+                <div
+                  aria-hidden="false"
+                  class="bp3-collapse-body"
+                  style="transform: translateY(0); transition: none;"
+                >
+                  <div
+                    class="details"
+                    data-testid="details-details"
+                  >
+                    <div
+                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        >
+                          ID
+                          :
+                        </p>
+                        <span
+                          class="InputWithIdentifier---idInput--w8_T"
+                          contenteditable="true"
+                        >
+                          Test_A
+                        </span>
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          icon="edit"
+                          style="vertical-align: middle;"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="bp3-form-group"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="name"
+                        >
+                          Name
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="name"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                      style="align-items: center;"
+                    >
+                      <div
+                        class="bp3-form-group"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="spec.timeout"
+                        >
+                          Timeout
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                            style="flex-grow: 1;"
+                          >
+                            <div
+                              class="bp3-input-group bp3-fill"
+                            >
+                              <input
+                                class="bp3-input"
+                                name="spec.timeout"
+                                placeholder="Enter w/d/h/m/s/ms"
+                                type="text"
+                                value="10m"
+                              />
+                            </div>
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <button
+                                  class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                >
+                                  <span
+                                    class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                  >
+                                    <svg
+                                      height="12"
+                                      viewBox="0 0 9 9"
+                                      width="12"
+                                    >
+                                      <path
+                                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                        fill="#009dff"
+                                      />
+                                    </svg>
+                                  </span>
+                                </button>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Submit
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+    >
+      <pre>
+        {}
+
+      </pre>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Test K8sRollingRollback Step should render inputSet view 1`] = `
+<div>
+  <div
+    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+    >
+      <div
+        class="OverlaySpinner---overlaySpinner--3Bs3"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="spec.timeout"
+          >
+            Timeout
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              style="flex-grow: 1;"
+            >
+              <div
+                class="bp3-input-group bp3-fill"
+              >
+                <input
+                  class="bp3-input"
+                  name="spec.timeout"
+                  placeholder="Enter w/d/h/m/s/ms"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                  >
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="#009dff"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          Errors
+        </p>
+        <pre>
+          {}
+        </pre>
+        <button
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+    >
+      <pre>
+        {}
+
+      </pre>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Test K8sRollingRollback Step should render inputSet view and test validation 1`] = `
+<div>
+  <div
+    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+    >
+      <div
+        class="OverlaySpinner---overlaySpinner--3Bs3"
+      >
+        <div
+          class="bp3-form-group bp3-intent-danger"
+        >
+          <label
+            class="bp3-label"
+            for="spec.timeout"
+          >
+            Timeout
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              style="flex-grow: 1;"
+            >
+              <div
+                class="bp3-input-group bp3-fill"
+              >
+                <input
+                  class="bp3-input"
+                  name="spec.timeout"
+                  placeholder="Enter w/d/h/m/s/ms"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                  >
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="#009dff"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+            <div
+              class="bp3-form-helper-text"
+            >
+              Timeout is Required
+            </div>
+          </div>
+        </div>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          Errors
+        </p>
+        <pre>
+          {
+  "spec": {
+    "timeout": "Timeout is Required"
+  }
+}
+        </pre>
+        <button
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+    >
+      <pre>
+        {}
+
+      </pre>
+    </div>
+  </div>
+</div>
+`;

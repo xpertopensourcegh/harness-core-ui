@@ -486,7 +486,9 @@ global:
     restoreCacheGcpConnectorInfo: GCP connector to use for restoring the cache from GCS
     dockerHubConnectorLabel: Docker Hub Registry
     dockerHubConnectorInfo: Docker Hub Container Registry to use for uploading the image
-    k8sRolloutDeploy: 'K8s Rollout Deploy'
+    k8sRolloutDeploy: K8s Rollout Deploy
+    k8sRolloutRollback: K8s Rolling Rollback
+    barrier: Barrier
     k8sBGDeploy: 'K8s Blue Green Deploy'
     k8sCanaryDeploy: 'K8s Canary Deploy'
     skipDryRun: 'Skip Dry Run'
