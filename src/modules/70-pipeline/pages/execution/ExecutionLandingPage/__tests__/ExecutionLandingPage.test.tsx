@@ -14,11 +14,6 @@ import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'
 import i18nTabs from '../ExecutionTabs/ExecutionTabs.i18n'
 import mockData from './mock.json'
 
-jest.mock('services/cd-ng', () => ({
-  useHandleInterrupt: jest.fn(() => ({
-    mutate: jest.fn()
-  }))
-}))
 jest.mock('services/pipeline-ng', () => ({
   useGetExecutionDetail: jest.fn(() => ({
     refetch: jest.fn(),
@@ -26,6 +21,9 @@ jest.mock('services/pipeline-ng', () => ({
     data: {
       data: { pipelineExecution: {}, stageGraph: {} }
     }
+  })),
+  useHandleInterrupt: jest.fn(() => ({
+    mutate: jest.fn()
   }))
 }))
 

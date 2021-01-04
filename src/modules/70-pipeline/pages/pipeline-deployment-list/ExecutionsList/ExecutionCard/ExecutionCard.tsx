@@ -126,7 +126,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
         </div>
         <div className={css.footer}>
           <div className={css.triggerInfo}>
-            <UserLabel name={pipelineExecution.executionTriggerInfo?.triggeredBy?.name || 'Anonymous'} />
+            <UserLabel name={pipelineExecution.executionTriggerInfo?.triggeredBy?.identifier || 'Anonymous'} />
             <String
               className={css.triggerType}
               stringID={`execution.triggerType.${pipelineExecution.executionTriggerInfo?.triggerType ?? 'MANUAL'}`}

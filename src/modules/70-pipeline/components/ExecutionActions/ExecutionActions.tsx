@@ -3,7 +3,7 @@ import { Button, Popover, ButtonProps } from '@wings-software/uikit'
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { Link, useHistory } from 'react-router-dom'
 
-import { useHandleInterrupt } from 'services/cd-ng'
+import { useHandleInterrupt } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'

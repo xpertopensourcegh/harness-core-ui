@@ -7,7 +7,7 @@
       "name": "Mock Pipeline",
       "status": "Running",
       "executionTriggerInfo": {
-        "triggeredBy": { "uuid": null, "name": "Harness Dev", "email": null },
+        "triggeredBy": { "uuid": null, "identifier": "Harness Dev", "email": null },
         "triggerType": "MANUAL"
       },
       "moduleInfo": {

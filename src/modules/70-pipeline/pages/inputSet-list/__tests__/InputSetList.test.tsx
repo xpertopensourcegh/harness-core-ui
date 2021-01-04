@@ -27,8 +27,7 @@ const deleteInputSet = (): Promise<{ status: string }> => {
 const getInputSetList = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
-  useGetConnector: jest.fn(() => ConnectorResponse),
-  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({}))
+  useGetConnector: jest.fn(() => ConnectorResponse)
 }))
 
 jest.mock('services/pipeline-ng', () => ({
@@ -46,7 +45,8 @@ jest.mock('services/pipeline-ng', () => ({
   }),
   getInputSetForPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(GetInputSetsResponse.data)),
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
-  useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet }))
+  useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet })),
+  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({}))
 }))
 
 const TEST_PATH = routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })

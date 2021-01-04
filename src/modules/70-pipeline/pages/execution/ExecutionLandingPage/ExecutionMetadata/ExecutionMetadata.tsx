@@ -49,7 +49,9 @@ export default function ExecutionMetadata(): React.ReactElement {
       </div>
       <div className={css.entry}>
         <span className={css.label}>Triggered By</span>
-        <span className={css.value}>{pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.name || '-'}</span>
+        <span className={css.value}>
+          {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier || '-'}
+        </span>
       </div>
       <div className={css.entry}>
         <span className={css.label}>End Time</span>

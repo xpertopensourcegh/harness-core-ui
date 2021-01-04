@@ -4,12 +4,12 @@ import { render, fireEvent, findByText, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useHandleInterrupt } from 'services/cd-ng'
+import { useHandleInterrupt } from 'services/pipeline-ng'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 
 import ExecutionActions from '../ExecutionActions'
 
-jest.mock('services/cd-ng', () => ({
+jest.mock('services/pipeline-ng', () => ({
   useHandleInterrupt: jest.fn(() => ({
     mutate: jest.fn()
   }))

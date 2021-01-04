@@ -10,17 +10,14 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
-jest.mock('services/cd-ng', () => ({
-  useHandleInterrupt: jest.fn(() => ({})),
-  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: {} }))
-}))
-
 jest.mock('services/pipeline-ng', () => ({
   useGetListOfExecutions: jest.fn(() => ({ data: { data: { content: [] } } })),
   useGetTemplateFromPipeline: jest.fn(() => ({ data: {} })),
   useGetPipeline: jest.fn(() => ({ data: {} })),
   useCreateInputSetForPipeline: jest.fn(() => ({ data: {} })),
-  useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: {} }))
+  useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: {} })),
+  useHandleInterrupt: jest.fn(() => ({})),
+  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: {} }))
 }))
 
 describe('<CDPipelineDeploymentList /> tests', () => {

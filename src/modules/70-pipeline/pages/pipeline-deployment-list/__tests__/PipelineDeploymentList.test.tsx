@@ -17,13 +17,10 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 
 const refetch = jest.fn()
 
-jest.mock('services/cd-ng', () => ({
-  useHandleInterrupt: jest.fn(() => ({}))
-}))
-
 jest.mock('services/pipeline-ng', () => ({
   useGetListOfExecutions: jest.fn(() => ({ ...data, refetch })),
-  useGetPipelineList: jest.fn(() => ({ ...pipelines, refetch: jest.fn() }))
+  useGetPipelineList: jest.fn(() => ({ ...pipelines, refetch: jest.fn() })),
+  useHandleInterrupt: jest.fn(() => ({}))
 }))
 function ComponentWrapper(): React.ReactElement {
   const location = useLocation()
