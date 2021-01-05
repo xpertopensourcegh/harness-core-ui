@@ -4,7 +4,6 @@ import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-softw
 import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { SharedQueryParams } from '@cf/constants'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -36,7 +35,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     loading: isLoadingCreateFeatureFlag,
     error: errorCreateFlag
   } = useCreateFeatureFlag({
-    queryParams: SharedQueryParams
+    queryParams: { account: accountId, org: orgIdentifier }
   })
 
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -15,7 +16,6 @@ import {
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import { useCreateSegment, Tag } from 'services/cf'
-import { SharedQueryParams } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import css from './CFTargetsPage.module.scss'
 
@@ -53,11 +53,11 @@ interface CreateTargetSegmentProps {
 const CreateTargetSegmentModal: React.FC<CreateTargetSegmentProps> = ({ project, environment, onCreate }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
-
+  const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const init: SegmentAttributes = { identifier: '', name: '', description: '', tags: [] }
 
   const { mutate: createSegment } = useCreateSegment({
-    queryParams: SharedQueryParams
+    queryParams: { account: accountId, org: orgIdentifier }
   })
 
   const handleCreateSegment = (values: SegmentAttributes) => {

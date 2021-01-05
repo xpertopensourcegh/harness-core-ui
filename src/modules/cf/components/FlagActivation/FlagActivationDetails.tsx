@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { isEqual, zip } from 'lodash-es'
 import {
   Color,
@@ -23,7 +23,6 @@ import { Menu, Dialog, Classes } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
 import { FieldArray } from 'formik'
 import { Feature, usePatchFeatureFlag, Variation } from 'services/cf'
-import { SharedQueryParams } from '@cf/constants'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from '../CreateFlagWizard/common/InputDescOptional'
 import patch from '../../utils/instructions'
@@ -53,6 +52,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
   const [editOpenedMenu, setEditOpenedMenu] = useState(false)
   const [showPrerequisites, setShowPrerequisites] = useState(false)
+  const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const [listPrerequisites, setListPrequisites] = useState<ListPrerequisitesOptionElement[]>([])
   const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
   const { mutate: submitPatch } = usePatchFeatureFlag({
@@ -60,7 +60,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     queryParams: {
       project: singleFlag?.project as string,
       environment: singleFlag?.envProperties?.environment as string,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 

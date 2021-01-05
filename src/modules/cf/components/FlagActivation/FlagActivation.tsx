@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { isEqual, isNil } from 'lodash-es'
 import {
   Layout,
@@ -18,7 +19,7 @@ import {
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
-import { SharedQueryParams, extraOperators } from '@cf/constants'
+import { extraOperators } from '@cf/constants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -66,13 +67,15 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
   const [editEnvActivation, seteditEnvActivation] = useState<FeatureState | undefined>(flagData?.envProperties?.state)
   const [editing, setEditing] = useState(false)
+  const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const dirty = editEnvActivation !== flagData?.envProperties?.state
   const { mutate: patchFeature } = usePatchFeatureFlag({
     identifier: flagData?.identifier as string,
     queryParams: {
       project: project as string,
       environment: environment?.value as string,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 

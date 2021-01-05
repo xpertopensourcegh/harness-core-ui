@@ -12,7 +12,6 @@ import {
   Button,
   ModalErrorHandler
 } from '@wings-software/uicore'
-import cx from 'classnames'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from './common/InputDescOptional'
@@ -206,7 +205,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
               </Container>
 
               {/* TODO: Pull this out into separate component, look into FlagElemMultivariate.tsx as well */}
-              <Layout.Horizontal className={cx(css.btnsGroup, css.btnsGroupBoolean)}>
+              <Layout.Horizontal className={css.btnsGroup}>
                 <Button text={i18n.back} onClick={onClickBack} margin={{ right: 'small' }} />
                 <Button
                   type="submit"

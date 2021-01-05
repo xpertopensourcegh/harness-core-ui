@@ -21,7 +21,7 @@ import {
 import { isEqual, omit } from 'lodash-es'
 import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
-import { SharedQueryParams, useOperatorsFromYaml } from '@cf/constants'
+import { useOperatorsFromYaml } from '@cf/constants'
 import { Clause, useGetAllTargets, useGetSegment, usePatchSegment } from 'services/cf'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './CFSegmentDetailsPage.module.scss'
@@ -375,6 +375,7 @@ const CFSegmentDetailsPage = () => {
   const history = useHistory()
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
+  const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { environmentIdentifier: environment, projectIdentifier: project, segmentIdentifier: identifier } = useParams<
     any
   >()
@@ -383,7 +384,8 @@ const CFSegmentDetailsPage = () => {
     queryParams: {
       environment,
       project,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 
@@ -391,7 +393,8 @@ const CFSegmentDetailsPage = () => {
     queryParams: {
       environment,
       project,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 
@@ -400,7 +403,8 @@ const CFSegmentDetailsPage = () => {
     queryParams: {
       environment,
       project,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 

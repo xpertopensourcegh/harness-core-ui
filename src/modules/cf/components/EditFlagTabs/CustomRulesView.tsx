@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   AvatarGroup,
   Color,
@@ -19,7 +20,7 @@ import { Dialog, Menu } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'
 import { shape } from '@cf/utils/instructions'
-import { extraOperators, SharedQueryParams, useOperatorsFromYaml } from '@cf/constants'
+import { extraOperators, useOperatorsFromYaml } from '@cf/constants'
 import PercentageRollout from './PercentageRollout'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
@@ -403,11 +404,13 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
 }) => {
   const [openMenu, setOpenMenu] = useState(false)
   const [tagOpts] = useOptions(targetAvatars, prop(['name']))
+  const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { data } = useGetAllTargets({
     queryParams: {
       environment,
       project,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 

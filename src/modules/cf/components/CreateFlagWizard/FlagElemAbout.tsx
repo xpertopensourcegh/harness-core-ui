@@ -89,7 +89,7 @@ const FlagElemAbout: React.FC<StepProps<any>> = props => {
                   </Collapse>
                 </div>
               </Container>
-              <Container margin={{ top: 'huge' }}>
+              <Container margin={{ top: 'xlarge' }}>
                 <Layout.Horizontal>
                   <FormInput.CheckBox name="permanent" label={i18n.aboutFlag.permaFlag} />
                   <Text
@@ -103,7 +103,9 @@ const FlagElemAbout: React.FC<StepProps<any>> = props => {
                   />
                 </Layout.Horizontal>
               </Container>
-              <Button type="submit" text={i18n.next} className={css.aboutFlagContainerBtn} />
+              <Container margin={{ top: 'large' }}>
+                <Button type="submit" text={i18n.next} />
+              </Container>
             </Container>
           </Form>
         )}

@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures, Feature } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
-import { SharedQueryParams } from '@cf/constants'
 import { Page, useToaster } from '@common/exports'
 import IndividualTargets from './IndividualTargets'
 import TargetSegmentsView from './TargetSegmentsView'
@@ -56,7 +55,8 @@ const CFTargetsPage: React.FC = () => {
 
   const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments({
     project: projectIdentifier,
-    ...SharedQueryParams
+    account: accountId,
+    org: orgIdentifier
   })
 
   const [view, setView] = useState<'individual' | 'segments'>('individual')
@@ -77,7 +77,8 @@ const CFTargetsPage: React.FC = () => {
       environment: (environment?.value || '') as string,
       pageNumber: targetPage,
       pageSize: 10,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 
@@ -94,7 +95,8 @@ const CFTargetsPage: React.FC = () => {
       environment: (environment?.value || '') as string,
       pageNumber: segmentPage,
       pageSize: 10,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 
@@ -103,7 +105,8 @@ const CFTargetsPage: React.FC = () => {
     queryParams: {
       project: projectIdentifier,
       environment: (environment?.value || '') as string,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 
@@ -115,7 +118,8 @@ const CFTargetsPage: React.FC = () => {
           environment: (environment?.value || '') as string,
           pageNumber: targetPage,
           pageSize: 10,
-          ...SharedQueryParams
+          account: accountId,
+          org: orgIdentifier
         }
       })
     }
@@ -130,7 +134,8 @@ const CFTargetsPage: React.FC = () => {
           environment: (environment?.value || '') as string,
           pageNumber: segmentPage,
           pageSize: 10,
-          ...SharedQueryParams
+          account: accountId,
+          org: orgIdentifier
         }
       })
     }

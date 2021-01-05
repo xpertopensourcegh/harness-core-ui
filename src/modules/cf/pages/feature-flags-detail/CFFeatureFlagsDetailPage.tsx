@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useGetFeatureFlag } from 'services/cf'
-import { SharedQueryParams } from '@cf/constants'
 import { useEnvironments } from '@cf/hooks/environment'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
@@ -20,7 +19,8 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   const { data: environments, error: errorEnvs, loading: envsLoading } = useEnvironments({
     project: projectIdentifier as string,
-    ...SharedQueryParams
+    account: accountId,
+    org: orgIdentifier
   })
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 
@@ -40,7 +40,8 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     queryParams: {
       project: projectIdentifier as string,
       environment: environmentOption?.value as string,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 

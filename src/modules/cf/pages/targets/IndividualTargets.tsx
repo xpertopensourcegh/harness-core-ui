@@ -10,7 +10,6 @@ import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import { Page, useToaster } from '@common/exports'
 import { Target, useCreateTarget } from 'services/cf'
-import { SharedQueryParams } from '@cf/constants'
 import CreateTargetModal, { TargetData } from './CreateTargetModal'
 import css from './CFTargetsPage.module.scss'
 
@@ -86,7 +85,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   const history = useHistory()
 
   const { mutate: createTarget, loading: loadingCreateTarget } = useCreateTarget({
-    queryParams: SharedQueryParams
+    queryParams: { account: accountId, org: orgIdentifier }
   })
 
   const bulkTargetCreation = (ts: TargetData[]): Promise<SettledTarget[]> => {
@@ -99,7 +98,8 @@ const IndividualTargets: React.FC<IndividualProps> = ({
           attributes: {},
           environment,
           project,
-          ...SharedQueryParams
+          account: accountId,
+          org: orgIdentifier
         })
           .then(() => ({
             status: 'fulfilled',

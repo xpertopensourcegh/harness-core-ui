@@ -21,7 +21,6 @@ import { useToaster, useConfirmationDialog } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
 import { Page } from '@common/exports'
-import { SharedQueryParams } from '@cf/constants'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
@@ -130,7 +129,8 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
       project: projectIdentifier as string,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 
@@ -220,7 +220,8 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   const { data: environments, loading: envsLoading, error: envsError } = useEnvironments({
     project: projectIdentifier as string,
-    ...SharedQueryParams
+    account: accountId,
+    org: orgIdentifier
   })
 
   const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
@@ -228,7 +229,8 @@ const CFFeatureFlagsPage: React.FC = () => {
     queryParams: {
       project: projectIdentifier as string,
       environment: environment?.value as string,
-      ...SharedQueryParams
+      account: accountId,
+      org: orgIdentifier
     }
   })
 

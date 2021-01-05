@@ -7,7 +7,6 @@ declare const styles: {
   readonly collapseContainer: string
   readonly btnsGroup: string
   readonly testFfBtn: string
-  readonly btnsGroupBoolean: string
   readonly serveTextAlign: string
   readonly tooltipMultiFlag: string
 }

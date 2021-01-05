@@ -1,10 +1,5 @@
 import { useStrings } from 'framework/exports'
 
-export const SharedQueryParams = {
-  account: 'default',
-  org: 'default_org'
-}
-
 export const useOperators = (
   i18nFn: (key: string) => string,
   keyMapper: (key: string) => string = x => x,
