@@ -10,7 +10,7 @@ export type ScrubberLaneActivity = {
 }
 
 export function getMonthIncrements(startTime: number, endTime: number): number[] {
-  let currTime = startTime
+  let currTime = moment(startTime).startOf('month').valueOf()
   const months = []
   do {
     months.push(currTime)

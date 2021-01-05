@@ -8,14 +8,15 @@ import css from './SelectedActivitySummaryCard.module.scss'
 export interface SelectedActivitySummaryCardProps {
   selectedActivity?: Activity
   setCardRef?: (el: HTMLDivElement | null) => void
+  onClose: () => void
   activityTimelineContainerRef: HTMLDivElement | null
-  renderSummaryCardContent: (data: Activity) => JSX.Element
+  renderSummaryCardContent: (data: Activity, onClose: () => void) => JSX.Element
 }
 
 const TIMESTAMP_FORMAT = 'MMMM D, YYYY h:mm a'
 
 export function SelectedActivitySummaryCard(props: SelectedActivitySummaryCardProps): JSX.Element | null {
-  const { selectedActivity, setCardRef, activityTimelineContainerRef, renderSummaryCardContent } = props
+  const { selectedActivity, setCardRef, activityTimelineContainerRef, renderSummaryCardContent, onClose } = props
   const containerRef = useRef<HTMLDivElement>(null)
   useEffect(() => setCardRef?.(containerRef?.current), [containerRef, setCardRef])
   if (!selectedActivity || !selectedActivity.ref || !isNumber(selectedActivity.top) || !activityTimelineContainerRef)
@@ -30,7 +31,7 @@ export function SelectedActivitySummaryCard(props: SelectedActivitySummaryCardPr
         <Text className={css.timeLabel} color={Color.WHITE} font={{ size: 'small' }} background={Color.BLUE_500}>
           {moment(selectedActivity.startTime).format(TIMESTAMP_FORMAT)}
         </Text>
-        <Container>{renderSummaryCardContent(selectedActivity)}</Container>
+        <Container>{renderSummaryCardContent(selectedActivity, () => onClose())}</Container>
       </div>
     </Container>
   )

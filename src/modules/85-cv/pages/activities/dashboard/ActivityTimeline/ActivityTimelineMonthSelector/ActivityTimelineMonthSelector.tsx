@@ -10,11 +10,10 @@ export interface ActivityTimelineMonthSelector {
   onChangeMonth?: (monthStartTime: number, monthEndTime: number) => void
 }
 
-function generateNewStartAndEndTimes(month: number, timelineEndTime: number): [number, number] {
+function generateNewStartAndEndTimes(month: number): [number, number] {
   const currMonthMoment = moment(month)
-  let updatedStartTime = currMonthMoment.endOf('month').valueOf()
-  const updatedEndTime = currMonthMoment.startOf('month').valueOf()
-  if (updatedStartTime > timelineEndTime) updatedStartTime = timelineEndTime
+  const updatedStartTime = currMonthMoment.startOf('month').valueOf()
+  const updatedEndTime = currMonthMoment.endOf('month').valueOf()
   return [updatedStartTime, updatedEndTime]
 }
 
@@ -32,8 +31,8 @@ export function ActivityTimelineMonthSelector(props: ActivityTimelineMonthSelect
           className={css.intervalContent}
           onClick={() => {
             setCurrentMonth(month)
-            const [updatdEndTime, updatedStartTime] = generateNewStartAndEndTimes(month, timelineEndTime)
-            onChangeMonth?.(updatdEndTime, updatedStartTime)
+            const [updatedStartTime, updatedEndTime] = generateNewStartAndEndTimes(month)
+            onChangeMonth?.(updatedEndTime, updatedStartTime)
           }}
         >
           <Text className={css.monthLabel} font={{ size: 'small' }} color={Color.BLACK}>

@@ -16,7 +16,7 @@ export interface ActivityTimelineViewProps {
   timelineStartTime: number
   timelineEndTime: number
   onLoadMore: (startTime: number, endTime: number) => void
-  renderSummaryCardContent: (selectedActivity: Activity) => JSX.Element
+  renderSummaryCardContent: (selectedActivity: Activity, onClose: () => void) => JSX.Element
 }
 
 export function ActivityTimeline(props: ActivityTimelineViewProps): JSX.Element {
@@ -82,6 +82,7 @@ export function ActivityTimeline(props: ActivityTimelineViewProps): JSX.Element 
           {selectedActivity ? (
             <SelectedActivitySummaryCard
               selectedActivity={selectedActivity}
+              onClose={() => setSelectedActivity(null)}
               renderSummaryCardContent={renderSummaryCardContent}
               activityTimelineContainerRef={containerRef?.current}
               setCardRef={setActivitySummaryCardRef}

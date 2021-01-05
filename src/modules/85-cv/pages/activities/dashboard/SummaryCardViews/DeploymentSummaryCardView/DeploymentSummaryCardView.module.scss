@@ -9,6 +9,9 @@
     .activityName {
       margin-right: var(--spacing-medium) !important;
     }
+    .activityName {
+      flex-grow: 1;
+    }
   }
   .progressCard {
     box-shadow: none;

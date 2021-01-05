@@ -3,6 +3,7 @@ export const ACTIVITY_CARD_HEIGHT = 125
 export const TOTAL_CARDS_PER_INTERVAL = 5
 export const TIMELINE_INCREMENT_HEIGHT = TOTAL_CARDS_PER_INTERVAL * ACTIVITY_CARD_HEIGHT
 export const BUCKET_TOP_OFFSET = 80 // to accomadate for the labels at the top of the tracks
+export const ACTIVITY_SELECTION_EVENT = 'SelectActivityCardEvent'
 
 export type Activity = {
   startTime: number

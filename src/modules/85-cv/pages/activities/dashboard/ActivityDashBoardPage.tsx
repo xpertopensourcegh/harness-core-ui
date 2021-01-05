@@ -31,11 +31,13 @@ const ActivityTypes = {
 }
 
 const ActivityTypesToIcon: { [key: string]: IconProps } = {
-  [ActivityTypes.DEPLOYMENT]: { name: 'nav-cd', size: 20 },
+  [ActivityTypes.DEPLOYMENT]: { name: 'cd-main', size: 20 },
   [ActivityTypes.INFRASTRUCTURE]: { name: 'service-kubernetes', size: 20 },
-  [ActivityTypes.CONFIG_CHANGES]: { name: 'wrench', size: 15, color: Color.GREEN_500 },
-  [ActivityTypes.OTHER_CHANGES]: { name: 'wrench', size: 15, color: Color.GREEN_500 }
+  [ActivityTypes.CONFIG_CHANGES]: { name: 'config-change', size: 20 },
+  [ActivityTypes.OTHER_CHANGES]: { name: 'config-change', size: 20 }
 }
+
+const timelineStartTime = Math.round(Date.now() / (5 * 60000)) * 5 * 60000
 
 function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
   const { activity } = props
@@ -113,9 +115,8 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
     {
       trackName: i18n.activityTrackTitle.configChanges,
       trackIcon: {
-        name: 'wrench',
-        size: 16,
-        color: Color.GREEN_500
+        name: 'config-change',
+        size: 22
       },
       startTime,
       endTime,
@@ -128,7 +129,7 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       trackName: i18n.activityTrackTitle.infrastructure,
       trackIcon: {
         name: 'service-kubernetes',
-        size: 20
+        size: 22
       },
       startTime,
       endTime,
@@ -140,9 +141,8 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
     {
       trackName: i18n.activityTrackTitle.otherChanges,
       trackIcon: {
-        name: 'wrench',
-        size: 16,
-        color: Color.GREEN_500
+        name: 'config-change',
+        size: 22
       },
       startTime,
       endTime,
@@ -212,8 +212,6 @@ function transformGetApi(
   return timelineActivityData
 }
 
-const timelineStartTime = Math.round(Date.now() / (5 * 60000)) * 5 * 60000
-
 // function generateMockData(startTime: number, endTime: number, mockData: ActivityTrackProps[]): ActivityTrackProps[] {
 //   for (let activityTypeIndex = 0; activityTypeIndex < Object.keys(ActivityTypes).length; activityTypeIndex++) {
 //     mockData[activityTypeIndex].activities = [...mockData[activityTypeIndex].activities]
@@ -235,7 +233,6 @@ const timelineStartTime = Math.round(Date.now() / (5 * 60000)) * 5 * 60000
 
 //   return [...mockData]
 // }
-
 function renderActivityCardContent(data: Activity): JSX.Element {
   return <ActivityCardContent activity={data} />
 }
@@ -244,17 +241,17 @@ function renderAggregateActivityCard(activities: Activity[]): JSX.Element {
   return <AggregateActivityCard activities={activities} />
 }
 
-function renderSummaryCardContent(data: Activity): JSX.Element {
+function renderSummaryCardContent(data: Activity, onClose: () => void): JSX.Element {
   if (!data) return <Container />
   if (data.activityType === ActivityTypes.DEPLOYMENT) {
-    return <DeploymentSummaryCardView selectedActivity={data} />
+    return <DeploymentSummaryCardView selectedActivity={data} onClose={onClose} />
   }
   return <Container />
 }
 
 export default function ActivityDashboardPage(): JSX.Element {
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
-  const timelineEndTime = moment(timelineStartTime).startOf('month').valueOf()
+  const timelineEndTime = moment(timelineStartTime).subtract(6, 'months').startOf('month').valueOf()
   // const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
   //   generateMockData(
   //     timelineStartTime,

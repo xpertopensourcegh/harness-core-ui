@@ -1,15 +1,16 @@
 import React from 'react'
-import { Color, Container, Icon, Text } from '@wings-software/uicore'
+import { Button, Color, Container, Icon, Text } from '@wings-software/uicore'
 import {
   DeploymentProgressAndNodes,
   DeploymentProgressAndNodesProps
 } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
-// import { InstancePhase } from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownSideNav'
 import type { Activity } from '../../ActivityTimeline/ActivityTrack/ActivityTrackUtils'
+import { ACTIVITY_SELECTION_EVENT } from '../../ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import css from './DeploymentSummaryCardView.module.scss'
 
 export interface DeploymentSummaryCardViewProps {
   selectedActivity: Activity
+  onClose: () => void
 }
 
 const DeploymentMockData: DeploymentProgressAndNodesProps = {
@@ -118,14 +119,28 @@ const DeploymentMockData: DeploymentProgressAndNodesProps = {
 }
 
 export function DeploymentSummaryCardView(props: DeploymentSummaryCardViewProps): JSX.Element {
-  const { selectedActivity } = props
+  const { selectedActivity, onClose } = props
   return (
     <Container className={css.main}>
       <Container className={css.header}>
-        <Icon name="nav-cd" size={28} className={css.activityTypeIcon} />
+        <Icon name="cd-main" size={28} className={css.activityTypeIcon} />
         <Text color={Color.BLACK} font={{ size: 'medium' }} className={css.activityName}>
           {selectedActivity.activityName}
         </Text>
+        <Button
+          icon="main-close"
+          iconProps={{ size: 12 }}
+          minimal
+          onClick={() => {
+            document.dispatchEvent(
+              new CustomEvent(ACTIVITY_SELECTION_EVENT, {
+                bubbles: true,
+                detail: undefined
+              })
+            )
+            onClose()
+          }}
+        />
       </Container>
       <DeploymentProgressAndNodes className={css.progressCard} {...DeploymentMockData} />
     </Container>
