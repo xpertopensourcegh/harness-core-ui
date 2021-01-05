@@ -5,12 +5,6 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="line-height: 24px;"
-    >
-      Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
-    </p>
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >

@@ -1,0 +1,38 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 1,
+    "pageItemCount": 1,
+    "pageSize": 100,
+    "content": [
+      {
+        "connector": {
+          "name": "k8",
+          "identifier": "k8",
+          "description": "",
+          "orgIdentifier": "Devils_org",
+          "projectIdentifier": "Devils_Proj",
+          "tags": {},
+          "type": "Git",
+          "spec": {
+            "url": "https://github.com/wings-software/nextgenui.git",
+            "branchName": "new",
+            "type": "Http",
+            "connectionType": "Account",
+            "spec": { "username": "test", "passwordRef": "secret" },
+            "gitSync": { "enabled": false, "customCommitAttributes": null, "syncEnabled": false }
+          }
+        },
+        "createdAt": 1608532737080,
+        "lastModifiedAt": 1608532737080,
+        "status": null,
+        "harnessManaged": false
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "ade92b12-f7af-4cc1-a274-b8954bf60ad7"
+}

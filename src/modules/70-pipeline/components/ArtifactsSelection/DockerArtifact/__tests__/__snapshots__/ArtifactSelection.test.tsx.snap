@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ArtifactsSelection tests renders artifact with override without crashing: renders artifact with override without crashing 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-none"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      >
+        <section />
+      </div>
+    </div>
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main rowItem"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          + Add Primary Artifact
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main rowItem"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          + Add Sidecar
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
 <div>
   <div

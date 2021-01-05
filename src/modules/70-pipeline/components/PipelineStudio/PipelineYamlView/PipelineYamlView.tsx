@@ -5,6 +5,8 @@ import type * as History from 'history'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
+import { useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './PipelineYamlView.module.scss'
 
@@ -25,13 +27,20 @@ const PipelineYamlView: React.FC = () => {
     }
   }, [yamlHandler, setYamlHandlerContext])
 
+  const { showError } = useToaster()
+  const { getString } = useStrings()
   return (
     <div className={css.yamlBuilder}>
       <Prompt
         when={true}
         message={(nextLocation: History.Location) => {
           if (yamlHandler && !isYamlUpdated) {
-            updatePipeline(parse(yamlHandler.getLatestYaml()).pipeline).then(() => {
+            const parsedYaml = parse(yamlHandler.getLatestYaml())
+            if (!parsedYaml) {
+              showError(getString('invalidYamlText'))
+              return false
+            }
+            updatePipeline(parsedYaml.pipeline).then(() => {
               setYamlUpdated(true)
               history.push(nextLocation.pathname)
             })

@@ -26,6 +26,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
+import { getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import i18n from './ArtifactsSelection.i18n'
 import css from './ArtifactsSelection.module.scss'
@@ -50,11 +51,15 @@ export interface OrganizationCreationType {
 export default function ArtifactsSelection({
   isForOverrideSets,
   identifierName,
-  isForPredefinedSets
+  isForPredefinedSets,
+  isPropagating,
+  overrideSetIdentifier = ''
 }: {
   isForOverrideSets: boolean
   isForPredefinedSets?: boolean
   identifierName?: string
+  isPropagating?: boolean
+  overrideSetIdentifier?: string
 }): JSX.Element {
   const {
     state: {
@@ -96,7 +101,15 @@ export default function ArtifactsSelection({
     if (isForOverrideSets) {
       return get(stage, 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
     }
-    if (isForPredefinedSets) {
+    if (overrideSetIdentifier && overrideSetIdentifier.length) {
+      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+
+      return overrideSets
+    }
+    if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.service.stageOverrides.artifacts', [])
     }
     return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', {})
@@ -106,7 +119,19 @@ export default function ArtifactsSelection({
     if (isForOverrideSets) {
       return getPrimaryArtifactByIdentifier()
     }
-    if (isForPredefinedSets) {
+    if (overrideSetIdentifier && overrideSetIdentifier.length) {
+      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+
+      const selectedOverrideSet = overrideSets.find(
+        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
+      )
+
+      return get(selectedOverrideSet, 'overrideSet.artifacts.primary', null)
+    }
+    if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.service.stageOverrides.artifacts.primary', null)
     }
     return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.primary', null)
@@ -116,7 +141,19 @@ export default function ArtifactsSelection({
     if (isForOverrideSets) {
       return getSidecarArtifactByIdentifier()
     }
-    if (isForPredefinedSets) {
+    if (overrideSetIdentifier && overrideSetIdentifier.length) {
+      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+
+      const selectedOverrideSet = overrideSets.find(
+        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
+      )
+
+      return get(selectedOverrideSet, 'overrideSet.artifacts.sidecars', [])
+    }
+    if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.service.stageOverrides.artifacts.sidecars', [])
     }
     return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
@@ -159,6 +196,15 @@ export default function ArtifactsSelection({
     identifier?: string
   }): void => {
     if (context === ModalViewFor.PRIMARY) {
+      if (isPropagating) {
+        artifacts['primary'] = {
+          type: primaryArtifactType,
+          spec: {
+            connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+            imagePath: data.imagePath
+          }
+        }
+      }
       if (isForOverrideSets) {
         artifacts.map(
           (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
@@ -448,7 +494,9 @@ export default function ArtifactsSelection({
       style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
     >
       {isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={stage} />}
-      {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
+      {overrideSetIdentifier.length === 0 && !isForOverrideSets && (
+        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
+      )}
 
       <Layout.Vertical spacing="small">
         {(primaryArtifact || (sideCarArtifact && sideCarArtifact.length > 0)) && (
@@ -492,12 +540,14 @@ export default function ArtifactsSelection({
                     {primaryArtifact?.spec?.imagePath}
                   </Text>
                 </span>
-                <span>
-                  <Layout.Horizontal spacing="medium">
-                    <Icon name="edit" size={14} style={{ cursor: 'pointer' }} onClick={editPrimary} />
-                    <Icon name="delete" size={14} style={{ cursor: 'pointer' }} onClick={removePrimary} />
-                  </Layout.Horizontal>
-                </span>
+                {overrideSetIdentifier.length === 0 && (
+                  <span>
+                    <Layout.Horizontal spacing="medium">
+                      <Icon name="edit" size={14} style={{ cursor: 'pointer' }} onClick={editPrimary} />
+                      <Icon name="delete" size={14} style={{ cursor: 'pointer' }} onClick={removePrimary} />
+                    </Layout.Horizontal>
+                  </span>
+                )}
               </section>
             )}
           </section>
@@ -545,29 +595,31 @@ export default function ArtifactsSelection({
                           {sidecar.spec.imagePath}
                         </Text>
                       </span>
-                      <span>
-                        <Layout.Horizontal spacing="medium">
-                          <Icon
-                            name="edit"
-                            size={14}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => editSidecar(index)}
-                          />
-                          <Icon
-                            name="delete"
-                            size={14}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => removeSidecar(index)}
-                          />
-                        </Layout.Horizontal>
-                      </span>
+                      {overrideSetIdentifier.length === 0 && (
+                        <span>
+                          <Layout.Horizontal spacing="medium">
+                            <Icon
+                              name="edit"
+                              size={14}
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => editSidecar(index)}
+                            />
+                            <Icon
+                              name="delete"
+                              size={14}
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => removeSidecar(index)}
+                            />
+                          </Layout.Horizontal>
+                        </span>
+                      )}
                     </section>
                   )
                 }
               )}
             </section>
           )}
-          {sideCarArtifact && sideCarArtifact.length > 0 && (
+          {sideCarArtifact && sideCarArtifact.length > 0 && overrideSetIdentifier.length === 0 && (
             <Text intent="primary" style={{ cursor: 'pointer' }} onClick={addSideCarArtifact}>
               {i18n.addSideCarLable}
             </Text>
@@ -575,12 +627,12 @@ export default function ArtifactsSelection({
         </Layout.Vertical>
       </Layout.Vertical>
       <Layout.Vertical spacing="medium">
-        {!primaryArtifact && (
+        {!primaryArtifact && overrideSetIdentifier.length === 0 && (
           <Container className={css.rowItem}>
             <Text onClick={addPrimaryArtifact}>{i18n.addPrimarySourceLable}</Text>
           </Container>
         )}
-        {(!sideCarArtifact || sideCarArtifact?.length === 0) && (
+        {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier.length === 0 && (
           <Container className={css.rowItem}>
             <Text onClick={addSideCarArtifact}>{i18n.addSideCarLable}</Text>
           </Container>

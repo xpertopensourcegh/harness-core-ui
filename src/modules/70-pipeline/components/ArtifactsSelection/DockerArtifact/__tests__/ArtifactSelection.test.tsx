@@ -8,6 +8,7 @@ import {
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import ArtifactsSelection from '../../ArtifactsSelection'
 import pipelineContextMock from './pipelineContext.json'
+
 const getContextValue = (): PipelineContextInterface => {
   return pipelineContextMock as any
 }
@@ -35,6 +36,17 @@ describe('ArtifactsSelection tests', () => {
       const primaryArtifactContainer = await findByText(container, 'Dockerhub')
       expect(primaryArtifactContainer).toBeDefined()
       expect(container).toMatchSnapshot()
+    }),
+    test(`renders artifact with override without crashing`, async () => {
+      const { container } = render(
+        <TestWrapper>
+          <PipelineContext.Provider value={getContextValue()}>
+            <ArtifactsSelection isForOverrideSets={true} />
+          </PipelineContext.Provider>
+        </TestWrapper>
+      )
+
+      expect(container).toMatchSnapshot('renders artifact with override without crashing')
     }),
     test(`renders edit modal without crashing`, async () => {
       const { container } = render(

@@ -111,11 +111,18 @@ const FirstStep = (props: any): JSX.Element => {
 
 const SecondStep = (props: any): JSX.Element => {
   const prevData = props?.prevStepData
-  const manifests = props.isForOverrideSets
-    ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
-    : !props.isForPredefinedSets
-    ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-    : get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+
+  const getManifests = React.useCallback(() => {
+    if (props.isPropagating) {
+      return get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+    }
+    return props.isForOverrideSets
+      ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+      : !props.isForPredefinedSets
+      ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+      : get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+  }, [props.isForOverrideSets, props.isForPredefinedSets, props.isPropagating])
+  const manifests = getManifests()
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())
     event.currentTarget.classList.add(css.dragging)
@@ -198,6 +205,16 @@ const SecondStep = (props: any): JSX.Element => {
                 }
               }
             }
+          }
+          if (props.isPropagating) {
+            if (manifests && manifests.length > 0) {
+              manifests.push(manifestObj)
+            } else {
+              manifests.push(manifestObj)
+            }
+            props.updatePipeline(props.pipeline)
+            props.closeModal()
+            return
           }
           if (!props.isForOverrideSets) {
             if (manifests && manifests.length > 0) {
@@ -325,13 +342,15 @@ export const ManifestWizard = ({
   identifierName,
   stage,
   handleViewChange,
-  view
+  view,
+  isPropagating
 }: {
   closeModal: () => void
   identifier: string
   pipeline: object
   updatePipeline: object
   isForOverrideSets?: boolean
+  isPropagating?: boolean
   identifierName?: string
   stage: StageElementWrapper | undefined
   isForPredefinedSets?: boolean
@@ -356,6 +375,7 @@ export const ManifestWizard = ({
           setFormData={setFormData}
           identifier={identifier}
           isForOverrideSets={isForOverrideSets}
+          isPropagating={isPropagating}
           isForPredefinedSets={isForPredefinedSets}
           identifierName={identifierName}
           pipeline={pipeline}

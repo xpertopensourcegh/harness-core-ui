@@ -31,6 +31,7 @@ import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideS
 import { useStrings, String } from 'framework/exports'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
+import { getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
 
@@ -76,7 +77,9 @@ function ManifestListView({
   identifierName,
   isForOverrideSets,
   stage,
-  isForPredefinedSets
+  isForPredefinedSets,
+  isPropagating,
+  overrideSetIdentifier
 }: {
   identifier: string
   pipeline: NgPipeline
@@ -86,6 +89,8 @@ function ManifestListView({
   identifierName?: string
   stage: StageElementWrapper | undefined
   isForPredefinedSets: boolean
+  isPropagating?: boolean
+  overrideSetIdentifier?: string
 }): JSX.Element {
   const ModalView = { OPTIONS: 1, KUBERNETES: 2, VALUES: 3 }
   const ModalContext = { EXISTING: 0, NEW: 1 }
@@ -162,6 +167,7 @@ function ManifestListView({
             pipeline={pipeline}
             isForOverrideSets={isForOverrideSets}
             isForPredefinedSets={isForPredefinedSets}
+            isPropagating={isPropagating}
             identifierName={identifierName}
             stage={stage}
             view={view}
@@ -191,12 +197,30 @@ function ManifestListView({
     ),
     [view, modalContext]
   )
+  const getManifestList = React.useCallback(() => {
+    if (overrideSetIdentifier && overrideSetIdentifier.length) {
+      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+      const { stages } = getPrevoiusStageFromIndex(pipeline)
+      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
 
-  let listOfManifests = !isForOverrideSets
-    ? !isForPredefinedSets
-      ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-      : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
-    : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+      const selectedOverrideSet = overrideSets.find(
+        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
+      )
+
+      return get(selectedOverrideSet, 'overrideSet.manifests', [])
+    }
+    if (isPropagating) {
+      return get(stage, 'stage.spec.service.stageOverrides.manifests', [])
+    }
+    return !isForOverrideSets
+      ? !isForPredefinedSets
+        ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+        : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
+      : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+  }, [isForOverrideSets, isPropagating, isForPredefinedSets, overrideSetIdentifier])
+
+  let listOfManifests = getManifestList()
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
@@ -445,7 +469,7 @@ function ManifestListView({
 
   return (
     <Layout.Vertical spacing="small">
-      {(!manifestList || manifestList.length === 0) && (
+      {(!manifestList || manifestList.length === 0) && !overrideSetIdentifier && (
         <Container className={css.rowItem}>
           <Text
             onClick={() => {
@@ -534,29 +558,31 @@ function ManifestListView({
                         {manifest.identifier}
                       </Text>
                     </span>
-                    <span>
-                      <Layout.Horizontal spacing="medium">
-                        <Icon
-                          name="edit"
-                          size={14}
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => editManifest(manifest)}
-                        />
-                        <Icon
-                          name="delete"
-                          size={14}
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => removeManifestConfig(index)}
-                        />
-                      </Layout.Horizontal>
-                    </span>
+                    {!overrideSetIdentifier?.length && (
+                      <span>
+                        <Layout.Horizontal spacing="medium">
+                          <Icon
+                            name="edit"
+                            size={14}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => editManifest(manifest)}
+                          />
+                          <Icon
+                            name="delete"
+                            size={14}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => removeManifestConfig(index)}
+                          />
+                        </Layout.Horizontal>
+                      </span>
+                    )}
                   </section>
                 )
               }
             )}
         </section>
 
-        {manifestList && manifestList.length > 0 && (
+        {manifestList && manifestList.length > 0 && !overrideSetIdentifier?.length && (
           <Text
             intent="primary"
             style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
@@ -573,11 +599,15 @@ function ManifestListView({
 export default function ManifestSelection({
   isForOverrideSets,
   identifierName,
-  isForPredefinedSets = false
+  isForPredefinedSets = false,
+  isPropagating,
+  overrideSetIdentifier
 }: {
   isForOverrideSets: boolean
   identifierName?: string
   isForPredefinedSets: boolean
+  isPropagating?: boolean
+  overrideSetIdentifier?: string
 }): JSX.Element {
   const {
     state: {
@@ -591,13 +621,17 @@ export default function ManifestSelection({
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
-
-  let listOfManifests = !isForOverrideSets
-    ? !isForPredefinedSets
-      ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-      : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
-    : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
-
+  const getManifestList = React.useCallback(() => {
+    if (isPropagating) {
+      return get(stage, 'stage.spec.service.stageOverrides.manifests', [])
+    }
+    return !isForOverrideSets
+      ? !isForPredefinedSets
+        ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+        : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
+      : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+  }, [isForOverrideSets, isPropagating, isForPredefinedSets])
+  let listOfManifests = getManifestList()
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
       .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
@@ -614,17 +648,21 @@ export default function ManifestSelection({
       style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
     >
       {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />}
-      {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
+      {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
+        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
+      )}
 
       <ManifestListView
         identifier={identifier}
         manifestList={listOfManifests}
+        isPropagating={isPropagating}
         pipeline={pipeline}
         updatePipeline={updatePipeline}
         stage={stage}
         isForOverrideSets={isForOverrideSets}
         identifierName={identifierName}
         isForPredefinedSets={isForPredefinedSets}
+        overrideSetIdentifier={overrideSetIdentifier}
       />
     </Layout.Vertical>
   )

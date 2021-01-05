@@ -14,10 +14,12 @@ import {
   IconName,
   Select,
   SelectOption,
-  Radio
+  Radio,
+  Tabs,
+  Tab
 } from '@wings-software/uicore'
 
-import isEmpty from 'lodash/isEmpty'
+import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
 import {
   PipelineContext,
@@ -121,6 +123,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
   const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
+  const [parentStage, setParentStage] = React.useState<{ [key: string]: any }>({})
 
   React.useEffect(() => {
     if (stages && stages.length > 0) {
@@ -133,6 +136,11 @@ export default function DeployServiceSpecifications(): JSX.Element {
           })
         }
       })
+    }
+    if (isEmpty(parentStage) && stage?.stage?.spec?.service?.useFromStage?.stage) {
+      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+      setParentStage(stages[index])
     }
   }, [stages])
 
@@ -528,6 +536,25 @@ export default function DeployServiceSpecifications(): JSX.Element {
             </div>
           </div>
         </>
+      )}
+      {setupModeType === setupMode.PROPAGATE && checkedItems.overrideSetCheckbox && (
+        <div className={css.artifactType}>
+          <Tabs id="serviceSpecifications" onChange={handleTabChange}>
+            <Tab
+              id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+              title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+            />
+            <Tab
+              id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+              title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+            />
+          </Tabs>
+          <OverrideSets
+            selectedTab={selectedTab}
+            isPropagating={true}
+            parentStage={parentStage?.stage?.identifier as string}
+          />
+        </div>
       )}
     </Layout.Vertical>
   )

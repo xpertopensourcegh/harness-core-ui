@@ -44,3 +44,39 @@
 .error {
   color: var(--red-500);
 }
+.overrideList {
+  .artifactSelection {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+
+    .selectInput {
+      width: fit-content;
+    }
+  }
+  .artifactsTabs {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 950px;
+  }
+}
+
+.drag {
+  cursor: move;
+}
+
+.dragging {
+  background-color: var(--yellow-450) !important;
+}
+
+.dragOver {
+  border-top: 2px solid var(--blue-500);
+}
+
+.fileHelpText {
+  padding-bottom: var(--spacing-large) !important;
+  text-align: justify;
+}
+
+.addFileButton {
+  margin-bottom: var(--spacing-large) !important;
+}
