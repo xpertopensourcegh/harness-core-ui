@@ -22,7 +22,7 @@ export interface TestCaseSummary {
   status?: TestCaseStatus
 }
 
-export interface Outcome {
+export interface Result {
   status?: TestCaseStatus
   /**
    * Message corresponding to the test case status
@@ -35,7 +35,7 @@ export interface Outcome {
   /**
    * Description corresponding to the test case status
    */
-  description?: string
+  desc?: string
 }
 
 export interface TestSuite {
@@ -45,7 +45,7 @@ export interface TestSuite {
   failed_tests?: number
   skipped_tests?: number
   passed_tests?: number
-  failure_rate?: number
+  fail_pct?: number
 }
 
 export interface ResponseMetadata {
@@ -70,7 +70,7 @@ export interface TestCase {
   suite_name?: string
   class_name?: string
   duration_ms?: number
-  result?: Outcome
+  result?: Result
   /**
    * (Truncated) stdout while running the test
    */
@@ -99,6 +99,10 @@ export interface ReportSummaryQueryParams {
    * Project ID corresponding to report
    */
   projectId: string
+  /**
+   * Pipeline ID corresponding to report
+   */
+  pipelineId: string
   /**
    * Build ID corresponding to report
    */
@@ -151,6 +155,10 @@ export interface TestSuiteSummaryQueryParams {
    */
   projectId: string
   /**
+   * Pipeline ID corresponding to report
+   */
+  pipelineId: string
+  /**
    * Build ID corresponding to report
    */
   buildId: string
@@ -167,9 +175,13 @@ export interface TestSuiteSummaryQueryParams {
    */
   pageIndex?: number
   /**
+   * Filter by status
+   */
+  status?: 'failed'
+  /**
    * Attribute to sort on
    */
-  sort?: string
+  sort?: 'suite_name' | 'duration_ms' | 'total_tests' | 'skipped_tests' | 'passed_tests' | 'failed_tests' | 'fail_pct'
   /**
    * Display results in ascending or descending order
    */
@@ -206,6 +218,10 @@ export const useTestSuiteSummary = (props: UseTestSuiteSummaryProps) =>
 
 export interface TestCaseSummaryQueryParams {
   /**
+   * Account ID corresponding to report
+   */
+  accountId: string
+  /**
    * Org ID corresponding to report
    */
   orgId: string
@@ -213,6 +229,10 @@ export interface TestCaseSummaryQueryParams {
    * Project ID corresponding to report
    */
   projectId: string
+  /**
+   * Pipeline ID corresponding to report
+   */
+  pipelineId: string
   /**
    * Build ID corresponding to report
    */
@@ -234,9 +254,13 @@ export interface TestCaseSummaryQueryParams {
    */
   pageIndex?: number
   /**
+   * Filter by status
+   */
+  status?: 'failed'
+  /**
    * Attribute to sort on
    */
-  sort?: string
+  sort?: 'name' | 'class_name' | 'status' | 'duration_ms'
   /**
    * Display results in ascending or descending order
    */

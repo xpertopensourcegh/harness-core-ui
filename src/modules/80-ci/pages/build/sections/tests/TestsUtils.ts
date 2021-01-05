@@ -14,13 +14,13 @@ export const renderFailureRate = (failureRate: number): number => {
   return Math.round(value) / scale
 }
 
-export const SortByKey = {
-  FAILURE_RATE: 'fail_pct',
-  FAILED_TESTS: 'failed_tests',
-  PASSED_TESTS: 'passed_tests',
-  SKIPPED_TESTS: 'skipped_tests',
-  DURATION_MS: 'duration_ms',
-  TOTAL_TESTS: 'total_tests'
+export enum SortByKey {
+  FAILURE_RATE = 'fail_pct',
+  FAILED_TESTS = 'failed_tests',
+  PASSED_TESTS = 'passed_tests',
+  SKIPPED_TESTS = 'skipped_tests',
+  DURATION_MS = 'duration_ms',
+  TOTAL_TESTS = 'total_tests'
 }
 
 export const TestStatus = {

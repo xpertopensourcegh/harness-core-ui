@@ -12,8 +12,13 @@ import { renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
 import css from './BuildTests.module.scss'
 
-const scrollIntoItem = (): void =>
-  document.querySelector(`.${css.expanded}`)?.scrollIntoView?.({ behavior: 'smooth', block: 'start', inline: 'start' })
+const scrollIntoItem = (): void => {
+  const expandedElement = document.querySelector(`.${css.expanded}`)
+
+  if (expandedElement && expandedElement.previousElementSibling?.classList.contains(css.testSuite)) {
+    expandedElement.scrollIntoView?.({ behavior: 'smooth', block: 'start', inline: 'start' })
+  }
+}
 
 function renderColumn(col: keyof TestCase | 'order'): Renderer<CellProps<TestCase>> {
   return (({ row }) => {
@@ -53,15 +58,15 @@ const now = Date.now()
 
 export interface TestExecutionEntryProps {
   executionSummary: TestSuite
-  sortBy: string
   expanded?: boolean
+  status?: 'failed'
   onExpand: () => void
 }
 
 export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   executionSummary,
   expanded,
-  // sortBy,
+  status,
   onExpand
 }) => {
   const { getString } = useStrings()
@@ -79,7 +84,9 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     buildId: buildIdentifier,
     report: 'junit' as 'junit',
     suite_name: executionSummary.name, // eslint-disable-line @typescript-eslint/camelcase
-    // sort: sortBy, TODO: Disable for now since backend does not support it
+    status,
+    sort: 'status',
+    order: 'ASC',
     pageIndex
   } as unknown) as TestCaseSummaryQueryParams
   const { data, error, loading, refetch } = useTestCaseSummary({ queryParams, lazy: true })

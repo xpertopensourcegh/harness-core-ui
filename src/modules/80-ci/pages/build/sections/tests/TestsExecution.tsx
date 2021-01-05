@@ -10,6 +10,8 @@ import { TestsExecutionItem } from './TestsExecutionItem'
 import { SortByKey } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
+const PAGE_SIZE = 20
+
 export const TestsExecution: React.FC = () => {
   const { getString } = useStrings()
   const { buildData } = React.useContext(BuildPageContext)
@@ -23,17 +25,33 @@ export const TestsExecution: React.FC = () => {
     accountId: string
     buildIdentifier: string
   }>()
-  const [sortBy, setSortBy] = useState(SortByKey.FAILURE_RATE)
+  const [sortBy, setSortBy] = useState<SortByKey>(SortByKey.FAILURE_RATE)
   const [pageIndex, setPageIndex] = useState(0)
-  const queryParams = {
-    accountId,
-    orgId: orgIdentifier,
-    projectId: projectIdentifier,
-    buildId: buildIdentifier,
-    report: 'junit' as 'junit',
-    pageIndex,
-    sort: sortBy
-  }
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier,
+      pipelineId: buildData?.response?.data?.pipeline?.id || '',
+      buildId: buildIdentifier,
+      report: 'junit' as 'junit',
+      pageIndex,
+      status: showFailedTestsOnly ? ('failed' as 'failed') : undefined,
+      sort: sortBy,
+      pageSize: PAGE_SIZE,
+      order: 'DESC' as 'DESC'
+    }),
+    [
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      buildIdentifier,
+      buildData?.response?.data?.pipeline?.id,
+      pageIndex,
+      showFailedTestsOnly,
+      sortBy
+    ]
+  )
   const { data: executionSummary, error, loading, refetch: fetchExecutionSummary } = useTestSuiteSummary({
     queryParams,
     lazy: true
@@ -100,12 +118,13 @@ export const TestsExecution: React.FC = () => {
             checked={showFailedTestsOnly}
             onChange={e => {
               setShowFailedTestsOnly(e.currentTarget.checked)
+              setPageIndex(0)
               refetchData({
                 ...queryParams,
-                sortBy,
-                pageIndex,
-                showFailedTestsOnly: e.currentTarget.checked
-              } as TestSuiteSummaryQueryParams)
+                sort: sortBy,
+                pageIndex: 0,
+                status: e.currentTarget.checked ? 'failed' : undefined
+              })
             }}
           />
           <Text style={{ alignSelf: 'center' }}>{getString('ci.testsReports.sortBy')}</Text>
@@ -114,14 +133,15 @@ export const TestsExecution: React.FC = () => {
             items={sortByItems}
             value={sortBySelectedItem}
             onChange={item => {
-              setSortBySelectedItem(item as { label: string; value: string })
-              setSortBy(item.value as string)
+              setSortBySelectedItem(item as { label: string; value: SortByKey })
+              setSortBy(item.value as SortByKey)
+              setPageIndex(0)
               refetchData({
                 ...queryParams,
-                sortBy: item.value,
-                pageIndex,
-                showFailedTestsOnly
-              } as TestSuiteSummaryQueryParams)
+                sort: item.value as SortByKey,
+                pageIndex: 0,
+                status: showFailedTestsOnly ? 'failed' : undefined
+              })
             }}
           />
         </Layout.Horizontal>
@@ -143,7 +163,7 @@ export const TestsExecution: React.FC = () => {
           <TestsExecutionItem
             key={summary.name}
             executionSummary={summary}
-            sortBy={sortBy}
+            status={showFailedTestsOnly ? 'failed' : undefined}
             expanded={index === expandedIndex ? true : undefined}
             onExpand={() => {
               setExpandedIndex(index)
@@ -156,15 +176,15 @@ export const TestsExecution: React.FC = () => {
           pageSize={executionSummary?.data?.pageSize || 0}
           pageIndex={pageIndex}
           pageCount={executionSummary?.data?.totalPages || 0}
-          itemCount={executionSummary?.data?.pageItemCount || 0}
+          itemCount={executionSummary?.data?.totalItems || 0}
           gotoPage={pageIdx => {
             setPageIndex(pageIdx)
             refetchData({
               ...queryParams,
-              sortBy,
+              sort: sortBy,
               pageIndex: pageIdx,
-              showFailedTestsOnly
-            } as TestSuiteSummaryQueryParams)
+              status: showFailedTestsOnly ? 'failed' : undefined
+            })
           }}
         />
       )}

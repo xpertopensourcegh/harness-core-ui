@@ -1,10 +1,9 @@
 import { Layout } from '@wings-software/uikit'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { PageError } from '@common/components/Page/PageError'
 import { useReportSummary } from 'services/ti-service'
 import { PageSpinner } from '@common/components'
-// import ReportsSummaryMock from './__test__/mock/reports-summary.json'
 import { BuildPageContext } from '../../context/BuildPageContext'
 import { BuildLoadingState } from './BuildLoadingState'
 import { BuildZeroState } from './BuildZeroState'
@@ -13,19 +12,24 @@ import { TestsOverview } from './TestsOverview'
 import css from './BuildTests.module.scss'
 
 const BuildTests: React.FC = () => {
+  const { buildData } = React.useContext(BuildPageContext)
   const { accountId, buildIdentifier, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
     buildIdentifier: string
   }>()
-  const queryParams = {
-    accountId,
-    orgId: orgIdentifier,
-    projectId: projectIdentifier,
-    buildId: buildIdentifier,
-    report: 'junit' as 'junit'
-  }
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier,
+      pipelineId: buildData?.response?.data?.pipeline?.id || '',
+      buildId: buildIdentifier,
+      report: 'junit' as 'junit'
+    }),
+    [accountId, orgIdentifier, projectIdentifier, buildIdentifier, buildData?.response?.data?.pipeline?.id]
+  )
   const {
     data: testOverviewData,
     error: overviewError,
@@ -35,7 +39,6 @@ const BuildTests: React.FC = () => {
     queryParams,
     lazy: true
   })
-  const { buildData } = React.useContext(BuildPageContext)
   const status = buildData?.response?.status
   const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status || '')
   const buildHasZeroTest = testOverviewData?.total_tests === 0
@@ -75,9 +78,7 @@ const BuildTests: React.FC = () => {
           {buildHasZeroTest && <BuildZeroState />}
           {!buildHasZeroTest && (
             <>
-              <TestsOverview
-                testOverviewData={/* ((ReportsSummaryMock as unknown) as TestReportSummary) || */ testOverviewData}
-              />
+              <TestsOverview testOverviewData={testOverviewData} />
               <TestsExecution />
             </>
           )}

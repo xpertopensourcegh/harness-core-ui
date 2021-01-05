@@ -65,6 +65,14 @@ export const Duration: React.FC<DurationProps> = ({ startTime, endTime, formatte
     }
   }, [endTime])
 
+  if (startTime && endTime && endTime - startTime < 1000) {
+    return (
+      <Text inline icon="hourglass" {...textProps}>
+        {endTime - startTime}ms
+      </Text>
+    )
+  }
+
   const text = i18n.humanizeDuration(delta.w, delta.d, delta.h, delta.m, delta.s)
 
   return (

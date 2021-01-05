@@ -3,7 +3,7 @@
   "info": {
     "description": "All test related APIs will be documented here.",
     "version": "1.0.0",
-    "title": "Tests Intelligence Reporting APIs"
+    "title": "Tests APIs"
   },
   "tags": [
     {
@@ -40,6 +40,13 @@
             "in": "query",
             "name": "projectId",
             "description": "Project ID corresponding to report",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "pipelineId",
+            "description": "Pipeline ID corresponding to report",
             "required": true,
             "type": "string"
           },
@@ -119,6 +126,13 @@
           },
           {
             "in": "query",
+            "name": "pipelineId",
+            "description": "Pipeline ID corresponding to report",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
             "name": "buildId",
             "description": "Build ID corresponding to report",
             "required": true,
@@ -150,10 +164,27 @@
           },
           {
             "in": "query",
+            "name": "status",
+            "description": "Filter by status",
+            "required": false,
+            "type": "string",
+            "enum": ["failed"]
+          },
+          {
+            "in": "query",
             "name": "sort",
             "description": "Attribute to sort on",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "suite_name",
+              "duration_ms",
+              "total_tests",
+              "skipped_tests",
+              "passed_tests",
+              "failed_tests",
+              "fail_pct"
+            ]
           },
           {
             "in": "query",
@@ -204,6 +235,13 @@
         "parameters": [
           {
             "in": "query",
+            "name": "accountId",
+            "description": "Account ID corresponding to report",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
             "name": "orgId",
             "description": "Org ID corresponding to report",
             "required": true,
@@ -213,6 +251,13 @@
             "in": "query",
             "name": "projectId",
             "description": "Project ID corresponding to report",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "pipelineId",
+            "description": "Pipeline ID corresponding to report",
             "required": true,
             "type": "string"
           },
@@ -256,11 +301,19 @@
           },
           {
             "in": "query",
+            "name": "status",
+            "description": "Filter by status",
+            "required": false,
+            "type": "string",
+            "enum": ["failed"]
+          },
+          {
+            "in": "query",
             "name": "sort",
             "description": "Attribute to sort on",
             "required": false,
-            "default": 0,
-            "type": "string"
+            "type": "string",
+            "enum": ["name", "class_name", "status", "duration_ms"]
           },
           {
             "in": "query",
@@ -341,7 +394,7 @@
         }
       }
     },
-    "Outcome": {
+    "Result": {
       "type": "object",
       "properties": {
         "status": {
@@ -355,7 +408,7 @@
           "type": "string",
           "description": "Type corresponding to the test case status"
         },
-        "description": {
+        "desc": {
           "type": "string",
           "description": "Description corresponding to the test case status"
         }
@@ -383,7 +436,7 @@
         "passed_tests": {
           "type": "integer"
         },
-        "failure_rate": {
+        "fail_pct": {
           "type": "number"
         }
       }
@@ -450,7 +503,7 @@
           "format": "int64"
         },
         "result": {
-          "$ref": "#/definitions/Outcome"
+          "$ref": "#/definitions/Result"
         },
         "stdout": {
           "type": "string",
