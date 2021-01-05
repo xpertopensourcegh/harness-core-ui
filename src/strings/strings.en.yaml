@@ -241,6 +241,18 @@ global:
   saveChanges: Save Changes
   projectSelector:
     placeholder: 'Start typing to search in all {{number}} items'
+  script: 'Script'
+  inline: 'Inline'
+  upload: 'Upload'
+  remote: 'Remote'
+  stepType: 'Step Type'
+  scriptType: 'Script Type'
+  shellScriptStep: 'Shell Script'
+  executeScript: 'Where would you like to execute the script?'
+  targetHost: 'Target Host'
+  workingDirectory: 'Working Directory'
+  exportScript: 'You can export script outputs as variables which can be used later in the pipeline.'
+  sshConnector: 'SSH Connection Attribute'
   pipelines-studio:
     pipelineUpdated: Pipeline Updated
     errorWhileSaving: Error occurred saving pipeline
@@ -652,6 +664,7 @@ global:
     sourcePathsRequired: Source Paths is a required field
     hostRequired: Host is a required field
     projectIDRequired: Project ID is a required field
+    scriptTypeRequired: Script Type is required field
   connectors:
     delegateOutClusterInfo1: 'Specify credentials here'
     delegateOutClusterInfo2: 'Manually enter master url and credentials'
