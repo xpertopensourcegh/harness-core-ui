@@ -86,9 +86,9 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
           ? new Point(midX.x, lastPoint.y - diameter)
           : new Point(midX.x, lastPoint.y + diameter)
         const midY2 = new Point(midX.x + diameter, lastPoint.y)
-        return `M${firstPoint.toSVG()}, L${midX1.toSVG()}, Q${midX.toSVG()}, ${midX2.toSVG()}, L${midY1.toSVG()}, Q${midY.toSVG()}, ${midY2.toSVG()}, L${lastPoint.toSVG()}`
+        return `M${firstPoint.toSVG()} L${midX1.toSVG()} Q${midX.toSVG()} ${midX2.toSVG()} L${midY1.toSVG()} Q${midY.toSVG()} ${midY2.toSVG()} L${lastPoint.toSVG()}`
       }
-      return `M${firstPoint.toSVG()}, L${lastPoint.toSVG()}`
+      return `M${firstPoint.toSVG()} L${lastPoint.toSVG()}`
     }
   }
 

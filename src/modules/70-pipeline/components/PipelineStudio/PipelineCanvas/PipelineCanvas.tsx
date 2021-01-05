@@ -188,7 +188,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
-        <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={hideModal} />
+        <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={onCloseCreate} />
       </Dialog>
     ),
     [pipeline.identifier, pipeline]
@@ -211,6 +211,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     openConfirmBEUpdateError,
     discardBEUpdateDialog
   ])
+
+  const onCloseCreate = React.useCallback(() => {
+    if (pipelineIdentifier === DefaultNewPipelineId) {
+      history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
+    }
+    hideModal()
+  }, [accountId, hideModal, history, module, orgIdentifier, pipelineIdentifier, projectIdentifier, toPipelineList])
 
   const onSubmit = React.useCallback(
     (data: NgPipeline) => {
