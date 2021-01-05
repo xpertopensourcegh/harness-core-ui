@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading } from '@wings-software/uikit'
+import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading } from '@wings-software/uicore'
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 

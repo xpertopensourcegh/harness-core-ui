@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-import { Button, ExpandingSearchInput, Layout } from '@wings-software/uikit'
+import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList } from 'services/cd-ng'

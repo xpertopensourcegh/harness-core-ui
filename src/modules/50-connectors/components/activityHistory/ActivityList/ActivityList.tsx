@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import moment from 'moment'
 
-import { Layout, Text, Icon, Color, IconName } from '@wings-software/uikit'
+import { Layout, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { DateRange } from '@blueprintjs/datetime'

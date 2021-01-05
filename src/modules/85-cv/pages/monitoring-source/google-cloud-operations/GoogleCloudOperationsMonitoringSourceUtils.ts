@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { DSConfig, TimeSeriesMetricDefinition, StackdriverDashboardDTO } from 'services/cv'
 

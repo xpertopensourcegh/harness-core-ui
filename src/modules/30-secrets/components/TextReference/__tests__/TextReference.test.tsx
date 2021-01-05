@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { noop } from 'lodash-es'
-import { FormikForm, Formik } from '@wings-software/uikit'
+import { FormikForm, Formik } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import TextReference from '../TextReference'

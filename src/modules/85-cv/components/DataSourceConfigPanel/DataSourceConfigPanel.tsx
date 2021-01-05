@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { CollapseListPanel, CollapseListPanelProps, Intent } from '@wings-software/uikit'
-import type { ListPanelInterface } from '@wings-software/uikit/dist/components/Collapse/CollapseListPanel'
+import { CollapseListPanel, CollapseListPanelProps, Intent } from '@wings-software/uicore'
+import type { ListPanelInterface } from '@wings-software/uicore/dist/components/Collapse/CollapseListPanel'
 import { connect, FormikContext } from 'formik'
 import { CVNextGenCVConfigService } from '@cv/services'
 import DataSourcePanelStatusHeader from '@cv/components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'

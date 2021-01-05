@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react'
-import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook } from '@wings-software/uikit'
+import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook } from '@wings-software/uicore'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 
 import cx from 'classnames'

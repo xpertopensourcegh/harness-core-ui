@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Heading, Layout, Text } from '@wings-software/uikit'
+import { Container, Heading, Layout, Text } from '@wings-software/uicore'
 import Ansi from 'ansi-to-react'
 import { useStrings } from 'framework/exports'
 import type { TestCase } from 'services/ti-service'

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, IconName } from '@wings-software/uikit'
+import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, IconName } from '@wings-software/uicore'
 import { cloneDeep, uniqBy } from 'lodash-es'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
 import cx from 'classnames'

@@ -3,13 +3,13 @@
 exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws productListing StyledProps---padding-small--3f0A"
+    class="StyledProps--font StyledProps--main productListing StyledProps--padding-small"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---background-white--3wQv"
+      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--color StyledProps--color-blue500 StyledProps--background-white"
     >
       <span
-        class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+        class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--margin-right-small"
         icon="chevron-left"
       >
         <svg
@@ -45,7 +45,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
         >
           ENTITY
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -73,7 +73,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
         >
           DETAILS
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -101,7 +101,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
         >
           YAML FILE PATH
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg

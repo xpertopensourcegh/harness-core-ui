@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Formik, Text } from '@wings-software/uikit'
+import { Button, Formik, Text } from '@wings-software/uicore'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidget, StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { TestWrapper } from '@common/utils/testUtils'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
-import { Container, ModalProvider } from '@wings-software/uikit'
+import { Container, ModalProvider } from '@wings-software/uicore'
 import useAnalysisDrillDownView from '../useAnalysisDrillDownView'
 
 jest.mock('../MetricAnalysisView/MetricAnalysisView', () => ({

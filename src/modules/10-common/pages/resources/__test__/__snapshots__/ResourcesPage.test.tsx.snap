@@ -3,19 +3,19 @@
 exports[`Resources Page render 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
       level="2"
     >
       Resources
     </h2>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <a
           class="tags"
@@ -53,7 +53,7 @@ exports[`Resources Page render 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     hello
   </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import isUndefined from 'lodash/isUndefined'
 import css from './JsonSelector.module.scss'
 

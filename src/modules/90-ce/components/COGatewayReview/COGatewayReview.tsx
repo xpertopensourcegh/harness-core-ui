@@ -1,5 +1,5 @@
 import React from 'react'
-import { Heading, Container, Layout, Label, Text } from '@wings-software/uikit'
+import { Heading, Container, Layout, Label, Text } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import i18n from './COGatewayReview.i18n'
 import css from './COGatewayReview.module.scss'

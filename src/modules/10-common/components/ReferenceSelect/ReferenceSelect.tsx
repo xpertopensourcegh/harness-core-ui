@@ -9,7 +9,7 @@ import {
   Text,
   Color,
   FixedTypeComponentProps
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Position, Classes } from '@blueprintjs/core'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { EntityReferenceProps, EntityReference } from '../EntityReference/EntityReference'

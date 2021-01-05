@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Color } from '@wings-software/uikit'
+import { Container, Text, Color } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position, Tooltip, Spinner } from '@blueprintjs/core'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'

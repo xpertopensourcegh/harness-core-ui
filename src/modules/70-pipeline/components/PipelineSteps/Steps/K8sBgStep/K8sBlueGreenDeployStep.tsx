@@ -9,7 +9,7 @@ import {
   MultiTypeInputType,
   TextInput,
   Checkbox
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 // import { get } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'

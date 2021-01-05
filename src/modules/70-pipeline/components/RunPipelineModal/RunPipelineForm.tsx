@@ -1,6 +1,6 @@
 import React from 'react'
 import { Classes } from '@blueprintjs/core'
-import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
+import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'

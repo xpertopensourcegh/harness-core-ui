@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Color, Container, Link, Text } from '@wings-software/uikit'
+import { Color, Container, Link, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Classes, ITreeNode, PopoverInteractionKind, Tree } from '@blueprintjs/core'

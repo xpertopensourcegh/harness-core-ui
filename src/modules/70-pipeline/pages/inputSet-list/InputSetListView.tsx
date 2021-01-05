@@ -1,4 +1,4 @@
-import { Button, Color, Icon, IconName, Layout, Popover, Text } from '@wings-software/uikit'
+import { Button, Color, Icon, IconName, Layout, Popover, Text } from '@wings-software/uicore'
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'

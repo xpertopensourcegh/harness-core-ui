@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { ActivitySourceSetupRoutePaths } from '@cv/utils/routeUtils'

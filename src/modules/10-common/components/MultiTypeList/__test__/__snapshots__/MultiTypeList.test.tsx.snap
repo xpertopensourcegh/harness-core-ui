@@ -25,14 +25,14 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                   type="button"
                 >
                   <span
                     class="bp3-button-text"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws icon fixed"
+                      class="bp3-icon StyledProps--main icon fixed"
                     >
                       <svg
                         height="10"
@@ -64,11 +64,11 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-elevation-0 Card--card"
             style="width: 100%;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               data-testid="add-test"
               type="button"
             >

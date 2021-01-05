@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, Color } from '@wings-software/uikit'
+import { Text, Color } from '@wings-software/uicore'
 
 export enum ValidationStatus {
   IN_PROGRESS = 'in-progress',

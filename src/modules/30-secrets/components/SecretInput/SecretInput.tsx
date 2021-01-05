@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, FormikContext } from 'formik'
-import { Layout, Icon, Button, Text } from '@wings-software/uikit'
+import { Layout, Icon, Button, Text } from '@wings-software/uicore'
 
 import { get } from 'lodash-es'
 import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretModal/useCreateOrSelectSecretModal'

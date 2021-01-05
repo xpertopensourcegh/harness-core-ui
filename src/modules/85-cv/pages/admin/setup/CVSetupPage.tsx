@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, Layout, Container, Button, Color, Icon, Link, Card, CardBody, IconName } from '@wings-software/uikit'
+import { Text, Layout, Container, Button, Color, Icon, Link, Card, CardBody, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import { useGetCVSetupStatus, RestResponseCVSetupStatus, useGetDefaultHealthVerificationJob } from 'services/cv'

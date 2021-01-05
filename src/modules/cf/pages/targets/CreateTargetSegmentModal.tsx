@@ -11,7 +11,7 @@ import {
   Avatar,
   Collapse,
   IconName
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import { useCreateSegment, Tag } from 'services/cf'

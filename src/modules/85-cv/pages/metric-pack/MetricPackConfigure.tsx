@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import { Button, Color, Container, Heading, OverlaySpinner, Text } from '@wings-software/uikit'
+import { Button, Color, Container, Heading, OverlaySpinner, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { RouteVerificationTypeToVerificationType } from '@cv/constants'
 import { Page } from '@common/exports'

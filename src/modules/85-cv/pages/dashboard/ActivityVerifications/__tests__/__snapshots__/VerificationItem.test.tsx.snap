@@ -6,11 +6,11 @@ exports[`VerificationItem VerificationItem 1`] = `
     class="dataRow"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="display: flex; width: 200px;"
     >
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps--main"
         style="align-self: center;"
       >
         <svg
@@ -46,17 +46,17 @@ exports[`VerificationItem VerificationItem 1`] = `
         </svg>
       </span>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
         style="align-self: center;"
       >
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
           style="--text-line-clamp: 1; width: 120px;"
         >
           tag1
         </p>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey350"
           style="--text-line-clamp: 1; width: 120px;"
         >
           service1
@@ -70,18 +70,18 @@ exports[`VerificationItem VerificationItem 1`] = `
         class="bp3-popover-target"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws dataColumn notStarted"
+          class="StyledProps--font StyledProps--main dataColumn notStarted"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
           >
             Not started
           </p>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-bar progressBar"
+            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-meter"
+              class="StyledProps--font StyledProps--main bp3-progress-meter"
             />
           </div>
         </div>
@@ -94,18 +94,18 @@ exports[`VerificationItem VerificationItem 1`] = `
         class="bp3-popover-target"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws dataColumn notStarted"
+          class="StyledProps--font StyledProps--main dataColumn notStarted"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
           >
             Not started
           </p>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-bar progressBar"
+            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-meter"
+              class="StyledProps--font StyledProps--main bp3-progress-meter"
             />
           </div>
         </div>
@@ -118,18 +118,18 @@ exports[`VerificationItem VerificationItem 1`] = `
         class="bp3-popover-target"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws dataColumn notStarted"
+          class="StyledProps--font StyledProps--main dataColumn notStarted"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
           >
             Not started
           </p>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-bar progressBar"
+            class="StyledProps--font StyledProps--main bp3-progress-bar progressBar"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-meter"
+              class="StyledProps--font StyledProps--main bp3-progress-meter"
             />
           </div>
         </div>

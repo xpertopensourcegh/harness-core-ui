@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Layout } from '@wings-software/uikit'
+import { Layout } from '@wings-software/uicore'
 
 import { cloneDeep } from 'lodash-es'
 

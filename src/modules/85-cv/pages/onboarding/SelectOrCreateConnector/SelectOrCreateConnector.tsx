@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Container, Link, Text, Layout, Color, IconName, TextInput, SelectOption } from '@wings-software/uikit'
+import { Container, Link, Text, Layout, Color, IconName, TextInput, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'

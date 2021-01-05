@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ITreeNode } from '@blueprintjs/core'
-import { Text, Color } from '@wings-software/uikit'
+import { Text, Color } from '@wings-software/uicore'
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 import i18n from './PipelineStudio.i18n'
 

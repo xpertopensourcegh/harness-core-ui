@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import ReactTimeago from 'react-timeago'
-import { Layout, Text, Icon, Color, IconName } from '@wings-software/uikit'
+import { Layout, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from '@common/components/Table/Table'
 

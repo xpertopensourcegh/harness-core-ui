@@ -1,4 +1,4 @@
-import { Intent, StepsProgress, ModalErrorHandler, ModalErrorHandlerBinding } from '@wings-software/uikit'
+import { Intent, StepsProgress, ModalErrorHandler, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SSHKeyValidationMetadata, useValidateSecret, ResponseSecretValidationResultDTO } from 'services/cd-ng'

@@ -3,27 +3,27 @@
 exports[`Org Page List Create New Org 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
       level="2"
     >
       Organizations
     </h2>
   </div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-small"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
           icon="plus"
         >
           <svg
@@ -49,17 +49,17 @@ exports[`Org Page List Create New Org 1`] = `
       </button>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-right-large--2vF9"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-right-large"
     >
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8"
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
             icon="search"
           >
             <svg
@@ -89,28 +89,28 @@ exports[`Org Page List Create New Org 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody orgPage"
+    class="StyledProps--font StyledProps--main pageBody orgPage"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--container0 StyledProps---padding-xxxlarge--2I9v"
+      class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 StyledProps--padding-xxxlarge"
       style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+        class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card---card--2BXa card"
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
           tabindex="0"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws overflow"
+            class="StyledProps--font StyledProps--main overflow"
           >
             <div
-              class="Card---cardMenu--JLDc cardMenu"
+              class="Card--cardMenu cardMenu"
             >
               <div
-                class="Card---dots--3qQP"
+                class="Card--dots"
               >
                 <span
                   class="bp3-popover-wrapper bp3-dark"
@@ -119,11 +119,11 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-more StyledProps--main"
                         icon="more"
                       >
                         <svg
@@ -147,31 +147,31 @@ exports[`Org Page List Create New Org 1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws title"
+              class="Layout--vertical StyledProps--main title"
             >
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1;"
               >
                 bfvbfkbvf
               </p>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws description"
+                class="Layout--horizontal StyledProps--main description"
               />
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws tags"
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
               />
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-xlarge--xV_9"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
               >
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="25"
@@ -185,50 +185,50 @@ exports[`Org Page List Create New Org 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+                      class="StyledProps--font StyledProps--main StyledProps--font-medium"
                     >
                       0
                     </p>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
                     PROJECTS
                   </p>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-left-huge--2Znx StyledProps---flex--2Jz8"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                 >
                   <div
-                    class="AvatarGroup---stack--3mde"
+                    class="AvatarGroup--stack"
                   >
                     <div
-                      class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         +
                       </div>
                     </div>
                     <div
-                      class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                       uuid="lv0efduRhKRCyiXWzS7pOg6g"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         A
                       </div>
                     </div>
                     <div
-                      class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                       uuid="lv0euRhKRCyiXWzS7pOg6g"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         A
@@ -236,7 +236,7 @@ exports[`Org Page List Create New Org 1`] = `
                     </div>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
                     ORG MEMBERS
                   </p>
@@ -247,21 +247,21 @@ exports[`Org Page List Create New Org 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+        class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card---card--2BXa card"
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
           tabindex="0"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws overflow"
+            class="StyledProps--font StyledProps--main overflow"
           >
             <div
-              class="Card---cardMenu--JLDc cardMenu"
+              class="Card--cardMenu cardMenu"
             >
               <div
-                class="Card---dots--3qQP"
+                class="Card--dots"
               >
                 <span
                   class="bp3-popover-wrapper bp3-dark"
@@ -270,11 +270,11 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-more StyledProps--main"
                         icon="more"
                       >
                         <svg
@@ -298,29 +298,29 @@ exports[`Org Page List Create New Org 1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws title"
+              class="Layout--vertical StyledProps--main title"
             >
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1;"
               >
                 Harness
               </p>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws description"
+                class="Layout--horizontal StyledProps--main description"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
                   style="--text-line-clamp: 2;"
                 >
                   Harness
                 </p>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws tags"
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
               >
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag tag"
@@ -333,7 +333,7 @@ exports[`Org Page List Create New Org 1`] = `
                   </span>
                 </span>
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag tag"
@@ -346,7 +346,7 @@ exports[`Org Page List Create New Org 1`] = `
                   </span>
                 </span>
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag tag"
@@ -359,7 +359,7 @@ exports[`Org Page List Create New Org 1`] = `
                   </span>
                 </span>
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag tag"
@@ -378,7 +378,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                       tabindex="0"
                     >
                       +1
@@ -387,16 +387,16 @@ exports[`Org Page List Create New Org 1`] = `
                 </span>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-xlarge--xV_9"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
               >
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="25"
@@ -410,39 +410,39 @@ exports[`Org Page List Create New Org 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+                      class="StyledProps--font StyledProps--main StyledProps--font-medium"
                     >
                       5
                     </p>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
                     PROJECTS
                   </p>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-left-huge--2Znx StyledProps---flex--2Jz8"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                 >
                   <div
-                    class="AvatarGroup---stack--3mde"
+                    class="AvatarGroup--stack"
                   >
                     <div
-                      class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         +
                       </div>
                     </div>
                     <div
-                      class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                       uuid="lv0euRhKRCyiXWzS7pOg6g"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         A
@@ -450,7 +450,7 @@ exports[`Org Page List Create New Org 1`] = `
                     </div>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
                     ORG MEMBERS
                   </p>
@@ -461,21 +461,21 @@ exports[`Org Page List Create New Org 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+        class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
-          class="bp3-card bp3-interactive bp3-elevation-2 Card---card--2BXa card"
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
           tabindex="0"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws overflow"
+            class="StyledProps--font StyledProps--main overflow"
           >
             <div
-              class="Card---cardMenu--JLDc cardMenu"
+              class="Card--cardMenu cardMenu"
             >
               <div
-                class="Card---dots--3qQP"
+                class="Card--dots"
               >
                 <span
                   class="bp3-popover-wrapper bp3-dark"
@@ -484,11 +484,11 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-more StyledProps--main"
                         icon="more"
                       >
                         <svg
@@ -512,38 +512,38 @@ exports[`Org Page List Create New Org 1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws title"
+              class="Layout--vertical StyledProps--main title"
             >
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1;"
               >
                 Default
               </p>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws description"
+                class="Layout--horizontal StyledProps--main description"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
                   style="--text-line-clamp: 2;"
                 >
                   Default Organization
                 </p>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws tags"
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
               />
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-xlarge--xV_9"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
               >
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="25"
@@ -557,28 +557,28 @@ exports[`Org Page List Create New Org 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+                      class="StyledProps--font StyledProps--main StyledProps--font-medium"
                     >
                       7
                     </p>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
                     PROJECTS
                   </p>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-left-huge--2Znx StyledProps---flex--2Jz8"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                 >
                   <div
-                    class="AvatarGroup---stack--3mde"
+                    class="AvatarGroup--stack"
                   >
                     <div
-                      class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         +
@@ -586,7 +586,7 @@ exports[`Org Page List Create New Org 1`] = `
                     </div>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
                     ORG MEMBERS
                   </p>

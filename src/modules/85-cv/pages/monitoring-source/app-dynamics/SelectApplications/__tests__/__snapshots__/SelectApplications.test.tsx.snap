@@ -3,13 +3,13 @@
 exports[`SelectApplications Matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws sideSpace"
+      class="StyledProps--font StyledProps--main sideSpace"
     />
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws mainPanel"
+      class="StyledProps--font StyledProps--main mainPanel"
     >
       <div
         class="table table"
@@ -33,7 +33,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             style="width: 45%;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
             >
               xx
             </p>
@@ -45,19 +45,19 @@ exports[`SelectApplications Matches snapshot 1`] = `
             style="width: 45%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderWithFilter StyledProps---flex--2Jz8"
+              class="StyledProps--font StyledProps--main columnHeaderWithFilter StyledProps--flex"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"
               >
                 xx
               </p>
               <div
-                class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+                class="bp3-input-group ui-search-box ExpandingSearchInput--main "
                 data-name=""
               >
                 <span
-                  class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+                  class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
                   icon="search"
                 >
                   <svg
@@ -105,11 +105,11 @@ exports[`SelectApplications Matches snapshot 1`] = `
             style="width: 45%;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -135,10 +135,10 @@ exports[`SelectApplications Matches snapshot 1`] = `
             style="width: 45%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws selectEnvironmentCell"
+              class="StyledProps--font StyledProps--main selectEnvironmentCell"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+                class="bp3-icon StyledProps--main StyledProps--margin-right-small"
               >
                 <svg
                   height="16"
@@ -176,11 +176,11 @@ exports[`SelectApplications Matches snapshot 1`] = `
             style="width: 45%;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -206,10 +206,10 @@ exports[`SelectApplications Matches snapshot 1`] = `
             style="width: 45%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws selectEnvironmentCell"
+              class="StyledProps--font StyledProps--main selectEnvironmentCell"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+                class="bp3-icon StyledProps--main StyledProps--margin-right-small"
               >
                 <svg
                   height="16"
@@ -230,14 +230,14 @@ exports[`SelectApplications Matches snapshot 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+        class="Layout--horizontal StyledProps--main main"
       >
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+          class="bp3-button StyledProps--font Button--button StyledProps--main"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+            class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
             icon="chevron-left"
           >
             <svg
@@ -262,7 +262,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="submit"
         >
           <span
@@ -271,7 +271,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             Next
           </span>
           <span
-            class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
             icon="chevron-right"
           >
             <svg
@@ -293,17 +293,17 @@ exports[`SelectApplications Matches snapshot 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws infoPanel"
+      class="StyledProps--font StyledProps--main infoPanel"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws infoPanelItem"
+        class="StyledProps--font StyledProps--main infoPanelItem"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---margin-bottom-small--3Kji"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--margin-bottom-small"
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---margin-right-medium--1Ojn"
+            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500 StyledProps--margin-right-medium"
           >
             <svg
               height="16"
@@ -320,7 +320,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
           xx
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           xx
         </p>

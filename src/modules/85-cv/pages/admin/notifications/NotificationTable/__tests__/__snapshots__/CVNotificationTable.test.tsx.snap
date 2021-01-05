@@ -60,7 +60,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 10%;"
       >
         <label
-          class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+          class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
         >
           <input
             checked=""
@@ -77,10 +77,10 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 25%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main maxWidthCol StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
             mnjfhk
@@ -93,20 +93,20 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-right-medium--3IPx StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--color StyledProps--color-blue500"
           >
             2
              
             Services
           </p>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-blue500"
               icon="tick"
             >
               <svg
@@ -125,16 +125,16 @@ exports[`CVNotificationTable render notification table 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---padding-right-medium--3IPx StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-medium StyledProps--color StyledProps--color-black"
             >
               Verification
             </p>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-blue500"
               icon="tick"
             >
               <svg
@@ -153,7 +153,7 @@ exports[`CVNotificationTable render notification table 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-black"
             >
               Risk
             </p>
@@ -166,10 +166,10 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="16"
@@ -207,7 +207,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main maxWidthCol StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
             dkjl
@@ -220,7 +220,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 5%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"
@@ -229,11 +229,11 @@ exports[`CVNotificationTable render notification table 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"
@@ -265,7 +265,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 10%;"
       >
         <label
-          class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+          class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
         >
           <input
             checked=""
@@ -282,10 +282,10 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 25%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main maxWidthCol StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
             New rule one
@@ -298,20 +298,20 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-right-medium--3IPx StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--color StyledProps--color-blue500"
           >
             2
              
             Services
           </p>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-blue500"
               icon="tick"
             >
               <svg
@@ -330,16 +330,16 @@ exports[`CVNotificationTable render notification table 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---padding-right-medium--3IPx StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-medium StyledProps--color StyledProps--color-black"
             >
               Verification
             </p>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-blue500"
               icon="tick"
             >
               <svg
@@ -358,7 +358,7 @@ exports[`CVNotificationTable render notification table 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-black"
             >
               Risk
             </p>
@@ -371,10 +371,10 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="16"
@@ -412,7 +412,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main maxWidthCol StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
             WebhookUrl configure
@@ -425,7 +425,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 5%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"
@@ -434,11 +434,11 @@ exports[`CVNotificationTable render notification table 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"
@@ -470,7 +470,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 10%;"
       >
         <label
-          class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+          class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
         >
           <input
             checked=""
@@ -487,10 +487,10 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 25%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main maxWidthCol StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
             hvj
@@ -503,20 +503,20 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-right-medium--3IPx StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--color StyledProps--color-blue500"
           >
             1
              
             Service
           </p>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-blue500"
               icon="tick"
             >
               <svg
@@ -535,16 +535,16 @@ exports[`CVNotificationTable render notification table 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---padding-right-medium--3IPx StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-medium StyledProps--color StyledProps--color-black"
             >
               Verification
             </p>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-blue500"
               icon="tick"
             >
               <svg
@@ -563,7 +563,7 @@ exports[`CVNotificationTable render notification table 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-black"
             >
               Risk
             </p>
@@ -576,10 +576,10 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="16"
@@ -617,7 +617,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws maxWidthCol StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main maxWidthCol StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1;"
           >
             bnvng
@@ -630,7 +630,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         style="width: 5%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"
@@ -639,11 +639,11 @@ exports[`CVNotificationTable render notification table 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"
@@ -666,10 +666,10 @@ exports[`CVNotificationTable render notification table 1`] = `
       </div>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+      class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
     >
       <span
-        class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+        class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
       >
         Showing 
         <strong>

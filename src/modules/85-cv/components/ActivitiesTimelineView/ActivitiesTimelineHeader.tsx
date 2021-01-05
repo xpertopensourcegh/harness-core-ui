@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Container, Text } from '@wings-software/uikit'
+import { Container, Text } from '@wings-software/uicore'
 import type { EventData } from './ActivitiesTimelineView'
 import styles from './ActivitiesTimelineView.module.scss'
 

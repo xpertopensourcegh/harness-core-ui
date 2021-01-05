@@ -10,7 +10,7 @@ import {
   Button,
   ModalErrorHandlerBinding,
   ModalErrorHandler
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'

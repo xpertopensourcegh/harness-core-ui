@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router'
-import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uikit'
+import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uicore'
 import xhr from '@wings-software/xhr-async'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'

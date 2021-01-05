@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Color, Layout, Text } from '@wings-software/uikit'
+import { Container, Color, Layout, Text } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import {

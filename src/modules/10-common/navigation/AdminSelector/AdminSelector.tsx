@@ -1,7 +1,7 @@
 import React from 'react'
 import { Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Container, Heading, Icon, Text, IconName, Popover } from '@wings-software/uikit'
+import { Container, Heading, Icon, Text, IconName, Popover } from '@wings-software/uicore'
 import { NavLink } from 'react-router-dom'
 import i18n from './AdminSelector.i18n'
 import css from './AdminSelector.module.scss'

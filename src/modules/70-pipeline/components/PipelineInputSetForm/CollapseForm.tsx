@@ -1,6 +1,6 @@
 import React from 'react'
-import { Layout, Icon, Text } from '@wings-software/uikit'
-import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
+import { Layout, Icon, Text } from '@wings-software/uicore'
+import type { TextProps } from '@wings-software/uicore/dist/components/Text/Text'
 
 export const CollapseForm: React.FC<{
   header: string

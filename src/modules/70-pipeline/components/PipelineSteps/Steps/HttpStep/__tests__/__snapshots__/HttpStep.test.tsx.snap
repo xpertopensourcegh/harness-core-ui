@@ -3,7 +3,7 @@
 exports[`Http Step edit mode works 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
       class="accordion accordion"
@@ -46,25 +46,25 @@ exports[`Http Step edit mode works 1`] = `
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         My_Http_Step
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -135,13 +135,13 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -160,10 +160,10 @@ exports[`Http Step edit mode works 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -183,12 +183,12 @@ exports[`Http Step edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -228,10 +228,10 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
                             class="bp3-popover-target"
@@ -252,7 +252,7 @@ exports[`Http Step edit mode works 1`] = `
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                   icon="caret-down"
                                 >
                                   <svg
@@ -281,10 +281,10 @@ exports[`Http Step edit mode works 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -325,14 +325,14 @@ exports[`Http Step edit mode works 1`] = `
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                               type="button"
                             >
                               <span
                                 class="bp3-button-text"
                               >
                                 <span
-                                  class="bp3-icon StyledProps---main--1Wws icon fixed"
+                                  class="bp3-icon StyledProps--main icon fixed"
                                 >
                                   <svg
                                     height="10"
@@ -410,10 +410,10 @@ exports[`Http Step edit mode works 1`] = `
                               class="bp3-form-content"
                             >
                               <div
-                                class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                               >
                                 <div
-                                  class="bp3-input-group MultiTypeInput---input--36mQ"
+                                  class="bp3-input-group MultiTypeInput--input"
                                 >
                                   <input
                                     class="bp3-input"
@@ -429,10 +429,10 @@ exports[`Http Step edit mode works 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
                                     >
                                       <span
-                                        class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                       >
                                         <svg
                                           height="12"
@@ -452,12 +452,12 @@ exports[`Http Step edit mode works 1`] = `
                             </div>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             data-testid="remove-header-0"
                             type="button"
                           >
                             <span
-                              class="bp3-icon bp3-icon-trash StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-trash StyledProps--main"
                               icon="trash"
                             >
                               <svg
@@ -478,12 +478,12 @@ exports[`Http Step edit mode works 1`] = `
                           </button>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                           data-testid="add-header"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-plus StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-plus StyledProps--main"
                             icon="plus"
                           >
                             <svg
@@ -531,14 +531,14 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                         style="flex-grow: 1;"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -557,10 +557,10 @@ exports[`Http Step edit mode works 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -580,12 +580,12 @@ exports[`Http Step edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -625,7 +625,7 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -646,10 +646,10 @@ exports[`Http Step edit mode works 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -704,7 +704,7 @@ exports[`Http Step edit mode works 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -720,7 +720,7 @@ exports[`Http Step edit mode works 1`] = `
 exports[`Http Step renders runtime inputs 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
       class="accordion accordion"
@@ -763,25 +763,25 @@ exports[`Http Step renders runtime inputs 1`] = `
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         My_Http_Step
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -852,13 +852,13 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -877,10 +877,10 @@ exports[`Http Step renders runtime inputs 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -900,12 +900,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -945,13 +945,13 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -970,10 +970,10 @@ exports[`Http Step renders runtime inputs 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -993,12 +993,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -1045,14 +1045,14 @@ exports[`Http Step renders runtime inputs 1`] = `
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                               type="button"
                             >
                               <span
                                 class="bp3-button-text"
                               >
                                 <span
-                                  class="bp3-icon StyledProps---main--1Wws icon runtime"
+                                  class="bp3-icon StyledProps--main icon runtime"
                                 >
                                   <svg
                                     height="10"
@@ -1105,14 +1105,14 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                         style="flex-grow: 1;"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -1131,10 +1131,10 @@ exports[`Http Step renders runtime inputs 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1154,12 +1154,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -1199,14 +1199,14 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                         style="flex-grow: 1;"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -1225,10 +1225,10 @@ exports[`Http Step renders runtime inputs 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1248,12 +1248,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -1308,7 +1308,7 @@ exports[`Http Step renders runtime inputs 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -1324,7 +1324,7 @@ exports[`Http Step renders runtime inputs 1`] = `
 exports[`Http Step should render edit view as new step 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
       class="accordion accordion"
@@ -1367,23 +1367,23 @@ exports[`Http Step should render edit view as new step 1`] = `
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       />
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -1454,10 +1454,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -1473,10 +1473,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1516,10 +1516,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
                             class="bp3-popover-target"
@@ -1540,7 +1540,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                   icon="caret-down"
                                 >
                                   <svg
@@ -1569,10 +1569,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1613,14 +1613,14 @@ exports[`Http Step should render edit view as new step 1`] = `
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                               type="button"
                             >
                               <span
                                 class="bp3-button-text"
                               >
                                 <span
-                                  class="bp3-icon StyledProps---main--1Wws icon fixed"
+                                  class="bp3-icon StyledProps--main icon fixed"
                                 >
                                   <svg
                                     height="10"
@@ -1698,10 +1698,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                               class="bp3-form-content"
                             >
                               <div
-                                class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                               >
                                 <div
-                                  class="bp3-input-group MultiTypeInput---input--36mQ"
+                                  class="bp3-input-group MultiTypeInput--input"
                                 >
                                   <input
                                     class="bp3-input"
@@ -1717,10 +1717,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
                                     >
                                       <span
-                                        class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                       >
                                         <svg
                                           height="12"
@@ -1740,12 +1740,12 @@ exports[`Http Step should render edit view as new step 1`] = `
                             </div>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             data-testid="remove-header-0"
                             type="button"
                           >
                             <span
-                              class="bp3-icon bp3-icon-trash StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-trash StyledProps--main"
                               icon="trash"
                             >
                               <svg
@@ -1766,12 +1766,12 @@ exports[`Http Step should render edit view as new step 1`] = `
                           </button>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                           data-testid="add-header"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-plus StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-plus StyledProps--main"
                             icon="plus"
                           >
                             <svg
@@ -1819,7 +1819,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <textarea
@@ -1833,10 +1833,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1876,7 +1876,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -1897,10 +1897,10 @@ exports[`Http Step should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1955,7 +1955,7 @@ exports[`Http Step should render edit view as new step 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span

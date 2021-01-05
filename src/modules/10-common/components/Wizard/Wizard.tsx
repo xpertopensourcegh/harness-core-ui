@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, createRef, RefObject } from 'react'
-import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
-import type { IconName } from '@wings-software/uikit'
+import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'

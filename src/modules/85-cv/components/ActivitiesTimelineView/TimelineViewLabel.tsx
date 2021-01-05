@@ -1,6 +1,6 @@
-import { Container, Icon, Text, Color } from '@wings-software/uikit'
+import { Container, Icon, Text, Color } from '@wings-software/uicore'
 import React from 'react'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import css from './ActivitiesTimelineView.module.scss'
 
 export interface TimelineViewLabelProps {

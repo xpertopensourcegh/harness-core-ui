@@ -3,13 +3,13 @@
 exports[`CIHomePage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+      class="Layout--vertical StyledProps--main StyledProps--padding-large"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-large--3wvf StyledProps---font-weight-bold--22XZ"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
       >
         Dashboard
       </p>

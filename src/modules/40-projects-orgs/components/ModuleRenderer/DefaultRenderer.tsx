@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, Layout, Icon, Text } from '@wings-software/uikit'
+import { Color, Layout, Icon, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import css from './ModuleRenderer.module.scss'
 

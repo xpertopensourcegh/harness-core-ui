@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Card, Icon, CardBody, Color, Container, Layout, Text, CardProps } from '@wings-software/uikit'
+import { Card, Icon, CardBody, Color, Container, Layout, Text, CardProps } from '@wings-software/uicore'
 import cx from 'classnames'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import css from './CVSelectionCard.module.scss'
 
 export interface CVSelectionCardProps {

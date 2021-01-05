@@ -3,10 +3,10 @@
 exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws header StyledProps---padding-small--3f0A"
+      class="StyledProps--font StyledProps--main header StyledProps--padding-small"
     >
       <a
         href="/account/undefined/cv/orgs/org1/projects/project1/dashboard"
@@ -14,10 +14,10 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
         Dashboard /
       </a>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws headerWrap"
+        class="StyledProps--font StyledProps--main headerWrap"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             fill="none"
@@ -52,47 +52,47 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
         >
           testDeploy
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-left-small--3XL_"
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small"
         >
           Environments
           :
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
         />
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-left-small--3XL_"
+          class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small"
         >
           Service
           :
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
         />
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws body"
+      class="StyledProps--font StyledProps--main body"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws sideNav"
+        class="StyledProps--font StyledProps--main sideNav"
       >
         <div
-          class="Collapse---main--34Is main"
+          class="Collapse--main main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 <svg
                   height="10"
@@ -106,17 +106,17 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
               >
                 Pre Production Tests
               </p>
             </div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             />
           </div>
           <div
-            class="Collapse---collapse--2EmT"
+            class="Collapse--collapse"
           >
             <div
               class="bp3-collapse"
@@ -131,16 +131,16 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
           </div>
         </div>
         <div
-          class="Collapse---main--34Is main"
+          class="Collapse--main main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 <svg
                   height="10"
@@ -154,17 +154,17 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
               >
                 Production Deployment
               </p>
             </div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             />
           </div>
           <div
-            class="Collapse---collapse--2EmT"
+            class="Collapse--collapse"
           >
             <div
               class="bp3-collapse"
@@ -176,19 +176,19 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 style="transform: translateY(0); transition: none;"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws item StyledProps---background-blue200--2drm StyledProps---padding-small--3f0A"
+                  class="StyledProps--font StyledProps--main item StyledProps--background-blue200 StyledProps--padding-small"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws itemHeader"
+                    class="StyledProps--font StyledProps--main itemHeader"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                       style="width: 130px;"
                     >
                       jobName
                     </p>
                     <span
-                      class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---margin-left-medium--2jOL StyledProps---background-green500--33le StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--margin-left-medium StyledProps--background-green500 StyledProps--color StyledProps--color-white"
                       icon="small-tick"
                     >
                       <svg
@@ -208,12 +208,12 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                     </span>
                   </div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey300--fEYT StyledProps---font-size-xsmall--1f9b"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
                   >
                     Environment: env
                   </p>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey300--fEYT StyledProps---font-size-xsmall--1f9b"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
                   >
                     Started on: Nov 9, 2020 8:54 PM
                   </p>
@@ -223,16 +223,16 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
           </div>
         </div>
         <div
-          class="Collapse---main--34Is main"
+          class="Collapse--main main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 <svg
                   height="10"
@@ -246,17 +246,17 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
               >
                 Post Deployment
               </p>
             </div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             />
           </div>
           <div
-            class="Collapse---collapse--2EmT"
+            class="Collapse--collapse"
           >
             <div
               class="bp3-collapse"
@@ -272,36 +272,36 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws content"
+        class="StyledProps--font StyledProps--main content"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws subHeader"
+          class="StyledProps--font StyledProps--main subHeader"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
             >
               jobName
             </p>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws verificationStatusCard StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---background-green350--22lD"
+              class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green500 StyledProps--background-green350"
             >
               passed
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
               disabled=""
               tabindex="-1"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-symbol-square StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-symbol-square StyledProps--main StyledProps--padding-right-xsmall"
                 icon="symbol-square"
               >
                 <svg
@@ -326,13 +326,13 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
               disabled=""
               tabindex="-1"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-refresh StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-refresh StyledProps--main StyledProps--padding-right-xsmall"
                 icon="refresh"
               >
                 <svg
@@ -357,13 +357,13 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
               disabled=""
               tabindex="-1"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-share StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-share StyledProps--main StyledProps--padding-right-xsmall"
                 icon="share"
               >
                 <svg
@@ -388,13 +388,13 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
               disabled=""
               tabindex="-1"
               type="button"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -456,21 +456,21 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+            class="StyledProps--font StyledProps--main main"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-bar progressBar bp3-intent-success"
+              class="StyledProps--font StyledProps--main bp3-progress-bar progressBar bp3-intent-success"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws bp3-progress-meter"
+                class="StyledProps--font StyledProps--main bp3-progress-meter"
                 style="width: 43%;"
               />
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---margin-top-xsmall--33hS StyledProps---margin-bottom-xsmall--N8Iq"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
               data-name="Started On"
             >
               Started On
@@ -478,7 +478,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               Nov 9, 2020 8:54 PM
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               data-name="Duration"
             >
               Duration
@@ -487,10 +487,10 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws filters"
+            class="StyledProps--font StyledProps--main filters"
           >
             <div
-              class="bp3-tabs Tabs---main--3Ew7"
+              class="bp3-tabs Tabs--main"
             >
               <div
                 class="bp3-tab-list"
@@ -537,21 +537,21 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             class="metricsTab panel"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws timeFilterAndBar"
+              class="StyledProps--font StyledProps--main timeFilterAndBar"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws filterOptionContainer"
+                  class="StyledProps--font StyledProps--main filterOptionContainer"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
                   >
                     FILTER
                   </p>
                   <div
-                    class="bp3-popover-wrapper filterByOptions Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper filterByOptions Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -571,7 +571,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-xsmall"
                             icon="caret-down"
                           >
                             <svg
@@ -601,7 +601,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               </div>
             </div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws timeseriesList"
+              class="StyledProps--font StyledProps--main timeseriesList"
             />
           </div>
         </div>

@@ -3,7 +3,7 @@
 exports[`SelectGCODashboards unit tests When api returns data, ensure data is rendered correctly 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
       class="table"
@@ -27,10 +27,10 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             <a
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws manualQueryLink"
+              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main manualQueryLink"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -42,19 +42,19 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
               </span>
             </a>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+              class="StyledProps--font StyledProps--main StyledProps--flex"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"
               >
                 Google Cloud Operation Dashboards
               </p>
               <div
-                class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+                class="bp3-input-group ui-search-box ExpandingSearchInput--main "
                 data-name=""
               >
                 <span
-                  class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+                  class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
                   icon="search"
                 >
                   <svg
@@ -103,11 +103,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -155,11 +155,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -207,11 +207,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -259,11 +259,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -311,11 +311,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -363,11 +363,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -415,11 +415,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -467,11 +467,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -519,11 +519,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -571,11 +571,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -605,10 +605,10 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>
@@ -625,10 +625,10 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           </strong>
         </span>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -640,7 +640,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -650,7 +650,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -660,7 +660,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -673,14 +673,14 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
       </div>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+      class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
           icon="chevron-left"
         >
           <svg
@@ -705,7 +705,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
         </span>
       </button>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -714,7 +714,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           Next
         </span>
         <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
           icon="chevron-right"
         >
           <svg

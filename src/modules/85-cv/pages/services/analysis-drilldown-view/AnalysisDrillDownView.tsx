@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Tabs, Tab } from '@wings-software/uikit'
+import { Container, Tabs, Tab } from '@wings-software/uicore'
 import cx from 'classnames'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import i18n from './AnalysisDrillDownView.i18n'

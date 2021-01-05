@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@wings-software/uikit'
+import { Button } from '@wings-software/uicore'
 import { FormikProps, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 

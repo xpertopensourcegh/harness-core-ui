@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
-import { Icon } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
 import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
 import i18n from './SnippetDetails.i18n'
 import Snippet from './Snippet'

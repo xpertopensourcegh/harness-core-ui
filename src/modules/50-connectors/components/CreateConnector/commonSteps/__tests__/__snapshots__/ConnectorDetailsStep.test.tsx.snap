@@ -3,7 +3,7 @@
 exports[`Connector details step render for create kubernetes connector step one 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
   >
     <div
       class="heading"
@@ -11,46 +11,46 @@ exports[`Connector details step render for create kubernetes connector step one 
       Kubernetes Cluster Overview
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+      class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="min-height: 460px;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                  class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                    class="StyledProps--font StyledProps--main connectorFormNameElm"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="true"
                         />
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
                           style="vertical-align: middle;"
                         >
@@ -103,33 +103,33 @@ exports[`Connector details step render for create kubernetes connector step one 
                     </div>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     style="justify-content: center;"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                     >
                       + Description
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                     >
                       + Tags
                     </p>
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                  class="StyledProps--font StyledProps--main connectorFormElm"
                 >
                   
                 </div>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -152,7 +152,7 @@ exports[`Connector details step render for create kubernetes connector step one 
 exports[`Connector details step render for create kubernetes connector step one 2`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
   >
     <div
       class="heading"
@@ -160,46 +160,46 @@ exports[`Connector details step render for create kubernetes connector step one 
       Kubernetes Cluster Overview
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+      class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="min-height: 460px;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                  class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                    class="StyledProps--font StyledProps--main connectorFormNameElm"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="true"
                         />
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
                           style="vertical-align: middle;"
                         >
@@ -253,7 +253,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                  class="StyledProps--font StyledProps--main connectorFormElm"
                 >
                   <div
                     class="bp3-form-group expandedDescription"
@@ -263,15 +263,15 @@ exports[`Connector details step render for create kubernetes connector step one 
                       for="description"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                        class="StyledProps--font StyledProps--main headerRow"
                       >
                         <span
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                          class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
                           Description
                         </span>
                         <span
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
                         >
                           remove
                         </span>
@@ -299,15 +299,15 @@ exports[`Connector details step render for create kubernetes connector step one 
                       for="tags"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                        class="StyledProps--font StyledProps--main headerRow"
                       >
                         <span
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                          class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
                           Tags
                         </span>
                         <span
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
                         >
                           remove
                         </span>
@@ -339,10 +339,10 @@ exports[`Connector details step render for create kubernetes connector step one 
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span

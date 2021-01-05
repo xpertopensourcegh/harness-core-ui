@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Layout, Container } from '@wings-software/uikit'
+import { Button, Layout, Container } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { useToaster, useConfirmationDialog } from 'modules/10-common/exports'

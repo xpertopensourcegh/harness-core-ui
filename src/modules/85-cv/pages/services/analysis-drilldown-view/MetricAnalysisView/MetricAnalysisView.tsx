@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Icon, Color, Pagination } from '@wings-software/uikit'
+import { Container, Icon, Color, Pagination } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import {

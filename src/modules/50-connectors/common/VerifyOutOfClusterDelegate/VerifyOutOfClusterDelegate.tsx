@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
-import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
+import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uicore'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import {
   useGetTestConnectionResult,

@@ -1,7 +1,7 @@
 import React from 'react'
 import type { IFormGroupProps } from '@blueprintjs/core'
 import { connect, FormikContext } from 'formik'
-import { FormInput, getMultiTypeFromValue, MultiTypeInputType, MultiTextInputProps } from '@wings-software/uikit'
+import { FormInput, getMultiTypeFromValue, MultiTypeInputType, MultiTextInputProps } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'

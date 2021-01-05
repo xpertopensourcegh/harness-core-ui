@@ -11,7 +11,7 @@ import {
   FlexExpander,
   Select,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'

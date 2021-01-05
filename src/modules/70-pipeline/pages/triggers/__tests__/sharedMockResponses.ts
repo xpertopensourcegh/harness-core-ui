@@ -1,4 +1,4 @@
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseNGPipelineResponse, ResponseConnectorResponse, NGPipelineResponse } from 'services/cd-ng'
 import type {

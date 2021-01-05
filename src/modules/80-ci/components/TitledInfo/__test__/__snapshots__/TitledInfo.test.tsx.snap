@@ -6,12 +6,12 @@ exports[`TitledInfo snapshot test should render properly 1`] = `
     class="container"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       title1
     </p>
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="max-width: 165px;"
     >
       value1

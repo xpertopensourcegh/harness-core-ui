@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Color, Button, Layout, SelectOption } from '@wings-software/uikit'
+import { Text, Color, Button, Layout, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { ValidationStatus, TierRecord } from '../AppDOnboardingUtils'

@@ -3,10 +3,10 @@
 exports[`Pipeline Details tests render snapshot view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -47,10 +47,10 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <a
           class="tags"
@@ -75,7 +75,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/pipeline/"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue600"
             style="margin-right: 8px;"
           >
             <svg
@@ -100,7 +100,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   />
 </div>
 `;

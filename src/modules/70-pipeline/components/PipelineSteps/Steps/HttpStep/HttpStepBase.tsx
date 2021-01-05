@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectOption, FormInput, getMultiTypeFromValue, MultiTypeInputType, Button } from '@wings-software/uikit'
+import { SelectOption, FormInput, getMultiTypeFromValue, MultiTypeInputType, Button } from '@wings-software/uicore'
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'

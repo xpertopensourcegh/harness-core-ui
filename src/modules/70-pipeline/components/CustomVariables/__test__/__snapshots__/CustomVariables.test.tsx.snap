@@ -3,14 +3,14 @@
 exports[`CustomVariables snapshot test initializes ok 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws addVariable StyledProps---intent-primary--2Xgi"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addVariable StyledProps--intent-primary"
           type="button"
         >
           <span

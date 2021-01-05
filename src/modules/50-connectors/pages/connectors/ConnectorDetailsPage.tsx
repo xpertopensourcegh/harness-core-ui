@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Container } from '@wings-software/uikit'
+import { Layout, Container } from '@wings-software/uicore'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Link, useParams, useLocation } from 'react-router-dom'

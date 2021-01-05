@@ -3,7 +3,7 @@
 exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
       class="bp3-form-group"
@@ -12,7 +12,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy checkbox StyledProps---main--1Wws"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
         >
           <input
             name="spec.skipDryRun"
@@ -26,7 +26,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
       </div>
     </div>
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       Errors
     </p>
@@ -34,7 +34,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -50,10 +50,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
 exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
     >
       <div
         class="accordion"
@@ -93,25 +93,25 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         Test_A
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -182,11 +182,11 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="width: 380px;"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -202,10 +202,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -229,7 +229,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                             type="button"
                           >
                             <span
@@ -238,7 +238,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                               Instance Count
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main"
                               icon="caret-down"
                             >
                               <svg
@@ -282,7 +282,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -303,10 +303,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -336,10 +336,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <label
-                          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
                         >
                           <input
                             name="spec.skipDryRun"
@@ -357,10 +357,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -386,7 +386,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -403,10 +403,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
 exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with all runtime inputs 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
     >
       <div
         class="accordion"
@@ -446,25 +446,25 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         Test_A
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -535,14 +535,14 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                         style="width: 380px;"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -562,10 +562,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -589,7 +589,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                             type="button"
                           >
                             <span
@@ -598,7 +598,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                               Instance Count
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main"
                               icon="caret-down"
                             >
                               <svg
@@ -622,12 +622,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -667,14 +667,14 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                         style="flex-grow: 1;"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -693,10 +693,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -716,12 +716,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-cog StyledProps--main"
                       icon="cog"
                     >
                       <svg
@@ -761,13 +761,13 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                       >
                         <div
-                          class="TextInput---main--1ytZ"
+                          class="TextInput--main"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -786,10 +786,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -815,7 +815,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -832,10 +832,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
 exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
     >
       <div
         class="accordion"
@@ -875,23 +875,23 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       />
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -962,11 +962,11 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="width: 380px;"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -982,10 +982,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1009,7 +1009,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                             type="button"
                           >
                             <span
@@ -1018,7 +1018,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                               Instance Count
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main"
                               icon="caret-down"
                             >
                               <svg
@@ -1062,7 +1062,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -1083,10 +1083,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1116,10 +1116,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <label
-                          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
                         >
                           <input
                             name="spec.skipDryRun"
@@ -1137,10 +1137,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1166,7 +1166,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -1183,10 +1183,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
 exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace type count 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
     >
       <div
         class="accordion"
@@ -1226,25 +1226,25 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         Test_A
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -1315,11 +1315,11 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="width: 380px;"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -1335,10 +1335,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1362,7 +1362,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                             type="button"
                           >
                             <span
@@ -1371,7 +1371,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                               Instance Count
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main"
                               icon="caret-down"
                             >
                               <svg
@@ -1415,7 +1415,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -1436,10 +1436,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1469,10 +1469,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <label
-                          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
                         >
                           <input
                             name="spec.skipDryRun"
@@ -1490,10 +1490,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1519,7 +1519,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -1536,10 +1536,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
 exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace type percentage 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
     >
       <div
         class="accordion"
@@ -1579,25 +1579,25 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         Test_A
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -1668,11 +1668,11 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="width: 380px;"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -1688,10 +1688,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1715,7 +1715,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                             type="button"
                           >
                             <span
@@ -1724,7 +1724,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                               % Percentage
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main"
                               icon="caret-down"
                             >
                               <svg
@@ -1768,7 +1768,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -1789,10 +1789,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1822,10 +1822,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <label
-                          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
                         >
                           <input
                             name="spec.skipDryRun"
@@ -1843,10 +1843,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1872,7 +1872,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -1889,10 +1889,10 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
 exports[`Test K8sBlueGreenDeployStep should throw validation error without instances 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
     >
       <div
         class="accordion"
@@ -1932,25 +1932,25 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                   class="formGroup"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       >
                         Test_A
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -2026,11 +2026,11 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="width: 380px;"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -2046,10 +2046,10 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -2073,7 +2073,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                             type="button"
                           >
                             <span
@@ -2082,7 +2082,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                               Instance Count
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main"
                               icon="caret-down"
                             >
                               <svg
@@ -2131,7 +2131,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="flex-grow: 1;"
                       >
                         <div
@@ -2152,10 +2152,10 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -2185,10 +2185,10 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <label
-                          class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
                         >
                           <input
                             name="spec.skipDryRun"
@@ -2206,10 +2206,10 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -2235,7 +2235,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span

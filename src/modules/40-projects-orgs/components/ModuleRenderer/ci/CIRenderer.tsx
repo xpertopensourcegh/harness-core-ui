@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
+import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'

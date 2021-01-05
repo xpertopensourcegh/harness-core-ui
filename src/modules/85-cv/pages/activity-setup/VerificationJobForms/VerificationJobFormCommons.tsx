@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, SelectOption, MultiSelectOption } from '@wings-software/uikit'
+import { Button, Container, SelectOption, MultiSelectOption } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'

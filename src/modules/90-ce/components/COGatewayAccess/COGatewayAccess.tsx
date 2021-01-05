@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Heading, Container, Layout, Checkbox, Collapse } from '@wings-software/uikit'
+import { Heading, Container, Layout, Checkbox, Collapse } from '@wings-software/uicore'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import i18n from './COGatewayAccess.i18n'
 

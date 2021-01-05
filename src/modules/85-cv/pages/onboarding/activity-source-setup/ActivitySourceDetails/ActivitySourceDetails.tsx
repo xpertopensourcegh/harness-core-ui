@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, IconName } from '@wings-software/uikit'
+import { Container, Text, IconName } from '@wings-software/uicore'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { useStrings } from 'framework/exports'

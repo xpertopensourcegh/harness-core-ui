@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Formik, FormikForm, Text, Layout, Icon, Color } from '@wings-software/uikit'
+import { Container, Formik, FormikForm, Text, Layout, Icon, Color } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'

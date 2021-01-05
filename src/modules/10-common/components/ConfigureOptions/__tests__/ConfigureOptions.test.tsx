@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor, getByText as getByTextBody } from '@testing-library/react'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { ConfigureOptions, ConfigureOptionsProps } from '../ConfigureOptions'
 

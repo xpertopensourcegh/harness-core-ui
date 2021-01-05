@@ -3,14 +3,14 @@
 exports[`Resources Page render 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <a
       class="link"
       href="/account/dummy/admin"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Overview
       </p>
@@ -21,7 +21,7 @@ exports[`Resources Page render 1`] = `
       href="/account/dummy/admin/resources"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Resources
       </p>
@@ -31,7 +31,7 @@ exports[`Resources Page render 1`] = `
       href="/account/dummy/admin/governance"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Governance
       </p>
@@ -41,7 +41,7 @@ exports[`Resources Page render 1`] = `
       href="/account/dummy/admin/git-sync"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Git Sync
       </p>
@@ -51,7 +51,7 @@ exports[`Resources Page render 1`] = `
       href="/account/dummy/admin/organizations"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Organizations
       </p>

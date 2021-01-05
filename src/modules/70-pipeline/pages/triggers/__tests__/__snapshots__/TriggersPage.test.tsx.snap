@@ -6,10 +6,10 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
   <div />
   <div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -19,13 +19,13 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
         </span>
       </button>
       <div
-        class="TextInput---main--1ytZ"
+        class="TextInput--main"
       >
         <div
           class="bp3-input-group search"
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-search StyledProps--main"
             icon="search"
           >
             <svg
@@ -54,7 +54,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+      class="StyledProps--font StyledProps--main pageBody"
     >
       <div
         class="table table"
@@ -72,7 +72,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
           >
             TRIGGER
             <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
             >
               <svg
@@ -166,11 +166,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 25%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="AllValues"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="26"
@@ -183,20 +183,20 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 </svg>
               </span>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                   data-testid="AllValues"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     AllValues123
                   </p>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
                   AllValues
                 </p>
@@ -209,11 +209,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 16%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="AllValues"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 Work in Progress
               </p>
@@ -225,13 +225,13 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 18%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <span
                 class="activityChart"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                  class="StyledProps--font StyledProps--main SparkChart--main"
                   role="spark-chart"
                 >
                   <div
@@ -332,14 +332,14 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 </div>
               </span>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="text-align: start;"
               >
                 <span>
                   23 Activations in
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   Last 7 days
                 </p>
@@ -352,7 +352,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 18%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="AllValues"
               style="justify-content: center;"
             >
@@ -360,24 +360,24 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="activityStatement"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                   style="align-items: center;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="text-align: end;"
                   >
                     <span>
                       Last Run:
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     >
                       dummy date
                     </p>
                   </div>
                   <span
-                    class="bp3-icon bp3-icon-dot StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                    class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--color StyledProps--color-green500"
                     icon="dot"
                   >
                     <svg
@@ -408,7 +408,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               class="textCentered"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
                 style="cursor: pointer;"
               >
                 <svg
@@ -433,7 +433,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               class="textCentered"
             >
               <label
-                class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+                class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
                 <input
                   type="checkbox"
@@ -451,7 +451,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 3%;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
               style="justify-content: flex-end;"
             >
               <span
@@ -461,11 +461,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
                       icon="more"
                     >
                       <svg
@@ -499,11 +499,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 25%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="test1"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="26"
@@ -516,20 +516,20 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 </svg>
               </span>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                   data-testid="test1"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     test1
                   </p>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
                   test1
                 </p>
@@ -542,11 +542,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 16%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="test1"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 Work in Progress
               </p>
@@ -558,13 +558,13 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 18%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <span
                 class="activityChart"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                  class="StyledProps--font StyledProps--main SparkChart--main"
                   role="spark-chart"
                 >
                   <div
@@ -665,14 +665,14 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 </div>
               </span>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="text-align: start;"
               >
                 <span>
                   23 Activations in
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   Last 7 days
                 </p>
@@ -685,7 +685,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 18%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="test1"
               style="justify-content: center;"
             >
@@ -693,24 +693,24 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="activityStatement"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                   style="align-items: center;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="text-align: end;"
                   >
                     <span>
                       Last Run:
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     >
                       dummy date
                     </p>
                   </div>
                   <span
-                    class="bp3-icon bp3-icon-dot StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                    class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--color StyledProps--color-green500"
                     icon="dot"
                   >
                     <svg
@@ -741,7 +741,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               class="textCentered"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
                 style="cursor: pointer;"
               >
                 <svg
@@ -766,7 +766,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               class="textCentered"
             >
               <label
-                class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+                class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
                 <input
                   type="checkbox"
@@ -784,7 +784,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 3%;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
               style="justify-content: flex-end;"
             >
               <span
@@ -794,11 +794,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
                       icon="more"
                     >
                       <svg
@@ -832,11 +832,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 25%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="trigger2"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="26"
@@ -849,20 +849,20 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 </svg>
               </span>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                   data-testid="trigger2"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     trigger-2
                   </p>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
                   trigger2
                 </p>
@@ -875,11 +875,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 16%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="trigger2"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 Work in Progress
               </p>
@@ -891,13 +891,13 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 18%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <span
                 class="activityChart"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                  class="StyledProps--font StyledProps--main SparkChart--main"
                   role="spark-chart"
                 >
                   <div
@@ -998,14 +998,14 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 </div>
               </span>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="text-align: start;"
               >
                 <span>
                   23 Activations in
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   Last 7 days
                 </p>
@@ -1018,7 +1018,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 18%;"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               data-testid="trigger2"
               style="justify-content: center;"
             >
@@ -1026,24 +1026,24 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="activityStatement"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                   style="align-items: center;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="text-align: end;"
                   >
                     <span>
                       Last Run:
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     >
                       dummy date
                     </p>
                   </div>
                   <span
-                    class="bp3-icon bp3-icon-dot StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                    class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--color StyledProps--color-green500"
                     icon="dot"
                   >
                     <svg
@@ -1074,7 +1074,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               class="textCentered"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
                 style="cursor: pointer;"
               >
                 <svg
@@ -1099,7 +1099,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               class="textCentered"
             >
               <label
-                class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+                class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
                 <input
                   type="checkbox"
@@ -1117,7 +1117,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 3%;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
               style="justify-content: flex-end;"
             >
               <span
@@ -1127,11 +1127,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
                       icon="more"
                     >
                       <svg

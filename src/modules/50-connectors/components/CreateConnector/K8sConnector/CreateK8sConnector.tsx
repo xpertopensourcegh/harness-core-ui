@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepWizard } from '@wings-software/uikit'
+import { StepWizard } from '@wings-software/uicore'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ResponseBoolean, ConnectorInfoDTO } from 'services/cd-ng'

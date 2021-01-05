@@ -4,7 +4,7 @@ import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import { MenuItem } from '@blueprintjs/core'
 
-import { Container, Icon, Text, Button } from '@wings-software/uikit'
+import { Container, Icon, Text, Button } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import routes from '@common/RouteDefinitions'

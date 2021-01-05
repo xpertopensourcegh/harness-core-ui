@@ -3,18 +3,18 @@
 exports[`SelectEnvironment render 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-large--1jL3 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
       Select the CD 1.0 environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.
     </p>
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
@@ -59,14 +59,14 @@ exports[`SelectEnvironment render 1`] = `
                 style="width: 33%;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <input
                     style="cursor: pointer;"
                     type="checkbox"
                   />
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       fill="none"
@@ -101,7 +101,7 @@ exports[`SelectEnvironment render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     Test Env
                   </p>
@@ -113,7 +113,7 @@ exports[`SelectEnvironment render 1`] = `
                 style="width: 33%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   appName
                 </p>
@@ -124,10 +124,10 @@ exports[`SelectEnvironment render 1`] = `
                 style="width: 33%;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv StyledProps---margin-top-small--1_l5"
+                    class="bp3-icon StyledProps--main StyledProps--margin-right-small StyledProps--margin-top-small"
                   >
                     <svg
                       height="20"
@@ -141,10 +141,10 @@ exports[`SelectEnvironment render 1`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -164,7 +164,7 @@ exports[`SelectEnvironment render 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -191,10 +191,10 @@ exports[`SelectEnvironment render 1`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+              class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
               >
                 Showing 
                 <strong>
@@ -208,14 +208,14 @@ exports[`SelectEnvironment render 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+            class="Layout--horizontal StyledProps--main main"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
                 icon="chevron-left"
               >
                 <svg
@@ -240,7 +240,7 @@ exports[`SelectEnvironment render 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -249,7 +249,7 @@ exports[`SelectEnvironment render 1`] = `
                 Next
               </span>
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg

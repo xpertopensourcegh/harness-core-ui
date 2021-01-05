@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Card, Color } from '@wings-software/uikit'
+import { Text, Card, Color } from '@wings-software/uicore'
 import type { ITreeNode } from '@blueprintjs/core'
 import type {
   StageElement,

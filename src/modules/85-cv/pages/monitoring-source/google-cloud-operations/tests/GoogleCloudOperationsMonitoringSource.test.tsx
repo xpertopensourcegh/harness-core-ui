@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Container, Layout, Heading, FlexExpander, Color } from '@wings-software/uikit'
+import { Text, Container, Layout, Heading, FlexExpander, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import type { TestReportSummary } from 'services/ti-service'

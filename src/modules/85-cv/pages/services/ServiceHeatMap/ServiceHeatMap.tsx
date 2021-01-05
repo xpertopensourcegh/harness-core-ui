@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Color, Container, OverlaySpinner, Text, TextProps } from '@wings-software/uikit'
+import { Color, Container, OverlaySpinner, Text, TextProps } from '@wings-software/uicore'
 import moment from 'moment'
 import { isNumber } from 'lodash-es'
 import { useParams } from 'react-router-dom'

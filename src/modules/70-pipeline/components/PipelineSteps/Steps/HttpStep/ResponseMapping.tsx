@@ -1,7 +1,7 @@
 import React from 'react'
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
-import { FormInput, Button, MultiTypeInputType } from '@wings-software/uikit'
+import { FormInput, Button, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { HttpStepInfo } from 'services/cd-ng'
 

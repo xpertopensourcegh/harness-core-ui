@@ -11,7 +11,7 @@ import {
   MultiTypeInputType,
   Icon,
   Color
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import * as Yup from 'yup'

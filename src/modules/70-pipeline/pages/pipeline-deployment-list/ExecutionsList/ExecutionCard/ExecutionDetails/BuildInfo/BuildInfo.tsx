@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { first } from 'lodash-es'
-import { Color, Icon, Link, Text } from '@wings-software/uikit'
+import { Color, Icon, Link, Text } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/exports'
 import type { CIBuildResponseDTO } from '../Types/types'
 import css from './BuildInfo.module.scss'

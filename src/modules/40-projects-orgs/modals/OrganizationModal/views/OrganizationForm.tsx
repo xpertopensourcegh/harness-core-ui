@@ -13,7 +13,7 @@ import {
   Layout,
   ModalErrorHandlerBinding,
   ModalErrorHandler
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import type { Organization } from 'services/cd-ng'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
-import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
+import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import {
   Failure,

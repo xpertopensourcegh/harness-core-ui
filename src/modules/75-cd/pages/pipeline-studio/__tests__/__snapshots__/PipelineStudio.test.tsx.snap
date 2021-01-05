@@ -57,16 +57,16 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws pipelineName"
+                  class="StyledProps--font StyledProps--main pipelineName"
                 >
                   
                 </p>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="12"
@@ -128,7 +128,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
             >
               <div>
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag bp3-intent-primary bp3-minimal tagRender"
@@ -143,11 +143,11 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
               </div>
               <div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws savePublishBtn StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main savePublishBtn StyledProps--intent-primary"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-arrow-up StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    class="bp3-icon bp3-icon-arrow-up StyledProps--main StyledProps--padding-right-xsmall"
                     icon="arrow-up"
                   >
                     <svg
@@ -184,12 +184,12 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS"
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
                       >
                         <svg
                           height="16"
@@ -224,7 +224,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
         class="iconButton"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
           title="Template Library"
         >
           <svg
@@ -258,7 +258,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
         class="iconButton"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
           title="Input Variables"
         >
           <svg
@@ -292,7 +292,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
         class="iconButton"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
           title="Run Pipeline"
         >
           <svg
@@ -398,16 +398,16 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws pipelineName"
+                  class="StyledProps--font StyledProps--main pipelineName"
                 >
                   test-p1
                 </p>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="12"
@@ -470,11 +470,11 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
               <div />
               <div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws savePublishBtn StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main savePublishBtn StyledProps--intent-primary"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-arrow-up StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    class="bp3-icon bp3-icon-arrow-up StyledProps--main StyledProps--padding-right-xsmall"
                     icon="arrow-up"
                   >
                     <svg
@@ -511,12 +511,12 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS"
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
                       >
                         <svg
                           height="16"
@@ -551,7 +551,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
         class="iconButton"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
           title="Template Library"
         >
           <svg
@@ -585,7 +585,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
         class="iconButton"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
           title="Input Variables"
         >
           <svg
@@ -619,7 +619,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
         class="iconButton"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
           title="Run Pipeline"
         >
           <svg

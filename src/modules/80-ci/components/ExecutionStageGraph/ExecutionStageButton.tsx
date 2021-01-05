@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import cx from 'classnames'
-import { Button, Icon, IconName, Color, Utils, ButtonProps } from '@wings-software/uikit'
+import { Button, Icon, IconName, Color, Utils, ButtonProps } from '@wings-software/uicore'
 import css from './ExecutionStageButton.module.scss'
 
 export interface ExecutionStageButtonProps {

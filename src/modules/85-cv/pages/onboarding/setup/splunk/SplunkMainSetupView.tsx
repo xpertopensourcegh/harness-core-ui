@@ -16,7 +16,7 @@ import {
   SelectProps,
   Select,
   Link
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 import Highcharts, { XrangePointOptionsObject } from 'highcharts/highcharts'
 import HighchartsReact from 'highcharts-react-official'

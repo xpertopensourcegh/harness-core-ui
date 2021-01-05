@@ -7,7 +7,7 @@ import {
   MultiTypeInputType,
   MultiTypeInputProps,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'

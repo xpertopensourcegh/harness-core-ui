@@ -3,27 +3,27 @@
 exports[`CIDashboardPage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="margin: 0px auto; padding-top: 200px; width: 600px;"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---flex--2Jz8"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex"
       >
         <h1
-          class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main"
         >
           Welcome to Continuous Integration
         </h1>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Build your applications with blazing fast pipelines.
         </p>
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="200"
@@ -44,7 +44,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           </svg>
         </span>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           style="width: 200px;"
           type="button"
         >

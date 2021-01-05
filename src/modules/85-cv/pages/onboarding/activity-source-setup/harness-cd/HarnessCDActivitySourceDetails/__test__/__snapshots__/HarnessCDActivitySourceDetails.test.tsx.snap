@@ -3,36 +3,36 @@
 exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
     style="position: relative; top: 80px;"
   >
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws mainDetails"
+            class="StyledProps--font StyledProps--main mainDetails"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-large--1jL3"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large"
             >
               Select your activity source
             </p>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws monitoringCard"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main monitoringCard"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard selectedCard Card---selected--279c"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard selectedCard Card--selected"
                 tabindex="0"
               >
                 <div
                   class="triangle"
                 >
                   <span
-                    class="bp3-icon bp3-icon-tick StyledProps---main--1Wws tick StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    class="bp3-icon bp3-icon-tick StyledProps--main tick StyledProps--color StyledProps--color-white"
                     icon="tick"
                   >
                     <svg
@@ -52,10 +52,10 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Card---cardIcon--2uSw cardIcon cardIconSelected"
+                  class="Card--cardIcon cardIcon cardIconSelected"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       fill="none"
@@ -92,38 +92,38 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                 </div>
               </div>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
               >
                 Harness CD 1.0
               </p>
             </div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+              class="StyledProps--font StyledProps--main main"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                class="StyledProps--font StyledProps--main connectorFormNameWrapper"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                  class="StyledProps--font StyledProps--main connectorFormNameElm"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       />
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -176,16 +176,16 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                   style="justify-content: center;"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                   >
                     + Description
                   </p>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                   >
                     + Tags
                   </p>
@@ -194,14 +194,14 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+            class="Layout--horizontal StyledProps--main main"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
                 icon="chevron-left"
               >
                 <svg
@@ -226,7 +226,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -235,7 +235,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                 Next
               </span>
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg

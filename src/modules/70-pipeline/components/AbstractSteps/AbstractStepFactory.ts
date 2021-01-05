@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import type { Step } from './Step'

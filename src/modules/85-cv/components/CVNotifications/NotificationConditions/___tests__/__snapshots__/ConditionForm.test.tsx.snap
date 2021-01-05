@@ -3,29 +3,29 @@
 exports[`ConditionForm render ConditionForm  1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
     >
       Select Condition for Notification
     </p>
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
        
       Choose the services and their corresponding conditions you’d like to be notified on.
        
     </p>
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws formElements"
+            class="StyledProps--font StyledProps--main formElements"
           >
             <div
               class="bp3-form-group service"
@@ -45,7 +45,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                  class="bp3-popover-wrapper MultiSelect--main bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"
@@ -90,7 +90,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                  class="bp3-popover-wrapper MultiSelect--main bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"
@@ -118,7 +118,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX StyledProps---margin-left-xlarge--2EHr"
+              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge StyledProps--margin-left-xlarge"
             >
               <div
                 class="bp3-form-group"
@@ -128,7 +128,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                   class="bp3-form-content"
                 >
                   <label
-                    class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy Checkbox---checkbox--2kFy check StyledProps---main--1Wws StyledProps---inline--1f52"
+                    class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox check StyledProps--main StyledProps--inline"
                   >
                     <input
                       name="enabledVerifications"
@@ -149,7 +149,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                   class="bp3-form-content"
                 >
                   <label
-                    class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---inline--1f52"
+                    class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
                   >
                     <input
                       name="enabledRisk"
@@ -165,10 +165,10 @@ exports[`ConditionForm render ConditionForm  1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xlarge--2Tnj"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xlarge"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -178,7 +178,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span

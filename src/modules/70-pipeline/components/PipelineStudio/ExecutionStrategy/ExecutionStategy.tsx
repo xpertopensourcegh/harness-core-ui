@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
-import { Text, Icon, Layout, Button, Card, IconName } from '@wings-software/uikit'
+import { Text, Icon, Layout, Button, Card, IconName } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 import {

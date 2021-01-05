@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Text, FormInput, Link } from '@wings-software/uikit'
+import { Text, FormInput, Link } from '@wings-software/uicore'
 import { String } from 'framework/exports'
 
 import css from '../AdvancedSteps.module.scss'

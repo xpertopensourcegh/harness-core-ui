@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Button, Color, Icon, Container, Text, useIsMounted } from '@wings-software/uikit'
+import { Button, Color, Icon, Container, Text, useIsMounted } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'

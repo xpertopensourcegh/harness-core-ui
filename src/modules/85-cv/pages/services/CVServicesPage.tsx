@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uikit'
+import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Icon, Layout, Text } from '@wings-software/uikit'
+import { IconName, Icon, Layout, Text } from '@wings-software/uicore'
 import type { StageElementWrapper } from 'services/cd-ng'
 import type { StagesMap } from '../../PipelineContext/PipelineContext'
 

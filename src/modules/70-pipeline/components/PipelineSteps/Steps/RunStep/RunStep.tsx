@@ -8,7 +8,7 @@ import {
   MultiTypeInputType,
   IconName,
   FormikForm
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { PipelineContext, StepViewType, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'

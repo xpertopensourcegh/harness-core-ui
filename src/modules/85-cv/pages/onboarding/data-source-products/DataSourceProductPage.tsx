@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
-import { Container, Button, Text } from '@wings-software/uikit'
+import { Container, Button, Text } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import xhr from '@wings-software/xhr-async'
 import { useParams } from 'react-router-dom'

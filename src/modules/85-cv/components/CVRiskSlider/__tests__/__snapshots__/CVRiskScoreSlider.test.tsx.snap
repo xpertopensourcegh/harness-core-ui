@@ -3,25 +3,25 @@
 exports[`CVRiskScoreSlider render 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
     style="width: 340px;"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws handleWrapper react-draggable"
+      class="StyledProps--font StyledProps--main handleWrapper react-draggable"
       style="transform: translate(0px,0px);"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws score StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main score StyledProps--font-size-small"
         style="width: 30px;"
       >
         0
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws handle"
+        class="StyledProps--font StyledProps--main handle"
       />
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       style="width: 340px;"
     >
       <div

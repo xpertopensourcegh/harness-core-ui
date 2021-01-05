@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text } from '@wings-software/uikit'
+import { Layout, Text } from '@wings-software/uicore'
 import { render } from '@testing-library/react'
 import ActivityStack from '../ActivityStack'
 import { activityData } from './ActivityMock'

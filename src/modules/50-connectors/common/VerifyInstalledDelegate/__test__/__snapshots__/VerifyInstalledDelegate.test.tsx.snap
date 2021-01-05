@@ -3,10 +3,10 @@
 exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws verifyWrapper"
+    class="Layout--vertical StyledProps--main verifyWrapper"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---font-medium--2b-0"
+      class="StyledProps--font StyledProps--main heading StyledProps--font-medium"
     >
       Verify Connection to
        
@@ -17,14 +17,14 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
       </span>
     </p>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
       id="steps-progress"
     >
       <div
-        class="StepsProgress---progressBar--2_Dp"
+        class="StepsProgress--progressBar"
       >
         <div
-          class="bp3-progress-bar bp3-intent-warning bp3-no-stripes StepsProgress---progressHeight--3zU4"
+          class="bp3-progress-bar bp3-intent-warning bp3-no-stripes StepsProgress--progressHeight"
         >
           <div
             class="bp3-progress-meter"
@@ -33,13 +33,13 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       >
         <div
-          class="StepsProgress---stepWrap--g0bN"
+          class="StepsProgress--stepWrap"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
           >
             <svg
               height="16"
@@ -98,17 +98,17 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="font-weight: bold;"
           >
             Install Harness Delegate
           </p>
         </div>
         <div
-          class="StepsProgress---stepWrap--g0bN"
+          class="StepsProgress--stepWrap"
         >
           <span
-            class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+            class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
             icon="blank"
           >
             <svg
@@ -123,17 +123,17 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="font-weight: normal;"
           >
             Establishing Connection between Delegate and Kubernetes Cluster
           </p>
         </div>
         <div
-          class="StepsProgress---stepWrap--g0bN"
+          class="StepsProgress--stepWrap"
         >
           <span
-            class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+            class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
             icon="blank"
           >
             <svg
@@ -148,7 +148,7 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="font-weight: normal;"
           >
             Verify Connection
@@ -160,22 +160,22 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
       class="stepsOverlay"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws overlayHeading"
+          class="Layout--horizontal StyledProps--main overlayHeading"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---margin-top-xsmall--33hS StyledProps---margin-bottom-large--1jL3 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-top-xsmall StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey700"
           >
             Install your Delegate
           </p>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-cross StyledProps--main"
               icon="cross"
             >
               <svg
@@ -196,15 +196,15 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
           </button>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <label
-            class="Label---main--bHPE"
+            class="Label--main"
           >
             Supported Formats
           </label>
           <div
-            class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+            class="bp3-popover-wrapper Select--main bp3-fill"
           >
             <div
               class="bp3-popover-target"
@@ -225,7 +225,7 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                     icon="caret-down"
                   >
                     <svg
@@ -249,11 +249,11 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button bp3-large StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button bp3-large StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-bring-data StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+            class="bp3-icon bp3-icon-bring-data StyledProps--main StyledProps--padding-right-xsmall"
             icon="bring-data"
           >
             <svg
@@ -278,25 +278,25 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
           </span>
         </button>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws delegateRunInfo"
+            class="StyledProps--font StyledProps--main delegateRunInfo"
           >
             Run the following commands (ensure you have kubectl installed and credentials to access your Kubernetes Cluster):
           </p>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CodeBlock---codeBlock--10b_ StyledProps---padding-xsmall---5eB StyledProps---background-grey100--2FyT StyledProps---margin-none--38Ak StyledProps---flex--2Jz8"
+            class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
           >
             <pre>
               kubectl apply -f harness-delegate.yaml
             </pre>
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-duplicate StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-duplicate StyledProps--main"
                 icon="duplicate"
               >
                 <svg

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, FormInput, Button, Color } from '@wings-software/uikit'
+import { Layout, FormInput, Button, Color } from '@wings-software/uicore'
 import css from './InputDescOptional.module.scss'
 
 interface InputDescOptionalProps {

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { omit, without } from 'lodash-es'
-import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
+import { Layout, Text, Color, Container, Button } from '@wings-software/uicore'
 
 import {
   useGetSecretV2,

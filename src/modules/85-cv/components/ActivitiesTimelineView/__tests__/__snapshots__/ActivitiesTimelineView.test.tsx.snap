@@ -3,7 +3,7 @@
 exports[`ActivitiesTimelineView ActivitiesFlagBorder matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws activities-timeline-flag-border"
+    class="StyledProps--font StyledProps--main activities-timeline-flag-border"
   />
 </div>
 `;
@@ -11,16 +11,16 @@ exports[`ActivitiesTimelineView ActivitiesFlagBorder matches snapshot 1`] = `
 exports[`ActivitiesTimelineView matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws timelineHeader"
+      class="StyledProps--font StyledProps--main timelineHeader"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws headerSideContent"
+        class="StyledProps--font StyledProps--main headerSideContent"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
         >
           Activity Timeline
         </p>
@@ -29,10 +29,10 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
         class="headerBar"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws headerPrimaryMsg"
+          class="StyledProps--font StyledProps--main headerPrimaryMsg"
         />
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws headerSecondaryMsg"
+          class="StyledProps--font StyledProps--main headerSecondaryMsg"
         />
       </div>
     </div>
@@ -44,15 +44,15 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
         style="height: 50px;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws nameWrapper"
+          class="StyledProps--font StyledProps--main nameWrapper"
           style="width: 215px;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws timelineViewLabel StyledProps---padding-medium--3Ish StyledProps---background-grey200--jF1S"
+            class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
             style="width: 185px;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 fill="none"
@@ -87,7 +87,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
             >
               Deployments
             </p>
@@ -97,11 +97,11 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
           class="rowItems rowItems"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+            class="StyledProps--font StyledProps--main rowItem"
             style="left: 0%; right: 87.5%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws eventBatch"
+              class="StyledProps--font StyledProps--main eventBatch"
             >
               <span
                 class="bp3-popover-wrapper"
@@ -110,7 +110,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws itemsGroup"
+                    class="StyledProps--font StyledProps--main itemsGroup"
                     tabindex="0"
                   >
                     <svg
@@ -149,7 +149,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                 </span>
               </span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-xsmall"
                 style="--text-line-clamp: 1; width: 70px;"
               >
                 2 Events
@@ -157,11 +157,11 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+            class="StyledProps--font StyledProps--main rowItem"
             style="left: 50%; right: 29.166666666666668%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws eventBatch"
+              class="StyledProps--font StyledProps--main eventBatch"
             >
               <span
                 class="bp3-popover-wrapper"
@@ -170,7 +170,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws itemsGroup"
+                    class="StyledProps--font StyledProps--main itemsGroup"
                     tabindex="0"
                   >
                     <svg
@@ -225,7 +225,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                 </span>
               </span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-xsmall"
                 style="--text-line-clamp: 1; width: 70px;"
               >
                 3 Events
@@ -239,15 +239,15 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
         style="height: 50px;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws nameWrapper"
+          class="StyledProps--font StyledProps--main nameWrapper"
           style="width: 215px;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws timelineViewLabel StyledProps---padding-medium--3Ish StyledProps---background-grey200--jF1S"
+            class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
             style="width: 185px;"
           >
             <span
-              class="bp3-icon bp3-icon-wrench StyledProps---main--1Wws StyledProps---intent-success--hn02"
+              class="bp3-icon bp3-icon-wrench StyledProps--main StyledProps--intent-success"
               icon="wrench"
             >
               <svg
@@ -266,7 +266,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
             >
               Config Changes
             </p>
@@ -281,15 +281,15 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
         style="height: 50px;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws nameWrapper"
+          class="StyledProps--font StyledProps--main nameWrapper"
           style="width: 215px;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws timelineViewLabel StyledProps---padding-medium--3Ish StyledProps---background-grey200--jF1S"
+            class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
             style="width: 185px;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 height="17"
@@ -309,7 +309,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
             >
               Infrastructure Changes
             </p>
@@ -324,15 +324,15 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
         style="height: 50px;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws nameWrapper"
+          class="StyledProps--font StyledProps--main nameWrapper"
           style="width: 215px;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws timelineViewLabel StyledProps---padding-medium--3Ish StyledProps---background-grey200--jF1S"
+            class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
             style="width: 185px;"
           >
             <span
-              class="bp3-icon bp3-icon-wrench StyledProps---main--1Wws StyledProps---intent-success--hn02"
+              class="bp3-icon bp3-icon-wrench StyledProps--main StyledProps--intent-success"
               icon="wrench"
             >
               <svg
@@ -351,7 +351,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
             >
               Other Changes
             </p>

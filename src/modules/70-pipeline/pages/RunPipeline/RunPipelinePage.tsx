@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'

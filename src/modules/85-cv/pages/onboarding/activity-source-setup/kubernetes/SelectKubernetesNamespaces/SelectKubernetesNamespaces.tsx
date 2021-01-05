@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Color, Container, Heading, Text } from '@wings-software/uikit'
+import { Color, Container, Heading, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { NoDataCard } from '@common/components/Page/NoDataCard'

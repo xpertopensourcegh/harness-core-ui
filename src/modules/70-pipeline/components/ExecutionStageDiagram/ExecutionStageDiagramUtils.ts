@@ -1,6 +1,6 @@
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Color, IconName } from '@wings-software/uikit'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { Color, IconName } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import {
   ExecutionPipelineItemStatus,
   ExecutionPipeline,

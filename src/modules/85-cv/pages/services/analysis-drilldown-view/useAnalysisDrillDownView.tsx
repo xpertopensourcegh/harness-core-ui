@@ -1,5 +1,5 @@
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { Color, Layout, useModalHook, Text, Container } from '@wings-software/uikit'
+import { Color, Layout, useModalHook, Text, Container } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import { isNumber, omit } from 'lodash-es'
 import moment from 'moment'

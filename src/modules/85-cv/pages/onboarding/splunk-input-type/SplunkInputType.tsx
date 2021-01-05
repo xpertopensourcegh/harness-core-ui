@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, HarnessIcons, Color, Icon, Button } from '@wings-software/uikit'
+import { Container, Text, HarnessIcons, Color, Icon, Button } from '@wings-software/uicore'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'

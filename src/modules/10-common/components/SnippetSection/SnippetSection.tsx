@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, IconName } from '@wings-software/uikit'
+import { Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'

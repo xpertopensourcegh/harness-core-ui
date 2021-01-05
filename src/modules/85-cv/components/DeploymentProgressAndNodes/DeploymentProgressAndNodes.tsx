@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Container, Text } from '@wings-software/uikit'
+import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'

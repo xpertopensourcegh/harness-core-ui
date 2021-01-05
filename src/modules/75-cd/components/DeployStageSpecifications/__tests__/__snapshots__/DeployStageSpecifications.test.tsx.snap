@@ -53,13 +53,13 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Add Variable 
           </button>
         </div>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <div
             class="bp3-dialog-body"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
@@ -111,7 +111,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Add Variable 
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -132,7 +132,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Add Variable 
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -163,7 +163,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Add Variable 
             class="bp3-dialog-footer"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -174,7 +174,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Add Variable 
             </button>
                
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -194,16 +194,16 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Add Variable 
 exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
         class="stageSection"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws tabHeading"
+          class="Layout--vertical StyledProps--main tabHeading"
         >
           Stage Details
         </div>
@@ -211,36 +211,36 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
           class="stageCreate stageDetails"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+            class="StyledProps--font StyledProps--main StyledProps--padding-medium"
           >
             <div
-              class="OverlaySpinner---overlaySpinner--3Bs3"
+              class="OverlaySpinner--overlaySpinner"
             >
               <form
-                class="FormikForm---main--1N87"
+                class="FormikForm--main"
               >
                 <div>
                   <div
                     class="inputContainer sideDescription"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="true"
                         />
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
                           style="vertical-align: middle;"
                         >
@@ -292,11 +292,11 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                        class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
                         icon="plus"
                       >
                         <svg
@@ -325,7 +325,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                     class="labelBold"
                   >
                     <label
-                      class="Label---main--bHPE"
+                      class="Label--main"
                     >
                       What would you like to deploy?
                     </label>
@@ -340,14 +340,14 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+                            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
                             tabindex="0"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -363,7 +363,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Service
                           </p>
@@ -375,13 +375,13 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-elevation-0 Card---card--2BXa Card---disabled--3k-C"
+                            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -397,7 +397,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Multiple Service
                           </p>
@@ -409,13 +409,13 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-elevation-0 Card---card--2BXa Card---disabled--3k-C"
+                            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -431,7 +431,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Functions
                           </p>
@@ -443,13 +443,13 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-elevation-0 Card---card--2BXa Card---disabled--3k-C"
+                            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -465,7 +465,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Other Workloads
                           </p>
@@ -483,7 +483,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
         class="stageSection"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws tabHeading"
+          class="Layout--vertical StyledProps--main tabHeading"
         >
           Variable
         </div>
@@ -491,14 +491,14 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
           class="stageCreate stageDetails"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws addVariable StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addVariable StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -570,13 +570,13 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Variables Lis
           </button>
         </div>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <div
             class="bp3-dialog-body"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
@@ -628,7 +628,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Variables Lis
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -649,7 +649,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Variables Lis
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -680,7 +680,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Variables Lis
             class="bp3-dialog-footer"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -691,7 +691,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Variables Lis
             </button>
                
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -711,16 +711,16 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Variables Lis
 exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <div
         class="stageSection"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws tabHeading"
+          class="Layout--vertical StyledProps--main tabHeading"
         >
           Stage Details
         </div>
@@ -728,36 +728,36 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           class="stageCreate stageDetails"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+            class="StyledProps--font StyledProps--main StyledProps--padding-medium"
           >
             <div
-              class="OverlaySpinner---overlaySpinner--3Bs3"
+              class="OverlaySpinner--overlaySpinner"
             >
               <form
-                class="FormikForm---main--1N87"
+                class="FormikForm--main"
               >
                 <div>
                   <div
                     class="inputContainer sideDescription"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="true"
                         />
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
                           style="vertical-align: middle;"
                         >
@@ -809,11 +809,11 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                        class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
                         icon="plus"
                       >
                         <svg
@@ -842,7 +842,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     class="labelBold"
                   >
                     <label
-                      class="Label---main--bHPE"
+                      class="Label--main"
                     >
                       What would you like to deploy?
                     </label>
@@ -857,14 +857,14 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+                            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
                             tabindex="0"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -880,7 +880,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Service
                           </p>
@@ -892,13 +892,13 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-elevation-0 Card---card--2BXa Card---disabled--3k-C"
+                            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -914,7 +914,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Multiple Service
                           </p>
@@ -926,13 +926,13 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-elevation-0 Card---card--2BXa Card---disabled--3k-C"
+                            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -948,7 +948,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Functions
                           </p>
@@ -960,13 +960,13 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       >
                         <span>
                           <div
-                            class="bp3-card bp3-elevation-0 Card---card--2BXa Card---disabled--3k-C"
+                            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
                           >
                             <div
-                              class="Card---cardIcon--2uSw"
+                              class="Card--cardIcon"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws"
+                                class="bp3-icon StyledProps--main"
                               >
                                 <svg
                                   height="25"
@@ -982,7 +982,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             </div>
                           </div>
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-align-center--22lb"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
                           >
                             Other Workloads
                           </p>
@@ -1000,7 +1000,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
         class="stageSection"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws tabHeading"
+          class="Layout--vertical StyledProps--main tabHeading"
         >
           Variable
         </div>
@@ -1008,14 +1008,14 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           class="stageCreate stageDetails"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws addVariable StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addVariable StyledProps--intent-primary"
                   type="button"
                 >
                   <span

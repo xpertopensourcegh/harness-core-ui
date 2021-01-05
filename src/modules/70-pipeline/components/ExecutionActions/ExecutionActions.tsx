@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Popover, ButtonProps } from '@wings-software/uikit'
+import { Button, Popover, ButtonProps } from '@wings-software/uicore'
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { Link, useHistory } from 'react-router-dom'
 

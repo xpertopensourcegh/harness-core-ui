@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uikit'
+import { Text, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, PopoverInteractionKind, Intent } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'

@@ -3,37 +3,37 @@
 exports[`Git Sync - entity tab rendering landing view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws bodyContainer"
+    class="Layout--horizontal StyledProps--main bodyContainer"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws productMenu StyledProps---padding-top-small--1-XA StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-xsmall--iU1g StyledProps---padding-left-xlarge--3m2O"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main productMenu StyledProps--padding-top-small StyledProps--padding-right-xlarge StyledProps--padding-bottom-xsmall StyledProps--padding-left-xlarge"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-medium--1Ojn StyledProps---margin-bottom-xlarge--mILw StyledProps---margin-left-medium--2jOL StyledProps---color--8PuS StyledProps---color-dark600--5FCU"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-medium StyledProps--margin-right-medium StyledProps--margin-bottom-xlarge StyledProps--margin-left-medium StyledProps--color StyledProps--color-dark600"
       >
         ENTITIES BY PRODUCTS
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws activeTag tags StyledProps---margin-small--1ZqR StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main activeTag tags StyledProps--margin-small StyledProps--font-size-small"
       >
         CONTINUOUS DEPLOYMENT
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws tags StyledProps---margin-small--1ZqR StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main tags StyledProps--margin-small StyledProps--font-size-small"
       >
         CONTINUOUS INTEGRATION
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws tags StyledProps---margin-small--1ZqR StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main tags StyledProps--margin-small StyledProps--font-size-small"
       >
         CORE ENTITIES
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws productListing StyledProps---padding-small--3f0A"
+      class="StyledProps--font StyledProps--main productListing StyledProps--padding-small"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       />
     </div>
   </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // import cx from 'classnames'
-import { Card, Icon } from '@wings-software/uikit'
+import { Card, Icon } from '@wings-software/uicore'
 // import * as BP from '@blueprintjs/core'
 import { Link, useParams } from 'react-router-dom'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { CollapseList, CollapseListPanel, IconName, Text, Color, Link, Icon } from '@wings-software/uikit'
+import { CollapseList, CollapseListPanel, IconName, Text, Color, Link, Icon } from '@wings-software/uicore'
 import type { IProps } from '@blueprintjs/core'
 import stageArtifactsMock from './__test__/artifacts-mock.json'
 import css from './ArtifactsComponent.module.scss'

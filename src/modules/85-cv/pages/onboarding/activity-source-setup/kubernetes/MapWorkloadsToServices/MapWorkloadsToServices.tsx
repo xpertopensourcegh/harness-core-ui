@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Color, Container, Heading, SelectOption, Text } from '@wings-software/uikit'
+import { Color, Container, Heading, SelectOption, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'

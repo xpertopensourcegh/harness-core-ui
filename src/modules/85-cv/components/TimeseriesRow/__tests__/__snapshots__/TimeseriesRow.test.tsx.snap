@@ -3,28 +3,28 @@
 exports[`TimeseriesRow matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws timeseriesRow"
+    class="StyledProps--font StyledProps--main timeseriesRow"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws labels"
+      class="StyledProps--font StyledProps--main labels"
     >
       <div>
         <div>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
             style="--text-line-clamp: 1; width: 130px;"
           >
             transaction1
           </p>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
             style="--text-line-clamp: 1; width: 130px;"
           >
             metric1
           </p>
         </div>
         <span
-          class="bp3-icon bp3-icon-star-empty StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey250--3J-D"
+          class="bp3-icon bp3-icon-star-empty StyledProps--main StyledProps--color StyledProps--color-grey250"
           icon="star-empty"
         >
           <svg
@@ -45,18 +45,18 @@ exports[`TimeseriesRow matches snapshot 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws charts"
+      class="StyledProps--font StyledProps--main charts"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         node1
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws chartRow"
+        class="StyledProps--font StyledProps--main chartRow"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws chartContainer"
+          class="StyledProps--font StyledProps--main chartContainer"
         >
           <div />
         </div>
@@ -67,7 +67,7 @@ exports[`TimeseriesRow matches snapshot 1`] = `
             class="bp3-popover-target"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws verticalMoreIcon StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+              class="bp3-icon StyledProps--main verticalMoreIcon StyledProps--color StyledProps--color-grey350"
             >
               <svg
                 height="16"
@@ -94,28 +94,28 @@ exports[`TimeseriesRow matches snapshot 1`] = `
 exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws timeseriesRow"
+    class="StyledProps--font StyledProps--main timeseriesRow"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws labels"
+      class="StyledProps--font StyledProps--main labels"
     >
       <div>
         <div>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
             style="--text-line-clamp: 1; width: 130px;"
           >
             transaction1
           </p>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
             style="--text-line-clamp: 1; width: 130px;"
           >
             metric1
           </p>
         </div>
         <span
-          class="bp3-icon bp3-icon-star-empty StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey250--3J-D"
+          class="bp3-icon bp3-icon-star-empty StyledProps--main StyledProps--color StyledProps--color-grey250"
           icon="star-empty"
         >
           <svg
@@ -136,18 +136,18 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws charts"
+      class="StyledProps--font StyledProps--main charts"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         node1
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws chartRow"
+        class="StyledProps--font StyledProps--main chartRow"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws chartContainer"
+          class="StyledProps--font StyledProps--main chartContainer"
         >
           <div />
         </div>
@@ -158,7 +158,7 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
             class="bp3-popover-target"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws verticalMoreIcon StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+              class="bp3-icon StyledProps--main verticalMoreIcon StyledProps--color StyledProps--color-grey350"
             >
               <svg
                 height="16"

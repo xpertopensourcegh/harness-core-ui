@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, MultiTextInput } from '@wings-software/uikit'
+import { Button, MultiTextInput } from '@wings-software/uicore'
 import {
   FormGroup,
   HTMLInputProps,

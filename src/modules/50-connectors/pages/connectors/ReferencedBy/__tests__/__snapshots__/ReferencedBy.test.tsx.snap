@@ -3,14 +3,14 @@
 exports[`Referenced By render for data 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9 StyledProps---border--uz_- StyledProps---border-bottom--6lR5 StyledProps---border-color-grey300--3jwf StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--border StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--flex StyledProps--flex-distribution-space-between"
       style="height: 72px;"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-dark600--5FCU"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-dark600"
       >
         Referenced by
       </p>
@@ -31,7 +31,7 @@ exports[`Referenced By render for data 1`] = `
         >
           ENTITY
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -59,7 +59,7 @@ exports[`Referenced By render for data 1`] = `
         >
            LAST ACTIVITY
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -89,13 +89,13 @@ exports[`Referenced By render for data 1`] = `
           style="width: 33%;"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws secretIconCss"
+                class="bp3-icon StyledProps--main secretIconCss"
               >
                 <svg
                   height="16"
@@ -116,13 +116,13 @@ exports[`Referenced By render for data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-left-small--ODrE"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
               >
                 Sample Secret
               </p>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6 StyledProps---padding-left-xxlarge--1LeG StyledProps---margin-left-xsmall--m7Ss"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
             >
               (
               Secret
@@ -136,7 +136,7 @@ exports[`Referenced By render for data 1`] = `
           style="width: 66%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             dummy date
           </div>
@@ -152,13 +152,13 @@ exports[`Referenced By render for data 1`] = `
           style="width: 33%;"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws secretIconCss"
+                class="bp3-icon StyledProps--main secretIconCss"
               >
                 <svg
                   height="16"
@@ -173,13 +173,13 @@ exports[`Referenced By render for data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-left-small--ODrE"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
               >
                 Sample pipeline
               </p>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6 StyledProps---padding-left-xxlarge--1LeG StyledProps---margin-left-xsmall--m7Ss"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
             >
               (
               Pipeline
@@ -193,7 +193,7 @@ exports[`Referenced By render for data 1`] = `
           style="width: 66%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             dummy date
           </div>
@@ -209,13 +209,13 @@ exports[`Referenced By render for data 1`] = `
           style="width: 33%;"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws secretIconCss"
+                class="bp3-icon StyledProps--main secretIconCss"
               >
                 <svg
                   height="16"
@@ -229,13 +229,13 @@ exports[`Referenced By render for data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-left-small--ODrE"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
               >
                 Sample project
               </p>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6 StyledProps---padding-left-xxlarge--1LeG StyledProps---margin-left-xsmall--m7Ss"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
             >
               (
               Project
@@ -249,17 +249,17 @@ exports[`Referenced By render for data 1`] = `
           style="width: 66%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             dummy date
           </div>
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>
@@ -279,28 +279,28 @@ exports[`Referenced By render for data 1`] = `
 exports[`Referenced By render for no data 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9 StyledProps---border--uz_- StyledProps---border-bottom--6lR5 StyledProps---border-color-grey300--3jwf StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--border StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--flex StyledProps--flex-distribution-space-between"
       style="height: 72px;"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-dark600--5FCU"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-dark600"
       >
         Referenced by
       </p>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
       style="width: 100%; height: 100%;"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         style="align-items: center; margin-top: -48px; width: 470px;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
         >
           <svg
             height="48"
@@ -352,7 +352,7 @@ exports[`Referenced By render for no data 1`] = `
           </svg>
         </span>
         <h2
-          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
           level="2"
         >
           There are no references of this Connector.

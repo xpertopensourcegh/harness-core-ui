@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router'
-import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uikit'
+import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uicore'
 import {
   useGetTestConnectionResult,
   ResponseConnectorValidationResult,

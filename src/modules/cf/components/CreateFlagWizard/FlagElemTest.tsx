@@ -11,7 +11,7 @@ import {
   CardSelect,
   CardBody,
   CodeBlock
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { IconName } from '@blueprintjs/core'
 import cx from 'classnames'

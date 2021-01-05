@@ -23,7 +23,7 @@ exports[`<MultiTypeDuration /> tests Should render properly 1`] = `
           style="display: flex; align-items: center;"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
             style="flex-grow: 1;"
           >
             <div
@@ -44,10 +44,10 @@ exports[`<MultiTypeDuration /> tests Should render properly 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                   >
                     <svg
                       height="12"

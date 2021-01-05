@@ -12,7 +12,7 @@ import {
   Button,
   Container,
   ModalErrorHandler
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { FieldArray } from 'formik'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'

@@ -3,14 +3,14 @@
 exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws container StyledProps---padding-small--3f0A"
+    class="StyledProps--font StyledProps--main container StyledProps--padding-small"
   >
     <button
-      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws closeModal"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main closeModal"
       type="button"
     >
       <span
-        class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+        class="bp3-icon bp3-icon-cross StyledProps--main"
         icon="cross"
       >
         <svg
@@ -30,39 +30,39 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
       </span>
     </button>
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws heading"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main heading"
       level="2"
     >
       Edit Pipeline
     </h2>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws layout StyledProps---padding-xsmall---5eB"
+      class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
     >
       <div>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
                 class="formInput"
               >
                 <div
-                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                  class="InputWithIdentifier--txtNameContainer"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                    class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     >
                       ID
                       :
                     </p>
                     <span
-                      class="InputWithIdentifier---idInput--w8_T"
+                      class="InputWithIdentifier--idInput"
                       contenteditable="false"
                       disabled=""
                     >
@@ -105,16 +105,16 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                   class="collapseDiv"
                 >
                   <div
-                    class="Collapse---main--34Is"
+                    class="Collapse--main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                       >
                         <span
-                          class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                           icon="small-minus"
                         >
                           <svg
@@ -133,17 +133,17 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                          class="StyledProps--font StyledProps--main CollapseHeader--title"
                         >
                           Description
                         </p>
                       </div>
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       />
                     </div>
                     <div
-                      class="Collapse---collapse--2EmT"
+                      class="Collapse--collapse"
                     >
                       <div
                         class="bp3-collapse collapse"
@@ -179,16 +179,16 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                   class="collapseDiv"
                 >
                   <div
-                    class="Collapse---main--34Is"
+                    class="Collapse--main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                       >
                         <span
-                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                           icon="small-plus"
                         >
                           <svg
@@ -207,17 +207,17 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                          class="StyledProps--font StyledProps--main CollapseHeader--title"
                         >
                           Tags
                         </p>
                       </div>
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       />
                     </div>
                     <div
-                      class="Collapse---collapse--2EmT"
+                      class="Collapse--collapse"
                     >
                       <div
                         class="bp3-collapse collapse"
@@ -233,7 +233,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws startBtn StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main startBtn StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -247,13 +247,13 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws Carousel---carousel--3dxG StyledProps---padding-small--3f0A"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main Carousel--carousel StyledProps--padding-small"
       >
         <div
-          class="Carousel---carouselView--pEe9"
+          class="Carousel--carouselView"
         >
           <div
-            class="Carousel---carouselItem--qOMj Carousel---active--2qbV"
+            class="Carousel--carouselItem Carousel--active"
           >
             <div
               class="helpImages"
@@ -263,12 +263,12 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
               />
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---padding-bottom-small--2Hba"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--padding-bottom-small"
                 >
                   Pipeline Concepts
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   A pipeline allows you to automate your continuous deployment processes that includes deployment, testing, provisioning, approvals, verifications and rollout
                 </p>
@@ -276,7 +276,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
             </div>
           </div>
           <div
-            class="Carousel---carouselItem--qOMj Carousel---carouselItemNext--1WM6"
+            class="Carousel--carouselItem Carousel--carouselItemNext"
           >
             <div
               class="helpImages"
@@ -286,12 +286,12 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
               />
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---padding-bottom-small--2Hba"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--padding-bottom-small"
                 >
                   Pipeline Concepts
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   A pipeline allows you to automate your continuous deployment processes that includes deployment, testing, provisioning, approvals, verifications and rollout
                 </p>
@@ -299,7 +299,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
             </div>
           </div>
           <div
-            class="Carousel---carouselItem--qOMj"
+            class="Carousel--carouselItem"
           >
             <div
               class="helpImages"
@@ -309,12 +309,12 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
               />
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---padding-bottom-small--2Hba"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--padding-bottom-small"
                 >
                   Pipeline Concepts
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   A pipeline allows you to automate your continuous deployment processes that includes deployment, testing, provisioning, approvals, verifications and rollout
                 </p>
@@ -322,11 +322,11 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
             </div>
           </div>
           <div
-            class="Carousel---carouselRight--GJqy"
+            class="Carousel--carouselRight"
           >
             <div>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 <svg
                   height="20"
@@ -343,16 +343,16 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
           </div>
         </div>
         <div
-          class="Carousel---carouselIndicators--193j"
+          class="Carousel--carouselIndicators"
         >
           <span
-            class="Carousel---indicator--3TpP Carousel---active--2qbV"
+            class="Carousel--indicator Carousel--active"
           />
           <span
-            class="Carousel---indicator--3TpP"
+            class="Carousel--indicator"
           />
           <span
-            class="Carousel---indicator--3TpP"
+            class="Carousel--indicator"
           />
         </div>
       </div>
@@ -364,14 +364,14 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
 exports[`PipelineCreate test initializes ok new pipeline 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws container StyledProps---padding-small--3f0A"
+    class="StyledProps--font StyledProps--main container StyledProps--padding-small"
   >
     <button
-      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws closeModal"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main closeModal"
       type="button"
     >
       <span
-        class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+        class="bp3-icon bp3-icon-cross StyledProps--main"
         icon="cross"
       >
         <svg
@@ -391,48 +391,48 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
       </span>
     </button>
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws heading"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main heading"
       level="2"
     >
       Welcome to the Pipeline Studio
     </h2>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws layout StyledProps---padding-xsmall---5eB"
+      class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
     >
       <div>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws helpText"
+          class="StyledProps--font StyledProps--main helpText"
         >
           Let’s get you started by giving your pipeline a name
         </p>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
                 class="formInput"
               >
                 <div
-                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                  class="InputWithIdentifier--txtNameContainer"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                    class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     >
                       ID
                       :
                     </p>
                     <span
-                      class="InputWithIdentifier---idInput--w8_T"
+                      class="InputWithIdentifier--idInput"
                       contenteditable="true"
                     />
                     <span
-                      class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-edit StyledProps--main"
                       icon="edit"
                       style="vertical-align: middle;"
                     >
@@ -488,16 +488,16 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                   class="collapseDiv"
                 >
                   <div
-                    class="Collapse---main--34Is"
+                    class="Collapse--main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                       >
                         <span
-                          class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                           icon="small-minus"
                         >
                           <svg
@@ -516,17 +516,17 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                          class="StyledProps--font StyledProps--main CollapseHeader--title"
                         >
                           Description
                         </p>
                       </div>
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       />
                     </div>
                     <div
-                      class="Collapse---collapse--2EmT"
+                      class="Collapse--collapse"
                     >
                       <div
                         class="bp3-collapse collapse"
@@ -562,16 +562,16 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                   class="collapseDiv"
                 >
                   <div
-                    class="Collapse---main--34Is"
+                    class="Collapse--main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                       >
                         <span
-                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                           icon="small-plus"
                         >
                           <svg
@@ -590,17 +590,17 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                          class="StyledProps--font StyledProps--main CollapseHeader--title"
                         >
                           Tags
                         </p>
                       </div>
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       />
                     </div>
                     <div
-                      class="Collapse---collapse--2EmT"
+                      class="Collapse--collapse"
                     >
                       <div
                         class="bp3-collapse collapse"
@@ -616,7 +616,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws startBtn StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main startBtn StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -630,13 +630,13 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws Carousel---carousel--3dxG StyledProps---padding-small--3f0A"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main Carousel--carousel StyledProps--padding-small"
       >
         <div
-          class="Carousel---carouselView--pEe9"
+          class="Carousel--carouselView"
         >
           <div
-            class="Carousel---carouselItem--qOMj Carousel---active--2qbV"
+            class="Carousel--carouselItem Carousel--active"
           >
             <div
               class="helpImages"
@@ -646,12 +646,12 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
               />
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---padding-bottom-small--2Hba"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--padding-bottom-small"
                 >
                   Pipeline Concepts
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   A pipeline allows you to automate your continuous deployment processes that includes deployment, testing, provisioning, approvals, verifications and rollout
                 </p>
@@ -659,7 +659,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
             </div>
           </div>
           <div
-            class="Carousel---carouselItem--qOMj Carousel---carouselItemNext--1WM6"
+            class="Carousel--carouselItem Carousel--carouselItemNext"
           >
             <div
               class="helpImages"
@@ -669,12 +669,12 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
               />
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---padding-bottom-small--2Hba"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--padding-bottom-small"
                 >
                   Pipeline Concepts
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   A pipeline allows you to automate your continuous deployment processes that includes deployment, testing, provisioning, approvals, verifications and rollout
                 </p>
@@ -682,7 +682,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
             </div>
           </div>
           <div
-            class="Carousel---carouselItem--qOMj"
+            class="Carousel--carouselItem"
           >
             <div
               class="helpImages"
@@ -692,12 +692,12 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
               />
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---padding-bottom-small--2Hba"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--padding-bottom-small"
                 >
                   Pipeline Concepts
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   A pipeline allows you to automate your continuous deployment processes that includes deployment, testing, provisioning, approvals, verifications and rollout
                 </p>
@@ -705,11 +705,11 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
             </div>
           </div>
           <div
-            class="Carousel---carouselRight--GJqy"
+            class="Carousel--carouselRight"
           >
             <div>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 <svg
                   height="20"
@@ -726,16 +726,16 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
           </div>
         </div>
         <div
-          class="Carousel---carouselIndicators--193j"
+          class="Carousel--carouselIndicators"
         >
           <span
-            class="Carousel---indicator--3TpP Carousel---active--2qbV"
+            class="Carousel--indicator Carousel--active"
           />
           <span
-            class="Carousel---indicator--3TpP"
+            class="Carousel--indicator"
           />
           <span
-            class="Carousel---indicator--3TpP"
+            class="Carousel--indicator"
           />
         </div>
       </div>

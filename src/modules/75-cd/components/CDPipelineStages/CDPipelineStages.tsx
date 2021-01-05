@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { PipelineStages, PipelineStagesProps } from '@pipeline/exports'
 import type { StagesMap } from '@pipeline/exports'
 import { BuildStage } from '@cd/components/CDPipelineStages/stages/BuildStage/BuildStage'

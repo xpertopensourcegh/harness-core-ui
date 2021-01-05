@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Text, Button, Color } from '@wings-software/uikit'
+import { Container, Text, Button, Color } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
 import classnames from 'classnames'
 import moment from 'moment'

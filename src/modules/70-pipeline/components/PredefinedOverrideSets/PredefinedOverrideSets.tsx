@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, SelectOption } from '@wings-software/uikit'
+import { Layout, Text, SelectOption } from '@wings-software/uicore'
 import { isArray } from 'lodash-es'
 import { PipelineContext } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'

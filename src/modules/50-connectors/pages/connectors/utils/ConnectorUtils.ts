@@ -1,5 +1,5 @@
 import { pick } from 'lodash-es'
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { Connectors, EntityTypes } from '@connectors/constants'
 import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'

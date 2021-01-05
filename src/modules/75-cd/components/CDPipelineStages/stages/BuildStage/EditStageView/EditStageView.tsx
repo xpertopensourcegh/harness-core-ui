@@ -9,7 +9,7 @@ import {
   Button,
   Switch,
   TextInput
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import cx from 'classnames'
 import type { IconName } from '@blueprintjs/core'
 import { NavLink as Link, NavLinkProps } from 'react-router-dom'
-import { Text, Layout, Color } from '@wings-software/uikit'
+import { Text, Layout, Color } from '@wings-software/uicore'
 import css from './SideNav.module.scss'
 
 export interface SideNavProps {

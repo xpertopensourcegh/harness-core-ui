@@ -1,4 +1,4 @@
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { WebhookTriggerConfigPanelPropsInterface } from '../views/WebhookTriggerConfigPanel'
 export const triggerConfigInitialValues = { identifier: '', sourceRepo: 'GITHUB', triggerType: 'Webhook' }
 // export const triggerConfigInitialValues = { identifier: '', sourceRepo: 'GITHUB', triggerType: 'Webhook' }

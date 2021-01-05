@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from '@wings-software/uikit'
+import { Card, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { PipelineStageProps } from '../PipelineStage'
 import i18n from './AddStageView.i18n'

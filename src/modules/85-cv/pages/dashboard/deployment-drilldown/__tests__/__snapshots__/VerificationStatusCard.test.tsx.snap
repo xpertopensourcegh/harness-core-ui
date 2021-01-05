@@ -3,7 +3,7 @@
 exports[`VerificationStatusCard matches snapshot when status = IN_PROGRESS 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws verificationStatusCard StyledProps---color--8PuS StyledProps---color-blue500--3HtV StyledProps---background-blue350--3dV3"
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-blue500 StyledProps--background-blue350"
   >
     in progress
   </div>
@@ -13,7 +13,7 @@ exports[`VerificationStatusCard matches snapshot when status = IN_PROGRESS 1`] =
 exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_FAILED 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws verificationStatusCard StyledProps---color--8PuS StyledProps---color-red500--uX9L StyledProps---background-red350--35my"
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-red500 StyledProps--background-red350"
   >
     failed
   </div>
@@ -23,7 +23,7 @@ exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_FAIL
 exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_PASSED 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws verificationStatusCard StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---background-green350--22lD"
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green500 StyledProps--background-green350"
   >
     passed
   </div>

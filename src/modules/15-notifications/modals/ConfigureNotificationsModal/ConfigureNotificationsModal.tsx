@@ -1,5 +1,5 @@
 import React from 'react'
-import { useModalHook, Button } from '@wings-software/uikit'
+import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
 import {

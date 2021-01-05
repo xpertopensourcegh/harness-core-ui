@@ -3,10 +3,10 @@
 exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws productListing StyledProps---padding-small--3f0A"
+    class="StyledProps--font StyledProps--main productListing StyledProps--padding-small"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     />
   </div>
 </div>
@@ -15,7 +15,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
 exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
 <div>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-xxxlarge--14m_"
+    class="StyledProps--font StyledProps--main StyledProps--margin-left-xxxlarge"
   >
     PIPELINES (4)
   </p>
@@ -32,10 +32,10 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 25%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+            class="bp3-icon StyledProps--main StyledProps--margin-right-small"
           >
             <svg
               height="20"
@@ -54,13 +54,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
             </svg>
           </span>
           <span
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--font-weight-bold"
             style="--text-line-clamp: 1;"
           >
             My prod pipeline
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---margin-left-xxlarge--1iLS StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--margin-left-xxlarge StyledProps--margin-top-small"
             style="--text-line-clamp: 1;"
           >
             pipelinesIdentifier1
@@ -73,7 +73,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 30%;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+          class="bp3-icon StyledProps--main StyledProps--margin-right-small"
         >
           <svg
             height="20"
@@ -86,13 +86,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
           </svg>
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           wings-software/nextgenui
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           Master
@@ -104,13 +104,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 45%;"
       >
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
           style="--text-line-clamp: 1;"
         >
           rootFolder1/pipelines/pipelinesIdentifier1.yaml
         </span>
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+          class="bp3-icon StyledProps--main StyledProps--margin-left-small"
           style="cursor: pointer;"
         >
           <svg
@@ -144,10 +144,10 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 25%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+            class="bp3-icon StyledProps--main StyledProps--margin-right-small"
           >
             <svg
               height="20"
@@ -166,13 +166,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
             </svg>
           </span>
           <span
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--font-weight-bold"
             style="--text-line-clamp: 1;"
           >
             My prod pipeline
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---margin-left-xxlarge--1iLS StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--margin-left-xxlarge StyledProps--margin-top-small"
             style="--text-line-clamp: 1;"
           >
             pipelineidentifier2
@@ -185,7 +185,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 30%;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+          class="bp3-icon StyledProps--main StyledProps--margin-right-small"
         >
           <svg
             height="20"
@@ -223,13 +223,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
           </svg>
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           wings-software/nextgenui
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           Master
@@ -241,13 +241,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 45%;"
       >
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
           style="--text-line-clamp: 1;"
         >
           rootFolder1/pipelines/pipelineidentifier2.yaml
         </span>
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+          class="bp3-icon StyledProps--main StyledProps--margin-left-small"
           style="cursor: pointer;"
         >
           <svg
@@ -281,10 +281,10 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 25%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+            class="bp3-icon StyledProps--main StyledProps--margin-right-small"
           >
             <svg
               height="20"
@@ -303,11 +303,11 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
             </svg>
           </span>
           <span
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--font-weight-bold"
             style="--text-line-clamp: 1;"
           />
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---margin-left-xxlarge--1iLS StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--margin-left-xxlarge StyledProps--margin-top-small"
             style="--text-line-clamp: 1;"
           >
             connectoridentifier
@@ -320,7 +320,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 30%;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+          class="bp3-icon StyledProps--main StyledProps--margin-right-small"
         >
           <svg
             height="20"
@@ -358,13 +358,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
           </svg>
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           wings-software/nextgenui
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           Master
@@ -376,13 +376,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 45%;"
       >
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
           style="--text-line-clamp: 1;"
         >
           rootFolder1/pipelines/connectoridentifier.yaml
         </span>
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+          class="bp3-icon StyledProps--main StyledProps--margin-left-small"
           style="cursor: pointer;"
         >
           <svg
@@ -416,10 +416,10 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 25%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+            class="bp3-icon StyledProps--main StyledProps--margin-right-small"
           >
             <svg
               height="20"
@@ -438,11 +438,11 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
             </svg>
           </span>
           <span
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--font-weight-bold"
             style="--text-line-clamp: 1;"
           />
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---margin-left-xxlarge--1iLS StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--margin-left-xxlarge StyledProps--margin-top-small"
             style="--text-line-clamp: 1;"
           >
             connectoridentifier
@@ -455,7 +455,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 30%;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-right-small--Uojv"
+          class="bp3-icon StyledProps--main StyledProps--margin-right-small"
         >
           <svg
             height="20"
@@ -469,13 +469,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
           </svg>
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           myProdPipeline
         </span>
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-right-small--2ldZ"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--padding-right-small"
           style="--text-line-clamp: 1;"
         >
           Master
@@ -487,13 +487,13 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         style="width: 45%;"
       >
         <span
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---inline--1f52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
           style="--text-line-clamp: 1;"
         >
           rootFolder1/pipelines/connectoridentifier.yaml
         </span>
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+          class="bp3-icon StyledProps--main StyledProps--margin-left-small"
           style="cursor: pointer;"
         >
           <svg

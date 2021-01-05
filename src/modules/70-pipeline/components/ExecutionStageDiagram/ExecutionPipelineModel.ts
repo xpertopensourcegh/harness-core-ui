@@ -1,4 +1,4 @@
-import type { IconName, SelectOption } from '@wings-software/uikit'
+import type { IconName, SelectOption } from '@wings-software/uicore'
 
 // TODO: should be replaced with type-shape of the box (like: Stage, Step, Approval)
 export enum ExecutionPipelineNodeType {

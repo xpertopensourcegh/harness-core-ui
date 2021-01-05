@@ -1,4 +1,4 @@
-import { Color, Heading, Layout, Container } from '@wings-software/uikit'
+import { Color, Heading, Layout, Container } from '@wings-software/uicore'
 import React from 'react'
 import css from './ExtendedPageHeader.module.scss'
 

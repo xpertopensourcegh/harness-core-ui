@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'

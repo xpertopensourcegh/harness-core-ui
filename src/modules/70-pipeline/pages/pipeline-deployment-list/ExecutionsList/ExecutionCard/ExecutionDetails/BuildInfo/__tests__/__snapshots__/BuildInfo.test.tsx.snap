@@ -10,7 +10,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
         class="greyBox"
       >
         <span
-          class="bp3-icon bp3-icon-git-branch StyledProps---main--1Wws greyBoxIcon StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="bp3-icon bp3-icon-git-branch StyledProps--main greyBoxIcon StyledProps--color StyledProps--color-grey500"
           icon="git-branch"
         >
           <svg
@@ -39,7 +39,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
         class="greyBox"
       >
         <span
-          class="bp3-icon bp3-icon-git-commit StyledProps---main--1Wws greyBoxIcon StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="bp3-icon bp3-icon-git-commit StyledProps--main greyBoxIcon StyledProps--color StyledProps--color-grey500"
           icon="git-commit"
         >
           <svg
@@ -69,7 +69,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
         Latest commit:
       </span>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws ellipsis commitOrPrTitle"
+        class="StyledProps--font StyledProps--main ellipsis commitOrPrTitle"
       >
         Message ...
       </p>
@@ -80,7 +80,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -92,7 +92,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
                 class="moreBox"
               >
                 <span
-                  class="bp3-icon bp3-icon-more StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="bp3-icon bp3-icon-more StyledProps--main StyledProps--color StyledProps--color-grey500"
                   icon="more"
                 >
                   <svg
@@ -116,7 +116,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -125,7 +125,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
           class="bp3-button-text"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
           >
             <svg
               height="14"
@@ -155,7 +155,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
         class="greyBox"
       >
         <span
-          class="bp3-icon bp3-icon-git-branch StyledProps---main--1Wws greyBoxIcon StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="bp3-icon bp3-icon-git-branch StyledProps--main greyBoxIcon StyledProps--color StyledProps--color-grey500"
           icon="git-branch"
         >
           <svg
@@ -184,7 +184,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
         class="greyBox"
       >
         <span
-          class="bp3-icon bp3-icon-git-commit StyledProps---main--1Wws greyBoxIcon StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="bp3-icon bp3-icon-git-commit StyledProps--main greyBoxIcon StyledProps--color StyledProps--color-grey500"
           icon="git-commit"
         >
           <svg
@@ -214,7 +214,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
         Latest commit:
       </span>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws ellipsis commitOrPrTitle"
+        class="StyledProps--font StyledProps--main ellipsis commitOrPrTitle"
       >
         Message ...
       </p>
@@ -225,7 +225,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -237,7 +237,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
                 class="moreBox"
               >
                 <span
-                  class="bp3-icon bp3-icon-more StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="bp3-icon bp3-icon-more StyledProps--main StyledProps--color StyledProps--color-grey500"
                   icon="more"
                 >
                   <svg
@@ -261,7 +261,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -270,7 +270,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
           class="bp3-button-text"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
           >
             <svg
               height="14"
@@ -309,7 +309,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
           class="greyBoxDelimiter"
         />
         <span
-          class="bp3-icon bp3-icon-git-branch StyledProps---main--1Wws greyBoxIcon"
+          class="bp3-icon bp3-icon-git-branch StyledProps--main greyBoxIcon"
           icon="git-branch"
         >
           <svg
@@ -335,7 +335,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         </span>
       </span>
       <span
-        class="bp3-icon bp3-icon-arrow-right StyledProps---main--1Wws sourceTargetArrow"
+        class="bp3-icon bp3-icon-arrow-right StyledProps--main sourceTargetArrow"
         icon="arrow-right"
       >
         <svg
@@ -357,7 +357,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         class="greyBox"
       >
         <span
-          class="bp3-icon bp3-icon-git-branch StyledProps---main--1Wws greyBoxIcon"
+          class="bp3-icon bp3-icon-git-branch StyledProps--main greyBoxIcon"
           icon="git-branch"
         >
           <svg
@@ -387,7 +387,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
       class="gitInfo2"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws ellipsis commitOrPrTitle"
+        class="StyledProps--font StyledProps--main ellipsis commitOrPrTitle"
       >
         Title
       </p>
@@ -398,7 +398,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -410,7 +410,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
                 class="moreBox"
               >
                 <span
-                  class="bp3-icon bp3-icon-more StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="bp3-icon bp3-icon-more StyledProps--main StyledProps--color StyledProps--color-grey500"
                   icon="more"
                 >
                   <svg
@@ -434,7 +434,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
         href="link"
         rel="noreferrer noopener"
         role="button"
@@ -455,7 +455,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         OPEN
       </span>
       <a
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -464,7 +464,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
           class="bp3-button-text"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
           >
             <svg
               height="14"
@@ -503,7 +503,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
           class="greyBoxDelimiter"
         />
         <span
-          class="bp3-icon bp3-icon-git-branch StyledProps---main--1Wws greyBoxIcon"
+          class="bp3-icon bp3-icon-git-branch StyledProps--main greyBoxIcon"
           icon="git-branch"
         >
           <svg
@@ -529,7 +529,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         </span>
       </span>
       <span
-        class="bp3-icon bp3-icon-arrow-right StyledProps---main--1Wws sourceTargetArrow"
+        class="bp3-icon bp3-icon-arrow-right StyledProps--main sourceTargetArrow"
         icon="arrow-right"
       >
         <svg
@@ -551,7 +551,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         class="greyBox"
       >
         <span
-          class="bp3-icon bp3-icon-git-branch StyledProps---main--1Wws greyBoxIcon"
+          class="bp3-icon bp3-icon-git-branch StyledProps--main greyBoxIcon"
           icon="git-branch"
         >
           <svg
@@ -581,7 +581,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
       class="gitInfo2"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws ellipsis commitOrPrTitle"
+        class="StyledProps--font StyledProps--main ellipsis commitOrPrTitle"
       >
         Title
       </p>
@@ -592,7 +592,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -604,7 +604,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
                 class="moreBox"
               >
                 <span
-                  class="bp3-icon bp3-icon-more StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="bp3-icon bp3-icon-more StyledProps--main StyledProps--color StyledProps--color-grey500"
                   icon="more"
                 >
                   <svg
@@ -628,7 +628,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
         href="link"
         rel="noreferrer noopener"
         role="button"
@@ -649,7 +649,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         OPEN
       </span>
       <a
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -658,7 +658,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
           class="bp3-button-text"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
           >
             <svg
               height="14"

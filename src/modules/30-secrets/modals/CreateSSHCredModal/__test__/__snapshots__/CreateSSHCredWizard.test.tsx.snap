@@ -3,16 +3,16 @@
 exports[`Create SSH Cred Wizard should render form 1`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="37"
@@ -57,50 +57,50 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         SSH Credential
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           SSH DETAILS
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           CONFIGURATION
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY CONNECTION
@@ -108,55 +108,55 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--main StyledProps--padding-small"
         style="height: 500px;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xlarge--mILw StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xlarge StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
         >
           SSH Details
         </p>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws formData"
+                class="StyledProps--font StyledProps--main formData"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  class="StyledProps--font StyledProps--main main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      class="StyledProps--font StyledProps--main connectorFormNameElm"
                     >
                       <div
-                        class="InputWithIdentifier---txtNameContainer--20iZ"
+                        class="InputWithIdentifier--txtNameContainer"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            class="StyledProps--font StyledProps--main"
                           >
                             ID
                             :
                           </p>
                           <span
-                            class="InputWithIdentifier---idInput--w8_T"
+                            class="InputWithIdentifier--idInput"
                             contenteditable="true"
                           />
                           <span
-                            class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
                             style="vertical-align: middle;"
                           >
@@ -209,33 +209,33 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                       style="justify-content: center;"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                       >
                         + Description
                       </p>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                       >
                         + Tags
                       </p>
                     </div>
                   </div>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    class="StyledProps--font StyledProps--main connectorFormElm"
                   >
                     
                   </div>
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                class="Layout--horizontal StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -257,16 +257,16 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
 exports[`Create SSH Cred Wizard should render form 2`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="37"
@@ -311,18 +311,18 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         SSH Credential
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -342,37 +342,37 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           SSH DETAILS
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           CONFIGURATION
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY CONNECTION
@@ -380,23 +380,23 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--main StyledProps--padding-small"
         style="min-height: 500px; width: 350px;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xlarge--mILw StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xlarge StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
         >
           Configuration and Authentication
         </p>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
@@ -418,7 +418,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                 >
                   <div>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      class="bp3-control bp3-radio bp3-inline Radio--radio"
                     >
                       <input
                         checked=""
@@ -432,7 +432,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       SSH Key
                     </label>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      class="bp3-control bp3-radio bp3-inline Radio--radio"
                     >
                       <input
                         name="authScheme"
@@ -448,14 +448,14 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-bottom-medium--1zkE"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="flex: 1; display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-lock StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-xsmall"
                     icon="lock"
                   >
                     <svg
@@ -485,7 +485,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       class=""
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---font-small--1qQz"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--inline StyledProps--font-small"
                         type="button"
                       >
                         <span
@@ -494,7 +494,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           Username/SSH Key
                         </span>
                         <span
-                          class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main"
                           icon="chevron-down"
                         >
                           <svg
@@ -557,18 +557,18 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   Select or create a SSH Key File
                 </label>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                   type="button"
                 >
                   <span
                     class="bp3-button-text"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                       style="align-items: center; width: 100%;"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                         style="height: 12px;"
                       >
                         <svg
@@ -606,18 +606,18 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   Passphrase (optional)
                 </label>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                   type="button"
                 >
                   <span
                     class="bp3-button-text"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                       style="align-items: center; width: 100%;"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                         style="height: 12px;"
                       >
                         <svg
@@ -676,10 +676,10 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -689,7 +689,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -711,16 +711,16 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
 exports[`Create SSH Cred Wizard should render form 3`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="37"
@@ -765,18 +765,18 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         SSH Credential
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -796,20 +796,20 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           SSH DETAILS
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -829,22 +829,22 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           CONFIGURATION
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY CONNECTION
@@ -852,27 +852,27 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--main StyledProps--padding-small"
         style="height: 500px;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xlarge--mILw StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xlarge StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
         >
           Verify Connection
         </p>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 300px;"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
@@ -906,12 +906,12 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
                   </div>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold"
                 >
                   THIS URL WILL ONLY BE USED FOR VERIFICATION PROCESS
                 </p>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-top-medium"
                   style="font-size: smaller;"
                   type="submit"
                 >

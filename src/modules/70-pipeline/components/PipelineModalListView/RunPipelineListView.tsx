@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text, Button } from '@wings-software/uikit'
+import { Layout, Color, Text, Button } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'

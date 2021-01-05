@@ -3,16 +3,16 @@
 exports[`Create Docker Connector  Wizard Should render form 1`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
         >
           <svg
             height="37"
@@ -32,50 +32,50 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         Docker Connector
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Docker Registry Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Test Connection
@@ -83,11 +83,11 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
         <div
           class="heading"
@@ -95,49 +95,49 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
           Overview
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                    class="StyledProps--font StyledProps--main main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                      class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                        class="StyledProps--font StyledProps--main connectorFormNameElm"
                       >
                         <div
-                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                          class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               ID
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier---idInput--w8_T"
+                              class="InputWithIdentifier--idInput"
                               contenteditable="true"
                             >
                               dummy_name
                               
                             </span>
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-edit StyledProps--main"
                               icon="edit"
                               style="vertical-align: middle;"
                             >
@@ -190,33 +190,33 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                         style="justify-content: center;"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                         >
                           + Description
                         </p>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                         >
                           + Tags
                         </p>
                       </div>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                      class="StyledProps--font StyledProps--main connectorFormElm"
                     >
                       
                     </div>
                   </div>
                 </div>
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -241,16 +241,16 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
 exports[`Create Docker Connector  Wizard Should render form 2`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
         >
           <svg
             height="37"
@@ -270,18 +270,18 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         Docker Connector
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -301,37 +301,37 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Docker Registry Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Test Connection
@@ -339,27 +339,27 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        class="Layout--vertical StyledProps--main"
         style="height: inherit;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
           Docker Registry Details
         </p>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws secondStep StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
+                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
               >
                 <div
                   class="bp3-form-group"
@@ -392,7 +392,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   </div>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   Provider Type
                 </p>
@@ -405,7 +405,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   >
                     <div>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           checked=""
@@ -419,7 +419,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         DockerHub
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           name="dockerProviderType"
@@ -432,7 +432,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         Harbour
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           name="dockerProviderType"
@@ -445,7 +445,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         Quay
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           name="dockerProviderType"
@@ -461,10 +461,10 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+                  class="StyledProps--font StyledProps--main authHeaderRow"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
                     Authentication
                   </span>
@@ -476,7 +476,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -497,7 +497,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -562,18 +562,18 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                     Password
                   </label>
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                     type="button"
                   >
                     <span
                       class="bp3-button-text"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                         style="align-items: center; width: 100%;"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                           style="height: 12px;"
                         >
                           <svg
@@ -603,7 +603,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -624,16 +624,16 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
 exports[`Create Docker Connector  Wizard Should render form for editing provider type 1`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
         >
           <svg
             height="37"
@@ -653,50 +653,50 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         Docker Connector
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Docker Registry Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Test Connection
@@ -704,11 +704,11 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
         <div
           class="heading"
@@ -716,42 +716,42 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
           Overview
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                    class="StyledProps--font StyledProps--main main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                      class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                        class="StyledProps--font StyledProps--main connectorFormNameElm"
                       >
                         <div
-                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                          class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               ID
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier---idInput--w8_T"
+                              class="InputWithIdentifier--idInput"
                               contenteditable="false"
                               disabled=""
                             >
@@ -791,18 +791,18 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         </div>
                       </div>
                       <div
-                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                         style="justify-content: center;"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                         >
                           + Tags
                         </p>
                       </div>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                      class="StyledProps--font StyledProps--main connectorFormElm"
                     >
                       <div
                         class="bp3-form-group expandedDescription"
@@ -813,15 +813,15 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           for="description"
                         >
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                            class="StyledProps--font StyledProps--main headerRow"
                           >
                             <span
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                              class="StyledProps--font StyledProps--main StyledProps--inline"
                             >
                               Description
                             </span>
                             <span
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                              class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
                             >
                               remove
                             </span>
@@ -847,10 +847,10 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   </div>
                 </div>
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -875,16 +875,16 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
 exports[`Create Docker Connector  Wizard Should render form for editing provider type 2`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
         >
           <svg
             height="37"
@@ -904,18 +904,18 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         Docker Connector
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -935,37 +935,37 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Docker Registry Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Test Connection
@@ -973,27 +973,27 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        class="Layout--vertical StyledProps--main"
         style="height: inherit;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
           Docker Registry Details
         </p>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws secondStep StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
+                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
               >
                 <div
                   class="bp3-form-group"
@@ -1026,7 +1026,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   </div>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   Provider Type
                 </p>
@@ -1039,7 +1039,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   >
                     <div>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           checked=""
@@ -1053,7 +1053,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         DockerHub
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           name="dockerProviderType"
@@ -1066,7 +1066,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         Harbour
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           name="dockerProviderType"
@@ -1079,7 +1079,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         Quay
                       </label>
                       <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                        class="bp3-control bp3-radio bp3-inline Radio--radio"
                       >
                         <input
                           name="dockerProviderType"
@@ -1095,10 +1095,10 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+                  class="StyledProps--font StyledProps--main authHeaderRow"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
                     Authentication
                   </span>
@@ -1110,7 +1110,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1131,7 +1131,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -1196,18 +1196,18 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     Password
                   </label>
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                     type="button"
                   >
                     <span
                       class="bp3-button-text"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                         style="align-items: center; width: 100%;"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                           style="height: 12px;"
                         >
                           <svg
@@ -1237,7 +1237,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
                 type="submit"
               >
                 <span

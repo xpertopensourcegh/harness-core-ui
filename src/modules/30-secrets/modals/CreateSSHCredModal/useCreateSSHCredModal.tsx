@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
-import { Button, useModalHook } from '@wings-software/uikit'
+import { Button, useModalHook } from '@wings-software/uicore'
 
 import { pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'

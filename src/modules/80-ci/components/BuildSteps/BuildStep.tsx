@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Icon } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
 import css from './BuildStep.module.scss'
 
 export interface StepProps {

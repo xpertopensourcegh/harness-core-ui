@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, Link, Text } from '@wings-software/uikit'
+import { Color, Container, Link, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { Classes } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

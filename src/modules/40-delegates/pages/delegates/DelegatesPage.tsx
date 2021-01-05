@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container } from '@wings-software/uikit'
+import { Button, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'

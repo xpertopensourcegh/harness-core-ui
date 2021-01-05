@@ -1,4 +1,4 @@
-import type { Intent } from '@wings-software/uikit'
+import type { Intent } from '@wings-software/uicore'
 
 export interface KubFormData {
   name?: string

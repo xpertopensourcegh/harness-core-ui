@@ -1,7 +1,7 @@
 import React from 'react'
-import { Icon, Container, Text, Color } from '@wings-software/uikit'
+import { Icon, Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import css from './NavItem.module.scss'
 
 export interface NavItemProps {

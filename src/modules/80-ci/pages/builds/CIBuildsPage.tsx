@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Divider } from '@blueprintjs/core'
-import { Container, Button, Icon, Layout, Select, Pagination, Heading, Text, Card, Link } from '@wings-software/uikit'
+import { Container, Button, Icon, Layout, Select, Pagination, Heading, Text, Card, Link } from '@wings-software/uicore'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
 import routes from '@common/RouteDefinitions'

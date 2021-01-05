@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@wings-software/uikit'
+import { Button } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'

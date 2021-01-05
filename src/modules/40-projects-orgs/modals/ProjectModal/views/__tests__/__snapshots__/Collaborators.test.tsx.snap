@@ -3,30 +3,30 @@
 exports[`Collaborators test Render Collaborators  1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws collaboratorForm"
+          class="StyledProps--font StyledProps--main collaboratorForm"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-bottom-xxlarge--27ky"
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black StyledProps--padding-bottom-xxlarge"
           >
             Invite Collaborators
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-bottom-small--2Hba"
+            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
           >
             Your Project is only accessible to people you've invited
           </p>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <div
-              class="TextInput---main--1ytZ"
+              class="TextInput--main"
             >
               <div
                 class="bp3-input-group bp3-disabled url"
@@ -48,13 +48,13 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws clone StyledProps---inline--1f52"
+                        class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main clone StyledProps--inline"
                         disabled=""
                         tabindex="-1"
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-duplicate StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-duplicate StyledProps--main"
                           icon="duplicate"
                         >
                           <svg
@@ -80,24 +80,24 @@ exports[`Collaborators test Render Collaborators  1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws align input StyledProps---padding-top-medium--29t2"
+            class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main align input StyledProps--padding-top-medium"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
               style="width: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Invite People to Collaborate
               </p>
             </div>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws toEnd StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main toEnd StyledProps--flex StyledProps--flex-align-center-center"
               style="width: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Role :
               </p>
@@ -111,7 +111,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class=""
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws toEnd StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main toEnd StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -120,7 +120,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         Project Member
                       </span>
                       <span
-                        class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-chevron-down StyledProps--main"
                         icon="chevron-down"
                       >
                         <svg
@@ -145,7 +145,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <div
               class="bp3-form-group input"
@@ -155,7 +155,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                  class="bp3-popover-wrapper MultiSelect--main bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"
@@ -183,7 +183,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---inline--1f52"
+              class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--inline"
               disabled=""
               tabindex="-1"
               type="submit"
@@ -196,70 +196,70 @@ exports[`Collaborators test Render Collaborators  1`] = `
             </button>
           </div>
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-xxxlarge--1sq8"
+            class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-xxxlarge"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-bottom-small--2Hba"
+              class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
             >
               People Waiting to be Processed (4)
             </p>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws pendingList"
+              class="StyledProps--font StyledProps--main pendingList"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws invites StyledProps---padding-left-xsmall--34pL StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                class="StyledProps--font StyledProps--main invites StyledProps--padding-left-xsmall StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align pendingUser"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main align pendingUser"
                     style="width: 60%;"
                   >
                     <div
-                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         E
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                      class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws name StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                           style="--text-line-clamp: 1;"
                         >
                           example4
                         </p>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws colorBar pending StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500"
                         >
                           Pending Invitation
                         </p>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws email"
+                        class="StyledProps--font Text--lineclamp StyledProps--main email"
                         style="--text-line-clamp: 1;"
                       >
                         example4@email.com
                       </p>
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                         >
                           Role Assigned:
                         </p>
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                          class="StyledProps--font Text--lineclamp StyledProps--main role StyledProps--font-xsmall StyledProps--color StyledProps--color-blue600"
                           style="--text-line-clamp: 1;"
                         >
                           Project Admin
@@ -268,15 +268,15 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     </div>
                   </div>
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws align toEnd StyledProps---padding-right-medium--3IPx"
+                    class="Layout--horizontal StyledProps--main align toEnd StyledProps--padding-right-medium"
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-refresh StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-refresh StyledProps--main"
                         icon="refresh"
                       >
                         <svg
@@ -296,11 +296,11 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="20"
@@ -333,59 +333,59 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws invites StyledProps---padding-left-xsmall--34pL StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                class="StyledProps--font StyledProps--main invites StyledProps--padding-left-xsmall StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align pendingUser"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main align pendingUser"
                     style="width: 60%;"
                   >
                     <div
-                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         E
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                      class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws name StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                           style="--text-line-clamp: 1;"
                         >
                           example3
                         </p>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws colorBar pending StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500"
                         >
                           Pending Invitation
                         </p>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws email"
+                        class="StyledProps--font Text--lineclamp StyledProps--main email"
                         style="--text-line-clamp: 1;"
                       >
                         example3@email.com
                       </p>
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                         >
                           Role Assigned:
                         </p>
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                          class="StyledProps--font Text--lineclamp StyledProps--main role StyledProps--font-xsmall StyledProps--color StyledProps--color-blue600"
                           style="--text-line-clamp: 1;"
                         >
                           Project Admin
@@ -394,15 +394,15 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     </div>
                   </div>
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws align toEnd StyledProps---padding-right-medium--3IPx"
+                    class="Layout--horizontal StyledProps--main align toEnd StyledProps--padding-right-medium"
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-refresh StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-refresh StyledProps--main"
                         icon="refresh"
                       >
                         <svg
@@ -422,11 +422,11 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="20"
@@ -459,59 +459,59 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws invites StyledProps---padding-left-xsmall--34pL StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                class="StyledProps--font StyledProps--main invites StyledProps--padding-left-xsmall StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align pendingUser"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main align pendingUser"
                     style="width: 60%;"
                   >
                     <div
-                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         E
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                      class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws name StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                           style="--text-line-clamp: 1;"
                         >
                           example2
                         </p>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws colorBar pending StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500"
                         >
                           Pending Invitation
                         </p>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws email"
+                        class="StyledProps--font Text--lineclamp StyledProps--main email"
                         style="--text-line-clamp: 1;"
                       >
                         example2@email.com
                       </p>
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                         >
                           Role Assigned:
                         </p>
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws role StyledProps---font-xsmall--1PyC StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                          class="StyledProps--font Text--lineclamp StyledProps--main role StyledProps--font-xsmall StyledProps--color StyledProps--color-blue600"
                           style="--text-line-clamp: 1;"
                         >
                           Project Admin
@@ -520,15 +520,15 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     </div>
                   </div>
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws align toEnd StyledProps---padding-right-medium--3IPx"
+                    class="Layout--horizontal StyledProps--main align toEnd StyledProps--padding-right-medium"
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-refresh StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-refresh StyledProps--main"
                         icon="refresh"
                       >
                         <svg
@@ -548,11 +548,11 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="20"
@@ -585,66 +585,66 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws invites StyledProps---padding-left-xsmall--34pL StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                class="StyledProps--font StyledProps--main invites StyledProps--padding-left-xsmall StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws align"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main align"
                     style="width: 60%;"
                   >
                     <div
-                      class="Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                      class="Avatar--Avatar Avatar--contentStyle"
                     >
                       <div
-                        class="Avatar---AvatarInner--C7qT"
+                        class="Avatar--AvatarInner"
                         style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                       >
                         E
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                      class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                       >
                         <p
-                          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws name StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                          class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                           style="--text-line-clamp: 1;"
                         >
                           example1
                         </p>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws colorBar request StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-yellow500--1TpH"
+                          class="StyledProps--font StyledProps--main colorBar request StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-yellow500"
                         >
                           Requesting Access
                         </p>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws email"
+                        class="StyledProps--font Text--lineclamp StyledProps--main email"
                         style="--text-line-clamp: 1;"
                       >
                         example1@email.com
                       </p>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                       >
                         No project role assigned
                       </p>
                     </div>
                   </div>
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws align toEnd StyledProps---padding-right-medium--3IPx"
+                    class="Layout--horizontal StyledProps--main align toEnd StyledProps--padding-right-medium"
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -659,11 +659,11 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -699,7 +699,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <span
             class="bp3-popover-wrapper"
@@ -708,7 +708,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
                 disabled=""
                 tabindex="-1"
                 type="button"

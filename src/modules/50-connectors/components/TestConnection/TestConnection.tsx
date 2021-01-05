@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Button } from '@wings-software/uikit'
+import { Layout, Button } from '@wings-software/uicore'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import VerifyExistingDelegate from '@connectors/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import type { ConnectorConnectivityDetails, ResponseConnectorValidationResult } from 'services/cd-ng'

@@ -9,7 +9,7 @@ import {
   Icon,
   Color,
   FlexExpander
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Radio, RadioGroup, Spinner, Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import type { Target } from 'services/cf'

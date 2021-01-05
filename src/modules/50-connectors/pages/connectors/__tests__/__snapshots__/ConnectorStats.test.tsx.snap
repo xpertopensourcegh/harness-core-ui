@@ -3,10 +3,10 @@
 exports[`Connectors Stats render when also updated 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws connectorStats"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main connectorStats"
   >
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -20,7 +20,7 @@ exports[`Connectors Stats render when also updated 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -33,11 +33,11 @@ exports[`Connectors Stats render when also updated 1`] = `
         dummy date
       </span>
       <span
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+        class="StyledProps--font StyledProps--main StyledProps--inline"
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
           icon="full-circle"
         >
           <svg
@@ -59,7 +59,7 @@ exports[`Connectors Stats render when also updated 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -73,7 +73,7 @@ exports[`Connectors Stats render when also updated 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -93,10 +93,10 @@ exports[`Connectors Stats render when also updated 1`] = `
 exports[`Connectors Stats render when only created 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws connectorStats"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main connectorStats"
   >
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -110,7 +110,7 @@ exports[`Connectors Stats render when only created 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -123,11 +123,11 @@ exports[`Connectors Stats render when only created 1`] = `
         dummy date
       </span>
       <span
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+        class="StyledProps--font StyledProps--main StyledProps--inline"
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
           icon="full-circle"
         >
           <svg
@@ -149,7 +149,7 @@ exports[`Connectors Stats render when only created 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -169,10 +169,10 @@ exports[`Connectors Stats render when only created 1`] = `
 exports[`Connectors Stats render when status is failure 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws connectorStats"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main connectorStats"
   >
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -186,7 +186,7 @@ exports[`Connectors Stats render when status is failure 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -199,11 +199,11 @@ exports[`Connectors Stats render when status is failure 1`] = `
         dummy date
       </span>
       <span
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+        class="StyledProps--font StyledProps--main StyledProps--inline"
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
           icon="warning-sign"
         >
           <svg
@@ -225,7 +225,7 @@ exports[`Connectors Stats render when status is failure 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"
@@ -239,7 +239,7 @@ exports[`Connectors Stats render when status is failure 1`] = `
       </span>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main nameValueItem"
     >
       <span
         class="name"

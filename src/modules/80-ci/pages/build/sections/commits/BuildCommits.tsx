@@ -1,7 +1,7 @@
 import React from 'react'
 import copy from 'copy-to-clipboard'
 import moment from 'moment'
-import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uikit'
+import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
 import type { CIBuildCommit } from 'services/ci'

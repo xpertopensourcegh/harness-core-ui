@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { Container, Layout } from '@wings-software/uikit'
+import { Container, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 

@@ -1,4 +1,4 @@
-import { Color, Text, Icon, Layout, Button, ButtonProps, Container } from '@wings-software/uikit'
+import { Color, Text, Icon, Layout, Button, ButtonProps, Container } from '@wings-software/uicore'
 import React from 'react'
 import i18n from './PageError.i18n'
 

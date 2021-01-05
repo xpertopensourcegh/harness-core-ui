@@ -1,5 +1,5 @@
 import React from 'react'
-import { AvatarGroup, Color, Icon, Layout, Text } from '@wings-software/uikit'
+import { AvatarGroup, Color, Icon, Layout, Text } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'

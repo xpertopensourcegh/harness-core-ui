@@ -10,7 +10,7 @@ import {
   IconName,
   Text,
   Carousel
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import isEmpty from 'lodash-es/isEmpty'
 import { loggerFor, ModuleName } from 'framework/exports'

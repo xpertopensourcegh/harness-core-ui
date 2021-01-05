@@ -12,7 +12,7 @@ import {
   Formik,
   FormInput,
   FormikForm as Form
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'

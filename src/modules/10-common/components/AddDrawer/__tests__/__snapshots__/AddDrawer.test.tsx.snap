@@ -7,7 +7,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
   <x-mentions />
   <div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <button
         class="openModal"
@@ -42,14 +42,14 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
               class="stepsRenderer"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+                class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-large"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                   style="align-items: center;"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="width: 185px; font-size: 16px;"
                   >
                     Triggers
@@ -58,11 +58,11 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     class="expandSearch"
                   >
                     <div
-                      class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+                      class="bp3-input-group ui-search-box ExpandingSearchInput--main "
                       data-name=""
                     >
                       <span
-                        class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+                        class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
                         icon="search"
                       >
                         <svg
@@ -91,7 +91,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                   </div>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws drawerSubLabel"
+                  class="StyledProps--font StyledProps--main drawerSubLabel"
                   style="font-size: 13px;"
                 >
                   All Trigger Types
@@ -111,10 +111,10 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="step"
                     >
                       <div
-                        class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                        class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="25"
@@ -150,10 +150,10 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="step"
                     >
                       <div
-                        class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                        class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="25"
@@ -202,10 +202,10 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="step"
                     >
                       <div
-                        class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                        class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="25"
@@ -258,10 +258,10 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="step"
                     >
                       <div
-                        class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                        class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="25"
@@ -284,10 +284,10 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="step"
                     >
                       <div
-                        class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                        class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="25"
@@ -335,10 +335,10 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       class="step"
                     >
                       <div
-                        class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                        class="bp3-card bp3-elevation-0 Card--card"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="25"
@@ -407,15 +407,15 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
               class="categoriesRenderer"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
                 style="justify-content: flex-end;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-cross StyledProps--main"
                     icon="cross"
                   >
                     <svg
@@ -460,7 +460,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                   Categories
                 </section>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  class="Layout--vertical StyledProps--main"
                 >
                   <section
                     class="category"

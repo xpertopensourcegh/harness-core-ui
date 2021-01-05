@@ -20,11 +20,11 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
         class="bp3-form-content"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
           style="width: 380px;"
         >
           <div
-            class="bp3-input-group MultiTypeInput---input--36mQ"
+            class="bp3-input-group MultiTypeInput--input"
           >
             <input
               class="bp3-input"
@@ -40,10 +40,10 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
               class="bp3-popover-target"
             >
               <button
-                class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                class="MultiTypeInput--btn MultiTypeInput--FIXED"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                 >
                   <svg
                     height="12"
@@ -67,7 +67,7 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -76,7 +76,7 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
                 Instance Count
               </span>
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main"
                 icon="caret-down"
               >
                 <svg
@@ -122,11 +122,11 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
       class="bp3-form-content"
     >
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
         style="width: 380px;"
       >
         <div
-          class="bp3-input-group MultiTypeInput---input--36mQ"
+          class="bp3-input-group MultiTypeInput--input"
         >
           <input
             class="bp3-input"
@@ -142,10 +142,10 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
             class="bp3-popover-target"
           >
             <button
-              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+              class="MultiTypeInput--btn MultiTypeInput--FIXED"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 <svg
                   height="12"
@@ -169,7 +169,7 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -178,7 +178,7 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
               Instance Count
             </span>
             <span
-              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-caret-down StyledProps--main"
               icon="caret-down"
             >
               <svg

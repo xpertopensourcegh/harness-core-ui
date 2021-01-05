@@ -3,19 +3,19 @@
 exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callback 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws sideNav"
+    class="StyledProps--font StyledProps--main sideNav"
   >
     <div
-      class="Collapse---main--34Is main"
+      class="Collapse--main main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
           >
             <svg
               height="10"
@@ -29,17 +29,17 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
           >
             Pre Production Tests
           </p>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         />
       </div>
       <div
-        class="Collapse---collapse--2EmT"
+        class="Collapse--collapse"
       >
         <div
           class="bp3-collapse"
@@ -54,16 +54,16 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
       </div>
     </div>
     <div
-      class="Collapse---main--34Is main"
+      class="Collapse--main main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
           >
             <svg
               height="10"
@@ -77,17 +77,17 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
           >
             Production Deployment
           </p>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         />
       </div>
       <div
-        class="Collapse---collapse--2EmT"
+        class="Collapse--collapse"
       >
         <div
           class="bp3-collapse"
@@ -102,16 +102,16 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
       </div>
     </div>
     <div
-      class="Collapse---main--34Is main"
+      class="Collapse--main main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+        class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+          class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
           >
             <svg
               height="10"
@@ -125,17 +125,17 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
             </svg>
           </span>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
           >
             Post Deployment
           </p>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         />
       </div>
       <div
-        class="Collapse---collapse--2EmT"
+        class="Collapse--collapse"
       >
         <div
           class="bp3-collapse"
@@ -147,17 +147,17 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws item StyledProps---padding-small--3f0A"
+              class="StyledProps--font StyledProps--main item StyledProps--padding-small"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws itemHeader"
+                class="StyledProps--font StyledProps--main itemHeader"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="width: 130px;"
                 />
                 <span
-                  class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---margin-left-medium--2jOL StyledProps---background-green500--33le StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                  class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--margin-left-medium StyledProps--background-green500 StyledProps--color StyledProps--color-white"
                   icon="small-tick"
                 >
                   <svg
@@ -177,12 +177,12 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
                 </span>
               </div>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey300--fEYT StyledProps---font-size-xsmall--1f9b"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
               >
                 Environment: undefined
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey300--fEYT StyledProps---font-size-xsmall--1f9b"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
               >
                 Started on: XX:YY
               </p>

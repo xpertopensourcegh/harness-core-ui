@@ -1,4 +1,4 @@
-import { Color, Container, ExpandingSearchInput, Text } from '@wings-software/uikit'
+import { Color, Container, ExpandingSearchInput, Text } from '@wings-software/uicore'
 import React from 'react'
 
 export interface TableColumnWithFilterProps {

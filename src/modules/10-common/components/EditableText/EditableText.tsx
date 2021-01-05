@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import ContentEditable from 'react-contenteditable'
-import { Icon } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
 
 import css from './EditableText.module.scss'
 

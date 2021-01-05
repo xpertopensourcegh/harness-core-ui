@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
-import { Formik, FormikForm } from '@wings-software/uikit'
+import { Formik, FormikForm } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepWizard } from '@wings-software/uikit'
+import { StepWizard } from '@wings-software/uicore'
 
 import type { ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'

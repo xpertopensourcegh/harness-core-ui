@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
 import { Connectors } from '@connectors/constants'

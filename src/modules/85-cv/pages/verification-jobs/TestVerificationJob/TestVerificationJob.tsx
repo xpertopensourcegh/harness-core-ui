@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Formik, FormikForm, Layout, Text, Color } from '@wings-software/uikit'
+import { Container, Formik, FormikForm, Layout, Text, Color } from '@wings-software/uicore'
 
 import * as Yup from 'yup'
 

@@ -3,19 +3,19 @@
 exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="line-height: 24px;"
     >
       Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
     </p>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <section
           class="thead"
@@ -37,7 +37,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
         </section>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section>
           <section
@@ -52,11 +52,11 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
               class="server"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="color: black; font-weight: 900; display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                 >
                   <svg
                     height="18"
@@ -79,11 +79,11 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
             </span>
             <span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                   icon="full-circle"
                 >
                   <svg
@@ -105,7 +105,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
             </span>
             <span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+                class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 470px;"
               >
                 &lt;+input&gt;
@@ -113,7 +113,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
             </span>
             <span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+                class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 110px;"
               >
                 &lt;+input&gt;
@@ -121,10 +121,10 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
             </span>
             <span>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
                   style="cursor: pointer;"
                 >
@@ -144,7 +144,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                   </svg>
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-delete StyledProps--main"
                   icon="delete"
                   style="cursor: pointer;"
                 >
@@ -170,13 +170,13 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
       </div>
     </div>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+        class="StyledProps--font StyledProps--main rowItem"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           + Add Sidecar
         </p>
@@ -189,19 +189,19 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
 exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Modal 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="line-height: 24px;"
     >
       Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
     </p>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <section
           class="thead"
@@ -223,7 +223,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
         </section>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section>
           <section
@@ -238,11 +238,11 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
               class="server"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="color: black; font-weight: 900; display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                 >
                   <svg
                     height="18"
@@ -265,11 +265,11 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
             </span>
             <span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                   icon="full-circle"
                 >
                   <svg
@@ -291,7 +291,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
             </span>
             <span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+                class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 470px;"
               >
                 &lt;+input&gt;
@@ -299,7 +299,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
             </span>
             <span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+                class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 110px;"
               >
                 &lt;+input&gt;
@@ -307,10 +307,10 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
             </span>
             <span>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
                   style="cursor: pointer;"
                 >
@@ -330,7 +330,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                   </svg>
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-delete StyledProps--main"
                   icon="delete"
                   style="cursor: pointer;"
                 >
@@ -356,13 +356,13 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
       </div>
     </div>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+        class="StyledProps--font StyledProps--main rowItem"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           + Add Sidecar
         </p>
@@ -375,19 +375,19 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
 exports[`ArtifactsSelection tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="line-height: 24px;"
     >
       Specify the locations of the artifacts for this service. Harness will fetch the artifacts at the time of deployments. For every pipeline execution, you will specify the build/tag that you want to deploy. Leave the artifacts section empty if your artifactsd are referenced in the manifest files.
     </p>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <section
           class="thead"
@@ -409,7 +409,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
         </section>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section>
           <section
@@ -424,11 +424,11 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               class="server"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="color: black; font-weight: 900; display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                 >
                   <svg
                     height="18"
@@ -451,11 +451,11 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             </span>
             <span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                   icon="full-circle"
                 >
                   <svg
@@ -477,7 +477,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             </span>
             <span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+                class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 470px;"
               >
                 &lt;+input&gt;
@@ -485,7 +485,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             </span>
             <span>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+                class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 110px;"
               >
                 &lt;+input&gt;
@@ -493,10 +493,10 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             </span>
             <span>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
                   style="cursor: pointer;"
                 >
@@ -516,7 +516,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   </svg>
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-delete StyledProps--main"
                   icon="delete"
                   style="cursor: pointer;"
                 >
@@ -542,13 +542,13 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+        class="StyledProps--font StyledProps--main rowItem"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           + Add Sidecar
         </p>

@@ -1,7 +1,7 @@
 import React from 'react'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'

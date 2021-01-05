@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
-import { Container, Text, Checkbox, Color, SelectOption } from '@wings-software/uikit'
+import { Container, Text, Checkbox, Color, SelectOption } from '@wings-software/uicore'
 import xhr from '@wings-software/xhr-async'
 import qs from 'qs'
 import { useParams } from 'react-router-dom'

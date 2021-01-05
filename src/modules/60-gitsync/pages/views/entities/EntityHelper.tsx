@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Icon, IconName, Text } from '@wings-software/uikit'
+import { Container, Icon, IconName, Text } from '@wings-software/uicore'
 import copy from 'clipboard-copy'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { GitSyncEntityListDTO, GitSyncEntityDTO, GitSyncProductDTO } from 'services/cd-ng'

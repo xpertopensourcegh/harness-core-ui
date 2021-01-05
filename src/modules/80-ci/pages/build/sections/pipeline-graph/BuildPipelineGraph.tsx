@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, Select, Text, Icon } from '@wings-software/uikit'
+import { Button, Color, Select, Text, Icon } from '@wings-software/uicore'
 import { ExecutionStageDiagram } from '@pipeline/exports'
 import LogViewContainer from '@ci/components/LogViewContainer/LogViewContainer'
 import { RoundButtonGroup } from '@ci/components/RoundButtonGroup/RoundButtonGroup'

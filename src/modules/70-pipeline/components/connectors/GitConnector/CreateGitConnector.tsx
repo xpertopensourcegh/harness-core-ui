@@ -11,7 +11,7 @@ import {
   FormikForm as Form,
   Text,
   Button
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import type { ConnectorConfigDTO, NgPipeline } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'

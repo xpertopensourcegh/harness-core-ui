@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { CardSelect, Layout, CardBody, Button, Heading, Container, Text } from '@wings-software/uikit'
-import type { IconName } from '@wings-software/uikit'
+import { CardSelect, Layout, CardBody, Button, Heading, Container, Text } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import i18n from './COProviderSelector.i18n'
 import css from './COProviderSelector.module.scss'

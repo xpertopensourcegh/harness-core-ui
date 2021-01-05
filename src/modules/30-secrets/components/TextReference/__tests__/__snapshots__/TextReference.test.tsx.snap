@@ -3,10 +3,10 @@
 exports[`Text Reference render create mode 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
@@ -17,14 +17,14 @@ exports[`Text Reference render create mode 1`] = `
             class="bp3-form-content"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws"
+              class="Layout--vertical StyledProps--main"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                class="StyledProps--font StyledProps--main label"
                 style="height: 36px;"
               >
                 <span
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                  class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                 />
                 <div
                   class="bp3-form-group"
@@ -34,7 +34,7 @@ exports[`Text Reference render create mode 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -55,7 +55,7 @@ exports[`Text Reference render create mode 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -111,10 +111,10 @@ exports[`Text Reference render create mode 1`] = `
 exports[`Text Reference render edit mode with encrypted value 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
@@ -125,14 +125,14 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
             class="bp3-form-content"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws"
+              class="Layout--vertical StyledProps--main"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                class="StyledProps--font StyledProps--main label"
                 style="height: 36px;"
               >
                 <span
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                  class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                 />
                 <div
                   class="bp3-form-group"
@@ -142,7 +142,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -163,7 +163,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -219,10 +219,10 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
 exports[`Text Reference render edit mode with text value 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
@@ -233,14 +233,14 @@ exports[`Text Reference render edit mode with text value 1`] = `
             class="bp3-form-content"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws"
+              class="Layout--vertical StyledProps--main"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                class="StyledProps--font StyledProps--main label"
                 style="height: 36px;"
               >
                 <span
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                  class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                 />
                 <div
                   class="bp3-form-group"
@@ -250,7 +250,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -271,7 +271,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg

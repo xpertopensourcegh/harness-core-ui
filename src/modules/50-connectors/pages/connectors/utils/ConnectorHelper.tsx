@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
 import i18n from './ConnectorHelper.i18n'

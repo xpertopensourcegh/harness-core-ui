@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Container, Text, Link, Card, Color } from '@wings-software/uikit'
+import { Container, Text, Link, Card, Color } from '@wings-software/uicore'
 
 import type { MetricPack } from 'services/cv'
 import i18n from './MetricPackTable.i18n'

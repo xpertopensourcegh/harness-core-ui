@@ -10,7 +10,7 @@ import {
   Button,
   Collapse,
   Text
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { illegalIdentifiers } from '@common/utils/StringUtils'

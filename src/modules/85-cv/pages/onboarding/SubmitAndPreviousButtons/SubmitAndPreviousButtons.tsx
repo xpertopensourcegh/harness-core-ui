@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Layout, ButtonProps } from '@wings-software/uikit'
+import { Button, Layout, ButtonProps } from '@wings-software/uicore'
 import i18n from './SubmitAndPreviousButtons.i18n'
 import css from './SubmitAndPreviousButtons.module.scss'
 

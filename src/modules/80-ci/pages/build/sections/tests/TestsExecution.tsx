@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Container, Layout, Heading, Select, Switch, Pagination, useIsMounted, Icon } from '@wings-software/uikit'
+import {
+  Text,
+  Container,
+  Layout,
+  Heading,
+  Select,
+  Switch,
+  Pagination,
+  useIsMounted,
+  Icon
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'

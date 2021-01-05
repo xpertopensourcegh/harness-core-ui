@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, StepWizard, Button } from '@wings-software/uikit'
+import { useModalHook, StepWizard, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'

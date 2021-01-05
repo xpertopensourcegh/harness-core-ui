@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Container, Text, Color, Pagination } from '@wings-software/uikit'
+import { Container, Text, Color, Pagination } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { PageError } from '@common/components/Page/PageError'
 import { Frequency, useGetAllLogs } from 'services/cv'

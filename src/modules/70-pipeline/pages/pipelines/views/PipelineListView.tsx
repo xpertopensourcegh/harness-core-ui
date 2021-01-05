@@ -1,6 +1,6 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, SparkChart } from '@wings-software/uikit'
+import { Button, Color, Layout, Popover, Text, SparkChart } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'

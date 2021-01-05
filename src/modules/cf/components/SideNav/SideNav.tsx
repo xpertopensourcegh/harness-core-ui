@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useHistory, useRouteMatch } from 'react-router-dom'
-import { Layout } from '@wings-software/uikit'
+import { Layout } from '@wings-software/uicore'
 import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Heading, Text, Icon, Layout } from '@wings-software/uikit'
+import { Container, Heading, Text, Icon, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import i18n from './CEDashboardPage.i18n'
 

@@ -16,10 +16,10 @@ exports[`Context Menu test render 1`] = `
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 fill="none"
@@ -54,7 +54,7 @@ exports[`Context Menu test render 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               Go to Continuous Delivery
             </p>
@@ -72,10 +72,10 @@ exports[`Context Menu test render 1`] = `
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 fill="none"
@@ -110,7 +110,7 @@ exports[`Context Menu test render 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               Go to Continuous Verification
             </p>
@@ -128,10 +128,10 @@ exports[`Context Menu test render 1`] = `
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 fill="none"
@@ -166,7 +166,7 @@ exports[`Context Menu test render 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               Go to Continuous Integration
             </p>
@@ -184,10 +184,10 @@ exports[`Context Menu test render 1`] = `
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 fill="none"
@@ -222,7 +222,7 @@ exports[`Context Menu test render 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               Go to Continuous Features
             </p>
@@ -240,10 +240,10 @@ exports[`Context Menu test render 1`] = `
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 fill="none"
@@ -278,7 +278,7 @@ exports[`Context Menu test render 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
               Go to Continuous Efficiency
             </p>

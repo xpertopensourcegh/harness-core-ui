@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { NotificationMethod } from 'services/cv'
 
 export interface CVNotificationForm {

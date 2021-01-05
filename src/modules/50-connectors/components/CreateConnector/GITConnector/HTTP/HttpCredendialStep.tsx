@@ -11,7 +11,7 @@ import {
   ModalErrorHandler,
   FormikForm as Form,
   SelectV2
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'

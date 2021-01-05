@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Icon, Button } from '@wings-software/uikit'
+import { Icon, Button } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import i18n from './RightBar.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'

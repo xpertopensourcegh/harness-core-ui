@@ -10,7 +10,7 @@ import {
   FormInput,
   useModalHook,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
 import type { Distribution, WeightedVariation, Feature, Variation } from 'services/cf'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button, Formik, FormInput, Text, SelectV2, SelectOption } from '@wings-software/uikit'
+import { Layout, Button, Formik, FormInput, Text, SelectV2, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { Form } from 'formik'
 import type { GITFormData } from '@connectors/interfaces/ConnectorInterface'

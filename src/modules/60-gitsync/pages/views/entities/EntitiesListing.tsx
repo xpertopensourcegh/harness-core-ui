@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Icon, Color, Text, Container } from '@wings-software/uikit'
+import { Icon, Color, Text, Container } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import {

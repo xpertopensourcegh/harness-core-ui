@@ -3,7 +3,7 @@
 exports[`LogViewContainer snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws console"
+    class="StyledProps--font StyledProps--main console"
   >
     <div
       class="consoleHeader"
@@ -15,7 +15,7 @@ exports[`LogViewContainer snapshot test should render properly 1`] = `
         class="hederButtons"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="16"
@@ -29,14 +29,14 @@ exports[`LogViewContainer snapshot test should render properly 1`] = `
           </svg>
         </span>
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
           type="button"
         >
           <span
             class="bp3-button-text"
           >
             <span
-              class="bp3-icon bp3-icon-download StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-download StyledProps--main"
               icon="download"
             >
               <svg
@@ -59,10 +59,10 @@ exports[`LogViewContainer snapshot test should render properly 1`] = `
       </span>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws consoleBody"
+      class="StyledProps--font StyledProps--main consoleBody"
     >
       <div
-        class="LogViewer---logViewer--svCZ"
+        class="LogViewer--logViewer"
       >
         <div>
           <div>

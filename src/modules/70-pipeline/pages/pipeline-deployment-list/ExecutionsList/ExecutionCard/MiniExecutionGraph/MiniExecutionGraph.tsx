@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Icon } from '@wings-software/uikit'
+import { IconName, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'

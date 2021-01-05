@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
-import { Table, SelectOption, Text, Container, ExpandingSearchInput } from '@wings-software/uikit'
+import { Table, SelectOption, Text, Container, ExpandingSearchInput } from '@wings-software/uicore'
 import type { IHTMLTableProps } from '@blueprintjs/core'
 import type { Cell, Column } from 'react-table'
 import css from './DataSourceSelectEntityTable.module.scss'

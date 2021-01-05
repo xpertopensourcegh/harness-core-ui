@@ -1,5 +1,5 @@
 import React from 'react'
-import { LogViewer, Container, LogViewerProps, Icon, Button } from '@wings-software/uikit'
+import { LogViewer, Container, LogViewerProps, Icon, Button } from '@wings-software/uicore'
 import i18n from './LogViewContainer.i18n'
 import css from './LogViewContainer.module.scss'
 

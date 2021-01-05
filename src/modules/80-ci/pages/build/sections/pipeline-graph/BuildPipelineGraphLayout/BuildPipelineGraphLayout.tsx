@@ -1,4 +1,4 @@
-import { Button, Container, Layout, Tab, Tabs } from '@wings-software/uikit'
+import { Button, Container, Layout, Tab, Tabs } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import SplitPane, { Pane } from 'react-split-pane'
 import css from './BuildPipelineGraphLayout.module.scss'

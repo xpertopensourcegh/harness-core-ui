@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Link } from '@wings-software/uikit'
+import { Text, Link } from '@wings-software/uicore'
 import css from './TitledInfo.module.scss'
 
 export interface TitledInfoProps {

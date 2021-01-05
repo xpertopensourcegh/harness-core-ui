@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Color, Container, Heading, Text } from '@wings-software/uikit'
+import { Color, Container, Heading, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'

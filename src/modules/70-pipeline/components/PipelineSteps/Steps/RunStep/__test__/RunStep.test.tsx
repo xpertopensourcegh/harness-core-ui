@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
 // import { render, queryByAttribute, fireEvent, act } from '@testing-library/react'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseGetReturnData } from '@common/utils/testUtils'

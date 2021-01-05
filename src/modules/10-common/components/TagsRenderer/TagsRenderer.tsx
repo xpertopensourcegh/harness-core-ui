@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Tag } from '@wings-software/uikit'
+import { Text, Layout, Tag } from '@wings-software/uicore'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 
 import type { tagsType } from '@common/utils/types'

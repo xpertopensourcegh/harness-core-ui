@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Text, Color, Layout } from '@wings-software/uikit'
+import { Container, Text, Color, Layout } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { isEmpty } from 'lodash-es'

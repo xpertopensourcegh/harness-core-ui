@@ -3,7 +3,7 @@
 exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
       class="SplitPane  horizontal "
@@ -41,17 +41,17 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
               style="flex: 1; position: relative; outline: none;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="position: relative; flex-grow: 1;"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws canvas"
+                  class="StyledProps--font StyledProps--main canvas"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws stageSelect"
+                    class="StyledProps--font StyledProps--main stageSelect"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -71,7 +71,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -108,13 +108,13 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
             style="flex: 1; position: relative; outline: none;"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws detailsContainer"
+              class="Layout--vertical StyledProps--main detailsContainer"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws stepsToolbar"
+                class="Layout--horizontal StyledProps--main stepsToolbar"
               >
                 <div
-                  class="bp3-tabs Tabs---main--3Ew7"
+                  class="bp3-tabs Tabs--main"
                 >
                   <div
                     class="bp3-tab-list"
@@ -140,7 +140,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                       tabindex="0"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         Details
                       </p>
@@ -157,7 +157,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                       tabindex="0"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         Input
                       </p>
@@ -174,7 +174,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                       tabindex="0"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         Output
                       </p>
@@ -182,17 +182,17 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws rowsRightToolbarContainer"
+                  class="StyledProps--font StyledProps--main rowsRightToolbarContainer"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws btnGroup"
+                    class="StyledProps--font StyledProps--main btnGroup"
                   >
                     <button
-                      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -220,11 +220,11 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-active StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-active StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -253,11 +253,11 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -296,10 +296,10 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws stepsDetailsAndLogs"
+                class="Layout--horizontal StyledProps--main stepsDetailsAndLogs"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws console"
+                  class="StyledProps--font StyledProps--main console"
                 >
                   <div
                     class="consoleHeader"
@@ -311,7 +311,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                       class="hederButtons"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -325,14 +325,14 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                         </svg>
                       </span>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
                           class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon bp3-icon-download StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-download StyledProps--main"
                             icon="download"
                           >
                             <svg
@@ -355,10 +355,10 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                     </span>
                   </div>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws consoleBody"
+                    class="StyledProps--font StyledProps--main consoleBody"
                   >
                     <div
-                      class="LogViewer---logViewer--svCZ"
+                      class="LogViewer--logViewer"
                     />
                   </div>
                 </div>

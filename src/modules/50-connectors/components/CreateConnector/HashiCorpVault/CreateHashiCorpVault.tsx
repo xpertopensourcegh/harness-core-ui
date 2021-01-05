@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepWizard } from '@wings-software/uikit'
+import { StepWizard } from '@wings-software/uicore'
 
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors } from '@connectors/constants'

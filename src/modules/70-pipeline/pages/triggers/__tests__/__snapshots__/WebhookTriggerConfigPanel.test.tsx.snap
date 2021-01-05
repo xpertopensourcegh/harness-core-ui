@@ -3,14 +3,14 @@
 exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Render - Trigger Configuration Panel 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws webhookConfigurationContainer StyledProps---padding-xxlarge--3lSp"
+          class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
         >
           <h2
             class="heading"
@@ -19,32 +19,32 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           </h2>
           <div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws main triggerName"
+              class="StyledProps--font StyledProps--main main triggerName"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                class="StyledProps--font StyledProps--main connectorFormNameWrapper"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                  class="StyledProps--font StyledProps--main connectorFormNameElm"
                 >
                   <div
-                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                    class="InputWithIdentifier--txtNameContainer"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                      class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        class="StyledProps--font StyledProps--main"
                       >
                         ID
                         :
                       </p>
                       <span
-                        class="InputWithIdentifier---idInput--w8_T"
+                        class="InputWithIdentifier--idInput"
                         contenteditable="true"
                       />
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
                         style="vertical-align: middle;"
                       >
@@ -97,27 +97,27 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   </div>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                   style="justify-content: center;"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                   >
                     + Description
                   </p>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                   >
                     + Tags
                   </p>
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                class="StyledProps--font StyledProps--main connectorFormElm"
               />
             </div>
             <h2
-              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws listenOnNewWebhook"
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
               Listen on New Webhook
@@ -143,7 +143,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -164,7 +164,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -236,7 +236,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -257,7 +257,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -286,7 +286,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <div>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="font-size: 13px;"
                   >
                     Actions
@@ -299,7 +299,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                        class="bp3-popover-wrapper MultiSelect--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -334,7 +334,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     class="bp3-form-content"
                   >
                     <label
-                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy Checkbox---checkbox--2kFy anyAction StyledProps---main--1Wws StyledProps---inline--1f52"
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox anyAction StyledProps--main StyledProps--inline"
                     >
                       <input
                         name="anyAction"

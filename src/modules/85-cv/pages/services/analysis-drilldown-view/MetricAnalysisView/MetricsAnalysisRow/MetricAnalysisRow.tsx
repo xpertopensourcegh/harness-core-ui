@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Color, Container } from '@wings-software/uikit'
+import { Color, Container } from '@wings-software/uicore'
 import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import type { MetricData } from 'services/cv'

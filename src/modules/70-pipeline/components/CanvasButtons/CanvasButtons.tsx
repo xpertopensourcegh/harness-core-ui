@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Layout, ButtonGroup, Button } from '@wings-software/uikit'
+import { Layout, ButtonGroup, Button } from '@wings-software/uicore'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import cx from 'classnames'
 import i18n from './CanvasButtons.i18n'

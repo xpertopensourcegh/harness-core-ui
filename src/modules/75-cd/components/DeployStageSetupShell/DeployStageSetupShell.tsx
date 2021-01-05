@@ -1,8 +1,8 @@
 import React from 'react'
-import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uikit'
+import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Select } from '@blueprintjs/select'
-import type { HarnessIconName } from '@wings-software/uikit/dist/icons/HarnessIcons'
+import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import {
   getSelectStageOptionsFromPipeline,
   StageSelectOption

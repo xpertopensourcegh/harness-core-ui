@@ -3,79 +3,79 @@
 exports[`VerificationStatusBar matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws column statusGroup"
+      class="StyledProps--font StyledProps--main column statusGroup"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
       >
         Verification in-progress (1 minutes remaining)
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
       >
         Started On: XX:YY
       </p>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws column risksGroup"
+      class="StyledProps--font StyledProps--main column risksGroup"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         Risk Before Changes
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+          class="StyledProps--font StyledProps--main main"
         />
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws column risksGroup"
+      class="StyledProps--font StyledProps--main column risksGroup"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         Risk After Changes
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+          class="StyledProps--font StyledProps--main main"
         />
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws column cumulativeRisk"
+      class="StyledProps--font StyledProps--main column cumulativeRisk"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws main largeTile heatmapColor1"
+        class="StyledProps--font StyledProps--main main largeTile heatmapColor1"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws riskScore StyledProps---color--8PuS StyledProps---color-white--3AwB"
+          class="StyledProps--font StyledProps--main riskScore StyledProps--color StyledProps--color-white"
         >
           0.3
         </p>
       </div>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         Cumulative
         <br />
         Risk
       </p>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-chevron-down StyledProps--main"
           icon="chevron-down"
         >
           <svg

@@ -3,17 +3,17 @@
 exports[`Organization Card test initializes ok  1`] = `
 <div>
   <div
-    class="bp3-card bp3-interactive bp3-elevation-2 Card---card--2BXa card"
+    class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
     tabindex="0"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws overflow"
+      class="StyledProps--font StyledProps--main overflow"
     >
       <div
-        class="Card---cardMenu--JLDc cardMenu"
+        class="Card--cardMenu cardMenu"
       >
         <div
-          class="Card---dots--3qQP"
+          class="Card--dots"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"
@@ -22,11 +22,11 @@ exports[`Organization Card test initializes ok  1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-more StyledProps--main"
                   icon="more"
                 >
                   <svg
@@ -50,29 +50,29 @@ exports[`Organization Card test initializes ok  1`] = `
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws title"
+        class="Layout--vertical StyledProps--main title"
       >
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
           style="--text-line-clamp: 1;"
         >
           bfvbfkbvf
         </p>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws description"
+          class="Layout--horizontal StyledProps--main description"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
             style="--text-line-clamp: 2;"
           >
             ddsadsad
           </p>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws tags"
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag tag"
@@ -85,7 +85,7 @@ exports[`Organization Card test initializes ok  1`] = `
             </span>
           </span>
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag tag"
@@ -98,7 +98,7 @@ exports[`Organization Card test initializes ok  1`] = `
             </span>
           </span>
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag tag"
@@ -111,7 +111,7 @@ exports[`Organization Card test initializes ok  1`] = `
             </span>
           </span>
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag tag"
@@ -130,7 +130,7 @@ exports[`Organization Card test initializes ok  1`] = `
               class="bp3-popover-target"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 tabindex="0"
               >
                 +1
@@ -139,16 +139,16 @@ exports[`Organization Card test initializes ok  1`] = `
           </span>
         </div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-xlarge--xV_9"
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-xlarge"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="25"
@@ -162,50 +162,50 @@ exports[`Organization Card test initializes ok  1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+                class="StyledProps--font StyledProps--main StyledProps--font-medium"
               >
                 2
               </p>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
             >
               PROJECTS
             </p>
           </div>
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-left-huge--2Znx StyledProps---flex--2Jz8"
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
           >
             <div
-              class="AvatarGroup---stack--3mde"
+              class="AvatarGroup--stack"
             >
               <div
-                class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
               >
                 <div
-                  class="Avatar---AvatarInner--C7qT"
+                  class="Avatar--AvatarInner"
                   style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                 >
                   +
                 </div>
               </div>
               <div
-                class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                 uuid="lv0efduRhKRCyiXWzS7pOg6g"
               >
                 <div
-                  class="Avatar---AvatarInner--C7qT"
+                  class="Avatar--AvatarInner"
                   style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                 >
                   A
                 </div>
               </div>
               <div
-                class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                 uuid="lv0euRhKRCyiXWzS7pOg6g"
               >
                 <div
-                  class="Avatar---AvatarInner--C7qT"
+                  class="Avatar--AvatarInner"
                   style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                 >
                   A
@@ -213,7 +213,7 @@ exports[`Organization Card test initializes ok  1`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
             >
               ORG MEMBERS
             </p>

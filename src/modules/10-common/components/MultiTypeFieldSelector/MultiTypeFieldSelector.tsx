@@ -7,7 +7,7 @@ import {
   Color,
   getMultiTypeFromValue,
   RUNTIME_INPUT_VALUE
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Popover, Menu, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FormikContext, connect } from 'formik'

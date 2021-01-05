@@ -3,14 +3,14 @@
 exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Conditions Panel 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws webhookConditionsContainer StyledProps---padding-xxlarge--3lSp"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookConditionsContainer StyledProps--padding-xxlarge"
         >
           <h2
             class="heading"
@@ -18,20 +18,20 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
             Conditions
              
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               style="display: inline-block;"
             >
               (OPTIONAL)
             </p>
           </h2>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.
           </p>
           <section>
             <h2
-              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
               Branch Conditions
@@ -41,7 +41,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
             >
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="font-size: 16px;"
                 >
                   Source Branch
@@ -65,7 +65,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -86,7 +86,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -146,7 +146,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
             >
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="font-size: 16px;"
                 >
                   Target Branch
@@ -170,7 +170,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -191,7 +191,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -249,7 +249,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           </section>
           <section>
             <h2
-              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
               Payload Conditions
@@ -258,7 +258,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               style="margin-top: 20px;"
             />
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               style="cursor: pointer; width: 70px;"
             >
               + Add
@@ -292,7 +292,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           </div>
         </div>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws submitButton"
+          class="bp3-button StyledProps--font Button--button StyledProps--main submitButton"
           type="submit"
         >
           <span

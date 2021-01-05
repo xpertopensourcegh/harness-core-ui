@@ -13,7 +13,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
         title="app-kubernetes"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="25"
@@ -62,7 +62,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             class="searchIcon"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 height="20"
@@ -94,7 +94,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               class="icon"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="25"
@@ -154,7 +154,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                   tabindex="0"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws snippetIcon"
+                    class="bp3-icon StyledProps--main snippetIcon"
                   >
                     <svg
                       height="20"
@@ -186,7 +186,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               class="icon"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="25"
@@ -246,7 +246,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                   tabindex="0"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws snippetIcon"
+                    class="bp3-icon StyledProps--main snippetIcon"
                   >
                     <svg
                       height="20"

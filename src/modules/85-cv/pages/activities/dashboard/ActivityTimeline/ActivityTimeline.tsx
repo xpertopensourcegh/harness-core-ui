@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import moment from 'moment'
 import { ActivityTrack, ActivityTrackProps } from './ActivityTrack/ActivityTrack'
 import ActivityTimelineIntervalMarker from './ActivityTimelineIntervalMarker/ActivityTimelineIntervalMarker'

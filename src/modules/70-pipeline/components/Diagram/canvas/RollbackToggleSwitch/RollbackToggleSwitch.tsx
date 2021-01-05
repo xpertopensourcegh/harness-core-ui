@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonGroup, Button } from '@wings-software/uikit'
+import { ButtonGroup, Button } from '@wings-software/uicore'
 import i18n from './RollbackToggleSwitch.i18n'
 import { StepsType } from '../../Constants'
 import css from './RollbackToggleSwitch.module.scss'

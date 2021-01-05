@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import SideNav from '../SideNav'

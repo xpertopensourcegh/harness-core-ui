@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import type { StepProps, ModalErrorHandlerBinding } from '@wings-software/uikit'
+import type { StepProps, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { Organization, useGetOrganization } from 'services/cd-ng'
 import { usePutOrganization } from 'services/cd-ng'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Color, Container, FormInput, Layout, TagInputProps, Text } from '@wings-software/uikit'
-import type { InputWithIdentifierProps } from '@wings-software/uikit/dist/components/InputWithIdentifier/InputWithIdentifier'
+import { Color, Container, FormInput, Layout, TagInputProps, Text } from '@wings-software/uicore'
+import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'

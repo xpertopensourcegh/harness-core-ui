@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormInput, Layout, Button, Text, SelectOption } from '@wings-software/uikit'
+import { FormInput, Layout, Button, Text, SelectOption } from '@wings-software/uicore'
 import { IOptionProps, MenuItem } from '@blueprintjs/core'
 import { Select } from '@blueprintjs/select'
 import type { FormikProps } from 'formik'

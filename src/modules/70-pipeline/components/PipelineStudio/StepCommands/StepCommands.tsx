@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs, Tab } from '@wings-software/uikit'
+import { Tabs, Tab } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/exports'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'

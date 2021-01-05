@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Color, Button } from '@wings-software/uikit'
+import { Container, Text, Color, Button } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'

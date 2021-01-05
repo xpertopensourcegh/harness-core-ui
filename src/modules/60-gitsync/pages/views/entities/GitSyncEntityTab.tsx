@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Container, Text, Color } from '@wings-software/uikit'
+import { Layout, Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { supportedProducts } from './EntityHelper'
 import EntitiesPreview from './EntitiesPreview'

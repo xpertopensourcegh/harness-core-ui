@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 // temporary mock data
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 import type { GetActionsListQueryParams } from 'services/pipeline-ng'

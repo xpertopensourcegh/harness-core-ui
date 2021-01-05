@@ -1,4 +1,4 @@
-import { Button, Layout, Container, Text, Icon } from '@wings-software/uikit'
+import { Button, Layout, Container, Text, Icon } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import idleTimeIMG from './images/idleTime.svg'
 import spotVSODIMG from './images/spotOD.svg'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { object as yupObject, string as yupString } from 'yup'
-import { Button, Container, Formik, FormikForm, FormInput } from '@wings-software/uikit'
+import { Button, Container, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import css from './ManualInputQueryModal.module.scss'
 

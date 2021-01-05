@@ -13,7 +13,7 @@ import {
   Popover,
   MultiTypeInputType,
   getMultiTypeFromValue
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { cloneDeep, get } from 'lodash-es'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'

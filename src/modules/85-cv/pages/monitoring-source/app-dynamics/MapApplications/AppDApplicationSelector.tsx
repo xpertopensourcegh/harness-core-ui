@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import groupBy from 'lodash-es/groupBy'
 import SideNavigation from '../../SideNavigation/SideNavigation'
 import type { ApplicationRecord } from '../AppDOnboardingUtils'

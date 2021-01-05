@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uikit'
+import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import css from './useCreateDelegateModal.module.scss'
 

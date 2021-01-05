@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { ActivitySourceDTO } from 'services/cv'
 
 export type WorkloadInfo = {

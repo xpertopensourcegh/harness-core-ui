@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextInput, useModalHook } from '@wings-software/uikit'
+import { Button, TextInput, useModalHook } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'

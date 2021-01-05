@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Color } from '@wings-software/uikit'
+import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Color } from '@wings-software/uicore'
 import {
   useGetDelegatesStatus,
   useGetDelegatesDownloadUrl,

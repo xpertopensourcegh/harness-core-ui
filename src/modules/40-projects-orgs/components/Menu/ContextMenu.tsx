@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
-import { Layout, Color, Text, Icon } from '@wings-software/uikit'
+import { Layout, Color, Text, Icon } from '@wings-software/uicore'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { ModuleName, useStrings } from 'framework/exports'

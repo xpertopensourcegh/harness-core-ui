@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { NavLink as Link, useParams } from 'react-router-dom'
 import type { NavLinkProps } from 'react-router-dom'
-import { Text, Icon, Layout, Color } from '@wings-software/uikit'
+import { Text, Icon, Layout, Color } from '@wings-software/uicore'
 import { String } from 'framework/exports'
 
 import paths from '@common/RouteDefinitions'

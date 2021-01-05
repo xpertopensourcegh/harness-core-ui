@@ -3,14 +3,14 @@
 exports[`Sidenav render 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <a
       class="link"
       href="/account/dummy/ci/home"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Dashboard
       </p>
@@ -61,7 +61,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/ci/orgs/dummy/projects/dummy/dashboard"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Overview
       </p>
@@ -71,7 +71,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/ci/orgs/dummy/projects/dummy/deployments"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Builds
       </p>
@@ -81,7 +81,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/ci/orgs/dummy/projects/dummy/pipelines"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Pipelines
       </p>

@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Meta, Story } from '@storybook/react'
-import { Card, RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { Card, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'

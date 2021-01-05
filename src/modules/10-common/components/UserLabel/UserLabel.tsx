@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextProps } from '@wings-software/uikit'
+import { Text, TextProps } from '@wings-software/uicore'
 
 export interface UserLabelProps {
   name: string

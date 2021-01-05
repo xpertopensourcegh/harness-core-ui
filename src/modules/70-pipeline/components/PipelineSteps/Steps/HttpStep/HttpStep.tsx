@@ -6,7 +6,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'

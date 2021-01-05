@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, ExpandingSearchInput, Text } from '@wings-software/uikit'
+import { Button, Container, ExpandingSearchInput, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import css from './LogsHeader.module.scss'
 

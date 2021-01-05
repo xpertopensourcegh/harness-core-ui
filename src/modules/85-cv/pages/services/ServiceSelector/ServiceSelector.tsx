@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, useMemo } from 'react'
-import { Container, Text, Color } from '@wings-software/uikit'
+import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'

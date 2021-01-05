@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button } from '@wings-software/uikit'
+import { ExpandingSearchInput, Card, Text, Icon, Layout, Button } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy } from 'lodash-es'
 

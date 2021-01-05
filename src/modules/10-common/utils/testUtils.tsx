@@ -3,7 +3,7 @@ import { UseGetProps, UseGetReturn, RestfulProvider } from 'restful-react'
 import { compile } from 'path-to-regexp'
 import { createMemoryHistory } from 'history'
 import { Router, Route, Switch, useLocation } from 'react-router-dom'
-import { ModalProvider } from '@wings-software/uikit'
+import { ModalProvider } from '@wings-software/uicore'
 import qs from 'qs'
 
 import strings from 'strings/strings.en.yaml'

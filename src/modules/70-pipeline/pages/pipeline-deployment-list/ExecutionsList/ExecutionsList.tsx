@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import { String } from 'framework/exports'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 

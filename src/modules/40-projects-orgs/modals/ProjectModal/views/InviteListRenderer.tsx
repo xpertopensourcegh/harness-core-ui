@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import { Menu } from '@blueprintjs/core'
-import { SelectOption, Layout, Color, Text, Button, Avatar, Container } from '@wings-software/uikit'
+import { SelectOption, Layout, Color, Text, Button, Avatar, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
 import { useToaster } from '@common/exports'

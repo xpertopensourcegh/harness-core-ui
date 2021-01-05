@@ -2,7 +2,7 @@ import React from 'react'
 import { Route as RouterRoute } from 'react-router-dom'
 import type { RouteProps as RouterRouteprops } from 'react-router-dom'
 
-import { ModalProvider } from '@wings-software/uikit'
+import { ModalProvider } from '@wings-software/uicore'
 import { DefaultLayout } from '@common/layouts'
 
 export interface RouteWithLayoutProps extends RouterRouteprops {

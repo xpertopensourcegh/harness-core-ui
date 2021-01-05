@@ -4,36 +4,36 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
 <div>
   <section>
     <div
-      class="StepWizard---main--SGVz existingDocker StepWizard---navBar--2KYu"
+      class="StepWizard--main existingDocker StepWizard--navBar"
     >
       <div
-        class="StepWizard---navBarList--2ILN"
+        class="StepWizard--navBarList"
       >
         <div
-          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+          class="StepWizard--navStep StepWizard--activeStep"
         >
           <span
-            class="StepWizard---number--1LKy"
+            class="StepWizard--number"
           >
             1
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             Specify the Artifact Server
           </p>
         </div>
         <div
-          class="StepWizard---navStep--2trN"
+          class="StepWizard--navStep"
         >
           <span
-            class="StepWizard---number--1LKy"
+            class="StepWizard--number"
           >
             2
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             Step 2
@@ -41,11 +41,11 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
         </div>
       </div>
       <div
-        class="StepWizard---stepDetails--Uaxx"
+        class="StepWizard--stepDetails"
       >
          
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
           data-id="Specify the Artifact Server"
         >
           <div
@@ -54,10 +54,10 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
             Specify the Artifact Server
           </div>
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
@@ -77,7 +77,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                           class="bp3-form-content"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                             style="width: 410px;"
                           >
                             <span
@@ -87,7 +87,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                                   style="width: 382px;"
                                   type="button"
                                 >
@@ -101,7 +101,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                                     </span>
                                   </span>
                                   <span
-                                    class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                                    class="bp3-icon bp3-icon-caret-down StyledProps--main"
                                     icon="caret-down"
                                   >
                                     <svg
@@ -129,10 +129,10 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                   >
                                     <svg
                                       height="12"
@@ -153,11 +153,11 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws addNewArtifact StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addNewArtifact StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                        class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
                         icon="plus"
                       >
                         <svg
@@ -203,10 +203,10 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                         class="bp3-form-content"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         >
                           <div
-                            class="bp3-input-group MultiTypeInput---input--36mQ"
+                            class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -223,10 +223,10 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                class="MultiTypeInput--btn MultiTypeInput--FIXED"
                               >
                                 <span
-                                  class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                 >
                                   <svg
                                     height="12"
@@ -248,7 +248,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveBtn StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main saveBtn StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

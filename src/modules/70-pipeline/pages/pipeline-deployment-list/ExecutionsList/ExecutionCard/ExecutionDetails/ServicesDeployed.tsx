@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@wings-software/uikit'
+import { Button } from '@wings-software/uicore'
 import { Popover, Position } from '@blueprintjs/core'
 
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'

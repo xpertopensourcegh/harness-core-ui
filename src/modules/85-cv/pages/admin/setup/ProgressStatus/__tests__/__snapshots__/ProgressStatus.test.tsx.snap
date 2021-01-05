@@ -3,25 +3,25 @@
 exports[`ProgressStatus render initial state with services and env 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-white--3wQv StyledProps---padding-large--26zZ"
+    class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-large"
     style="width: 20%; height: 100vh;"
   >
     <div
       class="progressContainer"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black StyledProps--padding-small"
       >
         Your Progress
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-large--1oBg"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <span
-            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
             icon="tick-circle"
           >
             <svg
@@ -55,25 +55,25 @@ exports[`ProgressStatus render initial state with services and env 1`] = `
 exports[`ProgressStatus render with some services in activity and monitoring 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-white--3wQv StyledProps---padding-large--26zZ"
+    class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-large"
     style="width: 20%; height: 100vh;"
   >
     <div
       class="progressContainer"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black StyledProps--padding-small"
       >
         Your Progress
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-large--1oBg"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <span
-            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
             icon="tick-circle"
           >
             <svg
@@ -96,10 +96,10 @@ exports[`ProgressStatus render with some services in activity and monitoring 1`]
           </span>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <span
-            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
             icon="tick-circle"
           >
             <svg
@@ -122,10 +122,10 @@ exports[`ProgressStatus render with some services in activity and monitoring 1`]
           </span>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <span
-            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
             icon="tick-circle"
           >
             <svg

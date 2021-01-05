@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Layout, Icon, Color } from '@wings-software/uikit'
+import { Container, Text, Layout, Icon, Color } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
 import css from '../CVSetupPage.module.scss'

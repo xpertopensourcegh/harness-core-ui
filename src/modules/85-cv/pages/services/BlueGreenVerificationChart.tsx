@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Container, Color } from '@wings-software/uikit'
+import { Text, Container, Color } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import classnames from 'classnames'
 import styles from './BlueGreenVerificationChart.module.scss'

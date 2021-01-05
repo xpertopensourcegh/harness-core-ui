@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { map } from 'lodash-es'
 import { DiagramEngine, NodeWidget, NodeModel } from '@projectstorm/react-diagrams-core'
-import { Text, Button, Icon } from '@wings-software/uikit'
+import { Text, Button, Icon } from '@wings-software/uicore'
 import type { StepGroupNodeLayerModel } from './StepGroupNodeLayerModel'
 import { Event, StepsType, DiagramDrag } from '../Constants'
 import { RollbackToggleSwitch } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'

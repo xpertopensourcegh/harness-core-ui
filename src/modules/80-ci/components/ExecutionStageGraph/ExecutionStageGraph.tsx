@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import cx from 'classnames'
-import { Container, Button, Layout, Text, Color, IconName, ButtonProps } from '@wings-software/uikit'
+import { Container, Button, Layout, Text, Color, IconName, ButtonProps } from '@wings-software/uicore'
 import { ExecutionStageButton } from './ExecutionStageButton'
 import css from './ExecutionStageGraph.module.scss'
 

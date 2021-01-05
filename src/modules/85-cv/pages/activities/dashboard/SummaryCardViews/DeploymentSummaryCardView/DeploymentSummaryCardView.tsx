@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, Container, Icon, Text } from '@wings-software/uikit'
+import { Color, Container, Icon, Text } from '@wings-software/uicore'
 import {
   DeploymentProgressAndNodes,
   DeploymentProgressAndNodesProps

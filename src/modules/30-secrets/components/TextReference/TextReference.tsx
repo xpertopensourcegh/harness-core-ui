@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { get, isPlainObject } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
-import { FormInput, Layout, Text, Container } from '@wings-software/uikit'
+import { FormInput, Layout, Text, Container } from '@wings-software/uicore'
 import { FormikContext, connect } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'

@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import { GetAllEnvironmentsQueryParams, useGetAllEnvironments } from 'services/cf'
 
 export const useEnvironments = (queryParams: GetAllEnvironmentsQueryParams) => {

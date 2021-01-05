@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { AnalysisDrillDownView } from '../AnalysisDrillDownView'
 import i18n from '../AnalysisDrillDownView.i18n'
 

@@ -13,7 +13,7 @@ import {
   Popover,
   getMultiTypeFromValue,
   MultiTypeInputType
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { FieldArray } from 'formik'

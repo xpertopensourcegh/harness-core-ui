@@ -1,4 +1,4 @@
-import { Layout } from '@wings-software/uikit'
+import { Layout } from '@wings-software/uicore'
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { PageError } from '@common/components/Page/PageError'

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
-import { Heading, Container, Text, Button } from '@wings-software/uikit'
+import { Heading, Container, Text, Button } from '@wings-software/uicore'
 import { cloneDeep } from 'lodash-es'
 import type { MetricPack } from 'services/cv'
 import ConfigureThreshold from '@cv/pages/metric-pack/ConfigureThreshold'

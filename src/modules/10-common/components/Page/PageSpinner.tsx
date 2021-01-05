@@ -1,4 +1,4 @@
-import { Color, Text, Icon, Layout, Container } from '@wings-software/uikit'
+import { Color, Text, Icon, Layout, Container } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import i18n from './PageSpinner.i18n'

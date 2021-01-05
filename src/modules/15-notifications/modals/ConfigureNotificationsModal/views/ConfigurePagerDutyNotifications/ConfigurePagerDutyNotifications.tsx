@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading } from '@wings-software/uikit'
+import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'

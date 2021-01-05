@@ -3,16 +3,16 @@
 exports[`Get Started Project test Add a new Project  1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
       level="2"
     >
       Get Started
     </h2>
     <a
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+      class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
       href="javascript:void()"
       role="button"
       tabindex="0"
@@ -35,23 +35,23 @@ exports[`Get Started Project test Add a new Project  1`] = `
         src="test-file-stub"
       />
       <h1
-        class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
         level="1"
       >
         Welcome, let's get you started!
       </h1>
       <h2
-        class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT"
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey600"
         level="2"
       >
         Take your software delivery processes to the next level using our Harness modules
       </h2>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
           icon="plus"
         >
           <svg

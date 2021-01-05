@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Button, Heading, Text, Icon, Layout } from '@wings-software/uikit'
+import { Container, Button, Heading, Text, Icon, Layout } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'

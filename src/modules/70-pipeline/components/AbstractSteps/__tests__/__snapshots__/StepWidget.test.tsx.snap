@@ -19,7 +19,7 @@ exports[`StepWidget tests shows different steps based on type 2`] = `
 exports[`StepWidget tests shows invalid step 1`] = `
 <div>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-warning--2N1t"
+    class="StyledProps--font StyledProps--main StyledProps--intent-warning"
   >
     Step not found
   </p>

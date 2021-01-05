@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uikit'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import { getMonthIncrements } from '../ActivityTimelineScrubber/ActivityTimelineScrubberUtils'
 import css from './ActivityTimelineMonthSelector.module.scss'

@@ -16,10 +16,10 @@ exports[`<MultiTypeSelect /> tests Should render properly 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
           >
             <div
-              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+              class="bp3-popover-wrapper Select--main bp3-fill"
             >
               <div
                 class="bp3-popover-target"
@@ -40,7 +40,7 @@ exports[`<MultiTypeSelect /> tests Should render properly 1`] = `
                     class="bp3-input-action"
                   >
                     <span
-                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                       icon="caret-down"
                     >
                       <svg
@@ -69,10 +69,10 @@ exports[`<MultiTypeSelect /> tests Should render properly 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                   >
                     <svg
                       height="12"

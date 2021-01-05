@@ -6,14 +6,14 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
     class="repoContainer"
   >
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws contentGrid gitSyncGrid StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-huge--3Kfu StyledProps---margin-bottom-small--3Kji StyledProps---margin-left-xlarge--2EHr"
+            class="StyledProps--font StyledProps--main contentGrid gitSyncGrid StyledProps--margin-top-medium StyledProps--margin-right-huge StyledProps--margin-bottom-small StyledProps--margin-left-xlarge"
           >
             <div
               class="bp3-form-group"
@@ -23,7 +23,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  class="bp3-popover-wrapper Select--main bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"
@@ -44,7 +44,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                         class="bp3-input-action"
                       >
                         <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                           icon="caret-down"
                         >
                           <svg
@@ -111,10 +111,10 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
               <div
-                class="TextInput---main--1ytZ"
+                class="TextInput--main"
               >
                 <div
                   class="bp3-input-group rootFolder"
@@ -128,7 +128,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws unsetButtons StyledProps---intent-primary--2Xgi"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main unsetButtons StyledProps--intent-primary"
                 type="button"
               >
                 <span
@@ -139,13 +139,13 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
               </button>
             </div>
             <div
-              class="StyledProps---font--2ipy Radio---radioGroup--3xzN radioGroup StyledProps---main--1Wws"
+              class="StyledProps--font Radio--radioGroup radioGroup StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
               >
                 <label
-                  class="bp3-control bp3-radio StyledProps---font--2ipy Radio---radio--3bxG defaultRootRadio StyledProps---main--1Wws"
+                  class="bp3-control bp3-radio StyledProps--font Radio--radio defaultRootRadio StyledProps--main"
                 >
                   <input
                     type="radio"
@@ -165,14 +165,14 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
     class="repoContainer"
   >
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws contentGrid gitSyncGrid StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-huge--3Kfu StyledProps---margin-bottom-small--3Kji StyledProps---margin-left-xlarge--2EHr"
+            class="StyledProps--font StyledProps--main contentGrid gitSyncGrid StyledProps--margin-top-medium StyledProps--margin-right-huge StyledProps--margin-bottom-small StyledProps--margin-left-xlarge"
           >
             <div
               class="bp3-form-group"
@@ -182,7 +182,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  class="bp3-popover-wrapper Select--main bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"
@@ -203,7 +203,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                         class="bp3-input-action"
                       >
                         <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                           icon="caret-down"
                         >
                           <svg
@@ -270,10 +270,10 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
               <div
-                class="TextInput---main--1ytZ"
+                class="TextInput--main"
               >
                 <div
                   class="bp3-input-group rootFolder"
@@ -287,7 +287,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws unsetButtons StyledProps---intent-primary--2Xgi"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main unsetButtons StyledProps--intent-primary"
                 type="button"
               >
                 <span
@@ -298,13 +298,13 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
               </button>
             </div>
             <div
-              class="StyledProps---font--2ipy Radio---radioGroup--3xzN radioGroup StyledProps---main--1Wws"
+              class="StyledProps--font Radio--radioGroup radioGroup StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
               >
                 <label
-                  class="bp3-control bp3-radio StyledProps---font--2ipy Radio---radio--3bxG defaultRootRadio StyledProps---main--1Wws"
+                  class="bp3-control bp3-radio StyledProps--font Radio--radio defaultRootRadio StyledProps--main"
                 >
                   <input
                     type="radio"
@@ -326,60 +326,60 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
 exports[`Git Sync - repo tab rendering landing view 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws bodyContainer StyledProps---padding-top-large--i39X StyledProps---padding-right-xxxlarge--1Uke StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-xxxlarge--37cM"
+    class="StyledProps--font StyledProps--main bodyContainer StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-large StyledProps--padding-left-xxxlarge"
   >
     <section
       class="header gitSyncGrid"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        class="StyledProps--font StyledProps--main columnHeader"
       >
         GIT SERVER
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        class="StyledProps--font StyledProps--main columnHeader"
       >
         REPOSITORY
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        class="StyledProps--font StyledProps--main columnHeader"
       >
         BRANCH
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+          class="StyledProps--font StyledProps--main columnHeader"
         >
           SYNC ROOT FOLDER
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+          class="StyledProps--font StyledProps--main columnHeaderBody"
         >
           Anything in these folders will be synced to the project
         </p>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+          class="StyledProps--font StyledProps--main columnHeader"
         >
           DEFAULT
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+          class="StyledProps--font StyledProps--main columnHeaderBody"
         >
           Any new entities created via Harness user interface/apis will be synced to this folder
         </p>
       </div>
     </section>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws repoContainer StyledProps---padding-medium--3Ish"
+      class="StyledProps--font StyledProps--main repoContainer StyledProps--padding-medium"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-right-medium--1Ojn"
+        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-medium"
         type="button"
       >
         <span
@@ -389,7 +389,7 @@ exports[`Git Sync - repo tab rendering landing view 1`] = `
         </span>
       </button>
       <span
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+        class="StyledProps--font StyledProps--main StyledProps--inline"
       >
         Specify your Git server, repository, branch to sync your entities to
       </span>
@@ -401,50 +401,50 @@ exports[`Git Sync - repo tab rendering landing view 1`] = `
 exports[`Git Sync - repo tab rendering landing view 2`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws bodyContainer StyledProps---padding-top-large--i39X StyledProps---padding-right-xxxlarge--1Uke StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-xxxlarge--37cM"
+    class="StyledProps--font StyledProps--main bodyContainer StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-large StyledProps--padding-left-xxxlarge"
   >
     <section
       class="header gitSyncGrid"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        class="StyledProps--font StyledProps--main columnHeader"
       >
         GIT SERVER
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        class="StyledProps--font StyledProps--main columnHeader"
       >
         REPOSITORY
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        class="StyledProps--font StyledProps--main columnHeader"
       >
         BRANCH
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+          class="StyledProps--font StyledProps--main columnHeader"
         >
           SYNC ROOT FOLDER
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+          class="StyledProps--font StyledProps--main columnHeaderBody"
         >
           Anything in these folders will be synced to the project
         </p>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+          class="StyledProps--font StyledProps--main columnHeader"
         >
           DEFAULT
         </p>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+          class="StyledProps--font StyledProps--main columnHeaderBody"
         >
           Any new entities created via Harness user interface/apis will be synced to this folder
         </p>
@@ -454,14 +454,14 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
       class="repoContainer"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws contentGrid gitSyncGrid StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-huge--3Kfu StyledProps---margin-bottom-small--3Kji StyledProps---margin-left-xlarge--2EHr"
+              class="StyledProps--font StyledProps--main contentGrid gitSyncGrid StyledProps--margin-top-medium StyledProps--margin-right-huge StyledProps--margin-bottom-small StyledProps--margin-left-xlarge"
             >
               <div
                 class="bp3-form-group"
@@ -471,7 +471,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -492,7 +492,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -559,10 +559,10 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                 </div>
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
               >
                 <div
-                  class="TextInput---main--1ytZ"
+                  class="TextInput--main"
                 >
                   <div
                     class="bp3-input-group rootFolder"
@@ -576,7 +576,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws unsetButtons StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main unsetButtons StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -587,13 +587,13 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                 </button>
               </div>
               <div
-                class="StyledProps---font--2ipy Radio---radioGroup--3xzN radioGroup StyledProps---main--1Wws"
+                class="StyledProps--font Radio--radioGroup radioGroup StyledProps--main"
               >
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                 >
                   <label
-                    class="bp3-control bp3-radio bp3-disabled StyledProps---font--2ipy Radio---radio--3bxG defaultRootRadio StyledProps---main--1Wws"
+                    class="bp3-control bp3-radio bp3-disabled StyledProps--font Radio--radio defaultRootRadio StyledProps--main"
                   >
                     <input
                       disabled=""
@@ -607,10 +607,10 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
               </div>
             </div>
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws editRepoContainer StyledProps---padding-medium--3Ish"
+              class="StyledProps--font StyledProps--main editRepoContainer StyledProps--padding-medium"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi StyledProps---margin-right-large--2cZ8"
+                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary StyledProps--margin-right-large"
                 type="submit"
               >
                 <span
@@ -620,7 +620,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws cancelButton StyledProps---intent-danger--1PFK"
+                class="bp3-button StyledProps--font Button--button StyledProps--main cancelButton StyledProps--intent-danger"
                 type="button"
               >
                 <span

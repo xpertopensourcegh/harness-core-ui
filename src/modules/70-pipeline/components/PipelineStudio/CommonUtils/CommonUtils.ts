@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
 import { EmptyStageName } from '../PipelineConstants'
 

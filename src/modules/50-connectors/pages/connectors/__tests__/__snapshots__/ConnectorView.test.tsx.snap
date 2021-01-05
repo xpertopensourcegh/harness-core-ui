@@ -3,23 +3,23 @@
 exports[`Connector Details Page Edit and save connector YAML 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
+      class="StyledProps--font StyledProps--main buttonContainer"
     />
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
         class="fullWidth"
       >
         <div />
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-large--1oBg"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-large"
             id="saveYAMLChanges"
             title=""
             type="button"
@@ -31,7 +31,7 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---margin-top-large--1oBg"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-top-large"
             type="button"
           >
             <span
@@ -50,13 +50,13 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
 exports[`Connector Details Page Edit details test 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
+      class="StyledProps--font StyledProps--main buttonContainer"
     />
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     />
   </div>
 </div>
@@ -65,10 +65,10 @@ exports[`Connector Details Page Edit details test 1`] = `
 exports[`Connector Details Page Rendering connector details: view text 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
+      class="StyledProps--font StyledProps--main buttonContainer"
     >
       <div
         class="optionBtns"
@@ -85,12 +85,12 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws editButton"
+        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
         id="editDetailsBtn"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
           icon="edit"
         >
           <svg
@@ -116,50 +116,50 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
       </button>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+        class="StyledProps--font StyledProps--main detailsSectionContainer"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+          class="StyledProps--font StyledProps--main detailsSection"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
           >
             Overview
           </p>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+          class="StyledProps--font StyledProps--main detailsSection"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
           >
             Credentials
           </p>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorDetailsWrapper"
+        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          class="Layout--vertical StyledProps--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+            class="StyledProps--font StyledProps--main detailsSection"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
             >
               Connector Activity
             </p>
           </div>
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
+              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
               type="button"
             >
               <span
@@ -179,10 +179,10 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
 exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
+      class="StyledProps--font StyledProps--main buttonContainer"
     >
       <div
         class="optionBtns"
@@ -199,12 +199,12 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws editButton"
+        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
         id="editDetailsBtn"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
           icon="edit"
         >
           <svg
@@ -230,10 +230,10 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
       </button>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws fullWidth"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main fullWidth"
       >
         <div
           class="yamlView"
@@ -244,10 +244,10 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
           class="fullWidth"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+            class="StyledProps--font StyledProps--main detailsSection"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
             >
               Connector Activity
             </p>

@@ -1,6 +1,6 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uikit'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import type { IconName } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 export interface PipelineStageProps<T = {}> {
   name: string

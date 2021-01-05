@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, FormikForm } from '@wings-software/uikit'
+import { Formik, FormikForm } from '@wings-software/uicore'
 import css from './KubernetesActivitySourceForm.module.scss'
 
 export default function KubernetesActivitySourceForm(): JSX.Element {

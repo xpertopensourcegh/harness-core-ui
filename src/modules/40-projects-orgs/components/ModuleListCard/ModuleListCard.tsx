@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uikit'
+import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
 import { ModuleName, String, useStrings } from 'framework/exports'

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Container, Icon, Text, Color } from '@wings-software/uikit'
-import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/FontProps'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { Container, Icon, Text, Color } from '@wings-software/uicore'
+import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 const MAIN_CONTAINER_STYLE: React.CSSProperties = {
   display: 'flex',

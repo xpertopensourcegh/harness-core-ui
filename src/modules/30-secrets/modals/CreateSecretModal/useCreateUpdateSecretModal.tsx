@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useModalHook, Button, Text, Color } from '@wings-software/uikit'
+import { useModalHook, Button, Text, Color } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
 import type { SecretDTOV2, SecretResponseWrapper } from 'services/cd-ng'

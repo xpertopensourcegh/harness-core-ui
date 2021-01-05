@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Select, Layout } from '@wings-software/uikit'
+import { Container, Select, Layout } from '@wings-software/uicore'
 import { formatElapsedTime } from '@ci/components/common/time'
 import LogViewContainer from '@ci/components/LogViewContainer/LogViewContainer'
 import { BuildStep } from '@ci/components/BuildSteps/BuildStep'

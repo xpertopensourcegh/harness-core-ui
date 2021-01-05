@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text } from '@wings-software/uikit'
+import { Layout, Text } from '@wings-software/uicore'
 
 import { StepWidget, StepViewType } from '@pipeline/exports'
 import type { NGVariable as Variable } from 'services/cd-ng'

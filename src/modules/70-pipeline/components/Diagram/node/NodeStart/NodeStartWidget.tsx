@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import cx from 'classnames'
-import { Icon } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
 import type { NodeStartModel } from './NodeStartModel'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'

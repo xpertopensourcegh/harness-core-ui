@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Button, TextInput, useModalHook } from '@wings-software/uikit'
+import { Layout, Button, TextInput, useModalHook } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import {
   useGetConnectorList,

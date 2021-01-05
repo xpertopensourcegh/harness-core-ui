@@ -1,4 +1,4 @@
-import { Container, IconName, ButtonProps } from '@wings-software/uikit'
+import { Container, IconName, ButtonProps } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import { PageSpinner } from './PageSpinner'

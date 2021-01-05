@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
 import { NavLink, useParams, useLocation, matchPath } from 'react-router-dom'
 import cx from 'classnames'
 

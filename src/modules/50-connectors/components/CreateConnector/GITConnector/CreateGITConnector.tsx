@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StepWizard, SelectOption } from '@wings-software/uikit'
+import { StepWizard, SelectOption } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'

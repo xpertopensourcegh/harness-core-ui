@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text } from '@wings-software/uikit'
+import { Container, Text } from '@wings-software/uicore'
 import classnames from 'classnames'
 import type { CategoryRisk } from 'services/cv'
 import { RiskScoreTile, RiskScoreTileProps } from '../RiskScoreTile/RiskScoreTile'

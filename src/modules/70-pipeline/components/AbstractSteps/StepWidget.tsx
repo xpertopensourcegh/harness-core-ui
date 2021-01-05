@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import type { AbstractStepFactory } from './AbstractStepFactory'
 import i18n from './StepWidget.i18n'
 import { StepViewType } from './Step'

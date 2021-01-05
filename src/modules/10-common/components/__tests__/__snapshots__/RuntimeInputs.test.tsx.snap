@@ -3,10 +3,10 @@
 exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render with default fixed values 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
@@ -17,10 +17,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
             >
               <label
-                class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
               >
                 <input
                   checked=""
@@ -39,10 +39,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -79,7 +79,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
             >
               <div
                 class="input"
@@ -119,10 +119,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -159,7 +159,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
               style="flex-grow: 1;"
             >
               <textarea
@@ -175,10 +175,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -206,10 +206,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
 exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render with default runtimeInput values 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
@@ -230,13 +230,13 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
             >
               <div
-                class="TextInput---main--1ytZ"
+                class="TextInput--main"
               >
                 <div
-                  class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                  class="bp3-input-group bp3-disabled MultiTypeInput--input"
                 >
                   <input
                     class="bp3-input"
@@ -255,10 +255,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                    class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -295,13 +295,13 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
             >
               <div
-                class="TextInput---main--1ytZ"
+                class="TextInput--main"
               >
                 <div
-                  class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                  class="bp3-input-group bp3-disabled MultiTypeInput--input"
                 >
                   <input
                     class="bp3-input"
@@ -320,10 +320,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                    class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -360,14 +360,14 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
               style="flex-grow: 1;"
             >
               <div
-                class="TextInput---main--1ytZ"
+                class="TextInput--main"
               >
                 <div
-                  class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                  class="bp3-input-group bp3-disabled MultiTypeInput--input"
                 >
                   <input
                     class="bp3-input"
@@ -386,10 +386,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                    class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -417,10 +417,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
 exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render without default values 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
@@ -431,10 +431,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
             >
               <label
-                class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy input StyledProps---main--1Wws"
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
               >
                 <input
                   name="checkboxValue"
@@ -452,10 +452,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -492,7 +492,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
             >
               <div
                 class="input"
@@ -531,10 +531,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -571,7 +571,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
               style="flex-grow: 1;"
             >
               <textarea
@@ -585,10 +585,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"

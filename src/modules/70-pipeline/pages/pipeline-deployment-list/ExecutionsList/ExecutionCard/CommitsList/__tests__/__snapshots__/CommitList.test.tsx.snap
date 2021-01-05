@@ -27,17 +27,17 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-0
             </span>
@@ -45,7 +45,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -64,7 +64,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 0123456
               </span>
@@ -81,17 +81,17 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-1
             </span>
@@ -99,7 +99,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -118,7 +118,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 1123456
               </span>
@@ -161,17 +161,17 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-0
             </span>
@@ -179,7 +179,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -198,7 +198,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 0123456
               </span>
@@ -215,17 +215,17 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-1
             </span>
@@ -233,7 +233,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -252,7 +252,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 1123456
               </span>
@@ -269,17 +269,17 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-2
             </span>
@@ -287,7 +287,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -306,7 +306,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 2123456
               </span>
@@ -323,17 +323,17 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-3
             </span>
@@ -341,7 +341,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -360,7 +360,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 3123456
               </span>
@@ -377,17 +377,17 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-4
             </span>
@@ -395,7 +395,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -414,7 +414,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 4123456
               </span>
@@ -457,17 +457,17 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-0
             </span>
@@ -475,7 +475,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -494,7 +494,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 0123456
               </span>
@@ -511,17 +511,17 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-1
             </span>
@@ -529,7 +529,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -548,7 +548,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 1123456
               </span>
@@ -565,17 +565,17 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-2
             </span>
@@ -583,7 +583,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -602,7 +602,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 2123456
               </span>
@@ -619,17 +619,17 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-3
             </span>
@@ -637,7 +637,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -656,7 +656,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 3123456
               </span>
@@ -673,17 +673,17 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
           </div>
           <div>
             <div
-              class="avatar Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+              class="avatar Avatar--Avatar Avatar--contentStyle"
             >
               <div
-                class="Avatar---AvatarInner--C7qT"
+                class="Avatar--AvatarInner"
                 style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
               >
                 O
               </div>
             </div>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS StyledProps---color-grey900--39kq"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
             >
               owner-id-4
             </span>
@@ -691,7 +691,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
               class="commitHash"
             >
               <span
-                class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                class="bp3-icon bp3-icon-clipboard StyledProps--main StyledProps--color StyledProps--color-grey500"
                 icon="clipboard"
               >
                 <svg
@@ -710,7 +710,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
                 </svg>
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
               >
                 4123456
               </span>

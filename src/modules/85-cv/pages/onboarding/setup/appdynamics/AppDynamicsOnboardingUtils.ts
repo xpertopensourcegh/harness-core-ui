@@ -1,4 +1,4 @@
-import type { SelectOption, MultiSelectOption } from '@wings-software/uikit'
+import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
 import type { DSConfig, MetricPack } from 'services/cv'
 import type { TierAndServiceRow } from './TierAndServiceTable/TierAndServiceTable'
 

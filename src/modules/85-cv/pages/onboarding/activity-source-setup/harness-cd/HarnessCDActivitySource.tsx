@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'

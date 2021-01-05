@@ -3,7 +3,7 @@
 exports[`ReviewTiersAndApps matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
       class="table"
@@ -71,11 +71,11 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -101,7 +101,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           style="width: 10%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             2
           </p>
@@ -112,11 +112,11 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           style="width: 20%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -138,15 +138,15 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           style="width: 15%;"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---margin-right-xsmall--1WI2"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--margin-right-xsmall"
             >
               100%
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               xx
             </p>
@@ -167,14 +167,14 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
       </div>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+      class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
           icon="chevron-left"
         >
           <svg
@@ -199,7 +199,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -208,7 +208,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           Next
         </span>
         <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
           icon="chevron-right"
         >
           <svg

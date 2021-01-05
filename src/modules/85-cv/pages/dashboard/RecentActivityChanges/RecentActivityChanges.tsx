@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, Container, IconName, Color } from '@wings-software/uikit'
+import { Text, Button, Container, IconName, Color } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'

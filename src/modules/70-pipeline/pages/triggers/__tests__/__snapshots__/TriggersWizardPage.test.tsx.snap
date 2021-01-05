@@ -6,14 +6,14 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
   <div />
   <div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+      class="StyledProps--font StyledProps--main pageBody"
     >
       
       <section
         class="wizardShell"
       >
         <h2
-          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-small"
           level="2"
           style="position: fixed; top: 35px;"
         >
@@ -23,17 +23,17 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
           class="headerLine"
         />
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws tabsContainer"
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
-                  class="bp3-tabs Tabs---main--3Ew7"
+                  class="bp3-tabs Tabs--main"
                 >
                   <div
                     class="bp3-tab-list"
@@ -63,7 +63,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                         class="tab"
                       >
                         <span
-                          class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
                           icon="tick-circle"
                         >
                           <svg
@@ -101,7 +101,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                         class="tab"
                       >
                         <span
-                          class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
                           icon="tick-circle"
                         >
                           <svg
@@ -139,7 +139,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                         class="tab"
                       >
                         <span
-                          class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
                           icon="tick-circle"
                         >
                           <svg
@@ -170,7 +170,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                     role="tabpanel"
                   >
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws webhookConfigurationContainer StyledProps---padding-xxlarge--3lSp"
+                      class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
                     >
                       <h2
                         class="heading"
@@ -179,28 +179,28 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                       </h2>
                       <div>
                         <div
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws main triggerName"
+                          class="StyledProps--font StyledProps--main main triggerName"
                         >
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                            class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                           >
                             <div
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                              class="StyledProps--font StyledProps--main connectorFormNameElm"
                             >
                               <div
-                                class="InputWithIdentifier---txtNameContainer--20iZ"
+                                class="InputWithIdentifier--txtNameContainer"
                               >
                                 <div
-                                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                                  class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                                 >
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                    class="StyledProps--font StyledProps--main"
                                   >
                                     ID
                                     :
                                   </p>
                                   <span
-                                    class="InputWithIdentifier---idInput--w8_T"
+                                    class="InputWithIdentifier--idInput"
                                     contenteditable="false"
                                     disabled=""
                                   >
@@ -240,18 +240,18 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                               </div>
                             </div>
                             <div
-                              class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                               style="justify-content: center;"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                                class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                               >
                                 + Tags
                               </p>
                             </div>
                           </div>
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                            class="StyledProps--font StyledProps--main connectorFormElm"
                           >
                             <div
                               class="bp3-form-group expandedDescription"
@@ -262,15 +262,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                 for="description"
                               >
                                 <div
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                                  class="StyledProps--font StyledProps--main headerRow"
                                 >
                                   <span
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                                    class="StyledProps--font StyledProps--main StyledProps--inline"
                                   >
                                     Description
                                   </span>
                                   <span
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
                                   >
                                     remove
                                   </span>
@@ -295,7 +295,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                           </div>
                         </div>
                         <h2
-                          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws listenOnNewWebhook"
+                          class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                           level="2"
                         >
                           Listen on New Webhook
@@ -321,7 +321,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                               class="bp3-form-content"
                             >
                               <div
-                                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                                class="bp3-popover-wrapper Select--main bp3-fill"
                               >
                                 <div
                                   class="bp3-popover-target"
@@ -342,7 +342,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                         icon="caret-down"
                                       >
                                         <svg
@@ -414,7 +414,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                               class="bp3-form-content"
                             >
                               <div
-                                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                                class="bp3-popover-wrapper Select--main bp3-fill"
                               >
                                 <div
                                   class="bp3-popover-target"
@@ -435,7 +435,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                         icon="caret-down"
                                       >
                                         <svg
@@ -464,7 +464,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                           >
                             <div>
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                class="StyledProps--font StyledProps--main"
                                 style="font-size: 13px;"
                               >
                                 Actions
@@ -477,7 +477,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                   class="bp3-form-content"
                                 >
                                   <div
-                                    class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                                    class="bp3-popover-wrapper MultiSelect--main bp3-fill"
                                   >
                                     <div
                                       class="bp3-popover-target"
@@ -492,7 +492,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                             class="bp3-tag-input-values"
                                           >
                                             <span
-                                              class="bp3-tag MultiSelect---tag--3wwj"
+                                              class="bp3-tag MultiSelect--tag"
                                               data-tag-index="0"
                                             >
                                               <span
@@ -526,7 +526,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                               </button>
                                             </span>
                                             <span
-                                              class="bp3-tag MultiSelect---tag--3wwj"
+                                              class="bp3-tag MultiSelect--tag"
                                               data-tag-index="1"
                                             >
                                               <span
@@ -560,7 +560,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                               </button>
                                             </span>
                                             <span
-                                              class="bp3-tag MultiSelect---tag--3wwj"
+                                              class="bp3-tag MultiSelect--tag"
                                               data-tag-index="2"
                                             >
                                               <span
@@ -613,7 +613,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                                 class="bp3-form-content"
                               >
                                 <label
-                                  class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy Checkbox---checkbox--2kFy anyAction StyledProps---main--1Wws StyledProps---inline--1f52"
+                                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox anyAction StyledProps--main StyledProps--inline"
                                 >
                                   <input
                                     name="anyAction"
@@ -633,10 +633,10 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                   </div>
                 </div>
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws footer"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
                 >
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="button"
                   >
                     <span
@@ -645,7 +645,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                       Continue
                     </span>
                     <span
-                      class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                       icon="chevron-right"
                     >
                       <svg
@@ -665,7 +665,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                     </span>
                   </button>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws cancel"
+                    class="StyledProps--font StyledProps--main cancel"
                   >
                     Cancel
                   </p>

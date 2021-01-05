@@ -6,21 +6,21 @@ exports[`EditStageView snapshot test should render properly 1`] = `
     class="stageCreate"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+      class="StyledProps--font StyledProps--main StyledProps--padding-medium"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-medium--1zkE"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   fill="none"
@@ -39,25 +39,25 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               About Your Stage
             </p>
             <div
-              class="InputWithIdentifier---txtNameContainer--20iZ"
+              class="InputWithIdentifier--txtNameContainer"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   ID
                   :
                 </p>
                 <span
-                  class="InputWithIdentifier---idInput--w8_T"
+                  class="InputWithIdentifier--idInput"
                   contenteditable="true"
                 >
                   id1
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
                   style="vertical-align: middle;"
                 >
@@ -112,16 +112,16 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               class="collapseDiv"
             >
               <div
-                class="Collapse---main--34Is"
+                class="Collapse--main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
                     <span
-                      class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                       icon="small-minus"
                     >
                       <svg
@@ -140,17 +140,17 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
                       Description
                     </p>
                   </div>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   />
                 </div>
                 <div
-                  class="Collapse---collapse--2EmT"
+                  class="Collapse--collapse"
                 >
                   <div
                     class="bp3-collapse collapse"
@@ -183,7 +183,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               </div>
             </div>
             <label
-              class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             >
               <input
                 checked=""
@@ -204,12 +204,12 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="8"
@@ -227,7 +227,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 </span>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
               >
                 Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage
               </p>
@@ -236,11 +236,11 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               class="configureCodebase"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-medium--1zkE"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall"
                   icon="cog"
                 >
                   <svg
@@ -261,7 +261,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 Configure Codebase
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-medium--1zkE"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
               >
                 Help text to tell the user this is only for the first time.
               </p>
@@ -288,7 +288,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                         style="width: 400px;"
                         type="button"
                       >
@@ -296,11 +296,11 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                           class="bp3-button-text"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                             style="justify-content: space-between; width: 100%;"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               test1
                             </p>
@@ -308,7 +308,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                               class="rightStatus"
                             >
                               <span
-                                class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
                                 icon="full-circle"
                               >
                                 <svg
@@ -327,7 +327,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                                 </svg>
                               </span>
                               <span
-                                class="Tag---main--1vng"
+                                class="Tag--main"
                               >
                                 <span
                                   class="bp3-tag bp3-minimal tag"
@@ -343,7 +343,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                           </div>
                         </span>
                         <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main"
                           icon="caret-down"
                         >
                           <svg
@@ -409,7 +409,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-small--1_l5"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
               type="submit"
             >
               <span
@@ -432,21 +432,21 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
     class="stageCreate"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+      class="StyledProps--font StyledProps--main StyledProps--padding-medium"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-medium--1zkE"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   fill="none"
@@ -465,23 +465,23 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               About Your Stage
             </p>
             <div
-              class="InputWithIdentifier---txtNameContainer--20iZ"
+              class="InputWithIdentifier--txtNameContainer"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   ID
                   :
                 </p>
                 <span
-                  class="InputWithIdentifier---idInput--w8_T"
+                  class="InputWithIdentifier--idInput"
                   contenteditable="true"
                 />
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-edit StyledProps--main"
                   icon="edit"
                   style="vertical-align: middle;"
                 >
@@ -536,16 +536,16 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               class="collapseDiv"
             >
               <div
-                class="Collapse---main--34Is"
+                class="Collapse--main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                   >
                     <span
-                      class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                       icon="small-plus"
                     >
                       <svg
@@ -564,17 +564,17 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                      class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
                       Description
                     </p>
                   </div>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   />
                 </div>
                 <div
-                  class="Collapse---collapse--2EmT"
+                  class="Collapse--collapse"
                 >
                   <div
                     class="bp3-collapse collapse"
@@ -589,7 +589,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               </div>
             </div>
             <label
-              class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             >
               <input
                 checked=""
@@ -610,12 +610,12 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="8"
@@ -633,7 +633,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 </span>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC"
+                class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
               >
                 Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage
               </p>
@@ -642,11 +642,11 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               class="configureCodebase"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-medium--1zkE"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall"
                   icon="cog"
                 >
                   <svg
@@ -667,7 +667,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 Configure Codebase
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-medium--1zkE"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
               >
                 Help text to tell the user this is only for the first time.
               </p>
@@ -694,7 +694,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                         style="width: 400px;"
                         type="button"
                       >
@@ -702,11 +702,11 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                           class="bp3-button-text"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                             style="justify-content: space-between; width: 100%;"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               test1
                             </p>
@@ -714,7 +714,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                               class="rightStatus"
                             >
                               <span
-                                class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
                                 icon="full-circle"
                               >
                                 <svg
@@ -733,7 +733,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                                 </svg>
                               </span>
                               <span
-                                class="Tag---main--1vng"
+                                class="Tag--main"
                               >
                                 <span
                                   class="bp3-tag bp3-minimal tag"
@@ -749,7 +749,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                           </div>
                         </span>
                         <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main"
                           icon="caret-down"
                         >
                           <svg
@@ -815,7 +815,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-small--1_l5"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
               type="submit"
             >
               <span

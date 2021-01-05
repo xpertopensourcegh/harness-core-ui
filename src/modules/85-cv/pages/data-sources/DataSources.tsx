@@ -9,7 +9,7 @@ import {
   IconName,
   Text,
   Button
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import type { Cell } from 'react-table'
 import { Link, useParams } from 'react-router-dom'
 import type { IDBPDatabase } from 'idb'

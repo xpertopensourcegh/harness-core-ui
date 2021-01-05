@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Color, Icon, Text, Collapse, IconName } from '@wings-software/uikit'
+import { Container, Color, Icon, Text, Collapse, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import type { VerificationResult } from 'services/cv'
 import styles from './DeploymentGroupList.module.scss'

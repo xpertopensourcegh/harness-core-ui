@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Color } from '@wings-software/uikit'
+import { Container, Color } from '@wings-software/uicore'
 import type { VerificationResult } from 'services/cv'
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'

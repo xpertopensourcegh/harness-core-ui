@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { ExecutionPipelineItem } from '@pipeline/exports'
 import type { ExecutionPipeline, ExecutionPipelineNode } from '@pipeline/exports'
 

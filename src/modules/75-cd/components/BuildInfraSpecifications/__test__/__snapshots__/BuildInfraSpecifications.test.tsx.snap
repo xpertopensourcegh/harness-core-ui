@@ -3,34 +3,34 @@
 exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="align-items: center;"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         style="width: 100%;"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <div
             class="section noPadTop"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws specTabs StyledProps---flex--2Jz8"
+              class="Layout--vertical StyledProps--main specTabs StyledProps--flex"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                 style="width: 220px;"
               >
                 Where do you want the builds to run?
               </p>
             </div>
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
@@ -56,7 +56,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                           style="width: 300px;"
                           type="button"
                         >
@@ -64,11 +64,11 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                             class="bp3-button-text"
                           >
                             <div
-                              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               style="justify-content: space-between; width: 100%;"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                class="StyledProps--font StyledProps--main"
                               >
                                 tesa 1
                               </p>
@@ -76,7 +76,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                                 class="rightStatus"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
                                   icon="full-circle"
                                 >
                                   <svg
@@ -95,7 +95,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                                   </svg>
                                 </span>
                                 <span
-                                  class="Tag---main--1vng"
+                                  class="Tag--main"
                                 >
                                   <span
                                     class="bp3-tag bp3-minimal tag"
@@ -111,7 +111,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                             </div>
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -135,7 +135,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                   </div>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
                   Namespace
                 </p>
@@ -152,10 +152,10 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -171,10 +171,10 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -207,34 +207,34 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
 exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="align-items: center;"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         style="width: 100%;"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <div
             class="section noPadTop"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws specTabs StyledProps---flex--2Jz8"
+              class="Layout--vertical StyledProps--main specTabs StyledProps--flex"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                 style="width: 220px;"
               >
                 Where do you want the builds to run?
               </p>
             </div>
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
@@ -260,7 +260,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                           style="width: 300px;"
                           type="button"
                         >
@@ -274,7 +274,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                             </span>
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -298,7 +298,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                   </div>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
                   Namespace
                 </p>
@@ -315,10 +315,10 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput---input--36mQ"
+                          class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -334,10 +334,10 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"

@@ -3,20 +3,20 @@
 exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Render - Pipeline Input Panel with two runtime inputs 1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws webhookPipelineInputContainer StyledProps---padding-medium--3Ish"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookPipelineInputContainer StyledProps--padding-medium"
         >
           <div
             class="pipelineInputRow"
           >
             <h2
-              class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
               level="2"
             >
               Pipeline Input
@@ -65,22 +65,22 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
             </span>
           </div>
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws container StyledProps---padding-medium--3Ish"
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-medium"
           >
             <div
               style="width: 100%;"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                 style="cursor: pointer;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                 >
                   Stage: 
                 </p>
                 <span
-                  class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-chevron-up StyledProps--main"
                   icon="chevron-up"
                 >
                   <svg
@@ -100,23 +100,23 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 </span>
               </div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                  
                 <div
                   style="width: 100%;"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                     style="cursor: pointer;"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-normal--3yZj"
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-normal"
                     >
                       Infrastructure
                     </p>
                     <span
-                      class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-chevron-up StyledProps--main"
                       icon="chevron-up"
                     >
                       <svg
@@ -136,11 +136,11 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                     </span>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                    class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
                   >
                      
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
                     >
                       <div
                         class="bp3-form-group"

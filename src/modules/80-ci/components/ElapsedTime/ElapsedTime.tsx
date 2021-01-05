@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
-import { Color, Icon, Text } from '@wings-software/uikit'
+import { Color, Icon, Text } from '@wings-software/uicore'
 import { formatElapsedTime } from '../common/time'
 import type { DivAttributesProps } from '../common/props'
 import css from './ElapsedTime.module.scss'

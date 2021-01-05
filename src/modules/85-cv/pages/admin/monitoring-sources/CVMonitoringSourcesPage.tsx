@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
-import { Container, Icon, Text, Button, TextInput } from '@wings-software/uikit'
+import { Container, Icon, Text, Button, TextInput } from '@wings-software/uicore'
 import moment from 'moment'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'

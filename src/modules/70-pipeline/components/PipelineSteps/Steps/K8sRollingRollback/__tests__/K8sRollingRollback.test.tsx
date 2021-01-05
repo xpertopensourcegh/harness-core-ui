@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { K8sRollingRollback } from '../K8sRollingRollback.stories'

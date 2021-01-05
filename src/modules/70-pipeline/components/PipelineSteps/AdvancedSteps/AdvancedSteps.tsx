@@ -1,6 +1,6 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { Formik, FormikForm } from '@wings-software/uikit'
+import { Formik, FormikForm } from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'

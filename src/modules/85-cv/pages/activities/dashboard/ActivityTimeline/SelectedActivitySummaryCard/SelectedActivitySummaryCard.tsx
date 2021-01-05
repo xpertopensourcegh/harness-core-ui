@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Color, Container, Text } from '@wings-software/uikit'
+import { Color, Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import { isNumber } from 'lodash-es'
 import type { Activity } from '../ActivityTrack/ActivityTrackUtils'

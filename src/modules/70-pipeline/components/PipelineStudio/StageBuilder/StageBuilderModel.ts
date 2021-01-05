@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
 import i18n from './StageBuilder.i18n'

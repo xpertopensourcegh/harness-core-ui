@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { useModalHook } from '@wings-software/uikit'
+import { useModalHook } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { getCDPipelineStages, stagesMap } from '@cd/components/CDPipelineStages/CDPipelineStages'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'

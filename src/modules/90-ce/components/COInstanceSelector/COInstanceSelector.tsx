@@ -1,7 +1,7 @@
 import React from 'react'
 import type { CellProps } from 'react-table'
 
-import { Text, Table, Color, Container, ExpandingSearchInput, Layout, Checkbox } from '@wings-software/uikit'
+import { Text, Table, Color, Container, ExpandingSearchInput, Layout, Checkbox } from '@wings-software/uicore'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import i18n from './COInstanceSelector.i18n'
 import css from './COInstanceSelector.module.scss'

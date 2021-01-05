@@ -1,7 +1,7 @@
 import React from 'react'
 import Draggable from 'react-draggable'
 import { usePopper } from 'react-popper'
-import { Button } from '@wings-software/uikit'
+import { Button } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { useExecutionLayoutContext } from './ExecutionLayoutContext'

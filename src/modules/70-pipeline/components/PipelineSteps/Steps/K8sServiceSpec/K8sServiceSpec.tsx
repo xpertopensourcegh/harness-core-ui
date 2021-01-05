@@ -14,7 +14,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   TextInput
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { FormGroup } from '@blueprintjs/core'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'

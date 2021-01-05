@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import type { LogAnalysisClusterChartDTO } from 'services/cv'
 
 export interface ClusterChartProps {

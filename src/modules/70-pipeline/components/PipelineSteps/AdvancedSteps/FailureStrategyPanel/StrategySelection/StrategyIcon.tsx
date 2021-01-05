@@ -1,6 +1,6 @@
 import React from 'react'
-import { Icon } from '@wings-software/uikit'
-import type { IconName } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 
 import { String } from 'framework/exports'
 

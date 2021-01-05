@@ -6,11 +6,11 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
     class="canvasButtons test"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       id="button-group"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+        class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
       >
         <span
           class="bp3-popover-wrapper"
@@ -19,12 +19,12 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
               tabindex="0"
               type="button"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="16"
@@ -41,7 +41,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
         </span>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+        class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
       >
         <span
           class="bp3-popover-wrapper"
@@ -50,12 +50,12 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
               tabindex="0"
               type="button"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="16"
@@ -75,7 +75,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
         class="verticalButtons"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+          class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
         >
           <span
             class="bp3-popover-wrapper"
@@ -84,12 +84,12 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"
@@ -111,12 +111,12 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"

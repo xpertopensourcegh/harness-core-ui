@@ -1,6 +1,6 @@
 import React from 'react'
 import type { CellProps } from 'react-table'
-import { Table, Text, Color, Layout, Container, Button } from '@wings-software/uikit'
+import { Table, Text, Color, Layout, Container, Button } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'

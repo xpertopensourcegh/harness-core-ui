@@ -13,7 +13,7 @@ import {
   FormInput,
   FormikForm as Form,
   CardBody
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'

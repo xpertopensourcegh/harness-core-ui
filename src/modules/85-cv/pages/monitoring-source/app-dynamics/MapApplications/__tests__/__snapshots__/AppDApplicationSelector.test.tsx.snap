@@ -3,17 +3,17 @@
 exports[`AppDApplicationSelector matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws group"
+      class="StyledProps--font StyledProps--main group"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
         style="display: flex; align-items: center; height: 40px;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
         >
           <svg
             height="16"
@@ -29,10 +29,10 @@ exports[`AppDApplicationSelector matches snapshot 1`] = `
         qa
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws main item"
+        class="StyledProps--font StyledProps--main main item"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="16"
@@ -50,17 +50,17 @@ exports[`AppDApplicationSelector matches snapshot 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws itemLabel StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font Text--lineclamp StyledProps--main itemLabel StyledProps--color StyledProps--color-black"
           style="--text-line-clamp: 1; width: 170px;"
         >
           app1
         </p>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws main item"
+        class="StyledProps--font StyledProps--main main item"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="16"
@@ -78,7 +78,7 @@ exports[`AppDApplicationSelector matches snapshot 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws itemLabel StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font Text--lineclamp StyledProps--main itemLabel StyledProps--color StyledProps--color-black"
           style="--text-line-clamp: 1; width: 170px;"
         >
           app2
@@ -86,14 +86,14 @@ exports[`AppDApplicationSelector matches snapshot 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws group"
+      class="StyledProps--font StyledProps--main group"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
         style="display: flex; align-items: center; height: 40px;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
         >
           <svg
             height="16"
@@ -109,10 +109,10 @@ exports[`AppDApplicationSelector matches snapshot 1`] = `
         test
       </p>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws main item"
+        class="StyledProps--font StyledProps--main main item"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="16"
@@ -130,7 +130,7 @@ exports[`AppDApplicationSelector matches snapshot 1`] = `
           </svg>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws itemLabel StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font Text--lineclamp StyledProps--main itemLabel StyledProps--color StyledProps--color-black"
           style="--text-line-clamp: 1; width: 170px;"
         >
           app3

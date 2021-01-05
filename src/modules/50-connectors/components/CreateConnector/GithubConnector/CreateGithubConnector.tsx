@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepWizard, Color } from '@wings-software/uikit'
+import { StepWizard, Color } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'

@@ -7,7 +7,7 @@ import {
   Container,
   ModalErrorHandler,
   ModalErrorHandlerBinding
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import COGatewayConfig from '@ce/components/COGatewayConfig/COGatewayConfig'
 import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'

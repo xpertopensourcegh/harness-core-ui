@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { Formik, FormikForm } from '@wings-software/uikit'
+import { Formik, FormikForm } from '@wings-software/uicore'
 import type { UseGetReturn } from 'restful-react'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'

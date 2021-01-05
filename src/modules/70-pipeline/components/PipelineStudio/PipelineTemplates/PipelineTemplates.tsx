@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import i18n from './PipelineTemplates.i18n'
 import css from './PipelineTemplates.module.scss'
 

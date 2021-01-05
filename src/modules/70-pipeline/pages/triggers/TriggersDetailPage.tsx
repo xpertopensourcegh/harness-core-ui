@@ -1,4 +1,4 @@
-import { Button, Card, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uikit'
+import { Button, Card, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'

@@ -8,7 +8,7 @@ import {
   Text,
   getMultiTypeFromValue,
   MultiTypeInputType
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Button, Text } from '@wings-software/uikit'
+import { Container, Button, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { Page } from '@common/exports'

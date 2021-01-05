@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useState, useRef } from 'react'
-import { Container, Text, Color, Icon } from '@wings-software/uikit'
+import { Container, Text, Color, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'

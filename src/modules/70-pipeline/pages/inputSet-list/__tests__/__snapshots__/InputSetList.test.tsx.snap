@@ -3,7 +3,7 @@
 exports[`Input Set List tests render Input Set List view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <span
       class="bp3-popover-wrapper"
@@ -12,7 +12,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -21,7 +21,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             + New Input Set
           </span>
           <span
-            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-caret-down StyledProps--main"
             icon="caret-down"
           >
             <svg
@@ -43,16 +43,16 @@ exports[`Input Set List tests render Input Set List view 1`] = `
       </span>
     </span>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="TextInput---main--1ytZ"
+        class="TextInput--main"
       >
         <div
           class="bp3-input-group search"
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-search StyledProps--main"
             icon="search"
           >
             <svg
@@ -81,7 +81,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
       class="table table"
@@ -99,7 +99,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         >
           INPUT SET
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -177,10 +177,10 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 25%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
             >
               <svg
                 height="30"
@@ -213,17 +213,17 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             </span>
             <div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="OverLayInput"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
                   OverLayInput
                 </p>
               </div>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 OverLayInput
               </p>
@@ -236,7 +236,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 20%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
             style="--text-line-clamp: 2;"
           >
             OverLayInput
@@ -272,11 +272,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             class=""
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -318,7 +318,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 5%;"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
             style="justify-content: flex-end;"
           >
             <span
@@ -328,11 +328,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-more StyledProps--main"
                     icon="more"
                   >
                     <svg
@@ -366,10 +366,10 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 25%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
             >
               <svg
                 height="30"
@@ -390,17 +390,17 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             </span>
             <div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 data-testid="asd"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
                   asd
                 </p>
               </div>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 asd
               </p>
@@ -413,7 +413,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 20%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
             style="--text-line-clamp: 2;"
           >
             asd
@@ -449,11 +449,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             class=""
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -495,7 +495,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 5%;"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
             style="justify-content: flex-end;"
           >
             <span
@@ -505,11 +505,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-more StyledProps--main"
                     icon="more"
                   >
                     <svg
@@ -534,10 +534,10 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>

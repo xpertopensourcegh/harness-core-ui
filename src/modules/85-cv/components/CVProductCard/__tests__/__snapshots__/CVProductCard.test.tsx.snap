@@ -3,17 +3,17 @@
 exports[`CVProductCard matches snapshot 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardStyles Card---selected--279c"
+      class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardStyles Card--selected"
       tabindex="0"
     >
       <div
-        class="Card---cardIcon--2uSw icon"
+        class="Card--cardIcon icon"
       >
         <span
-          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
         >
           <svg
@@ -33,7 +33,7 @@ exports[`CVProductCard matches snapshot 1`] = `
         </span>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws sourceText"
+        class="StyledProps--font StyledProps--main sourceText"
       >
         testName
       </div>

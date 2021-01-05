@@ -2611,13 +2611,6 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.get@^4.4.6":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@types/lodash.get/-/lodash.get-4.4.6.tgz#0c7ac56243dae0f9f09ab6f75b29471e2e777240"
-  integrity "sha1-DHrFYkPa4Pnwmrb3WylHHi53ckA= sha512-E6zzjR3GtNig8UJG/yodBeJeIOtgPkMgsLjDU3CbgCAPC++vJ0eCMnJhVpRZb/ENqEFlov1+3K9TKtY4UdWKtQ=="
-  dependencies:
-    "@types/lodash" "*"
-
 "@types/lodash@*":
   version "4.14.157"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.157.tgz#fdac1c52448861dfde1a2e1515dbc46e54926dc8"
@@ -3184,17 +3177,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uikit@1.2.19":
-  version "1.2.19"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.2.19/66799d8bbb2917cad4b184143ff6de342333e4060ea79495e21a0e85ecb38028#6536e9efaf253a984ff1a8c2d9a0f01deccd07c5"
-  integrity sha512-9pdYMV9FANiZU9gxmE2o8uirFEx1t2NN/4m3FILifn3cTzop3IHAUTwQiZXpZNzOJGaWLXlb47sVy8bJ8UBOow==
-  dependencies:
-    "@types/lodash.get" "^4.4.6"
-    lodash.get "^4.4.2"
-    react-contenteditable "^3.3.5"
-    xterm "^4.9.0"
-    xterm-addon-search "^0.7.0"
-    xterm-addon-web-links "^0.4.0"
+"@wings-software/uicore@0.1.6":
+  version "0.1.6"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.6/83660e25818b2d882f022e3edda26c43e48efd59e249e15fc239276b5c1ee190#f6d654626a30d3bbc9a6c358d8bec2dd5ca88918"
+  integrity sha512-2Wl29FLrB7rBaqKfUNQ2w73V+y0x/w3ScrVAlng/n50iT3K8ng+Uudw/OIqq4G94bFHTUeJKFhtBfBCJhADZvQ==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"
@@ -9729,11 +9715,6 @@ lodash-es@^4.17.11, lodash-es@^4.17.14, lodash-es@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity "sha1-Ib2Wg5NUQS8j16EDQOXqxu5FXXg= sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ=="
-
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity "sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk= sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ=="
 
 lodash.memoize@4.x:
   version "4.1.2"

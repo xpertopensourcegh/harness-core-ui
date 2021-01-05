@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, Heading, Color, Link } from '@wings-software/uikit'
+import { Button, Heading, Color, Link } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { Page } from '@common/components/Page/Page'

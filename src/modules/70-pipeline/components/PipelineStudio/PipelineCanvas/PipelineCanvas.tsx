@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Button, Text, useModalHook, Tag } from '@wings-software/uikit'
+import { Button, Text, useModalHook, Tag } from '@wings-software/uicore'
 import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { useAppStore, useStrings } from 'framework/exports'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, ExpandingSearchInput, Icon, Layout, Text } from '@wings-software/uikit'
+import { Button, Color, ExpandingSearchInput, Icon, Layout, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'

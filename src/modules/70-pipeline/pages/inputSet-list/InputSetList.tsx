@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popover, Button, Layout, TextInput, useModalHook } from '@wings-software/uikit'
+import { Popover, Button, Layout, TextInput, useModalHook } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'

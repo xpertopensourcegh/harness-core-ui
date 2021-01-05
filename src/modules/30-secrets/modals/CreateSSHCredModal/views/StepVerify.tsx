@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepProps, Container, Text, Color } from '@wings-software/uikit'
+import { StepProps, Container, Text, Color } from '@wings-software/uicore'
 
 import i18n from '../CreateSSHCredModal.i18n'
 import VerifyConnection from './VerifyConnection'

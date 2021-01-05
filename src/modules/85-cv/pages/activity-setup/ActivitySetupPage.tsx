@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 
 import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from '@cv/utils/routeUtils'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Heading, Formik, FormikForm, Color } from '@wings-software/uikit'
+import { Container, Heading, Formik, FormikForm, Color } from '@wings-software/uicore'
 import i18n from '../VerificationJobForms.i18n'
 import { FormControlButtons, useFormSubmit, basicValidation } from '../VerificationJobFormCommons'
 import {

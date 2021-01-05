@@ -10,7 +10,7 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   Layout
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 

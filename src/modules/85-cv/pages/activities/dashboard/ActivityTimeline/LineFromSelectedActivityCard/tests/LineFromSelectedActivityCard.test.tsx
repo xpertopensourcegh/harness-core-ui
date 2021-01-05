@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { Utils } from '@wings-software/uikit'
+import { Utils } from '@wings-software/uicore'
 import { LineFromSelectedActivityCard } from '../LineFromSelectedActivityCard'
 
 const MockActivity = {

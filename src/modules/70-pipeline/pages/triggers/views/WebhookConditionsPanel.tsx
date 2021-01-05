@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, FormInput, Heading, Text } from '@wings-software/uikit'
+import { Layout, FormInput, Heading, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import PayloadConditionsSection from './PayloadConditionsSection'

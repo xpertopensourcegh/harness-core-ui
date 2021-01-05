@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uikit'
+import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { StepViewType } from '@pipeline/exports'
 import type { ShellScriptStepInfo, StepElement } from 'services/cd-ng'

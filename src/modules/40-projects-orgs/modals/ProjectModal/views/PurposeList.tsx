@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Text, Layout, Icon, IconName, Container, Button, Card, Color } from '@wings-software/uikit'
+import { Text, Layout, Icon, IconName, Container, Button, Card, Color } from '@wings-software/uicore'
 
 import { Link, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'

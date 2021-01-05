@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text } from '@wings-software/uikit'
+import { Layout, Heading, Text } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'

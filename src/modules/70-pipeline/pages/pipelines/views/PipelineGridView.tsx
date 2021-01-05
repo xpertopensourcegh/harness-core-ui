@@ -1,4 +1,4 @@
-import { Layout, Pagination } from '@wings-software/uikit'
+import { Layout, Pagination } from '@wings-software/uicore'
 import React from 'react'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { PipelineCard } from './PipelineCard/PipelineCard'

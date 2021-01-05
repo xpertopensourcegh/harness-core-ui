@@ -6,15 +6,15 @@ exports[`ConfigureNotifications Email 1`] = `
     class="body"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <h1
-        class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws title"
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
         Setup Email Notifications
       </h1>
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
@@ -76,7 +76,7 @@ exports[`ConfigureNotifications Email 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
             style="align-items: center;"
           >
             <span
@@ -86,7 +86,7 @@ exports[`ConfigureNotifications Email 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -99,10 +99,10 @@ exports[`ConfigureNotifications Email 1`] = `
             </span>
           </div>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xlarge--2Tnj"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xlarge"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -112,7 +112,7 @@ exports[`ConfigureNotifications Email 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -135,10 +135,10 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
     class="body"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps--main"
       >
         <svg
           height="24"
@@ -163,22 +163,22 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
         </svg>
       </span>
       <h1
-        class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws title"
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
         Setup PagerDuty Notifications
       </h1>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         Enter the key for a PagerDuty Account/Service to which Harness can send notifications. You can copy/paste this key from PagerDuty's Configuration &gt; Services &gt; Service Details dialog &gt; Integrations tab.
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         For more details, see PagerDuty's documentation on Creating Integrations.
       </p>
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
@@ -212,11 +212,11 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-bottom-xxlarge--1wAO"
+            class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
             style="align-items: center;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -259,10 +259,10 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -272,7 +272,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -295,10 +295,10 @@ exports[`ConfigureNotifications Slack 1`] = `
     class="body"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
     >
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps--main"
       >
         <svg
           height="24"
@@ -336,22 +336,22 @@ exports[`ConfigureNotifications Slack 1`] = `
         </svg>
       </span>
       <h1
-        class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws title"
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main title"
       >
         Setup Slack Notifications
       </h1>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         You can receive Harness notifications in your Slack channels. You simply add a Slack Incoming Webhook into a Harness User Groups' Notification Settings.
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
       >
         For more details, see Slack’s doucmentation Getting Started with Incoming Webhooks.
       </p>
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
@@ -385,11 +385,11 @@ exports[`ConfigureNotifications Slack 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-bottom-xxlarge--1wAO"
+            class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
             style="align-items: center;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
@@ -432,10 +432,10 @@ exports[`ConfigureNotifications Slack 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -445,7 +445,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span

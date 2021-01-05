@@ -3,34 +3,34 @@
 exports[`CVSetupPage check next and previous 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
       style="height: 100vh;"
     >
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+        class="Layout--vertical StyledProps--main StyledProps--padding-large"
         style="width: 30%;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Setup
         </p>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+          class="StyledProps--font StyledProps--main StyledProps--margin-small"
           style="height: calc(100vh - 128px);"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
             style="position: relative; top: 150px;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="number"
@@ -42,26 +42,26 @@ exports[`CVSetupPage check next and previous 1`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
                   ACTIVITY SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Activity sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -73,26 +73,26 @@ exports[`CVSetupPage check next and previous 1`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   MONITORING SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -101,16 +101,16 @@ exports[`CVSetupPage check next and previous 1`] = `
                 </span>
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   VERIFICATION JOBS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
                 </p>
@@ -119,14 +119,14 @@ exports[`CVSetupPage check next and previous 1`] = `
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
               icon="chevron-left"
             >
               <svg
@@ -151,7 +151,7 @@ exports[`CVSetupPage check next and previous 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -160,7 +160,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               Next
             </span>
             <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -182,37 +182,37 @@ exports[`CVSetupPage check next and previous 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-grey200--jF1S"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
         style="width: 70%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="height: calc(100vh - 100px);"
           >
             <div
               class="monitoringContent"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-xlarge--2Tnj StyledProps---margin-bottom-small--3Kji"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
                 Let’s get you started
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Select your activity source
               </p>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
               >
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---margin-right-xxlarge--S_1-"
+                  class="Layout--vertical StyledProps--main StyledProps--margin-right-xxlarge"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     HARNESS
                      
@@ -224,14 +224,14 @@ exports[`CVSetupPage check next and previous 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                         tabindex="0"
                       >
                         <div
-                          class="Card---cardIcon--2uSw"
+                          class="Card--cardIcon"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               fill="none"
@@ -276,10 +276,10 @@ exports[`CVSetupPage check next and previous 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  class="Layout--vertical StyledProps--main"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     INFRASTRUCTURE PROVIDER
                      
@@ -291,14 +291,14 @@ exports[`CVSetupPage check next and previous 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                         tabindex="0"
                       >
                         <div
-                          class="Card---cardIcon--2uSw"
+                          class="Card--cardIcon"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               height="40"
@@ -331,16 +331,16 @@ exports[`CVSetupPage check next and previous 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+            class="Layout--horizontal StyledProps--main StyledProps--padding-small"
             style="float: right;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xsmall--1WI2"
+              class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
               Don’t have an activity source? 
             </p>
             <a
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -362,37 +362,37 @@ exports[`CVSetupPage check next and previous 1`] = `
 exports[`CVSetupPage check next and previous 2`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
       style="height: 100vh;"
     >
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+        class="Layout--vertical StyledProps--main StyledProps--padding-large"
         style="width: 30%;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Setup
         </p>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+          class="StyledProps--font StyledProps--main StyledProps--margin-small"
           style="height: calc(100vh - 128px);"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
             style="position: relative; top: 150px;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
-                  class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                  class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
                   icon="tick-circle"
                 >
                   <svg
@@ -415,26 +415,26 @@ exports[`CVSetupPage check next and previous 2`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   ACTIVITY SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Activity sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="number"
@@ -446,26 +446,26 @@ exports[`CVSetupPage check next and previous 2`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
                   MONITORING SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -474,16 +474,16 @@ exports[`CVSetupPage check next and previous 2`] = `
                 </span>
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   VERIFICATION JOBS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
                 </p>
@@ -492,14 +492,14 @@ exports[`CVSetupPage check next and previous 2`] = `
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
               icon="chevron-left"
             >
               <svg
@@ -524,7 +524,7 @@ exports[`CVSetupPage check next and previous 2`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -561,7 +561,7 @@ exports[`CVSetupPage check next and previous 2`] = `
               Next
             </span>
             <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -583,26 +583,26 @@ exports[`CVSetupPage check next and previous 2`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-grey200--jF1S"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
         style="width: 70%;"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="width: 70%; height: 100vh;"
           >
             <div
               class="monitoringContent"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-xlarge--2Tnj StyledProps---margin-bottom-small--3Kji"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
                 Select your Monitoring Source 
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Monitoring sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
               </p>
@@ -613,14 +613,14 @@ exports[`CVSetupPage check next and previous 2`] = `
                   class="cardWrapper"
                 >
                   <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                     tabindex="0"
                   >
                     <div
-                      class="Card---cardIcon--2uSw"
+                      class="Card--cardIcon"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="40"
@@ -649,14 +649,14 @@ exports[`CVSetupPage check next and previous 2`] = `
                   class="cardWrapper"
                 >
                   <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                     tabindex="0"
                   >
                     <div
-                      class="Card---cardIcon--2uSw"
+                      class="Card--cardIcon"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="40"
@@ -702,34 +702,34 @@ exports[`CVSetupPage check next and previous 2`] = `
 exports[`CVSetupPage check next and previous 3`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
       style="height: 100vh;"
     >
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+        class="Layout--vertical StyledProps--main StyledProps--padding-large"
         style="width: 30%;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Setup
         </p>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+          class="StyledProps--font StyledProps--main StyledProps--margin-small"
           style="height: calc(100vh - 128px);"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
             style="position: relative; top: 150px;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="number"
@@ -741,26 +741,26 @@ exports[`CVSetupPage check next and previous 3`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
                   ACTIVITY SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Activity sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -772,26 +772,26 @@ exports[`CVSetupPage check next and previous 3`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   MONITORING SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -800,16 +800,16 @@ exports[`CVSetupPage check next and previous 3`] = `
                 </span>
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   VERIFICATION JOBS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
                 </p>
@@ -818,10 +818,10 @@ exports[`CVSetupPage check next and previous 3`] = `
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main"
             disabled=""
             tabindex="-1"
             type="button"
@@ -853,7 +853,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               </div>
             </div>
             <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
               icon="chevron-left"
             >
               <svg
@@ -878,7 +878,7 @@ exports[`CVSetupPage check next and previous 3`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -915,7 +915,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               Next
             </span>
             <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -937,37 +937,37 @@ exports[`CVSetupPage check next and previous 3`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-grey200--jF1S"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
         style="width: 70%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="height: calc(100vh - 100px);"
           >
             <div
               class="monitoringContent"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-xlarge--2Tnj StyledProps---margin-bottom-small--3Kji"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
                 Let’s get you started
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Select your activity source
               </p>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
               >
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---margin-right-xxlarge--S_1-"
+                  class="Layout--vertical StyledProps--main StyledProps--margin-right-xxlarge"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     HARNESS
                      
@@ -979,14 +979,14 @@ exports[`CVSetupPage check next and previous 3`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                         tabindex="0"
                       >
                         <div
-                          class="Card---cardIcon--2uSw"
+                          class="Card--cardIcon"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               fill="none"
@@ -1031,10 +1031,10 @@ exports[`CVSetupPage check next and previous 3`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  class="Layout--vertical StyledProps--main"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     INFRASTRUCTURE PROVIDER
                      
@@ -1046,14 +1046,14 @@ exports[`CVSetupPage check next and previous 3`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                         tabindex="0"
                       >
                         <div
-                          class="Card---cardIcon--2uSw"
+                          class="Card--cardIcon"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               height="40"
@@ -1086,16 +1086,16 @@ exports[`CVSetupPage check next and previous 3`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+            class="Layout--horizontal StyledProps--main StyledProps--padding-small"
             style="float: right;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xsmall--1WI2"
+              class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
               Don’t have an activity source? 
             </p>
             <a
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -1117,34 +1117,34 @@ exports[`CVSetupPage check next and previous 3`] = `
 exports[`CVSetupPage render initial state 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
       style="height: 100vh;"
     >
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+        class="Layout--vertical StyledProps--main StyledProps--padding-large"
         style="width: 30%;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Setup
         </p>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+          class="StyledProps--font StyledProps--main StyledProps--margin-small"
           style="height: calc(100vh - 128px);"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
             style="position: relative; top: 150px;"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="number"
@@ -1156,26 +1156,26 @@ exports[`CVSetupPage render initial state 1`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
                   ACTIVITY SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Activity sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -1187,26 +1187,26 @@ exports[`CVSetupPage render initial state 1`] = `
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   MONITORING SOURCE
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <span
                   class="onlyNumber"
@@ -1215,16 +1215,16 @@ exports[`CVSetupPage render initial state 1`] = `
                 </span>
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws stepLabel"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepLabel"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
                   VERIFICATION JOBS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-light--2bfm StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
                   Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
                 </p>
@@ -1233,14 +1233,14 @@ exports[`CVSetupPage render initial state 1`] = `
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
               icon="chevron-left"
             >
               <svg
@@ -1265,7 +1265,7 @@ exports[`CVSetupPage render initial state 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -1274,7 +1274,7 @@ exports[`CVSetupPage render initial state 1`] = `
               Next
             </span>
             <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -1296,37 +1296,37 @@ exports[`CVSetupPage render initial state 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-grey200--jF1S"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
         style="width: 70%;"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="height: calc(100vh - 100px);"
           >
             <div
               class="monitoringContent"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---margin-top-xlarge--2Tnj StyledProps---margin-bottom-small--3Kji"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
               >
                 Let’s get you started
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Select your activity source
               </p>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-top-xxlarge--2LvX"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
               >
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---margin-right-xxlarge--S_1-"
+                  class="Layout--vertical StyledProps--main StyledProps--margin-right-xxlarge"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     HARNESS
                      
@@ -1338,14 +1338,14 @@ exports[`CVSetupPage render initial state 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                         tabindex="0"
                       >
                         <div
-                          class="Card---cardIcon--2uSw"
+                          class="Card--cardIcon"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               fill="none"
@@ -1390,10 +1390,10 @@ exports[`CVSetupPage render initial state 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  class="Layout--vertical StyledProps--main"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     INFRASTRUCTURE PROVIDER
                      
@@ -1405,14 +1405,14 @@ exports[`CVSetupPage render initial state 1`] = `
                       class="cardWrapper"
                     >
                       <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa cardCss"
+                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card cardCss"
                         tabindex="0"
                       >
                         <div
-                          class="Card---cardIcon--2uSw"
+                          class="Card--cardIcon"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               height="40"
@@ -1445,16 +1445,16 @@ exports[`CVSetupPage render initial state 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+            class="Layout--horizontal StyledProps--main StyledProps--padding-small"
             style="float: right;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xsmall--1WI2"
+              class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
               Don’t have an activity source? 
             </p>
             <a
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"

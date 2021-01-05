@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, Container, SelectOption } from '@wings-software/uikit'
+import { Layout, Container, SelectOption } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'

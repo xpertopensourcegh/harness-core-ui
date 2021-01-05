@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { Tree } from '@blueprintjs/core'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uikit'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { getPipelineTree } from '../PipelineUtils'
 
 describe('Test Pipeline Utils', () => {

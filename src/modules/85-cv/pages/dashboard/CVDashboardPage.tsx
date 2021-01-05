@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import i18n from './CVDashboardPage.i18n'
 import { CategoryRiskCardsWithApi } from './CategoryRiskCards/CategoryRiskCards'

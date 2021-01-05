@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Color, Container, Tag } from '@wings-software/uikit'
+import { Color, Container, Tag } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Breadcrumb, Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
-import { Button, Layout } from '@wings-software/uikit'
+import { Button, Layout } from '@wings-software/uicore'
 import i18n from './FilterDrawer.i18n'
 import css from './FilterDrawer.module.scss'
 

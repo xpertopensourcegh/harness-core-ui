@@ -13,7 +13,7 @@ import {
   Color,
   Container,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { IOptionProps } from '@blueprintjs/core'
 import {

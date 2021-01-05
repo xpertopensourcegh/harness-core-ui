@@ -3,10 +3,10 @@
 exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -59,10 +59,10 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+        class="Layout--horizontal StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+          class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
           Edit Input Set: asd
         </p>
@@ -84,47 +84,47 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws inputSetForm"
+      class="StyledProps--font StyledProps--main inputSetForm"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws content StyledProps---padding-xlarge--DH-e"
+                class="Layout--vertical StyledProps--main content StyledProps--padding-xlarge"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  class="StyledProps--font StyledProps--main main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      class="StyledProps--font StyledProps--main connectorFormNameElm"
                     >
                       <div
-                        class="InputWithIdentifier---txtNameContainer--20iZ"
+                        class="InputWithIdentifier--txtNameContainer"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            class="StyledProps--font StyledProps--main"
                           >
                             ID
                             :
                           </p>
                           <span
-                            class="InputWithIdentifier---idInput--w8_T"
+                            class="InputWithIdentifier--idInput"
                             contenteditable="false"
                             disabled=""
                           >
@@ -165,42 +165,42 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                       style="justify-content: center;"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                       >
                         + Description
                       </p>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                       >
                         + Tags
                       </p>
                     </div>
                   </div>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    class="StyledProps--font StyledProps--main connectorFormElm"
                   />
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws container StyledProps---padding-medium--3Ish"
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-medium"
                 >
                   <div
                     style="width: 100%;"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="cursor: pointer;"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                       >
                         Stage: asd
                       </p>
                       <span
-                        class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-chevron-up StyledProps--main"
                         icon="chevron-up"
                       >
                         <svg
@@ -220,23 +220,23 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                       </span>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                      class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
                     >
                        
                       <div
                         style="width: 100%;"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                           style="cursor: pointer;"
                         >
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-normal--3yZj"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-normal"
                           >
                             Infrastructure
                           </p>
                           <span
-                            class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-chevron-up StyledProps--main"
                             icon="chevron-up"
                           >
                             <svg
@@ -256,11 +256,11 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                           </span>
                         </div>
                         <div
-                          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                          class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
                         >
                            
                           <div
-                            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
                           >
                             <div
                               class="bp3-form-group"
@@ -285,7 +285,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                                       style="width: 400px;"
                                       type="button"
                                     >
@@ -293,11 +293,11 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                                         class="bp3-button-text"
                                       >
                                         <div
-                                          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                                           style="justify-content: space-between; width: 100%;"
                                         >
                                           <p
-                                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                            class="StyledProps--font StyledProps--main"
                                           >
                                             tesa1
                                           </p>
@@ -305,7 +305,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                                             class="rightStatus"
                                           >
                                             <span
-                                              class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                              class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
                                               icon="full-circle"
                                             >
                                               <svg
@@ -324,7 +324,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                                               </svg>
                                             </span>
                                             <span
-                                              class="Tag---main--1vng"
+                                              class="Tag--main"
                                             >
                                               <span
                                                 class="bp3-tag bp3-minimal tag"
@@ -340,7 +340,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                                         </div>
                                       </span>
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main"
                                         icon="caret-down"
                                       >
                                         <svg
@@ -433,10 +433,10 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws footer StyledProps---padding-medium--3Ish"
+                class="Layout--horizontal StyledProps--main footer StyledProps--padding-medium"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -447,7 +447,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                 </button>
                    
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -468,13 +468,13 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
 
 exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 1`] = `
 <div
-  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws dragging"
+  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main dragging"
   data-testid="asd"
   draggable="true"
   style="align-items: baseline;"
 >
   <span
-    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
     icon="drag-handle-vertical"
   >
     <svg
@@ -493,7 +493,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
     </svg>
   </span>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     1.
   </p>
@@ -506,7 +506,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
       class="bp3-form-content"
     >
       <div
-        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+        class="bp3-popover-wrapper Select--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -527,7 +527,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                 icon="caret-down"
               >
                 <svg
@@ -556,13 +556,13 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
 
 exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 2`] = `
 <div
-  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
   data-testid="asd"
   draggable="true"
   style="align-items: baseline;"
 >
   <span
-    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
     icon="drag-handle-vertical"
   >
     <svg
@@ -581,7 +581,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
     </svg>
   </span>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     1.
   </p>
@@ -594,7 +594,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
       class="bp3-form-content"
     >
       <div
-        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+        class="bp3-popover-wrapper Select--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -615,7 +615,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                 icon="caret-down"
               >
                 <svg
@@ -644,13 +644,13 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
 
 exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 3`] = `
 <div
-  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
   data-testid="asd"
   draggable="true"
   style="align-items: baseline;"
 >
   <span
-    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
     icon="drag-handle-vertical"
   >
     <svg
@@ -669,7 +669,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
     </svg>
   </span>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     1.
   </p>
@@ -682,7 +682,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
       class="bp3-form-content"
     >
       <div
-        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+        class="bp3-popover-wrapper Select--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -703,7 +703,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                 icon="caret-down"
               >
                 <svg
@@ -732,13 +732,13 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
 
 exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 4`] = `
 <div
-  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws dragOver"
+  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main dragOver"
   data-testid="test"
   draggable="true"
   style="align-items: baseline;"
 >
   <span
-    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
     icon="drag-handle-vertical"
   >
     <svg
@@ -757,7 +757,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
     </svg>
   </span>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     2.
   </p>
@@ -770,7 +770,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
       class="bp3-form-content"
     >
       <div
-        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+        class="bp3-popover-wrapper Select--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -791,7 +791,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                 icon="caret-down"
               >
                 <svg
@@ -820,13 +820,13 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
 
 exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 5`] = `
 <div
-  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
   data-testid="test"
   draggable="true"
   style="align-items: baseline;"
 >
   <span
-    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
     icon="drag-handle-vertical"
   >
     <svg
@@ -845,7 +845,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
     </svg>
   </span>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     2.
   </p>
@@ -858,7 +858,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
       class="bp3-form-content"
     >
       <div
-        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+        class="bp3-popover-wrapper Select--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -879,7 +879,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                 icon="caret-down"
               >
                 <svg
@@ -949,7 +949,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
     class="bp3-dialog-body"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
         class="optionBtns"
@@ -966,38 +966,38 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
         </div>
       </div>
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <div
               class="inputSetForm"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws main inputSetName"
+                class="StyledProps--font StyledProps--main main inputSetName"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                  class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                    class="StyledProps--font StyledProps--main connectorFormNameElm"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="false"
                           disabled=""
                         >
@@ -1037,39 +1037,39 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                     </div>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     style="justify-content: center;"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                     >
                       + Description
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                     >
                       + Tags
                     </p>
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                  class="StyledProps--font StyledProps--main connectorFormElm"
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-xxxlarge--1sq8"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-xxxlarge"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                 >
                   Select Input Sets
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps---main--1Wws StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-blue450--6C4Y"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-blue450"
                     icon="info-sign"
                   >
                     <svg
@@ -1090,23 +1090,23 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                   Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
                 </p>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-xxxlarge--3gf7 StyledProps---padding-bottom-large--1zGv"
+                  class="Layout--vertical StyledProps--main StyledProps--padding-top-xxxlarge StyledProps--padding-bottom-large"
                 >
                   <div
-                    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                    class="Layout--vertical StyledProps--main"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="align-items: end;"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                         data-testid="asd"
                         draggable="true"
                         style="align-items: baseline;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
                           icon="drag-handle-vertical"
                         >
                           <svg
@@ -1125,7 +1125,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           1.
                         </p>
@@ -1138,7 +1138,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                             class="bp3-form-content"
                           >
                             <div
-                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                              class="bp3-popover-wrapper Select--main bp3-fill"
                             >
                               <div
                                 class="bp3-popover-target"
@@ -1159,7 +1159,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                       icon="caret-down"
                                     >
                                       <svg
@@ -1185,11 +1185,11 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-delete StyledProps--main"
                           icon="delete"
                         >
                           <svg
@@ -1210,17 +1210,17 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                       </button>
                     </div>
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="align-items: end;"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                         data-testid="test"
                         draggable="true"
                         style="align-items: baseline;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
                           icon="drag-handle-vertical"
                         >
                           <svg
@@ -1239,7 +1239,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           2.
                         </p>
@@ -1252,7 +1252,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                             class="bp3-form-content"
                           >
                             <div
-                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                              class="bp3-popover-wrapper Select--main bp3-fill"
                             >
                               <div
                                 class="bp3-popover-target"
@@ -1273,7 +1273,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                       icon="caret-down"
                                     >
                                       <svg
@@ -1299,11 +1299,11 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-delete StyledProps--main"
                           icon="delete"
                         >
                           <svg
@@ -1325,7 +1325,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                     </div>
                     <span>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                         type="button"
                       >
                         <span
@@ -1343,7 +1343,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
               class="bp3-dialog-footer"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -1354,7 +1354,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
               </button>
                  
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -1375,10 +1375,10 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
 exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -1431,10 +1431,10 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+        class="Layout--horizontal StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+          class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
           New Input Set
         </p>
@@ -1456,51 +1456,51 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws inputSetForm"
+      class="StyledProps--font StyledProps--main inputSetForm"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws content StyledProps---padding-xlarge--DH-e"
+                class="Layout--vertical StyledProps--main content StyledProps--padding-xlarge"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                  class="StyledProps--font StyledProps--main main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                    class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                      class="StyledProps--font StyledProps--main connectorFormNameElm"
                     >
                       <div
-                        class="InputWithIdentifier---txtNameContainer--20iZ"
+                        class="InputWithIdentifier--txtNameContainer"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                            class="StyledProps--font StyledProps--main"
                           >
                             ID
                             :
                           </p>
                           <span
-                            class="InputWithIdentifier---idInput--w8_T"
+                            class="InputWithIdentifier--idInput"
                             contenteditable="true"
                           />
                           <span
-                            class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
                             style="vertical-align: middle;"
                           >
@@ -1553,42 +1553,42 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                       style="justify-content: center;"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                       >
                         + Description
                       </p>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                       >
                         + Tags
                       </p>
                     </div>
                   </div>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    class="StyledProps--font StyledProps--main connectorFormElm"
                   />
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws container StyledProps---padding-medium--3Ish"
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-medium"
                 >
                   <div
                     style="width: 100%;"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="cursor: pointer;"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                       >
                         Stage: asd
                       </p>
                       <span
-                        class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-chevron-up StyledProps--main"
                         icon="chevron-up"
                       >
                         <svg
@@ -1608,23 +1608,23 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       </span>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                      class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
                     >
                        
                       <div
                         style="width: 100%;"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                           style="cursor: pointer;"
                         >
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-normal--3yZj"
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-normal"
                           >
                             Infrastructure
                           </p>
                           <span
-                            class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-chevron-up StyledProps--main"
                             icon="chevron-up"
                           >
                             <svg
@@ -1644,11 +1644,11 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           </span>
                         </div>
                         <div
-                          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                          class="Layout--vertical StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
                         >
                            
                           <div
-                            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
                           >
                             <div
                               class="bp3-form-group"
@@ -1673,7 +1673,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                                       style="width: 400px;"
                                       type="button"
                                     >
@@ -1687,7 +1687,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                         </span>
                                       </span>
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main"
                                         icon="caret-down"
                                       >
                                         <svg
@@ -1780,10 +1780,10 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws footer StyledProps---padding-medium--3Ish"
+                class="Layout--horizontal StyledProps--main footer StyledProps--padding-medium"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1794,7 +1794,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                 </button>
                    
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -1816,10 +1816,10 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
 exports[`Render Forms - Snapshot Testing render Input Set Form view 2`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -1872,10 +1872,10 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 2`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+        class="Layout--horizontal StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+          class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
           New Input Set
         </p>
@@ -1897,22 +1897,22 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 2`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws inputSetForm"
+      class="StyledProps--font StyledProps--main inputSetForm"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <div
             class="editor"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws content StyledProps---padding-xlarge--DH-e"
+              class="Layout--vertical StyledProps--main content StyledProps--padding-xlarge"
             >
               <div>
                 <span>
@@ -1921,10 +1921,10 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 2`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws footer StyledProps---padding-medium--3Ish"
+              class="Layout--horizontal StyledProps--main footer StyledProps--padding-medium"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -1935,7 +1935,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 2`] = `
               </button>
                  
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -1996,7 +1996,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
     class="bp3-dialog-body"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
         class="optionBtns"
@@ -2013,44 +2013,44 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
         </div>
       </div>
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <form
-          class="FormikForm---main--1N87"
+          class="FormikForm--main"
         >
           <div>
             <div
               class="inputSetForm"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws main inputSetName"
+                class="StyledProps--font StyledProps--main main inputSetName"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                  class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                    class="StyledProps--font StyledProps--main connectorFormNameElm"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="true"
                         >
                           OverLayInput
                         </span>
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
                           style="vertical-align: middle;"
                         >
@@ -2103,39 +2103,39 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                     </div>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     style="justify-content: center;"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                     >
                       + Description
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                     >
                       + Tags
                     </p>
                   </div>
                 </div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                  class="StyledProps--font StyledProps--main connectorFormElm"
                 />
               </div>
               <div
-                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-xxxlarge--1sq8"
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-xxxlarge"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                 >
                   Select Input Sets
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps---main--1Wws StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-blue450--6C4Y"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-blue450"
                     icon="info-sign"
                   >
                     <svg
@@ -2156,23 +2156,23 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                   Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
                 </p>
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-xxxlarge--3gf7 StyledProps---padding-bottom-large--1zGv"
+                  class="Layout--vertical StyledProps--main StyledProps--padding-top-xxxlarge StyledProps--padding-bottom-large"
                 >
                   <div
-                    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                    class="Layout--vertical StyledProps--main"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="align-items: end;"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                         data-testid="asd"
                         draggable="true"
                         style="align-items: baseline;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
                           icon="drag-handle-vertical"
                         >
                           <svg
@@ -2191,7 +2191,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           1.
                         </p>
@@ -2204,7 +2204,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                             class="bp3-form-content"
                           >
                             <div
-                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                              class="bp3-popover-wrapper Select--main bp3-fill"
                             >
                               <div
                                 class="bp3-popover-target"
@@ -2225,7 +2225,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                       icon="caret-down"
                                     >
                                       <svg
@@ -2251,11 +2251,11 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-delete StyledProps--main"
                           icon="delete"
                         >
                           <svg
@@ -2276,17 +2276,17 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                       </button>
                     </div>
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="align-items: end;"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                         data-testid=""
                         draggable="true"
                         style="align-items: baseline;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
                           icon="drag-handle-vertical"
                         >
                           <svg
@@ -2305,7 +2305,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                           </svg>
                         </span>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           2.
                         </p>
@@ -2317,7 +2317,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                             class="bp3-form-content"
                           >
                             <div
-                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                              class="bp3-popover-wrapper Select--main bp3-fill"
                             >
                               <div
                                 class="bp3-popover-target"
@@ -2338,7 +2338,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                       icon="caret-down"
                                     >
                                       <svg
@@ -2364,11 +2364,11 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
-                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-delete StyledProps--main"
                           icon="delete"
                         >
                           <svg
@@ -2390,7 +2390,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                     </div>
                     <span>
                       <button
-                        class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                        class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                         disabled=""
                         tabindex="-1"
                         type="button"
@@ -2436,7 +2436,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
               class="bp3-dialog-footer"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -2447,7 +2447,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
               </button>
                  
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span

@@ -10,7 +10,7 @@ import {
   FormInput,
   Link,
   Utils
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import {
   Drawer,
   Position,

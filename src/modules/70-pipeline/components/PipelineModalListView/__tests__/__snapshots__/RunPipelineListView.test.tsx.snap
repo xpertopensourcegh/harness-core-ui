@@ -3,24 +3,24 @@
 exports[`PipelineModal List View render empty list view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---font-medium--2b-0"
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-medium"
     >
       <span>
         Run Pipeline
       </span>
     </p>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-cross StyledProps--main"
           icon="cross"
         >
           <svg
@@ -42,17 +42,17 @@ exports[`PipelineModal List View render empty list view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
       class="searchContainer"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
         data-name=""
       >
         <span
-          class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+          class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
           icon="search"
         >
           <svg
@@ -83,7 +83,7 @@ exports[`PipelineModal List View render empty list view 1`] = `
       class="noResultSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+        class="StyledProps--font StyledProps--main StyledProps--font-medium"
       >
         <span>
           No results found.
@@ -94,10 +94,10 @@ exports[`PipelineModal List View render empty list view 1`] = `
       class="table table"
     >
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>
@@ -117,24 +117,24 @@ exports[`PipelineModal List View render empty list view 1`] = `
 exports[`PipelineModal List View render list view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---font-medium--2b-0"
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-medium"
     >
       <span>
         Run Pipeline
       </span>
     </p>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-cross StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-cross StyledProps--main"
           icon="cross"
         >
           <svg
@@ -156,17 +156,17 @@ exports[`PipelineModal List View render list view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
       class="searchContainer"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
         data-name=""
       >
         <span
-          class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+          class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
           icon="search"
         >
           <svg
@@ -206,16 +206,16 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 60%;"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             data-testid="pipeline1"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
             >
               pipeline1
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               pipeline1 description
             </p>
@@ -227,15 +227,15 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 20%;"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Last run:
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Never
             </p>
@@ -247,11 +247,11 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 20%;"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -299,16 +299,16 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 60%;"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             data-testid="pipeline2"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
             >
               pipeline2
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               pipeline2 description
             </p>
@@ -320,15 +320,15 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 20%;"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Last run:
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Never
             </p>
@@ -340,11 +340,11 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 20%;"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -383,10 +383,10 @@ exports[`PipelineModal List View render list view 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>

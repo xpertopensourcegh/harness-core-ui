@@ -1,4 +1,4 @@
-import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uikit'
+import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
 import React from 'react'
 
 export interface NoDataCardProps {

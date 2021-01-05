@@ -14,7 +14,7 @@ import {
   Color,
   ModalErrorHandler,
   ModalErrorHandlerBinding
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { illegalIdentifiers } from '@common/utils/StringUtils'

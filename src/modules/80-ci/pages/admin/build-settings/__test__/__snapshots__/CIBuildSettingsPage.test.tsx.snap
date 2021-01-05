@@ -3,19 +3,19 @@
 exports[`CIBuildSettingsPage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
       level="2"
     >
       GENERAL SETTINGS
     </h2>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button StyledProps--main"
         type="button"
       >
         <span
@@ -27,18 +27,18 @@ exports[`CIBuildSettingsPage snapshot test should render properly 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
       style="width: 100%; height: 100%;"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         style="align-items: center; margin-top: -48px; width: 470px;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
         >
           <svg
             height="48"
@@ -90,13 +90,13 @@ exports[`CIBuildSettingsPage snapshot test should render properly 1`] = `
           </svg>
         </span>
         <h2
-          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
           level="2"
         >
           No data found. Click the button below to create a new item.
         </h2>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span

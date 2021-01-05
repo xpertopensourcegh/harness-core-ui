@@ -11,7 +11,7 @@ import {
   timeToDisplayText,
   getMultiTypeFromValue,
   MultiTypeInputType
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/exports'

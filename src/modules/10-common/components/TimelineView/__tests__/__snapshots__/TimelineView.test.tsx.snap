@@ -10,11 +10,11 @@ exports[`TimelineView matches snapshot 1`] = `
       style="height: 50px;"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws nameWrapper"
+        class="StyledProps--font StyledProps--main nameWrapper"
         style="width: 125px;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 125px;"
         >
           Test Row
@@ -24,7 +24,7 @@ exports[`TimelineView matches snapshot 1`] = `
         class="rowItems rowItems"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+          class="StyledProps--font StyledProps--main rowItem"
           style="left: 0.00018055555555555555%; right: 99.99981944444444%;"
         >
           <div>

@@ -9,7 +9,7 @@ import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.w
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import cx from 'classnames'
 import { stringify } from 'yaml'
-import { Tag, Layout, Icon } from '@wings-software/uikit'
+import { Tag, Layout, Icon } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
   YamlBuilderHandlerBinding,

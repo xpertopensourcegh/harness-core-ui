@@ -1,6 +1,6 @@
 import React from 'react'
 import { DiagramEngine, PortWidget } from '@projectstorm/react-diagrams-core'
-import { Button } from '@wings-software/uikit'
+import { Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { DefaultPortModel } from './DefaultPortModel'
 import css from './DefaultPort.module.scss'

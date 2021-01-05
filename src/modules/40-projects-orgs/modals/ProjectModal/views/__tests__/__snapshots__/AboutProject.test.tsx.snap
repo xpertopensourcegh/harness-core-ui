@@ -3,50 +3,50 @@
 exports[`About Project test create project  1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xxlarge--3lSp"
+            class="Layout--vertical StyledProps--main StyledProps--padding-xxlarge"
             style="width: 50%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="min-height: 450px;"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-bottom-large--1zGv"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 >
                   About the Project
                 </p>
               </div>
               <div
-                class="InputWithIdentifier---txtNameContainer--20iZ"
+                class="InputWithIdentifier--txtNameContainer"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     ID
                     :
                   </p>
                   <span
-                    class="InputWithIdentifier---idInput--w8_T"
+                    class="InputWithIdentifier--idInput"
                     contenteditable="true"
                   />
                   <span
-                    class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-edit StyledProps--main"
                     icon="edit"
                     style="vertical-align: middle;"
                   >
@@ -98,7 +98,7 @@ exports[`About Project test create project  1`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <div
                   class="bp3-form-group"
@@ -124,7 +124,7 @@ exports[`About Project test create project  1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws ColorPicker---picker--3GiQ"
+                          class="bp3-button StyledProps--font Button--button StyledProps--main ColorPicker--picker"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -132,12 +132,12 @@ exports[`About Project test create project  1`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="ColorPicker---color--19sc"
+                              class="ColorPicker--color"
                               style="width: calc(60px - 45px); background: rgb(0, 99, 247);"
                             />
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -178,7 +178,7 @@ exports[`About Project test create project  1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -199,7 +199,7 @@ exports[`About Project test create project  1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -228,16 +228,16 @@ exports[`About Project test create project  1`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-plus"
                       >
                         <svg
@@ -256,17 +256,17 @@ exports[`About Project test create project  1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Description
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -284,16 +284,16 @@ exports[`About Project test create project  1`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-plus"
                       >
                         <svg
@@ -312,17 +312,17 @@ exports[`About Project test create project  1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Tags
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -338,10 +338,10 @@ exports[`About Project test create project  1`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -353,52 +353,52 @@ exports[`About Project test create project  1`] = `
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws preview StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="StyledProps--font StyledProps--main preview StyledProps--flex StyledProps--flex-align-center-center"
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
+              class="bp3-card bp3-elevation-0 Card--card projectCard"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws projectInfo StyledProps---padding-xlarge--DH-e"
+                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   <div
                     class="colorBar"
                     style="background-color: rgb(0, 99, 247);"
                   />
                   <p
-                    class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                     style="--text-line-clamp: 1;"
                   >
                     Project Name
                   </p>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
                   />
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+                    class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
                   >
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-right-large--2vF9"
+                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-large"
                     >
                       <div
-                        class="AvatarGroup---stack--3mde projectAvatarGroup"
+                        class="AvatarGroup--stack projectAvatarGroup"
                       >
                         <div
-                          class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <div
-                            class="Avatar---AvatarInner--C7qT"
+                            class="Avatar--AvatarInner"
                             style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
@@ -406,22 +406,22 @@ exports[`About Project test create project  1`] = `
                         </div>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---font-xsmall--1PyC"
+                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
                       >
                         Admin 
                       </p>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                     >
                       <div
-                        class="AvatarGroup---stack--3mde projectAvatarGroup"
+                        class="AvatarGroup--stack projectAvatarGroup"
                       >
                         <div
-                          class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <div
-                            class="Avatar---AvatarInner--C7qT"
+                            class="Avatar--AvatarInner"
                             style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
@@ -429,7 +429,7 @@ exports[`About Project test create project  1`] = `
                         </div>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---font-xsmall--1PyC"
+                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
                       >
                         Collaborators 
                       </p>
@@ -438,18 +438,18 @@ exports[`About Project test create project  1`] = `
                 </div>
               </div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws started StyledProps---padding-top-medium--29t2 StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv StyledProps---border--uz_- StyledProps---border-top--3_3E StyledProps---border-bottom--6lR5"
+                class="Layout--vertical StyledProps--main started StyledProps--padding-top-medium StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--border StyledProps--border-top StyledProps--border-bottom"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr StyledProps---padding-bottom-xsmall--iU1g"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
                   No modules enabled
                 </p>
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -484,7 +484,7 @@ exports[`About Project test create project  1`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -519,7 +519,7 @@ exports[`About Project test create project  1`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -554,7 +554,7 @@ exports[`About Project test create project  1`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -589,7 +589,7 @@ exports[`About Project test create project  1`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -637,53 +637,53 @@ exports[`About Project test create project  1`] = `
 exports[`About Project test create project  2`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xxlarge--3lSp"
+            class="Layout--vertical StyledProps--main StyledProps--padding-xxlarge"
             style="width: 50%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="min-height: 450px;"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-bottom-large--1zGv"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 >
                   About the Project
                 </p>
               </div>
               <div
-                class="InputWithIdentifier---txtNameContainer--20iZ"
+                class="InputWithIdentifier--txtNameContainer"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     ID
                     :
                   </p>
                   <span
-                    class="InputWithIdentifier---idInput--w8_T"
+                    class="InputWithIdentifier--idInput"
                     contenteditable="true"
                   >
                     dummy_name
                     
                   </span>
                   <span
-                    class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-edit StyledProps--main"
                     icon="edit"
                     style="vertical-align: middle;"
                   >
@@ -735,7 +735,7 @@ exports[`About Project test create project  2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <div
                   class="bp3-form-group"
@@ -761,7 +761,7 @@ exports[`About Project test create project  2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws ColorPicker---picker--3GiQ"
+                          class="bp3-button StyledProps--font Button--button StyledProps--main ColorPicker--picker"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -769,12 +769,12 @@ exports[`About Project test create project  2`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="ColorPicker---color--19sc"
+                              class="ColorPicker--color"
                               style="width: calc(60px - 45px); background: rgb(0, 99, 247);"
                             />
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -815,7 +815,7 @@ exports[`About Project test create project  2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -836,7 +836,7 @@ exports[`About Project test create project  2`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -865,16 +865,16 @@ exports[`About Project test create project  2`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-minus"
                       >
                         <svg
@@ -893,17 +893,17 @@ exports[`About Project test create project  2`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Description
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -938,16 +938,16 @@ exports[`About Project test create project  2`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-minus"
                       >
                         <svg
@@ -966,17 +966,17 @@ exports[`About Project test create project  2`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Tags
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -1015,10 +1015,10 @@ exports[`About Project test create project  2`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -1030,58 +1030,58 @@ exports[`About Project test create project  2`] = `
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws preview StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="StyledProps--font StyledProps--main preview StyledProps--flex StyledProps--flex-align-center-center"
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
+              class="bp3-card bp3-elevation-0 Card--card projectCard"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws projectInfo StyledProps---padding-xlarge--DH-e"
+                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   <div
                     class="colorBar"
                     style="background-color: rgb(0, 99, 247);"
                   />
                   <p
-                    class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                     style="--text-line-clamp: 1;"
                   >
                     dummy name
                   </p>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold"
                   />
                   <p
-                    class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-medium"
                     style="--text-line-clamp: 2;"
                   >
                      This is new description
                   </p>
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+                    class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
                   >
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-right-large--2vF9"
+                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-large"
                     >
                       <div
-                        class="AvatarGroup---stack--3mde projectAvatarGroup"
+                        class="AvatarGroup--stack projectAvatarGroup"
                       >
                         <div
-                          class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <div
-                            class="Avatar---AvatarInner--C7qT"
+                            class="Avatar--AvatarInner"
                             style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
@@ -1089,22 +1089,22 @@ exports[`About Project test create project  2`] = `
                         </div>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---font-xsmall--1PyC"
+                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
                       >
                         Admin 
                       </p>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                     >
                       <div
-                        class="AvatarGroup---stack--3mde projectAvatarGroup"
+                        class="AvatarGroup--stack projectAvatarGroup"
                       >
                         <div
-                          class="AvatarGroup---stackAvatar--XLk- Avatar---Avatar--2ddu Avatar---contentStyle--3C1X"
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <div
-                            class="Avatar---AvatarInner--C7qT"
+                            class="Avatar--AvatarInner"
                             style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
@@ -1112,7 +1112,7 @@ exports[`About Project test create project  2`] = `
                         </div>
                       </div>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xsmall--34pL StyledProps---font-xsmall--1PyC"
+                        class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--font-xsmall"
                       >
                         Collaborators 
                       </p>
@@ -1121,18 +1121,18 @@ exports[`About Project test create project  2`] = `
                 </div>
               </div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws started StyledProps---padding-top-medium--29t2 StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv StyledProps---border--uz_- StyledProps---border-top--3_3E StyledProps---border-bottom--6lR5"
+                class="Layout--vertical StyledProps--main started StyledProps--padding-top-medium StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--border StyledProps--border-top StyledProps--border-bottom"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr StyledProps---padding-bottom-xsmall--iU1g"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
                 >
                   No modules enabled
                 </p>
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -1167,7 +1167,7 @@ exports[`About Project test create project  2`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -1202,7 +1202,7 @@ exports[`About Project test create project  2`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -1237,7 +1237,7 @@ exports[`About Project test create project  2`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -1272,7 +1272,7 @@ exports[`About Project test create project  2`] = `
                     </svg>
                   </span>
                   <span
-                    class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+                    class="bp3-icon StyledProps--main grayOutIcons"
                   >
                     <svg
                       fill="none"
@@ -1320,46 +1320,46 @@ exports[`About Project test create project  2`] = `
 exports[`About Project test edit project  1`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xxlarge--3lSp"
+            class="Layout--vertical StyledProps--main StyledProps--padding-xxlarge"
             style="width: 100%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="min-height: 450px;"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-bottom-large--1zGv"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 >
                   Edit Project
                 </p>
               </div>
               <div
-                class="InputWithIdentifier---txtNameContainer--20iZ"
+                class="InputWithIdentifier--txtNameContainer"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     ID
                     :
                   </p>
                   <span
-                    class="InputWithIdentifier---idInput--w8_T"
+                    class="InputWithIdentifier--idInput"
                     contenteditable="false"
                     disabled=""
                   >
@@ -1398,7 +1398,7 @@ exports[`About Project test edit project  1`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <div
                   class="bp3-form-group"
@@ -1424,7 +1424,7 @@ exports[`About Project test edit project  1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws ColorPicker---picker--3GiQ"
+                          class="bp3-button StyledProps--font Button--button StyledProps--main ColorPicker--picker"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -1432,12 +1432,12 @@ exports[`About Project test edit project  1`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="ColorPicker---color--19sc"
+                              class="ColorPicker--color"
                               style="width: calc(60px - 45px); background: rgb(0, 99, 247);"
                             />
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -1478,7 +1478,7 @@ exports[`About Project test edit project  1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -1500,7 +1500,7 @@ exports[`About Project test edit project  1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -1529,16 +1529,16 @@ exports[`About Project test edit project  1`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-minus"
                       >
                         <svg
@@ -1557,17 +1557,17 @@ exports[`About Project test edit project  1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Description
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -1603,16 +1603,16 @@ exports[`About Project test edit project  1`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-plus"
                       >
                         <svg
@@ -1631,17 +1631,17 @@ exports[`About Project test edit project  1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Tags
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -1657,10 +1657,10 @@ exports[`About Project test edit project  1`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -1681,46 +1681,46 @@ exports[`About Project test edit project  1`] = `
 exports[`About Project test edit project  2`] = `
 <div>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          class="Layout--horizontal StyledProps--main"
         >
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xxlarge--3lSp"
+            class="Layout--vertical StyledProps--main StyledProps--padding-xxlarge"
             style="width: 100%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="min-height: 450px;"
             >
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-bottom-large--1zGv"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
                 >
                   Edit Project
                 </p>
               </div>
               <div
-                class="InputWithIdentifier---txtNameContainer--20iZ"
+                class="InputWithIdentifier--txtNameContainer"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   >
                     ID
                     :
                   </p>
                   <span
-                    class="InputWithIdentifier---idInput--w8_T"
+                    class="InputWithIdentifier--idInput"
                     contenteditable="false"
                     disabled=""
                   >
@@ -1759,7 +1759,7 @@ exports[`About Project test edit project  2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <div
                   class="bp3-form-group"
@@ -1785,7 +1785,7 @@ exports[`About Project test edit project  2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws ColorPicker---picker--3GiQ"
+                          class="bp3-button StyledProps--font Button--button StyledProps--main ColorPicker--picker"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -1793,12 +1793,12 @@ exports[`About Project test edit project  2`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="ColorPicker---color--19sc"
+                              class="ColorPicker--color"
                               style="width: calc(60px - 45px); background: rgb(0, 99, 247);"
                             />
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -1839,7 +1839,7 @@ exports[`About Project test edit project  2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -1861,7 +1861,7 @@ exports[`About Project test edit project  2`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -1890,16 +1890,16 @@ exports[`About Project test edit project  2`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-minus"
                       >
                         <svg
@@ -1918,17 +1918,17 @@ exports[`About Project test edit project  2`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Description
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -1964,16 +1964,16 @@ exports[`About Project test edit project  2`] = `
                 class="collapseDiv"
               >
                 <div
-                  class="Collapse---main--34Is"
+                  class="Collapse--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
                         icon="small-plus"
                       >
                         <svg
@@ -1992,17 +1992,17 @@ exports[`About Project test edit project  2`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        class="StyledProps--font StyledProps--main CollapseHeader--title"
                       >
                         Tags
                       </p>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                     />
                   </div>
                   <div
-                    class="Collapse---collapse--2EmT"
+                    class="Collapse--collapse"
                   >
                     <div
                       class="bp3-collapse collapse"
@@ -2018,10 +2018,10 @@ exports[`About Project test edit project  2`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span

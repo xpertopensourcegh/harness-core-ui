@@ -3,10 +3,10 @@
 exports[`Test Connection render test connection 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
+      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
       type="button"
     >
       <span
@@ -22,10 +22,10 @@ exports[`Test Connection render test connection 1`] = `
 exports[`Test Connection render test connection verify existing delegate  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
+      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
       type="button"
     >
       <span
@@ -41,13 +41,13 @@ exports[`Test Connection render test connection verify existing delegate  1`] = 
 exports[`Test Connection render test connection verify existing delegate  2`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
+      class="Layout--vertical StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---font-medium--2b-0"
+        class="StyledProps--font StyledProps--main heading StyledProps--font-medium"
       >
         Verify Connection to
          
@@ -58,14 +58,14 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
         </span>
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
         id="steps-progress"
       >
         <div
-          class="StepsProgress---progressBar--2_Dp"
+          class="StepsProgress--progressBar"
         >
           <div
-            class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress---progressHeight--3zU4"
+            class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
           >
             <div
               class="bp3-progress-meter"
@@ -74,13 +74,13 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
           </div>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         >
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--margin-right-small"
               icon="tick"
             >
               <svg
@@ -99,17 +99,17 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: bold;"
             >
               Delegate found: Sample Delegate Name 
             </p>
           </div>
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-error StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red500--uX9L StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
               icon="error"
             >
               <svg
@@ -128,17 +128,17 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style=""
             >
               Delegate Connection Failed
             </p>
           </div>
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
               icon="blank"
             >
               <svg
@@ -153,7 +153,7 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: normal;"
             >
               Verifying connection
@@ -162,10 +162,10 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+        class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
       >
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
           type="button"
         >
           <span
@@ -175,7 +175,7 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
           type="button"
         >
           <span
@@ -193,10 +193,10 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
 exports[`Test Connection render test connection verify out of cluster  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
+      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
       type="button"
     >
       <span
@@ -212,17 +212,17 @@ exports[`Test Connection render test connection verify out of cluster  1`] = `
 exports[`Test Connection render test connection verify out of cluster  2`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+      class="Layout--vertical StyledProps--main StyledProps--padding-small"
       style="height: 100%;"
     >
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        class="Layout--vertical StyledProps--main"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
         >
           Verify Connection to 
            
@@ -233,14 +233,14 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
           </span>
         </p>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
           id="steps-progress"
         >
           <div
-            class="StepsProgress---progressBar--2_Dp"
+            class="StepsProgress--progressBar"
           >
             <div
-              class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress---progressHeight--3zU4"
+              class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
             >
               <div
                 class="bp3-progress-meter"
@@ -249,13 +249,13 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
             </div>
           </div>
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
           >
             <div
-              class="StepsProgress---stepWrap--g0bN"
+              class="StepsProgress--stepWrap"
             >
               <span
-                class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---margin-right-small--Uojv"
+                class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--margin-right-small"
                 icon="tick"
               >
                 <svg
@@ -274,17 +274,17 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
                 1 delegate found
               </p>
             </div>
             <div
-              class="StepsProgress---stepWrap--g0bN"
+              class="StepsProgress--stepWrap"
             >
               <span
-                class="bp3-icon bp3-icon-error StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red500--uX9L StyledProps---margin-right-small--Uojv"
+                class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
                 icon="error"
               >
                 <svg
@@ -303,17 +303,17 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style=""
               >
                 Delegate Connection Failed
               </p>
             </div>
             <div
-              class="StepsProgress---stepWrap--g0bN"
+              class="StepsProgress--stepWrap"
             >
               <span
-                class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+                class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
                 icon="blank"
               >
                 <svg
@@ -328,7 +328,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="font-weight: normal;"
               >
                 Verifying Connection
@@ -337,10 +337,10 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+          class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
             type="button"
           >
             <span
@@ -350,7 +350,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
             type="button"
           >
             <span

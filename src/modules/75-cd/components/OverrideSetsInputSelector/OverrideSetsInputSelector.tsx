@@ -10,7 +10,7 @@ import {
   Tag,
   Text,
   TextInput
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { isArray, clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'

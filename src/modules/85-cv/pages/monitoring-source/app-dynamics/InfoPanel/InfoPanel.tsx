@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Color } from '@wings-software/uikit'
+import { Container, Text, Color } from '@wings-software/uicore'
 import styles from './InfoPanel.module.scss'
 
 export interface InfoPanelItemProps {

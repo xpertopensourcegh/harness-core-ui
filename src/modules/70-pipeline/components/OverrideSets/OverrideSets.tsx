@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, CollapseList, CollapseListPanel, Button, TextInput, Label } from '@wings-software/uikit'
+import { Layout, Text, CollapseList, CollapseListPanel, Button, TextInput, Label } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'

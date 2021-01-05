@@ -3,28 +3,28 @@
 exports[`ManifestSelection tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    class="Layout--vertical StyledProps--main StyledProps--padding-large"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
       style="line-height: 24px;"
     >
       Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
     </p>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+        class="StyledProps--font StyledProps--main rowItem"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           + Add Manifest
         </p>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section />
       </div>

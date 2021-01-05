@@ -9,7 +9,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
       class="wizardShell"
     >
       <h2
-        class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-small"
         level="2"
         style="position: fixed; top: 35px;"
       >
@@ -19,17 +19,17 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
         class="headerLine"
       />
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws tabsContainer"
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="bp3-tabs Tabs---main--3Ew7"
+                class="bp3-tabs Tabs--main"
               >
                 <div
                   class="bp3-tab-list"
@@ -59,7 +59,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                       class="tab"
                     >
                       <span
-                        class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
                         icon="tick-circle"
                       >
                         <svg
@@ -97,7 +97,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                       class="tab"
                     >
                       <span
-                        class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
                         icon="tick-circle"
                       >
                         <svg
@@ -185,10 +185,10 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws footer"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -197,7 +197,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                     Continue
                   </span>
                   <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                     icon="chevron-right"
                   >
                     <svg
@@ -217,7 +217,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                   </span>
                 </button>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws cancel"
+                  class="StyledProps--font StyledProps--main cancel"
                 >
                   Cancel
                 </p>
@@ -243,7 +243,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
       class="wizardShell"
     >
       <h2
-        class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-small"
         level="2"
         style="position: fixed; top: 35px;"
       >
@@ -253,17 +253,17 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
         class="headerLine"
       />
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws tabsContainer"
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
-                class="bp3-tabs Tabs---main--3Ew7"
+                class="bp3-tabs Tabs--main"
               >
                 <div
                   class="bp3-tab-list"
@@ -382,10 +382,10 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws footer"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -394,7 +394,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                     Continue
                   </span>
                   <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                     icon="chevron-right"
                   >
                     <svg
@@ -414,7 +414,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                   </span>
                 </button>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws cancel"
+                  class="StyledProps--font StyledProps--main cancel"
                 >
                   Cancel
                 </p>

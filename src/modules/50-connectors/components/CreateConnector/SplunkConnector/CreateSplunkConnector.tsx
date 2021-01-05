@@ -8,7 +8,7 @@ import {
   FormikForm,
   ModalErrorHandler,
   ModalErrorHandlerBinding
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useToaster } from '@common/exports'

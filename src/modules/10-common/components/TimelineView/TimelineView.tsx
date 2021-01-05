@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Container, Text } from '@wings-software/uikit'
+import { Container, Text } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import isUndefined from 'lodash/isUndefined'
 import moment from 'moment'

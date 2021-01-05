@@ -3,10 +3,10 @@
 exports[`CD Pipeline Page List render card view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -33,20 +33,20 @@ exports[`CD Pipeline Page List render card view 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Pipelines
       </p>
     </div>
   </div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws header StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         data-testid="add-pipeline"
         type="button"
       >
@@ -58,18 +58,18 @@ exports[`CD Pipeline Page List render card view 1`] = `
       </button>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       style="align-items: center;"
     >
       <div
         class="expandSearch"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main "
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
             icon="search"
           >
             <svg
@@ -97,7 +97,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         </div>
       </div>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps--main"
       >
         <svg
           height="24"
@@ -122,14 +122,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
         </svg>
       </span>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-medium--3Ish"
+        class="Layout--horizontal StyledProps--main StyledProps--inline StyledProps--padding-medium"
       >
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-grid-view StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-grid-view StyledProps--main"
             icon="grid-view"
           >
             <svg
@@ -149,11 +149,11 @@ exports[`CD Pipeline Page List render card view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-list StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-list StyledProps--main"
             icon="list"
           >
             <svg
@@ -176,7 +176,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageBody"
+    class="StyledProps--font StyledProps--main pageBody pageBody"
   >
     <div
       class="gridView"
@@ -185,24 +185,24 @@ exports[`CD Pipeline Page List render card view 1`] = `
         class="gridLayout"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--container0 StyledProps---padding-xxxlarge--2I9v"
+          class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 StyledProps--padding-xxxlarge"
           style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+            class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
             style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card---card--2BXa pipelineCard"
+              class="bp3-card bp3-elevation-0 Card--card pipelineCard"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+                class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large"
               >
                 <div
-                  class="Card---cardMenu--JLDc menu"
+                  class="Card--cardMenu menu"
                 >
                   <div
-                    class="Card---dots--3qQP"
+                    class="Card--dots"
                   >
                     <span
                       class="bp3-popover-wrapper bp3-dark"
@@ -211,11 +211,11 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-more StyledProps--main"
                             icon="more"
                           >
                             <svg
@@ -242,7 +242,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="tags"
                 >
                   <span
-                    class="Tag---main--1vng"
+                    class="Tag--main"
                   >
                     <span
                       class="bp3-tag bp3-intent-primary bp3-minimal"
@@ -258,23 +258,23 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main clickable StyledProps--font-medium StyledProps--color StyledProps--color-black"
                   data-testid="pipeline1"
                 >
                   pipeline1
                 </p>
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-medium"
                   style="--text-line-clamp: 2;"
                 >
                   pipeline1 description
                 </p>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-small"
               >
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag cardTags"
@@ -287,7 +287,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </span>
                 <span
-                  class="Tag---main--1vng"
+                  class="Tag--main"
                 >
                   <span
                     class="bp3-tag cardTags"
@@ -301,21 +301,21 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </span>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+                class="StyledProps--font StyledProps--main clickable StyledProps--padding-medium StyledProps--border StyledProps--border-top"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                   style="align-items: flex-end;"
                 >
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small"
                       style="text-transform: capitalize; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                       >
                         <svg
                           height="12"
@@ -353,7 +353,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </span>
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
                       style="text-transform: uppercase;"
                     >
                       <span>
@@ -362,13 +362,13 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <span
                       class="activityChart"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                        class="StyledProps--font StyledProps--main SparkChart--main"
                         role="spark-chart"
                       >
                         <div
@@ -508,7 +508,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
                       style="text-transform: uppercase;"
                     >
                       <span>
@@ -517,15 +517,15 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red600"
                     >
                       -
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
                       style="text-transform: uppercase;"
                     >
                       <span>
@@ -536,16 +536,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws runPipeline StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+                class="StyledProps--font StyledProps--main runPipeline StyledProps--padding-medium StyledProps--border StyledProps--border-top"
               >
                 <div>
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                     >
                       <svg
                         height="16"
@@ -586,20 +586,20 @@ exports[`CD Pipeline Page List render card view 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
+            class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
             style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card---card--2BXa pipelineCard"
+              class="bp3-card bp3-elevation-0 Card--card pipelineCard"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+                class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large"
               >
                 <div
-                  class="Card---cardMenu--JLDc menu"
+                  class="Card--cardMenu menu"
                 >
                   <div
-                    class="Card---dots--3qQP"
+                    class="Card--dots"
                   >
                     <span
                       class="bp3-popover-wrapper bp3-dark"
@@ -608,11 +608,11 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws Card---menu--3447"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-more StyledProps--main"
                             icon="more"
                           >
                             <svg
@@ -639,7 +639,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="tags"
                 >
                   <span
-                    class="Tag---main--1vng"
+                    class="Tag--main"
                   >
                     <span
                       class="bp3-tag bp3-intent-primary bp3-minimal"
@@ -655,34 +655,34 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main clickable StyledProps--font-medium StyledProps--color StyledProps--color-black"
                   data-testid="pipeline2"
                 >
                   pipeline2
                 </p>
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-medium"
                   style="--text-line-clamp: 2;"
                 >
                   pipeline2 description
                 </p>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws clickable StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+                class="StyledProps--font StyledProps--main clickable StyledProps--padding-medium StyledProps--border StyledProps--border-top"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                   style="align-items: flex-end;"
                 >
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small"
                       style="text-transform: capitalize; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                       >
                         <svg
                           height="12"
@@ -720,7 +720,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </span>
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
                       style="text-transform: uppercase;"
                     >
                       <span>
@@ -729,13 +729,13 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <span
                       class="activityChart"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+                        class="StyledProps--font StyledProps--main SparkChart--main"
                         role="spark-chart"
                       >
                         <div
@@ -875,7 +875,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
                       style="text-transform: uppercase;"
                     >
                       <span>
@@ -884,15 +884,15 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red600"
                     >
                       2
                     </p>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT StyledProps---font-size-small--3cA6"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
                       style="text-transform: uppercase;"
                     >
                       <span>
@@ -903,16 +903,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws runPipeline StyledProps---padding-medium--3Ish StyledProps---border--uz_- StyledProps---border-top--3_3E"
+                class="StyledProps--font StyledProps--main runPipeline StyledProps--padding-medium StyledProps--border StyledProps--border-top"
               >
                 <div>
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                     >
                       <svg
                         height="16"
@@ -958,10 +958,10 @@ exports[`CD Pipeline Page List render card view 1`] = `
         class="pagination"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+          class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
           >
             Showing 
             <strong>
@@ -982,10 +982,10 @@ exports[`CD Pipeline Page List render card view 1`] = `
 exports[`CD Pipeline Page List render empty list card view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -1012,20 +1012,20 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Pipelines
       </p>
     </div>
   </div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws header StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         data-testid="add-pipeline"
         type="button"
       >
@@ -1037,18 +1037,18 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
       </button>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       style="align-items: center;"
     >
       <div
         class="expandSearch"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main "
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
             icon="search"
           >
             <svg
@@ -1076,7 +1076,7 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
         </div>
       </div>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps--main"
       >
         <svg
           height="24"
@@ -1101,14 +1101,14 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
         </svg>
       </span>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-medium--3Ish"
+        class="Layout--horizontal StyledProps--main StyledProps--inline StyledProps--padding-medium"
       >
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-grid-view StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-grid-view StyledProps--main"
             icon="grid-view"
           >
             <svg
@@ -1128,11 +1128,11 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-list StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-list StyledProps--main"
             icon="list"
           >
             <svg
@@ -1155,18 +1155,18 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageBody"
+    class="StyledProps--font StyledProps--main pageBody pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
       style="width: 100%; height: 100%;"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         style="align-items: center; margin-top: -48px; width: 470px;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
         >
           <svg
             height="48"
@@ -1185,13 +1185,13 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
           </svg>
         </span>
         <h2
-          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
           level="2"
         >
           Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
         </h2>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -1209,10 +1209,10 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
 exports[`CD Pipeline Page List render list view 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -1239,20 +1239,20 @@ exports[`CD Pipeline Page List render list view 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Pipelines
       </p>
     </div>
   </div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws header StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         data-testid="add-pipeline"
         type="button"
       >
@@ -1264,18 +1264,18 @@ exports[`CD Pipeline Page List render list view 1`] = `
       </button>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       style="align-items: center;"
     >
       <div
         class="expandSearch"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main "
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
             icon="search"
           >
             <svg
@@ -1303,7 +1303,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         </div>
       </div>
       <span
-        class="bp3-icon StyledProps---main--1Wws"
+        class="bp3-icon StyledProps--main"
       >
         <svg
           height="24"
@@ -1328,14 +1328,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
         </svg>
       </span>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---padding-medium--3Ish"
+        class="Layout--horizontal StyledProps--main StyledProps--inline StyledProps--padding-medium"
       >
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-grid-view StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-grid-view StyledProps--main"
             icon="grid-view"
           >
             <svg
@@ -1355,11 +1355,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-list StyledProps---main--1Wws"
+            class="bp3-icon bp3-icon-list StyledProps--main"
             icon="list"
           >
             <svg
@@ -1382,7 +1382,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageBody"
+    class="StyledProps--font StyledProps--main pageBody pageBody"
   >
     <div
       class="table table"
@@ -1400,7 +1400,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         >
           PIPELINE
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -1478,11 +1478,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 20%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             data-testid="pipeline1"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
               pipeline1
             </p>
@@ -1493,11 +1493,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 class="bp3-popover-target"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   tabindex="0"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="15"
@@ -1511,14 +1511,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                   />
                 </div>
               </span>
             </span>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
           >
             pipeline1
           </p>
@@ -1529,7 +1529,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 20%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 2;"
           >
             pipeline1 description
@@ -1541,11 +1541,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small"
             style="text-transform: capitalize; display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="12"
@@ -1592,7 +1592,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             class="activityChart"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -1738,15 +1738,15 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 20%;"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Last run:
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Never
             </p>
@@ -1758,7 +1758,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red600"
           >
             -
           </p>
@@ -1769,7 +1769,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
             style="justify-content: flex-end;"
           >
             <span
@@ -1779,11 +1779,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-more StyledProps--main"
                     icon="more"
                   >
                     <svg
@@ -1817,17 +1817,17 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 20%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             data-testid="pipeline2"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
               pipeline2
             </p>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
           >
             pipeline2
           </p>
@@ -1838,7 +1838,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 20%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 2;"
           >
             pipeline2 description
@@ -1850,11 +1850,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-small--1qQz"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small"
             style="text-transform: capitalize; display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="12"
@@ -1901,7 +1901,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             class="activityChart"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -2047,15 +2047,15 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 20%;"
         >
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Last run:
             </p>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               Never
             </p>
@@ -2067,7 +2067,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red600--3y6r"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red600"
           >
             2
           </p>
@@ -2078,7 +2078,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 10%;"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout--horizontal StyledProps--main"
             style="justify-content: flex-end;"
           >
             <span
@@ -2088,11 +2088,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws actionButton"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-more StyledProps--main"
                     icon="more"
                   >
                     <svg
@@ -2117,10 +2117,10 @@ exports[`CD Pipeline Page List render list view 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>

@@ -3,20 +3,20 @@
 exports[`Project Details render 1`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+    class="bp3-card bp3-elevation-0 Card--card card"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -52,24 +52,24 @@ exports[`Project Details render 1`] = `
           </span>
           <div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-bottom-medium--3R7v"
+              class="Layout--vertical StyledProps--main StyledProps--padding-bottom-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 CONTINUOUS
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
                 Delivery
               </p>
             </div>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws enable"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main enable"
             >
               <span
-                class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
                 icon="tick"
               >
                 <svg
@@ -88,7 +88,7 @@ exports[`Project Details render 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 Enabled
               </p>
@@ -97,17 +97,17 @@ exports[`Project Details render 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 40%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -207,24 +207,24 @@ exports[`Project Details render 1`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-medium--aOY7"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
               23
             </p>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
             DEPLOYMENTS IN LAST 7 DAYS
           </p>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         style="width: 30%;"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
           <a
             href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipeline-studio/pipelines/-1/"
@@ -250,20 +250,20 @@ exports[`Project Details render 1`] = `
 exports[`Project Details render 2`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+    class="bp3-card bp3-elevation-0 Card--card card"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -299,24 +299,24 @@ exports[`Project Details render 2`] = `
           </span>
           <div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-bottom-medium--3R7v"
+              class="Layout--vertical StyledProps--main StyledProps--padding-bottom-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 CONTINUOUS
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
                 Verification
               </p>
             </div>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws enable"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main enable"
             >
               <span
-                class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
                 icon="tick"
               >
                 <svg
@@ -335,7 +335,7 @@ exports[`Project Details render 2`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 Enabled
               </p>
@@ -344,17 +344,17 @@ exports[`Project Details render 2`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 40%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -454,24 +454,24 @@ exports[`Project Details render 2`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-medium--aOY7"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
               23
             </p>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
             VERIFICATIONS IN LAST 7 DAYS
           </p>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         style="width: 30%;"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
           <a
             href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/admin/setup/activity-source-setup/undefined"
@@ -497,20 +497,20 @@ exports[`Project Details render 2`] = `
 exports[`Project Details render 3`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+    class="bp3-card bp3-elevation-0 Card--card card"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -546,24 +546,24 @@ exports[`Project Details render 3`] = `
           </span>
           <div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-bottom-medium--3R7v"
+              class="Layout--vertical StyledProps--main StyledProps--padding-bottom-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 CONTINUOUS
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
                 Efficiency
               </p>
             </div>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws enable"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main enable"
             >
               <span
-                class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
                 icon="tick"
               >
                 <svg
@@ -582,7 +582,7 @@ exports[`Project Details render 3`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 Enabled
               </p>
@@ -591,17 +591,17 @@ exports[`Project Details render 3`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 40%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -701,24 +701,24 @@ exports[`Project Details render 3`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-medium--aOY7"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
               23
             </p>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
             COST SAVINGS IN LAST 7 DAYS
           </p>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         style="width: 30%;"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
           <a
             href="/"
@@ -742,20 +742,20 @@ exports[`Project Details render 3`] = `
 exports[`Project Details render 4`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+    class="bp3-card bp3-elevation-0 Card--card card"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -791,24 +791,24 @@ exports[`Project Details render 4`] = `
           </span>
           <div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-bottom-medium--3R7v"
+              class="Layout--vertical StyledProps--main StyledProps--padding-bottom-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 CONTINUOUS
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
                 Features
               </p>
             </div>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws enable"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main enable"
             >
               <span
-                class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
                 icon="tick"
               >
                 <svg
@@ -827,7 +827,7 @@ exports[`Project Details render 4`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 Enabled
               </p>
@@ -836,17 +836,17 @@ exports[`Project Details render 4`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 40%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -946,24 +946,24 @@ exports[`Project Details render 4`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-medium--aOY7"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
               23
             </p>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
             FEATURE FLAGS IN LAST 7 DAYS
           </p>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         style="width: 30%;"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
           <a
             href="/"
@@ -987,20 +987,20 @@ exports[`Project Details render 4`] = `
 exports[`Project Details render 5`] = `
 <div>
   <div
-    class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+    class="bp3-card bp3-elevation-0 Card--card card"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 30%;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -1036,24 +1036,24 @@ exports[`Project Details render 5`] = `
           </span>
           <div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-bottom-medium--3R7v"
+              class="Layout--vertical StyledProps--main StyledProps--padding-bottom-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 CONTINUOUS
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
                 Integration
               </p>
             </div>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws enable"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main enable"
             >
               <span
-                class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
                 icon="tick"
               >
                 <svg
@@ -1072,7 +1072,7 @@ exports[`Project Details render 5`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
                 Enabled
               </p>
@@ -1081,17 +1081,17 @@ exports[`Project Details render 5`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---border--uz_- StyledProps---border-right--2-OL StyledProps---border-color-grey300--3jwf"
+        class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
         style="width: 40%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws SparkChart---main--27eo"
+              class="StyledProps--font StyledProps--main SparkChart--main"
               role="spark-chart"
             >
               <div
@@ -1191,24 +1191,24 @@ exports[`Project Details render 5`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-medium--aOY7"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
               23
             </p>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-xsmall--1f9b"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
             BUILDS IN LAST 7 DAYS
           </p>
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
         style="width: 30%;"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
           <a
             href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipeline-studio/pipelines/-1/"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption } from '@wings-software/uikit'
+import { Layout, SelectOption } from '@wings-software/uicore'
 import { parse, stringify } from 'yaml'
 import { isEmpty, merge } from 'lodash-es'
 import { Page, useToaster } from '@common/exports'

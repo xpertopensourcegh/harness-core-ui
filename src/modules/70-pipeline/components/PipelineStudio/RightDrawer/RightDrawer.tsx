@@ -1,6 +1,6 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
-import { Icon } from '@wings-software/uikit'
+import { Icon } from '@wings-software/uicore'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommands } from '../StepCommands/StepCommands'

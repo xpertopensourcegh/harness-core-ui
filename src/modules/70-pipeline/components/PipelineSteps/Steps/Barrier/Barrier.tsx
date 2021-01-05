@@ -7,7 +7,7 @@ import {
   Layout,
   getMultiTypeFromValue,
   MultiTypeInputType
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'

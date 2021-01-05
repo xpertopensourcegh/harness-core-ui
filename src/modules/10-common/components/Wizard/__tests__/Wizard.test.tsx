@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, fireEvent, queryByText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import { FormInput } from '@wings-software/uikit'
+import { FormInput } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'

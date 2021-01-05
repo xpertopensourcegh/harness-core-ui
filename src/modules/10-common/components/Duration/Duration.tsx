@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, TextProps } from '@wings-software/uikit'
+import { Text, TextProps } from '@wings-software/uicore'
 import i18n from './Duration.i18n'
 
 export interface DurationProps extends TextProps {

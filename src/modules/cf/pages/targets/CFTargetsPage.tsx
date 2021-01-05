@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uikit'
+import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { Spinner } from '@blueprintjs/core'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'

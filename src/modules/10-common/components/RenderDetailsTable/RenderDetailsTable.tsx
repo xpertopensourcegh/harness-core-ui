@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Container, Color, Layout, Text, IconName, Icon, Tag } from '@wings-software/uikit'
+import { Container, Color, Layout, Text, IconName, Icon, Tag } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import type { tagsType } from '@common/utils/types'
 import css from './RenderDetailsTable.module.scss'

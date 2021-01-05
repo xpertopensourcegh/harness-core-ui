@@ -11,7 +11,7 @@ import {
   FormikForm as Form,
   StepProps,
   Color
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { buildNexusPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/exports'

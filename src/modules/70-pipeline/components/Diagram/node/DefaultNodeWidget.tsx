@@ -1,6 +1,6 @@
 import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button, Link } from '@wings-software/uikit'
+import { Icon, Text, Button, Link } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'

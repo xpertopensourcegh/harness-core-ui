@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Container, Tabs, Tab } from '@wings-software/uikit'
+import { Container, Tabs, Tab } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import {
   useGetDeploymentTimeSeries,

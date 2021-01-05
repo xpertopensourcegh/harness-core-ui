@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import { NotificationType } from './interfaces/Notifications'
 
 export const NotificationTypeSelectOptions: SelectOption[] = [

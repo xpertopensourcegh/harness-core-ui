@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useModalHook } from '@wings-software/uikit'
+import { useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
 import { useAppStore, useStrings } from 'framework/exports'

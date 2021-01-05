@@ -1,5 +1,5 @@
 import React, { useMemo, CSSProperties, useEffect, useState } from 'react'
-import { FormInput, SelectOption, MultiTypeInputType, MultiSelectOption } from '@wings-software/uikit'
+import { FormInput, SelectOption, MultiTypeInputType, MultiSelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'

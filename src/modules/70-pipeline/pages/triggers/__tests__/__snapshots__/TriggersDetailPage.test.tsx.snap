@@ -3,10 +3,10 @@
 exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-xlarge--xV_9 StyledProps---padding-left-xlarge--3m2O StyledProps---padding-bottom-medium--3R7v StyledProps---padding-right-xlarge--xu-3 StyledProps---background-blue200--2drm"
+    class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-bottom-medium StyledProps--padding-right-xlarge StyledProps--background-blue200"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
         class="breadcrumbs"
@@ -60,11 +60,11 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
       </div>
       <div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
           style="align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="26"
@@ -77,29 +77,29 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             </svg>
           </span>
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             data-testid="Trigger__1"
           >
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
             >
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                 style="align-items: center;"
               >
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   style="font-size: 20px;"
                 >
                   Trigger__1
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                 >
                   Enabled
                 </p>
                 <label
-                  class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+                  class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
                 >
                   <input
                     checked=""
@@ -112,7 +112,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
                 </label>
               </div>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Trigger__1
               </p>
@@ -123,16 +123,16 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws panel"
+      class="Layout--horizontal StyledProps--main panel"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws information"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main information"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
         >
           <div
             class="optionBtns"
@@ -149,11 +149,11 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws edit StyledProps---intent-primary--2Xgi"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main edit StyledProps--intent-primary"
             type="button"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
             >
               <svg
                 height="16"
@@ -186,86 +186,86 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           </button>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa overview"
+            class="bp3-card bp3-elevation-0 Card--card overview"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
             >
               Overview
             </p>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Trigger Name
               </p>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
                 style="--text-line-clamp: 1;"
               >
                 Trigger__1
               </p>
               <hr />
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Description
               </p>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
                 style="--text-line-clamp: 1;"
               >
                 -
               </p>
               <hr />
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Identifier
               </p>
               <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
                 style="--text-line-clamp: 1;"
               >
                 Trigger__1
               </p>
               <hr />
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Tags
               </p>
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa inputSet"
+            class="bp3-card bp3-elevation-0 Card--card inputSet"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
             >
               Details
             </p>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Conditions
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
               >
                 &lt;cron expression&gt;
               </p>
               <hr />
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 Pipeline Execution Input
               </p>
@@ -274,14 +274,14 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        class="Layout--vertical StyledProps--main"
         style="flex: 1;"
       >
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
           >
             Last Execution Details
           </p>
@@ -292,12 +292,12 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               class="bp3-popover-target"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500"
                 style="display: flex; align-items: center;"
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+                  class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                   icon="warning-sign"
                 >
                   <svg
@@ -321,11 +321,11 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           </span>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
         >
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Last execution at: 12/23/2020 5:07:21 AM
             </p>

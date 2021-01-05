@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import type { GraphVertex } from 'services/ci'
 import { formatElapsedTime } from '@ci/components/common/time'
 import { useStrings } from 'framework/exports'

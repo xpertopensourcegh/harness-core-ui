@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button } from '@wings-software/uikit'
+import { Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { connect } from 'formik'
 import { useStrings } from 'framework/exports'

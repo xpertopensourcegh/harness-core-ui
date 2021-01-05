@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Container, Pagination, Link } from '@wings-software/uikit'
+import { Container, Pagination, Link } from '@wings-software/uicore'
 import { extendMoment } from 'moment-range'
 import classnames from 'classnames'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'

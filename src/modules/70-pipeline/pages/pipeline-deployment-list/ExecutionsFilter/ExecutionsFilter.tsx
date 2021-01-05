@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ExpandingSearchInput, ButtonGroup } from '@wings-software/uikit'
+import { Button, ExpandingSearchInput, ButtonGroup } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 

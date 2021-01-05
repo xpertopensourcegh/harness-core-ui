@@ -3,7 +3,7 @@
 exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
       class="breadcrumbs"
@@ -30,13 +30,13 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
       </div>
     </div>
     <div
-      class="TextInput---main--1ytZ"
+      class="TextInput--main"
     >
       <div
         class="bp3-input-group search"
       >
         <span
-          class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-search StyledProps--main"
           icon="search"
         >
           <svg
@@ -63,14 +63,14 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-bottom-small--3Kji"
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-bottom-small"
       type="button"
     >
       <span
-        class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+        class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
         icon="plus"
       >
         <svg
@@ -110,7 +110,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         >
           Name
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -138,7 +138,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         >
           Type
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -166,7 +166,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         >
           Number of Services
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -194,7 +194,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         >
           Import Status
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -222,7 +222,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         >
           Imported On
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -259,10 +259,10 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 10%;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 height="18"
@@ -294,7 +294,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+            class="StyledProps--font Text--lineclamp StyledProps--main"
             style="--text-line-clamp: 1;"
           >
             <span>
@@ -302,7 +302,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws"
+            class="StyledProps--font Text--lineclamp StyledProps--main"
             style="--text-line-clamp: 1;"
           >
             <span>
@@ -316,10 +316,10 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 25%;"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+            class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Dec 14, 2020 11:22 am
             </p>

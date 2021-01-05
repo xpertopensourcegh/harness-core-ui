@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uikit'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import {
   BUCKET_TOP_OFFSET,

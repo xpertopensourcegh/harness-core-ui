@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button, Text, Color, Container, ExpandingSearchInput } from '@wings-software/uikit'
+import { Button, Text, Color, Container, ExpandingSearchInput } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { ResponsePagePMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
 import { Page } from '@common/exports'

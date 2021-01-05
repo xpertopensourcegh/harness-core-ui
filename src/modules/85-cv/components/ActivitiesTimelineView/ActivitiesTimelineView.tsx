@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Text, Button } from '@wings-software/uikit'
+import { Container, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import TimelineView, { TimelineViewProps } from '@common/components/TimelineView/TimelineView'
 import type { ActivityDashboardDTO } from 'services/cv'

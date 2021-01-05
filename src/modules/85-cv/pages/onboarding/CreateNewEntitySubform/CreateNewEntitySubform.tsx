@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Formik } from 'formik'
-import { FormInput, SelectWithSubviewContext, Layout, Button, FormikForm, Text } from '@wings-software/uikit'
+import { FormInput, SelectWithSubviewContext, Layout, Button, FormikForm, Text } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { useCreateService, useCreateEnvironment, EnvironmentRequestDTO, ServiceRequestDTO, Error } from 'services/cd-ng'

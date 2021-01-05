@@ -1,6 +1,6 @@
 import React from 'react'
 import SplitPane, { Pane, SplitPaneProps } from 'react-split-pane'
-import { Button } from '@wings-software/uikit'
+import { Button } from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 import cx from 'classnames'
 

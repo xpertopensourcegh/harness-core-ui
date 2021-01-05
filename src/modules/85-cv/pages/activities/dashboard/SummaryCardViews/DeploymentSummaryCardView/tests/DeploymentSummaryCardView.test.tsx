@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { Utils } from '@wings-software/uikit'
+import { Utils } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { DeploymentSummaryCardView } from '../DeploymentSummaryCardView'
 

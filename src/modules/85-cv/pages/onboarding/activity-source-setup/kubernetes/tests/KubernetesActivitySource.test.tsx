@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'

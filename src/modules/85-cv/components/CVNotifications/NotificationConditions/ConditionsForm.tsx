@@ -10,7 +10,7 @@ import {
   Layout,
   Color,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { CVNotificationForm } from '@cv/pages/admin/notifications/NotificationInterfaces'

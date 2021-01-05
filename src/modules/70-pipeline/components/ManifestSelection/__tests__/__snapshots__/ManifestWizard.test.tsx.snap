@@ -6,19 +6,19 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
     class="exampleWizard"
   >
     <div
-      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+      class="StepWizard--main StepWizard--navBar"
     >
       <div
-        class="StepWizard---navBarList--2ILN"
+        class="StepWizard--navBarList"
       >
         <div
-          class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+          class="StepWizard--navStep StepWizard--completedStep"
         >
           <span
-            class="StepWizard---completedIcon--yi-5"
+            class="StepWizard--completedIcon"
           >
             <span
-              class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+              class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
               icon="small-tick"
             >
               <svg
@@ -38,22 +38,22 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             </span>
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             SPECIFY MANIFEST SERVER
           </p>
         </div>
         <div
-          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+          class="StepWizard--navStep StepWizard--activeStep"
         >
           <span
-            class="StepWizard---number--1LKy"
+            class="StepWizard--number"
           >
             2
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             MANIFEST SOURCE
@@ -61,20 +61,20 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
         </div>
       </div>
       <div
-        class="StepWizard---stepDetails--Uaxx"
+        class="StepWizard--stepDetails"
       >
          
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-small"
           style="height: 100%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+            class="StyledProps--font StyledProps--main StyledProps--font-medium"
           >
             Configure Manifest Source
           </p>
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
               class="formContainer"
@@ -126,7 +126,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -147,7 +147,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -188,10 +188,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -208,10 +208,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -248,14 +248,14 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                         class="bp3-popover-target typeSelector"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                           type="button"
                         >
                           <span
                             class="bp3-button-text"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws icon fixed"
+                              class="bp3-icon StyledProps--main icon fixed"
                             >
                               <svg
                                 height="10"
@@ -287,11 +287,11 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   class="bp3-form-content"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws fileHelpText"
+                    class="StyledProps--font StyledProps--main fileHelpText"
                     style="display: flex; align-items: center;"
                   >
                     <span
-                      class="bp3-icon bp3-icon-info-sign StyledProps---main--1Wws StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-blue450--6C4Y"
+                      class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-blue450"
                       icon="info-sign"
                     >
                       <svg
@@ -314,14 +314,14 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                     </div>
                   </p>
                   <div
-                    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                    class="Layout--vertical StyledProps--main"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="align-items: end;"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                         draggable="true"
                         style="align-items: baseline;"
                       >
@@ -334,10 +334,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                             class="bp3-form-content"
                           >
                             <div
-                              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                             >
                               <div
-                                class="bp3-input-group MultiTypeInput---input--36mQ"
+                                class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
                                   class="bp3-input"
@@ -354,10 +354,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                                   >
                                     <span
-                                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                     >
                                       <svg
                                         height="12"
@@ -380,7 +380,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                     </div>
                     <span>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws addFileButton StyledProps---intent-primary--2Xgi"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addFileButton StyledProps--intent-primary"
                         type="button"
                       >
                         <span
@@ -394,10 +394,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -407,7 +407,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="submit"
                 >
                   <span
@@ -432,19 +432,19 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
     class="exampleWizard"
   >
     <div
-      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+      class="StepWizard--main StepWizard--navBar"
     >
       <div
-        class="StepWizard---navBarList--2ILN"
+        class="StepWizard--navBarList"
       >
         <div
-          class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+          class="StepWizard--navStep StepWizard--completedStep"
         >
           <span
-            class="StepWizard---completedIcon--yi-5"
+            class="StepWizard--completedIcon"
           >
             <span
-              class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+              class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
               icon="small-tick"
             >
               <svg
@@ -464,22 +464,22 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             </span>
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             SPECIFY MANIFEST SERVER
           </p>
         </div>
         <div
-          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+          class="StepWizard--navStep StepWizard--activeStep"
         >
           <span
-            class="StepWizard---number--1LKy"
+            class="StepWizard--number"
           >
             2
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             MANIFEST SOURCE
@@ -487,20 +487,20 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
         </div>
       </div>
       <div
-        class="StepWizard---stepDetails--Uaxx"
+        class="StepWizard--stepDetails"
       >
          
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-small"
           style="height: 100%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+            class="StyledProps--font StyledProps--main StyledProps--font-medium"
           >
             Configure Manifest Source
           </p>
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
               class="formContainer"
@@ -552,7 +552,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    class="bp3-popover-wrapper Select--main bp3-fill"
                   >
                     <div
                       class="bp3-popover-target"
@@ -573,7 +573,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                             icon="caret-down"
                           >
                             <svg
@@ -614,10 +614,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -634,10 +634,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -674,14 +674,14 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                         class="bp3-popover-target typeSelector"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                           type="button"
                         >
                           <span
                             class="bp3-button-text"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws icon fixed"
+                              class="bp3-icon StyledProps--main icon fixed"
                             >
                               <svg
                                 height="10"
@@ -713,11 +713,11 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   class="bp3-form-content"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws fileHelpText"
+                    class="StyledProps--font StyledProps--main fileHelpText"
                     style="display: flex; align-items: center;"
                   >
                     <span
-                      class="bp3-icon bp3-icon-info-sign StyledProps---main--1Wws StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-blue450--6C4Y"
+                      class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-blue450"
                       icon="info-sign"
                     >
                       <svg
@@ -740,14 +740,14 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                     </div>
                   </p>
                   <div
-                    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                    class="Layout--vertical StyledProps--main"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
                       style="align-items: end;"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                         draggable="true"
                         style="align-items: baseline;"
                       >
@@ -760,10 +760,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                             class="bp3-form-content"
                           >
                             <div
-                              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                             >
                               <div
-                                class="bp3-input-group MultiTypeInput---input--36mQ"
+                                class="bp3-input-group MultiTypeInput--input"
                               >
                                 <input
                                   class="bp3-input"
@@ -780,10 +780,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                                   >
                                     <span
-                                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                     >
                                       <svg
                                         height="12"
@@ -806,7 +806,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                     </div>
                     <span>
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws addFileButton StyledProps---intent-primary--2Xgi"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addFileButton StyledProps--intent-primary"
                         type="button"
                       >
                         <span
@@ -820,10 +820,10 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -833,7 +833,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="submit"
                 >
                   <span
@@ -858,36 +858,36 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
     class="exampleWizard"
   >
     <div
-      class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+      class="StepWizard--main StepWizard--navBar"
     >
       <div
-        class="StepWizard---navBarList--2ILN"
+        class="StepWizard--navBarList"
       >
         <div
-          class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+          class="StepWizard--navStep StepWizard--activeStep"
         >
           <span
-            class="StepWizard---number--1LKy"
+            class="StepWizard--number"
           >
             1
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             SPECIFY MANIFEST SERVER
           </p>
         </div>
         <div
-          class="StepWizard---navStep--2trN"
+          class="StepWizard--navStep"
         >
           <span
-            class="StepWizard---number--1LKy"
+            class="StepWizard--number"
           >
             2
           </span>
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
             MANIFEST SOURCE
@@ -895,26 +895,26 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
         </div>
       </div>
       <div
-        class="StepWizard---stepDetails--Uaxx"
+        class="StepWizard--stepDetails"
       >
          
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-small"
           style="height: 100%;"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"
+            class="StyledProps--font StyledProps--main StyledProps--font-medium"
           >
             MANIFEST SOURCE
           </p>
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
               class="formContainerStepOne"
             >
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
                 style="align-items: center;"
               >
                 <div>
@@ -927,7 +927,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         style="width: 400px;"
                       >
                         <span
@@ -937,7 +937,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                               style="width: 372px;"
                               type="button"
                             >
@@ -951,7 +951,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                                 </span>
                               </span>
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main"
                                 icon="caret-down"
                               >
                                 <svg
@@ -979,10 +979,10 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
                             >
                               <span
-                                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                               >
                                 <svg
                                   height="12"
@@ -1003,11 +1003,11 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                    class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
                     icon="plus"
                   >
                     <svg
@@ -1033,10 +1033,10 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                 </button>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws bottomButtons"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main bottomButtons"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="submit"
                 >
                   <span

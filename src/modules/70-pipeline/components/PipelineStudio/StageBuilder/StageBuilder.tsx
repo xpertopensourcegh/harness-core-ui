@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button } from '@wings-software/uikit'
+import { Layout, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'

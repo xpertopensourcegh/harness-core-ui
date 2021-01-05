@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import type { SelectOption } from '@wings-software/uikit'
-import { Container } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
+import { Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import xhr from '@wings-software/xhr-async'
 import { cloneDeep } from 'lodash-es'

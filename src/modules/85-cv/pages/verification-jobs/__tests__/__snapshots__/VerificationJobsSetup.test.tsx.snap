@@ -3,17 +3,17 @@
 exports[`VerificationJobsSetup Render initiaaly 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageDimensions"
+    class="StyledProps--font StyledProps--main pageDimensions"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+      class="StyledProps--font StyledProps--main main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws visualAndYaml StyledProps---background-grey100--2FyT"
+        class="StyledProps--font StyledProps--main visualAndYaml StyledProps--background-grey100"
         style="height: 40px;"
       >
         <span
-          class="Tag---main--1vng"
+          class="Tag--main"
         >
           <span
             class="bp3-tag viewSelection"
@@ -27,7 +27,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
         </span>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws breadcrumbs StyledProps---background-grey100--2FyT"
+        class="StyledProps--font StyledProps--main breadcrumbs StyledProps--background-grey100"
         style="height: 40px;"
       >
         <div
@@ -57,13 +57,13 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+      class="StyledProps--font StyledProps--main pageBody"
     >
       <div
         class="tabWrapper"
       >
         <div
-          class="bp3-tabs Tabs---main--3Ew7"
+          class="bp3-tabs Tabs--main"
         >
           <div
             class="bp3-tab-list"
@@ -90,7 +90,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
             >
               <div>
                 <span
-                  class="bp3-icon bp3-icon- StyledProps---main--1Wws nameTypeIcon"
+                  class="bp3-icon bp3-icon- StyledProps--main nameTypeIcon"
                   icon=""
                 >
                   <svg
@@ -110,7 +110,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                   Default Name
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws nameEditIcon"
+                  class="bp3-icon bp3-icon-edit StyledProps--main nameEditIcon"
                   icon="edit"
                 >
                   <svg
@@ -164,57 +164,57 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
             role="tabpanel"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="position: relative; top: 50px;"
             >
               <div
-                class="OverlaySpinner---overlaySpinner--3Bs3"
+                class="OverlaySpinner--overlaySpinner"
               >
                 <form
-                  class="FormikForm---main--1N87"
+                  class="FormikForm--main"
                 >
                   <div>
                     <div
-                      class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                      class="Layout--vertical StyledProps--main"
                       style="margin: auto; width: 50%;"
                     >
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---margin-bottom-small--3Kji"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-small"
                       >
                         Create your verification job
                       </p>
                       <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+                        class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
                       >
                         Verification jobs trigger automatically whenever a relevant change is sourced from an Activity Source. They verify the risk of the change by analyzing the data collected from the Verification Data Sources.
                       </p>
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                        class="StyledProps--font StyledProps--main main"
                       >
                         <div
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                          class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                         >
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                            class="StyledProps--font StyledProps--main connectorFormNameElm"
                           >
                             <div
-                              class="InputWithIdentifier---txtNameContainer--20iZ"
+                              class="InputWithIdentifier--txtNameContainer"
                             >
                               <div
-                                class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                                class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                               >
                                 <p
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                  class="StyledProps--font StyledProps--main"
                                 >
                                   ID
                                   :
                                 </p>
                                 <span
-                                  class="InputWithIdentifier---idInput--w8_T"
+                                  class="InputWithIdentifier--idInput"
                                   contenteditable="true"
                                 />
                                 <span
-                                  class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                                  class="bp3-icon bp3-icon-edit StyledProps--main"
                                   icon="edit"
                                   style="vertical-align: middle;"
                                 >
@@ -267,16 +267,16 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                             </div>
                           </div>
                           <div
-                            class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                             style="justify-content: center;"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                              class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                             >
                               + Description
                             </p>
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                              class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                             >
                               + Tags
                             </p>
@@ -284,10 +284,10 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-large"
                       >
                         <div
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                           style="width: 250px;"
                         >
                           <div
@@ -309,7 +309,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                               class="bp3-form-content"
                             >
                               <div
-                                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                                class="bp3-popover-wrapper Select--main bp3-fill"
                               >
                                 <div
                                   class="bp3-popover-target"
@@ -330,7 +330,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                         icon="caret-down"
                                       >
                                         <svg
@@ -356,7 +356,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                           </div>
                         </div>
                         <div
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                           style="width: 250px;"
                         >
                           <div
@@ -378,7 +378,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                               class="bp3-form-content"
                             >
                               <div
-                                class="bp3-popover-wrapper MultiSelect---main--CfxJ bp3-fill"
+                                class="bp3-popover-wrapper MultiSelect--main bp3-fill"
                               >
                                 <div
                                   class="bp3-popover-target"
@@ -416,7 +416,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                           for="type"
                         >
                           <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                           >
                             Select the type of verification job
                           </p>
@@ -429,29 +429,29 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                           class="bp3-form-content"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ Layout---layout-spacing-xxxlarge--9W0D StyledProps---main--1Wws"
+                            class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
                           >
                             <div
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-medium--1zkE"
+                                class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
                                 style="width: 150px;"
                               >
                                 Pre-Deployment Tests
                               </p>
                               <div
-                                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                               >
                                 <div
-                                  class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard largeCard"
+                                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
                                   tabindex="0"
                                 >
                                   <div
-                                    class="Card---cardIcon--2uSw cardIcon"
+                                    class="Card--cardIcon cardIcon"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-lab-test StyledProps---main--1Wws"
+                                      class="bp3-icon bp3-icon-lab-test StyledProps--main"
                                       icon="lab-test"
                                     >
                                       <svg
@@ -471,7 +471,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                                     </span>
                                   </div>
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                                    class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                                   >
                                     Test
                                   </p>
@@ -479,29 +479,29 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                               </div>
                             </div>
                             <div
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-medium--1zkE"
+                                class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
                                 style="width: 200px;"
                               >
                                 Production Deployments
                               </p>
                               <div
-                                class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                                class="Layout--horizontal StyledProps--main"
                               >
                                 <div
-                                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                                 >
                                   <div
-                                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard largeCard"
+                                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
                                     tabindex="0"
                                   >
                                     <div
-                                      class="Card---cardIcon--2uSw cardIcon"
+                                      class="Card--cardIcon cardIcon"
                                     >
                                       <span
-                                        class="bp3-icon StyledProps---main--1Wws"
+                                        class="bp3-icon StyledProps--main"
                                       >
                                         <svg
                                           height="20"
@@ -621,24 +621,24 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                                       </span>
                                     </div>
                                     <p
-                                      class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                                      class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                                     >
                                       BlueGreen
                                     </p>
                                   </div>
                                 </div>
                                 <div
-                                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                                 >
                                   <div
-                                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard largeCard"
+                                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
                                     tabindex="0"
                                   >
                                     <div
-                                      class="Card---cardIcon--2uSw cardIcon"
+                                      class="Card--cardIcon cardIcon"
                                     >
                                       <span
-                                        class="bp3-icon StyledProps---main--1Wws"
+                                        class="bp3-icon StyledProps--main"
                                       >
                                         <svg
                                           height="20"
@@ -654,7 +654,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                                       </span>
                                     </div>
                                     <p
-                                      class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                                      class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                                     >
                                       Canary
                                     </p>
@@ -663,26 +663,26 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                               </div>
                             </div>
                             <div
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-medium--1zkE"
+                                class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
                                 style="width: 150px;"
                               >
                                 Post Deployment Tests
                               </p>
                               <div
-                                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                               >
                                 <div
-                                  class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard largeCard"
+                                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard"
                                   tabindex="0"
                                 >
                                   <div
-                                    class="Card---cardIcon--2uSw cardIcon"
+                                    class="Card--cardIcon cardIcon"
                                   >
                                     <span
-                                      class="bp3-icon StyledProps---main--1Wws"
+                                      class="bp3-icon StyledProps--main"
                                     >
                                       <svg
                                         height="20"
@@ -699,7 +699,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                                     </span>
                                   </div>
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                                    class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                                   >
                                     Health
                                   </p>
@@ -710,14 +710,14 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+                        class="Layout--horizontal StyledProps--main main"
                       >
                         <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                          class="bp3-button StyledProps--font Button--button StyledProps--main"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                            class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
                             icon="chevron-left"
                           >
                             <svg
@@ -742,7 +742,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                           </span>
                         </button>
                         <button
-                          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                           type="submit"
                         >
                           <span
@@ -751,7 +751,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                             Next
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                             icon="chevron-right"
                           >
                             <svg

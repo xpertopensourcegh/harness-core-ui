@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
-import { Container, Icon, Text, Color, Button, IconName, TextInput } from '@wings-software/uikit'
+import { Container, Icon, Text, Color, Button, IconName, TextInput } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings, String } from 'framework/exports'

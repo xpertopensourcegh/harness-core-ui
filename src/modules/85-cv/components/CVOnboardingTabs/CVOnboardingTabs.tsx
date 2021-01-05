@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Tabs, Tab, Icon, IconName } from '@wings-software/uikit'
+import { Tabs, Tab, Icon, IconName } from '@wings-software/uicore'
 import ContentEditable from 'react-contenteditable'
 import cx from 'classnames'
 import type { OnClickHandlerParams } from '@cv/hooks/CVTabsHook/useCVTabsHook'

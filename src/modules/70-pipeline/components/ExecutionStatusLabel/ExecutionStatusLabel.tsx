@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'

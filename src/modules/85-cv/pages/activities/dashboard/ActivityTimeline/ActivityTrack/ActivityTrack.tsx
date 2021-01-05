@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Card, Color, Layout, Text, Icon, Container } from '@wings-software/uikit'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { Card, Color, Layout, Text, Icon, Container } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Overlay } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Activity, ActivityBucket, ACTIVITY_CARD_HEIGHT, placeActivitiesOnTrack } from './ActivityTrackUtils'

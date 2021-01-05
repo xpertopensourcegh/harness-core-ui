@@ -3,10 +3,10 @@
 exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct depending on provided data 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws heading"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main heading"
       level="2"
     >
       <span>
@@ -29,7 +29,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
         >
           Google Cloud Operation metrics
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -57,7 +57,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
         >
           Harness Service
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -85,7 +85,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
         >
           Harness Environment
           <span
-            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
           >
             <svg
@@ -115,7 +115,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             metric_1
@@ -127,7 +127,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             service_1
@@ -139,7 +139,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             env_1
@@ -156,7 +156,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             metric_2
@@ -168,7 +168,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             service_1
@@ -180,7 +180,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             env_1
@@ -197,7 +197,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             metric_3
@@ -209,7 +209,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             service_2
@@ -221,7 +221,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
         >
           <p
-            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws textOverflow StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
             style="--text-line-clamp: 1; width: 100%;"
           >
             env_1
@@ -230,14 +230,14 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
       </div>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+      class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
           icon="chevron-left"
         >
           <svg
@@ -262,7 +262,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
         </span>
       </button>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -271,7 +271,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           Submit
         </span>
         <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
           icon="chevron-right"
         >
           <svg

@@ -4,7 +4,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputValue,
   MultiTypeInputType
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { get } from 'lodash-es'

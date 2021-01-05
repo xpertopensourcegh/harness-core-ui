@@ -10,7 +10,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Icon
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'

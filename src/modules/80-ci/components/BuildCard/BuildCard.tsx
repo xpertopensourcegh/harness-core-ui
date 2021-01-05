@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { first, noop } from 'lodash-es'
 import copy from 'copy-to-clipboard'
-import { Button, Icon, Link, Container, Text, Color, IconName } from '@wings-software/uikit'
+import { Button, Icon, Link, Container, Text, Color, IconName } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { ExecutionStatus, status2Message } from '@ci/components/common/status'
 import { getShortCommitId } from '@ci/services/CIUtils'

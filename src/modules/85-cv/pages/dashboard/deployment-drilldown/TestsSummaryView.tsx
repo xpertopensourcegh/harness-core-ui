@@ -1,7 +1,7 @@
 import React from 'react'
-import { Container, Text } from '@wings-software/uikit'
+import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
-import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/FontProps'
+import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './TestsSummaryView.module.scss'
 

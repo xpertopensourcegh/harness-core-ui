@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, FormInput, SelectOption, Text, Heading } from '@wings-software/uikit'
+import { Layout, FormInput, SelectOption, Text, Heading } from '@wings-software/uicore'
 import isEmpty from 'lodash/isEmpty'
 import { useGetActionsList, useGetSourceRepoToEvent } from 'services/pipeline-ng'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'

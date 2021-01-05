@@ -1,4 +1,4 @@
-import { Color, Heading, Layout } from '@wings-software/uikit'
+import { Color, Heading, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import css from './PageHeader.module.scss'

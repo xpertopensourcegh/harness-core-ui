@@ -1,6 +1,6 @@
 import type { LinkModelListener, NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { last, isEmpty } from 'lodash-es'
 import {

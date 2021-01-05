@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useGet } from 'restful-react'
-import { Container, Tabs, Tab, Text } from '@wings-software/uikit'
+import { Container, Tabs, Tab, Text } from '@wings-software/uicore'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { first } from 'lodash-es'
-import { Container, Button, Icon, Intent, Switch } from '@wings-software/uikit'
+import { Container, Button, Icon, Intent, Switch } from '@wings-software/uicore'
 import { Tabs as BPTabs } from '@blueprintjs/core'
 import { Link, useParams, useHistory, matchPath, useLocation } from 'react-router-dom'
 import moment from 'moment'

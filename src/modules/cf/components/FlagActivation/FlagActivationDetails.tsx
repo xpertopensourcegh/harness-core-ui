@@ -17,7 +17,7 @@ import {
   FormInput,
   useModalHook,
   SelectOption
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import moment from 'moment'
 import { Menu, Dialog, Classes } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'

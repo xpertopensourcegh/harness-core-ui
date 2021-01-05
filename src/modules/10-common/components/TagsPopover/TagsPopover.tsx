@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Popover, Layout, Icon, Container, Tag } from '@wings-software/uikit'
+import { Text, Popover, Layout, Icon, Container, Tag } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 
 import type { tagsType } from '@common/utils/types'

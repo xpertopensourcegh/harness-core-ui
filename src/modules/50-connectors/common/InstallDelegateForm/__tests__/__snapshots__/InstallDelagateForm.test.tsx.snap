@@ -51,7 +51,7 @@ exports[`Install Delegate Form render successfully 1`] = `
         class="bp3-form-content"
       >
         <div
-          class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+          class="bp3-popover-wrapper Select--main bp3-fill"
         >
           <div
             class="bp3-popover-target"
@@ -72,7 +72,7 @@ exports[`Install Delegate Form render successfully 1`] = `
                 class="bp3-input-action"
               >
                 <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                   icon="caret-down"
                 >
                   <svg

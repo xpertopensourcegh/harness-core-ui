@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uikit'
+import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
 import i18n from './MetricAnalysisFilter.i18n'
 import css from './MetricAnalysisFilter.module.scss'
 

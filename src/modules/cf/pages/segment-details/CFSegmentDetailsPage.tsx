@@ -17,7 +17,7 @@ import {
   Text,
   TextInput,
   useModalHook
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { isEqual, omit } from 'lodash-es'
 import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'

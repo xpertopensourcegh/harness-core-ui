@@ -3,20 +3,20 @@
 exports[`Sidenav render 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <a
       class="link"
       href="/account/dummy/cv/home"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Dashboard
       </p>
     </a>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <button
         id="bt"
@@ -27,7 +27,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/cv/orgs/dummy/projects/dummy/dashboard"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Overview
       </p>
@@ -37,7 +37,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/cv/orgs/dummy/projects/dummy/activities/dashboard"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Activities
       </p>
@@ -47,7 +47,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/cv/orgs/dummy/projects/dummy/services"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Services
       </p>
@@ -57,7 +57,7 @@ exports[`Sidenav render 1`] = `
       href="/account/dummy/cv/orgs/dummy/projects/dummy/metric-pack/config"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+        class="StyledProps--font StyledProps--main text"
       >
         Metric Packs
       </p>

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Container, Intent, Button, ButtonProps } from '@wings-software/uikit'
+import { Container, Intent, Button, ButtonProps } from '@wings-software/uicore'
 import classNames from 'classnames'
 import css from './RoundButtonGroup.module.scss'
 

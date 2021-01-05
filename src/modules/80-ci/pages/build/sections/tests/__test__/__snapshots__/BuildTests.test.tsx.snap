@@ -3,19 +3,19 @@
 exports[`BuildTests snapshot test should render all components properly 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws mainContainer StyledProps---padding-medium--3Ish"
+    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main mainContainer StyledProps--padding-medium"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws leftContainer"
+      class="StyledProps--font StyledProps--main leftContainer"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget overview StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget overview StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <h2
-            class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ"
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
             level="2"
           >
             Overview
@@ -24,11 +24,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             style="flex-grow: 1;"
           />
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey400"
             style="display: inline-flex; align-items: center;"
           >
             <span
-              class="bp3-icon bp3-icon-time StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
               icon="time"
             >
               <svg
@@ -51,10 +51,10 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           </span>
         </div>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-small--3Kji"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-small"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws stats StyledProps---background-grey100--2FyT StyledProps---padding-small--3f0A"
+            class="StyledProps--font StyledProps--main stats StyledProps--background-grey100 StyledProps--padding-small"
             style="width: 40%;"
           >
             Total Executed Tests
@@ -65,7 +65,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws stats StyledProps---background-red200--2smZ StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-red800--2Coz"
+            class="StyledProps--font StyledProps--main stats StyledProps--background-red200 StyledProps--padding-small StyledProps--color StyledProps--color-red800"
             style="width: 30%;"
           >
             Failed Tests
@@ -76,7 +76,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws stats StyledProps---background-red200--2smZ StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-red800--2Coz"
+            class="StyledProps--font StyledProps--main stats StyledProps--background-red200 StyledProps--padding-small StyledProps--color StyledProps--color-red800"
             style="width: 30%;"
           >
             Failure Rate
@@ -88,19 +88,19 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           </p>
         </div>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws overviewResultLabel StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          class="StyledProps--font StyledProps--main overviewResultLabel StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey400"
         >
           TEST CASE EXECUTION RESULT
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-bottom-medium--1zkE"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-bottom-medium"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main StyledProps--inline"
             style="display: inline-flex; align-items: center;"
           >
             <span
-              class="bp3-icon bp3-icon-stop StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-orange500--1AnZ"
+              class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-orange500"
               icon="stop"
             >
               <svg
@@ -121,11 +121,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             Failed
           </span>
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main StyledProps--inline"
             style="display: inline-flex; align-items: center;"
           >
             <span
-              class="bp3-icon bp3-icon-stop StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green450--3otf"
+              class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green450"
               icon="stop"
             >
               <svg
@@ -146,11 +146,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             Passed
           </span>
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main StyledProps--inline"
             style="display: inline-flex; align-items: center;"
           >
             <span
-              class="bp3-icon bp3-icon-stop StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-grey300--fEYT"
+              class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey300"
               icon="stop"
             >
               <svg
@@ -172,10 +172,10 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           </span>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws graphWrapper"
+          class="StyledProps--font StyledProps--main graphWrapper"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws graphContainer"
+            class="StyledProps--font StyledProps--main graphContainer"
           >
             <ul
               class="graph"
@@ -19096,22 +19096,22 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws rightContainer"
+      class="StyledProps--font StyledProps--main rightContainer"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---margin-bottom-medium--1zkE"
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--margin-bottom-medium"
       >
         <h2
-          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws testCasesHeader StyledProps---font-weight-bold--22XZ"
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main testCasesHeader StyledProps--font-weight-bold"
           level="2"
         >
           Test Cases Execution
         </h2>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <label
-            class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug StyledProps---main--1Wws"
+            class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             style="align-self: center;"
           >
             <input
@@ -19123,13 +19123,13 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             Show only failed tests
           </label>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="align-self: center;"
           >
             Sort by:
           </p>
           <div
-            class="bp3-popover-wrapper select Select---main--1QpB bp3-fill"
+            class="bp3-popover-wrapper select Select--main bp3-fill"
           >
             <div
               class="bp3-popover-target"
@@ -19149,7 +19149,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                     icon="caret-down"
                   >
                     <svg
@@ -19174,20 +19174,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite expanded StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite expanded StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main"
                 icon="chevron-down"
               >
                 <svg
@@ -19208,18 +19208,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -19227,7 +19227,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -19235,7 +19235,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -19243,7 +19243,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -19284,7 +19284,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             >
               TEST CASE NAME
               <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
               >
                 <svg
@@ -19312,7 +19312,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             >
               CLASS NAME
               <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
               >
                 <svg
@@ -19340,7 +19340,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             >
               RESULT
               <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
               >
                 <svg
@@ -19368,7 +19368,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             >
               DURATION
               <span
-                class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+                class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
               >
                 <svg
@@ -19398,11 +19398,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-red700--186N"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-red700"
                   style="--text-line-clamp: 1;"
                 >
                   1
@@ -19415,7 +19415,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <span
@@ -19425,7 +19425,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class="bp3-popover-target"
                   >
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws text failed StyledProps---color--8PuS StyledProps---color-red700--186N"
+                      class="StyledProps--font StyledProps--main text failed StyledProps--color StyledProps--color-red700"
                       tabindex="0"
                     >
                       testShouldCollectData_logsMoreThan60MinSinceLastCollectionWithinBuffer
@@ -19440,11 +19440,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-red700--186N"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-red700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -19457,11 +19457,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-red700--186N"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-red700"
                   style="--text-line-clamp: 1;"
                 >
                   failed
@@ -19474,15 +19474,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-red700--186N"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-red700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-red700--186N"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-red700"
                   >
                      
                     25s
@@ -19501,11 +19501,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   2
@@ -19518,11 +19518,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerTimeSeriesAlertIfNecessary
@@ -19535,11 +19535,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -19552,11 +19552,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -19569,15 +19569,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     10s
@@ -19596,11 +19596,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   3
@@ -19613,11 +19613,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerLogAnalysis_firstAnalysisAfterMoreThan2Hours
@@ -19630,11 +19630,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -19647,11 +19647,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -19664,15 +19664,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     9s
@@ -19691,11 +19691,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   4
@@ -19708,11 +19708,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testShouldCollectData_noDataInThePastMonth
@@ -19725,11 +19725,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -19742,11 +19742,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -19759,15 +19759,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     6s
@@ -19786,11 +19786,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   5
@@ -19803,11 +19803,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testLogsL1Clustering_duringBaselineWindow
@@ -19820,11 +19820,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -19837,11 +19837,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -19854,15 +19854,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     6s
@@ -19881,11 +19881,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   6
@@ -19898,11 +19898,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerLogAnalysisAlertIfNecessary
@@ -19915,11 +19915,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -19932,11 +19932,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -19949,15 +19949,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     6s
@@ -19976,11 +19976,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   7
@@ -19993,11 +19993,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerTimeSeriesAlertIfNecessary_numOccurrencesNotMet
@@ -20010,11 +20010,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20027,11 +20027,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20044,15 +20044,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     5s
@@ -20071,11 +20071,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   8
@@ -20088,11 +20088,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerLogAnalysis_within2hourWindowWithBuffer
@@ -20105,11 +20105,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20122,11 +20122,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20139,15 +20139,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     4s
@@ -20166,11 +20166,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   9
@@ -20183,11 +20183,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerLogAnalysis_firstAnalysisAfterBaseline
@@ -20200,11 +20200,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20217,11 +20217,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20234,15 +20234,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     4s
@@ -20261,11 +20261,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   10
@@ -20278,11 +20278,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testLogsL2ClusteringRetryBackoff
@@ -20295,11 +20295,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20312,11 +20312,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20329,15 +20329,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20356,11 +20356,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   11
@@ -20373,11 +20373,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testLogsDataCollectionAfter2Hours
@@ -20390,11 +20390,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20407,11 +20407,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20424,15 +20424,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20451,11 +20451,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   12
@@ -20468,11 +20468,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testShouldCollectData_logsLessThan30MinSinceLastCollectionWithinBuffer
@@ -20485,11 +20485,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20502,11 +20502,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20519,15 +20519,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20546,11 +20546,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   13
@@ -20563,11 +20563,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testLogsL2Clustering
@@ -20580,11 +20580,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20597,11 +20597,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20614,15 +20614,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20641,11 +20641,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   14
@@ -20658,11 +20658,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testShouldCollectData_timeSeries
@@ -20675,11 +20675,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20692,11 +20692,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20709,15 +20709,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20736,11 +20736,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   15
@@ -20753,11 +20753,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testCreateFeedbackAnalysisTaskCheckIfIs24x7FlagTrue
@@ -20770,11 +20770,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20787,11 +20787,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20804,15 +20804,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20831,11 +20831,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   16
@@ -20848,11 +20848,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testDataCollectionFirstCollection
@@ -20865,11 +20865,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20882,11 +20882,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20899,15 +20899,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -20926,11 +20926,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   17
@@ -20943,11 +20943,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerTimeSeriesAnalysisHappyCaseWithExperiment
@@ -20960,11 +20960,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -20977,11 +20977,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -20994,15 +20994,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     3s
@@ -21021,11 +21021,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   18
@@ -21038,11 +21038,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testCreateFeedbackAnalysisTask_noFeedbacks
@@ -21055,11 +21055,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -21072,11 +21072,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -21089,15 +21089,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     2s
@@ -21116,11 +21116,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   19
@@ -21133,11 +21133,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testShouldCollectData_timeSeriesMoreThan30MinWithinBuffer
@@ -21150,11 +21150,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -21167,11 +21167,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -21184,15 +21184,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     2s
@@ -21211,11 +21211,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 5%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   20
@@ -21228,11 +21228,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 40%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   testTriggerTimeSeriesAlertIfNecessary_numOccurrencesMet
@@ -21245,11 +21245,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 35%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   io.harness.service.ContinuousVerificationServiceTest
@@ -21262,11 +21262,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   passed
@@ -21279,15 +21279,15 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               style="width: 10%;"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws testCell"
+                class="StyledProps--font StyledProps--main testCell"
                 style="width: 90%;"
               >
                 <p
-                  class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws text StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+                  class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--color StyledProps--color-grey700"
                   style="--text-line-clamp: 1;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS"
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color"
                   >
                      
                     2s
@@ -21297,10 +21297,10 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+            class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
           >
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
             >
               Showing 
               <strong>
@@ -21317,10 +21317,10 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               </strong>
             </span>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <button
-                class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -21332,7 +21332,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -21342,7 +21342,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -21352,7 +21352,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -21362,7 +21362,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -21372,7 +21372,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </span>
               </button>
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -21381,11 +21381,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                     class=""
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-more StyledProps--main"
                         icon="more"
                       >
                         <svg
@@ -21408,7 +21408,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
@@ -21422,20 +21422,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21456,18 +21456,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -21475,7 +21475,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -21483,7 +21483,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -21491,7 +21491,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -21510,20 +21510,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21544,18 +21544,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.PipelineTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -21563,7 +21563,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -21571,7 +21571,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -21579,7 +21579,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -21598,20 +21598,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21632,18 +21632,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.SSOProviderTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -21651,7 +21651,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -21659,7 +21659,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -21667,7 +21667,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -21686,20 +21686,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21720,18 +21720,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -21739,7 +21739,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -21747,7 +21747,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -21755,7 +21755,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -21774,20 +21774,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21808,18 +21808,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.ConnectionTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -21827,7 +21827,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -21835,7 +21835,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -21843,7 +21843,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -21862,20 +21862,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21896,18 +21896,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.ConnectorTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -21915,7 +21915,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -21923,7 +21923,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -21931,7 +21931,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -21950,20 +21950,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -21984,18 +21984,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22003,7 +22003,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22011,7 +22011,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22019,7 +22019,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22038,20 +22038,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22072,18 +22072,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.VerificationComponentTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22091,7 +22091,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22099,7 +22099,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22107,7 +22107,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22126,20 +22126,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22160,18 +22160,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22179,7 +22179,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22187,7 +22187,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22195,7 +22195,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22214,20 +22214,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22248,18 +22248,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.managerclient.VerificationManagerClientHelperTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22267,7 +22267,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22275,7 +22275,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22283,7 +22283,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22302,20 +22302,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22336,18 +22336,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.ChangeSetTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22355,7 +22355,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22363,7 +22363,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22371,7 +22371,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22390,20 +22390,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22424,18 +22424,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22443,7 +22443,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22451,7 +22451,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22459,7 +22459,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22478,20 +22478,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22512,18 +22512,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               io.harness.userGroup.AddAppPermissionTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22531,7 +22531,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22539,7 +22539,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22547,7 +22547,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22566,20 +22566,20 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws widget testSuite StyledProps---padding-medium--3Ish"
+        class="StyledProps--font StyledProps--main widget testSuite StyledProps--padding-medium"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          class="StyledProps--font StyledProps--main StyledProps--flex"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             <button
-              class="bp3-button bp3-large bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-large bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg
@@ -22600,18 +22600,18 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </button>
             Test Suite:
             <span
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws testSuiteName StyledProps---inline--1f52"
+              class="StyledProps--font Text--lineclamp StyledProps--main testSuiteName StyledProps--inline"
               style="--text-line-clamp: 1;"
             >
               software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Duration
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: block;"
             >
                
@@ -22619,7 +22619,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Total Tests
             <span>
@@ -22627,7 +22627,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failed Tests
             <span>
@@ -22635,7 +22635,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws testSuiteHeading StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+            class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
           >
             Failure Rate
             <span>
@@ -22654,10 +22654,10 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
         </div>
       </div>
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>
@@ -22674,10 +22674,10 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
           </strong>
         </span>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -22689,7 +22689,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -22699,7 +22699,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -22709,7 +22709,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -22719,7 +22719,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -22729,7 +22729,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </span>
           </button>
           <div
-            class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+            class="bp3-popover-wrapper Select--main bp3-fill"
           >
             <div
               class="bp3-popover-target"
@@ -22738,11 +22738,11 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
                 class=""
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-more StyledProps--main"
                     icon="more"
                   >
                     <svg
@@ -22765,7 +22765,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span

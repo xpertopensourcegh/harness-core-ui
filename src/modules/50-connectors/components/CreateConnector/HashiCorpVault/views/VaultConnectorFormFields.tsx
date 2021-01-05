@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FormInput, Layout, Button, SelectOption } from '@wings-software/uikit'
+import { FormInput, Layout, Button, SelectOption } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { FormikContext } from 'formik'

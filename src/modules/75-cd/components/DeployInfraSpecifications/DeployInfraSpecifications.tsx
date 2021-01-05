@@ -1,7 +1,7 @@
 import React from 'react'
-import { Layout, Button, Card, CardBody, Text } from '@wings-software/uikit'
-import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
-import type { IconName } from '@wings-software/uikit'
+import { Layout, Button, Card, CardBody, Text } from '@wings-software/uicore'
+import { Formik, FormikForm, FormInput } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
 import { get } from 'lodash-es'

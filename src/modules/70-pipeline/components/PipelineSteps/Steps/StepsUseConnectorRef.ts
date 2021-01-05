@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uikit'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,

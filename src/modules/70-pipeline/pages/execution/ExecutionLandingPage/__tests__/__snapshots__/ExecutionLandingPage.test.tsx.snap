@@ -82,16 +82,16 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             class="statusBar"
           >
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws status running statusLabel StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ StyledProps---font-size-xsmall--1f9b"
+              class="StyledProps--font StyledProps--main status running statusLabel StyledProps--inline StyledProps--font-weight-bold StyledProps--font-size-xsmall"
             >
               RUNNING
             </span>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -113,11 +113,11 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
               class="main"
             >
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-pause StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-pause StyledProps--main"
                   icon="pause"
                 >
                   <svg
@@ -137,11 +137,11 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-stop StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-stop StyledProps--main"
                   icon="stop"
                 >
                   <svg
@@ -167,11 +167,11 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws more"
+                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main more"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
                       icon="more"
                     >
                       <svg
@@ -199,7 +199,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           class="headerBottomRow"
         >
           <button
-            class="bp3-button bp3-disabled bp3-loading bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws toggleDetails"
+            class="bp3-button bp3-disabled bp3-loading bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main toggleDetails"
             data-testid="toggle-details"
             disabled=""
             tabindex="-1"
@@ -232,7 +232,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
               </div>
             </div>
             <span
-              class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-down StyledProps--main"
               icon="chevron-down"
             >
               <svg
@@ -255,7 +255,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             class="tags"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 height="14"
@@ -367,7 +367,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
           >
             <span
-              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps--main"
               icon="alignment-vertical-center"
             >
               <svg
@@ -394,7 +394,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
           >
             <span
-              class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-manually-entered-data StyledProps--main"
               icon="manually-entered-data"
             >
               <svg
@@ -421,7 +421,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
           >
             <span
-              class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-add-to-artifact StyledProps--main"
               icon="add-to-artifact"
             >
               <svg
@@ -574,16 +574,16 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             class="statusBar"
           >
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws status running statusLabel StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ StyledProps---font-size-xsmall--1f9b"
+              class="StyledProps--font StyledProps--main status running statusLabel StyledProps--inline StyledProps--font-weight-bold StyledProps--font-size-xsmall"
             >
               RUNNING
             </span>
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -605,11 +605,11 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
               class="main"
             >
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-pause StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-pause StyledProps--main"
                   icon="pause"
                 >
                   <svg
@@ -629,11 +629,11 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
                 </span>
               </button>
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-stop StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-stop StyledProps--main"
                   icon="stop"
                 >
                   <svg
@@ -659,11 +659,11 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws more"
+                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main more"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
                       icon="more"
                     >
                       <svg
@@ -691,12 +691,12 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           class="headerBottomRow"
         >
           <button
-            class="bp3-button bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws toggleDetails"
+            class="bp3-button bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main toggleDetails"
             data-testid="toggle-details"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -719,7 +719,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             class="tags"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 height="14"
@@ -747,7 +747,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
           >
             <span
-              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps--main"
               icon="alignment-vertical-center"
             >
               <svg
@@ -774,7 +774,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
           >
             <span
-              class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-manually-entered-data StyledProps--main"
               icon="manually-entered-data"
             >
               <svg
@@ -801,7 +801,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
           >
             <span
-              class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-add-to-artifact StyledProps--main"
               icon="add-to-artifact"
             >
               <svg
@@ -875,14 +875,14 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
 exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws spinner StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+    class="StyledProps--font StyledProps--main spinner StyledProps--flex StyledProps--flex-align-center-center"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws content"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content"
       style="align-items: center; width: 500px;"
     >
       <span
-        class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT"
+        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
       >
         <svg
           height="32"
@@ -941,7 +941,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
         </svg>
       </span>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey600--ksWT"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
       >
         Loading, please wait...
       </p>
@@ -1023,11 +1023,11 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             class="statusBar"
           >
             <span
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              class="StyledProps--font StyledProps--main StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
               >
                 <svg
                   height="16"
@@ -1055,11 +1055,11 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws more"
+                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main more"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
                       icon="more"
                     >
                       <svg
@@ -1087,12 +1087,12 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           class="headerBottomRow"
         >
           <button
-            class="bp3-button bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws toggleDetails"
+            class="bp3-button bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main toggleDetails"
             data-testid="toggle-details"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
               icon="chevron-right"
             >
               <svg
@@ -1115,7 +1115,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             class="tags"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws"
+              class="bp3-icon StyledProps--main"
             >
               <svg
                 height="14"
@@ -1142,7 +1142,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline"
           >
             <span
-              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-alignment-vertical-center StyledProps--main"
               icon="alignment-vertical-center"
             >
               <svg
@@ -1169,7 +1169,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/inputs"
           >
             <span
-              class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-manually-entered-data StyledProps--main"
               icon="manually-entered-data"
             >
               <svg
@@ -1196,7 +1196,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/artifacts"
           >
             <span
-              class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-add-to-artifact StyledProps--main"
               icon="add-to-artifact"
             >
               <svg

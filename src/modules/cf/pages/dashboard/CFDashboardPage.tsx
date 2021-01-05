@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Button, Text } from '@wings-software/uikit'
+import { Container, Button, Text } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import i18n from './CFDashboardPage.i18n'
 

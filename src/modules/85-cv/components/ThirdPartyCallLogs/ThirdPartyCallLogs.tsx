@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { Layout, Heading, Container, Icon, Text, Color, CodeBlock, GraphError, Button } from '@wings-software/uikit'
+import { Layout, Heading, Container, Icon, Text, Color, CodeBlock, GraphError, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps, Classes, Spinner } from '@blueprintjs/core'
 import xhr from '@wings-software/xhr-async'
 import moment from 'moment'

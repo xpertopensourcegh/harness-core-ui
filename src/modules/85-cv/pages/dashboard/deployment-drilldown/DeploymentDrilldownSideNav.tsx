@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import i18n from './DeploymentDrilldownView.i18n'
 import DeploymentGroupList from './DeploymentGroupList'
 import styles from './DeploymentDrilldownView.module.scss'

@@ -3,37 +3,37 @@
 exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
     style="position: relative; top: 80px;"
   >
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
             style="margin: auto; width: 50%;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---margin-bottom-small--3Kji"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-small"
             >
               Verification Specification
             </p>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard selectedCard Card---selected--279c"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard selectedCard Card--selected"
                 tabindex="0"
               >
                 <div
                   class="triangle"
                 >
                   <span
-                    class="bp3-icon bp3-icon-tick StyledProps---main--1Wws tick StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    class="bp3-icon bp3-icon-tick StyledProps--main tick StyledProps--color StyledProps--color-white"
                     icon="tick"
                   >
                     <svg
@@ -53,10 +53,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Card---cardIcon--2uSw cardIcon cardIconSelected"
+                  class="Card--cardIcon cardIcon cardIconSelected"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="20"
@@ -176,22 +176,22 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                   </span>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                 >
                   BlueGreen
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3 StyledProps---padding-top-xlarge--xV_9"
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large StyledProps--padding-top-xlarge"
             >
               Create a new production deployment verification job
             </p>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xlarge--dUdp"
+                class="StyledProps--font StyledProps--main StyledProps--margin-right-xlarge"
                 style="width: 300px;"
               >
                 <div
@@ -213,10 +213,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -237,7 +237,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -266,10 +266,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -307,10 +307,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -331,7 +331,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -360,10 +360,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -401,10 +401,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -425,7 +425,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -454,10 +454,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -478,7 +478,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="width: 300px;"
               >
                 <div
@@ -500,10 +500,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -524,7 +524,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -553,10 +553,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -594,10 +594,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -618,7 +618,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -647,10 +647,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -672,14 +672,14 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+              class="Layout--horizontal StyledProps--main main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
                   icon="chevron-left"
                 >
                   <svg
@@ -704,7 +704,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -713,7 +713,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                   Next
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                   icon="chevron-right"
                 >
                   <svg
@@ -744,37 +744,37 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
 exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
     style="position: relative; top: 80px;"
   >
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
-            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+            class="Layout--vertical StyledProps--main"
             style="margin: auto; width: 50%;"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey800--2G2G StyledProps---margin-bottom-small--3Kji"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-small"
             >
               Verification Specification
             </p>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa selectionCard selectedCard Card---selected--279c"
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard selectedCard Card--selected"
                 tabindex="0"
               >
                 <div
                   class="triangle"
                 >
                   <span
-                    class="bp3-icon bp3-icon-tick StyledProps---main--1Wws tick StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                    class="bp3-icon bp3-icon-tick StyledProps--main tick StyledProps--color StyledProps--color-white"
                     icon="tick"
                   >
                     <svg
@@ -794,10 +794,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Card---cardIcon--2uSw cardIcon cardIconSelected"
+                  class="Card--cardIcon cardIcon cardIconSelected"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="20"
@@ -813,22 +813,22 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                   </span>
                 </div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws cardLabel cardLabelPadding StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                 >
                   Canary
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3 StyledProps---padding-top-xlarge--xV_9"
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large StyledProps--padding-top-xlarge"
             >
               Create a new production deployment verification job
             </p>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-right-xlarge--dUdp"
+                class="StyledProps--font StyledProps--main StyledProps--margin-right-xlarge"
                 style="width: 300px;"
               >
                 <div
@@ -850,10 +850,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -874,7 +874,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -903,10 +903,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -944,10 +944,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -968,7 +968,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -997,10 +997,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -1038,10 +1038,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1062,7 +1062,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -1091,10 +1091,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -1115,7 +1115,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="width: 300px;"
               >
                 <div
@@ -1137,10 +1137,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1161,7 +1161,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -1190,10 +1190,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -1231,10 +1231,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1255,7 +1255,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -1284,10 +1284,10 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -1309,14 +1309,14 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+              class="Layout--horizontal StyledProps--main main"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button StyledProps--main"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
                   icon="chevron-left"
                 >
                   <svg
@@ -1341,7 +1341,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -1350,7 +1350,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                   Next
                 </span>
                 <span
-                  class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                   icon="chevron-right"
                 >
                   <svg

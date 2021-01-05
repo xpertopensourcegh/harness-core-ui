@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, Container, Text } from '@wings-software/uikit'
+import { Color, Container, Text } from '@wings-software/uicore'
 import css from './FlagTypeElement.module.scss'
 
 interface TypeFlagProps {

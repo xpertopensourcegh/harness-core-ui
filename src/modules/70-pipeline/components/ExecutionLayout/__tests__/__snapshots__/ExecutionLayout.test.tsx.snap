@@ -11,11 +11,11 @@ exports[`<ExecutionLayout /> tests "BOTTOM" Layout works 1`] = `
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -33,11 +33,11 @@ exports[`<ExecutionLayout /> tests "BOTTOM" Layout works 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -143,11 +143,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -165,11 +165,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -235,7 +235,7 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
                 Step Details
               </span>
               <button
-                class="bp3-button bp3-disabled bp3-loading bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button bp3-disabled bp3-loading bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -267,7 +267,7 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
                   </div>
                 </div>
                 <span
-                  class="bp3-icon bp3-icon-plus StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-plus StyledProps--main"
                   icon="plus"
                 >
                   <svg
@@ -306,11 +306,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -328,11 +328,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -398,11 +398,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
                 Step Details
               </span>
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-minus StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-minus StyledProps--main"
                   icon="minus"
                 >
                   <svg
@@ -451,11 +451,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout works 1`] = `
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -473,11 +473,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout works 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -543,11 +543,11 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout works 1`] = `
                 Step Details
               </span>
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-minus StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-minus StyledProps--main"
                   icon="minus"
                 >
                   <svg
@@ -596,11 +596,11 @@ exports[`<ExecutionLayout /> tests "RIGHT" Layout works 1`] = `
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -618,11 +618,11 @@ exports[`<ExecutionLayout /> tests "RIGHT" Layout works 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -728,11 +728,11 @@ exports[`<ExecutionLayout /> tests Does not render third child by default 1`] = 
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -750,11 +750,11 @@ exports[`<ExecutionLayout /> tests Does not render third child by default 1`] = 
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -826,11 +826,11 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -848,11 +848,11 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -930,7 +930,7 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
                         value="RIGHT"
                       />
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -967,7 +967,7 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
                         value="BOTTOM"
                       />
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -1005,7 +1005,7 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
                         value="FLOATING"
                       />
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="16"
@@ -1082,11 +1082,11 @@ exports[`<ExecutionLayout /> tests Showing third child works 1`] = `
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -1104,11 +1104,11 @@ exports[`<ExecutionLayout /> tests Showing third child works 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"

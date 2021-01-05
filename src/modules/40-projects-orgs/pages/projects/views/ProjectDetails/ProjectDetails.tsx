@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Popover, Text, AvatarGroup } from '@wings-software/uikit'
+import { Button, Color, Container, Icon, Layout, Popover, Text, AvatarGroup } from '@wings-software/uicore'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'

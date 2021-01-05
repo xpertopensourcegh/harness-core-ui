@@ -1,7 +1,7 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { get, set, isEmpty, isObjectLike, isPlainObject } from 'lodash-es'
-import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uikit'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type {
   MapType,
   MultiTypeConnectorRef,

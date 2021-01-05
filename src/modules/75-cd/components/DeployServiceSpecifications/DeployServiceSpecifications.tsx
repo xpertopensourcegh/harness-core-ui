@@ -15,7 +15,7 @@ import {
   Select,
   SelectOption,
   Radio
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 
 import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'

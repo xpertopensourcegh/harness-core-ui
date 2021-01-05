@@ -1,4 +1,4 @@
-import { Button, Container } from '@wings-software/uikit'
+import { Button, Container } from '@wings-software/uicore'
 import React from 'react'
 import { Page } from '@common/exports'
 import i18n from './CDTemplateLibraryPage.i18n'

@@ -3,31 +3,31 @@
 exports[`PurposeList test initializes ok  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws modalPage"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main modalPage"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
       Which Harness modules would you like to enable for this project?
     </p>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-large--i39X"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
         style="width: 65%;"
       >
         <div
           class="border"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -63,32 +63,32 @@ exports[`PurposeList test initializes ok  1`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Delivery
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Deploy your services with blazingly fast pipelines.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CD"
                 type="button"
               >
@@ -101,13 +101,13 @@ exports[`PurposeList test initializes ok  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -143,32 +143,32 @@ exports[`PurposeList test initializes ok  1`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Verification
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Deploy in peace, verify activities that take place in system. Identify risk early.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CV"
                 type="button"
               >
@@ -181,13 +181,13 @@ exports[`PurposeList test initializes ok  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -223,32 +223,32 @@ exports[`PurposeList test initializes ok  1`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Integration
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Commit, build, and test your code at a whole new level.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CI"
                 type="button"
               >
@@ -261,13 +261,13 @@ exports[`PurposeList test initializes ok  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -303,32 +303,32 @@ exports[`PurposeList test initializes ok  1`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Efficiency
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Spot and quickly debug inefficiencies and optimize them to reduce costs.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CE"
                 type="button"
               >
@@ -341,13 +341,13 @@ exports[`PurposeList test initializes ok  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -383,32 +383,32 @@ exports[`PurposeList test initializes ok  1`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Features
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Decouple release from deployment and rollout features safely and quickly.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CF"
                 type="button"
               >
@@ -423,11 +423,11 @@ exports[`PurposeList test initializes ok  1`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-huge--2Znx StyledProps---padding-top-medium--29t2"
+        class="StyledProps--font StyledProps--main StyledProps--padding-left-huge StyledProps--padding-top-medium"
         style="width: 35%;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
         >
           Select a module
         </p>
@@ -440,31 +440,31 @@ exports[`PurposeList test initializes ok  1`] = `
 exports[`PurposeList test initializes ok  2`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws modalPage"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main modalPage"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
       Which Harness modules would you like to enable for this project?
     </p>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-large--i39X"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        class="StyledProps--font StyledProps--main"
         style="width: 65%;"
       >
         <div
           class="border"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -500,36 +500,36 @@ exports[`PurposeList test initializes ok  2`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Delivery
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Deploy your services with blazingly fast pipelines.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enabled StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                  class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-xsmall"
                   icon="tick"
                 >
                   <svg
@@ -556,13 +556,13 @@ exports[`PurposeList test initializes ok  2`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -598,36 +598,36 @@ exports[`PurposeList test initializes ok  2`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Verification
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Deploy in peace, verify activities that take place in system. Identify risk early.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enabled StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                  class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-xsmall"
                   icon="tick"
                 >
                   <svg
@@ -654,13 +654,13 @@ exports[`PurposeList test initializes ok  2`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -696,36 +696,36 @@ exports[`PurposeList test initializes ok  2`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Integration
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Commit, build, and test your code at a whole new level.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enabled StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                  class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-xsmall"
                   icon="tick"
                 >
                   <svg
@@ -752,13 +752,13 @@ exports[`PurposeList test initializes ok  2`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -794,36 +794,36 @@ exports[`PurposeList test initializes ok  2`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Efficiency
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Spot and quickly debug inefficiencies and optimize them to reduce costs.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enabled StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                  class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-xsmall"
                   icon="tick"
                 >
                   <svg
@@ -850,13 +850,13 @@ exports[`PurposeList test initializes ok  2`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+            class="bp3-card bp3-elevation-0 Card--card card"
           >
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   fill="none"
@@ -892,36 +892,36 @@ exports[`PurposeList test initializes ok  2`] = `
               </span>
               <div>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                 >
                   CONTINUOUS
                 </p>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xxlarge--27ky StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
                 >
                   Features
                 </p>
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws description StyledProps---font-small--1qQz StyledProps---padding-bottom-xxlarge--27ky"
+              class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
             >
               Decouple release from deployment and rollout features safely and quickly.
             </p>
             <div
-              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main time StyledProps--font-small"
               >
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enabled StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                  class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-xsmall"
                   icon="tick"
                 >
                   <svg
@@ -950,14 +950,14 @@ exports[`PurposeList test initializes ok  2`] = `
         </div>
       </div>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-huge--2Znx StyledProps---padding-top-medium--29t2"
+        class="StyledProps--font StyledProps--main StyledProps--padding-left-huge StyledProps--padding-top-medium"
         style="width: 35%;"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---padding-bottom-xxxlarge--1sq8"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
             Continuous Delivery
           </p>
@@ -968,10 +968,10 @@ exports[`PurposeList test initializes ok  2`] = `
           </a>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---padding-bottom-xxxlarge--1sq8"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
             Continuous Verification
           </p>
@@ -982,10 +982,10 @@ exports[`PurposeList test initializes ok  2`] = `
           </a>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---padding-bottom-xxxlarge--1sq8"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
             Continuous Integration
           </p>
@@ -996,10 +996,10 @@ exports[`PurposeList test initializes ok  2`] = `
           </a>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---padding-bottom-xxxlarge--1sq8"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
             Continuous Efficiency
           </p>
@@ -1010,10 +1010,10 @@ exports[`PurposeList test initializes ok  2`] = `
           </a>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StyledProps---padding-bottom-xxxlarge--1sq8"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-semi-bold--QRXr"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
             Continuous Features
           </p>

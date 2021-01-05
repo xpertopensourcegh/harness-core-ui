@@ -1,5 +1,5 @@
 import React from 'react'
-import { Heading, Text } from '@wings-software/uikit'
+import { Heading, Text } from '@wings-software/uicore'
 
 export default function UserProfilePage(): JSX.Element {
   return (

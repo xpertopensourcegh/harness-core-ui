@@ -1,4 +1,4 @@
-import { Card, Color, Container, Icon, Layout, Text, CardBody, AvatarGroup } from '@wings-software/uikit'
+import { Card, Color, Container, Icon, Layout, Text, CardBody, AvatarGroup } from '@wings-software/uicore'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'

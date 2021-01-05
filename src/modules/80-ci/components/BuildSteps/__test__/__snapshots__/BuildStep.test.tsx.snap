@@ -6,7 +6,7 @@ exports[`BuildSteps snapshot test should render properly 1`] = `
     class="step"
   >
     <span
-      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red300--3Ipv"
+      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red300"
     >
       <svg
         height="12"

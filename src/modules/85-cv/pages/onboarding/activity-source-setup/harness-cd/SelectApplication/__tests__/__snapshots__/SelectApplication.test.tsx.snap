@@ -3,18 +3,18 @@
 exports[`SelectApplication render 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+    class="StyledProps--font StyledProps--main main"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-large--1oBg StyledProps---margin-bottom-large--1jL3 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
       Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications. Select which applications and services you’d like to import over to your current project.
     </p>
     <div
-      class="OverlaySpinner---overlaySpinner--3Bs3"
+      class="OverlaySpinner--overlaySpinner"
     >
       <form
-        class="FormikForm---main--1N87"
+        class="FormikForm--main"
       >
         <div>
           <div
@@ -55,7 +55,7 @@ exports[`SelectApplication render 1`] = `
                 style="width: 50%;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <input
                     checked=""
@@ -63,7 +63,7 @@ exports[`SelectApplication render 1`] = `
                     type="checkbox"
                   />
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       fill="none"
@@ -98,7 +98,7 @@ exports[`SelectApplication render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     Test App
                   </p>
@@ -110,7 +110,7 @@ exports[`SelectApplication render 1`] = `
                 style="width: 50%;"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
+                  class="StyledProps--font StyledProps--main serviceCol"
                 >
                   2
                 </div>
@@ -126,14 +126,14 @@ exports[`SelectApplication render 1`] = `
                 style="width: 50%;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <input
                     style="cursor: pointer;"
                     type="checkbox"
                   />
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       fill="none"
@@ -168,7 +168,7 @@ exports[`SelectApplication render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     Abaris
                   </p>
@@ -180,7 +180,7 @@ exports[`SelectApplication render 1`] = `
                 style="width: 50%;"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
+                  class="StyledProps--font StyledProps--main serviceCol"
                 >
                   1
                 </div>
@@ -196,14 +196,14 @@ exports[`SelectApplication render 1`] = `
                 style="width: 50%;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <input
                     style="cursor: pointer;"
                     type="checkbox"
                   />
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       fill="none"
@@ -238,7 +238,7 @@ exports[`SelectApplication render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
                     Harness Sample App
                   </p>
@@ -250,17 +250,17 @@ exports[`SelectApplication render 1`] = `
                 style="width: 50%;"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws serviceCol"
+                  class="StyledProps--font StyledProps--main serviceCol"
                 >
                   2
                 </div>
               </div>
             </div>
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+              class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
               >
                 Showing 
                 <strong>
@@ -274,14 +274,14 @@ exports[`SelectApplication render 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
+            class="Layout--horizontal StyledProps--main main"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
                 icon="chevron-left"
               >
                 <svg
@@ -306,7 +306,7 @@ exports[`SelectApplication render 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -315,7 +315,7 @@ exports[`SelectApplication render 1`] = `
                 Next
               </span>
               <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
                 icon="chevron-right"
               >
                 <svg

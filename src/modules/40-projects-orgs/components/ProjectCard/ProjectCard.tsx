@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uikit'
+import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
 import { ModuleName, useStrings } from 'framework/exports'

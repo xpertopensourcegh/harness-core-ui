@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Formik } from 'formik'
 import xhr from '@wings-software/xhr-async'
-import { FormikForm, Button, FormInput, CollapseList } from '@wings-software/uikit'
+import { FormikForm, Button, FormInput, CollapseList } from '@wings-software/uicore'
 import DataSourceConfigPanel from '../DataSourceConfigPanel'
 import i18n from '../DataSourceConfigPanel.i18n'
 

@@ -9,7 +9,7 @@ import {
   MultiSelectOption,
   Layout,
   RUNTIME_INPUT_VALUE
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'

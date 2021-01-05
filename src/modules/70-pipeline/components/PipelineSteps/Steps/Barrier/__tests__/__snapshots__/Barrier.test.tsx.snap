@@ -6,13 +6,13 @@ exports[`Test Barrier Step should render edit view 1`] = `
     style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+      class="bp3-card bp3-elevation-0 Card--card"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
         >
           <div
             class="accordion"
@@ -49,25 +49,25 @@ exports[`Test Barrier Step should render edit view 1`] = `
                     data-testid="details-details"
                   >
                     <div
-                      class="InputWithIdentifier---txtNameContainer--20iZ"
+                      class="InputWithIdentifier--txtNameContainer"
                     >
                       <div
-                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          class="StyledProps--font StyledProps--main"
                         >
                           ID
                           :
                         </p>
                         <span
-                          class="InputWithIdentifier---idInput--w8_T"
+                          class="InputWithIdentifier--idInput"
                           contenteditable="true"
                         >
                           Test_A
                         </span>
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
                           style="vertical-align: middle;"
                         >
@@ -118,7 +118,7 @@ exports[`Test Barrier Step should render edit view 1`] = `
                       </div>
                     </div>
                     <div
-                      class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                       style="align-items: center;"
                     >
                       <div
@@ -138,7 +138,7 @@ exports[`Test Barrier Step should render edit view 1`] = `
                           class="bp3-form-content"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                             style="flex-grow: 1;"
                           >
                             <div
@@ -159,10 +159,10 @@ exports[`Test Barrier Step should render edit view 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                   >
                                     <svg
                                       height="12"
@@ -188,7 +188,7 @@ exports[`Test Barrier Step should render edit view 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -201,7 +201,7 @@ exports[`Test Barrier Step should render edit view 1`] = `
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+      class="bp3-card bp3-elevation-0 Card--card"
     >
       <pre>
         {}
@@ -218,10 +218,10 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
     style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+      class="bp3-card bp3-elevation-0 Card--card"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <div
           class="bp3-form-group"
@@ -240,7 +240,7 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
               style="flex-grow: 1;"
             >
               <div
@@ -261,10 +261,10 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -284,7 +284,7 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
           </div>
         </div>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Errors
         </p>
@@ -292,7 +292,7 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
           {}
         </pre>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -304,7 +304,7 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+      class="bp3-card bp3-elevation-0 Card--card"
     >
       <pre>
         {}
@@ -321,10 +321,10 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
     style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+      class="bp3-card bp3-elevation-0 Card--card"
     >
       <div
-        class="OverlaySpinner---overlaySpinner--3Bs3"
+        class="OverlaySpinner--overlaySpinner"
       >
         <div
           class="bp3-form-group bp3-intent-danger"
@@ -343,7 +343,7 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
             class="bp3-form-content"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
               style="flex-grow: 1;"
             >
               <div
@@ -364,10 +364,10 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                     >
                       <svg
                         height="12"
@@ -392,7 +392,7 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
           </div>
         </div>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
         >
           Errors
         </p>
@@ -404,7 +404,7 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
 }
         </pre>
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -416,7 +416,7 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card---card--2BXa"
+      class="bp3-card bp3-elevation-0 Card--card"
     >
       <pre>
         {}

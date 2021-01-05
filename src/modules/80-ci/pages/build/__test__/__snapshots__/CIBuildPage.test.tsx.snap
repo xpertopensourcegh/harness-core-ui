@@ -6,31 +6,31 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
     class="main main"
   >
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws container StyledProps---padding-top-medium--29t2"
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main container StyledProps--padding-top-medium"
     >
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws row"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main row"
       >
         <h1
-          class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-grey800"
           level="1"
         >
           Integration Pipeline
         </h1>
       </div>
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws row"
+        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main row"
       >
         <div
           class="container"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             BUILD #
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="max-width: 165px;"
           >
             3
@@ -40,12 +40,12 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
           class="container"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             REPOSITORY
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="max-width: 350px;"
           >
             https://github.com/username/springboot
@@ -55,12 +55,12 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
           class="container"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             BRANCH
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="max-width: 165px;"
           >
             main
@@ -70,12 +70,12 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
           class="container"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             COMMIT ID
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="max-width: 165px;"
           >
             1cc43cc
@@ -85,29 +85,29 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
           class="container"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             COMMIT MESSAGE
           </p>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="max-width: 165px;"
           >
             Update README.md
           </p>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws toolbar"
+          class="StyledProps--font StyledProps--main toolbar"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main"
                 icon="caret-down"
               >
                 <svg
@@ -155,7 +155,7 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
               href="/account/dummy/ci/orgs/dummy/projects/dummy/builds/dummy/pipeline/graph"
             >
               <span
-                class="bp3-icon bp3-icon-path StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-path StyledProps--main"
                 icon="path"
               >
                 <svg
@@ -192,7 +192,7 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
               href="/account/dummy/ci/orgs/dummy/projects/dummy/builds/dummy/inputs"
             >
               <span
-                class="bp3-icon bp3-icon-manually-entered-data StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-manually-entered-data StyledProps--main"
                 icon="manually-entered-data"
               >
                 <svg
@@ -229,7 +229,7 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
               href="/account/dummy/ci/orgs/dummy/projects/dummy/builds/dummy/commits"
             >
               <span
-                class="bp3-icon bp3-icon-git-commit StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-git-commit StyledProps--main"
                 icon="git-commit"
               >
                 <svg
@@ -266,7 +266,7 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
               href="/account/dummy/ci/orgs/dummy/projects/dummy/builds/dummy/tests"
             >
               <span
-                class="bp3-icon bp3-icon-lab-test StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-lab-test StyledProps--main"
                 icon="lab-test"
               >
                 <svg
@@ -303,7 +303,7 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
               href="/account/dummy/ci/orgs/dummy/projects/dummy/builds/dummy/artifacts"
             >
               <span
-                class="bp3-icon bp3-icon-add-to-artifact StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-add-to-artifact StyledProps--main"
                 icon="add-to-artifact"
               >
                 <svg
@@ -329,10 +329,10 @@ exports[`CIBuildPage snapshot test should render properly 1`] = `
             class="bp3-flex-expander"
           />
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws extendedTabContent"
+            class="StyledProps--font StyledProps--main extendedTabContent"
           >
             <label
-              class="bp3-control bp3-switch StyledProps---font--2ipy Switch---switch--36ug bp3-align-right StyledProps---main--1Wws"
+              class="bp3-control bp3-switch StyledProps--font Switch--switch bp3-align-right StyledProps--main"
             >
               <input
                 type="checkbox"

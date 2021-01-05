@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { StepWizard, Layout, Button, Formik, FormInput, FormikForm as Form, StepProps } from '@wings-software/uikit'
+import { StepWizard, Layout, Button, Formik, FormInput, FormikForm as Form, StepProps } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'

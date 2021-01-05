@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Container, FormikForm, Formik, FormInput } from '@wings-software/uikit'
+import { Layout, Container, FormikForm, Formik, FormInput } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'

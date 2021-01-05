@@ -1,5 +1,5 @@
 import React from 'react'
-import { Label } from '@wings-software/uikit'
+import { Label } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set } from 'lodash-es'
 import { StepViewType, StepWidget } from '@pipeline/exports'

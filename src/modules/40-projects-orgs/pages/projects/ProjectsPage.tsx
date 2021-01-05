@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, Text, Layout, SelectOption, Link, ExpandingSearchInput } from '@wings-software/uikit'
+import { Button, Text, Layout, SelectOption, Link, ExpandingSearchInput } from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'

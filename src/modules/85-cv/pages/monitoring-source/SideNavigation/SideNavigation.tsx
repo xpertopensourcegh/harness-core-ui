@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, IconName } from '@wings-software/uikit'
+import { Container, Text, IconName } from '@wings-software/uicore'
 import { NavItem, NavItemProps } from '@cv/pages/onboarding/SetupPageLeftNav/NavItem/NavItem'
 import styles from './SideNavigation.module.scss'
 

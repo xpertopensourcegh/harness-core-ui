@@ -1,4 +1,4 @@
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import React from 'react'
 
 const GitSyncErrors: React.FC = () => {

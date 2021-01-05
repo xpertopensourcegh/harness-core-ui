@@ -1,5 +1,5 @@
 import React from 'react'
-import type { StepProps } from '@wings-software/uikit'
+import type { StepProps } from '@wings-software/uicore'
 import type {
   Project,
   ResponseOrganizationResponse,

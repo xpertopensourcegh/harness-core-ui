@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, Container, Text } from '@wings-software/uikit'
+import { Color, Container, Text } from '@wings-software/uicore'
 import { Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import isUndefined from 'lodash/isUndefined'
 import classnames from 'classnames'

@@ -11,11 +11,11 @@ exports[`<ExecutionGrapView /> tests renders excution graphs 1`] = `
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -33,11 +33,11 @@ exports[`<ExecutionGrapView /> tests renders excution graphs 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -177,11 +177,11 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
       style="transform: translateY(232px);"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -199,11 +199,11 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="12"
@@ -367,7 +367,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                           value="RIGHT"
                         />
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="16"
@@ -404,7 +404,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                           value="BOTTOM"
                         />
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="16"
@@ -442,7 +442,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                           value="FLOATING"
                         />
                         <span
-                          class="bp3-icon StyledProps---main--1Wws"
+                          class="bp3-icon StyledProps--main"
                         >
                           <svg
                             height="16"
@@ -586,7 +586,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                           class="logContent"
                         >
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws headerContainer"
+                            class="StyledProps--font StyledProps--main headerContainer"
                           >
                             <header
                               class="logsHeader"
@@ -595,12 +595,12 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 class="headerContent"
                               >
                                 <p
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws header"
+                                  class="StyledProps--font StyledProps--main header"
                                 >
                                   Step Logs
                                 </p>
                                 <p
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws subHeader StyledProps---font-small--1qQz"
+                                  class="StyledProps--font StyledProps--main subHeader StyledProps--font-small"
                                 >
                                   Log Message
                                 </p>
@@ -611,7 +611,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                               class="headerActions"
                             >
                               <button
-                                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws redirectBtn"
+                                class="bp3-button StyledProps--font Button--button StyledProps--main redirectBtn"
                                 type="button"
                               >
                                 <span
@@ -624,11 +624,11 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 class="searchInput"
                               >
                                 <div
-                                  class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg "
+                                  class="bp3-input-group ui-search-box ExpandingSearchInput--main "
                                   data-name=""
                                 >
                                   <span
-                                    class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+                                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
                                     icon="search"
                                   >
                                     <svg
@@ -656,11 +656,11 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 </div>
                               </div>
                               <button
-                                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws download"
+                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main download"
                                 type="button"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-download StyledProps---main--1Wws"
+                                  class="bp3-icon bp3-icon-download StyledProps--main"
                                   icon="download"
                                 >
                                   <svg
@@ -682,20 +682,20 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                             </section>
                           </div>
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws logViewer MultiLogsViewer---container--2VRD"
+                            class="StyledProps--font StyledProps--main logViewer MultiLogsViewer--container"
                           >
                             <div
-                              class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                              class="Layout--vertical StyledProps--main"
                             >
                               <div
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws MultiLogsViewer---section--PKLg"
+                                class="StyledProps--font StyledProps--main MultiLogsViewer--section"
                               >
                                 <div
-                                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws MultiLogsViewer---sectionHeader--1gvM MultiLogsViewer---isOpen--s37m"
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main MultiLogsViewer--sectionHeader MultiLogsViewer--isOpen"
                                   tabindex="-1"
                                 >
                                   <span
-                                    class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws MultiLogsViewer---chevron--2gII StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="bp3-icon bp3-icon-chevron-down StyledProps--main MultiLogsViewer--chevron StyledProps--color StyledProps--color-grey100"
                                     icon="chevron-down"
                                   >
                                     <svg
@@ -714,7 +714,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     </svg>
                                   </span>
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     Set up job
                                   </p>
@@ -722,13 +722,13 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     style="flex-grow: 1;"
                                   />
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     2m 38s
                                   </p>
                                 </div>
                                 <div
-                                  class="StyledProps---font--2ipy StyledProps---main--1Wws MultiLogsViewer---term---66P"
+                                  class="StyledProps--font StyledProps--main MultiLogsViewer--term"
                                 >
                                   <div
                                     class="terminal xterm"
@@ -790,14 +790,14 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 </div>
                               </div>
                               <div
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws MultiLogsViewer---section--PKLg"
+                                class="StyledProps--font StyledProps--main MultiLogsViewer--section"
                               >
                                 <div
-                                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws MultiLogsViewer---sectionHeader--1gvM"
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main MultiLogsViewer--sectionHeader"
                                   tabindex="-1"
                                 >
                                   <span
-                                    class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws MultiLogsViewer---chevron--2gII StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="bp3-icon bp3-icon-chevron-right StyledProps--main MultiLogsViewer--chevron StyledProps--color StyledProps--color-grey100"
                                     icon="chevron-right"
                                   >
                                     <svg
@@ -816,7 +816,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     </svg>
                                   </span>
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     Run actions/checkout@v2
                                   </p>
@@ -824,21 +824,21 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     style="flex-grow: 1;"
                                   />
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     2m 38s
                                   </p>
                                 </div>
                               </div>
                               <div
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws MultiLogsViewer---section--PKLg"
+                                class="StyledProps--font StyledProps--main MultiLogsViewer--section"
                               >
                                 <div
-                                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws MultiLogsViewer---sectionHeader--1gvM"
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main MultiLogsViewer--sectionHeader"
                                   tabindex="-1"
                                 >
                                   <span
-                                    class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws MultiLogsViewer---chevron--2gII StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="bp3-icon bp3-icon-chevron-right StyledProps--main MultiLogsViewer--chevron StyledProps--color StyledProps--color-grey100"
                                     icon="chevron-right"
                                   >
                                     <svg
@@ -857,7 +857,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     </svg>
                                   </span>
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     Run make
                                   </p>
@@ -865,21 +865,21 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     style="flex-grow: 1;"
                                   />
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     2m 38s
                                   </p>
                                 </div>
                               </div>
                               <div
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws MultiLogsViewer---section--PKLg"
+                                class="StyledProps--font StyledProps--main MultiLogsViewer--section"
                               >
                                 <div
-                                  class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws MultiLogsViewer---sectionHeader--1gvM"
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main MultiLogsViewer--sectionHeader"
                                   tabindex="-1"
                                 >
                                   <span
-                                    class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws MultiLogsViewer---chevron--2gII StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="bp3-icon bp3-icon-chevron-right StyledProps--main MultiLogsViewer--chevron StyledProps--color StyledProps--color-grey100"
                                     icon="chevron-right"
                                   >
                                     <svg
@@ -898,7 +898,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     </svg>
                                   </span>
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     Complete job
                                   </p>
@@ -906,7 +906,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                     style="flex-grow: 1;"
                                   />
                                   <p
-                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey100--wAtO"
+                                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey100"
                                   >
                                     2m 38s
                                   </p>

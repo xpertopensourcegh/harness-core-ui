@@ -1,6 +1,6 @@
 import React from 'react'
-import { Color, Icon, IconName, Layout, Text } from '@wings-software/uikit'
-import { Card } from '@wings-software/uikit'
+import { Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
+import { Card } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import i18n from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage.i18n'

@@ -1,6 +1,6 @@
-import { StepWizard, getMultiTypeFromValue, Icon, Text } from '@wings-software/uikit'
+import { StepWizard, getMultiTypeFromValue, Icon, Text } from '@wings-software/uicore'
 import React from 'react'
-import { Layout, Button, Formik, FormInput, FormikForm as Form, MultiTypeInputType } from '@wings-software/uikit'
+import { Layout, Button, Formik, FormInput, FormikForm as Form, MultiTypeInputType } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'

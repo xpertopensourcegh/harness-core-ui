@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import { render, waitFor } from '@testing-library/react'
 import { TimelineTooltip, verificationResultToIcon } from '../TimelineTooltip'
 import type { EventData } from '../ActivitiesTimelineView'

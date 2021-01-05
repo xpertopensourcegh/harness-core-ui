@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { Button, Text } from '@wings-software/uikit'
+import { Button, Text } from '@wings-software/uicore'
 import type { StageElementWrapper } from 'services/cd-ng'
 import type { AbstractStepFactory } from '@pipeline/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'

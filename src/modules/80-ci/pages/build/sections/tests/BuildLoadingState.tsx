@@ -1,6 +1,6 @@
 import React from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
-import { Icon, Layout, Text } from '@wings-software/uikit'
+import { Icon, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import css from './BuildTests.module.scss'
 

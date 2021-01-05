@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 // import { useGet } from 'restful-react'
 // import { get } from 'lodash-es'

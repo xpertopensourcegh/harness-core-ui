@@ -1,6 +1,6 @@
 import { isNumber } from 'lodash-es'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
-import { Color } from '@wings-software/uikit'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import { Color } from '@wings-software/uicore'
 import type { UseStringsReturn } from 'framework/exports'
 import type { ActivityDashboardDTO } from 'services/cv'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'

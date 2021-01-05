@@ -3,40 +3,40 @@
 exports[`Restore Cache GCS Step edit mode works 1`] = `
 <div>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws boldLabel StyledProps---font-size-medium--aOY7"
+    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
   >
     Restore Cache From GCS
   </p>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
           class="fieldsSection"
         >
           <div
-            class="InputWithIdentifier---txtNameContainer--20iZ"
+            class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 ID
                 :
               </p>
               <span
-                class="InputWithIdentifier---idInput--w8_T"
+                class="InputWithIdentifier--idInput"
                 contenteditable="true"
               >
                 My_Restore_Cache_GCS_Step
               </span>
               <span
-                class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
                 style="vertical-align: middle;"
               >
@@ -89,7 +89,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
               GCP Connector
@@ -100,12 +100,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -134,7 +134,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     style="width: 560px;"
                   >
                     <span
@@ -144,7 +144,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                           style="width: 532px;"
                           type="button"
                         >
@@ -152,11 +152,11 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                             class="bp3-button-text"
                           >
                             <div
-                              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               style="justify-content: space-between; width: 100%;"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                class="StyledProps--font StyledProps--main"
                               >
                                 connectorRef
                               </p>
@@ -164,7 +164,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                                 class="rightStatus"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
                                   icon="full-circle"
                                 >
                                   <svg
@@ -183,7 +183,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                                   </svg>
                                 </span>
                                 <span
-                                  class="Tag---main--1vng"
+                                  class="Tag--main"
                                 >
                                   <span
                                     class="bp3-tag bp3-minimal tag"
@@ -199,7 +199,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                             </div>
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -227,10 +227,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -253,7 +253,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Bucket
               <span
@@ -263,12 +263,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -298,10 +298,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -317,10 +317,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -343,7 +343,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Key
               <span
@@ -353,12 +353,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -388,10 +388,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -407,10 +407,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -447,7 +447,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="formLabel"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
                     Source Paths
@@ -458,12 +458,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               height="14"
@@ -487,14 +487,14 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
                           class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws icon fixed"
+                            class="bp3-icon StyledProps--main icon fixed"
                           >
                             <svg
                               height="10"
@@ -526,7 +526,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                  class="bp3-card bp3-elevation-0 Card--card"
                   style="width: 100%;"
                 >
                   <div
@@ -541,10 +541,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-form-content"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         >
                           <div
-                            class="bp3-input-group MultiTypeInput---input--36mQ"
+                            class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -560,10 +560,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                class="MultiTypeInput--btn MultiTypeInput--FIXED"
                               >
                                 <span
-                                  class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                 >
                                   <svg
                                     height="12"
@@ -583,13 +583,13 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.sourcePaths-[0]"
                       style="margin-top: 4px;"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="20"
@@ -605,7 +605,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.sourcePaths"
                     type="button"
                   >
@@ -624,13 +624,13 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
           class="fieldsSection"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws optionalConfiguration StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-small--3Kji"
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
             OPTIONAL CONFIGURATIONS
           </p>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Target
               <span
@@ -640,12 +640,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -675,10 +675,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -695,10 +695,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -720,7 +720,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
             </div>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
             Set container Resources
             <span
@@ -730,12 +730,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="14"
@@ -759,7 +759,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
               style="flex-grow: 1; flex-basis: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 Limit Memory
               </p>
@@ -776,10 +776,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-input-group MultiTypeInput---input--36mQ"
+                        class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -796,10 +796,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -824,7 +824,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
               style="flex-grow: 1; flex-basis: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 Limit CPU
               </p>
@@ -841,10 +841,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-input-group MultiTypeInput---input--36mQ"
+                        class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -861,10 +861,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -896,7 +896,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
               for="timeout"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
                 Timeout
@@ -907,12 +907,12 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="14"
@@ -941,7 +941,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                 style="display: flex; align-items: center;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   style="flex-grow: 1;"
                 >
                   <div
@@ -962,10 +962,10 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                         >
                           <svg
                             height="12"
@@ -990,7 +990,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
           class="buttonsWrapper"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-right-xxlarge--S_1-"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-xxlarge"
             data-testid="submit"
             type="submit"
           >
@@ -1001,7 +1001,7 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -1020,40 +1020,40 @@ exports[`Restore Cache GCS Step edit mode works 1`] = `
 exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
 <div>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws boldLabel StyledProps---font-size-medium--aOY7"
+    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
   >
     Restore Cache From GCS
   </p>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
           class="fieldsSection"
         >
           <div
-            class="InputWithIdentifier---txtNameContainer--20iZ"
+            class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 ID
                 :
               </p>
               <span
-                class="InputWithIdentifier---idInput--w8_T"
+                class="InputWithIdentifier--idInput"
                 contenteditable="true"
               >
                 My_Restore_Cache_GCS_Step
               </span>
               <span
-                class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
                 style="vertical-align: middle;"
               >
@@ -1106,7 +1106,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
               GCP Connector
@@ -1117,12 +1117,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -1151,14 +1151,14 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                     style="width: 515px;"
                   >
                     <div
-                      class="TextInput---main--1ytZ"
+                      class="TextInput--main"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -1178,10 +1178,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                          class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -1201,12 +1201,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-cog StyledProps--main"
                   icon="cog"
                 >
                   <svg
@@ -1229,7 +1229,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Bucket
               <span
@@ -1239,12 +1239,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -1274,13 +1274,13 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                   >
                     <div
-                      class="TextInput---main--1ytZ"
+                      class="TextInput--main"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -1299,10 +1299,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                          class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -1322,12 +1322,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-cog StyledProps--main"
                   icon="cog"
                 >
                   <svg
@@ -1350,7 +1350,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Key
               <span
@@ -1360,12 +1360,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -1395,13 +1395,13 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                   >
                     <div
-                      class="TextInput---main--1ytZ"
+                      class="TextInput--main"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -1420,10 +1420,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                          class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -1443,12 +1443,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-cog StyledProps--main"
                   icon="cog"
                 >
                   <svg
@@ -1486,7 +1486,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 >
                   <span>
                     <p
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
                       Source Paths
@@ -1497,12 +1497,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                             tabindex="0"
                             type="button"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws"
+                              class="bp3-icon StyledProps--main"
                             >
                               <svg
                                 height="14"
@@ -1531,14 +1531,14 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
                           class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws icon runtime"
+                            class="bp3-icon StyledProps--main icon runtime"
                           >
                             <svg
                               height="10"
@@ -1571,12 +1571,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
               id="configureOptions"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-cog StyledProps--main"
                 icon="cog"
               >
                 <svg
@@ -1601,13 +1601,13 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
           class="fieldsSection"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws optionalConfiguration StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-small--3Kji"
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
             OPTIONAL CONFIGURATIONS
           </p>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Target
               <span
@@ -1617,12 +1617,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -1652,13 +1652,13 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                   >
                     <div
-                      class="TextInput---main--1ytZ"
+                      class="TextInput--main"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -1677,10 +1677,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                          class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -1700,12 +1700,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                  class="bp3-icon bp3-icon-cog StyledProps--main"
                   icon="cog"
                 >
                   <svg
@@ -1727,7 +1727,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
             </div>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
             Set container Resources
             <span
@@ -1737,12 +1737,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="14"
@@ -1766,7 +1766,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
               style="flex-grow: 1; flex-basis: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 Limit Memory
               </p>
@@ -1783,13 +1783,13 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                     >
                       <div
-                        class="TextInput---main--1ytZ"
+                        class="TextInput--main"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                          class="bp3-input-group bp3-disabled MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -1808,10 +1808,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                            class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -1831,12 +1831,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-cog StyledProps--main"
                     icon="cog"
                   >
                     <svg
@@ -1861,7 +1861,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
               style="flex-grow: 1; flex-basis: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 Limit CPU
               </p>
@@ -1878,13 +1878,13 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                     >
                       <div
-                        class="TextInput---main--1ytZ"
+                        class="TextInput--main"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                          class="bp3-input-group bp3-disabled MultiTypeInput--input"
                         >
                           <input
                             class="bp3-input"
@@ -1903,10 +1903,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                            class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -1926,12 +1926,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-cog StyledProps--main"
                     icon="cog"
                   >
                     <svg
@@ -1963,7 +1963,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
               for="timeout"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
                 Timeout
@@ -1974,12 +1974,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="14"
@@ -2008,14 +2008,14 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                 style="display: flex; align-items: center;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw MultiTypeInput---disabled--3BqD"
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                   style="flex-grow: 1;"
                 >
                   <div
-                    class="TextInput---main--1ytZ"
+                    class="TextInput--main"
                   >
                     <div
-                      class="bp3-input-group bp3-disabled MultiTypeInput---input--36mQ"
+                      class="bp3-input-group bp3-disabled MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -2034,10 +2034,10 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput---btn--1c9a MultiTypeInput---RUNTIME--15lc"
+                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                         >
                           <svg
                             height="12"
@@ -2055,12 +2055,12 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
                   </span>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-cog StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-cog StyledProps--main"
                     icon="cog"
                   >
                     <svg
@@ -2087,7 +2087,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
           class="buttonsWrapper"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-right-xxlarge--S_1-"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-xxlarge"
             data-testid="submit"
             type="submit"
           >
@@ -2098,7 +2098,7 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span
@@ -2117,38 +2117,38 @@ exports[`Restore Cache GCS Step renders runtime inputs 1`] = `
 exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
 <div>
   <p
-    class="StyledProps---font--2ipy StyledProps---main--1Wws boldLabel StyledProps---font-size-medium--aOY7"
+    class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
   >
     Restore Cache From GCS
   </p>
   <div
-    class="OverlaySpinner---overlaySpinner--3Bs3"
+    class="OverlaySpinner--overlaySpinner"
   >
     <form
-      class="FormikForm---main--1N87"
+      class="FormikForm--main"
     >
       <div>
         <div
           class="fieldsSection"
         >
           <div
-            class="InputWithIdentifier---txtNameContainer--20iZ"
+            class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+              class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
               >
                 ID
                 :
               </p>
               <span
-                class="InputWithIdentifier---idInput--w8_T"
+                class="InputWithIdentifier--idInput"
                 contenteditable="true"
               />
               <span
-                class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
                 style="vertical-align: middle;"
               >
@@ -2201,7 +2201,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
               GCP Connector
@@ -2212,12 +2212,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -2246,7 +2246,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     style="width: 560px;"
                   >
                     <span
@@ -2256,7 +2256,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
                           style="width: 532px;"
                           type="button"
                         >
@@ -2264,11 +2264,11 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                             class="bp3-button-text"
                           >
                             <div
-                              class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               style="justify-content: space-between; width: 100%;"
                             >
                               <p
-                                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                class="StyledProps--font StyledProps--main"
                               >
                                 connectorRef
                               </p>
@@ -2276,7 +2276,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                                 class="rightStatus"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
                                   icon="full-circle"
                                 >
                                   <svg
@@ -2295,7 +2295,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                                   </svg>
                                 </span>
                                 <span
-                                  class="Tag---main--1vng"
+                                  class="Tag--main"
                                 >
                                   <span
                                     class="bp3-tag bp3-minimal tag"
@@ -2311,7 +2311,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                             </div>
                           </span>
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
                             icon="caret-down"
                           >
                             <svg
@@ -2339,10 +2339,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -2365,7 +2365,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Bucket
               <span
@@ -2375,12 +2375,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -2410,10 +2410,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -2429,10 +2429,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -2455,7 +2455,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
           </div>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Key
               <span
@@ -2465,12 +2465,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -2500,10 +2500,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -2519,10 +2519,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -2559,7 +2559,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="formLabel"
                 >
                   <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
                     Source Paths
@@ -2570,12 +2570,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws"
+                            class="bp3-icon StyledProps--main"
                           >
                             <svg
                               height="14"
@@ -2599,14 +2599,14 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
                           class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws icon fixed"
+                            class="bp3-icon StyledProps--main icon fixed"
                           >
                             <svg
                               height="10"
@@ -2638,7 +2638,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="bp3-card bp3-elevation-0 Card---card--2BXa"
+                  class="bp3-card bp3-elevation-0 Card--card"
                   style="width: 100%;"
                 >
                   <div
@@ -2653,10 +2653,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-form-content"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                         >
                           <div
-                            class="bp3-input-group MultiTypeInput---input--36mQ"
+                            class="bp3-input-group MultiTypeInput--input"
                           >
                             <input
                               class="bp3-input"
@@ -2672,10 +2672,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                                class="MultiTypeInput--btn MultiTypeInput--FIXED"
                               >
                                 <span
-                                  class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                                 >
                                   <svg
                                     height="12"
@@ -2695,13 +2695,13 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.sourcePaths-[0]"
                       style="margin-top: 4px;"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="20"
@@ -2717,7 +2717,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.sourcePaths"
                     type="button"
                   >
@@ -2736,13 +2736,13 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
           class="fieldsSection"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws optionalConfiguration StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-small--3Kji"
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
             OPTIONAL CONFIGURATIONS
           </p>
           <div>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             >
               Target
               <span
@@ -2752,12 +2752,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="14"
@@ -2787,10 +2787,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                      class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
                         class="bp3-input"
@@ -2807,10 +2807,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
                         >
                           <span
-                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                           >
                             <svg
                               height="12"
@@ -2832,7 +2832,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
             </div>
           </div>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-small--1_l5"
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
             Set container Resources
             <span
@@ -2842,12 +2842,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="14"
@@ -2871,7 +2871,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
               style="flex-grow: 1; flex-basis: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 Limit Memory
               </p>
@@ -2888,10 +2888,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-input-group MultiTypeInput---input--36mQ"
+                        class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -2908,10 +2908,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -2936,7 +2936,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
               style="flex-grow: 1; flex-basis: 50%;"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 Limit CPU
               </p>
@@ -2953,10 +2953,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                     >
                       <div
-                        class="bp3-input-group MultiTypeInput---input--36mQ"
+                        class="bp3-input-group MultiTypeInput--input"
                       >
                         <input
                           class="bp3-input"
@@ -2973,10 +2973,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
                           >
                             <span
-                              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                             >
                               <svg
                                 height="12"
@@ -3008,7 +3008,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
               for="timeout"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
                 Timeout
@@ -3019,12 +3019,12 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
                       <span
-                        class="bp3-icon StyledProps---main--1Wws"
+                        class="bp3-icon StyledProps--main"
                       >
                         <svg
                           height="14"
@@ -3053,7 +3053,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                 style="display: flex; align-items: center;"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   style="flex-grow: 1;"
                 >
                   <div
@@ -3074,10 +3074,10 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
                       >
                         <span
-                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
                         >
                           <svg
                             height="12"
@@ -3102,7 +3102,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
           class="buttonsWrapper"
         >
           <button
-            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-right-xxlarge--S_1-"
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-xxlarge"
             data-testid="submit"
             type="submit"
           >
@@ -3113,7 +3113,7 @@ exports[`Restore Cache GCS Step should render edit view as new step 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
             type="button"
           >
             <span

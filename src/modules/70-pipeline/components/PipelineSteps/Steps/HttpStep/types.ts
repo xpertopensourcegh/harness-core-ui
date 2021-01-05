@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { HttpStepInfo, StepElement } from 'services/cd-ng'
 
 export interface HttpStepHeader {

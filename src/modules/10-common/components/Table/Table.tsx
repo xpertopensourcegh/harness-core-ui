@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTable, Column, useSortBy, usePagination } from 'react-table'
 import cx from 'classnames'
-import { Icon, Pagination, PaginationProps } from '@wings-software/uikit'
+import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
 
 import css from './Table.module.scss'
 

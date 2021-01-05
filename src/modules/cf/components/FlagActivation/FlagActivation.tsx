@@ -15,7 +15,7 @@ import {
   SelectOption,
   Formik,
   FormikForm as Form
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
 import { SharedQueryParams, extraOperators } from '@cf/constants'

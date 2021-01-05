@@ -3,7 +3,7 @@ import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uikit'
+import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uicore'
 
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'

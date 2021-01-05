@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '@wings-software/uikit'
+import { Layout } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { CollapseForm } from './CollapseForm'

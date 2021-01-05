@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { Container, Heading, Color, Button } from '@wings-software/uikit'
+import { Container, Heading, Color, Button } from '@wings-software/uicore'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
 import { SampleData, ActivityHeadingContent } from '../LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
 import css from './LogAnalysisCompareDrawer.module.scss'

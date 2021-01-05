@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { Button, Icon } from '@wings-software/uikit'
+import { Button, Icon } from '@wings-software/uicore'
 import css from './RightBar.module.scss'
 
 export interface RightBarProps {

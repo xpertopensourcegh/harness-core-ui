@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Formik } from 'formik'
-import { Container, Text, Select, SelectOption, useModalHook, FormikForm, Layout, Button } from '@wings-software/uikit'
+import { Container, Text, Select, SelectOption, useModalHook, FormikForm, Layout, Button } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'

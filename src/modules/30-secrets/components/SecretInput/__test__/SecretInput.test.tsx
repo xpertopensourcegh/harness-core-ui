@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, findByText } from '@testing-library/react'
-import { FormikForm, Formik } from '@wings-software/uikit'
+import { FormikForm, Formik } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'

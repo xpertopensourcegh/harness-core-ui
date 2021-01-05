@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { Intent, Dialog, IconName, Classes, IDialogProps } from '@blueprintjs/core'
-import { useModalHook, Button } from '@wings-software/uikit'
+import { useModalHook, Button } from '@wings-software/uicore'
 
 export interface UseConfirmationDialogProps {
   titleText: string

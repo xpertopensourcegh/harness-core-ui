@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Container, Pagination, Text } from '@wings-software/uikit'
+import { Container, Pagination, Text } from '@wings-software/uicore'
 import type {
   RestResponsePageLogAnalysisClusterDTO,
   RestResponseListLogAnalysisClusterChartDTO,

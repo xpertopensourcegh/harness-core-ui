@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Color, Layout, Text, Container, TextInput } from '@wings-software/uikit'
+import { Color, Layout, Text, Container, TextInput } from '@wings-software/uicore'
 import { sumBy } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
 import css from './TabTargeting.module.scss'

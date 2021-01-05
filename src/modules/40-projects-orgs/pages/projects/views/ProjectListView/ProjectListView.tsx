@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import ReactTimeago from 'react-timeago'
-import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-software/uikit'
+import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'

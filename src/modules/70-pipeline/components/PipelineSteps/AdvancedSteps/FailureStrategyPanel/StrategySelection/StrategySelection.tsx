@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { connect, FormikContext, FieldArray } from 'formik'
 import { get } from 'lodash-es'
-import { FormInput, Button } from '@wings-software/uikit'
+import { FormInput, Button } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 

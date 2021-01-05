@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor, fireEvent, queryByText } from '@testing-library/react'
-import { ModalProvider, useModalHook, Container } from '@wings-software/uikit'
+import { ModalProvider, useModalHook, Container } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
 import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'

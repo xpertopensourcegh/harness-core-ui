@@ -22,7 +22,7 @@ import {
   ModalErrorHandlerBinding,
   TextInput,
   Switch
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'

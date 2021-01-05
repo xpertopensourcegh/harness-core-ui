@@ -3,16 +3,16 @@
 exports[`Create Secret Manager Wizard should render form 1`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon bp3-icon-lock StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-lock StyledProps--main"
           icon="lock"
         >
           <svg
@@ -32,50 +32,50 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         HashiCorp Vault
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           HashiCorp Vault Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY
@@ -83,11 +83,11 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
         <div
           class="heading"
@@ -95,46 +95,46 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           HashiCorp Vault Overview
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                    class="StyledProps--font StyledProps--main main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                      class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                        class="StyledProps--font StyledProps--main connectorFormNameElm"
                       >
                         <div
-                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                          class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               ID
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier---idInput--w8_T"
+                              class="InputWithIdentifier--idInput"
                               contenteditable="true"
                             />
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              class="bp3-icon bp3-icon-edit StyledProps--main"
                               icon="edit"
                               style="vertical-align: middle;"
                             >
@@ -187,33 +187,33 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                         style="justify-content: center;"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                         >
                           + Description
                         </p>
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                         >
                           + Tags
                         </p>
                       </div>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                      class="StyledProps--font StyledProps--main connectorFormElm"
                     >
                       
                     </div>
                   </div>
                 </div>
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -238,16 +238,16 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
 exports[`Create Secret Manager Wizard should render form 2`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon bp3-icon-lock StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-lock StyledProps--main"
           icon="lock"
         >
           <svg
@@ -267,18 +267,18 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         HashiCorp Vault
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -298,20 +298,20 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -331,22 +331,22 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           HashiCorp Vault Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY
@@ -354,18 +354,18 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="Layout--vertical StyledProps--main StyledProps--padding-small"
         style="height: 100%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          class="Layout--vertical StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
           >
             Verify Connection to 
              
@@ -376,14 +376,14 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
             </span>
           </p>
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
             id="steps-progress"
           >
             <div
-              class="StepsProgress---progressBar--2_Dp"
+              class="StepsProgress--progressBar"
             >
               <div
-                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress---progressHeight--3zU4"
+                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
               >
                 <div
                   class="bp3-progress-meter"
@@ -392,13 +392,13 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
             >
               <div
-                class="StepsProgress---stepWrap--g0bN"
+                class="StepsProgress--stepWrap"
               >
                 <span
-                  class="bp3-icon bp3-icon-error StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red500--uX9L StyledProps---margin-right-small--Uojv"
+                  class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
                   icon="error"
                 >
                   <svg
@@ -417,17 +417,17 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style=""
                 >
                   Checking for delegates 
                 </p>
               </div>
               <div
-                class="StepsProgress---stepWrap--g0bN"
+                class="StepsProgress--stepWrap"
               >
                 <span
-                  class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
                   icon="blank"
                 >
                   <svg
@@ -442,17 +442,17 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="font-weight: normal;"
                 >
                   Establishing Connection between Delegate and HashiCorp Vault
                 </p>
               </div>
               <div
-                class="StepsProgress---stepWrap--g0bN"
+                class="StepsProgress--stepWrap"
               >
                 <span
-                  class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
                   icon="blank"
                 >
                   <svg
@@ -467,7 +467,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="font-weight: normal;"
                 >
                   Verifying Connection
@@ -476,10 +476,10 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+            class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
               type="button"
             >
               <span
@@ -499,16 +499,16 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
 exports[`Create Secret Manager Wizard should render form in edit 1`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon bp3-icon-lock StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-lock StyledProps--main"
           icon="lock"
         >
           <svg
@@ -528,50 +528,50 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         HashiCorp Vault
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           HashiCorp Vault Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY
@@ -579,11 +579,11 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
         <div
           class="heading"
@@ -591,42 +591,42 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
           HashiCorp Vault Overview
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
         >
           <div
-            class="OverlaySpinner---overlaySpinner--3Bs3"
+            class="OverlaySpinner--overlaySpinner"
           >
             <form
-              class="FormikForm---main--1N87"
+              class="FormikForm--main"
             >
               <div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="min-height: 460px;"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+                    class="StyledProps--font StyledProps--main main"
                   >
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
+                      class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                     >
                       <div
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
+                        class="StyledProps--font StyledProps--main connectorFormNameElm"
                       >
                         <div
-                          class="InputWithIdentifier---txtNameContainer--20iZ"
+                          class="InputWithIdentifier--txtNameContainer"
                         >
                           <div
-                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
                             <p
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                              class="StyledProps--font StyledProps--main"
                             >
                               ID
                               :
                             </p>
                             <span
-                              class="InputWithIdentifier---idInput--w8_T"
+                              class="InputWithIdentifier--idInput"
                               contenteditable="false"
                               disabled=""
                             >
@@ -666,18 +666,18 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                         style="justify-content: center;"
                       >
                         <p
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
                         >
                           + Tags
                         </p>
                       </div>
                     </div>
                     <div
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                      class="StyledProps--font StyledProps--main connectorFormElm"
                     >
                       <div
                         class="bp3-form-group expandedDescription"
@@ -688,15 +688,15 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                           for="description"
                         >
                           <div
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws headerRow"
+                            class="StyledProps--font StyledProps--main headerRow"
                           >
                             <span
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                              class="StyledProps--font StyledProps--main StyledProps--inline"
                             >
                               Description
                             </span>
                             <span
-                              class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                              class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
                             >
                               remove
                             </span>
@@ -722,10 +722,10 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -750,16 +750,16 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
 exports[`Create Secret Manager Wizard should render form in edit 2`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon bp3-icon-lock StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-lock StyledProps--main"
           icon="lock"
         >
           <svg
@@ -779,18 +779,18 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         HashiCorp Vault
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -810,37 +810,37 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           HashiCorp Vault Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN"
+        class="StepWizard--navStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY
@@ -848,23 +848,23 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
         style="width: 64%;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---padding-bottom-xlarge--1Far"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xlarge"
         >
           Configure
         </p>
         <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
+          class="OverlaySpinner--overlaySpinner"
         >
           <form
-            class="FormikForm---main--1N87"
+            class="FormikForm--main"
           >
             <div>
               <div
@@ -946,7 +946,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                 >
                   <div>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      class="bp3-control bp3-radio bp3-inline Radio--radio"
                     >
                       <input
                         checked=""
@@ -960,7 +960,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       App Role
                     </label>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      class="bp3-control bp3-radio bp3-inline Radio--radio"
                     >
                       <input
                         name="accessType"
@@ -976,7 +976,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <div
                   class="bp3-form-group"
@@ -1058,7 +1058,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                 >
                   <div>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      class="bp3-control bp3-radio bp3-inline Radio--radio"
                     >
                       <input
                         checked=""
@@ -1072,7 +1072,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       Fetch Engines
                     </label>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      class="bp3-control bp3-radio bp3-inline Radio--radio"
                     >
                       <input
                         name="engineType"
@@ -1088,7 +1088,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <div
                   class="bp3-form-group bp3-disabled"
@@ -1098,7 +1098,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -1120,7 +1120,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                               icon="caret-down"
                             >
                               <svg
@@ -1145,7 +1145,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-xsmall--33hS"
+                  class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall"
                   disabled=""
                   tabindex="-1"
                   type="button"
@@ -1195,7 +1195,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-form-content"
                 >
                   <label
-                    class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
                   >
                     <input
                       name="readOnly"
@@ -1216,7 +1216,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-form-content"
                 >
                   <label
-                    class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
                   >
                     <input
                       name="default"
@@ -1230,10 +1230,10 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                 </div>
               </div>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main"
                   type="button"
                 >
                   <span
@@ -1243,7 +1243,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1265,16 +1265,16 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
 exports[`Create Secret Manager Wizard should render form in edit 3`] = `
 <div>
   <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+    class="StepWizard--main StepWizard--navBar"
   >
     <div
-      class="StepWizard---navBarList--2ILN"
+      class="StepWizard--navBarList"
     >
       <span
-        class="StepWizard---header--2qTm"
+        class="StepWizard--header"
       >
         <span
-          class="bp3-icon bp3-icon-lock StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-lock StyledProps--main"
           icon="lock"
         >
           <svg
@@ -1294,18 +1294,18 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
         </span>
       </span>
       <span
-        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+        class="StepWizard--title StepWizard--header"
       >
         HashiCorp Vault
       </span>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -1325,20 +1325,20 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           Overview
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard---completedIcon--yi-5"
+          class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey200--3A25"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
             icon="small-tick"
           >
             <svg
@@ -1358,22 +1358,22 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           </span>
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           HashiCorp Vault Details
         </p>
       </div>
       <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
-          class="StepWizard---number--1LKy"
+          class="StepWizard--number"
         >
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY
@@ -1381,18 +1381,18 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
       </div>
     </div>
     <div
-      class="StepWizard---stepDetails--Uaxx"
+      class="StepWizard--stepDetails"
     >
        
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+        class="Layout--vertical StyledProps--main StyledProps--padding-small"
         style="height: 100%;"
       >
         <div
-          class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          class="Layout--vertical StyledProps--main"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
           >
             Verify Connection to 
              
@@ -1403,14 +1403,14 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
             </span>
           </p>
           <div
-            class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
             id="steps-progress"
           >
             <div
-              class="StepsProgress---progressBar--2_Dp"
+              class="StepsProgress--progressBar"
             >
               <div
-                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress---progressHeight--3zU4"
+                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
               >
                 <div
                   class="bp3-progress-meter"
@@ -1419,13 +1419,13 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
               </div>
             </div>
             <div
-              class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
             >
               <div
-                class="StepsProgress---stepWrap--g0bN"
+                class="StepsProgress--stepWrap"
               >
                 <span
-                  class="bp3-icon bp3-icon-error StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-red500--uX9L StyledProps---margin-right-small--Uojv"
+                  class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
                   icon="error"
                 >
                   <svg
@@ -1444,17 +1444,17 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style=""
                 >
                   Checking for delegates 
                 </p>
               </div>
               <div
-                class="StepsProgress---stepWrap--g0bN"
+                class="StepsProgress--stepWrap"
               >
                 <span
-                  class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
                   icon="blank"
                 >
                   <svg
@@ -1469,17 +1469,17 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="font-weight: normal;"
                 >
                   Establishing Connection between Delegate and HashiCorp Vault
                 </p>
               </div>
               <div
-                class="StepsProgress---stepWrap--g0bN"
+                class="StepsProgress--stepWrap"
               >
                 <span
-                  class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
                   icon="blank"
                 >
                   <svg
@@ -1494,7 +1494,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  class="StyledProps--font StyledProps--main"
                   style="font-weight: normal;"
                 >
                   Verifying Connection
@@ -1503,10 +1503,10 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
+            class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
               type="button"
             >
               <span

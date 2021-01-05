@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { AbstractStepFactory } from '../AbstractStepFactory'
 import { Step } from '../Step'
 import { StepWidget } from '../StepWidget'

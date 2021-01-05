@@ -16,7 +16,7 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   Avatar
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
 import * as Yup from 'yup'

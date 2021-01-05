@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Button, Color, IconName } from '@wings-software/uikit'
+import { Text, Layout, Button, Color, IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { getIconBySourceType } from '../SetupUtils'

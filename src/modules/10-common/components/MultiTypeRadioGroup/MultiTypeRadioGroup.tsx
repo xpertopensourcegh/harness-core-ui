@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps, Intent, IOptionProps, IRadioGroupProps, RadioGroup } from '@blueprintjs/core'
-import { ExpressionAndRuntimeType, ExpressionAndRuntimeTypeProps, MultiTypeInputValue } from '@wings-software/uikit'
+import { ExpressionAndRuntimeType, ExpressionAndRuntimeTypeProps, MultiTypeInputValue } from '@wings-software/uicore'
 import { connect } from 'formik'
 import cx from 'classnames'
 import { get } from 'lodash-es'

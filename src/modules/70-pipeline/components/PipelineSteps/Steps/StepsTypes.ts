@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
 import type { Item as ConnectorRef } from '@common/components/ReferenceSelect/ReferenceSelect'
 
 export type MapType = { [key: string]: string }

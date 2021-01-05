@@ -7,7 +7,7 @@ import {
   FixedTypeComponentProps,
   getMultiTypeFromValue,
   MultiTypeInputType
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get } from 'lodash-es'
 import cx from 'classnames'

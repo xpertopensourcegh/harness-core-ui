@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { IconName, Layout, Popover, Text } from '@wings-software/uikit'
+import { IconName, Layout, Popover, Text } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import type { EventData } from './ActivitiesTimelineView'
 import css from './TimelineTooltip.module.scss'

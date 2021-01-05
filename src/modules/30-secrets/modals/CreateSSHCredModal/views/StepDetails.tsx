@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Text, Color, StepProps, FormikForm, Formik, Container, Layout } from '@wings-software/uikit'
+import { Button, Text, Color, StepProps, FormikForm, Formik, Container, Layout } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { SecretDTOV2 } from 'services/cd-ng'
 

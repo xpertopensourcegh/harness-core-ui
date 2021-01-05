@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, IconName } from '@wings-software/uikit'
+import { Container, IconName } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 

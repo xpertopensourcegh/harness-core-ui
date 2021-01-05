@@ -14,7 +14,7 @@ import {
   useModalHook,
   Button,
   Popover
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { Dialog, Menu } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
 import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target } from 'services/cf'

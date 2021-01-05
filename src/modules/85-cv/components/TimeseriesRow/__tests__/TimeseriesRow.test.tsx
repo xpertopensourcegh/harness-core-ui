@@ -3,8 +3,8 @@ import { renderHook } from '@testing-library/react-hooks'
 import { render } from '@testing-library/react'
 import TimeseriesRow, { useTimeseriesDetailsModal, extractTimeRange, SeriesConfig } from '../TimeseriesRow'
 
-jest.mock('@wings-software/uikit', () => ({
-  ...(jest.requireActual('@wings-software/uikit') as object),
+jest.mock('@wings-software/uicore', () => ({
+  ...(jest.requireActual('@wings-software/uicore') as object),
   useModalHook: (callback: () => React.ReactNode) => [callback, jest.fn()]
 }))
 

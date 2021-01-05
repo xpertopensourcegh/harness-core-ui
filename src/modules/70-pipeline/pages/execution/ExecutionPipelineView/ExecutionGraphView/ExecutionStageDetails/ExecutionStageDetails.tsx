@@ -1,5 +1,5 @@
 import React from 'react'
-import type { IconName } from '@wings-software/uikit'
+import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { ExecutionNode, ExecutionGraph } from 'services/pipeline-ng'

@@ -3,7 +3,7 @@
 exports[`Test Pipeline Deployment list should render deployment list 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
       class="main"
@@ -12,11 +12,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         class="lhs"
       >
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="16"
@@ -63,10 +63,10 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
             Deployments
           </span>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -78,7 +78,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main"
               disabled=""
               tabindex="-1"
               type="button"
@@ -149,11 +149,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         class="rhs"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
             icon="search"
           >
             <svg
@@ -185,7 +185,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
       class="main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+        class="bp3-card bp3-elevation-0 Card--card card"
       >
         <div
           class="icons"
@@ -193,7 +193,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
           data-ci="false"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -288,7 +288,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                         data-status="running"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps---main--1Wws icon"
+                          class="bp3-icon bp3-icon-dot StyledProps--main icon"
                           icon="dot"
                         >
                           <svg
@@ -317,7 +317,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                       data-status="running"
                     >
                       <span
-                        class="bp3-icon bp3-icon-dot StyledProps---main--1Wws icon"
+                        class="bp3-icon bp3-icon-dot StyledProps--main icon"
                         icon="dot"
                       >
                         <svg
@@ -342,7 +342,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     data-status="notstarted"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws icon"
+                      class="bp3-icon StyledProps--main icon"
                     >
                       <svg
                         fill="none"
@@ -366,7 +366,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     data-status="notstarted"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws icon"
+                      class="bp3-icon StyledProps--main icon"
                     >
                       <svg
                         fill="none"
@@ -395,7 +395,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                   data-status="success"
                 >
                   <span
-                    class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-tick-circle StyledProps--main"
                     icon="tick-circle"
                   >
                     <svg
@@ -423,7 +423,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
               class="actions"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws status notstarted StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ StyledProps---font-size-xsmall--1f9b"
+                class="StyledProps--font StyledProps--main status notstarted StyledProps--inline StyledProps--font-weight-bold StyledProps--font-size-xsmall"
               >
                 NOT STARTED
               </span>
@@ -431,11 +431,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                 class="main"
               >
                 <button
-                  class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-pause StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-pause StyledProps--main"
                     icon="pause"
                   >
                     <svg
@@ -455,11 +455,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-stop StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-stop StyledProps--main"
                     icon="stop"
                   >
                     <svg
@@ -485,11 +485,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws more"
+                      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main more"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-more StyledProps--main"
                         icon="more"
                       >
                         <svg
@@ -520,11 +520,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
               class="triggerInfo"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-user StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-user StyledProps--main StyledProps--padding-right-xsmall"
                   icon="user"
                 >
                   <svg
@@ -554,11 +554,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
               class="timers"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-time StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall"
                   icon="time"
                 >
                   <svg
@@ -580,11 +580,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                 2651w 3d 17h 12m 46s
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-calendar StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-calendar StyledProps--main StyledProps--padding-right-xsmall"
                   icon="calendar"
                 >
                   <svg
@@ -618,10 +618,10 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
       class="pagination"
     >
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>
@@ -641,7 +641,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
 exports[`Test Pipeline Deployment list should render deployment list with pipeline filter 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
+    class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
       class="main"
@@ -650,11 +650,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
         class="lhs"
       >
         <button
-          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="16"
@@ -701,10 +701,10 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
             Deployments
           </span>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -716,7 +716,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
               </span>
             </button>
             <button
-              class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main"
               disabled=""
               tabindex="-1"
               type="button"
@@ -840,11 +840,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
         class="rhs"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
             icon="search"
           >
             <svg
@@ -876,7 +876,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
       class="main"
     >
       <div
-        class="bp3-card bp3-elevation-0 Card---card--2BXa card"
+        class="bp3-card bp3-elevation-0 Card--card card"
       >
         <div
           class="icons"
@@ -884,7 +884,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
           data-ci="false"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               fill="none"
@@ -979,7 +979,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                         data-status="running"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps---main--1Wws icon"
+                          class="bp3-icon bp3-icon-dot StyledProps--main icon"
                           icon="dot"
                         >
                           <svg
@@ -1008,7 +1008,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                       data-status="running"
                     >
                       <span
-                        class="bp3-icon bp3-icon-dot StyledProps---main--1Wws icon"
+                        class="bp3-icon bp3-icon-dot StyledProps--main icon"
                         icon="dot"
                       >
                         <svg
@@ -1033,7 +1033,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     data-status="notstarted"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws icon"
+                      class="bp3-icon StyledProps--main icon"
                     >
                       <svg
                         fill="none"
@@ -1057,7 +1057,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     data-status="notstarted"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws icon"
+                      class="bp3-icon StyledProps--main icon"
                     >
                       <svg
                         fill="none"
@@ -1086,7 +1086,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                   data-status="success"
                 >
                   <span
-                    class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-tick-circle StyledProps--main"
                     icon="tick-circle"
                   >
                     <svg
@@ -1114,7 +1114,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
               class="actions"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws status notstarted StyledProps---inline--1f52 StyledProps---font-weight-bold--22XZ StyledProps---font-size-xsmall--1f9b"
+                class="StyledProps--font StyledProps--main status notstarted StyledProps--inline StyledProps--font-weight-bold StyledProps--font-size-xsmall"
               >
                 NOT STARTED
               </span>
@@ -1122,11 +1122,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                 class="main"
               >
                 <button
-                  class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-pause StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-pause StyledProps--main"
                     icon="pause"
                   >
                     <svg
@@ -1146,11 +1146,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                   </span>
                 </button>
                 <button
-                  class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-stop StyledProps---main--1Wws"
+                    class="bp3-icon bp3-icon-stop StyledProps--main"
                     icon="stop"
                   >
                     <svg
@@ -1176,11 +1176,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws more"
+                      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main more"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-more StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-more StyledProps--main"
                         icon="more"
                       >
                         <svg
@@ -1211,11 +1211,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
               class="triggerInfo"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-user StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-user StyledProps--main StyledProps--padding-right-xsmall"
                   icon="user"
                 >
                   <svg
@@ -1245,11 +1245,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
               class="timers"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-time StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall"
                   icon="time"
                 >
                   <svg
@@ -1271,11 +1271,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                 2651w 3d 17h 12m 46s
               </span>
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main StyledProps--inline"
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-calendar StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                  class="bp3-icon bp3-icon-calendar StyledProps--main StyledProps--padding-right-xsmall"
                   icon="calendar"
                 >
                   <svg
@@ -1309,10 +1309,10 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
       class="pagination"
     >
       <div
-        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
           Showing 
           <strong>

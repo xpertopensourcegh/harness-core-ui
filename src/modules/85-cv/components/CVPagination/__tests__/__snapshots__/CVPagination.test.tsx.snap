@@ -3,10 +3,10 @@
 exports[`CVPagination Matches snapshot 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+    class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
   >
     <span
-      class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+      class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
     >
       Showing 
       <strong>
@@ -23,10 +23,10 @@ exports[`CVPagination Matches snapshot 1`] = `
       </strong>
     </span>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
         type="button"
       >
         <span
@@ -36,7 +36,7 @@ exports[`CVPagination Matches snapshot 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         disabled=""
         tabindex="-1"
         type="button"

@@ -3,36 +3,36 @@
 exports[`Stepk8ClusterDetails render  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -52,15 +52,15 @@ exports[`Stepk8ClusterDetails render  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -98,10 +98,10 @@ exports[`Stepk8ClusterDetails render  1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -112,7 +112,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -133,7 +133,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -159,7 +159,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 42%;"
         >
           <div
@@ -169,14 +169,14 @@ exports[`Stepk8ClusterDetails render  1`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                  class="StyledProps--font StyledProps--main label"
                   style="height: 36px;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                   >
                     Username
                   </span>
@@ -187,7 +187,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -208,7 +208,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -264,18 +264,18 @@ exports[`Stepk8ClusterDetails render  1`] = `
               Password
             </label>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+              class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   style="align-items: center; width: 100%;"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                     style="height: 12px;"
                   >
                     <svg
@@ -311,7 +311,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 name="skipDefaultValidation"
@@ -326,7 +326,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -343,36 +343,36 @@ exports[`Stepk8ClusterDetails render  1`] = `
 exports[`Stepk8ClusterDetails render  2`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -392,15 +392,15 @@ exports[`Stepk8ClusterDetails render  2`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -443,10 +443,10 @@ exports[`Stepk8ClusterDetails render  2`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -457,7 +457,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -478,7 +478,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -504,7 +504,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 42%;"
         >
           <div
@@ -514,14 +514,14 @@ exports[`Stepk8ClusterDetails render  2`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                  class="StyledProps--font StyledProps--main label"
                   style="height: 36px;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                   >
                     Username
                   </span>
@@ -532,7 +532,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -553,7 +553,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -614,18 +614,18 @@ exports[`Stepk8ClusterDetails render  2`] = `
               Password
             </label>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+              class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   style="align-items: center; width: 100%;"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                     style="height: 12px;"
                   >
                     <svg
@@ -661,7 +661,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 name="skipDefaultValidation"
@@ -676,7 +676,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -693,36 +693,36 @@ exports[`Stepk8ClusterDetails render  2`] = `
 exports[`Stepk8ClusterDetails render  3`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -742,15 +742,15 @@ exports[`Stepk8ClusterDetails render  3`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -793,10 +793,10 @@ exports[`Stepk8ClusterDetails render  3`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -807,7 +807,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -828,7 +828,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -854,7 +854,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 42%;"
         >
           <div
@@ -864,14 +864,14 @@ exports[`Stepk8ClusterDetails render  3`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                  class="StyledProps--font StyledProps--main label"
                   style="height: 36px;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                   >
                     Username
                   </span>
@@ -882,7 +882,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -903,7 +903,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -964,18 +964,18 @@ exports[`Stepk8ClusterDetails render  3`] = `
               Password
             </label>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+              class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   style="align-items: center; width: 100%;"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                     style="height: 12px;"
                   >
                     <svg
@@ -1011,7 +1011,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 name="skipDefaultValidation"
@@ -1026,7 +1026,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -1043,36 +1043,36 @@ exports[`Stepk8ClusterDetails render  3`] = `
 exports[`Stepk8ClusterDetails render edit mode  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -1092,15 +1092,15 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -1138,10 +1138,10 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -1152,7 +1152,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -1173,7 +1173,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -1199,7 +1199,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 42%;"
         >
           <div
@@ -1209,14 +1209,14 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                class="Layout--vertical StyledProps--main"
               >
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                  class="StyledProps--font StyledProps--main label"
                   style="height: 36px;"
                 >
                   <span
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                   >
                     Username
                   </span>
@@ -1227,7 +1227,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
                           class="bp3-popover-target"
@@ -1248,7 +1248,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                 icon="caret-down"
                               >
                                 <svg
@@ -1304,18 +1304,18 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               Password
             </label>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+              class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   style="align-items: center; width: 100%;"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                     style="height: 12px;"
                   >
                     <svg
@@ -1351,7 +1351,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 checked=""
@@ -1367,7 +1367,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -1384,36 +1384,36 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
 exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -1433,15 +1433,15 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -1479,10 +1479,10 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -1493,7 +1493,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -1514,7 +1514,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -1540,7 +1540,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          class="StyledProps--font StyledProps--main"
           style="width: 42%;"
         >
           <div
@@ -1552,18 +1552,18 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               Service Account Token
             </label>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+              class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   style="align-items: center; width: 100%;"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                     style="height: 12px;"
                   >
                     <svg
@@ -1599,7 +1599,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 checked=""
@@ -1615,7 +1615,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -1632,36 +1632,36 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
 exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -1681,15 +1681,15 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -1727,10 +1727,10 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -1741,7 +1741,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -1762,7 +1762,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -1794,7 +1794,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 checked=""
@@ -1810,7 +1810,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span
@@ -1827,36 +1827,36 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
 exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
       Cluster Details
     </p>
     <form>
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+        class="StyledProps--font StyledProps--main clusterWrapper"
       >
         <div
           class="cardRow"
         >
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
             data-index="0"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+              class="StyledProps--font StyledProps--main card selectedCard"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Manually enter master url and credentials
               </span>
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                class="bp3-icon StyledProps--main StyledProps--margin-small"
               >
                 <svg
                   height="16"
@@ -1876,15 +1876,15 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
             data-index="1"
             tabindex="0"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+              class="StyledProps--font StyledProps--main card"
             >
               <span
-                class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
                 Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
               </span>
@@ -1922,10 +1922,10 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws authHeaderRow"
+          class="StyledProps--font StyledProps--main authHeaderRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws authTitle StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
           >
             Authentication
           </span>
@@ -1936,7 +1936,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                class="bp3-popover-wrapper Select--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -1957,7 +1957,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                         icon="caret-down"
                       >
                         <svg
@@ -2012,10 +2012,10 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws applyFlex"
+          class="StyledProps--font StyledProps--main applyFlex"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
             style="width: 42%;"
           >
             <div
@@ -2025,14 +2025,14 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  class="Layout--vertical StyledProps--main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws label"
+                    class="StyledProps--font StyledProps--main label"
                     style="height: 36px;"
                   >
                     <span
-                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-top-small--1-XA StyledProps---inline--1f52"
+                      class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
                     >
                       OIDC Username
                     </span>
@@ -2043,7 +2043,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                         class="bp3-form-content"
                       >
                         <div
-                          class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
                             class="bp3-popover-target"
@@ -2064,7 +2064,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
                                   icon="caret-down"
                                 >
                                   <svg
@@ -2120,18 +2120,18 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 OIDC Password
               </label>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                 type="button"
               >
                 <span
                   class="bp3-button-text"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                     style="align-items: center; width: 100%;"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                       style="height: 12px;"
                     >
                       <svg
@@ -2161,7 +2161,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-left-xxlarge--1iLS"
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-left-xxlarge"
             style="width: 42%;"
           >
             <div
@@ -2173,18 +2173,18 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 OIDC Client ID
               </label>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                 type="button"
               >
                 <span
                   class="bp3-button-text"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                     style="align-items: center; width: 100%;"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                       style="height: 12px;"
                     >
                       <svg
@@ -2221,18 +2221,18 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 OIDC Secret
               </label>
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
                 type="button"
               >
                 <span
                   class="bp3-button-text"
                 >
                   <div
-                    class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                     style="align-items: center; width: 100%;"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                       style="height: 12px;"
                     >
                       <svg
@@ -2298,7 +2298,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
                 checked=""
@@ -2314,7 +2314,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
         type="submit"
       >
         <span

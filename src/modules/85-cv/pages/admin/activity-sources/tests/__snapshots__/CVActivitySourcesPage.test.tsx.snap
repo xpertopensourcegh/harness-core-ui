@@ -3,7 +3,7 @@
 exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is rendered correctly 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
       class="breadcrumbs"
@@ -28,13 +28,13 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
       </div>
     </div>
     <div
-      class="TextInput---main--1ytZ"
+      class="TextInput--main"
     >
       <div
         class="bp3-input-group search"
       >
         <span
-          class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+          class="bp3-icon bp3-icon-search StyledProps--main"
           icon="search"
         >
           <svg
@@ -62,13 +62,13 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+      class="StyledProps--font StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -93,7 +93,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           >
             Name
             <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
             >
               <svg
@@ -129,7 +129,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           >
             Number of Services
             <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
             >
               <svg
@@ -157,7 +157,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           >
             Number of Environments
             <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
             >
               <svg
@@ -185,7 +185,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           >
             Created on
             <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
             >
               <svg
@@ -213,7 +213,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           >
             Last Updated on
             <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
             >
               <svg
@@ -243,7 +243,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               kube_activitySource
@@ -255,7 +255,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             />
           </div>
           <div
@@ -264,7 +264,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               0
@@ -276,7 +276,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               0
@@ -288,7 +288,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               Dec 1, 2020 6:07 pm
@@ -300,10 +300,10 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+              class="StyledProps--font StyledProps--main StyledProps--flex"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Dec 1, 2020 6:07 pm
               </p>
@@ -314,11 +314,11 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-grey350"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="16"
@@ -350,7 +350,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               cd_1.0_source
@@ -362,7 +362,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
             />
           </div>
           <div
@@ -371,7 +371,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               0
@@ -383,7 +383,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               0
@@ -395,7 +395,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
               Dec 2, 2020 6:06 pm
@@ -407,10 +407,10 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+              class="StyledProps--font StyledProps--main StyledProps--flex"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Dec 2, 2020 6:06 pm
               </p>
@@ -421,11 +421,11 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-grey350"
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps---main--1Wws"
+                      class="bp3-icon StyledProps--main"
                     >
                       <svg
                         height="16"
@@ -448,10 +448,10 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           </div>
         </div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+          class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
           >
             Showing 
             <strong>

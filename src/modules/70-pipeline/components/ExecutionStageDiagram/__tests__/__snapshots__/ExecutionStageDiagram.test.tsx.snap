@@ -39,11 +39,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           style="top: 15px; left: 1200px; width: 480px;"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-minus StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-minus StyledProps--main"
               icon="minus"
             >
               <svg
@@ -63,7 +63,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </span>
           </button>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             Step Group HTTP
              
@@ -87,11 +87,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="11111111-1111-4111-9111-111111111111"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -123,11 +123,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="11111111-1111-4111-9111-111111111111"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -165,7 +165,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
             >
               <span
-                class="bp3-icon bp3-icon-barcode StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-barcode StyledProps--main"
                 icon="barcode"
               >
                 <svg
@@ -195,11 +195,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="barcode"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -233,11 +233,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="barcode"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -261,7 +261,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-normal--3yZj StyledProps---font-align-center--22lb StyledProps---padding-xsmall---5eB"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
               style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
             >
               barcode
@@ -291,7 +291,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             >
               <div>
                 <span
-                  class="bp3-icon bp3-icon-play StyledProps---main--1Wws icon"
+                  class="bp3-icon bp3-icon-play StyledProps--main icon"
                   icon="play"
                 >
                   <svg
@@ -322,11 +322,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                         data-nodeid="start-new"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-circle StyledProps--main"
                             icon="circle"
                           >
                             <svg
@@ -370,7 +370,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="28"
@@ -402,11 +402,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="qaStage"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -440,11 +440,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="qaStage"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -467,7 +467,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
               <span
-                class="bp3-icon StyledProps---main--1Wws secondaryIcon"
+                class="bp3-icon StyledProps--main secondaryIcon"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -486,7 +486,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-normal--3yZj StyledProps---font-align-center--22lb StyledProps---padding-xsmall---5eB"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
               style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
             >
               qa stage
@@ -511,11 +511,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$-$node$parallel1-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -547,11 +547,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$-$node$parallel1-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -589,7 +589,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="28"
@@ -621,11 +621,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="parallel1"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -659,11 +659,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="parallel1"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -686,7 +686,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
               <span
-                class="bp3-icon StyledProps---main--1Wws secondaryIcon"
+                class="bp3-icon StyledProps--main secondaryIcon"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -719,7 +719,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-normal--3yZj StyledProps---font-align-center--22lb StyledProps---padding-xsmall---5eB"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
               style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
             >
               Parallel 1
@@ -740,7 +740,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="28"
@@ -772,11 +772,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="parallel3"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -810,11 +810,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="parallel3"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -837,7 +837,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
               <span
-                class="bp3-icon StyledProps---main--1Wws secondaryIcon StyledProps---color--8PuS StyledProps---color-green450--3otf"
+                class="bp3-icon StyledProps--main secondaryIcon StyledProps--color StyledProps--color-green450"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -858,7 +858,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-normal--3yZj StyledProps---font-align-center--22lb StyledProps---padding-xsmall---5eB"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
               style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
             >
               Parallel 2
@@ -883,11 +883,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$parallel1$node$-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -919,11 +919,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$parallel1$node$-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -961,7 +961,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws"
+                class="bp3-icon StyledProps--main"
               >
                 <svg
                   height="28"
@@ -993,11 +993,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="stage2"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -1031,11 +1031,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="stage2"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -1059,7 +1059,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </div>
             </div>
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-normal--3yZj StyledProps---font-align-center--22lb StyledProps---padding-xsmall---5eB"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
               style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
             >
               stage 2
@@ -1079,7 +1079,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             >
               <div>
                 <span
-                  class="bp3-icon bp3-icon-stop StyledProps---main--1Wws icon"
+                  class="bp3-icon bp3-icon-stop StyledProps--main icon"
                   icon="stop"
                 >
                   <svg
@@ -1113,11 +1113,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                         data-nodeid="stop-node"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                            class="bp3-icon bp3-icon-circle StyledProps--main"
                             icon="circle"
                           >
                             <svg
@@ -1167,11 +1167,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           style="top: -17px; left: 920px; width: 1040px;"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-minus StyledProps---main--1Wws"
+              class="bp3-icon bp3-icon-minus StyledProps--main"
               icon="minus"
             >
               <svg
@@ -1191,7 +1191,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </span>
           </button>
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           >
             service
              
@@ -1215,11 +1215,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="11111111-1111-4111-9111-111111111111"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -1251,11 +1251,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="11111111-1111-4111-9111-111111111111"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                     type="button"
                   >
                     <span
-                      class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
                       icon="circle"
                     >
                       <svg
@@ -1293,7 +1293,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
             >
               <span
-                class="bp3-icon bp3-icon-badge StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-badge StyledProps--main"
                 icon="badge"
               >
                 <svg
@@ -1323,11 +1323,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="badge"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -1361,11 +1361,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                     data-nodeid="badge"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws portBtn StyledProps---intent-primary--2Xgi"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main portBtn StyledProps--intent-primary"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-circle StyledProps---main--1Wws"
+                        class="bp3-icon bp3-icon-circle StyledProps--main"
                         icon="circle"
                       >
                         <svg
@@ -1388,7 +1388,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
               <span
-                class="bp3-icon StyledProps---main--1Wws secondaryIcon"
+                class="bp3-icon StyledProps--main secondaryIcon"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -1408,7 +1408,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-normal--3yZj StyledProps---font-align-center--22lb StyledProps---padding-xsmall---5eB"
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
               style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
             >
               Badge
@@ -1427,7 +1427,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
       />
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws stageSelection"
+      class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main stageSelection"
     >
       <span
         class="bp3-popover-wrapper"
@@ -1439,11 +1439,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             class=""
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---round--1j3h StyledProps---main--1Wws"
+              class="bp3-button StyledProps--font Button--button Button--round StyledProps--main"
               type="button"
             >
               <span
-                class="bp3-icon bp3-icon-add StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                class="bp3-icon bp3-icon-add StyledProps--main StyledProps--padding-right-xsmall"
                 icon="add"
               >
                 <svg
@@ -1467,7 +1467,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 QA
               </span>
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main"
                 icon="caret-down"
               >
                 <svg
@@ -1503,11 +1503,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
       class="canvasButtons"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         id="button-group"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+          class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
         >
           <span
             class="bp3-popover-wrapper"
@@ -1516,12 +1516,12 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"
@@ -1538,7 +1538,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           </span>
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+          class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
         >
           <span
             class="bp3-popover-wrapper"
@@ -1547,12 +1547,12 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-icon StyledProps--main"
                 >
                   <svg
                     height="16"
@@ -1572,7 +1572,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           class="verticalButtons"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
           >
             <span
               class="bp3-popover-wrapper"
@@ -1581,12 +1581,12 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="16"
@@ -1608,12 +1608,12 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
                   <span
-                    class="bp3-icon StyledProps---main--1Wws"
+                    class="bp3-icon StyledProps--main"
                   >
                     <svg
                       height="16"

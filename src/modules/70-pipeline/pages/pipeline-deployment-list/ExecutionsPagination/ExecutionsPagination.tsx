@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pagination } from '@wings-software/uikit'
+import { Pagination } from '@wings-software/uicore'
 import type { PagePipelineExecutionSummary } from 'services/pipeline-ng'
 import { useUpdateQueryParams } from '@common/hooks'
 

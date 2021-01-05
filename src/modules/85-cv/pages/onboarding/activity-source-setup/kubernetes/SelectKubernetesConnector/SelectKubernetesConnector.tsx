@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, FormikForm, Container, Text } from '@wings-software/uikit'
+import { Formik, FormikForm, Container, Text } from '@wings-software/uicore'
 import { object as yupObject } from 'yup'
 import {
   ConnectorSelection,

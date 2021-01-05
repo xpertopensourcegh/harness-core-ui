@@ -1,6 +1,6 @@
 import type { SplunkSavedSearch } from '@wings-software/swagger-ts/definitions'
-import type { SelectOption } from '@wings-software/uikit'
-import { Utils } from '@wings-software/uikit'
+import type { SelectOption } from '@wings-software/uicore'
+import { Utils } from '@wings-software/uicore'
 import cloneDeep from 'lodash/cloneDeep'
 import type { YAxisOptions, XAxisOptions } from 'highcharts'
 import type { DSConfig } from 'services/cv'

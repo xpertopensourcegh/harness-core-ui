@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Text, Color, Container, Button, Layout, SparkChart, CardBody, Tag } from '@wings-software/uikit'
+import { Card, Text, Color, Container, Button, Layout, SparkChart, CardBody, Tag } from '@wings-software/uicore'
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useConfirmationDialog, useToaster } from '@common/exports'

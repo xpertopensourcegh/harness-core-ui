@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Icon, Tag } from '@wings-software/uikit'
+import { Button, Icon, Tag } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { isEmpty } from 'lodash-es'

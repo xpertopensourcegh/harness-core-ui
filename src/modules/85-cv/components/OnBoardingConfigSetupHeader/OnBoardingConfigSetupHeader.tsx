@@ -1,7 +1,7 @@
 import React from 'react'
-import { Container, Heading, Icon, HarnessIcons } from '@wings-software/uikit'
+import { Container, Heading, Icon, HarnessIcons } from '@wings-software/uicore'
 
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import css from './OnBoardingConfigSetupHeader.module.scss'
 
 interface OnBoardingConfigSetupHeaderProps {

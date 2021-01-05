@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react'
-import { Color, Icon } from '@wings-software/uikit'
-import type { IconName } from '@wings-software/uikit'
+import { Color, Icon } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
 import { isUndefined, range } from 'lodash-es'
 import css from './Wizard.module.scss'
 

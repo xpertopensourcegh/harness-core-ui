@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import cx from 'classnames'
-import { Container, TextInput, Button, Layout, Text } from '@wings-software/uikit'
+import { Container, TextInput, Button, Layout, Text } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce } from 'lodash-es'
 import { PageSpinner } from '@common/components/Page/PageSpinner'

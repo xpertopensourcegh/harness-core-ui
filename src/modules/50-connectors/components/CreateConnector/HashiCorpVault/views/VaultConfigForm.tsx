@@ -10,7 +10,7 @@ import {
   ModalErrorHandler,
   Container,
   Text
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 

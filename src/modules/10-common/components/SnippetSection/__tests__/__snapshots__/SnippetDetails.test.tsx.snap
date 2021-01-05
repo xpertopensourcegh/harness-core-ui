@@ -23,7 +23,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
         class="searchIcon"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="20"
@@ -55,7 +55,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           class="icon"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="25"
@@ -115,7 +115,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
               tabindex="0"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws snippetIcon"
+                class="bp3-icon StyledProps--main snippetIcon"
               >
                 <svg
                   height="20"
@@ -147,7 +147,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           class="icon"
         >
           <span
-            class="bp3-icon StyledProps---main--1Wws"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="25"
@@ -207,7 +207,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
               tabindex="0"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws snippetIcon"
+                class="bp3-icon StyledProps--main snippetIcon"
               >
                 <svg
                   height="20"
@@ -260,7 +260,7 @@ exports[`Snippet Test Search a snippet 1`] = `
         class="searchIcon"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="20"
@@ -284,7 +284,7 @@ exports[`Snippet Test Search a snippet 1`] = `
         class="closeIcon"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws"
+          class="bp3-icon StyledProps--main"
         >
           <svg
             height="10"

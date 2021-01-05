@@ -11,7 +11,7 @@ import {
   Text,
   Color,
   DateInput
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import i18n from './FlagFilterDrawer.i18n'
 import css from './FlagFilterDrawer.module.scss'
 

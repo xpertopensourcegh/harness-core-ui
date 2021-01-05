@@ -3,28 +3,28 @@
 exports[`Delegates Page click of new delegate button 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
     >
       <h2
-        class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
         level="2"
       >
         Delegates
       </h2>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody listBody"
+      class="StyledProps--font StyledProps--main pageBody listBody"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         id="delegateButton"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
           icon="plus"
         >
           <svg
@@ -56,28 +56,28 @@ exports[`Delegates Page click of new delegate button 1`] = `
 exports[`Delegates Page render data 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps--font StyledProps--main"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
     >
       <h2
-        class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
         level="2"
       >
         Delegates
       </h2>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody listBody"
+      class="StyledProps--font StyledProps--main pageBody listBody"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         id="delegateButton"
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-plus StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
           icon="plus"
         >
           <svg

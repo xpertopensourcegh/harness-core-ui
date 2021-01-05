@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

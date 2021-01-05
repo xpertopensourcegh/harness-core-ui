@@ -3,18 +3,18 @@
 exports[`Default Renderer test initializes ok  1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws started StyledProps---padding-top-medium--29t2 StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv StyledProps---border--uz_- StyledProps---border-top--3_3E StyledProps---border-bottom--6lR5"
+    class="Layout--vertical StyledProps--main started StyledProps--padding-top-medium StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--border StyledProps--border-top StyledProps--border-bottom"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr StyledProps---padding-bottom-xsmall--iU1g"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
     >
       No modules enabled
     </p>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
       <span
-        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+        class="bp3-icon StyledProps--main grayOutIcons"
       >
         <svg
           fill="none"
@@ -49,7 +49,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+        class="bp3-icon StyledProps--main grayOutIcons"
       >
         <svg
           fill="none"
@@ -84,7 +84,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+        class="bp3-icon StyledProps--main grayOutIcons"
       >
         <svg
           fill="none"
@@ -119,7 +119,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+        class="bp3-icon StyledProps--main grayOutIcons"
       >
         <svg
           fill="none"
@@ -154,7 +154,7 @@ exports[`Default Renderer test initializes ok  1`] = `
         </svg>
       </span>
       <span
-        class="bp3-icon StyledProps---main--1Wws grayOutIcons"
+        class="bp3-icon StyledProps--main grayOutIcons"
       >
         <svg
           fill="none"

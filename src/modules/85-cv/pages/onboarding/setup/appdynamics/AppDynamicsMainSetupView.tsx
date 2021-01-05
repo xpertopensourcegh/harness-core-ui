@@ -9,11 +9,11 @@ import {
   Link,
   MultiSelectOption,
   SelectProps
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import xhr from '@wings-software/xhr-async'
 import { FieldArray, FormikProps, Formik } from 'formik'
 import type { IDBPDatabase } from 'idb'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useParams } from 'react-router-dom'
 import type { MetricPack, DSConfig } from 'services/cv'
 import { AppDynamicsService } from '@cv/services'

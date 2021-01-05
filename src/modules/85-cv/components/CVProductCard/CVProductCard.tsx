@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Card, CardBody, IconName, Container } from '@wings-software/uikit'
+import { Card, CardBody, IconName, Container } from '@wings-software/uicore'
 import css from './CVProductCard.module.scss'
 
 export interface TypeCard {

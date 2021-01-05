@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { Container, Color } from '@wings-software/uikit'
+import { Container, Color } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts, { SeriesColumnOptions } from 'highcharts'
 import type { DateRange } from '@blueprintjs/datetime'

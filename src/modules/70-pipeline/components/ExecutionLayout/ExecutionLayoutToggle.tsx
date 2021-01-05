@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Icon, IconName } from '@wings-software/uikit'
+import { Icon, IconName } from '@wings-software/uicore'
 
 import { ExecutionLayoutState, useExecutionLayoutContext } from './ExecutionLayoutContext'
 

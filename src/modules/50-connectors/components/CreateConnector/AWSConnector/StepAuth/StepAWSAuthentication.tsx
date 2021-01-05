@@ -11,7 +11,7 @@ import {
   FormikForm as Form,
   StepProps,
   Color
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import {

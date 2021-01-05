@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Container, Color, Text, Icon, SelectOption } from '@wings-software/uikit'
+import { Container, Color, Text, Icon, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cloneDeep from 'lodash-es/cloneDeep'
 import type { CellProps } from 'react-table'

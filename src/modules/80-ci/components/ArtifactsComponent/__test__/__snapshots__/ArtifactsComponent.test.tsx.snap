@@ -6,19 +6,19 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
     class="main"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---main--1T7V"
+        class="StyledProps--font StyledProps--main CollapseListPanel--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU"
+          class="StyledProps--font StyledProps--main CollapseHeader--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+            class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               <svg
                 height="10"
@@ -32,10 +32,10 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---color--8PuS StyledProps---color-grey900--39kq StyledProps---font-weight-semi-bold--QRXr"
+              class="StyledProps--font StyledProps--main heading StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
               >
                 <svg
                   height="16"
@@ -59,11 +59,11 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           />
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---collapse--1-R3"
+          class="StyledProps--font StyledProps--main CollapseListPanel--collapse"
         >
           <div
             class="bp3-collapse"
@@ -78,19 +78,19 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---main--1T7V"
+        class="StyledProps--font StyledProps--main CollapseListPanel--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU"
+          class="StyledProps--font StyledProps--main CollapseHeader--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+            class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               <svg
                 height="10"
@@ -104,10 +104,10 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---color--8PuS StyledProps---color-grey900--39kq StyledProps---font-weight-semi-bold--QRXr"
+              class="StyledProps--font StyledProps--main heading StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
               >
                 <svg
                   height="16"
@@ -131,11 +131,11 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           />
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---collapse--1-R3"
+          class="StyledProps--font StyledProps--main CollapseListPanel--collapse"
         >
           <div
             class="bp3-collapse"
@@ -150,19 +150,19 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---main--1T7V"
+        class="StyledProps--font StyledProps--main CollapseListPanel--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU"
+          class="StyledProps--font StyledProps--main CollapseHeader--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+            class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               <svg
                 height="10"
@@ -176,10 +176,10 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---color--8PuS StyledProps---color-grey900--39kq StyledProps---font-weight-semi-bold--QRXr"
+              class="StyledProps--font StyledProps--main heading StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
               >
                 <svg
                   height="16"
@@ -203,11 +203,11 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           />
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---collapse--1-R3"
+          class="StyledProps--font StyledProps--main CollapseListPanel--collapse"
         >
           <div
             class="bp3-collapse"
@@ -222,19 +222,19 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---main--1T7V"
+        class="StyledProps--font StyledProps--main CollapseListPanel--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU"
+          class="StyledProps--font StyledProps--main CollapseHeader--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+            class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               <svg
                 height="10"
@@ -248,10 +248,10 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---color--8PuS StyledProps---color-grey900--39kq StyledProps---font-weight-semi-bold--QRXr"
+              class="StyledProps--font StyledProps--main heading StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
               >
                 <svg
                   height="16"
@@ -275,11 +275,11 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           />
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---collapse--1-R3"
+          class="StyledProps--font StyledProps--main CollapseListPanel--collapse"
         >
           <div
             class="bp3-collapse"
@@ -294,19 +294,19 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---main--1T7V"
+        class="StyledProps--font StyledProps--main CollapseListPanel--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU"
+          class="StyledProps--font StyledProps--main CollapseHeader--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+            class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               <svg
                 height="10"
@@ -320,10 +320,10 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---color--8PuS StyledProps---color-grey900--39kq StyledProps---font-weight-semi-bold--QRXr"
+              class="StyledProps--font StyledProps--main heading StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
               >
                 <svg
                   height="16"
@@ -347,11 +347,11 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           />
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---collapse--1-R3"
+          class="StyledProps--font StyledProps--main CollapseListPanel--collapse"
         >
           <div
             class="bp3-collapse"
@@ -366,19 +366,19 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---main--1T7V"
+        class="StyledProps--font StyledProps--main CollapseListPanel--main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU"
+          class="StyledProps--font StyledProps--main CollapseHeader--main"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+            class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
               <svg
                 height="10"
@@ -392,10 +392,10 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws heading StyledProps---color--8PuS StyledProps---color-grey900--39kq StyledProps---font-weight-semi-bold--QRXr"
+              class="StyledProps--font StyledProps--main heading StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
               >
                 <svg
                   height="16"
@@ -419,11 +419,11 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             </p>
           </div>
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps--font StyledProps--main"
           />
         </div>
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseListPanel---collapse--1-R3"
+          class="StyledProps--font StyledProps--main CollapseListPanel--collapse"
         >
           <div
             class="bp3-collapse"

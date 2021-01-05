@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Color, Icon, Layout, Text } from '@wings-software/uikit'
+import { Button, Card, Color, Icon, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { getModuleDescription, getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'

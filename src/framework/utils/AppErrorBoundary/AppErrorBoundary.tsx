@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Container } from '@wings-software/uikit'
+import { Text, Layout, Container } from '@wings-software/uicore'
 
 import i18n from './AppErrorBoundary.i18n.json'
 

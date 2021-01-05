@@ -1,4 +1,4 @@
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import React, { useEffect, useMemo } from 'react'
 import type { SeriesColumnOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'

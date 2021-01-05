@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Tabs, Tab } from '@blueprintjs/core'
 import { pick } from 'lodash-es'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uikit'
+import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uicore'
 import { Menu, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'

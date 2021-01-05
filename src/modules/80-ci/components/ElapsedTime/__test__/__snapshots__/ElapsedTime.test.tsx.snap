@@ -6,7 +6,7 @@ exports[`ElapsedTime snapshot test should render properly 1`] = `
     class="elapsedTime"
   >
     <span
-      class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
     >
       <svg
         height="14"
@@ -22,7 +22,7 @@ exports[`ElapsedTime snapshot test should render properly 1`] = `
       </svg>
     </span>
     <span
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---font-size-small--3cA6 StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
     >
       1s
     </span>

@@ -13,7 +13,7 @@ import {
   Layout,
   Text,
   Container
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import _cloneDeep from 'lodash/cloneDeep'
 import cx from 'classnames'
 import { useToaster } from '@common/exports'

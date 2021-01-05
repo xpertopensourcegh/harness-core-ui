@@ -14,13 +14,13 @@ exports[`Activity Stack test initializes ok  1`] = `
           tabindex="0"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws alignCenter"
+            class="Layout--horizontal StyledProps--main alignCenter"
           >
             <div
               class="circle"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws icon"
+                class="bp3-icon StyledProps--main icon"
               >
                 <svg
                   fill="none"
@@ -56,15 +56,15 @@ exports[`Activity Stack test initializes ok  1`] = `
               </span>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+              class="Layout--vertical StyledProps--main StyledProps--padding-xsmall"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-normal--3w1_ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-black"
               >
                 Lawrence Wilfred
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
                 10 minutes ago
               </p>
@@ -89,13 +89,13 @@ exports[`Activity Stack test initializes ok  1`] = `
           tabindex="0"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws alignCenter"
+            class="Layout--horizontal StyledProps--main alignCenter"
           >
             <div
               class="circle"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws icon"
+                class="bp3-icon StyledProps--main icon"
               >
                 <svg
                   fill="none"
@@ -131,15 +131,15 @@ exports[`Activity Stack test initializes ok  1`] = `
               </span>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+              class="Layout--vertical StyledProps--main StyledProps--padding-xsmall"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-normal--3w1_ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-black"
               >
                 Olivia Dunham
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
                 20 minutes ago
               </p>
@@ -164,13 +164,13 @@ exports[`Activity Stack test initializes ok  1`] = `
           tabindex="0"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws alignCenter"
+            class="Layout--horizontal StyledProps--main alignCenter"
           >
             <div
               class="circle"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws icon"
+                class="bp3-icon StyledProps--main icon"
               >
                 <svg
                   fill="none"
@@ -206,15 +206,15 @@ exports[`Activity Stack test initializes ok  1`] = `
               </span>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+              class="Layout--vertical StyledProps--main StyledProps--padding-xsmall"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-normal--3w1_ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-black"
               >
                 Reetika Mallavarapu
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
                 30 minutes ago
               </p>
@@ -239,13 +239,13 @@ exports[`Activity Stack test initializes ok  1`] = `
           tabindex="0"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws alignCenter"
+            class="Layout--horizontal StyledProps--main alignCenter"
           >
             <div
               class="circle"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws icon"
+                class="bp3-icon StyledProps--main icon"
               >
                 <svg
                   fill="none"
@@ -281,15 +281,15 @@ exports[`Activity Stack test initializes ok  1`] = `
               </span>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+              class="Layout--vertical StyledProps--main StyledProps--padding-xsmall"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-normal--3w1_ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-black"
               >
                 Lawrence Wilfred
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
                 40 minutes ago
               </p>
@@ -314,13 +314,13 @@ exports[`Activity Stack test initializes ok  1`] = `
           tabindex="0"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws alignCenter"
+            class="Layout--horizontal StyledProps--main alignCenter"
           >
             <div
               class="circle"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws icon"
+                class="bp3-icon StyledProps--main icon"
               >
                 <svg
                   fill="none"
@@ -356,15 +356,15 @@ exports[`Activity Stack test initializes ok  1`] = `
               </span>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+              class="Layout--vertical StyledProps--main StyledProps--padding-xsmall"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-normal--3w1_ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-black"
               >
                 Lawrence Wilfred
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
                 40 minutes ago
               </p>
@@ -389,13 +389,13 @@ exports[`Activity Stack test initializes ok  1`] = `
           tabindex="0"
         >
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws alignCenter"
+            class="Layout--horizontal StyledProps--main alignCenter"
           >
             <div
               class="circle"
             >
               <span
-                class="bp3-icon StyledProps---main--1Wws icon"
+                class="bp3-icon StyledProps--main icon"
               >
                 <svg
                   fill="none"
@@ -431,15 +431,15 @@ exports[`Activity Stack test initializes ok  1`] = `
               </span>
             </div>
             <div
-              class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+              class="Layout--vertical StyledProps--main StyledProps--padding-xsmall"
             >
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-normal--3w1_ StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-black"
               >
                 Olivia Dunham
               </p>
               <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz"
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
                 20 minutes ago
               </p>

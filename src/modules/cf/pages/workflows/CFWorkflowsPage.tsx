@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import { Text } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 
 const CFWorkflowsPage: React.FC = () => {

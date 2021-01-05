@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, Color, MultiLogsViewer } from '@wings-software/uikit'
+import { Text, Color, MultiLogsViewer } from '@wings-software/uicore'
 import LogsHeader from './LogsHeader'
 import Summary from './Summary'
 

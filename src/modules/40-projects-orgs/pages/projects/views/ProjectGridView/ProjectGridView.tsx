@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Layout, Pagination } from '@wings-software/uikit'
+import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Project, useGetProjectAggregateDTOList, ProjectAggregateDTO } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'

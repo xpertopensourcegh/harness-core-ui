@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Layout, Text } from '@wings-software/uikit'
+import { Container, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COGatewayBasics from '@ce/components/COGatewayBasics/COGatewayBasics'

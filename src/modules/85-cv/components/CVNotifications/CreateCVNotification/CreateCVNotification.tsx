@@ -10,7 +10,7 @@ import {
   Layout,
   Text,
   Color
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/exports'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import cx from 'classnames'
-import { Text, FormInput, Card, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uikit'
+import { Text, FormInput, Card, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { FieldArray, connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'

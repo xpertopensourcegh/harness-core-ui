@@ -3,83 +3,83 @@
 exports[`Saved Connector Details render for AWS schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           AWS Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             AWS demo
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             connector description
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             AWS_demo
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Tags
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -92,7 +92,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
             </span>
           </span>
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -108,98 +108,98 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Credential Type
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             InheritFromDelegate
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Delegate Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             primary
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           STS Role enabled
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             true
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Role ARN
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             dummyRoleARN
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           External Id
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             12345
           </span>
@@ -213,47 +213,47 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
 exports[`Saved Connector Details render for Artifactory schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Artifactory Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Artifacory One
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Artifacory_One
           </span>
@@ -261,80 +261,80 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Artifactory Server Url
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             https://test-repo.blackducksoftware.com/artifactory/
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Credential Type
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Username and Password
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Username
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             harness-dev
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Password
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
           >
             encrypted
           </span>
@@ -348,83 +348,83 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
 exports[`Saved Connector Details render for Docker schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             DockerName
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for Docker
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             DockerId
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Tags
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -440,10 +440,10 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
@@ -455,83 +455,83 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
 exports[`Saved Connector Details render for GCP schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           GCP Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GCP for demo
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Details
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GCP_for_demo
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Tags
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -544,7 +544,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
             </span>
           </span>
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -560,44 +560,44 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Credential Type
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             ManualConfig
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Password
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
           >
             encrypted
           </span>
@@ -611,83 +611,83 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
 exports[`Saved Connector Details render for GitHttp schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           GIT Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GitHttpName
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for Git
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             GitHttpId
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Tags
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -703,98 +703,98 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Configured
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             REPO
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Connection Type
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             HTTP
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           URL
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             url
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Username
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             user name
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Password
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
           >
             encrypted
           </span>
@@ -808,83 +808,83 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
 exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Kubernetes Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             K8sName
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for K8s
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             k8sId
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Tags
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -900,44 +900,44 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Connection Mode
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Harness Delegate running In-Cluster
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Delegate Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             kubernetes
           </span>
@@ -951,65 +951,65 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Kubernetes Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             K8sName
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for K8s
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             k8sId
           </span>
@@ -1017,98 +1017,98 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Connection Mode
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Harness Delegate running Out-of-Cluster
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Master URL
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             master url
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Credential Type
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Username and Password
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Username
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             user name
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Password
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
           >
             encrypted
           </span>
@@ -1122,65 +1122,65 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 exports[`Saved Connector Details render for Nexus schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Nexus Connector Name
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Nexus one
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             testing nexus connector
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Nexus_one
           </span>
@@ -1188,98 +1188,98 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Nexus Server Url
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             https://nexus2.harness.io
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Version
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             3.x
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Credential Type
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             Username and Password
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Username
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             dev
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Password
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
           >
             encrypted
           </span>
@@ -1293,83 +1293,83 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
 exports[`Saved Connector Details render for Vault schema 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+    class="StyledProps--font StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Overview
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             VaultName
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Description
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             This description is for Vault
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Identifier
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
             VaultId
           </span>
         </div>
       </div>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
           Tags
         </p>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="Tag---main--1vng"
+            class="Tag--main"
           >
             <span
               class="bp3-tag bp3-minimal"
@@ -1385,10 +1385,10 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+      class="StyledProps--font StyledProps--main detailsSection"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
         Credentials
       </p>
@@ -1400,70 +1400,70 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
 exports[`Saved Connector Details render for connector activity details 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    class="StyledProps--font StyledProps--main detailsSection"
   >
     <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
     >
       Connector Activity
     </p>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
         Connector Created
       </p>
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
         >
           09/27/2020 09:29 am
         </span>
       </div>
     </div>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
         Last Updated
       </p>
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
         >
           09/27/2020 09:30 am
         </span>
       </div>
     </div>
     <div
-      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
         Last Tested
       </p>
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
       >
         <span
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
         >
           09/27/2020 09:30 am
         </span>
         <div
-          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <span
-            class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+            class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-red500"
             icon="warning-sign"
           >
             <svg
@@ -1482,7 +1482,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
             </svg>
           </span>
           <span
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+            class="StyledProps--font StyledProps--main StyledProps--inline"
           >
             Failed
           </span>

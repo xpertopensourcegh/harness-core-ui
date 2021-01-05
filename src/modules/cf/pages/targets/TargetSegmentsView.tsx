@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Spinner } from '@blueprintjs/core'
-import { Container, Button, Layout, Text } from '@wings-software/uikit'
+import { Container, Button, Layout, Text } from '@wings-software/uicore'
 import type { Column } from 'react-table'
 import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'

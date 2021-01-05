@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Container, Text, Intent } from '@wings-software/uikit'
+import { Container, Text, Intent } from '@wings-software/uicore'
 import cx from 'classnames'
 import css from './DataSourcePanelStatusHeader.module.scss'
 

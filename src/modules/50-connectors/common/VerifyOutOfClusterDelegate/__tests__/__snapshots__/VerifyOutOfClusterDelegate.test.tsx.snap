@@ -3,14 +3,14 @@
 exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+    class="Layout--vertical StyledProps--main StyledProps--padding-small"
     style="height: 100%;"
   >
     <div
-      class="Layout---vertical--3Szv StyledProps---main--1Wws"
+      class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
       >
         Verify Connection to 
          
@@ -19,14 +19,14 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         />
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
         id="steps-progress"
       >
         <div
-          class="StepsProgress---progressBar--2_Dp"
+          class="StepsProgress--progressBar"
         >
           <div
-            class="bp3-progress-bar bp3-intent-success bp3-no-stripes StepsProgress---progressHeight--3zU4"
+            class="bp3-progress-bar bp3-intent-success bp3-no-stripes StepsProgress--progressHeight"
           >
             <div
               class="bp3-progress-meter"
@@ -35,13 +35,13 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           </div>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         >
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--margin-right-small"
               icon="tick"
             >
               <svg
@@ -60,17 +60,17 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: bold;"
             >
               1 delegate found
             </p>
           </div>
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
             >
               <svg
                 height="16"
@@ -129,17 +129,17 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: bold;"
             >
               Establishing Connection between Delegate and Connector
             </p>
           </div>
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
               icon="blank"
             >
               <svg
@@ -154,7 +154,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: normal;"
             >
               Verifying Connection
@@ -170,14 +170,14 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
 exports[`Verification step for out of cluster delegate render in modal 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+    class="Layout--vertical StyledProps--main StyledProps--padding-small"
     style="height: 100%;"
   >
     <div
-      class="Layout---vertical--3Szv StyledProps---main--1Wws"
+      class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
       >
         Verify Connection to 
          
@@ -186,14 +186,14 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
         />
       </p>
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws StepsProgress---stepsProgress--2IQh"
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
         id="steps-progress"
       >
         <div
-          class="StepsProgress---progressBar--2_Dp"
+          class="StepsProgress--progressBar"
         >
           <div
-            class="bp3-progress-bar bp3-intent-success bp3-no-stripes StepsProgress---progressHeight--3zU4"
+            class="bp3-progress-bar bp3-intent-success bp3-no-stripes StepsProgress--progressHeight"
           >
             <div
               class="bp3-progress-meter"
@@ -202,13 +202,13 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
           </div>
         </div>
         <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         >
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--margin-right-small"
               icon="tick"
             >
               <svg
@@ -227,17 +227,17 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: bold;"
             >
               1 delegate found
             </p>
           </div>
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
             >
               <svg
                 height="16"
@@ -296,17 +296,17 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: bold;"
             >
               Establishing Connection between Delegate and Connector
             </p>
           </div>
           <div
-            class="StepsProgress---stepWrap--g0bN"
+            class="StepsProgress--stepWrap"
           >
             <span
-              class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-yellow500--1TpH StyledProps---margin-right-small--Uojv"
+              class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
               icon="blank"
             >
               <svg
@@ -321,7 +321,7 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              class="StyledProps--font StyledProps--main"
               style="font-weight: normal;"
             >
               Verifying Connection
@@ -330,16 +330,16 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
         </div>
       </div>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws verificationText StyledProps---font-small--1qQz"
+        class="StyledProps--font StyledProps--main verificationText StyledProps--font-small"
       >
         This process may take a while. You may close your window or wait until verification is completed.
       </p>
     </div>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws btnWrapper"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        class="bp3-button StyledProps--font Button--button StyledProps--main"
         type="button"
       >
         <span

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-software/uikit'
+import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'

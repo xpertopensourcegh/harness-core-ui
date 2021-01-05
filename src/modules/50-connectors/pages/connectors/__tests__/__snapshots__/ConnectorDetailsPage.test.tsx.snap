@@ -3,13 +3,13 @@
 exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`] = `
 <div>
   <div
-    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout---vertical--3Szv StyledProps---main--1Wws"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <a
           class="breadCrumb"
@@ -32,10 +32,10 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
       />
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps--font StyledProps--main"
     >
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <span
           class="bp3-tag tags activeTag"
@@ -68,17 +68,17 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws spinner StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      class="StyledProps--font StyledProps--main spinner StyledProps--flex StyledProps--flex-align-center-center"
     >
       <div
-        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws content"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content"
         style="align-items: center; width: 500px;"
       >
         <span
-          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey600--ksWT"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
         >
           <svg
             height="32"
@@ -137,7 +137,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           </svg>
         </span>
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey600--ksWT"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
         >
           Loading, please wait...
         </p>

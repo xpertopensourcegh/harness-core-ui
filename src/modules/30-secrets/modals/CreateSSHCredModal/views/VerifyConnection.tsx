@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as Yup from 'yup'
-import { Button, Container, Formik, FormikForm, FormInput, Text } from '@wings-software/uikit'
+import { Button, Container, Formik, FormikForm, FormInput, Text } from '@wings-software/uicore'
 import type { SSHKeyValidationMetadata as ValidationMetadata } from 'services/cd-ng'
 
 import VerifySecret, { Status } from './VerifySecret'

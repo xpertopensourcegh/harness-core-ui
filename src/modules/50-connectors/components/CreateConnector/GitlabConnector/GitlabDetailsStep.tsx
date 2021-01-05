@@ -10,7 +10,7 @@ import {
   Container,
   FormInput,
   Text
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'

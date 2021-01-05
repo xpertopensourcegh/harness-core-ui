@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { Container } from '@wings-software/uikit'
+import { Container } from '@wings-software/uicore'
 import Draggable from 'react-draggable'
 import { getScrubberLaneDataHeight, positionScrubberPoints } from './ActivityTimelineScrubberUtils'
 import type { Activity } from '../ActivityTrack/ActivityTrackUtils'

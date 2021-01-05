@@ -8,7 +8,7 @@ import {
   Text,
   ModalErrorHandlerBinding,
   ModalErrorHandler
-} from '@wings-software/uikit'
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
