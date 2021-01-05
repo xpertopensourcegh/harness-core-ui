@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Application Filter",
+    "visible": "user"
+  },
+  {
+    "name": "Environment Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "Western Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "Indian Filter",
+    "visible": "user"
+  },
+  {
+    "name": "Persian Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "TV Filter",
+    "visible": "user"
+  },
+  {
+    "name": "Pipeline Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "Stage Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "IDK Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "Some Filter",
+    "visible": "user"
+  },
+  {
+    "name": "Tanzania Filter",
+    "visible": "user"
+  },
+  {
+    "name": "Australia Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "India Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "Swiss Filter",
+    "visible": "user"
+  },
+  {
+    "name": "Italian Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "Israeli Filter",
+    "visible": "user"
+  },
+  {
+    "name": "PipelineX Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "StageX Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "IDKP Filter",
+    "visible": "everyone"
+  },
+  {
+    "name": "SomeX Filter",
+    "visible": "user"
+  }
+]

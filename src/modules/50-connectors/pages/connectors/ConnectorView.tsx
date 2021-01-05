@@ -9,14 +9,16 @@ import {
   ConnectorResponse,
   useGetYamlSnippetMetadata,
   useGetYamlSnippet,
-  ResponseJsonNode
+  ResponseJsonNode,
+  ConnectorConnectivityDetails,
+  ResponseYamlSnippets,
+  ResponseString
 } from 'services/cd-ng'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import { getValidationErrorMessagesForToaster } from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import type { ConnectorConnectivityDetails, ResponseYamlSnippets, ResponseString } from 'services/cd-ng'
 import { useGetYamlSchema } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'

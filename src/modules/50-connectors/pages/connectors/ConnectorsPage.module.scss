@@ -58,3 +58,46 @@
     }
   }
 }
+
+.ngFilter {
+  svg {
+    path:last-of-type {
+      fill: var(--black) !important;
+    }
+  }
+  border: 1px solid var(--grey-400) !important;
+}
+
+.fieldCount {
+  display: block;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  background-color: #0a3364;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  right: 1vh;
+}
+
+.noStyleUl {
+  list-style-type: none;
+  padding: var(--spacing-small);
+  margin: 0;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.summaryItem {
+  padding: var(--spacing-xsmall);
+}
+
+.summaryPopover {
+  svg {
+    path {
+      fill: var(--black) !important;
+    }
+  }
+}

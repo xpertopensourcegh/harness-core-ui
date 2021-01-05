@@ -1,0 +1,40 @@
+.filterSelector {
+  max-width: fit-content;
+}
+
+.trash {
+  color: var(--red-500) !important;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+}
+
+.formSection {
+  flex: 3;
+}
+
+.filterSection {
+  flex: 2;
+}
+
+.title {
+  width: 100%;
+  padding-bottom: var(--spacing-small);
+  border-bottom: 1px solid var(--grey-400);
+  font-size: large;
+  color: var(--grey-400);
+}
+
+.layout {
+  display: flex;
+  height: calc(100% - 5vh);
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.titleLayout {
+  display: flex;
+  align-items: center;
+}

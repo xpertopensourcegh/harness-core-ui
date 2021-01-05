@@ -1,0 +1,51 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 2,
+    "pageItemCount": 2,
+    "pageSize": 100,
+    "content": [
+      {
+        "name": "DockerOnly",
+        "identifier": "DockerOnly",
+        "orgIdentifier": null,
+        "projectIdentifier": null,
+        "filterProperties": {
+          "connectorNames": [],
+          "connectorIdentifiers": [],
+          "description": "",
+          "types": ["DockerRegistry"],
+          "categories": null,
+          "connectivityStatuses": null,
+          "inheritingCredentialsFromDelegate": null,
+          "tags": {},
+          "filterType": "Connector"
+        },
+        "filterVisibility": "EveryOne"
+      },
+      {
+        "name": "AWSOnly",
+        "identifier": "AWSOnly",
+        "orgIdentifier": null,
+        "projectIdentifier": null,
+        "filterProperties": {
+          "connectorNames": [],
+          "connectorIdentifiers": [],
+          "description": "",
+          "types": ["Aws"],
+          "categories": null,
+          "connectivityStatuses": null,
+          "inheritingCredentialsFromDelegate": null,
+          "tags": {},
+          "filterType": "Connector"
+        },
+        "filterVisibility": "OnlyCreator"
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "dabfc771-a241-4602-a0f3-020273186a3d"
+}

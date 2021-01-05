@@ -85,6 +85,7 @@ global:
   continue: Continue
   addPipeline: + Pipeline
   cancel: Cancel
+  duplicate: Duplicate
   errors: Errors
   loading: Loading...
   confirm: Confirm
@@ -153,6 +154,23 @@ global:
   selectApplication: 'Select Application'
   selectProject: 'Select Project'
   mapApplications: 'Map Applications to Harness Services'
+  filters:
+    visible: Who can view and edit the filter?
+    name: Filter Name
+    visibileToOnlyMe: Only me
+    visibleToEveryone: Everyone
+    apply: Apply
+    clearAll: Clear All
+    newFilter: New Filter
+    typeFilterName: Type filter name
+    connectivityStatus: Connectivity Status
+    nameRequired: filter name cannot be empty
+    visibilityRequired: filter visibility needs to be specified
+    deleteFilterForUser: Deleting a private filter will remove it from your saved filter list. This action can not be undone.
+    deleteFilterForEveryone: Deleting a shared filter will remove it for all users who has access to the project. This action can not be undone.
+    confirmDelete: Confirm Deletion
+    filterDeleted: Filter deleted.
+    filterDuplicated: Filter duplicated.
   customText: '{{text}}'
   adminLabel: 'Admin'
   collaboratorsLabel: 'Collaborators'
@@ -632,6 +650,7 @@ global:
     delegateOutClusterInfo2: 'Manually enter master url and credentials'
     delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
     stepThreeName: 'Test Connection'
+    name: 'Connector Name'
     authTitle: 'Authentication'
     updating: Updating connector
     successfullCreate: 'Connector {{name}} created successfully'

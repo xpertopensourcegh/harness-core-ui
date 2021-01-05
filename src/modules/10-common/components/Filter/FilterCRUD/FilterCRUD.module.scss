@@ -1,0 +1,95 @@
+:root {
+  --filter-theme-bg-color: #0a3364;
+  --hover-bg-color: #1a1a1a;
+}
+
+.main {
+  background-color: var(--filter-theme-bg-color);
+  height: 100vh;
+}
+
+.title {
+  color: var(--white);
+  font-weight: bold;
+  font-size: large;
+}
+
+.addNewFilterBtn {
+  justify-content: end;
+  height: var(--spacing-xxxlarge) !important;
+  background: var(--filter-theme-bg-color) !important;
+  &:hover {
+    background: var(--hover-bg-color) !important;
+  }
+}
+
+.saveFilterBtn {
+  width: 70px;
+}
+.cancelBtn {
+  width: 70px;
+  color: var(--white) !important;
+  &:hover {
+    cursor: pointer;
+    color: var(--blue-500) !important;
+  }
+}
+
+.radioBtns {
+  > div > div > label {
+    font-size: var(--font-size-normal) !important;
+    color: var(--white) !important;
+  }
+}
+
+.filterName {
+  > div > div > input {
+    background: var(--filter-theme-bg-color);
+    color: var(--white);
+  }
+}
+
+.filters {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  border-top: 1px solid grey;
+}
+
+.filter {
+  &:hover {
+    background: var(--hover-bg-color) !important;
+  }
+}
+
+.filterLabel {
+  color: var(--white);
+  font-size: small;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.noElement {
+  margin-right: var(--spacing-large);
+}
+
+.menuItem {
+  padding: var(--spacing-small) var(--spacing-medium);
+  &:hover {
+    cursor: pointer;
+    background-color: var(--blue-500) !important;
+  }
+}
+
+.isActive {
+  cursor: pointer;
+  background: var(--hover-bg-color) !important;
+}
+
+.layout {
+  display: flex;
+  align-items: center;
+}

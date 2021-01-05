@@ -10,5 +10,10 @@ declare const styles: {
   readonly listContainer: string
   readonly selectConnector: string
   readonly dropdownLabel: string
+  readonly ngFilter: string
+  readonly fieldCount: string
+  readonly noStyleUl: string
+  readonly summaryItem: string
+  readonly summaryPopover: string
 }
 export default styles

@@ -1,3 +1,187 @@
+export const connectorsData = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 6,
+    pageItemCount: 6,
+    pageSize: 10,
+    content: [
+      {
+        connector: {
+          name: 'AWS',
+          identifier: 'AWSX',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'Aws',
+          spec: {
+            credential: {
+              crossAccountAccess: null,
+              type: 'InheritFromDelegate',
+              spec: { delegateSelector: 'vardan-bansal-mbp' }
+            }
+          }
+        },
+        createdAt: 1608697269523,
+        lastModifiedAt: 1608697269523,
+        status: null,
+        harnessManaged: false
+      },
+      {
+        connector: {
+          name: 'Git CTR',
+          identifier: 'Git_CTR',
+          description: 'To connect to Git',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: { git: '' },
+          type: 'Git',
+          spec: {
+            url: 'https://github.com/vardanbansal-harness/vscode-yaml.git',
+            branchName: '',
+            type: 'Http',
+            connectionType: 'Repo',
+            spec: { username: 'admin', passwordRef: 'account.sec1' },
+            gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
+          }
+        },
+        createdAt: 1608679004757,
+        lastModifiedAt: 1608679004757,
+        status: null,
+        harnessManaged: false
+      },
+      {
+        connector: {
+          name: 'Sample',
+          identifier: 'SampleX',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'Git',
+          spec: {
+            url: 'https://github.com/vardanbansal-harness/vscode-yaml.git',
+            branchName: '',
+            type: 'Http',
+            connectionType: 'Repo',
+            spec: { username: 'admin', passwordRef: 'account.sec1' },
+            gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
+          }
+        },
+        createdAt: 1608678936902,
+        lastModifiedAt: 1608679013406,
+        status: null,
+        harnessManaged: false
+      },
+      {
+        connector: {
+          name: 'XYZDocker',
+          identifier: 'XYZDockerX',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'DockerRegistry',
+          spec: {
+            dockerRegistryUrl: 'www.google.com',
+            providerType: null,
+            auth: { type: 'UsernamePassword', spec: { username: 'admin', passwordRef: 'account.dockerconnpass' } }
+          }
+        },
+        createdAt: 1608040997054,
+        lastModifiedAt: 1608040997054,
+        status: { status: 'FAILURE', errorMessage: null, lastTestedAt: 0, lastConnectedAt: 0 },
+        harnessManaged: false
+      },
+      {
+        connector: {
+          name: 'Docker CTR',
+          identifier: 'DockerCTRX',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'DockerRegistry',
+          spec: {
+            dockerRegistryUrl: 'www.docker.com',
+            providerType: null,
+            auth: { type: 'UsernamePassword', spec: { username: 'admin', passwordRef: 'account.dockerconnpass' } }
+          }
+        },
+        createdAt: 1607924647071,
+        lastModifiedAt: 1607924647071,
+        status: { status: 'SUCCESS', errorMessage: null, lastTestedAt: 0, lastConnectedAt: 0 },
+        harnessManaged: false
+      },
+      {
+        connector: {
+          name: 'KubernetesCTR',
+          identifier: 'Kubernetes CTRX',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: { qa: '', test: '' },
+          type: 'K8sCluster',
+          spec: {
+            credential: {
+              type: 'ManualConfig',
+              spec: {
+                masterUrl: 'sample.google.com',
+                auth: { type: 'UsernamePassword', spec: { username: 'admin', passwordRef: 'account.kubconnpass' } }
+              }
+            }
+          }
+        },
+        createdAt: 1607924578377,
+        lastModifiedAt: 1608040385164,
+        status: { status: 'SUCCESS', errorMessage: null, lastTestedAt: 0, lastConnectedAt: 0 },
+        harnessManaged: false
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: null,
+  correlationId: '1b5c9329-b315-4e3c-b318-e4ee881282ce'
+}
+
+export const catalogueData = {
+  status: 'SUCCESS',
+  data: {
+    catalogue: [
+      { category: 'CLOUD_PROVIDER', connectors: ['Gcp', 'Aws', 'K8sCluster'] },
+      {
+        category: 'SECRET_MANAGER',
+        connectors: [
+          'Cyberark',
+          'GcpKms',
+          'CustomSecretManager',
+          'Vault',
+          'Azurevault',
+          'Awssecretsmanager',
+          'Local',
+          'AwsKms'
+        ]
+      },
+      { category: 'CONNECTOR', connectors: [] },
+      { category: 'ARTIFACTORY', connectors: ['DockerRegistry', 'Nexus', 'Artifactory'] },
+      { category: 'CODE_REPO', connectors: ['Git'] },
+      { category: 'MONITORING', connectors: ['AppDynamics', 'Splunk'] },
+      { category: 'TICKETING', connectors: ['Jira'] }
+    ]
+  },
+  metaData: null,
+  correlationId: '0fe40db0-e383-4593-b7dc-c40b4b3f56d6'
+}
+
+export const statisticsMockData = {
+  status: 'SUCCESS',
+  data: { typeStats: [], statusStats: [] },
+  metaData: null,
+  correlationId: 'e65f0c82-1ba1-4f44-ba9a-9344b734b54c'
+}
+
 export const ManualK8s = {
   status: 'SUCCESS' as const,
   data: {
@@ -362,31 +546,54 @@ export const Artifactory = {
   }
 }
 
-export const catalogueData = {
+export const filters = {
   status: 'SUCCESS',
   data: {
-    catalogue: [
-      { category: 'CLOUD_PROVIDER', connectors: ['Gcp', 'Aws', 'K8sCluster'] },
+    totalPages: 1,
+    totalItems: 2,
+    pageItemCount: 2,
+    pageSize: 100,
+    content: [
       {
-        category: 'SECRET_MANAGER',
-        connectors: [
-          'Cyberark',
-          'GcpKms',
-          'CustomSecretManager',
-          'Vault',
-          'Azurevault',
-          'Awssecretsmanager',
-          'Local',
-          'AwsKms'
-        ]
+        name: 'DockerOnly',
+        identifier: 'DockerOnly',
+        orgIdentifier: null,
+        projectIdentifier: null,
+        filterProperties: {
+          connectorNames: [],
+          connectorIdentifiers: [],
+          description: '',
+          types: ['DockerRegistry'],
+          categories: null,
+          connectivityStatuses: null,
+          inheritingCredentialsFromDelegate: null,
+          tags: {},
+          filterType: 'Connector'
+        },
+        filterVisibility: 'EveryOne'
       },
-      { category: 'CONNECTOR', connectors: [] },
-      { category: 'ARTIFACTORY', connectors: ['DockerRegistry', 'Nexus', 'Artifactory'] },
-      { category: 'CODE_REPO', connectors: ['Git'] },
-      { category: 'MONITORING', connectors: ['AppDynamics', 'Splunk'] },
-      { category: 'TICKETING', connectors: ['Jira'] }
-    ]
+      {
+        name: 'AWSOnly',
+        identifier: 'AWSOnly',
+        orgIdentifier: null,
+        projectIdentifier: null,
+        filterProperties: {
+          connectorNames: [],
+          connectorIdentifiers: [],
+          description: '',
+          types: ['Aws'],
+          categories: null,
+          connectivityStatuses: null,
+          inheritingCredentialsFromDelegate: null,
+          tags: {},
+          filterType: 'Connector'
+        },
+        filterVisibility: 'OnlyCreator'
+      }
+    ],
+    pageIndex: 0,
+    empty: false
   },
   metaData: null,
-  correlationId: '0fe40db0-e383-4593-b7dc-c40b4b3f56d6'
+  correlationId: 'c7a1b79e-6675-417f-8506-1c1522181f75'
 }
