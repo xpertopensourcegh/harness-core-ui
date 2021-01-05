@@ -2,8 +2,28 @@
 
 exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
 <div>
-  <div>
-    ExecutionInputsView
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main content StyledProps--padding-bottom-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    >
+      <form
+        class="FormikForm--main"
+      >
+        <div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              No Runtime input in pipeline
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 `;

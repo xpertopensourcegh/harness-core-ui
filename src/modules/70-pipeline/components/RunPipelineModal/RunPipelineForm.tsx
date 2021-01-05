@@ -25,7 +25,7 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
-import type { PipelinePathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -37,10 +37,11 @@ import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/Inp
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import css from './RunPipelineModal.module.scss'
 
-export interface RunPipelineFormProps extends PipelinePathProps, AccountPathProps {
+export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
   onClose?: () => void
+  executionView?: boolean
 }
 
 enum SelectedView {
@@ -64,8 +65,9 @@ export function RunPipelineForm({
   onClose,
   inputSetSelected,
   inputSetYAML,
-  module
-}: PipelineType<RunPipelineFormProps>): React.ReactElement {
+  module,
+  executionView
+}: RunPipelineFormProps): React.ReactElement {
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
@@ -212,8 +214,6 @@ export function RunPipelineForm({
     pipelineIdentifier
   ])
 
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
   const { getString } = useStrings()
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {
     return <PageSpinner />
@@ -229,121 +229,76 @@ export function RunPipelineForm({
     )
   }
 
-  return (
+  const child = (
     <>
-      <PageHeader
-        title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
-                  label: project?.name as string
-                },
-                {
-                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: getString('pipelines')
-                },
-                {
-                  url: routes.toPipelineDetail({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    pipelineIdentifier,
-                    module
-                  }),
-                  label: pipeline?.name || ''
-                },
-                { url: '#', label: i18n.runPipeline }
-              ]}
-            />
-            <Layout.Horizontal>
-              <Text font="medium">{`${i18n.runPipeline}: ${pipeline?.name}`}</Text>
-              <div className={css.optionBtns}>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                  onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-                >
-                  {i18n.VISUAL}
-                </div>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                  onClick={() => handleModeSwitch(SelectedView.YAML)}
-                >
-                  {i18n.YAML}
-                </div>
-              </div>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        }
-      />
-      <PageBody className={css.runForm}>
-        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
-          <Layout.Horizontal
-            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-            flex={{ distribution: 'space-between' }}
-          >
-            <Text font="medium">{i18n.pipeline}</Text>
-            <InputSetSelector
-              pipelineIdentifier={pipelineIdentifier}
-              onChange={value => {
-                setSelectedInputSets(value)
-              }}
-              value={selectedInputSets}
-            />
-          </Layout.Horizontal>
-        )}
-        <Formik
-          initialValues={currentPipeline?.pipeline ? clearRuntimeInput(currentPipeline.pipeline) : {}}
-          onSubmit={values => {
-            handleRunPipeline(values as any)
-          }}
-          enableReinitialize
-          validate={values => {
-            let errors: FormikErrors<InputSetDTO> = {}
-
-            if (values && template?.data?.inputSetTemplateYaml && pipeline) {
-              errors = validatePipeline(
-                values as NgPipeline,
-                parse(template.data.inputSetTemplateYaml).pipeline,
-                pipeline,
-                getString
-              ) as any
-            }
-            return errors
-          }}
+      {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
+        <Layout.Horizontal
+          padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+          flex={{ distribution: 'space-between' }}
         >
-          {({ values, submitForm }) => {
-            return (
-              <>
-                <Layout.Horizontal
-                  className={css.content}
-                  padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-                >
-                  {selectedView === SelectedView.VISUAL ? (
-                    <FormikForm>
-                      {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
-                        <PipelineInputSetForm
-                          originalPipeline={pipeline}
-                          template={parse(template.data.inputSetTemplateYaml).pipeline}
-                        />
-                      ) : (
-                        <Layout.Horizontal padding="medium" margin="medium">
-                          <Text>{i18n.noRuntimeInput}</Text>
-                        </Layout.Horizontal>
-                      )}
-                    </FormikForm>
-                  ) : (
-                    <div className={css.editor}>
-                      <YAMLBuilder
-                        {...yamlBuilderReadOnlyModeProps}
-                        existingJSON={values}
-                        bind={setYamlHandler}
-                        schema={pipelineSchema}
+          <Text font="medium">{i18n.pipeline}</Text>
+          <InputSetSelector
+            pipelineIdentifier={pipelineIdentifier}
+            onChange={value => {
+              setSelectedInputSets(value)
+            }}
+            value={selectedInputSets}
+          />
+        </Layout.Horizontal>
+      )}
+      <Formik
+        initialValues={currentPipeline?.pipeline ? clearRuntimeInput(currentPipeline.pipeline) : {}}
+        onSubmit={values => {
+          handleRunPipeline(values as any)
+        }}
+        enableReinitialize
+        validate={values => {
+          let errors: FormikErrors<InputSetDTO> = {}
+
+          if (values && template?.data?.inputSetTemplateYaml && pipeline) {
+            errors = validatePipeline(
+              values as NgPipeline,
+              parse(template.data.inputSetTemplateYaml).pipeline,
+              pipeline,
+              getString
+            ) as any
+          }
+          return errors
+        }}
+      >
+        {({ values, submitForm }) => {
+          return (
+            <>
+              <Layout.Horizontal
+                className={css.content}
+                padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+              >
+                {selectedView === SelectedView.VISUAL ? (
+                  <FormikForm>
+                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                      <PipelineInputSetForm
+                        originalPipeline={pipeline}
+                        template={parse(template.data.inputSetTemplateYaml).pipeline}
+                        readonly={executionView}
                       />
-                    </div>
-                  )}
-                </Layout.Horizontal>
+                    ) : (
+                      <Layout.Horizontal padding="medium" margin="medium">
+                        <Text>{i18n.noRuntimeInput}</Text>
+                      </Layout.Horizontal>
+                    )}
+                  </FormikForm>
+                ) : (
+                  <div className={css.editor}>
+                    <YAMLBuilder
+                      {...yamlBuilderReadOnlyModeProps}
+                      existingJSON={values}
+                      bind={setYamlHandler}
+                      schema={pipelineSchema}
+                    />
+                  </div>
+                )}
+              </Layout.Horizontal>
+              {executionView ? null : (
                 <Layout.Horizontal className={css.footer} padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }}>
                   <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
                     <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
@@ -436,11 +391,104 @@ export function RunPipelineForm({
                     </Layout.Horizontal>
                   </Layout.Horizontal>
                 </Layout.Horizontal>
-              </>
-            )
-          }}
-        </Formik>
-      </PageBody>
+              )}
+            </>
+          )
+        }}
+      </Formik>
     </>
+  )
+
+  return executionView ? (
+    child
+  ) : (
+    <RunPipelineFormWrapper
+      accountId={accountId}
+      orgIdentifier={orgIdentifier}
+      pipelineIdentifier={pipelineIdentifier}
+      projectIdentifier={projectIdentifier}
+      module={module}
+      selectedView={selectedView}
+      handleModeSwitch={handleModeSwitch}
+      pipeline={pipeline}
+    >
+      {child}
+    </RunPipelineFormWrapper>
+  )
+}
+
+export interface RunPipelineFormWrapperProps extends PipelineType<PipelinePathProps> {
+  children: React.ReactNode
+  selectedView: SelectedView
+  handleModeSwitch(mode: SelectedView): void
+  pipeline?: NgPipeline
+}
+
+export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): React.ReactElement {
+  const {
+    children,
+    orgIdentifier,
+    projectIdentifier,
+    accountId,
+    pipelineIdentifier,
+    module,
+    handleModeSwitch,
+    selectedView,
+    pipeline
+  } = props
+
+  const { selectedProject: project } = useAppStore()
+  const { getString } = useStrings()
+
+  return (
+    <React.Fragment>
+      <PageHeader
+        title={
+          <Layout.Vertical spacing="xsmall">
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                  label: project?.name as string
+                },
+                {
+                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
+                  label: getString('pipelines')
+                },
+                {
+                  url: routes.toPipelineDetail({
+                    orgIdentifier,
+                    projectIdentifier,
+                    accountId,
+                    pipelineIdentifier,
+                    module
+                  }),
+                  label: pipeline?.name || ''
+                },
+                { url: '#', label: i18n.runPipeline }
+              ]}
+            />
+            <Layout.Horizontal>
+              <Text font="medium">{`${i18n.runPipeline}: ${pipeline?.name}`}</Text>
+              <div className={css.optionBtns}>
+                <div
+                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+                  onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+                >
+                  {i18n.VISUAL}
+                </div>
+                <div
+                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+                  onClick={() => handleModeSwitch(SelectedView.YAML)}
+                >
+                  {i18n.YAML}
+                </div>
+              </div>
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        }
+      />
+      <PageBody className={css.runForm}>{children}</PageBody>
+    </React.Fragment>
   )
 }

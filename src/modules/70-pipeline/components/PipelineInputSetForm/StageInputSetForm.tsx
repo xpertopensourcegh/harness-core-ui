@@ -22,18 +22,21 @@ function StepForm({
   template,
   allValues,
   values,
-  onUpdate
+  onUpdate,
+  readonly
 }: {
   template?: ExecutionWrapperConfig
   allValues?: ExecutionWrapperConfig
   values?: ExecutionWrapperConfig
   onUpdate: (data: ExecutionWrapper) => void
+  readonly?: boolean
 }): JSX.Element {
   return (
     <>
       <Label>{allValues?.step?.name}</Label>
       <StepWidget<ExecutionWrapper>
         factory={factory}
+        readonly={readonly}
         template={template?.step}
         initialValues={values?.step || {}}
         allValues={allValues?.step || {}}
@@ -50,6 +53,7 @@ export interface StageInputSetFormProps {
   path: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any
+  readonly?: boolean
 }
 
 function ExecutionWrapperInputSetForm(props: {
@@ -58,8 +62,9 @@ function ExecutionWrapperInputSetForm(props: {
   path: string
   allValues?: ExecutionWrapperConfig[]
   values?: ExecutionWrapperConfig[]
+  readonly?: boolean
 }): JSX.Element {
-  const { stepsTemplate, allValues, values, path, formik } = props
+  const { stepsTemplate, allValues, values, path, formik, readonly } = props
   return (
     <>
       {stepsTemplate?.map((item, index) => {
@@ -72,6 +77,7 @@ function ExecutionWrapperInputSetForm(props: {
               template={item}
               allValues={originalStep}
               values={initialValues}
+              readonly={readonly}
               onUpdate={data => {
                 if (initialValues) {
                   if (!initialValues.step) {
@@ -94,6 +100,7 @@ function ExecutionWrapperInputSetForm(props: {
                   template={nodep}
                   allValues={originalStep}
                   values={initialValues}
+                  readonly={readonly}
                   onUpdate={data => {
                     if (initialValues) {
                       if (!initialValues.step) {
@@ -122,6 +129,7 @@ function ExecutionWrapperInputSetForm(props: {
                 <ExecutionWrapperInputSetForm
                   stepsTemplate={item.stepGroup.steps}
                   formik={formik}
+                  readonly={readonly}
                   path={`${path}[${index}].stepGroup.steps`}
                   allValues={stepGroup?.stepGroup?.steps}
                   values={initialValues?.stepGroup?.steps}
@@ -136,6 +144,7 @@ function ExecutionWrapperInputSetForm(props: {
                   <ExecutionWrapperInputSetForm
                     stepsTemplate={item.stepGroup.rollbackSteps}
                     formik={formik}
+                    readonly={readonly}
                     path={`${path}[${index}].stepGroup.rollbackSteps`}
                     allValues={stepGroup?.stepGroup?.rollbackSteps}
                     values={initialValues?.stepGroup?.rollbackSteps}
@@ -154,7 +163,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   deploymentStageTemplate,
   deploymentStage,
   path,
-  formik
+  formik,
+  readonly
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
   return (
@@ -172,6 +182,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             template={deploymentStageTemplate?.service?.serviceDefinition?.spec || {}}
             type={StepType.K8sServiceSpec}
             stepViewType={StepViewType.InputSet}
+            readonly={readonly}
             onUpdate={(data: any) => {
               if (deploymentStageInputSet?.service?.serviceDefinition?.spec) {
                 deploymentStageInputSet.service.serviceDefinition.spec = data
@@ -195,6 +206,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
               type={deploymentStage?.infrastructure?.infrastructureDefinition?.type || StepType.KubernetesDirect}
               path={`${path}.infrastructure.infrastructureDefinition.spec`}
+              readonly={readonly}
               onUpdate={data => {
                 if (deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec) {
                   deploymentStageInputSet.infrastructure.infrastructureDefinition.spec = data
@@ -223,6 +235,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             allValues={deploymentStage?.execution?.steps}
             values={deploymentStageInputSet?.execution?.steps}
             formik={formik}
+            readonly={readonly}
           />
         </CollapseForm>
       )}
@@ -234,6 +247,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             allValues={deploymentStage?.execution?.rollbackSteps}
             values={deploymentStageInputSet?.execution?.rollbackSteps}
             formik={formik}
+            readonly={readonly}
           />
         </CollapseForm>
       )}

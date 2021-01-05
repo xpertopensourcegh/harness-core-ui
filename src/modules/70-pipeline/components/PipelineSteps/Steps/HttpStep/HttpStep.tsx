@@ -11,7 +11,7 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
 
-import type { StepViewType } from '@pipeline/exports'
+import type { StepViewType, InputSetData } from '@pipeline/exports'
 import Accordion from '@common/components/Accordion/Accordion'
 import { useStrings } from 'framework/exports'
 
@@ -33,6 +33,7 @@ interface HttpStepWidgetProps {
   initialValues: HttpStepFormData
   onUpdate?: (data: HttpStepFormData) => void
   stepViewType?: StepViewType
+  readonly?: boolean
 }
 
 const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
@@ -72,13 +73,15 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     this: HttpStep,
     initialValues: HttpStepData,
     onUpdate?: (data: HttpStepData) => void,
-    stepViewType?: StepViewType
+    stepViewType?: StepViewType,
+    inputSetData?: InputSetData<HttpStepData>
   ): JSX.Element {
     return (
       <HttpStepWidget
         initialValues={this.processInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
+        readonly={!!inputSetData?.readonly}
       />
     )
   }

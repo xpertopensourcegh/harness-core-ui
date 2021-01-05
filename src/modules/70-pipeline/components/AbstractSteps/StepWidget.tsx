@@ -13,6 +13,7 @@ export interface StepWidgetProps<T extends object = {}> {
   path?: string
   stepViewType?: StepViewType
   onUpdate?: (data: T) => void
+  readonly?: boolean
 }
 
 export function StepWidget<T extends object = {}>({
@@ -23,13 +24,14 @@ export function StepWidget<T extends object = {}>({
   template,
   path = '',
   stepViewType = StepViewType.Edit,
-  onUpdate
+  onUpdate,
+  readonly
 }: StepWidgetProps<T>): JSX.Element {
   const step = factory.getStep<T>(type)
   if (!step) {
     return <Text intent="warning">{i18n.invalidStep}</Text>
   } else {
     const values = step?.getDefaultValues(initialValues, stepViewType)
-    return <>{step.renderStep(values, onUpdate, stepViewType, { template, allValues, path })}</>
+    return <>{step.renderStep(values, onUpdate, stepViewType, { template, allValues, path, readonly })}</>
   }
 }

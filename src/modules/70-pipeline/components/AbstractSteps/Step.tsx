@@ -10,6 +10,13 @@ export enum StepViewType {
   StageVariable = 'StageVariable',
   Edit = 'Edit'
 }
+
+export interface InputSetData<T> {
+  template?: T
+  allValues?: T
+  path: string
+  readonly?: boolean
+}
 export abstract class Step<T extends object> {
   protected abstract type: string
   protected abstract defaultValues: T
@@ -53,10 +60,6 @@ export abstract class Step<T extends object> {
     initialValues: T,
     onUpdate?: (data: T) => void,
     stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: T
-      allValues?: T
-      path: string
-    }
+    inputSetData?: InputSetData<T>
   ): JSX.Element
 }

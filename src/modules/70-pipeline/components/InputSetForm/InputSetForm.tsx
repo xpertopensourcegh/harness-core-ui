@@ -17,7 +17,8 @@ import {
   Failure,
   InputSetResponse,
   ResponseInputSetResponse,
-  useGetMergeInputSetFromPipelineTemplateWithListInput
+  useGetMergeInputSetFromPipelineTemplateWithListInput,
+  ResponsePMSPipelineResponseDTO
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -101,9 +102,14 @@ const getTitle = (isEdit: boolean, inputSet: InputSetDTO): string => {
   }
 }
 
-export const InputSetForm: React.FC = (): JSX.Element => {
+export interface InputSetFormProps {
+  executionView?: boolean
+}
+
+export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element => {
+  const { executionView } = props
   const [isEdit, setIsEdit] = React.useState(false)
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, inputSetIdentifier, module } = useParams<
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, inputSetIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const history = useHistory()
@@ -198,8 +204,6 @@ export const InputSetForm: React.FC = (): JSX.Element => {
     }
   }, [inputSetIdentifier])
 
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
   const { getString } = useStrings()
 
   const handleModeSwitch = React.useCallback(
@@ -267,8 +271,147 @@ export const InputSetForm: React.FC = (): JSX.Element => {
     )
   }
 
+  const child = (
+    <Container className={css.inputSetForm}>
+      <Layout.Vertical spacing="medium">
+        <Formik<InputSetDTO>
+          initialValues={{ ...inputSet }}
+          enableReinitialize={true}
+          validate={values => {
+            const errors: FormikErrors<InputSetDTO> = {}
+            if (isEmpty(values.name)) {
+              errors.name = i18n.nameIsRequired
+            }
+            if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
+              errors.pipeline = validatePipeline(
+                values.pipeline,
+                parse(template.data.inputSetTemplateYaml).pipeline,
+                parse(pipeline.data.yamlPipeline).pipeline,
+                getString
+              ) as any
+            }
+            return errors
+          }}
+          onSubmit={values => {
+            handleSubmit(values)
+          }}
+        >
+          {({ values }) => {
+            return (
+              <>
+                {selectedView === SelectedView.VISUAL ? (
+                  <FormikForm>
+                    {executionView ? null : (
+                      <Layout.Vertical className={css.content} padding="xlarge">
+                        <AddDescriptionAndKVTagsWithIdentifier
+                          identifierProps={{
+                            inputLabel: i18n.overlaySetName,
+                            isIdentifierEditable: !isEdit
+                          }}
+                        />
+                        {pipeline?.data?.yamlPipeline &&
+                          template?.data?.inputSetTemplateYaml &&
+                          parse(template.data.inputSetTemplateYaml) && (
+                            <PipelineInputSetForm
+                              path="pipeline"
+                              originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
+                              template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
+                            />
+                          )}
+                      </Layout.Vertical>
+                    )}
+                    <Layout.Horizontal className={css.footer} padding="medium">
+                      <Button intent="primary" type="submit" text={i18n.save} />
+                      &nbsp; &nbsp;
+                      <Button
+                        onClick={() => {
+                          history.goBack()
+                        }}
+                        text={i18n.cancel}
+                      />
+                    </Layout.Horizontal>
+                  </FormikForm>
+                ) : (
+                  <div className={css.editor}>
+                    <Layout.Vertical className={css.content} padding="xlarge">
+                      <YAMLBuilder
+                        {...yamlBuilderReadOnlyModeProps}
+                        existingJSON={{ inputSet: omit(values, 'inputSetReferences') }}
+                        bind={setYamlHandler}
+                        schema={pipelineSchema}
+                      />
+                    </Layout.Vertical>
+                    <Layout.Horizontal className={css.footer} padding="medium">
+                      <Button
+                        intent="primary"
+                        type="submit"
+                        text={i18n.save}
+                        onClick={() => {
+                          const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+                          handleSubmit(parse(latestYaml)?.inputSet)
+                        }}
+                      />
+                      &nbsp; &nbsp;
+                      <Button
+                        onClick={() => {
+                          history.goBack()
+                        }}
+                        text={i18n.cancel}
+                      />
+                    </Layout.Horizontal>
+                  </div>
+                )}
+              </>
+            )
+          }}
+        </Formik>
+      </Layout.Vertical>
+    </Container>
+  )
+
+  return executionView ? (
+    child
+  ) : (
+    <InputSetFormWrapper
+      loading={
+        loadingInputSet ||
+        loadingPipeline ||
+        loadingTemplate ||
+        createInputSetLoading ||
+        updateInputSetLoading ||
+        loadingMerge
+      }
+      isEdit={isEdit}
+      selectedView={selectedView}
+      handleModeSwitch={handleModeSwitch}
+      inputSet={inputSet}
+      pipeline={pipeline}
+    >
+      {child}
+    </InputSetFormWrapper>
+  )
+}
+
+export interface InputSetFormWrapperProps {
+  isEdit: boolean
+  children: React.ReactNode
+  selectedView: SelectedView
+  loading: boolean
+  handleModeSwitch(mode: SelectedView): void
+  inputSet: InputSetDTO
+  pipeline: ResponsePMSPipelineResponseDTO | null
+}
+
+export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.ReactElement {
+  const { isEdit, children, selectedView, handleModeSwitch, loading, inputSet, pipeline } = props
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
+    PipelineType<InputSetPathProps> & { accountId: string }
+  >()
+  const { selectedProject: project } = useAppStore()
+  const { getString } = useStrings()
+
   return (
-    <>
+    <React.Fragment>
       <PageHeader
         title={
           <Layout.Vertical spacing="xsmall">
@@ -315,110 +458,7 @@ export const InputSetForm: React.FC = (): JSX.Element => {
           </Layout.Vertical>
         }
       />
-      <PageBody
-        loading={
-          loadingInputSet ||
-          loadingPipeline ||
-          loadingTemplate ||
-          createInputSetLoading ||
-          updateInputSetLoading ||
-          loadingMerge
-        }
-      >
-        <Container className={css.inputSetForm}>
-          <Layout.Vertical spacing="medium">
-            <Formik<InputSetDTO>
-              initialValues={{ ...inputSet }}
-              enableReinitialize={true}
-              validate={values => {
-                const errors: FormikErrors<InputSetDTO> = {}
-                if (isEmpty(values.name)) {
-                  errors.name = i18n.nameIsRequired
-                }
-                if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
-                  errors.pipeline = validatePipeline(
-                    values.pipeline,
-                    parse(template.data.inputSetTemplateYaml).pipeline,
-                    parse(pipeline.data.yamlPipeline).pipeline,
-                    getString
-                  ) as any
-                }
-                return errors
-              }}
-              onSubmit={values => {
-                handleSubmit(values)
-              }}
-            >
-              {({ values }) => {
-                return (
-                  <>
-                    {selectedView === SelectedView.VISUAL ? (
-                      <FormikForm>
-                        <Layout.Vertical className={css.content} padding="xlarge">
-                          <AddDescriptionAndKVTagsWithIdentifier
-                            identifierProps={{
-                              inputLabel: i18n.overlaySetName,
-                              isIdentifierEditable: !isEdit
-                            }}
-                          />
-                          {pipeline?.data?.yamlPipeline &&
-                            template?.data?.inputSetTemplateYaml &&
-                            parse(template.data.inputSetTemplateYaml) && (
-                              <PipelineInputSetForm
-                                path="pipeline"
-                                originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
-                                template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
-                              />
-                            )}
-                        </Layout.Vertical>
-                        <Layout.Horizontal className={css.footer} padding="medium">
-                          <Button intent="primary" type="submit" text={i18n.save} />
-                          &nbsp; &nbsp;
-                          <Button
-                            onClick={() => {
-                              history.goBack()
-                            }}
-                            text={i18n.cancel}
-                          />
-                        </Layout.Horizontal>
-                      </FormikForm>
-                    ) : (
-                      <div className={css.editor}>
-                        <Layout.Vertical className={css.content} padding="xlarge">
-                          <YAMLBuilder
-                            {...yamlBuilderReadOnlyModeProps}
-                            existingJSON={{ inputSet: omit(values, 'inputSetReferences') }}
-                            bind={setYamlHandler}
-                            schema={pipelineSchema}
-                          />
-                        </Layout.Vertical>
-                        <Layout.Horizontal className={css.footer} padding="medium">
-                          <Button
-                            intent="primary"
-                            type="submit"
-                            text={i18n.save}
-                            onClick={() => {
-                              const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-                              handleSubmit(parse(latestYaml)?.inputSet)
-                            }}
-                          />
-                          &nbsp; &nbsp;
-                          <Button
-                            onClick={() => {
-                              history.goBack()
-                            }}
-                            text={i18n.cancel}
-                          />
-                        </Layout.Horizontal>
-                      </div>
-                    )}
-                  </>
-                )
-              }}
-            </Formik>
-          </Layout.Vertical>
-        </Container>
-      </PageBody>
-    </>
+      <PageBody loading={loading}>{children}</PageBody>
+    </React.Fragment>
   )
 }

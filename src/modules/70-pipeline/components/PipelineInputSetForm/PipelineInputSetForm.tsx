@@ -12,16 +12,19 @@ export interface PipelineInputSetFormProps {
   originalPipeline: PipelineInfoConfig
   template: PipelineInfoConfig
   path?: string
+  readonly?: boolean
 }
 
 function StageForm({
   allValues,
   path,
-  template
+  template,
+  readonly
 }: {
   allValues?: StageElementWrapperConfig
   template?: StageElementWrapperConfig
   path: string
+  readonly?: boolean
 }): JSX.Element {
   return (
     <CollapseForm key={template?.stage?.identifier} header={i18n.stageName(allValues?.stage?.name || '')}>
@@ -30,6 +33,7 @@ function StageForm({
           path={path}
           deploymentStageTemplate={template?.stage.spec}
           deploymentStage={allValues?.stage?.spec}
+          readonly={readonly}
         />
       )}
     </CollapseForm>
@@ -37,7 +41,7 @@ function StageForm({
 }
 
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
-  const { originalPipeline, template, path = '' } = props
+  const { originalPipeline, template, path = '', readonly } = props
   return (
     <Layout.Vertical spacing="medium" padding="medium" className={css.container}>
       {(originalPipeline as any)?.variables?.length > 0 && (
@@ -54,6 +58,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
               template={stageObj}
               allValues={allValues}
               path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].stage.spec`}
+              readonly={readonly}
             />
           )
         } else if (stageObj.parallel) {
@@ -65,6 +70,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 template={stageP}
                 allValues={allValues}
                 path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].parallel[${indexp}].stage.spec`}
+                readonly={readonly}
               />
             )
           })
