@@ -41,7 +41,7 @@ export const usernameTokenWithAPIAccess = {
     },
     apiAccess: {
       type: 'UsernamePassword',
-      spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
+      spec: { username: 'dev', usernameRef: null, tokenRef: 'account.githubPassword' }
     },
     type: 'Account'
   }

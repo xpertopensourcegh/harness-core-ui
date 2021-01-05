@@ -33,7 +33,7 @@ import {
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
-import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { GitAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './StepBitbucketAuthentication.module.scss'
 
@@ -56,6 +56,7 @@ interface BitbucketFormInterface {
   sshKey: SecretReferenceInterface | void
   enableAPIAccess: boolean
   apiAuthType: string
+  accessToken: SecretReferenceInterface | void
 }
 
 const defaultInitialFormData: BitbucketFormInterface = {
@@ -65,7 +66,8 @@ const defaultInitialFormData: BitbucketFormInterface = {
   password: undefined,
   sshKey: undefined,
   enableAPIAccess: false,
-  apiAuthType: GitAPIAuthTypes.TOKEN
+  apiAuthType: GitAuthTypes.USER_TOKEN,
+  accessToken: undefined
 }
 
 const RenderBitbucketAuthForm: React.FC<FormikProps<BitbucketFormInterface>> = () => {
@@ -74,6 +76,33 @@ const RenderBitbucketAuthForm: React.FC<FormikProps<BitbucketFormInterface>> = (
     <>
       <FormInput.Text name="username" label={getString('username')} />
       <SecretInput name="password" label={getString('password')} />
+    </>
+  )
+}
+
+const RenderAPIAccessFormWrapper: React.FC<FormikProps<BitbucketFormInterface>> = () => {
+  const { getString } = useStrings()
+
+  const apiAuthOptions: Array<SelectOption> = [
+    {
+      label: getString('usernameToken'),
+      value: GitAuthTypes.USER_TOKEN
+    }
+  ]
+
+  return (
+    <>
+      <Text font="small" margin={{ bottom: 'small' }}>
+        {getString('connectors.git.APIAccessDescriptipn')}
+      </Text>
+      <Container className={css.authHeaderRow}>
+        <Text className={css.authTitle} inline>
+          {getString('connectors.git.APIAuthentication')}
+        </Text>
+        <FormInput.Select name="apiAuthType" items={apiAuthOptions} />
+      </Container>
+      <FormInput.Text name="username" label={getString('username')} />
+      <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
     </>
   )
 }
@@ -143,7 +172,7 @@ const StepBitbucketAuthentication: React.FC<
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.git.githubStepTwoName')}
+        {getString('connectors.git.bitbucketStepTwoName')}
       </Text>
 
       <Formik
@@ -152,8 +181,8 @@ const StepBitbucketAuthentication: React.FC<
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          username: Yup.string().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
+          username: Yup.string().when(['connectionType', 'connectionType'], {
+            is: (connectionType, enableAPIAccess) => connectionType === GitConnectionType.HTTPS || enableAPIAccess,
             then: Yup.string().trim().required(getString('validation.username'))
           }),
           sshKey: Yup.object().when('connectionType', {
@@ -164,6 +193,15 @@ const StepBitbucketAuthentication: React.FC<
           password: Yup.object().when('connectionType', {
             is: val => val === GitConnectionType.HTTPS,
             then: Yup.object().required(getString('validation.password')),
+            otherwise: Yup.object().nullable()
+          }),
+          apiAuthType: Yup.string().when('enableAPIAccess', {
+            is: val => val,
+            then: Yup.string().trim().required(getString('validation.authType'))
+          }),
+          accessToken: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
+            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAuthTypes.USER_TOKEN,
+            then: Yup.object().required(getString('validation.accessToken')),
             otherwise: Yup.object().nullable()
           })
         })}
@@ -212,6 +250,7 @@ const StepBitbucketAuthentication: React.FC<
                 label={getString('connectors.git.enableAPIAccess')}
                 padding={{ left: 'xxlarge' }}
               />
+              {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
             </Container>
 
             <Button

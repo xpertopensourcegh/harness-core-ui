@@ -13,7 +13,8 @@ export const AuthTypes = {
 
 export const GitAuthTypes = {
   USER_PASSWORD: 'UsernamePassword',
-  USER_TOKEN: 'UsernameToken'
+  USER_TOKEN: 'UsernameToken',
+  KERBEROS: 'Kerberos'
 }
 
 export const GitAPIAuthTypes = {

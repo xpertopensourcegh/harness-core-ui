@@ -288,7 +288,7 @@ export const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initia
                 name="spec.repo"
                 label={
                   <Text margin={{ top: 'small' }}>
-                    {getString('pipelineSteps.repoLabel')}
+                    {getString('repository')}
                     <Button
                       icon="question"
                       minimal

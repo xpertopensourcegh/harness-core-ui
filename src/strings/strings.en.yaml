@@ -7,6 +7,8 @@ global:
   projectLabel: Project
   orgLabel: Organization
   modules: Modules
+  account: 'Account'
+  repository: 'Repository'
   more: '+{{number}} more'
   lastActivity: last activity
   fieldRequired: '{{field}} is Required'
@@ -144,6 +146,7 @@ global:
   serviceAccount: Service Account
   usernamePassword: 'Username and Password'
   usernameToken: 'Username and Token'
+  kerberos: 'Kerberos'
   annonymous: 'Anonymous (no credentials required)'
   saveAndContinue: 'Save and Continue'
   addressErrorFields: 'Please address all error fields before submitting.'
@@ -417,7 +420,6 @@ global:
     autoTagSuffixLabel: 'Auto-Tag Suffix'
     settingsLabel: 'Settings'
     settingsInfo: Plugin specific settings. Please refer to the plugin's documentation page
-    repoLabel: 'Repository'
     repoInfo: For example, plugins/s3-cache
     dockerfileLabel: 'Dockerfile'
     dockerfileInfo: If not provided assumed to be in the root folder of the codebase
@@ -629,8 +631,9 @@ global:
     applicationId: 'GitHub Application ID is required'
     UrlRequired: URL is required
     sshKey: SSH key is required
+    kerberosKey: Kerberos key is required
     privateKey: 'GitHub Private Key is required'
-    accessToken: Access token  is required
+    accessToken: Access token is required
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
     tagsRequired: Tags is a required field
     environmentVariablesRequired: Environment Variables is a required field
@@ -691,10 +694,6 @@ global:
       gitlabStepTwoName: 'GitLab Connection Details'
       bitbucketStepTwoName: 'Bitbucket Connection Details'
       urlType: 'URL Type'
-      gitAccount: 'Git Account'
-      gitRepository: 'Git Repository'
-      bitbucketAccount: 'Bitbucket Account'
-      bitbucketRepository: 'Bitbucket Repository'
       connectionType: 'Connection Type'
       gitHubAccountUrl: 'GitHub Account URL'
       gitLabAccountUrl: 'Gitlab Account URL'

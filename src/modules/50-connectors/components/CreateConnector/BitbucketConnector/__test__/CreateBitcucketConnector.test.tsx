@@ -191,7 +191,7 @@ describe('Create Bitbucketconnector Wizard', () => {
           apiAccess: {
             type: 'UsernamePassword',
             spec: {
-              passwordRef: 'account.githubPassword',
+              tokenRef: 'account.githubPassword',
               username: 'dev'
             }
           }

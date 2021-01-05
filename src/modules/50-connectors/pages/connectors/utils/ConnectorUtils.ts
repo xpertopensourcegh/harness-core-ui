@@ -145,6 +145,10 @@ const getGitAuthSpec = (formData: FormData) => {
         username: formData.username,
         tokenRef: formData.accessToken.referenceString
       }
+    case GitAuthTypes.KERBEROS:
+      return {
+        kerberosKeyRef: formData.kerberosKey.referenceString
+      }
     default:
       return {}
   }
@@ -258,14 +262,14 @@ export const buildBitbucketPayload = (formData: FormData) => {
                 spec: getGitAuthSpec(formData)
               }
       },
-      apiAccess: { type: GitAuthTypes.USER_PASSWORD, spec: {} }
+      apiAccess: { type: formData.apiAuthType, spec: {} }
     }
   }
 
   if (formData.enableAPIAccess) {
     savedData.spec.apiAccess.spec = {
       username: formData.username,
-      passwordRef: formData.password.referenceString
+      tokenRef: formData.accessToken.referenceString
     }
   } else {
     delete savedData.spec.apiAccess
@@ -321,6 +325,7 @@ export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountI
       authData?.spec?.spec?.tokenRef || connectorInfo?.spec?.apiAccess?.spec?.tokenRef,
       scopeQueryParams
     ),
+    kerberosKey: await setSecretField(authData?.spec?.spec?.kerberosKeyRef, scopeQueryParams),
     enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
     installationId: connectorInfo?.spec?.apiAccess?.spec?.installationId,
@@ -345,7 +350,8 @@ export const setupBitbucketFormData = async (connectorInfo: ConnectorInfoDTO, ac
     username: authData?.spec?.spec?.username,
     password: await setSecretField(authData?.spec?.spec?.passwordRef, scopeQueryParams),
     enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
-    apiAuthType: connectorInfo?.spec?.apiAccess?.type
+    apiAuthType: connectorInfo?.spec?.apiAccess?.type,
+    accessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams)
   }
 
   return formData

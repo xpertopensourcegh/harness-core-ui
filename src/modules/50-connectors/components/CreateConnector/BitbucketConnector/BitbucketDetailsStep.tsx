@@ -62,11 +62,11 @@ const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
 
   const urlTypeOptions: IOptionProps[] = [
     {
-      label: getString('connectors.git.bitbucketAccount'),
+      label: getString('account'),
       value: GitUrlType.ACCOUNT
     },
     {
-      label: getString('connectors.git.bitbucketRepository'),
+      label: getString('repository'),
       value: GitUrlType.REPO
     }
   ]

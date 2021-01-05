@@ -589,7 +589,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Git Account
+                          Account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -602,7 +602,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Git Repository
+                          Repository
                         </label>
                       </div>
                     </div>
@@ -1027,7 +1027,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 2`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Git Account
+                          Account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1040,7 +1040,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 2`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Git Repository
+                          Repository
                         </label>
                       </div>
                     </div>

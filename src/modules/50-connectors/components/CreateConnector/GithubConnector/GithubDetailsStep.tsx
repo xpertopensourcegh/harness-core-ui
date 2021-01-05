@@ -62,11 +62,11 @@ const GithubDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetai
 
   const urlTypeOptions: IOptionProps[] = [
     {
-      label: getString('connectors.git.gitAccount'),
+      label: getString('account'),
       value: GitUrlType.ACCOUNT
     },
     {
-      label: getString('connectors.git.gitRepository'),
+      label: getString('repository'),
       value: GitUrlType.REPO
     }
   ]

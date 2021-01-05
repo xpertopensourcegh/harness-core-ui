@@ -58,6 +58,7 @@ interface GitlabFormInterface {
   applicationId: string
   privateKey: SecretReferenceInterface | void
   sshKey: SecretReferenceInterface | void
+  kerberosKey: SecretReferenceInterface | void
   enableAPIAccess: boolean
   apiAuthType: string
 }
@@ -72,6 +73,7 @@ const defaultInitialFormData: GitlabFormInterface = {
   applicationId: '',
   privateKey: undefined,
   sshKey: undefined,
+  kerberosKey: undefined,
   enableAPIAccess: false,
   apiAuthType: GitAPIAuthTypes.TOKEN
 }
@@ -91,6 +93,12 @@ const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props =
         <>
           <FormInput.Text name="username" label={getString('username')} />
           <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
+        </>
+      )
+    case GitAuthTypes.KERBEROS:
+      return (
+        <>
+          <SecretInput name="kerberosKey" type={'SSHKey'} label={getString('kerberos')} />
         </>
       )
     default:
@@ -160,6 +168,10 @@ const StepGitlabAuthentication: React.FC<
     {
       label: getString('usernameToken'),
       value: GitAuthTypes.USER_TOKEN
+    },
+    {
+      label: getString('kerberos'),
+      value: GitAuthTypes.KERBEROS
     }
   ]
 
@@ -228,6 +240,11 @@ const StepGitlabAuthentication: React.FC<
           password: Yup.object().when('authType', {
             is: val => val === GitAuthTypes.USER_PASSWORD,
             then: Yup.object().required(getString('validation.password')),
+            otherwise: Yup.object().nullable()
+          }),
+          kerberosKey: Yup.object().when('authType', {
+            is: val => val === GitAuthTypes.KERBEROS,
+            then: Yup.object().required(getString('validation.kerberosKey')),
             otherwise: Yup.object().nullable()
           }),
           accessToken: Yup.object().when(['connectionType', 'authType', 'enableAPIAccess', 'apiAuthType'], {
