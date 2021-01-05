@@ -23,7 +23,6 @@ function transformDSResponse(dsConfig: any) {
       name: dsConfig.monitoringSourceName,
       connectorRef: { label: dsConfig.connectorIdentifier, value: dsConfig.connectorIdentifier },
       product: dsConfig.productName,
-      metricPacks: dsConfig.appConfigs[0].metricPacks,
       applications: dsConfig.appConfigs.reduce((acc: InternalState, appConfig: any) => {
         acc[appConfig.applicationName] = {
           name: appConfig.applicationName,
@@ -37,7 +36,8 @@ function transformDSResponse(dsConfig: any) {
               }
             }),
             {}
-          )
+          ),
+          metricPacks: appConfig.metricPacks
         }
         return acc
       }, {})

@@ -5,6 +5,7 @@ import qs from 'qs'
 import { useParams } from 'react-router-dom'
 import cloneDeep from 'lodash-es/cloneDeep'
 import type { CellProps } from 'react-table'
+import isEmpty from 'lodash-es/isEmpty'
 import Table from '@common/components/Table/Table'
 import { useGetServiceListForProject } from 'services/cd-ng'
 import {
@@ -24,7 +25,13 @@ import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/Rout
 import { getConfig } from 'services/config'
 import { ValidationCell, ServiceCell } from './MapApplicationsTableCells'
 import AppDApplicationSelector from './AppDApplicationSelector'
-import { TierRecord, InternalState, ValidationStatus, useValidationErrors } from '../AppDOnboardingUtils'
+import {
+  TierRecord,
+  InternalState,
+  ValidationStatus,
+  useValidationErrors,
+  ApplicationRecord
+} from '../AppDOnboardingUtils'
 import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './MapApplications.module.scss'
 
@@ -46,9 +53,21 @@ export async function validateTier(metricPacks: MetricPackArrayRequestBody, quer
     } else if (response?.resource?.every((val: any) => val.overallStatus === 'SUCCESS')) {
       status = ValidationStatus.SUCCESS
     }
-    return { validationStatus: status, metricData: response?.resource }
+    return { validationStatus: status, validationResult: response?.resource }
   }
   return {}
+}
+
+function hasMetricPackSelected(app?: ApplicationRecord, identifier?: string): boolean {
+  return !!app?.metricPacks?.find(val => val.identifier === identifier) ?? false
+}
+
+function hasDuplicatedServiceMappings(tiers: ApplicationRecord['tiers']) {
+  const appTiers = Object.values(tiers || {})
+  return appTiers
+    .map(t => t.service)
+    .filter(s => !!s)
+    .some((s, i, a) => a.indexOf(s) >= 0 && a.indexOf(s) !== i)
 }
 
 const PAGE_SIZE = 10
@@ -60,10 +79,10 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   const [textFilter, setTextFilter] = useState('')
   const [state, setState] = useState<InternalState>(cloneDeep(stepData?.applications || {}))
   const [serviceOptions, setServiceOptions] = useState<Array<SelectOption>>([])
-  const [metricPacks, setMetricPacks] = useState<Array<{ selected: boolean; data: MetricPackDTO }>>([])
   const [validationResult, setValidationResult] = useState<TierRecord['validationResult']>()
-  const { setError, renderError } = useValidationErrors()
-  const haveMPacksChanged = useRef((val: any) => val === metricPacks)
+  const { errors, setError, renderError, hasError } = useValidationErrors()
+  const haveMPacksChanged = useRef<(name: string, val: any) => boolean>(() => false)
+  const [metricPackChanged, setMetricPackChanged] = useState(false)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
 
@@ -86,42 +105,24 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     }
   })
 
-  useGetMetricPacks({
+  const { data: metricPackss } = useGetMetricPacks({
     queryParams: {
       accountId: accountId,
       orgIdentifier,
       projectIdentifier,
       dataSourceType: 'APP_DYNAMICS'
-    },
-    resolve: res => {
-      if (res.resource?.length) {
-        setMetricPacks(
-          res.resource.map((resource: MetricPackDTO) => ({
-            data: resource,
-            selected: stepData?.metricPacks?.some((mp: MetricPackDTO) => mp.identifier === resource.identifier) ?? false
-          }))
-        )
-      }
-      return res
     }
   })
 
-  const [applicationStatuses, errors] = useMemo(() => {
+  const applicationStatuses = useMemo(() => {
     const statuses: any = {}
-    const appErrors: any = {}
     if (state) {
       for (const app of Object.values(state)) {
         const appTiers = Object.values(app?.tiers ?? {})
         if (!appTiers.length) continue
-        if (
-          appTiers
-            .map(t => t.service)
-            .filter(s => !!s)
-            .some((s, i, a) => a.indexOf(s) >= 0 && a.indexOf(s) !== i)
-        ) {
-          appErrors[app!.name] = getString('cv.monitoringSources.appD.validationMsg')
+        if (appTiers.some(val => val.validationStatus === ValidationStatus.ERROR)) {
           statuses[app!.name] = 'ERROR'
-        } else if (appTiers.some(val => val.validationStatus === ValidationStatus.ERROR)) {
+        } else if (hasError(`${app!.name}.metricPacks`) || hasError(`${app!.name}.uniqueService`)) {
           statuses[app!.name] = 'ERROR'
         } else if (
           appTiers.every(
@@ -133,8 +134,8 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
         }
       }
     }
-    return [statuses, appErrors]
-  }, [state])
+    return statuses
+  }, [state, errors])
 
   const { data: tiers, loading: loadingTiers } = useGetAppDynamicsTiers({
     queryParams: {
@@ -162,10 +163,9 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   })
 
   const onValidateTier = async (appName: string, tierName: string) => {
-    if (metricPacks.some(mp => mp.selected)) {
+    if (state[appName]?.metricPacks?.length) {
       onSetTierData(appName, tierName, { validationStatus: ValidationStatus.IN_PROGRESS })
-      const payload = metricPacks.filter(mp => mp.selected).map(mp => mp.data)
-      const update = await validateTier(payload as MetricPackArrayRequestBody, {
+      const update = await validateTier(state[appName]?.metricPacks as MetricPackArrayRequestBody, {
         accountId,
         appName,
         tierName,
@@ -174,7 +174,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
         projectIdentifier: projectIdentifier as string,
         requestGuid: String(Date.now())
       })
-      if (haveMPacksChanged.current(metricPacks)) {
+      if (!haveMPacksChanged.current(appName, state[appName]?.metricPacks)) {
         onSetTierData(appName, tierName, update)
       }
     } else {
@@ -182,20 +182,22 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     }
   }
 
-  const onSelectMetricPack = (identifier: string, selected: boolean) => {
-    setMetricPacks(old =>
-      old.map(val => {
-        if (val.data.identifier === identifier) {
-          return {
-            data: val.data,
-            selected
-          }
-        } else {
-          return val
+  const onSelectMetricPack = (metricPack: MetricPackDTO, selected: boolean) => {
+    setState(old => {
+      const update = (state[selectedAppName]?.metricPacks ?? []).filter(val => val.identifier !== metricPack.identifier)
+      if (selected) {
+        update.push(metricPack)
+      }
+      return {
+        ...old,
+        [selectedAppName]: {
+          ...old[selectedAppName]!,
+          metricPacks: update
         }
-      })
-    )
-    setError('metricPacks', undefined)
+      }
+    })
+    setMetricPackChanged(true)
+    setError(`${selectedAppName}.metricPacks`, undefined)
   }
 
   const onSetTierData = (appName: string, tierName: string, value?: Partial<TierRecord>) => {
@@ -207,6 +209,13 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
       } else {
         delete appTiers[tierName]
       }
+
+      if (hasDuplicatedServiceMappings(appTiers)) {
+        setError(`${appName}.uniqueService`, getString('cv.monitoringSources.appD.validationMsg'))
+      } else if (hasError(`${appName}.uniqueService`)) {
+        setError(`${appName}.uniqueService`, undefined)
+      }
+
       return {
         ...old,
         [appName]: {
@@ -220,28 +229,26 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   }
 
   useEffect(() => {
-    haveMPacksChanged.current = (val: any) => val === metricPacks
-    if (Object.keys(state).length) {
-      Object.values(state).forEach(app => {
-        Object.values(app?.tiers ?? {}).forEach(tier => {
-          if (tier.service) {
-            onValidateTier(app!.name, tier.name)
-          }
-        })
+    if (metricPackChanged) {
+      haveMPacksChanged.current = (appName: string, val: any) => val !== state[appName]?.metricPacks
+      Object.values(state[selectedAppName]?.tiers ?? {}).forEach(tier => {
+        if (tier.service) {
+          onValidateTier(selectedAppName, tier.name)
+        }
       })
+      setMetricPackChanged(false)
     }
-  }, [metricPacks])
+  }, [metricPackChanged])
 
   const onNext = async () => {
-    const mPacks = metricPacks.filter(mp => mp.selected).map(mp => mp.data)
-    if (!mPacks.length) {
-      setError('metricPacks', getString('cv.monitoringSources.appD.validations.selectMetricPack'))
-      return
-    }
-    if (!Object.keys(errors).length) {
+    if (isEmpty(errors)) {
       const applications = cloneDeep(state)
       let foundSomeTiers = false
       for (const app of Object.values(applications)) {
+        if (isEmpty(app?.metricPacks) && !isEmpty(app?.tiers)) {
+          setError(`${app?.name}.metricPacks`, getString('cv.monitoringSources.appD.validations.selectMetricPack'))
+          return
+        }
         for (const tier of Object.values(app?.tiers ?? {})) {
           if (!tier.service) {
             setError('selectTier', getString('cv.monitoringSources.appD.validations.selectTier'))
@@ -253,7 +260,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
         }
       }
       if (foundSomeTiers) {
-        onCompleteStep({ applications, metricPacks: mPacks })
+        onCompleteStep({ applications })
       } else {
         setError('selectTier', getString('cv.monitoringSources.appD.validations.selectTier'))
       }
@@ -286,16 +293,16 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               {getString('metricPacks')}
             </Text>
             <Container margin={{ bottom: 'small' }}>
-              {metricPacks.map(mp => (
+              {metricPackss?.resource?.map(mp => (
                 <Checkbox
-                  key={mp.data.identifier}
-                  checked={mp.selected}
-                  label={mp.data.identifier}
-                  onChange={e => onSelectMetricPack(mp.data.identifier!, e.currentTarget.checked)}
+                  key={mp.identifier}
+                  checked={hasMetricPackSelected(state[selectedAppName], mp.identifier)}
+                  label={mp.identifier}
+                  onChange={e => onSelectMetricPack(mp, e.currentTarget.checked)}
                 />
               ))}
             </Container>
-            {renderError('metricPacks')}
+            {renderError(`${selectedAppName}.metricPacks`)}
           </Container>
           <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
             {getString('cv.monitoringSources.appD.mapTiersToServices')}
@@ -395,9 +402,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               gotoPage: (page: number) => setPageIndex(page)
             }}
           />
-          {!!selectedAppName && errors[selectedAppName!] && (
-            <Text color={Color.RED_500}>{errors[selectedAppName]}</Text>
-          )}
+          {renderError(`${selectedAppName}.uniqueService`)}
           {renderError('selectTier')}
           {!loadingTiers && !tiers?.resource?.content?.length && (
             <Container height={250}>

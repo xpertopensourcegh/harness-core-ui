@@ -118,7 +118,7 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
   }, [])
 
   const onNext = async () => {
-    const { identifier, name, connectorRef, applications, product, metricPacks } = stepData
+    const { identifier, name, connectorRef, applications, product } = stepData
 
     // TODO - replace type with DSConfig once backend is fixed
     const payload: any = {
@@ -133,7 +133,7 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
       appConfigs: Object.values(applications as InternalState)
         .filter(app => !isEmpty(app?.tiers))
         .map(app => ({
-          metricPacks,
+          metricPacks: app?.metricPacks,
           envIdentifier: app?.environment,
           applicationName: app?.name,
           serviceMappings: Object.values(app!.tiers!).map(tier => ({

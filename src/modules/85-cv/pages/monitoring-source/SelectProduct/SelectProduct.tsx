@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Layout, Container, FormikForm, Formik, FormInput } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
+import { connect } from 'formik'
+import pickBy from 'lodash-es/pickBy'
+import merge from 'lodash-es/merge'
 import { StringUtils } from '@common/exports'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -160,7 +163,7 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
 
   return (
     <Formik
-      enableReinitialize={true}
+      // enableReinitialize={true}
       initialValues={{ ...InitialValues, ...props.stepData }}
       validationSchema={Yup.object().shape(getValidationSchema(getString, props.productSelectValidationText))}
       onSubmit={formData => props.onCompleteStep({ ...formData } as any)}
@@ -178,7 +181,16 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
             )
           }
         />
+        <SyncStepDataValues values={props?.stepData} />
       </FormikForm>
     </Formik>
   )
 }
+
+const SyncStepDataValues = connect(({ formik, values }: any) => {
+  useEffect(() => {
+    const update = pickBy(values, value => !!value)
+    formik.setValues(merge(formik.values, update))
+  }, [values])
+  return null
+})

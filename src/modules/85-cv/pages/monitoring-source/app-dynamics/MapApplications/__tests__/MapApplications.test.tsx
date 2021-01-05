@@ -37,13 +37,11 @@ jest.mock('services/cv', () => ({
       }
     }
   }),
-  useGetMetricPacks: ({ resolve }: any) => {
-    useEffect(() => {
-      resolve({
-        resource: [{ identifier: 'mp1' }, { identifier: 'mp2' }]
-      })
-    }, [])
-  }
+  useGetMetricPacks: () => ({
+    data: {
+      resource: [{ identifier: 'mp1' }, { identifier: 'mp2' }]
+    }
+  })
 }))
 
 jest.mock('@wings-software/xhr-async')

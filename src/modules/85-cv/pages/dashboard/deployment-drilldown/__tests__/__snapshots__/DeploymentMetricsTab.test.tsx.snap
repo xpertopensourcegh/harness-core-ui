@@ -6,21 +6,21 @@ exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 1`]
     class="metricsTab panel"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws timeFilterAndBar"
+      class="StyledProps--font StyledProps--main timeFilterAndBar"
     >
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+        class="StyledProps--font StyledProps--main main"
       >
         <div
-          class="StyledProps---font--2ipy StyledProps---main--1Wws filterOptionContainer"
+          class="StyledProps--font StyledProps--main filterOptionContainer"
         >
           <p
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
           >
             FILTER
           </p>
           <div
-            class="bp3-popover-wrapper filterByOptions Select---main--1QpB bp3-fill"
+            class="bp3-popover-wrapper filterByOptions Select--main bp3-fill"
           >
             <div
               class="bp3-popover-target"
@@ -40,7 +40,7 @@ exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 1`]
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-xsmall"
                     icon="caret-down"
                   >
                     <svg
@@ -73,22 +73,22 @@ exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 1`]
       />
     </div>
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws timeseriesList"
+      class="StyledProps--font StyledProps--main timeseriesList"
     >
       <div />
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws showMore"
+        class="StyledProps--font StyledProps--main showMore"
       />
       <div />
       <div
-        class="StyledProps---font--2ipy StyledProps---main--1Wws showMore"
+        class="StyledProps--font StyledProps--main showMore"
       />
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+      class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
     >
       <span
-        class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+        class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
       >
         Showing 
         <strong>

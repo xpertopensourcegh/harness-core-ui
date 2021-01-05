@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Text, Color } from '@wings-software/uicore'
+import type { MetricPackDTO } from 'services/cv'
 
 export enum ValidationStatus {
   IN_PROGRESS = 'in-progress',
@@ -20,6 +21,7 @@ export interface ApplicationRecord {
   environment?: string
   totalTiers?: number
   tiers?: { [tierName: string]: TierRecord }
+  metricPacks?: MetricPackDTO[]
 }
 
 export interface InternalState {
@@ -29,12 +31,19 @@ export interface InternalState {
 export function useValidationErrors() {
   const [errors, setErrors] = useState<{ [key: string]: string | undefined }>({})
   const setError = (name: string, value?: string) => {
-    setErrors(old => ({
-      ...old,
-      [name]: value
-    }))
+    setErrors(old => {
+      const update = {
+        ...old,
+        [name]: value
+      }
+      if (!value) {
+        delete update[name]
+      }
+      return update
+    })
   }
+  const hasError = (name: string) => !!errors[name]
   const renderError = (name: string) => errors[name] && <Text color={Color.RED_500}>{errors[name]}</Text>
 
-  return { errors, setError, renderError }
+  return { errors, setError, renderError, hasError }
 }
