@@ -238,7 +238,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
       formatter: function tooltipFormatter(this: any): string {
         return `<section class="serviceeGuardTimeSeriesTooltip"><p>${moment(this.x).format(
           'M/D/YYYY h:mm:ss a'
-        )}</p><br/><p>Value: ${this.y}</p></section>`
+        )}</p><br/><p>Value: ${Math.round(this.y * 100) / 100}</p></section>`
       },
       outside: true
     },
