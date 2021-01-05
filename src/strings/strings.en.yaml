@@ -491,7 +491,9 @@ global:
     barrier: Barrier
     k8sBGDeploy: 'K8s Blue Green Deploy'
     k8sCanaryDeploy: 'K8s Canary Deploy'
+    k8sScale: 'K8s Scale'
     skipDryRun: 'Skip Dry Run'
+    workload: 'Workload'
     stepNameRequired: 'Step Name is required'
     timeoutRequired: 'Timeout is required'
     lessThanZero: 'Instance cannot be less than zero.'

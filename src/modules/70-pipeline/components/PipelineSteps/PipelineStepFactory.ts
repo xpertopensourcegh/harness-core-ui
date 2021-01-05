@@ -22,6 +22,7 @@ import { Dependency } from './Steps/Dependency/Dependency'
 import { KubernetesServiceSpec } from './Steps/K8sServiceSpec/K8sServiceSpec'
 import { K8sBlueGreenDeployStep } from './Steps/K8sBgStep/K8sBlueGreenDeployStep'
 import { K8sCanaryDeployStep } from './Steps/K8sCanaryDeploy/K8sCanaryDeployStep'
+import { K8sScaleStep } from './Steps/K8sScale/K8sScaleStep'
 import { K8sRollingRollbackStep } from './Steps/K8sRollingRollback/K8sRollingRollback'
 import { BarrierStep } from './Steps/Barrier/Barrier'
 class PipelineStepFactory extends AbstractStepFactory {
@@ -37,6 +38,8 @@ factory.registerStep(new K8sRollingRollbackStep())
 factory.registerStep(new BarrierStep())
 factory.registerStep(new K8sBlueGreenDeployStep())
 factory.registerStep(new K8sCanaryDeployStep())
+factory.registerStep(new K8sScaleStep())
+
 factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())
 factory.registerStep(new CustomVariables())
