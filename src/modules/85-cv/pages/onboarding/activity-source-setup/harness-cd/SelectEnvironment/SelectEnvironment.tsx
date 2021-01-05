@@ -7,7 +7,7 @@ import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
-import { Environment, useGetListEnvironments } from 'services/portal'
+import { Environment, GetListEnvironmentsQueryParams, useGetListEnvironments } from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -15,6 +15,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import { EnvironmentSelect } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
 import { useGetEnvironmentListForProject, EnvironmentResponseDTO } from 'services/cd-ng'
+import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectEnvironment.module.scss'
 
 export interface SelectEnvironmentProps {
@@ -51,15 +52,15 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
     lazy: true
   })
   const [page, setPage] = useState(0)
+  const [filter, setFilter] = useState<string | undefined>()
   const [offset, setOffset] = useState(0)
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
     queryParams: {
       accountId,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
+      orgIdentifier,
+      projectIdentifier
     }
   })
-
   useEffect(() => {
     if (environmentsResponse?.data?.content?.length) {
       setEnvironmentOptions(
@@ -73,17 +74,20 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
 
   useEffect(() => {
     const appIds = Object.keys(props.initialValues.applications || {})
-
     refetchEnvironments({
-      queryParams: { appId: appIds, offset: String(offset), limit: '10' },
+      queryParams: {
+        appId: appIds,
+        offset: String(offset),
+        limit: '10',
+        'search[0]': filter ? [{ field: 'keywords' }, { op: 'CONTAINS' }, { value: filter }] : undefined
+      } as GetListEnvironmentsQueryParams,
       queryParamStringifyOptions: { arrayFormat: 'repeat' }
     })
-  }, [props.initialValues.selectedApplications])
+  }, [props.initialValues.selectedApplications, filter, offset])
 
   useEffect(() => {
     if ((data?.resource as any)?.response) {
       const env = props.initialValues.environments ?? {}
-
       const formatData = (data?.resource as any)?.response?.map((item: Environment) => {
         return {
           name: item.name,
@@ -205,16 +209,22 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                     Header: getString('cv.activitySources.harnessCD.harnessApps'),
                     accessor: 'appName',
 
-                    width: '33%',
+                    width: '30%',
                     Cell: RenderColumnApplication,
 
                     disableSortBy: true
                   },
                   {
-                    Header: getString('cv.activitySources.harnessCD.environment.env'),
+                    Header: (
+                      <TableColumnWithFilter
+                        columnName={getString('cv.activitySources.harnessCD.environment.env')}
+                        onFilter={filterValue => setFilter(filterValue)}
+                        appliedFilter={filter}
+                      />
+                    ),
                     accessor: 'environment',
 
-                    width: '33%',
+                    width: '36%',
                     Cell: function EnvironmentCell({ row, value }) {
                       return (
                         <Layout.Horizontal>
@@ -253,12 +263,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                   }
                 }}
               />
-              <SubmitAndPreviousButtons
-                onPreviousClick={props.onPrevious}
-                onNextClick={() => {
-                  formik.submitForm()
-                }}
-              />
+              <SubmitAndPreviousButtons onPreviousClick={props.onPrevious} onNextClick={() => formik.submitForm()} />
             </FormikForm>
           )
         }}

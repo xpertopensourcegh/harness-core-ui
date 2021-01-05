@@ -28,7 +28,7 @@ exports[`Select Services render services for application 1`] = `
                 class="cell"
                 colspan="1"
                 role="columnheader"
-                style="width: 33%;"
+                style="width: 28%;"
               >
                 HARNESS CD 1.0 SERVICES
               </div>
@@ -36,7 +36,7 @@ exports[`Select Services render services for application 1`] = `
                 class="cell"
                 colspan="1"
                 role="columnheader"
-                style="width: 33%;"
+                style="width: 28%;"
               >
                 HARNESS CD 1.0 APPLICATION
               </div>
@@ -44,9 +44,11 @@ exports[`Select Services render services for application 1`] = `
                 class="cell"
                 colspan="1"
                 role="columnheader"
-                style="width: 33%;"
+                style="width: 44%;"
               >
-                HARNESS CV 2.0 SERVICES
+                <div
+                  class="StyledProps--font StyledProps--main filterComponent"
+                />
               </div>
             </div>
             <div
@@ -56,7 +58,7 @@ exports[`Select Services render services for application 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 33%;"
+                style="width: 28%;"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -101,7 +103,8 @@ exports[`Select Services render services for application 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 95%;"
                   >
                     Archive
                   </p>
@@ -110,10 +113,11 @@ exports[`Select Services render services for application 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 33%;"
+                style="width: 28%;"
               >
                 <p
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font Text--lineclamp StyledProps--main"
+                  style="--text-line-clamp: 1; width: 95%;"
                 >
                   appName
                 </p>
@@ -121,10 +125,10 @@ exports[`Select Services render services for application 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 33%;"
+                style="width: 44%;"
               >
                 <div
-                  class="Layout--horizontal StyledProps--main"
+                  class="Layout--horizontal StyledProps--main serviceContent"
                 >
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-right-small StyledProps--margin-top-small"
@@ -197,7 +201,7 @@ exports[`Select Services render services for application 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 33%;"
+                style="width: 28%;"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -242,7 +246,8 @@ exports[`Select Services render services for application 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 95%;"
                   >
                     Test Service
                   </p>
@@ -251,10 +256,11 @@ exports[`Select Services render services for application 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 33%;"
+                style="width: 28%;"
               >
                 <p
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font Text--lineclamp StyledProps--main"
+                  style="--text-line-clamp: 1; width: 95%;"
                 >
                   appName
                 </p>
@@ -262,10 +268,10 @@ exports[`Select Services render services for application 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 33%;"
+                style="width: 44%;"
               >
                 <div
-                  class="Layout--horizontal StyledProps--main"
+                  class="Layout--horizontal StyledProps--main serviceContent"
                 >
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-right-small StyledProps--margin-top-small"
@@ -339,13 +345,74 @@ exports[`Select Services render services for application 1`] = `
               >
                 Showing 
                 <strong>
-                  2
+                  1
                 </strong>
-                 of 
+                 - 
                 <strong>
-                  2
+                  9
+                </strong>
+                 of
+                 
+                <strong>
+                  50
                 </strong>
               </span>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <button
+                  class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  disabled=""
+                  tabindex="-1"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    1
+                  </span>
+                </button>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    2
+                  </span>
+                </button>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    3
+                  </span>
+                </button>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    4
+                  </span>
+                </button>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    5
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
           <div

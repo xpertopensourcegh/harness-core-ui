@@ -7,13 +7,19 @@ import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
-import { useGetListApplications, Application, RestResponsePageResponseApplication } from 'services/portal'
+import {
+  useGetListApplications,
+  Application,
+  RestResponsePageResponseApplication,
+  GetListApplicationsQueryParams
+} from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectApplication.module.scss'
 
 export interface HarnessCDActivitySourceDetailsProps {
@@ -38,10 +44,16 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
   const { accountId } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [offset, setOffset] = useState(0)
+  const [filter, setFilter] = useState<string | undefined>()
   const [disable, setDisable] = useState<boolean>(true)
   const [tableData, setTableData] = useState<Array<TableData>>()
   const { data, loading, error, refetch } = useGetListApplications({
-    queryParams: { accountId, offset: String(offset), limit: '10' },
+    queryParams: {
+      accountId,
+      offset: String(offset),
+      limit: '9',
+      search: filter ? [{ field: 'keywords', op: 'CONTAINS', value: filter }] : undefined
+    } as GetListApplicationsQueryParams,
     mock: props.mockData
   })
 
@@ -156,7 +168,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                     Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
                     accessor: 'selected',
 
-                    width: '50%',
+                    width: '40%',
                     Cell: function RenderApplications(tableProps) {
                       const rowData: TableData = tableProps.row?.original
 
@@ -171,7 +183,9 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                             }}
                           />
                           <Icon name="cd-main" />
-                          <Text color={Color.BLACK}>{rowData.name}</Text>
+                          <Text color={Color.BLACK} lineClamp={1} width="80%">
+                            {rowData.name}
+                          </Text>
                         </Layout.Horizontal>
                       )
                     },
@@ -180,13 +194,14 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                   },
                   {
                     Header: (
-                      <div className={css.serviceColHeader}>
-                        {getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
-                      </div>
+                      <TableColumnWithFilter
+                        columnName={getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
+                        onFilter={filterValue => setFilter(filterValue)}
+                        appliedFilter={filter}
+                      />
                     ),
                     id: 'serviceCount',
-
-                    width: '50%',
+                    width: '60%',
                     Cell: RenderColumnServicesCount,
 
                     disableSortBy: true

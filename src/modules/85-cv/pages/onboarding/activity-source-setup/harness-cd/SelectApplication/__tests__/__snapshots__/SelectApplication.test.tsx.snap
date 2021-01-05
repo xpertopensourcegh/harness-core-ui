@@ -28,7 +28,7 @@ exports[`SelectApplication render 1`] = `
                 class="cell"
                 colspan="1"
                 role="columnheader"
-                style="width: 50%;"
+                style="width: 40%;"
               >
                 HARNESS CD 1.0 APPLICATION
               </div>
@@ -36,13 +36,11 @@ exports[`SelectApplication render 1`] = `
                 class="cell"
                 colspan="1"
                 role="columnheader"
-                style="width: 50%;"
+                style="width: 60%;"
               >
                 <div
-                  class="serviceColHeader"
-                >
-                  HARNESS SERVICES (TO BE IMPORTED)
-                </div>
+                  class="StyledProps--font StyledProps--main filterComponent"
+                />
               </div>
             </div>
             <div
@@ -52,7 +50,7 @@ exports[`SelectApplication render 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 50%;"
+                style="width: 40%;"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -98,7 +96,8 @@ exports[`SelectApplication render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 80%;"
                   >
                     Test App
                   </p>
@@ -107,7 +106,7 @@ exports[`SelectApplication render 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 50%;"
+                style="width: 60%;"
               >
                 <div
                   class="StyledProps--font StyledProps--main serviceCol"
@@ -123,7 +122,7 @@ exports[`SelectApplication render 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 50%;"
+                style="width: 40%;"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -168,7 +167,8 @@ exports[`SelectApplication render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 80%;"
                   >
                     Abaris
                   </p>
@@ -177,7 +177,7 @@ exports[`SelectApplication render 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 50%;"
+                style="width: 60%;"
               >
                 <div
                   class="StyledProps--font StyledProps--main serviceCol"
@@ -193,7 +193,7 @@ exports[`SelectApplication render 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 50%;"
+                style="width: 40%;"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -238,7 +238,8 @@ exports[`SelectApplication render 1`] = `
                     </svg>
                   </span>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 80%;"
                   >
                     Harness Sample App
                   </p>
@@ -247,7 +248,7 @@ exports[`SelectApplication render 1`] = `
               <div
                 class="cell"
                 role="cell"
-                style="width: 50%;"
+                style="width: 60%;"
               >
                 <div
                   class="StyledProps--font StyledProps--main serviceCol"

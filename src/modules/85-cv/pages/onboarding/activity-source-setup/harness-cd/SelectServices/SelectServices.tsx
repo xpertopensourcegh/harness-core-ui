@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Formik, FormikForm, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
@@ -7,7 +7,12 @@ import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
-import { RestResponsePageResponseApplication, Service, useGetListServices } from 'services/portal'
+import {
+  GetListServicesQueryParams,
+  RestResponsePageResponseApplication,
+  Service,
+  useGetListServices
+} from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -16,6 +21,7 @@ import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { useGetServiceListForProject, ResponsePageServiceResponseDTO, ServiceResponseDTO } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectServices.module.scss'
 
 export interface SelectServicesProps {
@@ -42,7 +48,11 @@ interface TableData {
 
 const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
   const data = row.original
-  return <Text>{data.appName}</Text>
+  return (
+    <Text lineClamp={1} width="95%">
+      {data.appName}
+    </Text>
+  )
 }
 
 const SelectServices: React.FC<SelectServicesProps> = props => {
@@ -51,17 +61,24 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   const [serviceOptions, setServiceOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
+  const [filter, setFilter] = useState<string | undefined>()
   const [offset, setOffset] = useState(0)
+  const appIds = useMemo(() => Object.keys(props.initialValues.applications), [props.initialValues.applications])
   const { data, loading, error, refetch } = useGetListServices({
-    lazy: true
-    // mock: props.mockData
+    queryParams: {
+      appId: appIds,
+      offset: String(offset),
+      limit: '7',
+      'search[0]': filter ? [{ field: 'keywords' }, { op: 'CONTAINS' }, { value: filter }] : undefined
+    } as GetListServicesQueryParams,
+    queryParamStringifyOptions: { arrayFormat: 'repeat' }
   })
 
   const { data: serviceResponse } = useGetServiceListForProject({
     queryParams: {
       accountId,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
+      orgIdentifier,
+      projectIdentifier
     },
     mock: props.mockGetServices
   })
@@ -76,14 +93,6 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       )
     }
   }, [serviceResponse])
-
-  useEffect(() => {
-    const appIds = Object.keys(props.initialValues.applications)
-    refetch({
-      queryParams: { appId: appIds, offset: String(offset), limit: '7' },
-      queryParamStringifyOptions: { arrayFormat: 'repeat' }
-    })
-  }, [props.initialValues.selectedApplications])
 
   useEffect(() => {
     if ((data?.resource as any)?.response) {
@@ -184,7 +193,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                     Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
                     accessor: 'name',
 
-                    width: '33%',
+                    width: '28%',
                     Cell: function RenderApplications(tableProps) {
                       const rowData: TableData = tableProps?.row?.original as TableData
 
@@ -199,7 +208,9 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                             }}
                           />
                           <Icon name="cd-main" />
-                          <Text color={Color.BLACK}>{rowData.name}</Text>
+                          <Text color={Color.BLACK} lineClamp={1} width="95%">
+                            {rowData.name}
+                          </Text>
                         </Layout.Horizontal>
                       )
                     },
@@ -209,19 +220,24 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                     Header: getString('cv.activitySources.harnessCD.harnessApps'),
                     accessor: 'appName',
 
-                    width: '33%',
+                    width: '28%',
                     Cell: RenderColumnApplication,
 
                     disableSortBy: true
                   },
                   {
-                    Header: getString('cv.activitySources.harnessCD.service.services'),
+                    Header: (
+                      <TableColumnWithFilter
+                        columnName={getString('cv.activitySources.harnessCD.service.services')}
+                        onFilter={filterValue => setFilter(filterValue)}
+                        appliedFilter={filter}
+                      />
+                    ),
                     accessor: 'service',
-
-                    width: '33%',
+                    width: '44%',
                     Cell: function ServiceCell({ row, value }) {
                       return (
-                        <Layout.Horizontal>
+                        <Layout.Horizontal className={css.serviceContent}>
                           <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
                           <ServiceSelectOrCreate
                             item={value}
