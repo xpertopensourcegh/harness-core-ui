@@ -83,12 +83,45 @@ const DEFAULT_ROW_SIZE = 3
 function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: TransactionRowProps) {
   const [showMax, setShowMax] = useState<number>(DEFAULT_ROW_SIZE)
   const range = moment.range(moment(timeRange?.startTime), moment(timeRange?.endTime))
-  const mapSeriesData = (items: number[]) => {
+  const mapSeriesData = (items?: number[]) => {
+    items = items || []
     const increment = Math.floor(range.diff() / Math.max(items.length - 1, 1))
     return items.map((item, index) => ({
       x: range.start.valueOf() + index * increment,
-      y: item
+      y: item != -1 ? item : null
     }))
+  }
+  const mapChartOptions = (testData?: number[], controlData?: number[]) => {
+    testData = testData || []
+    controlData = controlData || []
+    const itemsLength = Math.max(testData.length, controlData.length, 3)
+    const combinedItems = [...testData, ...controlData].filter(val => val != -1)
+    const xIncrement = range.diff() / (itemsLength - 1)
+    const xTickPositions = Array(itemsLength)
+      .fill(null)
+      .map((_, i) => range.start.valueOf() + i * xIncrement)
+    const minValue = Math.min.apply(null, combinedItems)
+    const maxValue = Math.max.apply(null, combinedItems)
+    const yIncrement = (maxValue - minValue) / 3
+    let yTickPositions
+    if (minValue === maxValue) {
+      yTickPositions = [minValue - 1, minValue, minValue + 1]
+    } else {
+      yTickPositions = Array(4)
+        .fill(null)
+        .map((_, i) => minValue + i * yIncrement)
+      // Make sure rounding doesn't make a problem and the last value is exact as maxValue
+      yTickPositions[3] = maxValue
+    }
+
+    return {
+      xAxis: {
+        tickPositions: xTickPositions
+      },
+      yAxis: {
+        tickPositions: yTickPositions
+      }
+    }
   }
   const seriesData: Array<SeriesConfig> = useMemo(
     () =>
@@ -102,25 +135,62 @@ function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: 
             series: [
               {
                 name: 'testData',
-                type: 'line',
+                type: 'spline',
                 color: getColorValue(node.score!),
-                data: mapSeriesData(node.testData ?? [])
+                data: mapSeriesData(node.testData)
               },
               {
                 name: 'controlData',
-                type: 'line',
+                type: 'spline',
                 color: 'var(--grey-350)',
-                data: mapSeriesData(node.controlData ?? [])
+                data: mapSeriesData(node.controlData)
               }
-            ]
+            ],
+            chartOptions: mapChartOptions(node.testData, node.controlData)
           }
         })
         .filter(val => !!val) as Array<SeriesConfig>,
     [nodes, timeRange, showMax]
   )
+
   return (
     <>
-      <TimeseriesRow transactionName={transactionName} metricName={metricName} seriesData={seriesData} />
+      <TimeseriesRow
+        transactionName={transactionName}
+        metricName={metricName}
+        seriesData={seriesData}
+        chartOptions={{
+          chart: {
+            height: 80
+          },
+          xAxis: {
+            gridLineWidth: 1,
+            gridLineDashStyle: 'Dash'
+          },
+          yAxis: {
+            gridLineWidth: 1,
+            gridLineDashStyle: 'Dash'
+          },
+          plotOptions: {
+            series: {
+              marker: {
+                radius: 3,
+                symbol: 'circle',
+                fillColor: 'white',
+                lineWidth: 1,
+                lineColor: null as any // inherit from series
+              },
+              states: {
+                hover: {
+                  halo: {
+                    size: 0
+                  }
+                }
+              }
+            }
+          }
+        }}
+      />
       <Container className={styles.showMore}>
         {nodes.length > showMax && (
           <Link minimal font={{ size: 'small' }} onClick={() => setShowMax(Infinity)}>

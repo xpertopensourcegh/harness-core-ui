@@ -14,6 +14,7 @@ import styles from './TimeseriesRow.module.scss'
 export interface SeriesConfig {
   name?: string
   series: Highcharts.SeriesLineOptions[]
+  chartOptions?: Highcharts.Options
 }
 
 export interface TimeseriesRowProps {
@@ -43,7 +44,7 @@ export default function TimeseriesRow({
     return seriesData?.map(data => ({
       name: data.name,
       series: data.series,
-      options: chartOptions ? merge(chartsConfig(data.series), chartOptions) : chartsConfig(data.series)
+      options: merge(chartsConfig(data.series), chartOptions, data.chartOptions)
     }))
   }, [seriesData, chartOptions])
   return (
@@ -122,12 +123,23 @@ export function useTimeseriesDetailsModal(transactionName: React.ReactNode, metr
                 height: 200,
                 marginLeft: 50
               },
+              xAxis: {
+                gridLineWidth: 0
+              },
               yAxis: {
+                gridLineWidth: 1,
                 labels: {
                   enabled: true,
                   style: {
                     fontSize: 'var(--font-size-small)',
                     color: 'var(--grey-300)'
+                  }
+                }
+              },
+              plotOptions: {
+                series: {
+                  marker: {
+                    symbol: 'circle'
                   }
                 }
               }
@@ -166,6 +178,10 @@ export function extractTimeRange(data: SeriesConfig, options?: Highcharts.Option
     }
   }
   if (start && end) {
+    if (start === end) {
+      start -= 3600000
+      end += 3600000
+    }
     return {
       startDate: start,
       endDate: end

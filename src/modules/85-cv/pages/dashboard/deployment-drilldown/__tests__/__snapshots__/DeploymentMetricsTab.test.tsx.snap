@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 1`] = `
+<div>
+  <div
+    class="metricsTab panel"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws timeFilterAndBar"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws filterOptionContainer"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+          >
+            FILTER
+          </p>
+          <div
+            class="bp3-popover-wrapper filterByOptions Select---main--1QpB bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-input-group bp3-small"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="Search..."
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="Anomalous metrics"
+                />
+                <span
+                  class="bp3-input-action"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                    icon="caret-down"
+                  >
+                    <svg
+                      data-icon="caret-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        caret-down
+                      </desc>
+                      <path
+                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input
+          class="filterInput"
+          placeholder="Search"
+        />
+      </div>
+      <div
+        class="timelineBar timelineBar"
+      />
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws timeseriesList"
+    >
+      <div />
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws showMore"
+      />
+      <div />
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws showMore"
+      />
+    </div>
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+    >
+      <span
+        class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+      >
+        Showing 
+        <strong>
+          10
+        </strong>
+         of 
+        <strong>
+          10
+        </strong>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 2`] = `
+Array [
+  Object {
+    "x": 1609422672601,
+    "y": 130,
+  },
+  Object {
+    "x": 1609423572601,
+    "y": 692,
+  },
+  Object {
+    "x": 1609424472601,
+    "y": 718,
+  },
+  Object {
+    "x": 1609425372601,
+    "y": 703,
+  },
+  Object {
+    "x": 1609426272601,
+    "y": 687,
+  },
+]
+`;
