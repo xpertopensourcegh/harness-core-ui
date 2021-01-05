@@ -1,20 +1,14 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import DelegatesPage from '../DelegatesPage'
+import DelegatesListing from '../DelegateListing'
+import Delegatesmock from './Delegatesmock.json'
 
-const mockGetCallFunction = jest.fn()
-jest.mock('services/portal', () => ({
-  getDelegates: jest.fn().mockImplementation(args => {
-    mockGetCallFunction(args)
-    return []
-  })
-}))
-describe('Delegates Page', () => {
+describe('Delegates Listing', () => {
   test('render data', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
-        <DelegatesPage />
+        <DelegatesListing delegateResponse={Delegatesmock} onClick={() => jest.fn()} />
       </TestWrapper>
     )
 

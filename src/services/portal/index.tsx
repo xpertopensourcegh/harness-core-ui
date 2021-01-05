@@ -18449,8 +18449,8 @@ export type UseGetDelegatesProps = Omit<
   'path'
 >
 
-export const useGetDelegates = (props: UseGetDelegatesProps) =>
-  useGet<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>(`/setup/delegates`, {
+export const getDelegates = (props: UseGetDelegatesStatusProps) =>
+  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>(`/setup/delegates/status2`, {
     base: getConfig('api'),
     ...props
   })

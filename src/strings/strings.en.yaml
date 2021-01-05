@@ -291,6 +291,8 @@ global:
   delegate:
     DELEGATES: 'Delegates'
     NEW_DELEGATE: 'New Delegate'
+    DelegateName: 'Delegate'
+    LastHeartBeat: 'Last HeartBeat'
   execution:
     pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
     latestCommit: 'Latest commit:'

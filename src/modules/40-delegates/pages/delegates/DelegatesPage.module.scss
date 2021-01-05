@@ -1,3 +1,30 @@
 .listBody {
   padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
 }
+
+.delegateTabs {
+  display: flex;
+  justify-content: center;
+  :global {
+    .bp3-tab-list {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center;
+    }
+  }
+}
+
+.delegateContainer {
+  padding: var(--spacing-large) !important;
+  margin: var(--spacing-large) !important;
+}
+
+.delegateTable {
+  padding: var(--spacing-small) var(--spacing-xlarge);
+  background-color: var(--grey-100);
+  margin-top: var(--spacing-small);
+}
+
+.connectivity {
+  margin-right: var(--spacing-xsmall) !important;
+}

@@ -2356,6 +2356,19 @@ export type StepGroupElement = ExecutionWrapper & {
   rollbackSteps?: ExecutionWrapper[]
   metadata?: string
 }
+export interface DelegateResponse {
+  connector?: ConnectorInfoDTO
+  createdAt?: number
+  lastModifiedAt?: number
+  status?: ConnectorConnectivityDetails
+  harnessManaged?: boolean
+}
+
+export interface ResponseConnectorResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorResponse
+  metaData?: { [key: string]: any }
+}
 
 export type StepGroupFailureActionConfig = FailureStrategyActionConfig & { [key: string]: any }
 
