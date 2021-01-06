@@ -2,7 +2,7 @@ import React from 'react'
 import { UseGetProps, UseGetReturn, RestfulProvider } from 'restful-react'
 import { compile } from 'path-to-regexp'
 import { createMemoryHistory } from 'history'
-import { Router, Route, Switch, useLocation } from 'react-router-dom'
+import { Router, Route, Switch, useLocation, useHistory } from 'react-router-dom'
 import { ModalProvider } from '@wings-software/uicore'
 import qs from 'qs'
 
@@ -10,6 +10,8 @@ import strings from 'strings/strings.en.yaml'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
+
+import './testUtils.scss'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -35,6 +37,7 @@ export interface TestWrapperProps {
   defaultAppStoreValues?: Partial<AppStoreContextProps>
   strings?: Record<string, unknown[]>
   projects?: Project[]
+  enableBrowserView?: boolean
 }
 
 export const prependAccountPath = (path: string): string => withAccountId(() => path)(accountPathProps)
@@ -51,13 +54,50 @@ export const NotFound = (): JSX.Element => {
   )
 }
 
+export interface BrowserViewProps {
+  enable?: boolean
+  children: React.ReactNode
+}
+
+export function BrowserView(props: BrowserViewProps): React.ReactElement {
+  const { enable, children } = props
+  const location = useLocation()
+  const history = useHistory()
+
+  if (!enable) {
+    return <>{children}</>
+  }
+
+  function handlePathChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    history.replace(e.currentTarget.value)
+  }
+
+  const search = location.search ? `?${location.search.replace(/^\?/, '')}` : ''
+
+  return (
+    <div className="browser">
+      <div className="browser-header">
+        <input className="browser-path" value={location.pathname + search} onChange={handlePathChange} />
+      </div>
+      <div className="browser-content">{children}</div>
+    </div>
+  )
+}
+
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
   const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {} } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
   const routePath = compile(path)(pathParams) + search
 
-  const history = createMemoryHistory({ initialEntries: [routePath] })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const history = React.useMemo(() => createMemoryHistory({ initialEntries: [routePath] }), [])
+
+  /** TODO: Try fixing this later. This is causing some tests to fail */
+  // React.useEffect(() => {
+  //   history.replace(compile(path)(pathParams) + qs.stringify(queryParams, { addQueryPrefix: true }))
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [path, pathParams, queryParams])
 
   return (
     <AppStoreContext.Provider
@@ -70,14 +110,16 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
       <Router history={history}>
         <ModalProvider>
           <RestfulProvider base="/">
-            <Switch>
-              <Route exact path={path}>
-                {props.children}
-              </Route>
-              <Route>
-                <NotFound />
-              </Route>
-            </Switch>
+            <BrowserView enable={props.enableBrowserView}>
+              <Switch>
+                <Route exact path={path}>
+                  {props.children}
+                </Route>
+                <Route>
+                  <NotFound />
+                </Route>
+              </Switch>
+            </BrowserView>
           </RestfulProvider>
         </ModalProvider>
       </Router>

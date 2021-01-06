@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import * as reactRouterDom from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
@@ -17,14 +16,14 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as object),
-  useHistory: jest.fn(() => {
-    return {
-      push: jest.fn()
-    }
-  })
-}))
+// jest.mock('react-router-dom', () => ({
+//   ...(jest.requireActual('react-router-dom') as object),
+//   useHistory: jest.fn(() => {
+//     return {
+//       push: jest.fn()
+//     }
+//   })
+// }))
 
 jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: any) => {
   return (
@@ -104,23 +103,20 @@ describe('CVVerificationJobsPage', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('edit flow works correctly', () => {
-    const push = jest.fn()
-    jest.spyOn(reactRouterDom, 'useHistory').mockImplementationOnce(
-      () =>
-        ({
-          push: push
-        } as any)
-    )
-    const { container } = render(
+  test('edit flow works correctly', async () => {
+    const { container, findByTestId } = render(
       <TestWrapper {...testWrapperProps}>
         <CVVerificationJobsPage />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
-    expect(push).toHaveBeenCalled()
-    expect(push.mock.calls[0][0]).toEqual(
-      '/account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/verification-job/verificationId/Job1'
-    )
+    const path = await findByTestId('location')
+    expect(path).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/verification-job/verificationId/Job1
+      </div>
+    `)
   })
 })

@@ -1,20 +1,10 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import * as reactRouterDom from 'react-router-dom'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
 import CVMonitoringSourcesPage from '../CVMonitoringSourcesPage'
-
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as object),
-  useHistory: jest.fn(() => {
-    return {
-      push: jest.fn()
-    }
-  })
-}))
 
 jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: any) => {
   return (
@@ -75,24 +65,21 @@ describe('CVMonitoringSourcesPage', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Fires edit flow', () => {
-    const push = jest.fn()
-    jest.spyOn(reactRouterDom, 'useHistory').mockImplementationOnce(
-      () =>
-        ({
-          push: push
-        } as any)
-    )
-    const { container } = render(
+  test('Fires edit flow', async () => {
+    const { container, findByTestId } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoringSourcesPage />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
-    expect(push).toHaveBeenCalled()
-    expect(push.mock.calls[0][0]).toEqual(
-      '/account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/monitoring-source/app-dynamics/nameTTID'
-    )
+    const path = await findByTestId('location')
+    expect(path).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/monitoring-source/app-dynamics/nameTTID
+      </div>
+    `)
   })
 
   test('Delete works as expected', () => {
