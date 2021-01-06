@@ -23,7 +23,8 @@ import {
   SecretRequestWrapper,
   ConnectorInfoDTO,
   ConnectorResponse,
-  ResponsePageConnectorResponse
+  ResponsePageConnectorResponse,
+  VaultConnectorDTO
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
@@ -50,6 +51,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const [readOnlySecretManager, setReadOnlySecretManager] = useState<boolean>()
+
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' },
     mock: props.connectorListMockData
@@ -145,6 +148,12 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     item => item.connector?.spec?.default
   )[0]?.connector?.identifier
 
+  const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>(
+    secretManagersApiResponse?.data?.content?.filter(
+      itemValue => itemValue.connector?.identifier === defaultSecretManagerId
+    )?.[0]?.connector
+  )
+
   return (
     <>
       <ModalErrorHandler bind={setModalErrorHandler} />
@@ -154,9 +163,9 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
           description: '',
           identifier: '',
           tags: {},
-          valueType: 'Inline',
+          valueType: readOnlySecretManager ? 'Reference' : 'Inline',
           type: type || 'SecretText',
-          secretManagerIdentifier: defaultSecretManagerId || '',
+          secretManagerIdentifier: selectedSecretManager?.identifier || defaultSecretManagerId || '',
           orgIdentifier,
           projectIdentifier,
           ...pick(secret, ['name', 'identifier', 'description', 'tags']),
@@ -188,9 +197,12 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
         }}
       >
         {formikProps => {
-          const typeOfSelectedSecretManager: ConnectorInfoDTO['type'] = secretManagersApiResponse?.data?.content?.filter(
-            item => item.connector?.identifier === formikProps.values['secretManagerIdentifier']
-          )?.[0]?.connector?.type as ConnectorInfoDTO['type']
+          const typeOfSelectedSecretManager = secretManagersApiResponse?.data?.content?.filter(
+            itemValue => itemValue.connector?.identifier === formikProps.values['secretManagerIdentifier']
+          )?.[0]?.connector?.type
+          typeOfSelectedSecretManager === 'Vault' &&
+            setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO).readOnly)
+
           return (
             <FormikForm>
               <FormInput.Select
@@ -198,6 +210,13 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 label={i18n.labelSecretsManager}
                 items={secretManagersOptions}
                 disabled={editing || loadingSecretsManagers}
+                onChange={item => {
+                  setSelectedSecretManager(
+                    secretManagersApiResponse?.data?.content?.filter(
+                      itemValue => itemValue.connector?.identifier === item.value
+                    )?.[0]?.connector
+                  )
+                }}
               />
               <FormInput.InputWithIdentifier
                 inputName="name"
@@ -210,7 +229,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
               {typeOfSelectedSecretManager === 'Vault' ? (
-                <VaultFormFields formik={formikProps} type={type} editing={editing} />
+                <VaultFormFields formik={formikProps} type={type} editing={editing} readonly={readOnlySecretManager} />
               ) : null}
               <Button
                 intent="primary"

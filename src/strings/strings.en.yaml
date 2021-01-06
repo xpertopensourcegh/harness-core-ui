@@ -293,6 +293,8 @@ global:
     titleCreateFile: 'Add new Encrypted File'
     titleEditText: 'Edit Encrypted Text'
     titleEditFile: 'Edit Encrypted File'
+    inlineSecret: 'Inline Secret Value'
+    referenceSecret: 'Reference Secret'
   instanceFieldOptions:
     percentage: 'percentage'
     instances: 'instances'

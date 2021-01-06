@@ -8,6 +8,7 @@ import i18n from '../CreateUpdateSecret.i18n'
 
 interface VaultFormFieldsProps {
   type: SecretDTOV2['type']
+  readonly?: boolean
   editing: boolean
 }
 
@@ -15,7 +16,12 @@ interface FormikContextProps<T> {
   formik?: FormikContext<T>
 }
 
-const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> = ({ formik, type, editing }) => {
+const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> = ({
+  formik,
+  type,
+  editing,
+  readonly
+}) => {
   const { getString } = useStrings()
   return (
     <>
@@ -25,8 +31,8 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
             name="valueType"
             radioGroup={{ inline: true }}
             items={[
-              { label: 'Inline Secret Value', value: 'Inline' },
-              { label: 'Reference Secret', value: 'Reference' }
+              { label: getString('secret.inlineSecret'), value: 'Inline', disabled: readonly },
+              { label: getString('secret.referenceSecret'), value: 'Reference' }
             ]}
           />
           {formik?.values['valueType'] === 'Inline' ? (
