@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
@@ -9,16 +9,29 @@ import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import { Page, useToaster } from '@common/exports'
-import { Target, useCreateTarget } from 'services/cf'
+import { Target, useCreateTarget, useDeleteTarget } from 'services/cf'
 import CreateTargetModal, { TargetData } from './CreateTargetModal'
 import css from './CFTargetsPage.module.scss'
 
 type CustomColumn<T extends object> = Column<T>
-const PlaceholderCell: React.FC<any> = () => <Text>TBD</Text>
-const TableCell: React.FC<any> = ({ value }) => <Text>{value}</Text>
+const PlaceholderCell: React.FC<{}> = () => <Text>TBD</Text>
+const TableCell: React.FC<{ value: any }> = ({ value }) => <Text>{value}</Text>
 
-const LastUpdatedCell: React.FC<any> = ({ value }: any) => {
+type RowActions = { [P in 'onEdit' | 'onDelete']: (id: string) => void }
+const RowContext: React.Context<RowActions | undefined> = React.createContext<RowActions | undefined>(undefined)
+
+type LastUpdatedCellProps = {
+  value: any
+  cell: any
+}
+const LastUpdatedCell: React.FC<LastUpdatedCellProps> = ({ value, cell }: LastUpdatedCellProps) => {
   const { getString } = useStrings()
+  const { onEdit, onDelete } = useContext(RowContext) ?? {}
+  const handleInteraction = (type: 'edit' | 'delete') => () => {
+    const id = cell.row.original.identifier
+    type === 'edit' ? onEdit?.(id) : onDelete?.(id)
+  }
+
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }}>
       <ReactTimeago date={moment(value).toDate()} />
@@ -34,8 +47,8 @@ const LastUpdatedCell: React.FC<any> = ({ value }: any) => {
           iconProps={{ size: 24 }}
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text={getString('edit')} />
-              <Menu.Item icon="cross" text={getString('delete')} />
+              <Menu.Item icon="edit" text={getString('edit')} onClick={handleInteraction('edit')} />
+              <Menu.Item icon="cross" text={getString('delete')} onClick={handleInteraction('delete')} />
             </Menu>
           }
           tooltipProps={{ isDark: true, interactionKind: 'click' }}
@@ -60,6 +73,7 @@ interface IndividualProps {
     gotoPage: (pageNumber: number) => void
   }
   onCreateTargets: () => void
+  onDeleteTarget: () => void
 }
 
 type SettledTarget = {
@@ -75,7 +89,8 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   pagination,
   orgIdentifier,
   accountId,
-  onCreateTargets
+  onCreateTargets,
+  onDeleteTarget
 }) => {
   const { getString } = useStrings()
   const getPageString = (key: string) => getString(`cf.targets.${key}`)
@@ -83,6 +98,15 @@ const IndividualTargets: React.FC<IndividualProps> = ({
 
   const [loadingBulk, setLoadingBulk] = useState<boolean>(false)
   const history = useHistory()
+
+  const { mutate: deleteTarget } = useDeleteTarget({
+    queryParams: {
+      project,
+      environment: environment as string,
+      account: accountId,
+      org: orgIdentifier
+    }
+  })
 
   const { mutate: createTarget, loading: loadingCreateTarget } = useCreateTarget({
     queryParams: { account: accountId, org: orgIdentifier }
@@ -113,36 +137,39 @@ const IndividualTargets: React.FC<IndividualProps> = ({
     )
   }
 
-  const columnDefs: CustomColumn<Target>[] = [
-    {
-      Header: getPageString('name').toLocaleUpperCase(),
-      accessor: 'name',
-      width: '20%',
-      Cell: TableCell
-    },
-    {
-      Header: getPageString('ID'),
-      accessor: 'identifier',
-      width: '20%',
-      Cell: TableCell
-    },
-    {
-      Header: getPageString('targetSegment').toLocaleUpperCase(),
-      width: '20%',
-      Cell: PlaceholderCell
-    },
-    {
-      Header: getString('featureFlagsText').toLocaleUpperCase(),
-      width: '20%',
-      Cell: PlaceholderCell
-    },
-    {
-      Header: getPageString('lastActivity').toLocaleUpperCase(),
-      accessor: () => new Date(),
-      width: '20%',
-      Cell: LastUpdatedCell
-    }
-  ]
+  const columnDefs: CustomColumn<Target>[] = useMemo(
+    () => [
+      {
+        Header: getPageString('name').toLocaleUpperCase(),
+        accessor: 'name',
+        width: '20%',
+        Cell: TableCell
+      },
+      {
+        Header: getPageString('ID'),
+        accessor: 'identifier',
+        width: '20%',
+        Cell: TableCell
+      },
+      {
+        Header: getPageString('targetSegment').toLocaleUpperCase(),
+        width: '20%',
+        Cell: PlaceholderCell
+      },
+      {
+        Header: getString('featureFlagsText').toLocaleUpperCase(),
+        width: '20%',
+        Cell: PlaceholderCell
+      },
+      {
+        Header: getPageString('lastActivity').toLocaleUpperCase(),
+        accessor: () => new Date(),
+        width: '20%',
+        Cell: LastUpdatedCell
+      }
+    ],
+    [getString, getPageString]
+  )
 
   const handleTargetCreation = (ts: TargetData[], hideModal: () => void) => {
     setLoadingBulk(true)
@@ -179,7 +206,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
       .then((ts: TargetData[]) => handleTargetCreation(ts, hideModal))
   }
 
-  const handleRowClick = ({ identifier }: Target) => {
+  const handleRowClick = ({ identifier }: Pick<Target, 'identifier'>) => {
     history.push(
       routes.toCFTargetDetails({
         targetIdentifier: identifier as string,
@@ -189,6 +216,15 @@ const IndividualTargets: React.FC<IndividualProps> = ({
         accountId
       })
     )
+  }
+
+  const handleEditRow = (identifier: string) => handleRowClick({ identifier })
+  const handleDeleteRow = (id: string) => {
+    deleteTarget(id)
+      .then(onDeleteTarget)
+      .catch(() => {
+        showError(`Could not delete target ${id}`)
+      })
   }
 
   if (loading) {
@@ -209,13 +245,20 @@ const IndividualTargets: React.FC<IndividualProps> = ({
         />
       </Container>
       <Container flex className={css.content}>
-        <Table<Target>
-          className={css.table}
-          columns={columnDefs}
-          data={targets}
-          pagination={pagination}
-          onRowClick={handleRowClick}
-        />
+        <RowContext.Provider
+          value={{
+            onDelete: handleDeleteRow,
+            onEdit: handleEditRow
+          }}
+        >
+          <Table<Target>
+            className={css.table}
+            columns={columnDefs}
+            data={targets}
+            pagination={pagination}
+            onRowClick={handleRowClick}
+          />
+        </RowContext.Provider>
       </Container>
     </Page.Body>
   )

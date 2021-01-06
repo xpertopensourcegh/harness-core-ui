@@ -211,6 +211,7 @@ const CFTargetsPage: React.FC = () => {
           orgIdentifier={orgIdentifier}
           accountId={accountId}
           onCreateTargets={fetchTargets}
+          onDeleteTarget={fetchTargets}
         />
       ) : (
         <TargetSegmentsView
