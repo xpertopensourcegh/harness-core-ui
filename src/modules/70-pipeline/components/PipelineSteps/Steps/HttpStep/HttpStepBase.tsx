@@ -68,6 +68,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
           name="spec.headers"
           label="Header"
           defaultValueToReset={[{ name: '', type: 'String', value: '', id: uuid() }]}
+          disableTypeSelection
         >
           <FieldArray
             name="spec.headers"

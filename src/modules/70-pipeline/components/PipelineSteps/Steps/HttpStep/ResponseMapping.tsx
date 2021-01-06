@@ -21,7 +21,7 @@ export default function ResponseMapping(props: { formik: FormikProps<HttpStepInf
   return (
     <div className={stepCss.stepPanel}>
       <div className={stepCss.stepPanel}>
-        <MultiTypeFieldSelector name="spec.outputVariables" label={getString('outputLabel')}>
+        <MultiTypeFieldSelector name="spec.outputVariables" label={getString('outputLabel')} disableTypeSelection>
           <FieldArray
             name="spec.outputVariables"
             render={({ push, remove }) => {

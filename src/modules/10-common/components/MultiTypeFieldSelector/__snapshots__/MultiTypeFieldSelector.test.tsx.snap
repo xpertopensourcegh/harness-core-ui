@@ -77,6 +77,53 @@ exports[`<MultiTypeFieldSelector /> tests "Fixed value" renders children: Fixed 
 </div>
 `;
 
+exports[`<MultiTypeFieldSelector /> tests "disableTypeSelection" does not render type selector 1`] = `
+<div>
+  <form>
+    <div
+      class="bp3-form-group formGroup"
+    >
+      <label
+        class="bp3-label"
+        for="test"
+      >
+        <div
+          class="formLabel"
+        >
+          <span>
+            Test Label
+             
+            <b>
+              &lt;+input&gt;
+            </b>
+          </span>
+        </div>
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          data-testid="children"
+        >
+          <input
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;
+
 exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime input" updates value: Runtime input 1`] = `
 <div>
   <form>

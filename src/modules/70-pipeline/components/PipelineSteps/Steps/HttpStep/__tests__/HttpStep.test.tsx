@@ -27,9 +27,9 @@ describe('Http Step', () => {
         method: RUNTIME_INPUT_VALUE,
         url: RUNTIME_INPUT_VALUE,
         requestBody: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE,
-        headers: RUNTIME_INPUT_VALUE,
-        outputVariables: RUNTIME_INPUT_VALUE
+        timeout: RUNTIME_INPUT_VALUE
+        // headers: RUNTIME_INPUT_VALUE
+        // outputVariables: RUNTIME_INPUT_VALUE
       }
     }
     const { container } = render(

@@ -22,9 +22,13 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   children: Exclude<React.ReactNode, null | undefined>
   name: string
   label: string | ReactChild
-  formik?: FormikContext<any>
   defaultValueToReset?: unknown
   style?: CSSProperties
+  disableTypeSelection?: boolean
+}
+
+export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSelectorProps {
+  formik: FormikContext<any>
 }
 
 const TypeIcon: Record<MultiTypeInputType, IconName> = {
@@ -78,8 +82,8 @@ function TypeSelector(props: {
   )
 }
 
-export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): React.ReactElement {
-  const { formik, label, name, children, defaultValueToReset, ...restProps } = props
+export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorProps): React.ReactElement {
+  const { formik, label, name, children, defaultValueToReset, disableTypeSelection, ...restProps } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -96,7 +100,7 @@ export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): Reac
   function handleChange(newType: MultiTypeInputType): void {
     setType(newType)
     if (newType === type) return
-    formik?.setFieldValue(
+    formik.setFieldValue(
       name,
       newType === MultiTypeInputType.RUNTIME
         ? RUNTIME_INPUT_VALUE
@@ -123,13 +127,13 @@ export function MultiTypeFieldSelector(props: MultiTypeFieldSelectorProps): Reac
               {label} <b>{value}</b>
             </span>
           )}
-          <TypeSelector type={type} onChange={handleChange} />
+          {disableTypeSelection ? null : <TypeSelector type={type} onChange={handleChange} />}
         </div>
       }
     >
-      {type === MultiTypeInputType.FIXED ? children : null}
+      {disableTypeSelection || type === MultiTypeInputType.FIXED ? children : null}
     </FormGroup>
   )
 }
 
-export default connect(MultiTypeFieldSelector)
+export default connect<MultiTypeFieldSelectorProps>(MultiTypeFieldSelector)

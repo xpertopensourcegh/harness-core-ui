@@ -47,19 +47,19 @@ export const HTTPStep: Story<Omit<StepWidgetProps, 'factory'>> = args => {
 }
 
 HTTPStep.args = {
-  initialValues: { identifier: 'Test_A', type: StepType.K8sRollingDeploy },
-  type: StepType.K8sRollingDeploy,
+  initialValues: { identifier: 'Test_A', type: StepType.HTTP },
+  type: StepType.HTTP,
   stepViewType: StepViewType.Edit,
   path: '',
   template: {
     identifier: 'Test_A',
-    type: StepType.K8sRollingDeploy,
-    spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
+    type: StepType.HTTP,
+    spec: { url: RUNTIME_INPUT_VALUE, method: RUNTIME_INPUT_VALUE }
   },
   allValues: {
-    type: StepType.K8sRollingDeploy,
+    type: StepType.HTTP,
     name: 'Test A',
     identifier: 'Test_A',
-    spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE }
+    spec: { url: RUNTIME_INPUT_VALUE, method: RUNTIME_INPUT_VALUE }
   }
 }

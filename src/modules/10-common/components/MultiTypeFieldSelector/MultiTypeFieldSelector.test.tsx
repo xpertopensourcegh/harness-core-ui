@@ -12,7 +12,7 @@ interface TestProps extends Omit<MultiTypeFieldSelectorProps, 'name' | 'label' |
   onSubmit(data: any): void
 }
 
-function TestComponent({ onSubmit, initialValues, ...props }: TestProps) {
+function TestComponent({ onSubmit, initialValues, ...props }: TestProps): React.ReactElement {
   return (
     <TestWrapper>
       <Formik onSubmit={onSubmit} initialValues={initialValues}>
@@ -79,6 +79,15 @@ describe('<MultiTypeFieldSelector /> tests', () => {
     )
   })
 
+  test('"disableTypeSelection" does not render type selector', async () => {
+    const onSubmit = jest.fn()
+    const { container } = render(
+      <TestComponent onSubmit={onSubmit} initialValues={{ test: RUNTIME_INPUT_VALUE }} disableTypeSelection />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
   test('Detects "Runtime input" correctly', async () => {
     const onSubmit = jest.fn()
     const { container, getByTestId } = render(
@@ -88,6 +97,7 @@ describe('<MultiTypeFieldSelector /> tests', () => {
     expect(container).toMatchSnapshot('Runtime input')
     expect(() => getByTestId('children')).toThrow()
   })
+
   test('Change from "Runtime input" to "Fixed value" updates value', async () => {
     const onSubmit = jest.fn()
     const { container, getByTestId } = render(
