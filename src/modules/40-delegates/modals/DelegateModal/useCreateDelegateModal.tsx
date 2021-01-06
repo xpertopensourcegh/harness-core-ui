@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
+import { Delegates } from '@delegates/constants'
+import { CreateDelegateWizard } from '@delegates/components/CreateDelegateWizard/CreateDelegateWizard'
 import css from './useCreateDelegateModal.module.scss'
 
 export interface UseCreateDelegateModalProps {
@@ -9,7 +11,7 @@ export interface UseCreateDelegateModalProps {
 }
 
 export interface UseCreateDelegateModalReturn {
-  openDelegateModal: () => void
+  openDelegateModal: (modalProps?: IDialogProps) => void
   closeDelegateModal: () => void
 }
 
@@ -17,8 +19,8 @@ const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
-      width: 1175,
-      minHeight: 640,
+      width: 1268,
+      minHeight: 'auto',
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -29,7 +31,7 @@ const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps} onClose={() => hideModal()}>
-        <h2>Hello World!</h2>
+        <CreateDelegateWizard type={Delegates.KUBERNETES_CLUSTER} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),

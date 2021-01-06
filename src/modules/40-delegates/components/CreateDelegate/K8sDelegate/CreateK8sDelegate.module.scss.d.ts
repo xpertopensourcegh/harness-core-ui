@@ -1,6 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly crossIcon: string
+  readonly stepWizard: string
 }
 export default styles

@@ -1910,7 +1910,24 @@ export interface UserOrBuilder {
   initialized?: boolean
 }
 
-export type AbortFailureActionConfig = FailureStrategyActionConfig & { [key: string]: any }
+export interface Connector {
+  connector?: ConnectorInfoDTO
+}
+export interface DelegateInfoDTO {
+  name: string
+  identifier: string
+  description?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  tags?: {
+    [key: string]: string
+  }
+  type: 'K8sCluster'
+}
+
+export interface DelegateConfigDTO {
+  [key: string]: any
+}
 
 export interface ArtifactConfig {
   [key: string]: any
@@ -2512,6 +2529,29 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
   username?: string
   usernameRef?: string
   tokenRef: string
+}
+export interface DelegateInfoDTO {
+  name: string
+  identifier: string
+  description?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  tags?: {
+    [key: string]: string
+  }
+  type: 'K8sCluster'
+}
+
+export interface DelegateInfoDTO {
+  name: string
+  identifier: string
+  description?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  tags?: {
+    [key: string]: string
+  }
+  type: 'K8sCluster'
 }
 
 export type CEAwsConnector = ConnectorConfigDTO & {
