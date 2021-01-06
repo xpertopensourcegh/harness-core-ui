@@ -123,7 +123,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
       }
     }
-    if (!isEqual(values.defaultServe, initialValues.defaultServe)) {
+    if (!isEqual(values.defaultServe, initialValues.defaultServe) && values.onVariation === 'percentage') {
       patch.feature.addInstruction(
         patch.creators.updateDefaultServeByBucket(
           values.defaultServe.distribution?.bucketBy || '',
