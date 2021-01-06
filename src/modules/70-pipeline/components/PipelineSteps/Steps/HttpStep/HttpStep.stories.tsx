@@ -54,7 +54,12 @@ HTTPStep.args = {
   template: {
     identifier: 'Test_A',
     type: StepType.HTTP,
-    spec: { url: RUNTIME_INPUT_VALUE, method: RUNTIME_INPUT_VALUE }
+    spec: {
+      url: RUNTIME_INPUT_VALUE,
+      method: RUNTIME_INPUT_VALUE,
+      requestBody: RUNTIME_INPUT_VALUE,
+      timeout: RUNTIME_INPUT_VALUE
+    }
   },
   allValues: {
     type: StepType.HTTP,

@@ -231,3 +231,26 @@ export function getDurationValidationSchema(
     }
   })
 }
+
+export interface DurationInputForInputSetProps extends Omit<IInputGroupProps & HTMLInputProps, 'onChange' | 'value'> {
+  onChange?(str: string): void
+  name: string
+}
+
+export interface ConnectedDurationInputForInputSetProps extends DurationInputForInputSetProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formik: FormikContext<any>
+}
+
+export function DurationInputForInputSet(props: ConnectedDurationInputForInputSetProps): React.ReactElement {
+  const { formik, onChange, ...rest } = props
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    const correctVal = e.currentTarget.value.replace(DurationInputHelpers.TEXT_LIMIT_REGEX, '')
+    formik.setFieldValue(e.currentTarget.name, correctVal)
+    onChange?.(correctVal)
+  }
+
+  return <InputGroup fill {...rest} value={get(props.formik.values, props.name)} onChange={handleChange} />
+}
+
+export const DurationInputFieldForInputSet = connect<DurationInputForInputSetProps>(DurationInputForInputSet)

@@ -9,11 +9,14 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
+import { yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
+import { isEmpty } from 'lodash-es'
 
-import type { StepViewType, InputSetData } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/exports'
+import type { InputSetData } from '@pipeline/exports'
 import Accordion from '@common/components/Accordion/Accordion'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
@@ -21,6 +24,7 @@ import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import HttpStepBase, { httpStepType } from './HttpStepBase'
 import ResponseMapping from './ResponseMapping'
+import HttpInputSetStep from './HttpInputSetStep'
 import type { HttpStepData, HttpStepFormData, HttpStepOutputVariable, HttpStepHeader } from './types'
 import stepCss from '../Steps.module.scss'
 
@@ -76,6 +80,18 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     stepViewType?: StepViewType,
     inputSetData?: InputSetData<HttpStepData>
   ): JSX.Element {
+    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+      return (
+        <HttpInputSetStep
+          initialValues={this.processInitialValues(initialValues)}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
+          stepViewType={stepViewType}
+          readonly={!!inputSetData?.readonly}
+          template={inputSetData?.template}
+        />
+      )
+    }
+
     return (
       <HttpStepWidget
         initialValues={this.processInitialValues(initialValues)}
@@ -90,8 +106,51 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
 
-  validateInputSet(): object {
-    return {}
+  validateInputSet(data: HttpStepData, template: HttpStepData, getString?: UseStringsReturn['getString']): object {
+    const errors = { spec: {} } as any
+
+    /* istanbul ignore else */
+    if (getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.url)) {
+      errors.spec.url = getString?.('fieldRequired', { field: 'URL' })
+    }
+
+    /* istanbul ignore else */
+    if (getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.method)) {
+      errors.spec.method = getString?.('fieldRequired', { field: 'Method' })
+    }
+
+    /* istanbul ignore else */
+    if (
+      getMultiTypeFromValue(template?.spec?.requestBody) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.requestBody)
+    ) {
+      errors.spec.requestBody = getString?.('fieldRequired', { field: 'Request Body' })
+    }
+
+    /* istanbul ignore else */
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    }
+
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+
+    return errors
   }
   protected defaultValues: HttpStepData = {
     identifier: '',

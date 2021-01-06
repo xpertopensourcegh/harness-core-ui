@@ -126,4 +126,89 @@ describe('Http Step', () => {
       }
     })
   })
+
+  test('renders input sets', () => {
+    const onUpdate = jest.fn()
+    const initialValues = {
+      identifier: 'My_Http_Step',
+      name: 'My Http Step',
+      spec: {
+        method: RUNTIME_INPUT_VALUE,
+        url: RUNTIME_INPUT_VALUE,
+        requestBody: RUNTIME_INPUT_VALUE,
+        timeout: RUNTIME_INPUT_VALUE
+        // headers: RUNTIME_INPUT_VALUE
+        // outputVariables: RUNTIME_INPUT_VALUE
+      }
+    }
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{}}
+        template={initialValues}
+        type={StepType.HTTP}
+        stepViewType={StepViewType.InputSet}
+        onUpdate={onUpdate}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
+
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+
+    fireEvent.change(queryByNameAttribute('spec.url')!, { target: { value: 'https://someapi.com/v3' } })
+
+    expect(onUpdate).toHaveBeenLastCalledWith({
+      spec: {
+        headers: [],
+        method: undefined,
+        outputVariables: [],
+        url: 'https://someapi.com/v3'
+      }
+    })
+
+    fireEvent.change(queryByNameAttribute('spec.requestBody')!, {
+      target: { value: '{ "message": "Hello world!" }' }
+    })
+
+    expect(onUpdate).toHaveBeenLastCalledWith({
+      spec: {
+        headers: [],
+        method: undefined,
+        outputVariables: [],
+        requestBody: '{ "message": "Hello world!" }'
+      }
+    })
+
+    fireEvent.change(queryByNameAttribute('spec.timeout')!, {
+      target: { value: '1d' }
+    })
+    expect(onUpdate).toHaveBeenLastCalledWith({
+      spec: {
+        headers: [],
+        method: undefined,
+        outputVariables: [],
+        timeout: '1d'
+      }
+    })
+  })
+
+  test('renders empty input sets', () => {
+    const initialValues = {
+      identifier: 'My_Http_Step',
+      name: 'My Http Step',
+      spec: {
+        method: RUNTIME_INPUT_VALUE,
+        url: RUNTIME_INPUT_VALUE,
+        requestBody: RUNTIME_INPUT_VALUE,
+        timeout: RUNTIME_INPUT_VALUE
+        // headers: RUNTIME_INPUT_VALUE
+        // outputVariables: RUNTIME_INPUT_VALUE
+      }
+    }
+    const { container } = render(
+      <TestStepWidget initialValues={initialValues} type={StepType.HTTP} stepViewType={StepViewType.InputSet} />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 })

@@ -681,6 +681,223 @@ exports[`Http Step edit mode works 1`] = `
 </div>
 `;
 
+exports[`Http Step renders empty input sets 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Http Step renders input sets 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+      >
+        URL
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.url"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+      >
+        Method
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.method"
+                    placeholder="Search..."
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+      >
+        Request Body
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-form-group"
+          style="resize: vertical;"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <textarea
+              autocomplete="off"
+              class="bp3-input bp3-fill"
+              name="spec.requestBody"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+      >
+        Timeout
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group bp3-fill"
+        >
+          <input
+            class="bp3-input"
+            name="spec.timeout"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Http Step renders runtime inputs 1`] = `
 <div>
   <div
