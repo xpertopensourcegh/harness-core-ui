@@ -18,7 +18,8 @@ const props: FilterProps<object, FilterInterface> = {
   initialFilter: {
     formValues: { connectorNames: [''], description: '' },
     metadata: { name: 'Sample', visible: 'OnlyCreator', identifier: 'Sample' }
-  }
+  },
+  onFilterSelect: jest.fn()
 }
 
 const ConnectorFormFields: React.FC = () => {

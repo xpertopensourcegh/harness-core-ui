@@ -10,7 +10,9 @@ const props = {
   onSaveOrUpdate: jest.fn(),
   onDelete: jest.fn(),
   onClose: jest.fn(),
-  onDuplicate: jest.fn()
+  onDuplicate: jest.fn(),
+  onFilterSelect: jest.fn(),
+  enableEdit: false
 }
 
 describe('Test FilterCRUD component', () => {

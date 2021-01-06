@@ -59,6 +59,7 @@
 
 .filter {
   &:hover {
+    cursor: pointer;
     background: var(--hover-bg-color) !important;
   }
 }
@@ -92,4 +93,9 @@
 .layout {
   display: flex;
   align-items: center;
+}
+
+.loading {
+  margin: auto;
+  height: 100vh;
 }

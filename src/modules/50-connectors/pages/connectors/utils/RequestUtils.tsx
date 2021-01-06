@@ -4,7 +4,7 @@ import { StringUtils } from '@common/exports'
 import type { ConnectorFilterProperties, FilterDTO } from 'services/cd-ng'
 import type { FilterDataInterface, FilterInterface } from '@common/components/Filter/Constants'
 
-const getValidFilterArguments = (formData: Record<string, any>): Record<string, any> => {
+export const getValidFilterArguments = (formData: Record<string, any>): ConnectorFilterProperties => {
   const typeOptions = formData?.types?.map((type: SelectOption) => type?.value)
   const statusOptions = formData?.connectivityStatuses?.map((status: SelectOption) => status?.value)
   return {
@@ -12,7 +12,8 @@ const getValidFilterArguments = (formData: Record<string, any>): Record<string, 
     connectorIdentifiers: formData?.connectorIdentifiers || [],
     description: formData?.description || '',
     types: typeOptions,
-    connectivityStatuses: statusOptions
+    connectivityStatuses: statusOptions,
+    tags: formData?.tags
   }
 }
 
@@ -41,7 +42,8 @@ export const createRequestBodyPayload = ({
     connectorIdentifiers: _connectorIdentifiers,
     description: _description,
     types: _types,
-    connectivityStatuses: _connectivityStatuses
+    connectivityStatuses: _connectivityStatuses,
+    tags: _tags
   } = getValidFilterArguments(formValues)
   return {
     name: _name,
@@ -55,7 +57,30 @@ export const createRequestBodyPayload = ({
       connectorIdentifiers: typeof _connectorIdentifiers === 'string' ? [_connectorIdentifiers] : _connectorIdentifiers,
       description: _description,
       types: _types,
-      connectivityStatuses: _connectivityStatuses
+      connectivityStatuses: _connectivityStatuses,
+      tags: _tags
     } as ConnectorFilterProperties
   }
+}
+
+type supportedTypes = string | number | boolean | object
+
+export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | object): string => {
+  if (Array.isArray(data)) {
+    return data.join(', ')
+  } else if (typeof data === 'object') {
+    return Object.entries(data as object)
+      .map(([key, value]) => {
+        return key
+          .toString()
+          .concat(' : ')
+          .concat(value ? value.toString() : '<no-value>')
+      })
+      .join(', ')
+  } else if (typeof data === 'number') {
+    return data.toString()
+  } else if (typeof data === 'boolean') {
+    return data ? 'true' : 'false'
+  }
+  return typeof data === 'string' ? data : ''
 }

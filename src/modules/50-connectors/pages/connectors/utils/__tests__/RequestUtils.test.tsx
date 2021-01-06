@@ -1,5 +1,5 @@
 import { StringUtils } from '@common/exports'
-import { createRequestBodyPayload } from '../RequestUtils'
+import { createRequestBodyPayload, renderItemByType } from '../RequestUtils'
 
 describe('Request utils test', () => {
   test('Test createRequestBodyPayload method', () => {
@@ -16,5 +16,13 @@ describe('Request utils test', () => {
       orgIdentifier: ''
     })
     expect(request.identifier).toBe(StringUtils.getIdentifierFromName(request.name))
+  })
+
+  test('Test renderItemByType method', () => {
+    expect(renderItemByType({ name: 'Sample', key: 'SampleKey' })).toBe('name : Sample, key : SampleKey')
+    expect(renderItemByType('Sample')).toBe('Sample')
+    expect(renderItemByType(['Sample', 'Key'])).toBe('Sample, Key')
+    expect(renderItemByType(1)).toBe('1')
+    expect(renderItemByType(true)).toBe('true')
   })
 })

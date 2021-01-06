@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
+import { isEmpty, omitBy } from 'lodash-es'
 import {
   Button,
   Color,
@@ -11,7 +12,8 @@ import {
   FormikForm,
   Label,
   Popover,
-  useModalHook
+  useModalHook,
+  OverlaySpinner
 } from '@wings-software/uicore'
 import type { FormikProps, FormikErrors } from 'formik'
 import { Menu, Classes, Position, PopoverInteractionKind, Dialog, IDialogProps } from '@blueprintjs/core'
@@ -27,22 +29,45 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onDelete: (identifier: string) => Promise<void>
   onClose: () => void
   onDuplicate: (name: string) => Promise<void>
+  onFilterSelect: (name: string) => void
+  enableEdit: boolean
 }
 
 const FILTER_LIST_MAX_HEIGHT = 56
 
 export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>) => {
-  const { filters, initialValues, onSaveOrUpdate, onClose, onDelete, onDuplicate } = props
+  const { filters, initialValues, onSaveOrUpdate, onClose, onDelete, onDuplicate, onFilterSelect, enableEdit } = props
   const [isEditEnabled, setIsEditEnabled] = useState<boolean>()
   const [isNewFilter, setIsNewFilter] = useState<boolean>(false)
   const [filterInContext, setFilterInContext] = useState<T | null>()
   const { getString } = useStrings()
-  const onAddNewFilter = (event: React.MouseEvent<Element, MouseEvent>): void => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const ignoreClickEventDefaultBehaviour = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
     event.stopPropagation()
+  }
+
+  const onAddNewFilter = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    ignoreClickEventDefaultBehaviour(event)
     setIsEditEnabled(true)
     setIsNewFilter(true)
   }
+
+  useEffect(() => {
+    setIsEditEnabled(enableEdit)
+  }, [enableEdit])
+
+  useEffect(() => {
+    setFilterInContext(initialValues)
+    setIsNewFilter(isEmpty(omitBy(initialValues, isEmpty)))
+  }, [initialValues])
+
+  useEffect(() => {
+    if (filterInContext?.name) {
+      onFilterSelect(filterInContext?.name || '')
+    }
+  }, [filterInContext?.name])
 
   const confirmDialogProps: IDialogProps = {
     isOpen: true,
@@ -73,10 +98,14 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             intent="primary"
             text={getString('confirm')}
             onClick={() => {
+              setIsLoading(true)
               if (name) {
-                onDelete(name)
+                onDelete(name).then(_res => {
+                  setIsEditEnabled(false)
+                })
               }
               hideModal()
+              setIsLoading(false)
             }}
           />
           &nbsp; &nbsp;
@@ -103,8 +132,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             text={getString('edit')}
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              event.preventDefault()
-              event.stopPropagation()
+              ignoreClickEventDefaultBehaviour(event)
               setFilterInContext(filter)
               setIsEditEnabled(true)
               setIsNewFilter(false)
@@ -115,10 +143,13 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             text={getString('duplicate')}
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              event.preventDefault()
-              event.stopPropagation()
-              onDuplicate(filter.name)
-              setIsEditEnabled(false)
+              ignoreClickEventDefaultBehaviour(event)
+              setIsLoading(true)
+              onDuplicate(filter.name).then(_res => {
+                setIsEditEnabled(false)
+                setFilterInContext(filter)
+              })
+              setIsLoading(false)
             }}
           />
           <Menu.Item
@@ -126,11 +157,9 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             text={getString('delete')}
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              event.preventDefault()
-              event.stopPropagation()
+              ignoreClickEventDefaultBehaviour(event)
               showModal()
               setFilterInContext(filter)
-              setIsEditEnabled(false)
             }}
           />
         </Menu>
@@ -139,14 +168,18 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
   }
 
   const renderFilter = (filter: T): JSX.Element => {
-    const { name, visible } = filter
+    const { name, visible, identifier } = filter
     return (
       <Layout.Horizontal
         flex
         spacing="small"
         padding={{ right: 'medium' }}
-        className={cx(css.filter, { [css.isActive]: name === initialValues?.name || name === filterInContext?.name })}
-        key={name}
+        className={cx(css.filter, { [css.isActive]: name === filterInContext?.name })}
+        key={identifier}
+        onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          ignoreClickEventDefaultBehaviour(event)
+          onFilterSelect(name)
+        }}
       >
         <Layout.Horizontal spacing="small" padding={{ top: 'small', left: 'medium', right: 'medium', bottom: 'small' }}>
           {visible === 'OnlyCreator' ? (
@@ -193,107 +226,121 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
 
   return (
     <div className={css.main}>
-      <Layout.Vertical spacing="large" padding={{ top: 'large', left: 'medium', right: 'small' }}>
-        <Layout.Horizontal flex>
-          <Layout.Horizontal spacing="small" className={css.layout}>
-            <Icon name="ng-filter" size={25} color={Color.WHITE} />
-            <span className={css.title}>Filter</span>
-          </Layout.Horizontal>
-          <Button intent="primary" minimal icon="cross" onClick={onClose} />
-        </Layout.Horizontal>
-      </Layout.Vertical>
-      <Layout.Vertical padding={{ top: 'xlarge' }}>
-        <Button
-          intent="primary"
-          icon="plus"
-          text={getString('filters.newFilter')}
-          className={css.addNewFilterBtn}
-          onClick={onAddNewFilter}
-          padding={{ left: 'large' }}
-          border={false}
-        />
-      </Layout.Vertical>
-      <Formik
-        onSubmit={values => {
-          const payload = Object.assign(values, {
-            identifier: filterInContext?.identifier
-          }) as T
-          if (payload?.name && payload?.visible) {
-            onSaveOrUpdate(isNewFilter ? false : true, payload)
-          }
-          setIsEditEnabled(false)
-        }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('filters.nameRequired')),
-          visible: Yup.mixed().oneOf(['OnlyCreator', 'EveryOne']).required(getString('filters.visibilityRequired'))
-        })}
-        initialValues={isEditEnabled ? { name: '', visible: undefined } : initialValues}
-        enableReinitialize={true}
-      >
-        {formik => {
-          return (
-            <FormikForm>
-              {filters && filters.length > 0 ? renderFilterList(formik?.submitCount, formik?.errors) : null}
-              {isEditEnabled ? (
-                <Layout.Vertical spacing="large" padding={{ top: 'xlarge', left: 'large', right: 'large' }}>
-                  <FormInput.Text
-                    name={'name'}
-                    label={
-                      <Label style={{ fontSize: 'small', color: Color.WHITE, paddingBottom: 'var(--spacing-small)' }}>
-                        {getString('filters.name')}
-                      </Label>
-                    }
-                    className={css.filterName}
-                    placeholder={getString('filters.typeFilterName')}
-                  />
-                  <Layout.Vertical spacing={'medium'} margin={{ top: 'large' }}>
-                    <Label style={{ fontSize: 'small', color: Color.WHITE }}>{getString('filters.visible')}</Label>
-                    <FormInput.RadioGroup
-                      inline
-                      name="visible"
-                      items={[
-                        { label: getString('filters.visibileToOnlyMe'), value: 'OnlyCreator' },
-                        {
-                          label: getString('filters.visibleToEveryone'),
-                          value: 'EveryOne'
+      {isLoading ? (
+        <OverlaySpinner show={true} className={css.loading}>
+          <span className={css.loading}>
+            <></>
+          </span>
+        </OverlaySpinner>
+      ) : (
+        <>
+          <Layout.Vertical spacing="large" padding={{ top: 'large', left: 'medium', right: 'small' }}>
+            <Layout.Horizontal flex>
+              <Layout.Horizontal spacing="small" className={css.layout}>
+                <Icon name="ng-filter" size={25} color={Color.WHITE} />
+                <span className={css.title}>Filter</span>
+              </Layout.Horizontal>
+              <Button intent="primary" minimal icon="cross" onClick={onClose} />
+            </Layout.Horizontal>
+          </Layout.Vertical>
+          <Layout.Vertical padding={{ top: 'xlarge' }}>
+            <Button
+              intent="primary"
+              icon="plus"
+              text={getString('filters.newFilter')}
+              className={css.addNewFilterBtn}
+              onClick={onAddNewFilter}
+              padding={{ left: 'large' }}
+              border={false}
+            />
+          </Layout.Vertical>
+          <Formik
+            onSubmit={values => {
+              setIsLoading(true)
+              const payload = Object.assign(values, {
+                identifier: filterInContext?.identifier
+              }) as T
+              if (payload?.name && payload?.visible) {
+                onSaveOrUpdate(isNewFilter ? false : true, payload)?.then(_res => {
+                  setFilterInContext(payload)
+                })
+              }
+              setIsEditEnabled(false)
+              setIsLoading(false)
+            }}
+            validationSchema={Yup.object().shape({
+              name: Yup.string().trim().required(getString('filters.nameRequired')),
+              visible: Yup.mixed().oneOf(['OnlyCreator', 'EveryOne']).required(getString('filters.visibilityRequired'))
+            })}
+            initialValues={isNewFilter ? { name: '', visible: undefined } : initialValues}
+            enableReinitialize={true}
+          >
+            {formik => {
+              return (
+                <FormikForm>
+                  {filters && filters.length > 0 ? renderFilterList(formik?.submitCount, formik?.errors) : null}
+                  {isEditEnabled ? (
+                    <Layout.Vertical spacing="large" padding={{ top: 'xlarge', left: 'large', right: 'large' }}>
+                      <FormInput.Text
+                        name={'name'}
+                        label={
+                          <Label
+                            style={{ fontSize: 'small', color: Color.WHITE, paddingBottom: 'var(--spacing-small)' }}
+                          >
+                            {getString('filters.name')}
+                          </Label>
                         }
-                      ]}
-                      style={{ display: 'flex', flexDirection: 'column' }}
-                      className={css.radioBtns}
-                    />
-                  </Layout.Vertical>
-                  <Layout.Horizontal spacing={'medium'} margin={{ top: 'large' }}>
-                    <Button
-                      text={getCRUDOperationLabel()}
-                      className={css.saveFilterBtn}
-                      type="submit"
-                      onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
-                        event.preventDefault()
-                        event.stopPropagation()
-                        formik.submitForm()
-                      }}
-                    />
-                    <Button
-                      type="reset"
-                      intent={'primary'}
-                      minimal
-                      text={getString('cancel')}
-                      className={css.cancelBtn}
-                      onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
-                        event.preventDefault()
-                        event.stopPropagation()
-                        if (isEditEnabled) setIsEditEnabled(false)
-                        if (isNewFilter) setIsNewFilter(false)
-                        setFilterInContext(null)
-                      }}
-                    />
-                  </Layout.Horizontal>
-                </Layout.Vertical>
-              ) : null}
-            </FormikForm>
-          )
-        }}
-      </Formik>
+                        className={css.filterName}
+                        placeholder={getString('filters.typeFilterName')}
+                      />
+                      <Layout.Vertical spacing={'medium'} margin={{ top: 'large' }}>
+                        <Label style={{ fontSize: 'small', color: Color.WHITE }}>{getString('filters.visible')}</Label>
+                        <FormInput.RadioGroup
+                          inline
+                          name="visible"
+                          items={[
+                            { label: getString('filters.visibileToOnlyMe'), value: 'OnlyCreator' },
+                            {
+                              label: getString('filters.visibleToEveryone'),
+                              value: 'EveryOne'
+                            }
+                          ]}
+                          style={{ display: 'flex', flexDirection: 'column' }}
+                          className={css.radioBtns}
+                        />
+                      </Layout.Vertical>
+                      <Layout.Horizontal spacing={'medium'} margin={{ top: 'large' }}>
+                        <Button
+                          text={getCRUDOperationLabel()}
+                          className={css.saveFilterBtn}
+                          type="submit"
+                          onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
+                            ignoreClickEventDefaultBehaviour(event)
+                            formik.submitForm()
+                          }}
+                        />
+                        <Button
+                          type="reset"
+                          intent={'primary'}
+                          minimal
+                          text={getString('cancel')}
+                          className={css.cancelBtn}
+                          onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
+                            ignoreClickEventDefaultBehaviour(event)
+                            if (isEditEnabled) setIsEditEnabled(false)
+                            if (isNewFilter) setIsNewFilter(false)
+                            setFilterInContext(null)
+                          }}
+                        />
+                      </Layout.Horizontal>
+                    </Layout.Vertical>
+                  ) : null}
+                </FormikForm>
+              )
+            }}
+          </Formik>
+        </>
+      )}
     </div>
   )
 }

@@ -15,5 +15,6 @@ declare const styles: {
   readonly menuItem: string
   readonly isActive: string
   readonly layout: string
+  readonly loading: string
 }
 export default styles

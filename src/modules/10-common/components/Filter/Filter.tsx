@@ -19,10 +19,21 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   onSaveOrUpdate: (isUpdate: boolean, data: FilterDataInterface<T, U>) => Promise<void>
   onDelete: (name: string) => Promise<void>
   onDuplicate: (name: string) => Promise<void>
+  onFilterSelect: (name: string) => void
 }
 
 export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) => {
-  const { onApply, onClose, initialFilter, children, filters, onSaveOrUpdate, onDelete, onDuplicate } = props
+  const {
+    onApply,
+    onClose,
+    initialFilter,
+    children,
+    filters,
+    onSaveOrUpdate,
+    onDelete,
+    onDuplicate,
+    onFilterSelect
+  } = props
   const { getString } = useStrings()
 
   const defaultPageDrawerProps: IDrawerProps = {
@@ -92,6 +103,8 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                     onClose={onClose}
                     onDelete={onDelete}
                     onDuplicate={onDuplicate}
+                    onFilterSelect={onFilterSelect}
+                    enableEdit={formik.dirty}
                   />
                 </section>
               </div>

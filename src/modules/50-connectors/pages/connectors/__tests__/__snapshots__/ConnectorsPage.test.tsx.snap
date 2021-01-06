@@ -1709,7 +1709,39 @@ exports[`Connectors Page Test Render filter panel 1`] = `
                     </div>
                     <div
                       class="bp3-form-group"
-                      data-id="connectivityStatuses-4"
+                      data-id="tags-4"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="tags"
+                      >
+                        Tags
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input bp3-tag-input"
+                        >
+                          <div
+                            class="bp3-tag-input-values"
+                          >
+                            <input
+                              class="bp3-input-ghost"
+                              data-mentions="kv-tag-input-tags}"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="connectivityStatuses-5"
                     >
                       <label
                         class="bp3-label"
@@ -2206,7 +2238,39 @@ exports[`Connectors Page Test Render filter panel 2`] = `
                     </div>
                     <div
                       class="bp3-form-group"
-                      data-id="connectivityStatuses-4"
+                      data-id="tags-4"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="tags"
+                      >
+                        Tags
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input bp3-tag-input"
+                        >
+                          <div
+                            class="bp3-tag-input-values"
+                          >
+                            <input
+                              class="bp3-input-ghost"
+                              data-mentions="kv-tag-input-tags}"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="connectivityStatuses-5"
                     >
                       <label
                         class="bp3-label"
