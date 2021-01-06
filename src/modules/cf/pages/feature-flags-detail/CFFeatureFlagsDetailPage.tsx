@@ -18,9 +18,9 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<any>()
 
   const { data: environments, error: errorEnvs, loading: envsLoading } = useEnvironments({
-    project: projectIdentifier as string,
-    account: accountId,
-    org: orgIdentifier
+    projectIdentifier,
+    accountId,
+    orgIdentifier
   })
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 

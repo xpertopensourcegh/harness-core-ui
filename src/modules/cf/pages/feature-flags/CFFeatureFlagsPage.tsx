@@ -13,7 +13,7 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
-import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
+import { Drawer, Menu, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
@@ -21,6 +21,8 @@ import { useToaster, useConfirmationDialog } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
 import { Page } from '@common/exports'
+import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner } from '@common/components'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
@@ -210,18 +212,14 @@ const defaultEnv = { label: 'production', value: 'production' }
 const CFFeatureFlagsPage: React.FC = () => {
   const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
-
   const [environment, setEnvironment] = useState<SelectOption | null>(null)
-
-  const { showError } = useToaster()
-
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
   const history = useHistory()
 
-  const { data: environments, loading: envsLoading, error: envsError } = useEnvironments({
-    project: projectIdentifier as string,
-    account: accountId,
-    org: orgIdentifier
+  const { data: environments, loading: envsLoading, error: envsError, refetch: refetchEnvironments } = useEnvironments({
+    accountId,
+    orgIdentifier,
+    projectIdentifier
   })
 
   const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
@@ -308,63 +306,53 @@ const CFFeatureFlagsPage: React.FC = () => {
     setIsDrawerOpened(false)
   }
 
-  if (loading) {
-    return (
-      <Container flex style={{ justifyContent: 'center', height: '100%' }}>
-        <Spinner size={50} />
-      </Container>
-    )
-  }
-
-  // TODO: Show more meaningful error
-  if (error) {
-    showError(error)
-  }
-
   const onEnvChange = (item: SelectOption) => {
     setEnvironment(item)
   }
+  const hasFeatureFlags = flagList?.features && flagList?.features?.length > 0
+  const emptyFeatureFlags = flagList?.features && flagList?.features?.length === 0
 
   return (
     <>
       <Page.Header title={i18n.featureFlag} size="medium" />
-      {flagList?.features && flagList?.features?.length > 0 ? (
-        <Container className={css.ffListContainer}>
-          <Layout.Horizontal className={css.ffPageBtnsHeader}>
-            <FlagDialog />
 
-            <FlexExpander />
+      <Container className={css.ffListContainer}>
+        <Layout.Horizontal className={css.ffPageBtnsHeader}>
+          <FlagDialog />
 
-            <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} />
+          <FlexExpander />
 
-            <Select
-              items={environments}
-              className={css.ffPageBtnsSelect}
-              inputProps={{ placeholder: i18n.selectEnv }}
-              onChange={onEnvChange}
-              value={environment}
-            />
+          <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} />
 
-            {/* TODO: Filters length/count should be displayed next to the button, check with BE */}
-            <Button
-              icon="settings"
-              iconProps={{ size: 20, color: Color.BLUE_500 }}
-              minimal
-              intent="primary"
-              onClick={onDrawerOpened}
-            />
-          </Layout.Horizontal>
+          <Select
+            items={environments}
+            className={css.ffPageBtnsSelect}
+            inputProps={{ placeholder: i18n.selectEnv }}
+            onChange={onEnvChange}
+            value={environment}
+          />
 
-          <Drawer
-            isOpen={isDrawerOpened}
-            title={isSaveFiltersOn ? i18n.saveFilters : i18n.drawerFilter}
+          {/* TODO: Filters length/count should be displayed next to the button, check with BE */}
+          <Button
             icon="settings"
-            onClose={onDrawerClose}
-            className={css.drawerContainer}
-          >
-            <FlagDrawerFilter isSaveFiltersOn={isSaveFiltersOn} setIsSaveFiltersOn={setIsSaveFiltersOn} />
-          </Drawer>
+            iconProps={{ size: 20, color: Color.BLUE_500 }}
+            minimal
+            intent="primary"
+            onClick={onDrawerOpened}
+          />
+        </Layout.Horizontal>
 
+        <Drawer
+          isOpen={isDrawerOpened}
+          title={isSaveFiltersOn ? i18n.saveFilters : i18n.drawerFilter}
+          icon="settings"
+          onClose={onDrawerClose}
+          className={css.drawerContainer}
+        >
+          <FlagDrawerFilter isSaveFiltersOn={isSaveFiltersOn} setIsSaveFiltersOn={setIsSaveFiltersOn} />
+        </Drawer>
+
+        {hasFeatureFlags && (
           <Layout.Vertical className={css.ffTableContainer}>
             {/* TODO: Pagination needs to be communicated with BE */}
             <Table<Feature>
@@ -390,16 +378,29 @@ const CFFeatureFlagsPage: React.FC = () => {
               }}
             />
           </Layout.Vertical>
-        </Container>
-      ) : (
-        <Layout.Vertical className={css.heightOverride}>
-          <Icon name="main-flag" size={120} color={Color.GREY_300} className={css.ffContainerImg} />
-          <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
-            {i18n.noFeatureFlags}.
-          </Text>
-          <FlagDialog />
-        </Layout.Vertical>
-      )}
+        )}
+
+        {emptyFeatureFlags && (
+          <Layout.Vertical className={css.heightOverride}>
+            <Icon name="main-flag" size={120} color={Color.GREY_300} className={css.ffContainerImg} />
+            <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
+              {i18n.noFeatureFlags}.
+            </Text>
+            <FlagDialog />
+          </Layout.Vertical>
+        )}
+
+        {error && (
+          <PageError
+            message={error?.message}
+            onClick={() => {
+              refetchEnvironments()
+            }}
+          />
+        )}
+
+        {loading && <PageSpinner />}
+      </Container>
     </>
   )
 }

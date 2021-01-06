@@ -54,9 +54,9 @@ const CFTargetsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
   const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments({
-    project: projectIdentifier,
-    account: accountId,
-    org: orgIdentifier
+    projectIdentifier,
+    accountId,
+    orgIdentifier
   })
 
   const [view, setView] = useState<'individual' | 'segments'>('individual')
