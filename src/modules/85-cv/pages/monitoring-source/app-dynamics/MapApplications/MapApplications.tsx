@@ -7,7 +7,7 @@ import cloneDeep from 'lodash-es/cloneDeep'
 import type { CellProps } from 'react-table'
 import isEmpty from 'lodash-es/isEmpty'
 import Table from '@common/components/Table/Table'
-import { useGetServiceListForProject } from 'services/cd-ng'
+import { useGetServiceListForProject, GetServiceListForProjectQueryParams } from 'services/cd-ng'
 import {
   MetricPackArrayRequestBody,
   MetricPackDTO,
@@ -88,10 +88,10 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
 
   useGetServiceListForProject({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
-    },
+    } as GetServiceListForProjectQueryParams,
     resolve: res => {
       if (res?.data?.content?.length) {
         setServiceOptions(

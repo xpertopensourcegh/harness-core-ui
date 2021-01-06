@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useCreateService, ServiceResponseDTO } from 'services/cd-ng'
+import { useCreateService, ServiceResponseDTO, CreateServiceQueryParams } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 
 interface ServiceSelectOrCreateProps {
@@ -31,7 +31,9 @@ export function generateOptions(response?: ServiceResponseDTO[]): SelectOption[]
 export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { mutate: createService, loading } = useCreateService({ queryParams: { accountId } })
+  const { mutate: createService, loading } = useCreateService({
+    queryParams: { accountIdentifier: accountId } as CreateServiceQueryParams
+  })
 
   const selectOptions = useMemo(
     () => [
@@ -51,8 +53,8 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
     const res = await createService({
       name: values.name,
       identifier: values.identifier,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
+      orgIdentifier,
+      projectIdentifier
     })
     if (res.status === 'SUCCESS') {
       props.onNewCreated(res.data!)

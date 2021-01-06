@@ -39,8 +39,12 @@ function getTimeMaskWidthBasedOnTimeRange(startTime: number, endTime: number): n
       return 73
     case 150:
       return 130
+    case 330:
+      return 405
     case 360:
       return 420
+    case 1020:
+      return 556
     default:
       return 545
   }

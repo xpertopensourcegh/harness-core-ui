@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { EnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
+import { EnvironmentResponseDTO, useCreateEnvironment, CreateEnvironmentQueryParams } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { EnvironmentTypes } from '../../utils'
 
@@ -40,7 +40,9 @@ export function EnvironmentSelect({
 }: EnvironmentSelectProps) {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { mutate: createEnvironment, loading } = useCreateEnvironment({ queryParams: { accountId } })
+  const { mutate: createEnvironment, loading } = useCreateEnvironment({
+    queryParams: { accountIdentifier: accountId } as CreateEnvironmentQueryParams
+  })
   const selectOptions = useMemo(
     () => [
       {

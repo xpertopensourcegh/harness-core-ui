@@ -14,7 +14,11 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import { EnvironmentSelect } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
-import { useGetEnvironmentListForProject, EnvironmentResponseDTO } from 'services/cd-ng'
+import {
+  useGetEnvironmentListForProject,
+  EnvironmentResponseDTO,
+  GetEnvironmentListForProjectQueryParams
+} from 'services/cd-ng'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectEnvironment.module.scss'
 
@@ -56,10 +60,10 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const [offset, setOffset] = useState(0)
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
-    }
+    } as GetEnvironmentListForProjectQueryParams
   })
   useEffect(() => {
     if (environmentsResponse?.data?.content?.length) {

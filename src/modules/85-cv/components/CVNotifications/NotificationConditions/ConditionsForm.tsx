@@ -12,7 +12,11 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
+import {
+  useGetServiceListForProject,
+  useGetEnvironmentListForProject,
+  GetEnvironmentListForProjectQueryParams
+} from 'services/cd-ng'
 import type { CVNotificationForm } from '@cv/pages/admin/notifications/NotificationInterfaces'
 import { useToaster } from '@common/exports'
 import CVRiskScoreSlider from '@cv/components/CVRiskSlider/CVRiskScoreSlider'
@@ -57,24 +61,30 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
   const [initialEnvironment, setInitialEnvironment] = useState<SelectOption[]>()
   const [initialActivityTypes, setInitialActivityTypes] = useState<SelectOption[]>()
   const [initialVerificationStatus, setInitialVerificationStatus] = useState<SelectOption[]>()
-  const [activityTypeOptions, setActivityTypeOptions] = useState<SelectOption[]>([{ label: 'All', value: 'All' }])
-  const [serviceOptions, setServiceOptions] = useState<SelectOption[]>([{ label: 'All', value: 'All' }])
-  const [environmentOptions, setEnvironmentOptions] = useState<SelectOption[]>([{ label: 'All', value: 'All' }])
+  const [activityTypeOptions, setActivityTypeOptions] = useState<SelectOption[]>([
+    { label: getString('all'), value: getString('all') }
+  ])
+  const [serviceOptions, setServiceOptions] = useState<SelectOption[]>([
+    { label: getString('all'), value: getString('all') }
+  ])
+  const [environmentOptions, setEnvironmentOptions] = useState<SelectOption[]>([
+    { label: getString('all'), value: getString('all') }
+  ])
   const { loading: loadingServices, data: serviceResponse } = useGetServiceListForProject({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
-    }
+    } as GetEnvironmentListForProjectQueryParams
   })
 
   const { showError, showSuccess } = useToaster()
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
-    }
+    } as GetEnvironmentListForProjectQueryParams
   })
 
   const { data: activityTypeResponse } = useGetActivityTypes({
@@ -126,7 +136,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
 
   useEffect(() => {
     if (serviceResponse?.data?.content?.length) {
-      const services = serviceResponse?.data?.content?.map(service => ({
+      const services = serviceResponse.data.content.map(service => ({
         label: service.name,
         value: service.identifier
       }))

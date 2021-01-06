@@ -97,6 +97,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
       serviceIdentifier,
       monitoringCategory: categoryName ? categoryNameToCategoryType(categoryName) : undefined,
       startTime: finalStartTime,
+      analysisStartTime: historyStartTime ? startTime : finalStartTime,
       endTime
     }),
     [serviceIdentifier, environmentIdentifier, finalStartTime, endTime, categoryName, projectIdentifier, orgIdentifier]

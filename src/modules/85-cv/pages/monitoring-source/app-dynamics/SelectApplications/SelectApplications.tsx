@@ -6,7 +6,11 @@ import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
 import { useGetAppDynamicsApplications, AppDynamicsApplication } from 'services/cv'
-import { useGetEnvironmentListForProject, ResponsePageEnvironmentResponseDTO } from 'services/cd-ng'
+import {
+  useGetEnvironmentListForProject,
+  ResponsePageEnvironmentResponseDTO,
+  GetEnvironmentListForProjectQueryParams
+} from 'services/cd-ng'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -56,10 +60,10 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
 
   useGetEnvironmentListForProject({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
-    },
+    } as GetEnvironmentListForProjectQueryParams,
     resolve: (res: ResponsePageEnvironmentResponseDTO) => {
       if (res?.data?.content?.length) {
         setEnvironmentOptions(

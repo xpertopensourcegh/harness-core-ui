@@ -19,7 +19,12 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
-import { useGetServiceListForProject, ResponsePageServiceResponseDTO, ServiceResponseDTO } from 'services/cd-ng'
+import {
+  useGetServiceListForProject,
+  ResponsePageServiceResponseDTO,
+  ServiceResponseDTO,
+  GetServiceListForProjectQueryParams
+} from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import css from './SelectServices.module.scss'
@@ -76,10 +81,10 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
 
   const { data: serviceResponse } = useGetServiceListForProject({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
-    },
+    } as GetServiceListForProjectQueryParams,
     mock: props.mockGetServices
   })
 

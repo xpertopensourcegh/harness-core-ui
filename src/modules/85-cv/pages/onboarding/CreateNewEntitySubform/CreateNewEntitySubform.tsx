@@ -3,7 +3,15 @@ import { Formik } from 'formik'
 import { FormInput, SelectWithSubviewContext, Layout, Button, FormikForm, Text } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { useCreateService, useCreateEnvironment, EnvironmentRequestDTO, ServiceRequestDTO, Error } from 'services/cd-ng'
+import {
+  useCreateService,
+  useCreateEnvironment,
+  EnvironmentRequestDTO,
+  ServiceRequestDTO,
+  Error,
+  CreateServiceQueryParams,
+  CreateEnvironmentQueryParams
+} from 'services/cd-ng'
 import i18n from './CreateNewEntitySeubform.i18n'
 
 const serviceSchema = Yup.object().shape({
@@ -26,8 +34,12 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
   const projectIdentifier = routeProjectIdentifier as string
   const orgIdentifier = routeOrgIdentifier as string
   const [error, setError] = useState<string | undefined>()
-  const { mutate: createService } = useCreateService({ queryParams: { accountId } })
-  const { mutate: createEnvironment } = useCreateEnvironment({ queryParams: { accountId } })
+  const { mutate: createService } = useCreateService({
+    queryParams: { accountIdentifier: accountId } as CreateServiceQueryParams
+  })
+  const { mutate: createEnvironment } = useCreateEnvironment({
+    queryParams: { accountIdentifier: accountId } as CreateEnvironmentQueryParams
+  })
 
   const onSubmit = async (values: EnvironmentRequestDTO | ServiceRequestDTO): Promise<void> => {
     let response

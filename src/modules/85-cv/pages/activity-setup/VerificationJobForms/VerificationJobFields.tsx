@@ -6,7 +6,9 @@ import {
   useGetServiceListForProject,
   useGetEnvironmentListForProject,
   EnvironmentResponseDTO,
-  ServiceResponseDTO
+  ServiceResponseDTO,
+  GetEnvironmentListForProjectQueryParams,
+  GetServiceListForProjectQueryParams
 } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { useListAllActivitySources, useListAllSupportedDataSource, useListBaselineExecutions } from 'services/cv'
@@ -55,7 +57,11 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
 export function ServiceName(props: BaseFieldProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: serviceOptions } = useGetServiceListForProject({
-    queryParams: { accountId, projectIdentifier: projectIdentifier as string, orgIdentifier: orgIdentifier as string },
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string
+    } as GetServiceListForProjectQueryParams,
     resolve: serviceList =>
       serviceList?.data?.content?.map(({ identifier }: ServiceResponseDTO) => ({
         label: identifier,
@@ -106,7 +112,11 @@ export function Duration(props: BaseFieldProps): JSX.Element {
 export function EnvironmentName(props: BaseFieldProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: environmentOptions } = useGetEnvironmentListForProject({
-    queryParams: { accountId, projectIdentifier: projectIdentifier as string, orgIdentifier: orgIdentifier as string },
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string
+    } as GetEnvironmentListForProjectQueryParams,
     resolve: envList =>
       envList?.data.content?.map(({ identifier }: EnvironmentResponseDTO) => ({
         label: identifier,
