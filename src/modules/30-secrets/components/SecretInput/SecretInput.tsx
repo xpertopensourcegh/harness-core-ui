@@ -29,7 +29,7 @@ interface FormikSecretInput extends SecretInputProps {
 }
 
 const SecretInput: React.FC<FormikSecretInput> = props => {
-  const { formik, label, name, onSuccess, type, connectorsListMockData, secretsListMockData } = props
+  const { formik, label, name, onSuccess, type = 'SecretText', connectorsListMockData, secretsListMockData } = props
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {
       type,

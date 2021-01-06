@@ -171,6 +171,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                         <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
                       </div>
                       <SecretReference
+                        type="SecretText"
                         accountIdentifier={accountId}
                         projectIdentifier={projectIdentifier}
                         orgIdentifier={orgIdentifier}

@@ -14,6 +14,7 @@ describe('CreateOrSelectSecret', () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'dummy' }}>
         <CreateOrSelectSecret
+          type="SecretText"
           onSuccess={successCallback}
           connectorsListMockData={connectorsListMockData as any}
           secretsListMockData={secretsListMockData as any}

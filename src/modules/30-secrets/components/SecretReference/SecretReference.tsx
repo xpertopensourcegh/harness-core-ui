@@ -17,13 +17,13 @@ export interface SecretRef extends SecretDTOV2 {
   scope: Scope
 }
 
-interface SecretReferenceProps {
+export interface SecretReferenceProps {
   onSelect: (secret: SecretRef) => void
   accountIdentifier: string
   projectIdentifier?: string
   orgIdentifier?: string
   defaultScope?: Scope
-  type?: ListSecretsQueryParams['type']
+  type: ListSecretsQueryParams['type']
   mock?: ResponsePageSecretResponseWrapper
 }
 
@@ -69,7 +69,7 @@ const fetchRecords = (
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText', mock } = props
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock } = props
   return (
     <EntityReference<SecretRef>
       onSelect={(secret, scope) => {

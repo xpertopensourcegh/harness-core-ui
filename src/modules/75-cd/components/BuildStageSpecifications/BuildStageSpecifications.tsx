@@ -406,6 +406,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                                   <Icon name="chevron-down" size={14} />
                                                 </div>
                                                 <SecretReference
+                                                  type="SecretText"
                                                   accountIdentifier={accountId}
                                                   projectIdentifier={projectIdentifier}
                                                   orgIdentifier={orgIdentifier}

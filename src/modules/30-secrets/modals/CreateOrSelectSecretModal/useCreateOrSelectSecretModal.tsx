@@ -14,7 +14,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import css from './useCreateOrSelectSecretModal.module.scss'
 
 export interface UseCreateOrSelectSecretModalProps {
-  type?: SecretResponseWrapper['secret']['type']
+  type: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper

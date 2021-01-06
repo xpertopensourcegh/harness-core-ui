@@ -25,8 +25,8 @@ export interface SecretReference {
   referenceString: string
 }
 
-interface CreateOrSelectSecretProps {
-  type?: SecretResponseWrapper['secret']['type']
+export interface CreateOrSelectSecretProps {
+  type: SecretResponseWrapper['secret']['type']
   onSuccess: (secret: SecretReference) => void
   connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper
@@ -42,22 +42,24 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
   return (
     <>
       <Tabs id={'CreateOrSelect'}>
-        <Tab
-          id={'create'}
-          title={<Text padding={'medium'}>{i18n.titleCreate}</Text>}
-          panel={
-            <CreateUpdateSecret
-              type={type}
-              onSuccess={data => {
-                onSuccess({
-                  ...pick(data, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier']),
-                  referenceString: getReference(getScopeFromDTO(data), data.identifier) as string
-                })
-              }}
-              connectorListMockData={connectorsListMockData}
-            />
-          }
-        />
+        {type === 'SecretFile' || type === 'SecretText' ? (
+          <Tab
+            id={'create'}
+            title={<Text padding={'medium'}>{i18n.titleCreate}</Text>}
+            panel={
+              <CreateUpdateSecret
+                type={type}
+                onSuccess={data => {
+                  onSuccess({
+                    ...pick(data, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier']),
+                    referenceString: getReference(getScopeFromDTO(data), data.identifier) as string
+                  })
+                }}
+                connectorListMockData={connectorsListMockData}
+              />
+            }
+          />
+        ) : null}
         <Tab
           id={'reference'}
           title={<Text padding={'medium'}>{i18n.titleSelect}</Text>}

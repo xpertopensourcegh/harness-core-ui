@@ -159,6 +159,7 @@ export const CustomVariables: React.FC = (): JSX.Element => {
                                         <Icon name="chevron-down" size={14} />
                                       </div>
                                       <SecretReference
+                                        type="SecretText"
                                         accountIdentifier={accountId}
                                         projectIdentifier={projectIdentifier}
                                         orgIdentifier={orgIdentifier}

@@ -8,7 +8,9 @@ import mockData from './listSecretsMock.json'
 
 describe('Secret Reference', () => {
   test('render', async () => {
-    const { container } = render(<SecretReference accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />)
+    const { container } = render(
+      <SecretReference type="SecretText" accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />
+    )
 
     await waitFor(() => getByText(container, 'text1'))
     expect(container).toMatchSnapshot()
