@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Layout,
   Button,
@@ -10,7 +10,7 @@ import {
   MultiSelectOption
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { isEmpty, isUndefined, omitBy, omit } from 'lodash-es'
+import { isEmpty, isUndefined, omitBy, omit, debounce } from 'lodash-es'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import {
   useGetConnectorListV2,
@@ -73,6 +73,8 @@ const enum ConnectorStatCategories {
 }
 
 const removeNullAndEmpty = (object: Record<string, any>) => omitBy(omitBy(object, isUndefined), isEmpty)
+
+const UNSAVED_FILTER = 'Unsaved Filter'
 
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
@@ -143,7 +145,25 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     ;(async () => {
       await refetchConnectorList()
     })()
-  }, [])
+  }, [page])
+
+  const handleConnectorSearchByName = (query: string) => {
+    if (query) {
+      refetchConnectorList({ connectorNames: [query] })
+    } else {
+      refetchConnectorList()
+    }
+  }
+
+  const handler = useCallback(debounce(handleConnectorSearchByName, 300), [])
+
+  const onSearch = (event: React.FormEvent<HTMLElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
+    const query = (event.target as HTMLInputElement).value
+    handler(query)
+    setSearchTerm(query)
+  }
 
   /* #endregion */
 
@@ -166,23 +186,21 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       {
         drawerLabel: 'Connectors',
         categories:
-          catalogueWithYAMLBuilderOption
-            ?.filter(item => item.category !== 'CONNECTOR')
-            .map((item: ConnectorCatalogueItem) => {
-              const obj: CategoryInterface = {
-                categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
-                items:
-                  item.connectors?.map(entry => {
-                    const name = entry.valueOf() || ''
-                    return {
-                      itemLabel: getConnectorDisplayName(entry) || name,
-                      iconName: getIconByType(entry),
-                      value: name
-                    }
-                  }) || []
-              }
-              return obj
-            }) || []
+          catalogueWithYAMLBuilderOption.map((item: ConnectorCatalogueItem) => {
+            const obj: CategoryInterface = {
+              categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
+              items:
+                item.connectors?.map(entry => {
+                  const name = entry.valueOf() || ''
+                  return {
+                    itemLabel: getConnectorDisplayName(entry) || name,
+                    iconName: getIconByType(entry),
+                    value: name
+                  }
+                }) || []
+            }
+            return obj
+          }) || []
       }
     )
   }
@@ -417,15 +435,17 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     }
   }
 
-  const handleFilterSelect = (filterName: string): void => {
-    setAppliedFilter(getFilterByName(filterName))
+  const handleFilterClick = (filterName: string): void => {
+    if (filterName !== UNSAVED_FILTER) {
+      setAppliedFilter(getFilterByName(filterName))
+    }
   }
 
   const [openFilterDrawer, hideFilterDrawer] = useModalHook(() => {
     const onFilterApply = (formData: Record<string, any>) => {
       const filterFromFormData = getValidFilterArguments(formData)
       refetchConnectorList(filterFromFormData)
-      setAppliedFilter({ name: 'Unsaved Filter', identifier: '', filterProperties: filterFromFormData })
+      setAppliedFilter({ name: UNSAVED_FILTER, identifier: '', filterProperties: filterFromFormData })
       hideFilterDrawer()
     }
 
@@ -465,14 +485,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         onSaveOrUpdate={handleSaveOrUpdate}
         onDelete={handleDelete}
         onDuplicate={handleDuplicate}
-        onFilterSelect={handleFilterSelect}
+        onFilterSelect={handleFilterClick}
       >
         <ConnectorFormFields />
       </Filter>
     )
   }, [isRefreshingFilters, filters, appliedFilter])
 
-  const handleSelection = (
+  const handleFilterSelection = (
     option: SelectOption,
     event?: React.SyntheticEvent<HTMLElement, Event> | undefined
   ): void => {
@@ -540,9 +560,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             leftIcon="search"
             placeholder={i18n.Search}
             value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value.trim())
-            }}
+            onChange={onSearch}
+            id="filterConnectorByName"
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" width="20%" className={css.view}>
@@ -553,7 +572,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
                 return { label: name, value: name } as SelectOption
               }) || []
             }
-            onChange={handleSelection}
+            onChange={handleFilterSelection}
             addClearBtn={true}
             value={{ label: appliedFilter?.name || '', value: appliedFilter?.name || '' }}
           />

@@ -74,18 +74,8 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                     <Layout.Vertical spacing="large" className={css.layout} padding={{ bottom: 'large' }}>
                       <div>{children}</div>
                       <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                        <Button
-                          type="submit"
-                          intent="primary"
-                          text={getString('filters.apply')}
-                          disabled={!formik.dirty}
-                        />
-                        <Button
-                          type={'reset'}
-                          intent={'none'}
-                          text={getString('filters.clearAll')}
-                          disabled={!formik.dirty}
-                        />
+                        <Button type="submit" intent="primary" text={getString('filters.apply')} />
+                        <Button type={'reset'} intent={'none'} text={getString('filters.clearAll')} />
                       </Layout.Horizontal>
                     </Layout.Vertical>
                   </Layout.Vertical>

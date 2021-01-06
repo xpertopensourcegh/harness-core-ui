@@ -20,7 +20,8 @@ const IconMap: Record<ExecutionStatus, IconName> = {
   Queued: 'spinner',
   NotStarted: 'spinner',
   Paused: 'spinner',
-  Waiting: 'spinner'
+  Waiting: 'spinner',
+  Skipped: 'spinner'
 }
 
 export interface StageNodeProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -124,4 +124,16 @@ describe('Connectors Page Test', () => {
     fireEvent.click(ybOption)
     expect(portal).toMatchSnapshot()
   })
+
+  test('Filter connector by name', async () => {
+    const { container } = setup()
+    const input = container.querySelector('#filterConnectorByName')
+    expect(input).toBeDefined()
+    waitFor(() =>
+      fireEvent.change(input!, {
+        target: { value: 'SomeConnector' }
+      })
+    )
+    expect(container).toMatchSnapshot()
+  })
 })

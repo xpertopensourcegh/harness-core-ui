@@ -139,9 +139,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
                   >
                     <button
-                      class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-                      disabled=""
-                      tabindex="-1"
+                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -151,9 +149,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main"
-                      disabled=""
-                      tabindex="-1"
+                      class="bp3-button StyledProps--font Button--button StyledProps--main"
                       type="reset"
                     >
                       <span
