@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
@@ -26,13 +27,35 @@ describe('Test Shell Script Step', () => {
       spec: {
         shell: 'Bash',
         executionTarget: {
-          host: '<+input>',
-          connectionType: '<+input>',
-          connectorRef: '<+input>',
-          workingDirectory: '<+input>'
+          host: RUNTIME_INPUT_VALUE,
+          connectionType: RUNTIME_INPUT_VALUE,
+          connectorRef: RUNTIME_INPUT_VALUE,
+          workingDirectory: RUNTIME_INPUT_VALUE
         },
-        environmentVariables: '<+input>',
-        outputVariables: '<+input>'
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: RUNTIME_INPUT_VALUE
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: RUNTIME_INPUT_VALUE
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            type: 'String',
+            value: RUNTIME_INPUT_VALUE
+          },
+          {
+            name: 'testOutput2',
+            type: 'String',
+            value: RUNTIME_INPUT_VALUE
+          }
+        ]
       }
     }
     const { container } = render(
@@ -52,19 +75,33 @@ describe('Test Shell Script Step', () => {
         executionTarget: {
           host: 'targethost',
           connectionType: 'SSH',
-          connectorRef: '',
+          connectorRef: 'connectorRef',
           workingDirectory: './temp'
         },
-        environmentVariables: {
-          name: 'testInput',
-          type: 'String',
-          value: 'Test_A'
-        },
-        outputVariables: {
-          name: 'testOutput',
-          type: 'String',
-          value: 'Test_B'
-        }
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'Test_A'
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: 'Test_B'
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            type: 'String',
+            value: 'Test_C'
+          },
+          {
+            name: 'testOutput2',
+            type: 'String',
+            value: 'Test_D'
+          }
+        ]
       }
     }
     const { container } = render(
@@ -91,19 +128,31 @@ describe('Test Shell Script Step', () => {
         executionTarget: {
           host: 'targethost',
           connectionType: 'SSH',
-          connectorRef: '',
+          connectorRef: 'connectorRef',
           workingDirectory: './temp'
         },
-        environmentVariables: {
-          name: 'testInput',
-          type: 'String',
-          value: 'Test_A'
-        },
-        outputVariables: {
-          name: 'testOutput',
-          type: 'String',
-          value: 'Test_B'
-        }
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'Test_A'
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: 'Test_B'
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            value: 'Test_C'
+          },
+          {
+            name: 'testOutput2',
+            value: 'Test_D'
+          }
+        ]
       }
     }
     const { container } = render(
@@ -133,8 +182,15 @@ describe('Test Shell Script Step', () => {
 
     fireEvent.click(getByText('Script Input Variables'))
 
-    fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput' } })
+    fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
     fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
+      target: { value: 'response.message' }
+    })
+    fireEvent.click(getByText('Add Input Variable'))
+
+    fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
+    fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
+    fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].value')!, {
       target: { value: 'response.message' }
     })
 
@@ -144,8 +200,12 @@ describe('Test Shell Script Step', () => {
     fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
 
     fireEvent.click(getByText('Script Output Variables'))
-    fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput' } })
+    fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, { target: { value: 'response.message' } })
+    fireEvent.click(getByText('Add'))
+
+    fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
+    fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, { target: { value: 'response.message' } })
 
     fireEvent.click(getByText('Submit').closest('button')!)
 
@@ -171,14 +231,23 @@ describe('Test Shell Script Step', () => {
         },
         environmentVariables: [
           {
-            name: 'testInput',
+            name: 'testInput1',
+            type: 'String',
+            value: 'response.message'
+          },
+          {
+            name: 'testInput2',
             type: 'String',
             value: 'response.message'
           }
         ],
         outputVariables: [
           {
-            name: 'testOutput',
+            name: 'testOutput1',
+            value: 'response.message'
+          },
+          {
+            name: 'testOutput2',
             value: 'response.message'
           }
         ]
