@@ -9,6 +9,8 @@ declare const styles: {
   readonly header: string
   readonly expandSearch: string
   readonly activityChart: string
+  readonly activityChartList: string
+  readonly lastExecutionTs: string
   readonly tags: string
   readonly menu: string
   readonly clickable: string

@@ -46,6 +46,16 @@
     height: var(--spacing-xxlarge) !important;
   }
 }
+.activityChartList {
+  margin-right: var(--spacing-xxxlarge);
+  display: block;
+  :global(.progress-bar) {
+    height: var(--spacing-xxlarge) !important;
+  }
+}
+.lastExecutionTs {
+  margin-left: var(--spacing-xxxlarge) !important;
+}
 .tags {
   position: absolute;
   top: 10px;

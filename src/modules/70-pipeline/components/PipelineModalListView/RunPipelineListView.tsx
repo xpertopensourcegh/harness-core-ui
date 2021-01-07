@@ -5,7 +5,7 @@ import { Layout, Color, Text, Button } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -71,12 +71,14 @@ export default function RunPipelineListView({
 
   const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
-
+    const { getString } = useStrings()
     return (
       <Layout.Vertical spacing="xsmall">
         <Text color={Color.GREY_400}>Last run:</Text>
         <Text color={Color.GREY_400}>
-          {rowdata.lastExecutionTs ? formatDatetoLocale(rowdata.lastExecutionTs) : 'Never'}
+          {rowdata.lastExecutionTs
+            ? formatDatetoLocale(rowdata.lastExecutionTs)
+            : getString('pipelineSteps.pullNeverLabel')}
         </Text>
       </Layout.Vertical>
     )

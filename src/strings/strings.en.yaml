@@ -159,6 +159,8 @@ global:
   selectApplication: 'Select Application'
   selectProject: 'Select Project'
   mapApplications: 'Map Applications to Harness Services'
+  pipelineActivityLabel: 'Executions in last 7 days'
+  total: 'Total'
   filters:
     visible: Who can view and edit the filter?
     name: Filter Name

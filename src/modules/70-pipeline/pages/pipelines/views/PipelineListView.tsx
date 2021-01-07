@@ -1,6 +1,6 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, SparkChart } from '@wings-software/uicore'
+import { Button, Color, Layout, Popover, Text, SparkChart, Icon } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
@@ -123,63 +123,93 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
   return (
     <>
-      <Layout.Horizontal spacing="small" data-testid={data.identifier}>
-        <Text color={Color.BLACK}>{data.name}</Text>
-        {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
-      </Layout.Horizontal>
-      <Text color={Color.GREY_400}>{data.identifier}</Text>
+      <Layout.Vertical spacing="small" data-testid={data.identifier}>
+        <Text color={Color.GREY_800} iconProps={{ size: 16 }}>
+          {data.name}
+        </Text>
+        <Text color={Color.GREY_400}>{data.description}</Text>
+      </Layout.Vertical>
     </>
   )
 }
 
-const RenderColumnDescription: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+const RenderColumnTag: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
-  return (
-    <Text color={Color.BLACK} lineClamp={2}>
-      {data.description}
-    </Text>
-  )
+  if (data.tags && Object.keys(data.tags || {}).length) {
+    return <TagsPopover tags={data.tags} />
+  }
+  return <div></div>
 }
 
 const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
-  return (
-    <span className={css.activityChart}>
-      <SparkChart data={data.deployments || /* istanbul ignore next */ []} />
-    </span>
-  )
-}
 
-const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
-  const rowdata = row.original
+  const deployments = data.deployments?.reduce((acc, val) => acc + val, 0)
+  const { getString } = useStrings()
+
+  const getStatusColor = (): string => {
+    switch (data.lastExecutionStatus) {
+      case 'Success':
+        return Color.GREEN_800
+      case 'Failed':
+        return Color.RED_800
+      case 'Running':
+        return Color.BLUE_800
+      default:
+        return Color.RED_800
+    }
+  }
 
   return (
-    <Layout.Vertical spacing="xsmall">
-      <Text color={Color.GREY_400}>Last run:</Text>
-      <Text color={Color.GREY_400}>
-        {rowdata.lastExecutionTs ? formatDatetoLocale(rowdata.lastExecutionTs) : 'Never'}
+    <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
+      {data.deployments?.length ? (
+        <span className={css.activityChartList}>
+          <SparkChart data={data.deployments || []} />
+        </span>
+      ) : null}
+
+      <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
+        {deployments}
       </Text>
-    </Layout.Vertical>
+
+      {deployments ? (
+        <Text color={Color.GREY_400} font="small" lineClamp={2} style={{ maxWidth: 100 }}>
+          {getString('pipelineActivityLabel')}
+        </Text>
+      ) : null}
+
+      <Layout.Horizontal spacing="medium">
+        <Text color={Color.GREY_400}>
+          <span>Last run:</span>
+        </Text>
+        <Text>
+          <span>
+            {data.lastExecutionTs
+              ? formatDatetoLocale(data.lastExecutionTs)
+              : getString('pipelineSteps.pullNeverLabel')}
+          </span>
+        </Text>
+      </Layout.Horizontal>
+
+      <Icon name="full-circle" size={8} color={getStatusColor()} />
+    </Layout.Horizontal>
   )
 }
 
-const RenderErrors: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
-  return <Text color={Color.RED_600}>{row.original.numOfErrors || '-'}</Text>
-}
-
-const RenderStages: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
+  const rowdata = row.original
   return (
-    <Text
-      icon="step-group"
-      color={Color.BLACK}
-      font="small"
-      iconProps={{ size: 12 }}
-      style={{ textTransform: 'capitalize' }}
-    >
-      {row.original.numOfStages} <String stringID="pipeline-list.listStages" />
-    </Text>
+    <RunPipelineModal pipelineIdentifier={rowdata.identifier || ''}>
+      <Button
+        style={{ textAlign: 'end' }}
+        intent="primary"
+        icon="run-pipeline"
+        text={<String stringID="runPipelineText" />}
+      />
+    </RunPipelineModal>
   )
 }
+
 export const PipelineListView: React.FC<PipelineListViewProps> = ({
   data,
   goToPipelineDetail,
@@ -193,48 +223,36 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       {
         Header: getString('pipeline').toUpperCase(),
         accessor: 'name',
-        width: '20%',
+        width: '25%',
         Cell: RenderColumnPipeline
       },
       {
-        Header: getString('description').toUpperCase(),
+        Header: '',
         accessor: 'description',
-        width: '20%',
-        Cell: RenderColumnDescription,
-        disableSortBy: true
-      },
-      {
-        Header: getString('pipeline-list.listStages').toUpperCase(),
-        accessor: 'numOfStages',
         width: '10%',
-        Cell: RenderStages,
+        Cell: RenderColumnTag,
         disableSortBy: true
       },
       {
         Header: getString('activity').toUpperCase(),
         accessor: 'deployments',
-        width: '10%',
+        width: '50%',
         Cell: RenderActivity,
-        disableSortBy: true
-      },
-      {
-        Header: getString('lastExecutionTs').toUpperCase(),
-        accessor: 'lastExecutionTs',
-        width: '20%',
-        Cell: RenderLastRunDate,
-        disableSortBy: true
-      },
-      {
-        Header: getString('errors').toUpperCase(),
-        accessor: 'numOfErrors',
-        width: '10%',
-        Cell: RenderErrors,
         disableSortBy: true
       },
       {
         Header: '',
         accessor: 'tags',
         width: '10%',
+        Cell: RenderRunPipeline,
+        disableSortBy: true,
+        refetchPipeline,
+        goToPipelineStudio
+      },
+      {
+        Header: '',
+        accessor: 'version',
+        width: '5%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         refetchPipeline,
@@ -244,18 +262,26 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
     [refetchPipeline, goToPipelineStudio]
   )
   return (
-    <Table<PipelineDTO>
-      className={css.table}
-      columns={columns}
-      data={data?.content || /* istanbul ignore next */ []}
-      onRowClick={item => goToPipelineDetail(item.identifier)}
-      pagination={{
-        itemCount: data?.totalElements || /* istanbul ignore next */ 0,
-        pageSize: data?.size || /* istanbul ignore next */ 10,
-        pageCount: data?.totalPages || /* istanbul ignore next */ -1,
-        pageIndex: data?.number || /* istanbul ignore next */ 0,
-        gotoPage
-      }}
-    />
+    <Layout.Vertical>
+      <Layout.Horizontal spacing="large" margin={{ left: 'xxlarge', top: 'large', bottom: 'large' }}>
+        <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
+          {getString('total')}: {data?.content?.length}
+        </Text>
+      </Layout.Horizontal>
+
+      <Table<PipelineDTO>
+        className={css.table}
+        columns={columns}
+        data={data?.content || []}
+        onRowClick={item => goToPipelineDetail(item.identifier)}
+        pagination={{
+          itemCount: data?.totalElements || 0,
+          pageSize: data?.size || 10,
+          pageCount: data?.totalPages || -1,
+          pageIndex: data?.number || 0,
+          gotoPage
+        }}
+      />
+    </Layout.Vertical>
   )
 }
