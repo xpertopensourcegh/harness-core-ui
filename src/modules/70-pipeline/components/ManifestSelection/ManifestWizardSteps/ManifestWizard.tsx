@@ -88,7 +88,7 @@ const FirstStep = (props: any): JSX.Element => {
                 orgIdentifier={orgIdentifier}
                 width={400}
                 isNewConnectorLabelVisible={false}
-                type={'Git'}
+                category={'CODE_REPO'}
                 enableConfigureOptions={false}
               />
               <Button

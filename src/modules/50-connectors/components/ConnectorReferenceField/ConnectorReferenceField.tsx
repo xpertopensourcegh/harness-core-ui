@@ -128,7 +128,9 @@ export function getReferenceFieldProps({
               accountIdentifier
             },
             body: {
-              types: type,
+              ...(!category && { types: type }),
+              category,
+              filterType: 'Connector',
               projectIdentifier: scope === Scope.PROJECT ? [projectIdentifier as string] : undefined,
               orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? [orgIdentifier as string] : undefined
             } as ConnectorFilterProperties
@@ -188,10 +190,7 @@ export function getReferenceFieldProps({
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
-                // TODO: Add support for multi type connectors
-                if (typeof type === 'string') {
-                  openConnectorModal(true, type, item.record)
-                }
+                openConnectorModal(true, item.record?.type || type, item.record)
               }}
               style={{
                 color: 'var(--blue-450)'
@@ -252,7 +251,17 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
 
   // TODO: Add support for multi type connectors
   if (typeof type === 'string') {
-    optionalReferenceSelectProps.editRenderer = getEditRenderer(selected, openConnectorModal, type)
+    optionalReferenceSelectProps.editRenderer = getEditRenderer(
+      selected,
+      openConnectorModal,
+      selected?.connector?.type || type
+    )
+  } else if (Array.isArray(type)) {
+    optionalReferenceSelectProps.editRenderer = getEditRenderer(
+      selected,
+      openConnectorModal,
+      selected?.connector?.type || type[0]
+    )
   }
 
   return (

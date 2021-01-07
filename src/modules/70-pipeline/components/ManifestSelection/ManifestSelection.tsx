@@ -373,7 +373,7 @@ function ManifestListView({
                     orgIdentifier={orgIdentifier}
                     width={350}
                     isNewConnectorLabelVisible={false}
-                    type={'Git'}
+                    category={'CODE_REPO'}
                     enableConfigureOptions={false}
                   />
                 </div>

@@ -105,7 +105,7 @@ export function RunPipelineForm({
 
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
   const history = useHistory()
-  const { mutate: runPipeline } = usePostPipelineExecuteWithInputSetYaml({
+  const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
     identifier: pipelineIdentifier,
     requestOptions: {
@@ -215,7 +215,7 @@ export function RunPipelineForm({
   ])
 
   const { getString } = useStrings()
-  if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {
+  if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate || runLoading) {
     return <PageSpinner />
   }
 

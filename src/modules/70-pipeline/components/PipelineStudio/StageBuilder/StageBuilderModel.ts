@@ -40,7 +40,7 @@ export class StageBuilderModel extends DiagramModel {
       const type = stagesMap[node.stage.type]
       startX += this.gap
       const isSelected = selectedStageId === node.stage.identifier
-      const nodeRender = type.isApproval
+      const nodeRender = type?.isApproval
         ? new DiamondNodeModel({
             identifier: node.stage.identifier,
             customNodeStyle: {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
-import { EmptyLayout } from '@common/layouts'
+import { EmptyLayout, MinimalLayout } from '@common/layouts'
 import {
   accountPathProps,
   projectPathProps,
@@ -142,7 +142,7 @@ export default (
 
       <RouteWithLayout
         exact
-        layout={EmptyLayout}
+        layout={MinimalLayout}
         path={routes.toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
       >
         <CIPipelineStudio>

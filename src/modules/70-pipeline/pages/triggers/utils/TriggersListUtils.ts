@@ -7,8 +7,8 @@ import { TriggerTypes } from './TriggersWizardPageUtils'
 export const GitSourceProviders = {
   GITHUB: { value: 'GITHUB', iconName: 'github', label: 'GitHub' },
   GITLAB: { value: 'GITLAB', iconName: 'service-gotlab', label: 'GitLab' },
-  BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket', label: 'BitBucket' }
-  // CUSTOM: { value: 'CUSTOM', iconName: 'build' }
+  BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket', label: 'BitBucket' },
+  CUSTOM: { value: 'CUSTOM', iconName: 'build' }
 }
 
 export const getTriggerIcon = ({
