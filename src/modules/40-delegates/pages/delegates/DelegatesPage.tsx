@@ -5,6 +5,7 @@ import { useStrings } from 'framework/exports'
 import { getDelegates } from 'services/portal'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import DelegateListing from './DelegateListing'
+import DelegateConfigurations from './DelegateConfigurations'
 import css from './DelegatesPage.module.scss'
 
 export const DelegatesPage: React.FC = () => {
@@ -26,7 +27,15 @@ export const DelegatesPage: React.FC = () => {
           title={getString('delegate.DELEGATES')}
           panel={<DelegateListing delegateResponse={data} onClick={openDelegateModal} />}
         />
-        <Tab id="delegateConfiguration" title={'delegateConfiguration'} panel={<div>delegate configurations</div>} />
+        <Tab
+          id="delegateConfiguration"
+          title={getString('delegate.DELEGATE_CONFIGURATIONS')}
+          panel={
+            <>
+              <DelegateConfigurations />
+            </>
+          }
+        />
       </Tabs>
     </Container>
   )

@@ -28,3 +28,21 @@
 .connectivity {
   margin-right: var(--spacing-xsmall) !important;
 }
+
+.profileContainer {
+  display: flex;
+  padding: 20px !important;
+  margin: 20px !important;
+}
+
+.profileCard {
+  width: 250px;
+  margin-right: 10px;
+  height: 296px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  height: 200px;
+}

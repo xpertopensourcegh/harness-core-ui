@@ -44,7 +44,7 @@ exports[`Delegates Page render data 1`] = `
           role="tab"
           tabindex="0"
         >
-          delegateConfiguration
+          Delegate Configurations
         </div>
       </div>
       <div

@@ -6,5 +6,8 @@ declare const styles: {
   readonly delegateContainer: string
   readonly delegateTable: string
   readonly connectivity: string
+  readonly profileContainer: string
+  readonly profileCard: string
+  readonly content: string
 }
 export default styles

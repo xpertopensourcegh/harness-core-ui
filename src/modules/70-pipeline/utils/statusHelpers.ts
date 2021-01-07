@@ -12,7 +12,8 @@ export const EXECUTION_STATUS: readonly ExecutionStatus[] = [
   'Running',
   'Success',
   'Suspended',
-  'Waiting'
+  'Waiting',
+  'Skipped'
 ]
 
 export function isExecutionRunning(status?: ExecutionStatus): boolean {

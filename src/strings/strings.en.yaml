@@ -345,6 +345,7 @@ global:
         value: 'ecs'
         icon: 'service-ecs'
         name: 'Linux'
+    DELEGATE_CONFIGURATIONS: 'Delegate Configurations'
   execution:
     pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
     latestCommit: 'Latest commit:'

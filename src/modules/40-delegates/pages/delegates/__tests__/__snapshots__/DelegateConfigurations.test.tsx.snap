@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delegates Page render data 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main profileContainer"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card--card profileCard"
+    >
+      <div
+        class="Card--cardMenu"
+      >
+        <div
+          class="Card--dots"
+        >
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                type="button"
+              >
+                <span
+                  class="bp3-icon bp3-icon-more StyledProps--main"
+                  icon="more"
+                >
+                  <svg
+                    data-icon="more"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      more
+                    </desc>
+                    <path
+                      d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+        >
+          Primary
+        </p>
+        <div
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main content StyledProps--padding-top-medium"
+        >
+          <div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-small"
+              style="margin-top: 5px;"
+            >
+              The primary profile for the account
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+`;

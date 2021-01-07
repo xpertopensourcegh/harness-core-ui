@@ -9040,6 +9040,16 @@ export interface RestResponseDelegateStatus {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseDelegateProfileV2 {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    response: DelegateProfile[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CEDelegateStatus {
   uuid?: string
   found?: boolean
@@ -18455,6 +18465,12 @@ export const getDelegates = (props: UseGetDelegatesStatusProps) =>
     ...props
   })
 
+export const getDelegateProfilesV2 = (props: UseGetDelegatesProfilev2Props) =>
+  useGet<RestResponseDelegateProfileV2, unknown, GetDelegatesStatusQueryParams, void>(`/delegate-profiles/v2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
 export interface GetDelegatesStatusQueryParams {
   accountId?: string
 }
@@ -18474,6 +18490,11 @@ export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
 
 export type UseGetDelegatesStatusProps = Omit<
   UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
+  'path'
+>
+
+export type UseGetDelegatesProfilev2Props = Omit<
+  UseGetProps<RestResponseDelegateProfileV2, unknown, GetDelegatesStatusQueryParams, void>,
   'path'
 >
 
