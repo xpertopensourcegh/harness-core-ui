@@ -8,13 +8,13 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   TextInput,
-  Checkbox
+  Checkbox,
+  Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormGroup } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
-import Accordion from '@common/components/Accordion/Accordion'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'

@@ -5,7 +5,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  SelectOption
+  SelectOption,
+  Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -15,7 +16,6 @@ import { isEmpty } from 'lodash-es'
 
 import { StepViewType } from '@pipeline/exports'
 import type { InputSetData } from '@pipeline/exports'
-import Accordion from '@common/components/Accordion/Accordion'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'

@@ -92,11 +92,11 @@ exports[`Org Page List Create New Org 1`] = `
     class="StyledProps--font StyledProps--main pageBody orgPage"
   >
     <div
-      class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 StyledProps--padding-xxxlarge"
+      class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 StyledProps--padding-xxxlarge"
       style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
     >
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
@@ -248,7 +248,7 @@ exports[`Org Page List Create New Org 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div
@@ -463,7 +463,7 @@ exports[`Org Page List Create New Org 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
         style="margin-bottom: 20px; position: absolute; left: 0px; top: 0px;"
       >
         <div

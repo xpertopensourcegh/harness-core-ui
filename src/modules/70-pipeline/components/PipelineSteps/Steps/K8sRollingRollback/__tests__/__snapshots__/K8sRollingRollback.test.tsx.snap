@@ -15,24 +15,24 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
           class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
         >
           <div
-            class="accordion"
+            class="Accordion--accordion"
           >
             <div
-              class="panel"
+              class="Accordion--panel"
               data-open="true"
               data-testid="details-panel"
             >
               <div
-                class="summary"
+                class="Accordion--summary"
                 data-testid="details-summary"
               >
                 <div
-                  class="label"
+                  class="Accordion--label"
                 >
                   K8s Rolling Rollback
                 </div>
                 <div
-                  class="chevron"
+                  class="Accordion--chevron"
                 />
               </div>
               <div
@@ -45,7 +45,7 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
                   style="transform: translateY(0); transition: none;"
                 >
                   <div
-                    class="details"
+                    class="Accordion--details"
                     data-testid="details-details"
                   >
                     <div

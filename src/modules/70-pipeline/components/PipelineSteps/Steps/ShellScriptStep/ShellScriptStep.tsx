@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -8,7 +8,6 @@ import { v4 as uuid } from 'uuid'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
-import Accordion from '@common/components/Accordion/Accordion'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,

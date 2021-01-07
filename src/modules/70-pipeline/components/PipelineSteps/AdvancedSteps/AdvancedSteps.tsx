@@ -1,12 +1,11 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { Formik, FormikForm } from '@wings-software/uicore'
+import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
 import type { StepCommandsProps, Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import Accordion from '@common/components/Accordion/Accordion'
 
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'

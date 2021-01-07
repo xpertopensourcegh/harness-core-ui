@@ -208,11 +208,11 @@ exports[`Project Page List Create Project and Close 1`] = `
       style="height: 90%;"
     >
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
         style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
       >
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -544,7 +544,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -1047,7 +1047,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -1379,7 +1379,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -1695,7 +1695,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -2044,7 +2044,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -3060,7 +3060,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -3609,11 +3609,11 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       style="height: 90%;"
     >
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
         style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
       >
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -3945,7 +3945,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -4448,7 +4448,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -4780,7 +4780,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -5096,7 +5096,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -5445,7 +5445,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -6461,7 +6461,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -7010,11 +7010,11 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       style="height: 90%;"
     >
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
         style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
       >
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -7346,7 +7346,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -7849,7 +7849,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -8181,7 +8181,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -8497,7 +8497,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -8846,7 +8846,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -9862,7 +9862,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -10411,11 +10411,11 @@ exports[`Project Page List Whole Modal Test 1`] = `
       style="height: 90%;"
     >
       <div
-        class="StyledProps--font StyledProps--main uikit-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 centerContainer StyledProps--padding-xxxlarge"
         style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
       >
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -10747,7 +10747,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -11250,7 +11250,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -11582,7 +11582,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -11898,7 +11898,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -12247,7 +12247,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
@@ -13263,7 +13263,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main uikit-masonry-layout--item-0"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
           style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div

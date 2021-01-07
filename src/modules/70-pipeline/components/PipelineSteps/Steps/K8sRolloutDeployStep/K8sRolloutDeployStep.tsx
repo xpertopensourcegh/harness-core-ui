@@ -6,13 +6,13 @@ import {
   Button,
   Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
-import Accordion from '@common/components/Accordion/Accordion'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'

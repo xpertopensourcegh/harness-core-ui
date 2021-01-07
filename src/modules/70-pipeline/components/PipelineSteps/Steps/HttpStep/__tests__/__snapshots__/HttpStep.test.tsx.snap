@@ -6,24 +6,24 @@ exports[`Http Step edit mode works 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Http Step
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -36,7 +36,7 @@ exports[`Http Step edit mode works 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -639,21 +639,21 @@ exports[`Http Step edit mode works 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Response Mapping
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -904,24 +904,24 @@ exports[`Http Step renders runtime inputs 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Http Step
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -934,7 +934,7 @@ exports[`Http Step renders runtime inputs 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -1564,21 +1564,21 @@ exports[`Http Step renders runtime inputs 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Response Mapping
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1612,24 +1612,24 @@ exports[`Http Step should render edit view as new step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Http Step
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1642,7 +1642,7 @@ exports[`Http Step should render edit view as new step 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -2175,21 +2175,21 @@ exports[`Http Step should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Response Mapping
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div

@@ -6,24 +6,24 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Shell Script
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -36,7 +36,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -266,21 +266,21 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Input Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -294,21 +294,21 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-3-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-3-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Execution Target
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -322,21 +322,21 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-4-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-4-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Output Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -370,24 +370,24 @@ exports[`Test Shell Script Step should render edit view 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Shell Script
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -400,7 +400,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -630,21 +630,21 @@ exports[`Test Shell Script Step should render edit view 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Input Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -658,21 +658,21 @@ exports[`Test Shell Script Step should render edit view 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-3-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-3-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Execution Target
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -686,21 +686,21 @@ exports[`Test Shell Script Step should render edit view 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-4-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-4-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Output Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -734,24 +734,24 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Shell Script
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -764,7 +764,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -994,21 +994,21 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Input Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1022,21 +1022,21 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-3-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-3-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Execution Target
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1050,21 +1050,21 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-4-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-4-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Output Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1098,24 +1098,24 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="accordion accordion"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="true"
         data-testid="step-1-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-1-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Shell Script
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1128,7 +1128,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
             style="transform: translateY(0); transition: none;"
           >
             <div
-              class="details"
+              class="Accordion--details"
               data-testid="step-1-details"
             >
               <div
@@ -1356,21 +1356,21 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-2-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-2-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Input Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1384,21 +1384,21 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-3-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-3-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Execution Target
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
@@ -1412,21 +1412,21 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="panel"
+        class="Accordion--panel"
         data-open="false"
         data-testid="step-4-panel"
       >
         <div
-          class="summary"
+          class="Accordion--summary"
           data-testid="step-4-summary"
         >
           <div
-            class="label"
+            class="Accordion--label"
           >
             Script Output Variables
           </div>
           <div
-            class="chevron"
+            class="Accordion--chevron"
           />
         </div>
         <div
