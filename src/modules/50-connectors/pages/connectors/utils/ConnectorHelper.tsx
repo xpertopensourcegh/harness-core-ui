@@ -59,7 +59,7 @@ export const getHeadingByType = (type: string): string => {
     case Connectors.GITHUB:
       return i18n.githubConnectorDetails
     case Connectors.GITLAB:
-      return i18n.githubConnectorDetails
+      return i18n.gitlabConnectorDetails
     case Connectors.BITBUCKET:
       return i18n.bitbucketConnectorDetails
     case Connectors.VAULT:

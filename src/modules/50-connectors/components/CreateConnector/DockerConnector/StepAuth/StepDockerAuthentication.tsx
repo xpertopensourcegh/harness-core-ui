@@ -53,7 +53,7 @@ interface DockerFormInterface {
   authType: string
   dockerProviderType: string
   username: string
-  password: SecretReferenceInterface | null
+  password: SecretReferenceInterface | void
 }
 
 const defaultInitialFormData: DockerFormInterface = {
@@ -61,7 +61,7 @@ const defaultInitialFormData: DockerFormInterface = {
   authType: AuthTypes.USER_PASSWORD,
   dockerProviderType: DockerProviderType.DOCKERHUB,
   username: '',
-  password: null
+  password: undefined
 }
 
 const StepDockerAuthentication: React.FC<
@@ -160,7 +160,18 @@ const StepDockerAuthentication: React.FC<
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          dockerRegistryUrl: Yup.string().trim().required(getString('connectors.docker.validation.dockerRegistryUrl'))
+          dockerRegistryUrl: Yup.string().trim().required(getString('validation.dockerRegistryUrl')),
+          authType: Yup.string().trim().required(getString('validation.authType')),
+          username: Yup.string().when('authType', {
+            is: val => val === AuthTypes.USER_PASSWORD,
+            then: Yup.string().trim().required(getString('validation.username')),
+            otherwise: Yup.string().nullable()
+          }),
+          password: Yup.object().when('authType', {
+            is: val => val === AuthTypes.USER_PASSWORD,
+            then: Yup.object().required(getString('validation.password')),
+            otherwise: Yup.object().nullable()
+          })
         })}
         onSubmit={stepData => {
           const connectorData = {

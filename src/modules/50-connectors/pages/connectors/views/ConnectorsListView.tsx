@@ -4,23 +4,25 @@ import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, PopoverInteractionKind, Intent } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
+import { String } from 'framework/exports'
 import {
   ConnectorResponse,
   useDeleteConnector,
   PageConnectorResponse,
   useGetTestConnectionResult,
   ResponseConnectorValidationResult,
-  ConnectorConnectivityDetails
+  ConnectorConnectivityDetails,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
-// import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getStepOneForExistingDelegate } from '@connectors/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
-import { ConnectorStatus } from '@connectors/constants'
+import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { getIconByType } from '../utils/ConnectorUtils'
 import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
@@ -35,8 +37,40 @@ type CustomColumn<T extends object> = Column<T> & {
   reload?: () => Promise<void>
 }
 
+const getConnectorDisplaySummaryLabel = (titleStringId: string, value: string): JSX.Element | string => {
+  return (
+    <>
+      {titleStringId ? <String stringID={titleStringId} /> : null}
+      <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
+        {`(${value})`}
+      </Text>
+    </>
+  )
+}
+
+const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
+  switch (connector?.type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.credential?.spec?.masterUrl)
+    case Connectors.GIT:
+    case Connectors.GITHUB:
+    case Connectors.GITLAB:
+    case Connectors.BITBUCKET:
+      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.url)
+    case Connectors.DOCKER:
+      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.dockerRegistryUrl)
+    case Connectors.NEXUS:
+      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.nexusServerUrl)
+    case Connectors.ARTIFACTORY:
+      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.nexusSeartifactoryServerUrlrverUrl)
+    default:
+      return ''
+  }
+}
+
 const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
+  const tags = data.connector?.tags || {}
   return (
     <Layout.Horizontal spacing="small">
       <Icon name={getIconByType(data.connector?.type)} size={30}></Icon>
@@ -45,7 +79,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) 
           <div className={css.name} title={data.connector?.name}>
             {data.connector?.name}
           </div>
-          {/* {data.connector?.tags?.length ? <TagsPopover tags={data.connector?.tags} /> : null} */}
+          {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
         </Layout.Horizontal>
         <div className={css.identifier} title={data.connector?.identifier}>
           {data.connector?.identifier}
@@ -57,14 +91,12 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) 
 const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
 
-  return (
+  return data.connector ? (
     <div>
-      {data.connector?.spec?.credential?.spec?.masterUrl ? (
-        <Text color={Color.BLACK}>{data.connector?.spec?.credential?.spec?.masterUrl}</Text>
-      ) : null}
+      <Text color={Color.BLACK}>{getConnectorDisplaySummary(data.connector)}</Text>
       <Text color={Color.GREY_400}>{data.connector?.description}</Text>
     </div>
-  )
+  ) : null
 }
 
 const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
@@ -321,7 +353,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
           if (deleted) showSuccess(`Connector ${data.connector?.name} deleted`)
           ;(column as any).reload?.()
         } catch (err) {
-          showError(err)
+          showError(err?.data?.message || err?.message)
         }
       }
     }
@@ -347,7 +379,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
         >
           <Button
             minimal
-            icon="main-more"
+            icon="Options"
+            iconProps={{ size: 20 }}
             onClick={e => {
               e.stopPropagation()
               setMenuOpen(true)

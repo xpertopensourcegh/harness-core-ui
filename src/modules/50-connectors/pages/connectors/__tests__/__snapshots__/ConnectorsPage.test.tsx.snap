@@ -41,25 +41,6 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
           >
             New Connector
           </span>
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
         </button>
       </div>
       <div
@@ -310,25 +291,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             class="bp3-button-text"
           >
             New Connector
-          </span>
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
           </span>
         </button>
       </div>
@@ -651,6 +613,11 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           >
             <div>
               <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                
+              </p>
+              <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 
@@ -721,15 +688,34 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -778,6 +764,36 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   >
                     Git CTR
                   </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                        >
+                          <svg
+                            height="15"
+                            viewBox="0 0 14 14"
+                            width="15"
+                          >
+                            <path
+                              d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                              fill="#4d5969"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        />
+                      </div>
+                    </span>
+                  </span>
                 </div>
                 <div
                   class="identifier"
@@ -794,6 +810,18 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             style="width: 25%;"
           >
             <div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                </span>
+              </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -865,15 +893,34 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -938,6 +985,18 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             style="width: 25%;"
           >
             <div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                </span>
+              </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -1009,15 +1068,34 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -1087,6 +1165,18 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             style="width: 25%;"
           >
             <div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (www.google.com)
+                </span>
+              </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -1199,15 +1289,34 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -1278,6 +1387,18 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           >
             <div>
               <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (www.docker.com)
+                </span>
+              </p>
+              <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 
@@ -1379,15 +1500,34 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -1442,6 +1582,36 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   >
                     KubernetesCTR
                   </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                        >
+                          <svg
+                            height="15"
+                            viewBox="0 0 14 14"
+                            width="15"
+                          >
+                            <path
+                              d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                              fill="#4d5969"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        />
+                      </div>
+                    </span>
+                  </span>
                 </div>
                 <div
                   class="identifier"
@@ -1461,7 +1631,14 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                sample.google.com
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (sample.google.com)
+                </span>
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -1565,15 +1742,34 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -2891,25 +3087,6 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           >
             New Connector
           </span>
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
         </button>
       </div>
       <div
@@ -3294,6 +3471,11 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           >
             <div>
               <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                
+              </p>
+              <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 
@@ -3364,15 +3546,34 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -3421,6 +3622,36 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   >
                     Git CTR
                   </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                        >
+                          <svg
+                            height="15"
+                            viewBox="0 0 14 14"
+                            width="15"
+                          >
+                            <path
+                              d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                              fill="#4d5969"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        />
+                      </div>
+                    </span>
+                  </span>
                 </div>
                 <div
                   class="identifier"
@@ -3437,6 +3668,18 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             style="width: 25%;"
           >
             <div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                </span>
+              </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -3508,15 +3751,34 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -3581,6 +3843,18 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             style="width: 25%;"
           >
             <div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                </span>
+              </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -3652,15 +3926,34 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -3730,6 +4023,18 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             style="width: 25%;"
           >
             <div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (www.google.com)
+                </span>
+              </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -3842,15 +4147,34 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -3921,6 +4245,18 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
           >
             <div>
               <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (www.docker.com)
+                </span>
+              </p>
+              <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
                 
@@ -4022,15 +4358,34 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -4085,6 +4440,36 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   >
                     KubernetesCTR
                   </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                        >
+                          <svg
+                            height="15"
+                            viewBox="0 0 14 14"
+                            width="15"
+                          >
+                            <path
+                              d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                              fill="#4d5969"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        />
+                      </div>
+                    </span>
+                  </span>
                 </div>
                 <div
                   class="identifier"
@@ -4104,7 +4489,14 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                sample.google.com
+                <span>
+                  URL
+                </span>
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                >
+                  (sample.google.com)
+                </span>
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -4208,15 +4600,34 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>

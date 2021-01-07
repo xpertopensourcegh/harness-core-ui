@@ -546,14 +546,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal inline width="50%">
-          <Button
-            intent="primary"
-            text={i18n.NEW_CONNECTOR}
-            icon="plus"
-            rightIcon="chevron-down"
-            onClick={openDrawer}
-            id="newConnectorBtn"
-          />
+          <Button intent="primary" text={i18n.NEW_CONNECTOR} icon="plus" onClick={openDrawer} id="newConnectorBtn" />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" width="30%" className={css.view}>
           <TextInput

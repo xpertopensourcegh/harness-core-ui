@@ -686,6 +686,7 @@ global:
     kerberosKey: Kerberos key is required
     privateKey: 'GitHub Private Key is required'
     accessToken: Access token is required
+    dockerRegistryUrl: 'Docker Registry URL is required'
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
     tagsRequired: Tags is a required field
     environmentVariablesRequired: Environment Variables is a required field
@@ -749,7 +750,7 @@ global:
       urlType: 'URL Type'
       connectionType: 'Connection Type'
       gitHubAccountUrl: 'GitHub Account URL'
-      gitLabAccountUrl: 'Gitlab Account URL'
+      gitLabAccountUrl: 'GitLab Account URL'
       bitbucketAccountUrl: 'Bitbucket Account URL'
       gitHubRepoUrl: 'GitHub Repository URL'
       gitLabRepoUrl: 'GitLab Repository URL'
@@ -776,8 +777,7 @@ global:
       harbour: 'Harbour'
       quay: 'Quay'
       other: 'Other (Docker V2 compliant)'
-      validation:
-        dockerRegistryUrl: 'Docker Registry URL is required'
+
   cf:
     clause:
       operators:

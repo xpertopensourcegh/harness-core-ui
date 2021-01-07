@@ -97,7 +97,6 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
-      props.onConnectorCreated?.()
       showSuccess(`Connector '${data.connector?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData })
     } catch (e) {
@@ -125,7 +124,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.k8.stepTwoName')}
+        {getString('connectors.GCP.stepTwoName')}
       </Text>
       <Formik
         initialValues={{

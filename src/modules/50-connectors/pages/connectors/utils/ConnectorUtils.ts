@@ -436,10 +436,13 @@ export const setupDockerFormData = async (connectorInfo: ConnectorInfoDTO, accou
     dockerRegistryUrl: connectorInfo.spec.dockerRegistryUrl,
     authType: connectorInfo.spec.auth.type,
     dockerProviderType: connectorInfo.spec.providerType,
-    username: connectorInfo.spec.auth.spec.username,
-    password: await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
+    username:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD ? connectorInfo.spec.auth.spec.username : undefined,
+    password:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
+        ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
+        : undefined
   }
-
   return formData
 }
 
@@ -689,6 +692,12 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Kubernetes cluster'
     case Connectors.GIT:
       return 'Git'
+    case Connectors.GITHUB:
+      return 'GitHub'
+    case Connectors.GITLAB:
+      return 'GitLab'
+    case Connectors.BITBUCKET:
+      return 'Bitbucket'
     case Connectors.DOCKER:
       return 'Docker'
     case Connectors.GCP:

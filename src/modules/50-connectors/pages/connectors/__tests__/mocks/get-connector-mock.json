@@ -7,7 +7,7 @@
       "description": "",
       "orgIdentifier": null,
       "projectIdentifier": null,
-      "tags": {},
+      "tags": { "connector": "dx" },
       "type": "DockerRegistry",
       "spec": {
         "dockerRegistryUrl": "Sample",
