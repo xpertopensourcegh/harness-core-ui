@@ -41,7 +41,7 @@ export function EnvironmentSelect({
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { mutate: createEnvironment, loading } = useCreateEnvironment({
-    queryParams: { accountIdentifier: accountId } as CreateEnvironmentQueryParams
+    queryParams: { accountId } as CreateEnvironmentQueryParams
   })
   const selectOptions = useMemo(
     () => [

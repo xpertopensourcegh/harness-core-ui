@@ -81,7 +81,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
 
   const { data: serviceResponse } = useGetServiceListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier,
       projectIdentifier
     } as GetServiceListForProjectQueryParams,

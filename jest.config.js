@@ -27,7 +27,10 @@ module.exports = {
     '!src/modules/10-common/utils/testUtils.tsx',
     '!src/modules/85-cv/pages/onboarding/setup/**',
     '!src/modules/85-cv/pages/metric-pack/**',
-    '!src/modules/85-cv/pages/data-sources/**'
+    '!src/modules/85-cv/pages/data-sources/**',
+    '!src/modules/cf/pages/feature-flags/**',
+    '!src/modules/cf/pages/feature-flags-detail/**',
+    '!src/modules/cf/pages/targets/**'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

@@ -5,6 +5,7 @@ import { Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
@@ -21,7 +22,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     projectIdentifier,
     accountId,
     orgIdentifier
-  })
+  } as GetEnvironmentListForProjectQueryParams)
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 
   useEffect(() => {

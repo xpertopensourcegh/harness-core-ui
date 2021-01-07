@@ -88,7 +88,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
 
   useGetServiceListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier,
       projectIdentifier
     } as GetServiceListForProjectQueryParams,

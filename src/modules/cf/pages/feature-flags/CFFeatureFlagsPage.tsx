@@ -19,6 +19,7 @@ import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import Table from '@common/components/Table/Table'
+import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
 import { Page } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
@@ -220,7 +221,7 @@ const CFFeatureFlagsPage: React.FC = () => {
     accountId,
     orgIdentifier,
     projectIdentifier
-  })
+  } as GetEnvironmentListForProjectQueryParams)
 
   const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,

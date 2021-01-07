@@ -4,6 +4,7 @@ import { Spinner } from '@blueprintjs/core'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
+import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures, Feature } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { Page, useToaster } from '@common/exports'
@@ -57,7 +58,7 @@ const CFTargetsPage: React.FC = () => {
     projectIdentifier,
     accountId,
     orgIdentifier
-  })
+  } as GetEnvironmentListForProjectQueryParams)
 
   const [view, setView] = useState<'individual' | 'segments'>('individual')
   const onChangePage = () => {

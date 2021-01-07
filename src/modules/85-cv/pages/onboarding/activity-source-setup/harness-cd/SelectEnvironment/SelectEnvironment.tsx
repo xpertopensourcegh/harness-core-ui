@@ -60,7 +60,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const [offset, setOffset] = useState(0)
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier,
       projectIdentifier
     } as GetEnvironmentListForProjectQueryParams

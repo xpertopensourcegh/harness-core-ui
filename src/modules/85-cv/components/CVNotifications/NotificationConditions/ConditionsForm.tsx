@@ -15,8 +15,10 @@ import { useParams } from 'react-router-dom'
 import {
   useGetServiceListForProject,
   useGetEnvironmentListForProject,
+  GetServiceListForProjectQueryParams,
   GetEnvironmentListForProjectQueryParams
 } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { CVNotificationForm } from '@cv/pages/admin/notifications/NotificationInterfaces'
 import { useToaster } from '@common/exports'
 import CVRiskScoreSlider from '@cv/components/CVRiskSlider/CVRiskScoreSlider'
@@ -54,7 +56,7 @@ const isAllSelected = (items: SelectOption[] | undefined) => {
 }
 
 const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const [initialServices, setInitialServices] = useState<SelectOption[]>()
@@ -72,16 +74,16 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
   ])
   const { loading: loadingServices, data: serviceResponse } = useGetServiceListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
-    } as GetEnvironmentListForProjectQueryParams
+    } as GetServiceListForProjectQueryParams
   })
 
   const { showError, showSuccess } = useToaster()
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
     } as GetEnvironmentListForProjectQueryParams
@@ -136,7 +138,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
 
   useEffect(() => {
     if (serviceResponse?.data?.content?.length) {
-      const services = serviceResponse.data.content.map(service => ({
+      const services = serviceResponse?.data?.content?.map(service => ({
         label: service.name,
         value: service.identifier
       }))

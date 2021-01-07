@@ -60,7 +60,7 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
 
   useGetEnvironmentListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier,
       projectIdentifier
     } as GetEnvironmentListForProjectQueryParams,

@@ -58,7 +58,7 @@ export function ServiceName(props: BaseFieldProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: serviceOptions } = useGetServiceListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string
     } as GetServiceListForProjectQueryParams,
@@ -113,7 +113,7 @@ export function EnvironmentName(props: BaseFieldProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: environmentOptions } = useGetEnvironmentListForProject({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string
     } as GetEnvironmentListForProjectQueryParams,

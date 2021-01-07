@@ -15,6 +15,7 @@ import {
   useGetEnvironmentListForProject,
   EnvironmentResponseDTO,
   ServiceResponseDTO,
+  GetServiceListForProjectQueryParams,
   GetEnvironmentListForProjectQueryParams
 } from 'services/cd-ng'
 import SplunkMainSetupView from './splunk/SplunkMainSetupView'
@@ -95,11 +96,7 @@ export default function DataSourceSetupPage(): JSX.Element {
   const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(true)
   const verificationType = RouteVerificationTypeToVerificationType[(dataSourceType as DSConfig['type']) || '']
   const { data: serviceOptions = LoadingDropDownOption, refetch: refetchServices } = useGetServiceListForProject({
-    queryParams: {
-      accountIdentifier: accountId,
-      projectIdentifier,
-      orgIdentifier
-    } as GetEnvironmentListForProjectQueryParams,
+    queryParams: { accountId, projectIdentifier, orgIdentifier } as GetServiceListForProjectQueryParams,
     lazy: true,
     resolve: serviceList =>
       serviceList?.data?.content?.map(({ identifier }: ServiceResponseDTO) => ({
@@ -111,11 +108,7 @@ export default function DataSourceSetupPage(): JSX.Element {
     data: environmentOptions = LoadingDropDownOption,
     refetch: refetchEnvironments
   } = useGetEnvironmentListForProject({
-    queryParams: {
-      accountIdentifier: accountId,
-      projectIdentifier,
-      orgIdentifier
-    } as GetEnvironmentListForProjectQueryParams,
+    queryParams: { accountId, projectIdentifier, orgIdentifier } as GetEnvironmentListForProjectQueryParams,
     lazy: true,
     resolve: envList =>
       envList?.data.content?.map(({ identifier }: EnvironmentResponseDTO) => ({

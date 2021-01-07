@@ -34,11 +34,9 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
   const projectIdentifier = routeProjectIdentifier as string
   const orgIdentifier = routeOrgIdentifier as string
   const [error, setError] = useState<string | undefined>()
-  const { mutate: createService } = useCreateService({
-    queryParams: { accountIdentifier: accountId } as CreateServiceQueryParams
-  })
+  const { mutate: createService } = useCreateService({ queryParams: { accountId } as CreateServiceQueryParams })
   const { mutate: createEnvironment } = useCreateEnvironment({
-    queryParams: { accountIdentifier: accountId } as CreateEnvironmentQueryParams
+    queryParams: { accountId } as CreateEnvironmentQueryParams
   })
 
   const onSubmit = async (values: EnvironmentRequestDTO | ServiceRequestDTO): Promise<void> => {

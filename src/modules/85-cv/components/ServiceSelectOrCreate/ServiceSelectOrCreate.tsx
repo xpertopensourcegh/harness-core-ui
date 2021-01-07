@@ -32,7 +32,7 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { mutate: createService, loading } = useCreateService({
-    queryParams: { accountIdentifier: accountId } as CreateServiceQueryParams
+    queryParams: { accountId } as CreateServiceQueryParams
   })
 
   const selectOptions = useMemo(
@@ -53,8 +53,8 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
     const res = await createService({
       name: values.name,
       identifier: values.identifier,
-      orgIdentifier,
-      projectIdentifier
+      orgIdentifier: orgIdentifier as string,
+      projectIdentifier: projectIdentifier as string
     })
     if (res.status === 'SUCCESS') {
       props.onNewCreated(res.data!)
