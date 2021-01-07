@@ -40,6 +40,9 @@ export const getSnippetTags = (
           break
       }
       break
+    case 'Secrets':
+      tags.push('secret')
+      break
     default:
   }
   return tags

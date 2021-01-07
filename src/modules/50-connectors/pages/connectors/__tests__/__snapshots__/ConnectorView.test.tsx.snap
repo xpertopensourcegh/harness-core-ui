@@ -62,6 +62,234 @@ exports[`Connector Details Page Edit details test 1`] = `
 </div>
 `;
 
+exports[`Connector Details Page Rendering connector details with DockerRegistry: DockerRegistry 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+  >
+    <div
+      class="StyledProps--font StyledProps--main buttonContainer"
+    >
+      <div
+        class="optionBtns"
+      >
+        <div
+          class="item selected"
+        >
+          VISUAL
+        </div>
+        <div
+          class="item"
+        >
+          YAML
+        </div>
+      </div>
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+        id="editDetailsBtn"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+          icon="edit"
+        >
+          <svg
+            data-icon="edit"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              edit
+            </desc>
+            <path
+              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          Edit Details
+        </span>
+      </button>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main detailsSectionContainer"
+      >
+        <div
+          class="StyledProps--font StyledProps--main detailsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          >
+            Overview
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main detailsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          >
+            Credentials
+          </p>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main detailsSection"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+            >
+              Connector Activity
+            </p>
+          </div>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <button
+              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Test Connection
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Connector Details Page Rendering connector details with K8sCluster: K8sCluster 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-huge StyledProps--padding-bottom-large StyledProps--padding-right-huge"
+  >
+    <div
+      class="StyledProps--font StyledProps--main buttonContainer"
+    >
+      <div
+        class="optionBtns"
+      >
+        <div
+          class="item selected"
+        >
+          VISUAL
+        </div>
+        <div
+          class="item"
+        >
+          YAML
+        </div>
+      </div>
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+        id="editDetailsBtn"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+          icon="edit"
+        >
+          <svg
+            data-icon="edit"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              edit
+            </desc>
+            <path
+              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          Edit Details
+        </span>
+      </button>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main detailsSectionContainer"
+      >
+        <div
+          class="StyledProps--font StyledProps--main detailsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          >
+            Overview
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main detailsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          >
+            Credentials
+          </p>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main detailsSection"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+            >
+              Connector Activity
+            </p>
+          </div>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <button
+              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Test Connection
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Connector Details Page Rendering connector details: view text 1`] = `
 <div>
   <div

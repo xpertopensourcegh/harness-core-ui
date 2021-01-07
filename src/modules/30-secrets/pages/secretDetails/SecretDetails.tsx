@@ -11,8 +11,12 @@ import {
   usePutSecretViaYaml,
   ResponseSecretResponseWrapper,
   ResponsePageConnectorResponse,
-  useGetYamlSchema
+  useGetYamlSchema,
+  useGetYamlSnippetMetadata,
+  useGetYamlSnippet
 } from 'services/cd-ng'
+
+import { useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -24,6 +28,7 @@ import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import { getSnippetTags } from '@common/utils/SnippetUtils'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -59,6 +64,7 @@ const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): strin
 
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
+  const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [edit, setEdit] = useState<boolean>()
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
@@ -74,7 +80,15 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     queryParams: { accountIdentifier: accountId },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
-
+  const { data: snippetData } = useGetYamlSnippetMetadata({
+    queryParams: {
+      tags: getSnippetTags('Secrets')
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
+    requestOptions: { headers: { accept: 'application/json' } }
+  })
   const { data: secretSchema } = useGetYamlSchema({
     queryParams: {
       entityType: 'Secrets'
@@ -82,6 +96,8 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   })
 
   const [secretData, setSecretData] = useState(data?.data)
+
+  const [snippetYaml, setSnippetYaml] = React.useState<string>()
   const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: refetch })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: refetch })
   const handleSaveYaml = async (): Promise<void> => {
@@ -108,7 +124,23 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   useEffect(() => {
     setSecretData(data?.data)
   }, [data?.data])
+  const { data: snippet, refetch: refetchSnippet } = useGetYamlSnippet({
+    identifier: '',
+    requestOptions: { headers: { accept: 'application/json' } },
+    lazy: true
+  })
 
+  useEffect(() => {
+    setSnippetYaml(snippet?.data)
+  }, [snippet])
+
+  const onSnippetCopy = async (identifier: string): Promise<void> => {
+    await refetchSnippet({
+      pathParams: {
+        identifier
+      }
+    })
+  }
   useEffect(() => {
     if (secretData?.secret.type === 'SecretText') {
       switch ((secretData?.secret.spec as SecretTextSpecDTO)?.valueType) {
@@ -179,9 +211,12 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 // fieldRemovedFromYaml={[]}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 bind={setYamlHandler}
+                onSnippetCopy={onSnippetCopy}
+                snippetYaml={snippetYaml}
                 schema={secretSchema?.data || ''}
+                snippets={snippetData?.data?.yamlSnippets}
               />
-              <Button intent="primary" text="Save" onClick={handleSaveYaml} margin={{ top: 'large' }} />
+              <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
             </Container>
           ) : (
             <Container>

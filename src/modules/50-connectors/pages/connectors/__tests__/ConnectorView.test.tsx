@@ -1,6 +1,6 @@
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import React from 'react'
-import type { ConnectorResponse, Connector } from 'services/cd-ng'
+import type { ConnectorResponse, Connector, ConnectorInfoDTO } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as mockSchemaData from '@common/services/mocks/schema.json'
 import ConnectorView from '../ConnectorView'
@@ -14,11 +14,11 @@ jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
 })
 
 describe('Connector Details Page', () => {
-  const setup = () =>
+  const setup = (type = 'Git') =>
     render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorView
-          type={'Git'}
+          type={type as ConnectorInfoDTO['type']}
           response={GitHttp.data.content as ConnectorResponse}
           updateConnector={(data: Connector) => new Promise(resolve => resolve(data))}
           refetchConnector={() => new Promise(resolve => resolve())}
@@ -34,7 +34,16 @@ describe('Connector Details Page', () => {
     await waitFor(() => queryByText(container, 'Connector Activity'))
     expect(container).toMatchSnapshot('view text')
   })
-
+  test('Rendering connector details with K8sCluster', async () => {
+    const { container } = setup('K8sCluster')
+    await waitFor(() => queryByText(container, 'Connector Activity'))
+    expect(container).toMatchSnapshot('K8sCluster')
+  })
+  test('Rendering connector details with DockerRegistry', async () => {
+    const { container } = setup('DockerRegistry')
+    await waitFor(() => queryByText(container, 'Connector Activity'))
+    expect(container).toMatchSnapshot('DockerRegistry')
+  })
   test('Edit details test', async () => {
     const { container } = setup()
     await waitFor(() => {

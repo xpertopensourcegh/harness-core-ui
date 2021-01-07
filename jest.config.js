@@ -20,6 +20,7 @@ module.exports = {
     '!src/**/*mock*.{ts,tsx}',
     '!src/**/*Mock*.{ts,tsx}',
     '!src/**/CreateConnectorFromYamlPage.tsx',
+    '!src/modules/10-common/utils/jestFormHelper.ts',
     '!src/**/CreateSecretFromYamlPage.tsx',
     '!src/**/PipelineYamlView.tsx',
     '!src/**/RouteDestinations.tsx',
