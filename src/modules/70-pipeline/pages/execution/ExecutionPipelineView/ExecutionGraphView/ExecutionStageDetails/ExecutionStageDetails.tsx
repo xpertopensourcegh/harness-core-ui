@@ -66,14 +66,15 @@ const IconsMap: { [key in StepTypes]: IconName } = {
   HTTP: 'command-http'
 }
 
-const addServiceToArray = (service: ServiceDependency, arr: ExecutionPipelineNode<ExecutionNode>[]): void => {
+const addDependencyToArray = (service: ServiceDependency, arr: ExecutionPipelineNode<ExecutionNode>[]): void => {
   const stepItem: ExecutionPipelineItem<ExecutionNode> = {
     identifier: service.identifier as string,
     name: service.name as string,
     type: ExecutionPipelineNodeType.NORMAL,
     status: service.status as any,
     icon: 'dependency-step',
-    data: service as ExecutionNode
+    data: service as ExecutionNode,
+    itemType: 'service-dependency'
   }
 
   // add step node
@@ -88,7 +89,7 @@ const addDependencies = (
   if (dependencies && dependencies.length > 0) {
     const items: ExecutionPipelineNode<ExecutionNode>[] = []
 
-    dependencies.forEach(_service => addServiceToArray(_service, items))
+    dependencies.forEach(_service => addDependencyToArray(_service, items))
 
     const dependenciesGroup: ExecutionPipelineGroupInfo<ExecutionNode> = {
       identifier: STATIC_SERVICE_GROUP_NAME,

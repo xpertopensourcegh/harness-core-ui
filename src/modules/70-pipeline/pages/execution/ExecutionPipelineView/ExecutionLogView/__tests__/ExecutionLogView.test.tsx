@@ -17,8 +17,15 @@ const contextValue: ExecutionContextParams = {
   selectedStageId: 'google_1',
   selectedStepId: '',
   queryParams: {},
-  loading: false
+  loading: false,
+  logsToken: 'token',
+  setLogsToken: jest.fn()
 }
+
+const fetchMock = jest.spyOn(global, 'fetch' as any)
+fetchMock.mockResolvedValue({
+  text: () => new Promise(resolve => resolve([]))
+})
 
 describe('<ExecutionLogView /> tests', () => {
   test('snapshot test', () => {

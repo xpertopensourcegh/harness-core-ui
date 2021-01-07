@@ -12,20 +12,24 @@ export interface ExecutionContextParams {
   selectedStepId: string
   loading: boolean
   queryParams: ExecutionPageQueryParams
+  logsToken: string
+  setLogsToken: (token: string) => void
 }
 
-const ExecutionConext = createContext<ExecutionContextParams>({
+const ExecutionContext = createContext<ExecutionContextParams>({
   pipelineExecutionDetail: null,
   allNodeMap: {},
   pipelineStagesMap: new Map(),
   selectedStageId: '',
   selectedStepId: '',
   loading: false,
-  queryParams: {}
+  queryParams: {},
+  logsToken: '',
+  setLogsToken: (_token: string) => undefined
 })
 
-export default ExecutionConext
+export default ExecutionContext
 
 export function useExecutionContext(): ExecutionContextParams {
-  return useContext(ExecutionConext)
+  return useContext(ExecutionContext)
 }

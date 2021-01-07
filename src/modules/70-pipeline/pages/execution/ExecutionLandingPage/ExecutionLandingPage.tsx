@@ -45,6 +45,7 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
         ?.serviceDependencyList || []
 
     serviceDependencyList.forEach(service => {
+      service.stepType = 'dependency-service'
       nodeMap[(service as any).identifier] = service
     })
   }
@@ -55,6 +56,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>
   >()
+
+  /* cache token required for retrieving logs */
+  const [logsToken, setLogsToken] = React.useState('')
 
   /* These are used when auto updating selected stage/step when a pipeline is running */
   const [autoSelectedStageId, setAutoSelectedStageId] = React.useState('')
@@ -164,7 +168,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
         selectedStageId,
         selectedStepId,
         loading,
-        queryParams
+        queryParams,
+        logsToken,
+        setLogsToken
       }}
     >
       {loading && !data ? <PageSpinner /> : null}

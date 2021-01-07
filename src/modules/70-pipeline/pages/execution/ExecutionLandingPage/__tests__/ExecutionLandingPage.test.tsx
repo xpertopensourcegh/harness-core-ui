@@ -42,6 +42,11 @@ const TEST_EXECUTION_PIPELINE_PATH = routes.toExecutionPipelineView({
   ...pipelineModuleParams
 })
 
+const fetchMock = jest.spyOn(global, 'fetch' as any)
+fetchMock.mockResolvedValue({
+  text: () => new Promise(resolve => resolve([]))
+})
+
 describe('<ExecutionLandingPage /> tests', () => {
   const pathParams: PipelineType<ExecutionPathParams> = {
     accountId: 'TEST_ACCOUNT_ID',

@@ -1,22 +1,153 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Text, Color, MultiLogsViewer } from '@wings-software/uicore'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import LogsHeader from './LogsHeader'
 import Summary from './Summary'
+import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
+import { createLogSection, getLogsFromBlob, getStageType, LogsContentSection } from './LogsContentUtils'
+import { fetchLogsAccessToken } from '../../TokenService'
+import { useLogsStream } from '../../LogsStreamHook'
 
 import css from './ExecutionLogView.module.scss'
-interface HeaderProps {
+
+interface LogsContentProps {
   header?: string
   showCross?: boolean
   redirectToLogView?: any
 }
-const LogsContent = (props: HeaderProps) => {
-  const arr = Array.from({ length: 4 }, () => false)
-  arr[0] = true
-  const [panelArr, setPanelArr] = useState(arr)
+
+const LogsContent = (props: LogsContentProps) => {
+  // >> NOTE: search functionality became buggy after latest update of MultiLogsViewer component
   const [searchDir, setDir] = useState('')
   const [highlightInd, sethighlightInd] = useState(0)
   const [openedIndex, setOpenedIndex] = useState(0)
   const [searchText, setSearchText] = useState('')
+
+  const [openPanelArr, setOpenPanelArr] = useState<boolean[]>([])
+  const [logsPerSection, setLogsPerSection] = useState<string[]>([])
+  const [loadingIndex, setLoadingIndex] = useState(-1)
+  const [touched, setTouched] = useState(false)
+  const [blobController, setBlobController] = useState<AbortController | undefined>()
+
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<
+    PipelineType<ExecutionPathParams>
+  >()
+
+  const {
+    pipelineStagesMap,
+    allNodeMap,
+    selectedStageId,
+    selectedStepId,
+    logsToken,
+    setLogsToken,
+    pipelineExecutionDetail
+  } = useExecutionContext()
+
+  const runSequence = (pipelineExecutionDetail?.pipelineExecutionSummary as any)?.runSequence // TODO: remove any once DTO is ready
+  const stage = pipelineStagesMap.get(selectedStageId)
+  const step = allNodeMap[selectedStepId]
+
+  useEffect(() => {
+    setTouched(false)
+  }, [(step as any)?.identifier]) // TODO: remove any once TDO is updated
+
+  // get token for accessing logs
+  useEffect(() => {
+    /*getTokenPromise({ queryParams: { accountID: accountId } }).then((token: any) => {
+      setLogsToken(token)
+    })*/
+    // TODO: temporary until PMS is available
+    fetchLogsAccessToken(accountId).then((token: any) => {
+      setLogsToken(token)
+    })
+  }, [])
+
+  // get logs sections
+  const logsSectionsModel: LogsContentSection[] = createLogSection(
+    getStageType(stage),
+    logsToken,
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    runSequence,
+    pipelineIdentifier,
+    stage?.nodeIdentifier,
+    stage?.status,
+    (step as any)?.identifier, // TODO: replace with identifier/nodeIdentifier once it's available
+    step?.status,
+    step?.stepType
+  )
+
+  // set initial log arrays
+  useEffect(() => {
+    if (logsSectionsModel.length !== logsPerSection.length) {
+      setLogsPerSection(new Array(logsSectionsModel.length))
+    }
+  }, [logsSectionsModel])
+
+  // find active logs
+  const activeLoadingSection = logsSectionsModel.find(item => item.enableLogLoading)
+
+  // close all sections
+  useEffect(() => {
+    const newArr = Array.from({ length: logsSectionsModel.length }, () => false)
+    setOpenPanelArr(() => newArr)
+  }, [logsSectionsModel.length])
+
+  // setup logs stream
+  const { logs: streamLogs, setEnableStreaming } = useLogsStream(activeLoadingSection?.queryVars)
+  // add stream logs to section
+  useEffect(() => {
+    if (loadingIndex > -1) {
+      logsPerSection[loadingIndex] = streamLogs.map(item => item.out).join('\n')
+      setLogsPerSection([...logsPerSection])
+    }
+  }, [streamLogs])
+
+  // load logs
+  useEffect(() => {
+    if (activeLoadingSection) {
+      // abort prev stream
+      setEnableStreaming(false)
+      // abort previous fetch
+      blobController?.abort?.()
+
+      // clear logs
+      logsPerSection[activeLoadingSection.sectionIdx] = ''
+      setLogsPerSection([...logsPerSection])
+
+      // set loading index
+      setLoadingIndex(activeLoadingSection.sectionIdx)
+
+      // load logs from blob or start stream
+      switch (activeLoadingSection.sourceType) {
+        case 'blob': {
+          const controller = new AbortController()
+          setBlobController(controller)
+          getLogsFromBlob(activeLoadingSection.queryVars, { signal: controller.signal }).then(response => {
+            const logsPerSectionNew = [...logsPerSection]
+            logsPerSectionNew[activeLoadingSection.sectionIdx] = response.map(item => item.out).join('\n')
+            setLogsPerSection(logsPerSectionNew)
+            setLoadingIndex(-1)
+          })
+          break
+        }
+        case 'stream': {
+          setEnableStreaming(true)
+          break
+        }
+      }
+    }
+  }, [logsToken, activeLoadingSection?.sectionIdx, (step as any)?.identifier]) // TODO: remove any once DTO is available
+
+  useEffect(() => {
+    // NOTE: auto open loading section and close other if user is not interacted with logs
+    if (!touched && activeLoadingSection && activeLoadingSection?.sectionIdx > -1) {
+      setOpenPanelArr(openPanelArr.map((_, idx) => idx === activeLoadingSection?.sectionIdx))
+    }
+  }, [loadingIndex, touched])
 
   const onNext = (text: string) => {
     setSearchText(text)
@@ -29,49 +160,56 @@ const LogsContent = (props: HeaderProps) => {
     setDir(`prev`)
     sethighlightInd(highlightInd - 1)
   }
+
+  const logContentForSection = (sectionIdx: number): string => {
+    if (logsPerSection[sectionIdx]) {
+      return logsPerSection[sectionIdx]
+    }
+    return ''
+  }
+
   return (
     <section className={css.logContent}>
-      <LogsHeader onNext={onNext} onPrev={onPrev} searchDir={searchDir} {...props} />
-
+      <LogsHeader
+        onNext={onNext}
+        onPrev={onPrev}
+        searchDir={searchDir}
+        header={props.header}
+        showCross={props.showCross}
+        redirectToLogView={props.redirectToLogView}
+      />
       <MultiLogsViewer
-        numberOfLogSections={4}
+        rows={5}
+        loadingIndex={loadingIndex}
+        numberOfLogSections={logsSectionsModel.length}
         titleForSection={sectionIndex => {
-          switch (sectionIndex) {
-            case 0:
-              return 'Set up job'
-            case 1:
-              return 'Run actions/checkout@v2'
-            case 2:
-              return 'Run make'
-            case 3:
-              return 'Complete job'
-          }
+          return logsSectionsModel[sectionIndex].sectionTitle
         }}
-        sectionArr={panelArr}
+        sectionArr={openPanelArr}
         activePanel={openedIndex}
-        isSectionOpen={(sectionIndex: number) => panelArr[sectionIndex]}
+        isSectionOpen={(sectionIndex: number) => openPanelArr[sectionIndex]}
         rightElementForSection={() => {
           return <Text color={Color.GREY_100}>2m 38s</Text>
         }}
-        logContentForSection={() => {
-          return 'gyp ERR! stack Error: `gyp` failed with exit code: 1\ngyp ERR! System Darwin 19.6.0\ngyp ERR! node -v v14.5.0\nnode-pre-gyp ERR! not ok\nFailed to execute node-gyp'
-        }}
+        logContentForSection={logContentForSection}
         searchDir={searchDir}
         highlightedIndex={highlightInd}
         searchText={searchText}
         updateSection={(currentIndex: number, nextIndex = -1) => {
           if (nextIndex > -1) {
-            panelArr[currentIndex] = false
-            panelArr[nextIndex] = true
+            openPanelArr[currentIndex] = false
+            openPanelArr[nextIndex] = true
             setOpenedIndex(nextIndex)
           } else {
-            panelArr[currentIndex] = !panelArr[currentIndex]
+            openPanelArr[currentIndex] = !openPanelArr[currentIndex]
           }
-
-          setPanelArr([...panelArr])
         }}
         style={{ background: '#0b0b0d !important' }}
         className={css.logViewer}
+        toggleSection={(index: number) => {
+          setOpenPanelArr(openPanelArr.map((item, idx) => (index === idx ? !item : item)))
+          setTouched(() => true)
+        }}
       />
       <Summary />
     </section>

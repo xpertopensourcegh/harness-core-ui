@@ -44,6 +44,7 @@ export interface ExecutionPipelineItem<T> {
   cssProps?: React.CSSProperties
   data?: T
   pipeline?: ExecutionPipeline<T>
+  itemType?: 'step' | 'service-dependency' | string
 }
 
 export interface ExecutionPipelineGroupInfo<T> {
