@@ -38,12 +38,12 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
     mock
   })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({
-    onSuccess: () => {
+    onSuccess: /* istanbul ignore next */ () => {
       refetch()
     }
   })
   const { openCreateSSHCredModal } = useCreateSSHCredModal({
-    onSuccess: () => {
+    onSuccess: /* istanbul ignore next */ () => {
       refetch()
     }
   })
@@ -57,24 +57,26 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
             <Menu.Item
               text={i18n.newSecret.text}
               labelElement={<Icon name="font" />}
-              onClick={() => openCreateSecretModal('SecretText')}
+              onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
             />
             <Menu.Item
               text={i18n.newSecret.file}
               labelElement={<Icon name="document" />}
-              onClick={() => openCreateSecretModal('SecretFile')}
+              onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
             />
             <Menu.Item
               text={i18n.newSecret.ssh}
               labelElement={<Icon name="secret-ssh" />}
-              onClick={() => openCreateSSHCredModal()}
+              onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
             />
             <Menu.Divider />
             <Menu.Item
               text={i18n.newSecret.yaml}
-              onClick={() => {
-                history.push(routes.toCreateSecretFromYaml({ accountId }))
-              }}
+              onClick={
+                /* istanbul ignore next */ () => {
+                  history.push(routes.toCreateSecretFromYaml({ accountId }))
+                }
+              }
             />
           </Menu>
         </Popover>
@@ -85,6 +87,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
             value={searchTerm}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearchTerm(e.target.value.trim())
+              setPage(0)
             }}
           />
         </Layout.Horizontal>
@@ -96,10 +99,14 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
         </div>
       ) : error ? (
         <div style={{ paddingTop: '200px' }}>
-          <PageError message={error.message} onClick={() => refetch()} />
+          <PageError message={error.message} onClick={/* istanbul ignore next */ () => refetch()} />
         </div>
       ) : !secretsResponse?.data?.empty ? (
-        <SecretsList secrets={secretsResponse?.data} refetch={refetch} gotoPage={pageNumber => setPage(pageNumber)} />
+        <SecretsList
+          secrets={secretsResponse?.data}
+          refetch={refetch}
+          gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+        />
       ) : (
         <Container flex={{ align: 'center-center' }} padding="xxlarge">
           No Data
