@@ -14632,7 +14632,16 @@ export const dummyApiForSwaggerSchemaCheckPromise = (
   )
 
 export interface GetYamlSchemaQueryParams {
-  entityType: 'Projects' | 'Pipelines' | 'Connectors' | 'Secrets' | 'Service' | 'Environment' | 'InputSets' | 'CvConfig'
+  entityType:
+    | 'Projects'
+    | 'Pipelines'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
 }
 
 export type GetYamlSchemaProps = Omit<

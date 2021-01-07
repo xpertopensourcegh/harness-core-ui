@@ -1,0 +1,607 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Step Review Script Delegate Click back button 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+    style="height: 130px; background: rgb(236, 246, 253);"
+  />
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-xlarge"
+    >
+      <div
+        class="collapseDiv"
+      >
+        <div
+          class="Collapse--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+          >
+            <div
+              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              >
+                <svg
+                  height="10"
+                  viewBox="0 0 14 8"
+                  width="10"
+                >
+                  <path
+                    d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            />
+          </div>
+          <div
+            class="Collapse--collapse"
+          >
+            <div
+              class="bp3-collapse"
+              style="height: auto; overflow-y: visible; transition: none;"
+            >
+              <div
+                aria-hidden="false"
+                class="bp3-collapse-body"
+                style="transform: translateY(0); transition: none;"
+              >
+                <div>
+                  yamlDiv
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <button
+          class="bp3-button bp3-outlined StyledProps--font Button--button StyledProps--main downloadButton"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-arrow-down StyledProps--main StyledProps--padding-right-xsmall"
+            icon="arrow-down"
+          >
+            <svg
+              data-icon="arrow-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                arrow-down
+              </desc>
+              <path
+                d="M13 8c-.3 0-.5.1-.7.3L9 11.6V2c0-.5-.4-1-1-1s-1 .5-1 1v9.6L3.7 8.3C3.5 8.1 3.3 8 3 8c-.5 0-1 .5-1 1 0 .3.1.5.3.7l5 5c.2.2.4.3.7.3s.5-.1.7-.3l5-5c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Download Script
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+          id="stepReviewScriptBackButton"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+            icon="chevron-left"
+          >
+            <svg
+              data-icon="chevron-left"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-left
+              </desc>
+              <path
+                d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Back
+          </span>
+        </button>
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          id="stepReviewScriptContinueButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Continue
+          </span>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+          level="2"
+          style="color: rgb(34, 39, 45); font-weight: 600;"
+        >
+          Configure Proxy Settings
+        </h2>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 3; width: 514px;"
+        >
+          If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh 
+          <a
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
+            href="https:app.harness.io:443"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              More info
+            </span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Step Review Script Delegate Click continue button 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+    style="height: 130px; background: rgb(236, 246, 253);"
+  />
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-xlarge"
+    >
+      <div
+        class="collapseDiv"
+      >
+        <div
+          class="Collapse--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+          >
+            <div
+              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              >
+                <svg
+                  height="10"
+                  viewBox="0 0 14 8"
+                  width="10"
+                >
+                  <path
+                    d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            />
+          </div>
+          <div
+            class="Collapse--collapse"
+          >
+            <div
+              class="bp3-collapse"
+              style="height: auto; overflow-y: visible; transition: none;"
+            >
+              <div
+                aria-hidden="false"
+                class="bp3-collapse-body"
+                style="transform: translateY(0); transition: none;"
+              >
+                <div>
+                  yamlDiv
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <button
+          class="bp3-button bp3-outlined StyledProps--font Button--button StyledProps--main downloadButton"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-arrow-down StyledProps--main StyledProps--padding-right-xsmall"
+            icon="arrow-down"
+          >
+            <svg
+              data-icon="arrow-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                arrow-down
+              </desc>
+              <path
+                d="M13 8c-.3 0-.5.1-.7.3L9 11.6V2c0-.5-.4-1-1-1s-1 .5-1 1v9.6L3.7 8.3C3.5 8.1 3.3 8 3 8c-.5 0-1 .5-1 1 0 .3.1.5.3.7l5 5c.2.2.4.3.7.3s.5-.1.7-.3l5-5c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Download Script
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+          id="stepReviewScriptBackButton"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+            icon="chevron-left"
+          >
+            <svg
+              data-icon="chevron-left"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-left
+              </desc>
+              <path
+                d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Back
+          </span>
+        </button>
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          id="stepReviewScriptContinueButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Continue
+          </span>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+          level="2"
+          style="color: rgb(34, 39, 45); font-weight: 600;"
+        >
+          Configure Proxy Settings
+        </h2>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 3; width: 514px;"
+        >
+          If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh 
+          <a
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
+            href="https:app.harness.io:443"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              More info
+            </span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Step Review Script Delegate render data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+    style="height: 130px; background: rgb(236, 246, 253);"
+  />
+  <div
+    class="Layout--horizontal StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-xlarge"
+    >
+      <div
+        class="collapseDiv"
+      >
+        <div
+          class="Collapse--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+          >
+            <div
+              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              >
+                <svg
+                  height="10"
+                  viewBox="0 0 14 8"
+                  width="10"
+                >
+                  <path
+                    d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            />
+          </div>
+          <div
+            class="Collapse--collapse"
+          >
+            <div
+              class="bp3-collapse"
+              style="height: auto; overflow-y: visible; transition: none;"
+            >
+              <div
+                aria-hidden="false"
+                class="bp3-collapse-body"
+                style="transform: translateY(0); transition: none;"
+              >
+                <div>
+                  yamlDiv
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <button
+          class="bp3-button bp3-outlined StyledProps--font Button--button StyledProps--main downloadButton"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-arrow-down StyledProps--main StyledProps--padding-right-xsmall"
+            icon="arrow-down"
+          >
+            <svg
+              data-icon="arrow-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                arrow-down
+              </desc>
+              <path
+                d="M13 8c-.3 0-.5.1-.7.3L9 11.6V2c0-.5-.4-1-1-1s-1 .5-1 1v9.6L3.7 8.3C3.5 8.1 3.3 8 3 8c-.5 0-1 .5-1 1 0 .3.1.5.3.7l5 5c.2.2.4.3.7.3s.5-.1.7-.3l5-5c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Download Script
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+          id="stepReviewScriptBackButton"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+            icon="chevron-left"
+          >
+            <svg
+              data-icon="chevron-left"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-left
+              </desc>
+              <path
+                d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            Back
+          </span>
+        </button>
+        <button
+          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          id="stepReviewScriptContinueButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Continue
+          </span>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+          level="2"
+          style="color: rgb(34, 39, 45); font-weight: 600;"
+        >
+          Configure Proxy Settings
+        </h2>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 3; width: 514px;"
+        >
+          If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh 
+          <a
+            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
+            href="https:app.harness.io:443"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              More info
+            </span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

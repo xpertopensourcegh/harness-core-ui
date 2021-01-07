@@ -5,6 +5,7 @@ import { GetDelegateTitleTextByType } from '@delegates/pages/delegates/utils/Del
 import { useStrings } from 'framework/exports'
 import type { DelegateInfoDTO } from 'services/cd-ng'
 import DelegateDetailsStep from '../commonSteps/DelegateDetailsStep'
+import Stepk8ReviewScript from './StepReviewScript/Stepk8sReviewScript'
 import css from './CreateK8sDelegate.module.scss'
 
 interface CreateK8sDelegateProps {
@@ -21,8 +22,7 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
       className={css.stepWizard}
     >
       <DelegateDetailsStep type={Delegates.KUBERNETES_CLUSTER} name={getString('delegate.stepOneWizard')} />
-      {/* Test dummy content for now -todo: remove this */}
-      <div style={{ height: '477px' }}>Hello World</div>
+      <Stepk8ReviewScript />
     </StepWizard>
   )
 }

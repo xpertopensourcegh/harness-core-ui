@@ -311,6 +311,7 @@ global:
     LastHeartBeat: 'Last HeartBeat'
     DELEGATE_KUBERNETE_TITLE: 'Kubernetes'
     delegates_4_ways_title: 'Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
+    downloadScript: 'Download Script'
     kubernetes:
       prerequisites: 'Kubernetes Prerequisites'
       prerequisites_info1: 'You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Char'
@@ -324,6 +325,9 @@ global:
       permissions_info2: 'Permission to create statefulsets (For the Harness Delegate Pod to be created)'
       url: 'https:app.harness.io:443/'
     stepOneWizard: 'Create Delegate'
+    reviewScript:
+      configProxySettings: 'Configure Proxy Settings'
+      descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh '
     cardData:
       docker:
         text: 'Runs Harness Delegate as a Docker container on any Linux or Mac.'

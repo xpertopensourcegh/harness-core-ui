@@ -10,6 +10,11 @@ jest.mock('services/portal', () => ({
     return []
   })
 }))
+
+jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
+  const ComponentToMock = () => <div>yamlDiv</div>
+  return ComponentToMock
+})
 describe('Delegates Page', () => {
   test('render data', () => {
     const { container } = render(
