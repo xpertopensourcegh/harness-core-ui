@@ -1,0 +1,380 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+        >
+          Set container Resources
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                >
+                  <svg
+                    height="14"
+                    viewBox="0 0 14 14"
+                    width="14"
+                  >
+                    <path
+                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                      fill="#9AA5B5"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </p>
+        <div
+          class="fieldsGroup withoutSpacing withoutAligning"
+        >
+          <div
+            class="bp3-form-group bp3-disabled"
+            data-id="spec.resources.limits.memory-0"
+            style="flex-grow: 1; flex-basis: 50%;"
+          >
+            <label
+              class="bp3-label"
+              for="spec.resources.limits.memory"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                Limit Memory
+              </p>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group bp3-disabled"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  disabled=""
+                  name="spec.resources.limits.memory"
+                  placeholder="128Mi"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group bp3-disabled"
+            data-id="spec.resources.limits.cpu-1"
+            style="flex-grow: 1; flex-basis: 50%;"
+          >
+            <label
+              class="bp3-label"
+              for="spec.resources.limits.cpu"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                Limit CPU
+              </p>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group bp3-disabled"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  disabled=""
+                  name="spec.resources.limits.cpu"
+                  placeholder="0.2"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group removeBpLabelMargin"
+          data-id="timeout-2"
+        >
+          <label
+            class="bp3-label"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
+            >
+              Timeout
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                    >
+                      <svg
+                        height="14"
+                        viewBox="0 0 14 14"
+                        width="14"
+                      >
+                        <path
+                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                          fill="#9AA5B5"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </p>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group bp3-disabled bp3-fill"
+            >
+              <input
+                class="bp3-input"
+                disabled=""
+                name="timeout"
+                placeholder="120s"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+        >
+          Set container Resources
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                >
+                  <svg
+                    height="14"
+                    viewBox="0 0 14 14"
+                    width="14"
+                  >
+                    <path
+                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                      fill="#9AA5B5"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </p>
+        <div
+          class="fieldsGroup withoutSpacing withoutAligning"
+        >
+          <div
+            class="bp3-form-group"
+            data-id="spec.resources.limits.memory-0"
+            style="flex-grow: 1; flex-basis: 50%;"
+          >
+            <label
+              class="bp3-label"
+              for="spec.resources.limits.memory"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                Limit Memory
+              </p>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="spec.resources.limits.memory"
+                  placeholder="128Mi"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="spec.resources.limits.cpu-1"
+            style="flex-grow: 1; flex-basis: 50%;"
+          >
+            <label
+              class="bp3-label"
+              for="spec.resources.limits.cpu"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                Limit CPU
+              </p>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="spec.resources.limits.cpu"
+                  placeholder="0.2"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group removeBpLabelMargin"
+          data-id="timeout-2"
+        >
+          <label
+            class="bp3-label"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
+            >
+              Timeout
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                    >
+                      <svg
+                        height="14"
+                        viewBox="0 0 14 14"
+                        width="14"
+                      >
+                        <path
+                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                          fill="#9AA5B5"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </p>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group bp3-fill"
+            >
+              <input
+                class="bp3-input"
+                name="timeout"
+                placeholder="120s"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

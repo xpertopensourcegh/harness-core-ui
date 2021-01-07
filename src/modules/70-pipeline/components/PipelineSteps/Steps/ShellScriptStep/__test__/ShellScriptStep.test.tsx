@@ -26,13 +26,13 @@ describe('Test Shell Script Step', () => {
       spec: {
         shell: 'Bash',
         executionTarget: {
-          host: '${input}',
-          connectionType: '${input}',
-          connectorRef: '${input}',
-          workingDirectory: '${input}'
+          host: '<+input>',
+          connectionType: '<+input>',
+          connectorRef: '<+input>',
+          workingDirectory: '<+input>'
         },
-        environmentVariables: '${input}',
-        outputVariables: '${input}'
+        environmentVariables: '<+input>',
+        outputVariables: '<+input>'
       }
     }
     const { container } = render(

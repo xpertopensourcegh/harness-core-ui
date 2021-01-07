@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Formik, Text } from '@wings-software/uicore'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidget, StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 
@@ -41,10 +41,14 @@ const FormikTestWrapper: React.FC<StepWidgetProps> = props => {
   )
 }
 
-export const TestStepWidget: React.FC<Omit<StepWidgetProps, 'factory'>> = props => {
+export interface TestStepWidgetProps extends Omit<StepWidgetProps, 'factory'> {
+  testWrapperProps?: TestWrapperProps
+}
+
+export const TestStepWidget: React.FC<TestStepWidgetProps> = props => {
   const type = props.stepViewType
   return (
-    <TestWrapper>
+    <TestWrapper {...props.testWrapperProps}>
       {type === StepViewType.InputSet || type === StepViewType.DeploymentForm ? (
         <FormikTestWrapper factory={factory} {...props} />
       ) : (

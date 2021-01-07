@@ -1,5 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
-import type { Item as ConnectorRef } from '@common/components/ReferenceSelect/ReferenceSelect'
+import type { ConnectorReferenceFieldProps } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
 export type MapType = { [key: string]: string }
 export type MultiTypeMapType = MapType | string
@@ -11,7 +11,7 @@ export type ListUIType = { id: string; value: string }[]
 export type MultiTypeListUIType = ListUIType | string
 export type PullOption = 'ifNotExists' | 'never' | 'always'
 export type MultiTypePullOption = PullOption | string
-export { ConnectorRef }
+export type ConnectorRef = ConnectorReferenceFieldProps['selected']
 export type MultiTypeConnectorRef = ConnectorRef | string
 export { SelectOption }
 export type MultiTypeSelectOption = SelectOption | string
@@ -20,5 +20,5 @@ export interface Limits {
   cpu?: string
 }
 export interface Resources {
-  resources?: Resources
+  limits?: Limits
 }

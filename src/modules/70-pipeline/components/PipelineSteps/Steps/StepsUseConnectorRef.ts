@@ -51,7 +51,9 @@ export function useConnectorRef(connectorRef: string): UseConnectorRefReturnType
       setConnectorToReturn({
         label: connector?.data?.connector.name || '',
         value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-        scope: scope
+        scope: scope,
+        live: connector?.data?.status?.status === 'SUCCESS',
+        connector: connector?.data?.connector
       })
     } else {
       // Do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)

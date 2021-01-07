@@ -175,7 +175,7 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
     if (type === Types.ConnectorRef) {
       const value = get(formValues, name) as MultiTypeConnectorRef
 
-      const connectorRef = typeof value === 'string' ? value : value.value
+      const connectorRef = typeof value === 'string' ? value : value?.value
       set(values, name, connectorRef)
     }
 

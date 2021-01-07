@@ -41,7 +41,7 @@
                                 "connectorRef": "k8",
                                 "gitFetchType": "Branch",
                                 "branch": "acf",
-                                "paths": ["${input}"]
+                                "paths": ["<+input>"]
                               }
                             }
                           }
@@ -188,7 +188,7 @@
                                 "connectorRef": "k8",
                                 "gitFetchType": "Branch",
                                 "branch": "acf",
-                                "paths": ["${input}"]
+                                "paths": ["<+input>"]
                               }
                             }
                           }

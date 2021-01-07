@@ -1,0 +1,126 @@
+import React from 'react'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import { Text, TextInput, Card, Button, Intent } from '@wings-software/uicore'
+import { get, isEmpty } from 'lodash-es'
+import { connect, FormikContext } from 'formik'
+import { useStrings } from 'framework/exports'
+import css from './List.module.scss'
+
+export type ListType = string[]
+export type ListUIType = { id: string; value: string }[]
+
+export interface ListProps {
+  name: string
+  label?: string | React.ReactElement
+  formik?: FormikContext<any>
+  disabled?: boolean
+  style?: React.CSSProperties
+}
+
+const generateNewValue: () => { id: string; value: string } = () => ({
+  id: uuid('', nameSpace()),
+  value: ''
+})
+
+export const List = (props: ListProps): React.ReactElement => {
+  const { name, label, formik, disabled, style } = props
+  const { getString } = useStrings()
+
+  const [value, setValue] = React.useState<ListUIType>(() => {
+    const initialValue = get(formik?.values, name, '') as ListType
+    const initialValueInCorrectFormat = (initialValue || []).map(item => ({
+      id: uuid('', nameSpace()),
+      value: item
+    }))
+
+    // provide default value
+    if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {
+      initialValueInCorrectFormat.push(generateNewValue())
+    }
+    return initialValueInCorrectFormat
+  })
+
+  const error = get(formik?.errors, name, '')
+
+  React.useEffect(() => {
+    let valueInCorrectFormat: ListType = []
+    if (Array.isArray(value)) {
+      valueInCorrectFormat = value.filter(item => !!item.value).map(item => item.value)
+    }
+
+    if (isEmpty(valueInCorrectFormat)) {
+      formik?.setFieldValue(name, undefined)
+    } else {
+      formik?.setFieldValue(name, valueInCorrectFormat)
+    }
+  }, [name, value, formik?.setFieldValue])
+
+  const addValue: () => void = () => {
+    setValue(currentValue => currentValue.concat(generateNewValue()))
+  }
+
+  const removeValue: (id: string) => () => void = id => () => {
+    setValue(currentValue => currentValue.filter(item => item.id !== id))
+  }
+
+  const changeValue: (id: string, newValue: string) => void = (id, newValue) => {
+    setValue(currentValue =>
+      currentValue.map(item => {
+        if (item.id === id) {
+          return {
+            id,
+            value: newValue
+          }
+        }
+        return item
+      })
+    )
+  }
+
+  return (
+    <div style={style}>
+      {label}
+      <Card style={{ width: '100%' }}>
+        {value.map(({ id }, index: number) => {
+          const valueError = get(error, `[${index}].value`)
+
+          return (
+            <div className={css.group} key={id}>
+              <div style={{ flexGrow: 1 }}>
+                <TextInput
+                  onChange={e => changeValue(id, (e.currentTarget as HTMLInputElement).value.trim())}
+                  data-testid={`value-${name}-[${index}]`}
+                  intent={error ? Intent.DANGER : Intent.NONE}
+                  disabled={disabled}
+                  errorText={valueError ? valueError : undefined}
+                />
+              </div>
+              {!disabled && (
+                <Button
+                  icon="main-trash"
+                  iconProps={{ size: 20 }}
+                  minimal
+                  onClick={removeValue(id)}
+                  data-testid={`remove-${name}-[${index}]`}
+                  style={{ marginTop: 4 }}
+                />
+              )}
+            </div>
+          )
+        })}
+
+        {!disabled && (
+          <Button intent="primary" minimal text={getString('plusAdd')} data-testid={`add-${name}`} onClick={addValue} />
+        )}
+      </Card>
+
+      {error && typeof error === 'string' ? (
+        <Text intent={Intent.DANGER} margin={{ top: 'xsmall' }}>
+          {error}
+        </Text>
+      ) : null}
+    </div>
+  )
+}
+
+export default connect(List)

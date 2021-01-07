@@ -1,0 +1,147 @@
+import React from 'react'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import cx from 'classnames'
+import { Text, Card, Button, TextInput, Intent } from '@wings-software/uicore'
+import { connect, FormikContext } from 'formik'
+import { get, isEmpty } from 'lodash-es'
+import { useStrings } from 'framework/exports'
+import css from './Map.module.scss'
+
+export type MapType = { [key: string]: string }
+export type MapUIType = { id: string; key: string; value: string }[]
+
+export interface MapProps {
+  name: string
+  label?: string | React.ReactElement
+  formik?: FormikContext<any>
+  disabled?: boolean
+  style?: React.CSSProperties
+}
+
+function generateNewValue(): { id: string; key: string; value: string } {
+  return { id: uuid('', nameSpace()), key: '', value: '' }
+}
+
+export const Map = (props: MapProps): React.ReactElement => {
+  const { name, label, formik, disabled, style } = props
+
+  const { getString } = useStrings()
+
+  const [value, setValue] = React.useState<MapUIType>(() => {
+    const initialValue = get(formik?.values, name, '') as MapType
+
+    const initialValueInCorrectFormat = Object.keys(initialValue || {}).map(key => ({
+      id: uuid('', nameSpace()),
+      key: key,
+      value: initialValue[key]
+    }))
+
+    // Adding a default value
+    if (Array.isArray(initialValueInCorrectFormat) && initialValueInCorrectFormat.length === 0) {
+      initialValueInCorrectFormat.push(generateNewValue())
+    }
+
+    return initialValueInCorrectFormat as MapUIType
+  })
+
+  const error = get(formik?.errors, name, '')
+
+  const addValue = (): void => {
+    setValue(currentValue => [...currentValue, generateNewValue()])
+  }
+
+  const removeValue = (index: number): void => {
+    setValue(currentValue => {
+      const newCurrentValue = [...currentValue]
+      newCurrentValue.splice(index, 1)
+      return newCurrentValue
+    })
+  }
+
+  const changeValue = (index: number, key: 'key' | 'value', newValue: string): void => {
+    setValue(currentValue => {
+      const newCurrentValue = [...currentValue]
+      newCurrentValue[index][key] = newValue
+      return newCurrentValue
+    })
+  }
+
+  React.useEffect(() => {
+    const valueInCorrectFormat: MapType = {}
+    if (Array.isArray(value)) {
+      value.forEach(mapValue => {
+        if (mapValue.key && mapValue.value) {
+          valueInCorrectFormat[mapValue.key] = mapValue.value
+        }
+      })
+    }
+
+    if (isEmpty(valueInCorrectFormat)) {
+      formik?.setFieldValue(name, undefined)
+    } else {
+      formik?.setFieldValue(name, valueInCorrectFormat)
+    }
+  }, [name, value, formik?.setFieldValue])
+
+  return (
+    <div style={style}>
+      {label}
+      <Card style={{ width: '100%' }}>
+        {value.map(({ id }, index: number) => {
+          const keyError = get(error, `[${index}].key`)
+          const valueError = get(error, `[${index}].value`)
+
+          return (
+            <div className={cx(css.group, css.withoutAligning)} key={id}>
+              <div style={{ flexGrow: 1 }}>
+                {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('keyLabel')}</Text>}
+                <TextInput
+                  intent={error ? Intent.DANGER : Intent.NONE}
+                  errorText={keyError ? keyError : undefined}
+                  disabled={disabled}
+                  onChange={e => changeValue(index, 'key', (e.currentTarget as HTMLInputElement).value)}
+                  data-testid={`key-${name}-[${index}]`}
+                />
+              </div>
+
+              <div style={{ flexGrow: 1 }}>
+                {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('valueLabel')}</Text>}
+                <div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}>
+                  <TextInput
+                    intent={error ? Intent.DANGER : Intent.NONE}
+                    errorText={valueError ? valueError : undefined}
+                    disabled={disabled}
+                    onChange={e => changeValue(index, 'value', (e.currentTarget as HTMLInputElement).value)}
+                    data-testid={`value-${name}-[${index}]`}
+                  />
+                  {!disabled && (
+                    <Button
+                      icon="main-trash"
+                      iconProps={{ size: 20 }}
+                      minimal
+                      data-testid={`remove-${name}-[${index}]`}
+                      style={{ marginTop: 4 }}
+                      onClick={() => removeValue(index)}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+
+        {!disabled && (
+          <Button intent="primary" minimal text={getString('plusAdd')} data-testid={`add-${name}`} onClick={addValue} />
+        )}
+      </Card>
+
+      {error && typeof error === 'string' && (
+        <Text intent={Intent.DANGER} margin={{ top: 'xsmall' }}>
+          {error}
+        </Text>
+      )}
+    </div>
+  )
+}
+
+export default connect(Map)
