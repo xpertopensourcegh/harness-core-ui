@@ -1,15 +1,15 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
-import { Container, ModalProvider } from '@wings-software/uicore'
+import { Container } from '@wings-software/uicore'
+import { TestWrapper } from '@common/utils/testUtils'
 import useAnalysisDrillDownView from '../useAnalysisDrillDownView'
 
-jest.mock('../MetricAnalysisView/MetricAnalysisView', () => ({
-  MetricAnalysisView: function MockComponent() {
-    return <Container className="metricAnalysisView" />
+jest.mock('@cv/components/CVAnalysisTabs/CVAnalysisTabs', () => ({
+  CVAnalysisTabs: function MockComponent() {
+    return <Container className="CVAnalysisTabs" />
   }
 }))
-jest.mock('../LogAnalysisView/LogAnalysisView.tsx', () => () => <Container className="logAnalysisView" />)
 
 function WrapperComponent(): JSX.Element {
   const { openDrillDown, closeDrillDown } = useAnalysisDrillDownView()
@@ -32,9 +32,9 @@ function WrapperComponent(): JSX.Element {
 describe('Unit tests for useAnalysisDrillDownView', () => {
   test('Ensure hook can be used to open and close modal', async () => {
     const { container } = render(
-      <ModalProvider>
+      <TestWrapper>
         <WrapperComponent />
-      </ModalProvider>
+      </TestWrapper>
     )
     const openButton = container.querySelector('.openModal')
     if (!openButton) {

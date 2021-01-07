@@ -2,6 +2,7 @@ allowpaths:
   - /appdynamics/applications
   - /appdynamics/metric-data
   - /appdynamics/tiers
+  - /cv-config/datasource-types
   - /ds-config
   - /ds-config/{identifier}
   - /ds-config/listMonitoringSources

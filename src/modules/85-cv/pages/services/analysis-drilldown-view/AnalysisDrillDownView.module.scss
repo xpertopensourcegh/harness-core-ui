@@ -1,14 +1,5 @@
 .main {
-  :global {
-    .bp3-tab-list {
-      width: 200px;
-      .bp3-tab {
-        line-height: unset;
-        margin-top: var(--spacing-xsmall);
-      }
-    }
-    .bp3-tab-panel {
-      margin-top: 0;
-    }
-  }
+  background-color: var(--white) !important;
+  padding: var(--spacing-medium) !important;
+  padding-bottom: 0 !important;
 }

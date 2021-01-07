@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo } from 'react'
-import { Container, Text, Color, Pagination } from '@wings-software/uicore'
+import { Container, Text, Color, Pagination, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { PageError } from '@common/components/Page/PageError'
 import { Frequency, useGetAllLogs } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './LogAnalysisView.i18n'
 import { LogAnalysisRow, LogAnalysisRowData } from './LogAnalysisRow/LogAnalysisRow'
 import LogAnalysisFrequencyChart from './LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
@@ -70,10 +71,10 @@ function generatePointsForLogFrequency(
 }
 
 export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Element {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { environmentIdentifier, serviceIdentifier, startTime, endTime, categoryName, historyStartTime } = props
   const finalStartTime = historyStartTime ?? startTime
-  const { error, data: logAnalysisResponse, refetch: refetchLogAnalysis } = useGetAllLogs({ lazy: true })
+  const { error, data: logAnalysisResponse, refetch: refetchLogAnalysis, loading } = useGetAllLogs({ lazy: true })
   const logAnalysisData = logAnalysisResponse?.resource?.content
   const logDataDTOs: LogAnalysisRowData[] = useMemo(() => {
     return (
@@ -95,8 +96,8 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
   const queryParams = useMemo(
     () => ({
       accountId,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      projectIdentifier,
+      orgIdentifier,
       environmentIdentifier,
       serviceIdentifier,
       monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
@@ -110,20 +111,28 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
   }, [queryParams])
 
   if (error) {
-    return <PageError message={error?.message} onClick={() => refetchLogAnalysis({ queryParams })} />
+    return (
+      <PageError message={error?.message} className={css.error} onClick={() => refetchLogAnalysis({ queryParams })} />
+    )
+  }
+
+  if (loading) {
+    return (
+      <Container className={css.loading}>
+        <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
+      </Container>
+    )
   }
 
   if (!logAnalysisResponse?.resource?.content?.length) {
     return (
-      <Container style={{ position: 'relative', top: '45px' }}>
-        <NoDataCard
-          message={i18n.noDataText}
-          buttonText={i18n.retryButtonText}
-          icon="warning-sign"
-          onClick={() => refetchLogAnalysis({ queryParams })}
-          className={css.noDataCard}
-        />
-      </Container>
+      <NoDataCard
+        message={i18n.noDataText}
+        buttonText={i18n.retryButtonText}
+        icon="warning-sign"
+        onClick={() => refetchLogAnalysis({ queryParams })}
+        className={css.noDataCard}
+      />
     )
   }
 

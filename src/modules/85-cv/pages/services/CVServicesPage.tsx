@@ -156,7 +156,7 @@ export default function CVServicesPage(): JSX.Element {
               {isTimeRangeMoreThan4Hours ? (
                 <ServiceHeatMap {...heatMapAndTimeSeriesInput} />
               ) : (
-                <AnalysisDrillDownView className={styles.analysisView} {...heatMapAndTimeSeriesInput} />
+                <AnalysisDrillDownView {...heatMapAndTimeSeriesInput} />
               )}
             </Container>
           </Container>

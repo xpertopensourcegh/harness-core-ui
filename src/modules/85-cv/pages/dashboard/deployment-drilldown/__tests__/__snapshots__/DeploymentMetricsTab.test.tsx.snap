@@ -66,6 +66,7 @@ exports[`DeploymentMetricsTab Matches snapshot and calculates data correctly 1`]
         <input
           class="filterInput"
           placeholder="Search"
+          value=""
         />
       </div>
       <div

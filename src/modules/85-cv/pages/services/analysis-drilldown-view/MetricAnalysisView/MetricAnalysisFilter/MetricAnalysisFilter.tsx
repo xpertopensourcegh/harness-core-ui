@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
+import { debounce } from 'lodash-es'
 import i18n from './MetricAnalysisFilter.i18n'
 import css from './MetricAnalysisFilter.module.scss'
 
@@ -22,11 +23,16 @@ export const FILTER_OPTIONS: SelectOption[] = [
 interface MetricAnalysisFilterProps {
   onChangeFilter?: (updatedOption: string) => void
   defaultFilterValue?: SelectOption
+  onFilterDebounceTime?: number
+  onFilter?: (filterValue: string) => void
 }
 
 export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Element {
-  const { onChangeFilter, defaultFilterValue } = props
+  const { onChangeFilter, defaultFilterValue, onFilter, onFilterDebounceTime } = props
   const [selectedOption, setSelectedOption] = useState(defaultFilterValue || FILTER_OPTIONS[0])
+  const [, setDebouncedFunc] = useState<typeof debounce | undefined>()
+  const [filterValue, setFilterValue] = useState<string | undefined>()
+
   return (
     <Container className={css.main}>
       <Container className={css.filterOptionContainer}>
@@ -46,7 +52,22 @@ export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Elem
           size={'small' as SelectProps['size']}
         />
       </Container>
-      <input className={css.filterInput} placeholder={i18n.searchInputPlaceholderText} />
+      <input
+        className={css.filterInput}
+        placeholder={i18n.searchInputPlaceholderText}
+        value={filterValue}
+        onChange={e => {
+          e.persist()
+          setFilterValue(e.target.value)
+          setDebouncedFunc((prevDebounce?: any) => {
+            prevDebounce?.cancel()
+            if (!onFilter) return
+            const debouncedFunc = debounce(onFilter, onFilterDebounceTime || 500)
+            debouncedFunc(e.target.value)
+            return debouncedFunc as any
+          })
+        }}
+      />
     </Container>
   )
 }

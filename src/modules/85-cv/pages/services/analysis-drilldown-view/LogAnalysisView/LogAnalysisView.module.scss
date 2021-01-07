@@ -1,8 +1,9 @@
 @import '../DrillDownViewPartial.module';
 
 .main {
-  height: 67vh;
   padding: var(--spacing-large) !important;
+  min-height: 250px;
+  max-height: 790px;
 
   .heading {
     display: flex;
@@ -32,4 +33,17 @@
   .logContainer {
     height: 52%;
   }
+}
+
+.error,
+.noDataCard {
+  height: 250px !important;
+}
+
+.loading {
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 20%;
+  height: 250px !important;
 }

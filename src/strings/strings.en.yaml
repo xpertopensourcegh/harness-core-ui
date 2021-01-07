@@ -826,6 +826,10 @@ global:
     harnessService: 'Harness Service'
     harnessEnvironment: 'Harness Environment'
     selectOrCreateEnv: 'Select or create an environment'
+    analysisScreens:
+      analysisTab:
+        metrics: 'Metrics'
+        logs: 'Logs'
     navLinks:
       dataSource: 'Data Sources'
       activities: 'Activities'

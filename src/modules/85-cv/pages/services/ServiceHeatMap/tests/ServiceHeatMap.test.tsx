@@ -169,14 +169,11 @@ const MockData = {
   responseMessages: []
 }
 
-jest.mock('../../analysis-drilldown-view/MetricAnalysisView/MetricAnalysisView', () => ({
-  MetricAnalysisView: function MockComponent() {
-    return <Container className="metricAnalysisView" />
+jest.mock('@cv/components/CVAnalysisTabs/CVAnalysisTabs', () => ({
+  CVAnalysisTabs: function MockComponent() {
+    return <Container className="CVAnalysisTabs" />
   }
 }))
-jest.mock('../../analysis-drilldown-view/LogAnalysisView/LogAnalysisView', () => () => (
-  <Container className="logAnalysisView" />
-))
 
 describe('Unit tests for Service Heatmap componnt', () => {
   beforeEach(() => {

@@ -597,6 +597,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 <input
                   class="filterInput"
                   placeholder="Search"
+                  value=""
                 />
               </div>
             </div>

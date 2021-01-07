@@ -1,7 +1,9 @@
-import React from 'react'
-import { Container, Tabs, Tab } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { Container } from '@wings-software/uicore'
 import cx from 'classnames'
+import type { DatasourceTypeDTO } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { CVAnalysisTabs } from '@cv/components/CVAnalysisTabs/CVAnalysisTabs'
 import i18n from './AnalysisDrillDownView.i18n'
 import { MetricAnalysisView } from './MetricAnalysisView/MetricAnalysisView'
 import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
@@ -29,52 +31,45 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
     historyStartTime,
     asModal
   } = props
+
+  const [selectedMetric, setSelectedMetric] = useState<DatasourceTypeDTO['dataSourceType'] | undefined>()
+
   if (!startTime || !endTime) {
     return (
       <Container height={200}>
-        <NoDataCard
-          icon="warning-sign"
-          iconSize={30}
-          message={i18n.noDataText}
-          // className={css.errorAndNoData}
-        />
+        <NoDataCard icon="warning-sign" iconSize={30} message={i18n.noDataText} />
       </Container>
     )
   }
   return (
-    <Container className={cx(css.main, className)}>
-      <Tabs id="AnalysisTabs" renderAllTabPanels={true}>
-        <Tab
-          id={i18n.analysisDrillDownTabs.metrics}
-          title={i18n.analysisDrillDownTabs.metrics}
-          panel={
-            <MetricAnalysisView
-              startTime={startTime}
-              endTime={endTime}
-              historyStartTime={historyStartTime}
-              categoryName={categoryName}
-              showHistorySelection={asModal}
-              environmentIdentifier={environmentIdentifier}
-              serviceIdentifier={serviceIdentifier}
-            />
-          }
-        />
-        <Tab
-          id={i18n.analysisDrillDownTabs.logs}
-          title={i18n.analysisDrillDownTabs.logs}
-          panel={
-            <LogAnalysisView
-              startTime={startTime}
-              endTime={endTime}
-              categoryName={categoryName}
-              historyStartTime={historyStartTime}
-              serviceIdentifier={serviceIdentifier}
-              environmentIdentifier={environmentIdentifier}
-            />
-          }
-        />
-      </Tabs>
-      <Container />
+    <Container className={cx(asModal ? undefined : css.main, className)}>
+      <CVAnalysisTabs
+        onMonitoringSourceSelect={setSelectedMetric}
+        serviceIdentifier={serviceIdentifier}
+        environmentIdentifier={environmentIdentifier}
+        metricAnalysisView={
+          <MetricAnalysisView
+            startTime={startTime}
+            endTime={endTime}
+            selectedMonitoringSource={selectedMetric}
+            historyStartTime={historyStartTime}
+            categoryName={categoryName}
+            showHistorySelection={asModal}
+            environmentIdentifier={environmentIdentifier}
+            serviceIdentifier={serviceIdentifier}
+          />
+        }
+        logAnalysisView={
+          <LogAnalysisView
+            startTime={startTime}
+            endTime={endTime}
+            categoryName={categoryName}
+            historyStartTime={historyStartTime}
+            serviceIdentifier={serviceIdentifier}
+            environmentIdentifier={environmentIdentifier}
+          />
+        }
+      />
     </Container>
   )
 }

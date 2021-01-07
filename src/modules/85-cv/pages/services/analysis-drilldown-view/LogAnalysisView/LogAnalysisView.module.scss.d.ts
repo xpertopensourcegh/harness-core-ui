@@ -7,5 +7,7 @@ declare const styles: {
   readonly clusterHeading: string
   readonly tabContainer: string
   readonly logContainer: string
+  readonly error: string
+  readonly loading: string
 }
 export default styles

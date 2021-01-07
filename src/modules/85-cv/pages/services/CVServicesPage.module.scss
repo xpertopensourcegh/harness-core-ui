@@ -47,20 +47,6 @@
           margin-right: var(--spacing-small) !important;
         }
       }
-
-      .analysisView {
-        margin-top: var(--spacing-xlarge);
-        :global {
-          .bp3-tab-panel {
-            margin-top: var(--spacing-small);
-            background-color: var(--white);
-            padding: var(--spacing-small);
-            min-height: 250px;
-            max-height: 790px;
-            box-shadow: var(--cardsShadow);
-          }
-        }
-      }
     }
     .categoryRiskCard {
       width: 180px;

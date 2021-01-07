@@ -4,6 +4,9 @@
   animation: fadeIn;
   animation-duration: 250ms;
   position: relative;
+  min-height: 250px;
+  max-height: 790px;
+  margin-top: var(--spacing-small) !important;
 
   .header {
     display: flex;
@@ -15,9 +18,9 @@
   }
 }
 
-.error {
-  position: relative;
-  top: 50px;
+.error,
+.noDataCard {
+  height: 250px !important;
 }
 
 .loading {
@@ -25,6 +28,7 @@
   text-align: center;
   position: relative;
   top: 20%;
+  height: 250px !important;
 }
 
 @keyframes fadeIn {

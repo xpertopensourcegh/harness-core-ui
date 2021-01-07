@@ -52,16 +52,6 @@ exports[`Sidenav render 1`] = `
         Services
       </p>
     </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/metric-pack/config"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Metric Packs
-      </p>
-    </a>
     <div
       class="bp3-popover-wrapper bp3-fill"
     >

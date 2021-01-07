@@ -56,10 +56,6 @@ export default function CVSideNav(): React.ReactElement {
             to={routes.toCVActivityDashboard({ accountId, projectIdentifier, orgIdentifier })}
           />
           <SidebarLink label="Services" to={routes.toCVServices({ accountId, projectIdentifier, orgIdentifier })} />
-          <SidebarLink
-            label="Metric Packs"
-            to={routes.toCVMetricPackConfigureThresholdPage({ accountId, projectIdentifier, orgIdentifier })}
-          />
           <AdminSelector path={routes.toCVAdmin({ accountId, projectIdentifier, orgIdentifier })}>
             <AdminSelectorLink
               label={getString('cv.navLinks.adminSideNavLinks.setup')}
@@ -87,16 +83,6 @@ export default function CVSideNav(): React.ReactElement {
                 orgIdentifier,
                 accountId
               })}
-            />
-            <AdminSelectorLink label={getString('adminSideNavLinks.templateLibrary')} iconName="grid" to="" disabled />
-            <AdminSelectorLink label={getString('adminSideNavLinks.gitSync')} iconName="git-repo" to="" disabled />
-            <AdminSelectorLink label={getString('adminSideNavLinks.governance')} iconName="shield" to="" disabled />
-            <AdminSelectorLink label={getString('adminSideNavLinks.accessControl')} iconName="user" to="" disabled />
-            <AdminSelectorLink
-              label={getString('adminSideNavLinks.generalSettings')}
-              iconName="settings"
-              to=""
-              disabled
             />
             <AdminSelectorLink
               label={getString('cv.navLinks.adminSideNavLinks.activitySources')}

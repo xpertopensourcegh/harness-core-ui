@@ -7,7 +7,8 @@ import {
   TimeSeriesMetricDataDTO,
   useGetMetricData,
   RestResponsePageTimeSeriesMetricDataDTO,
-  MetricData
+  MetricData,
+  DatasourceTypeDTO
 } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
@@ -26,6 +27,7 @@ interface MetricAnalysisViewProps {
   environmentIdentifier?: string
   serviceIdentifier?: string
   className?: string
+  selectedMonitoringSource?: DatasourceTypeDTO['dataSourceType']
   historyStartTime?: number
   showHistorySelection?: boolean
 }
@@ -84,9 +86,11 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
     categoryName,
     environmentIdentifier,
     serviceIdentifier,
-    showHistorySelection
+    showHistorySelection,
+    selectedMonitoringSource
   } = props
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
+  const [filter, setFilter] = useState<string | undefined>()
   const finalStartTime = historyStartTime ?? startTime
   const queryParams = useMemo(
     () => ({
@@ -98,9 +102,21 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
       monitoringCategory: categoryName ? categoryNameToCategoryType(categoryName) : undefined,
       startTime: finalStartTime,
       analysisStartTime: historyStartTime ? startTime : finalStartTime,
-      endTime
+      endTime,
+      dataSourceType: selectedMonitoringSource,
+      filter
     }),
-    [serviceIdentifier, environmentIdentifier, finalStartTime, endTime, categoryName, projectIdentifier, orgIdentifier]
+    [
+      serviceIdentifier,
+      environmentIdentifier,
+      finalStartTime,
+      selectedMonitoringSource,
+      endTime,
+      categoryName,
+      projectIdentifier,
+      orgIdentifier,
+      filter
+    ]
   )
   const [isViewingAnomalousData, setMetricDataView] = useState(true)
   const [needsRefetch, setNeedsRefetch] = useState(true)
@@ -155,11 +171,17 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
 
   const data = isViewingAnomalousData ? anomalousMetricData : allMetricData
   const { pageSize, totalPages = 0, content, totalItems = 0, pageIndex } = (data?.resource as any) || {}
+
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.header}>
         <MetricAnalysisFilter
           defaultFilterValue={isViewingAnomalousData ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
+          onFilter={filterValue => {
+            cancelAllMetricDataCall()
+            cancelAnomalousCall()
+            setFilter(filterValue)
+          }}
           onChangeFilter={() => {
             cancelAllMetricDataCall()
             cancelAnomalousCall()
@@ -178,12 +200,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
         />
         <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={70} />
       </Container>
-      {(loadingAllMetricData || loadingAnomalousData) && (
-        <Container className={css.loading} margin="medium">
-          <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
-        </Container>
-      )}
-      {!loadingAllMetricData && !loadingAnomalousData && !totalItems && (
+      {!totalItems && !loadingAllMetricData && !loadingAnomalousData && (
         <NoDataCard
           message={isViewingAnomalousData ? i18n.noDataText.anomalous : i18n.noDataText.allMetricData}
           icon="warning-sign"
@@ -192,8 +209,11 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
           onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
         />
       )}
-      {!loadingAllMetricData &&
-        !loadingAnomalousData &&
+      {loadingAllMetricData || loadingAnomalousData ? (
+        <Container className={css.loading}>
+          <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
+        </Container>
+      ) : (
         content?.map((d: TimeSeriesMetricDataDTO) => {
           const { category, groupName, metricDataList, metricName } = d
           return metricName && groupName && metricDataList?.length ? (
@@ -208,7 +228,8 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
               displaySelectedTimeRange={showHistorySelection}
             />
           ) : null
-        })}
+        })
+      )}
       {pageIndex !== -1 && (
         <Pagination
           pageSize={pageSize || 0}
