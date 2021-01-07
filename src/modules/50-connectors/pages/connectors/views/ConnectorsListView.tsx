@@ -297,6 +297,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
 
 const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column }) => {
   const data = row.original
+  const isHarnessManaged = data.harnessManaged
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -334,29 +335,31 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   }
 
   return (
-    <Layout.Horizontal className={css.layout}>
-      <Popover
-        isOpen={menuOpen}
-        onInteraction={nextOpenState => {
-          setMenuOpen(nextOpenState)
-        }}
-        className={Classes.DARK}
-        position={Position.RIGHT_TOP}
-      >
-        <Button
-          minimal
-          icon="main-more"
-          onClick={e => {
-            e.stopPropagation()
-            setMenuOpen(true)
+    !isHarnessManaged && (
+      <Layout.Horizontal className={css.layout}>
+        <Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState => {
+            setMenuOpen(nextOpenState)
           }}
-        />
-        <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item icon="edit" text="Edit" />
-          <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
-        </Menu>
-      </Popover>
-    </Layout.Horizontal>
+          className={Classes.DARK}
+          position={Position.RIGHT_TOP}
+        >
+          <Button
+            minimal
+            icon="main-more"
+            onClick={e => {
+              e.stopPropagation()
+              setMenuOpen(true)
+            }}
+          />
+          <Menu style={{ minWidth: 'unset' }}>
+            <Menu.Item icon="edit" text="Edit" />
+            <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+          </Menu>
+        </Popover>
+      </Layout.Horizontal>
+    )
   )
 }
 

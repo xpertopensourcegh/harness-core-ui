@@ -46,6 +46,8 @@ jest.mock('services/cd-ng', () => ({
 }))
 jest.useFakeTimers()
 
+const organization = getOrganizationAggregateDTOListMockData.data.data.content[0].organizationResponse.organization
+
 describe('Org Page List', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']
@@ -89,7 +91,9 @@ describe('Org Page List', () => {
   }),
     test('Delete Organization From Menu', async () => {
       deleteOrganization.mockReset()
-      const menu = container?.querySelectorAll("[icon='more']")[0]
+      const menu = container
+        .querySelector(`[data-testid="org-card-${organization.identifier}"]`)
+        ?.querySelector("[icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'Delete')
@@ -106,7 +110,9 @@ describe('Org Page List', () => {
       expect(deleteOrganization).toBeCalled()
     }),
     test('Edit Organization', async () => {
-      const menu = container?.querySelectorAll("[icon='more']")[1]
+      const menu = container
+        .querySelector(`[data-testid="org-card-${organization.identifier}"]`)
+        ?.querySelector("[icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = getByText(popover as HTMLElement, 'Edit')
@@ -122,7 +128,9 @@ describe('Org Page List', () => {
       expect(editOrg).toHaveBeenCalled()
     }),
     test('Invite Collaborators', async () => {
-      const menu = container?.querySelectorAll("[icon='more']")[1]
+      const menu = container
+        .querySelector(`[data-testid="org-card-${organization.identifier}"]`)
+        ?.querySelector("[icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'Invite Collaborators')

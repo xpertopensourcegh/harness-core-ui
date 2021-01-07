@@ -44,7 +44,10 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const openDialog = useDeleteProjectDialog(data, onDeleted)
 
   return (
-    <Card className={cx(css.projectCard, props.className)}>
+    <Card
+      className={cx(css.projectCard, props.className)}
+      data-testid={`project-card-${data.identifier + data.orgIdentifier}`}
+    >
       <Container padding="xlarge" className={css.projectInfo}>
         {!isPreview ? (
           <CardBody.Menu

@@ -101,6 +101,7 @@ exports[`Org Page List Create New Org 1`] = `
       >
         <div
           class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+          data-testid="org-card-bfvbfkbvf"
           tabindex="0"
         >
           <div
@@ -252,6 +253,7 @@ exports[`Org Page List Create New Org 1`] = `
       >
         <div
           class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+          data-testid="org-card-Harness"
           tabindex="0"
         >
           <div
@@ -466,6 +468,7 @@ exports[`Org Page List Create New Org 1`] = `
       >
         <div
           class="bp3-card bp3-interactive bp3-elevation-2 Card--card card"
+          data-testid="org-card-default"
           tabindex="0"
         >
           <div

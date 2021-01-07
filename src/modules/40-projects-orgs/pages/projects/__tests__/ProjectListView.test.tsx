@@ -36,6 +36,9 @@ jest.mock('services/cd-ng', () => ({
     return { ...projectPageMock, refetch: jest.fn(), error: null }
   })
 }))
+
+const project = projectPageMock.data.data.content[0].projectResponse.project
+
 describe('Project List', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']
@@ -60,7 +63,7 @@ describe('Project List', () => {
     expect(container).toMatchSnapshot()
   })
   test('click on Edit Project', async () => {
-    const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
+    const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
     fireEvent.click(menu!)
     const editMenu = getAllByText('Edit')[0]
     expect(editMenu).toBeDefined()
@@ -71,7 +74,7 @@ describe('Project List', () => {
   }),
     test('click on Collaborators', async () => {
       collaboratorModal.mockReset()
-      const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
+      const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
       fireEvent.click(menu!)
       const colMenu = getAllByText('Invite Collaborators')[0]
       expect(colMenu).toBeDefined()
@@ -82,7 +85,7 @@ describe('Project List', () => {
     }),
     test('Delete', async () => {
       deleteProject.mockReset()
-      const menu = container.querySelectorAll("[id='Options_svg__a']")[0]
+      const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
       fireEvent.click(menu!)
       const delMenu = getAllByText('Delete')[0]
       expect(delMenu).toBeDefined()

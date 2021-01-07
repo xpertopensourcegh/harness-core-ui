@@ -4,6 +4,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
 <div>
   <div
     class="bp3-card bp3-elevation-0 Card--card projectCard"
+    data-testid="project-card-dummy_nametestOrg"
   >
     <div
       class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -1123,6 +1124,7 @@ exports[`Project Card test Preview is ok 1`] = `
 <div>
   <div
     class="bp3-card bp3-elevation-0 Card--card projectCard"
+    data-testid="project-card-dummy_nametestOrg"
   >
     <div
       class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -1466,6 +1468,7 @@ exports[`Project Card test initializes ok  1`] = `
 <div>
   <div
     class="bp3-card bp3-elevation-0 Card--card projectCard"
+    data-testid="project-card-dummy_nametestOrg"
   >
     <div
       class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"

@@ -67,7 +67,13 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   }
 
   return (
-    <Card elevation={2} interactive={!isPreview} className={css.card} onClick={onClick}>
+    <Card
+      elevation={2}
+      interactive={!isPreview}
+      className={css.card}
+      onClick={onClick}
+      data-testid={`org-card-${data.identifier}`}
+    >
       <Container className={css.overflow}>
         {!isPreview ? (
           <CardBody.Menu

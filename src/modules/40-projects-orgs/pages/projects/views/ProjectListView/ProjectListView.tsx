@@ -115,12 +115,12 @@ const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ ro
   )
 }
 const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
-  const data = row.original
+  const data = row.original.projectResponse.project
   const [menuOpen, setMenuOpen] = useState(false)
   const onDeleted = (): void => {
     ;(column as any).refetchProjects()
   }
-  const openDialog = useDeleteProjectDialog(data.projectResponse.project, onDeleted)
+  const openDialog = useDeleteProjectDialog(data, onDeleted)
 
   return (
     <Layout.Horizontal className={css.layout}>
@@ -140,9 +140,10 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
             e.stopPropagation()
             setMenuOpen(true)
           }}
+          data-testid={`menu-${data.identifier + data.orgIdentifier}`}
         />
         <ContextMenu
-          project={data.projectResponse.project}
+          project={data}
           reloadProjects={(column as any).refetchProjects}
           editProject={(column as any).editProject}
           collaborators={(column as any).collaborators}

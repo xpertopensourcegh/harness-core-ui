@@ -74,6 +74,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const [snippetYaml, setSnippetYaml] = React.useState<string>()
   const [isUpdating, setIsUpdating] = React.useState<boolean>(false)
   const { getString } = useStrings()
+  const isHarnessManaged = props.response.harnessManaged
 
   const state: ConnectorViewState = {
     enableEdit,
@@ -287,7 +288,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
             </div>
           </div>
         )}
-        {state.enableEdit ? null : (
+        {state.enableEdit || isHarnessManaged ? null : (
           <Button
             id="editDetailsBtn"
             className={css.editButton}

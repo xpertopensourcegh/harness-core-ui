@@ -62,6 +62,8 @@ jest.mock('framework/exports', () => ({
   })
 }))
 
+const project = projectPageMock.data.data.content[0].projectResponse.project
+
 describe('Project Page List', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']
@@ -121,7 +123,9 @@ describe('Project Page List', () => {
       expect(form).not.toBeTruthy()
     }),
     test('Invite Collaborators', async () => {
-      const menu = container?.querySelectorAll("[icon='more']")[1]
+      const menu = container
+        .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
+        ?.querySelector("[icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
@@ -137,7 +141,9 @@ describe('Project Page List', () => {
     }),
     test('Delete Project From Menu', async () => {
       deleteProject.mockReset()
-      const menu = container?.querySelectorAll("[icon='more']")[0]
+      const menu = container
+        .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
+        ?.querySelector("[icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'Delete')
@@ -152,7 +158,9 @@ describe('Project Page List', () => {
       })
     }),
     test('Edit Project', async () => {
-      const menu = container?.querySelectorAll("[icon='more']")[2]
+      const menu = container
+        .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
+        ?.querySelector("[icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = getByText(popover as HTMLElement, 'Edit')
@@ -165,8 +173,8 @@ describe('Project Page List', () => {
       })
     }),
     test('Toggle between grid and list view', async () => {
-      const list = container?.querySelectorAll("[icon='list']")[0]
-      const grid = container?.querySelectorAll("[icon='grid-view']")[0]
+      const list = container.querySelectorAll("[icon='list']")[0]
+      const grid = container.querySelectorAll("[icon='grid-view']")[0]
       await act(async () => {
         fireEvent.click(list!)
         expect(container).toMatchSnapshot()
