@@ -3,7 +3,7 @@ import { Button, StepWizard, useModalHook } from '@wings-software/uicore'
 import React, { useState, useCallback } from 'react'
 import cx from 'classnames'
 import type { Organization } from 'services/cd-ng'
-import i18n from './useOrganizationModal.i18n'
+import { useStrings } from 'framework/exports'
 import StepAboutOrganization from './views/StepAboutOrganization'
 import EditOrganization from './views/EditOrganization'
 import { OrgCollaboratorsStep } from '../ProjectModal/views/Collaborators'
@@ -22,6 +22,7 @@ const Views = { CREATE: 1, EDIT: 2 }
 
 export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): UseOrganizationModalResult => {
   const [view, setView] = useState(Views.CREATE)
+  const { getString } = useStrings()
   const [orgData, setOrgData] = useState<Organization>()
   const [openModal, hideModal] = useModalHook(
     () => (
@@ -38,13 +39,13 @@ export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): U
       >
         {view === Views.CREATE ? (
           <StepWizard<Organization> stepClassName={css.stepClass} onCompleteWizard={hideModal}>
-            <StepAboutOrganization name={i18n.aboutTitle} onSuccess={onSuccess} />
-            <OrgCollaboratorsStep name={i18n.collaboratorsTitle} />
+            <StepAboutOrganization name={getString('orgs.aboutTitle')} onSuccess={onSuccess} />
+            <OrgCollaboratorsStep name={getString('orgs.collaboratorsTitle')} />
           </StepWizard>
         ) : null}
         {view === Views.EDIT ? (
           <EditOrganization
-            name={i18n.aboutTitle}
+            name={getString('orgs.aboutTitle')}
             onSuccess={() => {
               hideModal()
               onSuccess()

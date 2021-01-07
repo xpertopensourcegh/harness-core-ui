@@ -78,7 +78,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY
+          Verify
         </p>
       </div>
     </div>
@@ -349,7 +349,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY
+          Verify
         </p>
       </div>
     </div>
@@ -574,7 +574,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY
+          Verify
         </p>
       </div>
     </div>
@@ -843,7 +843,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY
+          Verify
         </p>
       </div>
     </div>
@@ -1376,7 +1376,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY
+          Verify
         </p>
       </div>
     </div>

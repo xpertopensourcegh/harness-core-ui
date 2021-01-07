@@ -30,14 +30,14 @@ const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps & SSHCredSharedObj>
 
   return (
     <StepWizard<SSHCredSharedObj> icon="secret-ssh" iconProps={{ size: 37 }} title={getString('ssh.sshCredential')}>
-      <StepSSHDetails name={i18n.titleDetails.toUpperCase()} {...props} />
+      <StepSSHDetails name={i18n.titleDetails} {...props} />
       <StepAuthentication
-        name={i18n.stepTitleAuth.toUpperCase()}
+        name={i18n.stepTitleAuth}
         onSuccess={props.onSuccess}
         mockSecretReference={props.mockSecretReference}
         isEdit={isEdit}
       />
-      <StepVerify name={i18n.stepTitleVerify.toUpperCase()} closeModal={props.hideModal} />
+      <StepVerify name={i18n.stepTitleVerify} closeModal={props.hideModal} />
     </StepWizard>
   )
 }

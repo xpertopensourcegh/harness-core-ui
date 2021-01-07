@@ -73,7 +73,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          SSH DETAILS
+          SSH Details
         </p>
       </div>
       <div
@@ -88,7 +88,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONFIGURATION
+          Configuration
         </p>
       </div>
       <div
@@ -103,7 +103,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Verify Connection
         </p>
       </div>
     </div>
@@ -345,7 +345,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          SSH DETAILS
+          SSH Details
         </p>
       </div>
       <div
@@ -360,7 +360,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONFIGURATION
+          Configuration
         </p>
       </div>
       <div
@@ -375,7 +375,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Verify Connection
         </p>
       </div>
     </div>
@@ -799,7 +799,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          SSH DETAILS
+          SSH Details
         </p>
       </div>
       <div
@@ -832,7 +832,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONFIGURATION
+          Configuration
         </p>
       </div>
       <div
@@ -847,7 +847,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Verify Connection
         </p>
       </div>
     </div>

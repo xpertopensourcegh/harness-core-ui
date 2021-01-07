@@ -1124,6 +1124,8 @@ global:
       sortBy: 'Sort by:'
   orgs:
     searchPlaceHolder: 'Search Organizations by name, tags'
+    aboutTitle: 'About the Organization'
+    collaboratorsTitle: 'Invite Members'
   pipeline-list:
     aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
     listStages: Stages
