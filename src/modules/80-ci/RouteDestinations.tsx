@@ -22,7 +22,7 @@ import type {
   ProjectPathProps
 } from '@common/interfaces/RouteInterfaces'
 
-import CDDeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
+import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
 import CIHomePage from '@ci/pages/home/CIHomePage'
 import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
@@ -226,7 +226,7 @@ export default (
         path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
         exact
       >
-        <CDDeploymentsList />
+        <DeploymentsList />
       </RouteWithLayout>
       <RouteWithLayout
         exact

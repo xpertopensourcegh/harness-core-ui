@@ -6,7 +6,7 @@ import cx from 'classnames'
 import { String } from 'framework/exports'
 import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
 import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useUpdateQueryParams, useQueryParams } from '@common/hooks'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 
@@ -23,7 +23,7 @@ export interface FilterQueryParams {
 }
 
 export default function ExecutionFilter(props: ExecutionFilterProps): React.ReactElement {
-  const { pipelineIdentifier } = useParams<Partial<PipelinePathProps>>()
+  const { pipelineIdentifier, module } = useParams<Partial<PipelineType<PipelinePathProps>>>()
   const { updateQueryParams } = useUpdateQueryParams<FilterQueryParams>()
   const queryParams = useQueryParams<FilterQueryParams>()
 
@@ -46,7 +46,7 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
           <String className={css.runText} stringID="runPipelineText" onClick={props.onRunPipeline} />
         </Button>
         <div className={cx(css.filterGroup, css.btnGroup)}>
-          <String className={css.label} stringID="deploymentsText" />
+          <String className={css.label} stringID={module === 'ci' ? 'buildsText' : 'deploymentsText'} />
           <ButtonGroup>
             <Button intent="primary">
               <String stringID="all" />

@@ -27,7 +27,7 @@ import routes from '@common/RouteDefinitions'
 import CDSideNav from '@cd/components/CDSideNav/CDSideNav'
 import CDHomePage from '@cd/pages/home/CDHomePage'
 import CDDashboardPage from '@cd/pages/dashboard/CDDashboardPage'
-import CDDeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
+import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
 import CDPipelineStudio from '@cd/pages/pipeline-studio/CDPipelineStudio'
 import StageBuilder from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'
 import PipelineYamlView from '@pipeline/components/PipelineStudio/PipelineYamlView/PipelineYamlView'
@@ -119,7 +119,7 @@ export default (
         path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
         exact
       >
-        <CDDeploymentsList />
+        <DeploymentsList />
       </RouteWithLayout>
 
       <RouteWithLayout

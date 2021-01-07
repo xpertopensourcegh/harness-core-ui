@@ -109,7 +109,10 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
   ),
-
+  toProjectOverview: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
+  ),
   toPipelineStudio: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/`

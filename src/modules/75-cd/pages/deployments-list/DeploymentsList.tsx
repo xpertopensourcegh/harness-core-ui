@@ -12,7 +12,7 @@ import PipelineModalListView from '@pipeline/components/PipelineModalListView/Pi
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams()
   const { getString } = useStrings()
 
   const { selectedProject } = useAppStore()
@@ -33,15 +33,15 @@ export default function DeploymentsList(): React.ReactElement {
           links={[
             {
               label: project?.name || '',
-              url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId })
+              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
             },
             {
-              label: getString('deploymentsText'),
+              label: getString(module === 'ci' ? 'buildsText' : 'deploymentsText'),
               url: ''
             }
           ]}
         />
-        <h2>Deployments</h2>
+        <h2>{getString(module === 'ci' ? 'buildsText' : 'deploymentsText')}</h2>
       </div>
       <div className={css.content}>
         <PipelineDeploymentList onRunPipeline={openModal} />
