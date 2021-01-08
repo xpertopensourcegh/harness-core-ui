@@ -12,6 +12,7 @@ module.exports = {
   setupFiles: ['<rootDir>/scripts/jest/setup-file.js', 'fake-indexeddb/auto', 'jest-canvas-mock'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
+    '!src/framework/app/App.tsx',
     '!src/**/*.test.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/__tests__/**',

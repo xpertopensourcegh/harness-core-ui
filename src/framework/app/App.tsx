@@ -9,6 +9,7 @@ import type { LangLocale } from 'strings/languageLoader'
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
 import RouteDestinations from 'modules/RouteDestinations'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
+import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 import '@common/services'
 import './App.scss'
@@ -37,6 +38,9 @@ function App(props: AppProps): React.ReactElement {
       <AppStoreProvider strings={props.strings}>
         <AppErrorBoundary>
           <RouteDestinations />
+          <Route path="*">
+            <NotFoundPage />
+          </Route>
         </AppErrorBoundary>
       </AppStoreProvider>
     </RestfulProvider>
