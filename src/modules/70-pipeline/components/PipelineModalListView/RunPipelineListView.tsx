@@ -76,8 +76,8 @@ export default function RunPipelineListView({
       <Layout.Vertical spacing="xsmall">
         <Text color={Color.GREY_400}>Last run:</Text>
         <Text color={Color.GREY_400}>
-          {rowdata.lastExecutionTs
-            ? formatDatetoLocale(rowdata.lastExecutionTs)
+          {rowdata.executionSummaryInfo?.lastExecutionTs
+            ? formatDatetoLocale(rowdata.executionSummaryInfo?.lastExecutionTs)
             : getString('pipelineSteps.pullNeverLabel')}
         </Text>
       </Layout.Vertical>
@@ -103,7 +103,7 @@ export default function RunPipelineListView({
         Cell: RenderColumnPipeline
       },
       {
-        accessor: 'lastExecutionTs',
+        accessor: 'executionSummaryInfo',
         width: '20%',
         Cell: RenderLastRunDate
       },

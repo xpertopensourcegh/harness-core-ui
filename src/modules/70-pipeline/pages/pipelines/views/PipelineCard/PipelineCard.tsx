@@ -160,14 +160,14 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           </Layout.Vertical>
           <Layout.Vertical flex={{ align: 'center-center' }} spacing="xsmall">
             <span className={css.activityChart}>
-              <SparkChart data={pipeline.deployments || /* istanbul ignore next */ []} />
+              <SparkChart data={pipeline.executionSummaryInfo?.deployments || /* istanbul ignore next */ []} />
             </span>
             <Text color={Color.GREY_600} font={{ size: 'small' }} style={{ textTransform: 'uppercase' }}>
               <String stringID="activity" />
             </Text>
           </Layout.Vertical>
           <Layout.Vertical flex={{ align: 'center-center' }} spacing="xsmall">
-            <Text color={Color.RED_600}>{pipeline.numOfErrors || '-'}</Text>
+            <Text color={Color.RED_600}>{pipeline.executionSummaryInfo?.numOfErrors || '-'}</Text>
             <Text color={Color.GREY_600} font={{ size: 'small' }} style={{ textTransform: 'uppercase' }}>
               <String stringID="errors" />
             </Text>

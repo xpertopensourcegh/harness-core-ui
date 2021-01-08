@@ -144,11 +144,11 @@ const RenderColumnTag: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
 const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
 
-  const deployments = data.deployments?.reduce((acc, val) => acc + val, 0)
+  const deployments = data.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0)
   const { getString } = useStrings()
 
   const getStatusColor = (): string => {
-    switch (data.lastExecutionStatus) {
+    switch (data.executionSummaryInfo?.lastExecutionStatus) {
       case 'Success':
         return Color.GREEN_800
       case 'Failed':
@@ -162,9 +162,9 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
 
   return (
     <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
-      {data.deployments?.length ? (
+      {data.executionSummaryInfo?.deployments?.length ? (
         <span className={css.activityChartList}>
-          <SparkChart data={data.deployments || []} />
+          <SparkChart data={data.executionSummaryInfo?.deployments || []} />
         </span>
       ) : null}
 
@@ -184,8 +184,8 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
         </Text>
         <Text>
           <span>
-            {data.lastExecutionTs
-              ? formatDatetoLocale(data.lastExecutionTs)
+            {data.executionSummaryInfo?.lastExecutionTs
+              ? formatDatetoLocale(data.executionSummaryInfo?.lastExecutionTs)
               : getString('pipelineSteps.pullNeverLabel')}
           </span>
         </Text>
@@ -235,7 +235,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       },
       {
         Header: getString('activity').toUpperCase(),
-        accessor: 'deployments',
+        accessor: 'executionSummaryInfo',
         width: '50%',
         Cell: RenderActivity,
         disableSortBy: true
