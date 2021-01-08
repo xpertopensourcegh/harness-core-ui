@@ -233,7 +233,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   )
 
   if (isLoading) {
-    return <PageSpinner />
+    return (
+      <React.Fragment>
+        <PageSpinner fixed />
+        <div /> {/* this empty div is required for rendering layout correctly */}
+      </React.Fragment>
+    )
   }
 
   return (
