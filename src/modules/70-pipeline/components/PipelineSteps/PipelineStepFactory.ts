@@ -24,6 +24,7 @@ import { K8sBlueGreenDeployStep } from './Steps/K8sBgStep/K8sBlueGreenDeployStep
 import { K8sCanaryDeployStep } from './Steps/K8sCanaryDeploy/K8sCanaryDeployStep'
 import { K8sScaleStep } from './Steps/K8sScale/K8sScaleStep'
 import { K8sRollingRollbackStep } from './Steps/K8sRollingRollback/K8sRollingRollback'
+import { K8sCanaryDeleteStep } from './Steps/K8sCanaryDelete/K8sCanaryDeleteStep'
 import { BarrierStep } from './Steps/Barrier/Barrier'
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
@@ -39,6 +40,7 @@ factory.registerStep(new BarrierStep())
 factory.registerStep(new K8sBlueGreenDeployStep())
 factory.registerStep(new K8sCanaryDeployStep())
 factory.registerStep(new K8sScaleStep())
+factory.registerStep(new K8sCanaryDeleteStep())
 
 factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())

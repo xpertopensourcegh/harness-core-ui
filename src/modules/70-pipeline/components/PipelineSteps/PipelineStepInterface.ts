@@ -7,6 +7,7 @@ export enum StepType {
   K8sBlueGreenDeploy = 'K8sBlueGreenDeploy',
   K8sCanaryDeploy = 'K8sCanaryDeploy',
   K8sScale = 'K8sScale',
+  K8sCanaryDelete = 'K8sCanaryDelete',
   StepGroup = 'StepGroup',
   KubernetesDirect = 'KubernetesDirect',
   K8sServiceSpec = 'K8sServiceSpec',
