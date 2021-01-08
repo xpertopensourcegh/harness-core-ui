@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
@@ -27,10 +27,9 @@ const flagTypeOptions: SelectOption[] = [
 const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { flagTypeView, toggleFlagType, hideModal, goBackToTypeSelections } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { showError } = useToaster()
-  const { projectIdentifier, orgIdentifier, environmentIdentifier, accountId } = useParams()
+  const { showError, clear } = useToaster()
+  const { projectIdentifier, orgIdentifier, environmentIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
-
   const {
     mutate: createFeatureFlag,
     loading: isLoadingCreateFeatureFlag,
@@ -38,7 +37,6 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   } = useCreateFeatureFlag({
     queryParams: { account: accountId, org: orgIdentifier }
   })
-
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
 
@@ -70,9 +68,14 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     }
   }
 
-  // TODO: Show more meaningful error
+  useEffect(() => {
+    return () => {
+      clear()
+    }
+  }, [])
+
   if (errorCreateFlag) {
-    showError(errorCreateFlag.message)
+    showError((errorCreateFlag.data as { message: string })?.message || errorCreateFlag.message, 0)
   }
 
   return (

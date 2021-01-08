@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import {
   Color,
   Formik,
@@ -35,6 +35,8 @@ interface FeatureErrors {
 }
 const ON = 'On'
 const OFF = 'Off'
+const TRUE = 'true'
+const FALSE = 'false'
 
 // FIXME: Change any for StepProps
 const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
@@ -50,26 +52,12 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     isLoadingCreateFeatureFlag
   } = props
 
-  // TODO: Consider the possibility to put everthing related to Boolean flag
-  // change state and prepopulate fields to be in a separate component,
-  // because we have similar functionality also in Edit Variations modal
-  const [trueFlagOption, setTrueFlagOption] = useState(ON)
-  const [falseFlagOption, setFalseFlagOption] = useState(OFF)
-
   const handleNewFlagType = (newFlagTypeVal: string): void => {
     toggleFlagType(newFlagTypeVal)
   }
 
-  const onTrueFlagChange = (valInput: string): void => {
-    setTrueFlagOption(valInput)
-  }
-
-  const onFalseFlagChange = (valInput: string): void => {
-    setFalseFlagOption(valInput)
-  }
-
-  const selectValueTrue = { label: trueFlagOption, value: trueFlagOption }
-  const selectValueFalse = { label: falseFlagOption, value: falseFlagOption }
+  const selectValueTrue = { label: ON, value: TRUE }
+  const selectValueFalse = { label: OFF, value: FALSE }
 
   const flagBooleanRules = [selectValueTrue, selectValueFalse]
 
@@ -97,11 +85,11 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         initialValues={{
           kind: FlagTypeVariations.booleanFlag,
           variations: [
-            { identifier: 'true', name: ON, description: '', value: ON },
-            { identifier: 'false', name: OFF, description: '', value: OFF }
+            { identifier: TRUE, name: ON, description: '', value: TRUE },
+            { identifier: FALSE, name: OFF, description: '', value: FALSE }
           ],
-          defaultOnVariation: ON,
-          defaultOffVariation: OFF,
+          defaultOnVariation: TRUE,
+          defaultOffVariation: FALSE,
           ...prevStepData
         }}
         // TODO: WIP
@@ -129,16 +117,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                   />
                   <Layout.Horizontal>
                     <Container width="35%" margin={{ right: 'medium' }}>
-                      <FormInput.Text
-                        disabled
-                        name="variations[0].name"
-                        label={i18n.trueFlag}
-                        onChange={e => {
-                          const element = e.currentTarget as HTMLInputElement
-                          const elementValue = element.value
-                          onTrueFlagChange(elementValue)
-                        }}
-                      />
+                      <FormInput.Text disabled name="variations[0].name" label={i18n.trueFlag} />
                     </Container>
                     <Container width="65%" className={css.collapseContainer}>
                       <InputDescOptional
@@ -150,16 +129,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                   </Layout.Horizontal>
                   <Layout.Horizontal>
                     <Container width="35%" margin={{ right: 'medium' }}>
-                      <FormInput.Text
-                        disabled
-                        name="variations[1].name"
-                        label={i18n.falseFlag}
-                        onChange={e => {
-                          const element = e.currentTarget as HTMLInputElement
-                          const elementValue = element.value
-                          onFalseFlagChange(elementValue)
-                        }}
-                      />
+                      <FormInput.Text disabled name="variations[1].name" label={i18n.falseFlag} />
                     </Container>
                     <Container width="65%" className={css.collapseContainer}>
                       <InputDescOptional

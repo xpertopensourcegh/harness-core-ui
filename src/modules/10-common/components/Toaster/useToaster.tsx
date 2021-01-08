@@ -30,6 +30,9 @@ export function useToaster(): ToasterProps {
     ...toaster,
     showSuccess,
     showError,
-    showWarning
+    showWarning,
+    clear: () => {
+      toaster.clear()
+    }
   }
 }
