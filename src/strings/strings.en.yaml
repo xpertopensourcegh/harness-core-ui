@@ -34,6 +34,7 @@ global:
   canary: Canary
   details: Details
   test: Test
+  enable: Enable
   health: Health
   activitySource: Activity Source
   dataSource: Data Source
@@ -717,6 +718,8 @@ global:
     hostRequired: Host is a required field
     projectIDRequired: Project ID is a required field
     scriptTypeRequired: Script Type is required field
+  yamlBuilder:
+    enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
   connectors:
     delegateOutClusterInfo1: 'Specify credentials here'
     delegateOutClusterInfo2: 'Manually enter master url and credentials'

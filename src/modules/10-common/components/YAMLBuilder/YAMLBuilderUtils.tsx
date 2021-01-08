@@ -34,7 +34,7 @@ const findLeafToParentPath = (jsonObj: Record<string, any>, leafNode: string, de
     })
   }
   findPath(jsonObj, 1)
-  return matchingPath.length > 0 ? matchingPath.slice(-1).pop() : undefined
+  return matchingPath.length > 0 ? matchingPath.slice(-1).pop() : DEFAULT_YAML_PATH
 }
 
 /**
@@ -113,44 +113,43 @@ const getYAMLPathToValidationErrorMap = (
   editor: any | undefined
 ): Map<string, string[]> | undefined => {
   const yamlPathToValidationErrorMap = new Map<string, string[]>()
-  try {
-    if (!validationErrors) {
-      return
-    }
 
-    validationErrors.forEach(valError => {
+  if (!validationErrors) {
+    return
+  }
+
+  validationErrors.forEach(valError => {
+    try {
       const errorIndex = valError?.range?.end?.line
-      if (errorIndex) {
-        const errorLineNum = errorIndex + 1
-        const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum)?.trim()
-        if (textInCurrentEditorLine) {
-          const currentProperty = textInCurrentEditorLine?.split(':').map((item: string) => item.trim())?.[0]
-          const partialYAML = getPartialYAML(editor, errorLineNum)
-          if (partialYAML) {
-            const jsonEqOfYAML = getJSONFromYAML(partialYAML)
-            if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
-              const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
-              if (path) {
-                const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
-                if (
-                  existingErrorsOnPath !== undefined &&
-                  Array.isArray(existingErrorsOnPath) &&
-                  existingErrorsOnPath.length > 0
-                ) {
-                  existingErrorsOnPath.push(valError.message)
-                  yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
-                } else {
-                  yamlPathToValidationErrorMap.set(path, [valError.message])
-                }
+      const errorLineNum = errorIndex + 1
+      const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum)?.trim()
+      if (textInCurrentEditorLine) {
+        const currentProperty = textInCurrentEditorLine?.split(':').map((item: string) => item.trim())?.[0]
+        const partialYAML = getPartialYAML(editor, errorLineNum)
+        if (partialYAML) {
+          const jsonEqOfYAML = getJSONFromYAML(partialYAML)
+          if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
+            const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
+            if (path) {
+              const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
+              if (
+                existingErrorsOnPath !== undefined &&
+                Array.isArray(existingErrorsOnPath) &&
+                existingErrorsOnPath.length > 0
+              ) {
+                existingErrorsOnPath.push(valError.message)
+                yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
+              } else {
+                yamlPathToValidationErrorMap.set(path, [valError.message])
               }
             }
           }
         }
       }
-    })
-  } catch (error) {
-    yamlPathToValidationErrorMap.set(DEFAULT_YAML_PATH, error)
-  }
+    } catch (error) {
+      yamlPathToValidationErrorMap.set(DEFAULT_YAML_PATH, error)
+    }
+  })
   return yamlPathToValidationErrorMap
 }
 
@@ -175,14 +174,14 @@ const getValidationErrorMessagesForToaster = (
   errorMap: Map<string, string[]>
 ): DetailedReactHTMLElement<{ id: string }, HTMLElement> => {
   const errorRenderItemList: JSX.Element[] = []
-  errorMap.forEach((values: string[], key: string) => {
+  errorMap?.forEach((values: string[], key: string) => {
     errorRenderItemList.push(
       <li key={key}>
         In{' '}
         <b>
           <i>{key}</i>
         </b>
-        , {values.map((value: string) => value.charAt(0).toLowerCase() + value.slice(1))?.join(', ')}
+        , {values?.map((value: string) => value.charAt(0).toLowerCase() + value.slice(1))?.join(', ')}
       </li>
     )
   })

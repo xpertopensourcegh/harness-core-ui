@@ -135,7 +135,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       }
     } catch (e) {
       /* istanbul ignore next */
-      showError(e.data?.message)
+      showError(e.data?.message || e.message)
       setErrorWhileFetchingConnectors(e)
     }
     setIsFetchingConnectors(false)
@@ -228,8 +228,10 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   })
 
   const rerouteBasedOnContext = (): void => {
-    if (orgIdentifier) {
-      history.push(routes.toCDCreateConnectorFromYaml({ projectIdentifier, orgIdentifier, accountId }))
+    if (projectIdentifier && orgIdentifier) {
+      history.push(routes.toCreateConnectorFromYamlAtProjectLevel({ projectIdentifier, orgIdentifier, accountId }))
+    } else if (orgIdentifier) {
+      history.push(routes.toCreateConnectorFromYamlAtOrgLevel({ orgIdentifier, accountId }))
     } else {
       history.push(routes.toCreateConnectorFromYaml({ accountId }))
     }
@@ -386,7 +388,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       }
     } catch (e) {
       /* istanbul ignore next */
-      showError(e.data?.message)
+      showError(e.data?.message || e.message)
     }
   }
 
@@ -407,7 +409,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       }
     } catch (e) {
       /* istanbul ignore next */
-      showError(e.data?.message)
+      showError(e.data?.message || e.message)
     }
   }
 
@@ -431,7 +433,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       }
     } catch (e) {
       /* istanbul ignore next */
-      showError(e.data?.message)
+      showError(e.data?.message || e.message)
     }
   }
 
@@ -538,6 +540,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const reset = (): void => {
     setAppliedFilter(null)
     refetchConnectorList()
+    setErrorWhileFetchingConnectors(undefined)
   }
 
   /* #endregion */

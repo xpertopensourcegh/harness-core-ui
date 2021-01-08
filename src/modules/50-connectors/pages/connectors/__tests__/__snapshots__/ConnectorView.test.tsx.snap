@@ -416,12 +416,12 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
         class="optionBtns"
       >
         <div
-          class="item"
+          class="item selected"
         >
           VISUAL
         </div>
         <div
-          class="item selected"
+          class="item"
         >
           YAML
         </div>
@@ -461,15 +461,32 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
       class="Layout--horizontal StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main fullWidth"
+        class="StyledProps--font StyledProps--main detailsSectionContainer"
       >
         <div
-          class="yamlView"
+          class="StyledProps--font StyledProps--main detailsSection"
         >
-          <div />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          >
+            Overview
+          </p>
         </div>
         <div
-          class="fullWidth"
+          class="StyledProps--font StyledProps--main detailsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+          >
+            Credentials
+          </p>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main connectorDetailsWrapper"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
         >
           <div
             class="StyledProps--font StyledProps--main detailsSection"
@@ -479,6 +496,20 @@ exports[`Connector Details Page Switch to Visual->YAML->Visual view 1`] = `
             >
               Connector Activity
             </p>
+          </div>
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <button
+              class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Test Connection
+              </span>
+            </button>
           </div>
         </div>
       </div>

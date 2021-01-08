@@ -26,8 +26,10 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { getString } = useStrings()
 
   const rerouteBasedOnContext = (connectorId: string): void => {
-    if (orgIdentifier) {
+    if (projectIdentifier && orgIdentifier) {
       history.push(routes.toCDResourcesConnectorDetails({ projectIdentifier, orgIdentifier, connectorId, accountId }))
+    } else if (orgIdentifier) {
+      history.push(routes.toOrgResourcesConnectorDetails({ orgIdentifier, connectorId, accountId }))
     } else {
       history.push(routes.toResourcesConnectorDetails({ connectorId, accountId }))
     }

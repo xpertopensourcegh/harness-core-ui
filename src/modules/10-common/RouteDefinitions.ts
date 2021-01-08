@@ -28,6 +28,13 @@ const routes = {
   // account resources
   toResourcesConnectors: withAccountId(() => '/admin/resources/connectors'),
   toCreateConnectorFromYaml: withAccountId(() => '/admin/create-connector-from-yaml'),
+  toCreateConnectorFromYamlAtOrgLevel: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/create-connector-from-yaml`
+  ),
+  toCreateConnectorFromYamlAtProjectLevel: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/create-connector-from-yaml`
+  ),
   toResourcesConnectorDetails: withAccountId(
     ({ connectorId }: ConnectorPathProps) => `/admin/resources/connectors/${connectorId}`
   ),
@@ -138,10 +145,6 @@ const routes = {
   toCDResourcesConnectors: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors`
-  ),
-  toCDCreateConnectorFromYaml: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/create-connector-from-yaml`
   ),
   toCDResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, connectorId }: ProjectPathProps & ConnectorPathProps) =>

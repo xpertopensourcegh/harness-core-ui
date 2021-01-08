@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "default": {},
+  "required": ["checked", "dimensions", "id", "name", "price", "tags"],
+  "properties": {
+    "checked": {
+      "$id": "#/properties/checked",
+      "type": "boolean",
+      "default": false
+    },
+    "dimensions": {
+      "$id": "#/properties/dimensions",
+      "type": "object",
+      "default": {},
+
+      "required": ["width", "height"],
+      "properties": {
+        "width": {
+          "$id": "#/properties/dimensions/properties/width",
+          "type": "integer",
+          "default": 0
+        },
+        "height": {
+          "$id": "#/properties/dimensions/properties/height",
+          "type": "integer",
+          "default": 0
+        }
+      }
+    },
+    "id": {
+      "$id": "#/properties/id",
+      "type": "integer",
+      "default": 0
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "default": ""
+    },
+    "price": {
+      "$id": "#/properties/price",
+      "type": "number",
+      "default": 0
+    },
+    "tags": {
+      "$id": "#/properties/tags",
+      "type": "array",
+      "default": [],
+
+      "items": {
+        "$id": "#/properties/tags/items",
+        "type": "string",
+        "default": ""
+      }
+    }
+  }
+}

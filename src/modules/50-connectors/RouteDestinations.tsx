@@ -48,6 +48,15 @@ export default (
       >
         <ConnectorDetailsPage />
       </RouteWithLayout>
+      <RouteWithLayout
+        path={routes.toCreateConnectorFromYamlAtOrgLevel({
+          ...accountPathProps,
+          ...orgPathProps
+        })}
+        exact
+      >
+        <CreateConnectorFromYamlPage />
+      </RouteWithLayout>
       <RouteWithLayout path={routes.toCreateConnectorFromYaml({ ...accountPathProps })} exact>
         <CreateConnectorFromYamlPage />
       </RouteWithLayout>

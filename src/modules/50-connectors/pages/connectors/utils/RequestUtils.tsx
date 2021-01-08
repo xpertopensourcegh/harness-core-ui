@@ -6,7 +6,9 @@ import type { FilterDataInterface, FilterInterface } from '@common/components/Fi
 
 export const getValidFilterArguments = (formData: Record<string, any>): ConnectorFilterProperties => {
   const typeOptions = formData?.types?.map((type: SelectOption) => type?.value)
-  const statusOptions = formData?.connectivityStatuses?.map((status: SelectOption) => status?.value)
+  const statusOptions = formData?.connectivityStatuses
+    ?.filter((status: SelectOption) => status?.value !== 'NA')
+    .map((status: SelectOption) => status?.value)
   return {
     connectorNames: formData?.connectorNames || [],
     connectorIdentifiers: formData?.connectorIdentifiers || [],

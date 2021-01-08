@@ -181,7 +181,10 @@ export default (
           <ConnectorsPage />
         </ResourcesPage>
       </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}>
+      <RouteWithLayout
+        exact
+        path={routes.toCreateConnectorFromYamlAtProjectLevel({ ...accountPathProps, ...projectPathProps })}
+      >
         <CreateConnectorFromYamlPage />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}>

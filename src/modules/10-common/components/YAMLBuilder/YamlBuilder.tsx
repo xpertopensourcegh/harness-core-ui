@@ -13,8 +13,7 @@ import { Tag, Layout, Icon } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
   YamlBuilderHandlerBinding,
-  CompletionItemInterface,
-  LanguageSettingInterface
+  CompletionItemInterface
 } from '@common/interfaces/YAMLBuilderProps'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
 import { validateYAMLWithSchema } from '@common/utils/YamlUtils'
@@ -30,6 +29,8 @@ import { debounce } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
+import { useStrings } from 'framework/exports'
+import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
 //@ts-ignore
 monaco.editor.defineTheme('vs', {
@@ -74,25 +75,32 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     onSnippetCopy,
     snippetYaml,
     schema,
-    needEditorReset
+    needEditorReset,
+    onEnableEditMode
   } = props
   const params = useParams()
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string[]> | undefined>()
+
   const editorRef = useRef<MonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
-  const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
-  const editorVersionRef = useRef<number>()
   yamlRef.current = currentYaml
+  const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
   yamlValidationErrorsRef.current = yamlValidationErrors
+
+  const editorVersionRef = useRef<number>()
+
   const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
   const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
-  const { showError } = useToaster()
+
   let expressionCompletionDisposer: { dispose: () => void }
   let runTimeCompletionDisposer: { dispose: () => void }
+
+  const { showError } = useToaster()
+  const { getString } = useStrings()
 
   const editorHasUnsavedChanges = (): boolean => {
     const currentVersionId = editorRef?.current?.editor?.getModel()?.getAlternativeVersionId()
@@ -126,7 +134,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       const yamlEqOfJSON = stringify(sanitizedJSONObj)
       const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
       setCurrentYaml(sanitizedYAML)
-      verifyYAMLValidity(sanitizedYAML)
+      verifyYAML(sanitizedYAML)
     }
   }
 
@@ -149,7 +157,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }, [schema])
 
-  const getSchemaWithLanguageSettings = (schema: string | Record<string, any>): LanguageSettingInterface => {
+  const getSchemaWithLanguageSettings = (schema: string | Record<string, any>): string | Record<string, any> => {
     const schemaObj = typeof schema === 'string' ? JSON.parse(schema) : schema
     return {
       validate: true,
@@ -165,7 +173,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  const setUpYAMLBuilderWithLanguageSettings = (languageSettings: Record<string, any>): void => {
+  const setUpYAMLBuilderWithLanguageSettings = (languageSettings: string | Record<string, any>): void => {
     //@ts-ignore
     const { yaml } = languages || {}
     yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
@@ -177,25 +185,37 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   const onYamlChange = (updatedYaml: string): void => {
     setCurrentYaml(updatedYaml)
-    verifyYAMLValidity(updatedYaml)
+    verifyYAML(updatedYaml)
   }
 
-  const verifyYAMLValidity = (currentYaml: string): void => {
-    if (schema && currentYaml) {
-      validateYAMLWithSchema(currentYaml, [getSchemaWithLanguageSettings(schema)])
-        .then((validationErrors: Diagnostic[]) => {
-          if (validationErrors && Array.isArray(validationErrors)) {
-            const validationErrorMap = getYAMLPathToValidationErrorMap(
-              currentYaml,
-              validationErrors,
-              editorRef?.current?.editor
-            )
-            setYamlValidationErrors(validationErrorMap)
-          }
-        })
-        .catch((error: string) => {
-          showError(error, 5000)
-        })
+  const verifyYAML = (currentYaml: string): void => {
+    try {
+      if (schema && currentYaml) {
+        validateYAMLWithSchema(currentYaml, getSchemaWithLanguageSettings(schema))
+          .then((errors: Diagnostic[]) => {
+            if (errors && Array.isArray(errors) && errors.length > 0) {
+              processYAMLValidationErrors(currentYaml, errors)
+            }
+          })
+          .catch((error: string) => {
+            showError(error, 5000)
+          })
+      }
+    } catch (err) {
+      showError(getString('connectors.yamlError'))
+    }
+  }
+
+  const processYAMLValidationErrors = (currentYaml: string, validationErrors: Diagnostic[]): void => {
+    const validationErrorMap = getYAMLPathToValidationErrorMap(
+      currentYaml,
+      validationErrors,
+      editorRef?.current?.editor
+    )
+    if (yamlValidationErrors?.size == 0) {
+      setYamlValidationErrors(validationErrorMap)
+    } else {
+      setYamlValidationErrors(new Map([...(yamlValidationErrors || []), ...(validationErrorMap || [])]))
     }
   }
 
@@ -281,30 +301,49 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   /* #endregion */
 
-  const handleEditorKeyDownEvent = (event: KeyboardEvent, editor: any): void => {
-    const { shiftKey, code } = event
-    //TODO Need to check hotkey for cross browser/cross OS compatibility
-    //TODO Need to debounce this function call for performance optimization
-    if (shiftKey) {
-      if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
-        const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
-        disposePreviousSuggestions()
-        registerCompletionItemProviderForExpressions(editor, [TRIGGER_CHAR_FOR_NEW_EXPR], yamlPath)
-      } else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap && invocationMap.size > 0) {
-        const yamlPath = getMetaDataForKeyboardEventProcessing(editor, true)?.parentToCurrentPropertyPath
-        disposePreviousSuggestions()
-        invokeCallBackForMatchingYAMLPaths(editor, yamlPath)
+  const { openDialog } = useConfirmationDialog({
+    contentText: getString('yamlBuilder.enableEditContext'),
+    titleText: getString('confirm'),
+    confirmButtonText: getString('enable'),
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async didConfirm => {
+      if (didConfirm) {
+        onEnableEditMode?.()
       }
     }
-    if (code === KEY_CODE_FOR_PERIOD) {
-      const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
-      disposePreviousSuggestions()
-      registerCompletionItemProviderForExpressions(
-        editor,
-        [TRIGGER_CHAR_FOR_PARTIAL_EXPR],
-        yamlPath,
-        getExpressionFromCurrentLine(editor)
-      )
+  })
+
+  const handleEditorKeyDownEvent = (event: KeyboardEvent, editor: any): void => {
+    if (props.isReadOnlyMode) {
+      openDialog()
+    }
+    try {
+      const { shiftKey, code } = event
+      //TODO Need to check hotkey for cross browser/cross OS compatibility
+      //TODO Need to debounce this function call for performance optimization
+      if (shiftKey) {
+        if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
+          const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
+          disposePreviousSuggestions()
+          registerCompletionItemProviderForExpressions(editor, [TRIGGER_CHAR_FOR_NEW_EXPR], yamlPath)
+        } else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap && invocationMap.size > 0) {
+          const yamlPath = getMetaDataForKeyboardEventProcessing(editor, true)?.parentToCurrentPropertyPath
+          disposePreviousSuggestions()
+          invokeCallBackForMatchingYAMLPaths(editor, yamlPath)
+        }
+      }
+      if (code === KEY_CODE_FOR_PERIOD) {
+        const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
+        disposePreviousSuggestions()
+        registerCompletionItemProviderForExpressions(
+          editor,
+          [TRIGGER_CHAR_FOR_PARTIAL_EXPR],
+          yamlPath,
+          getExpressionFromCurrentLine(editor)
+        )
+      }
+    } catch (err) {
+      showError(getString('connectors.yamlError'))
     }
   }
 
