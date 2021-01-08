@@ -37,7 +37,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                 class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
                 <input
-                  checked=""
                   data-name="enabled-switch"
                   type="checkbox"
                 />

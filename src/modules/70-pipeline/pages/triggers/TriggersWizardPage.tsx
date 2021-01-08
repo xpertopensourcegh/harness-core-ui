@@ -80,7 +80,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
-  const [enabledStatus, setEnabledStatus] = useState<boolean>(triggerResponse?.data?.enabled ?? true)
+  const [enabledStatus, setEnabledStatus] = useState<boolean>(true)
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [onEditInitialValues, setOnEditInitialValues] = useState<
@@ -94,6 +94,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     )
   }, [template?.data?.inputSetTemplateYaml])
+
+  useEffect(() => {
+    if (triggerResponse?.data?.enabled === false) {
+      setEnabledStatus(false)
+    }
+  }, [triggerResponse?.data?.enabled])
 
   const { data: pipelineResponse } = useGetPipeline({
     pipelineIdentifier,
