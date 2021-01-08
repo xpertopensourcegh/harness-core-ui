@@ -222,6 +222,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     width = 400,
     placeholder,
     error,
+    disabled,
     ...rest
   } = props
   const { openConnectorModal } = useCreateConnectorModal({
@@ -286,6 +287,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
         })}
         selectedRenderer={getSelectedRenderer(selected)}
         {...optionalReferenceSelectProps}
+        disabled={disabled}
       />
     </FormGroup>
   )

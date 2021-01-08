@@ -69,7 +69,6 @@ exports[`<Map /> tests Readonly mode works 1`] = `
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </form>
@@ -176,7 +175,6 @@ exports[`<Map /> tests Should render properly 1`] = `
               </span>
             </button>
           </div>
-          
         </div>
       </div>
     </form>

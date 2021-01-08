@@ -101,14 +101,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   }
 
   const component = (
-    <FormGroup
-      {...rest}
-      labelFor={name}
-      helperText={helperText}
-      intent={intent}
-      disabled={disabled}
-      style={{ marginBottom: 0 }}
-    >
+    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} style={{ marginBottom: 0 }}>
       <MultiTypeReferenceInput<ConnectorReferenceDTO>
         name={name}
         referenceSelectProps={{
@@ -129,7 +122,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           }),
           isNewConnectorLabelVisible: isNewConnectorLabelVisible,
           selectedRenderer: getSelectedRenderer(selected),
-          ...optionalReferenceSelectProps
+          ...optionalReferenceSelectProps,
+          disabled
         }}
         onChange={(val, valueType) => {
           formik?.setFieldValue(name, val)

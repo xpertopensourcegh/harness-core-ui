@@ -41,6 +41,8 @@ export const List = (props: ListProps): React.ReactElement => {
   })
 
   const error = get(formik?.errors, name, '')
+  const touched = get(formik?.touched, name)
+  const hasSubmitted = get(formik, 'submitCount', 0) > 0
 
   React.useEffect(() => {
     let valueInCorrectFormat: ListType = []
@@ -64,6 +66,7 @@ export const List = (props: ListProps): React.ReactElement => {
   }
 
   const changeValue: (id: string, newValue: string) => void = (id, newValue) => {
+    formik?.setFieldTouched(name, true)
     setValue(currentValue =>
       currentValue.map(item => {
         if (item.id === id) {
@@ -90,9 +93,9 @@ export const List = (props: ListProps): React.ReactElement => {
                 <TextInput
                   onChange={e => changeValue(id, (e.currentTarget as HTMLInputElement).value.trim())}
                   data-testid={`value-${name}-[${index}]`}
-                  intent={error ? Intent.DANGER : Intent.NONE}
+                  intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
                   disabled={disabled}
-                  errorText={valueError ? valueError : undefined}
+                  errorText={(touched || hasSubmitted) && valueError ? valueError : undefined}
                 />
               </div>
               {!disabled && (
@@ -114,7 +117,7 @@ export const List = (props: ListProps): React.ReactElement => {
         )}
       </Card>
 
-      {error && typeof error === 'string' ? (
+      {(touched || hasSubmitted) && error && typeof error === 'string' ? (
         <Text intent={Intent.DANGER} margin={{ top: 'xsmall' }}>
           {error}
         </Text>

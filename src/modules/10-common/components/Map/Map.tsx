@@ -45,6 +45,8 @@ export const Map = (props: MapProps): React.ReactElement => {
   })
 
   const error = get(formik?.errors, name, '')
+  const touched = get(formik?.touched, name)
+  const hasSubmitted = get(formik, 'submitCount', 0) > 0
 
   const addValue = (): void => {
     setValue(currentValue => [...currentValue, generateNewValue()])
@@ -59,6 +61,7 @@ export const Map = (props: MapProps): React.ReactElement => {
   }
 
   const changeValue = (index: number, key: 'key' | 'value', newValue: string): void => {
+    formik?.setFieldTouched(name, true)
     setValue(currentValue => {
       const newCurrentValue = [...currentValue]
       newCurrentValue[index][key] = newValue
@@ -96,8 +99,8 @@ export const Map = (props: MapProps): React.ReactElement => {
               <div style={{ flexGrow: 1 }}>
                 {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('keyLabel')}</Text>}
                 <TextInput
-                  intent={error ? Intent.DANGER : Intent.NONE}
-                  errorText={keyError ? keyError : undefined}
+                  intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
+                  errorText={(touched || hasSubmitted) && keyError ? keyError : undefined}
                   disabled={disabled}
                   onChange={e => changeValue(index, 'key', (e.currentTarget as HTMLInputElement).value)}
                   data-testid={`key-${name}-[${index}]`}
@@ -108,8 +111,8 @@ export const Map = (props: MapProps): React.ReactElement => {
                 {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('valueLabel')}</Text>}
                 <div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}>
                   <TextInput
-                    intent={error ? Intent.DANGER : Intent.NONE}
-                    errorText={valueError ? valueError : undefined}
+                    intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
+                    errorText={(touched || hasSubmitted) && valueError ? valueError : undefined}
                     disabled={disabled}
                     onChange={e => changeValue(index, 'value', (e.currentTarget as HTMLInputElement).value)}
                     data-testid={`value-${name}-[${index}]`}
@@ -135,7 +138,7 @@ export const Map = (props: MapProps): React.ReactElement => {
         )}
       </Card>
 
-      {error && typeof error === 'string' && (
+      {(touched || hasSubmitted) && error && typeof error === 'string' && (
         <Text intent={Intent.DANGER} margin={{ top: 'xsmall' }}>
           {error}
         </Text>

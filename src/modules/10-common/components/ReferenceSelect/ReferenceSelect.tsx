@@ -37,6 +37,7 @@ export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<Enti
   width?: number
   isNewConnectorLabelVisible?: boolean
   onChange: (record: T, scope: Scope) => void
+  disabled?: boolean
 }
 
 export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectProps<T>): JSX.Element {
@@ -51,11 +52,21 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     isNewConnectorLabelVisible = true,
     editRenderer,
     selectedRenderer,
+    disabled,
     ...referenceProps
   } = props
   return (
     <Popover position={Position.BOTTOM} minimal={true}>
-      <Button minimal className={css.container} style={{ width }} rightIcon="caret-down">
+      <Button
+        minimal
+        className={css.container}
+        style={{ width }}
+        rightIcon="caret-down"
+        disabled={disabled}
+        onClick={e => {
+          if (disabled) e.preventDefault()
+        }}
+      >
         {selected ? selectedRenderer || selected.label : <span className={css.placeholder}>{placeholder}</span>}
       </Button>
       <div>

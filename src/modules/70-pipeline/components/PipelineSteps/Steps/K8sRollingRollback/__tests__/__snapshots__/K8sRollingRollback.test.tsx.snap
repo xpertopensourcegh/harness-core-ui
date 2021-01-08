@@ -387,7 +387,7 @@ exports[`Test K8sRollingRollback Step should render inputSet view and test valid
             <div
               class="bp3-form-helper-text"
             >
-              Timeout is Required
+              Timeout is a required field
             </div>
           </div>
         </div>
@@ -399,7 +399,7 @@ exports[`Test K8sRollingRollback Step should render inputSet view and test valid
         <pre>
           {
   "spec": {
-    "timeout": "Timeout is Required"
+    "timeout": "Timeout is a required field"
   }
 }
         </pre>

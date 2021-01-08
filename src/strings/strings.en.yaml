@@ -11,7 +11,7 @@ global:
   repository: 'Repository'
   more: '+{{number}} more'
   lastActivity: last activity
-  fieldRequired: '{{field}} is Required'
+  fieldRequired: '{{field}} is a required field'
   deploymentText: Deployment
   cloudCostsText: Cloud Costs
   changeVerificationText: Change Verifications

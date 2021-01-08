@@ -47,91 +47,208 @@ describe('Plugin Step', () => {
     factory.registerStep(new PluginStep())
   })
 
-  test('should render edit view as new step', () => {
-    const { container } = render(
-      <TestStepWidget initialValues={{}} type={StepType.Plugin} stepViewType={StepViewType.Edit} />
-    )
+  describe('Edit View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget initialValues={{}} type={StepType.Plugin} stepViewType={StepViewType.Edit} />
+      )
 
-    expect(container).toMatchSnapshot()
-  })
+      expect(container).toMatchSnapshot()
+    })
 
-  test('renders runtime inputs', async () => {
-    const initialValues = {
-      identifier: 'My_Plugin_Step',
-      name: 'My Plugin Step',
-      description: RUNTIME_INPUT_VALUE,
-      timeout: RUNTIME_INPUT_VALUE,
-      spec: {
-        connectorRef: RUNTIME_INPUT_VALUE,
-        image: RUNTIME_INPUT_VALUE,
-        settings: RUNTIME_INPUT_VALUE,
-        // TODO: Right now we do not support Image Pull Policy but will do in the future
-        // pull: RUNTIME_INPUT_VALUE,
-        resources: {
-          limits: {
-            cpu: RUNTIME_INPUT_VALUE,
-            memory: RUNTIME_INPUT_VALUE
+    test('renders runtime inputs', async () => {
+      const initialValues = {
+        identifier: 'My_Plugin_Step',
+        name: 'My Plugin Step',
+        description: RUNTIME_INPUT_VALUE,
+        timeout: RUNTIME_INPUT_VALUE,
+        spec: {
+          connectorRef: RUNTIME_INPUT_VALUE,
+          image: RUNTIME_INPUT_VALUE,
+          settings: RUNTIME_INPUT_VALUE,
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: RUNTIME_INPUT_VALUE,
+          resources: {
+            limits: {
+              cpu: RUNTIME_INPUT_VALUE,
+              memory: RUNTIME_INPUT_VALUE
+            }
           }
         }
       }
-    }
-    const onUpdate = jest.fn()
-    const { container, getByTestId } = render(
-      <TestStepWidget
-        initialValues={initialValues}
-        type={StepType.Plugin}
-        stepViewType={StepViewType.Edit}
-        onUpdate={onUpdate}
-      />
-    )
+      const onUpdate = jest.fn()
+      const { container, getByTestId } = render(
+        <TestStepWidget
+          initialValues={initialValues}
+          type={StepType.Plugin}
+          stepViewType={StepViewType.Edit}
+          onUpdate={onUpdate}
+        />
+      )
 
-    expect(container).toMatchSnapshot()
+      expect(container).toMatchSnapshot()
 
-    await act(async () => {
-      fireEvent.click(getByTestId('submit'))
+      await act(async () => {
+        fireEvent.click(getByTestId('submit'))
+      })
+      expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
-    expect(onUpdate).toHaveBeenCalledWith(initialValues)
-  })
 
-  test('edit mode works', async () => {
-    const initialValues = {
-      identifier: 'My_Plugin_Step',
-      name: 'My Plugin Step',
-      description: 'Description',
-      timeout: '10s',
-      spec: {
-        connectorRef: 'account.connectorRef',
-        image: 'image',
-        settings: {
-          key1: 'value1',
-          key2: 'value2',
-          key3: 'value3'
-        },
-        // TODO: Right now we do not support Image Pull Policy but will do in the future
-        // pull: 'always',
-        resources: {
-          limits: {
-            memory: '128Mi',
-            cpu: '0.2'
+    test('edit mode works', async () => {
+      const initialValues = {
+        identifier: 'My_Plugin_Step',
+        name: 'My Plugin Step',
+        description: 'Description',
+        timeout: '10s',
+        spec: {
+          connectorRef: 'account.connectorRef',
+          image: 'image',
+          settings: {
+            key1: 'value1',
+            key2: 'value2',
+            key3: 'value3'
+          },
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: 'always',
+          resources: {
+            limits: {
+              memory: '128Mi',
+              cpu: '0.2'
+            }
           }
         }
       }
-    }
-    const onUpdate = jest.fn()
-    const { container, getByTestId } = render(
-      <TestStepWidget
-        initialValues={initialValues}
-        type={StepType.Plugin}
-        stepViewType={StepViewType.Edit}
-        onUpdate={onUpdate}
-      />
-    )
+      const onUpdate = jest.fn()
+      const { container, getByTestId } = render(
+        <TestStepWidget
+          initialValues={initialValues}
+          type={StepType.Plugin}
+          stepViewType={StepViewType.Edit}
+          onUpdate={onUpdate}
+        />
+      )
 
-    expect(container).toMatchSnapshot()
+      expect(container).toMatchSnapshot()
 
-    await act(async () => {
-      fireEvent.click(getByTestId('submit'))
+      await act(async () => {
+        fireEvent.click(getByTestId('submit'))
+      })
+      expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
-    expect(onUpdate).toHaveBeenCalledWith(initialValues)
+  })
+
+  describe('InputSet View', () => {
+    test('should render properly', () => {
+      const { container } = render(
+        <TestStepWidget initialValues={{}} type={StepType.Plugin} stepViewType={StepViewType.InputSet} />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+
+    test('should render all fields', async () => {
+      const template = {
+        type: StepType.Plugin,
+        identifier: 'My_Plugin_Step',
+        description: RUNTIME_INPUT_VALUE,
+        timeout: RUNTIME_INPUT_VALUE,
+        spec: {
+          connectorRef: RUNTIME_INPUT_VALUE,
+          image: RUNTIME_INPUT_VALUE,
+          settings: RUNTIME_INPUT_VALUE,
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: RUNTIME_INPUT_VALUE,
+          resources: {
+            limits: {
+              cpu: RUNTIME_INPUT_VALUE,
+              memory: RUNTIME_INPUT_VALUE
+            }
+          }
+        }
+      }
+
+      const allValues = {
+        type: StepType.Plugin,
+        name: 'Test A',
+        identifier: 'My_Plugin_Step',
+        description: RUNTIME_INPUT_VALUE,
+        timeout: RUNTIME_INPUT_VALUE,
+        spec: {
+          connectorRef: RUNTIME_INPUT_VALUE,
+          image: RUNTIME_INPUT_VALUE,
+          settings: RUNTIME_INPUT_VALUE,
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: RUNTIME_INPUT_VALUE,
+          resources: {
+            limits: {
+              cpu: RUNTIME_INPUT_VALUE,
+              memory: RUNTIME_INPUT_VALUE
+            }
+          }
+        }
+      }
+
+      const onUpdate = jest.fn()
+
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{}}
+          type={StepType.Plugin}
+          template={template}
+          allValues={allValues}
+          stepViewType={StepViewType.InputSet}
+          onUpdate={onUpdate}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+
+    test('should not render any fields', async () => {
+      const template = {
+        type: StepType.Plugin,
+        identifier: 'My_Plugin_Step'
+      }
+
+      const allValues = {
+        type: StepType.Plugin,
+        identifier: 'My_Plugin_Step',
+        name: 'My Plugin Step',
+        description: 'Description',
+        timeout: '10s',
+        spec: {
+          connectorRef: 'account.connectorRef',
+          image: 'image',
+          settings: {
+            key1: 'value1',
+            key2: 'value2',
+            key3: 'value3'
+          },
+          // TODO: Right now we do not support Image Pull Policy but will do in the future
+          // pull: 'always',
+          resources: {
+            limits: {
+              memory: '128Mi',
+              cpu: '0.2'
+            }
+          }
+        }
+      }
+
+      const onUpdate = jest.fn()
+
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{}}
+          type={StepType.Plugin}
+          template={template}
+          allValues={allValues}
+          stepViewType={StepViewType.InputSet}
+          onUpdate={onUpdate}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
   })
 })
