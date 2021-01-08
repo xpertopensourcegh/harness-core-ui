@@ -8,8 +8,10 @@ import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCre
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
+import { useStrings } from 'framework/exports'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'
@@ -22,8 +24,10 @@ interface SecretsPageProps {
 const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const history = useHistory()
+  const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [page, setPage] = useState(0)
+  useDocumentTitle([getString('resources'), getString('secrets')])
 
   const { data: secretsResponse, loading, error, refetch } = useListSecretsV2({
     queryParams: {

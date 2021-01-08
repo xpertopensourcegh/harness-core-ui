@@ -20,6 +20,8 @@ global:
   executionsText: Executions
   runPipelineText: Run Pipeline
   noSecretsFound: 'No Connectors Found'
+  resources: 'Resources'
+  secrets: 'Secrets'
   noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
@@ -264,7 +266,6 @@ global:
     RUNTIME: Runtime input
     EXPRESSION: Expression
   adminSideNavLinks:
-    resources: 'Resources'
     governance: 'Governance'
     generalSettings: 'General Settings'
     accessControl: 'Access Control'
