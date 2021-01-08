@@ -17,7 +17,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-import { illegalIdentifiers } from '@common/utils/StringUtils'
+import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import css from './Steps.module.scss'
@@ -80,12 +80,12 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         name: Yup.string()
           .trim()
           .required(i18n.newProjectWizard.aboutProject.errorName)
-          .matches(/^[A-Za-z0-9_-][A-Za-z0-9 _-]*$/, i18n.newProjectWizard.aboutProject.validationNameChars),
+          .matches(regexName, i18n.newProjectWizard.aboutProject.validationNameChars),
         identifier: Yup.string().when('name', {
           is: val => val?.length,
           then: Yup.string()
             .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.newProjectWizard.aboutProject.validationIdentifierChars)
+            .matches(regexIdentifier, i18n.newProjectWizard.aboutProject.validationIdentifierChars)
             .notOneOf(illegalIdentifiers)
         }),
         orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganization)

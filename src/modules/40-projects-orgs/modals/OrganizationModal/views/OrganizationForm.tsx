@@ -14,9 +14,10 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler
 } from '@wings-software/uicore'
-import { illegalIdentifiers } from '@common/utils/StringUtils'
+import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import type { Organization } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import i18n from './StepAboutOrganization.i18n'
 import css from './Steps.module.scss'
 
@@ -51,6 +52,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
   disablePreview,
   enableEdit
 }) => {
+  const { getString } = useStrings()
   return (
     <Formik
       initialValues={{
@@ -62,12 +64,12 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
       }}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().trim().required(i18n.form.errorName),
+        name: Yup.string().trim().required(i18n.form.errorName).matches(regexName, getString('formValidation.name')),
         identifier: Yup.string().when('name', {
           is: val => val?.length,
           then: Yup.string()
             .required(i18n.form.errorIdentifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.form.validationIdentifierChars)
+            .matches(regexIdentifier, i18n.form.validationIdentifierChars)
             .notOneOf(illegalIdentifiers)
         })
       })}

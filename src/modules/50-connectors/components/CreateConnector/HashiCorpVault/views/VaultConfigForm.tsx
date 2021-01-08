@@ -77,7 +77,10 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
           ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
           type: 'Vault',
           spec: {
-            ...pick(formData, ['authToken', 'basePath', 'vaultUrl', 'readOnly', 'default', 'renewIntervalHours']),
+            ...pick(formData, ['basePath', 'vaultUrl', 'readOnly', 'default', 'renewIntervalHours']),
+            authToken: formData.accessType === 'TOKEN' ? formData.authToken : undefined,
+            appRoleId: formData.accessType === 'APP_ROLE' ? formData.appRoleId : undefined,
+            secretId: formData.accessType === 'APP_ROLE' ? formData.secretId : undefined,
             secretEngineName:
               formData.engineType === 'manual' ? formData.secretEngineName : formData.secretEngine?.split('@@@')[0],
             secretEngineVersion:
@@ -85,6 +88,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
           } as VaultConnectorDTO
         }
       }
+
       try {
         if (!isEditMode && prevStepData.isEdit != true) {
           await CreateHashiCorpVault(dataToSubmit)
