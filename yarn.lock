@@ -3177,10 +3177,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uicore@0.1.14":
-  version "0.1.14"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.14/2e43bc41ea6b873034e55c43ea1f82cbcebf7d842171351ec8b96eac635e190e#4b993a7934b4de6067aaa0394d393d86740791c6"
-  integrity sha512-L8TnSG5yeQ7XQ8iTzz1my9HSQpaHC6g53SsKl3gWJW4NjSCujU+HQDkhHi6h19qVKib9LI/ZGDwLVEOBG6e/Tw==
+"@wings-software/uicore@0.1.16":
+  version "0.1.16"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.16/51e51274f2cf8d957bccbfbe4a5137bafbeb69b82125a10900d4d29bad873a69#60cf849b38edcf43e93d1d3434720a16c2bdb685"
+  integrity sha512-daE8RJ0lBjCBpALn/UQybstnMqFG6jJQdrP0QaZ2bpyPR4F7Njx7R4wmiqug+NndbDF0MGyEHarFvCCYpxpVTQ==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"
@@ -15308,6 +15308,11 @@ xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+xterm-addon-fit@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0.tgz#06e0c5d0a6aaacfb009ef565efa1c81e93d90193"
+  integrity sha512-p4BESuV/g2L6pZzFHpeNLLnep9mp/DkF3qrPglMiucSFtD8iJxtMufEoEJbN8LZwB4i+8PFpFvVuFrGOSpW05w==
 
 xterm-addon-search@^0.7.0:
   version "0.7.0"

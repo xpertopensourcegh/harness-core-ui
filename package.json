@@ -61,7 +61,7 @@
     "@types/uuid": "^8.3.0",
     "@wings-software/mentions": "^1.2.9",
     "@wings-software/monaco-yaml": "2.4.32",
-    "@wings-software/uicore": "0.1.14",
+    "@wings-software/uicore": "0.1.16",
     "@wings-software/xhr-async": "^2.0.7",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",
@@ -95,6 +95,7 @@
     "xterm": "^4.9.0",
     "xterm-addon-search": "^0.7.0",
     "xterm-addon-web-links": "^0.4.0",
+    "xterm-addon-fit": "^0.4.0",
     "yaml": "^1.10.0",
     "yup": "^0.29.1"
   },
