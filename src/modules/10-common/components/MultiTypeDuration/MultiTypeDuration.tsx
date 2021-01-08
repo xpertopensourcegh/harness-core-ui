@@ -232,9 +232,11 @@ export function getDurationValidationSchema(
   })
 }
 
-export interface DurationInputForInputSetProps extends Omit<IInputGroupProps & HTMLInputProps, 'onChange' | 'value'> {
+export interface DurationInputForInputSetProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
   onChange?(str: string): void
   name: string
+  label?: React.ReactNode
+  inputProps?: Omit<IInputGroupProps & HTMLInputProps, 'onChange' | 'value'>
 }
 
 export interface ConnectedDurationInputForInputSetProps extends DurationInputForInputSetProps {
@@ -243,14 +245,38 @@ export interface ConnectedDurationInputForInputSetProps extends DurationInputFor
 }
 
 export function DurationInputForInputSet(props: ConnectedDurationInputForInputSetProps): React.ReactElement {
-  const { formik, onChange, ...rest } = props
+  const { formik, onChange, name, label, inputProps, ...restProps } = props
+
+  const hasError = errorCheck(name, formik)
+
+  const {
+    intent = hasError ? Intent.DANGER : Intent.NONE,
+    helperText = hasError ? get(formik?.errors, name) : null,
+    disabled,
+    ...rest
+  } = restProps
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const correctVal = e.currentTarget.value.replace(DurationInputHelpers.TEXT_LIMIT_REGEX, '')
     formik.setFieldValue(e.currentTarget.name, correctVal)
     onChange?.(correctVal)
   }
 
-  return <InputGroup fill {...rest} value={get(props.formik.values, props.name)} onChange={handleChange} />
+  return (
+    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
+      <InputGroup
+        fill
+        placeholder="Enter w/d/h/m/s/ms"
+        {...inputProps}
+        disabled={disabled}
+        name={name}
+        intent={intent}
+        value={get(formik.values, name)}
+        onChange={handleChange}
+        onBlur={formik.handleBlur}
+      />
+    </FormGroup>
+  )
 }
 
 export const DurationInputFieldForInputSet = connect<DurationInputForInputSetProps>(DurationInputForInputSet)

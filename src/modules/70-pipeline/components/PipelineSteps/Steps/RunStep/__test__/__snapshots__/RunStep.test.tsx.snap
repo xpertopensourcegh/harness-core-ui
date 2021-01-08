@@ -5658,6 +5658,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
         >
           <label
             class="bp3-label"
+            for="timeout"
           >
             <p
               class="StyledProps--font StyledProps--main"

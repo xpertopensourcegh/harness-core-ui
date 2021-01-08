@@ -1,7 +1,6 @@
 import React from 'react'
 import { Text, Button, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
-import { FormGroup } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
 import { useStrings } from 'framework/exports'
@@ -76,7 +75,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         </>
       )}
       {isTimeoutRuntime && (
-        <FormGroup
+        <DurationInputFieldForInputSet
           className={css.removeBpLabelMargin}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -89,13 +88,10 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               />
             </Text>
           }
-        >
-          <DurationInputFieldForInputSet
-            name={`${isEmpty(path) ? '' : `${path}.`}timeout`}
-            placeholder={getString('pipelineSteps.timeoutPlaceholder')}
-            disabled={readonly}
-          />
-        </FormGroup>
+          name={`${isEmpty(path) ? '' : `${path}.`}timeout`}
+          inputProps={{ placeholder: getString('pipelineSteps.timeoutPlaceholder') }}
+          disabled={readonly}
+        />
       )}
     </>
   )

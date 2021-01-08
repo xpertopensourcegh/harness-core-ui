@@ -123,11 +123,12 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
           </div>
         </div>
         <div
-          class="bp3-form-group removeBpLabelMargin"
+          class="bp3-form-group bp3-disabled removeBpLabelMargin"
           data-id="timeout-2"
         >
           <label
             class="bp3-label"
+            for="timeout"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -317,6 +318,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
         >
           <label
             class="bp3-label"
+            for="timeout"
           >
             <p
               class="StyledProps--font StyledProps--main"

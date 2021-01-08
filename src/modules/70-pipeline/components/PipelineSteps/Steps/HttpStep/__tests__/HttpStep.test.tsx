@@ -148,48 +148,11 @@ describe('Http Step', () => {
         type={StepType.HTTP}
         stepViewType={StepViewType.InputSet}
         onUpdate={onUpdate}
+        path="spec"
       />
     )
 
     expect(container).toMatchSnapshot()
-
-    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-
-    fireEvent.change(queryByNameAttribute('spec.url')!, { target: { value: 'https://someapi.com/v3' } })
-
-    expect(onUpdate).toHaveBeenLastCalledWith({
-      spec: {
-        headers: [],
-        method: undefined,
-        outputVariables: [],
-        url: 'https://someapi.com/v3'
-      }
-    })
-
-    fireEvent.change(queryByNameAttribute('spec.requestBody')!, {
-      target: { value: '{ "message": "Hello world!" }' }
-    })
-
-    expect(onUpdate).toHaveBeenLastCalledWith({
-      spec: {
-        headers: [],
-        method: undefined,
-        outputVariables: [],
-        requestBody: '{ "message": "Hello world!" }'
-      }
-    })
-
-    fireEvent.change(queryByNameAttribute('spec.timeout')!, {
-      target: { value: '1d' }
-    })
-    expect(onUpdate).toHaveBeenLastCalledWith({
-      spec: {
-        headers: [],
-        method: undefined,
-        outputVariables: [],
-        timeout: '1d'
-      }
-    })
   })
 
   test('renders empty input sets', () => {
@@ -206,7 +169,12 @@ describe('Http Step', () => {
       }
     }
     const { container } = render(
-      <TestStepWidget initialValues={initialValues} type={StepType.HTTP} stepViewType={StepViewType.InputSet} />
+      <TestStepWidget
+        initialValues={initialValues}
+        type={StepType.HTTP}
+        stepViewType={StepViewType.InputSet}
+        path="spec"
+      />
     )
 
     expect(container).toMatchSnapshot()

@@ -1,6 +1,5 @@
 import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, SelectOption, FormInput } from '@wings-software/uicore'
-import { FormGroup } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
@@ -15,55 +14,43 @@ export interface HttpInputSetStepProps {
   stepViewType?: StepViewType
   readonly?: boolean
   template?: HttpStepData
+  path: string
 }
 
 export default function HttpInputSetStep(props: HttpInputSetStepProps): React.ReactElement {
-  const { template, onUpdate, initialValues } = props
+  const { template, onUpdate, initialValues, path, readonly } = props
   const { getString } = useStrings()
 
   return (
     <React.Fragment>
       {getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME ? (
-        <FormGroup label={getString('UrlLabel')}>
-          <FormInput.Text
-            name="spec.url"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, url: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
+        <FormInput.Text label={getString('UrlLabel')} name={`${path}.url`} disabled={readonly} />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME ? (
-        <FormGroup label={getString('methodLabel')}>
-          <FormInput.Select
-            name="spec.method"
-            items={httpStepType}
-            onChange={(opt: SelectOption) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, method: opt.value.toString() } })
-            }}
-          />
-        </FormGroup>
+        <FormInput.Select
+          label={getString('methodLabel')}
+          name={`${path}.method`}
+          items={httpStepType}
+          onChange={(opt: SelectOption) => {
+            onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, method: opt.value.toString() } })
+          }}
+          disabled={readonly}
+        />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.requestBody) === MultiTypeInputType.RUNTIME ? (
-        <FormGroup label={getString('requestBodyLabel')}>
-          <FormInput.TextArea
-            name="spec.requestBody"
-            style={{ resize: 'vertical' }}
-            onChange={(event: React.SyntheticEvent<HTMLTextAreaElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, requestBody: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
+        <FormInput.TextArea
+          label={getString('requestBodyLabel')}
+          name={`${path}.requestBody`}
+          style={{ resize: 'vertical' }}
+          disabled={readonly}
+        />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <FormGroup label={getString('pipelineSteps.timeoutLabel')}>
-          <DurationInputFieldForInputSet
-            name="spec.timeout"
-            onChange={(timeout: string) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, timeout } })
-            }}
-          />
-        </FormGroup>
+        <DurationInputFieldForInputSet
+          label={getString('pipelineSteps.timeoutLabel')}
+          name={`${path}.timeout`}
+          disabled={readonly}
+        />
       ) : null}
     </React.Fragment>
   )

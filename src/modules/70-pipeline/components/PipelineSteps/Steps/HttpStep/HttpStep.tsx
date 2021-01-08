@@ -88,6 +88,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
           stepViewType={stepViewType}
           readonly={!!inputSetData?.readonly}
           template={inputSetData?.template}
+          path={inputSetData?.path || ''}
         />
       )
     }
