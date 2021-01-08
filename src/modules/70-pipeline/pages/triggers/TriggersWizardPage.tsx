@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption } from '@wings-software/uicore'
+import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
 import { parse, stringify } from 'yaml'
 import { isEmpty, merge } from 'lodash-es'
 import { Page, useToaster } from '@common/exports'
@@ -22,6 +22,7 @@ import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
+import { GetTriggerRightNav } from '../trigger-details/TriggerDetails'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {
   clearNullUndefined,
@@ -79,6 +80,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
+  const [enabledStatus, setEnabledStatus] = useState<boolean>(triggerResponse?.data?.enabled ?? true)
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [onEditInitialValues, setOnEditInitialValues] = useState<
@@ -230,6 +232,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     const triggerJson: NGTriggerConfig = {
       name,
       identifier,
+      enabled: enabledStatus,
       description,
       tags,
       target: {
@@ -299,6 +302,25 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     initialValues.sourceRepo && initialValues.triggerType
       ? getWizardMap({ triggerType: initialValues.triggerType, getString, triggerName: initialValues?.name })
       : undefined
+
+  const titleWithSwitch = (
+    <Layout.Horizontal
+      spacing="medium"
+      style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
+    >
+      <Heading level={2}>{wizardMap?.wizardLabel}</Heading>
+      <Text>{getString('enabledLabel')}</Text>
+
+      <Switch
+        label=""
+        data-name="enabled-switch"
+        key={Date.now()}
+        checked={enabledStatus}
+        onChange={() => setEnabledStatus(!enabledStatus)}
+      />
+    </Layout.Horizontal>
+  )
+
   const errorToasterMessage =
     ((createTriggerErrorResponse?.data as unknown) as { message?: string })?.message ||
     ((updateTriggerErrorResponse?.data as unknown) as { message?: string })?.message
@@ -326,6 +348,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
+        showVisualYaml={false}
+        leftNav={titleWithSwitch}
+        rightNav={GetTriggerRightNav()}
       >
         <WebhookTriggerConfigPanel />
         <WebhookConditionsPanel />

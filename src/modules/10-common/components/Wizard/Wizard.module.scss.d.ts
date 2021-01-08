@@ -10,5 +10,7 @@ declare const styles: {
   readonly headerLine: string
   readonly transparentBlock: string
   readonly footerLine: string
+  readonly extendedNav: string
+  readonly sideItems: string
 }
 export default styles

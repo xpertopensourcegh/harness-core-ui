@@ -9,7 +9,8 @@ import {
   GetSourceRepoToEventResponse,
   GetActionsListResponse,
   GetTriggerResponse,
-  updateTriggerMockResponseYaml
+  updateTriggerMockResponseYaml,
+  enabledFalseUpdateTriggerMockResponseYaml
 } from './webhookMockResponses'
 import {
   GetPipelineResponse,
@@ -94,6 +95,35 @@ describe('TriggersWizardPage Triggers tests', () => {
       fireEvent.click(updateButton)
       await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
       expect(mockUpdate).toBeCalledWith(updateTriggerMockResponseYaml)
+    })
+
+    test('Submit onEdit values with Enabled False', async () => {
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() =>
+        queryByText(container, result.current.getString('pipeline-triggers.triggerConfigurationLabel'))
+      )
+
+      const enabledSwitch = container.querySelector('[data-name="enabled-switch"]')
+      if (!enabledSwitch) {
+        throw Error('cannot find enabled switch')
+      } else {
+        fireEvent.click(enabledSwitch)
+      }
+
+      const tab3 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Pipeline Input"]')
+      if (!tab3) {
+        throw Error('No Pipeline Input tab')
+      }
+      fireEvent.click(tab3)
+      await waitFor(() => expect(result.current.getString('pipeline-triggers.updateTrigger')).not.toBeNull())
+      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      if (!updateButton) {
+        throw Error('Cannot find Update Trigger button')
+      }
+
+      fireEvent.click(updateButton)
+      await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
+      expect(mockUpdate).toBeCalledWith(enabledFalseUpdateTriggerMockResponseYaml)
     })
   })
 })

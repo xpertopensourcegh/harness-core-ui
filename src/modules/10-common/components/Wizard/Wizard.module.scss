@@ -89,3 +89,19 @@
   width: 100%;
   background-color: var(--white);
 }
+
+.extendedNav {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--white);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+  padding-bottom: var(--spacing-small);
+}
+
+.sideItems {
+  width: 500px;
+}
+
+[class*='pageBody'] {
+  background: #fbfcfd !important;
+}

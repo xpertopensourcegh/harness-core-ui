@@ -264,32 +264,6 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               + Add
             </p>
           </section>
-          <div
-            class="bp3-form-group bp3-disabled"
-            data-id="jexlConditions-4"
-            style="width: 100%;"
-          >
-            <label
-              class="bp3-label"
-              for="jexlConditions"
-            >
-              JEXL Conditions
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <textarea
-                autocomplete="off"
-                class="bp3-input bp3-fill"
-                disabled=""
-                name="jexlConditions"
-              />
-            </div>
-          </div>
         </div>
         <button
           class="bp3-button StyledProps--font Button--button StyledProps--main submitButton"

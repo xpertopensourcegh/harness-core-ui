@@ -81,7 +81,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         setFieldValue={setFieldValue}
         errors={errors}
       />
-      <FormInput.TextArea style={{ width: '100%' }} disabled={true} name="jexlConditions" label="JEXL Conditions" />
+      {/* <FormInput.TextArea style={{ width: '100%' }} disabled={true} name="jexlConditions" label="JEXL Conditions" /> */}
     </Layout.Vertical>
   )
 }

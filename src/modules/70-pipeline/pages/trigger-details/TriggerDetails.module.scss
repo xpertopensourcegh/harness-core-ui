@@ -27,3 +27,9 @@
     color: var(--white);
   }
 }
+
+.extendedHeader {
+  box-shadow: none;
+  height: 32px !important;
+  margin-top: var(--spacing-medium) !important;
+}

@@ -191,9 +191,7 @@ const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   const numActivations = sum(executions)
   return (
     <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
-      <span className={css.activityChart}>
-        <SparkChart data={executions} />
-      </span>
+      <span className={css.activityChart}>{numActivations !== 0 && <SparkChart data={executions} />}</span>
       <Container style={{ textAlign: 'start', paddingLeft: 'var(--spacing-xsmall)' }}>
         <span>{column.getString('pipeline-triggers.activityActivation', { numActivations })}</span>
         <Text>{column.getString('pipeline-triggers.activityDays', { numDays })}</Text>

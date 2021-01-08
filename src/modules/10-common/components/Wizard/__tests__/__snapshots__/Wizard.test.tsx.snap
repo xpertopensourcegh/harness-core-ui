@@ -11,7 +11,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-small"
         level="2"
-        style="position: fixed; top: 35px;"
+        style="position: fixed; top: 35px; z-index: 2;"
       >
         Wizard Title
       </h2>
@@ -245,7 +245,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-small"
         level="2"
-        style="position: fixed; top: 35px;"
+        style="position: fixed; top: 35px; z-index: 2;"
       >
         Wizard Title
       </h2>

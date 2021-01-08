@@ -6,6 +6,7 @@ import type { FormikErrors } from 'formik'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
+// import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { renderTitle, setNewTouchedPanel } from './WizardUtils'
 import css from './Wizard.module.scss'
 
@@ -43,7 +44,15 @@ interface WizardProps {
   children?: JSX.Element[]
   disableSubmit?: boolean
   errorToasterMessage?: string
+  rightNav?: JSX.Element
+  leftNav?: JSX.Element
+  showVisualYaml?: boolean
 }
+
+// enum SelectedView {
+//   VISUAL = 'VISUAL',
+//   YAML = 'YAML'
+// }
 
 const Wizard: React.FC<WizardProps> = ({
   wizardMap,
@@ -56,7 +65,10 @@ const Wizard: React.FC<WizardProps> = ({
   children,
   isEdit = false,
   disableSubmit,
-  errorToasterMessage
+  errorToasterMessage,
+  rightNav,
+  leftNav,
+  showVisualYaml = false
 }) => {
   const { wizardLabel } = wizardMap
   const defaultWizardTabId = wizardMap.panels[0].id
@@ -69,6 +81,7 @@ const Wizard: React.FC<WizardProps> = ({
   const lastTab = selectedTabIndex === tabsMap.length - 1
   const { getString } = useStrings()
   const elementsRef: { current: RefObject<HTMLSpanElement>[] } = useRef(wizardMap.panels?.map(() => createRef()))
+  // const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
 
   const handleTabChange = (data: string): void => {
     const tabsIndex = tabsMap.findIndex(tab => tab === data)
@@ -90,12 +103,29 @@ const Wizard: React.FC<WizardProps> = ({
       showError(errorToasterMessage)
     }
   }, [showError, errorToasterMessage])
-
+  const title = leftNav ? (
+    <div className={css.sideItems}>{leftNav}</div>
+  ) : (
+    <Heading
+      className={css.sideItems}
+      // style={{ position: 'fixed', top: '35px', paddingLeft: 'var(--spacing-large)' }}
+      padding="small"
+      level={2}
+    >
+      {wizardLabel}
+    </Heading>
+  )
   return (
     <section className={css.wizardShell} ref={layoutRef}>
-      {wizardLabel && (
+      {leftNav || showVisualYaml || rightNav ? (
+        <section className={css.extendedNav}>
+          {title}
+          {/* {showVisualYaml ? <VisualYamlToggle /> : null} */}
+          <div className={css.sideItems}>{rightNav ? rightNav : null}</div>
+        </section>
+      ) : (
         <Heading
-          style={{ position: 'fixed', top: '35px', paddingLeft: 'var(--spacing-large)' }}
+          style={{ position: 'fixed', top: '35px', paddingLeft: 'var(--spacing-large)', zIndex: 2 }}
           padding="small"
           level={2}
         >
