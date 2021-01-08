@@ -4,5 +4,6 @@ declare const styles: {
   readonly page: string
   readonly dateRangePicker: string
   readonly popoverClassname: string
+  readonly activity: string
 }
 export default styles

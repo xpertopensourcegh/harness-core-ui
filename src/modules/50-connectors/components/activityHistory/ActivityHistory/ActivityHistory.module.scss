@@ -1,5 +1,4 @@
 .page {
-  min-height: calc(100vh - 128px);
   min-width: 900px;
 }
 .dateRangePicker {
@@ -7,4 +6,7 @@
 }
 .popoverClassname {
   border-radius: 4px;
+}
+.activity {
+  min-height: calc(100vh - 600px);
 }

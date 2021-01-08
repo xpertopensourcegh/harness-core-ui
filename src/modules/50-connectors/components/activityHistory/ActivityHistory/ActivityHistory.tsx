@@ -51,12 +51,12 @@ export function buildDateRangeShortcuts(): IDateRangeShortcut[] {
       includeTime: true
     },
     {
-      dateRange: [startOfDay(today().subtract(2, 'days')), endOfDay(yesterday())],
+      dateRange: [startOfDay(today().subtract(1, 'days')), endOfDay(today())],
       label: i18n.shortcuts.Last2Days,
       includeTime: true
     },
     {
-      dateRange: [startOfDay(today().subtract(3, 'days')), endOfDay(yesterday())],
+      dateRange: [startOfDay(today().subtract(2, 'days')), endOfDay(today())],
       label: i18n.shortcuts.Last3Days,
       includeTime: true
     },
@@ -66,12 +66,12 @@ export function buildDateRangeShortcuts(): IDateRangeShortcut[] {
       includeTime: true
     },
     {
-      dateRange: [startOfDay(today().subtract(30, 'days')), endOfDay(yesterday())],
+      dateRange: [startOfDay(today().subtract(30, 'days')), endOfDay(today())],
       label: i18n.shortcuts.LastMonth,
       includeTime: true
     },
     {
-      dateRange: [startOfDay(today().subtract(60, 'days')), endOfDay(yesterday())],
+      dateRange: [startOfDay(today().subtract(60, 'days')), endOfDay(today())],
       label: i18n.shortcuts.Last2Months,
       includeTime: true
     }
@@ -143,6 +143,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
           <DateRangePicker
             className={css.dateRangePicker}
             maxDate={new Date()}
+            defaultValue={dateRange}
             shortcuts={buildDateRangeShortcuts()}
             onChange={range => {
               if (range[0] && range[1]) {

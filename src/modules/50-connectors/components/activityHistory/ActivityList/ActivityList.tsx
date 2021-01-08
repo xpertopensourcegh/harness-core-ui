@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import moment from 'moment'
 
-import { Layout, Text, Icon, Color, IconName } from '@wings-software/uicore'
+import { Layout, Text, Icon, Color, IconName, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { DateRange } from '@blueprintjs/datetime'
@@ -13,6 +13,7 @@ import { Page } from 'modules/10-common/exports'
 import { ActivityStatus } from '@connectors/constants'
 
 import i18n from './ActivityList.i18n'
+import css from '../ActivityHistory/ActivityHistory.module.scss'
 
 interface ActivityListProps {
   activityList: ResponsePageActivity
@@ -153,11 +154,13 @@ const ActivityList: React.FC<ActivityListProps> = props => {
   }
 
   return (
-    <Layout.Vertical>
+    <Layout.Vertical className={css.activity}>
       {dataArray?.length ? (
         <Table<AllActivity> columns={columns} data={dataArray || []} />
       ) : (
-        <Page.NoDataCard icon="nav-dashboard" message={i18n.noData} />
+        <Container height={'200px'}>
+          <Page.NoDataCard icon="nav-dashboard" message={i18n.noData} />
+        </Container>
       )}
     </Layout.Vertical>
   )

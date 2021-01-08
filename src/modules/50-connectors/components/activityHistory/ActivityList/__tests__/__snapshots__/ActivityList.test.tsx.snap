@@ -3,7 +3,7 @@
 exports[`Activity List render all activity 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main"
+    class="Layout--vertical StyledProps--main activity"
   >
     <div
       class="table"
@@ -1460,7 +1460,7 @@ exports[`Activity List render all activity 1`] = `
 exports[`Activity List render only connectivity check activity 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main"
+    class="Layout--vertical StyledProps--main activity"
   >
     <div
       class="table"
