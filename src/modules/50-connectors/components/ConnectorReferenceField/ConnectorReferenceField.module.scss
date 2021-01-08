@@ -15,10 +15,13 @@
   display: flex;
   align-content: center;
 
-  &.red-status {
+  /* for increased specificity */
+  &.red-status:global(.bp3-icon) {
     color: var(--red-500) !important;
   }
-  &.green-status {
+
+  /* for increased specificity */
+  &.green-status:global(.bp3-icon) {
     color: var(--green-500) !important;
   }
 }
