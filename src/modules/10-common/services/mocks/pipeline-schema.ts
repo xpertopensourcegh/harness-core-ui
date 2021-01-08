@@ -68,7 +68,7 @@ export const pipelineSchema = {
                 type: 'object',
                 properties: {
                   type: {
-                    enum: ['ci', 'Deployment']
+                    enum: ['CI', 'Deployment']
                   },
                   name: {
                     type: 'string'
@@ -80,7 +80,7 @@ export const pipelineSchema = {
                 if: {
                   properties: {
                     type: {
-                      const: 'ci'
+                      const: 'CI'
                     }
                   }
                 },

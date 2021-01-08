@@ -53,7 +53,7 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
 
   // only ci stage
   // TODO: Replace 'ci' literal with enum
-  if (stage.type === 'ci') {
+  if (stage.type === 'CI') {
     stageNode.childNodes?.push({
       id: `Stage_Dependencies$${stage.identifier}`,
       hasCaret: false,

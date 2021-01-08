@@ -24,7 +24,7 @@ const StageSelection = Select.ofType<StageSelectOption>()
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
-  ci: 'pipeline-build-select',
+  CI: 'pipeline-build-select',
   Approval: 'pipeline-approval',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'

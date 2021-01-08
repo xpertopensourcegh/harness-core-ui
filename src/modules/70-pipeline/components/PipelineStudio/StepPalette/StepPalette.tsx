@@ -34,7 +34,7 @@ const useGetBuildSteps = (props: UseGetStepsProps) =>
 // TODO: move to StepPalleteUtils.ts
 const dataSourceFactory = (stageType: string): any => {
   switch (stageType) {
-    case 'ci':
+    case 'CI':
       return useGetBuildSteps
     case 'Deployment':
       return useGetSteps

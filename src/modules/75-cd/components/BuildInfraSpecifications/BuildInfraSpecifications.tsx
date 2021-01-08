@@ -89,7 +89,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
 
   if (stages && stages.length > 0) {
     stages.forEach((item, index) => {
-      if (index < stageIndex && item.stage.type === 'ci' && item.stage.spec.infrastructure?.spec) {
+      if (index < stageIndex && item.stage.type === 'CI' && item.stage.spec.infrastructure?.spec) {
         otherBuildStagesWithInfraConfigurationOptions.push({
           label: `Stage ${item.stage.name}`,
           value: item.stage.identifier
