@@ -25,6 +25,11 @@ global:
   noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
+  errorTitle: Something went wrong...
+  errorSubtitle: This error has been reported and we are looking into it with high priority.
+  errorHelp: to continue, this will remove all unsaved changes.
+  please: Please
+  clickHere: ' click here '
   blueGreen: BlueGreen
   canary: Canary
   details: Details
