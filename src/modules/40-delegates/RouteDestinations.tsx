@@ -8,6 +8,7 @@ import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import DelegatesPage from 'modules/40-delegates/pages/delegates/DelegatesPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
+// import DelegateDetails from 'modules/40-delegates/pages/delegates/DelegateDetails'
 
 export default (
   <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
@@ -24,5 +25,11 @@ export default (
         </ResourcesPage>
       </RouteWithLayout>
     </Route>
+
+    {/* <RouteWithLayout exact path={routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps })}>
+      <ResourcesPage>
+        <DelegateDetails />
+      </ResourcesPage>
+    </RouteWithLayout> */}
   </SidebarProvider>
 )

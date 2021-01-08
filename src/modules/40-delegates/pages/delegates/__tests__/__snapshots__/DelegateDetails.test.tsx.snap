@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delegates Details Page render data 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-bottom-medium StyledProps--padding-right-xlarge StyledProps--background-blue200"
+  >
+    Navigation content
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody main"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main cardContainer"
+        >
+          <div
+            class="bp3-card bp3-elevation-0 Card--card overview"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+            >
+              Overview
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
+            >
+              <div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  style="margin-bottom: 5px;"
+                >
+                  Hostname
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                >
+                  D
+                </p>
+              </div>
+              <div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  style="margin-bottom: 5px;"
+                >
+                  Delegate Type
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                >
+                  ECS
+                </p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <hr />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex"
+                >
+                  <div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                      style="margin-bottom: 5px;"
+                    >
+                      Description
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                    >
+                       
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card overview"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+            >
+              Advanced
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
+            >
+              <div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  style="margin-bottom: 5px;"
+                >
+                  Delegate Tags
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                >
+                  You can use delegate tags to control if this delegate can be used for executing certain steps in a pipeline
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                >
+                  Delegate Specific Tags
+                </p>
+                <span
+                  class="Tag--main"
+                >
+                  <span
+                    class="bp3-tag bp3-intent-primary bp3-minimal"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      <span>
+                        test-selectorA
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="Tag--main"
+                >
+                  <span
+                    class="bp3-tag bp3-intent-primary bp3-minimal"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      <span>
+                        test-selectorB
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                >
+                  Tags inherited from the delegate configuration
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

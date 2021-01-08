@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import moment from 'moment'
-
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Button, Container, Intent, Tag, Layout, Popover } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import Table from '@common/components/Table/Table'
+import DelegateDetails from './DelegateDetails'
 import success from './success.svg'
+
 import css from './DelegatesPage.module.scss'
 
 interface DelegateListingProps {
@@ -20,7 +21,7 @@ interface Delegate {
   connections: string[]
   delegateName: string
   hostName: string
-  lastHeartBeat: string
+  lastHeartBeat: number
   tags?: string[]
 }
 
@@ -95,9 +96,20 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = () => {
 
 export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateListingProps) => {
   const { getString } = useStrings()
+  const [selDelegate, setSelDelegate] = useState<Delegate | null>(null)
+  // const history = useHistory()
   if (!props.delegateResponse) {
     return <div>Delegate Listing</div>
   }
+
+  // const goToDetails = ({ uuid }: Delegate): void => {
+  //   history.push(
+  //     routes.toResourcesDelegatesDetails({
+  //       accountId,
+  //       delegateId: uuid
+  //     })
+  //   )
+  // }
 
   const {
     delegateResponse: {
@@ -138,14 +150,38 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
   ]
   return (
     <Container className={css.delegateContainer}>
-      <Button
-        id="delegateButton"
-        intent="primary"
-        text={getString('delegate.NEW_DELEGATE')}
-        icon="plus"
-        onClick={props.onClick}
-      />
-      <Table columns={columns} data={delegates} className={css.delegateTable} />
+      {!selDelegate && (
+        <>
+          <Button
+            id="delegateButton"
+            intent="primary"
+            text={getString('delegate.NEW_DELEGATE')}
+            icon="plus"
+            onClick={props.onClick}
+          />
+          <Table
+            columns={columns}
+            data={delegates}
+            className={css.delegateTable}
+            onRowClick={item => {
+              setSelDelegate(item)
+            }}
+          />
+        </>
+      )}
+      {selDelegate && (
+        <>
+          <Button
+            minimal
+            onClick={() => {
+              setSelDelegate(null)
+            }}
+          >
+            {getString('delegate.ReturnToDelegates')}
+          </Button>
+          <DelegateDetails delegate={selDelegate} />
+        </>
+      )}
     </Container>
   )
 }

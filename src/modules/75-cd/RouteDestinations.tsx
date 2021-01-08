@@ -248,6 +248,7 @@ export default (
       >
         <TriggersDetailPage />
       </RouteWithLayout>
+
       <Route exact path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}>
         <RedirectToExecutionPipeline />
       </Route>

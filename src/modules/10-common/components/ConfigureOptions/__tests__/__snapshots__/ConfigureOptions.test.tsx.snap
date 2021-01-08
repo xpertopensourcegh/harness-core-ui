@@ -745,7 +745,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    advanced
+                    Advanced
                   </span>
                 </button>
               </span>

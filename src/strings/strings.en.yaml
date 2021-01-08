@@ -314,9 +314,18 @@ global:
     percentagePlaceHolder: 'Percentage'
     instanceHolder: 'Count'
   delegate:
+    HostName: 'Hostname'
+    DELEGATE_TYPE: 'Delegate Type'
     DELEGATES: 'Delegates'
     NEW_DELEGATE: 'New Delegate'
     DelegateName: 'Delegate'
+    DelegateTags: 'Delegate Tags'
+    ReturnToDelegates: 'Return to list of Delegates'
+    TagsFromDelegateConfig: 'Tags inherited from the delegate configuration'
+    DelegateSpecificTags: 'Delegate Specific Tags'
+    DelegateTagDescription:
+      'You can use delegate tags to control if this delegate can be used for executing certain steps in
+      a pipeline'
     LastHeartBeat: 'Last HeartBeat'
     DELEGATE_KUBERNETE_TITLE: 'Kubernetes'
     delegates_4_ways_title: 'Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
@@ -359,6 +368,7 @@ global:
         icon: 'service-ecs'
         name: 'Linux'
     DELEGATE_CONFIGURATIONS: 'Delegate Configurations'
+    DELEGATE_CONFIGURATION: 'Delegate Configuration'
   execution:
     pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
     latestCommit: 'Latest commit:'
@@ -1114,7 +1124,6 @@ global:
     validation: 'Validation'
     none: 'None'
     regex: 'Regex'
-    advanced: 'advanced'
     returnToBasic: 'return to basic'
     jexlLabel: 'Values (JEXL Expression)'
     values: 'Values'

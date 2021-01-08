@@ -210,7 +210,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             text={
                               values.isAdvanced
                                 ? getString('configureOptions.returnToBasic')
-                                : getString('configureOptions.advanced')
+                                : getString('advancedTitle')
                             }
                             onClick={() => {
                               setFieldValue('isAdvanced', !values.isAdvanced)
