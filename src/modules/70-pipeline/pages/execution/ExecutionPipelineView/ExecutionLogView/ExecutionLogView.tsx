@@ -6,9 +6,12 @@ import { MenuItem } from '@blueprintjs/core'
 
 import { Container, Icon, Text, Button } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
+import { useUpdateQueryParams } from '@common/hooks'
 import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import routes from '@common/RouteDefinitions'
 
+import type { ExecutionNode } from 'services/cd-ng'
 import type { ExecutionGraph } from 'services/pipeline-ng'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -48,6 +51,8 @@ export default function ExecutionLogView(): React.ReactElement {
     pipelineStagesMap,
     queryParams
   } = useExecutionContext()
+  const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
+
   const [selectedNode, setSelectedNode] = useState<string | undefined>()
   const [selectedStageId, setStageId] = useState(autoSelectedStageId)
   const params = useParams<PipelineType<ExecutionPathParams>>()
@@ -55,6 +60,13 @@ export default function ExecutionLogView(): React.ReactElement {
   useEffect(() => {
     setStageId(queryParams.stage || autoSelectedStageId)
   }, [autoSelectedStageId])
+
+  // NOTE: select step only once, after that we keep step/node selection in state
+  useEffect(() => {
+    if (queryParams.step) {
+      setSelectedNode(queryParams.step)
+    }
+  }, [])
 
   if (!pipelineExecutionDetail) {
     return <div />
@@ -107,9 +119,19 @@ export default function ExecutionLogView(): React.ReactElement {
     }
   }
 
+  // TODO: do we need this logic inside UI?
+  const isNodeVisible = (node: ExecutionNode) => {
+    return ['LITE_ENGINE_TASK'].indexOf(node.stepType!) === -1
+  }
+
+  // TODO: do we need this logic inside UI?
+  const hasNodeLogs = (node: ExecutionNode) => {
+    return ['NG_SECTION'].indexOf(node.stepType!) === -1
+  }
+
   const renderNodeDetails = (nodeId: string) => {
     const rootNode = getNodeDetails(nodeId)
-    if (!rootNode) {
+    if (!rootNode || !isNodeVisible(rootNode)) {
       return <div />
     }
 
@@ -117,9 +139,20 @@ export default function ExecutionLogView(): React.ReactElement {
     const icon: string = statusIcon[status]
 
     const attrs: any = rootNode?.status === 'Running' ? { color: 'blue500' } : {}
-    const highlightingClassName = selectedNode && selectedNode === rootNode.name ? css.highlighted : ''
+    const highlightingClassName = selectedNode && selectedNode === rootNode.uuid ? css.highlighted : ''
+    const disabledClassName = !hasNodeLogs(rootNode) ? css.disabled : ''
+
+    const onClickProps = hasNodeLogs(rootNode)
+      ? {
+          onClick: () => {
+            replaceQueryParams({ ...queryParams, step: rootNode.uuid })
+            setSelectedNode(rootNode.uuid)
+          }
+        }
+      : {}
+
     return (
-      <section className={`${css.node} ${highlightingClassName}`} onClick={() => setSelectedNode(rootNode.name)}>
+      <section {...onClickProps} className={`${css.node} ${highlightingClassName} ${disabledClassName}`}>
         <div className={css.nodeInfo}>
           {<Icon name={icon} className={css.icon} {...attrs} />}
           <Text className={css.nodeText}>{rootNode.name}</Text>
@@ -268,7 +301,7 @@ export default function ExecutionLogView(): React.ReactElement {
       <Container className={css.logsContainer}>
         <TreeNode node={stageIds[0]} isRootNode={true} level={0} />
 
-        <LogsContent />
+        <LogsContent rows={30} />
       </Container>
     )
   }

@@ -12,6 +12,7 @@ declare const styles: {
   readonly logViewer: string
   readonly node: string
   readonly highlighted: string
+  readonly disabled: string
   readonly icon: string
   readonly rootNode: string
   readonly rootElement: string

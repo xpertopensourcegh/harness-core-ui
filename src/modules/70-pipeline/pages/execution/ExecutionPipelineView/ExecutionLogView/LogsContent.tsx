@@ -16,6 +16,7 @@ interface LogsContentProps {
   header?: string
   showCross?: boolean
   redirectToLogView?: any
+  rows?: number
 }
 
 const LogsContent = (props: LogsContentProps) => {
@@ -92,8 +93,7 @@ const LogsContent = (props: LogsContentProps) => {
 
   // close all sections
   useEffect(() => {
-    const newArr = Array.from({ length: logsSectionsModel.length }, () => false)
-    setOpenPanelArr(() => newArr)
+    setOpenPanelArr(() => Array.from({ length: logsSectionsModel.length }, () => false))
   }, [logsSectionsModel.length])
 
   // setup logs stream
@@ -145,7 +145,7 @@ const LogsContent = (props: LogsContentProps) => {
   useEffect(() => {
     // NOTE: auto open loading section and close other if user is not interacted with logs
     if (!touched && activeLoadingSection && activeLoadingSection?.sectionIdx > -1) {
-      setOpenPanelArr(openPanelArr.map((_, idx) => idx === activeLoadingSection?.sectionIdx))
+      setOpenPanelArr(_openPanelArr => _openPanelArr.map((_, idx) => idx === activeLoadingSection?.sectionIdx))
     }
   }, [loadingIndex, touched])
 
@@ -179,7 +179,7 @@ const LogsContent = (props: LogsContentProps) => {
         redirectToLogView={props.redirectToLogView}
       />
       <MultiLogsViewer
-        rows={5}
+        rows={props.rows || 20}
         loadingIndex={loadingIndex}
         numberOfLogSections={logsSectionsModel.length}
         titleForSection={sectionIndex => {

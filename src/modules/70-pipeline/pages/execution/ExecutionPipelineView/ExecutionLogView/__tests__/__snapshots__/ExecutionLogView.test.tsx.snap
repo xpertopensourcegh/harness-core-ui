@@ -89,7 +89,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               class=""
             >
               <section
-                class="node "
+                class="node  "
               >
                 <div
                   class="nodeInfo"
@@ -145,7 +145,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                 class=""
               >
                 <section
-                  class="node "
+                  class="node  "
                 >
                   <div
                     class="nodeInfo"
@@ -201,7 +201,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                   class=""
                 >
                   <section
-                    class="node "
+                    class="node  "
                   >
                     <div
                       class="nodeInfo"
@@ -244,7 +244,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                     class=""
                   >
                     <section
-                      class="node "
+                      class="node  "
                     >
                       <div
                         class="nodeInfo"

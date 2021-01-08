@@ -65,6 +65,7 @@
   align-items: center;
   padding: 2px;
   margin: 0;
+  cursor: pointer;
 }
 
 .highlighted {
@@ -72,6 +73,10 @@
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   // padding: 5px;
+}
+
+.disabled {
+  cursor: default;
 }
 
 .icon {

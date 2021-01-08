@@ -17,14 +17,13 @@ export default function ExecutionPagination({
   function gotoPage(index: number): void {
     updateQueryParams({ page: index + 1 })
   }
-
   return (
     <div className={css.pagination}>
       <Pagination
         pageSize={pipelineExecutionSummary?.size || 0}
         pageIndex={pipelineExecutionSummary?.number}
         pageCount={pipelineExecutionSummary?.totalPages || 0}
-        itemCount={pipelineExecutionSummary?.numberOfElements || 0}
+        itemCount={pipelineExecutionSummary?.totalElements || 0}
         gotoPage={gotoPage}
         nextPage={gotoPage}
       />

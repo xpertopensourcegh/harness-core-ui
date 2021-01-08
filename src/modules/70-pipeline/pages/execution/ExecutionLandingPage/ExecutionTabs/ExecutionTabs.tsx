@@ -17,6 +17,10 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
 
+  let stageAndStepIdentifierQuery = ''
+  if (queryParams.get('stage')) stageAndStepIdentifierQuery += `&stage=${queryParams.get('stage')}`
+  if (queryParams.get('step')) stageAndStepIdentifierQuery += `&step=${queryParams.get('step')}`
+
   const isPipeLineView = !!matchPath(location.pathname, {
     path: routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })
   })
@@ -68,13 +72,13 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
         <div className={css.viewToggle}>
           <NavLink
             className={cx({ [css.activeView]: isGraphView })}
-            to={`${routes.toExecutionPipelineView(params)}?view=graph`}
+            to={`${routes.toExecutionPipelineView(params)}?view=graph${stageAndStepIdentifierQuery}`}
           >
             {i18n.graphView}
           </NavLink>
           <NavLink
             className={cx({ [css.activeView]: isLogView })}
-            to={`${routes.toExecutionPipelineView(params)}?view=log`}
+            to={`${routes.toExecutionPipelineView(params)}?view=log${stageAndStepIdentifierQuery}`}
           >
             {i18n.logView}
           </NavLink>
