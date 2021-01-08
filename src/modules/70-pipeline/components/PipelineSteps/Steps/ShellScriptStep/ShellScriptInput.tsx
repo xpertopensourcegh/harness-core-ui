@@ -3,9 +3,8 @@ import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { Button, FormInput, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
-import type { ShellScriptStepInfo } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import type { ShellScriptStepVariable } from './shellScriptTypes'
+import type { ShellScriptFormData, ShellScriptStepVariable } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
@@ -14,7 +13,7 @@ export const scriptInputType: SelectOption[] = [
   { label: 'Number', value: 'Number' }
 ]
 
-export default function ShellScriptInput(props: { formik: FormikProps<ShellScriptStepInfo> }): React.ReactElement {
+export default function ShellScriptInput(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
     formik: { values: formValues }
   } = props
@@ -31,7 +30,7 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                 <span className={css.label}>Type</span>
                 <span className={css.label}>Value</span>
               </div>
-              {formValues.spec.environmentVariables.map(({ id }: ShellScriptStepVariable, i: number) => (
+              {formValues.spec.environmentVariables?.map(({ id }: ShellScriptStepVariable, i: number) => (
                 <div className={css.environmentVarHeader} key={id}>
                   <FormInput.Text name={`spec.environmentVariables[${i}].name`} />
                   <FormInput.Select

@@ -2,10 +2,10 @@ import React from 'react'
 import type { FormikProps } from 'formik'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import type { ShellScriptStepInfo } from 'services/cd-ng'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
+import type { ShellScriptFormData } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
@@ -14,7 +14,7 @@ export const shellScriptType: SelectOption[] = [
   { label: 'Powershell', value: 'POWERSHELL' }
 ]
 
-export default function BaseShellScript(props: { formik: FormikProps<ShellScriptStepInfo> }): React.ReactElement {
+export default function BaseShellScript(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue }
   } = props
@@ -43,7 +43,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
         <FormMultiTypeTextAreaField name="spec.source.spec.script" label={getString('script')} />
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formValues.spec.source?.spec?.script}
+            value={formValues.spec.source?.spec?.script as string}
             type="String"
             variableName="spec.source.spec.script"
             showRequiredField={false}

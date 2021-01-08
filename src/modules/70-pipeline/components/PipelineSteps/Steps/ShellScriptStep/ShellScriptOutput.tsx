@@ -2,17 +2,12 @@ import React from 'react'
 import { FieldArray, FormikProps } from 'formik'
 import { Button, FormInput, MultiTypeInputType, Text } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
-import type { NGVariable, NumberNGVariable, ShellScriptStepInfo, StringNGVariable } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import type { ShellScriptFormData, ShellScriptOutputStepVariable } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
-interface ShellScriptOutputVariables extends Omit<NGVariable, 'value'> {
-  value: NumberNGVariable | StringNGVariable
-  id: string
-}
-
-export default function ShellScriptOutput(props: { formik: FormikProps<ShellScriptStepInfo> }): React.ReactElement {
+export default function ShellScriptOutput(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
     formik: { values: formValues }
   } = props
@@ -33,7 +28,7 @@ export default function ShellScriptOutput(props: { formik: FormikProps<ShellScri
                   <span className={css.label}>Variable Name</span>
                   <span className={css.label}>Value</span>
                 </div>
-                {formValues.spec.outputVariables.map(({ id }: ShellScriptOutputVariables, i: number) => (
+                {formValues.spec.outputVariables?.map(({ id }: ShellScriptOutputStepVariable, i: number) => (
                   <div className={css.outputVarHeader} key={id}>
                     <FormInput.Text name={`spec.outputVariables[${i}].name`} />
                     <FormInput.MultiTextInput

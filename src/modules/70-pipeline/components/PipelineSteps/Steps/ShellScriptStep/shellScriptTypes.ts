@@ -6,6 +6,11 @@ export interface ShellScriptStepVariable {
   name?: string
   type?: 'String' | 'Number'
 }
+export interface ShellScriptOutputStepVariable {
+  value: number | string
+  id: string
+  name?: string
+}
 interface ShellScriptSource {
   type?: string
   spec?: ShellScriptInline
@@ -15,16 +20,16 @@ export interface ShellScriptInline {
 }
 export interface ShellScriptData extends StepElement {
   spec: Omit<ShellScriptStepInfo, 'environmentVariables' | 'outputVariables' | 'source'> & {
-    environmentVariables?: string | Array<Omit<ShellScriptStepVariable, 'id'>>
-    outputVariables?: string | Array<Omit<ShellScriptStepVariable, 'id'>>
+    environmentVariables?: Array<Omit<ShellScriptStepVariable, 'id'>>
+    outputVariables?: Array<Omit<ShellScriptOutputStepVariable, 'id'>>
     source?: ShellScriptSource
   }
 }
 
 export interface ShellScriptFormData extends StepElement {
   spec: Omit<ShellScriptStepInfo, 'environmentVariables' | 'outputVariables' | 'source'> & {
-    environmentVariables?: string | Array<ShellScriptStepVariable>
-    outputVariables?: string | Array<ShellScriptStepVariable>
+    environmentVariables?: Array<ShellScriptStepVariable>
+    outputVariables?: Array<ShellScriptOutputStepVariable>
     source?: ShellScriptSource
   }
 }

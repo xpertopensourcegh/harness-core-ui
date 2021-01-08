@@ -3,18 +3,18 @@ import { useParams } from 'react-router-dom'
 import { Text, FormInput, getMultiTypeFromValue, MultiTypeInputType, TextInput, Layout } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
-import type { ShellScriptStepInfo } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import type { ShellScriptFormData } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
 export const connectionTypeOptions = [{ label: 'SSH', value: 'SSH' }]
 
 export default function ExecutionTarget(props: {
-  formik: FormikProps<ShellScriptStepInfo>
+  formik: FormikProps<ShellScriptFormData>
   loading: any
 }): React.ReactElement {
   const {
