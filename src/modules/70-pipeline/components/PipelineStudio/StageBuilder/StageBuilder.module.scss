@@ -101,7 +101,7 @@
   .resizers {
     position: absolute;
     right: var(--spacing-medium);
-    top: var(--spacing-none);
+    top: 20px;
     z-index: 3;
     transform: translateY(-18px);
     height: 46px;

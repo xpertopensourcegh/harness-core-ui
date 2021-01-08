@@ -50,7 +50,7 @@ const PipelineYamlView: React.FC = () => {
         }}
       />
       <YAMLBuilder
-        fileName="DeploymentPipeline.yaml"
+        fileName="Pipeline.yaml"
         entityType="Pipelines"
         existingJSON={{ pipeline }}
         bind={setYamlHandler}

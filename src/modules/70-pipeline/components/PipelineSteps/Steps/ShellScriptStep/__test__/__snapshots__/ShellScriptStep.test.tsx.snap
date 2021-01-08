@@ -75,7 +75,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
       <div>
         <div
           class="bp3-form-group"
-          data-id="source.spec.script-0"
+          data-id="spec.source.spec.script-0"
         >
           <label
             class="bp3-label"
@@ -91,7 +91,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="source.spec.script-1"
+              data-id="spec.source.spec.script-1"
             >
               <div
                 class="bp3-form-content"
@@ -102,7 +102,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="source.spec.script"
+                    name="spec.source.spec.script"
                     type="text"
                     value=""
                   />

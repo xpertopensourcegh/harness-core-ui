@@ -38,7 +38,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
     <FormikForm>
       {getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME ? (
         <FormGroup label={getString('script')}>
-          <FormInput.Text name={`${isEmpty(path) ? '' : `${path}.`}source.spec.script`} />
+          <FormInput.Text name={`${isEmpty(path) ? '' : `${path}.`}spec.source.spec.script`} />
         </FormGroup>
       ) : null}
 
