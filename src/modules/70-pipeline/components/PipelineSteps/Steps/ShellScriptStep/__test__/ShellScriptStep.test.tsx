@@ -25,7 +25,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'Bash',
+        shell: 'BASH',
         executionTarget: {
           host: RUNTIME_INPUT_VALUE,
           connectionType: RUNTIME_INPUT_VALUE,
@@ -71,7 +71,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'Bash',
+        shell: 'BASH',
         executionTarget: {
           host: 'targethost',
           connectionType: 'SSH',
@@ -117,7 +117,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'Bash',
+        shell: 'BASH',
         onDelegate: 'targethost',
         source: {
           type: 'Inline',
@@ -253,5 +253,126 @@ describe('Test Shell Script Step', () => {
         ]
       }
     })
+  })
+
+  test('renders input sets', () => {
+    const onUpdate = jest.fn()
+    const initialValues = {
+      identifier: 'SSH',
+      name: 'SSH',
+      spec: {
+        source: {
+          spec: {
+            script: RUNTIME_INPUT_VALUE
+          }
+        },
+        executionTarget: {
+          host: RUNTIME_INPUT_VALUE,
+          connectorRef: RUNTIME_INPUT_VALUE,
+          workingDirectory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{}}
+        template={initialValues}
+        type={StepType.SHELLSCRIPT}
+        stepViewType={StepViewType.InputSet}
+        onUpdate={onUpdate}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders empty input sets', () => {
+    const initialValues = {
+      identifier: 'SSH',
+      name: 'SSH',
+      source: {
+        spec: {
+          script: RUNTIME_INPUT_VALUE
+        }
+      },
+      spec: {
+        executionTarget: {
+          host: RUNTIME_INPUT_VALUE,
+          connectionType: RUNTIME_INPUT_VALUE,
+          connectorRef: RUNTIME_INPUT_VALUE,
+          workingDirectory: RUNTIME_INPUT_VALUE
+        }
+      }
+    }
+    const { container } = render(
+      <TestStepWidget initialValues={initialValues} type={StepType.SHELLSCRIPT} stepViewType={StepViewType.InputSet} />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('input sets should not render', () => {
+    const template = {
+      type: StepType.SHELLSCRIPT,
+      identifier: 'ShellScript'
+    }
+    const allValues = {
+      type: 'ShellScript',
+      identifier: 'ShellScript',
+      name: 'SSH',
+      spec: {
+        shell: 'BASH',
+        onDelegate: 'targethost',
+        source: {
+          type: 'Inline',
+          spec: {
+            script: 'test script'
+          }
+        },
+        executionTarget: {
+          host: 'targethost',
+          connectionType: 'SSH',
+          connectorRef: 'connectorRef',
+          workingDirectory: './temp'
+        },
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'Test_A'
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: 'Test_B'
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            value: 'Test_C'
+          },
+          {
+            name: 'testOutput2',
+            value: 'Test_D'
+          }
+        ]
+      }
+    }
+
+    const onUpdate = jest.fn()
+
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{}}
+        type={StepType.SHELLSCRIPT}
+        stepViewType={StepViewType.InputSet}
+        template={template}
+        allValues={allValues}
+        onUpdate={onUpdate}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
   })
 })

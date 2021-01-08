@@ -1,5 +1,281 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test Shell Script Step input sets should not render 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div />
+    </form>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Test Shell Script Step renders empty input sets 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div />
+    </form>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Test Shell Script Step renders input sets 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="bp3-form-group"
+          data-id="source.spec.script-0"
+        >
+          <label
+            class="bp3-label"
+          >
+            Script
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="source.spec.script-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="source.spec.script"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.executionTarget.host-2"
+        >
+          <label
+            class="bp3-label"
+          >
+            Target Host
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="spec.executionTarget.host-3"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.executionTarget.host"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="null-4"
+        >
+          <label
+            class="bp3-label"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
+            >
+              SSH Connection Attribute
+            </p>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  style="width: 560px;"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    <span
+                      class="placeholder"
+                    >
+                      Select
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                    icon="caret-down"
+                  >
+                    <svg
+                      data-icon="caret-down"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        caret-down
+                      </desc>
+                      <path
+                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.executionTarget.workingDirectory-5"
+        >
+          <label
+            class="bp3-label"
+          >
+            Working Directory
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="spec.executionTarget.workingDirectory-6"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.executionTarget.workingDirectory"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Test Shell Script Step renders runtime inputs 1`] = `
 <div>
   <div
@@ -168,7 +444,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                               placeholder="Script Type"
                               style="padding-right: 0px;"
                               type="text"
-                              value=""
+                              value="Bash"
                             />
                             <span
                               class="bp3-input-action"
@@ -532,7 +808,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                               placeholder="Script Type"
                               style="padding-right: 0px;"
                               type="text"
-                              value=""
+                              value="Bash"
                             />
                             <span
                               class="bp3-input-action"
@@ -896,7 +1172,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                               placeholder="Script Type"
                               style="padding-right: 0px;"
                               type="text"
-                              value=""
+                              value="Bash"
                             />
                             <span
                               class="bp3-input-action"

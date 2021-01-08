@@ -141,9 +141,9 @@ describe('Stage Builder Test', () => {
     const nameField = document.body.querySelector('#bp3-tab-panel_step-commands_step-configuration [name="name"]')
     fireEvent.change(nameField as HTMLElement, { target: { value: 'Test Shell Script' } })
     // // Now Submit the configuration
-    // const submitBtn = document.body.querySelector('#bp3-tab-panel_step-commands_step-configuration button')
-    // fireEvent.click(submitBtn!)
-    // await waitFor(() => getByTextContainer('Shell Script'))
+    const submitBtn = document.body.querySelector('#bp3-tab-panel_step-commands_step-configuration button')
+    fireEvent.click(submitBtn!)
+    await waitFor(() => getByTextContainer('Save'))
     // Save the Execution Step
     const saveBtn = getByTextContainer('Save')
     fireEvent.click(saveBtn)

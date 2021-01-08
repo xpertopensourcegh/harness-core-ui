@@ -7,7 +7,8 @@ import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import type { StepViewType } from '@pipeline/exports'
+import type { InputSetData } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/exports'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
@@ -23,6 +24,7 @@ import ShellScriptInput from './ShellScriptInput'
 import ExecutionTarget from './ExecutionTarget'
 import ShellScriptOutput from './ShellScriptOutput'
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
+import ShellScriptInputSetStep from './ShellScriptInputSetStep'
 import stepCss from '../Steps.module.scss'
 
 /**
@@ -135,8 +137,21 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   renderStep(
     initialValues: ShellScriptData,
     onUpdate?: (data: ShellScriptData) => void,
-    stepViewType?: StepViewType
+    stepViewType?: StepViewType,
+    inputSetData?: InputSetData<ShellScriptData>
   ): JSX.Element {
+    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+      return (
+        <ShellScriptInputSetStep
+          initialValues={this.getInitialValues(initialValues)}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
+          stepViewType={stepViewType}
+          readonly={!!inputSetData?.readonly}
+          template={inputSetData?.template}
+          path={inputSetData?.path || ''}
+        />
+      )
+    }
     return (
       <ShellScriptWidget
         initialValues={this.getInitialValues(initialValues)}
@@ -177,34 +192,34 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       ...initialValues,
       spec: {
         ...initialValues.spec,
-
-        onDelegate: initialValues.spec.onDelegate ? 'targethost' : 'delegate',
+        shell: 'BASH',
+        onDelegate: initialValues.spec?.onDelegate ? 'targethost' : 'delegate',
 
         source: {
-          ...initialValues.spec.source,
+          ...initialValues.spec?.source,
           type: 'Inline',
           spec: {
-            ...initialValues.spec.source?.spec,
+            ...initialValues.spec?.source?.spec,
             script: ''
           }
         },
 
         executionTarget: {
-          ...initialValues.spec.executionTarget,
+          ...initialValues.spec?.executionTarget,
           host: '',
           connectorRef: '',
           workingDirectory: ''
         },
 
-        environmentVariables: Array.isArray(initialValues.spec.environmentVariables)
-          ? initialValues.spec.environmentVariables.map(variable => ({
+        environmentVariables: Array.isArray(initialValues.spec?.environmentVariables)
+          ? initialValues.spec?.environmentVariables.map(variable => ({
               ...variable,
               id: uuid()
             }))
           : [{ name: '', type: 'String', value: '', id: uuid() }],
 
-        outputVariables: Array.isArray(initialValues.spec.outputVariables)
-          ? initialValues.spec.outputVariables.map(variable => ({
+        outputVariables: Array.isArray(initialValues.spec?.outputVariables)
+          ? initialValues.spec?.outputVariables.map(variable => ({
               ...variable,
               id: uuid()
             }))
@@ -220,18 +235,18 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         ...data.spec,
 
         executionTarget: {
-          ...data.spec.executionTarget,
+          ...data.spec?.executionTarget,
           connectorRef:
-            (data.spec.executionTarget?.connectorRef?.value as string) ||
-            data.spec.executionTarget?.connectorRef?.toString()
+            (data.spec?.executionTarget?.connectorRef?.value as string) ||
+            data.spec?.executionTarget?.connectorRef?.toString()
         },
 
-        environmentVariables: Array.isArray(data.spec.environmentVariables)
-          ? data.spec.environmentVariables.filter(variable => variable.value).map(({ id, ...variable }) => variable)
+        environmentVariables: Array.isArray(data.spec?.environmentVariables)
+          ? data.spec?.environmentVariables.filter(variable => variable.value).map(({ id, ...variable }) => variable)
           : undefined,
 
-        outputVariables: Array.isArray(data.spec.outputVariables)
-          ? data.spec.outputVariables.filter(variable => variable.value).map(({ id, ...variable }) => variable)
+        outputVariables: Array.isArray(data.spec?.outputVariables)
+          ? data.spec?.outputVariables.filter(variable => variable.value).map(({ id, ...variable }) => variable)
           : undefined
       }
     }
