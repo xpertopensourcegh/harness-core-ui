@@ -806,12 +806,15 @@ global:
       name: 'name'
       targetSegment: 'Target Segment'
       lastActivity: 'Last Activity'
+      createdDate: Created Date
       create: 'Target(s)'
       list: 'Add a target'
       upload: 'Upload a list of targets'
       enterName: 'Enter a Name'
       enterValue: 'Enter a Value'
       addTargets: 'Add Target(s)'
+      noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
+      noSegmentFound: 'No segment found in this environment. Click the button above to create a segment.'
     segments:
       create: 'Segment'
       targetDefinition: 'Target Definition'

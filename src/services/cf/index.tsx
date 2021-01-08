@@ -181,6 +181,7 @@ export interface Target {
   name?: string
   anonymous?: boolean
   attributes?: { [key: string]: any }
+  createdAt?: number
 }
 
 export type Targets = Pagination & {

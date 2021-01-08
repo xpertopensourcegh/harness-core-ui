@@ -1,3 +1,9 @@
+.pageBody {
+  background: var(--grey-100) !important;
+  height: calc(100% - 80px);
+  overflow: auto;
+}
+
 .table {
   width: 100%;
 }
@@ -24,5 +30,4 @@
 
 .content {
   padding: var(--spacing-medium) var(--spacing-large) !important;
-  background: var(--grey-100) !important;
 }

@@ -1,10 +1,9 @@
 import React from 'react'
-import { Menu, Spinner } from '@blueprintjs/core'
+import { Menu } from '@blueprintjs/core'
 import { Container, Button, Layout, Text } from '@wings-software/uicore'
 import type { Column } from 'react-table'
 import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
 import type { Feature, Segment } from 'services/cf'
@@ -40,7 +39,6 @@ const UsedByCell: React.FC<any> = ({ value }: any) => {
 }
 
 interface TargetSegmentsProps {
-  loading: boolean
   segments: Segment[]
   flags: Feature[]
   pagination?: {
@@ -58,7 +56,6 @@ interface TargetSegmentsProps {
 }
 
 const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
-  loading,
   segments,
   flags,
   pagination,
@@ -69,8 +66,8 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
   onCreateSegment
 }) => {
   const { getString } = useStrings()
+  const getPageString = (key: string) => getString(`cf.targets.${key}`)
   const history = useHistory()
-
   type CustomColumn<T extends Record<string, any>> = Column<T>
   const columnDefs: CustomColumn<Segment>[] = [
     {
@@ -106,29 +103,29 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
     )
   }
 
-  if (loading) {
-    return (
-      <Container flex style={{ justifyContent: 'center', height: '100%' }}>
-        <Spinner size={50} />
-      </Container>
-    )
-  }
-
   return (
-    <Page.Body>
+    <>
       <Container className={css.header}>
         <CreateTargetSegmentModal project={project} environment={environment} onCreate={onCreateSegment} />
       </Container>
       <Container flex className={css.content}>
-        <Table<Segment>
-          className={css.table}
-          columns={columnDefs}
-          data={segments}
-          pagination={pagination}
-          onRowClick={handleRowClick}
-        />
+        {!!segments?.length && (
+          <Table<Segment>
+            className={css.table}
+            columns={columnDefs}
+            data={segments}
+            pagination={pagination}
+            onRowClick={handleRowClick}
+          />
+        )}
+        {(segments?.length === 0 && (
+          <Text style={{ margin: '0 auto' }} padding="huge">
+            {getPageString('noSegmentFound')}
+          </Text>
+        )) ||
+          null}
       </Container>
-    </Page.Body>
+    </>
   )
 }
 

@@ -7,7 +7,11 @@ import FlagTypeElement from '../CreateFlagType/FlagTypeElement'
 import i18n from './FlagDialog.i18n'
 import css from './FlagDialog.module.scss'
 
-const FlagModal: React.FC = () => {
+export interface FlagModalProps {
+  disabled?: boolean
+}
+
+const FlagModal: React.FC<FlagModalProps> = ({ disabled }) => {
   const [flagTypeClicked, setFlagTypeClicked] = useState(false)
   const [flagTypeView, setFlagTypeView] = useState('')
 
@@ -87,9 +91,7 @@ const FlagModal: React.FC = () => {
   )
 
   return (
-    <>
-      <Button text={i18n.newFlag} intent="primary" onClick={showModal} className={css.openModalBtn} />
-    </>
+    <Button disabled={disabled} text={i18n.newFlag} intent="primary" onClick={showModal} className={css.openModalBtn} />
   )
 }
 

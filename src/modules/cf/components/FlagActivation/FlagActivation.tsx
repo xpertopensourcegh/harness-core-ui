@@ -303,7 +303,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             />
           </Layout.Horizontal>
           <Container className={css.tabContainer}>
-            {flagData ? (
+            {flagData && (
               <>
                 <Tabs id="editFlag">
                   <Tab
@@ -332,8 +332,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   className={css.tabContainerTestFlagBtn}
                 />
               </>
-            ) : (
-              <Text>No Data</Text>
             )}
           </Container>
           {(editing || dirty) && (

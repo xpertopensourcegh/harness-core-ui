@@ -23,7 +23,7 @@ import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
 import { Page } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
-import { PageSpinner } from '@common/components'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
@@ -214,11 +214,11 @@ const CFFeatureFlagsPage: React.FC = () => {
   const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const [environment, setEnvironment] = useState<SelectOption | null>(null)
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
 
   const { data: environments, loading: envsLoading, error: envsError, refetch: refetchEnvironments } = useEnvironments({
-    accountId,
+    accountIdentifier: accountId,
     orgIdentifier,
     projectIdentifier
   } as GetEnvironmentListForProjectQueryParams)
@@ -319,7 +319,7 @@ const CFFeatureFlagsPage: React.FC = () => {
 
       <Container className={css.ffListContainer}>
         <Layout.Horizontal className={css.ffPageBtnsHeader}>
-          <FlagDialog />
+          <FlagDialog disabled={loading} />
 
           <FlexExpander />
 
@@ -335,6 +335,7 @@ const CFFeatureFlagsPage: React.FC = () => {
 
           {/* TODO: Filters length/count should be displayed next to the button, check with BE */}
           <Button
+            disabled={loading}
             icon="settings"
             iconProps={{ size: 20, color: Color.BLUE_500 }}
             minimal
@@ -400,7 +401,19 @@ const CFFeatureFlagsPage: React.FC = () => {
           />
         )}
 
-        {loading && <PageSpinner />}
+        {loading && (
+          <Container
+            style={{
+              position: 'fixed',
+              top: '144px',
+              left: '270px',
+              width: 'calc(100% - 270px)',
+              height: 'calc(100% - 144px)'
+            }}
+          >
+            <ContainerSpinner />
+          </Container>
+        )}
       </Container>
     </>
   )

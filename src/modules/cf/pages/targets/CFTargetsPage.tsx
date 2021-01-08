@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { Spinner } from '@blueprintjs/core'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures, Feature } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
-import { Page, useToaster } from '@common/exports'
+import { Page } from '@common/exports'
+import { PageError } from '@common/components/Page/PageError'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import IndividualTargets from './IndividualTargets'
 import TargetSegmentsView from './TargetSegmentsView'
+import css from './CFTargetsPage.module.scss'
 
 interface HeaderContentProps {
   view: 'individual' | 'segments'
@@ -21,12 +23,14 @@ interface HeaderContentProps {
 const HeaderContent: React.FC<HeaderContentProps> = ({ view, onChangePage, leftLabel, rightLabel }) => (
   <Layout.Horizontal>
     <Button
+      width={120}
       text={leftLabel}
       minimal={view === 'segments'}
       intent={view === 'individual' ? 'primary' : undefined}
       onClick={onChangePage}
     />
     <Button
+      width={120}
       text={rightLabel}
       minimal={view === 'individual'}
       intent={view === 'segments' ? 'primary' : undefined}
@@ -37,7 +41,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ view, onChangePage, leftL
 
 interface HeaderToolbar {
   label: string
-  environment: SelectOption
+  environment?: SelectOption
   environments: SelectOption[]
   onChange: (opt: SelectOption) => void
 }
@@ -51,12 +55,11 @@ const HeaderToolbar: React.FC<HeaderToolbar> = ({ label, environment, environmen
 )
 
 const CFTargetsPage: React.FC = () => {
-  const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
 
-  const { data: environments, loading: loadingEnvs, error: errEnvs } = useEnvironments({
+  const { data: environments, loading: loadingEnvs, error: errEnvs, refetch: refetchEnvironments } = useEnvironments({
     projectIdentifier,
-    accountId,
+    accountIdentifier: accountId,
     orgIdentifier
   } as GetEnvironmentListForProjectQueryParams)
 
@@ -143,42 +146,13 @@ const CFTargetsPage: React.FC = () => {
   }, [environment, view, segmentPage])
 
   useEffect(() => {
-    if (!loadingEnvs) {
-      setEnvironment(environments?.length > 0 ? environments[0] : { label: 'production', value: 'production' })
+    if (!loadingEnvs && environments?.length > 0) {
+      setEnvironment(environments[0])
     }
   }, [loadingEnvs])
 
-  useEffect(() => {
-    if (errEnvs) {
-      showError('Error fetching environments')
-    }
-  }, [errEnvs])
-
-  useEffect(() => {
-    if (errTargets) {
-      showError('Error fetching targets')
-    }
-  }, [errTargets])
-
-  useEffect(() => {
-    if (errSegments) {
-      showError('Error fetching target segments')
-    }
-  }, [errSegments])
-
-  useEffect(() => {
-    if (errFlags) {
-      showError('Error fetching feature flags')
-    }
-  }, [errFlags])
-
-  if (loadingEnvs) {
-    return (
-      <Container flex style={{ justifyContent: 'center', height: '100%' }}>
-        <Spinner size={50} />
-      </Container>
-    )
-  }
+  const loading = loadingEnvs || loadingFlags || loadingSegments || loadingTargets
+  const error = errEnvs || errFlags || errSegments || errTargets
 
   return (
     <>
@@ -196,37 +170,63 @@ const CFTargetsPage: React.FC = () => {
         toolbar={
           <HeaderToolbar
             label={getSharedString('environment').toLocaleUpperCase()}
-            environment={environment || { label: 'production', value: 'production' }}
+            environment={environment}
             environments={environments}
             onChange={setEnvironment}
           />
         }
       />
-      {view === 'individual' ? (
-        <IndividualTargets
-          loading={loadingTargets}
-          targets={(targetsData?.targets ?? []) as Target[]}
-          pagination={{ ...omit(targetsData, ['targets']), gotoPage: setTargetPage }}
-          environment={environment?.value as string}
-          project={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          accountId={accountId}
-          onCreateTargets={fetchTargets}
-          onDeleteTarget={fetchTargets}
-        />
-      ) : (
-        <TargetSegmentsView
-          loading={loadingSegments || loadingFlags}
-          segments={(segmentsData?.segments || []) as Segment[]}
-          flags={(flagsData?.features || []) as Feature[]}
-          pagination={{ ...(omit(segmentsData, ['segments']) as any), gotoPage: setSegmentPage }}
-          environment={environment?.value as string}
-          project={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          accountId={accountId}
-          onCreateSegment={fetchSegments}
-        />
-      )}
+      <Container className={css.pageBody}>
+        {!error && !loading && (
+          <>
+            {view === 'individual' ? (
+              <IndividualTargets
+                targets={(targetsData?.targets ?? []) as Target[]}
+                pagination={{ ...omit(targetsData, ['targets']), gotoPage: setTargetPage }}
+                environment={environment?.value as string}
+                project={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                accountId={accountId}
+                onCreateTargets={fetchTargets}
+                onDeleteTarget={fetchTargets}
+              />
+            ) : (
+              <TargetSegmentsView
+                segments={(segmentsData?.segments || []) as Segment[]}
+                flags={(flagsData?.features || []) as Feature[]}
+                pagination={{ ...(omit(segmentsData, ['segments']) as any), gotoPage: setSegmentPage }}
+                environment={environment?.value as string}
+                project={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                accountId={accountId}
+                onCreateSegment={fetchSegments}
+              />
+            )}
+          </>
+        )}
+        {error && (
+          <PageError
+            message={error?.message}
+            onClick={() => {
+              refetchEnvironments()
+            }}
+          />
+        )}
+        {loading && (
+          <Container
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: '270px',
+              width: 'calc(100% - 270px)',
+              height: 'calc(100% - 144px)',
+              zIndex: 1
+            }}
+          >
+            <ContainerSpinner />
+          </Container>
+        )}
+      </Container>
     </>
   )
 }
