@@ -10,7 +10,8 @@ import {
   SelectOption,
   Container,
   Button,
-  ModalErrorHandler
+  ModalErrorHandler,
+  FlexExpander
 } from '@wings-software/uicore'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
@@ -28,22 +29,12 @@ interface FlagElemVariationsProps {
   isLoadingCreateFeatureFlag: boolean
 }
 
-// TODO: WIP
-// interface FlagElemTypeVariation {
-//   identifier: string
-//   name: string
-//   description: string
-//   value: string | number | boolean | object
-// }
-
-// interface FlagElemTypeVariationError {
-//   variations: string
-// }
-
 interface FeatureErrors {
   defaultOnVariation?: 'Required'
   defaultOffVariation?: 'Required'
 }
+const ON = 'On'
+const OFF = 'Off'
 
 // FIXME: Change any for StepProps
 const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
@@ -62,8 +53,8 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
   // TODO: Consider the possibility to put everthing related to Boolean flag
   // change state and prepopulate fields to be in a separate component,
   // because we have similar functionality also in Edit Variations modal
-  const [trueFlagOption, setTrueFlagOption] = useState('true')
-  const [falseFlagOption, setFalseFlagOption] = useState('false')
+  const [trueFlagOption, setTrueFlagOption] = useState(ON)
+  const [falseFlagOption, setFalseFlagOption] = useState(OFF)
 
   const handleNewFlagType = (newFlagTypeVal: string): void => {
     toggleFlagType(newFlagTypeVal)
@@ -77,10 +68,10 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     setFalseFlagOption(valInput)
   }
 
-  const flagBooleanRules = [
-    { label: trueFlagOption, value: trueFlagOption },
-    { label: falseFlagOption, value: falseFlagOption }
-  ]
+  const selectValueTrue = { label: trueFlagOption, value: trueFlagOption }
+  const selectValueFalse = { label: falseFlagOption, value: falseFlagOption }
+
+  const flagBooleanRules = [selectValueTrue, selectValueFalse]
 
   const onClickBack = (): void => {
     previousStep?.({ ...prevStepData })
@@ -106,11 +97,11 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         initialValues={{
           kind: FlagTypeVariations.booleanFlag,
           variations: [
-            { identifier: 'true', name: 'true', description: '', value: 'true' },
-            { identifier: 'false', name: 'false', description: '', value: 'false' }
+            { identifier: 'true', name: ON, description: '', value: ON },
+            { identifier: 'false', name: OFF, description: '', value: OFF }
           ],
-          defaultOnVariation: '',
-          defaultOffVariation: '',
+          defaultOnVariation: ON,
+          defaultOffVariation: OFF,
           ...prevStepData
         }}
         // TODO: WIP
@@ -122,100 +113,105 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
       >
         {() => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'medium' }}>
-              {i18n.varSettingsFlag.variationSettingsHeading.toUpperCase()}
-            </Text>
-            <Layout.Vertical>
-              <FormInput.Select
-                name="kind"
-                label={i18n.varSettingsFlag.flagType}
-                items={flagTypeOptions}
-                onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
-                className={css.inputSelectFlagType}
-              />
-              <Container margin={{ bottom: 'large' }}>
-                <Layout.Horizontal>
-                  <Container width="35%" margin={{ right: 'medium' }}>
-                    <FormInput.Text
-                      name="variations[0].name"
-                      label={i18n.trueFlag}
-                      onChange={e => {
-                        const element = e.currentTarget as HTMLInputElement
-                        const elementValue = element.value
-                        onTrueFlagChange(elementValue)
-                      }}
-                    />
-                  </Container>
-                  <Container width="65%" className={css.collapseContainer}>
-                    <InputDescOptional
-                      text={i18n.descOptional}
-                      inputName="variations[0].description"
-                      inputPlaceholder={''}
-                    />
-                  </Container>
-                </Layout.Horizontal>
-                <Layout.Horizontal>
-                  <Container width="35%" margin={{ right: 'medium' }}>
-                    <FormInput.Text
-                      name="variations[1].name"
-                      label={i18n.falseFlag}
-                      onChange={e => {
-                        const element = e.currentTarget as HTMLInputElement
-                        const elementValue = element.value
-                        onFalseFlagChange(elementValue)
-                      }}
-                    />
-                  </Container>
-                  <Container width="65%" className={css.collapseContainer}>
-                    <InputDescOptional
-                      text={i18n.descOptional}
-                      inputName="variations[1].description"
-                      inputPlaceholder={''}
-                    />
-                  </Container>
-                </Layout.Horizontal>
-                {/* TODO: WIP */}
-                {/* {formikProps.errors.variations ? <Text intent="danger">{formikProps.errors.variations}</Text> : null} */}
-              </Container>
-
-              <Container margin={{ bottom: 'xlarge' }}>
-                <Text color={Color.BLACK} inline>
-                  {i18n.varSettingsFlag.defaultRules}
+            <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
+              <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
+                <ModalErrorHandler bind={setModalErrorHandler} />
+                <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
+                  {i18n.varSettingsFlag.variationSettingsHeading}
                 </Text>
+                <Layout.Vertical>
+                  <FormInput.Select
+                    name="kind"
+                    label={i18n.varSettingsFlag.flagType}
+                    items={flagTypeOptions}
+                    onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
+                    className={css.inputSelectFlagType}
+                  />
+                  <Layout.Horizontal>
+                    <Container width="35%" margin={{ right: 'medium' }}>
+                      <FormInput.Text
+                        disabled
+                        name="variations[0].name"
+                        label={i18n.trueFlag}
+                        onChange={e => {
+                          const element = e.currentTarget as HTMLInputElement
+                          const elementValue = element.value
+                          onTrueFlagChange(elementValue)
+                        }}
+                      />
+                    </Container>
+                    <Container width="65%" className={css.collapseContainer}>
+                      <InputDescOptional
+                        text={i18n.descOptional}
+                        inputName="variations[0].description"
+                        inputPlaceholder={''}
+                      />
+                    </Container>
+                  </Layout.Horizontal>
+                  <Layout.Horizontal>
+                    <Container width="35%" margin={{ right: 'medium' }}>
+                      <FormInput.Text
+                        disabled
+                        name="variations[1].name"
+                        label={i18n.falseFlag}
+                        onChange={e => {
+                          const element = e.currentTarget as HTMLInputElement
+                          const elementValue = element.value
+                          onFalseFlagChange(elementValue)
+                        }}
+                      />
+                    </Container>
+                    <Container width="65%" className={css.collapseContainer}>
+                      <InputDescOptional
+                        text={i18n.descOptional}
+                        inputName="variations[1].description"
+                        inputPlaceholder={''}
+                      />
+                    </Container>
+                  </Layout.Horizontal>
+                  {/* TODO: WIP */}
+                  {/* {formikProps.errors.variations ? <Text intent="danger">{formikProps.errors.variations}</Text> : null} */}
 
-                <Layout.Vertical margin={{ top: 'medium' }}>
-                  <Container>
-                    <Layout.Horizontal>
-                      <Text width="25%" className={css.serveTextAlign}>
-                        {i18n.varSettingsFlag.flagOn}
-                      </Text>
-                      <FormInput.Select name="defaultOnVariation" items={flagBooleanRules} />
-                    </Layout.Horizontal>
-                  </Container>
-                  <Container>
-                    <Layout.Horizontal>
-                      <Text width="25%" className={css.serveTextAlign}>
-                        {i18n.varSettingsFlag.flagOff}
-                      </Text>
-                      <FormInput.Select name="defaultOffVariation" items={flagBooleanRules} />
-                    </Layout.Horizontal>
+                  <Container margin={{ bottom: 'xlarge' }}>
+                    <Text color={Color.BLACK} inline>
+                      {i18n.varSettingsFlag.defaultRules}
+                    </Text>
+
+                    <Layout.Vertical margin={{ top: 'medium' }}>
+                      <Container>
+                        <Layout.Horizontal>
+                          <Text width="25%" className={css.serveTextAlign}>
+                            {i18n.varSettingsFlag.flagOn}
+                          </Text>
+                          <FormInput.Select name="defaultOnVariation" items={flagBooleanRules} />
+                        </Layout.Horizontal>
+                      </Container>
+                      <Container>
+                        <Layout.Horizontal>
+                          <Text width="25%" className={css.serveTextAlign}>
+                            {i18n.varSettingsFlag.flagOff}
+                          </Text>
+                          <FormInput.Select name="defaultOffVariation" items={flagBooleanRules} />
+                        </Layout.Horizontal>
+                      </Container>
+                    </Layout.Vertical>
                   </Container>
                 </Layout.Vertical>
               </Container>
 
-              {/* TODO: Pull this out into separate component, look into FlagElemMultivariate.tsx as well */}
-              <Layout.Horizontal className={css.btnsGroup}>
-                <Button text={i18n.back} onClick={onClickBack} margin={{ right: 'small' }} />
+              <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
+                <Button text={i18n.back} onClick={onClickBack} />
                 <Button
                   type="submit"
+                  intent="primary"
                   text={i18n.varSettingsFlag.saveAndClose}
                   disabled={isLoadingCreateFeatureFlag}
                   loading={isLoadingCreateFeatureFlag}
                 />
+                <FlexExpander />
                 <Button
                   type="button"
-                  text={i18n.varSettingsFlag.testFlagOption.toUpperCase()}
+                  text={i18n.varSettingsFlag.testFlagOption}
                   rightIcon="chevron-right"
                   minimal
                   className={css.testFfBtn}
@@ -224,7 +220,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                   }}
                 />
               </Layout.Horizontal>
-            </Layout.Vertical>
+            </Container>
           </Form>
         )}
       </Formik>

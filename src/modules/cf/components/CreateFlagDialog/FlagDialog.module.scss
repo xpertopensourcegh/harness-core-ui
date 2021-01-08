@@ -4,6 +4,8 @@
   min-height: 600px;
   background: var(--blue-800) !important;
   border-left: 0 !important;
+  overflow: hidden;
+
   .close-icon {
     position: absolute;
     right: var(--spacing-small);
@@ -12,9 +14,6 @@
   .type-flag-container {
     position: absolute;
     bottom: 0;
-    & > p:first-child {
-      text-transform: uppercase;
-    }
     .type-flag-btns {
       display: flex;
       align-items: center;

@@ -35,7 +35,7 @@ export default {
     flagOn: 'If the flag is ON, serve',
     flagOff: 'If the flag is OFF, serve',
     saveAndClose: 'Save and Close',
-    testFlagOption: 'test the feature flag',
+    testFlagOption: 'Test the Flag',
     defaultRulesTooltip: 'Define which variation users will see by default when the flag is ON or OFF',
     jsonType: 'json',
     stringType: 'string',

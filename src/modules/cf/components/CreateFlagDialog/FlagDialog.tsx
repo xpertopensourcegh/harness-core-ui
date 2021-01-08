@@ -40,10 +40,17 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled }) => {
         className={css.modal}
       >
         {flagTypeClicked ? (
-          <FlagWizard flagTypeView={flagTypeView} toggleFlagType={toggleFlagType} hideModal={hideModal} />
+          <FlagWizard
+            flagTypeView={flagTypeView}
+            toggleFlagType={toggleFlagType}
+            hideModal={hideModal}
+            goBackToTypeSelections={() => {
+              setFlagTypeClicked(false)
+            }}
+          />
         ) : (
           <Container className={css.typeFlagContainer} padding="huge">
-            <Text font={{ size: 'medium', weight: 'bold' }} color={Color.WHITE} margin={{ bottom: 'small' }}>
+            <Text color={Color.WHITE} margin={{ bottom: 'small' }} style={{ fontSize: '24px' }}>
               {i18n.typeOfFlag}
             </Text>
             <Text font="small" color={Color.WHITE} margin={{ bottom: 'xxxlarge' }}>

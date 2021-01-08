@@ -10,7 +10,8 @@ import {
   Button,
   FlexExpander,
   Select,
-  SelectOption
+  SelectOption,
+  Heading
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { Drawer, Menu, Position } from '@blueprintjs/core'
@@ -85,14 +86,12 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
-        {/* TODO: Check with BE about kind tooltip */}
-        <Text tooltip={'To be implemented...'} tooltipProps={{ isDark: true }}>
+        <Text tooltipProps={{ isDark: true }}>
           {data.kind === FlagTypeVariations.booleanFlag
             ? i18n.boolean
             : `${i18n.multivariate} (${data.variations.length} ${i18n.variations})`}
         </Text>
       </Layout.Horizontal>
-      {/* TODO: Maybe this needs fixing */}
       <Text>{data.variations[0].name}</Text>
       <Text>{data.variations[0].description}</Text>
     </Layout.Vertical>
@@ -315,7 +314,14 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   return (
     <>
-      <Page.Header title={i18n.featureFlag} size="medium" />
+      <Page.Header
+        title={
+          <Heading level={2} style={{ fontWeight: 600 }}>
+            {i18n.featureFlag}
+          </Heading>
+        }
+        size="medium"
+      />
 
       <Container className={css.ffListContainer}>
         <Layout.Horizontal className={css.ffPageBtnsHeader}>
@@ -373,8 +379,8 @@ const CFFeatureFlagsPage: React.FC = () => {
               }}
               pagination={{
                 itemCount: flagList?.itemCount || 0,
-                pageSize: flagList?.pageSize || 7,
-                pageCount: flagList?.pageCount || -1,
+                pageSize: flagList?.pageSize || 0,
+                pageCount: flagList?.pageCount || 0,
                 pageIndex: flagList?.pageIndex || 0,
                 gotoPage: () => undefined
               }}
@@ -384,9 +390,11 @@ const CFFeatureFlagsPage: React.FC = () => {
 
         {emptyFeatureFlags && (
           <Layout.Vertical className={css.heightOverride}>
-            <Icon name="main-flag" size={120} color={Color.GREY_300} className={css.ffContainerImg} />
-            <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
-              {i18n.noFeatureFlags}.
+            <Container>
+              <Icon name="flag" size={150} color={Color.GREY_300} className={css.ffContainerImg} />
+            </Container>
+            <Text color="grey400" style={{ fontSize: '20px', padding: '40px 0' }}>
+              {i18n.noFeatureFlags}
             </Text>
             <FlagDialog />
           </Layout.Vertical>

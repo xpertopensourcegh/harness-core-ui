@@ -2,7 +2,7 @@ export default {
   overview: 'OVERVIEW',
   newBuild: '+ New Build',
   featureFlag: 'Feature Flags',
-  noFeatureFlags: 'There are currently no feature flags',
+  noFeatureFlags: 'There are currently no feature flags.',
   searchInputFlag: 'Find a feature flag by Name, ID or Description',
   drawerFilter: 'Filters',
   saveFilters: 'Save Filters',

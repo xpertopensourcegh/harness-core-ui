@@ -16,6 +16,7 @@ interface FlagWizardProps {
   flagTypeView: string
   toggleFlagType: (newFlag: string) => void
   hideModal: () => void
+  goBackToTypeSelections: () => void
 }
 
 const flagTypeOptions: SelectOption[] = [
@@ -24,7 +25,7 @@ const flagTypeOptions: SelectOption[] = [
 ]
 
 const FlagWizard: React.FC<FlagWizardProps> = props => {
-  const { flagTypeView, toggleFlagType, hideModal } = props
+  const { flagTypeView, toggleFlagType, hideModal, goBackToTypeSelections } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, environmentIdentifier, accountId } = useParams()
@@ -76,7 +77,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
 
   return (
     <StepWizard className={css.flagWizardContainer} onCompleteWizard={onWizardStepSubmit}>
-      <FlagElemAbout name={i18n.aboutFlag.aboutFlagHeading} />
+      <FlagElemAbout name={i18n.aboutFlag.aboutFlagHeading} goBackToTypeSelections={goBackToTypeSelections} />
       {flagTypeView === FlagTypeVariations.booleanFlag ? (
         <FlagElemBoolean
           name={i18n.varSettingsFlag.variationSettingsHeading}

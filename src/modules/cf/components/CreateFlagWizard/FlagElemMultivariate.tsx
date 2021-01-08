@@ -11,7 +11,8 @@ import {
   SelectOption,
   Button,
   Container,
-  ModalErrorHandler
+  ModalErrorHandler,
+  FlexExpander
 } from '@wings-software/uicore'
 import { FieldArray } from 'formik'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
@@ -89,7 +90,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     const copiedMultiFlagRules = [...flagMultiRules]
     const newItemsMultiFlagRules = copiedMultiFlagRules.map(elem => {
       if (elem.id === targetElem.name) {
-        return { ...elem, value: targetElem.value }
+        return { ...elem, value: targetElem.value, label: targetElem.value }
       }
       return elem
     })
@@ -131,124 +132,123 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
       >
         {formikProps => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'small' }}>
-              {i18n.varSettingsFlag.variationSettingsHeading.toUpperCase()}
-            </Text>
-            <Layout.Vertical>
-              <Layout.Horizontal>
-                <FormInput.Select
-                  name="kind"
-                  label={i18n.varSettingsFlag.flagType}
-                  items={flagTypeOptions}
-                  onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
-                  style={{ width: '35%' }}
-                />
-                <Select
-                  value={kindToSelectValue(formikProps.values.kind)}
-                  items={flagVariationOptions}
-                  className={css.spacingSelectVariation}
-                  onChange={kindVariation => {
-                    formikProps.setFieldValue('kind', kindVariation.value)
-                  }}
-                />
-              </Layout.Horizontal>
+            <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
+              <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
+                <ModalErrorHandler bind={setModalErrorHandler} />
+                <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
+                  {i18n.varSettingsFlag.variationSettingsHeading}
+                </Text>
+                <Layout.Vertical>
+                  <Layout.Horizontal>
+                    <FormInput.Select
+                      name="kind"
+                      label={i18n.varSettingsFlag.flagType}
+                      items={flagTypeOptions}
+                      onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
+                      style={{ width: '35%' }}
+                    />
+                    <Select
+                      value={kindToSelectValue(formikProps.values.kind)}
+                      items={flagVariationOptions}
+                      className={css.spacingSelectVariation}
+                      onChange={kindVariation => {
+                        formikProps.setFieldValue('kind', kindVariation.value)
+                      }}
+                    />
+                  </Layout.Horizontal>
 
-              <Container>
-                <FieldArray name="variations">
-                  {arrayProps => {
-                    return (
-                      <>
-                        {formikProps.values?.variations?.map((_: HTMLElement, index: number) => (
-                          <Layout.Horizontal key={`flagElem-${index}`}>
-                            <FormInput.Text
-                              name={`variations.${index}.identifier`}
-                              label={`${i18n.varSettingsFlag.variation} ${index + 1}`}
-                              style={{ width: '35%' }}
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                onDefaultMultiChange(e)
-                                formikProps.setFieldValue(`variations.${index}.value`, e.target.value)
+                  <Container>
+                    <FieldArray name="variations">
+                      {arrayProps => {
+                        return (
+                          <>
+                            {formikProps.values?.variations?.map((_: HTMLElement, index: number) => (
+                              <Layout.Horizontal key={`flagElem-${index}`}>
+                                <FormInput.Text
+                                  name={`variations.${index}.identifier`}
+                                  label={`${i18n.varSettingsFlag.variation} ${index + 1}`}
+                                  style={{ width: '35%' }}
+                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    onDefaultMultiChange(e)
+                                    formikProps.setFieldValue(`variations.${index}.value`, e.target.value)
+                                  }}
+                                />
+                                <FormInput.Text
+                                  name={`variations.${index}.name`}
+                                  label={i18n.nameOptional}
+                                  placeholder={i18n.name}
+                                  className={css.spacingElemVariation}
+                                />
+                                <InputDescOptional
+                                  text={i18n.descOptional}
+                                  inputName={`variations.${index}.description`}
+                                  inputPlaceholder={i18n.varSettingsFlag.descVariationsPlaceholder}
+                                />
+                              </Layout.Horizontal>
+                            ))}
+                            <Button
+                              minimal
+                              intent="primary"
+                              icon="small-plus"
+                              text={i18n.varSettingsFlag.variation}
+                              margin={{ bottom: 'large' }}
+                              style={{ paddingLeft: 0 }}
+                              onClick={() => {
+                                arrayProps.push({ identifier: '', name: '', description: '', value: '' })
+                                addNewFlagMultiRules()
                               }}
                             />
-                            <FormInput.Text
-                              name={`variations.${index}.name`}
-                              label={i18n.nameOptional}
-                              placeholder={i18n.name}
-                              className={css.spacingElemVariation}
-                            />
-                            <InputDescOptional
-                              text={i18n.descOptional}
-                              inputName={`variations.${index}.description`}
-                              inputPlaceholder={i18n.varSettingsFlag.descVariationsPlaceholder}
-                            />
-                          </Layout.Horizontal>
-                        ))}
-                        <Button
-                          minimal
-                          intent="primary"
-                          icon="small-plus"
-                          text={i18n.varSettingsFlag.variation}
-                          margin={{ bottom: 'large' }}
-                          style={{ paddingLeft: 0 }}
-                          onClick={() => {
-                            arrayProps.push({ identifier: '', name: '', description: '', value: '' })
-                            addNewFlagMultiRules()
-                          }}
-                        />
-                      </>
-                    )
-                  }}
-                </FieldArray>
-              </Container>
-
-              <Container margin={{ bottom: 'large' }}>
-                <Text color={Color.BLACK} inline>
-                  {i18n.varSettingsFlag.defaultRules}
-                </Text>
-                <Text
-                  inline
-                  margin={{ left: 'xsmall' }}
-                  tooltip={i18n.varSettingsFlag.defaultRulesTooltip}
-                  color={Color.BLACK}
-                  icon="info-sign"
-                  iconProps={{ size: 10, color: Color.BLUE_500 }}
-                  tooltipProps={{
-                    isDark: true,
-                    portalClassName: css.tooltipMultiFlag
-                  }}
-                />
-                <Layout.Vertical margin={{ top: 'medium' }}>
-                  <Container>
-                    <Layout.Horizontal>
-                      <Text width="150px" className={css.serveTextAlign}>
-                        {i18n.varSettingsFlag.flagOn}
-                      </Text>
-                      <FormInput.Select name="defaultOnVariation" items={flagMultiRules} />
-                    </Layout.Horizontal>
+                          </>
+                        )
+                      }}
+                    </FieldArray>
                   </Container>
-                  <Container>
-                    <Layout.Horizontal>
-                      <Text width="150px" className={css.serveTextAlign}>
-                        {i18n.varSettingsFlag.flagOff}
-                      </Text>
-                      <FormInput.Select name="defaultOffVariation" items={flagMultiRules} />
-                    </Layout.Horizontal>
+
+                  <Container margin={{ bottom: 'large' }}>
+                    <Text
+                      color={Color.BLACK}
+                      inline
+                      tooltip={i18n.varSettingsFlag.defaultRulesTooltip}
+                      rightIconProps={{ size: 10, color: Color.BLUE_500 }}
+                      rightIcon="info-sign"
+                    >
+                      {i18n.varSettingsFlag.defaultRules}
+                    </Text>
+                    <Layout.Vertical margin={{ top: 'medium' }}>
+                      <Container>
+                        <Layout.Horizontal>
+                          <Text width="150px" className={css.serveTextAlign}>
+                            {i18n.varSettingsFlag.flagOn}
+                          </Text>
+                          <FormInput.Select name="defaultOnVariation" items={flagMultiRules} />
+                        </Layout.Horizontal>
+                      </Container>
+                      <Container>
+                        <Layout.Horizontal>
+                          <Text width="150px" className={css.serveTextAlign}>
+                            {i18n.varSettingsFlag.flagOff}
+                          </Text>
+                          <FormInput.Select name="defaultOffVariation" items={flagMultiRules} />
+                        </Layout.Horizontal>
+                      </Container>
+                    </Layout.Vertical>
                   </Container>
                 </Layout.Vertical>
               </Container>
 
-              {/* TODO: Pull this out into separate component, look into FlagElemBoolean.tsx as well */}
-              <Layout.Horizontal className={css.btnsGroup}>
-                <Button text={i18n.back} onClick={onClickBack} margin={{ right: 'small' }} />
+              <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
+                <Button text={i18n.back} onClick={onClickBack} />
                 <Button
                   type="submit"
+                  intent="primary"
                   text={i18n.varSettingsFlag.saveAndClose}
                   disabled={isLoadingCreateFeatureFlag}
                   loading={isLoadingCreateFeatureFlag}
                 />
+                <FlexExpander />
                 <Button
                   type="submit"
-                  text={i18n.varSettingsFlag.testFlagOption.toUpperCase()}
+                  text={i18n.varSettingsFlag.testFlagOption}
                   onClick={() => {
                     nextStep?.({ ...prevStepData })
                   }}
@@ -257,7 +257,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                   className={css.testFfBtn}
                 />
               </Layout.Horizontal>
-            </Layout.Vertical>
+            </Container>
           </Form>
         )}
       </Formik>
