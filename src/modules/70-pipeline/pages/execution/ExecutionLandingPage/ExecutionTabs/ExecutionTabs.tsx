@@ -28,6 +28,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
   const isGraphView = !view || view === 'graph'
   const isLogView = view === 'log'
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
+  const isCI = params.module === 'ci'
 
   /* The following function does not have any business logic and hence can be ignored */
   /* istanbul ignore next */
@@ -61,10 +62,32 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
           <Icon name="manually-entered-data" size={16} />
           <span>{i18n.inputs}</span>
         </NavLink>
-        <NavLink to={routes.toExecutionArtifactsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
-          <Icon name="add-to-artifact" size={16} />
-          <span>{i18n.artifacts}</span>
-        </NavLink>
+        {!isCI && (
+          <NavLink
+            to={routes.toExecutionArtifactsView(params)}
+            className={css.tabLink}
+            activeClassName={css.activeLink}
+          >
+            <Icon name="add-to-artifact" size={16} />
+            <span>{i18n.artifacts}</span>
+          </NavLink>
+        )}
+        {isCI && (
+          <>
+            <NavLink
+              to={routes.toExecutionCommitsView(params)}
+              className={css.tabLink}
+              activeClassName={css.activeLink}
+            >
+              <Icon name="git-commit" size={16} />
+              <span>{i18n.commits}</span>
+            </NavLink>
+            <NavLink to={routes.toExecutionTestsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
+              <Icon name="lab-test" size={16} />
+              <span>{i18n.tests}</span>
+            </NavLink>
+          </>
+        )}
         <div ref={indicatorRef} className={css.tabIndicator} />
       </div>
       <div className={css.children}>{children}</div>

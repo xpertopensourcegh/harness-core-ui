@@ -1,10 +1,11 @@
 import { Layout } from '@wings-software/uicore'
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import { get } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
-import { useReportSummary } from 'services/ti-service'
+import { useReportSummary, useGetToken } from 'services/ti-service'
 import { PageSpinner } from '@common/components'
-import { BuildPageContext } from '../../context/BuildPageContext'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { BuildLoadingState } from './BuildLoadingState'
 import { BuildZeroState } from './BuildZeroState'
 import { TestsExecution } from './TestsExecution'
@@ -12,23 +13,34 @@ import { TestsOverview } from './TestsOverview'
 import css from './BuildTests.module.scss'
 
 const BuildTests: React.FC = () => {
-  const { buildData } = React.useContext(BuildPageContext)
+  const context = useExecutionContext()
   const { accountId, buildIdentifier, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
     buildIdentifier: string
   }>()
+  const { data: serviceToken, loading: serviceTokenLoading, error: serviceTokenError } = useGetToken({
+    queryParams: { accountId }
+  })
+
   const queryParams = useMemo(
     () => ({
       accountId,
       orgId: orgIdentifier,
       projectId: projectIdentifier,
-      pipelineId: buildData?.response?.data?.pipeline?.id || '',
-      buildId: buildIdentifier,
+      pipelineId: context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier || '',
+      buildId: String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''),
       report: 'junit' as 'junit'
     }),
-    [accountId, orgIdentifier, projectIdentifier, buildIdentifier, buildData?.response?.data?.pipeline?.id]
+    [
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      buildIdentifier,
+      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier,
+      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
+    ]
   )
   const {
     data: testOverviewData,
@@ -37,33 +49,40 @@ const BuildTests: React.FC = () => {
     refetch: fetchOverview
   } = useReportSummary({
     queryParams,
-    lazy: true
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'X-Harness-Token': serviceToken || ''
+      }
+    }
   })
-  const status = buildData?.response?.status
-  const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status || '')
+  const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
+  const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status)
   const buildHasZeroTest = testOverviewData?.total_tests === 0
 
   useEffect(() => {
-    if (status && isBuildComplete) {
+    if (status && isBuildComplete && serviceToken) {
       if (!testOverviewData && !overviewError && !overviewLoading) {
         fetchOverview()
       }
     }
-  }, [status, isBuildComplete, testOverviewData, overviewError, overviewLoading, fetchOverview])
+  }, [status, isBuildComplete, serviceToken, testOverviewData, overviewError, overviewLoading, fetchOverview])
 
   // When build/execution is not resolved from context, render nothing
   if (!status) {
     return null
   }
 
-  if (overviewLoading) {
+  if (overviewLoading || serviceTokenLoading) {
     return <PageSpinner />
   }
 
-  if (overviewError) {
+  const error = overviewError || serviceTokenError
+
+  if (error) {
     return (
       <PageError
-        message={overviewError?.message}
+        message={get(error, 'data.error_msg', error?.message)}
         onClick={() => {
           fetchOverview()
         }}
@@ -73,13 +92,13 @@ const BuildTests: React.FC = () => {
 
   return (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.mainContainer}>
-      {isBuildComplete && (
+      {isBuildComplete && serviceToken && (
         <>
           {buildHasZeroTest && <BuildZeroState />}
           {!buildHasZeroTest && (
             <>
               <TestsOverview testOverviewData={testOverviewData} />
-              <TestsExecution />
+              <TestsExecution serviceToken={serviceToken} />
             </>
           )}
         </>

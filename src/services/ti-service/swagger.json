@@ -224,6 +224,48 @@
         }
       }
     },
+    "/ti-service/token": {
+      "get": {
+        "summary": "Get an account level token",
+        "operationId": "getToken",
+        "tags": ["auth"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "accountId",
+            "description": "Account ID to generate token for",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/ti-service/reports/test_cases": {
       "get": {
         "summary": "Get test cases",

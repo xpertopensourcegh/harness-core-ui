@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
+import { get } from 'lodash-es'
 import { Button, Color, Icon, Container, Text, useIsMounted } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
@@ -57,6 +58,8 @@ function renderColumn(col: keyof TestCase | 'order'): Renderer<CellProps<TestCas
 const now = Date.now()
 
 export interface TestExecutionEntryProps {
+  buildIdentifier: string
+  serviceToken: string
   executionSummary: TestSuite
   expanded?: boolean
   status?: 'failed'
@@ -64,17 +67,19 @@ export interface TestExecutionEntryProps {
 }
 
 export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
+  buildIdentifier,
+  serviceToken,
   executionSummary,
   expanded,
   status,
   onExpand
 }) => {
   const { getString } = useStrings()
-  const { accountId, buildIdentifier, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
-    buildIdentifier: string
+    pipelineIdentifier: string
   }>()
   const [pageIndex, setPageIndex] = useState(0)
   const queryParams = ({
@@ -82,6 +87,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     orgId: orgIdentifier,
     projectId: projectIdentifier,
     buildId: buildIdentifier,
+    pipelineId: pipelineIdentifier,
     report: 'junit' as 'junit',
     suite_name: executionSummary.name, // eslint-disable-line @typescript-eslint/camelcase
     status,
@@ -89,7 +95,15 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     order: 'ASC',
     pageIndex
   } as unknown) as TestCaseSummaryQueryParams
-  const { data, error, loading, refetch } = useTestCaseSummary({ queryParams, lazy: true })
+  const { data, error, loading, refetch } = useTestCaseSummary({
+    queryParams,
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'X-Harness-Token': serviceToken
+      }
+    }
+  })
   const isMounted = useIsMounted()
   const refetchData = useCallback(
     (params: TestCaseSummaryQueryParams) => {
@@ -210,7 +224,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           {!loading && error && (
             <Container flex={{ align: 'center-center' }} padding="large">
               <Text icon="error" color={Color.RED_500} iconProps={{ size: 16, color: Color.RED_500 }}>
-                {error?.message}
+                {get(error, 'data.error_msg', error?.message)}
               </Text>
             </Container>
           )}

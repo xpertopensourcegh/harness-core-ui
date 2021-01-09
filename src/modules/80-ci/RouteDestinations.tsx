@@ -49,6 +49,8 @@ import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
+import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
+import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
@@ -284,6 +286,30 @@ export default (
       >
         <ExecutionLandingPage>
           <ExecutionArtifactsView />
+        </ExecutionLandingPage>
+      </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toExecutionTestsView({
+          ...accountPathProps,
+          ...executionPathProps,
+          ...pipelineModuleParams
+        })}
+      >
+        <ExecutionLandingPage>
+          <BuildTests />
+        </ExecutionLandingPage>
+      </RouteWithLayout>
+      <RouteWithLayout
+        exact
+        path={routes.toExecutionCommitsView({
+          ...accountPathProps,
+          ...executionPathProps,
+          ...pipelineModuleParams
+        })}
+      >
+        <ExecutionLandingPage>
+          <BuildCommits />
         </ExecutionLandingPage>
       </RouteWithLayout>
       <RouteWithLayout

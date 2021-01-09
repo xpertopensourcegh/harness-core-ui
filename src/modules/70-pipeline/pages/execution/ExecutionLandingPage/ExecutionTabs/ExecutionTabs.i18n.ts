@@ -3,5 +3,7 @@ export default {
   inputs: 'Inputs',
   artifacts: 'Artifacts',
   graphView: 'Graph View',
-  logView: 'Log View'
+  logView: 'Log View',
+  tests: 'Tests',
+  commits: 'Commits'
 }

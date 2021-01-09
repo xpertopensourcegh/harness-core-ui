@@ -11,25 +11,30 @@ import {
   useIsMounted,
   Icon
 } from '@wings-software/uicore'
+import { get } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
-import { BuildPageContext } from '../../context/BuildPageContext'
 import { TestsExecutionItem } from './TestsExecutionItem'
 import { SortByKey } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 const PAGE_SIZE = 20
 
-export const TestsExecution: React.FC = () => {
+interface TestsExecutionProps {
+  serviceToken: string
+}
+
+export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) => {
+  const context = useExecutionContext()
   const { getString } = useStrings()
-  const { buildData } = React.useContext(BuildPageContext)
-  const status = buildData?.response?.status
-  const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status || '')
+  const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
+  const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status)
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(0)
-  const { accountId, buildIdentifier, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
@@ -42,8 +47,8 @@ export const TestsExecution: React.FC = () => {
       accountId,
       orgId: orgIdentifier,
       projectId: projectIdentifier,
-      pipelineId: buildData?.response?.data?.pipeline?.id || '',
-      buildId: buildIdentifier,
+      pipelineId: context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier || '',
+      buildId: String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''),
       report: 'junit' as 'junit',
       pageIndex,
       status: showFailedTestsOnly ? ('failed' as 'failed') : undefined,
@@ -55,8 +60,8 @@ export const TestsExecution: React.FC = () => {
       accountId,
       orgIdentifier,
       projectIdentifier,
-      buildIdentifier,
-      buildData?.response?.data?.pipeline?.id,
+      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier,
+      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence,
       pageIndex,
       showFailedTestsOnly,
       sortBy
@@ -64,7 +69,12 @@ export const TestsExecution: React.FC = () => {
   )
   const { data: executionSummary, error, loading, refetch: fetchExecutionSummary } = useTestSuiteSummary({
     queryParams,
-    lazy: true
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'X-Harness-Token': serviceToken
+      }
+    }
   })
   const sortByItems = useMemo(
     () => [
@@ -160,7 +170,7 @@ export const TestsExecution: React.FC = () => {
       {error && (
         <Container height={200}>
           <PageError
-            message={error?.message}
+            message={get(error, 'data.error_msg', error?.message)}
             onClick={() => {
               fetchExecutionSummary()
             }}
@@ -172,7 +182,9 @@ export const TestsExecution: React.FC = () => {
         executionSummary?.content?.map((summary, index) => (
           <TestsExecutionItem
             key={summary.name}
+            buildIdentifier={String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || '')}
             executionSummary={summary}
+            serviceToken={serviceToken}
             status={showFailedTestsOnly ? 'failed' : undefined}
             expanded={index === expandedIndex ? true : undefined}
             onExpand={() => {

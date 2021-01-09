@@ -256,6 +256,26 @@ const routes = {
     }: PipelineType<ExecutionPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/artifacts`
   ),
+  toExecutionTestsView: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/tests`
+  ),
+  toExecutionCommitsView: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/commits`
+  ),
   toCDTemplateLibrary: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/template-library`

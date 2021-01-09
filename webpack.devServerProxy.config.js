@@ -27,6 +27,10 @@ module.exports = {
   '/ci': {
     target: targetLocalHost ? 'https://localhost:7171' : baseUrl
   },
+  '/ti-service': {
+    target: targetLocalHost ? 'https://localhost:7457' : baseUrl,
+    pathRewrite: targetLocalHost ? undefined : { '/ti-service/': '/gateway/ti-service/' }
+  },
   '/gateway/log-service': {
     target: targetLocalHost ? 'https://localhost:7457' : baseUrl
   },

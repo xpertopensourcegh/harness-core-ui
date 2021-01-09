@@ -216,6 +216,30 @@ export const useTestSuiteSummary = (props: UseTestSuiteSummaryProps) =>
     ...props
   })
 
+export interface GetTokenQueryParams {
+  /**
+   * Account ID to generate token for
+   */
+  accountId: string
+}
+
+export type GetTokenProps = Omit<GetProps<string, Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get an account level token
+ */
+export const GetToken = (props: GetTokenProps) => (
+  <Get<string, Error, GetTokenQueryParams, void> path="/ti-service/token" base={getConfig('')} {...props} />
+)
+
+export type UseGetTokenProps = Omit<UseGetProps<string, Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get an account level token
+ */
+export const useGetToken = (props: UseGetTokenProps) =>
+  useGet<string, Error, GetTokenQueryParams, void>(`/ti-service/token`, { base: getConfig(''), ...props })
+
 export interface TestCaseSummaryQueryParams {
   /**
    * Account ID corresponding to report

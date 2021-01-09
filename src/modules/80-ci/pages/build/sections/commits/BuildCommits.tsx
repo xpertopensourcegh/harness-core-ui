@@ -1,12 +1,13 @@
 import React from 'react'
 import copy from 'copy-to-clipboard'
 import moment from 'moment'
+import { get } from 'lodash-es'
 import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
 import type { CIBuildCommit } from 'services/ci'
 import i18n from './BuildCommits.i18n'
-import { BuildPageContext } from '../../context/BuildPageContext'
 import css from './BuildCommits.module.scss'
 
 interface CommitsGroupedByTimestamp {
@@ -28,17 +29,17 @@ const AVATAR_COLORS = [
 ]
 
 const BuildCommits: React.FC = () => {
-  const { buildData } = React.useContext(BuildPageContext)
-
+  const context = useExecutionContext()
   const { showSuccess, showError } = useToaster()
-
   const copy2Clipboard = (text: string): void => {
     copy(String(text)) ? showSuccess(i18n.clipboardCopySuccess) : showError(i18n.clipboardCopyFail)
   }
-
   const commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] = []
-
-  buildData?.response?.data?.branch?.commits?.forEach(commit => {
+  const buildCommits = get(
+    context,
+    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.branch.commits'
+  )
+  buildCommits?.forEach((commit: CIBuildCommit) => {
     const index = commitsGroupedByTimestamp.findIndex(({ timeStamp: timestamp2 }) =>
       moment(commit.timeStamp).isSame(timestamp2, 'day')
     )
