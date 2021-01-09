@@ -79,17 +79,18 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
   )
   return (
     <Layout.Vertical height={'calc(100vh - 64px'}>
-      <Layout.Horizontal
+      {/* Removing for now unless we have search enabled
+       <Layout.Horizontal
         padding={{ top: 'large', bottom: 'large', left: 'large', right: 'large' }}
         height={72}
         border={{ bottom: true, color: Color.GREY_300 }}
         flex={{ distribution: 'space-between' }}
-      >
-        <Text font={{ size: 'medium' }} color={Color.DARK_600}>
+      > */}
+      {/* <Text font={{ size: 'medium' }} color={Color.DARK_600}>
           {i18n.ReferencedBy}
-        </Text>
+        </Text> */}
 
-        {/* TODO:  <TextInput
+      {/* TODO:  <TextInput
           leftIcon="search"
           placeholder="Search"
             value={searchTerm}
@@ -97,7 +98,7 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
               setSearchTerm(e.target.value.trim())
             }}
         /> */}
-      </Layout.Horizontal>
+      {/* </Layout.Horizontal> */}
       {!loading ? (
         data?.data?.content?.length ? (
           <Table<EntitySetupUsageDTO>

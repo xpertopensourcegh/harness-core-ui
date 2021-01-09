@@ -1,10 +1,14 @@
-import type { ConnectorInfoDTO, ConnectorConnectivityDetails, Activity } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorConnectivityDetails, Activity, EntityDetail } from 'services/cd-ng'
 
 interface ConnectorType {
   [key: string]: ConnectorInfoDTO['type']
 }
 interface ConnectorStatusType {
   [key: string]: ConnectorConnectivityDetails['status']
+}
+
+interface ReferenceEntityType {
+  [key: string]: EntityDetail['type']
 }
 
 interface ActivityStatusType {
@@ -53,11 +57,15 @@ export const ConnectorStatus: ConnectorStatusType = {
   FAILURE: 'FAILURE'
 }
 
-export const EntityTypes = {
-  PIPELINE: 'pipelines',
-  PROJECT: 'projects',
-  CONNECTOR: 'connectors',
-  SECRET: 'secrets'
+export const EntityTypes: ReferenceEntityType = {
+  PIPELINE: 'Pipelines',
+  PROJECT: 'Projects',
+  CONNECTOR: 'Connectors',
+  SECRET: 'Secrets',
+  SERVICE: 'Service',
+  ENVIRONMENT: 'Environment',
+  CV_CONFIG: 'CvConfig',
+  INPUT_SETS: 'InputSets'
 }
 
 export const ActivityStatus: ActivityStatusType = {

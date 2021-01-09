@@ -6,16 +6,6 @@ exports[`Referenced By render for data 1`] = `
     class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--border StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--flex StyledProps--flex-distribution-space-between"
-      style="height: 72px;"
-    >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-dark600"
-      >
-        Referenced by
-      </p>
-    </div>
-    <div
       class="table table"
     >
       <div
@@ -95,24 +85,16 @@ exports[`Referenced By render for data 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps--main secretIconCss"
+                class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
+                icon=""
               >
                 <svg
+                  data-icon=""
                   height="16"
+                  viewBox="0 0 16 16"
                   width="16"
                 >
-                  <g
-                    fill="none"
-                    stroke="#1C1C28"
-                    stroke-width="0.5"
-                  >
-                    <path
-                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                    />
-                    <path
-                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                    />
-                  </g>
+                  
                 </svg>
               </span>
               <p
@@ -125,7 +107,7 @@ exports[`Referenced By render for data 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
             >
               (
-              Secret
+              
               )
             </p>
           </div>
@@ -158,18 +140,16 @@ exports[`Referenced By render for data 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps--main secretIconCss"
+                class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
+                icon=""
               >
                 <svg
+                  data-icon=""
                   height="16"
-                  viewBox="0 0 38 16"
+                  viewBox="0 0 16 16"
                   width="16"
                 >
-                  <path
-                    d="M23.71.966a1 1 0 01.068.067L26.475 4H30V3a1 1 0 011-1h6a1 1 0 011 1v3a1 1 0 01-1 1h-6a1 1 0 01-1-1V5h-3.31l-2.912 3.203a1 1 0 01-1.48 0L19.384 5H18v1a1 1 0 01-1 1h-6a1 1 0 01-1-1V5H8v1a1 1 0 01-1 1H1a1 1 0 01-1-1V3a1 1 0 011-1h6a1 1 0 011 1v1h2V3a1 1 0 011-1h6a1 1 0 011 1v1h1.599l2.699-2.967A1 1 0 0123.71.966zm.04 1.31a1 1 0 00-1.414 0l-1.768 1.767a1 1 0 000 1.414l1.768 1.768a1 1 0 001.414 0l1.768-1.768a1 1 0 000-1.414zM6 3H2a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm10 0h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm20 0h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm-19 8a1 1 0 011 1v3a1 1 0 01-1 1h-6a1 1 0 01-1-1v-3a1 1 0 011-1h6zm-1 1h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1v-1a1 1 0 00-1-1z"
-                    fill="#25A6F7"
-                    fill-rule="evenodd"
-                  />
+                  
                 </svg>
               </span>
               <p
@@ -182,7 +162,7 @@ exports[`Referenced By render for data 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
             >
               (
-              Pipeline
+              
               )
             </p>
           </div>
@@ -215,17 +195,16 @@ exports[`Referenced By render for data 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon StyledProps--main secretIconCss"
+                class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
+                icon=""
               >
                 <svg
+                  data-icon=""
                   height="16"
-                  viewBox="0 0 22 22"
+                  viewBox="0 0 16 16"
                   width="16"
                 >
-                  <path
-                    d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                    fill="#56778d"
-                  />
+                  
                 </svg>
               </span>
               <p
@@ -238,7 +217,7 @@ exports[`Referenced By render for data 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
             >
               (
-              Project
+              
               )
             </p>
           </div>
@@ -281,16 +260,6 @@ exports[`Referenced By render for no data 1`] = `
   <div
     class="Layout--vertical StyledProps--main"
   >
-    <div
-      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--border StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--flex StyledProps--flex-distribution-space-between"
-      style="height: 72px;"
-    >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-dark600"
-      >
-        Referenced by
-      </p>
-    </div>
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
       style="width: 100%; height: 100%;"
