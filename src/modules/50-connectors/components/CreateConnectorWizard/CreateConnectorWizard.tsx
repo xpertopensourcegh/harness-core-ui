@@ -22,6 +22,7 @@ interface CreateConnectorWizardProps {
   orgIdentifier: string
   type: ConnectorInfoDTO['type']
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
   hideLightModal: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
@@ -36,6 +37,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           onConnectorCreated={props.onSuccess}
           hideLightModal={props.hideLightModal}
           isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           connectorInfo={props.connectorInfo}
         />
       )
@@ -55,6 +57,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
           isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           connectorInfo={props.connectorInfo}
         />
       )
@@ -64,6 +67,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
           isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           connectorInfo={props.connectorInfo}
         />
       )
@@ -73,6 +77,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
           isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           connectorInfo={props.connectorInfo}
         />
       )
@@ -114,6 +119,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           hideLightModal={props.hideLightModal}
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
+          setIsEditMode={props.setIsEditMode}
         />
       )
     case Connectors.AWS:
@@ -128,6 +134,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
           isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           connectorInfo={props.connectorInfo}
         />
       )

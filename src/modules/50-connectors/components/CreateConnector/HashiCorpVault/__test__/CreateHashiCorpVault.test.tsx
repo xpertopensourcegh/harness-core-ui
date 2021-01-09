@@ -23,15 +23,15 @@ const secretManagerInfo = {
   }
 }
 
-const delegateResponse = {
+const delegateNameresponse = {
   metaData: {},
   resource: true,
   responseMessages: 'true'
 }
 
 jest.mock('services/portal', () => ({
-  useGetDelegatesStatus: jest.fn().mockImplementation(() => {
-    return { data: delegateResponse, refetch: jest.fn(), error: null, loading: false }
+  useGetDelegateFromId: jest.fn().mockImplementation(() => {
+    return { ...delegateNameresponse, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 

@@ -28,7 +28,8 @@ import {
   ConnectorFilterProperties,
   PageConnectorResponse,
   useDeleteFilter,
-  ResponsePageFilterDTO
+  ResponsePageFilterDTO,
+  ResponseConnectorStatistics
 } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { PageError } from 'modules/10-common/components/Page/PageError'
@@ -62,7 +63,7 @@ import css from './ConnectorsPage.module.scss'
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponsePageConnectorResponse>
   catalogueMockData?: UseGetMockData<ResponseConnectorCatalogueResponse>
-  statisticsMockData?: UseGetMockData<ConnectorStatusStatistics>
+  statisticsMockData?: UseGetMockData<ResponseConnectorStatistics>
   filtersMockData?: UseGetMockData<ResponsePageFilterDTO>
 }
 

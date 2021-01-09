@@ -64,11 +64,17 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = p => {
     <section className={css.wrapper}>
       <StepWizard<ConnectorInfoDTO>>
         <ConnectorDetailsStep type={Connectors.DOCKER} name={i18n.STEP_ONE.NAME} />
-        <StepDockerAuthentication name={i18n.STEP_TWO.NAME} isEditMode={false} connectorInfo={undefined} />
+        <StepDockerAuthentication
+          name={i18n.STEP_TWO.NAME}
+          isEditMode={false}
+          connectorInfo={undefined}
+          setIsEditMode={() => undefined}
+        />
 
         <VerifyOutOfClusterDelegate
           name={i18n.STEP_THREE.NAME}
           renderInModal={true}
+          setIsEditMode={() => undefined}
           onSuccess={() => {
             // Handle on success
           }}

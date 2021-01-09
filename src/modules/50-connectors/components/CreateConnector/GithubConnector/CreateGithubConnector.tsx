@@ -12,6 +12,7 @@ interface CreateGithubConnectorProps {
   hideLightModal: () => void
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
   mock?: ResponseBoolean
 }
@@ -35,6 +36,7 @@ const CreateGithubConnector = (props: CreateGithubConnectorProps): JSX.Element =
         name={getString('connectors.git.githubStepTwoName')}
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
         connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate

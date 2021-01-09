@@ -6,8 +6,8 @@
     width: 100%;
   }
   :global {
-    .bp3-progress-meter {
-      border-radius: 0;
+    .bp3-progress-bar {
+      border-radius: 4px !important;
     }
     .bp3-intent-success .bp3-progress-meter {
       background-color: var(--green-500);
@@ -20,6 +20,7 @@
     margin-left: -30px;
     margin-right: -30px;
   }
+
   [class*='customGrid'] {
     :global {
       .bp3-card {

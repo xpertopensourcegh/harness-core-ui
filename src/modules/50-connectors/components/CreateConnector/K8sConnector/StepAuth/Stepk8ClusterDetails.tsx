@@ -45,6 +45,7 @@ interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
 interface K8ClusterDetailsProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
 }
 
@@ -281,6 +282,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
         props.onConnectorCreated(response.data)
       } else {
         props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
+        props.setIsEditMode(true)
       }
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -310,11 +312,15 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
-      if (props.isEditMode && props.connectorInfo) {
-        setupKubFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as KubeFormInterface)
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupKubFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as KubeFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
           setLoadingConnectorSecrets(false)
-        })
+        }
       }
     }
   }, [loadingConnectorSecrets])

@@ -12,6 +12,7 @@ interface CreateBitbucketConnectorProps {
   hideLightModal: () => void
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
   mock?: ResponseBoolean
 }
@@ -35,14 +36,15 @@ const CreateBitbucketConnector = (props: CreateBitbucketConnectorProps): JSX.Ele
         name={getString('connectors.git.bitbucketStepTwoName')}
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
         connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate
+        type={Connectors.BITBUCKET}
         name={getString('connectors.stepThreeName')}
         renderInModal={true}
         onSuccess={props.onConnectorCreated}
         isLastStep={true}
-        type={Connectors.GITHUB}
         hideLightModal={props.hideLightModal}
       />
     </StepWizard>

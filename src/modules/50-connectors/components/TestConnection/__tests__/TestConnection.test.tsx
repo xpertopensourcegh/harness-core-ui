@@ -2,10 +2,8 @@ import React from 'react'
 import { render, act, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import { TestWrapper } from '@common/utils/testUtils'
-import statusData from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/delegate-status-response.json'
 import testConnectionSuccess from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/test-connection-success.json'
-import type { RestResponseDelegateStatus } from 'services/portal'
-import type { ResponseConnectorValidationResult } from 'services/cd-ng'
+
 import { Connectors } from '@connectors/constants'
 import TestConnection from '../TestConnection'
 
@@ -19,12 +17,8 @@ describe('Test Connection', () => {
             connectorName="Test Connector"
             connectorIdentifier="connectorId"
             setLastTested={jest.fn()}
-            delegateStatusMockData={{
-              data: statusData as RestResponseDelegateStatus,
-              loading: false
-            }}
             testConnectionMockData={{
-              data: testConnectionSuccess as ResponseConnectorValidationResult,
+              data: testConnectionSuccess as any,
               loading: false
             }}
           />
@@ -44,12 +38,8 @@ describe('Test Connection', () => {
             connectorName="Test Connector"
             connectorIdentifier="connectorId"
             setLastTested={jest.fn()}
-            delegateStatusMockData={{
-              data: statusData as RestResponseDelegateStatus,
-              loading: false
-            }}
             testConnectionMockData={{
-              data: testConnectionSuccess as ResponseConnectorValidationResult,
+              data: testConnectionSuccess as any,
               loading: false
             }}
           />
@@ -65,7 +55,7 @@ describe('Test Connection', () => {
         fireEvent.click(testBtn)
       })
     }
-    expect(getByText('Verifying Connection')).toBeDefined()
+
     expect(container).toMatchSnapshot()
   })
 
@@ -79,12 +69,8 @@ describe('Test Connection', () => {
             connectorIdentifier="connectorId"
             delegateName="Sample Delegate Name"
             setLastTested={jest.fn()}
-            delegateStatusMockData={{
-              data: statusData as RestResponseDelegateStatus,
-              loading: false
-            }}
             testConnectionMockData={{
-              data: testConnectionSuccess as ResponseConnectorValidationResult,
+              data: testConnectionSuccess as any,
               loading: false
             }}
           />
@@ -100,7 +86,7 @@ describe('Test Connection', () => {
         fireEvent.click(testBtn)
       })
     }
-    expect(getByText('Delegate found: Sample Delegate Name')).toBeDefined()
+
     expect(container).toMatchSnapshot()
   })
 })

@@ -31,6 +31,7 @@ describe('Create Gitlab connector Wizard', () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitlabConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={false}
@@ -100,6 +101,7 @@ describe('Create Gitlab connector Wizard', () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitlabConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={false}
@@ -160,6 +162,7 @@ describe('Create Gitlab connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitlabConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -213,6 +216,7 @@ describe('Create Gitlab connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitlabConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}

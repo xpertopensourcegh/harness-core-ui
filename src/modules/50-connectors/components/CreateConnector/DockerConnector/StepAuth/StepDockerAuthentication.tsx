@@ -45,6 +45,7 @@ interface StepDockerAuthenticationProps extends ConnectorInfoDTO {
 interface DockerAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
 }
 
@@ -116,6 +117,7 @@ const StepDockerAuthentication: React.FC<
       setLoadConnector(false)
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
+      props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -138,11 +140,15 @@ const StepDockerAuthentication: React.FC<
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
-      if (props.isEditMode && props.connectorInfo) {
-        setupDockerFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as DockerFormInterface)
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupDockerFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as DockerFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
           setLoadingConnectorSecrets(false)
-        })
+        }
       }
     }
   }, [loadingConnectorSecrets])

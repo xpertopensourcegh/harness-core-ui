@@ -130,7 +130,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
         />
         <VerifyOutOfClusterDelegate
           name={i18n.verifyConnection}
-          connectorName={formData?.name}
+          url={formData?.url}
           connectorIdentifier={formData?.identifier}
           onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
           renderInModal

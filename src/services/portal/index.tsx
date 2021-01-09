@@ -18823,3 +18823,37 @@ export const useSave6 = (props: UseSave6Props) =>
     base: getConfig('api'),
     ...props
   })
+
+export interface GetDelegateFromIdQueryParams {
+  accountId?: string
+}
+
+export interface GetDelegateFromIdPathParams {
+  delegateId: string
+}
+
+export type GetDelegateFromIdProps = Omit<
+  GetProps<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>,
+  'path'
+> &
+  GetDelegateFromIdPathParams
+
+export const GetDelegateFromId = ({ delegateId, ...props }: GetDelegateFromIdProps) => (
+  <Get<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>
+    path="/setup/delegates/${delegateId}"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateFromIdProps = Omit<
+  UseGetProps<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>,
+  'path'
+> &
+  GetDelegateFromIdPathParams
+
+export const useGetDelegateFromId = ({ delegateId, ...props }: UseGetDelegateFromIdProps) =>
+  useGet<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>(
+    (paramsInPath: GetDelegateFromIdPathParams) => `/setup/delegates/${paramsInPath.delegateId}`,
+    { base: getConfig('api'), pathParams: { delegateId }, ...props }
+  )

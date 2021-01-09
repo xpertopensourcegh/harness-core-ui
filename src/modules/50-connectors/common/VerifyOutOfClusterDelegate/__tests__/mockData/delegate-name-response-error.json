@@ -1,0 +1,7 @@
+{
+  "metaData": null,
+  "resource": null,
+  "responseMessages": [
+    { "code": "INVALID_CREDENTIAL", "level": "ERROR", "message": "Invalid credentials", "exception": null }
+  ]
+}

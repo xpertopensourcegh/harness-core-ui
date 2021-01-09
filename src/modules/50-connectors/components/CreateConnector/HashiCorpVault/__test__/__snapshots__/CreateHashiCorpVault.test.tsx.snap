@@ -377,137 +377,110 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
     >
        
       <div
-        class="Layout--vertical StyledProps--main StyledProps--padding-small"
+        class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
         style="height: 100%;"
       >
         <div
           class="Layout--vertical StyledProps--main"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
           >
-            Verify Connection to 
-             
-            <span
-              class="name"
-            >
-              dummyname
-            </span>
+            Test Connection
           </p>
           <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
-            id="steps-progress"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
           >
-            <div
-              class="StepsProgress--progressBar"
+            <p
+              class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
             >
-              <div
-                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
-              >
-                <div
-                  class="bp3-progress-meter"
-                  style="width: 33.33333333333333%;"
-                />
-              </div>
-            </div>
-            <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              Vault URL : 
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
             >
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
-                  icon="error"
-                >
-                  <svg
-                    data-icon="error"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      error
-                    </desc>
-                    <path
-                      d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style=""
-                >
-                  Checking for delegates 
-                </p>
-              </div>
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
-                  icon="blank"
-                >
-                  <svg
-                    data-icon="blank"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      blank
-                    </desc>
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: normal;"
-                >
-                  Establishing Connection between Delegate and HashiCorp Vault
-                </p>
-              </div>
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
-                  icon="blank"
-                >
-                  <svg
-                    data-icon="blank"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      blank
-                    </desc>
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: normal;"
-                >
-                  Verifying Connection
-                </p>
-              </div>
-            </div>
+              http://localhost:8200
+            </p>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
+            class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
           >
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
-              type="button"
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
+              id="steps-progress"
             >
-              <span
-                class="bp3-button-text"
+              <div
+                class="StepsProgress--progressBar"
               >
-                RETEST CONNECTION
-              </span>
-            </button>
+                <div
+                  class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
+                >
+                  <div
+                    class="bp3-progress-meter"
+                    style="width: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              >
+                <div
+                  class="StepsProgress--stepWrap"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
+                    icon="error"
+                  >
+                    <svg
+                      data-icon="error"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        error
+                      </desc>
+                      <path
+                        d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style=""
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main"
+                      style="width: 100%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
+                      >
+                        Validating the HashiCorp Vault authentication and permissions
+                      </p>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
+        >
+          <button
+            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Finish
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -1423,137 +1396,110 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
     >
        
       <div
-        class="Layout--vertical StyledProps--main StyledProps--padding-small"
+        class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
         style="height: 100%;"
       >
         <div
           class="Layout--vertical StyledProps--main"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey700 StyledProps--padding-right-small StyledProps--padding-left-small"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
           >
-            Verify Connection to 
-             
-            <span
-              class="name"
-            >
-              dummyname
-            </span>
+            Test Connection
           </p>
           <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
-            id="steps-progress"
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
           >
-            <div
-              class="StepsProgress--progressBar"
+            <p
+              class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
             >
-              <div
-                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
-              >
-                <div
-                  class="bp3-progress-meter"
-                  style="width: 33.33333333333333%;"
-                />
-              </div>
-            </div>
-            <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              Vault URL : 
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
             >
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
-                  icon="error"
-                >
-                  <svg
-                    data-icon="error"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      error
-                    </desc>
-                    <path
-                      d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style=""
-                >
-                  Checking for delegates 
-                </p>
-              </div>
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
-                  icon="blank"
-                >
-                  <svg
-                    data-icon="blank"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      blank
-                    </desc>
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: normal;"
-                >
-                  Establishing Connection between Delegate and HashiCorp Vault
-                </p>
-              </div>
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-blank StyledProps--main StyledProps--color StyledProps--color-yellow500 StyledProps--margin-right-small"
-                  icon="blank"
-                >
-                  <svg
-                    data-icon="blank"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      blank
-                    </desc>
-                  </svg>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: normal;"
-                >
-                  Verifying Connection
-                </p>
-              </div>
-            </div>
+              http://localhost:8200
+            </p>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
+            class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
           >
-            <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-left-large StyledProps--margin-top-small StyledProps--font-size-small"
-              type="button"
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
+              id="steps-progress"
             >
-              <span
-                class="bp3-button-text"
+              <div
+                class="StepsProgress--progressBar"
               >
-                RETEST CONNECTION
-              </span>
-            </button>
+                <div
+                  class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
+                >
+                  <div
+                    class="bp3-progress-meter"
+                    style="width: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              >
+                <div
+                  class="StepsProgress--stepWrap"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
+                    icon="error"
+                  >
+                    <svg
+                      data-icon="error"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        error
+                      </desc>
+                      <path
+                        d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style=""
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main"
+                      style="width: 100%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
+                      >
+                        Validating the HashiCorp Vault authentication and permissions
+                      </p>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
+        >
+          <button
+            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Finish
+            </span>
+          </button>
         </div>
       </div>
     </div>

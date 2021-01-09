@@ -132,7 +132,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         />
         <VerifyOutOfClusterDelegate
           name={i18n.verifyConnection}
-          connectorName={formData?.name}
+          url={formData?.url}
           connectorIdentifier={formData?.identifier}
           onSuccess={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestBody)}
           renderInModal

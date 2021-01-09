@@ -45,6 +45,7 @@ interface StepGithubAuthenticationProps extends ConnectorInfoDTO {
 interface GithubAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
 }
 
@@ -187,6 +188,7 @@ const StepGithubAuthentication: React.FC<
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullCreate', { name: prevStepData?.name }))
       nextStep?.({ ...prevStepData, ...stepData } as StepGithubAuthenticationProps)
+      props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -209,11 +211,15 @@ const StepGithubAuthentication: React.FC<
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
-      if (props.isEditMode && props.connectorInfo) {
-        setupGitFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as GithubFormInterface)
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupGitFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as GithubFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
           setLoadingConnectorSecrets(false)
-        })
+        }
       }
     }
   }, [loadingConnectorSecrets])

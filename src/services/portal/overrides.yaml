@@ -9,6 +9,7 @@ allowpaths:
   - '/apps'
   - '/services'
   - '/environments'
+  - '/setup/delegates/{delegateId}.get'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
@@ -20,3 +21,4 @@ operationIdOverrides:
   /apps.get: getListApplications
   /services.get: getListServices
   /environments.get: getListEnvironments
+  /setup/delegates/{delegateId}.get: getDelegateFromId

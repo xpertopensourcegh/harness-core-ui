@@ -35,6 +35,7 @@ import css from '../CreateGcpConnector.module.scss'
 interface GcpAuthenticationProps {
   name: string
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   onConnectorCreated: (data?: ConnectorConfigDTO) => void | Promise<void>
   connectorInfo: ConnectorInfoDTO | void
 }
@@ -80,11 +81,15 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
-      if (props.isEditMode && props.connectorInfo) {
-        setupGCPFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as GCPFormInterface)
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupGCPFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as GCPFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
           setLoadingConnectorSecrets(false)
-        })
+        }
       }
     }
   }, [loadingConnectorSecrets])
@@ -97,6 +102,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
       setLoadConnector(false)
       showSuccess(`Connector '${data.connector?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData })
+      props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)

@@ -180,7 +180,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                     Username
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group labelSelect"
                   >
                     <div
                       class="bp3-form-content"
@@ -543,7 +543,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                     Username
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group labelSelect"
                   >
                     <div
                       class="bp3-form-content"
@@ -916,7 +916,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     Username
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group labelSelect"
                   >
                     <div
                       class="bp3-form-content"
@@ -1284,7 +1284,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                     Username
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group labelSelect"
                   >
                     <div
                       class="bp3-form-content"
@@ -1417,7 +1417,6 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
-                checked=""
                 name="skipDefaultValidation"
                 type="checkbox"
               />
@@ -1683,7 +1682,6 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
-                checked=""
                 name="skipDefaultValidation"
                 type="checkbox"
               />
@@ -1896,7 +1894,6 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
-                checked=""
                 name="skipDefaultValidation"
                 type="checkbox"
               />
@@ -2154,7 +2151,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       OIDC Username
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group labelSelect"
                     >
                       <div
                         class="bp3-form-content"
@@ -2418,7 +2415,6 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
             >
               <input
-                checked=""
                 name="skipDefaultValidation"
                 type="checkbox"
               />

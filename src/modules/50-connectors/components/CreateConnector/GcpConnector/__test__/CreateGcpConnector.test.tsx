@@ -24,7 +24,13 @@ describe('Create GCP connector Wizard', () => {
   test('Should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGcpConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} isEditMode={false} />
+        <CreateGcpConnector
+          setIsEditMode={noop}
+          hideLightModal={noop}
+          onConnectorCreated={noop}
+          mock={mockResponse}
+          isEditMode={false}
+        />
       </TestWrapper>
     )
 
@@ -52,6 +58,7 @@ describe('Create GCP connector Wizard', () => {
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
+          setIsEditMode={noop}
           connectorInfo={encryptedKeyMock as ConnectorInfoDTO}
           mock={mockResponse}
         />

@@ -45,6 +45,7 @@ interface StepGitlabAuthenticationProps extends ConnectorInfoDTO {
 interface GitlabAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
 }
 
@@ -183,6 +184,7 @@ const StepGitlabAuthentication: React.FC<
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullCreate', { name: prevStepData?.name }))
       nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
+      props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -205,11 +207,15 @@ const StepGitlabAuthentication: React.FC<
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
-      if (props.isEditMode && props.connectorInfo) {
-        setupGitFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as GitlabFormInterface)
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupGitFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as GitlabFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
           setLoadingConnectorSecrets(false)
-        })
+        }
       }
     }
   }, [loadingConnectorSecrets])

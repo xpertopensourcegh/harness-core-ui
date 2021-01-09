@@ -12,7 +12,8 @@ const props = {
   type: 'K8sCluster' as ConnectorInfoDTO['type'],
   isEditMode: false,
   hideLightModal: jest.fn(),
-  onSuccess: jest.fn()
+  onSuccess: jest.fn(),
+  setIsEditMode: jest.fn()
 }
 
 describe('Create connector Wizard', () => {

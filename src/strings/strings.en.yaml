@@ -758,6 +758,35 @@ global:
     successfullUpdate: 'Connector {{name}} updated successfully'
     connectorNotFound: Connector not found.
     yamlError: Invalid or malformed yaml. Please fix the yaml and try again.
+    testConnectionStep:
+      errorDetails: Click to view error details
+      noDelegate: Unable to get delegate information
+      executingOn: 'Executed on : '
+      verificationSuccessful: Verification successful
+      viewPermissions: View permissions required
+      installNewDelegate: Install new delegate
+      url:
+        k8s: 'Master URL : '
+        docker: 'Docker Registry URL : '
+        artifactory: 'Artifactory Repository URL : '
+        nexus: 'Nexus Repository URL : '
+        splunk: 'Splunk URL : '
+        appD: 'Controller URL : '
+        vault: 'Vault URL : '
+        bitbucket: 'URL : '
+      validationText:
+        k8s: Validating the cluster authentication and permissions
+        docker: Validating the Docker Registry authentication and permissions
+        artifactory: Validating the Artifactory Repository authentication and permissions
+        nexus: Validating the Nexus Repository authentication and permissions
+        gcp: Validating the Google Cloud Provider authentication and permissions
+        aws: Validating the AWS Cloud Provider authentication and permissions
+        appD: Validating the AppDynamics authentication and permissions
+        splunk: Validating the Splunk authentication and permissions
+        vault: Validating the HashiCorp Vault authentication and permissions
+        bitbucket: Validating the Bitbucket authentication and permissions
+        gitlab: Validating the GitLab authentication and permissions
+        github: Validating the GitHub authentication and permissions
     k8:
       stepTwoName: 'Cluster Details'
       masterUrlLabel: 'Master URL'

@@ -20,7 +20,13 @@ describe('Create Docker Connector  Wizard', () => {
   test('Should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDockerConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} isEditMode={false} />
+        <CreateDockerConnector
+          setIsEditMode={noop}
+          hideLightModal={noop}
+          onConnectorCreated={noop}
+          mock={mockResponse}
+          isEditMode={false}
+        />
       </TestWrapper>
     )
 
@@ -46,6 +52,7 @@ describe('Create Docker Connector  Wizard', () => {
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDockerConnector
           hideLightModal={noop}
+          setIsEditMode={noop}
           onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={dockerMock as ConnectorInfoDTO}

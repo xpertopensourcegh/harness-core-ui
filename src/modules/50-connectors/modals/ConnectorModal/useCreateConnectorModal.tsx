@@ -52,6 +52,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           projectIdentifier={projectIdentifier}
           type={type}
           isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
           connectorInfo={connectorInfo}
           onSuccess={data => {
             props.onClose?.()

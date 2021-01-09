@@ -17,14 +17,22 @@ jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
-  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector hideLightModal={noop} onConnectorCreated={noop} isEditMode={false} mock={mockResponse} />
+        <CreateK8sConnector
+          setIsEditMode={noop}
+          hideLightModal={noop}
+          onConnectorCreated={noop}
+          isEditMode={false}
+          mock={mockResponse}
+        />
       </TestWrapper>
     )
     // fill step 1
@@ -47,6 +55,7 @@ describe('Create k8 connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateK8sConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -102,6 +111,7 @@ describe('Create k8 connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateK8sConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -154,6 +164,7 @@ describe('Create k8 connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateK8sConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -211,6 +222,7 @@ test('should form for edit authtype clientKey', async () => {
   const { container } = render(
     <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
       <CreateK8sConnector
+        setIsEditMode={noop}
         hideLightModal={noop}
         onConnectorCreated={noop}
         isEditMode={true}
@@ -231,8 +243,6 @@ test('should form for edit authtype clientKey', async () => {
   await act(async () => {
     fireEvent.click(container.querySelector('button[type="submit"]')!)
   })
-
-  expect(container).toMatchSnapshot()
 
   expect(updateConnector).toBeCalledWith({
     connector: {
@@ -263,4 +273,5 @@ test('should form for edit authtype clientKey', async () => {
       type: 'K8sCluster'
     }
   })
+  expect(container).toMatchSnapshot()
 })

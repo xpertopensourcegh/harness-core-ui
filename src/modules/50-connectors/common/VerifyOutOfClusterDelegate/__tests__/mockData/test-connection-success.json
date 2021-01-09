@@ -1,6 +1,12 @@
 {
-  "correlationId": "correlationId",
-  "data": { "valid": true, "errorMessage": "", "testedAt": 1599151752878 },
-  "metaData": {},
-  "status": "SUCCESS"
+  "status": "SUCCESS",
+  "data": {
+    "status": "SUCCESS",
+    "errors": null,
+    "errorSummary": null,
+    "testedAt": 1610018411047,
+    "delegateId": "delegateId"
+  },
+  "metaData": null,
+  "correlationId": "e81aaf6f-582c-4bc1-a9af-8d4e972858be"
 }

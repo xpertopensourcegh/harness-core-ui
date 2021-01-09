@@ -403,7 +403,7 @@ export const setupKubFormData = async (connectorInfo: ConnectorInfoDTO, accountI
     delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
     masterUrl: connectorInfo.spec.credential?.spec?.masterUrl || '',
     authType: connectorInfo.spec.credential?.spec?.auth?.type || '',
-    skipDefaultValidation: true,
+    skipDefaultValidation: false,
     ...authData
   }
 

@@ -1228,29 +1228,38 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="display: inline-flex; align-items: center;"
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
-                      icon="warning-sign"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="warning-sign"
-                        height="12"
-                        viewBox="0 0 16 16"
-                        width="12"
+                      <span
+                        class="StyledProps--font StyledProps--main StyledProps--inline"
+                        style="display: inline-flex; align-items: center;"
+                        tabindex="0"
                       >
-                        <desc>
-                          warning-sign
-                        </desc>
-                        <path
-                          d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                          icon="warning-sign"
+                        >
+                          <svg
+                            data-icon="warning-sign"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              warning-sign
+                            </desc>
+                            <path
+                              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        error
+                      </span>
                     </span>
-                    error
                   </span>
                 </div>
                 <p
@@ -1450,29 +1459,38 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="display: inline-flex; align-items: center;"
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                      icon="full-circle"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="full-circle"
-                        height="6"
-                        viewBox="0 0 16 16"
-                        width="6"
+                      <span
+                        class="StyledProps--font StyledProps--main StyledProps--inline"
+                        style="display: inline-flex; align-items: center;"
+                        tabindex="0"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                          icon="full-circle"
+                        >
+                          <svg
+                            data-icon="full-circle"
+                            height="6"
+                            viewBox="0 0 16 16"
+                            width="6"
+                          >
+                            <desc>
+                              full-circle
+                            </desc>
+                            <path
+                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        active
+                      </span>
                     </span>
-                    active
                   </span>
                 </div>
                 <p
@@ -1693,29 +1711,38 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="display: inline-flex; align-items: center;"
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                      icon="full-circle"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="full-circle"
-                        height="6"
-                        viewBox="0 0 16 16"
-                        width="6"
+                      <span
+                        class="StyledProps--font StyledProps--main StyledProps--inline"
+                        style="display: inline-flex; align-items: center;"
+                        tabindex="0"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                          icon="full-circle"
+                        >
+                          <svg
+                            data-icon="full-circle"
+                            height="6"
+                            viewBox="0 0 16 16"
+                            width="6"
+                          >
+                            <desc>
+                              full-circle
+                            </desc>
+                            <path
+                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        active
+                      </span>
                     </span>
-                    active
                   </span>
                 </div>
                 <p
@@ -4092,29 +4119,38 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="display: inline-flex; align-items: center;"
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
-                      icon="warning-sign"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="warning-sign"
-                        height="12"
-                        viewBox="0 0 16 16"
-                        width="12"
+                      <span
+                        class="StyledProps--font StyledProps--main StyledProps--inline"
+                        style="display: inline-flex; align-items: center;"
+                        tabindex="0"
                       >
-                        <desc>
-                          warning-sign
-                        </desc>
-                        <path
-                          d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                          icon="warning-sign"
+                        >
+                          <svg
+                            data-icon="warning-sign"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              warning-sign
+                            </desc>
+                            <path
+                              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        error
+                      </span>
                     </span>
-                    error
                   </span>
                 </div>
                 <p
@@ -4314,29 +4350,38 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="display: inline-flex; align-items: center;"
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                      icon="full-circle"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="full-circle"
-                        height="6"
-                        viewBox="0 0 16 16"
-                        width="6"
+                      <span
+                        class="StyledProps--font StyledProps--main StyledProps--inline"
+                        style="display: inline-flex; align-items: center;"
+                        tabindex="0"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                          icon="full-circle"
+                        >
+                          <svg
+                            data-icon="full-circle"
+                            height="6"
+                            viewBox="0 0 16 16"
+                            width="6"
+                          >
+                            <desc>
+                              full-circle
+                            </desc>
+                            <path
+                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        active
+                      </span>
                     </span>
-                    active
                   </span>
                 </div>
                 <p
@@ -4557,29 +4602,38 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="display: inline-flex; align-items: center;"
+                    class="bp3-popover-wrapper"
                   >
                     <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                      icon="full-circle"
+                      class="bp3-popover-target"
                     >
-                      <svg
-                        data-icon="full-circle"
-                        height="6"
-                        viewBox="0 0 16 16"
-                        width="6"
+                      <span
+                        class="StyledProps--font StyledProps--main StyledProps--inline"
+                        style="display: inline-flex; align-items: center;"
+                        tabindex="0"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <span
+                          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                          icon="full-circle"
+                        >
+                          <svg
+                            data-icon="full-circle"
+                            height="6"
+                            viewBox="0 0 16 16"
+                            width="6"
+                          >
+                            <desc>
+                              full-circle
+                            </desc>
+                            <path
+                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        active
+                      </span>
                     </span>
-                    active
                   </span>
                 </div>
                 <p

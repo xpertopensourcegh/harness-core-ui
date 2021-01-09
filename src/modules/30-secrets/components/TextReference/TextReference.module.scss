@@ -2,6 +2,17 @@
   display: flex;
   justify-content: space-between;
 
+  .labelSelect {
+    :global {
+      .bp3-input-action {
+        > span {
+          padding-left: var(--spacing-xsmall) !important;
+          padding-right: 0px !important;
+        }
+      }
+    }
+  }
+
   :global {
     .bp3-input-group {
       width: 100px;
@@ -17,4 +28,11 @@
 }
 .textCss {
   margin-bottom: 0px !important;
+}
+.secretField {
+  :global {
+    .bp3-form-group {
+      margin-bottom: 0px;
+    }
+  }
 }

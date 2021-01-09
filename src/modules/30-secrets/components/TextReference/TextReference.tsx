@@ -114,6 +114,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
               formik.setFieldValue('textField', undefined)
               formik.setFieldValue('secretField', undefined)
             }}
+            className={css.labelSelect}
           />
         </Container>
         {formik.values.fieldType === ValueType.TEXT ? (
@@ -132,7 +133,9 @@ const TextReference: React.FC<FormikTextReference> = props => {
             className={css.textCss}
           />
         ) : (
-          <SecretInput name={'secretField'} />
+          <Container className={css.secretField}>
+            <SecretInput name={'secretField'} />
+          </Container>
         )}
       </Layout.Vertical>
     </FormGroup>

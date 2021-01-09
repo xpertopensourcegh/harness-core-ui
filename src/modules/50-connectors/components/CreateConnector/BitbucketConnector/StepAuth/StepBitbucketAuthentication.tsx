@@ -45,6 +45,7 @@ interface StepBitbucketAuthenticationProps extends ConnectorInfoDTO {
 interface BitbucketAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
 }
 
@@ -136,6 +137,7 @@ const StepBitbucketAuthentication: React.FC<
       setLoadConnector(false)
       showSuccess(getString('connectors.successfullCreate', { name: prevStepData?.name }))
       nextStep?.({ ...prevStepData, ...stepData } as StepBitbucketAuthenticationProps)
+      props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -158,11 +160,15 @@ const StepBitbucketAuthentication: React.FC<
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
-      if (props.isEditMode && props.connectorInfo) {
-        setupBitbucketFormData(props.connectorInfo, accountId).then(data => {
-          setInitialValues(data as BitbucketFormInterface)
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupBitbucketFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as BitbucketFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
           setLoadingConnectorSecrets(false)
-        })
+        }
       }
     }
   }, [loadingConnectorSecrets])

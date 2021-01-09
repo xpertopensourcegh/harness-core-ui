@@ -13,6 +13,7 @@ interface CreateK8sConnectorProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
 }
 
@@ -36,6 +37,7 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
+        setIsEditMode={props.setIsEditMode}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
@@ -44,6 +46,7 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
         isLastStep={true}
         type={Connectors.KUBERNETES_CLUSTER}
         hideLightModal={props.hideLightModal}
+        setIsEditMode={props.setIsEditMode}
       />
     </StepWizard>
   )

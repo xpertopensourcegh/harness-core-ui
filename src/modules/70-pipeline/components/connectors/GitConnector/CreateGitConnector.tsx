@@ -198,7 +198,6 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
         ) : null}
         <VerifyOutOfClusterDelegate
           name={i18n.STEP_VERIFY.NAME}
-          connectorName={formData?.name}
           connectorIdentifier={formData?.identifier}
           setIsEditMode={() => setIsEditMode(true)}
           renderInModal={true}

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uicore'
+import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position, PopoverInteractionKind, Intent } from '@blueprintjs/core'
+import { Menu, Classes, Position, Intent } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { String } from 'framework/exports'
@@ -10,19 +10,23 @@ import {
   useDeleteConnector,
   PageConnectorResponse,
   useGetTestConnectionResult,
-  ResponseConnectorValidationResult,
   ConnectorConnectivityDetails,
   ConnectorInfoDTO
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
+
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { getStepOneForExistingDelegate } from '@connectors/common/VerifyExistingDelegate/VerifyExistingDelegate'
-import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
+
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
+
 import { ConnectorStatus, Connectors } from '@connectors/constants'
+
+import { useStrings } from 'framework/exports'
+
 import { getIconByType } from '../utils/ConnectorUtils'
 import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
@@ -116,9 +120,13 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
   const data = row.original
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [testing, setTesting] = useState(false)
-  const [lastTestedAt, setLastTestedAt] = useState<number>()
+  const [lastTestedAt] = useState<number>()
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(data.status?.status)
+
+  // Todo: const [testConnectionResponse, setTestConnectionResponse] = useState()
+
   const [errorMessage, setErrorMessage] = useState('')
+  const { getString } = useStrings()
 
   const [stepDetails, setStepDetails] = useState<StepDetails>({
     step: 1,
@@ -126,10 +134,6 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
     status: 'PROCESS' // Replace when enum is added in uikit
   })
 
-  const { data: delegateStatus, error, refetch: refetchDelegateStatus } = useGetDelegatesStatus({
-    queryParams: { accountId: accountId },
-    lazy: true
-  })
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
     identifier: data.connector?.identifier || '',
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
@@ -140,131 +144,39 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
     }
   })
 
-  const getStepOne = () => {
-    if (data.connector?.spec?.credential?.spec?.delegateName) {
-      return getStepOneForExistingDelegate(stepDetails, data.connector?.spec?.credential?.spec?.delegateName)
-    } else {
-      const count = delegateStatus?.resource?.delegates?.length
-      if (stepDetails.step !== StepIndex.get(STEP.CHECK_DELEGATE)) {
-        return i18n.delegateFound(count)
-      } else {
-        return i18n.STEPS.ONE.PROGRESS
-      }
-    }
-  }
-
-  const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
-    const delegateList = delegateStatusResponse?.resource?.delegates
-    return delegateList?.filter(function (item: DelegateInner) {
-      return item.delegateName && item.delegateName === data.connector?.spec?.credential?.spec?.delegateName
-    })?.length
-  }
-
   const executeStepVerify = async (): Promise<void> => {
-    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
-      let testConnectionResponse: ResponseConnectorValidationResult
+    if (stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {
         try {
-          testConnectionResponse = await reloadTestConnection()
-          if (testConnectionResponse?.data?.valid) {
-            setStepDetails({
-              step: 2,
-              intent: Intent.SUCCESS,
-              status: 'DONE'
-            })
-          } else {
-            setStepDetails({
-              step: 2,
-              intent: Intent.DANGER,
-              status: 'ERROR'
-            })
-          }
-        } catch (err) {
-          setStepDetails({
-            step: 2,
-            intent: Intent.DANGER,
-            status: 'ERROR'
-          })
-        }
-      }
-    }
-  }
+          const result = await reloadTestConnection()
 
-  useEffect(() => {
-    if (testing) {
-      if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'PROCESS') {
-        if (delegateStatus) {
-          if (
-            data.connector?.spec?.credential?.spec?.delegateName
-              ? isSelectedDelegateActive(delegateStatus)
-              : delegateStatus.resource?.delegates?.length
-          ) {
+          if (result?.data?.status === 'SUCCESS') {
             setStepDetails({
-              step: 1,
+              step: 2,
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
           } else {
+            setErrorMessage(result.data?.errorSummary as string)
             setStepDetails({
               step: 1,
               intent: Intent.DANGER,
               status: 'ERROR'
             })
           }
-        } else if (!delegateStatus && error) {
+          setTesting(false)
+        } catch (err) {
+          setErrorMessage(err.message as string)
           setStepDetails({
             step: 1,
             intent: Intent.DANGER,
             status: 'ERROR'
           })
-        }
-      }
-      executeStepVerify()
-
-      if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'DONE') {
-        setStepDetails({
-          step: 2,
-          intent: Intent.SUCCESS,
-          status: 'PROCESS'
-        })
-      }
-
-      if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
-        setStepDetails({
-          step: 3,
-          intent: Intent.SUCCESS,
-          status: 'PROCESS'
-        })
-      }
-      if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
-        const interval = setInterval(() => {
-          setStepDetails({
-            step: 3,
-            intent: Intent.SUCCESS,
-            status: 'DONE'
-          })
           setTesting(false)
-          setStatus(ConnectorStatus.SUCCESS)
-          setLastTestedAt(new Date().getTime())
-        }, 2000)
-
-        return () => {
-          clearInterval(interval)
         }
-      }
-
-      if (stepDetails.status === 'ERROR') {
-        setTesting(false)
-        setStatus(ConnectorStatus.FAILURE)
-        setLastTestedAt(new Date().getTime())
-        setStepDetails({
-          step: 1,
-          intent: Intent.WARNING,
-          status: 'PROCESS'
-        })
       }
     }
-  }, [delegateStatus, error, stepDetails])
+  }
 
   useEffect(() => {
     if (data.status?.status) {
@@ -287,7 +199,13 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                   size: status === ConnectorStatus.SUCCESS ? 6 : 12,
                   color: status === ConnectorStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                 }}
-                tooltip={errorMessage || data.status?.errorMessage}
+                tooltip={
+                  <Layout.Vertical font={{ size: 'small' }} padding="xsmall" spacing="xsmall">
+                    <Text>{errorMessage || data.status?.errorMessage}</Text>
+                    <Text color={Color.BLUE_600}>{getString('connectors.testConnectionStep.errorDetails')}</Text>
+                  </Layout.Vertical>
+                }
+                tooltipProps={{ isDark: true }}
               >
                 {status === ConnectorStatus.SUCCESS ? i18n.success : i18n.failed}
               </Text>
@@ -301,17 +219,18 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
         </Layout.Vertical>
       ) : (
         <Layout.Horizontal>
-          <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.LEFT_TOP}>
-            <Button intent="primary" minimal loading />
-            <div className={css.testConnectionPop}>
-              <StepsProgress
+          {/* Todo:  <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.LEFT_TOP}> */}
+
+          <Button intent="primary" minimal loading />
+          {/* <div className={css.testConnectionPop}> */}
+          {/* <StepsProgress
                 steps={[getStepOne() || '', i18n.STEPS.TWO, i18n.STEPS.THREE]}
                 intent={stepDetails.intent}
                 current={stepDetails.step}
                 currentStatus={stepDetails.status}
-              />
-            </div>
-          </Popover>
+              /> */}
+          {/* </div> */}
+          {/* </Popover> */}
           <Text style={{ margin: 8 }}>{i18n.TestInProgress}</Text>
         </Layout.Horizontal>
       )}
@@ -323,7 +242,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
           onClick={e => {
             e.stopPropagation()
             setTesting(true)
-            refetchDelegateStatus()
+            executeStepVerify()
           }}
         />
       ) : null}

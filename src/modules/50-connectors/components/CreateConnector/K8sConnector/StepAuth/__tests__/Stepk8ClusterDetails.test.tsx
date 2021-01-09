@@ -25,6 +25,7 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
+          setIsEditMode={noop}
           name="credentials"
           onConnectorCreated={noop}
           isEditMode={false}
@@ -61,6 +62,7 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
+          setIsEditMode={noop}
           name="credentials"
           onConnectorCreated={noop}
           isEditMode={true}
@@ -99,6 +101,7 @@ describe('Stepk8ClusterDetails', () => {
       <TestWrapper>
         <Stepk8ClusterDetails
           name="credentials"
+          setIsEditMode={noop}
           onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={
@@ -133,6 +136,7 @@ describe('Stepk8ClusterDetails', () => {
       <TestWrapper>
         <Stepk8ClusterDetails
           name="credentials"
+          setIsEditMode={noop}
           onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={
@@ -178,6 +182,7 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
+          setIsEditMode={noop}
           name="credentials"
           onConnectorCreated={noop}
           isEditMode={true}

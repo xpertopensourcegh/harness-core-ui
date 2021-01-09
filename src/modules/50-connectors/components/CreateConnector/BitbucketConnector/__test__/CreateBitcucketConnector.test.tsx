@@ -32,6 +32,7 @@ describe('Create Bitbucketconnector Wizard', () => {
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateBitbucketConnector
           hideLightModal={noop}
+          setIsEditMode={noop}
           onConnectorCreated={noop}
           isEditMode={false}
           connectorInfo={(null as unknown) as void}
@@ -106,6 +107,7 @@ describe('Create Bitbucketconnector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateBitbucketConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -153,6 +155,7 @@ describe('Create Bitbucketconnector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateBitbucketConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}

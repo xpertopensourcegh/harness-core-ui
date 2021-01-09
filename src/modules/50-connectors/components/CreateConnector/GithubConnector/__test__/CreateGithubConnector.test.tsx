@@ -41,6 +41,7 @@ describe('Create Github connector Wizard', () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={false}
@@ -115,6 +116,7 @@ describe('Create Github connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -137,6 +139,7 @@ describe('Create Github connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}
@@ -191,6 +194,7 @@ describe('Create Github connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
+          setIsEditMode={noop}
           hideLightModal={noop}
           onConnectorCreated={noop}
           isEditMode={true}

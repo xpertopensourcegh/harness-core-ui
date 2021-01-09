@@ -196,6 +196,7 @@ function Providers(props: ProvidersProps): JSX.Element {
     () => (
       <Dialog {...DIALOG_PROPS}>
         <CreateConnectorWizard
+          setIsEditMode={() => undefined}
           accountId={accountId}
           orgIdentifier={orgId}
           projectIdentifier={projectId}

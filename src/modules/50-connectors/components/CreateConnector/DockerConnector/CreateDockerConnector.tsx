@@ -13,6 +13,7 @@ interface CreateDockerConnectorProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
 }
 const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
@@ -36,6 +37,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           onConnectorCreated={props.onConnectorCreated}
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
+          setIsEditMode={props.setIsEditMode}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
