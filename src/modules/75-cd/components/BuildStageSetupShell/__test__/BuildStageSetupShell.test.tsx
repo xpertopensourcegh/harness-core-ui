@@ -2,9 +2,16 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
+import { PipelineContext } from '@pipeline/exports'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
+import type { PipelineContextInterface } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import BuildStageSetupShell from '../BuildStageSetupShell'
 
+import pipelineContextMock from './pipelineContext.json'
+
+const getContextValue = (): PipelineContextInterface => {
+  return { ...pipelineContextMock, updatePipeline: jest.fn() } as any
+}
 export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
   loading: false,
   refetch: jest.fn(),
@@ -84,7 +91,9 @@ describe('BuildStageSetupShell snapshot test', () => {
   test('initializes ok', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
-        <BuildStageSetupShell />
+        <PipelineContext.Provider value={getContextValue()}>
+          <BuildStageSetupShell />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

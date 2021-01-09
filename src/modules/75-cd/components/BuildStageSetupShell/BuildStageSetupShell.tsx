@@ -2,12 +2,14 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Select } from '@blueprintjs/select'
+import set from 'lodash-es/set'
+import get from 'lodash-es/get'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import {
   getSelectStageOptionsFromPipeline,
   StageSelectOption
 } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
-import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
+import { PipelineContext, getStageFromPipeline, ExecutionGraph, getStageIndexFromPipeline } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type {
@@ -99,6 +101,23 @@ export default function BuildStageSetupShell(): JSX.Element {
       }
     }
   }, [selectedTabId])
+
+  React.useEffect(() => {
+    const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
+    const { index } = getStageIndexFromPipeline(pipeline, selectedStageId)
+    if (data) {
+      if (!get(data, 'stage.spec.execution.steps', null)) {
+        set(data, 'stage.spec.execution.steps', [])
+      }
+      if (!get(data, 'stage.spec.serviceDependencies', null)) {
+        set(data, 'stage.spec.serviceDependencies', [])
+      }
+    }
+
+    set(pipeline, `stages[${index}]`, data)
+
+    updatePipeline(pipeline)
+  }, [])
 
   React.useEffect(() => {
     const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)

@@ -54,6 +54,28 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         class="bp3-button-text"
                       >
                         <span
+                          class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+                        >
+                          <svg
+                            height="30"
+                            viewBox="0 0 24 24"
+                            width="30"
+                          >
+                            <g
+                              fill="currentColor"
+                              fill-rule="nonzero"
+                            >
+                              <path
+                                d="M23.86.14a.478.478 0 00-.516-.106L.3 9.28a.478.478 0 00-.093.837l8 5.509v4.455a.478.478 0 00.816.338l1.503-1.502 3.358 4.877a.478.478 0 00.837-.093L23.966.657a.478.478 0 00-.106-.516zM8.594 14.73l-7.11-4.896 20.049-8.043L8.594 14.73zm.57 4.195v-1.988l.81 1.178-.81.81zm5.002 3.592l-3.14-4.56a.479.479 0 00-.035-.061l-1.719-2.492L22.21 2.467l-8.043 20.05z"
+                              />
+                              <path
+                                d="M17.772 9.006a.477.477 0 00.338-.14l.436-.436a.478.478 0 10-.677-.676l-.435.436a.478.478 0 00.338.816zm-7.338 6.86a.477.477 0 00.676 0l5.66-5.66a.478.478 0 00-.676-.677l-5.66 5.661a.478.478 0 000 .676z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        Deploy
+                        <span
                           class="bp3-icon StyledProps--main stageDropdownButtonCaret StyledProps--margin-left-medium"
                         >
                           <svg
@@ -207,7 +229,9 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                               <span
                                 class="InputWithIdentifier--idInput"
                                 contenteditable="true"
-                              />
+                              >
+                                Deploy
+                              </span>
                               <span
                                 class="bp3-icon bp3-icon-edit StyledProps--main"
                                 icon="edit"
@@ -255,7 +279,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                     name="name"
                                     placeholder="Enter your stage name"
                                     type="text"
-                                    value=""
+                                    value="Deploy"
                                   />
                                 </div>
                               </div>
