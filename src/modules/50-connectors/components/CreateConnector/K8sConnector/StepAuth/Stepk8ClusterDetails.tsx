@@ -51,20 +51,41 @@ interface K8ClusterDetailsProps {
 interface KubeFormInterface {
   delegateType: string
   authType: string
-  username: TextReferenceInterface | null
-  password: SecretReferenceInterface | null
-  serviceAccountToken: SecretReferenceInterface | null
-  oidcUsername: TextReferenceInterface | null
-  oidcPassword: SecretReferenceInterface | null
-  oidcCleintId: SecretReferenceInterface | null
-  oidcCleintSecret: SecretReferenceInterface | null
+  username: TextReferenceInterface | void
+  password: SecretReferenceInterface | void
+  serviceAccountToken: SecretReferenceInterface | void
+  oidcIssuerUrl: string
+  oidcUsername: TextReferenceInterface | void
+  oidcPassword: SecretReferenceInterface | void
+  oidcCleintId: SecretReferenceInterface | void
+  oidcCleintSecret: SecretReferenceInterface | void
   oidcScopes: string
-  clientKey: SecretReferenceInterface | null
-  clientKeyPassphrase: SecretReferenceInterface | null
-  clientKeyCertificate: SecretReferenceInterface | null
+  clientKey: SecretReferenceInterface | void
+  clientKeyPassphrase: SecretReferenceInterface | void
+  clientKeyCertificate: SecretReferenceInterface | void
   clientKeyAlgo: string
-  clientKeyCACertificate: SecretReferenceInterface | null
+  clientKeyCACertificate: SecretReferenceInterface | void
   skipDefaultValidation: boolean
+}
+
+const defaultInitialFormData: KubeFormInterface = {
+  delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
+  authType: AuthTypes.USER_PASSWORD,
+  username: undefined,
+  password: undefined,
+  serviceAccountToken: undefined,
+  oidcIssuerUrl: '',
+  oidcUsername: undefined,
+  oidcPassword: undefined,
+  oidcCleintId: undefined,
+  oidcCleintSecret: undefined,
+  oidcScopes: '',
+  clientKey: undefined,
+  clientKeyCertificate: undefined,
+  clientKeyPassphrase: undefined,
+  clientKeyAlgo: '',
+  clientKeyCACertificate: undefined,
+  skipDefaultValidation: false
 }
 
 interface AuthOptionInterface {
@@ -82,7 +103,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
           <TextReference
             name="username"
             label={getString('username')}
-            type={props.values.username?.type || ValueType.TEXT}
+            type={props.values.username ? props.values.username?.type : ValueType.TEXT}
           />
           <SecretInput name={'password'} label={getString('password')} />
         </Container>
@@ -106,7 +127,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
               <TextReference
                 name="oidcUsername"
                 label={getString('connectors.k8.OIDCUsername')}
-                type={props.values.oidcUsername?.type || ValueType.TEXT}
+                type={props.values.oidcUsername ? props.values.oidcUsername.type : ValueType.TEXT}
               />
 
               <SecretInput name={'oidcPassword'} label={getString('connectors.k8.OIDCPassword')} />
@@ -160,9 +181,11 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       type: DelegateTypes.DELEGATE_OUT_CLUSTER,
       info: getString('connectors.delegateOutClusterInfo2')
     },
+    // TODO: Enable after Delegate dependency is resolved
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('connectors.delegateInClusterInfo')
+      info: getString('connectors.delegateInClusterInfo'),
+      disabled: true
     }
   ]
 
@@ -185,24 +208,67 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     }
   ]
 
-  const defaultInitialFormData: KubeFormInterface = {
-    delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
-    authType: AuthTypes.USER_PASSWORD,
-    username: null,
-    password: null,
-    serviceAccountToken: null,
-    oidcUsername: null,
-    oidcPassword: null,
-    oidcCleintId: null,
-    oidcCleintSecret: null,
-    oidcScopes: '',
-    clientKey: null,
-    clientKeyCertificate: null,
-    clientKeyPassphrase: null,
-    clientKeyAlgo: '',
-    clientKeyCACertificate: null,
-    skipDefaultValidation: false
-  }
+  const validationSchema = Yup.object().shape({
+    masterUrl: Yup.string().trim().required(getString('validation.masterUrl')),
+    authType: Yup.string().trim().required(getString('validation.authType')),
+    username: Yup.string()
+      .nullable()
+      .when('authType', {
+        is: authType => authType === AuthTypes.USER_PASSWORD,
+        then: Yup.string().required(getString('validation.username'))
+      }),
+    password: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.USER_PASSWORD,
+      then: Yup.object().required(getString('validation.password')),
+      otherwise: Yup.object().nullable()
+    }),
+    serviceAccountToken: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.SERVICE_ACCOUNT,
+      then: Yup.object().required(getString('validation.serviceAccountToken')),
+      otherwise: Yup.object().nullable()
+    }),
+    oidcIssuerUrl: Yup.string().when('authType', {
+      is: authType => authType === AuthTypes.OIDC,
+      then: Yup.string().required(getString('validation.OIDCIssuerUrl')),
+      otherwise: Yup.string().nullable()
+    }),
+    oidcUsername: Yup.string()
+      .nullable()
+      .when('authType', {
+        is: authType => authType === AuthTypes.OIDC,
+        then: Yup.string().required(getString('validation.OIDCUsername'))
+      }),
+    oidcPassword: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.OIDC,
+      then: Yup.object().required(getString('validation.OIDCPassword')),
+      otherwise: Yup.object().nullable()
+    }),
+    oidcCleintId: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.OIDC,
+      then: Yup.object().required(getString('validation.OIDCClientId')),
+      otherwise: Yup.object().nullable()
+    }),
+    oidcCleintSecret: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.OIDC,
+      then: Yup.object().required(getString('validation.OIDCSecret')),
+      otherwise: Yup.object().nullable()
+    }),
+    clientKey: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
+      then: Yup.object().required(getString('validation.clientKey')),
+      otherwise: Yup.object().nullable()
+    }),
+    clientKeyPassphrase: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
+      then: Yup.object().required(getString('validation.clientKeyPassphrase')),
+      otherwise: Yup.object().nullable()
+    }),
+    clientKeyCertificate: Yup.object().when('authType', {
+      is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
+      then: Yup.object().required(getString('validation.clientCertificate')),
+      otherwise: Yup.object().nullable()
+    })
+  })
 
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
@@ -239,29 +305,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     }
   }
 
-  const validate = (formData: KubeFormInterface): boolean => {
-    switch (formData.authType) {
-      case AuthTypes.USER_PASSWORD:
-        return !!formData.password?.referenceString
-      case AuthTypes.SERVICE_ACCOUNT:
-        return !!formData.serviceAccountToken?.referenceString
-      case AuthTypes.OIDC:
-        return !!(
-          formData.oidcPassword?.referenceString &&
-          formData.oidcCleintId?.referenceString &&
-          formData.oidcCleintSecret?.referenceString
-        )
-      case AuthTypes.CLIENT_KEY_CERT:
-        return !!(
-          formData.clientKey?.referenceString &&
-          formData.clientKeyCertificate?.referenceString &&
-          formData.clientKeyPassphrase?.referenceString
-        )
-      default:
-        return false
-    }
-  }
-
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
@@ -288,40 +331,23 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
           ...initialValues,
           ...props.prevStepData
         }}
-        validationSchema={Yup.object().shape({
-          masterUrl: Yup.string().trim().required(getString('connectors.k8.validation.masterUrl')),
-
-          username: Yup.string()
-            .nullable()
-            .when('authType', {
-              is: authType => authType === AuthTypes.USER_PASSWORD,
-              then: Yup.string().required(getString('connectors.k8.validation.username'))
-            }),
-          oidcUsername: Yup.string()
-            .nullable()
-            .when('authType', {
-              is: authType => authType === AuthTypes.OIDC,
-              then: Yup.string().required(getString('connectors.k8.validation.oidcUsername'))
-            })
-        })}
+        validationSchema={validationSchema}
         onSubmit={(formData: KubeFormInterface) => {
-          if (validate(formData)) {
-            const connectorData = {
-              ...props.prevStepData,
-              ...formData,
-              projectIdentifier: projectIdentifier,
-              orgIdentifier: orgIdentifier
-            }
+          const connectorData = {
+            ...props.prevStepData,
+            ...formData,
+            projectIdentifier: projectIdentifier,
+            orgIdentifier: orgIdentifier
+          }
 
-            const data = {
-              ...buildKubPayload(connectorData)
-            }
+          const data = {
+            ...buildKubPayload(connectorData)
+          }
 
-            if (props.isEditMode) {
-              handleUpdate(data, formData)
-            } else {
-              handleCreate(data, formData)
-            }
+          if (props.isEditMode) {
+            handleUpdate(data, formData)
+          } else {
+            handleCreate(data, formData)
           }
         }}
       >
@@ -331,7 +357,8 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
-                  formikProps?.setFieldValue('delegateType', item.type)
+                  DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType &&
+                    formikProps?.setFieldValue('delegateType', item.type)
                 }}
                 data={DelegateCards}
                 className={css.cardRow}
@@ -377,11 +404,12 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                 </>
               ) : null}
             </Container>
+
             <Button
               type="submit"
               intent="primary"
               text={getString('saveAndContinue')}
-              className={css.saveButton}
+              rightIcon="chevron-right"
               disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
             />
           </Form>

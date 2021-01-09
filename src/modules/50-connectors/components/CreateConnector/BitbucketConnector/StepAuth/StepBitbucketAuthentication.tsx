@@ -181,23 +181,26 @@ const StepBitbucketAuthentication: React.FC<
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          username: Yup.string().when(['connectionType', 'connectionType'], {
+          username: Yup.string().when(['connectionType', 'enableAPIAccess'], {
             is: (connectionType, enableAPIAccess) => connectionType === GitConnectionType.HTTPS || enableAPIAccess,
-            then: Yup.string().trim().required(getString('validation.username'))
+            then: Yup.string().trim().required(getString('validation.username')),
+            otherwise: Yup.string().nullable()
           }),
           sshKey: Yup.object().when('connectionType', {
             is: val => val === GitConnectionType.SSH,
             then: Yup.object().required(getString('validation.sshKey')),
             otherwise: Yup.object().nullable()
           }),
-          password: Yup.object().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
+          password: Yup.object().when(['connectionType', 'authType'], {
+            is: (connectionType, authType) =>
+              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_PASSWORD,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
           }),
           apiAuthType: Yup.string().when('enableAPIAccess', {
             is: val => val,
-            then: Yup.string().trim().required(getString('validation.authType'))
+            then: Yup.string().trim().required(getString('validation.authType')),
+            otherwise: Yup.string().nullable()
           }),
           accessToken: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
             is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAuthTypes.USER_TOKEN,
@@ -257,7 +260,7 @@ const StepBitbucketAuthentication: React.FC<
               type="submit"
               intent="primary"
               text={getString('saveAndContinue')}
-              className={css.saveButton}
+              rightIcon="chevron-right"
               disabled={loadConnector}
             />
           </Form>

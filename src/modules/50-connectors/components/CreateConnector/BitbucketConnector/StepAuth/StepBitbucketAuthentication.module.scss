@@ -42,24 +42,5 @@
         }
       }
     }
-
-    .formRow {
-      display: flex;
-      :global {
-        .bp3-form-group {
-          width: 46%;
-          .bp3-input,
-          .bp3-button {
-            width: 92%;
-          }
-        }
-      }
-    }
-
-    .saveButton {
-      width: 180px;
-      height: 32px;
-      margin-top: var(--spacing-large);
-    }
   }
 }

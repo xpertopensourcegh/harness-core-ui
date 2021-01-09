@@ -79,6 +79,7 @@ export default {
   },
   Docker: {
     dockerRegistryURL: 'Docker Registry URL',
+    providerType: 'Provider Type',
     username: 'Username',
     password: 'Password'
   },

@@ -39,7 +39,7 @@ describe('Stepk8ClusterDetails', () => {
     })
 
     expect(container).toMatchSnapshot()
-    expect(getByText('Username is required')).toBeDefined()
+    expect(getByText('Username is a required field')).toBeDefined()
 
     fillAtForm([
       {

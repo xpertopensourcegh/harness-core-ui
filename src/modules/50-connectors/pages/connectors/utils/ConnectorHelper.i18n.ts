@@ -12,7 +12,7 @@ export default {
   hashicorpVaultDetails: 'HashiCorp Vault Overview',
   LABEL: {
     k8sCluster: 'Kubernetes Cluster',
-    gcpConnector: 'GCP Connector',
+    gcpConnector: 'Google Cloud Provider',
     gitConnector: 'GIT Connector',
     githubConnector: 'GitHub Connector',
     gitlabConnector: 'GitLab Connector',
@@ -21,7 +21,7 @@ export default {
     secretManager: 'Secret Manager',
     appdynamics: 'AppDynamics connector',
     splunk: 'Splunk connector',
-    docker: 'Docker Connector',
+    docker: 'Docker Registry',
     aws: 'AWS Connector',
     nexus: 'Nexus Connector',
     artifactory: 'Artifactory Connector'

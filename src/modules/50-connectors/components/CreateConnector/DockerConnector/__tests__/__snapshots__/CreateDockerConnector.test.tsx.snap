@@ -34,7 +34,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Docker Connector
+        Docker Registry
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -226,6 +226,25 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                         Save and Continue
                       </span>
                     </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -272,7 +291,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Docker Connector
+        Docker Registry
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -343,7 +362,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
     >
        
       <div
-        class="Layout--vertical StyledProps--main"
+        class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
         <p
@@ -385,6 +404,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="dockerRegistryUrl"
+                        placeholder="URL"
                         type="text"
                         value=""
                       />
@@ -603,13 +623,32 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -655,7 +694,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Docker Connector
+        Docker Registry
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -860,6 +899,25 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         Save and Continue
                       </span>
                     </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -906,7 +964,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Docker Connector
+        Docker Registry
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -977,7 +1035,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
     >
        
       <div
-        class="Layout--vertical StyledProps--main"
+        class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
         <p
@@ -1019,6 +1077,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         autocomplete="off"
                         class="bp3-input"
                         name="dockerRegistryUrl"
+                        placeholder="URL"
                         type="text"
                         value="url-v3"
                       />
@@ -1237,13 +1296,32 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>

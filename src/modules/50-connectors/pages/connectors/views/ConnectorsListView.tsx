@@ -41,9 +41,11 @@ const getConnectorDisplaySummaryLabel = (titleStringId: string, value: string): 
   return (
     <>
       {titleStringId ? <String stringID={titleStringId} /> : null}
-      <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
-        {`(${value})`}
-      </Text>
+      {value ? (
+        <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
+          {`(${value})`}
+        </Text>
+      ) : null}
     </>
   )
 }
@@ -93,7 +95,9 @@ const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) =>
 
   return data.connector ? (
     <div>
-      <Text color={Color.BLACK}>{getConnectorDisplaySummary(data.connector)}</Text>
+      <Text color={Color.BLACK} lineClamp={2} className={css.summaryLabel}>
+        {getConnectorDisplaySummary(data.connector)}
+      </Text>
       <Text color={Color.GREY_400}>{data.connector?.description}</Text>
     </div>
   ) : null

@@ -228,17 +228,20 @@ const StepGitlabAuthentication: React.FC<
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          username: Yup.string().when('connectionType', {
-            is: val => val === GitConnectionType.HTTPS,
-            then: Yup.string().trim().required(getString('validation.username'))
+          username: Yup.string().when(['connectionType', 'authType'], {
+            is: (connectionType, authType) =>
+              connectionType === GitConnectionType.HTTPS && authType !== GitAuthTypes.KERBEROS,
+            then: Yup.string().trim().required(getString('validation.username')),
+            otherwise: Yup.string().nullable()
           }),
           sshKey: Yup.object().when('connectionType', {
             is: val => val === GitConnectionType.SSH,
             then: Yup.object().required(getString('validation.sshKey')),
             otherwise: Yup.object().nullable()
           }),
-          password: Yup.object().when('authType', {
-            is: val => val === GitAuthTypes.USER_PASSWORD,
+          password: Yup.object().when(['connectionType', 'authType'], {
+            is: (connectionType, authType) =>
+              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_PASSWORD,
             then: Yup.object().required(getString('validation.password')),
             otherwise: Yup.object().nullable()
           }),
@@ -312,7 +315,7 @@ const StepGitlabAuthentication: React.FC<
               type="submit"
               intent="primary"
               text={getString('saveAndContinue')}
-              className={css.saveButton}
+              rightIcon="chevron-right"
               disabled={loadConnector}
             />
           </Form>

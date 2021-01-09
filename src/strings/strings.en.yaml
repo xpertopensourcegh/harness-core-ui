@@ -707,6 +707,17 @@ global:
     username: 'Username is a required field'
     password: 'Password is a required field'
     authType: 'Auth type is required'
+    masterUrl: 'Master URL is required'
+    serviceAccountToken: 'Service Account Token is required'
+    OIDCIssuerUrl: 'OIDC Issuer URL is required'
+    OIDCUsername: 'OIDC username is required'
+    OIDCPassword: 'OIDC Password is required'
+    OIDCClientId: 'OIDC Client ID is required'
+    OIDCSecret: 'OIDC Secret is required'
+    clientKey: 'Client Key is required'
+    clientKeyPassphrase: 'Client Key passphrase is required'
+    clientCertificate: 'Client Certificate is required'
+    encryptedKey: 'Encrypted Key is required'
     installationId: 'GitHub Installation ID is required'
     applicationId: 'GitHub Application ID is required'
     UrlRequired: URL is required
@@ -764,10 +775,6 @@ global:
       clientKeyCACertificate: 'CA Certificate (optional)'
       placeholder:
         masterUrl: '/url'
-      validation:
-        masterUrl: 'Master URL is required'
-        username: 'Username is required'
-        oidcUsername: 'OIDC username is required'
       authLabels:
         OIDC: 'OpenID Connect'
         clientKeyCertificate: 'Client Key Certificate'

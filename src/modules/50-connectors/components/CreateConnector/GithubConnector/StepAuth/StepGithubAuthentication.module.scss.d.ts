@@ -7,6 +7,5 @@ declare const styles: {
   readonly authHeaderRow: string
   readonly authTitle: string
   readonly formRow: string
-  readonly saveButton: string
 }
 export default styles

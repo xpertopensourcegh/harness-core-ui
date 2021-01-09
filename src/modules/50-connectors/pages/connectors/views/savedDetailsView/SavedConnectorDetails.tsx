@@ -229,6 +229,10 @@ const getGithubSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
 const getDockerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
+      label: i18n.Docker.providerType,
+      value: connector?.spec?.providerType
+    },
+    {
       label: i18n.Docker.dockerRegistryURL,
       value: connector?.spec?.dockerRegistryUrl
     },
@@ -242,7 +246,7 @@ const getDockerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: i18n.Docker.password,
-      value: connector?.spec?.auth?.spec?.passwordRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.auth?.spec?.passwordRef
     }
   ]
 }
@@ -312,7 +316,7 @@ const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
     },
     {
       label: i18n.password,
-      value: connector?.spec?.credential?.spec?.secretKeyRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.secretKeyRef
     },
     {
       label: i18n.AWS.STSEnabled,

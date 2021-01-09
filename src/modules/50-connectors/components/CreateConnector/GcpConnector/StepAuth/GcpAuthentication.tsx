@@ -15,6 +15,7 @@ import {
   Icon
 } from '@wings-software/uicore'
 import cx from 'classnames'
+import * as Yup from 'yup'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   buildGcpPayload,
@@ -45,7 +46,7 @@ interface StepConfigureProps {
 
 interface GCPFormInterface {
   delegateType: string
-  password: SecretReferenceInterface | null
+  password: SecretReferenceInterface | void
 }
 const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
@@ -59,11 +60,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
 
   const defaultInitialFormData: GCPFormInterface = {
     delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
-    password: null
-  }
-
-  const validate = (formData: GCPFormInterface): boolean => {
-    return !!formData.password?.referenceString
+    password: undefined
   }
 
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
@@ -76,7 +73,8 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     },
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('connectors.delegateInClusterInfo')
+      info: getString('connectors.delegateInClusterInfo'),
+      disabled: true
     }
   ]
 
@@ -131,21 +129,22 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
           ...initialValues,
           ...props.prevStepData
         }}
+        validationSchema={Yup.object().shape({
+          password: Yup.object().required(getString('validation.encryptedKey'))
+        })}
         onSubmit={formData => {
-          if (validate(formData)) {
-            const connectorData = {
-              ...prevStepData,
-              ...formData,
-              projectIdentifier: projectIdentifier,
-              orgIdentifier: orgIdentifier
-            }
-            const data = buildGcpPayload(connectorData)
+          const connectorData = {
+            ...prevStepData,
+            ...formData,
+            projectIdentifier: projectIdentifier,
+            orgIdentifier: orgIdentifier
+          }
+          const data = buildGcpPayload(connectorData)
 
-            if (props.isEditMode) {
-              handleUpdate(data, formData)
-            } else {
-              handleCreate(data, formData)
-            }
+          if (props.isEditMode) {
+            handleUpdate(data, formData)
+          } else {
+            handleCreate(data, formData)
           }
         }}
       >
@@ -155,7 +154,8 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
               <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
-                  formikProps?.setFieldValue('delegateType', item.type)
+                  DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType &&
+                    formikProps?.setFieldValue('delegateType', item.type)
                 }}
                 data={DelegateCards}
                 className={css.cardRow}
@@ -184,7 +184,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
               type="submit"
               intent="primary"
               text={getString('saveAndContinue')}
-              className={css.saveButton}
+              rightIcon="chevron-right"
               disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
             />
           </Form>

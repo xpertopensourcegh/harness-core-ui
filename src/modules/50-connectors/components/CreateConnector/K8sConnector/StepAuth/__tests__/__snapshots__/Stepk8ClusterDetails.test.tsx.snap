@@ -52,9 +52,8 @@ exports[`Stepk8ClusterDetails render  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -326,13 +325,32 @@ exports[`Stepk8ClusterDetails render  1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>
@@ -392,9 +410,8 @@ exports[`Stepk8ClusterDetails render  2`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -601,7 +618,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <div
                 class="bp3-form-helper-text"
               >
-                Username is required
+                Username is a required field
               </div>
             </div>
           </div>
@@ -652,6 +669,11 @@ exports[`Stepk8ClusterDetails render  2`] = `
                 </div>
               </span>
             </button>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-danger"
+            >
+              Password is a required field
+            </p>
           </div>
         </div>
         <div
@@ -676,13 +698,32 @@ exports[`Stepk8ClusterDetails render  2`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>
@@ -742,9 +783,8 @@ exports[`Stepk8ClusterDetails render  3`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -951,7 +991,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <div
                 class="bp3-form-helper-text"
               >
-                Username is required
+                Username is a required field
               </div>
             </div>
           </div>
@@ -1002,6 +1042,11 @@ exports[`Stepk8ClusterDetails render  3`] = `
                 </div>
               </span>
             </button>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-danger"
+            >
+              Password is a required field
+            </p>
           </div>
         </div>
         <div
@@ -1026,13 +1071,32 @@ exports[`Stepk8ClusterDetails render  3`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>
@@ -1092,9 +1156,8 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -1367,13 +1430,32 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>
@@ -1433,9 +1515,8 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -1615,13 +1696,32 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>
@@ -1681,9 +1781,8 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -1810,13 +1909,32 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>
@@ -1876,9 +1994,8 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card"
+            class="bp3-card bp3-elevation-0 Card--card Card--disabled"
             data-index="1"
-            tabindex="0"
           >
             <div
               class="StyledProps--font StyledProps--main card"
@@ -2314,13 +2431,32 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span
           class="bp3-button-text"
         >
           Save and Continue
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </form>

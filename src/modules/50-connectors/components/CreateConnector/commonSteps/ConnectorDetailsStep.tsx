@@ -42,7 +42,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const isEdit = props.isEditMode || prevStepData?.isEdit
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
@@ -132,7 +132,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                   />
                 </Container>
                 <Layout.Horizontal>
-                  <Button type="submit" intent="primary">
+                  <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
                     <String stringID="saveAndContinue" />
                   </Button>
                 </Layout.Horizontal>

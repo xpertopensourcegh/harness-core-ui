@@ -18,6 +18,7 @@ export const getSecretIdFromString = (value: string) => {
 export interface DelegateCardInterface {
   type: string
   info: string
+  disabled?: boolean
 }
 
 export const GCP_AUTH_TYPE = {

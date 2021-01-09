@@ -28,15 +28,4 @@
       height: 96px;
     }
   }
-
-  .saveBtn {
-    border-radius: 6px;
-    height: 36px;
-    color: var(--blue-500) !important;
-    border-color: var(--blue-500) !important;
-    > span {
-      font-size: var(--font-size-normal);
-      letter-spacing: 0.2px;
-    }
-  }
 }

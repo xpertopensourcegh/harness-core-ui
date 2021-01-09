@@ -316,13 +316,32 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -695,6 +714,25 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 1`]
                       <span>
                         Save and Continue
                       </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </button>
                 </div>
@@ -1134,6 +1172,25 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 2`]
                         Save and Continue
                       </span>
                     </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -1365,13 +1422,32 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 3`]
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -1607,13 +1683,32 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 4`]
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -1931,13 +2026,32 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -2286,13 +2400,32 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                  
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>

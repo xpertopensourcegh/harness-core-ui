@@ -150,7 +150,7 @@ const StepDockerAuthentication: React.FC<
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'}>
+    <Layout.Vertical height={'inherit'} margin="small">
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
         {getString('connectors.docker.stepTwoName')}
       </Text>
@@ -194,7 +194,11 @@ const StepDockerAuthentication: React.FC<
             <ModalErrorHandler bind={setModalErrorHandler} />
 
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
-              <FormInput.Text name="dockerRegistryUrl" label={getString('connectors.docker.dockerRegistryURL')} />
+              <FormInput.Text
+                name="dockerRegistryUrl"
+                placeholder={getString('UrlLabel')}
+                label={getString('connectors.docker.dockerRegistryURL')}
+              />
               <Text>{getString('connectors.docker.dockerProvideType')}</Text>
               <FormInput.RadioGroup
                 className={css.dockerProviderType}
@@ -221,7 +225,7 @@ const StepDockerAuthentication: React.FC<
               type="submit"
               intent="primary"
               text={getString('saveAndContinue')}
-              className={css.saveButton}
+              rightIcon="chevron-right"
               disabled={loadConnector}
             />
           </Form>

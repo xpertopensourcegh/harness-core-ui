@@ -21,7 +21,7 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
   return (
     <StepWizard
       icon={getConnectorIconByType(Connectors.KUBERNETES_CLUSTER)}
-      iconProps={{ size: 37 }}
+      iconProps={{ size: 50 }}
       title={getConnectorTitleTextByType(Connectors.KUBERNETES_CLUSTER)}
     >
       <ConnectorDetailsStep

@@ -324,7 +324,7 @@ const StepGithubAuthentication: React.FC<
               type="submit"
               intent="primary"
               text={getString('saveAndContinue')}
-              className={css.saveButton}
+              rightIcon="chevron-right"
               disabled={loadConnector}
             />
           </Form>
