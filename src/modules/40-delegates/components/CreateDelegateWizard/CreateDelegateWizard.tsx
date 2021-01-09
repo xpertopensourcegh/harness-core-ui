@@ -1,7 +1,7 @@
 import React from 'react'
 import { Delegates } from '@delegates/constants'
 import CreateK8sDelegate from '@delegates/components/CreateDelegate/K8sDelegate/CreateK8sDelegate'
-import type { DelegateInfoDTO } from 'services/cd-ng'
+import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 
 interface CreateDelegateWizardProps {
   type: DelegateInfoDTO['type']

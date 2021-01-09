@@ -1,4 +1,4 @@
-import type { DelegateInfoDTO } from 'services/cd-ng'
+import type { DelegateInfoDTO } from './DelegateInterface'
 
 interface DelegateType {
   [key: string]: DelegateInfoDTO['type']

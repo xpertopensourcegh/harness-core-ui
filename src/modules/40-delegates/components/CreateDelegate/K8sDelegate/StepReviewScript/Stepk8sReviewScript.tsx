@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Layout, StepProps, Collapse, IconName, Heading, Text, Link, Color } from '@wings-software/uicore'
-import type { DelegateInfoDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 import css from '../CreateK8sDelegate.module.scss'
 
 const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
@@ -25,7 +25,7 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
           <div className={css.collapseDiv}>
             <Collapse {...collapseProps}>
               <YamlBuilder
-                entityType="Delegates"
+                entityType="Secrets"
                 fileName={`harness-delegate.yaml`}
                 isReadOnlyMode={true}
                 showSnippetSection={false}
