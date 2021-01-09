@@ -11,8 +11,9 @@ import {
 } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
-import { Connectors } from '@connectors/constants'
+import { Connectors, ConnectorStatus } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
+import { GetTestConnectionValidationTextByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
@@ -112,7 +113,7 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
       <Text color={Color.GREY_400} font={{ size: 'small' }} className={css.subHeading}>
         {getLabel()}
       </Text>
-      <Text color={Color.GREY_600} font={{ size: 'small' }} className={css.subHeading}>
+      <Text color={Color.GREY_600} font={{ size: 'small' }} className={css.subHeading} lineClamp={1} width={'600px'}>
         {props.url || getValue()}
       </Text>
     </Layout.Horizontal>
@@ -134,38 +135,6 @@ const VerifyOutOfClusterDelegate: React.FC<
   })
 
   const { getString } = useStrings()
-
-  const getTestConnectionValidationTextByType = () => {
-    switch (props.type) {
-      case Connectors.KUBERNETES_CLUSTER:
-        return getString('connectors.testConnectionStep.validationText.k8s')
-      case Connectors.DOCKER:
-        return getString('connectors.testConnectionStep.validationText.docker')
-      case Connectors.AWS:
-        return getString('connectors.testConnectionStep.validationText.aws')
-      case Connectors.NEXUS:
-        return getString('connectors.testConnectionStep.validationText.nexus')
-      case Connectors.ARTIFACTORY:
-        return getString('connectors.testConnectionStep.validationText.artifactory')
-      case Connectors.GCP:
-        return getString('connectors.testConnectionStep.validationText.gcp')
-      case Connectors.APP_DYNAMICS:
-        return getString('connectors.testConnectionStep.validationText.appD')
-      case Connectors.SPLUNK:
-        return getString('connectors.testConnectionStep.validationText.splunk')
-      case Connectors.VAULT:
-        return getString('connectors.testConnectionStep.validationText.vault')
-      case Connectors.BITBUCKET:
-        return getString('connectors.testConnectionStep.validationText.bitbucket')
-      case Connectors.GITLAB:
-        return getString('connectors.testConnectionStep.validationText.gitlab')
-      case Connectors.GITHUB:
-        return getString('connectors.testConnectionStep.validationText.github')
-
-      default:
-        return ''
-    }
-  }
 
   const getPermissionsLink = () => {
     switch (props.type) {
@@ -268,7 +237,7 @@ const VerifyOutOfClusterDelegate: React.FC<
   const getStepOne = () => {
     return (
       <Layout.Vertical width={'100%'}>
-        <Text color={Color.GREY_600}>{getTestConnectionValidationTextByType()}</Text>
+        <Text color={Color.GREY_600}>{GetTestConnectionValidationTextByType(props.type)}</Text>
         {!loading && testConnectionResponse?.data?.delegateId ? (
           <Text
             padding={{ top: 'xsmall' }}
@@ -300,14 +269,18 @@ const VerifyOutOfClusterDelegate: React.FC<
       if (stepDetails.status === 'PROCESS') {
         try {
           const result = await reloadTestConnection()
+          props.setLastTested?.(new Date().getTime() || 0)
+
           setTestConnectionResponse(result)
           if (result?.data?.status === 'SUCCESS') {
+            props.setStatus?.(ConnectorStatus.SUCCESS)
             setStepDetails({
               step: 2,
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
           } else {
+            props.setStatus?.(ConnectorStatus.FAILURE)
             setStepDetails({
               step: 1,
               intent: Intent.DANGER,
@@ -315,6 +288,7 @@ const VerifyOutOfClusterDelegate: React.FC<
             })
           }
         } catch (err) {
+          props.setStatus?.(ConnectorStatus.FAILURE)
           setStepDetails({
             step: 1,
             intent: Intent.DANGER,
@@ -359,7 +333,7 @@ const VerifyOutOfClusterDelegate: React.FC<
         isLastStep ? (
           <Layout.Horizontal spacing="large" className={css.btnWrapper}>
             <Button
-              disabled={stepDetails.status === 'ERROR'}
+              disabled={loading || stepDetails.status === 'ERROR'}
               intent="primary"
               onClick={() => {
                 props.hideLightModal?.()

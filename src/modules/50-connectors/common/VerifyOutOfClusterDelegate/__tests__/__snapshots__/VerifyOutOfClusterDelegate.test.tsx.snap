@@ -23,7 +23,8 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           Controller URL : 
         </p>
         <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          style="--text-line-clamp: 1; width: 600px;"
         />
       </div>
       <div
@@ -171,7 +172,8 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           Artifactory Repository URL : 
         </p>
         <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          style="--text-line-clamp: 1; width: 600px;"
         />
       </div>
       <div
@@ -319,7 +321,8 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           Docker Registry URL : 
         </p>
         <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          style="--text-line-clamp: 1; width: 600px;"
         />
       </div>
       <div
@@ -467,7 +470,8 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           Master URL : 
         </p>
         <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          style="--text-line-clamp: 1; width: 600px;"
         />
       </div>
       <div
@@ -737,7 +741,8 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           Nexus Repository URL : 
         </p>
         <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          style="--text-line-clamp: 1; width: 600px;"
         />
       </div>
       <div
@@ -885,7 +890,8 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
           Splunk URL : 
         </p>
         <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+          style="--text-line-clamp: 1; width: 600px;"
         />
       </div>
       <div

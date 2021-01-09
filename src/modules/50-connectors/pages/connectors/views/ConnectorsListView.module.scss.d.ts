@@ -9,5 +9,6 @@ declare const styles: {
   readonly wrapper: string
   readonly name: string
   readonly summaryLabel: string
+  readonly viewDetails: string
 }
 export default styles

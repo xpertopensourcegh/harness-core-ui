@@ -4,14 +4,16 @@ export default {
   connector: 'Connector',
   details: 'Details',
   lastActivity: 'last activity',
+  lastUpdated: 'last updated',
   status: 'status',
+  noDetails: 'No details found',
   confirmDelete: (name: string) => `Are you sure you want to delete the Connector '${name}'?`,
   confirmDeleteTitle: 'Delete Connector',
   deleteButton: 'Delete',
   cancelButton: 'Cancel',
   success: 'active',
   failed: 'error',
-  TEST_CONNECTION: 'TEST CONNECTION',
+  TEST_CONNECTION: 'TEST',
   TestInProgress: 'Test in progress',
   STEPS: {
     ONE: {

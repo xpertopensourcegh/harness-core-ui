@@ -1,10 +1,11 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uicore'
 import { Connectors, EntityTypes } from '@connectors/constants'
-import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams } from 'services/cd-ng'
+import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams, ConnectorConfigDTO } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
+import { useStrings } from 'framework/exports'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export const getScopeFromString = (value: string) => {
@@ -751,6 +752,39 @@ export const getReferredEntityLabelByType = (type: string) => {
       return 'Pipeline'
     case EntityTypes.SECRET:
       return 'Secret'
+
+    default:
+      return ''
+  }
+}
+
+export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']) {
+  const { getString } = useStrings()
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return getString('connectors.testConnectionStep.validationText.k8s')
+    case Connectors.DOCKER:
+      return getString('connectors.testConnectionStep.validationText.docker')
+    case Connectors.AWS:
+      return getString('connectors.testConnectionStep.validationText.aws')
+    case Connectors.NEXUS:
+      return getString('connectors.testConnectionStep.validationText.nexus')
+    case Connectors.ARTIFACTORY:
+      return getString('connectors.testConnectionStep.validationText.artifactory')
+    case Connectors.GCP:
+      return getString('connectors.testConnectionStep.validationText.gcp')
+    case Connectors.APP_DYNAMICS:
+      return getString('connectors.testConnectionStep.validationText.appD')
+    case Connectors.SPLUNK:
+      return getString('connectors.testConnectionStep.validationText.splunk')
+    case Connectors.VAULT:
+      return getString('connectors.testConnectionStep.validationText.vault')
+    case Connectors.BITBUCKET:
+      return getString('connectors.testConnectionStep.validationText.bitbucket')
+    case Connectors.GITLAB:
+      return getString('connectors.testConnectionStep.validationText.gitlab')
+    case Connectors.GITHUB:
+      return getString('connectors.testConnectionStep.validationText.github')
 
     default:
       return ''

@@ -389,7 +389,8 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               Vault URL : 
             </p>
             <p
-              class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+              class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+              style="--text-line-clamp: 1; width: 600px;"
             >
               http://localhost:8200
             </p>
@@ -1396,7 +1397,8 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
               Vault URL : 
             </p>
             <p
-              class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+              class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
+              style="--text-line-clamp: 1; width: 600px;"
             >
               http://localhost:8200
             </p>

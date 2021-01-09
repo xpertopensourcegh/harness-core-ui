@@ -74,6 +74,7 @@ global:
     applied first, and the subsequent ones get layered in the order and overrides any previously
     specified values.'
   errorSummaryText: Error Summary
+  errorDetails: Error Details
   and: 'And'
   na: N/A
   all: All

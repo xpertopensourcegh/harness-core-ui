@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uicore'
+import { Text, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position, Intent } from '@blueprintjs/core'
+import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { String } from 'framework/exports'
@@ -11,7 +11,8 @@ import {
   PageConnectorResponse,
   useGetTestConnectionResult,
   ConnectorConnectivityDetails,
-  ConnectorInfoDTO
+  ConnectorInfoDTO,
+  ConnectorValidationResult
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
@@ -26,8 +27,8 @@ import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'
 
 import { useStrings } from 'framework/exports'
-
-import { getIconByType } from '../utils/ConnectorUtils'
+import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
+import { getIconByType, GetTestConnectionValidationTextByType } from '../utils/ConnectorUtils'
 import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
 
@@ -120,12 +121,10 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
   const data = row.original
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [testing, setTesting] = useState(false)
-  const [lastTestedAt] = useState<number>()
+  const [lastTestedAt, setLastTestedAt] = useState<number>()
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(data.status?.status)
 
-  // Todo: const [testConnectionResponse, setTestConnectionResponse] = useState()
-
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState<ConnectorValidationResult>()
   const { getString } = useStrings()
 
   const [stepDetails, setStepDetails] = useState<StepDetails>({
@@ -134,6 +133,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
     status: 'PROCESS' // Replace when enum is added in uikit
   })
 
+  const { openErrorModal } = useTestConnectionErrorModal({})
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
     identifier: data.connector?.identifier || '',
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
@@ -149,7 +149,8 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
       if (stepDetails.status === 'PROCESS') {
         try {
           const result = await reloadTestConnection()
-
+          setStatus(result?.data?.status)
+          setLastTestedAt(new Date().getTime())
           if (result?.data?.status === 'SUCCESS') {
             setStepDetails({
               step: 2,
@@ -157,7 +158,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
               status: 'DONE'
             })
           } else {
-            setErrorMessage(result.data?.errorSummary as string)
+            setErrorMessage(result.data)
             setStepDetails({
               step: 1,
               intent: Intent.DANGER,
@@ -166,7 +167,9 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
           }
           setTesting(false)
         } catch (err) {
-          setErrorMessage(err.message as string)
+          setLastTestedAt(new Date().getTime())
+          setStatus('FAILURE')
+          setErrorMessage(err.message)
           setStepDetails({
             step: 1,
             intent: Intent.DANGER,
@@ -177,21 +180,18 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
       }
     }
   }
+  const stepName = GetTestConnectionValidationTextByType(data.connector?.type)
 
   useEffect(() => {
-    if (data.status?.status) {
-      setStatus(data.status?.status)
-    }
-    if (data.status?.errorMessage) {
-      setErrorMessage(data.status?.errorMessage)
-    }
-  }, [data.status])
+    if (testing) executeStepVerify()
+  }, [testing])
+
   return (
     <Layout.Horizontal>
       {!testing ? (
         <Layout.Vertical width="100px">
           <Layout.Horizontal spacing="small">
-            {data.status?.status ? (
+            {data.status?.status || errorMessage ? (
               <Text
                 inline
                 icon={status === ConnectorStatus.SUCCESS ? 'full-circle' : 'warning-sign'}
@@ -200,18 +200,41 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                   color: status === ConnectorStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                 }}
                 tooltip={
-                  <Layout.Vertical font={{ size: 'small' }} padding="xsmall" spacing="xsmall">
-                    <Text>{errorMessage || data.status?.errorMessage}</Text>
-                    <Text color={Color.BLUE_600}>{getString('connectors.testConnectionStep.errorDetails')}</Text>
-                  </Layout.Vertical>
+                  status !== ConnectorStatus.SUCCESS || data.status?.status !== ConnectorStatus.SUCCESS ? (
+                    errorMessage || data.status?.errorMessage ? (
+                      <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
+                        <Text font={{ size: 'small' }} color={Color.WHITE}>
+                          {errorMessage?.errorSummary || data.status?.errorMessage}
+                        </Text>
+                        {errorMessage ? (
+                          <Text
+                            color={Color.BLUE_400}
+                            onClick={e => {
+                              e.stopPropagation()
+                              openErrorModal(errorMessage as ConnectorValidationResult)
+                            }}
+                            className={css.viewDetails}
+                          >
+                            {getString('connectors.testConnectionStep.errorDetails')}
+                          </Text>
+                        ) : null}
+                      </Layout.Vertical>
+                    ) : (
+                      <Text padding="small" color={Color.WHITE}>
+                        {i18n.noDetails}
+                      </Text>
+                    )
+                  ) : (
+                    ''
+                  )
                 }
-                tooltipProps={{ isDark: true }}
+                tooltipProps={{ isDark: true, position: 'bottom' }}
               >
                 {status === ConnectorStatus.SUCCESS ? i18n.success : i18n.failed}
               </Text>
             ) : null}
           </Layout.Horizontal>
-          {data.status ? (
+          {status || data.status ? (
             <Text font={{ size: 'small' }} color={Color.GREY_400}>
               {<ReactTimeago date={lastTestedAt || data.status?.lastTestedAt || ''} />}
             </Text>
@@ -219,22 +242,21 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
         </Layout.Vertical>
       ) : (
         <Layout.Horizontal>
-          {/* Todo:  <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.LEFT_TOP}> */}
-
-          <Button intent="primary" minimal loading />
-          {/* <div className={css.testConnectionPop}> */}
-          {/* <StepsProgress
-                steps={[getStepOne() || '', i18n.STEPS.TWO, i18n.STEPS.THREE]}
+          <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.LEFT_TOP}>
+            <Button intent="primary" minimal loading />
+            <div className={css.testConnectionPop}>
+              <StepsProgress
+                steps={[stepName]}
                 intent={stepDetails.intent}
                 current={stepDetails.step}
                 currentStatus={stepDetails.status}
-              /> */}
-          {/* </div> */}
-          {/* </Popover> */}
+              />
+            </div>
+          </Popover>
           <Text style={{ margin: 8 }}>{i18n.TestInProgress}</Text>
         </Layout.Horizontal>
       )}
-      {!testing && (status === 'FAILURE' || data.status?.status === 'FAILURE') ? (
+      {!testing && (status !== 'SUCCESS' || data.status?.status !== 'SUCCESS') ? (
         <Button
           font="small"
           className={css.testBtn}
@@ -242,7 +264,11 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
           onClick={e => {
             e.stopPropagation()
             setTesting(true)
-            executeStepVerify()
+            setStepDetails({
+              step: 1,
+              intent: Intent.WARNING,
+              status: 'PROCESS' // Replace when enum is added in uikit
+            })
           }}
         />
       ) : null}

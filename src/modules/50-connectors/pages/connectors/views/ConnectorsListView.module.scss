@@ -11,11 +11,15 @@
   border-color: var(--blue-500) !important;
 }
 .testConnectionPop {
-  [class*='StepsProgress---progressBar'] {
+  border-radius: 4px;
+  background-color: var(--white) !important;
+  > div > div {
     display: none;
   }
-  margin: 0 var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall);
+
+  padding: 0 var(--spacing-small) var(--spacing-large) var(--spacing-small);
 }
+
 .identifier {
   max-width: 100%;
   overflow: hidden;
@@ -34,4 +38,7 @@
 
 .summaryLabel {
   max-width: 300px;
+}
+.viewDetails {
+  cursor: pointer;
 }
