@@ -9,6 +9,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import get from 'lodash-es/get'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -160,7 +161,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
 
   const validate = useValidate<DependencyDataUI>(validateFields, {
     initialValues,
-    steps: currentStage?.stage.spec.execution.steps
+    steps: get(currentStage, 'stage.spec.execution.steps', {})
   })
 
   const handleCancelClick = (): void => {
