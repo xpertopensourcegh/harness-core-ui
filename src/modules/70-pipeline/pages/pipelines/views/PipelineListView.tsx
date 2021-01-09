@@ -156,7 +156,7 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
       case 'Running':
         return Color.BLUE_800
       default:
-        return Color.RED_800
+        return Color.GREEN_800
     }
   }
 
@@ -191,7 +191,9 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
         </Text>
       </Layout.Horizontal>
 
-      <Icon name="full-circle" size={8} color={getStatusColor()} />
+      {data.executionSummaryInfo?.lastExecutionStatus ? (
+        <Icon name="full-circle" size={8} color={getStatusColor()} />
+      ) : null}
     </Layout.Horizontal>
   )
 }

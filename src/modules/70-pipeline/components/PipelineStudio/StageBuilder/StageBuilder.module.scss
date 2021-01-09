@@ -21,7 +21,7 @@
   }
 
   .Resizer.horizontal {
-    height: 11px;
+    height: 10px;
     margin: -var(--spacing-xsmall) 0;
     border-top: var(--spacing-xsmall) solid rgba(255, 255, 255, 0);
     border-bottom: var(--spacing-xsmall) solid rgba(255, 255, 255, 0);
@@ -65,6 +65,12 @@
     height: 100%;
     width: 100%;
     position: relative;
+    border-top: 4px solid var(--blue-350);
+    border-bottom: 4px solid var(--blue-350);
+
+    background: linear-gradient(90deg, var(--white) 9px, transparent 1%) center,
+      linear-gradient(var(--white) 9px, transparent 1%) center, #bbc1c4;
+    background-size: 10px 10px;
 
     > div {
       cursor: default;
@@ -101,7 +107,7 @@
   .resizers {
     position: absolute;
     right: var(--spacing-medium);
-    top: 20px;
+    top: -16px;
     z-index: 3;
     transform: translateY(-18px);
     height: 46px;

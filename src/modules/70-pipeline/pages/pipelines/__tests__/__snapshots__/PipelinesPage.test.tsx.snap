@@ -1295,25 +1295,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   </span>
                 </p>
               </div>
-              <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color StyledProps--color-red800"
-                icon="full-circle"
-              >
-                <svg
-                  data-icon="full-circle"
-                  height="8"
-                  viewBox="0 0 16 16"
-                  width="8"
-                >
-                  <desc>
-                    full-circle
-                  </desc>
-                  <path
-                    d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
           <div
@@ -1472,25 +1453,6 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   </span>
                 </p>
               </div>
-              <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color StyledProps--color-red800"
-                icon="full-circle"
-              >
-                <svg
-                  data-icon="full-circle"
-                  height="8"
-                  viewBox="0 0 16 16"
-                  width="8"
-                >
-                  <desc>
-                    full-circle
-                  </desc>
-                  <path
-                    d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
           <div
