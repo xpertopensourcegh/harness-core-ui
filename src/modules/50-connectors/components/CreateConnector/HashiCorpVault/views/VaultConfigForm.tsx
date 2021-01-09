@@ -100,6 +100,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
           showSuccess(getString('secretManager.editmessageSuccess'))
         }
       } catch (err) {
+        /* istanbul ignore next */
         modalErrorHandler?.showDanger(err?.data?.message)
       }
     }
@@ -108,7 +109,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
   return (
     <Container padding={{ top: 'medium' }} width="64%">
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
-        {i18n.titleConnect}
+        {getString('connectors.hashiCorpVault.stepTwoName')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Formik<VaultConfigFormData>
@@ -134,7 +135,10 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
       >
         {formik => (
           <FormikForm>
-            <VaultConnectorFormFields formik={formik} identifier={prevStepData?.identifier || ''} />
+            <VaultConnectorFormFields
+              formik={formik}
+              identifier={prevStepData?.identifier || /* istanbul ignore next */ ''}
+            />
             <Layout.Horizontal spacing="medium">
               <Button text={i18n.buttonBack} onClick={() => previousStep?.(prevStepData)} />
               <Button intent="primary" type="submit" text={i18n.buttonNext} disabled={updateLoading || createLoading} />

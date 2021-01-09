@@ -7,7 +7,6 @@ import { useStrings } from 'framework/exports'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import i18n from './CreateHashiCorpVault.i18n'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import VaultConfigForm from './views/VaultConfigForm'
 
@@ -39,9 +38,9 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <VaultConfigForm name={i18n.nameStepConfigure} {...props} />
+      <VaultConfigForm name={getString('connectors.hashiCorpVault.stepTwoName')} {...props} />
       <VerifyOutOfClusterDelegate
-        name={i18n.nameStepVerify}
+        name={getString('connectors.stepThreeName')}
         renderInModal={true}
         hideLightModal={hideLightModal}
         onSuccess={onSuccess}

@@ -808,6 +808,8 @@ global:
       authLabels:
         OIDC: 'OpenID Connect'
         clientKeyCertificate: 'Client Key Certificate'
+    hashiCorpVault:
+      stepTwoName: 'HashiCorp Vault Details'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
     git:

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Formik,
   FormikForm,
@@ -51,7 +51,6 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const [readOnlySecretManager, setReadOnlySecretManager] = useState<boolean>()
 
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' },
@@ -148,11 +147,16 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     item => item.connector?.spec?.default
   )[0]?.connector?.identifier
 
-  const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>(
-    secretManagersApiResponse?.data?.content?.filter(
+  const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>()
+  const [readOnlySecretManager, setReadOnlySecretManager] = useState<boolean>()
+
+  useEffect(() => {
+    const selectedSM = secretManagersApiResponse?.data?.content?.filter(
       itemValue => itemValue.connector?.identifier === defaultSecretManagerId
     )?.[0]?.connector
-  )
+    setSelectedSecretManager(selectedSM)
+    setReadOnlySecretManager((selectedSM?.spec as VaultConnectorDTO)?.readOnly)
+  }, [defaultSecretManagerId])
 
   return (
     <>
@@ -201,7 +205,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
             itemValue => itemValue.connector?.identifier === formikProps.values['secretManagerIdentifier']
           )?.[0]?.connector?.type
           typeOfSelectedSecretManager === 'Vault' &&
-            setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO).readOnly)
+            setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO)?.readOnly)
 
           return (
             <FormikForm>

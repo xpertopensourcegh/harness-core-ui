@@ -135,6 +135,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.BITBUCKET:
       return 'bitbucket-new'
     case Connectors.VAULT:
+      return 'hashiCorpVault'
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
       return 'lock'

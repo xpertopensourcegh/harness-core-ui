@@ -25,7 +25,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { accountId } = useParams()
   const { showSuccess, showError } = useToaster()
   const {
-    organizationResponse: { organization: data },
+    organizationResponse: { organization: data, harnessManaged: isHarnessManaged },
     projectsCount,
     admins,
     collaborators
@@ -79,9 +79,9 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           <CardBody.Menu
             menuContent={
               <Menu>
-                <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} />
+                <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} disabled={isHarnessManaged} />
                 <Menu.Item icon="new-person" text={i18n.invite} onClick={handleInvite} />
-                <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
+                <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} disabled={isHarnessManaged} />
               </Menu>
             }
             menuPopoverProps={{

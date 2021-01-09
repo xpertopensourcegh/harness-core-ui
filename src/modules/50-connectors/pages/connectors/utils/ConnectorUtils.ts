@@ -665,8 +665,9 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gotlab'
     case Connectors.BITBUCKET:
       return 'bitbucket'
-    case 'Vault': // TODO: use enum when backend fixes it
-    case 'Local': // TODO: use enum when backend fixes it
+    case Connectors.VAULT: // TODO: use enum when backend fixes it
+      return 'hashiCorpVault'
+    case Connectors.LOCAL: // TODO: use enum when backend fixes it
       return 'secret-manager'
     case Connectors.APP_DYNAMICS:
       return 'service-appdynamics'
