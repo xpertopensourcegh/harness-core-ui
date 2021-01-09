@@ -126,6 +126,20 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
         )}
       </div>
       <div className={stepCss.formGroup}>
+        <FormInput.MultiTextInput name="spec.assertion" label={getString('assertionLabel')} />
+        {getMultiTypeFromValue(formValues.spec.assertion) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formValues.spec.assertion}
+            type="String"
+            variableName="spec.assertion"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => setFieldValue('spec.assertion', value)}
+          />
+        )}
+      </div>
+      <div className={stepCss.formGroup}>
         <FormMultiTypeDurationField
           name="spec.timeout"
           label={getString('pipelineSteps.timeoutLabel')}

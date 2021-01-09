@@ -27,7 +27,8 @@ describe('Http Step', () => {
         method: RUNTIME_INPUT_VALUE,
         url: RUNTIME_INPUT_VALUE,
         requestBody: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE
+        timeout: RUNTIME_INPUT_VALUE,
+        assertion: RUNTIME_INPUT_VALUE
         // headers: RUNTIME_INPUT_VALUE
         // outputVariables: RUNTIME_INPUT_VALUE
       }
@@ -47,6 +48,7 @@ describe('Http Step', () => {
         method: 'POST',
         url: RUNTIME_INPUT_VALUE,
         requestBody: RUNTIME_INPUT_VALUE,
+        assertion: RUNTIME_INPUT_VALUE,
         timeout: '10s',
         headers: [
           {
@@ -87,6 +89,7 @@ describe('Http Step', () => {
 
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'My Http Step' } })
     fireEvent.change(queryByNameAttribute('spec.url')!, { target: { value: 'https://someapi.com/v3' } })
+    fireEvent.change(queryByNameAttribute('spec.assertion')!, { target: { value: '${httpResponseBody} == 200' } })
     fireEvent.change(queryByNameAttribute('spec.headers[0].key')!, { target: { value: 'Content-Type' } })
     fireEvent.change(queryByNameAttribute('spec.headers[0].value')!, { target: { value: 'application/json' } })
     fireEvent.change(queryByNameAttribute('spec.requestBody')!, {
@@ -114,6 +117,7 @@ describe('Http Step', () => {
           }
         ],
         method: 'GET',
+        assertion: '${httpResponseBody} == 200',
         outputVariables: [
           {
             name: 'myVar',
@@ -136,7 +140,8 @@ describe('Http Step', () => {
         method: RUNTIME_INPUT_VALUE,
         url: RUNTIME_INPUT_VALUE,
         requestBody: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE
+        timeout: RUNTIME_INPUT_VALUE,
+        assertion: RUNTIME_INPUT_VALUE
         // headers: RUNTIME_INPUT_VALUE
         // outputVariables: RUNTIME_INPUT_VALUE
       }
@@ -156,23 +161,12 @@ describe('Http Step', () => {
   })
 
   test('renders empty input sets', () => {
-    const initialValues = {
-      identifier: 'My_Http_Step',
-      name: 'My Http Step',
-      spec: {
-        method: RUNTIME_INPUT_VALUE,
-        url: RUNTIME_INPUT_VALUE,
-        requestBody: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE
-        // headers: RUNTIME_INPUT_VALUE
-        // outputVariables: RUNTIME_INPUT_VALUE
-      }
-    }
     const { container } = render(
       <TestStepWidget
-        initialValues={initialValues}
+        initialValues={{}}
         type={StepType.HTTP}
         stepViewType={StepViewType.InputSet}
+        template={{}}
         path="spec"
       />
     )

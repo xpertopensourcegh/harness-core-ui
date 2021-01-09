@@ -126,6 +126,7 @@ global:
   UrlLabel: URL
   methodLabel: Method
   requestBodyLabel: Request Body
+  assertionLabel: Assertion
   outputLabel: Output
   typeLabel: Type
   variableLabel: 'Variable'
