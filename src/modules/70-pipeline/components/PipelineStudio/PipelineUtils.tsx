@@ -12,7 +12,7 @@ export interface NodeClasses {
 
 const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode => {
   const stageNode: ITreeNode = {
-    id: `Stage${stage.identifier}`,
+    id: `Stage.${stage.identifier}`,
     hasCaret: true,
     label: (
       <Text color={Color.GREY_800} style={{ fontWeight: 600 }} width="147" lineClamp={1}>
@@ -25,7 +25,7 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
 
   // common to ci and cd stage
   stageNode.childNodes?.push({
-    id: `Stage_Custom_Variables$${stage.identifier}`,
+    id: `Stage.${stage.identifier}.Custom_Variables`,
     hasCaret: false,
     label: <Text>{i18n.customVariables}</Text>,
     className: classes.secondary
@@ -35,16 +35,28 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
   // TODO: Replace 'Deployment' literal with enum
   if (stage.type === 'Deployment') {
     stageNode.childNodes?.push({
-      id: `Stage_Service$${stage.identifier}`,
+      id: `Stage.${stage.identifier}.Service`,
       hasCaret: false,
       label: <Text>{i18n.service}</Text>,
       className: classes.secondary,
       isExpanded: true,
       childNodes: [
         {
-          id: `Stage_Service_Artifacts$${stage.identifier}`,
+          id: `Stage.${stage.identifier}.Service.Artifacts`,
           hasCaret: false,
           label: <Text>{'Artifacts'}</Text>,
+          className: classes.secondary
+        },
+        {
+          id: `Stage.${stage.identifier}.Service.Manifests`,
+          hasCaret: false,
+          label: <Text>{'Manifests'}</Text>,
+          className: classes.secondary
+        },
+        {
+          id: `Stage.${stage.identifier}.Service.Variables`,
+          hasCaret: false,
+          label: <Text>{'Variables'}</Text>,
           className: classes.secondary
         }
       ]
@@ -55,7 +67,7 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
   // TODO: Replace 'ci' literal with enum
   if (stage.type === 'CI') {
     stageNode.childNodes?.push({
-      id: `Stage_Dependencies$${stage.identifier}`,
+      id: `Stage.${stage.identifier}.Dependencies`,
       hasCaret: false,
       label: <Text>{i18n.dependencies}</Text>,
       className: classes.secondary,
@@ -66,13 +78,13 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
   // common to ci and cd stage
   stageNode.childNodes?.push(
     {
-      id: `Stage_Infrastructure$${stage.identifier}`,
+      id: `Stage.${stage.identifier}.Infrastructure`,
       hasCaret: false,
       label: <Text>{i18n.infrastructure}</Text>,
       className: classes.secondary
     },
     {
-      id: `Stage_Execution$${stage.identifier}`,
+      id: `Stage.${stage.identifier}.Execution`,
       hasCaret: false,
       label: <Text>{i18n.execution}</Text>,
       className: classes.secondary
@@ -120,7 +132,7 @@ export const getPipelineTree = (pipeline: NgPipeline, classes: NodeClasses = {})
     pipeline.stages.forEach(data => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
-          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage))
+          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes))
         })
       } /* istanbul ignore else */ else if (data.stage) {
         stages.childNodes?.push(getStageTree(data.stage, classes))
