@@ -1,11 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import { Card, Container, Layout, Text, Tag, Intent, Color } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
-import { getDelegateProfilesV2, DelegateProfile } from 'services/portal'
 import css from './DelegateDetails.module.scss'
-
 interface Delegate {
   status: string
   connections: string[]
@@ -25,17 +22,18 @@ interface DelegateDetailsProps {
 
 export default function DelegateDetails(props: DelegateDetailsProps): JSX.Element {
   const { delegate } = props
-  const { accountId } = useParams()
+  // const { accountId } = useParams()
   const { getString } = useStrings()
-  const { data } = getDelegateProfilesV2({ queryParams: { accountId } })
-  let delegateProfile: DelegateProfile | undefined
-  if (data) {
-    const { resource } = data
-    if (resource && delegate?.delegateProfileId) {
-      const profiles = resource?.response
-      delegateProfile = profiles.find((item: any) => item.uuid === delegate?.delegateProfileId)
-    }
-  }
+  // const data = []
+  // const { data } = getDelegateProfilesV2({ queryParams: { accountId } })
+  // let delegateProfile: DelegateProfile | undefined
+  // if (data) {
+  //   const { resource } = data
+  //   if (resource && delegate?.delegateProfileId) {
+  //     const profiles = resource?.response
+  //     delegateProfile = profiles.find((item: any) => item.uuid === delegate?.delegateProfileId)
+  //   }
+  // }
   return (
     <>
       <Container
@@ -74,7 +72,7 @@ export default function DelegateDetails(props: DelegateDetailsProps): JSX.Elemen
                   )}
                 </Container>
 
-                {delegate?.delegateProfileId && delegateProfile && (
+                {/* {delegate?.delegateProfileId && delegateProfile && (
                   <div>
                     <hr style={{ border: '1px solid var(--grey-350)' }} />
                     <Container flex>
@@ -86,7 +84,7 @@ export default function DelegateDetails(props: DelegateDetailsProps): JSX.Elemen
                       </div>
                     </Container>
                   </div>
-                )}
+                )} */}
                 <div>
                   <div>
                     <hr style={{ border: '1px solid var(--grey-350)' }} />
@@ -133,7 +131,7 @@ export default function DelegateDetails(props: DelegateDetailsProps): JSX.Elemen
                         )
                       })}
                       <Text font="small">{getString('delegate.TagsFromDelegateConfig')}</Text>
-                      {delegateProfile &&
+                      {/* {delegateProfile &&
                         delegateProfile?.selectors &&
                         delegateProfile?.selectors.map((tag: string) => {
                           return (
@@ -141,7 +139,7 @@ export default function DelegateDetails(props: DelegateDetailsProps): JSX.Elemen
                               <span>{tag}</span>
                             </Tag>
                           )
-                        })}
+                        })} */}
                     </div>
                   )}
                 </Container>

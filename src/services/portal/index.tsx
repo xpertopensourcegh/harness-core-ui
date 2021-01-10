@@ -9040,16 +9040,6 @@ export interface RestResponseDelegateStatus {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseDelegateProfileV2 {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    response: DelegateProfile[]
-  }
-  responseMessages?: ResponseMessage[]
-}
-
 export interface CEDelegateStatus {
   uuid?: string
   found?: boolean
@@ -18459,14 +18449,8 @@ export type UseGetDelegatesProps = Omit<
   'path'
 >
 
-export const getDelegates = (props: UseGetDelegatesStatusProps) =>
-  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>(`/setup/delegates/status2`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export const getDelegateProfilesV2 = (props: UseGetDelegatesProfilev2Props) =>
-  useGet<RestResponseDelegateProfileV2, unknown, GetDelegatesStatusQueryParams, void>(`/delegate-profiles/v2`, {
+export const useGetDelegates = (props: UseGetDelegatesProps) =>
+  useGet<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>(`/setup/delegates`, {
     base: getConfig('api'),
     ...props
   })
@@ -18490,11 +18474,6 @@ export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
 
 export type UseGetDelegatesStatusProps = Omit<
   UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
-  'path'
->
-
-export type UseGetDelegatesProfilev2Props = Omit<
-  UseGetProps<RestResponseDelegateProfileV2, unknown, GetDelegatesStatusQueryParams, void>,
   'path'
 >
 
