@@ -19,7 +19,7 @@ import type { FormikProps } from 'formik'
 import {
   buildGithubPayload,
   SecretReferenceInterface,
-  setupGitFormData,
+  setupGithubFormData,
   GitConnectionType
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/exports'
@@ -213,7 +213,7 @@ const StepGithubAuthentication: React.FC<
     if (loadingConnectorSecrets) {
       if (props.isEditMode) {
         if (props.connectorInfo) {
-          setupGitFormData(props.connectorInfo, accountId).then(data => {
+          setupGithubFormData(props.connectorInfo, accountId).then(data => {
             setInitialValues(data as GithubFormInterface)
             setLoadingConnectorSecrets(false)
           })
@@ -241,6 +241,10 @@ const StepGithubAuthentication: React.FC<
           username: Yup.string().when('connectionType', {
             is: val => val === GitConnectionType.HTTPS,
             then: Yup.string().trim().required(getString('validation.username'))
+          }),
+          authType: Yup.string().when('connectionType', {
+            is: val => val === GitConnectionType.HTTPS,
+            then: Yup.string().trim().required(getString('validation.authType'))
           }),
           sshKey: Yup.object().when('connectionType', {
             is: val => val === GitConnectionType.SSH,

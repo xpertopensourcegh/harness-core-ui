@@ -1,4 +1,4 @@
-import { buildAWSPayload, buildArtifactoryPayload, buildGITPayload } from '../ConnectorUtils'
+import { buildAWSPayload, buildArtifactoryPayload, buildGitPayload } from '../ConnectorUtils'
 
 describe('Connector Utils', () => {
   test(' test buildAWSPayload', () => {
@@ -56,19 +56,20 @@ describe('Connector Utils', () => {
         }
       })
     }),
-    test(' test buildGITPayload with ssh', () => {
+    test(' test buildGitPayload with ssh', () => {
       expect(
-        buildGITPayload({
+        buildGitPayload({
           name: 'dummy name',
           description: '',
           identifier: 'dummy_name',
           tags: {},
-          connectionType: 'connectionType',
+          connectionType: 'Ssh',
           branchName: 'branchName',
           url: 'url',
+          urlType: 'Repo',
           connectType: 'Ssh',
           username: 'username',
-          sshKeyRef: 'sshKeyRef'
+          sshKey: { referenceString: 'sshKeyRef' }
         })
       ).toEqual({
         connector: {
@@ -80,49 +81,12 @@ describe('Connector Utils', () => {
           description: '',
           tags: {},
           spec: {
-            connectionType: 'connectionType',
+            connectionType: 'Repo',
             branchName: 'branchName',
             url: 'url',
             type: 'Ssh',
             spec: {
-              sshKeyRef: 'sshKeyRef',
-              username: 'username'
-            }
-          }
-        }
-      })
-    }),
-    test(' test buildGITPayload with http', () => {
-      expect(
-        buildGITPayload({
-          name: 'dummy name',
-          description: '',
-          identifier: 'dummy_name',
-          tags: {},
-          connectionType: 'connectionType',
-          branchName: 'branchName',
-          url: 'url',
-          connectType: 'Http',
-          username: 'username',
-          password: { referenceString: 'acc.referenceSTring' }
-        })
-      ).toEqual({
-        connector: {
-          type: 'Git',
-          name: 'dummy name',
-          identifier: 'dummy_name',
-          orgIdentifier: undefined,
-          projectIdentifier: undefined,
-          description: '',
-          tags: {},
-          spec: {
-            connectionType: 'connectionType',
-            branchName: 'branchName',
-            url: 'url',
-            type: 'Http',
-            spec: {
-              passwordRef: 'acc.referenceSTring',
-              username: 'username'
+              sshKeyRef: 'sshKeyRef'
             }
           }
         }

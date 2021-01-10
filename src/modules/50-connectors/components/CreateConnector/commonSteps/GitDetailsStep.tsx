@@ -27,6 +27,7 @@ import {
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { String, useStrings } from 'framework/exports'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { Connectors } from '@connectors/constants'
 import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
@@ -49,9 +50,10 @@ interface DetailsStepInterface {
   urlType: string
   connectionType: string
   url: string
+  branchName?: string
 }
 
-const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
+const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const mounted = useRef(false)
@@ -78,9 +80,53 @@ const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
     },
     {
       label: getString('SSH'),
-      value: GitConnectionType.SSH
+      value: GitConnectionType.SSH,
+      disabled: Connectors.GIT === props.type // Enable after support is added in BE
     }
   ]
+
+  const getUrlLabel = (connectorType: ConnectorInfoDTO['type'], urlType: string): string => {
+    switch (connectorType) {
+      case Connectors.GIT:
+        return urlType === GitUrlType.ACCOUNT
+          ? getString('connectors.git.gitAccountUrl')
+          : getString('connectors.git.gitRepoUrl')
+      case Connectors.GITHUB:
+        return urlType === GitUrlType.ACCOUNT
+          ? getString('connectors.git.gitHubAccountUrl')
+          : getString('connectors.git.gitHubRepoUrl')
+      case Connectors.GITLAB:
+        return urlType === GitUrlType.ACCOUNT
+          ? getString('connectors.git.gitLabAccountUrl')
+          : getString('connectors.git.gitLabRepoUrl')
+      case Connectors.BITBUCKET:
+        return urlType === GitUrlType.ACCOUNT
+          ? getString('connectors.git.bitbucketAccountUrl')
+          : getString('connectors.git.bitbucketRepoUrl')
+      default:
+        return ''
+    }
+  }
+
+  const getUrlLabelPlaceholder = (connectorType: ConnectorInfoDTO['type'], connectionType: string): string => {
+    switch (connectorType) {
+      case Connectors.GIT:
+      case Connectors.GITHUB:
+        return connectionType === GitConnectionType.HTTPS
+          ? getString('connectors.git.gitHubUrlPlaceholder')
+          : getString('connectors.git.gitHubUrlPlaceholderSSH')
+      case Connectors.GITLAB:
+        return connectionType === GitConnectionType.HTTPS
+          ? getString('connectors.git.gitLabUrlPlaceholder')
+          : getString('connectors.git.gitLabUrlPlaceholderSSH')
+      case Connectors.BITBUCKET:
+        return connectionType === GitConnectionType.HTTPS
+          ? getString('connectors.git.bitbucketUrlPlaceholder')
+          : getString('connectors.git.bitbucketPlaceholderSSH')
+      default:
+        return ''
+    }
+  }
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
@@ -123,9 +169,14 @@ const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
     if (isEdit && props.connectorInfo) {
       return {
         ...pick(props.connectorInfo, ['name', 'identifier', 'description', 'tags']),
-        urlType: props.connectorInfo?.spec?.type,
-        connectionType: props.connectorInfo?.spec.authentication.type,
-        url: props.connectorInfo?.spec.url
+        urlType:
+          props.type === Connectors.GIT ? props.connectorInfo?.spec?.connectionType : props.connectorInfo?.spec?.type,
+        url: props.connectorInfo?.spec?.url,
+        connectionType:
+          props.type === Connectors.GIT
+            ? props.connectorInfo?.spec?.type
+            : props.connectorInfo?.spec?.authentication?.type,
+        branchName: props.connectorInfo?.spec?.branchName
       }
     } else {
       return {
@@ -135,7 +186,8 @@ const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
         tags: {},
         urlType: GitUrlType.ACCOUNT,
         connectionType: GitConnectionType.HTTPS,
-        url: ''
+        url: '',
+        branchName: ''
       }
     }
   }
@@ -193,17 +245,16 @@ const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                   <FormInput.Text
                     className={css.formElm}
                     name="url"
-                    label={
-                      formikProps.values.urlType === GitUrlType.ACCOUNT
-                        ? getString('connectors.git.bitbucketAccountUrl')
-                        : getString('connectors.git.bitbucketRepoUrl')
-                    }
-                    placeholder={
-                      formikProps.values.connectionType === GitConnectionType.HTTPS
-                        ? getString('connectors.git.bitbucketUrlPlaceholder')
-                        : getString('connectors.git.bitbucketPlaceholderSSH')
-                    }
+                    label={getUrlLabel(props.type, formikProps.values.urlType)}
+                    placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
                   />
+                  {props.type === Connectors.GIT ? (
+                    <FormInput.Text
+                      className={css.formElm}
+                      name="branchName"
+                      label={getString('connectors.git.branchName')}
+                    />
+                  ) : null}
                 </Container>
                 <Layout.Horizontal>
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
@@ -219,4 +270,4 @@ const BitbucketDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   )
 }
 
-export default BitbucketDetailsStep
+export default GitDetailsStep

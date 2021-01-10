@@ -1,7 +1,7 @@
 import React from 'react'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
-import CreateGITConnector from '../CreateConnector/GITConnector/CreateGITConnector'
+import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
 import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
 import CreateBitbucketConnector from '../CreateConnector/BitbucketConnector/CreateBitbucketConnector'
@@ -43,11 +43,14 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       )
     case Connectors.GIT:
       return (
-        <CreateGITConnector
-          accountId={accountId}
+        <CreateGitConnector
+          onConnectorCreated={props.onSuccess}
           hideLightModal={hideLightModal}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
+          connectorInfo={props.connectorInfo}
+          accountId={accountId}
           orgIdentifier={orgIdentifier}
-          onSuccess={props.onSuccess}
           projectIdentifier={projectIdentifier}
         />
       )

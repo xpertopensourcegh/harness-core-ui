@@ -452,6 +452,11 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       >
                         Validating the HashiCorp Vault authentication and permissions
                       </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        Test failed for the connector
+                      </p>
                     </div>
                   </p>
                 </div>
@@ -1459,6 +1464,11 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                       >
                         Validating the HashiCorp Vault authentication and permissions
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        Test failed for the connector
                       </p>
                     </div>
                   </p>

@@ -783,6 +783,7 @@ global:
       verificationSuccessful: Verification successful
       viewPermissions: View permissions required
       installNewDelegate: Install new delegate
+      placeholderError: Test failed for the connector
       url:
         k8s: 'Master URL : '
         docker: 'Docker Registry URL : '
@@ -805,6 +806,7 @@ global:
         bitbucket: Validating the Bitbucket authentication and permissions
         gitlab: Validating the GitLab authentication and permissions
         github: Validating the GitHub authentication and permissions
+        git: Validating the Git authentication and permissions
     k8:
       stepTwoName: 'Cluster Details'
       masterUrlLabel: 'Master URL'
@@ -831,14 +833,18 @@ global:
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
     git:
+      gitStepTwoName: 'Git Connection Details'
       githubStepTwoName: 'GitHub Connection Details'
       gitlabStepTwoName: 'GitLab Connection Details'
       bitbucketStepTwoName: 'Bitbucket Connection Details'
+      branchName: 'Branch name'
       urlType: 'URL Type'
       connectionType: 'Connection Type'
+      gitAccountUrl: 'Git Account URL'
       gitHubAccountUrl: 'GitHub Account URL'
       gitLabAccountUrl: 'GitLab Account URL'
       bitbucketAccountUrl: 'Bitbucket Account URL'
+      gitRepoUrl: 'Git Repository URL'
       gitHubRepoUrl: 'GitHub Repository URL'
       gitLabRepoUrl: 'GitLab Repository URL'
       bitbucketRepoUrl: 'Bitbucket Repository URL'

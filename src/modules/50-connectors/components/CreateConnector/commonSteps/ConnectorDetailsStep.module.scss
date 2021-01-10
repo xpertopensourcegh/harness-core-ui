@@ -9,6 +9,9 @@
 
   .connectorForm {
     min-height: 440px;
+    .formElm {
+      width: 54%;
+    }
   }
 
   :global {

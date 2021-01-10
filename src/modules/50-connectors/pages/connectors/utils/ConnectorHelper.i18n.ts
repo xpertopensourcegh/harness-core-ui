@@ -13,7 +13,7 @@ export default {
   LABEL: {
     k8sCluster: 'Kubernetes Cluster',
     gcpConnector: 'Google Cloud Provider',
-    gitConnector: 'GIT Connector',
+    gitConnector: 'Git Connector',
     githubConnector: 'GitHub Connector',
     gitlabConnector: 'GitLab Connector',
     bitbucketConnector: 'Bitbucket Connector',

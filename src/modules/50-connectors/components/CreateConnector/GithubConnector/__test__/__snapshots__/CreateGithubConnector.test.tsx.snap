@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create Github connector Wizard Gitsub step one 1`] = `
+exports[`Create Github connector Wizard Github step one 1`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -368,7 +368,7 @@ exports[`Create Github connector Wizard Gitsub step one 1`] = `
 </div>
 `;
 
-exports[`Create Github connector Wizard Gitsub step one 2`] = `
+exports[`Create Github connector Wizard Github step one 2`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -800,7 +800,7 @@ exports[`Create Github connector Wizard Gitsub step one 2`] = `
 </div>
 `;
 
-exports[`Create Github connector Wizard Gitsub step one 3`] = `
+exports[`Create Github connector Wizard Github step one 3`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -1031,7 +1031,7 @@ exports[`Create Github connector Wizard Gitsub step one 3`] = `
 </div>
 `;
 
-exports[`Create Github connector Wizard Gitsub step one 4`] = `
+exports[`Create Github connector Wizard Github step one 4`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"

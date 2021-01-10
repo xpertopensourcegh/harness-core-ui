@@ -317,6 +317,22 @@ export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountI
     orgIdentifier: connectorInfo.orgIdentifier
   }
 
+  const formData = {
+    sshKey: await setSecretField(connectorInfo?.spec?.sshKeyRef, scopeQueryParams),
+    username: connectorInfo?.spec?.spec?.username,
+    password: await setSecretField(connectorInfo?.spec?.spec?.passwordRef, scopeQueryParams)
+  }
+
+  return formData
+}
+
+export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
   const authData = connectorInfo?.spec?.authentication
   const formData = {
     sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
@@ -537,36 +553,28 @@ export const buildGcpPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const getSpecByConnectType = (type: string, formData: FormData) => {
-  let referenceField
-  if (type === 'Ssh') {
-    referenceField = { sshKeyRef: formData?.sshKeyRef }
-  } else {
-    referenceField = {
-      passwordRef: formData.password.referenceString
-    }
-  }
-  return {
-    username: formData?.username,
-    ...referenceField
-  }
-}
-
-export const buildGITPayload = (formData: FormData) => {
+export const buildGitPayload = (formData: FormData) => {
   const savedData = {
-    name: formData?.name,
-    description: formData?.description,
+    name: formData.name,
+    description: formData.description,
     projectIdentifier: formData.projectIdentifier,
-    identifier: formData?.identifier,
+    identifier: formData.identifier,
     orgIdentifier: formData.orgIdentifier,
-    tags: formData?.tags,
+    tags: formData.tags,
     type: Connectors.GIT,
     spec: {
-      connectionType: formData?.connectionType,
+      connectionType: formData.urlType,
       branchName: formData.branchName,
       url: formData.url,
-      type: formData?.connectType,
-      spec: getSpecByConnectType(formData?.connectType, formData)
+      type: formData.connectionType,
+      spec:
+        formData.connectionType === GitConnectionType.SSH
+          ? { sshKeyRef: formData.sshKey.referenceString }
+          : {
+              username: formData.username,
+              passwordRef: formData.password.referenceString
+            }
+
       // mocked data untill UX is not provided
       // gitSync: {
       //   enabled: true,
@@ -579,20 +587,6 @@ export const buildGITPayload = (formData: FormData) => {
     }
   }
   return { connector: savedData }
-}
-
-export const buildGITFormData = (connector: ConnectorInfoDTO) => {
-  return {
-    name: connector?.name,
-    description: connector?.description,
-    identifier: connector?.identifier,
-    tags: connector?.tags,
-    connectionType: connector?.spec?.connectionType,
-    branchName: connector?.spec?.branchName,
-    url: connector?.spec?.url,
-    connectType: connector?.spec?.type,
-    ...connector?.spec?.spec
-  }
 }
 
 export const buildKubFormData = (connector: ConnectorInfoDTO) => {

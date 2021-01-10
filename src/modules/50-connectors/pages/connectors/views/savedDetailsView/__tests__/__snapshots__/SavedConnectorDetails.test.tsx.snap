@@ -334,9 +334,9 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            encrypted
+            account.connectorSecret
           </span>
         </div>
       </div>
@@ -597,9 +597,9 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            encrypted
+            account.GCP
           </span>
         </div>
       </div>
@@ -627,7 +627,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          GIT Connector Name
+          Git Connector Name
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -794,9 +794,9 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            encrypted
+            account.secretname
           </span>
         </div>
       </div>
@@ -1108,9 +1108,9 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            encrypted
+            account.secretname
           </span>
         </div>
       </div>
@@ -1279,9 +1279,9 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
         >
           <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey350"
+            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            encrypted
+            account.NexusPassword
           </span>
         </div>
       </div>

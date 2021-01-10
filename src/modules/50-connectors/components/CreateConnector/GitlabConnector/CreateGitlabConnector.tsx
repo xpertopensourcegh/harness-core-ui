@@ -5,7 +5,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
-import GitDetailsStep from './GitlabDetailsStep'
+import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepGitlabAuthentication from './StepAuth/StepGitlabAuthentication'
 
 interface CreateGitlabConnectorProps {

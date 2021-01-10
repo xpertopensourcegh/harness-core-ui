@@ -5,7 +5,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
-import BitbucketDetailsStep from './BitbucketDetailsStep'
+import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepBitbucketAuthentication from './StepAuth/StepBitbucketAuthentication'
 
 interface CreateBitbucketConnectorProps {
@@ -25,7 +25,7 @@ const CreateBitbucketConnector = (props: CreateBitbucketConnectorProps): JSX.Ele
       iconProps={{ size: 50 }}
       title={getConnectorTitleTextByType(Connectors.BITBUCKET)}
     >
-      <BitbucketDetailsStep
+      <GitDetailsStep
         type={Connectors.BITBUCKET}
         name={getString('overview')}
         isEditMode={props.isEditMode}

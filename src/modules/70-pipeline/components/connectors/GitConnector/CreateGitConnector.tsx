@@ -3,7 +3,6 @@ import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import {
   StepWizard,
-  SelectOption,
   StepProps,
   Layout,
   Formik,
@@ -12,17 +11,17 @@ import {
   Text,
   Button
 } from '@wings-software/uicore'
-import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { ConnectorConfigDTO, NgPipeline } from 'services/cd-ng'
+import type { NgPipeline } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import ConnectionModeStep from '@connectors/components/CreateConnector/GITConnector/ConnectionModeStep/ConnectionModeStep'
 
-import HttpCredendialStep from '@connectors/components/CreateConnector/GITConnector/HTTP/HttpCredendialStep'
 import type { StageElementWrapper } from 'services/cd-ng'
-import i18n from '@connectors/components/CreateConnector/GITConnector/CreateGITConnector.i18n'
 import customi18n from '@pipeline/components/ManifestSelection/ManifestWizardSteps/ManifestWizard.i18n'
+import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
+import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { useStrings } from 'framework/exports'
 import css from './CreateGitConnector.module.scss'
 
 interface CreateGITConnectorProps {
@@ -163,50 +162,47 @@ const ManifestSourceConfigForm: React.FC<
   )
 }
 
-const CreateGITConnector = (props: CreateGITConnectorProps) => {
-  const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
-  const [connectType, setConnectType] = useState({ label: 'HTTP', value: 'Http' } as SelectOption)
+const CreateGitConnector = (props: CreateGITConnectorProps): JSX.Element => {
+  const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = props
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
 
   return (
     <>
-      <StepWizard className={css.wrapper}>
-        <ConnectorDetailsStep
+      <StepWizard
+        className={css.wrapper}
+        icon={getConnectorIconByType(Connectors.GIT)}
+        iconProps={{ size: 50 }}
+        title={getConnectorTitleTextByType(Connectors.GIT)}
+      >
+        <GitDetailsStep
           type={Connectors.GIT}
-          name={i18n.STEP_ONE.NAME}
-          setFormData={setFormData}
-          formData={formData}
+          name={getString('overview')}
+          isEditMode={isEditMode}
+          connectorInfo={undefined}
         />
-
-        <ConnectionModeStep
-          type={Connectors.GIT}
-          name={i18n.STEP_TWO.NAME}
-          setFormData={setFormData}
-          formData={formData}
-          connectType={connectType}
-          setConnectType={setConnectType}
+        <StepGitAuthentication
+          name={getString('connectors.git.gitStepTwoName')}
+          onConnectorCreated={() => {
+            // Handle on success
+          }}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          connectorInfo={undefined}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
         />
-
-        {connectType.value === 'Http' ? (
-          <HttpCredendialStep
-            name={i18n.STEP_THREE.NAME}
-            setFormData={setFormData}
-            formData={formData}
-            {...props}
-            isEditMode={isEditMode}
-          />
-        ) : null}
         <VerifyOutOfClusterDelegate
-          name={i18n.STEP_VERIFY.NAME}
-          connectorIdentifier={formData?.identifier}
+          name={getString('connectors.stepThreeName')}
+          connectorIdentifier={''}
           setIsEditMode={() => setIsEditMode(true)}
           renderInModal={true}
-          isLastStep={false}
-          type={Connectors.GIT}
-          //   hideLightModal={props.hideLightModal}
           onSuccess={() => {
             // Handle on success
           }}
+          isLastStep={false}
+          type={Connectors.GIT}
         />
         <ManifestSourceConfigForm name={customi18n.STEP_TWO.name} {...props} />
       </StepWizard>
@@ -214,4 +210,4 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
   )
 }
 
-export default CreateGITConnector
+export default CreateGitConnector

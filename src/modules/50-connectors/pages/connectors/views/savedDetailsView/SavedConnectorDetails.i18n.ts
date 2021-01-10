@@ -16,7 +16,7 @@ export default {
 
   NAME_LABEL: {
     Kubernetes: 'Kubernetes Connector Name',
-    GIT: 'GIT Connector Name',
+    GIT: 'Git Connector Name',
     Github: 'GitHub Connector Name',
     Gitlab: 'GitLab Connector Name',
     Bitbucket: 'Bitbucket Connector Name',

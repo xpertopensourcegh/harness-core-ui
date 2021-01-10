@@ -107,20 +107,18 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
       value:
         connector?.spec?.credential?.spec?.auth?.spec?.passwordRef ||
         connector?.spec?.credential?.spec?.auth?.spec?.oidcPasswordRef
-          ? i18n.k8sCluster.encrypted
-          : null
     },
     {
       label: i18n.k8sCluster.serviceAccountToken,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.serviceAccountTokenRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.serviceAccountTokenRef
     },
     {
       label: i18n.k8sCluster.oidcClientId,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcClientIdRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcClientIdRef
     },
     {
       label: i18n.k8sCluster.clientSecret,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcSecretRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcSecretRef
     },
     {
       label: i18n.k8sCluster.oidcScopes,
@@ -129,15 +127,15 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
 
     {
       label: i18n.k8sCluster.clientKey,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyRef
     },
     {
       label: i18n.k8sCluster.clientCert,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.clientCertRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientCertRef
     },
     {
       label: i18n.k8sCluster.clientKeyPassphrase,
-      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyPassphraseRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyPassphraseRef
     },
     {
       label: i18n.k8sCluster.clientAlgo,
@@ -167,11 +165,11 @@ const getGitSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
     },
     {
       label: i18n.GIT.password,
-      value: connector?.spec?.spec?.passwordRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.spec?.passwordRef
     },
     {
       label: i18n.GIT.sshKey,
-      value: connector?.spec?.spec?.sshKeyRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.spec?.sshKeyRef
     }
   ]
 }
@@ -293,7 +291,7 @@ const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
     },
     {
       label: i18n.password,
-      value: connector?.spec?.credential?.spec?.secretKeyRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.secretKeyRef
     }
   ]
 }
@@ -349,14 +347,11 @@ const getNexusSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
     },
     {
       label: i18n.username,
-      value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.oidcUsername
+      value: connector?.spec?.auth?.spec?.username
     },
     {
       label: i18n.password,
-      value:
-        connector?.spec?.auth?.spec?.passwordRef || connector?.spec?.auth?.spec?.oidcPasswordRef
-          ? i18n.k8sCluster.encrypted
-          : null
+      value: connector?.spec?.auth?.spec?.passwordRef
     }
   ]
 }
@@ -377,14 +372,11 @@ const getArtifactorySchema = (connector: ConnectorInfoDTO): Array<ActivityDetail
     },
     {
       label: i18n.username,
-      value: connector?.spec?.auth?.spec?.username || connector?.spec?.auth?.spec?.oidcUsername
+      value: connector?.spec?.auth?.spec?.username
     },
     {
       label: i18n.password,
-      value:
-        connector?.spec?.auth?.spec?.passwordRef || connector?.spec?.auth?.spec?.oidcPasswordRef
-          ? i18n.k8sCluster.encrypted
-          : null
+      value: connector?.spec?.auth?.spec?.passwordRef
     }
   ]
 }

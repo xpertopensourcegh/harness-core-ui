@@ -50,7 +50,7 @@ export const StepIndex = new Map([[STEP.TEST_CONNECTION, 1]])
 const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrlInfo> = props => {
   const { getString } = useStrings()
 
-  const getLabel = () => {
+  const getLabel = (): string => {
     switch (props.type) {
       case Connectors.KUBERNETES_CLUSTER:
         return getString('connectors.testConnectionStep.url.k8s')
@@ -72,8 +72,8 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
       case Connectors.BITBUCKET:
       case Connectors.GITLAB:
       case Connectors.GITHUB:
+      case Connectors.GIT:
         return getString('connectors.testConnectionStep.url.bitbucket')
-
       default:
         return ''
     }
@@ -101,6 +101,7 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
       case Connectors.BITBUCKET:
       case Connectors.GITLAB:
       case Connectors.GITHUB:
+      case Connectors.GIT:
         return props.prevStepData?.url
 
       default:
@@ -136,7 +137,7 @@ const VerifyOutOfClusterDelegate: React.FC<
 
   const { getString } = useStrings()
 
-  const getPermissionsLink = () => {
+  const getPermissionsLink = (): string => {
     switch (props.type) {
       case Connectors.KUBERNETES_CLUSTER:
         return 'https://docs.harness.io/article/l68rujg6mp-add-kubernetes-cluster-cloud-provider#review_permissions_required'
@@ -253,13 +254,15 @@ const VerifyOutOfClusterDelegate: React.FC<
           </Text>
         ) : null}
 
-        {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION)
-          ? stepDetails.status === 'ERROR' &&
-            testConnectionResponse?.data?.errorSummary &&
-            testConnectionResponse.data.errors
-            ? renderError()
-            : null
-          : null}
+        {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION) ? (
+          stepDetails.status === 'ERROR' &&
+          testConnectionResponse?.data?.errorSummary &&
+          testConnectionResponse.data.errors ? (
+            renderError()
+          ) : (
+            <Text>{getString('connectors.testConnectionStep.placeholderError')}</Text>
+          )
+        ) : null}
       </Layout.Vertical>
     )
   }
