@@ -2,6 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import type { UseStringsReturn } from 'framework/exports'
+import type { AbstractStepFactory } from './AbstractStepFactory'
 
 export enum StepViewType {
   InputSet = 'InputSet',
@@ -60,6 +61,7 @@ export abstract class Step<T extends object> {
     initialValues: T,
     onUpdate?: (data: T) => void,
     stepViewType?: StepViewType,
-    inputSetData?: InputSetData<T>
+    inputSetData?: InputSetData<T>,
+    factory?: AbstractStepFactory
   ): JSX.Element
 }

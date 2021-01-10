@@ -36,12 +36,12 @@ export interface Variable extends Omit<NGVariable, 'value'> {
   value: string
 }
 
-type VariableList = { variables: Variable[] }
+type InitialValues = { variables: Variable[]; isPropagating?: boolean; canAddVariable?: boolean }
 
 interface CustomVariableEditableProps {
-  initialValues: VariableList
+  initialValues: InitialValues
   secrets: SecretDTOV2[] | undefined
-  onUpdate?: (data: VariableList) => void
+  onUpdate?: (data: InitialValues) => void
   stepViewType?: StepViewType
 }
 
@@ -76,6 +76,9 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
     accountId: string
   }>()
   React.useEffect(() => {
+    if (initialValues.isPropagating) {
+      setFormInputVariables(initialValues.variables)
+    }
     setInputVariables(initialValues.variables)
   }, [initialValues.variables])
 
@@ -92,7 +95,8 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
             name: Yup.string().trim().required(i18n.validation.name)
           })}
           onSubmit={data => {
-            const index = inputVariables.indexOf(selectedVariable)
+            const index = inputVariables.findIndex((variable: Variable) => variable.name === selectedVariable.name)
+
             if (index === -1) {
               inputVariables.push(data)
             } else {
@@ -145,10 +149,12 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
   })
   return (
     <div className={css.customVariables}>
-      <div className={css.headerRow}>
-        <Text color={Color.BLACK}>{stepViewType === StepViewType.Edit ? i18n.variables : i18n.customVariables}</Text>
-        <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={showModal} />
-      </div>
+      {initialValues.canAddVariable && (
+        <div className={css.headerRow}>
+          <Text color={Color.BLACK}>{stepViewType === StepViewType.Edit ? i18n.variables : i18n.customVariables}</Text>
+          <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={showModal} />
+        </div>
+      )}
       {stepViewType === StepViewType.StageVariable && inputVariables.length > 0 && (
         <section className={css.subHeader}>
           <span>{i18n.variablesTableHeaders.name}</span>
@@ -178,6 +184,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                         onSelect={secret => {
                           inputVariables[index].value = getSecretKey(secret)
                           setInputVariables(cloneDeep(inputVariables))
+                          setFormInputVariables(cloneDeep(inputVariables))
                           onUpdate?.({ variables: inputVariables })
                         }}
                       />
@@ -203,6 +210,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                   onChange={value => {
                     inputVariables[index].value = value as string
                     setInputVariables(cloneDeep(inputVariables))
+                    setFormInputVariables(cloneDeep(inputVariables))
                     onUpdate?.({ variables: inputVariables })
                   }}
                 />
@@ -213,6 +221,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                 width={270}
                 value={variable.value}
                 name={`value[${index}]`}
+                textProps={{ disabled: !initialValues.canAddVariable }}
                 mentionsInfo={{
                   data: done =>
                     done([
@@ -227,6 +236,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                 onChange={value => {
                   inputVariables[index].value = value as string
                   setInputVariables(cloneDeep(inputVariables))
+                  setFormInputVariables(cloneDeep(inputVariables))
                   onUpdate?.({ variables: inputVariables })
                 }}
               />
@@ -240,29 +250,32 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                   onChange={value => {
                     inputVariables[index].value = value
                     setInputVariables(cloneDeep(inputVariables))
+                    setFormInputVariables(cloneDeep(inputVariables))
                     onUpdate?.({ variables: inputVariables })
                   }}
                 />
               )}
-              <section className={css.actionButtons}>
-                <Button
-                  icon="edit"
-                  tooltip={i18n.editVariable}
-                  onClick={() => {
-                    setSelectedVariable(variable)
-                    showModal()
-                  }}
-                />
-                <Button
-                  icon="trash"
-                  tooltip={i18n.removeThisVariable}
-                  onClick={() => {
-                    inputVariables.splice(index, 1)
-                    formInputVariables.splice(index, 1)
-                    onUpdate?.({ variables: inputVariables })
-                  }}
-                />
-              </section>
+              {initialValues.canAddVariable && (
+                <section className={css.actionButtons}>
+                  <Button
+                    icon="edit"
+                    tooltip={i18n.editVariable}
+                    onClick={() => {
+                      setSelectedVariable(variable)
+                      showModal()
+                    }}
+                  />
+                  <Button
+                    icon="trash"
+                    tooltip={i18n.removeThisVariable}
+                    onClick={() => {
+                      inputVariables.splice(index, 1)
+                      formInputVariables.splice(index, 1)
+                      onUpdate?.({ variables: inputVariables })
+                    }}
+                  />
+                </section>
+              )}
             </div>
           </div>
         </div>
@@ -271,7 +284,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
   )
 }
 
-export class CustomVariables extends Step<VariableList> {
+export class CustomVariables extends Step<InitialValues> {
   lastFetched: number
   secrets: SecretDTOV2[] | undefined
   protected invocationMap: Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> = new Map()
@@ -326,8 +339,8 @@ export class CustomVariables extends Step<VariableList> {
   }
 
   renderStep(
-    initialValues: VariableList,
-    onUpdate?: (data: VariableList) => void,
+    initialValues: InitialValues,
+    onUpdate?: (data: InitialValues) => void,
     stepViewType?: StepViewType
   ): JSX.Element {
     this.getSecrets()
@@ -349,5 +362,5 @@ export class CustomVariables extends Step<VariableList> {
   protected stepIcon: IconName = 'variable'
   protected stepPaletteVisible = false
 
-  protected defaultValues: VariableList = { variables: [] }
+  protected defaultValues: InitialValues = { variables: [] }
 }

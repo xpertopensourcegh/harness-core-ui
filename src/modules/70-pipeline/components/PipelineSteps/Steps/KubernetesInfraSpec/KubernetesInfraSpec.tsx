@@ -42,8 +42,9 @@ import {
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
-import i18n from './KubernetesInfraSpec.18n'
 import { PipelineStep } from '../../PipelineStep'
+import i18n from './KubernetesInfraSpec.18n'
+import css from './KubernetesInfraSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
@@ -180,7 +181,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.MultiTextInput
                   name="namespace"
-                  style={{ width: 400 }}
+                  className={css.inputWidth}
                   label={i18n.nameSpaceLabel}
                   placeholder={i18n.nameSpacePlaceholder}
                 />
@@ -206,7 +207,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.MultiTextInput
                   name="releaseName"
-                  style={{ width: 400 }}
+                  className={css.inputWidth}
                   label={i18n.releaseName}
                   placeholder={i18n.releaseNamePlaceholder}
                 />

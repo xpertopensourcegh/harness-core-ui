@@ -32,6 +32,6 @@ export function StepWidget<T extends object = {}>({
     return <Text intent="warning">{i18n.invalidStep}</Text>
   } else {
     const values = step?.getDefaultValues(initialValues, stepViewType)
-    return <>{step.renderStep(values, onUpdate, stepViewType, { template, allValues, path, readonly })}</>
+    return <>{step.renderStep(values, onUpdate, stepViewType, { template, allValues, path, readonly }, factory)}</>
   }
 }

@@ -221,10 +221,6 @@ export default function DeployServiceSpecifications(): JSX.Element {
     return { serviceName, description, tags, identifier }
   }
 
-  // const handleTabChange = (data: string): void => {
-  //   setSelectedTab(data)
-  // }
-
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
       const stageServiceData = stage?.['stage']?.['spec']['service'] || null
@@ -532,7 +528,9 @@ export default function DeployServiceSpecifications(): JSX.Element {
                   </div>
                 )}
               </div>
-              <OverrideSets selectedTab={selectedTab} />
+              {selectedTab !== getString('pipelineSteps.build.stageSpecifications.variablesDetails') && (
+                <OverrideSets selectedTab={selectedTab} />
+              )}
             </div>
           </div>
         </>
@@ -547,6 +545,10 @@ export default function DeployServiceSpecifications(): JSX.Element {
             <Tab
               id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
               title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+            />
+            <Tab
+              id={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
+              title={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
             />
           </Tabs>
           <OverrideSets

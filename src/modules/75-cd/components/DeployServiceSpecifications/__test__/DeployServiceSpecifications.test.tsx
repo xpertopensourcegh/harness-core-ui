@@ -11,12 +11,25 @@ import { TestWrapper } from '@common/utils/testUtils'
 import overridePipelineContext from './overrideSetPipeline.json'
 import DeployServiceSpecifications from '../DeployServiceSpecifications'
 import connectorListJSON from './connectorList.json'
+import mockListSecrets from './mockListSecret.json'
 const getOverrideContextValue = (): PipelineContextInterface => {
   return { ...overridePipelineContext, updatePipeline: jest.fn() } as any
 }
 
 jest.mock('services/cd-ng', () => ({
-  getConnectorListPromise: () => Promise.resolve(connectorListJSON)
+  getConnectorListPromise: () => Promise.resolve(connectorListJSON),
+
+  listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockListSecrets)),
+  // useValidateSecret: jest
+  //   .fn()
+  //   .mockImplementation(() => ({ mutate: () => Promise.resolve({ responseSecretValidation }) })),
+  // usePostSecret: jest.fn().mockImplementation(() => ({ mutate: createSSHSecret })),
+  usePostSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }
@@ -30,7 +43,7 @@ describe('OverrideSet tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test.skip(`renders overrideSets without crashing`, async () => {
+  test(`renders overrideSets without crashing`, async () => {
     const { container, getByTestId } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getOverrideContextValue()}>
@@ -69,14 +82,12 @@ describe('OverrideSet tests', () => {
     const set1Option = await findByText(document.body, 'Set1')
     fireEvent.click(set1Option as Element)
     const primaryArtifactFromPrevStage = await waitFor(() => findByText(container, 'Primary Artifact'))
-    expect(primaryArtifactFromPrevStage).toMatchSnapshot('Selected Set1')
     expect(primaryArtifactFromPrevStage).toBeDefined()
-    expect(container).toMatchSnapshot('Selected OverrideSet Set1')
+
     //Remove Predefined Set from list
     const removeOverrideSetButton = document.getElementById('removeOverrideSet')
     expect(removeOverrideSetButton).toBeDefined()
     fireEvent.click(removeOverrideSetButton as Element)
-    expect(container).toMatchSnapshot('Removed OverrideSet Set1')
     const manifestsTab = await findByText(container, 'Manifests')
     fireEvent.click(manifestsTab)
     const addManifestButton = await findByText(container, '+ Add Manifest')
@@ -94,10 +105,8 @@ describe('OverrideSet tests', () => {
     await waitFor(() => document.body.querySelector('.bp3-menu'))
     const manifestSetOption = await findByText(document.body, 'manor')
     fireEvent.click(manifestSetOption as Element)
-    expect(manifestSetOption).toMatchSnapshot('Manifest Snapshot')
     const primaryManifestFromPrevStage = await waitFor(() => findByText(container, 'man1'))
     expect(primaryManifestFromPrevStage).toBeDefined()
-    expect(container).toMatchSnapshot('Selected Manifest OverrideSet Set1')
 
     //Add 2nd set
     await waitFor(() => findByText(container, '+ Add Predefined Set'))
@@ -115,10 +124,8 @@ describe('OverrideSet tests', () => {
     await waitFor(() => document.body.querySelector('.bp3-menu'))
     const manifestSetOption2 = await findByText(document.body, 'manor1')
     fireEvent.click(manifestSetOption2 as Element)
-    expect(manifestSetOption).toMatchSnapshot('Manifest2 Snapshot')
     const primaryManifestFromPrevStage2 = await waitFor(() => findByText(container, 'man2'))
     expect(primaryManifestFromPrevStage2).toBeDefined()
-    expect(container).toMatchSnapshot('Selected Manifest OverrideSet Set2')
 
     //drag drop manifests
     const container1 = getByTestId('manor')
@@ -128,25 +135,20 @@ describe('OverrideSet tests', () => {
       const dragStartEvent = Object.assign(createEvent.dragStart(container1), eventData)
 
       fireEvent(container1, dragStartEvent)
-      expect(container1).toMatchSnapshot()
 
       fireEvent.dragEnd(container)
-      expect(container1).toMatchSnapshot()
 
       fireEvent.dragLeave(container1)
-      expect(container1).toMatchSnapshot()
 
       const dropEffectEvent = Object.assign(createEvent.dragOver(container1), eventData)
       fireEvent(container2, dropEffectEvent)
-      expect(container2).toMatchSnapshot()
 
       const dropEvent = Object.assign(createEvent.drop(container1), eventData)
       fireEvent(container2, dropEvent)
-      expect(container2).toMatchSnapshot()
     })
   })
 
-  test.skip(`toggles overrideSets selection without crashing`, async () => {
+  test(`toggles overrideSets selection without crashing`, async () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getOverrideContextValue()}>
@@ -164,7 +166,7 @@ describe('OverrideSet tests', () => {
     expect(addOverrideSetButton).toBeDefined()
   })
 
-  test.skip(`create manifest value type without crashing`, async () => {
+  test(`create variable without crashing`, async () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getOverrideContextValue()}>
@@ -173,35 +175,42 @@ describe('OverrideSet tests', () => {
       </TestWrapper>
     )
 
-    const manifestTab = await waitFor(() => findByText(container, 'Manifests'))
-    expect(manifestTab).toBeDefined()
-    fireEvent.click(manifestTab)
-    const addManifestButton = await findByText(container, '+ Add Manifest')
-    fireEvent.click(addManifestButton)
-    const valuesOverride = await waitFor(() => findByText(document.body, 'Values Override'))
-    fireEvent.click(valuesOverride)
+    const variablesTab = await waitFor(() => findByText(container, 'Variables'))
+    expect(variablesTab).toBeDefined()
+    fireEvent.click(variablesTab)
+    const addVariableButton = await findByText(container, 'Add Variable')
+    fireEvent.click(addVariableButton)
+    let variableInput = document.body.querySelector('input[placeholder="Variable Name"]')
+    fireEvent.change(variableInput as Element, { target: { value: 'var1' } })
+    let saveButton = await findByText(document.body.querySelector('.bp3-dialog-footer') as HTMLElement, 'Save')
+    fireEvent.click(saveButton)
+    const var1 = await waitFor(() => findByText(container, 'var1'))
+    expect(var1).toBeDefined()
+    const varInput = var1?.parentElement?.children[2]?.querySelector('input')
+    fireEvent.change(varInput as Element, { target: { value: 'varval' } })
+
+    //create scret type variable
+    fireEvent.click(addVariableButton)
+    variableInput = document.body.querySelector('input[placeholder="Variable Name"]')
+    fireEvent.change(variableInput as Element, { target: { value: 'var2' } })
+    const selectStageDropDown = document.body
+      .querySelector(`input[value="String"]`)
+      ?.parentNode?.querySelector('[data-icon="caret-down"]')
     await act(async () => {
-      const gitServerInput = await waitFor(() => findByText(document.body, 'Select GIT Server'))
-      fireEvent.click(gitServerInput)
+      fireEvent.click(selectStageDropDown as Element)
     })
-    const projectsButton = document.body.querySelector('[icon="cube"]')
-    fireEvent.click(projectsButton as Element)
-    const k8connector = await waitFor(() => document.body.querySelector('[icon="full-circle"]'))
-    expect(k8connector).toBeDefined()
-    fireEvent.click(k8connector as Element)
-    const continueButton = await findByText(document.body, 'Save and Continue')
-    fireEvent.click(continueButton)
-    await waitFor(() => findByText(document.body, 'Configure Manifest Source'))
-    const nameInput = document.body.querySelector('input[name="identifier"]')
-    fireEvent.change(nameInput as Element, { target: { value: 'manifest1' } })
-    const branchInput = document.body.querySelector('input[name="branch"]')
-    fireEvent.change(branchInput as Element, { target: { value: 'manifest1branch' } })
-    const pathInput = document.body.querySelector('input[name="filePath[0].path"]')
-    fireEvent.change(pathInput as Element, { target: { value: 'path' } })
-    const submitButton = await findByText(document.body, 'Submit')
-    fireEvent.click(submitButton)
-    const manifestCreated = await findByText(container, 'manifest1branch')
-    expect(manifestCreated).toBeDefined()
-    expect(container).toMatchSnapshot('create manifest value type without crashing')
+    await waitFor(() => document.body.querySelector('.bp3-menu'))
+    const secretOption = await findByText(document.body, 'Secret')
+    fireEvent.click(secretOption as Element)
+    saveButton = await findByText(document.body.querySelector('.bp3-dialog-footer') as HTMLElement, 'Save')
+    fireEvent.click(saveButton)
+    const var2 = await waitFor(() => findByText(container, 'var2'))
+    const secretListButton = var2.parentElement?.querySelector('[stroke="#1C1C28"]')
+    fireEvent.click(secretListButton as Element)
+    const projectbutton = await waitFor(() => findByText(document.body, 'Project'))
+    expect(projectbutton).toBeDefined()
+    fireEvent.click(projectbutton)
+    const selectedSecret = await findByText(document.body, 'New Secret')
+    fireEvent.click(selectedSecret)
   })
 })

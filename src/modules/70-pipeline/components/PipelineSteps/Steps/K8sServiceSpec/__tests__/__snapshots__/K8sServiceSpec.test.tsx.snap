@@ -151,6 +151,19 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       >
         Manifests
       </div>
+      <div
+        aria-controls="bp3-tab-panel_serviceSpecifications_Variables"
+        aria-disabled="false"
+        aria-expanded="false"
+        aria-selected="false"
+        class="bp3-tab"
+        data-tab-id="Variables"
+        id="bp3-tab-title_serviceSpecifications_Variables"
+        role="tab"
+        tabindex="0"
+      >
+        Variables
+      </div>
     </div>
     <div
       aria-hidden="false"

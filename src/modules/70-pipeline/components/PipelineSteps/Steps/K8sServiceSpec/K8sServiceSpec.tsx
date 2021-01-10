@@ -16,18 +16,21 @@ import {
   TextInput
 } from '@wings-software/uicore'
 import { FormGroup } from '@blueprintjs/core'
+import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { StepViewType } from '@pipeline/exports'
 import type { ServiceSpec } from 'services/cd-ng'
 import { Step } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
+import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineStepInterface'
 interface KubernetesServiceInputFormProps {
   initialValues: K8SDirectServiceStep
   onUpdate?: ((data: ServiceSpec) => void) | undefined
   stepViewType?: StepViewType
   template?: ServiceSpec
+  factory?: AbstractStepFactory
 }
 
 const setupMode = {
@@ -35,7 +38,8 @@ const setupMode = {
   DIFFERENT: 'DIFFRENT'
 }
 const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> = ({
-  initialValues: { stageIndex = 0, setupModeType, handleTabChange }
+  initialValues: { stageIndex = 0, setupModeType, handleTabChange },
+  factory
 }) => {
   const { getString } = useStrings()
   return (
@@ -55,6 +59,17 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
         panel={
           <ManifestSelection
+            isForOverrideSets={false}
+            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+          />
+        }
+      />
+      <Tab
+        id={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
+        title={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
+        panel={
+          <WorkflowVariables
+            factory={factory as any}
             isForOverrideSets={false}
             isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
           />
@@ -319,7 +334,8 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     stepViewType?: StepViewType | undefined,
     inputSetData?: {
       template?: ServiceSpec
-    }
+    },
+    factory?: AbstractStepFactory
   ): JSX.Element {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -333,7 +349,12 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     }
 
     return (
-      <KubernetesServiceSpecInputForm initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+      <KubernetesServiceSpecInputForm
+        factory={factory}
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+      />
     )
   }
 }
