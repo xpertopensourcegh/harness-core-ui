@@ -13,10 +13,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": null,
-                "name": null,
-                "description": null,
+              "serviceConfig": {
+                "service": {
+                  "identifier": null,
+                  "name": null,
+                  "description": null
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -51,10 +53,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": null,
-                "name": null,
-                "description": null,
+              "serviceConfig": {
+                "service": {
+                  "identifier": null,
+                  "name": null,
+                  "description": null
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -75,10 +79,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": null,
-                "name": null,
-                "description": null,
+              "serviceConfig": {
+                "service": {
+                  "identifier": null,
+                  "name": null,
+                  "description": null
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -98,7 +104,7 @@
             "identifier": "Deploy_3",
             "description": "",
             "type": "Deployment",
-            "spec": { "service": { "useFromStage": { "stage": "Deploy_2" }, "stageOverrides": null } }
+            "spec": { "serviceConfig": { "useFromStage": { "stage": "Deploy_2" }, "stageOverrides": null } }
           }
         }
       ]

@@ -199,10 +199,14 @@ function ManifestListView({
   )
   const getManifestList = React.useCallback(() => {
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       const { stages } = getPrevoiusStageFromIndex(pipeline)
-      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+      const overrideSets = get(
+        stages[index],
+        'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets',
+        []
+      )
 
       const selectedOverrideSet = overrideSets.find(
         ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
@@ -211,13 +215,13 @@ function ManifestListView({
       return get(selectedOverrideSet, 'overrideSet.manifests', [])
     }
     if (isPropagating) {
-      return get(stage, 'stage.spec.service.stageOverrides.manifests', [])
+      return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     return !isForOverrideSets
       ? !isForPredefinedSets
-        ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-        : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
-      : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+        ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+        : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+      : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
   }, [isForOverrideSets, isPropagating, isForPredefinedSets, overrideSetIdentifier])
 
   let listOfManifests = getManifestList()
@@ -623,13 +627,13 @@ export default function ManifestSelection({
   const identifier = selectedStageId || 'stage-identifier'
   const getManifestList = React.useCallback(() => {
     if (isPropagating) {
-      return get(stage, 'stage.spec.service.stageOverrides.manifests', [])
+      return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     return !isForOverrideSets
       ? !isForPredefinedSets
-        ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-        : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
-      : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+        ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+        : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+      : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
   }, [isForOverrideSets, isPropagating, isForPredefinedSets])
   let listOfManifests = getManifestList()
   if (isForOverrideSets) {

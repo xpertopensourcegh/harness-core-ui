@@ -138,11 +138,11 @@ const validateStage = (
       set(errors, 'spec.infrastructure.infrastructureDefinition.spec', errorsResponse)
     }
   }
-  if (stage.spec?.service?.serviceDefinition?.type === 'Kubernetes') {
+  if (stage.spec?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
     const step = factory.getStep(StepType.K8sServiceSpec)
     const errorsResponse = step?.validateInputSet(
-      stage.spec?.service?.serviceDefinition?.spec,
-      template.spec?.service?.serviceDefinition?.spec,
+      stage.spec?.serviceConfig?.serviceDefinition?.spec,
+      template.spec?.serviceConfig?.serviceDefinition?.spec,
       getString
     )
     if (!isEmpty(errorsResponse)) {

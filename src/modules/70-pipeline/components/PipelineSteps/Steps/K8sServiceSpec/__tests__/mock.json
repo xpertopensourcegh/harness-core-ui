@@ -12,10 +12,8 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": "",
-                "name": "",
-                "description": "",
+              "serviceConfig": {
+                "service": { "identifier": "", "name": "", "description": "" },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -91,10 +89,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": "",
-                "name": "",
-                "description": "",
+              "serviceConfig": {
+                "service": {
+                  "identifier": "",
+                  "name": "",
+                  "description": ""
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {

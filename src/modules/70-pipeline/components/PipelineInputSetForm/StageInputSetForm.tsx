@@ -9,7 +9,9 @@ import type {
   ServiceSpec,
   StepElement,
   ExecutionWrapper,
-  ExecutionWrapperConfig
+  ExecutionWrapperConfig,
+  ServiceConfig,
+  PipelineInfrastructure
 } from 'services/cd-ng'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
@@ -169,35 +171,60 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   const deploymentStageInputSet = get(formik?.values, path, {})
   return (
     <>
-      {deploymentStageTemplate.service?.serviceDefinition?.type === 'Kubernetes' && (
+      {deploymentStageTemplate.serviceConfig && (
         <CollapseForm
-          header={i18n.service(deploymentStage?.service?.name || '')}
+          header={i18n.service(deploymentStage?.serviceConfig?.service?.name || '')}
           headerProps={{ font: { size: 'normal' } }}
           headerColor="var(--black)"
           open={false}
         >
-          <StepWidget<ServiceSpec>
-            factory={factory}
-            initialValues={deploymentStageInputSet?.service?.serviceDefinition?.spec || {}}
-            template={deploymentStageTemplate?.service?.serviceDefinition?.spec || {}}
-            type={StepType.K8sServiceSpec}
-            stepViewType={StepViewType.InputSet}
-            readonly={readonly}
-            onUpdate={(data: any) => {
-              if (deploymentStageInputSet?.service?.serviceDefinition?.spec) {
-                deploymentStageInputSet.service.serviceDefinition.spec = data
-                formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
-              }
-            }}
-          />
+          {deploymentStageTemplate.serviceConfig?.serviceRef && (
+            <StepWidget<ServiceConfig>
+              factory={factory}
+              initialValues={deploymentStageInputSet?.serviceConfig || {}}
+              template={deploymentStageTemplate?.serviceConfig || {}}
+              type={StepType.DeployService}
+              stepViewType={StepViewType.InputSet}
+              path={`${path}.serviceConfig`}
+              readonly={readonly}
+            />
+          )}
+          {deploymentStageTemplate.serviceConfig?.serviceDefinition?.type === 'Kubernetes' && (
+            <StepWidget<ServiceSpec>
+              factory={factory}
+              initialValues={deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}}
+              template={deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}}
+              type={StepType.K8sServiceSpec}
+              stepViewType={StepViewType.InputSet}
+              readonly={readonly}
+              onUpdate={(data: any) => {
+                if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
+                  deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
+                  formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
+                }
+              }}
+            />
+          )}
         </CollapseForm>
       )}
+
       {deploymentStageTemplate.infrastructure && (
         <CollapseForm
           header={i18n.infrastructure}
           headerProps={{ font: { size: 'normal' } }}
           headerColor="var(--black)"
         >
+          {deploymentStageTemplate.infrastructure?.environmentRef && (
+            <StepWidget<PipelineInfrastructure>
+              factory={factory}
+              initialValues={deploymentStageInputSet?.infrastructure || {}}
+              template={deploymentStageTemplate?.infrastructure || {}}
+              type={StepType.DeployEnvironment}
+              stepViewType={StepViewType.InputSet}
+              path={`${path}.infrastructure`}
+              readonly={readonly}
+            />
+          )}
           {deploymentStageTemplate.infrastructure.infrastructureDefinition && (
             <StepWidget<K8SDirectInfrastructure>
               factory={factory}

@@ -15,10 +15,9 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
   <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
     <div className={css.createNewCards}>
       {stages.map(stage => (
-        <>
+        <React.Fragment key={stage.type}>
           {!stage.isApproval || !isParallel ? (
             <Card
-              key={stage.type}
               interactive={true}
               disabled={stage.isDisabled}
               className={cx(css.cardNew, { [css.disabled]: stage.isDisabled })}
@@ -34,7 +33,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
               <div>{stage.name}</div>
             </Card>
           ) : null}
-        </>
+        </React.Fragment>
       ))}
     </div>
     <div className={css.createNewMessage}>{i18n.newContentMessage}</div>

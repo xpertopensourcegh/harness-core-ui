@@ -1,6 +1,4 @@
 import React from 'react'
-import * as Yup from 'yup'
-
 import {
   Layout,
   Button,
@@ -8,19 +6,17 @@ import {
   CardBody,
   Text,
   Label,
-  Formik,
-  FormikForm,
-  FormInput,
-  IconName,
   Select,
   SelectOption,
   Radio,
   Tabs,
-  Tab
+  Tab,
+  IconName
 } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
+import { debounce, get } from 'lodash-es'
 import {
   PipelineContext,
   getStageFromPipeline,
@@ -29,16 +25,15 @@ import {
   StepWidget,
   StepViewType
 } from '@pipeline/exports'
-import { loggerFor, ModuleName, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 
 import OverrideSets from '@pipeline/components/OverrideSets/OverrideSets'
 import type { K8SDirectServiceStep } from '@pipeline/components/PipelineSteps/Steps/K8sServiceSpec/K8sServiceSpec'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
 import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
 import i18n from './DeployServiceSpecifications.i18n'
 import css from './DeployServiceSpecifications.module.scss'
-
-const logger = loggerFor(ModuleName.CD)
 
 const specificationTypes = {
   SPECIFICATION: 'SPECIFICATION',
@@ -94,12 +89,10 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
 ]
 
 export default function DeployServiceSpecifications(): JSX.Element {
-  const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const { getString } = useStrings()
   const [selectedTab, setSelectedTab] = React.useState(
     getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
   )
-  const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [specSelected, setSelectedSpec] = React.useState(specificationTypes.SPECIFICATION)
   const [setupModeType, setSetupMode] = React.useState('')
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
@@ -120,6 +113,12 @@ export default function DeployServiceSpecifications(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const debounceUpdatePipeline = React.useRef(
+    debounce((pipelineData: NgPipeline) => {
+      return updatePipeline(pipelineData)
+    }, 500)
+  ).current
+
   const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
@@ -137,8 +136,8 @@ export default function DeployServiceSpecifications(): JSX.Element {
         }
       })
     }
-    if (isEmpty(parentStage) && stage?.stage?.spec?.service?.useFromStage?.stage) {
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+    if (isEmpty(parentStage) && stage?.stage?.spec?.serviceConfig?.useFromStage?.stage) {
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       setParentStage(stages[index])
     }
@@ -150,12 +149,10 @@ export default function DeployServiceSpecifications(): JSX.Element {
         stage.stage.spec = {}
       }
 
-      !isEmpty(stage.stage?.spec?.service?.tags) && setTagsVisible(true)
-      stage.stage?.spec?.service?.description?.length && setDescriptionVisible(true)
       if (
-        !stage.stage.spec.service?.serviceDefinition &&
+        !stage.stage.spec.serviceConfig?.serviceDefinition &&
         setupModeType === setupMode.DIFFERENT &&
-        !stage.stage.spec.service?.useFromStage?.stage
+        !stage.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
         setDefaultServiceSchema()
         setSelectedPropagatedState({ label: '', value: '' })
@@ -163,18 +160,18 @@ export default function DeployServiceSpecifications(): JSX.Element {
       } else if (
         setupModeType === setupMode.PROPAGATE &&
         stageIndex > 0 &&
-        !stage.stage.spec.service?.serviceDefinition &&
-        !stage.stage.spec.service?.useFromStage?.stage
+        !stage.stage.spec.serviceConfig?.serviceDefinition &&
+        !stage.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
         stage.stage.spec = {
-          service: {
+          serviceConfig: {
             useFromStage: {
               stage: null
             },
             stageOverrides: null
           }
         }
-        updatePipeline(pipeline)
+        debounceUpdatePipeline(pipeline)
 
         setSetupMode(setupMode.PROPAGATE)
       }
@@ -183,11 +180,8 @@ export default function DeployServiceSpecifications(): JSX.Element {
 
   const setDefaultServiceSchema = (): void => {
     stage.stage.spec = {
-      service: {
-        identifier: null,
-        name: null,
-        description: null,
-        // tags: null,
+      serviceConfig: {
+        serviceRef: null,
         serviceDefinition: {
           type: 'Kubernetes',
           spec: {
@@ -204,26 +198,12 @@ export default function DeployServiceSpecifications(): JSX.Element {
         }
       }
     }
-    updatePipeline(pipeline)
-  }
-
-  const getInitialValues = (): {
-    serviceName: string
-    description: string
-    tags: null | string[]
-    identifier: string
-  } => {
-    const pipelineData = stage?.['stage']?.['spec']?.['service'] || null
-    const serviceName = pipelineData?.name || ''
-    const identifier = pipelineData?.identifier || ''
-    const description = pipelineData?.description || ''
-    const tags = pipelineData?.tags || null
-    return { serviceName, description, tags, identifier }
+    debounceUpdatePipeline(pipeline)
   }
 
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
-      const stageServiceData = stage?.['stage']?.['spec']['service'] || null
+      const stageServiceData = stage?.['stage']?.['spec']['serviceConfig'] || null
 
       const { stage: { stage: { name } } = {} } = getStageFromPipeline(pipeline, (item.value as string) || '')
       if (stageServiceData) {
@@ -232,14 +212,14 @@ export default function DeployServiceSpecifications(): JSX.Element {
           label: `Previous Stage ${name} [${item.value as string}]`,
           value: item.value
         })
-        updatePipeline(pipeline)
+        debounceUpdatePipeline(pipeline)
       }
     }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const _isChecked = (event.target as HTMLInputElement).checked
-    const currentSpec = stage?.stage.spec?.service
+    const currentSpec = stage?.stage.spec?.serviceConfig
     setCheckedItems({
       ...checkedItems,
       overrideSetCheckbox: _isChecked
@@ -257,11 +237,11 @@ export default function DeployServiceSpecifications(): JSX.Element {
         // useVariableOverrideSets: []
       }
 
-      updatePipeline(pipeline)
+      debounceUpdatePipeline(pipeline)
       setConfigVisibility(true)
     } else {
       currentSpec.stageOverrides = null
-      updatePipeline(pipeline)
+      debounceUpdatePipeline(pipeline)
       setConfigVisibility(false)
     }
   }
@@ -273,9 +253,9 @@ export default function DeployServiceSpecifications(): JSX.Element {
   }, [stageIndex])
 
   React.useEffect(() => {
-    const useFromStage = stage?.stage?.spec.service?.useFromStage
-    const stageOverrides = stage?.stage?.spec.service?.stageOverrides
-    const serviceDefinition = stage?.stage?.spec.service?.serviceDefinition
+    const useFromStage = stage?.stage?.spec.serviceConfig?.useFromStage
+    const stageOverrides = stage?.stage?.spec.serviceConfig?.stageOverrides
+    const serviceDefinition = stage?.stage?.spec.serviceConfig?.serviceDefinition
 
     if (useFromStage) {
       setSetupMode(setupMode.PROPAGATE)
@@ -302,7 +282,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
             })
             setConfigVisibility(false)
           }
-          updatePipeline(pipeline)
+          debounceUpdatePipeline(pipeline)
         }
       }
       if (stageOverrides) {
@@ -398,73 +378,30 @@ export default function DeployServiceSpecifications(): JSX.Element {
       {(stageIndex === 0 || setupModeType === setupMode.DIFFERENT) && (
         <>
           <Layout.Vertical spacing="large">
-            <Formik
-              initialValues={getInitialValues()}
-              validate={value => {
-                if (stage) {
-                  const serviceObj = stage['stage']['spec']['service']
-                  serviceObj['identifier'] = value.identifier
-                  serviceObj['name'] = value.serviceName
-                  serviceObj['description'] = value.description
-                  serviceObj['tags'] = value.tags
-                }
-              }}
-              onSubmit={values => {
-                logger.info(JSON.stringify(values))
-              }}
-              validationSchema={Yup.object().shape({
-                serviceName: Yup.string().trim().required(i18n.validation.serviceName)
-              })}
-            >
-              {() => {
-                return (
-                  <div className={cx(css.serviceSection, css.noPadVertical)}>
-                    <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
-                      {i18n.serviceDetailLabel}
-                    </Layout.Vertical>
-                    <FormikForm>
-                      <Layout.Horizontal spacing="medium">
-                        <FormInput.InputWithIdentifier
-                          inputName="serviceName"
-                          inputLabel={i18n.serviceNameLabel}
-                          inputGroupProps={{ placeholder: i18n.serviceNamePlaceholderText, className: css.name }}
-                        />
-                        <div className={css.addDataLinks}>
-                          {!isDescriptionVisible && (
-                            <Button
-                              minimal
-                              text={i18n.addDescription}
-                              icon="plus"
-                              onClick={() => setDescriptionVisible(true)}
-                            />
-                          )}
-                          {!isTagsVisible && (
-                            <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} />
-                          )}
-                        </div>
-                      </Layout.Horizontal>
-
-                      {isDescriptionVisible && (
-                        <div>
-                          <span onClick={() => setDescriptionVisible(false)} className={css.removeLink}>
-                            {i18n.removeLabel}
-                          </span>
-                          <FormInput.TextArea name="description" label="Description" style={{ width: 400 }} />
-                        </div>
-                      )}
-                      {isTagsVisible && (
-                        <div>
-                          <span onClick={() => setTagsVisible(false)} className={css.removeLink}>
-                            {i18n.removeLabel}
-                          </span>
-                          <FormInput.KVTagInput name={i18n.addTags} label={i18n.tagsLabel} style={{ width: 400 }} />
-                        </div>
-                      )}
-                    </FormikForm>
-                  </div>
-                )
-              }}
-            </Formik>
+            <div className={cx(css.serviceSection, css.noPadVertical)}>
+              <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
+                {i18n.serviceDetailLabel}
+              </Layout.Vertical>
+              <Layout.Horizontal spacing="medium">
+                <StepWidget
+                  type={StepType.DeployService}
+                  initialValues={get(stage, 'stage.spec.serviceConfig', {})}
+                  onUpdate={(value: ServiceConfig) => {
+                    const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
+                    if (value.service) {
+                      serviceObj.service = value.service
+                      delete serviceObj.serviceRef
+                    } else if (value.serviceRef) {
+                      serviceObj.serviceRef = value.serviceRef
+                      delete serviceObj.service
+                    }
+                    debounceUpdatePipeline(pipeline)
+                  }}
+                  factory={factory}
+                  stepViewType={StepViewType.Edit}
+                />
+              </Layout.Horizontal>
+            </div>
           </Layout.Vertical>
           <div className={css.serviceSection}>
             <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>

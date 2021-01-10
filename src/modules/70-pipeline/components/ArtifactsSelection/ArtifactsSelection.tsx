@@ -99,20 +99,24 @@ export default function ArtifactsSelection({
 
   const getArtifactsPath = (): any => {
     if (isForOverrideSets) {
-      return get(stage, 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+      return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets', [])
     }
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       const { stages } = getPrevoiusStageFromIndex(pipeline)
-      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+      const overrideSets = get(
+        stages[index],
+        'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
+        []
+      )
 
       return overrideSets
     }
     if (isForPredefinedSets || isPropagating) {
-      return get(stage, 'stage.spec.service.stageOverrides.artifacts', [])
+      return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts', [])
     }
-    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', {})
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', {})
   }
 
   const getPrimaryArtifactPath = (): any => {
@@ -120,10 +124,14 @@ export default function ArtifactsSelection({
       return getPrimaryArtifactByIdentifier()
     }
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       const { stages } = getPrevoiusStageFromIndex(pipeline)
-      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+      const overrideSets = get(
+        stages[index],
+        'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
+        []
+      )
 
       const selectedOverrideSet = overrideSets.find(
         ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
@@ -132,9 +140,9 @@ export default function ArtifactsSelection({
       return get(selectedOverrideSet, 'overrideSet.artifacts.primary', null)
     }
     if (isForPredefinedSets || isPropagating) {
-      return get(stage, 'stage.spec.service.stageOverrides.artifacts.primary', null)
+      return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.primary', null)
     }
-    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.primary', null)
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
   }
 
   const getSidecarPath = (): any => {
@@ -142,10 +150,14 @@ export default function ArtifactsSelection({
       return getSidecarArtifactByIdentifier()
     }
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       const { stages } = getPrevoiusStageFromIndex(pipeline)
-      const overrideSets = get(stages[index], 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+      const overrideSets = get(
+        stages[index],
+        'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
+        []
+      )
 
       const selectedOverrideSet = overrideSets.find(
         ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
@@ -154,9 +166,9 @@ export default function ArtifactsSelection({
       return get(selectedOverrideSet, 'overrideSet.artifacts.sidecars', [])
     }
     if (isForPredefinedSets || isPropagating) {
-      return get(stage, 'stage.spec.service.stageOverrides.artifacts.sidecars', [])
+      return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.sidecars', [])
     }
-    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
   }
 
   const artifacts = getArtifactsPath() || {}

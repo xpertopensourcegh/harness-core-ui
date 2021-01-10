@@ -27,6 +27,8 @@ import { K8sScaleStep } from './Steps/K8sScale/K8sScaleStep'
 import { K8sRollingRollbackStep } from './Steps/K8sRollingRollback/K8sRollingRollback'
 import { K8sCanaryDeleteStep } from './Steps/K8sCanaryDelete/K8sCanaryDeleteStep'
 import { BarrierStep } from './Steps/Barrier/Barrier'
+import { DeployEnvironmentStep } from './Steps/DeployEnvStep/DeployEnvStep'
+import { DeployServiceStep } from './Steps/DeployServiceStep/DeployServiceStep'
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
 }
@@ -48,6 +50,8 @@ factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())
 factory.registerStep(new CustomVariables())
 factory.registerStep(new KubernetesInfraSpec())
+factory.registerStep(new DeployEnvironmentStep())
+factory.registerStep(new DeployServiceStep())
 factory.registerStep(new KubernetesServiceSpec())
 // build steps
 factory.registerStep(new RunStep())

@@ -54,7 +54,7 @@ export default function OverrideSets({
   } = React.useContext(PipelineContext)
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
-  const serviceDefPath = 'stage.spec.service.serviceDefinition.spec'
+  const serviceDefPath = 'stage.spec.serviceConfig.serviceDefinition.spec'
   const artifactTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
   const manifestTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')
   const variableTab = getString('pipelineSteps.build.stageSpecifications.variablesDetails')
@@ -71,8 +71,8 @@ export default function OverrideSets({
     : get(stage, currentListPath, [])
 
   React.useEffect(() => {
-    if (isEmpty(parentStageData) && stage?.stage?.spec?.service?.useFromStage?.stage) {
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+    if (isEmpty(parentStageData) && stage?.stage?.spec?.serviceConfig?.useFromStage?.stage) {
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       setParentStageData(stages[index])
     }
@@ -143,22 +143,22 @@ export default function OverrideSets({
   const getOverrideStages = React.useCallback((): SelectOption[] => {
     const items: SelectOption[] = []
 
-    if (parentStageData?.stage?.spec?.service?.serviceDefinition?.spec) {
+    if (parentStageData?.stage?.spec?.serviceConfig?.serviceDefinition?.spec) {
       selectedTab === artifactTab &&
-        parentStageData.stage.spec.service.serviceDefinition.spec?.artifactOverrideSets?.forEach(
+        parentStageData.stage.spec.serviceConfig.serviceDefinition.spec?.artifactOverrideSets?.forEach(
           ({ overrideSet: { identifier } }: { overrideSet: { identifier: string } }) => {
             items.push({ label: identifier, value: identifier })
           }
         )
       selectedTab === manifestTab &&
-        parentStageData.stage.spec.service.serviceDefinition.spec?.manifestOverrideSets?.forEach(
+        parentStageData.stage.spec.serviceConfig.serviceDefinition.spec?.manifestOverrideSets?.forEach(
           ({ overrideSet: { identifier } }: { overrideSet: { identifier: string } }) => {
             items.push({ label: identifier, value: identifier })
           }
         )
 
       selectedTab === variableTab &&
-        parentStageData.stage.spec.service.serviceDefinition.spec?.variableOverrideSets?.forEach(
+        parentStageData.stage.spec.serviceConfig.serviceDefinition.spec?.variableOverrideSets?.forEach(
           ({ overrideSet: { identifier } }: { overrideSet: { identifier: string } }) => {
             items.push({ label: identifier, value: identifier })
           }
@@ -207,15 +207,24 @@ export default function OverrideSets({
   )
   const getInitialValues = () => {
     let selectedOverrideSets: string[] = []
-    if (selectedTab === artifactTab && stage?.stage?.spec?.service?.stageOverrides?.useArtifactOverrideSets?.length) {
-      selectedOverrideSets = [...stage.stage.spec.service.stageOverrides.useArtifactOverrideSets]
+    if (
+      selectedTab === artifactTab &&
+      stage?.stage?.spec?.serviceConfig?.stageOverrides?.useArtifactOverrideSets?.length
+    ) {
+      selectedOverrideSets = [...stage.stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets]
     }
-    if (selectedTab === manifestTab && stage?.stage?.spec?.service?.stageOverrides?.useManifestOverrideSets?.length) {
-      selectedOverrideSets = [...stage.stage.spec.service.stageOverrides.useManifestOverrideSets]
+    if (
+      selectedTab === manifestTab &&
+      stage?.stage?.spec?.serviceConfig?.stageOverrides?.useManifestOverrideSets?.length
+    ) {
+      selectedOverrideSets = [...stage.stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets]
     }
 
-    if (selectedTab === variableTab && stage?.stage?.spec?.service?.stageOverrides?.useVariableOverrideSets?.length) {
-      selectedOverrideSets = [...stage.stage.spec.service.stageOverrides.useVariableOverrideSets]
+    if (
+      selectedTab === variableTab &&
+      stage?.stage?.spec?.serviceConfig?.stageOverrides?.useVariableOverrideSets?.length
+    ) {
+      selectedOverrideSets = [...stage.stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets]
     }
 
     return { selectedOverrideSets }
@@ -238,15 +247,15 @@ export default function OverrideSets({
           }}
           validate={({ selectedOverrideSets }: { selectedOverrideSets: string[] }) => {
             if (selectedTab === artifactTab && stage) {
-              stage.stage.spec.service.stageOverrides.useArtifactOverrideSets = selectedOverrideSets
+              stage.stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets = selectedOverrideSets
               return updatePipeline(pipeline)
             }
             if (selectedTab === manifestTab && stage) {
-              stage.stage.spec.service.stageOverrides.useManifestOverrideSets = selectedOverrideSets
+              stage.stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets = selectedOverrideSets
               return updatePipeline(pipeline)
             }
             if (selectedTab === variableTab && stage) {
-              stage.stage.spec.service.stageOverrides.useVariableOverrideSets = selectedOverrideSets
+              stage.stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets = selectedOverrideSets
               return updatePipeline(pipeline)
             }
           }}

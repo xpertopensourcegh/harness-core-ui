@@ -46,16 +46,16 @@ export default function WorkflowVariables({
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const [parentStageData, setParentStageData] = React.useState<{ [key: string]: any }>()
   React.useEffect(() => {
-    if (isEmpty(parentStageData) && stage?.stage?.spec?.service?.useFromStage?.stage) {
+    if (isEmpty(parentStageData) && stage?.stage?.spec?.serviceConfig?.useFromStage?.stage) {
       const { stages } = getPrevoiusStageFromIndex(pipeline)
-      const parentStageName = stage?.stage?.spec?.service?.useFromStage?.stage
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       setParentStageData(stages[index])
     }
   }, [])
 
-  const stageSpec = stage?.['stage']?.['spec']?.['service']?.['serviceDefinition']?.['spec']
-  const predefinedSetsPath = stage?.['stage']?.['spec']?.['service']?.['stageOverrides']
+  const stageSpec = stage?.['stage']?.['spec']?.['serviceConfig']?.['serviceDefinition']?.['spec']
+  const predefinedSetsPath = stage?.['stage']?.['spec']?.['serviceConfig']?.['stageOverrides']
   const updateVariables = (vars: Variable[]): void => {
     if (stageSpec || predefinedSetsPath) {
       if (isPropagating) {
@@ -86,7 +86,11 @@ export default function WorkflowVariables({
       if (!overrideSetIdentifier.length) {
         return predefinedSetsPath?.['variables'] || []
       }
-      const overrideSets = get(parentStageData, 'stage.spec.service.serviceDefinition.spec.variableOverrideSets', [])
+      const overrideSets = get(
+        parentStageData,
+        'stage.spec.serviceConfig.serviceDefinition.spec.variableOverrideSets',
+        []
+      )
       const selectedOverrideSet = overrideSets.find(
         ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
       )

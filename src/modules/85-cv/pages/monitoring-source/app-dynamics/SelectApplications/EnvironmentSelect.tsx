@@ -99,14 +99,14 @@ export function EnvironmentSelect({
           <FormikForm>
             <Container margin="medium">
               <Text font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'large' }}>
-                {getString('cv.monitoringSources.appD.newEnvironment')}
+                {getString('newEnvironment')}
               </Text>
               <Text font={{ size: 'small' }} margin={{ bottom: 'xxxlarge' }}>
                 {getString('cv.monitoringSources.appD.envDescription')}
               </Text>
               <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'Name' }} />
               <Layout.Vertical spacing="large" margin={{ top: 'large' }}>
-                <Text>{getString('cv.monitoringSources.appD.envType')}</Text>
+                <Text>{getString('envType')}</Text>
                 <Layout.Horizontal spacing="medium">
                   {EnvironmentTypes.map((type: any, index: number) => {
                     return (

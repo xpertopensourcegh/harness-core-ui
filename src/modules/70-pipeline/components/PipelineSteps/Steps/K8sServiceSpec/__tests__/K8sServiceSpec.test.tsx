@@ -120,7 +120,7 @@ describe('StepWidget tests', () => {
         <StepWidget<K8SDirectServiceStep>
           factory={factory}
           initialValues={
-            (PipelineContextValue.state.pipeline.stages[0].stage.spec.service.serviceDefinition.spec as any) || {}
+            (PipelineContextValue.state.pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec as any) || {}
           }
           template={TemplateMock as any}
           type={StepType.K8sServiceSpec}

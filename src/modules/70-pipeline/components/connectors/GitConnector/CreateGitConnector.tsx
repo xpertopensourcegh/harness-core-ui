@@ -69,10 +69,10 @@ const ManifestSourceConfigForm: React.FC<
 > = props => {
   const { prevStepData } = props
   const manifests = props.isForOverrideSets
-    ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+    ? get(props.stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
     : !props.isForPredefinedSets
-    ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-    : get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+    ? get(props.stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+    : get(props.stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{customi18n.STEP_TWO.title}</Text>

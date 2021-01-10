@@ -11,10 +11,12 @@
         "description": "",
         "type": "Deployment",
         "spec": {
-          "service": {
-            "identifier": "Deploy_Stage",
-            "name": "Deploy Stage",
-            "description": "",
+          "serviceConfig": {
+            "service": {
+              "identifier": "Deploy_Stage",
+              "name": "Deploy Stage",
+              "description": ""
+            },
             "serviceDefinition": {
               "type": "Kubernetes",
               "spec": {

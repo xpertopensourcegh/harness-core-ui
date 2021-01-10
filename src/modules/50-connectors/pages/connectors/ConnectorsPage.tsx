@@ -46,7 +46,6 @@ import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreate
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Filter } from '@common/components/Filter/Filter'
 import { useStrings } from 'framework/exports'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/CreateConnectorWizard/CreateConnectorWizard.i18n'
@@ -214,7 +213,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const { data: metaData } = useGetConnectorStatistics({
     queryParams: {
       accountIdentifier: accountId,
-      scope: getScopeFromDTO({ accountId, projectIdentifier, orgIdentifier })
+      orgIdentifier,
+      projectIdentifier
     },
     mock: statisticsMockData
   })

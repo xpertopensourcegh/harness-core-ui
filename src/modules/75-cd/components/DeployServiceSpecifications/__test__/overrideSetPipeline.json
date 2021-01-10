@@ -11,10 +11,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": "service",
-                "name": "service",
-                "description": "",
+              "serviceConfig": {
+                "service": {
+                  "identifier": "service",
+                  "name": "service",
+                  "description": ""
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -158,10 +160,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": "service",
-                "name": "service",
-                "description": "",
+              "serviceConfig": {
+                "service": {
+                  "identifier": "service",
+                  "name": "service",
+                  "description": ""
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {
@@ -274,10 +278,12 @@
             "description": "",
             "type": "Deployment",
             "spec": {
-              "service": {
-                "identifier": null,
-                "name": null,
-                "description": null,
+              "serviceConfig": {
+                "service": {
+                  "identifier": null,
+                  "name": null,
+                  "description": null
+                },
                 "serviceDefinition": {
                   "type": "Kubernetes",
                   "spec": {

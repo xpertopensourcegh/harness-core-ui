@@ -61,6 +61,13 @@ global:
   pipeline: Pipeline
   pipelineStudio: Pipeline Studio
   buildsText: Builds
+  newService: New Service
+  editService: Edit Service
+  newEnvironment: New Environment
+  editEnvironment: Edit Environment
+  envType: Environment Type
+  production: Production
+  nonProduction: Non Production
   primaryArtifactText: Primary Artifact
   sidecarArtifactText: Sidecar Artifact
   sidecarsText: Sidecars
@@ -482,6 +489,16 @@ global:
     gotoCE: 'Go to Continuous Efficiency'
     invite: 'Invite Collaborators'
   pipelineSteps:
+    environmentTab:
+      specifyYourEnvironment: Specify your environment
+      selectEnvironment: '- Select Environment -'
+      newEnvironment: + New Environment
+      environmentIsRequired: Environment is a required field
+    serviceTab:
+      specifyYourService: Specify your service
+      selectService: '- Select Service -'
+      newService: + New Service
+      serviceIsRequired: Service is a required field
     stepNameLabel: Step Name
     connectorLabel: 'Container Registry'
     connectorInfo: 'Container Registry to use to download the image use to run commands on'
@@ -997,13 +1014,10 @@ global:
           connectorRef: 'Connector Selection is required.'
           validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
           product: 'Product selection is required.'
-    newService: New Service
     selectCreateService: Select or create a service
     monitoringSources:
       mapMetricsToServices: 'Map Metrics to Harness Services'
       appD:
-        newEnvironment: New Environment
-        envType: Environment Type
         envDescription: An Environment is the representation of your production or non-production infrastructure.
         appDApplications: APPDYNAMICS APLICATIONS
         appDTier: APPDYNAMICS TIER

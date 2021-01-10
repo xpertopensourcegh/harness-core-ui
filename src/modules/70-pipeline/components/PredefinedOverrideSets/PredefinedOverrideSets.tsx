@@ -16,7 +16,7 @@ export const PredefinedOverrideSets: React.FC<{ currentStage: StageElementWrappe
   } = React.useContext(PipelineContext)
 
   const getCurrentSpec = () => {
-    return currentStage?.stage.spec?.service?.stageOverrides
+    return currentStage?.stage.spec?.serviceConfig?.stageOverrides
   }
 
   const getValuesByContext = (): StageElementWrapper | undefined => {

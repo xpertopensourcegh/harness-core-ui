@@ -1,0 +1,39 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 1,
+    "pageItemCount": 1,
+    "pageSize": 100,
+    "content": [
+      {
+        "accountId": "kmpySmUISimoRrJL6NL73w",
+        "orgIdentifier": "default",
+        "projectIdentifier": "selected_Proj",
+        "identifier": "selected_env",
+        "name": "Selected Env",
+        "description": null,
+        "type": "PreProduction",
+        "deleted": false,
+        "tags": { "cloud": "GCP", "team": "cdp" },
+        "version": 22
+      },
+      {
+        "accountId": "kmpySmUISimoRrJL6NL73w",
+        "orgIdentifier": "default",
+        "projectIdentifier": "selected_Proj",
+        "identifier": "other_env",
+        "name": "Other Env",
+        "description": null,
+        "type": "Production",
+        "deleted": false,
+        "tags": { "cloud": "GCP1", "team": "cdp1" },
+        "version": 22
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "bc435f93-476c-4859-976d-9eafa0c656fa"
+}

@@ -140,8 +140,8 @@ export const removeNodeFromPipeline = (
         stageMap.delete(node.stage.identifier)
 
         data.stages?.map((currentStage: StageState) => {
-          if (currentStage.stage?.spec?.service?.useFromStage?.stage === node?.stage?.identifier) {
-            currentStage.stage.spec.service = {}
+          if (currentStage.stage?.spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
+            currentStage.stage.spec.serviceConfig = {}
           }
         })
       }
@@ -167,7 +167,7 @@ export const getDependantStages = (pipeline: NgPipeline | StageElementWrapper, i
   const { stage: node } = getStageFromPipeline(pipeline, identifier)
   const dependantStages: string[] = []
   pipeline.stages?.map((currentStage: StageState) => {
-    if (currentStage.stage?.spec?.service?.useFromStage?.stage === node?.stage?.identifier) {
+    if (currentStage.stage?.spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
       dependantStages.push(currentStage.stage.name)
     }
   })

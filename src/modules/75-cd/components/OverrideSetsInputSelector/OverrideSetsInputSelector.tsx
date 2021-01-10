@@ -86,14 +86,14 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
   const { stage: currentStage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   React.useEffect(() => {
-    const useFromStage = currentStage?.stage?.spec?.service?.useFromStage?.stage
+    const useFromStage = currentStage?.stage?.spec?.serviceConfig?.useFromStage?.stage
     setUseFromStage(useFromStage)
-  }, [currentStage?.stage?.spec?.service?.stageOverrides?.useFromStage])
+  }, [currentStage?.stage?.spec?.serviceConfig?.stageOverrides?.useFromStage])
 
   const { stage: useFromStageObj = {} } = getStageFromPipeline(pipeline, useFromStageId || '')
 
   React.useEffect(() => {
-    const spec = useFromStageObj?.stage?.spec?.service?.serviceDefinition?.spec
+    const spec = useFromStageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec
     if (spec) {
       const _overrideSets: { name: string; identifier: string }[] = []
       if (context === 'ARTIFACT') {
@@ -122,7 +122,7 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
       }
       setInputSets(_overrideSets)
     }
-  }, [useFromStageObj.stage?.spec?.service?.serviceDefinition?.spec, context])
+  }, [useFromStageObj.stage?.spec?.serviceConfig?.serviceDefinition?.spec, context])
 
   React.useEffect(() => {
     if (isArray(value)) {

@@ -89,7 +89,7 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
           <FormikForm>
             <Container margin="medium">
               <Text font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'large' }}>
-                {getString('cv.newService')}
+                {getString('newService')}
               </Text>
               <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'Name' }} />
 

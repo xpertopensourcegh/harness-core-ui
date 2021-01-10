@@ -12,6 +12,8 @@ import {
   YamlResponse
 } from '@pipeline/components/PipelineStudio/__tests__/PipelineStudioMocks'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
+import services from '@pipeline/components/PipelineSteps/Steps/DeployServiceStep/__tests__/serviceMock.ts'
+import environments from '@pipeline/components/PipelineSteps/Steps/DeployEnvStep/__tests__/mock.json'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -21,7 +23,13 @@ window.HTMLElement.prototype.scrollTo = jest.fn()
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
   useGetExecutionStrategyList: jest.fn().mockImplementation(() => ({ loading: false, data: ExecutionResponse })),
-  useGetExecutionStrategyYaml: jest.fn().mockImplementation(() => ({ loading: false, data: YamlResponse }))
+  useGetExecutionStrategyYaml: jest.fn().mockImplementation(() => ({ loading: false, data: YamlResponse })),
+  useGetServiceListForProject: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
+  useGetEnvironmentListForProject: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
 }))
 
 jest.mock('services/pipeline-ng', () => ({
@@ -100,7 +108,7 @@ describe('Stage Builder Test', () => {
     let next = getByTextContainer('Next')
     // Click Next to go to Infra
     fireEvent.click(next)
-    await waitFor(() => getByTextBody(document.body, 'Name your environment'))
+    await waitFor(() => getByTextBody(document.body, 'Specify your environment'))
     // Click Next to go to Execution Tab
     next = getByTextContainer('Next')
     fireEvent.click(next)
@@ -111,12 +119,12 @@ describe('Stage Builder Test', () => {
     // Select an Existing Stage
     const stage = getByTextContainer('asd')
     fireEvent.click(stage)
-    await waitFor(() => getByTextContainer('Name of your service'))
+    await waitFor(() => getByTextContainer('Specify your service'))
 
     let next = getByTextContainer('Next')
     // Click Next to go to Infra
     fireEvent.click(next)
-    await waitFor(() => getByTextContainer('Name your environment'))
+    await waitFor(() => getByTextContainer('Specify your environment'))
     // Click Next to go to Execution Tab
     next = getByTextContainer('Next')
     fireEvent.click(next)
@@ -154,7 +162,7 @@ describe('Stage Builder Test', () => {
     // Select an Existing Stage
     const stage = getByTextContainer('asd')
     fireEvent.click(stage)
-    await waitFor(() => getByTextContainer('Name of your service'))
+    await waitFor(() => getByTextContainer('Specify your service'))
     const stageDecrease = stageBuilder.querySelector('#stageDecrease')
     fireEvent.click(stageDecrease!)
     // await waitFor(() => getByTextContainer('asd, test1'))

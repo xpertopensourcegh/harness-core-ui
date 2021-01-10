@@ -114,13 +114,13 @@ const SecondStep = (props: any): JSX.Element => {
 
   const getManifests = React.useCallback(() => {
     if (props.isPropagating) {
-      return get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+      return get(props.stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     return props.isForOverrideSets
-      ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+      ? get(props.stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
       : !props.isForPredefinedSets
-      ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
-      : get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
+      ? get(props.stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+      : get(props.stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
   }, [props.isForOverrideSets, props.isForPredefinedSets, props.isPropagating])
   const manifests = getManifests()
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {

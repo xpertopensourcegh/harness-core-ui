@@ -60,7 +60,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
   const serviceDefinitionType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] = get(
     selectedStage,
-    'stage.spec.service.serviceDefinition.type',
+    'stage.spec.serviceConfig.serviceDefinition.type',
     'Kubernetes'
   )
 
