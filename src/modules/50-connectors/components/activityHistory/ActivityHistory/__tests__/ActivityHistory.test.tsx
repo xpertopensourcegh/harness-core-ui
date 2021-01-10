@@ -1,6 +1,7 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, waitFor } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import ActivityHistory from '../ActivityHistory'
 import connectivitySummary from './mockData/connectivitySummary.json'
 import activityData from './mockData/activityData.json'
@@ -22,11 +23,13 @@ describe('Activity History', () => {
   test('render data for days with no activity', async () => {
     const { container, getByText } = render(
       <MemoryRouter>
-        <ActivityHistory
-          entityIdentifier="entityId"
-          mockActivitykData={activityData as any}
-          mockConnectivitySummary={connectivitySummary as any}
-        />
+        <TestWrapper>
+          <ActivityHistory
+            entityIdentifier="entityId"
+            mockActivitykData={activityData as any}
+            mockConnectivitySummary={connectivitySummary as any}
+          />
+        </TestWrapper>
       </MemoryRouter>
     )
     await waitFor(() => getByText('No Activity Found'))

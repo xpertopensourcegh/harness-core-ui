@@ -764,6 +764,10 @@ global:
     scriptTypeRequired: Script Type is required field
   yamlBuilder:
     enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
+  activityHistory:
+    successfulActivity: Successful Activity
+    failedActivity: Failed Activity
+    heartbeatFailure: Heart beat Failure
   connectors:
     delegateOutClusterInfo1: 'Specify credentials here'
     delegateOutClusterInfo2: 'Manually enter master url and credentials'

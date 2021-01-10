@@ -14,9 +14,8 @@ import {
 } from 'services/cd-ng'
 import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { useStrings } from 'framework/exports'
 import type { ActivityGraphDataType } from '../ActivityHistory/ActivityHistory'
-
-import i18n from './ActivityGraph.i18n'
 
 interface ActivityGraphProps {
   entityIdentifier: string
@@ -31,6 +30,7 @@ interface ActivityGraphProps {
 
 const ActivityGraph: React.FC<ActivityGraphProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { getString } = useStrings()
   const { data: activitySummary, refetch: refetchActivitySummary, loading } = useGetActivitiesSummary({
     queryParams: {
       identifier: props.entityIdentifier,
@@ -110,7 +110,11 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
             events: {
               click: function (this) {
                 const activityName = this.series.userOptions.name
-                if (activityName === i18n.ConnectionSuccessful || activityName == i18n.ConnectionFailed) {
+
+                if (
+                  activityName === getString('activityHistory.successfulActivity') ||
+                  activityName == getString('activityHistory.failedActivity')
+                ) {
                   props.setShowConnectivityChecks(false)
                   props.setShowOtherActivity(true)
                   props.refetchActivities({
@@ -121,10 +125,10 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
                       identifier: props.entityIdentifier,
                       startTime: moment(this.x).startOf('day').valueOf(),
                       endTime: moment(this.x).endOf('day').valueOf(),
-                      status: activityName === i18n.ConnectionSuccessful ? 'SUCCESS' : 'FAILED'
+                      status: activityName === getString('activityHistory.successfulActivity') ? 'SUCCESS' : 'FAILED'
                     }
                   })
-                } else if (activityName === i18n.HeartbeatFailure) {
+                } else if (activityName === getString('activityHistory.heartbeatFailure')) {
                   props.setShowOtherActivity(false)
                   props.setShowConnectivityChecks(true)
                   props.refetchConnectivitySummary({
@@ -156,7 +160,7 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
       },
       series: [
         {
-          name: i18n.ConnectionSuccessful,
+          name: getString('activityHistory.successfulActivity'),
           data: activityData.Success.map(val =>
             Object.assign(
               {},
@@ -169,7 +173,7 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
           color: 'var(--green-500)'
         } as SeriesColumnOptions,
         {
-          name: i18n.ConnectionFailed,
+          name: getString('activityHistory.failedActivity'),
           data: activityData.Failure.map(val =>
             Object.assign(
               {},
@@ -183,7 +187,7 @@ const ActivityGraph: React.FC<ActivityGraphProps> = props => {
         } as SeriesColumnOptions,
         {
           type: 'spline',
-          name: i18n.HeartbeatFailure,
+          name: getString('activityHistory.heartbeatFailure'),
           data: activityData.HeartBeatFailure,
           color: Color.BLACK,
           marker: {
