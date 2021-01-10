@@ -3,7 +3,7 @@
   flex-direction: column;
   position: relative;
   height: 100%;
-  background: rgba(75, 193, 254, 0.05);
+  background: var(--white);
   .tabsContainer {
     background: white;
 
@@ -39,7 +39,15 @@
 
     &.tab-execution {
       :global(.bp3-tab-panel) {
-        background-image: var(--pipeline-canvas-image);
+        $bg-color: #f6fcff;
+        $dot-color: #bbc1c4;
+
+        $dot-size: 1px;
+        $dot-space: 10px;
+
+        background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
+          linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
+        background-size: $dot-space $dot-space;
         height: 100%;
         margin: 0;
         overflow: hidden;
@@ -94,7 +102,7 @@
     display: block !important;
     bottom: 0px;
     width: 100% !important;
-    background-color: var(--white);
+    background-color: var(--white) !important;
     z-index: 1;
     box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
   }

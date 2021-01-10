@@ -8,7 +8,14 @@
     background: white;
     &.tab-execution {
       :global(.bp3-tab-panel) {
-        background-image: var(--pipeline-canvas-image);
+        $bg-color: #f6fcff;
+        $dot-color: #bbc1c4;
+
+        $dot-size: 1px;
+        $dot-space: 10px;
+        background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
+          linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
+        background-size: $dot-space $dot-space;
         height: 100%;
         margin: 0;
         overflow: hidden;
