@@ -21,7 +21,7 @@ import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/Artifact
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { StepViewType } from '@pipeline/exports'
 import type { ServiceSpec } from 'services/cd-ng'
-import { Step } from '@pipeline/components/AbstractSteps/Step'
+import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineStepInterface'
@@ -328,15 +328,8 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   validateInputSet(): object {
     return {}
   }
-  renderStep(
-    initialValues: K8SDirectServiceStep,
-    onUpdate?: ((data: K8SDirectServiceStep) => void) | undefined,
-    stepViewType?: StepViewType | undefined,
-    inputSetData?: {
-      template?: ServiceSpec
-    },
-    factory?: AbstractStepFactory
-  ): JSX.Element {
+  renderStep(props: StepProps<K8SDirectServiceStep>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData, factory } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesServiceSpecEditable

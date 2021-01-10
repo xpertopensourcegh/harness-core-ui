@@ -2,7 +2,7 @@ import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
 import { isEmpty, set } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'
-import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
@@ -100,12 +100,9 @@ export class Dependency extends PipelineStep<DependencyData> {
     return errors
   }
 
-  renderStep(
-    initialValues: DependencyData,
-    onUpdate?: (data: DependencyData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<DependencyData>
-  ): JSX.Element {
+  renderStep(props: StepProps<DependencyData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DependencyInputSet

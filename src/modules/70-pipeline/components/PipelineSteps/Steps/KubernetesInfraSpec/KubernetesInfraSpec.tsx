@@ -15,7 +15,7 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import {
   K8SDirectInfrastructure,
@@ -403,15 +403,8 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     return errors
   }
 
-  renderStep(
-    initialValues: K8SDirectInfrastructure,
-    onUpdate?: ((data: K8SDirectInfrastructure) => void) | undefined,
-    stepViewType?: StepViewType | undefined,
-    inputSetData?: {
-      template?: K8SDirectInfrastructure
-      path: string
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<K8SDirectInfrastructure>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesInfraSpecInputForm

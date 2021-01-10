@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { StepViewType } from '@pipeline/exports'
+import type { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepGroupElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './StepGroupStep.i18n'
@@ -43,11 +43,9 @@ const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onUpda
 }
 
 export class StepGroupStep extends PipelineStep<StepGroupElement> {
-  renderStep(
-    initialValues: StepGroupElement,
-    onUpdate?: (data: StepGroupElement) => void,
-    stepViewType?: StepViewType
-  ): JSX.Element {
+  renderStep(props: StepProps<StepGroupElement>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType } = props
+
     return <StepGroupWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 

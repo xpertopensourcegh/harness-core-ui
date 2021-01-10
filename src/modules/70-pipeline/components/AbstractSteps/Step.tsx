@@ -18,7 +18,16 @@ export interface InputSetData<T> {
   path: string
   readonly?: boolean
 }
-export abstract class Step<T extends object> {
+
+export interface StepProps<T> {
+  initialValues: T
+  onUpdate?: (data: T) => void
+  stepViewType?: StepViewType
+  inputSetData?: InputSetData<T>
+  factory?: AbstractStepFactory
+}
+
+export abstract class Step<T> {
   protected abstract type: string
   protected abstract defaultValues: T
   protected abstract stepIcon: IconName
@@ -57,11 +66,5 @@ export abstract class Step<T extends object> {
     return this.stepPaletteVisible ?? true
   }
 
-  abstract renderStep(
-    initialValues: T,
-    onUpdate?: (data: T) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<T>,
-    factory?: AbstractStepFactory
-  ): JSX.Element
+  abstract renderStep(props: StepProps<T>): JSX.Element
 }

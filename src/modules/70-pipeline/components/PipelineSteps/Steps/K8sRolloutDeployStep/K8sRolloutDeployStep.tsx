@@ -11,7 +11,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -119,15 +119,9 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
 }
 
 export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
-  renderStep(
-    initialValues: K8RolloutDeployData,
-    onUpdate?: (data: K8RolloutDeployData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: K8RolloutDeployData
-      path?: string
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8RolloutDeployInputStep

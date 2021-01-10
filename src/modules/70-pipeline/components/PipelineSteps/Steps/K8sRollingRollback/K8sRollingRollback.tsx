@@ -11,7 +11,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
@@ -106,15 +106,8 @@ const K8sRollingRollbackInputStep: React.FC<K8sRollingRollbackProps> = ({ inputS
 }
 
 export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData> {
-  renderStep(
-    initialValues: K8sRollingRollbackData,
-    onUpdate?: (data: K8sRollingRollbackData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: K8sRollingRollbackData
-      path?: string
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<K8sRollingRollbackData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sRollingRollbackInputStep

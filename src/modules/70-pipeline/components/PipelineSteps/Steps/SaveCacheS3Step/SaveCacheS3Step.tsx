@@ -1,7 +1,7 @@
 import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
 import { isEmpty, set } from 'lodash-es'
-import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
@@ -115,12 +115,8 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
 
     return errors
   }
-  renderStep(
-    initialValues: SaveCacheS3StepData,
-    onUpdate?: (data: SaveCacheS3StepData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<SaveCacheS3StepData>
-  ): JSX.Element {
+  renderStep(props: StepProps<SaveCacheS3StepData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <SaveCacheS3StepInputSet

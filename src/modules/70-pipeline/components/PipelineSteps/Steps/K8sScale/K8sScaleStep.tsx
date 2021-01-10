@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormGroup } from '@blueprintjs/core'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
@@ -216,14 +216,8 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ onUpdate, initialValues, te
 }
 
 export class K8sScaleStep extends PipelineStep<K8sScaleData> {
-  renderStep(
-    initialValues: K8sScaleData,
-    onUpdate?: (data: K8sScaleData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: K8sScaleData
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<K8sScaleData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
     const data = initialValues
     if (initialValues.spec.instanceSelection) {
       data.instanceType = initialValues.spec.instanceSelection.type

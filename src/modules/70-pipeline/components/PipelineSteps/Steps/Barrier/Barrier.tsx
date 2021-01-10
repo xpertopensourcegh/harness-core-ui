@@ -17,7 +17,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
-import { PipelineStep } from '../../PipelineStep'
+import { PipelineStep, StepProps } from '../../PipelineStep'
 
 export interface BarrierData extends StepElement {
   spec: K8sRollingRollbackStepInfo
@@ -106,15 +106,9 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
 }
 
 export class BarrierStep extends PipelineStep<BarrierData> {
-  renderStep(
-    initialValues: BarrierData,
-    onUpdate?: (data: BarrierData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: BarrierData
-      path?: string
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<BarrierData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <BarrierInputStep

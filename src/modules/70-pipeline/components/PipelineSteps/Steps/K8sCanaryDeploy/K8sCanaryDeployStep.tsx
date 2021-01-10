@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormGroup } from '@blueprintjs/core'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
@@ -189,14 +189,9 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ onUpdate, ini
 }
 
 export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
-  renderStep(
-    initialValues: K8sCanaryDeployData,
-    onUpdate?: (data: K8sCanaryDeployData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: K8sCanaryDeployData
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     const data = initialValues
     if (initialValues.spec.instanceSelection) {
       data.instanceType = initialValues.spec.instanceSelection.type

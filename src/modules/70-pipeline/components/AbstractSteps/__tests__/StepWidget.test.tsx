@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import type { IconName } from '@wings-software/uicore'
 import { AbstractStepFactory } from '../AbstractStepFactory'
-import { Step } from '../Step'
+import { Step, StepProps } from '../Step'
 import { StepWidget } from '../StepWidget'
 
 class StepFactory extends AbstractStepFactory {
@@ -17,8 +17,8 @@ class StepOne extends Step<object> {
     return {}
   }
   protected defaultValues = { a: 'a' }
-  renderStep(values: object, onSubmit: (data: object) => void): JSX.Element {
-    return <div onClick={() => onSubmit(values)}>{JSON.stringify(values)}</div>
+  renderStep(props: StepProps<object>): JSX.Element {
+    return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }
 
@@ -31,8 +31,8 @@ class StepTwo extends Step<object> {
   }
 
   protected defaultValues = { b: 'b' }
-  renderStep(values: object, onSubmit: (data: object) => void): JSX.Element {
-    return <div onClick={() => onSubmit(values)}>{JSON.stringify(values)}</div>
+  renderStep(props: StepProps<object>): JSX.Element {
+    return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }
 

@@ -14,10 +14,8 @@ import { yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { isEmpty } from 'lodash-es'
 
-import { StepViewType } from '@pipeline/exports'
-import type { InputSetData } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import { useStrings, UseStringsReturn } from 'framework/exports'
-
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import { StepType } from '../../PipelineStepInterface'
@@ -73,13 +71,9 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
 }
 
 export class HttpStep extends PipelineStep<HttpStepData> {
-  renderStep(
-    this: HttpStep,
-    initialValues: HttpStepData,
-    onUpdate?: (data: HttpStepData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<HttpStepData>
-  ): JSX.Element {
+  renderStep(this: HttpStep, props: StepProps<HttpStepData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <HttpInputSetStep

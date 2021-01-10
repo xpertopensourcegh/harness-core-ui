@@ -1,7 +1,7 @@
 import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
 import { isEmpty, set } from 'lodash-es'
-import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
@@ -113,12 +113,8 @@ export class RunStep extends PipelineStep<RunStepData> {
     return errors
   }
 
-  renderStep(
-    initialValues: RunStepData,
-    onUpdate?: (data: RunStepData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<RunStepData>
-  ): JSX.Element {
+  renderStep(props: StepProps<RunStepData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <RunStepInputSet

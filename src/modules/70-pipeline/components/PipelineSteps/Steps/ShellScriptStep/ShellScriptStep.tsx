@@ -7,7 +7,7 @@ import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import type { InputSetData } from '@pipeline/exports'
+import type { StepProps } from '@pipeline/exports'
 import { StepViewType } from '@pipeline/exports'
 import {
   getIdentifierFromValue,
@@ -134,12 +134,9 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
 }
 
 export class ShellScriptStep extends PipelineStep<ShellScriptData> {
-  renderStep(
-    initialValues: ShellScriptData,
-    onUpdate?: (data: ShellScriptData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<ShellScriptData>
-  ): JSX.Element {
+  renderStep(props: StepProps<ShellScriptData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <ShellScriptInputSetStep

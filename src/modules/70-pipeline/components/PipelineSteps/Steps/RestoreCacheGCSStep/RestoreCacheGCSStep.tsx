@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty, set } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
-import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
@@ -88,12 +88,8 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
 
     return errors
   }
-  renderStep(
-    initialValues: RestoreCacheGCSStepData,
-    onUpdate?: (data: RestoreCacheGCSStepData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<RestoreCacheGCSStepData>
-  ): JSX.Element {
+  renderStep(props: StepProps<RestoreCacheGCSStepData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <RestoreCacheGCSStepInputSet

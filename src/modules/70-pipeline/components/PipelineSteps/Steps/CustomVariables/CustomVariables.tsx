@@ -29,6 +29,7 @@ import SecretReference from '@secrets/components/SecretReference/SecretReference
 import { Scope } from '@common/interfaces/SecretsInterface'
 import i18n from './CustomVariables.i18n'
 import { StepType } from '../../PipelineStepInterface'
+import type { StepProps } from '../../PipelineStep'
 import css from './CustomVariables.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -338,11 +339,8 @@ export class CustomVariables extends Step<InitialValues> {
     return this.secrets
   }
 
-  renderStep(
-    initialValues: InitialValues,
-    onUpdate?: (data: InitialValues) => void,
-    stepViewType?: StepViewType
-  ): JSX.Element {
+  renderStep(props: StepProps<InitialValues>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType } = props
     this.getSecrets()
     return (
       <CustomVariableEditable

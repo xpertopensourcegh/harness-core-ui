@@ -20,7 +20,7 @@ import type { ExecutionStageDiagramProps } from './components/ExecutionStageDiag
 
 export { AbstractStepFactory } from './components/AbstractSteps/AbstractStepFactory'
 export { Step, StepViewType } from './components/AbstractSteps/Step'
-export type { InputSetData } from './components/AbstractSteps/Step'
+export type { InputSetData, StepProps } from './components/AbstractSteps/Step'
 export { StepWidget } from './components/AbstractSteps/StepWidget'
 export { CanvasButtons, CanvasButtonsActions } from './components/CanvasButtons/CanvasButtons'
 

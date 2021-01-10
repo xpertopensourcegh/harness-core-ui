@@ -12,7 +12,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormGroup } from '@blueprintjs/core'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepElement } from 'services/cd-ng'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -112,15 +112,9 @@ const K8sBGSwapInputStep: React.FC<K8sBGSwapProps> = ({ onUpdate, initialValues,
 }
 
 export class K8sBGSwapServices extends PipelineStep<StepElement> {
-  renderStep(
-    initialValues: StepElement,
-    onUpdate?: (data: StepElement) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: StepElement
-      readonly?: boolean
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<StepElement>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sBGSwapInputStep

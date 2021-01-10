@@ -16,7 +16,7 @@ export abstract class AbstractStepFactory {
    */
   protected abstract type: string
 
-  protected stepBank: Map<string, Step<object>>
+  protected stepBank: Map<string, Step<unknown>>
   protected stepIconMap: Map<string, StepData>
   protected invocationMap: Map<
     RegExp,
@@ -32,8 +32,8 @@ export abstract class AbstractStepFactory {
     return this.type
   }
 
-  registerStep<T extends object>(step: Step<T>): void {
-    this.stepBank.set(step.getType(), step)
+  registerStep<T>(step: Step<T>): void {
+    this.stepBank.set(step.getType(), step as Step<unknown>)
     this.stepIconMap.set(step.getType(), {
       name: step.getStepName(),
       icon: step.getIconName(),

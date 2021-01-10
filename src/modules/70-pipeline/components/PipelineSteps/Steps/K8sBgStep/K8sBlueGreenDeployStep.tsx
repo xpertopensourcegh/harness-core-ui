@@ -14,7 +14,7 @@ import {
 import * as Yup from 'yup'
 // import { get } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -129,14 +129,9 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ onUpdate, initialValue
 }
 
 export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
-  renderStep(
-    initialValues: K8sBGDeployData,
-    onUpdate?: (data: K8sBGDeployData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: {
-      template?: K8sBGDeployData
-    }
-  ): JSX.Element {
+  renderStep(props: StepProps<K8sBGDeployData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8BGDeployInputStep

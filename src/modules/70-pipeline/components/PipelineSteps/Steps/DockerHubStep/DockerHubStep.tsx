@@ -1,7 +1,7 @@
 import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, IconName } from '@wings-software/uicore'
 import { isEmpty, set } from 'lodash-es'
-import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
@@ -116,12 +116,9 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     return errors
   }
 
-  renderStep(
-    initialValues: DockerHubStepData,
-    onUpdate?: (data: DockerHubStepData) => void,
-    stepViewType?: StepViewType,
-    inputSetData?: InputSetData<DockerHubStepData>
-  ): JSX.Element {
+  renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DockerHubStepInputSet
