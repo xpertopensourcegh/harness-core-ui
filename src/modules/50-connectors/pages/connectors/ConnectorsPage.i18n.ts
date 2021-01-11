@@ -7,6 +7,7 @@ ConnectorCatalogueNames.set('CODE_REPO', 'Code Repositories')
 ConnectorCatalogueNames.set('MONITORING', 'Monitoring and Logging Systems')
 ConnectorCatalogueNames.set('SECRET_MANAGER', 'Secret Managers')
 ConnectorCatalogueNames.set('TICKETING', 'Ticketing Systems')
+ConnectorCatalogueNames.set('CLOUD_COST', 'Cloud Cost')
 ConnectorCatalogueNames.set('CREATE_VIA_YAML_BUILDER', 'Create via YAML Builder')
 
 export { ConnectorCatalogueNames }

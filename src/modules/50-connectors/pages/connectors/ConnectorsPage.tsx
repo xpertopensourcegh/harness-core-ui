@@ -186,21 +186,23 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       {
         drawerLabel: 'Connectors',
         categories:
-          catalogueWithYAMLBuilderOption.map((item: ConnectorCatalogueItem) => {
-            const obj: CategoryInterface = {
-              categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
-              items:
-                item.connectors?.map(entry => {
-                  const name = entry.valueOf() || ''
-                  return {
-                    itemLabel: getConnectorDisplayName(entry) || name,
-                    iconName: getIconByType(entry),
-                    value: name
-                  }
-                }) || []
-            }
-            return obj
-          }) || []
+          catalogueWithYAMLBuilderOption
+            .filter(item => item.category !== 'CLOUD_COST')
+            .map((item: ConnectorCatalogueItem) => {
+              const obj: CategoryInterface = {
+                categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
+                items:
+                  item.connectors?.map(entry => {
+                    const name = entry.valueOf() || ''
+                    return {
+                      itemLabel: getConnectorDisplayName(entry) || name,
+                      iconName: getIconByType(entry),
+                      value: name
+                    }
+                  }) || []
+              }
+              return obj
+            }) || []
       }
     )
   }
