@@ -124,11 +124,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   >
                     Validating the AppDynamics authentication and permissions
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
-                  </p>
                 </div>
               </div>
             </div>
@@ -277,11 +272,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
                     Validating the Artifactory Repository authentication and permissions
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
                   </p>
                 </div>
               </div>
@@ -432,11 +422,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   >
                     Validating the Docker Registry authentication and permissions
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
-                  </p>
                 </div>
               </div>
             </div>
@@ -586,11 +571,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   >
                     Validating the cluster authentication and permissions
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
-                  </p>
                 </div>
               </div>
             </div>
@@ -727,11 +707,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   >
                     Validating the cluster authentication and permissions
                   </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
-                  </p>
                 </div>
               </div>
             </div>
@@ -866,11 +841,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
                     Validating the Nexus Repository authentication and permissions
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
                   </p>
                 </div>
               </div>
@@ -1020,11 +990,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
                     Validating the Splunk authentication and permissions
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Test failed for the connector
                   </p>
                 </div>
               </div>

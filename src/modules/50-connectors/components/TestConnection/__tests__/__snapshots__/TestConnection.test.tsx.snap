@@ -113,7 +113,7 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
                       Validating the cluster authentication and permissions
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                     >
                       Test failed for the connector
                     </p>
@@ -223,7 +223,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
                       Validating the cluster authentication and permissions
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                     >
                       Test failed for the connector
                     </p>

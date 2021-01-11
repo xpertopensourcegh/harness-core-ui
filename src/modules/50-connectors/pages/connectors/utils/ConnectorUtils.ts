@@ -779,6 +779,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.gitlab')
     case Connectors.GITHUB:
       return getString('connectors.testConnectionStep.validationText.github')
+    case Connectors.GIT:
+      return getString('connectors.testConnectionStep.validationText.git')
 
     default:
       return ''

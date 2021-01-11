@@ -240,11 +240,7 @@ const VerifyOutOfClusterDelegate: React.FC<
       <Layout.Vertical width={'100%'}>
         <Text color={Color.GREY_600}>{GetTestConnectionValidationTextByType(props.type)}</Text>
         {!loading && testConnectionResponse?.data?.delegateId ? (
-          <Text
-            padding={{ top: 'xsmall' }}
-            color={!loadingDelegate ? Color.GREY_900 : Color.GREY_200}
-            font={{ size: 'small' }}
-          >
+          <Text padding={{ top: 'xsmall' }} color={Color.GREY_900} font={{ size: 'small' }}>
             {getString('connectors.testConnectionStep.executingOn')}
             {loadingDelegate
               ? getString('loading')
@@ -255,13 +251,13 @@ const VerifyOutOfClusterDelegate: React.FC<
         ) : null}
 
         {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION) ? (
-          stepDetails.status === 'ERROR' &&
-          testConnectionResponse?.data?.errorSummary &&
-          testConnectionResponse.data.errors ? (
-            renderError()
-          ) : (
-            <Text>{getString('connectors.testConnectionStep.placeholderError')}</Text>
-          )
+          stepDetails.status === 'ERROR' ? (
+            testConnectionResponse?.data?.errorSummary && testConnectionResponse.data.errors ? (
+              renderError()
+            ) : (
+              <Text padding={{ top: 'small' }}>{getString('connectors.testConnectionStep.placeholderError')}</Text>
+            )
+          ) : null
         ) : null}
       </Layout.Vertical>
     )
