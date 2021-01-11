@@ -240,58 +240,66 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group bp3-intent-danger"
                   data-id="null-2"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="bp3-form-content"
                   >
-                    Password
-                  </label>
-                  <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
+                    <div
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                        style="align-items: center; width: 100%;"
+                      <label
+                        class="bp3-label"
+                      >
+                        Password
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          style="height: 12px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="24"
-                            width="24"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
                           >
-                            <g
-                              fill="none"
-                              stroke="#1C1C28"
-                              stroke-width="0.5"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              style="height: 12px;"
                             >
-                              <path
-                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                              />
-                              <path
-                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                              />
-                            </g>
-                          </svg>
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              Create or Select a Secret
+                            </span>
+                          </div>
                         </span>
-                        <span>
-                          Create or Select a Secret
-                        </span>
-                      </div>
-                    </span>
-                  </button>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--intent-danger"
-                  >
-                    Password is a required field
-                  </p>
+                      </button>
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      Password is a required field
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="bp3-form-group"
@@ -1354,50 +1362,58 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 3`]
                   class="bp3-form-group"
                   data-id="null-0"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="bp3-form-content"
                   >
-                    SSH Key
-                  </label>
-                  <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
+                    <div
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                        style="align-items: center; width: 100%;"
+                      <label
+                        class="bp3-label"
+                      >
+                        SSH Key
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          style="height: 12px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="24"
-                            width="24"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
                           >
-                            <g
-                              fill="none"
-                              stroke="#1C1C28"
-                              stroke-width="0.5"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              style="height: 12px;"
                             >
-                              <path
-                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                              />
-                              <path
-                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                              />
-                            </g>
-                          </svg>
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              Create or Select a Secret
+                            </span>
+                          </div>
                         </span>
-                        <span>
-                          Create or Select a Secret
-                        </span>
-                      </div>
-                    </span>
-                  </button>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="bp3-form-group"
@@ -1607,58 +1623,66 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 4`]
                   Authentication
                 </p>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group bp3-intent-danger"
                   data-id="null-0"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="bp3-form-content"
                   >
-                    SSH Key
-                  </label>
-                  <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
+                    <div
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                        style="align-items: center; width: 100%;"
+                      <label
+                        class="bp3-label"
+                      >
+                        SSH Key
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          style="height: 12px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="24"
-                            width="24"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
                           >
-                            <g
-                              fill="none"
-                              stroke="#1C1C28"
-                              stroke-width="0.5"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              style="height: 12px;"
                             >
-                              <path
-                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                              />
-                              <path
-                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                              />
-                            </g>
-                          </svg>
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              Create or Select a Secret
+                            </span>
+                          </div>
                         </span>
-                        <span>
-                          Create or Select a Secret
-                        </span>
-                      </div>
-                    </span>
-                  </button>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--intent-danger"
-                  >
-                    SSH key is required
-                  </p>
+                      </button>
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      SSH key is required
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="bp3-form-group"
@@ -1958,50 +1982,58 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                   class="bp3-form-group"
                   data-id="null-2"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="bp3-form-content"
                   >
-                    Password
-                  </label>
-                  <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
+                    <div
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                        style="align-items: center; width: 100%;"
+                      <label
+                        class="bp3-label"
+                      >
+                        Password
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          style="height: 12px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="24"
-                            width="24"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
                           >
-                            <g
-                              fill="none"
-                              stroke="#1C1C28"
-                              stroke-width="0.5"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              style="height: 12px;"
                             >
-                              <path
-                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                              />
-                              <path
-                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                              />
-                            </g>
-                          </svg>
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              gitlabPassword
+                            </span>
+                          </div>
                         </span>
-                        <span>
-                          gitlabPassword
-                        </span>
-                      </div>
-                    </span>
-                  </button>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="bp3-form-group"
@@ -2214,50 +2246,58 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   class="bp3-form-group"
                   data-id="null-0"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="bp3-form-content"
                   >
-                    SSH Key
-                  </label>
-                  <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
+                    <div
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                        style="align-items: center; width: 100%;"
+                      <label
+                        class="bp3-label"
+                      >
+                        SSH Key
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          style="height: 12px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="24"
-                            width="24"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
                           >
-                            <g
-                              fill="none"
-                              stroke="#1C1C28"
-                              stroke-width="0.5"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              style="height: 12px;"
                             >
-                              <path
-                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                              />
-                              <path
-                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                              />
-                            </g>
-                          </svg>
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              gitlabPassword
+                            </span>
+                          </div>
                         </span>
-                        <span>
-                          gitlabPassword
-                        </span>
-                      </div>
-                    </span>
-                  </button>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="bp3-form-group"
@@ -2352,50 +2392,58 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   class="bp3-form-group"
                   data-id="null-3"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="bp3-form-content"
                   >
-                    Personal Access Token
-                  </label>
-                  <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
+                    <div
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                        style="align-items: center; width: 100%;"
+                      <label
+                        class="bp3-label"
+                      >
+                        Personal Access Token
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          style="height: 12px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="24"
-                            width="24"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
                           >
-                            <g
-                              fill="none"
-                              stroke="#1C1C28"
-                              stroke-width="0.5"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              style="height: 12px;"
                             >
-                              <path
-                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                              />
-                              <path
-                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                              />
-                            </g>
-                          </svg>
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              gitlabPassword
+                            </span>
+                          </div>
                         </span>
-                        <span>
-                          gitlabPassword
-                        </span>
-                      </div>
-                    </span>
-                  </button>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                  
               </div>
