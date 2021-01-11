@@ -111,7 +111,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -130,7 +130,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -284,7 +284,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -419,7 +419,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -438,7 +438,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -573,7 +573,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -592,7 +592,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -714,7 +714,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -733,7 +733,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -854,7 +854,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -873,7 +873,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -1008,7 +1008,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              <p
+              <div
                 class="StyledProps--font StyledProps--main"
                 style="font-weight: bold;"
               >
@@ -1027,7 +1027,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     Test failed for the connector
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>

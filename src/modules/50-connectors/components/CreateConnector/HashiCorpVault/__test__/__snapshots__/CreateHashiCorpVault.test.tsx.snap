@@ -439,7 +439,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       />
                     </svg>
                   </span>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
                     style=""
                   >
@@ -458,7 +458,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                         Test failed for the connector
                       </p>
                     </div>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1452,7 +1452,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                       />
                     </svg>
                   </span>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
                     style=""
                   >
@@ -1471,7 +1471,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                         Test failed for the connector
                       </p>
                     </div>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

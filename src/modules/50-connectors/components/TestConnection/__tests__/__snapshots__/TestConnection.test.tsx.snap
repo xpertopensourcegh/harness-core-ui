@@ -99,7 +99,7 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
                     />
                   </svg>
                 </span>
-                <p
+                <div
                   class="StyledProps--font StyledProps--main"
                   style=""
                 >
@@ -118,7 +118,7 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
                       Test failed for the connector
                     </p>
                   </div>
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -209,7 +209,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
                     />
                   </svg>
                 </span>
-                <p
+                <div
                   class="StyledProps--font StyledProps--main"
                   style=""
                 >
@@ -228,7 +228,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
                       Test failed for the connector
                     </p>
                   </div>
-                </p>
+                </div>
               </div>
             </div>
           </div>
