@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { get, isPlainObject } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
-import { FormInput, Layout, Text, Container } from '@wings-software/uicore'
+import { FormInput, Layout, Container } from '@wings-software/uicore'
 import { FormikContext, connect } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
@@ -98,10 +98,8 @@ const TextReference: React.FC<FormikTextReference> = props => {
   return (
     <FormGroup helperText={hasError ? get(formik?.errors, name) : null} intent={hasError ? Intent.DANGER : Intent.NONE}>
       <Layout.Vertical className={props.className}>
-        <Container className={css.label} height="36px">
-          <Text padding={{ top: 'small' }} inline>
-            {props.label}
-          </Text>
+        <div className={css.label}>
+          <label>{props.label}</label>
           <FormInput.Select
             name="fieldType"
             items={[
@@ -116,7 +114,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
             }}
             className={css.labelSelect}
           />
-        </Container>
+        </div>
         {formik.values.fieldType === ValueType.TEXT ? (
           <FormInput.Text
             name={'textField'}

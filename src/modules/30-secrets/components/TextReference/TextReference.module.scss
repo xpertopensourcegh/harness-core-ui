@@ -1,18 +1,32 @@
 .label {
   display: flex;
   justify-content: space-between;
+  height: 36px;
+  > label {
+    margin-top: var(--spacing-medium);
+  }
 
   .labelSelect {
     :global {
+      .bp3-input-group {
+        > input {
+          height: 36px;
+          border: none !important;
+          padding-bottom: var(--spacing-xsmall);
+        }
+      }
+      .bp3-menu {
+        min-width: 100px;
+      }
       .bp3-input-action {
         > span {
+          margin-top: 3px;
           padding-left: var(--spacing-xsmall) !important;
           padding-right: 0px !important;
         }
       }
     }
   }
-
   :global {
     .bp3-input-group {
       width: 100px;

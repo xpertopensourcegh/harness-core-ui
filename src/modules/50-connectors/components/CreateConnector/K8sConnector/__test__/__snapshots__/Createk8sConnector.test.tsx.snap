@@ -380,357 +380,368 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
         >
           Cluster Details
         </p>
-        <form>
-          <div
-            class="StyledProps--font StyledProps--main clusterWrapper"
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
           >
-            <div
-              class="cardRow"
-            >
+            <div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
-                data-index="0"
-                tabindex="0"
+                class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="StyledProps--font StyledProps--main card selectedCard"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify master url and credentials
-                  </span>
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--margin-small"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 14 14"
-                      width="16"
-                    >
-                      <path
-                        d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                        fill="#38d168"
-                      />
-                      <path
-                        d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                        fill="#fff"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
-                data-index="1"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main card"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="masterUrl"
-              >
-                Master URL
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="masterUrl"
-                    placeholder="/url"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main authHeaderRow"
-            >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-              >
-                Authentication
-              </span>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
+                  class="cardRow"
                 >
                   <div
-                    class="bp3-popover-wrapper Select--main bp3-fill"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                    data-index="0"
+                    tabindex="0"
                   >
                     <div
-                      class="bp3-popover-target"
+                      class="StyledProps--font StyledProps--main card selectedCard"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify master url and credentials
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--margin-small"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
+                        >
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    data-index="1"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main card"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group formFieldWidth"
+                  data-id="masterUrl-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="masterUrl"
+                  >
+                    Master URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="masterUrl"
+                        placeholder="/url"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group authTypeSelect"
+                    data-id="authType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="authType"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value="Username and Password"
-                        />
-                        <span
-                          class="bp3-input-action"
+                        <div
+                          class="bp3-popover-target"
                         >
-                          <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                          <div
+                            class="bp3-input-group"
                           >
-                            <svg
-                              data-icon="caret-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Username and Password"
+                            />
+                            <span
+                              class="bp3-input-action"
                             >
-                              <desc>
-                                caret-down
-                              </desc>
-                              <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 42%;"
-            >
-              <div
-                class="bp3-form-group"
-              >
                 <div
-                  class="bp3-form-content"
+                  class="StyledProps--font StyledProps--main"
+                  style="width: 42%;"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="bp3-form-group"
+                    data-id="fieldType-2"
                   >
                     <div
-                      class="StyledProps--font StyledProps--main label"
-                      style="height: 36px;"
+                      class="bp3-form-content"
                     >
-                      <span
-                        class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
-                      >
-                        Username
-                      </span>
                       <div
-                        class="bp3-form-group labelSelect"
+                        class="Layout--vertical StyledProps--main"
                       >
                         <div
-                          class="bp3-form-content"
+                          class="label"
                         >
+                          <label>
+                            Username
+                          </label>
                           <div
-                            class="bp3-popover-wrapper Select--main bp3-fill"
+                            class="bp3-form-group labelSelect"
+                            data-id="fieldType-3"
                           >
                             <div
-                              class="bp3-popover-target"
+                              class="bp3-form-content"
                             >
                               <div
-                                class="bp3-input-group"
+                                class="bp3-popover-wrapper Select--main bp3-fill"
                               >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="fieldType"
-                                  placeholder="Search..."
-                                  style="padding-right: 0px;"
-                                  type="text"
-                                  value="Plaintext"
-                                />
-                                <span
-                                  class="bp3-input-action"
+                                <div
+                                  class="bp3-popover-target"
                                 >
-                                  <span
-                                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                    icon="caret-down"
+                                  <div
+                                    class="bp3-input-group"
                                   >
-                                    <svg
-                                      data-icon="caret-down"
-                                      height="14"
-                                      viewBox="0 0 16 16"
-                                      width="14"
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="fieldType"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="Plaintext"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
                                     >
-                                      <desc>
-                                        caret-down
-                                      </desc>
-                                      <path
-                                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </span>
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-form-group textCss"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="textField"
+                                type="text"
+                                value=""
+                              />
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-5"
+                  >
                     <div
-                      class="bp3-form-group textCss"
+                      class="bp3-form-content"
                     >
                       <div
-                        class="bp3-form-content"
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <div
-                          class="bp3-input-group"
+                        <label
+                          class="bp3-label"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="textField"
-                            type="text"
-                            value=""
-                          />
-                        </div>
+                          Password
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                Create or Select a Secret
+                              </span>
+                            </div>
+                          </span>
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="bp3-form-group"
-              >
                 <div
-                  class="bp3-form-content"
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-6"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="bp3-form-content"
                   >
                     <label
-                      class="bp3-label"
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
                     >
-                      Password
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
+                      <input
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
                       <span
-                        class="bp3-button-text"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                          <span>
-                            Create or Select a Secret
-                          </span>
-                        </div>
-                      </span>
-                    </button>
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="bp3-form-group"
-            >
-              <div
-                class="bp3-form-content"
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
               >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                <span
+                  class="bp3-button-text"
                 >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  Skip default namespace validation
-                </label>
-              </div>
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
-          </div>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save and Continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -855,264 +866,118 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
         >
           Cluster Details
         </p>
-        <form>
-          <div
-            class="StyledProps--font StyledProps--main clusterWrapper"
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
           >
-            <div
-              class="cardRow"
-            >
+            <div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
-                data-index="0"
-                tabindex="0"
+                class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="StyledProps--font StyledProps--main card selectedCard"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify master url and credentials
-                  </span>
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--margin-small"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 14 14"
-                      width="16"
-                    >
-                      <path
-                        d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                        fill="#38d168"
-                      />
-                      <path
-                        d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                        fill="#fff"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
-                data-index="1"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main card"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="masterUrl"
-              >
-                Master URL
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="masterUrl"
-                    placeholder="/url"
-                    type="text"
-                    value="/url"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main authHeaderRow"
-            >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-              >
-                Authentication
-              </span>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
+                  class="cardRow"
                 >
                   <div
-                    class="bp3-popover-wrapper Select--main bp3-fill"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                    data-index="0"
+                    tabindex="0"
                   >
                     <div
-                      class="bp3-popover-target"
+                      class="StyledProps--font StyledProps--main card selectedCard"
                     >
-                      <div
-                        class="bp3-input-group"
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="authType"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value="OpenID Connect"
-                        />
-                        <span
-                          class="bp3-input-action"
+                        Specify master url and credentials
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--margin-small"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
                         >
-                          <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
-                          >
-                            <svg
-                              data-icon="caret-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                caret-down
-                              </desc>
-                              <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    data-index="1"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main card"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="oidcIssuerUrl"
-              >
-                OIDC Issuer URL
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
                 <div
-                  class="bp3-input-group"
+                  class="bp3-form-group formFieldWidth"
+                  data-id="masterUrl-0"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="oidcIssuerUrl"
-                    type="text"
-                    value="issueUrl"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main applyFlex"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-                style="width: 42%;"
-              >
-                <div
-                  class="bp3-form-group"
-                >
+                  <label
+                    class="bp3-label"
+                    for="masterUrl"
+                  >
+                    Master URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
                   <div
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="masterUrl"
+                        placeholder="/url"
+                        type="text"
+                        value="/url"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group authTypeSelect"
+                    data-id="authType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main label"
-                        style="height: 36px;"
-                      >
-                        <span
-                          class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
-                        >
-                          OIDC Username
-                        </span>
-                        <div
-                          class="bp3-form-group labelSelect"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-popover-wrapper Select--main bp3-fill"
-                            >
-                              <div
-                                class="bp3-popover-target"
-                              >
-                                <div
-                                  class="bp3-input-group"
-                                >
-                                  <input
-                                    autocomplete="off"
-                                    class="bp3-input"
-                                    name="fieldType"
-                                    placeholder="Search..."
-                                    style="padding-right: 0px;"
-                                    type="text"
-                                    value="Plaintext"
-                                  />
-                                  <span
-                                    class="bp3-input-action"
-                                  >
-                                    <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
-                                    >
-                                      <svg
-                                        data-icon="caret-down"
-                                        height="14"
-                                        viewBox="0 0 16 16"
-                                        width="14"
-                                      >
-                                        <desc>
-                                          caret-down
-                                        </desc>
-                                        <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="bp3-form-group textCss"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
                         <div
-                          class="bp3-form-content"
+                          class="bp3-popover-target"
                         >
                           <div
                             class="bp3-input-group"
@@ -1120,10 +985,35 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             <input
                               autocomplete="off"
                               class="bp3-input"
-                              name="textField"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
                               type="text"
-                              value="OIDC username "
+                              value="OpenID Connect"
                             />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -1131,260 +1021,396 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group formFieldWidth"
+                  data-id="oidcIssuerUrl-2"
                 >
+                  <label
+                    class="bp3-label"
+                    for="oidcIssuerUrl"
+                  >
+                    OIDC Issuer URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
                   <div
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
+                      class="bp3-input-group"
                     >
-                      <label
-                        class="bp3-label"
-                      >
-                        OIDC Password
-                      </label>
-                      <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                            style="align-items: center; width: 100%;"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <span>
-                              k8serviceToken
-                            </span>
-                          </div>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-left-xxlarge"
-                style="width: 42%;"
-              >
-                <div
-                  class="bp3-form-group"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <div
-                      class="Layout--vertical StyledProps--main"
-                    >
-                      <label
-                        class="bp3-label"
-                      >
-                        OIDC Client ID
-                      </label>
-                      <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                            style="align-items: center; width: 100%;"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <span>
-                              k8serviceToken
-                            </span>
-                          </div>
-                        </span>
-                      </button>
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="oidcIssuerUrl"
+                        type="text"
+                        value="issueUrl"
+                      />
                     </div>
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="StyledProps--font StyledProps--main applyFlex"
                 >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 42%;"
+                  >
+                    <div
+                      class="bp3-form-group"
+                      data-id="fieldType-3"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <div
+                            class="label"
+                          >
+                            <label>
+                              OIDC Username
+                            </label>
+                            <div
+                              class="bp3-form-group labelSelect"
+                              data-id="fieldType-4"
+                            >
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div
+                                  class="bp3-popover-wrapper Select--main bp3-fill"
+                                >
+                                  <div
+                                    class="bp3-popover-target"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="fieldType"
+                                        placeholder="Search..."
+                                        style="padding-right: 0px;"
+                                        type="text"
+                                        value="Plaintext"
+                                      />
+                                      <span
+                                        class="bp3-input-action"
+                                      >
+                                        <span
+                                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                          icon="caret-down"
+                                        >
+                                          <svg
+                                            data-icon="caret-down"
+                                            height="14"
+                                            viewBox="0 0 16 16"
+                                            width="14"
+                                          >
+                                            <desc>
+                                              caret-down
+                                            </desc>
+                                            <path
+                                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group textCss"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="textField"
+                                  type="text"
+                                  value="OIDC username "
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="null-6"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <label
+                            class="bp3-label"
+                          >
+                            OIDC Password
+                          </label>
+                          <button
+                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
+                            >
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                                style="align-items: center; width: 100%;"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  style="height: 12px;"
+                                >
+                                  <svg
+                                    height="24"
+                                    width="24"
+                                  >
+                                    <g
+                                      fill="none"
+                                      stroke="#1C1C28"
+                                      stroke-width="0.5"
+                                    >
+                                      <path
+                                        d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                      />
+                                      <path
+                                        d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                      />
+                                    </g>
+                                  </svg>
+                                </span>
+                                <span>
+                                  k8serviceToken
+                                </span>
+                              </div>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-left-xxlarge"
+                    style="width: 42%;"
+                  >
+                    <div
+                      class="bp3-form-group"
+                      data-id="null-7"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <label
+                            class="bp3-label"
+                          >
+                            OIDC Client ID
+                          </label>
+                          <button
+                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
+                            >
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                                style="align-items: center; width: 100%;"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  style="height: 12px;"
+                                >
+                                  <svg
+                                    height="24"
+                                    width="24"
+                                  >
+                                    <g
+                                      fill="none"
+                                      stroke="#1C1C28"
+                                      stroke-width="0.5"
+                                    >
+                                      <path
+                                        d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                      />
+                                      <path
+                                        d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                      />
+                                    </g>
+                                  </svg>
+                                </span>
+                                <span>
+                                  k8serviceToken
+                                </span>
+                              </div>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="null-8"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <label
+                            class="bp3-label"
+                          >
+                            OIDC Secret
+                          </label>
+                          <button
+                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
+                            >
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                                style="align-items: center; width: 100%;"
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main"
+                                  style="height: 12px;"
+                                >
+                                  <svg
+                                    height="24"
+                                    width="24"
+                                  >
+                                    <g
+                                      fill="none"
+                                      stroke="#1C1C28"
+                                      stroke-width="0.5"
+                                    >
+                                      <path
+                                        d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                      />
+                                      <path
+                                        d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                      />
+                                    </g>
+                                  </svg>
+                                </span>
+                                <span>
+                                  k8serviceToken
+                                </span>
+                              </div>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group formFieldWidth"
+                  data-id="oidcScopes-9"
+                >
+                  <label
+                    class="bp3-label"
+                    for="oidcScopes"
+                  >
+                    OIDC Scopes (Optional)
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
                   <div
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
+                      class="bp3-input-group"
                     >
-                      <label
-                        class="bp3-label"
-                      >
-                        OIDC Secret
-                      </label>
-                      <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                            style="align-items: center; width: 100%;"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <span>
-                              k8serviceToken
-                            </span>
-                          </div>
-                        </span>
-                      </button>
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="oidcScopes"
+                        type="text"
+                        value="account"
+                      />
                     </div>
                   </div>
                 </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-10"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                    >
+                      <input
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="oidcScopes"
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
               >
-                OIDC Scopes (Optional)
-                 
                 <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group"
+                  class="bp3-button-text"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="oidcScopes"
-                    type="text"
-                    value="account"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
                 >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  Skip default namespace validation
-                </label>
-              </div>
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
-          </div>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save and Continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -1509,264 +1535,276 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
         >
           Cluster Details
         </p>
-        <form>
-          <div
-            class="StyledProps--font StyledProps--main clusterWrapper"
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
           >
-            <div
-              class="cardRow"
-            >
+            <div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
-                data-index="0"
-                tabindex="0"
+                class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="StyledProps--font StyledProps--main card selectedCard"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify master url and credentials
-                  </span>
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--margin-small"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 14 14"
-                      width="16"
-                    >
-                      <path
-                        d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                        fill="#38d168"
-                      />
-                      <path
-                        d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                        fill="#fff"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
-                data-index="1"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main card"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="masterUrl"
-              >
-                Master URL
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="masterUrl"
-                    placeholder="/url"
-                    type="text"
-                    value="/url"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main authHeaderRow"
-            >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-              >
-                Authentication
-              </span>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
+                  class="cardRow"
                 >
                   <div
-                    class="bp3-popover-wrapper Select--main bp3-fill"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                    data-index="0"
+                    tabindex="0"
                   >
                     <div
-                      class="bp3-popover-target"
+                      class="StyledProps--font StyledProps--main card selectedCard"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify master url and credentials
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--margin-small"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
+                        >
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    data-index="1"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main card"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group formFieldWidth"
+                  data-id="masterUrl-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="masterUrl"
+                  >
+                    Master URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="masterUrl"
+                        placeholder="/url"
+                        type="text"
+                        value="/url"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group authTypeSelect"
+                    data-id="authType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="authType"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value="Service Account"
-                        />
-                        <span
-                          class="bp3-input-action"
+                        <div
+                          class="bp3-popover-target"
                         >
-                          <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                          <div
+                            class="bp3-input-group"
                           >
-                            <svg
-                              data-icon="caret-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Service Account"
+                            />
+                            <span
+                              class="bp3-input-action"
                             >
-                              <desc>
-                                caret-down
-                              </desc>
-                              <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 42%;"
-            >
-              <div
-                class="bp3-form-group"
-              >
                 <div
-                  class="bp3-form-content"
+                  class="StyledProps--font StyledProps--main"
+                  style="width: 42%;"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="bp3-form-group"
+                    data-id="null-2"
                   >
-                    <label
-                      class="bp3-label"
+                    <div
+                      class="bp3-form-content"
                     >
-                      Service Account Token
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
+                      <div
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
+                        <label
+                          class="bp3-label"
+                        >
+                          Service Account Token
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
                         >
                           <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
+                            class="bp3-button-text"
                           >
-                            <svg
-                              height="24"
-                              width="24"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
                             >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
                               >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                k8serviceToken
+                              </span>
+                            </div>
                           </span>
-                          <span>
-                            k8serviceToken
-                          </span>
-                        </div>
-                      </span>
-                    </button>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-3"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                    >
+                      <input
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="bp3-form-group"
-            >
-              <div
-                class="bp3-form-content"
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
               >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                <span
+                  class="bp3-button-text"
                 >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  Skip default namespace validation
-                </label>
-              </div>
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
-          </div>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save and Continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -2235,357 +2273,368 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
         >
           Cluster Details
         </p>
-        <form>
-          <div
-            class="StyledProps--font StyledProps--main clusterWrapper"
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
           >
-            <div
-              class="cardRow"
-            >
+            <div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
-                data-index="0"
-                tabindex="0"
+                class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="StyledProps--font StyledProps--main card selectedCard"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify master url and credentials
-                  </span>
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--margin-small"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 14 14"
-                      width="16"
-                    >
-                      <path
-                        d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                        fill="#38d168"
-                      />
-                      <path
-                        d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                        fill="#fff"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
-                data-index="1"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main card"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="masterUrl"
-              >
-                Master URL
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="masterUrl"
-                    placeholder="/url"
-                    type="text"
-                    value="/url7878"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main authHeaderRow"
-            >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-              >
-                Authentication
-              </span>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
+                  class="cardRow"
                 >
                   <div
-                    class="bp3-popover-wrapper Select--main bp3-fill"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                    data-index="0"
+                    tabindex="0"
                   >
                     <div
-                      class="bp3-popover-target"
+                      class="StyledProps--font StyledProps--main card selectedCard"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify master url and credentials
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--margin-small"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
+                        >
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    data-index="1"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main card"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group formFieldWidth"
+                  data-id="masterUrl-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="masterUrl"
+                  >
+                    Master URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="masterUrl"
+                        placeholder="/url"
+                        type="text"
+                        value="/url7878"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group authTypeSelect"
+                    data-id="authType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-popover-wrapper Select--main bp3-fill"
                       >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="authType"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
-                          type="text"
-                          value="Username and Password"
-                        />
-                        <span
-                          class="bp3-input-action"
+                        <div
+                          class="bp3-popover-target"
                         >
-                          <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                          <div
+                            class="bp3-input-group"
                           >
-                            <svg
-                              data-icon="caret-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Username and Password"
+                            />
+                            <span
+                              class="bp3-input-action"
                             >
-                              <desc>
-                                caret-down
-                              </desc>
-                              <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 42%;"
-            >
-              <div
-                class="bp3-form-group"
-              >
                 <div
-                  class="bp3-form-content"
+                  class="StyledProps--font StyledProps--main"
+                  style="width: 42%;"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="bp3-form-group"
+                    data-id="fieldType-2"
                   >
                     <div
-                      class="StyledProps--font StyledProps--main label"
-                      style="height: 36px;"
+                      class="bp3-form-content"
                     >
-                      <span
-                        class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
-                      >
-                        Username
-                      </span>
                       <div
-                        class="bp3-form-group labelSelect"
+                        class="Layout--vertical StyledProps--main"
                       >
                         <div
-                          class="bp3-form-content"
+                          class="label"
                         >
+                          <label>
+                            Username
+                          </label>
                           <div
-                            class="bp3-popover-wrapper Select--main bp3-fill"
+                            class="bp3-form-group labelSelect"
+                            data-id="fieldType-3"
                           >
                             <div
-                              class="bp3-popover-target"
+                              class="bp3-form-content"
                             >
                               <div
-                                class="bp3-input-group"
+                                class="bp3-popover-wrapper Select--main bp3-fill"
                               >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="fieldType"
-                                  placeholder="Search..."
-                                  style="padding-right: 0px;"
-                                  type="text"
-                                  value="Plaintext"
-                                />
-                                <span
-                                  class="bp3-input-action"
+                                <div
+                                  class="bp3-popover-target"
                                 >
-                                  <span
-                                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                    icon="caret-down"
+                                  <div
+                                    class="bp3-input-group"
                                   >
-                                    <svg
-                                      data-icon="caret-down"
-                                      height="14"
-                                      viewBox="0 0 16 16"
-                                      width="14"
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="fieldType"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="Plaintext"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
                                     >
-                                      <desc>
-                                        caret-down
-                                      </desc>
-                                      <path
-                                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </span>
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-form-group textCss"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="textField"
+                                type="text"
+                                value="dev"
+                              />
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-5"
+                  >
                     <div
-                      class="bp3-form-group textCss"
+                      class="bp3-form-content"
                     >
                       <div
-                        class="bp3-form-content"
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <div
-                          class="bp3-input-group"
+                        <label
+                          class="bp3-label"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="textField"
-                            type="text"
-                            value="dev"
-                          />
-                        </div>
+                          Password
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                k8serviceToken
+                              </span>
+                            </div>
+                          </span>
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="bp3-form-group"
-              >
                 <div
-                  class="bp3-form-content"
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-6"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="bp3-form-content"
                   >
                     <label
-                      class="bp3-label"
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
                     >
-                      Password
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
+                      <input
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
                       <span
-                        class="bp3-button-text"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                          <span>
-                            k8serviceToken
-                          </span>
-                        </div>
-                      </span>
-                    </button>
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="bp3-form-group"
-            >
-              <div
-                class="bp3-form-content"
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
               >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                <span
+                  class="bp3-button-text"
                 >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  Skip default namespace validation
-                </label>
-              </div>
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
-          </div>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save and Continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -2710,110 +2759,354 @@ exports[`should form for edit authtype clientKey 1`] = `
         >
           Cluster Details
         </p>
-        <form>
-          <div
-            class="StyledProps--font StyledProps--main clusterWrapper"
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
           >
-            <div
-              class="cardRow"
-            >
+            <div>
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
-                data-index="0"
-                tabindex="0"
+                class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="StyledProps--font StyledProps--main card selectedCard"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify master url and credentials
-                  </span>
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--margin-small"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 14 14"
-                      width="16"
-                    >
-                      <path
-                        d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                        fill="#38d168"
-                      />
-                      <path
-                        d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                        fill="#fff"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-elevation-0 Card--card Card--disabled"
-                data-index="1"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main card"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                  >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group formFieldWidth"
-            >
-              <label
-                class="bp3-label"
-                for="masterUrl"
-              >
-                Master URL
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="masterUrl"
-                    placeholder="/url"
-                    type="text"
-                    value="/url"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main authHeaderRow"
-            >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-              >
-                Authentication
-              </span>
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
+                  class="cardRow"
                 >
                   <div
-                    class="bp3-popover-wrapper Select--main bp3-fill"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected"
+                    data-index="0"
+                    tabindex="0"
                   >
                     <div
-                      class="bp3-popover-target"
+                      class="StyledProps--font StyledProps--main card selectedCard"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify master url and credentials
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--margin-small"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
+                        >
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    data-index="1"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main card"
+                    >
+                      <span
+                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                      >
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group formFieldWidth"
+                  data-id="masterUrl-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="masterUrl"
+                  >
+                    Master URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="masterUrl"
+                        placeholder="/url"
+                        type="text"
+                        value="/url"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group authTypeSelect"
+                    data-id="authType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Client Key Certificate"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main formRow"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-2"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <label
+                          class="bp3-label"
+                        >
+                          Client Key
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                k8serviceToken
+                              </span>
+                            </div>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-3"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <label
+                          class="bp3-label"
+                        >
+                          Client Key passphrase
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                k8serviceToken
+                              </span>
+                            </div>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main formRow"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-4"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <label
+                          class="bp3-label"
+                        >
+                          Client Certificate
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                k8serviceToken
+                              </span>
+                            </div>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="clientKeyAlgo-5"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="clientKeyAlgo"
+                    >
+                      Client Key Algorithm (optional)
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
                     >
                       <div
                         class="bp3-input-group"
@@ -2821,358 +3114,130 @@ exports[`should form for edit authtype clientKey 1`] = `
                         <input
                           autocomplete="off"
                           class="bp3-input"
-                          name="authType"
-                          placeholder="Search..."
-                          style="padding-right: 0px;"
+                          name="clientKeyAlgo"
                           type="text"
-                          value="Client Key Certificate"
+                          value=""
                         />
-                        <span
-                          class="bp3-input-action"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
-                          >
-                            <svg
-                              data-icon="caret-down"
-                              height="14"
-                              viewBox="0 0 16 16"
-                              width="14"
-                            >
-                              <desc>
-                                caret-down
-                              </desc>
-                              <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main formRow"
-            >
-              <div
-                class="bp3-form-group"
-              >
                 <div
-                  class="bp3-form-content"
+                  class="StyledProps--font StyledProps--main"
+                  style="width: 42%;"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="bp3-form-group"
+                    data-id="null-6"
                   >
-                    <label
-                      class="bp3-label"
+                    <div
+                      class="bp3-form-content"
                     >
-                      Client Key
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
+                      <div
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
+                        <label
+                          class="bp3-label"
+                        >
+                          CA Certificate (optional)
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          type="button"
                         >
                           <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
+                            class="bp3-button-text"
                           >
-                            <svg
-                              height="24"
-                              width="24"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
                             >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
                               >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                k8serviceToken
+                              </span>
+                            </div>
                           </span>
-                          <span>
-                            k8serviceToken
-                          </span>
-                        </div>
-                      </span>
-                    </button>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-7"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                    >
+                      <input
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
                   </div>
                 </div>
               </div>
-              <div
-                class="bp3-form-group"
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
               >
-                <div
-                  class="bp3-form-content"
+                <span
+                  class="bp3-button-text"
                 >
-                  <div
-                    class="Layout--vertical StyledProps--main"
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
                   >
-                    <label
-                      class="bp3-label"
-                    >
-                      Client Key passphrase
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                          <span>
-                            k8serviceToken
-                          </span>
-                        </div>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main formRow"
-            >
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="Layout--vertical StyledProps--main"
-                  >
-                    <label
-                      class="bp3-label"
-                    >
-                      Client Certificate
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                          <span>
-                            k8serviceToken
-                          </span>
-                        </div>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="bp3-form-group"
-              >
-                <label
-                  class="bp3-label"
-                  for="clientKeyAlgo"
-                >
-                  Client Key Algorithm (optional)
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="clientKeyAlgo"
-                      type="text"
-                      value=""
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
                     />
-                  </div>
-                </div>
-              </div>
+                  </svg>
+                </span>
+              </button>
             </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 42%;"
-            >
-              <div
-                class="bp3-form-group"
-              >
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="Layout--vertical StyledProps--main"
-                  >
-                    <label
-                      class="bp3-label"
-                    >
-                      CA Certificate (optional)
-                    </label>
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                          style="align-items: center; width: 100%;"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                          <span>
-                            k8serviceToken
-                          </span>
-                        </div>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  Skip default namespace validation
-                </label>
-              </div>
-            </div>
-          </div>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Save and Continue
-            </span>
-            <span
-              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-              icon="chevron-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-right
-                </desc>
-                <path
-                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>

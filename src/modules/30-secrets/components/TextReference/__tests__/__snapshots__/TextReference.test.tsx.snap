@@ -20,12 +20,9 @@ exports[`Text Reference render create mode 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <div
-                class="StyledProps--font StyledProps--main label"
-                style="height: 36px;"
+                class="label"
               >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
-                />
+                <label />
                 <div
                   class="bp3-form-group labelSelect"
                   data-id="fieldType-1"
@@ -128,12 +125,9 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <div
-                class="StyledProps--font StyledProps--main label"
-                style="height: 36px;"
+                class="label"
               >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
-                />
+                <label />
                 <div
                   class="bp3-form-group labelSelect"
                   data-id="fieldType-1"
@@ -236,12 +230,9 @@ exports[`Text Reference render edit mode with text value 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <div
-                class="StyledProps--font StyledProps--main label"
-                style="height: 36px;"
+                class="label"
               >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--inline"
-                />
+                <label />
                 <div
                   class="bp3-form-group labelSelect"
                   data-id="fieldType-1"

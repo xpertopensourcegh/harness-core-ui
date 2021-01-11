@@ -7,6 +7,8 @@ import {
   Icon,
   Container,
   FormInput,
+  Formik,
+  FormikForm as Form,
   Button,
   ModalErrorHandlerBinding,
   ModalErrorHandler
@@ -15,7 +17,7 @@ import { useParams } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { Formik, Form, FormikProps } from 'formik'
+import type { FormikProps } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   ConnectorInfoDTO,
@@ -36,7 +38,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
-import css from '../CreateK8sConnector.module.scss'
+import css from './Stepk8ClusterDetails.module.scss'
 
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
   name: string
@@ -398,7 +400,12 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                     <Text className={css.authTitle} inline>
                       {getString('connectors.authTitle')}
                     </Text>
-                    <FormInput.Select name="authType" items={authOptions} disabled={false} />
+                    <FormInput.Select
+                      name="authType"
+                      items={authOptions}
+                      disabled={false}
+                      className={css.authTypeSelect}
+                    />
                   </Container>
 
                   <RenderK8AuthForm {...formikProps} isEditMode={props.isEditMode} />
