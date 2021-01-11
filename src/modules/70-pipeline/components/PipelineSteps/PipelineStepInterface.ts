@@ -15,7 +15,7 @@ export enum StepType {
   KubernetesDirect = 'KubernetesDirect',
   K8sServiceSpec = 'K8sServiceSpec',
   K8sRollingDeploy = 'K8sRollingDeploy',
-  CustomVariable = 'Custom_Variable',
+  CustomVariable = 'CustomVariable',
   Dependency = 'Service',
   Plugin = 'Plugin',
   Run = 'Run',

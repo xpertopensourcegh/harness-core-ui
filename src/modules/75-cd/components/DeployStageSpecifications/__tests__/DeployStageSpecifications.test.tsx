@@ -2,12 +2,53 @@ import React from 'react'
 import { render, fireEvent, act, findByText } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
+import {
+  PipelineContext,
+  PipelineContextInterface
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
 import DeployStageSpecifications from '../DeployStageSpecifications'
+
+factory.registerStep(new CustomVariables())
+
+const getPipelineContext = (): PipelineContextInterface => ({
+  state: {
+    pipeline: { name: '', identifier: '' },
+    originalPipeline: { name: '', identifier: '' },
+    pipelineView: {
+      isSplitViewOpen: true,
+      isDrawerOpened: false,
+      drawerData: { type: DrawerTypes.AddStep },
+      splitViewData: {}
+    },
+    pipelineIdentifier: '',
+    isBEPipelineUpdated: false,
+    isDBInitialized: true,
+    isInitialized: true,
+    isLoading: false,
+    isUpdated: true
+  },
+  stagesMap: {},
+  renderPipelineStage: jest.fn(),
+  fetchPipeline: jest.fn(),
+  setYamlHandler: jest.fn(),
+  updatePipeline: jest.fn(),
+  updatePipelineView: jest.fn(),
+  updateStage: jest.fn(),
+  deletePipelineCache: jest.fn(),
+  runPipeline: jest.fn(),
+  pipelineSaved: jest.fn(),
+  stepsFactory: factory
+})
 describe('StepWidget tests', () => {
   test(`renders DeployStageSpecifications without crashing `, () => {
     const { container } = render(
       <TestWrapper>
-        <DeployStageSpecifications />
+        <PipelineContext.Provider value={getPipelineContext()}>
+          <DeployStageSpecifications />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -15,7 +56,9 @@ describe('StepWidget tests', () => {
   test(`Updates DeployStageSpecifications form `, async () => {
     const { container } = render(
       <TestWrapper>
-        <DeployStageSpecifications />
+        <PipelineContext.Provider value={getPipelineContext()}>
+          <DeployStageSpecifications />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
 
@@ -27,13 +70,13 @@ describe('StepWidget tests', () => {
     })
 
     await act(async () => {
-      const addVariableButton = await findByText(document.body, '+ Add Variable')
+      const addVariableButton = await findByText(document.body, 'Add Variable')
       expect(addVariableButton).toBeDefined()
       fireEvent.click(addVariableButton)
-      const variableNameInput = document.querySelector('input[placeholder="Enter Variable name"]')
+      const variableNameInput = document.querySelector('input[placeholder="Variable Name"]')
       expect(variableNameInput).toBeDefined()
       fireEvent.change(variableNameInput!, { target: { value: 'Variable' } })
-      const submitdVariableButton = await findByText(document.body, 'Add')
+      const submitdVariableButton = await findByText(document.body, 'Save')
       expect(submitdVariableButton).toBeDefined()
       expect(document.getElementsByClassName('bp3-portal')[0]).toMatchSnapshot('Add Variable Form')
     })

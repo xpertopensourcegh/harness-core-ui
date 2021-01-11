@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import type { IconName } from '@wings-software/uicore'
+import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AbstractStepFactory } from '../AbstractStepFactory'
 import { Step, StepProps } from '../Step'
 import { StepWidget } from '../StepWidget'
@@ -10,7 +11,7 @@ class StepFactory extends AbstractStepFactory {
 }
 
 class StepOne extends Step<object> {
-  protected type = 'step-one'
+  protected type = 'step-one' as StepType
   protected stepName = 'stepOne'
   protected stepIcon: IconName = 'cross'
   validateInputSet(): object {
@@ -23,7 +24,7 @@ class StepOne extends Step<object> {
 }
 
 class StepTwo extends Step<object> {
-  protected type = 'step-two'
+  protected type = 'step-two' as StepType
   protected stepName = 'stepTwo'
   protected stepIcon: IconName = 'cross'
   validateInputSet(): object {
@@ -42,26 +43,28 @@ factory.registerStep(new StepTwo())
 
 describe('StepWidget tests', () => {
   test(`shows different steps based on type`, () => {
-    let { container } = render(<StepWidget type="step-one" factory={factory} initialValues={{}} />)
+    let { container } = render(<StepWidget type={'step-one' as StepType} factory={factory} initialValues={{}} />)
     expect(container).toMatchSnapshot()
-    container = render(<StepWidget type="step-two" factory={factory} initialValues={{}} />).container
+    container = render(<StepWidget type={'step-two' as StepType} factory={factory} initialValues={{}} />).container
     expect(container).toMatchSnapshot()
   })
 
   test(`shows invalid step`, () => {
-    const { container } = render(<StepWidget type="step-three" factory={factory} initialValues={{}} />)
+    const { container } = render(<StepWidget type={'step-three' as StepType} factory={factory} initialValues={{}} />)
     expect(container).toMatchSnapshot()
   })
 
   test(`shows step and merge initial values`, () => {
-    const { container } = render(<StepWidget type="step-one" factory={factory} initialValues={{ a: 'b' }} />)
+    const { container } = render(
+      <StepWidget type={'step-one' as StepType} factory={factory} initialValues={{ a: 'b' }} />
+    )
     expect(container).toMatchSnapshot()
   })
 
   test(`should call on submit of the form`, () => {
     const onSubmit = jest.fn()
     const { container } = render(
-      <StepWidget type="step-one" onUpdate={onSubmit} factory={factory} initialValues={{ a: 'b' }} />
+      <StepWidget type={'step-one' as StepType} onUpdate={onSubmit} factory={factory} initialValues={{ a: 'b' }} />
     )
     fireEvent.click(container.children[0])
     expect(onSubmit).toBeCalled()

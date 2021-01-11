@@ -117,6 +117,7 @@ global:
   plaintext: Plaintext
   encrypted: Encrypted
   noSearchResultsFoundPeriod: No results found.
+  createOrSelectSecret: Create or Select a Secret
   description: Description
   recentlyUsed: Recently Used
   stageDetails: Stage Details

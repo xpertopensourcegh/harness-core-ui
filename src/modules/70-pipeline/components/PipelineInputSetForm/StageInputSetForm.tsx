@@ -42,7 +42,7 @@ function StepForm({
         template={template?.step}
         initialValues={values?.step || {}}
         allValues={allValues?.step || {}}
-        type={allValues?.step?.type || ''}
+        type={(allValues?.step?.type as StepType) || ''}
         onUpdate={onUpdate}
         stepViewType={StepViewType.InputSet}
       />
@@ -231,7 +231,10 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
               initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
               allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
-              type={deploymentStage?.infrastructure?.infrastructureDefinition?.type || StepType.KubernetesDirect}
+              type={
+                (deploymentStage?.infrastructure?.infrastructureDefinition?.type as StepType) ||
+                StepType.KubernetesDirect
+              }
               path={`${path}.infrastructure.infrastructureDefinition.spec`}
               readonly={readonly}
               onUpdate={data => {

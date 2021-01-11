@@ -27,9 +27,11 @@ jest.mock('services/cd-ng', () => ({
   usePostSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePostSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  usePutSecretViaYaml: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetConnectorList: jest.fn(() => ({ data: null }))
 }))
 
 const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }

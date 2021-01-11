@@ -2,10 +2,16 @@ import React from 'react'
 
 import { Text, Card } from '@wings-software/uicore'
 
-import type { NGVariable as Variable, NgPipeline } from 'services/cd-ng'
-import { StepWidget } from '../../AbstractSteps/StepWidget'
-import { StepViewType } from '../../AbstractSteps/Step'
-import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
+import type { NgPipeline } from 'services/cd-ng'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import type {
+  CustomVariablesData,
+  CustomVariableEditableExtraProps
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+
 import i18n from './PipelineVariables.i18n'
 import css from './PipelineVariables.module.scss'
 
@@ -19,7 +25,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
   const { pipeline, stepsFactory, updatePipeline } = props
 
   return (
-    <Card className={css.variableCard}>
+    <Card className={css.variableCard} id="Pipeline-panel">
       <div className={css.variableListTable}>
         <Text style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-large)' }}>$pipeline.name</Text>
         <Text>{i18n.string}</Text>
@@ -39,15 +45,18 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
         <Text>{pipeline.tags}</Text>
       </div>
 
-      <StepWidget<{ variables: Variable[] }>
+      <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
         factory={stepsFactory}
-        initialValues={{ variables: (pipeline as any).variables || [] }}
-        type="Custom_Variable"
+        initialValues={{ variables: (pipeline as any).variables || [], canAddVariable: true }}
+        type={StepType.CustomVariable}
         stepViewType={StepViewType.InputVariable}
-        onUpdate={({ variables }: { variables: Variable[] }) => {
-          ;(pipeline as any).variables = variables
-          updatePipeline(pipeline)
+        onUpdate={({ variables }: CustomVariablesData) => {
+          updatePipeline({
+            ...pipeline,
+            variables: variables as any
+          })
         }}
+        customStepProps={{ variableNamePrefix: '$pipeline.', domId: 'Pipeline.Variables-panel' }}
       />
     </Card>
   )

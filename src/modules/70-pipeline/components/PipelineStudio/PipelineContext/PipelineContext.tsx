@@ -3,7 +3,12 @@ import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
-import type { NgPipeline, ResponseNGPipelineResponse } from 'services/cd-ng'
+import type {
+  NgPipeline,
+  ResponseNGPipelineResponse,
+  StageElementConfig,
+  StageElementWrapperConfig
+} from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -127,6 +132,7 @@ export interface PipelineContextInterface {
   deletePipelineCache: () => Promise<void>
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: NgPipeline) => void
+  updateStage: (stage: StageElementConfig) => void
 }
 
 interface PipelinePayload {
@@ -312,6 +318,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
+  updateStage: () => void 0,
   setYamlHandler: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
@@ -346,6 +353,31 @@ export const PipelineProvider: React.FC<{
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
 
+  const updateStage = React.useCallback(
+    (newStage: StageElementConfig) => {
+      function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
+        return stages.map(node => {
+          if (node.stage?.identifier === newStage.identifier) {
+            return { stage: newStage }
+          } else if (node.parallel) {
+            return {
+              parallel: _updateStages((node.parallel as unknown) as StageElementWrapperConfig[])
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any
+          }
+
+          return node
+        })
+      }
+
+      updatePipeline({
+        ...state.pipeline,
+        stages: _updateStages(state.pipeline.stages || [])
+      })
+    },
+    [state.pipeline, updatePipeline]
+  )
+
   React.useEffect(() => {
     if (state.isDBInitialized) {
       fetchPipeline(true)
@@ -365,6 +397,7 @@ export const PipelineProvider: React.FC<{
         renderPipelineStage,
         fetchPipeline,
         updatePipeline,
+        updateStage,
         updatePipelineView,
         pipelineSaved,
         deletePipelineCache,
@@ -374,4 +407,8 @@ export const PipelineProvider: React.FC<{
       {children}
     </PipelineContext.Provider>
   )
+}
+
+export function usePipelineContext(): PipelineContextInterface {
+  return React.useContext(PipelineContext)
 }

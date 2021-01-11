@@ -18,7 +18,12 @@ import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import { CustomVariables } from '@pipeline/components/CustomVariables/CustomVariables'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
 const newStageData = [
@@ -57,6 +62,7 @@ export interface EditStageView {
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context, onChange }): JSX.Element => {
   const [isDescriptionVisible, toggleDescription] = React.useState(!!data?.stage?.description)
+  const { stepsFactory } = usePipelineContext()
 
   const removeDescription = (values: any) => {
     onChange?.({ ...values, description: '' })
@@ -64,6 +70,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
   }
 
   const { getString } = useStrings()
+
   return (
     <>
       <div className={css.stageSection}>
@@ -187,7 +194,20 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
         {context && <Layout.Vertical className={css.tabHeading}>{getString('variableLabel')}</Layout.Vertical>}
 
         <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
-          {context && <CustomVariables />}
+          {context ? (
+            <StepWidget<CustomVariablesData>
+              factory={stepsFactory}
+              initialValues={{
+                variables: (data?.stage as any)?.variables || [],
+                canAddVariable: true
+              }}
+              type={StepType.CustomVariable}
+              stepViewType={StepViewType.InputVariable}
+              onUpdate={({ variables }: CustomVariablesData) => {
+                onChange?.({ ...data?.stage, variables } as any)
+              }}
+            />
+          ) : null}
         </div>
       </div>
     </>

@@ -13,17 +13,15 @@ export default function DeployStageSpecifications(): JSX.Element {
       pipeline,
       pipelineView: {
         splitViewData: { selectedStageId }
-      },
-      pipelineView
+      }
     },
-    updatePipelineView,
     updatePipeline
   } = React.useContext(PipelineContext)
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)
-  const [stageData, updateStageData] = React.useState({ customVariables: [], ...stage?.stage })
+  const [stageData, updateStageData] = React.useState({ variables: [], ...stage?.stage })
   const StateRef = React.useRef(stageData)
-  const updateStage = (data: any) => {
+  const updateStage = (data: any): void => {
     updateStageData(data)
     StateRef.current = data
   }
@@ -36,10 +34,7 @@ export default function DeployStageSpecifications(): JSX.Element {
         _stageObj.name = StateRef.current?.name
         _stageObj.identifier = StateRef.current?.identifier
         _stageObj.description = StateRef.current?.description
-        updatePipelineView({
-          ...pipelineView,
-          splitViewData: { ...pipelineView.splitViewData, selectedStageId: StateRef.current?.identifier }
-        })
+        _stageObj.variables = StateRef.current?.variables
       }
 
       updatePipeline(pipeline)
@@ -52,13 +47,14 @@ export default function DeployStageSpecifications(): JSX.Element {
         <EditStageView
           data={cloneOriginalData}
           context={'setup'}
-          onChange={values =>
+          onChange={values => {
             updateStage({
               name: values?.name,
               identifier: values?.identifier,
-              description: values?.description
+              description: values?.description,
+              variables: values?.variables
             })
-          }
+          }}
         />
       </Layout.Vertical>
     </Layout.Vertical>

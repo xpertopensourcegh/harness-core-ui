@@ -1,24 +1,28 @@
 import React from 'react'
 
 import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
-import type { StageElement, DeploymentStage, NGVariable as Variable, NgPipeline } from 'services/cd-ng'
+import type { StageElement } from 'services/cd-ng'
 
-import { StepWidget } from '../../AbstractSteps/StepWidget'
-import { StepViewType } from '../../AbstractSteps/Step'
-import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
+import type {
+  CustomVariablesData,
+  CustomVariableEditableExtraProps
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { usePipelineContext } from '../PipelineContext/PipelineContext'
+
 import { ServiceCardPanel } from './ServiceCard'
 import i18n from './PipelineVariables.i18n'
 import css from './PipelineVariables.module.scss'
 
 export interface StageCardProps {
   stage: StageElement
-  factory: AbstractStepFactory
-  pipeline: NgPipeline
-  updatePipeline: (pipeline: NgPipeline) => Promise<void>
 }
 
 export default function StageCard(props: StageCardProps): React.ReactElement {
-  const { stage, factory, pipeline, updatePipeline } = props
+  const { stage } = props
+  const { updateStage, stepsFactory } = usePipelineContext()
 
   return (
     <NestedAccordionPanel
@@ -35,43 +39,45 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
           <div className={css.variableListTable}>
             <Text
               style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-large)' }}
-            >{`${stage.identifier}.name`}</Text>
+            >{`$${stage.identifier}.name`}</Text>
             <Text>{i18n.string}</Text>
             <Text>{stage.name}</Text>
             <Text style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-large)' }}>
-              {`${stage.identifier}.identifier`}
+              {`$${stage.identifier}.identifier`}
             </Text>
             <Text>{i18n.string}</Text>
             <Text>{stage.identifier}</Text>
             <Text style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-large)' }}>
-              {`${stage.identifier}.description`}
+              {`$${stage.identifier}.description`}
             </Text>
             <Text>{i18n.string}</Text>
             <Text>{stage.description}</Text>
             <Text
               style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-large)' }}
-            >{`${stage.identifier}.tags`}</Text>
+            >{`$${stage.identifier}.tags`}</Text>
             <Text>{i18n.string}</Text>
             <Text>{stage.tags}</Text>
           </div>
 
           {stage.spec && (
             <React.Fragment>
-              <StepWidget
-                factory={factory}
+              <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
+                factory={stepsFactory}
                 initialValues={{
-                  // TODO: fix this later with correct path
-                  variables: (stage.spec as DeploymentStage | any).customVariables || []
+                  variables: (stage as any).variables || [],
+                  canAddVariable: true
                 }}
-                type="Custom_Variable"
+                type={StepType.CustomVariable}
                 stepViewType={StepViewType.InputVariable}
-                onUpdate={({ variables }: { variables: Variable[] }) => {
-                  // TODO: fix this later with correct path
-                  ;(stage.spec as any).customVariables = variables
-                  updatePipeline(pipeline)
+                onUpdate={({ variables }: CustomVariablesData) => {
+                  updateStage({ ...stage, variables } as any)
+                }}
+                customStepProps={{
+                  variableNamePrefix: `$${stage.identifier}.`,
+                  domId: `Stage.${stage.identifier}.Variables-panel`
                 }}
               />
-              <ServiceCardPanel stage={stage} pipeline={pipeline} factory={factory} updatePipeline={updatePipeline} />
+              <ServiceCardPanel stage={stage} />
               <NestedAccordionPanel
                 addDomId
                 id={`Stage.${stage.identifier}.Infrastructure`}

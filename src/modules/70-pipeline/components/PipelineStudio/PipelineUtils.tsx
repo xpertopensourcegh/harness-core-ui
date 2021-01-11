@@ -25,7 +25,7 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
 
   // common to ci and cd stage
   stageNode.childNodes?.push({
-    id: `Stage.${stage.identifier}.Custom_Variables`,
+    id: `Stage.${stage.identifier}.Variables`,
     hasCaret: false,
     label: <Text>{i18n.customVariables}</Text>,
     className: classes.secondary
@@ -96,7 +96,7 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
 export const getPipelineTree = (pipeline: NgPipeline, classes: NodeClasses = {}): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [
     {
-      id: 'Pipeline_Variables',
+      id: 'Pipeline',
       hasCaret: false,
       label: (
         <Text color={Color.GREY_800} style={{ fontWeight: 500 }}>
@@ -106,7 +106,7 @@ export const getPipelineTree = (pipeline: NgPipeline, classes: NodeClasses = {})
       className: classes.primary
     },
     {
-      id: 'Pipeline_Custom_Variables',
+      id: 'Pipeline.Variables',
       hasCaret: false,
       label: (
         <Text color={Color.GREY_800} style={{ fontWeight: 500 }}>
