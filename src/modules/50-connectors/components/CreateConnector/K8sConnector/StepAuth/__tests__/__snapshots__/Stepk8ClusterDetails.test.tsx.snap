@@ -29,7 +29,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -395,7 +395,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -776,7 +776,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1157,7 +1157,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1523,7 +1523,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1796,7 +1796,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -2008,7 +2008,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               <span
                 class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
               >
-                Manually enter master url and credentials
+                Specify master url and credentials
               </span>
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"

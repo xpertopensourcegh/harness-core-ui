@@ -573,13 +573,12 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
-              >
-                
-              </p>
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
+              />
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -782,20 +781,25 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -968,20 +972,25 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -1159,20 +1168,25 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (www.google.com)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (www.google.com)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -1390,20 +1404,25 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (www.docker.com)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (www.docker.com)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -1633,20 +1652,25 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (sample.google.com)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (sample.google.com)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -3562,13 +3586,12 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
-              >
-                
-              </p>
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
+              />
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -3771,20 +3794,25 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -3957,20 +3985,25 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (https://github.com/vardanbansal-harness/vscode-yaml.git)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (https://github.com/vardanbansal-harness/vscode-yaml.git)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -4148,20 +4181,25 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (www.google.com)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (www.google.com)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -4379,20 +4417,25 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (www.docker.com)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (www.docker.com)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
@@ -4622,20 +4665,25 @@ exports[`Connectors Page Test Select and apply a filter 1`] = `
             role="cell"
             style="width: 25%;"
           >
-            <div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main summaryLabel StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 2;"
+            <div
+              class="wrapper"
+            >
+              <div
+                color="black"
               >
-                <span>
-                  URL
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                <div
+                  class="name"
                 >
-                  (sample.google.com)
-                </span>
-              </p>
+                  <span>
+                    URL
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-black"
+                  >
+                    (sample.google.com)
+                  </span>
+                </div>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >

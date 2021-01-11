@@ -180,12 +180,12 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   const DelegateCards: DelegateCardInterface[] = [
     {
       type: DelegateTypes.DELEGATE_OUT_CLUSTER,
-      info: getString('connectors.delegateOutClusterInfo2')
+      info: getString('connectors.k8.delegateOutClusterInfo')
     },
     // TODO: Enable after Delegate dependency is resolved
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('connectors.delegateInClusterInfo'),
+      info: getString('connectors.k8.delegateInClusterInfo'),
       disabled: true
     }
   ]

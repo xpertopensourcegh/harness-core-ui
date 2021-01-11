@@ -532,7 +532,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        Specify credentials in harness-delegate.yaml files on your Harness Delegates
                       </span>
                     </div>
                   </div>
@@ -1178,7 +1178,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        Specify credentials in harness-delegate.yaml files on your Harness Delegates
                       </span>
                     </div>
                   </div>

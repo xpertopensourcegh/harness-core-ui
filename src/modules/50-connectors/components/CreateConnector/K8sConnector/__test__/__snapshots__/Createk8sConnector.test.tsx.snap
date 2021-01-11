@@ -398,7 +398,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Manually enter master url and credentials
+                    Specify master url and credentials
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -873,7 +873,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Manually enter master url and credentials
+                    Specify master url and credentials
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1527,7 +1527,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Manually enter master url and credentials
+                    Specify master url and credentials
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -2253,7 +2253,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Manually enter master url and credentials
+                    Specify master url and credentials
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -2728,7 +2728,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Manually enter master url and credentials
+                    Specify master url and credentials
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"

@@ -780,9 +780,6 @@ global:
     failedActivity: Failed Activity
     heartbeatFailure: Heart beat Failure
   connectors:
-    delegateOutClusterInfo1: 'Specify credentials here'
-    delegateOutClusterInfo2: 'Manually enter master url and credentials'
-    delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
     stepThreeName: 'Test Connection'
     name: 'Connector Name'
     authTitle: 'Authentication'
@@ -824,6 +821,8 @@ global:
         git: Validating the Git authentication and permissions
     k8:
       stepTwoName: 'Cluster Details'
+      delegateOutClusterInfo: 'Specify master url and credentials'
+      delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
       masterUrlLabel: 'Master URL'
       serviceAccountToken: 'Service Account Token'
       skipDefaultValidation: 'Skip default namespace validation'
@@ -847,6 +846,8 @@ global:
       stepTwoName: 'HashiCorp Vault Details'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
+      delegateOutClusterInfo: 'Specify credentials here'
+      delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
     git:
       gitStepTwoName: 'Git Connection Details'
       githubStepTwoName: 'GitHub Connection Details'

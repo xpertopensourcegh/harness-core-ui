@@ -44,14 +44,14 @@ type CustomColumn<T extends object> = Column<T> & {
 
 const getConnectorDisplaySummaryLabel = (titleStringId: string, value: string): JSX.Element | string => {
   return (
-    <>
+    <div className={css.name}>
       {titleStringId ? <String stringID={titleStringId} /> : null}
       {value ? (
         <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
           {`(${value})`}
         </Text>
       ) : null}
-    </>
+    </div>
   )
 }
 
@@ -99,10 +99,8 @@ const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) =>
   const data = row.original
 
   return data.connector ? (
-    <div>
-      <Text color={Color.BLACK} lineClamp={2} className={css.summaryLabel}>
-        {getConnectorDisplaySummary(data.connector)}
-      </Text>
+    <div className={css.wrapper}>
+      <div color={Color.BLACK}>{getConnectorDisplaySummary(data.connector)}</div>
       <Text color={Color.GREY_400}>{data.connector?.description}</Text>
     </div>
   ) : null
