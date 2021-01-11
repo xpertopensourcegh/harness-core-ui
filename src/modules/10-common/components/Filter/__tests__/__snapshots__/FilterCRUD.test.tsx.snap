@@ -46,7 +46,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
           type="button"
         >
           <span
@@ -75,7 +75,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
+        class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
         disabled=""
         tabindex="-1"
         type="button"
@@ -141,19 +141,21 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
         <div>
           <ol
             class="filters"
-            style="max-height: 56vh;"
+            style="max-height: 55vh;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
+              title="This filter is visible to only me."
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-bottom-small"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
                   class="noElement"
                 />
                 <div
                   class="filterLabel"
+                  title="DockerOnly"
                 >
                   DockerOnly
                 </div>
@@ -167,7 +169,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                   <button
                     class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
                     disabled=""
-                    id="filtermenu"
+                    id="filtermenu-DockerOnly"
                     tabindex="-1"
                     type="button"
                   >
@@ -201,15 +203,34 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -220,15 +241,17 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
+              title="This filter is visible to only me."
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-bottom-small"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
                   class="noElement"
                 />
                 <div
                   class="filterLabel"
+                  title="AWSOnly"
                 >
                   AWSOnly
                 </div>
@@ -241,7 +264,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                 >
                   <button
                     class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                    id="filtermenu"
+                    id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
                   >
@@ -249,15 +272,34 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -458,7 +500,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
           type="button"
         >
           <span
@@ -487,7 +529,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
+        class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
         disabled=""
         tabindex="-1"
         type="button"
@@ -553,19 +595,21 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
         <div>
           <ol
             class="filters"
-            style="max-height: 56vh;"
+            style="max-height: 55vh;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
+              title="This filter is visible to only me."
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-bottom-small"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
                   class="noElement"
                 />
                 <div
                   class="filterLabel"
+                  title="DockerOnly"
                 >
                   DockerOnly
                 </div>
@@ -578,7 +622,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                 >
                   <button
                     class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                    id="filtermenu"
+                    id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
                   >
@@ -586,15 +630,34 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -605,15 +668,17 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
+              title="This filter is visible to only me."
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-bottom-small"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
                   class="noElement"
                 />
                 <div
                   class="filterLabel"
+                  title="AWSOnly"
                 >
                   AWSOnly
                 </div>
@@ -626,7 +691,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                 >
                   <button
                     class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                    id="filtermenu"
+                    id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
                   >
@@ -634,15 +699,34 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -815,7 +899,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
           type="button"
         >
           <span
@@ -844,7 +928,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
+        class="bp3-button StyledProps--font Button--button StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
         type="button"
       >
         <span
@@ -882,19 +966,21 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
         <div>
           <ol
             class="filters"
-            style="max-height: 56vh;"
+            style="max-height: 85vh;"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
+              title="This filter is visible to only me."
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-bottom-small"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
                   class="noElement"
                 />
                 <div
                   class="filterLabel"
+                  title="DockerOnly"
                 >
                   DockerOnly
                 </div>
@@ -907,7 +993,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                 >
                   <button
                     class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                    id="filtermenu"
+                    id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
                   >
@@ -915,15 +1001,34 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>
@@ -934,15 +1039,17 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
+              title="This filter is visible to only me."
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-bottom-small"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
                   class="noElement"
                 />
                 <div
                   class="filterLabel"
+                  title="AWSOnly"
                 >
                   AWSOnly
                 </div>
@@ -955,7 +1062,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                 >
                   <button
                     class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
-                    id="filtermenu"
+                    id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
                   >
@@ -963,15 +1070,34 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                       class="bp3-icon StyledProps--main"
                     >
                       <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                        height="20"
+                        width="20"
                       >
-                        <g
-                          fill="#4d5969"
-                        >
+                        <defs>
                           <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            d="M0 0h24v24H0z"
+                            id="Options_svg__a"
+                          />
+                        </defs>
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <mask
+                            fill="#fff"
+                            id="Options_svg__b"
+                          >
+                            <use
+                              xlink:href="#Options_svg__a"
+                            />
+                          </mask>
+                          <path
+                            d="M17.5 13.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5.5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                            mask="url(#Options_svg__b)"
+                            stroke="#25A6F7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="rotate(90 12 12)"
                           />
                         </g>
                       </svg>

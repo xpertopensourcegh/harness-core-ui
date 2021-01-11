@@ -9,5 +9,6 @@ declare const styles: {
   readonly title: string
   readonly layout: string
   readonly titleLayout: string
+  readonly loading: string
 }
 export default styles

@@ -12,7 +12,8 @@ const props = {
   onClose: jest.fn(),
   onDuplicate: jest.fn(),
   onFilterSelect: jest.fn(),
-  enableEdit: false
+  enableEdit: false,
+  isRefreshingFilters: false
 }
 
 describe('Test FilterCRUD component', () => {
@@ -49,7 +50,7 @@ describe('Test FilterCRUD component', () => {
     fireEvent.click(getByText('Save')!)
     waitFor(() => expect(getByText(filterName)).toBeDefined())
     /* Editing filter added above */
-    const menuBtn = container.querySelectorAll('#filtermenu')[0]
+    const menuBtn = container.querySelector('#filtermenu-DockerOnly')
     expect(menuBtn).toBeDefined()
     fireEvent.click(menuBtn!)
     const popover = findPopoverContainer()

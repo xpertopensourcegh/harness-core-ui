@@ -113,7 +113,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         props.refetchConnector()
         state.setEnableEdit(false)
       }
-    } catch (error) {
+    } /* istanbul ignore next */ catch (error) {
       if (error.data?.message) {
         showError(error.data?.message)
       } else {
@@ -130,7 +130,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         setSelectedView(targetMode)
         setConnector(connectorJSONEq)
         setConnectorForYaml(connectorJSONEq)
-      } catch (err) {
+      } /* istanbul ignore next */ catch (err) {
         showError(err.name ? `${err.name}: ${err.message}` : err)
       }
     } else {
@@ -157,7 +157,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         setConnector(connectorJSONEq?.connector)
         setConnectorForYaml(connectorJSONEq?.connector)
       }
-    } catch (err) {
+    } /* istanbul ignore next */ catch (err) {
       if (err?.toString().includes('YAMLSemanticError')) {
         showError(getString('connectors.yamlError'))
         return
@@ -201,6 +201,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     requestOptions: { headers: { accept: 'application/json' } },
     lazy: true,
     mock: props.mockSnippetData
+    // queryParams: {
+    //   projectIdentifier,
+    //   orgIdentifier,
+    //   scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    // }
   })
 
   useEffect(() => {
@@ -229,6 +234,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const { data: connectorSchema } = useGetYamlSchema({
     queryParams: {
       entityType: 'Connectors'
+      // projectIdentifier,
+      // orgIdentifier,
+      // scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     },
     mock: props.mockSchemaData
   })

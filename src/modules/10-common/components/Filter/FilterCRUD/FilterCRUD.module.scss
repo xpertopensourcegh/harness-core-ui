@@ -16,7 +16,8 @@
 
 .addNewFilterBtn {
   justify-content: end;
-  height: var(--spacing-xxxlarge) !important;
+  height: var(--spacing-huge) !important;
+  padding-left: var(--spacing-medium) !important;
   background: var(--filter-theme-bg-color) !important;
   &:hover {
     background: var(--hover-bg-color) !important;
@@ -61,16 +62,13 @@
   &:hover {
     cursor: pointer;
     background: var(--hover-bg-color) !important;
+    opacity: 0.8;
   }
 }
 
 .filterLabel {
   color: var(--white);
   font-size: small;
-  width: 150px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .noElement {

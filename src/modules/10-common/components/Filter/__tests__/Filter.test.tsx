@@ -8,7 +8,7 @@ import type { FilterInterface } from '../Constants'
 
 const props: FilterProps<object, FilterInterface> = {
   onClose: jest.fn(),
-  children: <></>,
+  formFields: [<></>],
   /*******/
   onApply: jest.fn(),
   filters: [],
@@ -19,7 +19,8 @@ const props: FilterProps<object, FilterInterface> = {
     formValues: { connectorNames: [''], description: '' },
     metadata: { name: 'Sample', visible: 'OnlyCreator', identifier: 'Sample' }
   },
-  onFilterSelect: jest.fn()
+  onFilterSelect: jest.fn(),
+  isRefreshingFilters: false
 }
 
 const ConnectorFormFields: React.FC = () => {

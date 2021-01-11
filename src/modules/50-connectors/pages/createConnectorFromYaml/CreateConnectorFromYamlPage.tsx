@@ -70,6 +70,11 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     identifier: '',
     requestOptions: { headers: { accept: 'application/json' } },
     lazy: true
+    // queryParams: {
+    //   projectIdentifier,
+    //   orgIdentifier,
+    //   scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    // }
   })
 
   useEffect(() => {
@@ -97,6 +102,9 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { data: connectorSchema } = useGetYamlSchema({
     queryParams: {
       entityType: 'Connectors'
+      // projectIdentifier,
+      // orgIdentifier,
+      // scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })
 

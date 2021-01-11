@@ -1,8 +1,17 @@
 import React from 'react'
-import { render, waitFor, queryByText, fireEvent, findByText as findByTextAlt } from '@testing-library/react'
+import {
+  render,
+  waitFor,
+  queryByText,
+  fireEvent,
+  findByText as findByTextAlt,
+  findByText
+} from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorsPage from '../ConnectorsPage'
+
 import { connectorsData, catalogueData, statisticsMockData, filters } from './mockData'
 
 jest.mock('react-timeago', () => () => 'dummy date')
@@ -54,9 +63,9 @@ describe('Connectors Page Test', () => {
   })
 
   test('Render and check connector rows', async () => {
-    const { findByText } = setup()
+    const { findByText: findByConnectorText } = setup()
     connectorsData?.data?.content?.forEach(connector => {
-      expect(findByText(connector?.connector?.name)).toBeDefined()
+      expect(findByConnectorText(connector?.connector?.name)).toBeDefined()
     })
   })
 
@@ -135,5 +144,18 @@ describe('Connectors Page Test', () => {
       })
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('Test Create Connector Panel', async () => {
+    const { getByText, getByTestId } = setup()
+    fireEvent.click(getByText('New Connector'))
+    const portal = document.getElementsByClassName('bp3-portal')[0]
+    expect(portal).toBeDefined()
+    const createViaYBBtn = await findByText(portal as HTMLElement, 'YAML')
+    expect(createViaYBBtn).toBeDefined()
+    fireEvent.click(createViaYBBtn)
+    expect(
+      getByTestId('location').innerHTML.endsWith(routes.toCreateConnectorFromYaml({ accountId: 'dummy' }))
+    ).toBeTruthy()
   })
 })

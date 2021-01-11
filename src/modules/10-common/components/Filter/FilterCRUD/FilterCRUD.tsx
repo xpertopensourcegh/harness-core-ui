@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { isEmpty, omitBy } from 'lodash-es'
+import { isEmpty, omitBy, truncate } from 'lodash-es'
 import {
   Button,
   Color,
@@ -28,20 +28,34 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onSaveOrUpdate: (isUpdate: boolean, data: T) => Promise<void>
   onDelete: (identifier: string) => Promise<void>
   onClose: () => void
-  onDuplicate: (name: string) => Promise<void>
-  onFilterSelect: (name: string) => void
+  onDuplicate: (identifier: string) => Promise<void>
+  onFilterSelect: (identifier: string) => void
   enableEdit: boolean
+  isRefreshingFilters: boolean
 }
 
-const FILTER_LIST_MAX_HEIGHT = 56
+const FILTER_LIST_MAX_HEIGHT = 85
+const EDIT_SECTION_HEIGHT = 30
+const STEP_SIZE = 1.5
+const MAX_FILTER_NAME_LENGTH = 20
 
 export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>) => {
-  const { filters, initialValues, onSaveOrUpdate, onClose, onDelete, onDuplicate, onFilterSelect, enableEdit } = props
+  const {
+    filters,
+    initialValues,
+    onSaveOrUpdate,
+    onClose,
+    onDelete,
+    onDuplicate,
+    onFilterSelect,
+    enableEdit,
+    isRefreshingFilters
+  } = props
+
   const [isEditEnabled, setIsEditEnabled] = useState<boolean>()
   const [isNewFilter, setIsNewFilter] = useState<boolean>(false)
   const [filterInContext, setFilterInContext] = useState<T | null>()
   const { getString } = useStrings()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const ignoreClickEventDefaultBehaviour = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
@@ -52,22 +66,25 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
     ignoreClickEventDefaultBehaviour(event)
     setIsEditEnabled(true)
     setIsNewFilter(true)
+    setFilterInContext(null)
   }
 
   useEffect(() => {
     setIsEditEnabled(enableEdit)
   }, [enableEdit])
 
+  const formHasInitialValues = (): boolean => isEmpty(omitBy(initialValues, isEmpty))
+
   useEffect(() => {
     setFilterInContext(initialValues)
-    setIsNewFilter(isEmpty(omitBy(initialValues, isEmpty)))
+    setIsNewFilter(formHasInitialValues())
   }, [initialValues])
 
   useEffect(() => {
-    if (filterInContext?.name) {
-      onFilterSelect(filterInContext?.name || '')
+    if (filterInContext?.identifier) {
+      onFilterSelect(filterInContext?.identifier || '')
     }
-  }, [filterInContext?.name])
+  }, [filterInContext?.identifier])
 
   const confirmDialogProps: IDialogProps = {
     isOpen: true,
@@ -80,7 +97,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
   }
 
   const [showModal, hideModal] = useModalHook(() => {
-    const { name, visible } = filterInContext as T
+    const { visible, identifier } = filterInContext as T
     return (
       <Dialog
         title={getString('filters.confirmDelete')}
@@ -98,14 +115,12 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             intent="primary"
             text={getString('confirm')}
             onClick={() => {
-              setIsLoading(true)
-              if (name) {
-                onDelete(name).then(_res => {
+              if (identifier) {
+                onDelete(identifier).then(_res => {
                   setIsEditEnabled(false)
                 })
               }
               hideModal()
-              setIsLoading(false)
             }}
           />
           &nbsp; &nbsp;
@@ -119,9 +134,10 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
     return (
       <Popover interactionKind={PopoverInteractionKind.HOVER} className={Classes.DARK} position={Position.RIGHT_TOP}>
         <Button
-          id="filtermenu"
+          id={`filtermenu-${filter?.identifier}`}
           minimal
-          icon="main-more"
+          icon="Options"
+          iconProps={{ size: 20 }}
           onClick={e => {
             e.stopPropagation()
           }}
@@ -137,6 +153,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
               setIsEditEnabled(true)
               setIsNewFilter(false)
             }}
+            disabled={isEditEnabled && filter?.identifier === filterInContext?.identifier}
           />
           <Menu.Item
             icon="duplicate"
@@ -144,12 +161,9 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
               ignoreClickEventDefaultBehaviour(event)
-              setIsLoading(true)
-              onDuplicate(filter.name).then(_res => {
+              onDuplicate(filter.identifier).then(_res => {
                 setIsEditEnabled(false)
-                setFilterInContext(filter)
               })
-              setIsLoading(false)
             }}
           />
           <Menu.Item
@@ -174,24 +188,34 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
         flex
         spacing="small"
         padding={{ right: 'medium' }}
-        className={cx(css.filter, { [css.isActive]: name === filterInContext?.name })}
+        className={cx(css.filter, { [css.isActive]: identifier === filterInContext?.identifier })}
         key={identifier}
         onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
           ignoreClickEventDefaultBehaviour(event)
-          onFilterSelect(name)
+          onFilterSelect(identifier)
         }}
+        title={getString('filters.visibilityTitle')}
       >
-        <Layout.Horizontal spacing="small" padding={{ top: 'small', left: 'medium', right: 'medium', bottom: 'small' }}>
+        <Layout.Horizontal spacing="small" padding="medium">
           {visible === 'OnlyCreator' ? (
             <Icon name="lock" margin={{ left: 'xsmall' }} />
           ) : (
             <span className={css.noElement} />
           )}
-          <div className={css.filterLabel}>{name}</div>
+          <div className={css.filterLabel} title={name}>
+            {truncate(name, { length: MAX_FILTER_NAME_LENGTH })}
+          </div>
         </Layout.Horizontal>
         {renderOptionMenu(filter)}
       </Layout.Horizontal>
     )
+  }
+
+  const getFilterListHeight = (submitCount: number, errorCount: number): number => {
+    if (isEditEnabled) {
+      return FILTER_LIST_MAX_HEIGHT - EDIT_SECTION_HEIGHT - (submitCount > 0 ? STEP_SIZE * errorCount : 0)
+    }
+    return FILTER_LIST_MAX_HEIGHT
   }
 
   const renderFilterList = (
@@ -201,16 +225,14 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
       visible: T['visible']
     }>
   ): JSX.Element => {
-    const errorCount = Object.keys(errors).length
-    const needsResize = submitCount > 0 && errorCount > 0
-    const resizedHeight = `${FILTER_LIST_MAX_HEIGHT - 2 * errorCount}vh`
-    const items = filters?.filter((filter: T) => filter.name).map((filter: T) => renderFilter(filter))
     return (
       <ol
         className={cx(css.filters)}
-        style={{ maxHeight: needsResize ? resizedHeight : `${FILTER_LIST_MAX_HEIGHT}vh` }}
+        style={{
+          maxHeight: `${getFilterListHeight(submitCount, Object.keys(errors).length)}vh`
+        }}
       >
-        {items}
+        {filters?.filter((filter: T) => filter.name).map((filter: T) => renderFilter(filter))}
       </ol>
     )
   }
@@ -226,29 +248,27 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
 
   return (
     <div className={css.main}>
-      {isLoading ? (
+      <Layout.Vertical spacing="large" padding={{ top: 'large', left: 'medium', right: 'small' }}>
+        <Layout.Horizontal flex>
+          <Layout.Horizontal spacing="small" className={css.layout}>
+            <Icon name="ng-filter" size={25} color={Color.WHITE} />
+            <span className={css.title}>Filter</span>
+          </Layout.Horizontal>
+          <Button minimal icon="cross" onClick={onClose} color={Color.WHITE} />
+        </Layout.Horizontal>
+      </Layout.Vertical>
+      {isRefreshingFilters ? (
         <OverlaySpinner show={true} className={css.loading}>
-          <span className={css.loading}>
-            <></>
-          </span>
+          <></>
         </OverlaySpinner>
       ) : (
         <>
-          <Layout.Vertical spacing="large" padding={{ top: 'large', left: 'medium', right: 'small' }}>
-            <Layout.Horizontal flex>
-              <Layout.Horizontal spacing="small" className={css.layout}>
-                <Icon name="ng-filter" size={25} color={Color.WHITE} />
-                <span className={css.title}>Filter</span>
-              </Layout.Horizontal>
-              <Button intent="primary" minimal icon="cross" onClick={onClose} />
-            </Layout.Horizontal>
-          </Layout.Vertical>
           <Layout.Vertical padding={{ top: 'xlarge' }}>
             <Button
               intent="primary"
               icon="plus"
               text={getString('filters.newFilter')}
-              className={css.addNewFilterBtn}
+              className={cx(css.addNewFilterBtn, { [css.isActive]: formHasInitialValues() })}
               onClick={onAddNewFilter}
               padding={{ left: 'large' }}
               border={false}
@@ -256,17 +276,15 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
           </Layout.Vertical>
           <Formik
             onSubmit={values => {
-              setIsLoading(true)
               const payload = Object.assign(values, {
                 identifier: filterInContext?.identifier
               }) as T
-              if (payload?.name && payload?.visible) {
+              /* istanbul ignore else */ if (payload?.name && payload?.visible) {
                 onSaveOrUpdate(isNewFilter ? false : true, payload)?.then(_res => {
                   setFilterInContext(payload)
                 })
               }
               setIsEditEnabled(false)
-              setIsLoading(false)
             }}
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('filters.nameRequired')),

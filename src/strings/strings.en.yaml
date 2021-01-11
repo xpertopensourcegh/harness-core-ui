@@ -35,6 +35,7 @@ global:
   details: Details
   test: Test
   enable: Enable
+  reset: Reset
   health: Health
   activitySource: Activity Source
   dataSource: Data Source
@@ -195,8 +196,12 @@ global:
     deleteFilterForUser: Deleting a private filter will remove it from your saved filter list. This action can not be undone.
     deleteFilterForEveryone: Deleting a shared filter will remove it for all users who has access to the project. This action can not be undone.
     confirmDelete: Confirm Deletion
-    filterDeleted: Filter deleted.
-    filterDuplicated: Filter duplicated.
+    filterDeleted: filter deleted.
+    filterDuplicated: filter duplicated.
+    selectFilter: Select a saved filter
+    invalidSelection: Invalid selection
+    visibilityTitle: This filter is visible to only me.
+    invalidCriteria: Invalid or no filter criteria specified.
   customText: '{{text}}'
   adminLabel: 'Admin'
   collaboratorsLabel: 'Collaborators'

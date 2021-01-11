@@ -7,11 +7,13 @@ import {
   Select,
   SelectOption,
   FormInput,
-  MultiSelectOption
+  MultiSelectOption,
+  OverlaySpinner
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { isEmpty, isUndefined, omitBy, omit, debounce } from 'lodash-es'
-import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { isEmpty, isUndefined, omitBy, omit, debounce, truncate } from 'lodash-es'
+import { Popover, PopoverInteractionKind, Position, MenuItem } from '@blueprintjs/core'
+import type { FormikErrors } from 'formik'
 import {
   useGetConnectorListV2,
   ResponsePageConnectorResponse,
@@ -19,18 +21,16 @@ import {
   ConnectorCatalogueItem,
   ResponseConnectorCatalogueResponse,
   useGetConnectorStatistics,
-  ConnectorStatusStatistics,
-  ConnectorTypeStatistics,
   useGetFilterList,
   FilterDTO,
   usePostFilter,
   useUpdateFilter,
-  ConnectorFilterProperties,
   PageConnectorResponse,
   useDeleteFilter,
   ResponsePageFilterDTO,
   ResponseConnectorStatistics
 } from 'services/cd-ng'
+import type { ConnectorFilterProperties } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { PageError } from 'modules/10-common/components/Page/PageError'
 import { Page, useToaster, StringUtils } from 'modules/10-common/exports'
@@ -55,7 +55,11 @@ import {
   createRequestBodyPayload,
   ConnectorFormType,
   getValidFilterArguments,
-  renderItemByType
+  renderItemByType,
+  getAggregatedConnectorFilter,
+  ConnectorStatCategories,
+  getOptionsForMultiSelect,
+  validateForm
 } from './utils/RequestUtils'
 import css from './ConnectorsPage.module.scss'
 
@@ -66,15 +70,12 @@ interface ConnectorsListProps {
   filtersMockData?: UseGetMockData<ResponsePageFilterDTO>
 }
 
-const enum ConnectorStatCategories {
-  STATUS = 'STATUS',
-  TYPE = 'TYPE',
-  TAGS = 'TAGS'
-}
-
 const removeNullAndEmpty = (object: Record<string, any>) => omitBy(omitBy(object, isUndefined), isEmpty)
 
+const isObjectEmpty = (arg: Record<string, any>): boolean => isEmpty(omitBy(arg, isEmpty))
+
 const UNSAVED_FILTER = 'Unsaved Filter'
+const MAX_FILTER_NAME_LENGTH = 25
 
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
@@ -88,6 +89,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const [isFetchingConnectors, setIsFetchingConnectors] = useState<boolean>(false)
   const [errorWhileFetchingConnectors, setErrorWhileFetchingConnectors] = useState<Error>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
+  const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
   const defaultQueryParams = {
     pageIndex: page,
     pageSize: 10,
@@ -104,7 +106,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     queryParams: defaultQueryParams
   })
 
-  const refetchConnectorList = async (filter?: ConnectorFilterProperties, needsRefinement?: boolean) => {
+  const refetchConnectorList = async (filter?: ConnectorFilterProperties, needsRefinement = true) => {
     setIsFetchingConnectors(true)
 
     const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
@@ -130,29 +132,26 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
     try {
       const { status, data } = await fetchConnectors(sanitizedFilterRequest)
-      if (status === 'SUCCESS') {
+      /* istanbul ignore else */ if (status === 'SUCCESS') {
         setFetchedConnectorResponse(data)
       }
-    } catch (e) {
-      /* istanbul ignore next */
+    } /* istanbul ignore next */ catch (e) {
       showError(e.data?.message || e.message)
       setErrorWhileFetchingConnectors(e)
     }
     setIsFetchingConnectors(false)
   }
 
+  const fetchConnectorsWithFiltersApplied = (): Promise<void> => refetchConnectorList(appliedFilter?.filterProperties)
+
   useEffect(() => {
     ;(async () => {
-      await refetchConnectorList()
+      await fetchConnectorsWithFiltersApplied()
     })()
   }, [page])
 
-  const handleConnectorSearchByName = (query: string) => {
-    if (query) {
-      refetchConnectorList({ connectorNames: [query] })
-    } else {
-      refetchConnectorList()
-    }
+  const handleConnectorSearchByName = (query: string, filter: ConnectorFilterProperties) => {
+    refetchConnectorList(getAggregatedConnectorFilter(query, filter))
   }
 
   const handler = useCallback(debounce(handleConnectorSearchByName, 300), [])
@@ -161,8 +160,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     event.preventDefault()
     event.stopPropagation()
     const query = (event.target as HTMLInputElement).value
-    handler(query)
     setSearchTerm(query)
+    handler(query, appliedFilter?.filterProperties || {})
   }
 
   /* #endregion */
@@ -178,6 +177,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       | ConnectorCatalogueItem[]
       | { category: string; connectors: string[] } = originalData.slice()
     const createViaYAMLBuilderOption = { category: 'CREATE_VIA_YAML_BUILDER' as any, connectors: ['YAML'] as any }
+    /* istanbul ignore else */
     if (catalogueWithYAMLBuilderOption.length === originalData.length) {
       catalogueWithYAMLBuilderOption.push(createViaYAMLBuilderOption)
     }
@@ -210,21 +210,25 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     mock: catalogueMockData
   })
 
-  const { data: metaData } = useGetConnectorStatistics({
+  const { loading: isFetchingConnectorStats, data: metaData } = useGetConnectorStatistics({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      orgIdentifier
     },
     mock: statisticsMockData
   })
 
+  useEffect(() => {
+    setIsFetchingStats(isFetchingConnectorStats)
+  }, [isFetchingConnectorStats])
+
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
-      refetchConnectorList()
+      fetchConnectorsWithFiltersApplied()
     },
     onClose: () => {
-      refetchConnectorList()
+      fetchConnectorsWithFiltersApplied()
     }
   })
 
@@ -260,60 +264,35 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     )
   }, [catalogueData])
 
-  const getOptions = (category: ConnectorStatCategories): MultiSelectOption[] => {
-    if (category === ConnectorStatCategories.STATUS) {
-      return (
-        metaData?.data?.statusStats?.map((item: ConnectorStatusStatistics) => {
-          //TODO @vardan make it match mocks when label accepts custom renderer as well
-          const val = item?.status || 'NA'
-          return createOption(val, item?.count)
-        }) || []
-      )
-    } else if (category === ConnectorStatCategories.TYPE) {
-      return (
-        metaData?.data?.typeStats?.map((item: ConnectorTypeStatistics) => {
-          const val = item?.type || 'NA'
-          return createOption(val, item?.count)
-        }) || []
-      )
-    }
-    return []
-  }
-
-  const createOption = (val: string, count?: number): MultiSelectOption => {
-    return {
-      label: val
-        .concat(' ')
-        .concat('(')
-        .concat((count || '').toString())
-        .concat(')'),
-      value: val
-    } as MultiSelectOption
-  }
-
   /* #endregion */
 
   /* #region Connector Filter CRUD Section */
 
-  const ConnectorFormFields: React.FC = () => {
-    return (
-      <>
-        <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} />
-        <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} />
-        <FormInput.Text name={'description'} label={getString('description')} />
-        <FormInput.MultiSelect
-          items={getOptions(ConnectorStatCategories.TYPE)}
-          name="types"
-          label={getString('typeLabel')}
-        />
-        <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
-        <FormInput.MultiSelect
-          items={getOptions(ConnectorStatCategories.STATUS)}
-          name="connectivityStatuses"
-          label={getString('filters.connectivityStatus')}
-        />
-      </>
-    )
+  const getConnectorFormFields = (): JSX.Element[] => {
+    return [
+      <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} key={'connectorNames'} />,
+      <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} key={'connectorIdentifiers'} />,
+      <FormInput.Text name={'description'} label={getString('description')} key={'description'} />,
+      <FormInput.MultiSelect
+        items={getOptionsForMultiSelect(ConnectorStatCategories.TYPE, metaData || {})}
+        name="types"
+        label={getString('typeLabel')}
+        key="types"
+        multiSelectProps={{
+          allowCreatingNewItems: false
+        }}
+      />,
+      <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} key="tags" />,
+      <FormInput.MultiSelect
+        items={getOptionsForMultiSelect(ConnectorStatCategories.STATUS, metaData || {})}
+        name="connectivityStatuses"
+        label={getString('filters.connectivityStatus')}
+        key="connectivityStatuses"
+        multiSelectProps={{
+          allowCreatingNewItems: false
+        }}
+      />
+    ]
   }
 
   const {
@@ -336,7 +315,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     setIsRefreshingFilters(isFetchingFilters)
   }, [fetchedFilterResponse])
 
-  if (errorFetchingFilterList) {
+  /* istanbul ignore next */ if (errorFetchingFilterList) {
     showError(errorFetchingFilterList?.message)
   }
 
@@ -359,9 +338,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     }
   })
 
-  const getFilterByName = (name: string): FilterDTO | undefined =>
+  const getFilterByIdentifier = (identifier: string): FilterDTO | undefined =>
     /* istanbul ignore if */
-    filters?.find((filter: FilterDTO) => filter.name?.toLowerCase() === name.toLowerCase())
+    filters?.find((filter: FilterDTO) => filter.identifier?.toLowerCase() === identifier.toLowerCase())
 
   const getMultiSelectFormOptions = (values?: any[]): SelectOption[] | undefined => {
     /* istanbul ignore if */
@@ -374,27 +353,29 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     isUpdate: boolean,
     data: FilterDataInterface<ConnectorFormType, FilterInterface>
   ): Promise<void> => {
+    setIsRefreshingFilters(true)
     const requestBodyPayload = createRequestBodyPayload({ isUpdate, data, projectIdentifier, orgIdentifier })
     try {
       const { status, data: updatedFilter } = isUpdate
         ? await updateFilter(requestBodyPayload)
         : await createFilter(requestBodyPayload)
       if (status === 'SUCCESS') {
-        showSuccess(`Filter ${isUpdate ? 'updated' : 'saved'}.`)
+        showSuccess(`${requestBodyPayload?.name} ${isUpdate ? 'updated' : 'saved'}.`)
         await refetchFilterList()
         if (isUpdate) {
           setAppliedFilter(updatedFilter)
-          refetchConnectorList(updatedFilter?.filterProperties, true)
+          refetchConnectorList(updatedFilter?.filterProperties)
         }
       }
-    } catch (e) {
-      /* istanbul ignore next */
+    } /* istanbul ignore next */ catch (e) {
       showError(e.data?.message || e.message)
     }
+    setIsRefreshingFilters(false)
   }
 
-  const handleDelete = async (filterName: string): Promise<void> => {
-    const matchingFilter = getFilterByName(filterName)
+  const handleDelete = async (identifier: string): Promise<void> => {
+    setIsRefreshingFilters(true)
+    const matchingFilter = getFilterByIdentifier(identifier)
     if (!matchingFilter?.identifier) {
       showError(getString('somethingWentWrong'))
       return
@@ -402,60 +383,80 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     try {
       const { status } = await deleteFilter(matchingFilter?.identifier || '')
       if (status === 'SUCCESS') {
-        showSuccess(getString('filters.filterDeleted'))
-        refetchFilterList()
+        showSuccess(`${matchingFilter?.name} ${getString('filters.filterDeleted')}`)
+        await refetchFilterList()
         if (matchingFilter?.identifier === appliedFilter?.identifier) {
           reset()
         }
       }
-    } catch (e) {
-      /* istanbul ignore next */
+    } /* istanbul ignore next */ catch (e) {
       showError(e.data?.message || e.message)
     }
+    setIsRefreshingFilters(false)
   }
 
-  const handleDuplicate = async (filterName: string): Promise<void> => {
-    const matchingFilter = getFilterByName(filterName)
+  const handleDuplicate = async (identifier: string): Promise<void> => {
+    setIsRefreshingFilters(true)
+    const matchingFilter = getFilterByIdentifier(identifier)
     const { name: _name, filterVisibility: _filterVisibility, filterProperties } = matchingFilter as FilterDTO
-    const duplicatedFilterName = _name.concat(' copy') || ''
+    const uniqueId = new Date().getTime().toString()
+    const duplicatedFilterName = _name.concat(' copy').concat(uniqueId) || ''
     const requestBodyPayload = {
       name: duplicatedFilterName,
-      identifier: StringUtils.getIdentifierFromName(duplicatedFilterName),
+      identifier: StringUtils.getIdentifierFromName(duplicatedFilterName).concat(uniqueId),
       projectIdentifier,
       orgIdentifier,
       filterVisibility: _filterVisibility,
       filterProperties
     }
     try {
-      const { status } = await createFilter(requestBodyPayload)
+      const { status, data: duplicatedFilter } = await createFilter(requestBodyPayload)
       if (status === 'SUCCESS') {
-        showSuccess(getString('filters.filterDuplicated'))
-        refetchFilterList()
+        showSuccess(`${_name} ${getString('filters.filterDuplicated')}`)
+        await refetchFilterList()
+        setAppliedFilter(duplicatedFilter)
       }
-    } catch (e) {
-      /* istanbul ignore next */
+    } /* istanbul ignore next */ catch (e) {
       showError(e.data?.message || e.message)
+    }
+    setIsRefreshingFilters(false)
+  }
+
+  const unsavedFilter = {
+    name: UNSAVED_FILTER,
+    identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
+  }
+
+  const handleFilterClick = (identifier: string): void => {
+    if (identifier !== unsavedFilter.identifier) {
+      setAppliedFilter(getFilterByIdentifier(identifier))
     }
   }
 
-  const handleFilterClick = (filterName: string): void => {
-    if (filterName !== UNSAVED_FILTER) {
-      setAppliedFilter(getFilterByName(filterName))
-    }
-  }
+  const typeMultiSelectValues = getOptionsForMultiSelect(ConnectorStatCategories.TYPE, metaData || {})?.map(
+    option => option.value
+  ) as string[]
+  const connectivityStatusMultiValues = getOptionsForMultiSelect(ConnectorStatCategories.STATUS, metaData || {})?.map(
+    option => option.value
+  ) as string[]
 
   const [openFilterDrawer, hideFilterDrawer] = useModalHook(() => {
     const onFilterApply = (formData: Record<string, any>) => {
-      const filterFromFormData = getValidFilterArguments(formData)
-      refetchConnectorList(filterFromFormData)
-      setAppliedFilter({ name: UNSAVED_FILTER, identifier: '', filterProperties: filterFromFormData })
-      hideFilterDrawer()
+      if (!isObjectEmpty(formData)) {
+        const filterFromFormData = getValidFilterArguments({ ...formData })
+        const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, { ...filterFromFormData })
+        setAppliedFilter({ ...unsavedFilter, filterProperties: aggregatedFilter || {} })
+        refetchConnectorList(aggregatedFilter, false)
+        hideFilterDrawer()
+      } else {
+        showError(getString('filters.invalidCriteria'))
+      }
     }
 
-    const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses } =
+    const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } =
       (appliedFilter?.filterProperties as ConnectorFilterProperties) || {}
     const { name = '', filterVisibility } = appliedFilter || {}
-    return isRefreshingFilters ? (
+    return isFetchingStats ? (
       <PageSpinner />
     ) : (
       <Filter<ConnectorFormType, FilterInterface>
@@ -477,7 +478,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             connectorIdentifiers,
             description,
             types: getMultiSelectFormOptions(types),
-            connectivityStatuses: getMultiSelectFormOptions(connectivityStatuses)
+            connectivityStatuses: getMultiSelectFormOptions(connectivityStatuses),
+            tags
           },
           metadata: {
             name,
@@ -489,11 +491,28 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         onDelete={handleDelete}
         onDuplicate={handleDuplicate}
         onFilterSelect={handleFilterClick}
-      >
-        <ConnectorFormFields />
-      </Filter>
+        isRefreshingFilters={isRefreshingFilters || isFetchingStats}
+        formFields={getConnectorFormFields()}
+        onValidate={(values: Partial<ConnectorFormType>): FormikErrors<Partial<ConnectorFormType>> => {
+          const errors: FormikErrors<{ types?: MultiSelectOption[]; connectivityStatuses?: MultiSelectOption[] }> = {}
+          const { typeErrors, connectivityStatusErrors } = validateForm(
+            values,
+            typeMultiSelectValues,
+            connectivityStatusMultiValues,
+            metaData || {}
+          )
+          if (typeErrors?.size > 0) {
+            errors.types = getString('filters.invalidSelection') + ': ' + renderItemByType(Array.from(typeErrors))
+          }
+          if (connectivityStatusErrors?.size > 0) {
+            errors.connectivityStatuses =
+              getString('filters.invalidSelection') + ': ' + renderItemByType(Array.from(connectivityStatusErrors))
+          }
+          return errors
+        }}
+      />
     )
-  }, [isRefreshingFilters, filters, appliedFilter])
+  }, [isRefreshingFilters, filters, appliedFilter, isFetchingStats, searchTerm])
 
   const handleFilterSelection = (
     option: SelectOption,
@@ -503,9 +522,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     event?.preventDefault()
     /* istanbul ignore else */
     if (option.value) {
-      const selectedFilter = getFilterByName(option.value?.toString())
-      setAppliedFilter(selectedFilter)
-      refetchConnectorList(selectedFilter?.filterProperties, true)
+      const selectedFilter = getFilterByIdentifier(option.value?.toString())
+      const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, selectedFilter?.filterProperties || {})
+      const combinedFilter = Object.assign(selectedFilter, { filterProperties: aggregatedFilter })
+      setAppliedFilter(combinedFilter)
+      refetchConnectorList(aggregatedFilter, false)
     } else {
       reset()
     }
@@ -525,13 +546,21 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     />
   )
 
+  const fieldToLabelMapping = new Map<string, string>()
+  fieldToLabelMapping.set('connectorNames', getString('connectors.name'))
+  fieldToLabelMapping.set('connectorIdentifiers', getString('identifier'))
+  fieldToLabelMapping.set('description', getString('description'))
+  fieldToLabelMapping.set('types', getString('typeLabel'))
+  fieldToLabelMapping.set('tags', getString('tagsLabel'))
+  fieldToLabelMapping.set('connectivityStatuses', getString('filters.connectivityStatus'))
+
   const getFilterSummary = (fields: object): JSX.Element => {
     return (
       <ol className={css.noStyleUl}>
         {Object.entries(fields as object).map(([key, value]) => (
           <li key={key} className={css.summaryItem}>
-            <span style={{ textTransform: 'capitalize' }}>{key} : </span>
-            <span style={{ textTransform: 'capitalize' }}>{renderItemByType(value)}</span>
+            <span style={{ fontWeight: 'bold' }}>{fieldToLabelMapping.get(key)} : </span>
+            <span style={{ fontWeight: 'bold' }}>{renderItemByType(value)}</span>
           </li>
         ))}
       </ol>
@@ -565,13 +594,19 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           <Select
             items={
               filters?.map((item: FilterDTO) => {
-                const name = item?.name
-                return { label: name, value: name } as SelectOption
+                return {
+                  label: truncate(item?.name, { length: MAX_FILTER_NAME_LENGTH }),
+                  value: item?.identifier
+                } as SelectOption
               }) || []
             }
             onChange={handleFilterSelection}
             addClearBtn={true}
-            value={{ label: appliedFilter?.name || '', value: appliedFilter?.name || '' }}
+            value={{ label: appliedFilter?.name || '', value: appliedFilter?.identifier || '' }}
+            inputProps={{
+              placeholder: getString('filters.selectFilter')
+            }}
+            noResults={<MenuItem disabled={true} text="No filter found." />}
           />
           {fieldCountInAppliedFilter ? (
             <Popover
@@ -593,9 +628,12 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       <Page.Body className={css.listBody}>
         {isFetchingConnectors ? (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
-            <PageSpinner />
+            {' '}
+            <OverlaySpinner show={true} className={css.loading}>
+              <></>
+            </OverlaySpinner>
           </div>
-        ) : errorWhileFetchingConnectors ? (
+        ) : /* istanbul ignore next */ errorWhileFetchingConnectors ? (
           <div style={{ paddingTop: '200px' }}>
             <PageError
               message={errorWhileFetchingConnectors?.message}
@@ -609,7 +647,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         ) : fetchedConnectorResponse?.content?.length ? (
           <ConnectorsListView
             data={fetchedConnectorResponse}
-            reload={refetchConnectorList}
+            reload={fetchConnectorsWithFiltersApplied}
             gotoPage={pageNumber => setPage(pageNumber)}
           />
         ) : (

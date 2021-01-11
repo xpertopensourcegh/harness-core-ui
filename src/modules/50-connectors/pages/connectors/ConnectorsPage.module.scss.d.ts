@@ -15,5 +15,6 @@ declare const styles: {
   readonly noStyleUl: string
   readonly summaryItem: string
   readonly summaryPopover: string
+  readonly loading: string
 }
 export default styles
