@@ -77,8 +77,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   })
   const { mutate: updateSecretYaml } = usePutSecretViaYaml({
     identifier: secretId,
-    queryParams: { accountIdentifier: accountId },
-    requestOptions: { headers: { 'content-type': 'application/yaml' } }
+    queryParams: { accountIdentifier: accountId }
   })
   const { data: snippetData } = useGetYamlSnippetMetadata({
     queryParams: {
@@ -86,8 +85,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
-    },
-    requestOptions: { headers: { accept: 'application/json' } }
+    }
   })
   const { data: secretSchema } = useGetYamlSchema({
     queryParams: {
@@ -97,7 +95,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
 
   const [secretData, setSecretData] = useState(data?.data)
 
-  const [snippetYaml, setSnippetYaml] = React.useState<string>()
   const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: refetch })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: refetch })
   const handleSaveYaml = async (): Promise<void> => {
@@ -126,13 +123,8 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   }, [data?.data])
   const { data: snippet, refetch: refetchSnippet } = useGetYamlSnippet({
     identifier: '',
-    requestOptions: { headers: { accept: 'application/json' } },
     lazy: true
   })
-
-  useEffect(() => {
-    setSnippetYaml(snippet?.data)
-  }, [snippet])
 
   const onSnippetCopy = async (identifier: string): Promise<void> => {
     await refetchSnippet({
@@ -202,8 +194,8 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           )}
         </Layout.Horizontal>
         {mode === Mode.YAML ? (
-          edit ? (
-            <Container>
+          <Container>
+            {edit && (
               <YamlBuilder
                 entityType={'Secrets'}
                 fileName={`${secretData.secret.name}.yaml`}
@@ -212,24 +204,26 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 bind={setYamlHandler}
                 onSnippetCopy={onSnippetCopy}
-                snippetYaml={snippetYaml}
+                snippetYaml={snippet?.data}
                 schema={secretSchema?.data || ''}
+                isReadOnlyMode={false}
                 snippets={snippetData?.data?.yamlSnippets}
               />
-              <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
-            </Container>
-          ) : (
-            <Container>
+            )}
+            {!edit && (
               <YamlBuilder
                 entityType={'Secrets'}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 fileName={`${secretData.secret.name}.yaml`}
                 isReadOnlyMode={true}
                 showSnippetSection={false}
-                bind={setYamlHandler}
+                onEnableEditMode={() => setEdit(true)}
               />
-            </Container>
-          )
+            )}
+            {edit && (
+              <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
+            )}
+          </Container>
         ) : (
           //View in Visual Mode
           <ViewSecretDetails secret={secretData} />

@@ -179,6 +179,12 @@ global:
   mapApplications: 'Map Applications to Harness Services'
   pipelineActivityLabel: 'Executions in last 7 days'
   total: 'Total'
+  createSecretYAML:
+    create: Create
+    newSecret: New Secret
+    createSecret: Create Secret from YAML
+    secretCreated: Secret created successfully
+    invalidSecret: Invalid Secret configuration
   formValidation:
     name: 'Name can only contain alphanumerics, _ and -'
   filters:
