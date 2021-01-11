@@ -33,6 +33,7 @@ export interface YamlBuilderProps {
   schema?: string | Record<string, string | any>
   needEditorReset?: boolean
   onEnableEditMode?: () => void
+  theme?: Theme
 }
 
 export interface CompletionItemInterface {
@@ -52,3 +53,5 @@ export interface LanguageSettingInterface {
   completion: boolean
   schemas: SchemaInterace[]
 }
+
+export type Theme = 'LIGHT' | 'DARK'

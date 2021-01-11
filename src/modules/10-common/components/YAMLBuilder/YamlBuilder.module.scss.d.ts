@@ -14,5 +14,7 @@ declare const styles: {
   readonly header: string
   readonly validationIcon: string
   readonly editor: string
+  readonly darkBg: string
+  readonly lightBg: string
 }
 export default styles

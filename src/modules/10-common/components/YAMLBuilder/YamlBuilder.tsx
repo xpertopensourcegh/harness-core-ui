@@ -13,7 +13,8 @@ import { Tag, Layout, Icon } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
   YamlBuilderHandlerBinding,
-  CompletionItemInterface
+  CompletionItemInterface,
+  Theme
 } from '@common/interfaces/YAMLBuilderProps'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
 import { validateYAMLWithSchema } from '@common/utils/YamlUtils'
@@ -32,26 +33,68 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
-//@ts-ignore
-monaco.editor.defineTheme('vs', {
-  base: 'vs',
-  inherit: false,
-  rules: [
-    { token: 'type', foreground: '1D76FF' },
-    { token: 'string', foreground: '22272D' },
-    { token: 'comment', foreground: '9aa5b5' }
-  ]
-})
-//@ts-ignore
-monaco.editor.setTheme('vs')
+const EDITOR_BASE_DARK_THEME = 'vs-dark'
+const EDITOR_BASE_LIGHT_THEME = 'vs'
+/* Dark theme colors */
+const EDITOR_DARK_BG = '4F5162'
+const EDITOR_DARK_FG = 'b8bfca'
+const EDITOR_DARK_SELECTION = '91999466'
+const EDITOR_WHITESPACE = '666C6880'
+const EDITOR_DARK_TYPE = '25a6f7'
 
-//@ts-ignore
-window.MonacoEnvironment = {
-  getWorker(_workerId: unknown, label: string) {
-    if (label === 'yaml') {
-      return new YamlWorker()
+/* Light theme colors */
+const EDITOR_LIGHT_BG = 'FFFFFF'
+
+/* Common colors */
+const EDITOR_COMMENT = '9aa5b5'
+const EDITOR_LIGHT_TYPE = '1D76FF'
+const EDITOR_LIGHT_STRING = '22272D'
+
+export const EditorTheme = {
+  LIGHT: [
+    { token: 'type', foreground: `#${EDITOR_LIGHT_TYPE}` },
+    { token: 'string', foreground: `#${EDITOR_LIGHT_STRING}` },
+    { token: 'comment', foreground: `#${EDITOR_COMMENT}` }
+  ],
+  DARK: [
+    { token: 'type', foreground: `#${EDITOR_DARK_TYPE}` },
+    { token: 'string', foreground: `#${EDITOR_DARK_FG}` },
+    { token: 'comment', foreground: `#${EDITOR_COMMENT}` }
+  ]
+}
+
+const getTheme = (theme: Theme) => (theme === 'DARK' ? EDITOR_BASE_DARK_THEME : EDITOR_BASE_LIGHT_THEME)
+
+const setUpEditor = (theme: Theme): void => {
+  //@ts-ignore
+  monaco.editor.defineTheme(getTheme(theme), {
+    base: getTheme(theme),
+    inherit: theme === 'DARK',
+    rules: theme === 'DARK' ? EditorTheme.DARK : EditorTheme.LIGHT,
+    colors:
+      theme === 'DARK'
+        ? {
+            'editor.background': `#${EDITOR_DARK_BG}`,
+            'editor.foreground': `#${EDITOR_DARK_FG}`,
+            'editor.selectionBackground': `#${EDITOR_DARK_SELECTION}`,
+
+            'editor.lineHighlightBackground': `#${EDITOR_DARK_SELECTION}`,
+            'editorCursor.foreground': `#${EDITOR_DARK_FG}`,
+            'editorWhitespace.foreground': `#${EDITOR_WHITESPACE}`
+          }
+        : { 'editor.background': `#${EDITOR_LIGHT_BG}` }
+  })
+  //@ts-ignore
+  monaco.editor.setTheme(getTheme(theme))
+
+  //@ts-ignore
+  window.MonacoEnvironment = {
+    getWorker(_workerId: unknown, label: string) {
+      if (label === 'yaml') {
+        return new YamlWorker()
+      }
+      return new EditorWorker()
     }
-    return new EditorWorker()
   }
 }
 
@@ -76,8 +119,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     snippetYaml,
     schema,
     needEditorReset,
-    onEnableEditMode
+    onEnableEditMode,
+    theme = 'LIGHT'
   } = props
+  setUpEditor(theme)
   const params = useParams()
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string[]> | undefined>()
@@ -350,10 +395,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   return (
     <div className={css.main}>
       <Layout.Horizontal className={css.layout}>
-        <div className={cx(css.builderSection, { [css.editorOnly]: !showSnippetSection })}>
-          <div className={css.header}>
+        <div
+          className={cx(
+            css.builderSection,
+            { [css.editorOnly]: !showSnippetSection },
+            { [css.darkBg]: theme === 'DARK' }
+          )}
+        >
+          <div className={cx(css.header)}>
             <div className={css.flexCenter}>
-              <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
+              <span className={cx(css.filePath, css.flexCenter, { [css.lightBg]: theme === 'DARK' })}>{fileName}</span>
               {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
             </div>
             {yamlValidationErrors && yamlValidationErrors.size > 0 ? (
@@ -376,7 +427,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
                 //@ts-ignore
                 wordBasedSuggestions: false,
                 fontFamily: "'Roboto Mono', monospace",
-                fontSize: 13
+                fontSize: 13,
+                minimap: {
+                  enabled: false
+                }
               }}
               ref={editorRef}
             />
