@@ -126,7 +126,7 @@ const LogsContent = (props: LogsContentProps) => {
         case 'blob': {
           const controller = new AbortController()
           setBlobController(controller)
-          getLogsFromBlob(activeLoadingSection.queryVars, { signal: controller.signal }).then(response => {
+          getLogsFromBlob(activeLoadingSection.queryVars, controller.signal).then(response => {
             const logsPerSectionNew = [...logsPerSection]
             logsPerSectionNew[activeLoadingSection.sectionIdx] = response.map(item => item.out).join('\n')
             setLogsPerSection(logsPerSectionNew)

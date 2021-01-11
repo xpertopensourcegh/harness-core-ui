@@ -75,7 +75,9 @@ const contextValue: ExecutionContextParams = {
 
 const fetchMock = jest.spyOn(global, 'fetch' as any)
 fetchMock.mockResolvedValue({
-  text: () => new Promise(resolve => resolve([]))
+  text: () => new Promise(resolve => resolve('')),
+  json: () => new Promise(resolve => resolve({})),
+  headers: { get: () => 'application/json' }
 })
 
 describe('<ExecutionGrapView /> tests', () => {

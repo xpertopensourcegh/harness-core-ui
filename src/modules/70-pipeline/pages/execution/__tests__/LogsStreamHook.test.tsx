@@ -1,5 +1,10 @@
+import { EventSourcePolyfill } from 'event-source-polyfill'
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useLogsStream } from '../LogsStreamHook'
+
+jest.mock('event-source-polyfill', () => ({
+  EventSourcePolyfill: jest.fn()
+}))
 
 const getQueryVar = () => ({
   accountID: 'accountID',
@@ -16,15 +21,17 @@ describe('useLogsStream hook tests', () => {
 
   test('should add logs to "logs" array', async () => {
     let lastInstance: any
-    const eventSourceMock = ((global as any).EventSource = jest.fn(function () {
-      lastInstance = {
-        readyState: 0,
-        close: jest.fn(),
-        onmessage: jest.fn(),
-        onerror: jest.fn()
-      }
-      return lastInstance
-    }))
+    const eventSourceMock = EventSourcePolyfill.mockImplementation(
+      jest.fn(function () {
+        lastInstance = {
+          readyState: 0,
+          close: jest.fn(),
+          onmessage: jest.fn(),
+          onerror: jest.fn()
+        }
+        return lastInstance
+      })
+    )
 
     const queryVars = getQueryVar()
     const { result } = renderHook(() => useLogsStream(queryVars))

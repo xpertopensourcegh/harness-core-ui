@@ -31,3 +31,5 @@ declare module '*.yml' {
 declare interface Window {
   apiUrl: string
 }
+
+declare module 'event-source-polyfill'

@@ -1,10 +1,13 @@
 import React from 'react'
 import { throttle } from 'lodash-es'
+// NOTE: we are using EventSourcePolyfill as EventSource API does not support custom headers
+import { EventSourcePolyfill } from 'event-source-polyfill'
 import type { Line, LogStreamQueryParams } from 'services/logs'
+import SessionToken from 'framework/utils/SessionToken'
 
 // NOTE: We are using custom implementation for loading stream logs
 // if we gets this info in DTO we can use it from there
-const streamEndpoint = '/gateway/log-service/stream'
+const streamEndpoint = '/log-service/stream'
 
 /**
  * Load logs using server events.
@@ -43,13 +46,21 @@ export const useLogsStream = (
       })
     }
 
+    const token = SessionToken.getToken()
+
     if (enableStreaming) {
-      const eventSource = new EventSource(
-        `${streamEndpoint}?accountID=${queryVars?.accountID}&key=${queryVars?.key}&X-Harness-Token=${queryVars?.['X-Harness-Token']}`
+      const eventSource = new EventSourcePolyfill(
+        `${streamEndpoint}?accountID=${queryVars?.accountID}&key=${queryVars?.key}`,
+        {
+          headers: {
+            'X-Harness-Token': queryVars?.['X-Harness-Token'],
+            ...(token ? { Authorization: `Bearer ${token}` } : {})
+          }
+        }
       )
 
       if (eventSource) {
-        eventSource.onmessage = e => {
+        eventSource.onmessage = (e: MessageEvent) => {
           if (e.type === 'error') {
             eventSource.close()
           }
@@ -58,7 +69,7 @@ export const useLogsStream = (
           throttledLogs()
         }
 
-        eventSource.onerror = e => {
+        eventSource.onerror = (e: Event) => {
           if (e.type === 'error') {
             eventSource.close()
           }

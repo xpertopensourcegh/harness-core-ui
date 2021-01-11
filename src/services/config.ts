@@ -1,3 +1,4 @@
+import SessionToken from 'framework/utils/SessionToken'
 import qs from 'qs'
 
 export const getConfig = (str: string): string => {
@@ -40,11 +41,9 @@ export const getUsingFetch = <
     url += `?${qs.stringify(props.queryParams)}`
   }
   return fetch(url, {
-    headers: {
-      'content-type': 'application/json'
-    },
     signal,
-    ...(props.requestOptions || {})
+    ...(props.requestOptions || {}),
+    headers: getHeaders(props.requestOptions?.headers)
   }).then(res => {
     const contentType = res.headers.get('content-type') || ''
     if (contentType.toLowerCase().indexOf('application/json') > -1) {
@@ -121,11 +120,9 @@ export const mutateUsingFetch = <
   return fetch(url, {
     method,
     body,
-    headers: {
-      'content-type': 'application/json'
-    },
     signal,
-    ...(props.requestOptions || {})
+    ...(props.requestOptions || {}),
+    headers: getHeaders(props.requestOptions?.headers)
   }).then(res => {
     const contentType = res.headers.get('content-type') || ''
     if (contentType.toLowerCase().indexOf('application/json') > -1) {
@@ -133,4 +130,20 @@ export const mutateUsingFetch = <
     }
     return res.text()
   })
+}
+
+const getHeaders = (headers: RequestInit['headers'] = {}): RequestInit['headers'] => {
+  const retHeaders: RequestInit['headers'] = {
+    'content-type': 'application/json'
+  }
+
+  const token = SessionToken.getToken()
+  if (token && token.length > 0) {
+    retHeaders.Authorization = `Bearer ${token}`
+  }
+
+  // add/overwrite passed headers
+  Object.assign(retHeaders, headers)
+
+  return retHeaders
 }

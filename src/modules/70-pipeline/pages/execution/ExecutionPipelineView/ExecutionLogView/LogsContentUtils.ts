@@ -1,3 +1,5 @@
+import { pick } from 'lodash-es'
+import { getConfig, getUsingFetch, GetUsingFetchProps } from 'services/config'
 import type { Line, LogBlobQueryParams, LogStreamQueryParams } from 'services/logs'
 import type { GraphLayoutNode } from 'services/pipeline-ng'
 
@@ -109,44 +111,46 @@ function isStatusSmellsLikeActive(
   return !nonActive
 }
 
-const apiEndpoint = '/gateway/log-service/blob'
+/**
+ * Get log response from blob
+ *
+ * NOTE: Custom implementation as we cannot use DTO (response is a string)
+ */
+const logBlobPromise = (
+  props: GetUsingFetchProps<string, void, LogBlobQueryParams, void>,
+  signal?: RequestInit['signal']
+) => getUsingFetch<string, void, LogBlobQueryParams, void>(getConfig('logs-service'), `/blob`, props, signal)
 
 /**
  * Get Logs from blob
  */
 export async function getLogsFromBlob(
-  queryVars: LogBlobQueryParams,
-  fetchRequestInit: RequestInit = {}
+  queryParams: LogBlobQueryParams,
+  signal?: RequestInit['signal']
 ): Promise<Line[]> {
-  const queryUrl = `accountID=${queryVars?.accountID}&key=${queryVars?.key}`
+  return logBlobPromise(
+    {
+      queryParams: pick(queryParams, ['key', 'accountId']) as LogBlobQueryParams,
+      requestOptions: { headers: { 'X-Harness-Token': queryParams['X-Harness-Token'] } }
+    },
+    signal
+  ).then((resp: string) => {
+    const lines = resp.split('\n')
+    let data: any[] = []
+    try {
+      data = lines.filter(line => line.length > 0).map(line => line && JSON.parse(line))
+    } catch (ex) {
+      // TBD: how to handle errors
+      // response: {error_msg: "..."}
+    }
 
-  return fetch(`${apiEndpoint}?${queryUrl}`, {
-    ...fetchRequestInit,
-    headers: { 'X-Harness-Token': queryVars['X-Harness-Token'] }
-  })
-    .then(resp => resp.text())
-    .then(resp => {
-      const lines = resp.split('\n')
-      let data: any[] = []
-      try {
-        data = lines.filter(line => line.length > 0).map(line => line && JSON.parse(line))
-      } catch (ex) {
-        // TBD: how to handle errors
-        // response: {error_msg: "..."}
+    const parsedData = data.map((item: any) => {
+      return {
+        ...item,
+        out: item?.out?.replace(`\n`, '')
       }
-
-      const parsedData = data.map((item: any) => {
-        return {
-          ...item,
-          out: item?.out?.replace(`\n`, '')
-        }
-        /*return {
-          logLevel: item?.level?.toUpperCase(),
-          createdAt: item?.time,
-          logLine: queryVars.key + `\n` + item?.out?.replace(`\n`, '')
-        }*/
-      })
-
-      return parsedData
     })
+
+    return parsedData
+  })
 }
