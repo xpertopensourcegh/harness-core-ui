@@ -19,6 +19,7 @@ import {
   ExecutionPipelineGroupInfo
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 
+import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import css from './ExecutionStageDetails.module.scss'
 
 export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
@@ -126,6 +127,7 @@ const processNodeData = (
         )
       })
     } else if (nodeData?.stepType === StepTypes.SECTION_CHAIN || nodeData?.stepType === StepTypes.SECTION) {
+      const icon = factory.getStepIcon(nodeData?.stepType)
       items.push({
         group: {
           name: nodeData.name || /* istanbul ignore next */ '',
@@ -134,7 +136,7 @@ const processNodeData = (
           showInLabel: false,
           status: nodeData.status as any,
           isOpen: true,
-          icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+          icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
           items: processNodeData(
             nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
             nodeMap,
@@ -152,10 +154,11 @@ const processNodeData = (
 
         addDependencies(serviceDependencyList, rootNodes)
       } else {
+        const icon = factory.getStepIcon(nodeData?.stepType || '')
         items.push({
           item: {
             name: nodeData?.name || /* istanbul ignore next */ '',
-            icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+            icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
             identifier: item,
             status: nodeData?.status as any,
             type: ExecutionPipelineNodeType.NORMAL,
@@ -177,10 +180,11 @@ const processNodeData = (
           )
         })
       } else {
+        const icon = factory.getStepIcon(nodeData?.stepType || '')
         items.push({
           item: {
             name: nodeDataNext?.name || /* istanbul ignore next */ '',
-            icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+            icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
             identifier: id,
             status: nodeDataNext?.status as any,
             type: ExecutionPipelineNodeType.NORMAL,
@@ -210,6 +214,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       /* istanbul ignore else */
       if (nodeData) {
         if (nodeData.stepType === StepTypes.NG_SECTION) {
+          const icon = factory.getStepIcon(nodeData?.stepType || '')
           items.push({
             group: {
               name: nodeData.name || /* istanbul ignore next */ '',
@@ -217,7 +222,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
               data: nodeData,
               status: nodeData.status as any,
               isOpen: true,
-              icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+              icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
               items: processNodeData(
                 nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                 graph?.nodeMap,
@@ -236,10 +241,11 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
             )
           })
         } else {
+          const icon = factory.getStepIcon(nodeData?.stepType || '')
           items.push({
             item: {
               name: nodeData.name || /* istanbul ignore next */ '',
-              icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+              icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
               showInLabel: nodeData.stepType === StepTypes.SERVICE || nodeData.stepType === StepTypes.INFRASTRUCTURE,
               identifier: nodeId,
               status: nodeData.status as any,

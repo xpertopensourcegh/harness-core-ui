@@ -8,7 +8,13 @@ import AdvancedSteps from '@pipeline/components/PipelineSteps/AdvancedSteps/Adva
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
-export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isStepGroup, stepsFactory }) => {
+export const StepCommands: React.FC<StepCommandsProps> = ({
+  step,
+  onChange,
+  isStepGroup,
+  stepsFactory,
+  hiddenPanels
+}) => {
   const { getString } = useStrings()
 
   return (
@@ -31,7 +37,13 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
             id="advanced"
             title={getString('advancedTitle')}
             panel={
-              <AdvancedSteps step={step} stepsFactory={stepsFactory} onChange={onChange} isStepGroup={isStepGroup} />
+              <AdvancedSteps
+                step={step}
+                stepsFactory={stepsFactory}
+                onChange={onChange}
+                hiddenPanels={hiddenPanels}
+                isStepGroup={isStepGroup}
+              />
             }
           />
         </Tabs>

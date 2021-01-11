@@ -8,6 +8,7 @@ import { DefaultNewPipelineId, PipelineProvider, PipelineStudio } from '@pipelin
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/exports'
 import css from './CIPipelineStudio.module.scss'
 
 export const runPipelineDialogProps: Omit<IDialogProps, 'isOpen'> = {
@@ -49,6 +50,7 @@ const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
   const handleRunPipeline = React.useCallback(async () => {
     openModel()
   }, [openModel])
+  const { selectedProject } = useAppStore()
 
   const history = useHistory()
   return (
@@ -56,7 +58,9 @@ const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
       stagesMap={stagesMap}
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
       pipelineIdentifier={pipelineIdentifier}
-      renderPipelineStage={getCDPipelineStages}
+      renderPipelineStage={args =>
+        getCDPipelineStages(args, true, selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1)
+      }
       stepsFactory={factory}
       runPipeline={handleRunPipeline}
     >

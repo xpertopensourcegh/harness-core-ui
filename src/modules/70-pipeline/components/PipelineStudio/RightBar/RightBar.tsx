@@ -35,6 +35,7 @@ export const RightBar = (): JSX.Element => {
       <div />
       <Button
         noStyling
+        disabled
         className={cx(css.iconButton, { [css.selected]: type === DrawerTypes.Templates })}
         onClick={() =>
           updatePipelineView({

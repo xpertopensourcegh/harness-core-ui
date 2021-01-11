@@ -77,14 +77,17 @@ export const stagesMap: StagesMap = {
 }
 
 export const getCDPipelineStages: (
-  args: Omit<PipelineStagesProps, 'children'>
-) => React.ReactElement<PipelineStagesProps> = args => (
+  args: Omit<PipelineStagesProps, 'children'>,
+  isCIEnabled?: boolean,
+  isCDEnabled?: boolean
+) => React.ReactElement<PipelineStagesProps> = (args, isCIEnabled = false, isCDEnabled = false) => (
   <PipelineStages {...args}>
     <DeployStage
       icon={MapStepTypeToIcon[StageTypes.DEPLOY]}
       iconsStyle={{ color: 'var(--pipeline-deploy-stage-color)' }}
       name={i18n.deploy}
       type={StageTypes.DEPLOY}
+      isHidden={!isCDEnabled}
       isDisabled={false}
       isApproval={false}
     />
@@ -94,6 +97,7 @@ export const getCDPipelineStages: (
       name={i18n.build}
       type={StageTypes.BUILD}
       isDisabled={false}
+      isHidden={!isCIEnabled}
       isApproval={false}
     />
     <PipelineStage

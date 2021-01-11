@@ -4,6 +4,7 @@ import type { NgPipeline, ExecutionWrapper, YamlSnippetMetaData } from 'services
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type { Diagram } from '@pipeline/exports'
 import type { DependenciesWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
+import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -55,6 +56,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       node: ExecutionWrapper | DependenciesWrapper
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
+      hiddenAdvancedPanels?: AdvancedPanels[]
     }
   }
 }

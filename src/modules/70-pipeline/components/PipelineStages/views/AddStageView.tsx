@@ -16,7 +16,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
     <div className={css.createNewCards}>
       {stages.map(stage => (
         <React.Fragment key={stage.type}>
-          {!stage.isApproval || !isParallel ? (
+          {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
             <Card
               interactive={true}
               disabled={stage.isDisabled}

@@ -7,6 +7,7 @@ export interface PipelineStageProps<T = {}> {
   type: string
   icon: IconName
   isDisabled: boolean
+  isHidden?: boolean
   isApproval: boolean
   stageProps?: T
   iconsStyle?: React.CSSProperties

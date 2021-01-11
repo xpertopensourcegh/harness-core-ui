@@ -4,7 +4,11 @@ import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
-import type { StepCommandsProps, Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import {
+  AdvancedPanels,
+  StepCommandsProps,
+  Values
+} from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
@@ -17,7 +21,7 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 }
 
 export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactElement {
-  const { step, onChange } = props
+  const { step, onChange, hiddenPanels = [] } = props
   const handleValidate = (values: Values): void => {
     onChange({ ...values, tab: TabTypes.Advanced, shouldKeepOpen: true })
   }
@@ -37,22 +41,28 @@ export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactEle
         return (
           <FormikForm className={css.form}>
             <div>
-              <Accordion activeId="failureStrategy">
-                <Accordion.Panel
-                  id="preRequisites"
-                  summary={getString('preRequisitesTitle')}
-                  details={<PreRequisitesPanel />}
-                />
-                <Accordion.Panel
-                  id="skipCondition"
-                  summary={getString('skipConditionsTitle')}
-                  details={<SkipConditionsPanel />}
-                />
-                <Accordion.Panel
-                  id="failureStrategy"
-                  summary={getString('failureStrategyTitle')}
-                  details={<FailureStrategyPanel formikProps={formikProps} />}
-                />
+              <Accordion activeId={AdvancedPanels.SkipCondition}>
+                {hiddenPanels.indexOf(AdvancedPanels.PreRequisites) === -1 && (
+                  <Accordion.Panel
+                    id={AdvancedPanels.PreRequisites}
+                    summary={getString('preRequisitesTitle')}
+                    details={<PreRequisitesPanel />}
+                  />
+                )}
+                {hiddenPanels.indexOf(AdvancedPanels.SkipCondition) === -1 && (
+                  <Accordion.Panel
+                    id={AdvancedPanels.SkipCondition}
+                    summary={getString('skipConditionsTitle')}
+                    details={<SkipConditionsPanel />}
+                  />
+                )}
+                {hiddenPanels.indexOf(AdvancedPanels.FailureStrategy) === -1 && (
+                  <Accordion.Panel
+                    id={AdvancedPanels.FailureStrategy}
+                    summary={getString('failureStrategyTitle')}
+                    details={<FailureStrategyPanel formikProps={formikProps} />}
+                  />
+                )}
               </Accordion>
             </div>
           </FormikForm>

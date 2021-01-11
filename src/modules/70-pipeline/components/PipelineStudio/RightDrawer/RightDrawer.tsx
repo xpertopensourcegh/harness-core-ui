@@ -92,6 +92,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             }
           }}
           isStepGroup={data.stepConfig.isStepGroup}
+          hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
         />
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (

@@ -148,8 +148,5 @@ describe('Test Pipeline Studio', () => {
     const varBtn = getByTitle('Input Variables')
     fireEvent.click(varBtn)
     expect(getByText(document.body, 'Pipeline Variables')).toBeDefined()
-    fireEvent.click(document.querySelector('.bp3-overlay-backdrop')!)
-    fireEvent.click(varBtn.parentElement?.previousSibling!)
-    expect(getByText(document.body, 'Templates')).toBeDefined()
   })
 })

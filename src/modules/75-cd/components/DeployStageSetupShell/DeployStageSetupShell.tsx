@@ -14,6 +14,7 @@ import type {
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -247,7 +248,8 @@ export default function DeployStageSetupShell(): JSX.Element {
                         stepConfig: {
                           node: event.node,
                           isStepGroup: event.isStepGroup,
-                          addOrEdit: event.addOrEdit
+                          addOrEdit: event.addOrEdit,
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
                         }
                       }
                     }

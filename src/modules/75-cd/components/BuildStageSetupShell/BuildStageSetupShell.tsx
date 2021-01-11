@@ -22,6 +22,7 @@ import {
   StepType
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import i18n from './BuildStageSetupShell.i18n'
@@ -224,7 +225,8 @@ export default function BuildStageSetupShell(): JSX.Element {
                               identifier: generateRandomString(name)
                             },
                             addOrEdit: 'add',
-                            isStepGroup: false
+                            isStepGroup: false,
+                            hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
                           }
                         }
                       }
@@ -257,7 +259,8 @@ export default function BuildStageSetupShell(): JSX.Element {
                         stepConfig: {
                           node: event.node,
                           isStepGroup: event.isStepGroup,
-                          addOrEdit: event.addOrEdit
+                          addOrEdit: event.addOrEdit,
+                          hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
                         }
                       }
                     }

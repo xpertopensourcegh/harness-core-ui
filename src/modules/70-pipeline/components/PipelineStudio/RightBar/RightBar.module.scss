@@ -13,6 +13,12 @@
     border: none;
     background-color: transparent;
 
+    &[disabled] {
+      path {
+        fill: var(--grey-400) !important;
+      }
+    }
+
     &.selected,
     &:hover {
       background-color: var(--grey-200);
