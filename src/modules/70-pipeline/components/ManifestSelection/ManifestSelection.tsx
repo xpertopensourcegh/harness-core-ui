@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
@@ -216,6 +216,15 @@ function ManifestListView({
     }
     if (isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+    }
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', null)) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+    }
+    if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', null)) {
+      set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+    }
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', null)) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
     }
     return !isForOverrideSets
       ? !isForPredefinedSets

@@ -18,7 +18,8 @@ import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
 
-import { get } from 'lodash-es'
+import get from 'lodash-es/get'
+import set from 'lodash-es/set'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -168,7 +169,9 @@ export default function ArtifactsSelection({
     if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.sidecars', [])
     }
-    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', null)) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
+    } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
   }
 
   const artifacts = getArtifactsPath() || {}
