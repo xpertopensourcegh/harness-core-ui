@@ -25,13 +25,15 @@ function StepForm({
   allValues,
   values,
   onUpdate,
-  readonly
+  readonly,
+  path
 }: {
   template?: ExecutionWrapperConfig
   allValues?: ExecutionWrapperConfig
   values?: ExecutionWrapperConfig
   onUpdate: (data: ExecutionWrapper) => void
   readonly?: boolean
+  path: string
 }): JSX.Element {
   return (
     <>
@@ -39,6 +41,7 @@ function StepForm({
       <StepWidget<ExecutionWrapper>
         factory={factory}
         readonly={readonly}
+        path={path}
         template={template?.step}
         initialValues={values?.step || {}}
         allValues={allValues?.step || {}}
@@ -79,6 +82,7 @@ function ExecutionWrapperInputSetForm(props: {
               template={item}
               allValues={originalStep}
               values={initialValues}
+              path={`${path}[${index}].step`}
               readonly={readonly}
               onUpdate={data => {
                 if (initialValues) {
@@ -103,6 +107,7 @@ function ExecutionWrapperInputSetForm(props: {
                   allValues={originalStep}
                   values={initialValues}
                   readonly={readonly}
+                  path={`${path}[${index}].parallel[${indexp}].step`}
                   onUpdate={data => {
                     if (initialValues) {
                       if (!initialValues.step) {
@@ -196,6 +201,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               template={deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}}
               type={StepType.K8sServiceSpec}
               stepViewType={StepViewType.InputSet}
+              path={`${path}.serviceConfig.serviceDefinition.spec`}
               readonly={readonly}
               onUpdate={(data: any) => {
                 if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
