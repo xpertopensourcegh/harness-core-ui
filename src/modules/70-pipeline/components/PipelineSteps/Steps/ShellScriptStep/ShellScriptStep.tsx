@@ -100,7 +100,12 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         spec: Yup.object().shape({
-          shell: Yup.string().required(getString('validation.scriptTypeRequired'))
+          shell: Yup.string().required(getString('validation.scriptTypeRequired')),
+          source: Yup.object().shape({
+            spec: Yup.object().shape({
+              script: Yup.string().required(getString('validation.scriptTypeRequired'))
+            })
+          })
         })
       })}
     >
@@ -190,22 +195,20 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       spec: {
         ...initialValues.spec,
         shell: 'BASH',
-        onDelegate: initialValues.spec?.onDelegate ? 'targethost' : 'delegate',
+        onDelegate: initialValues.spec?.onDelegate ? 'delegate' : 'targethost',
 
         source: {
           ...initialValues.spec?.source,
           type: 'Inline',
           spec: {
             ...initialValues.spec?.source?.spec,
-            script: ''
+            script: initialValues.spec?.source?.spec?.script
           }
         },
 
         executionTarget: {
           ...initialValues.spec?.executionTarget,
-          host: '',
-          connectorRef: '',
-          workingDirectory: ''
+          connectorRef: ''
         },
 
         environmentVariables: Array.isArray(initialValues.spec?.environmentVariables)
@@ -230,6 +233,15 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       ...data,
       spec: {
         ...data.spec,
+        onDelegate: data.spec?.onDelegate === 'targethost' ? false : true,
+
+        source: {
+          ...data.spec?.source,
+          spec: {
+            ...data.spec?.source?.spec,
+            script: data.spec?.source?.spec?.script
+          }
+        },
 
         executionTarget: {
           ...data.spec?.executionTarget,

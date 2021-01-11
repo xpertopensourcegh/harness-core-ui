@@ -59,7 +59,11 @@ export default function ExecutionTarget(props: {
       {formValues.spec.onDelegate === 'targethost' ? (
         <>
           <div className={stepCss.formGroup}>
-            <FormInput.MultiTextInput name="spec.executionTarget.host" label={getString('targetHost')} />
+            <FormInput.MultiTextInput
+              name="spec.executionTarget.host"
+              label={getString('targetHost')}
+              style={{ marginTop: 'var(--spacing-small)' }}
+            />
             {getMultiTypeFromValue(formValues.spec.executionTarget.host) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions
                 value={formValues.spec.executionTarget.host}
@@ -84,8 +88,9 @@ export default function ExecutionTarget(props: {
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier as string}
                 orgIdentifier={orgIdentifier as string}
-                width={300}
+                width={465}
                 isNewConnectorLabelVisible={false}
+                enableConfigureOptions={false}
                 type="Git"
               />
             )}
@@ -112,6 +117,7 @@ export default function ExecutionTarget(props: {
             <FormInput.MultiTextInput
               name="spec.executionTarget.workingDirectory"
               label={getString('workingDirectory')}
+              style={{ marginTop: 'var(--spacing-medium)' }}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.workingDirectory) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions

@@ -162,6 +162,57 @@ describe('Test Shell Script Step', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should render edit view', () => {
+    const initialValues = {
+      type: 'ShellScript',
+      identifier: 'ShellScript',
+      name: 'SSH',
+      spec: {
+        shell: 'BASH',
+        onDelegate: 'targethost',
+        source: {
+          type: 'Inline',
+          spec: {
+            script: 'test script'
+          }
+        },
+        executionTarget: {
+          host: 'targethost',
+          connectionType: 'SSH',
+          connectorRef: 'connectorRef',
+          workingDirectory: './temp'
+        },
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'Test_A'
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: 'Test_B'
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            value: 'Test_C'
+          },
+          {
+            name: 'testOutput2',
+            value: 'Test_D'
+          }
+        ]
+      }
+    }
+    const { container } = render(
+      <TestStepWidget initialValues={initialValues} type={StepType.SHELLSCRIPT} stepViewType={StepViewType.Edit} />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
   test('form produces correct data for fixed inputs', async () => {
     const onUpdate = jest.fn()
     const { container, getByText } = render(
@@ -178,7 +229,10 @@ describe('Test Shell Script Step', () => {
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
     fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'BASH' } })
     // fireEvent.change(queryByNameAttribute('spec.onDelegate')!, { target: { value: 'delegate' } })
-    fireEvent.change(queryByNameAttribute('spec.source.spec.script')!, { target: { value: 'script test' } })
+    fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
+      target: { value: 'script test' },
+      bubbles: true
+    })
 
     fireEvent.click(getByText('Script Input Variables'))
 
@@ -194,10 +248,10 @@ describe('Test Shell Script Step', () => {
       target: { value: 'response.message' }
     })
 
-    fireEvent.click(getByText('Execution Target'))
-    fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
+    // fireEvent.click(getByText('Execution Target'))
+    // fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
     // fireEvent.change(queryByNameAttribute('spec.executionTarget.connectorRef')!, { target: { value: '' } })
-    fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
+    // fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
 
     fireEvent.click(getByText('Script Output Variables'))
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
@@ -217,17 +271,17 @@ describe('Test Shell Script Step', () => {
       name: 'SSH',
       spec: {
         shell: 'BASH',
-        onDelegate: 'targethost',
+        onDelegate: true,
         source: {
           type: 'Inline',
           spec: {
-            script: ''
+            script: 'script test'
           }
         },
         executionTarget: {
-          host: 'targethost',
+          host: '',
           connectorRef: '',
-          workingDirectory: './temp'
+          workingDirectory: ''
         },
         environmentVariables: [
           {

@@ -7,7 +7,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import type { ShellScriptFormData } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
-import css from './ShellScript.module.scss'
 
 export const shellScriptType: SelectOption[] = [
   { label: 'Bash', value: 'BASH' },
@@ -22,10 +21,6 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
   const { getString } = useStrings()
   return (
     <div className={stepCss.stepPanel}>
-      <div className={css.stepDesc}>
-        <span className={css.stepType}>{getString('stepType')}</span> :{' '}
-        <span className={css.stepValue}>{getString('shellScriptStep')}</span>
-      </div>
       <div className={stepCss.formGroup}>
         <FormInput.InputWithIdentifier inputLabel={getString('pipelineSteps.stepNameLabel')} />
       </div>
@@ -35,12 +30,15 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
           name="spec.shell"
           label={getString('scriptType')}
           placeholder={getString('scriptType')}
-          style={{ width: 350 }}
           disabled
         />
       </div>
       <div className={stepCss.formGroup}>
-        <FormMultiTypeTextAreaField name="spec.source.spec.script" label={getString('script')} />
+        <FormMultiTypeTextAreaField
+          name="spec.source.spec.script"
+          label={getString('script')}
+          multiTypeTextArea={{ enableConfigureOptions: false }}
+        />
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
             value={formValues.spec.source?.spec?.script as string}
