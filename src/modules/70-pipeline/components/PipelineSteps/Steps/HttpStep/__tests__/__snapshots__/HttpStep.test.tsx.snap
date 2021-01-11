@@ -246,7 +246,7 @@ exports[`Http Step edit mode works 1`] = `
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value=""
+                                value="GET"
                               />
                               <span
                                 class="bp3-input-action"
@@ -2015,7 +2015,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value=""
+                                value="GET"
                               />
                               <span
                                 class="bp3-input-action"

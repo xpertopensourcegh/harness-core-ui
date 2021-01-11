@@ -632,6 +632,7 @@ global:
     lessThanZero: 'Instance cannot be less than zero.'
     morethanHundred: 'Instance cannot be more than 100.'
     instancesRequired: 'Instance is required.'
+    methodIsRequired: Method is required
     keyInfo: The key the cache will be identified by. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
     restoreCacheKeyInfo: The key that can be used to restore this cache. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
     gcr:

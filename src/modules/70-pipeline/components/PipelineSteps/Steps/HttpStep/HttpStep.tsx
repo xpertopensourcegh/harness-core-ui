@@ -51,6 +51,7 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         spec: Yup.object().shape({
           url: Yup.string().required(getString('validation.UrlRequired')),
+          method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })
       })}
@@ -161,9 +162,10 @@ export class HttpStep extends PipelineStep<HttpStepData> {
       ...initialValues,
       spec: {
         ...initialValues.spec,
-        method: getMultiTypeFromValue(initialValues.spec?.method as string)
-          ? (initialValues.spec?.method as string)
-          : httpStepType.find(step => step.value === initialValues.spec.method),
+        method:
+          getMultiTypeFromValue(initialValues.spec?.method as string) === MultiTypeInputType.RUNTIME
+            ? (initialValues.spec?.method as string)
+            : httpStepType.find(step => step.value === initialValues.spec?.method || 'GET'),
         headers:
           getMultiTypeFromValue(initialValues.spec?.headers as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.headers as string)
