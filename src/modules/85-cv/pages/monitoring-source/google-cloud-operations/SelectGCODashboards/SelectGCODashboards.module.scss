@@ -14,3 +14,14 @@
   left: 52%;
   transform: translateX(-50%);
 }
+
+.columnContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+
+  .filterStyle p {
+    margin-right: var(--spacing-xsmall) !important;
+  }
+}

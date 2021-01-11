@@ -4,5 +4,7 @@ declare const styles: {
   readonly main: string
   readonly manualQueryLink: string
   readonly loadingErrorNoData: string
+  readonly columnContainer: string
+  readonly filterStyle: string
 }
 export default styles

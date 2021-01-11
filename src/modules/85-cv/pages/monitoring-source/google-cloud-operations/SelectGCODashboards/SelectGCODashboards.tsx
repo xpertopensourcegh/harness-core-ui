@@ -192,13 +192,14 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
           },
           {
             Header: (
-              <Container>
+              <Container className={css.columnContainer}>
                 <Link withoutHref onClick={() => setIsModalOpen(true)} className={css.manualQueryLink}>
                   {getString('cv.monitoringSources.gco.addManualInputQuery')}
                 </Link>
                 <TableColumnWithFilter
                   columnName={getString('cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName')}
                   appliedFilter={filteredDashboard}
+                  className={css.filterStyle}
                   onFilter={(filterValue: string) =>
                     setFilterAndPageOffset({ pageOffset: 0, filteredDashboard: filterValue })
                   }

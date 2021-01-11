@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Layout, Container, FormikForm, Formik, FormInput } from '@wings-software/uicore'
+import { Layout, Container, FormikForm, Formik, FormInput, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { connect } from 'formik'
@@ -15,11 +15,13 @@ import {
 } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
+import css from './SelectProduct.module.scss'
 
 interface SelectProductFieldProps {
   type: 'AppDynamics' | 'GoogleCloudOperations'
   productSelectValidationText?: string
   isEditMode?: boolean
+  connectorValue?: SelectOption
 }
 
 interface SelectProductProps<T> extends SelectProductFieldProps {
@@ -40,6 +42,7 @@ export const InitialValues = {
   name: '',
   description: '',
   identifier: '',
+  connectorRef: undefined,
   tags: []
 }
 
@@ -113,7 +116,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
   const monitoringSource = getInfoSchemaByType(props.type, getString)
 
   return (
-    <Container width="40%" style={{ margin: 'auto' }}>
+    <Container width="50%" style={{ margin: 'auto' }}>
       <SelectOrCreateConnector
         iconName={monitoringSource.iconName}
         iconLabel={monitoringSource.iconLabel}
@@ -122,10 +125,12 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
         firstTimeSetupText={monitoringSource.firstTimeSetupText}
         connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
         identifierDisabled={props.isEditMode}
+        value={props.connectorValue}
       />
       <FormInput.CustomRender
         label={monitoringSource?.selectProduct}
         name="product"
+        className={css.productSelection}
         render={formikProps => {
           return (
             <Layout.Horizontal spacing="medium">
@@ -168,21 +173,27 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
       validationSchema={Yup.object().shape(getValidationSchema(getString, props.productSelectValidationText))}
       onSubmit={formData => props.onCompleteStep({ ...formData } as any)}
     >
-      <FormikForm>
-        <SelectProductFields type={props.type} isEditMode={!!identifier} />
-        <SubmitAndPreviousButtons
-          onPreviousClick={() =>
-            history.push(
-              routes.toCVAdminSetup({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })
-            )
-          }
-        />
-        <SyncStepDataValues values={props?.stepData} />
-      </FormikForm>
+      {formikProps => (
+        <FormikForm>
+          <SelectProductFields
+            type={props.type}
+            isEditMode={!!identifier}
+            connectorValue={formikProps.values.connectorRef}
+          />
+          <SubmitAndPreviousButtons
+            onPreviousClick={() =>
+              history.push(
+                routes.toCVAdminSetup({
+                  projectIdentifier,
+                  orgIdentifier,
+                  accountId
+                })
+              )
+            }
+          />
+          <SyncStepDataValues values={props?.stepData} />
+        </FormikForm>
+      )}
     </Formik>
   )
 }

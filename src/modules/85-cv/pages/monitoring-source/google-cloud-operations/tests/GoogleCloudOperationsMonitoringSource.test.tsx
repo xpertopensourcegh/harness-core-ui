@@ -92,6 +92,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
     const useGetDSConfigSpy = jest.spyOn(cvService, 'useGetDSConfig')
     useGetDSConfigSpy.mockReturnValue({
       data: MockResponseData,
+      loading: false,
       refetch: refetchFn as any
     } as UseGetReturn<any, any, any, any>)
     const { container } = render(

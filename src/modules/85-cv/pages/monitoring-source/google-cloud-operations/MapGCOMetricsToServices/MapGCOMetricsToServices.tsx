@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { FormEvent, useCallback, useEffect, useState } from 'react'
 import {
   Color,
   Container,
@@ -453,138 +453,154 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
         }}
         validateOnChange={false}
         validateOnBlur={false}
-        validate={values =>
-          validate(
+        validate={values => {
+          const thing = validate(
             values,
             updatedData,
             getString('cv.monitoringSources.gco.mapMetricsToServicesPage.mainSetupValidation')
           )
-        }
+          return thing
+        }}
       >
-        {formikProps => (
-          <Container className={css.form}>
-            <GCODashboardWidgetMetricNav
-              className={css.leftNav}
-              connectorIdentifier={data.connectorRef?.value as string}
-              manuallyInputQueries={getManuallyCreatedQueries(updatedData)}
-              gcoDashboards={data.selectedDashboards}
-              showSpinnerOnLoad={!selectedMetric}
-              onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath) => {
-                let metricInfo = updatedData.get(metricName)
-                if (!metricInfo) {
-                  metricInfo = buildGCOMetricInfo({
-                    metricName,
-                    query,
-                    metricTags: { [widget]: '' },
-                    isManualQuery: query === MANUAL_INPUT_QUERY,
-                    dashboardName,
-                    dashboardPath
-                  })
-                }
+        {formikProps => {
+          return (
+            <Container className={css.form}>
+              <GCODashboardWidgetMetricNav
+                className={css.leftNav}
+                connectorIdentifier={data.connectorRef?.value as string}
+                manuallyInputQueries={getManuallyCreatedQueries(updatedData)}
+                gcoDashboards={data.selectedDashboards}
+                showSpinnerOnLoad={!selectedMetric}
+                onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath) => {
+                  let metricInfo = updatedData.get(metricName)
+                  if (!metricInfo) {
+                    metricInfo = buildGCOMetricInfo({
+                      metricName,
+                      query,
+                      metricTags: { [widget]: '' },
+                      isManualQuery: query === MANUAL_INPUT_QUERY,
+                      dashboardName,
+                      dashboardPath
+                    })
+                  }
 
-                metricInfo.query = formatJSON(metricInfo.query)
-                updatedData.set(metricName, metricInfo)
-                if (selectedMetric) {
-                  updatedData.set(selectedMetric as string, { ...formikProps.values })
-                }
+                  metricInfo.query = formatJSON(metricInfo.query)
+                  updatedData.set(metricName, metricInfo)
+                  if (selectedMetric) {
+                    updatedData.set(selectedMetric as string, { ...formikProps.values })
+                  }
 
-                setUpdatedData(new Map(updatedData))
-                setSelectedMetric(metricName)
-                onQueryChange(metricInfo.query, () =>
-                  formikProps.setFieldError(
-                    FieldNames.QUERY,
-                    getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                  setUpdatedData(new Map(updatedData))
+                  setSelectedMetric(metricName)
+                  onQueryChange(metricInfo.query, () =>
+                    formikProps.setFieldError(
+                      FieldNames.QUERY,
+                      getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                    )
                   )
-                )
-              }}
-            />
-            <FormikForm className={css.setupContainer}>
-              <Heading level={3} color={Color.BLACK} className={css.sectionHeading}>
-                {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications')}
-              </Heading>
-              <Container className={css.nameAndMetricTagContainer}>
-                <FormInput.KVTagInput
-                  label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricTagsLabel')}
-                  name={FieldNames.METRIC_TAGS}
-                />
-                <FormInput.Text
-                  label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel')}
-                  name={FieldNames.METRIC_NAME}
-                />
-              </Container>
-              <Container className={css.validationContainer}>
-                <FormInput.CustomRender
-                  name={FieldNames.QUERY}
-                  className={css.query}
-                  label={<TextAreaLabel onExpandQuery={() => setIsQueryExpanded(true)} />}
-                  render={() => (
-                    <textarea
-                      value={formikProps.values.query || ''}
-                      name={FieldNames.QUERY}
-                      onChange={event => {
-                        event.persist()
-                        formikProps.setFieldValue(FieldNames.QUERY, event.target?.value)
-                        setDebouncedFunc((prevDebounce?: any) => {
-                          prevDebounce?.cancel()
-                          const debouncedFunc = debounce(onQueryChange, 750)
-                          debouncedFunc(event.target.value, () =>
-                            formikProps.setFieldError(
-                              FieldNames.QUERY,
-                              getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
-                            )
-                          )
-                          return debouncedFunc as any
-                        })
-                      }}
-                    />
-                  )}
-                />
-                <ValidationChart
-                  loading={loading}
-                  error={error}
-                  sampleData={sampleData}
-                  queryValue={formikProps.values.query}
-                  onRetry={async () => {
-                    if (!formikProps.values.query?.length) return
-                    onQueryChange(formikProps.values.query)
-                  }}
-                />
-                {isQueryExpanded && (
-                  <Drawer
-                    {...DrawerOptions}
-                    onClose={() => {
-                      setIsQueryExpanded(false)
-                      onQueryChange(formikProps.values.query, () =>
-                        formikProps.setFieldError(
-                          FieldNames.QUERY,
-                          getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
-                        )
-                      )
+                }}
+              />
+              <FormikForm className={css.setupContainer}>
+                <Heading level={3} color={Color.BLACK} className={css.sectionHeading}>
+                  {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications')}
+                </Heading>
+                <Container className={css.nameAndMetricTagContainer}>
+                  <FormInput.KVTagInput
+                    label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricTagsLabel')}
+                    name={FieldNames.METRIC_TAGS}
+                    tagsProps={{
+                      addOnBlur: true,
+                      addOnPaste: true
                     }}
-                  >
-                    <MonacoEditor
-                      language="javascript"
-                      value={formatJSON(formikProps.values.query)}
-                      onChange={val => formikProps.setFieldValue(FieldNames.QUERY, val)}
-                      options={
-                        {
-                          readOnly: false,
-                          wordBasedSuggestions: false,
-                          fontFamily: "'Roboto Mono', monospace",
-                          fontSize: 13
-                        } as any
+                  />
+                  <FormInput.Text
+                    label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel')}
+                    name={FieldNames.METRIC_NAME}
+                    onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
+                      const currentSelectedInfo = updatedData.get(selectedMetric || '')
+                      if (currentSelectedInfo?.isManualQuery && newMetricName.currentTarget.value) {
+                        setSelectedMetric(newMetricName.currentTarget.value)
+                        updatedData.delete(selectedMetric || '')
+                        updatedData.set(newMetricName.currentTarget.value, { ...currentSelectedInfo })
+                        setUpdatedData(new Map(updatedData))
                       }
-                    />
-                  </Drawer>
-                )}
-              </Container>
-              <MapMetricToServiceAndEnvironment metricName={formikProps.values.metricName || ''} />
-              <ConfigureRiskProfile />
-              <FormInput.Text name={OVERALL} className={css.hiddenField} />
-              <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
-            </FormikForm>
-          </Container>
-        )}
+                    }}
+                  />
+                </Container>
+                <Container className={css.validationContainer}>
+                  <FormInput.CustomRender
+                    name={FieldNames.QUERY}
+                    className={css.query}
+                    label={<TextAreaLabel onExpandQuery={() => setIsQueryExpanded(true)} />}
+                    render={() => (
+                      <textarea
+                        value={formikProps.values.query || ''}
+                        name={FieldNames.QUERY}
+                        onChange={event => {
+                          event.persist()
+                          formikProps.setFieldValue(FieldNames.QUERY, event.target?.value)
+                          setDebouncedFunc((prevDebounce?: any) => {
+                            prevDebounce?.cancel()
+                            const debouncedFunc = debounce(onQueryChange, 750)
+                            debouncedFunc(event.target.value, () =>
+                              formikProps.setFieldError(
+                                FieldNames.QUERY,
+                                getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                              )
+                            )
+                            return debouncedFunc as any
+                          })
+                        }}
+                      />
+                    )}
+                  />
+                  <ValidationChart
+                    loading={loading}
+                    error={error}
+                    sampleData={sampleData}
+                    queryValue={formikProps.values.query}
+                    onRetry={async () => {
+                      if (!formikProps.values.query?.length) return
+                      onQueryChange(formikProps.values.query)
+                    }}
+                  />
+                  {isQueryExpanded && (
+                    <Drawer
+                      {...DrawerOptions}
+                      onClose={() => {
+                        setIsQueryExpanded(false)
+                        onQueryChange(formikProps.values.query, () =>
+                          formikProps.setFieldError(
+                            FieldNames.QUERY,
+                            getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                          )
+                        )
+                      }}
+                    >
+                      <MonacoEditor
+                        language="javascript"
+                        value={formatJSON(formikProps.values.query)}
+                        onChange={val => formikProps.setFieldValue(FieldNames.QUERY, val)}
+                        options={
+                          {
+                            readOnly: false,
+                            wordBasedSuggestions: false,
+                            fontFamily: "'Roboto Mono', monospace",
+                            fontSize: 13
+                          } as any
+                        }
+                      />
+                    </Drawer>
+                  )}
+                </Container>
+                <MapMetricToServiceAndEnvironment metricName={formikProps.values.metricName || ''} />
+                <ConfigureRiskProfile />
+                <FormInput.Text name={OVERALL} className={css.hiddenField} />
+                <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
+              </FormikForm>
+            </Container>
+          )
+        }}
       </Formik>
     </Container>
   )

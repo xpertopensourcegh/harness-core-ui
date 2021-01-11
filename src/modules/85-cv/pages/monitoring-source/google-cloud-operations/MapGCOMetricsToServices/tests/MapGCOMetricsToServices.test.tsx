@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
-import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { fillAtForm, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import * as cdService from 'services/cd-ng'
 import { FieldNames, MapGCOMetricsToServices } from '../MapGCOMetricsToServices'
 import { buildGCOMonitoringSourceInfo } from '../../GoogleCloudOperationsMonitoringSourceUtils'
+import { ManualInputQueryModal, MANUAL_INPUT_QUERY } from '../../ManualInputQueryModal/ManualInputQueryModal'
 
 const MockQuery = `{}`
 const MockSelectedMetricInfo = {
@@ -22,6 +23,52 @@ const MockParams = {
   orgIdentifier: '1234_orgId'
 }
 
+const MetricPackResponse = {
+  metaData: {},
+  resource: [
+    {
+      uuid: '9Xg2tjyAQCqcekCTVc_xtw',
+      accountId: 'eWZFoTkESDSkPfnGwAp0lQ',
+      orgIdentifier: 'cv_stable',
+      projectIdentifier: 'cv_validation',
+      dataSourceType: 'STACKDRIVER',
+      identifier: 'Errors',
+      category: 'Errors',
+      metrics: [{ name: 'Errors', type: 'ERROR', path: null, validationPath: null, thresholds: [], included: false }],
+      thresholds: null
+    },
+    {
+      uuid: '5CBVKks3T4WLIpYtaNO58g',
+      accountId: 'eWZFoTkESDSkPfnGwAp0lQ',
+      orgIdentifier: 'cv_stable',
+      projectIdentifier: 'cv_validation',
+      dataSourceType: 'STACKDRIVER',
+      identifier: 'Infrastructure',
+      category: 'Infrastructure',
+      metrics: [
+        { name: 'Infrastructure', type: 'INFRA', path: null, validationPath: null, thresholds: [], included: false }
+      ],
+      thresholds: null
+    },
+    {
+      uuid: 'NmTC-1wRSfmviaeu3n87Gw',
+      accountId: 'eWZFoTkESDSkPfnGwAp0lQ',
+      orgIdentifier: 'cv_stable',
+      projectIdentifier: 'cv_validation',
+      dataSourceType: 'STACKDRIVER',
+      identifier: 'Performance',
+      category: 'Performance',
+      metrics: [
+        { name: 'Response Time', type: 'RESP_TIME', path: null, validationPath: null, thresholds: [], included: false },
+        { name: 'Other', type: 'ERROR', path: null, validationPath: null, thresholds: [], included: false },
+        { name: 'Throughput', type: 'THROUGHPUT', path: null, validationPath: null, thresholds: [], included: false }
+      ],
+      thresholds: null
+    }
+  ],
+  responseMessages: []
+}
+
 jest.mock('lodash-es', () => ({
   ...(jest.requireActual('lodash-es') as object),
   debounce: jest.fn(fn => {
@@ -34,17 +81,34 @@ jest.mock('lodash-es', () => ({
 jest.mock('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav', () => ({
   ...(jest.requireActual('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav') as object),
   GCODashboardWidgetMetricNav: function MockMetricNav(props: any) {
+    const [openModal, setOpenModal] = useState(false)
     return (
-      <Container
-        className="metricWidgetNav"
-        onClick={() =>
-          props.onSelectMetric(
-            MockSelectedMetricInfo.metric,
-            MockSelectedMetricInfo.query,
-            MockSelectedMetricInfo.widgetName
-          )
-        }
-      />
+      <>
+        {openModal && (
+          <ManualInputQueryModal
+            onSubmit={() => {
+              props.onSelectMetric(MockSelectedMetricInfo.metric, MANUAL_INPUT_QUERY, MockSelectedMetricInfo.widgetName)
+            }}
+            closeModal={() => setOpenModal(false)}
+          />
+        )}
+        <Container
+          className="manualQuery"
+          onClick={() =>
+            props.onSelectMetric(MockSelectedMetricInfo.metric, MANUAL_INPUT_QUERY, MockSelectedMetricInfo.widgetName)
+          }
+        />
+        <Container
+          className="metricWidgetNav"
+          onClick={() =>
+            props.onSelectMetric(
+              MockSelectedMetricInfo.metric,
+              MockSelectedMetricInfo.query,
+              MockSelectedMetricInfo.widgetName
+            )
+          }
+        />
+      </>
     )
   }
 }))
@@ -90,38 +154,42 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const getEnvironmentSpy = jest.spyOn(cdService, 'useGetEnvironmentListForProject')
     getEnvironmentSpy.mockReturnValue({
       data: {
-        content: [
-          {
-            accountId: 'kmpySmUISimoRrJL6NL73w',
-            deleted: false,
-            description: null,
-            identifier: 'Qe',
-            name: 'Qe',
-            orgIdentifixer: 'harness_test',
-            projectIdentifier: 'raghu_p',
-            tags: {},
-            type: 'PreProduction'
-          }
-        ]
+        data: {
+          content: [
+            {
+              accountId: 'kmpySmUISimoRrJL6NL73w',
+              deleted: false,
+              description: null,
+              identifier: 'Qe',
+              name: 'Qe',
+              orgIdentifixer: 'harness_test',
+              projectIdentifier: 'raghu_p',
+              tags: {},
+              type: 'PreProduction'
+            }
+          ]
+        }
       }
     } as UseGetReturn<any, any, any, any>)
 
     const getServiceSpy = jest.spyOn(cdService, 'useGetServiceListForProject')
     getServiceSpy.mockReturnValue({
       data: {
-        content: [
-          {
-            accountId: 'kmpySmUISimoRrJL6NL73w',
-            deleted: false,
-            description: null,
-            identifier: 'verification',
-            name: 'verification',
-            orgIdentifier: 'harness_test',
-            projectIdentifier: 'raghu_p',
-            tags: {},
-            version: 0
-          }
-        ]
+        data: {
+          content: [
+            {
+              accountId: 'kmpySmUISimoRrJL6NL73w',
+              deleted: false,
+              description: null,
+              identifier: 'verification',
+              name: 'verification',
+              orgIdentifier: 'harness_test',
+              projectIdentifier: 'raghu_p',
+              tags: {},
+              version: 0
+            }
+          ]
+        }
       }
     } as UseGetReturn<any, any, any, any>)
   })
@@ -288,5 +356,91 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     //retry api
     fireEvent.click(getByText('Retry'))
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(3))
+  })
+
+  test('ensure metric name is updated and saved when user updates it for manual query', async () => {
+    const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
+    getMetricPackSpy.mockReturnValue({
+      data: MetricPackResponse
+    } as UseGetReturn<any, unknown, any, unknown>)
+    const onSubmitMock = jest.fn()
+
+    const { container } = render(
+      <TestWrapper>
+        <MapGCOMetricsToServices
+          data={buildGCOMonitoringSourceInfo(MockParams)}
+          onNext={onSubmitMock}
+          onPrevious={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    // select metric option and fill out metric name in displayed modal
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const manualQueryOption = container.querySelector('.manualQuery')
+    if (!manualQueryOption) {
+      throw Error('manual query was not rendered.')
+    }
+    fireEvent.click(manualQueryOption)
+
+    await waitFor(() => expect(document.body.querySelector('input[name="metricName"]')).not.toBeNull())
+    const metricNameInput = document.body.querySelector('input[name="metricName"]')
+    if (!metricNameInput) {
+      throw Error('Metric name was not found.')
+    }
+
+    fireEvent.change(metricNameInput, { target: { value: 'solo-dolo' } })
+    await waitFor(() => expect(document.body.querySelector('[class*="ManualInputQueryModal"]')).toBeNull())
+    await waitFor(() => expect(container.querySelector('input[value="solo-dolo"]')).not.toBeNull())
+
+    const submitButton = document.body.querySelector('button[type="submit"]')
+    if (!submitButton) {
+      throw Error('Submit button was not rendered.')
+    }
+
+    fireEvent.click(submitButton)
+    await waitFor(() => expect(container.querySelector('input[value="solo-dolo"]')).not.toBeNull())
+
+    // fill out parts of the form
+    await fillAtForm([
+      { container, type: InputTypes.TEXTAREA, fieldId: FieldNames.QUERY, value: MockQuery },
+      { container, type: InputTypes.RADIOS, fieldId: FieldNames.RISK_CATEGORY, value: 'Errors/ERROR' },
+      { container, type: InputTypes.CHECKBOX, fieldId: FieldNames.HIGHER_BASELINE_DEVIATION, value: 'higher' }
+    ])
+
+    // enter service and environment values and tags
+    const metricTagsInput = container.querySelector(
+      '[class*="nameAndMetricTagContainer"] [data-id*="metricTags"] input'
+    )
+    if (!metricTagsInput) {
+      throw Error('metric tags was not rendered.')
+    }
+
+    fireEvent.change(metricTagsInput, { target: { value: 'metricTag' } })
+    await waitFor(() => expect(container.querySelector('input[value="metricTag"]')).not.toBeNull())
+
+    const dropdownsCarets = container.querySelectorAll('[data-icon="caret-down"]')
+    expect(dropdownsCarets.length).toBe(2)
+
+    // service
+    fireEvent.click(dropdownsCarets[0])
+    await waitFor(() => expect(document.body.querySelector('.bp3-menu')).not.toBeNull())
+    let options = document.body.querySelectorAll('[class*="menuItem"]')
+    fireEvent.click(options[1])
+    await waitFor(() => expect(container.querySelector('input[value="verification"]')).not.toBeNull())
+
+    // env
+    fireEvent.click(dropdownsCarets[1])
+    await waitFor(() => expect(document.body.querySelector('.bp3-menu')).not.toBeNull())
+    options = document.body.querySelectorAll('[class*="menuItem"]')
+    fireEvent.click(options[1])
+    await waitFor(() => expect(container.querySelector('input[value="Qe"]')).not.toBeNull())
+
+    const submitFormButton = container.querySelector('button[type="submit"]')
+    if (!submitFormButton) {
+      throw Error('submit form button does not exist.')
+    }
+
+    fireEvent.click(submitFormButton)
   })
 })

@@ -106,7 +106,7 @@ export function GoogleCloudOperationsMonitoringSource(): JSX.Element {
   }, [params])
 
   return (
-    <Page.Body loading={loading} error={error?.message} retryOnError={() => fetchGCOSource()}>
+    <Page.Body loading={loading} key={loading.toString()} error={error?.message} retryOnError={() => fetchGCOSource()}>
       <CVOnboardingTabs
         iconName="service-stackdriver"
         defaultEntityName={currentData?.name || DefaultValue.name}

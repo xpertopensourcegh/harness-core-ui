@@ -27,7 +27,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           style="width: 90%;"
         >
           <div
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main columnContainer"
           >
             <a
               class="bp3-button StyledProps--font Button--button Button--link StyledProps--main manualQueryLink"
@@ -42,7 +42,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
               </span>
             </a>
             <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
+              class="StyledProps--font StyledProps--main filterStyle StyledProps--flex"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"

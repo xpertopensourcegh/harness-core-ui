@@ -11,7 +11,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
       <div>
         <div
           class="StyledProps--font StyledProps--main"
-          style="margin: auto; width: 40%;"
+          style="margin: auto; width: 50%;"
         >
           <div
             class="StyledProps--font StyledProps--main main"
@@ -294,7 +294,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
             </div>
           </div>
           <div
-            class="bp3-form-group"
+            class="bp3-form-group productSelection"
             data-id="product-2"
           >
             <label

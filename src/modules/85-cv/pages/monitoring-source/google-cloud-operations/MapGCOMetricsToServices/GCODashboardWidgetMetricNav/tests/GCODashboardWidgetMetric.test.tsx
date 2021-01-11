@@ -240,6 +240,41 @@ describe('unit tests for dashboard widget metric', () => {
     expect(container.querySelector(`.${Classes.TREE_NODE_SELECTED} p`)?.innerHTML).toEqual('solo-dolo')
   })
 
+  test('Ensure that when', async () => {
+    const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
+    useGetStackdriverDashboardDetailSpy.mockReturnValue({
+      data: { resource: MockWidgetResponse },
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+    const mockMetricSelect = jest.fn()
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVActivitySourceEditSetup({
+          ...accountPathProps,
+          ...projectPathProps,
+          activitySource: ':activitySource',
+          activitySourceId: ':activitySourceId'
+        })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          activitySource: '1234_activitySource',
+          activitySourceId: '1234_sourceId'
+        }}
+      >
+        <GCODashboardWidgetMetricNav
+          gcoDashboards={MockDashboards}
+          connectorIdentifier={MockConnectorIdentifier}
+          onSelectMetric={mockMetricSelect}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+  })
+
   test('Ensure that when only manual input query is provided, it is properly selected in the nav', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
