@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, queryByAttribute, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -226,45 +226,46 @@ describe('Test Shell Script Step', () => {
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
-    fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'BASH' } })
-    // fireEvent.change(queryByNameAttribute('spec.onDelegate')!, { target: { value: 'delegate' } })
-    fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
-      target: { value: 'script test' },
-      bubbles: true
+    await act(async () => {
+      fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
+      fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'BASH' } })
+
+      fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
+        target: { value: 'script test' },
+        bubbles: true
+      })
+
+      await fireEvent.click(getByText('Script Input Variables'))
+
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Add Input Variable'))
+
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Script Output Variables'))
+
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Add'))
+
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Submit').closest('button')!)
     })
-
-    fireEvent.click(getByText('Script Input Variables'))
-
-    fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
-    fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
-      target: { value: 'response.message' }
-    })
-    fireEvent.click(getByText('Add Input Variable'))
-
-    fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
-    fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
-    fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].value')!, {
-      target: { value: 'response.message' }
-    })
-
-    // fireEvent.click(getByText('Execution Target'))
-    // fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
-    // fireEvent.change(queryByNameAttribute('spec.executionTarget.connectorRef')!, { target: { value: '' } })
-    // fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
-
-    fireEvent.click(getByText('Script Output Variables'))
-    fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
-    fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, { target: { value: 'response.message' } })
-    fireEvent.click(getByText('Add'))
-
-    fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
-    fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, { target: { value: 'response.message' } })
-
-    fireEvent.click(getByText('Submit').closest('button')!)
-
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
 
     expect(onUpdate).toHaveBeenCalledWith({
       identifier: 'SSH',
@@ -282,6 +283,111 @@ describe('Test Shell Script Step', () => {
           host: '',
           connectorRef: '',
           workingDirectory: ''
+        },
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'response.message'
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: 'response.message'
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            value: 'response.message'
+          },
+          {
+            name: 'testOutput2',
+            value: 'response.message'
+          }
+        ]
+      }
+    })
+  })
+
+  test('form produces correct data for fixed inputs for delegate as false', async () => {
+    const onUpdate = jest.fn()
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{}}
+        type={StepType.SHELLSCRIPT}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+      />
+    )
+
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+
+    await act(async () => {
+      fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
+      fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'BASH' } })
+
+      fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
+        target: { value: 'script test' },
+        bubbles: true
+      })
+
+      await fireEvent.click(getByText('Script Input Variables'))
+
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Add Input Variable'))
+
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Execution Target'))
+
+      const radioButtons = container.querySelectorAll('input[type="radio"]')
+
+      await fireEvent.click(radioButtons[0])
+
+      fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
+      fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
+
+      await fireEvent.click(getByText('Script Output Variables'))
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Add'))
+
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
+      fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, {
+        target: { value: 'response.message' }
+      })
+
+      await fireEvent.click(getByText('Submit').closest('button')!)
+    })
+
+    expect(onUpdate).toHaveBeenCalledWith({
+      identifier: 'SSH',
+      name: 'SSH',
+      spec: {
+        shell: 'BASH',
+        onDelegate: false,
+        source: {
+          type: 'Inline',
+          spec: {
+            script: 'script test'
+          }
+        },
+        executionTarget: {
+          host: 'targethost',
+          connectorRef: '',
+          workingDirectory: './temp'
         },
         environmentVariables: [
           {
