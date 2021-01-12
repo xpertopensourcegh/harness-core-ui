@@ -199,6 +199,9 @@
     ],
     "strings.*.yaml": [
       "node scripts/yaml-strings-check.js"
+    ],
+    "webpack.devServerProxy.config.js": [
+      "exit 1"
     ]
   },
   "husky": {

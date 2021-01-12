@@ -6,6 +6,7 @@ package.json @wings-software/ui-platform
 tsconfig.json @wings-software/ui-platform
 tsconfig-eslint.json @wings-software/ui-platform
 webpack.config.js @wings-software/ui-platform
+webpack.devServerProxy.config.js @wings-software/ui-platform
 jest.config.js @wings-software/ui-platform
 coverage-groups.json @wings-software/ui-platform
 dockerfile @wings-software/ui-platform
