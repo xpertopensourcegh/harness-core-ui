@@ -3,6 +3,7 @@ import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { Button, FormInput, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
+import { isNumber } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import type { ShellScriptFormData, ShellScriptStepVariable } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
@@ -15,9 +16,23 @@ export const scriptInputType: SelectOption[] = [
 
 export default function ShellScriptInput(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
-    formik: { values: formValues }
+    formik: { values: formValues, setFieldValue }
   } = props
   const { getString } = useStrings()
+
+  const updateInputFieldValue = (value: string | number, index: number, path: string): void => {
+    if (formValues.spec.environmentVariables && formValues.spec.environmentVariables[index].type === 'Number') {
+      value = parseInt(value as any)
+      if (isNaN(value)) {
+        setFieldValue(path, '')
+        return
+      }
+      if (isNumber(value)) {
+        setFieldValue(path, value)
+      }
+    }
+  }
+
   return (
     <div className={stepCss.formGroup}>
       <FieldArray
@@ -44,6 +59,9 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
                     label=""
+                    onChange={value =>
+                      updateInputFieldValue(value as string | number, i, `spec.environmentVariables[${i}].value`)
+                    }
                   />
                   <Button minimal icon="cross" data-testid={`remove-environmentVar-${i}`} onClick={() => remove(i)} />
                 </div>

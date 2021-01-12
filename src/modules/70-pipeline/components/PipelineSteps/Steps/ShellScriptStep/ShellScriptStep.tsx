@@ -57,7 +57,8 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
       projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
     },
-    lazy: true
+    lazy: true,
+    debounce: 300
   })
 
   React.useEffect(() => {
@@ -69,8 +70,16 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
     }
   }, [initialValues.spec.executionTarget?.connectorRef])
 
-  const values: any = JSON.parse(JSON.stringify(initialValues))
-  values.spec.executionTarget.connectorRef = undefined
+  const values: any = {
+    ...initialValues,
+    spec: {
+      ...initialValues.spec,
+      executionTarget: {
+        ...initialValues.spec.executionTarget,
+        connectorRef: undefined
+      }
+    }
+  }
 
   if (
     connector?.data?.connector &&
@@ -90,13 +99,13 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
   }
 
   const { getString } = useStrings()
-
   return (
     <Formik<ShellScriptFormData>
       onSubmit={submit => {
         onUpdate?.(submit)
       }}
       initialValues={values}
+      enableReinitialize
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         spec: Yup.object().shape({
@@ -180,11 +189,6 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         spec: {
           script: ''
         }
-      },
-      executionTarget: {
-        host: '',
-        connectorRef: '',
-        workingDirectory: ''
       }
     }
   }
@@ -196,20 +200,6 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         ...initialValues.spec,
         shell: 'BASH',
         onDelegate: initialValues.spec?.onDelegate ? 'delegate' : 'targethost',
-
-        source: {
-          ...initialValues.spec?.source,
-          type: 'Inline',
-          spec: {
-            ...initialValues.spec?.source?.spec,
-            script: initialValues.spec?.source?.spec?.script
-          }
-        },
-
-        executionTarget: {
-          ...initialValues.spec?.executionTarget,
-          connectorRef: ''
-        },
 
         environmentVariables: Array.isArray(initialValues.spec?.environmentVariables)
           ? initialValues.spec?.environmentVariables.map(variable => ({

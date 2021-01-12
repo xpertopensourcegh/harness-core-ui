@@ -280,9 +280,7 @@ describe('Test Shell Script Step', () => {
           }
         },
         executionTarget: {
-          host: '',
-          connectorRef: '',
-          workingDirectory: ''
+          connectorRef: undefined
         },
         environmentVariables: [
           {
@@ -386,7 +384,7 @@ describe('Test Shell Script Step', () => {
         },
         executionTarget: {
           host: 'targethost',
-          connectorRef: '',
+          connectorRef: undefined,
           workingDirectory: './temp'
         },
         environmentVariables: [
