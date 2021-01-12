@@ -54,7 +54,10 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   entityType: 'Pipelines',
   width: 620,
   height: 360,
-  showSnippetSection: false
+  showSnippetSection: false,
+  yamlSanityConfig: {
+    removeEmptyString: false
+  }
 }
 
 export function RunPipelineForm({

@@ -120,7 +120,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     schema,
     needEditorReset,
     onEnableEditMode,
-    theme = 'LIGHT'
+    theme = 'LIGHT',
+    yamlSanityConfig
   } = props
   setUpEditor(theme)
   const params = useParams()
@@ -174,7 +175,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       string,
       any
     >
-    const sanitizedJSONObj = sanitize(jsonObjWithoutNulls)
+    const sanitizedJSONObj = sanitize(jsonObjWithoutNulls, yamlSanityConfig)
     if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
       const yamlEqOfJSON = stringify(sanitizedJSONObj)
       const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')

@@ -72,7 +72,10 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   entityType: 'Pipelines',
   width: 620,
   height: 360,
-  showSnippetSection: false
+  showSnippetSection: false,
+  yamlSanityConfig: {
+    removeEmptyString: false
+  }
 }
 
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>

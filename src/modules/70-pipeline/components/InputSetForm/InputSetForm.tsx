@@ -88,7 +88,10 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   entityType: 'InputSets',
   width: 620,
   height: 360,
-  showSnippetSection: false
+  showSnippetSection: false,
+  yamlSanityConfig: {
+    removeEmptyString: false
+  }
 }
 
 const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO =>

@@ -12,6 +12,11 @@ export type InvocationMapFunction = (
   params: Record<string, unknown>
 ) => Promise<CompletionItemInterface[]>
 
+export interface YamlSanityConfig {
+  removeEmptyString?: boolean
+  removeEmptyArray?: boolean
+  removeEmptyObject?: boolean
+}
 export interface YamlBuilderProps {
   /* Only YAMLBuilder related props */
   height?: React.CSSProperties['height']
@@ -23,17 +28,18 @@ export interface YamlBuilderProps {
   invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
   onExpressionTrigger?: (yamlPath: string, currentExpression: string) => Promise<CompletionItemInterface[]>
+  //TODO @vardan Remove "Record<string, string | any>" from type once pipeline schema is migrated to new framework
+  schema?: string | Record<string, string | any>
+  needEditorReset?: boolean
+  onEnableEditMode?: () => void
+  theme?: Theme
+  yamlSanityConfig?: YamlSanityConfig
   /* Snippet section related props */
   showSnippetSection?: boolean
   showIconMenu?: boolean
   snippets?: YamlSnippetMetaData[]
   onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
-  //TODO @vardan Remove "Record<string, string | any>" from type once pipeline schema is migrated to new framework
-  schema?: string | Record<string, string | any>
-  needEditorReset?: boolean
-  onEnableEditMode?: () => void
-  theme?: Theme
 }
 
 export interface CompletionItemInterface {
