@@ -1,8 +1,10 @@
 allowpaths:
   - '/setup/delegates.get'
   - '/setup/delegates/status.get'
+  - '/setup/delegates/status2.get'
   - '/setup/delegates/downloadUrl.get'
   - '/delegate-profiles.get'
+  - '/delegate-profiles/v2.get'
   - '/setup/delegates/kubernetes-delegates'
   - '/users/user.get'
   - '/setup/delegates/delegate-tags.get'
@@ -13,8 +15,10 @@ allowpaths:
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
+  /setup/delegates/status2.get: getDelegatesStatusV2
   /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl
   /delegate-profiles.get: getDelegateProfiles
+  /delegate-profiles/v2.get: getDelegateProfilesV2
   /setup/delegates/kubernetes-delegates.get: getKubernetesDelegateNames
   /users/user.get: getUser
   /setup/delegates/delegate-tags.get: getDelegateTags

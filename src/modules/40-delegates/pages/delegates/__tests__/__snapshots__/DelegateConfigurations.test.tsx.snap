@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Delegates Page render data 1`] = `
+exports[`Delegates Configurations Page render data 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main profileContainer"

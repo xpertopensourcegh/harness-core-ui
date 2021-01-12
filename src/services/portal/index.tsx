@@ -360,6 +360,7 @@ export interface AccountEvent {
 
 export interface CeLicenseInfo {
   licenseType?: 'FULL_TRIAL' | 'LIMITED_TRIAL' | 'PAID'
+
   expiryTime?: number
 }
 
@@ -18483,6 +18484,34 @@ export const useGetDelegatesStatus = (props: UseGetDelegatesStatusProps) =>
     ...props
   })
 
+export interface GetDelegatesStatusV2QueryParams {
+  accountId?: string
+}
+
+export type GetDelegatesStatusV2Props = Omit<
+  GetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesStatusV2 = (props: GetDelegatesStatusV2Props) => (
+  <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>
+    path="/setup/delegates/status2"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesStatusV2Props = Omit<
+  UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesStatusV2 = (props: UseGetDelegatesStatusV2Props) =>
+  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>(`/setup/delegates/status2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
 export interface GetDelegatesDownloadUrlQueryParams {
   accountId?: string
 }
@@ -18542,6 +18571,38 @@ export const useGetDelegateProfiles = (props: UseGetDelegateProfilesProps) =>
     base: getConfig('api'),
     ...props
   })
+
+export interface GetDelegateProfilesV2QueryParams {
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  accountId?: string
+}
+
+export type GetDelegateProfilesV2Props = Omit<
+  GetProps<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegateProfilesV2 = (props: GetDelegateProfilesV2Props) => (
+  <Get<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>
+    path="/delegate-profiles/v2"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateProfilesV2Props = Omit<
+  UseGetProps<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateProfilesV2 = (props: UseGetDelegateProfilesV2Props) =>
+  useGet<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>(
+    `/delegate-profiles/v2`,
+    { base: getConfig('api'), ...props }
+  )
 
 export interface GetKubernetesDelegateNamesQueryParams {
   accountId?: string

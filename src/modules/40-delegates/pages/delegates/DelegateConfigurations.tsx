@@ -1,8 +1,11 @@
 import React from 'react'
+
+import { useParams } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Card, Text, CardBody, Layout, Tag, Intent, Container } from '@wings-software/uicore'
+import { useGetDelegateProfilesV2 } from 'services/portal'
+
 import { useStrings } from 'framework/exports'
-import ProfileMock from './__tests__/ProfilesMock.json'
 import css from './DelegatesPage.module.scss'
 
 interface DelegateProfile {
@@ -35,15 +38,20 @@ const renderTags = (tags: string[]) => {
   )
 }
 
+const formatProfileList = (data: any) => {
+  const profiles: Array<DelegateProfile> = data?.resource?.response
+  return profiles
+}
+
 export default function DelegateConfigurations(): JSX.Element {
   const { getString } = useStrings()
-  const data = ProfileMock
-  // const { data } = getDelegateProfilesV2({ queryParams: { accountId } })
+  const { accountId } = useParams()
+  const { data } = useGetDelegateProfilesV2({ queryParams: { accountId } })
+  const profiles: Array<DelegateProfile> = formatProfileList(data)
   /* istanbul ignore next */
   if (data) {
     const { resource } = data
     if (resource) {
-      const profiles = resource?.response
       return (
         <Container className={css.profileContainer}>
           {profiles.map((item: DelegateProfile) => {

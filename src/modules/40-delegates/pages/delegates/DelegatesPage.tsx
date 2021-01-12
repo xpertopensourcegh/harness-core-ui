@@ -1,21 +1,19 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Container, Tabs, Tab } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-// import { getDelegates } from 'services/portal'
+import { useGetDelegatesStatusV2 } from 'services/portal'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
-import Delegatesmock from './__tests__/Delegatesmock.json'
 import DelegateListing from './DelegateListing'
 import DelegateConfigurations from './DelegateConfigurations'
 import css from './DelegatesPage.module.scss'
 
 export const DelegatesPage: React.FC = () => {
-  // const { accountId } = useParams()
+  const { accountId } = useParams()
 
-  // const { data } = getDelegates({
-  //   queryParams: { accountId: accountId }
-  // })
-
-  const data = Delegatesmock
+  const { data } = useGetDelegatesStatusV2({
+    queryParams: { accountId }
+  })
 
   const { getString } = useStrings()
 

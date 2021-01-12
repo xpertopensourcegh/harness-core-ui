@@ -5,7 +5,7 @@ import DelegatesPage from '../DelegatesPage'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
-  getDelegates: jest.fn().mockImplementation(args => {
+  useGetDelegatesStatusV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
   })
