@@ -221,7 +221,11 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     {getString('pipelineSteps.build.create.configureCodebaseHelperText')}
                   </Text>
                   <ConnectorReferenceField
-                    error={formikProps.errors.connectorRef}
+                    error={
+                      formikProps.submitCount && formikProps.errors.connectorRef
+                        ? formikProps.errors.connectorRef
+                        : undefined
+                    }
                     name="connectorRef"
                     type="Git"
                     selected={formikProps.values.connectorRef}

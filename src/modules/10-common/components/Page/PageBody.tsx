@@ -24,6 +24,9 @@ export interface PageBodyProps {
     /** icon to pass to <NoDataCard/> */
     icon: IconName
 
+    /** disables color passing to icon in <NoDataCard />  */
+    noIconColor?: boolean
+
     /** message to pass to <NoDataCard/> */
     message: string
 
@@ -87,6 +90,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
       {!loading && !error && noData?.when?.() && (
         <NoDataCard
           icon={noData?.icon}
+          noIconColor={noData?.noIconColor}
           message={noData?.message || ''}
           buttonText={noData?.buttonText || ''}
           onClick={noData?.onClick}

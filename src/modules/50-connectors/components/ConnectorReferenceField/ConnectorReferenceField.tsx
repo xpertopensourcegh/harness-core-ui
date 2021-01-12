@@ -221,6 +221,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     label,
     width = 400,
     placeholder,
+    category,
     error,
     disabled,
     ...rest
@@ -244,7 +245,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
   > = {}
 
   // TODO: Add support for multi type connectors
-  if (typeof type === 'string') {
+  if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
       openConnectorModal(false, type, undefined)
     }

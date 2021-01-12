@@ -6,6 +6,7 @@ import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
@@ -19,11 +20,12 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<PipelinePathProps>()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
+    PipelineType<PipelinePathProps>
+  >()
   const queryParams = useQueryParams<{ page?: string } & FilterQueryParams>()
   const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()
-
   const { loading, data: pipelineExecutionSummary, error, refetch } = useGetListOfExecutions({
     queryParams: {
       accountIdentifier: accountId,
@@ -43,6 +45,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     }
   })
   const hasFilters: boolean = !!queryParams.query || !!queryParams.pipeline || !!queryParams.status
+  const isCIModule = module === 'ci'
 
   // Polling logic:
   //  - At any moment of time, only one polling is done
@@ -70,8 +73,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       retryOnError={() => refetch?.()}
       noData={{
         when: () => !hasFilters && !pipelineExecutionSummary?.data?.content?.length,
-        icon: 'cd-hover',
-        message: getString('noDeploymentText'),
+        icon: isCIModule ? 'ci-main' : 'cd-hover',
+        noIconColor: isCIModule,
+        message: getString(isCIModule ? 'noBuildsText' : 'noDeploymentText'),
         buttonText: getString('runPipelineText'),
         onClick: props.onRunPipeline
       }}

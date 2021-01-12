@@ -120,16 +120,21 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-          <div className={css.expandSearch}>
-            <ExpandingSearchInput
-              placeholder={getString('search')}
-              throttle={200}
-              onChange={(text: string) => {
-                setSearchParam(text)
-              }}
-            />
-          </div>
-          <Icon name="ng-filter" size={24} />
+          {/* remove condition once CI starts supporting search and filters*/}
+          {module === 'cd' && (
+            <>
+              <div className={css.expandSearch}>
+                <ExpandingSearchInput
+                  placeholder={getString('search')}
+                  throttle={200}
+                  onChange={(text: string) => {
+                    setSearchParam(text)
+                  }}
+                />
+              </div>
+              <Icon name="ng-filter" size={24} />
+            </>
+          )}
           <Layout.Horizontal inline padding="medium">
             <Button
               minimal

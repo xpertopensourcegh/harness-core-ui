@@ -89,7 +89,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   > = {}
 
   // TODO: Add support for multi type connectors
-  if (typeof type === 'string') {
+  if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
       openConnectorModal(false, type, undefined)
     }

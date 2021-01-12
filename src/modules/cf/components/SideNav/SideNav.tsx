@@ -52,11 +52,11 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Targets" to={routes.toCFTargets(params)} />
           <AdminSelector path={routes.toCFAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCFAdminResources(params)} />
-            <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
+            {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
             <AdminSelectorLink label="Git Sync" iconName="git-repo" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
             <AdminSelectorLink label="Access Control" iconName="user" to="" disabled />
-            <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled />
+            <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled /> */}
           </AdminSelector>
         </React.Fragment>
       ) : null}
