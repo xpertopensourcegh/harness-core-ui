@@ -33,7 +33,21 @@ function App(props: AppProps): React.ReactElement {
   }, [token])
 
   return (
-    <RestfulProvider base="/" requestOptions={getRequestOptions}>
+    <RestfulProvider
+      base="/"
+      requestOptions={getRequestOptions}
+      onResponse={response => {
+        if (!response.ok && response.status === 401) {
+          // 401 might be returned due to RBAC maybe?
+          // check response body to confirm invalid token
+          response.json().then(body => {
+            if (body?.code === 'INVALID_TOKEN') {
+              window.location.href = '/#/login'
+            }
+          })
+        }
+      }}
+    >
       <AppStoreProvider strings={props.strings}>
         <AppErrorBoundary>
           <RouteDestinations />
