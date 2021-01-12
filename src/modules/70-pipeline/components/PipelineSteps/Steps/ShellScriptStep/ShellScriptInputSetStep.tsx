@@ -9,8 +9,8 @@ import type { StepViewType } from '@pipeline/exports'
 
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { ConnectorRef } from '../StepsTypes'
 
 export interface ShellScriptInputSetStepProps {

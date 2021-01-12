@@ -113,7 +113,7 @@ const InputSetList: React.FC = (): JSX.Element => {
           icon: 'yaml-builder-input-sets',
           message: i18n.aboutInputSets,
           buttonText: i18n.addInputSet,
-          onClick: goToInputSetForm
+          onClick: () => goToInputSetForm()
         }}
       >
         <InputSetListView

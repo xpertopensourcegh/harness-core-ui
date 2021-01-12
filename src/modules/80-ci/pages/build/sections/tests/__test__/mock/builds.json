@@ -660,7 +660,7 @@
                           "runParallel": false,
                           "skipGitClone": false,
                           "infrastructure": {
-                            "type": "kubernetes-direct",
+                            "type": "KubernetesDirect",
                             "spec": { "connectorRef": "account.cidelegate", "namespace": "harness-delegate" }
                           },
                           "gitConnector": {
@@ -1016,7 +1016,7 @@
                 "runParallel": false,
                 "skipGitClone": false,
                 "infrastructure": {
-                  "type": "kubernetes-direct",
+                  "type": "KubernetesDirect",
                   "spec": { "connectorRef": "account.cidelegate", "namespace": "harness-delegate" }
                 },
                 "gitConnector": {

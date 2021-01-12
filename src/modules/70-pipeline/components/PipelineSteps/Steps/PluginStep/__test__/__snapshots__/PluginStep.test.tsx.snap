@@ -3355,6 +3355,7 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="key-spec.settings-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -3380,6 +3381,7 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                         class="bp3-input"
                         data-testid="value-spec.settings-[0]"
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>

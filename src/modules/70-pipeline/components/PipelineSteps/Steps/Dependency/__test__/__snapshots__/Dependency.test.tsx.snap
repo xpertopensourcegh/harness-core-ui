@@ -4675,6 +4675,7 @@ exports[`Dependency Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="key-spec.envVariables-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -4700,6 +4701,7 @@ exports[`Dependency Step InputSet View should render all fields 1`] = `
                         class="bp3-input"
                         data-testid="value-spec.envVariables-[0]"
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>
@@ -4795,6 +4797,7 @@ exports[`Dependency Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.entrypoint-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -4889,6 +4892,7 @@ exports[`Dependency Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.args-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>

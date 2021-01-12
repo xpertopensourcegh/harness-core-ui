@@ -6,12 +6,10 @@ import { useStrings } from 'framework/exports'
 import Map from '@common/components/Map/Map'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
-import type { ConnectorRef } from '../StepsTypes'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { PluginStepProps } from './PluginStep'
 import css from '../Steps.module.scss'
 
-export const PluginStepInputSet: React.FC<PluginStepProps> = ({ initialValues, template, path, readonly }) => {
+export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -19,8 +17,6 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ initialValues, t
     orgIdentifier: string
     accountId: string
   }>()
-
-  const { connector, loading } = useConnectorRef(initialValues?.spec?.connectorRef || '')
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -37,15 +33,14 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ initialValues, t
               />
             </Text>
           }
-          initialSelected={connector as ConnectorRef}
           type={['Gcp', 'Aws', 'DockerRegistry']}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
-          placeholder={loading ? getString('loading') : getString('select')}
-          disabled={loading || readonly}
+          placeholder={getString('select')}
+          disabled={readonly}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && (

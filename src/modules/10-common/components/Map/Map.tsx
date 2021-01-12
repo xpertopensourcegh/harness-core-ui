@@ -90,7 +90,7 @@ export const Map = (props: MapProps): React.ReactElement => {
     <div style={style}>
       {label}
       <Card style={{ width: '100%' }}>
-        {value.map(({ id }, index: number) => {
+        {value.map(({ id, key, value: valueValue }, index: number) => {
           const keyError = get(error, `[${index}].key`)
           const valueError = get(error, `[${index}].value`)
 
@@ -99,6 +99,7 @@ export const Map = (props: MapProps): React.ReactElement => {
               <div style={{ flexGrow: 1 }}>
                 {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('keyLabel')}</Text>}
                 <TextInput
+                  value={key}
                   intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
                   errorText={(touched || hasSubmitted) && keyError ? keyError : undefined}
                   disabled={disabled}
@@ -111,6 +112,7 @@ export const Map = (props: MapProps): React.ReactElement => {
                 {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('valueLabel')}</Text>}
                 <div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}>
                   <TextInput
+                    value={valueValue}
                     intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
                     errorText={(touched || hasSubmitted) && valueError ? valueError : undefined}
                     disabled={disabled}

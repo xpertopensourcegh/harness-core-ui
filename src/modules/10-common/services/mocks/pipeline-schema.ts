@@ -146,7 +146,7 @@ export const pipelineSchema = {
                             {
                               properties: {
                                 type: {
-                                  enum: ['kubernetes-direct']
+                                  enum: ['KubernetesDirect']
                                 }
                               },
                               required: ['type', 'spec'],
@@ -158,7 +158,7 @@ export const pipelineSchema = {
                                   if: {
                                     properties: {
                                       type: {
-                                        const: 'kubernetes-direct'
+                                        const: 'KubernetesDirect'
                                       }
                                     }
                                   },

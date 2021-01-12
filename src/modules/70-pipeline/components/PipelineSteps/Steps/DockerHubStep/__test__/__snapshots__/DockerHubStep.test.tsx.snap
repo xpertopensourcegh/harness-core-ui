@@ -5479,6 +5479,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.tags-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -5704,6 +5705,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="key-spec.labels-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -5729,6 +5731,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                         class="bp3-input"
                         data-testid="value-spec.labels-[0]"
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>
@@ -5829,6 +5832,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="key-spec.buildArgs-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -5854,6 +5858,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                         class="bp3-input"
                         data-testid="value-spec.buildArgs-[0]"
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>

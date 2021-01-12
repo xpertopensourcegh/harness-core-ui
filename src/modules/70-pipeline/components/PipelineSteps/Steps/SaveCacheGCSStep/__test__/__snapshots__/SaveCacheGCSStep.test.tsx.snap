@@ -3485,6 +3485,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.sourcePaths-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>

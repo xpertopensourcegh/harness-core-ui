@@ -9,7 +9,9 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import type { MultiTypeConnectorRef } from './StepsTypes'
+import type { ConnectorReferenceFieldProps } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+
+type MultiTypeConnectorRef = ConnectorReferenceFieldProps['selected'] | string
 
 interface UseConnectorRefReturnType {
   connector: MultiTypeConnectorRef

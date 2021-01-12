@@ -346,8 +346,8 @@
                 "runParallel": false,
                 "skipCondition": null,
                 "infrastructure": {
-                  "type": "kubernetes-direct",
-                  "type": "kubernetes-direct",
+                  "type": "KubernetesDirect",
+                  "type": "KubernetesDirect",
                   "previousStageIdentifier": null,
                   "spec": {
                     "kubernetesCluster": "cidelegate",
@@ -793,8 +793,8 @@
                           "runParallel": false,
                           "skipCondition": null,
                           "infrastructure": {
-                            "type": "kubernetes-direct",
-                            "type": "kubernetes-direct",
+                            "type": "KubernetesDirect",
+                            "type": "KubernetesDirect",
                             "previousStageIdentifier": null,
                             "spec": {
                               "kubernetesCluster": "cidelegate",

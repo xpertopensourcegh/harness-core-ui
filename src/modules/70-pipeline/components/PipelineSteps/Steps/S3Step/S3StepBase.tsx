@@ -15,13 +15,13 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat,
   Types as TransformValuesTypes
 } from '../StepsTransformValuesUtils'
 import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { S3StepData, S3StepDataUI, S3StepProps } from './S3Step'
 import css from '../Steps.module.scss'
 

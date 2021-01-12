@@ -5282,6 +5282,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.reports.spec.paths-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -5381,6 +5382,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="key-spec.envVariables-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -5406,6 +5408,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                         class="bp3-input"
                         data-testid="value-spec.envVariables-[0]"
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>
@@ -5501,6 +5504,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.outputVariables-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>

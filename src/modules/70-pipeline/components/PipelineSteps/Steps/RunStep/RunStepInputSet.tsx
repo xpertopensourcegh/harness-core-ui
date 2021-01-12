@@ -8,12 +8,10 @@ import List from '@common/components/List/List'
 // import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
-import type { ConnectorRef } from '../StepsTypes'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { RunStepProps } from './RunStep'
 import css from '../Steps.module.scss'
 
-export const RunStepInputSet: React.FC<RunStepProps> = ({ initialValues, template, path, readonly }) => {
+export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -21,8 +19,6 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ initialValues, templat
     orgIdentifier: string
     accountId: string
   }>()
-
-  const { connector, loading } = useConnectorRef(initialValues?.spec?.connectorRef || '')
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -47,15 +43,14 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ initialValues, templat
               />
             </Text>
           }
-          initialSelected={connector as ConnectorRef}
           type={['Gcp', 'Aws', 'DockerRegistry']}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
-          placeholder={loading ? getString('loading') : getString('select')}
-          disabled={loading || readonly}
+          placeholder={getString('select')}
+          disabled={readonly}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && (

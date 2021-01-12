@@ -33,10 +33,11 @@ export const List = (props: ListProps): React.ReactElement => {
       value: item
     }))
 
-    // provide default value
+    // Provide default value
     if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {
       initialValueInCorrectFormat.push(generateNewValue())
     }
+
     return initialValueInCorrectFormat
   })
 
@@ -84,13 +85,14 @@ export const List = (props: ListProps): React.ReactElement => {
     <div style={style}>
       {label}
       <Card style={{ width: '100%' }}>
-        {value.map(({ id }, index: number) => {
+        {value.map(({ id, value: valueValue }, index: number) => {
           const valueError = get(error, `[${index}].value`)
 
           return (
             <div className={css.group} key={id}>
               <div style={{ flexGrow: 1 }}>
                 <TextInput
+                  value={valueValue}
                   onChange={e => changeValue(id, (e.currentTarget as HTMLInputElement).value.trim())}
                   data-testid={`value-${name}-[${index}]`}
                   intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}

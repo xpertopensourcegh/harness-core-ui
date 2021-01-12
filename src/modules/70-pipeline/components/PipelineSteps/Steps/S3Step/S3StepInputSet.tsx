@@ -5,12 +5,10 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
-import type { ConnectorRef } from '../StepsTypes'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { S3StepProps } from './S3Step'
 import css from '../Steps.module.scss'
 
-export const S3StepInputSet: React.FC<S3StepProps> = ({ initialValues, template, path, readonly }) => {
+export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -18,8 +16,6 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ initialValues, template,
     orgIdentifier: string
     accountId: string
   }>()
-
-  const { connector, loading } = useConnectorRef(initialValues?.spec?.connectorRef || '')
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -36,15 +32,14 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ initialValues, template,
               />
             </Text>
           }
-          initialSelected={connector as ConnectorRef}
           type={'Aws'}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
-          placeholder={loading ? getString('loading') : getString('select')}
-          disabled={loading || readonly}
+          placeholder={getString('select')}
+          disabled={readonly}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.region) === MultiTypeInputType.RUNTIME && (

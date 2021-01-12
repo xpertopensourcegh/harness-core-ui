@@ -7,12 +7,10 @@ import Map from '@common/components/Map/Map'
 import List from '@common/components/List/List'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
-import type { ConnectorRef } from '../StepsTypes'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { GCRStepProps } from './GCRStep'
 import css from '../Steps.module.scss'
 
-export const GCRStepInputSet: React.FC<GCRStepProps> = ({ initialValues, template, path, readonly }) => {
+export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -20,8 +18,6 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ initialValues, templat
     orgIdentifier: string
     accountId: string
   }>()
-
-  const { connector, loading } = useConnectorRef(initialValues?.spec?.connectorRef || '')
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -38,15 +34,14 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ initialValues, templat
               />
             </Text>
           }
-          initialSelected={connector as ConnectorRef}
           type={'Gcp'}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
-          placeholder={loading ? getString('loading') : getString('select')}
-          disabled={loading || readonly}
+          placeholder={getString('select')}
+          disabled={readonly}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.host) === MultiTypeInputType.RUNTIME && (

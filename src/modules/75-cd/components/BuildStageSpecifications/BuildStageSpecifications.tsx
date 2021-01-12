@@ -14,6 +14,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType
 } from '@wings-software/uicore'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { FieldArray } from 'formik'
@@ -26,6 +27,7 @@ import { loggerFor, ModuleName } from 'framework/exports'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -93,7 +95,6 @@ export default function BuildStageSpecifications(): JSX.Element {
     description: string
     tags: null | string[]
     cloneCodebase: boolean
-    workspace: string
     sharedPaths: string[]
     customVariables: { name: string; type: string; value?: string }[]
   } => {
@@ -104,11 +105,21 @@ export default function BuildStageSpecifications(): JSX.Element {
     const name = pipelineData?.name || ''
     const description = pipelineData?.description || ''
     const cloneCodebase = spec?.cloneCodebase || true
-    const workspace = spec?.workspace || ''
-    const sharedPaths = spec?.sharedPaths || []
+    const sharedPaths =
+      typeof spec?.sharedPaths === 'string'
+        ? spec?.sharedPaths
+        : spec?.sharedPaths?.map((_value: string) => ({
+            id: uuid('', nameSpace()),
+            value: _value
+          })) || []
     const customVariables = spec?.customVariables || []
 
-    return { identifier, name, description, tags: null, cloneCodebase, workspace, sharedPaths, customVariables }
+    // Adding a default value
+    if (Array.isArray(sharedPaths) && sharedPaths.length === 0) {
+      sharedPaths.push({ id: uuid('', nameSpace()), value: '' })
+    }
+
+    return { identifier, name, description, tags: null, cloneCodebase, sharedPaths, customVariables }
   }
 
   const handleValidate = (values: any): void => {
@@ -133,14 +144,13 @@ export default function BuildStageSpecifications(): JSX.Element {
 
       spec.cloneCodebase = values.cloneCodebase
 
-      if (values.workspace) {
-        spec.workspace = values.workspace
-      } else {
-        delete spec.workspace
-      }
-
       if (values.sharedPaths && values.sharedPaths.length > 0) {
-        spec.sharedPaths = values.sharedPaths
+        spec.sharedPaths =
+          typeof values.sharedPaths === 'string'
+            ? values.sharedPaths
+            : values.sharedPaths
+                ?.filter((listValue: { id: string; value: string }) => !!listValue.value)
+                .map((listValue: { id: string; value: string }) => listValue.value)
       } else {
         delete spec.sharedPaths
       }
@@ -291,80 +301,19 @@ export default function BuildStageSpecifications(): JSX.Element {
                 <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('pipelineSteps.build.stageSpecifications.workspaceAndSharedPaths')}
+                      {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm className={css.fields}>
-                    <Text margin={{ bottom: 'xsmall' }}>
-                      {getString('pipelineSteps.build.stageSpecifications.workspace')}
-                    </Text>
-                    <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                      <FormInput.MultiTextInput label="" name={'workspace'} style={{ flexGrow: 1 }} />
-                      {getMultiTypeFromValue(formValues.workspace) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formValues.workspace as string}
-                          type={
-                            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                              <Text>{getString('pipelineSteps.build.stageSpecifications.workspace')}</Text>
-                            </Layout.Horizontal>
-                          }
-                          variableName={'workspace'}
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={value => setFieldValue('workspace', value)}
-                        />
-                      )}
-                    </div>
-
-                    <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                      {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-                    </Text>
-                    <FieldArray
+                    <MultiTypeList
                       name="sharedPaths"
-                      render={({ push, remove }) => (
-                        <div>
-                          {formValues.sharedPaths.map((_sharedPath: string, index: number) => (
-                            <div className={cx(css.fieldsGroup)} key={index}>
-                              <FormInput.MultiTextInput
-                                label=""
-                                name={`sharedPaths[${index}]`}
-                                style={{ flexGrow: 1 }}
-                              />
-                              {getMultiTypeFromValue(formValues.sharedPaths[index]) === MultiTypeInputType.RUNTIME && (
-                                <ConfigureOptions
-                                  value={formValues.sharedPaths[index] as string}
-                                  type={
-                                    <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                      <Text>{getString('pipelineSteps.build.stageSpecifications.sharedPaths')}</Text>
-                                    </Layout.Horizontal>
-                                  }
-                                  variableName={`sharedPaths[${index}]`}
-                                  showRequiredField={false}
-                                  showDefaultField={false}
-                                  showAdvanced={true}
-                                  onChange={value => setFieldValue(`sharedPaths[${index}]`, value)}
-                                />
-                              )}
-                              <Button
-                                className={css.removeSharedPathButton}
-                                intent="primary"
-                                icon="ban-circle"
-                                iconProps={{ size: 20 }}
-                                minimal
-                                onClick={() => remove(index)}
-                              />
-                            </div>
-                          ))}
-
-                          <Button
-                            intent="primary"
-                            minimal
-                            text={getString('pipelineSteps.build.stageSpecifications.addSharedPath')}
-                            onClick={() => push('')}
-                          />
-                        </div>
-                      )}
+                      multiTypeFieldSelectorProps={{
+                        label: (
+                          <Text margin={{ bottom: 'xsmall' }}>
+                            {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+                          </Text>
+                        )
+                      }}
                     />
                   </FormikForm>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Label } from '@wings-software/uicore'
+import { Text, Label, FormInput } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set } from 'lodash-es'
 import { StepViewType, StepWidget } from '@pipeline/exports'
@@ -13,6 +13,7 @@ import type {
   ServiceConfig,
   PipelineInfrastructure
 } from 'services/cd-ng'
+import List from '@common/components/List/List'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -220,6 +221,10 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           headerProps={{ font: { size: 'normal' } }}
           headerColor="var(--black)"
         >
+          {/* TODO: Fix typings */}
+          {(deploymentStageTemplate?.infrastructure as any)?.spec?.namespace && (
+            <FormInput.Text label={i18n.namespace} name={`${path}.infrastructure.spec.namespace`} />
+          )}
           {deploymentStageTemplate.infrastructure?.environmentRef && (
             <StepWidget<PipelineInfrastructure>
               factory={factory}
@@ -261,6 +266,11 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           headerColor="var(--black)"
         >
           <div>WIP</div>
+        </CollapseForm>
+      )}
+      {deploymentStageTemplate?.sharedPaths && (
+        <CollapseForm header={i18n.sharedPaths} headerProps={{ font: { size: 'normal' } }} headerColor="var(--black)">
+          <List label={<Text margin={{ bottom: 'xsmall' }}>{i18n.sharedPaths}</Text>} name={`${path}.sharedPaths`} />
         </CollapseForm>
       )}
       {deploymentStageTemplate.execution?.steps && (

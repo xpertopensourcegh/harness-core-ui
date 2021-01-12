@@ -16,13 +16,13 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields from '@pipeline/components/StepCommonFields/StepCommonFields'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
+import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat,
   Types as TransformValuesTypes
 } from '../StepsTransformValuesUtils'
 import { useValidate, Types as ValidationFieldTypes } from '../StepsValidateUtils'
-import { useConnectorRef } from '../StepsUseConnectorRef'
 import type { SaveCacheGCSStepProps, SaveCacheGCSStepData, SaveCacheGCSStepDataUI } from './SaveCacheGCSStep'
 import css from '../Steps.module.scss'
 

@@ -36,6 +36,7 @@ exports[`<Map /> tests Readonly mode works 1`] = `
                       data-testid="key-test-[0]"
                       disabled=""
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -62,6 +63,7 @@ exports[`<Map /> tests Readonly mode works 1`] = `
                         data-testid="value-test-[0]"
                         disabled=""
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>
@@ -111,6 +113,7 @@ exports[`<Map /> tests Should render properly 1`] = `
                       class="bp3-input"
                       data-testid="key-test-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>
@@ -136,6 +139,7 @@ exports[`<Map /> tests Should render properly 1`] = `
                         class="bp3-input"
                         data-testid="value-test-[0]"
                         type="text"
+                        value=""
                       />
                     </div>
                   </div>

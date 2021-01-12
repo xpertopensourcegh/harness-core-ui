@@ -3,27 +3,30 @@ import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { useStrings } from 'framework/exports'
+import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
 import { ConnectorReferenceFieldProps, ConnectorReferenceField } from './ConnectorReferenceField'
-
 export interface FormConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange' | 'error'> {
   formik?: FormikContext<any>
-  initialSelected: ConnectorReferenceFieldProps['selected']
 }
 
 const FormConnectorReference = (props: FormConnectorFieldProps): React.ReactElement => {
-  const { name, formik } = props
-  const { initialSelected, ...restProps } = props
+  const { name, formik, placeholder, disabled, ...restProps } = props
+  const { getString } = useStrings()
   const hasError = errorCheck(name, formik)
   const error = hasError ? get(formik?.errors, name) : undefined
 
-  // @TODO: test this initial selected once we are able to mock
-  // connector requests in Storybook
-  const selected = get(formik?.values, name, initialSelected)
+  const selected = get(formik?.values, name, '')
+
+  const { connector, loading } = useConnectorRef(selected)
 
   return (
     <ConnectorReferenceField
       {...restProps}
-      selected={selected}
+      name={name}
+      placeholder={loading ? getString('loading') : placeholder}
+      selected={connector as ConnectorReferenceFieldProps['selected']}
+      disabled={loading || disabled}
       onChange={(record, scope) => {
         formik?.setFieldValue(
           name,

@@ -4155,6 +4155,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                       class="bp3-input"
                       data-testid="value-spec.sourcePaths-[0]"
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>

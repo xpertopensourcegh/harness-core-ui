@@ -6,5 +6,7 @@ export default {
   primaryArtifact: 'Primary Artifact',
   infrastructure: 'Infrastructure',
   execution: 'Execution',
-  rollbackSteps: 'Rollback Steps'
+  rollbackSteps: 'Rollback Steps',
+  namespace: 'Namespace',
+  sharedPaths: 'Shared Paths'
 }

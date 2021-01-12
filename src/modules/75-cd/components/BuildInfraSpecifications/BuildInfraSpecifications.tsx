@@ -160,7 +160,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
         }
       } else {
         stage.stage.spec.infrastructure = {
-          type: 'kubernetes-direct',
+          type: 'KubernetesDirect',
           spec: {
             connectorRef: values.connectorRef.value,
             namespace: values.namespace
@@ -233,7 +233,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
 
                             if (currentMode === Modes.Propagate) {
                               stage.stage.spec.infrastructure = {
-                                type: 'kubernetes-direct',
+                                type: 'KubernetesDirect',
                                 spec: {
                                   connectorRef: '',
                                   namespace: ''

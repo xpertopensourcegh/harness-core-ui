@@ -19,7 +19,7 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
-import { useConnectorRef } from '../StepsUseConnectorRef'
+import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat,
