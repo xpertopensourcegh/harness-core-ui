@@ -213,11 +213,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   ])
 
   const onCloseCreate = React.useCallback(() => {
-    if (pipelineIdentifier === DefaultNewPipelineId) {
+    if (pipeline.identifier === DefaultNewPipelineId) {
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
     }
     hideModal()
-  }, [accountId, hideModal, history, module, orgIdentifier, pipelineIdentifier, projectIdentifier, toPipelineList])
+  }, [accountId, hideModal, history, module, orgIdentifier, pipeline.identifier, projectIdentifier, toPipelineList])
 
   const onSubmit = React.useCallback(
     (data: NgPipeline) => {
