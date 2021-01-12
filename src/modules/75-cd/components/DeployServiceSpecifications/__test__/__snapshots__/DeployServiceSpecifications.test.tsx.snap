@@ -4,6 +4,72 @@ exports[`OverrideSet tests renders without crashing 1`] = `
 <div>
   <div
     class="Layout--vertical StyledProps--main serviceOverrides"
-  />
+  >
+    <div
+      class="serviceSection"
+    >
+      <div
+        class="Layout--vertical StyledProps--main specTabs tabHeading StyledProps--flex"
+      >
+        Service Details
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main serviceStageContainer"
+          style="align-items: center; justify-content: end;"
+        >
+          <div
+            class="stageSelection"
+          >
+            <section
+              class="serviceStageSelection"
+            >
+              <label
+                class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main"
+              >
+                <input
+                  type="radio"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 14px;"
+              >
+                 
+                Propagate from existing service
+              </p>
+            </section>
+            <section
+              class="serviceStageSelection"
+            >
+              <label
+                class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main"
+              >
+                <input
+                  type="radio"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 14px;"
+              >
+                 
+                Deploy different service
+              </p>
+            </section>
+          </div>
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

@@ -98,6 +98,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
+  const [canUseFromStage, setCanUseFromStage] = React.useState(false)
   const handleTabChange = (data: string): void => {
     setSelectedTab(data)
   }
@@ -245,6 +246,20 @@ export default function DeployServiceSpecifications(): JSX.Element {
       setConfigVisibility(false)
     }
   }
+  React.useEffect(() => {
+    if (isEmpty(stage?.stage?.spec)) {
+      if (stage.stage.type === getString('deploymentText')) {
+        let hasDeploymentStages = false
+        for (let index = 0; index < stageIndex; index++) {
+          if (stages[index].stage.type === getString('deploymentText')) {
+            hasDeploymentStages = true
+          }
+        }
+        setCanUseFromStage(hasDeploymentStages)
+        !hasDeploymentStages && setSetupMode(setupMode.DIFFERENT)
+      }
+    }
+  }, [])
 
   React.useEffect(() => {
     if (stageIndex === 0) {
@@ -329,6 +344,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
                   <Radio
                     checked={setupModeType === setupMode.PROPAGATE}
                     onChange={() => setSetupMode(setupMode.PROPAGATE)}
+                    disabled={!canUseFromStage}
                   />
                   <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.propagateFromLabel}</Text>
                 </section>

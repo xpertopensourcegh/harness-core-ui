@@ -21,7 +21,7 @@ import {
 } from '../../Diagram'
 import { StageBuilderModel } from './StageBuilderModel'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize } from '../PipelineConstants'
+import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize, MaximumSplitPaneSize } from '../PipelineConstants'
 import {
   getNewStageFromType,
   PopoverData,
@@ -244,6 +244,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Event.ClickNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
+
       /* istanbul ignore else */ if (nodeRender && eventTemp.entity) {
         if (eventTemp.entity.getType() === DiagramType.CreateNew) {
           dynamicPopoverHandler?.show(
@@ -284,16 +285,49 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         } /* istanbul ignore else */ else if (eventTemp.entity.getType() !== DiagramType.StartNode) {
           const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
           if (isSplitViewOpen && data?.stage?.identifier) {
-            resetDiagram(engine)
-            updatePipelineView({
-              ...pipelineView,
-              isSplitViewOpen: true,
-              splitViewData: {
-                selectedStageId: data?.stage?.identifier,
-                type: SplitViewTypes.StageView,
-                stageType: data?.stage?.type || 'Deployment'
-              }
-            })
+            if (data?.stage?.name === EmptyStageName) {
+              dynamicPopoverHandler?.show(
+                nodeRender,
+                {
+                  isStageView: true,
+                  data,
+                  onSubmitPrimaryData: (node, identifier) => {
+                    updatePipeline(pipeline)
+                    stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
+                    dynamicPopoverHandler.hide()
+                    resetDiagram(engine)
+                    updatePipelineView({
+                      ...pipelineView,
+                      isSplitViewOpen: true,
+                      splitViewData: {
+                        selectedStageId: identifier,
+                        type: SplitViewTypes.StageView,
+                        stageType: node.stage.type
+                      }
+                    })
+                  },
+                  stagesMap,
+                  renderPipelineStage
+                },
+                { useArrows: false, darkMode: false }
+              )
+              updatePipelineView({
+                ...pipelineView,
+                isSplitViewOpen: false,
+                splitViewData: {}
+              })
+            } else {
+              resetDiagram(engine)
+              updatePipelineView({
+                ...pipelineView,
+                isSplitViewOpen: true,
+                splitViewData: {
+                  selectedStageId: data?.stage?.identifier,
+                  type: SplitViewTypes.StageView,
+                  stageType: data?.stage?.type || 'Deployment'
+                }
+              })
+            }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
               resetDiagram(engine)
@@ -486,6 +520,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             size={splitPaneSize}
             split="horizontal"
             minSize={MinimumSplitPaneSize}
+            maxSize={MaximumSplitPaneSize}
             onChange={size => setSplitPaneSizeDeb(size)}
           >
             {StageCanvas}
@@ -517,7 +552,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                     id="stageDecrease"
                     iconProps={{ size: 12 }}
                     onClick={() => {
-                      setSplitPaneSize(prev => prev + 100)
+                      setSplitPaneSize(prev => (prev < MaximumSplitPaneSize ? prev + 100 : prev))
                     }}
                   />
                 </div>

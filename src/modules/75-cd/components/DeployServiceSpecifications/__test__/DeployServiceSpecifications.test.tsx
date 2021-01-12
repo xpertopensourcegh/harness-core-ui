@@ -39,7 +39,9 @@ describe('OverrideSet tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(
       <TestWrapper>
-        <DeployServiceSpecifications />
+        <PipelineContext.Provider value={getOverrideContextValue()}>
+          <DeployServiceSpecifications />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

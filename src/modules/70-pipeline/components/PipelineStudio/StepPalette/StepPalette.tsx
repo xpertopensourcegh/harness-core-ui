@@ -131,6 +131,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
               <Text style={{ color: 'var(--grey-700)', fontSize: 16 }}>{i18n.title}</Text>
               <div className={css.expandSearch}>
                 <ExpandingSearchInput
+                  autoFocus
                   placeholder={i18n.searchPlaceholder}
                   throttle={200}
                   onChange={(text: string) => filterSteps(text, filterContext.SEARCH)}
