@@ -891,10 +891,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                   style="flex-grow: 1;"
                 >
                   <div
-                    class="TextInput--main"
+                    class="TextInput--main MultiTypeInput--input"
                   >
                     <div
-                      class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                      class="bp3-input-group bp3-disabled"
                     >
                       <input
                         class="bp3-input"
@@ -983,10 +983,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                     style="width: 515px;"
                   >
                     <div
-                      class="TextInput--main"
+                      class="TextInput--main MultiTypeInput--input"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                        class="bp3-input-group bp3-disabled"
                       >
                         <input
                           class="bp3-input"
@@ -1105,10 +1105,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                   >
                     <div
-                      class="TextInput--main"
+                      class="TextInput--main MultiTypeInput--input"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                        class="bp3-input-group bp3-disabled"
                       >
                         <input
                           class="bp3-input"
@@ -1228,10 +1228,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                   >
                     <div
-                      class="TextInput--main"
+                      class="TextInput--main MultiTypeInput--input"
                     >
                       <div
-                        class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                        class="bp3-input-group bp3-disabled"
                       >
                         <input
                           class="bp3-input"
@@ -1368,10 +1368,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                     >
                       <div
-                        class="TextInput--main"
+                        class="TextInput--main MultiTypeInput--input"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                          class="bp3-input-group bp3-disabled"
                         >
                           <input
                             class="bp3-input"
@@ -1463,10 +1463,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                     >
                       <div
-                        class="TextInput--main"
+                        class="TextInput--main MultiTypeInput--input"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                          class="bp3-input-group bp3-disabled"
                         >
                           <input
                             class="bp3-input"
@@ -1594,10 +1594,10 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                   style="flex-grow: 1;"
                 >
                   <div
-                    class="TextInput--main"
+                    class="TextInput--main MultiTypeInput--input"
                   >
                     <div
-                      class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                      class="bp3-input-group bp3-disabled"
                     >
                       <input
                         class="bp3-input"

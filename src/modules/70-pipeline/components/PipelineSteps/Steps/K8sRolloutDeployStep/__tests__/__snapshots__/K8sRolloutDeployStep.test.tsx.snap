@@ -243,10 +243,10 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                       class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
                     >
                       <div
-                        class="TextInput--main"
+                        class="TextInput--main MultiTypeInput--input"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                          class="bp3-input-group bp3-disabled"
                         >
                           <input
                             class="bp3-input"

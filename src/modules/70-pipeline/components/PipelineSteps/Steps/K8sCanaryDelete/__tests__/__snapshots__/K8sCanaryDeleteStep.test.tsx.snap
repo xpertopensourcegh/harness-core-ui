@@ -137,10 +137,10 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
                         style="flex-grow: 1;"
                       >
                         <div
-                          class="TextInput--main"
+                          class="TextInput--main MultiTypeInput--input"
                         >
                           <div
-                            class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                            class="bp3-input-group bp3-disabled"
                           >
                             <input
                               class="bp3-input"

@@ -233,10 +233,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
               class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
             >
               <div
-                class="TextInput--main"
+                class="TextInput--main MultiTypeInput--input"
               >
                 <div
-                  class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                  class="bp3-input-group bp3-disabled"
                 >
                   <input
                     class="bp3-input"
@@ -298,10 +298,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
               class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
             >
               <div
-                class="TextInput--main"
+                class="TextInput--main MultiTypeInput--input"
               >
                 <div
-                  class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                  class="bp3-input-group bp3-disabled"
                 >
                   <input
                     class="bp3-input"
@@ -364,10 +364,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
               style="flex-grow: 1;"
             >
               <div
-                class="TextInput--main"
+                class="TextInput--main MultiTypeInput--input"
               >
                 <div
-                  class="bp3-input-group bp3-disabled MultiTypeInput--input"
+                  class="bp3-input-group bp3-disabled"
                 >
                   <input
                     class="bp3-input"
