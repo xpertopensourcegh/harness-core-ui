@@ -8,13 +8,14 @@ import css from './BuildInfo.module.scss'
 
 export interface BuildInfoProps {
   buildData: CIBuildResponseDTO
+  branchName: string
   showCommits: boolean
   toggleCommits: () => void
   className?: string
 }
 
 const BuildInfo: React.FC<BuildInfoProps> = props => {
-  const { showCommits, toggleCommits, buildData, className } = props
+  const { buildData, branchName, showCommits, toggleCommits, className } = props
 
   const { getString } = useStrings()
 
@@ -98,6 +99,23 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
                 <Icon color={Color.GREY_500} name={showCommits ? 'main-chevron-up' : 'main-chevron-down'} size={14} />
               </Link>
             ) : null}
+          </div>
+        </>
+      )
+      break
+    }
+
+    // NOTE: if no other data is available we are showing only branch name
+    default: {
+      sourceInfo = (
+        <>
+          <div className={css.gitInfo1}>
+            <span className={css.greyBox}>
+              <Icon className={css.greyBoxIcon} color={Color.GREY_500} name="git-branch" size={10} />
+              <span className={css.ellipsis} style={{ maxWidth: '250px' }}>
+                {branchName}
+              </span>
+            </span>
           </div>
         </>
       )

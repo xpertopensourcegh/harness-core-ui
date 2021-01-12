@@ -51,14 +51,24 @@ describe('BuildInfo snapshot tests', () => {
   test('renders "builds" properly', () => {
     const { container, rerender } = render(
       <TestWrapper>
-        <BuildInfo buildData={getCiBuildResponse('branch')} showCommits={true} toggleCommits={jest.fn()} />
+        <BuildInfo
+          buildData={getCiBuildResponse('branch')}
+          branchName={'master'}
+          showCommits={true}
+          toggleCommits={jest.fn()}
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
 
     rerender(
       <TestWrapper>
-        <BuildInfo buildData={getCiBuildResponse('branch')} showCommits={false} toggleCommits={jest.fn()} />
+        <BuildInfo
+          buildData={getCiBuildResponse('branch')}
+          branchName={'master'}
+          showCommits={false}
+          toggleCommits={jest.fn()}
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -67,14 +77,24 @@ describe('BuildInfo snapshot tests', () => {
   test('renders "pullRequest" properly', () => {
     const { container, rerender } = render(
       <TestWrapper>
-        <BuildInfo buildData={getCiBuildResponse('pullRequest')} showCommits={true} toggleCommits={jest.fn()} />
+        <BuildInfo
+          buildData={getCiBuildResponse('pullRequest')}
+          branchName={'master'}
+          showCommits={true}
+          toggleCommits={jest.fn()}
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
 
     rerender(
       <TestWrapper>
-        <BuildInfo buildData={getCiBuildResponse('pullRequest')} showCommits={false} toggleCommits={jest.fn()} />
+        <BuildInfo
+          buildData={getCiBuildResponse('pullRequest')}
+          branchName={'master'}
+          showCommits={false}
+          toggleCommits={jest.fn()}
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

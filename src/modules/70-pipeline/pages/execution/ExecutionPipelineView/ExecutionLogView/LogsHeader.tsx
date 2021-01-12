@@ -56,7 +56,8 @@ const LogsHeader = (props: LogsHeaderProps) => {
             throttle={200}
           />
         </div>
-        <Button minimal icon="download" className={css.download}></Button>
+        {/* TODO: disabled until implementation is done*/}
+        <Button disabled minimal icon="download" className={css.download}></Button>
         {/* <Icon name="download" size={16} className={css.btn} /> */}
         {showCross && <Button minimal icon="cross" className={css.remove}></Button>}
       </section>

@@ -328,7 +328,9 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main download"
+            class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main download"
+            disabled=""
+            tabindex="-1"
             type="button"
           >
             <span

@@ -1,4 +1,5 @@
 import React from 'react'
+import { isEmpty } from 'lodash-es'
 import { Icon } from '@wings-software/uicore'
 import { NavLink, useParams, useLocation, matchPath } from 'react-router-dom'
 import cx from 'classnames'
@@ -6,13 +7,15 @@ import cx from 'classnames'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-
+import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
+import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import i18n from './ExecutionTabs.i18n'
 
 import css from './ExecutionTabs.module.scss'
 
 export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { children } = props
+  const { pipelineExecutionDetail } = useExecutionContext()
   const params = useParams<PipelineType<ExecutionPathProps>>()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -29,6 +32,13 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
   const isLogView = view === 'log'
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
   const isCI = params.module === 'ci'
+
+  const ciData = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
+    ?.ciExecutionInfoDTO as CIBuildResponseDTO
+  // NOTE: hide commits tab if there are no commits
+  // by default we are showing Commits tab > 'isEmpty(pipelineExecutionDetail)'
+  const ciShowCommitsTab =
+    isEmpty(pipelineExecutionDetail) || !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length
 
   /* The following function does not have any business logic and hence can be ignored */
   /* istanbul ignore next */
@@ -74,14 +84,16 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
         )}
         {isCI && (
           <>
-            <NavLink
-              to={routes.toExecutionCommitsView(params)}
-              className={css.tabLink}
-              activeClassName={css.activeLink}
-            >
-              <Icon name="git-commit" size={16} />
-              <span>{i18n.commits}</span>
-            </NavLink>
+            {ciShowCommitsTab ? (
+              <NavLink
+                to={routes.toExecutionCommitsView(params)}
+                className={css.tabLink}
+                activeClassName={css.activeLink}
+              >
+                <Icon name="git-commit" size={16} />
+                <span>{i18n.commits}</span>
+              </NavLink>
+            ) : null}
             <NavLink to={routes.toExecutionTestsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
               <Icon name="lab-test" size={16} />
               <span>{i18n.tests}</span>

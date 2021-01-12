@@ -572,14 +572,6 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 -
                               </td>
                             </tr>
-                            <tr>
-                              <th>
-                                Delegate:
-                              </th>
-                              <td>
-                                TODO: No data from server
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                         <section
@@ -656,7 +648,9 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 </div>
                               </div>
                               <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main download"
+                                class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main download"
+                                disabled=""
+                                tabindex="-1"
                                 type="button"
                               >
                                 <span

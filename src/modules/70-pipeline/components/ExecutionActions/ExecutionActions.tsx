@@ -105,12 +105,15 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     }
   }
 
+  // TODO: disable not implemented features in ci module
+  const disableInCIModule = module === 'ci'
+
   return (
     <div className={css.main}>
-      {canResume ? <Button icon="play" onClick={resumePipleine} {...commonButtonProps} /> : null}
-      {canRerun ? <Button icon="repeat" {...commonButtonProps} onClick={reRunPipeline} /> : null}
-      {canPause ? <Button icon="pause" onClick={pausePipleine} {...commonButtonProps} /> : null}
-      {canAbort ? <Button icon="stop" onClick={abortPipleine} {...commonButtonProps} /> : null}
+      {!disableInCIModule && canResume ? <Button icon="play" onClick={resumePipleine} {...commonButtonProps} /> : null}
+      {!disableInCIModule && canRerun ? <Button icon="repeat" {...commonButtonProps} onClick={reRunPipeline} /> : null}
+      {!disableInCIModule && canPause ? <Button icon="pause" onClick={pausePipleine} {...commonButtonProps} /> : null}
+      {!disableInCIModule && canAbort ? <Button icon="stop" onClick={abortPipleine} {...commonButtonProps} /> : null}
       <Popover position="bottom-right" minimal>
         <Button icon="more" {...commonButtonProps} className={css.more} />
         <Menu>
@@ -120,11 +123,11 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           >
             Edit Pipeline
           </Link>
-          <MenuItem text="Re-run" disabled={!canRerun} onClick={reRunPipeline} />
-          <MenuItem text="Pause" onClick={pausePipleine} disabled={!canPause} />
-          <MenuItem text="Abort" onClick={abortPipleine} disabled={!canAbort} />
-          <MenuItem text="Resume" onClick={resumePipleine} disabled={!canResume} />
-          <MenuItem text="Download logs" />
+          <MenuItem text="Re-run" disabled={disableInCIModule || !canRerun} onClick={reRunPipeline} />
+          <MenuItem text="Pause" onClick={pausePipleine} disabled={disableInCIModule || !canPause} />
+          <MenuItem text="Abort" onClick={abortPipleine} disabled={disableInCIModule || !canAbort} />
+          <MenuItem text="Resume" onClick={resumePipleine} disabled={disableInCIModule || !canResume} />
+          <MenuItem text="Download logs" disabled={disableInCIModule} />
         </Menu>
       </Popover>
     </div>

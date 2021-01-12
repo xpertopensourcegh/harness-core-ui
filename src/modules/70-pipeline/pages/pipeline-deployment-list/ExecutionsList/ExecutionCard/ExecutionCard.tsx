@@ -46,6 +46,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
 
   // TODO: remove type cast
   const ciBuildData = (pipelineExecution?.moduleInfo?.ci?.ciExecutionInfoDTO as unknown) as CIBuildResponseDTO
+  const ciBranchName = (pipelineExecution?.moduleInfo?.ci?.branch as unknown) as string
 
   const getCommits = (build: CIBuildResponseDTO): CIBuildCommit[] => {
     switch (build.event) {
@@ -95,6 +96,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                     }}
                     showCommits={showCommits}
                     buildData={ciBuildData}
+                    branchName={ciBranchName}
                     className={css.buildInfo}
                   />
                 </div>

@@ -62,10 +62,10 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
                 : '-'}
             </td>
           </tr>
-          <tr>
+          {/*<tr>
             <th>Delegate:</th>
             <td>TODO: No data from server</td>
-          </tr>
+          </tr>*/}
         </tbody>
       </table>
       <LogsContent rows={7} header="Step Logs" showCross={false} redirectToLogView={redirectToLogView} />
