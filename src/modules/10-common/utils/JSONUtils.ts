@@ -7,7 +7,7 @@ empty arrays
  */
 const sanitize = (obj: Record<string, any>): Record<string, any> => {
   for (const key in obj) {
-    if (obj[key] === '' || obj[key] === null) {
+    if (obj[key] === null) {
       delete obj[key]
     } else if (Object.prototype.toString.call(obj[key]) === '[object Object]') {
       if (Object.keys(obj[key]).length === 0) {

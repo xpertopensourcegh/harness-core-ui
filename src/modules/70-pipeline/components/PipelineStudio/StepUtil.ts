@@ -15,7 +15,7 @@ import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 export const clearRuntimeInput = (template: NgPipeline): NgPipeline =>
-  JSON.parse(JSON.stringify(template || {}).replace(/\$\{input\}.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?/g, '"'))
+  JSON.parse(JSON.stringify(template || {}).replace(/<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?/g, '"'))
 
 export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[]): ExecutionWrapperConfig | undefined {
   let responseStep: ExecutionWrapperConfig | undefined = undefined
