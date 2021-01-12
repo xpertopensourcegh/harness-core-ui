@@ -1,4 +1,5 @@
 export default {
+  ciCodebase: 'CI Codebase',
   pipelineVariables: 'Pipeline Variables',
   stageName: (name: string) => `Stage: ${name}`,
   stageVariables: 'Stage Variables',
@@ -7,6 +8,8 @@ export default {
   infrastructure: 'Infrastructure',
   execution: 'Execution',
   rollbackSteps: 'Rollback Steps',
+  gitBranch: 'Git Branch',
+  gitTag: 'Git Tag',
   namespace: 'Namespace',
   sharedPaths: 'Shared Paths'
 }

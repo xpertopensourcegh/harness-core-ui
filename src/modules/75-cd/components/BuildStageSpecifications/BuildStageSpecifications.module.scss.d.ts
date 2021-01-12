@@ -20,5 +20,8 @@ declare const styles: {
   readonly editVariable: string
   readonly fixed: string
   readonly icon: string
+  readonly configureCodebase: string
+  readonly repositoryUrl: string
+  readonly predefinedValue: string
 }
 export default styles

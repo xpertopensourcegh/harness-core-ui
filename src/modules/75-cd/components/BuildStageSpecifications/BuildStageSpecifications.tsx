@@ -7,26 +7,43 @@ import {
   FormikForm,
   FormInput,
   MultiTextInput,
+  TextInput,
   Switch,
   Icon,
   Text,
   Popover,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { FieldArray } from 'formik'
-import { isEqual } from 'lodash-es'
+import { isEqual, isEmpty, set } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
-import { SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
+import {
+  SecretDTOV2,
+  listSecretsV2Promise,
+  PipelineInfoConfig,
+  ConnectorInfoDTO,
+  useGetConnector
+} from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import {
+  getIdentifierFromValue,
+  getScopeFromDTO,
+  getScopeFromValue
+} from '@common/components/EntityReference/EntityReference'
+import {
+  ConnectorReferenceField,
+  ConnectorReferenceFieldProps
+} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import css from './BuildStageSpecifications.module.scss'
 
@@ -87,7 +104,32 @@ export default function BuildStageSpecifications(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
+
+  const [connectionType, setConnectionType] = React.useState(codebase?.repoName ? 'Account' : '')
+  const [connectorUrl, setConnectorUrl] = React.useState('')
+
   const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
+
+  const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
+  const initialScope = getScopeFromValue((codebase?.connectorRef as string) || '')
+
+  const { data: connector, loading, refetch } = useGetConnector({
+    identifier: connectorId,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+    },
+    lazy: true,
+    debounce: 300
+  })
+
+  React.useEffect(() => {
+    if (!isEmpty(codebase?.connectorRef)) {
+      refetch()
+    }
+  }, [codebase?.connectorRef])
 
   const getInitialValues = (): {
     identifier: string
@@ -97,6 +139,8 @@ export default function BuildStageSpecifications(): JSX.Element {
     cloneCodebase: boolean
     sharedPaths: string[]
     customVariables: { name: string; type: string; value?: string }[]
+    connectorRef?: ConnectorReferenceFieldProps['selected']
+    repoName?: string
   } => {
     const pipelineData = stage?.stage || null
     const spec = stage?.stage?.spec || null
@@ -104,7 +148,7 @@ export default function BuildStageSpecifications(): JSX.Element {
     const identifier = pipelineData?.identifier || ''
     const name = pipelineData?.name || ''
     const description = pipelineData?.description || ''
-    const cloneCodebase = spec?.cloneCodebase || true
+    const cloneCodebase = spec?.cloneCodebase
     const sharedPaths =
       typeof spec?.sharedPaths === 'string'
         ? spec?.sharedPaths
@@ -113,13 +157,36 @@ export default function BuildStageSpecifications(): JSX.Element {
             value: _value
           })) || []
     const customVariables = spec?.customVariables || []
+    let connectorRef
+    const repoName = codebase?.repoName || ''
+
+    if (connector?.data?.connector) {
+      const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
+      connectorRef = {
+        label: connector?.data?.connector.name || '',
+        value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
+        scope: scope,
+        live: connector?.data?.status?.status === 'SUCCESS',
+        connector: connector?.data?.connector
+      }
+    }
 
     // Adding a default value
     if (Array.isArray(sharedPaths) && sharedPaths.length === 0) {
       sharedPaths.push({ id: uuid('', nameSpace()), value: '' })
     }
 
-    return { identifier, name, description, tags: null, cloneCodebase, sharedPaths, customVariables }
+    return {
+      identifier,
+      name,
+      description,
+      tags: null,
+      cloneCodebase,
+      sharedPaths,
+      customVariables,
+      connectorRef,
+      repoName
+    }
   }
 
   const handleValidate = (values: any): void => {
@@ -161,6 +228,25 @@ export default function BuildStageSpecifications(): JSX.Element {
         delete spec.customVariables
       }
 
+      if (values.connectorRef) {
+        if (values.cloneCodebase && values.connectorRef) {
+          set(pipeline, 'properties.ci.codebase', {
+            connectorRef: values.connectorRef.value,
+            ...(values.repoName && { repoName: values.repoName }),
+            build: RUNTIME_INPUT_VALUE
+          })
+
+          // Repo level connectors should not have repoName
+          if (connectionType === 'Repo' && (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
+            delete (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
+          }
+
+          updatePipeline(pipeline)
+        }
+      } else {
+        delete spec.connectorRef
+      }
+
       updatePipeline(pipeline)
     }
   }
@@ -175,6 +261,13 @@ export default function BuildStageSpecifications(): JSX.Element {
     })
     setIsDialogOpen(false)
   }, [setIsDialogOpen])
+
+  React.useEffect(() => {
+    if (connector?.data?.connector && !connectionType && !connectorUrl) {
+      setConnectionType(connector?.data?.connector.spec.type)
+      setConnectorUrl(connector?.data?.connector.spec.url)
+    }
+  }, [connector?.data?.connector])
 
   React.useEffect(() => {
     const fetchSecrets = async (): Promise<void> => {
@@ -201,12 +294,13 @@ export default function BuildStageSpecifications(): JSX.Element {
       <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
         <Layout.Vertical width="100%" spacing="large">
           <Formik
+            enableReinitialize
             initialValues={getInitialValues()}
             validationSchema={validationSchema}
             validate={handleValidate}
             onSubmit={values => logger.info(JSON.stringify(values))}
           >
-            {({ values: formValues, setFieldValue }) => (
+            {({ values: formValues, setFieldValue, errors, submitCount }) => (
               <>
                 <div className={cx(css.section, css.noPadTop)}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
@@ -295,6 +389,68 @@ export default function BuildStageSpecifications(): JSX.Element {
                       label={getString('cloneCodebaseLabel')}
                       onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
                     />
+                    {formValues.cloneCodebase && (
+                      <div className={cx(css.configureCodebase, css.fields)}>
+                        <Text
+                          font={{ size: 'medium', weight: 'semi-bold' }}
+                          icon="cog"
+                          iconProps={{ size: 18 }}
+                          margin={{ bottom: 'medium' }}
+                        >
+                          {getString('pipelineSteps.build.create.configureCodebase')}
+                        </Text>
+                        <Text margin={{ bottom: 'medium' }}>
+                          {getString('pipelineSteps.build.create.configureCodebaseHelperText')}
+                        </Text>
+                        <ConnectorReferenceField
+                          error={submitCount && errors.connectorRef ? errors.connectorRef : undefined}
+                          name="connectorRef"
+                          category={'CODE_REPO'}
+                          selected={formValues.connectorRef}
+                          label={getString('pipelineSteps.build.create.connectorLabel')}
+                          placeholder={loading ? getString('loading') : getString('select')}
+                          disabled={loading}
+                          width={300}
+                          accountIdentifier={accountId}
+                          projectIdentifier={projectIdentifier}
+                          orgIdentifier={orgIdentifier}
+                          onChange={(value, scope) => {
+                            setConnectionType(value.spec.type)
+                            setConnectorUrl(value.spec.url)
+
+                            setFieldValue('connectorRef', {
+                              label: value.name || '',
+                              value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
+                              scope: scope
+                            })
+                          }}
+                        />
+                        {connectionType === 'Repo' ? (
+                          <>
+                            <Text margin={{ bottom: 'xsmall' }}>
+                              {getString('pipelineSteps.build.create.repositoryNameLabel')}
+                            </Text>
+                            <TextInput name="repoName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
+                          </>
+                        ) : (
+                          <>
+                            <FormInput.Text
+                              className={css.repositoryUrl}
+                              label={'Repository Name'}
+                              name="repoName"
+                              style={{ flexGrow: 1 }}
+                              disabled={loading}
+                            />
+                            {connectorUrl.length > 0 ? (
+                              <div className={css.predefinedValue}>
+                                {(connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/') +
+                                  (formValues.repoName ? formValues.repoName : '')}
+                              </div>
+                            ) : null}
+                          </>
+                        )}
+                      </div>
+                    )}
                   </FormikForm>
                 </div>
 

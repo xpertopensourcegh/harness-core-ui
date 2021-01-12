@@ -38,12 +38,13 @@
   margin-top: var(--spacing-medium);
 }
 
+.repositoryUrl {
+  overflow-x: auto;
+}
+
 .predefinedValue {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  font-size: 14px;
-  padding-left: var(--spacing-medium);
+  margin-top: calc(var(--spacing-small) / -1);
+  margin-bottom: var(--spacing-medium);
 }
 
 .cloneCodebaseInfo {

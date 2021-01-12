@@ -186,7 +186,6 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             >
               <input
-                checked=""
                 type="checkbox"
               />
               <span
@@ -231,182 +230,6 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               >
                 Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage
               </p>
-            </div>
-            <div
-              class="configureCodebase"
-            >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
-                style="display: flex; align-items: center;"
-              >
-                <span
-                  class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall"
-                  icon="cog"
-                >
-                  <svg
-                    data-icon="cog"
-                    height="18"
-                    viewBox="0 0 16 16"
-                    width="18"
-                  >
-                    <desc>
-                      cog
-                    </desc>
-                    <path
-                      d="M15.19 6.39h-1.85c-.11-.37-.27-.71-.45-1.04l1.36-1.36c.31-.31.31-.82 0-1.13l-1.13-1.13a.803.803 0 00-1.13 0l-1.36 1.36c-.33-.17-.67-.33-1.04-.44V.79c0-.44-.36-.8-.8-.8h-1.6c-.44 0-.8.36-.8.8v1.86c-.39.12-.75.28-1.1.47l-1.3-1.3c-.3-.3-.79-.3-1.09 0L1.82 2.91c-.3.3-.3.79 0 1.09l1.3 1.3c-.2.34-.36.7-.48 1.09H.79c-.44 0-.8.36-.8.8v1.6c0 .44.36.8.8.8h1.85c.11.37.27.71.45 1.04l-1.36 1.36c-.31.31-.31.82 0 1.13l1.13 1.13c.31.31.82.31 1.13 0l1.36-1.36c.33.18.67.33 1.04.44v1.86c0 .44.36.8.8.8h1.6c.44 0 .8-.36.8-.8v-1.86c.39-.12.75-.28 1.1-.47l1.3 1.3c.3.3.79.3 1.09 0l1.09-1.09c.3-.3.3-.79 0-1.09l-1.3-1.3c.19-.35.36-.71.48-1.1h1.85c.44 0 .8-.36.8-.8v-1.6a.816.816 0 00-.81-.79zm-7.2 4.6c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                Configure Codebase
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
-              >
-                Help text to tell the user this is only for the first time.
-              </p>
-              <div
-                class="bp3-form-group"
-                data-id="null-2"
-              >
-                <label
-                  class="bp3-label"
-                >
-                  Connector
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
-                >
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
-                        style="width: 400px;"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                            style="justify-content: space-between; width: 100%;"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                            >
-                              test1
-                            </p>
-                            <div
-                              class="rightStatus"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                icon="full-circle"
-                              >
-                                <svg
-                                  data-icon="full-circle"
-                                  height="6"
-                                  viewBox="0 0 16 16"
-                                  width="6"
-                                >
-                                  <desc>
-                                    full-circle
-                                  </desc>
-                                  <path
-                                    d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                              <span
-                                class="Tag--main"
-                              >
-                                <span
-                                  class="bp3-tag bp3-minimal tag"
-                                >
-                                  <span
-                                    class="bp3-text-overflow-ellipsis bp3-fill"
-                                  >
-                                    account
-                                  </span>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </span>
-                        <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                          icon="caret-down"
-                        >
-                          <svg
-                            data-icon="caret-down"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              caret-down
-                            </desc>
-                            <path
-                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="bp3-form-group"
-                data-id="repositoryName-3"
-                style="flex-grow: 1;"
-              >
-                <label
-                  class="bp3-label"
-                  for="repositoryName"
-                >
-                  Repository URL
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <span
-                      class="bp3-input-left-container"
-                    >
-                      <div
-                        class="predefinedValue"
-                      >
-                        /
-                      </div>
-                    </span>
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="repositoryName"
-                      style="padding-left: 0px;"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
             <button
               class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
@@ -773,15 +596,15 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-form-group"
-                data-id="repositoryName-2"
+                class="bp3-form-group repositoryUrl"
+                data-id="repoName-2"
                 style="flex-grow: 1;"
               >
                 <label
                   class="bp3-label"
-                  for="repositoryName"
+                  for="repoName"
                 >
-                  Repository URL
+                  Repository Name
                    
                   <span
                     class="bp3-text-muted"
@@ -793,20 +616,10 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   <div
                     class="bp3-input-group"
                   >
-                    <span
-                      class="bp3-input-left-container"
-                    >
-                      <div
-                        class="predefinedValue"
-                      >
-                        /
-                      </div>
-                    </span>
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="repositoryName"
-                      style="padding-left: 0px;"
+                      name="repoName"
                       type="text"
                       value=""
                     />

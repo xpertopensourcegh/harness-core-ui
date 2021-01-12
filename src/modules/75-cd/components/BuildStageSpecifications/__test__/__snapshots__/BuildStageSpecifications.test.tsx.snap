@@ -229,7 +229,6 @@ exports[`BuildStageSpecifications tests clicking on description and tags shows c
                   class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
                 >
                   <input
-                    checked=""
                     type="checkbox"
                   />
                   <span
@@ -330,7 +329,6 @@ exports[`BuildStageSpecifications tests clicking on description and tags shows c
                         >
                           <div
                             class="bp3-form-group"
-                            data-id="sharedPaths[0].value-1"
                             style="flex-grow: 1;"
                           >
                             
@@ -627,7 +625,6 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
                 >
                   <input
-                    checked=""
                     type="checkbox"
                   />
                   <span
@@ -728,7 +725,6 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         >
                           <div
                             class="bp3-form-group"
-                            data-id="sharedPaths[0].value-1"
                             style="flex-grow: 1;"
                           >
                             

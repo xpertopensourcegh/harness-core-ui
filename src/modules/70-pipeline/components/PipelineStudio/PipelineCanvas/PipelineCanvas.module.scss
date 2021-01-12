@@ -150,19 +150,61 @@
   }
 }
 
-.notificationContainer {
-  display: grid;
-  justify-content: end;
+.rightSideBottom {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    span:last-child {
+      // TODO: Replace color once it is available in UIKit
+      color: #0092e4 !important;
+    }
+  }
 }
 
 .pipelineNameContainer {
   display: flex;
   margin-top: 10px;
+
   .pipelineName {
     display: inline-flex;
     font-size: var(--font-size-medium) !important;
   }
+
   button {
     display: inline-flex;
   }
+}
+
+.codebaseConfiguration {
+  &.notConfigured {
+    > span svg path:last-child {
+      // TODO: Replace color once it is available in UIKit
+      fill: #ff8800 !important;
+    }
+  }
+
+  &.valid {
+    > span svg path {
+      // TODO: Replace color once it is available in UIKit
+      fill: #06c270 !important;
+    }
+  }
+
+  &.invalid {
+    // TODO: Replace color once it is available in UIKit
+    color: #9293ab !important;
+  }
+
+  &.validating {
+    // DO NOT REMOVE
+    color: inherit;
+  }
+}
+
+.predefinedValue {
+  font-size: 13px;
+  color: var(--grey-500);
+  margin-top: calc(var(--spacing-small) / -1);
+  margin-bottom: var(--spacing-medium);
 }

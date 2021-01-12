@@ -28,7 +28,7 @@ export enum MapStageTypeIconName {
   buildAndPushDockerHub = 'docker-hub-step',
   uploadToGCS = 'gcs-step',
   uploadToS3 = 'service-service-s3',
-  uploadToArtifactory = 'service-artifactory'
+  ArtifactoryUpload = 'service-artifactory'
 }
 
 export interface ServiceDependency {

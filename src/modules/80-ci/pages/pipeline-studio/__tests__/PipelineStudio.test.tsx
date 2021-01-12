@@ -14,6 +14,9 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('services/cd-ng', () => ({
+  useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve({ response: { data: { content: [] } } }))
 }))
 

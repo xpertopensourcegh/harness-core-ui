@@ -174,43 +174,68 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
               </div>
             </div>
             <div
-              class="notificationContainer"
+              class="rightSideBottom"
             >
-              <div>
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main codebaseConfiguration notConfigured StyledProps--font-weight-semi-bold"
+                type="button"
+              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                 >
-                  <span
-                    class="bp3-popover-target"
+                  <svg
+                    height="16"
+                    viewBox="0 0 19 15"
+                    width="16"
                   >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 14 16"
-                          width="16"
-                        >
-                          <path
-                            d="M1.614 12.444v-.94l1.786-1.9-.007-.008a4.93 4.93 0 01-.665-2.485c0-2.618 1.995-4.741 4.455-4.741s4.456 2.123 4.456 4.74c0 .913-.245 1.764-.665 2.486l-.008.008 1.787 1.9v.94H1.613zm5.57 2.37c-.616 0-1.115-.53-1.115-1.185h2.228c0 .655-.499 1.185-1.114 1.185zm6.52-3.975l-1.377-1.463a6.2 6.2 0 00.425-2.265c0-3.068-2.202-5.598-5.012-5.896V0H6.626v1.215c-2.81.298-5.012 2.828-5.012 5.896 0 .802.152 1.567.425 2.265L.663 10.839a.613.613 0 00-.163.42v2.37h4.455c0 1.308 1 2.37 2.228 2.37s2.228-1.062 2.228-2.37h4.455v-2.37a.613.613 0 00-.163-.42z"
-                            fill="#22272D"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="bp3-button-text"
-                      >
-                        Notifications
-                      </span>
-                    </button>
-                  </span>
+                    <path
+                      color="#fff"
+                      d="M15.964 15H3.027C.702 15-.737 12.787.392 11.021L6.29 1.339c1.152-1.785 5.261-1.785 6.412 0l5.897 9.682C19.75 12.768 18.288 15 15.964 15z"
+                    />
+                    <path
+                      d="M4.23 13.75h10.408c1.713 0 2.79-1.77 1.941-3.157l-5.22-8.53c-.848-1.417-3.002-1.417-3.85 0l-5.22 8.53c-.832 1.402.229 3.157 1.941 3.157zm5.22-1.894c-.456 0-.832-.354-.832-.785 0-.431.376-.786.832-.786.457 0 .832.354.816.801.016.416-.375.77-.816.77zm-.212-7.083c.392-.093.8.092.963.446.049.123.081.247.081.385-.016.385-.049.785-.081 1.17-.033.601-.082 1.217-.114 1.817-.017.2-.017.37-.017.57a.6.6 0 01-.62.57c-.342 0-.603-.231-.62-.554-.048-.94-.114-1.879-.163-2.818l-.049-.755a.82.82 0 01.62-.831z"
+                    />
+                  </svg>
                 </span>
-              </div>
+                <span
+                  class="bp3-button-text"
+                >
+                  Codebase
+                </span>
+              </button>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--font-weight-semi-bold"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 14 16"
+                        width="16"
+                      >
+                        <path
+                          d="M1.614 12.444v-.94l1.786-1.9-.007-.008a4.93 4.93 0 01-.665-2.485c0-2.618 1.995-4.741 4.455-4.741s4.456 2.123 4.456 4.74c0 .913-.245 1.764-.665 2.486l-.008.008 1.787 1.9v.94H1.613zm5.57 2.37c-.616 0-1.115-.53-1.115-1.185h2.228c0 .655-.499 1.185-1.114 1.185zm6.52-3.975l-1.377-1.463a6.2 6.2 0 00.425-2.265c0-3.068-2.202-5.598-5.012-5.896V0H6.626v1.215c-2.81.298-5.012 2.828-5.012 5.896 0 .802.152 1.567.425 2.265L.663 10.839a.613.613 0 00-.163.42v2.37h4.455c0 1.308 1 2.37 2.228 2.37s2.228-1.062 2.228-2.37h4.455v-2.37a.613.613 0 00-.163-.42z"
+                          fill="#22272D"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      Notifications
+                    </span>
+                  </button>
+                </span>
+              </span>
             </div>
           </div>
         </div>
@@ -502,43 +527,68 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
               </div>
             </div>
             <div
-              class="notificationContainer"
+              class="rightSideBottom"
             >
-              <div>
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main codebaseConfiguration notConfigured StyledProps--font-weight-semi-bold"
+                type="button"
+              >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                 >
-                  <span
-                    class="bp3-popover-target"
+                  <svg
+                    height="16"
+                    viewBox="0 0 19 15"
+                    width="16"
                   >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 14 16"
-                          width="16"
-                        >
-                          <path
-                            d="M1.614 12.444v-.94l1.786-1.9-.007-.008a4.93 4.93 0 01-.665-2.485c0-2.618 1.995-4.741 4.455-4.741s4.456 2.123 4.456 4.74c0 .913-.245 1.764-.665 2.486l-.008.008 1.787 1.9v.94H1.613zm5.57 2.37c-.616 0-1.115-.53-1.115-1.185h2.228c0 .655-.499 1.185-1.114 1.185zm6.52-3.975l-1.377-1.463a6.2 6.2 0 00.425-2.265c0-3.068-2.202-5.598-5.012-5.896V0H6.626v1.215c-2.81.298-5.012 2.828-5.012 5.896 0 .802.152 1.567.425 2.265L.663 10.839a.613.613 0 00-.163.42v2.37h4.455c0 1.308 1 2.37 2.228 2.37s2.228-1.062 2.228-2.37h4.455v-2.37a.613.613 0 00-.163-.42z"
-                            fill="#22272D"
-                          />
-                        </svg>
-                      </span>
-                      <span
-                        class="bp3-button-text"
-                      >
-                        Notifications
-                      </span>
-                    </button>
-                  </span>
+                    <path
+                      color="#fff"
+                      d="M15.964 15H3.027C.702 15-.737 12.787.392 11.021L6.29 1.339c1.152-1.785 5.261-1.785 6.412 0l5.897 9.682C19.75 12.768 18.288 15 15.964 15z"
+                    />
+                    <path
+                      d="M4.23 13.75h10.408c1.713 0 2.79-1.77 1.941-3.157l-5.22-8.53c-.848-1.417-3.002-1.417-3.85 0l-5.22 8.53c-.832 1.402.229 3.157 1.941 3.157zm5.22-1.894c-.456 0-.832-.354-.832-.785 0-.431.376-.786.832-.786.457 0 .832.354.816.801.016.416-.375.77-.816.77zm-.212-7.083c.392-.093.8.092.963.446.049.123.081.247.081.385-.016.385-.049.785-.081 1.17-.033.601-.082 1.217-.114 1.817-.017.2-.017.37-.017.57a.6.6 0 01-.62.57c-.342 0-.603-.231-.62-.554-.048-.94-.114-1.879-.163-2.818l-.049-.755a.82.82 0 01.62-.831z"
+                    />
+                  </svg>
                 </span>
-              </div>
+                <span
+                  class="bp3-button-text"
+                >
+                  Codebase
+                </span>
+              </button>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--font-weight-semi-bold"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 14 16"
+                        width="16"
+                      >
+                        <path
+                          d="M1.614 12.444v-.94l1.786-1.9-.007-.008a4.93 4.93 0 01-.665-2.485c0-2.618 1.995-4.741 4.455-4.741s4.456 2.123 4.456 4.74c0 .913-.245 1.764-.665 2.486l-.008.008 1.787 1.9v.94H1.613zm5.57 2.37c-.616 0-1.115-.53-1.115-1.185h2.228c0 .655-.499 1.185-1.114 1.185zm6.52-3.975l-1.377-1.463a6.2 6.2 0 00.425-2.265c0-3.068-2.202-5.598-5.012-5.896V0H6.626v1.215c-2.81.298-5.012 2.828-5.012 5.896 0 .802.152 1.567.425 2.265L.663 10.839a.613.613 0 00-.163.42v2.37h4.455c0 1.308 1 2.37 2.228 2.37s2.228-1.062 2.228-2.37h4.455v-2.37a.613.613 0 00-.163-.42z"
+                          fill="#22272D"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      Notifications
+                    </span>
+                  </button>
+                </span>
+              </span>
             </div>
           </div>
         </div>

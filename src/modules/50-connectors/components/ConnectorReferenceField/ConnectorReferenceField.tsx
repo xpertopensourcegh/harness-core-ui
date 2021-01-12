@@ -284,6 +284,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           placeholder,
           label,
           getString,
+          category,
           openConnectorModal
         })}
         selectedRenderer={getSelectedRenderer(selected)}

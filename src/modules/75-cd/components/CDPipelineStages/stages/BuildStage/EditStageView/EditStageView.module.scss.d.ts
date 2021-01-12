@@ -6,6 +6,7 @@ declare const styles: {
   readonly grid: string
   readonly stageCreate: string
   readonly configureCodebase: string
+  readonly repositoryUrl: string
   readonly predefinedValue: string
   readonly cloneCodebaseInfo: string
 }

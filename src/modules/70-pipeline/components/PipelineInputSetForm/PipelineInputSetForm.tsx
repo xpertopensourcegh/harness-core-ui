@@ -1,10 +1,11 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
 import { StageInputSetForm } from './StageInputSetForm'
+import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
 import css from './PipelineInputSetForm.module.scss'
 
@@ -47,6 +48,11 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
       {(originalPipeline as any)?.variables?.length > 0 && (
         <CollapseForm header={i18n.pipelineVariables}>
           <div>WIP</div>
+        </CollapseForm>
+      )}
+      {getMultiTypeFromValue(template?.properties?.ci?.codebase?.build as string) === MultiTypeInputType.RUNTIME && (
+        <CollapseForm header={i18n.ciCodebase}>
+          <CICodebaseInputSetForm path={path} readonly={readonly} />
         </CollapseForm>
       )}
       {template?.stages?.map((stageObj, index) => {

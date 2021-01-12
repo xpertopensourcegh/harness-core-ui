@@ -28,5 +28,5 @@ export enum StepType {
   DockerHub = 'BuildAndPushDockerHub',
   GCS = 'GCSUpload',
   S3 = 'S3Upload',
-  JFrogArtifactory = 'UploadToArtifactory'
+  JFrogArtifactory = 'ArtifactoryUpload'
 }

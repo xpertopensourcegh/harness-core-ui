@@ -8,13 +8,14 @@ import {
   Collapse,
   Button,
   Switch,
-  TextInput
+  TextInput,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import type { CodeBase, StageElementWrapper } from 'services/cd-ng'
+import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
@@ -42,12 +43,7 @@ interface Values {
   description?: string
   cloneCodebase?: boolean
   connectorRef?: ConnectorReferenceFieldProps['selected']
-  repositoryName?: string
-}
-
-interface CodeBase2 {
-  connectorRef: string
-  repositoryName: string
+  repoName?: string
 }
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChange }): JSX.Element => {
@@ -56,14 +52,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const [connectorUrl, setConnectorUrl] = React.useState('')
 
   const {
-    state: {
-      pipeline,
-      pipeline: { ciCodebase }
-    },
+    state: { pipeline },
     updatePipeline
   } = React.useContext(PipelineContext)
-
-  const ciCodebase2: CodeBase2 | undefined = (ciCodebase as unknown) as CodeBase2 | undefined
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -74,15 +65,14 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const initialValues: Values = {
     identifier: data?.stage.identifier,
     name: data?.stage.name,
-    cloneCodebase: data?.stage.spec?.cloneCodebase || true
+    description: data?.stage.description,
+    cloneCodebase: data?.stage.spec?.cloneCodebase ?? true
   }
 
-  if (data?.stage.description) initialValues.description = data?.stage.description
-  if (data?.stage.spec?.cloneCodebase) initialValues.cloneCodebase = data?.stage.spec?.cloneCodebase
-  if (ciCodebase2?.repositoryName) initialValues.repositoryName = ciCodebase2?.repositoryName
+  const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
 
-  const connectorId = getIdentifierFromValue((ciCodebase2?.connectorRef as string) || '')
-  const initialScope = getScopeFromValue((ciCodebase2?.connectorRef as string) || '')
+  const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
+  const initialScope = getScopeFromValue((codebase?.connectorRef as string) || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorId,
@@ -107,26 +97,24 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   }
 
   React.useEffect(() => {
-    if (!isEmpty(ciCodebase2?.connectorRef)) {
+    if (!isEmpty(codebase?.connectorRef)) {
       refetch()
     }
-  }, [ciCodebase2?.connectorRef])
+  }, [codebase?.connectorRef])
 
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: Yup.string()
-          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('pipelineSteps.build.create.stageNameRegExpError'))
-          .required(getString('pipelineSteps.build.create.stageNameRequiredError')),
-        description: Yup.string().matches(
-          /^(?![0-9])[0-9a-zA-Z_$]*$/,
-          getString('pipelineSteps.build.create.stageDescriptionRegExpError')
-        ),
-        ...(!ciCodebase2 &&
+        name: Yup.string().required(getString('fieldRequired', { field: getString('stageNameLabel') })),
+        ...(!codebase &&
           values.cloneCodebase && {
-            connectorRef: Yup.mixed().required(getString('pipelineSteps.build.create.connectorRequiredError')),
+            connectorRef: Yup.mixed().required(
+              getString('fieldRequired', { field: getString('pipelineSteps.build.create.connectorLabel') })
+            ),
             ...(connectionType === 'Account' && {
-              repositoryName: Yup.string().required(getString('pipelineSteps.build.create.repositoryUrlRequiredError'))
+              repoName: Yup.string().required(
+                getString('fieldRequired', { field: getString('pipelineSteps.build.create.repositoryNameLabel') })
+              )
             })
           })
       })
@@ -142,10 +130,17 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     if (data) {
       // TODO: Add Codebase verification
       if (values.cloneCodebase && values.connectorRef) {
-        pipeline.ciCodebase = ({
+        set(pipeline, 'properties.ci.codebase', {
           connectorRef: values.connectorRef.value,
-          ...(values.repositoryName && { repositoryName: values.repositoryName })
-        } as unknown) as CodeBase
+          ...(values.repoName && { repoName: values.repoName }),
+          build: RUNTIME_INPUT_VALUE
+        })
+
+        // Repo level connectors should not have repoName
+        if (connectionType === 'Repo' && (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
+          delete (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
+        }
+
         updatePipeline(pipeline)
       }
 
@@ -153,7 +148,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       data.stage.name = values.name
 
       if (values.description) data.stage.description = values.description
-      if (values.cloneCodebase) data.stage.spec.cloneCodebase = values.cloneCodebase
+      if (!data.stage.spec) data.stage.spec = {}
+      data.stage.spec.cloneCodebase = values.cloneCodebase
 
       onSubmit?.(data, values.identifier)
     }
@@ -207,7 +203,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 <Text font="xsmall">{getString('pipelineSteps.build.create.cloneCodebaseHelperText')}</Text>
               </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}
-              {!ciCodebase && formikProps.values.cloneCodebase && (
+              {!codebase && formikProps.values.cloneCodebase && (
                 <div className={css.configureCodebase}>
                   <Text
                     font={{ size: 'medium', weight: 'semi-bold' }}
@@ -227,7 +223,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         : undefined
                     }
                     name="connectorRef"
-                    type="Git"
+                    category={'CODE_REPO'}
                     selected={formikProps.values.connectorRef}
                     label={getString('pipelineSteps.build.create.connectorLabel')}
                     placeholder={loading ? getString('loading') : getString('select')}
@@ -236,7 +232,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
                     onChange={(value, scope) => {
-                      setConnectionType(value.spec.connectionType)
+                      setConnectionType(value.spec.type)
                       setConnectorUrl(value.spec.url)
 
                       formikProps.setFieldValue('connectorRef', {
@@ -248,22 +244,26 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                   />
                   {connectionType === 'Repo' ? (
                     <>
-                      <Text margin={{ bottom: 'xsmall' }}>{getString('repositoryUrlLabel')}</Text>
-                      <TextInput name="repositoryName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
+                      <Text margin={{ bottom: 'xsmall' }}>
+                        {getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      </Text>
+                      <TextInput name="repoName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
                     </>
                   ) : (
-                    <FormInput.Text
-                      label={getString('repositoryUrlLabel')}
-                      name="repositoryName"
-                      inputGroup={{
-                        leftElement: (
-                          <div className={css.predefinedValue}>
-                            {connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/'}
-                          </div>
-                        )
-                      }}
-                      style={{ flexGrow: 1 }}
-                    />
+                    <>
+                      <FormInput.Text
+                        className={css.repositoryUrl}
+                        label={'Repository Name'}
+                        name="repoName"
+                        style={{ flexGrow: 1 }}
+                      />
+                      {connectorUrl.length > 0 ? (
+                        <div className={css.predefinedValue}>
+                          {(connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/') +
+                            (formikProps.values.repoName ? formikProps.values.repoName : '')}
+                        </div>
+                      ) : null}
+                    </>
                   )}
                 </div>
               )}

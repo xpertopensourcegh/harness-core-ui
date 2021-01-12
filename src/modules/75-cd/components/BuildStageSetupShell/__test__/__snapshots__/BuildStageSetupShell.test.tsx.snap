@@ -433,7 +433,6 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                           class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
                         >
                           <input
-                            checked=""
                             type="checkbox"
                           />
                           <span
@@ -534,7 +533,6 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                 >
                                   <div
                                     class="bp3-form-group"
-                                    data-id="sharedPaths[0].value-1"
                                     style="flex-grow: 1;"
                                   >
                                     

@@ -22,6 +22,9 @@ window.HTMLElement.prototype.scrollTo = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
   useGetExecutionStrategyList: jest.fn().mockImplementation(() => ({ loading: false, data: ExecutionResponse })),
   useGetExecutionStrategyYaml: jest.fn().mockImplementation(() => ({ loading: false, data: YamlResponse })),
   useGetServiceListForProject: jest
