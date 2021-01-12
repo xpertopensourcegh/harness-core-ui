@@ -35,6 +35,9 @@
         border-bottom: 0;
         z-index: 1;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+        > [icon='chevron-right'] {
+          margin-right: var(--spacing-small) !important;
+        }
       }
       .bp3-tab-panel {
         position: absolute;
@@ -59,7 +62,7 @@
           display: block !important;
         }
 
-        span.bp3-icon {
+        span.bp3-icon:not([icon='warning-sign']) {
           margin-right: var(--spacing-small);
           path {
             fill: var(--grey-400);
@@ -99,6 +102,11 @@
     .bp3-button-text {
       display: flex;
       align-items: center;
+    }
+  }
+  svg[data-icon='warning-sign'] {
+    path {
+      fill: var(--orange-500) !important;
     }
   }
 }

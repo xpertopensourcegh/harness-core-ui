@@ -107,6 +107,26 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
               </span>
             </div>
           </div>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+            icon="chevron-right"
+            style="align-self: center; height: 20px;"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
           <div
             aria-controls="bp3-tab-panel_stageSetupShell_Infrastructure"
             aria-disabled="false"
@@ -139,8 +159,48 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 </svg>
               </span>
               Infrastructure
+              <span
+                class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange500 StyledProps--margin-left-small"
+                icon="warning-sign"
+                style="vertical-align: baseline; height: 10px;"
+              >
+                <svg
+                  data-icon="warning-sign"
+                  height="10"
+                  viewBox="0 0 16 16"
+                  width="10"
+                >
+                  <desc>
+                    warning-sign
+                  </desc>
+                  <path
+                    d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
             </span>
           </div>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+            icon="chevron-right"
+            style="align-self: center; height: 20px;"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
           <div
             aria-controls="bp3-tab-panel_stageSetupShell_Execution"
             aria-disabled="false"
@@ -171,6 +231,26 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 </svg>
               </span>
               Execution
+              <span
+                class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange500 StyledProps--margin-left-small"
+                icon="warning-sign"
+                style="vertical-align: baseline; height: 10px;"
+              >
+                <svg
+                  data-icon="warning-sign"
+                  height="10"
+                  viewBox="0 0 16 16"
+                  width="10"
+                >
+                  <desc>
+                    warning-sign
+                  </desc>
+                  <path
+                    d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
             </span>
           </div>
         </div>

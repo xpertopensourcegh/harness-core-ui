@@ -38,9 +38,20 @@ export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Custom: 'pipeline-custom'
 }
 
+interface StagesFilledStateFlags {
+  specifications: boolean
+  infra: boolean
+  execution: boolean
+}
+
 export default function BuildStageSetupShell(): JSX.Element {
   const stageNames: string[] = [i18n.defaultId, i18n.infraLabel, i18n.executionLabel]
   const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.defaultId)
+  const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
+    specifications: false,
+    infra: false,
+    execution: false
+  })
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const {
     state: {
@@ -57,6 +68,20 @@ export default function BuildStageSetupShell(): JSX.Element {
   } = React.useContext(PipelineContext)
 
   const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
+
+  React.useEffect(() => {
+    // @TODO: add CI Codebase field check if Clone Codebase is checked
+    // once it is added to BuildStageSpecifications (CI-757)
+    const specifications = stageData?.name && stageData?.identifier
+    const infra = stageData?.spec?.infrastructure?.spec?.connectorRef
+    const execution = !!stageData?.spec?.execution?.steps?.length
+    setFilledUpStages({ specifications, infra, execution })
+  }, [
+    stageData?.name,
+    stageData?.identifier,
+    stageData?.spec?.infrastructure?.spec?.connectorRef,
+    stageData?.spec?.execution?.steps?.length
+  ])
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
@@ -148,7 +173,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             id={i18n.defaultId}
             panel={<BuildStageSpecifications />}
             title={
-              <div className={css.tab}>
+              <div className={cx(css.tab)}>
                 <StageSelection
                   className={css.stageDropdown}
                   itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
@@ -171,6 +196,16 @@ export default function BuildStageSetupShell(): JSX.Element {
                   <Button className={css.stageDropdownButton} minimal>
                     <Icon name={MapStepTypeToIcon[stageData?.type]} size={30} margin={{ right: 'small' }} />
                     {stageData?.name}
+                    {filledUpStages.specifications ? null : (
+                      <Icon
+                        name="warning-sign"
+                        height={10}
+                        size={10}
+                        color={'orange500'}
+                        margin={{ left: 'small', right: 0 }}
+                        style={{ verticalAlign: 'baseline' }}
+                      />
+                    )}
                     <Icon
                       className={css.stageDropdownButtonCaret}
                       name="pipeline-stage-selection-caret"
@@ -182,15 +217,41 @@ export default function BuildStageSetupShell(): JSX.Element {
               </div>
             }
           />
+          <Icon
+            name="chevron-right"
+            height={20}
+            size={20}
+            margin={{ right: 'small', left: 'small' }}
+            color={'grey400'}
+            style={{ alignSelf: 'center' }}
+          />
           <Tab
             id={i18n.infraLabel}
             title={
               <span className={css.tab}>
                 <Icon name="yaml-builder-stages" height={20} size={20} />
                 {i18n.infraLabel}
+                {filledUpStages.infra ? null : (
+                  <Icon
+                    name="warning-sign"
+                    height={10}
+                    size={10}
+                    color={'orange500'}
+                    margin={{ left: 'small', right: 0 }}
+                    style={{ verticalAlign: 'baseline' }}
+                  />
+                )}
               </span>
             }
             panel={<BuildInfraSpecifications />}
+          />
+          <Icon
+            name="chevron-right"
+            height={20}
+            size={20}
+            margin={{ right: 'small', left: 'small' }}
+            color={'grey400'}
+            style={{ alignSelf: 'center' }}
           />
           <Tab
             id={i18n.executionLabel}
@@ -198,6 +259,16 @@ export default function BuildStageSetupShell(): JSX.Element {
               <span className={css.tab}>
                 <Icon name="yaml-builder-steps" height={20} size={20} />
                 {i18n.executionLabel}
+                {filledUpStages.execution ? null : (
+                  <Icon
+                    name="warning-sign"
+                    height={10}
+                    size={10}
+                    color={'orange500'}
+                    margin={{ left: 'small', right: 0 }}
+                    style={{ verticalAlign: 'baseline' }}
+                  />
+                )}
               </span>
             }
             panel={
