@@ -8,6 +8,7 @@ export enum StepType {
   K8sCanaryDeploy = 'K8sCanaryDeploy',
   K8sBGSwapServices = 'K8sBGSwapServices',
   K8sScale = 'K8sScale',
+  K8sApply = 'K8sApply',
   K8sCanaryDelete = 'K8sCanaryDelete',
   StepGroup = 'StepGroup',
   DeployService = 'DeployService',

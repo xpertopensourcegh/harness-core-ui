@@ -57,6 +57,7 @@ global:
   unsavedChanges: unsaved changes
   studioText: Studio
   status: Status
+  filePaths: File Paths
   submit: Submit
   services: Services
   buildText: Build
@@ -621,6 +622,7 @@ global:
     dockerHubConnectorLabel: Docker Hub Registry
     dockerHubConnectorInfo: Docker Hub Container Registry to use for uploading the image
     k8sRolloutDeploy: K8s Rollout Deploy
+    k8sApply: K8s Apply
     k8sRolloutRollback: K8s Rolling Rollback
     barrier: Barrier
     k8sBGDeploy: 'K8s Blue Green Deploy'
@@ -629,6 +631,7 @@ global:
     K8sCanaryDelete: 'K8s Canary Delete'
     k8sScale: 'K8s Scale'
     skipDryRun: 'Skip Dry Run'
+    skipSteadyStateCheck: 'Skip Steady State Check'
     workload: 'Workload'
     stepNameRequired: 'Step Name is required'
     timeoutRequired: 'Timeout is required'

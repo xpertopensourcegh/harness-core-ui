@@ -26,6 +26,7 @@ import { K8sBGSwapServices } from './Steps/K8sBGSwapServices/K8sBGSwapServices'
 import { K8sScaleStep } from './Steps/K8sScale/K8sScaleStep'
 import { K8sRollingRollbackStep } from './Steps/K8sRollingRollback/K8sRollingRollback'
 import { K8sCanaryDeleteStep } from './Steps/K8sCanaryDelete/K8sCanaryDeleteStep'
+import { K8sApplyStep } from './Steps/K8sApply/K8sApplyStep'
 import { BarrierStep } from './Steps/Barrier/Barrier'
 import { DeployEnvironmentStep } from './Steps/DeployEnvStep/DeployEnvStep'
 import { DeployServiceStep } from './Steps/DeployServiceStep/DeployServiceStep'
@@ -45,6 +46,7 @@ factory.registerStep(new K8sCanaryDeployStep())
 factory.registerStep(new K8sBGSwapServices())
 factory.registerStep(new K8sScaleStep())
 factory.registerStep(new K8sCanaryDeleteStep())
+factory.registerStep(new K8sApplyStep())
 
 factory.registerStep(new ShellScriptStep())
 factory.registerStep(new StepGroupStep())
