@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Resources Page render 1`] = `
+exports[`ResourcesPage snapshot test should render properly 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
@@ -9,7 +9,7 @@ exports[`Resources Page render 1`] = `
       class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
       level="2"
     >
-      Resources
+      RESOURCES
     </h2>
     <div
       class="StyledProps--font StyledProps--main"
@@ -18,20 +18,22 @@ exports[`Resources Page render 1`] = `
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <a
-          class="tags"
-          href="/account/dummy/admin/resources/connectors"
+          aria-current="page"
+          class="tags activeTag"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/admin/resources/connectors"
         >
           Connectors
         </a>
         <a
           class="tags"
-          href="/account/dummy/admin/resources/secrets"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/admin/resources/secrets"
         >
           Secrets
         </a>
         <a
-          class="tags"
-          href="/account/dummy/admin/resources/delegates"
+          aria-current="page"
+          class="tags active"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/admin/resources/connectors#TBD"
         >
           Delegates
         </a>
@@ -40,8 +42,6 @@ exports[`Resources Page render 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
-  >
-    hello
-  </div>
+  />
 </div>
 `;

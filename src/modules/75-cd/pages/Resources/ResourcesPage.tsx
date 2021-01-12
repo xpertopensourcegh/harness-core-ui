@@ -34,14 +34,14 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink className={css.tags} to="#TBD">
                 {i18n.delegates}
               </NavLink>
-
-              <NavLink className={css.tags} to="#TBD">
+              {/* TODO: ENABLE IT WHEN IMPLEMENTED */}
+              {/* <NavLink className={css.tags} to="#TBD">
                 {i18n.templates}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
                 {i18n.fileStore}
-              </NavLink>
+              </NavLink> */}
             </Layout.Horizontal>
           </Container>
         }

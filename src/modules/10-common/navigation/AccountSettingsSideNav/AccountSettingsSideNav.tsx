@@ -13,8 +13,9 @@ export default function AccountSettingsSideNav(): React.ReactElement {
     <Layout.Vertical spacing="small">
       <SidebarLink exact label="Overview" to={routes.toAdmin({ accountId })} />
       <SidebarLink label="Resources" to={routes.toResources({ accountId })} />
-      <SidebarLink label="Governance" to={routes.toGovernance({ accountId })} />
-      <SidebarLink label="Git Sync" to={routes.toGitSync({ accountId })} />
+      {/* TODO: ENABLE WHEN READY */}
+      {/* <SidebarLink label="Governance" to={routes.toGovernance({ accountId })} /> */}
+      {/* <SidebarLink label="Git Sync" to={routes.toGitSync({ accountId })} /> */}
       <SidebarLink label="Organizations" to={routes.toOrganizations({ accountId })} />
     </Layout.Vertical>
   )

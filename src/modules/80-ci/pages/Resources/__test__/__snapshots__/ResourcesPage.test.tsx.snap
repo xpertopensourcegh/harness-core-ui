@@ -36,20 +36,6 @@ exports[`ResourcesPage snapshot test should render properly 1`] = `
         >
           Delegates
         </a>
-        <a
-          aria-current="page"
-          class="tags active"
-          href="/account/dummy/orgs/dummy/test#TBD"
-        >
-          Templates
-        </a>
-        <a
-          aria-current="page"
-          class="tags active"
-          href="/account/dummy/orgs/dummy/test#TBD"
-        >
-          File Store
-        </a>
       </div>
     </div>
   </div>
