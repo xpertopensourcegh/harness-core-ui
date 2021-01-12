@@ -39,6 +39,37 @@ interface ShellScriptWidgetProps {
 }
 
 const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+  const { getString } = useStrings()
+
+  const defaultSSHSchema = Yup.object().shape({
+    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    spec: Yup.object().shape({
+      shell: Yup.string().required(getString('validation.scriptTypeRequired')),
+      source: Yup.object().shape({
+        spec: Yup.object().shape({
+          script: Yup.string().required(getString('validation.scriptTypeRequired'))
+        })
+      })
+    })
+  })
+
+  const shellscriptSchema = Yup.object().shape({
+    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    spec: Yup.object().shape({
+      shell: Yup.string().required(getString('validation.scriptTypeRequired')),
+      source: Yup.object().shape({
+        spec: Yup.object().shape({
+          script: Yup.string().required(getString('validation.scriptTypeRequired'))
+        })
+      }),
+      executionTarget: Yup.object().shape({
+        host: Yup.string().required(getString('validation.targethostRequired')),
+        connectorRef: Yup.string().required(getString('validation.sshConnectorRequired')),
+        workingDirectory: Yup.string().required(getString('validation.workingDirRequired'))
+      })
+    })
+  })
+
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -98,7 +129,12 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
     values.spec.executionTarget.connectorRef = initialValues.spec.executionTarget?.connectorRef
   }
 
-  const { getString } = useStrings()
+  let validationSchema = defaultSSHSchema
+
+  if (values.spec.onDelegate === 'targethost') {
+    validationSchema = shellscriptSchema
+  }
+
   return (
     <Formik<ShellScriptFormData>
       onSubmit={submit => {
@@ -106,17 +142,7 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
       }}
       initialValues={values}
       enableReinitialize
-      validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-        spec: Yup.object().shape({
-          shell: Yup.string().required(getString('validation.scriptTypeRequired')),
-          source: Yup.object().shape({
-            spec: Yup.object().shape({
-              script: Yup.string().required(getString('validation.scriptTypeRequired'))
-            })
-          })
-        })
-      })}
+      validationSchema={validationSchema}
     >
       {(formik: FormikProps<ShellScriptFormData>) => {
         return (

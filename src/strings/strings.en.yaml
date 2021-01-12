@@ -776,6 +776,10 @@ global:
     hostRequired: Host is a required field
     projectIDRequired: Project ID is a required field
     scriptTypeRequired: Script Type is required field
+    targethostRequired: 'Target host is required field'
+    workingDirRequired: 'Working Directory is required field'
+    sshConnectorRequired: 'Connector is required field'
+
   yamlBuilder:
     enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
   activityHistory:
