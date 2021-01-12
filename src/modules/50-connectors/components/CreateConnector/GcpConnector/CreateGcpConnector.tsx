@@ -1,5 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import type { ConnectorConfigDTO, ResponseBoolean, ConnectorInfoDTO } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
@@ -10,15 +11,19 @@ import GcpAuthentication from './StepAuth/GcpAuthentication'
 
 interface CreateGCPConnectorProps {
   hideLightModal: () => void
-  onConnectorCreated: (data?: ConnectorConfigDTO) => void | Promise<void>
+  onSuccess: (data?: ConnectorConfigDTO) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 const CreateGcpConnector: React.FC<CreateGCPConnectorProps> = props => {
   const { getString } = useStrings()
+  const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
 
   return (
     <>
@@ -36,10 +41,9 @@ const CreateGcpConnector: React.FC<CreateGCPConnectorProps> = props => {
         />
         <GcpAuthentication
           name={getString('connectors.GCP.stepTwoName')}
-          onConnectorCreated={props.onConnectorCreated}
-          isEditMode={props.isEditMode}
+          {...commonProps}
+          onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
-          setIsEditMode={props.setIsEditMode}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

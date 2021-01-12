@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
 import {
   Layout,
   Button,
@@ -38,6 +37,9 @@ interface GcpAuthenticationProps {
   setIsEditMode: (val: boolean) => void
   onConnectorCreated: (data?: ConnectorConfigDTO) => void | Promise<void>
   connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 interface StepConfigureProps {
@@ -51,7 +53,7 @@ interface GCPFormInterface {
 }
 const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = props
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })

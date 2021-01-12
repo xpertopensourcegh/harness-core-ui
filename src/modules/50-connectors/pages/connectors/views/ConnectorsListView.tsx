@@ -17,17 +17,13 @@ import {
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
-
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
-
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
-
 import { ConnectorStatus, Connectors } from '@connectors/constants'
-
 import { useStrings } from 'framework/exports'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
+import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { getIconByType, GetTestConnectionValidationTextByType } from '../utils/ConnectorUtils'
 import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
@@ -285,6 +281,15 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
+  const { openConnectorModal } = useCreateConnectorModal({
+    onSuccess: () => {
+      ;(column as any).reload?.()
+    },
+    onClose: () => {
+      ;(column as any).reload?.()
+    }
+  })
+
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.connector?.name || ''),
     titleText: i18n.confirmDeleteTitle,
@@ -313,6 +318,13 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     openDialog()
   }
 
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    if (!data?.connector?.identifier) return
+    openConnectorModal(true, row?.original?.connector?.type as ConnectorInfoDTO['type'], row.original.connector)
+  }
+
   return (
     !isHarnessManaged && (
       <Layout.Horizontal className={css.layout}>
@@ -334,7 +346,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
             }}
           />
           <Menu style={{ minWidth: 'unset' }}>
-            <Menu.Item icon="edit" text="Edit" />
+            <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
             <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
           </Menu>
         </Popover>

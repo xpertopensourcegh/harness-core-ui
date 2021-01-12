@@ -45,8 +45,8 @@ interface GitAuthenticationProps {
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
   accountId: string
-  orgIdentifier: string | void
-  projectIdentifier: string | void
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 interface GitFormInterface {

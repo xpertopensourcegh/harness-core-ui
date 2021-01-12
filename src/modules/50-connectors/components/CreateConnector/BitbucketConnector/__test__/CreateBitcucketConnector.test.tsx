@@ -11,6 +11,14 @@ import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/util
 import CreateBitbucketConnector from '../CreateBitbucketConnector'
 import { mockResponse, mockSecret, usernamePassword, usernameTokenWithAPIAccess } from './bitbucketMocks'
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideLightModal: noop,
+  onSuccess: noop
+}
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
@@ -30,14 +38,7 @@ describe('Create Bitbucketconnector Wizard', () => {
 
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateBitbucketConnector
-          hideLightModal={noop}
-          setIsEditMode={noop}
-          onConnectorCreated={noop}
-          isEditMode={false}
-          connectorInfo={(null as unknown) as void}
-          mock={mockResponse}
-        />
+        <CreateBitbucketConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -107,9 +108,7 @@ describe('Create Bitbucketconnector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateBitbucketConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
@@ -134,8 +133,8 @@ describe('Create Bitbucketconnector Wizard', () => {
         description: 'Bitbucket description',
         identifier: 'BitbucketWorking',
         name: 'BitbucketWorking',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           type: 'Account',
           url: 'https://github.com/dev',
@@ -155,9 +154,7 @@ describe('Create Bitbucketconnector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateBitbucketConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernameTokenWithAPIAccess as ConnectorInfoDTO}
           mock={mockResponse}
@@ -182,8 +179,8 @@ describe('Create Bitbucketconnector Wizard', () => {
         description: 'Bitbucket description',
         identifier: 'BitbucketWorking',
         name: 'BitbucketWorking',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           type: 'Account',
           url: 'https://github.com/dev',

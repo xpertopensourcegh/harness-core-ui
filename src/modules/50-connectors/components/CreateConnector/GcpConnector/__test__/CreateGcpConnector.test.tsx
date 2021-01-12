@@ -7,6 +7,15 @@ import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { mockResponse, mockSecret, encryptedKeyMock } from './mocks'
 import CreateGcpConnector from '../CreateGcpConnector'
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideLightModal: noop,
+  onSuccess: noop
+}
+
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
 jest.mock('services/portal', () => ({
@@ -24,13 +33,7 @@ describe('Create GCP connector Wizard', () => {
   test('Should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGcpConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
-          mock={mockResponse}
-          isEditMode={false}
-        />
+        <CreateGcpConnector {...commonProps} isEditMode={false} />
       </TestWrapper>
     )
 
@@ -55,10 +58,8 @@ describe('Create GCP connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGcpConnector
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
-          setIsEditMode={noop}
           connectorInfo={encryptedKeyMock as ConnectorInfoDTO}
           mock={mockResponse}
         />
@@ -88,8 +89,8 @@ describe('Create GCP connector Wizard', () => {
         description: 'devConnector description',
         identifier: 'devConnector',
         name: 'dummy name',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           credential: {
             spec: {

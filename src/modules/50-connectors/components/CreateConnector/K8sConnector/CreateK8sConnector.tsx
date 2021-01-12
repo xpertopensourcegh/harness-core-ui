@@ -1,5 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ResponseBoolean, ConnectorInfoDTO } from 'services/cd-ng'
@@ -10,15 +11,26 @@ import Stepk8ClusterDetails from './StepAuth/Stepk8ClusterDetails'
 
 interface CreateK8sConnectorProps {
   hideLightModal: () => void
-  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
+  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
-  connectorInfo?: ConnectorInfoDTO | void
+  connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
   const { getString } = useStrings()
+  const commonProps = pick(props, [
+    'isEditMode',
+    'connectorInfo',
+    'setIsEditMode',
+    'accountId',
+    'orgIdentifier',
+    'projectIdentifier'
+  ])
   return (
     <StepWizard
       icon={getConnectorIconByType(Connectors.KUBERNETES_CLUSTER)}
@@ -34,15 +46,13 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
       />
       <Stepk8ClusterDetails
         name={getString('connectors.k8.stepTwoName')}
-        onConnectorCreated={props.onConnectorCreated}
-        isEditMode={props.isEditMode}
-        connectorInfo={props.connectorInfo}
-        setIsEditMode={props.setIsEditMode}
+        onConnectorCreated={props.onSuccess}
+        {...commonProps}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         renderInModal={true}
-        onSuccess={props.onConnectorCreated}
+        onSuccess={props.onSuccess}
         isLastStep={true}
         type={Connectors.KUBERNETES_CLUSTER}
         hideLightModal={props.hideLightModal}

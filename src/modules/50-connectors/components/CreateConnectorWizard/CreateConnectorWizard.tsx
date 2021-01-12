@@ -1,4 +1,5 @@
 import React from 'react'
+import { pick } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
@@ -23,67 +24,34 @@ interface CreateConnectorWizardProps {
   type: ConnectorInfoDTO['type']
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
-  connectorInfo?: ConnectorInfoDTO | void
+  connectorInfo: ConnectorInfoDTO | void
   hideLightModal: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
   const { type, accountId, orgIdentifier, projectIdentifier, hideLightModal, ...rest } = props
+  const commonProps = pick(props, [
+    'onSuccess',
+    'hideLightModal',
+    'isEditMode',
+    'setIsEditMode',
+    'connectorInfo',
+    'accountId',
+    'orgIdentifier',
+    'projectIdentifier'
+  ])
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return (
-        <CreateK8sConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={props.hideLightModal}
-          isEditMode={props.isEditMode}
-          setIsEditMode={props.setIsEditMode}
-          connectorInfo={props.connectorInfo}
-        />
-      )
+      return <CreateK8sConnector {...commonProps} />
     case Connectors.GIT:
-      return (
-        <CreateGitConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={hideLightModal}
-          isEditMode={props.isEditMode}
-          setIsEditMode={props.setIsEditMode}
-          connectorInfo={props.connectorInfo}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateGitConnector {...commonProps} />
     case Connectors.GITHUB:
-      return (
-        <CreateGithubConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={hideLightModal}
-          isEditMode={props.isEditMode}
-          setIsEditMode={props.setIsEditMode}
-          connectorInfo={props.connectorInfo}
-        />
-      )
+      return <CreateGithubConnector {...commonProps} />
     case Connectors.GITLAB:
-      return (
-        <CreateGitlabConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={hideLightModal}
-          isEditMode={props.isEditMode}
-          setIsEditMode={props.setIsEditMode}
-          connectorInfo={props.connectorInfo}
-        />
-      )
+      return <CreateGitlabConnector {...commonProps} />
     case Connectors.BITBUCKET:
-      return (
-        <CreateBitbucketConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={hideLightModal}
-          isEditMode={props.isEditMode}
-          setIsEditMode={props.setIsEditMode}
-          connectorInfo={props.connectorInfo}
-        />
-      )
+      return <CreateBitbucketConnector {...commonProps} />
     case Connectors.VAULT:
       return (
         <CreateHashiCorpVault
@@ -132,15 +100,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.ARTIFACTORY:
       return <CreateArtifactoryConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
     case Connectors.GCP:
-      return (
-        <CreateGcpConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={hideLightModal}
-          isEditMode={props.isEditMode}
-          setIsEditMode={props.setIsEditMode}
-          connectorInfo={props.connectorInfo}
-        />
-      )
+      return <CreateGcpConnector {...commonProps} />
     default:
       return null
   }

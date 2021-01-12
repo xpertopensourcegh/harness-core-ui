@@ -13,7 +13,6 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler
 } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -49,6 +48,9 @@ interface K8ClusterDetailsProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 interface KubeFormInterface {
@@ -171,7 +173,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
 }
 
 const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8ClusterDetailsProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = props
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })

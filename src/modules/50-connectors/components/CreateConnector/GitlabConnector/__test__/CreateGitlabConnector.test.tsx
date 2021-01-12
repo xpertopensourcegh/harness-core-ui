@@ -11,6 +11,15 @@ import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/util
 import CreateGitlabConnector from '../CreateGitlabConnector'
 import { mockResponse, mockSecret, sshAuthWithAPIAccessToken, usernamePassword } from './gitlabMocks'
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideLightModal: noop,
+  onSuccess: noop
+}
+
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
@@ -30,14 +39,7 @@ describe('Create Gitlab connector Wizard', () => {
 
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGitlabConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
-          isEditMode={false}
-          connectorInfo={(null as unknown) as void}
-          mock={mockResponse}
-        />
+        <CreateGitlabConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -100,14 +102,7 @@ describe('Create Gitlab connector Wizard', () => {
 
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGitlabConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
-          isEditMode={false}
-          connectorInfo={(null as unknown) as void}
-          mock={mockResponse}
-        />
+        <CreateGitlabConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -162,9 +157,7 @@ describe('Create Gitlab connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitlabConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={sshAuthWithAPIAccessToken as ConnectorInfoDTO}
           mock={mockResponse}
@@ -189,8 +182,8 @@ describe('Create Gitlab connector Wizard', () => {
         description: 'connector description',
         identifier: 'asasas',
         name: 'GitlabWorking',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           type: 'Account',
           url: 'https://gitlab.com/dev',
@@ -216,9 +209,7 @@ describe('Create Gitlab connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitlabConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
@@ -243,8 +234,8 @@ describe('Create Gitlab connector Wizard', () => {
         description: 'connector description',
         identifier: 'asasas',
         name: 'GitlabWorking',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           type: 'Account',
           url: 'https://gitlab.com/dev',

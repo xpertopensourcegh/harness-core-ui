@@ -1,5 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
@@ -10,14 +11,25 @@ import StepGitlabAuthentication from './StepAuth/StepGitlabAuthentication'
 
 interface CreateGitlabConnectorProps {
   hideLightModal: () => void
-  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
+  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   mock?: ResponseBoolean
 }
 const CreateGitlabConnector = (props: CreateGitlabConnectorProps): JSX.Element => {
   const { getString } = useStrings()
+  const commonProps = pick(props, [
+    'isEditMode',
+    'connectorInfo',
+    'setIsEditMode',
+    'accountId',
+    'orgIdentifier',
+    'projectIdentifier'
+  ])
 
   return (
     <StepWizard
@@ -34,15 +46,13 @@ const CreateGitlabConnector = (props: CreateGitlabConnectorProps): JSX.Element =
       />
       <StepGitlabAuthentication
         name={getString('connectors.git.gitlabStepTwoName')}
-        onConnectorCreated={props.onConnectorCreated}
-        isEditMode={props.isEditMode}
-        setIsEditMode={props.setIsEditMode}
-        connectorInfo={props.connectorInfo}
+        {...commonProps}
+        onConnectorCreated={props.onSuccess}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         renderInModal={true}
-        onSuccess={props.onConnectorCreated}
+        onSuccess={props.onSuccess}
         isLastStep={true}
         type={Connectors.GITLAB}
         hideLightModal={props.hideLightModal}

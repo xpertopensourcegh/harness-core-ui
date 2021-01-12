@@ -10,6 +10,14 @@ import Stepk8ClusterDetails from '../Stepk8ClusterDetails'
 
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
+
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  onConnectorCreated: noop,
+  setIsEditMode: noop
+}
 jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
@@ -25,9 +33,8 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
-          setIsEditMode={noop}
+          {...commonProps}
           name="credentials"
-          onConnectorCreated={noop}
           isEditMode={false}
           connectorInfo={{ name: 'name', identifier: 'id', type: 'K8sCluster', spec: {} } as any}
         />
@@ -62,9 +69,8 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
-          setIsEditMode={noop}
+          {...commonProps}
           name="credentials"
-          onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={
             {
@@ -100,9 +106,8 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
+          {...commonProps}
           name="credentials"
-          setIsEditMode={noop}
-          onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={
             {
@@ -135,9 +140,8 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
+          {...commonProps}
           name="credentials"
-          setIsEditMode={noop}
-          onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={
             {
@@ -182,9 +186,8 @@ describe('Stepk8ClusterDetails', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <Stepk8ClusterDetails
-          setIsEditMode={noop}
+          {...commonProps}
           name="credentials"
-          onConnectorCreated={noop}
           isEditMode={true}
           connectorInfo={
             {

@@ -7,6 +7,14 @@ import type { ConnectorInfoDTO } from 'services/cd-ng'
 import CreateK8sConnector from '../CreateK8sConnector'
 import { mockResponse, mockSecret, usernamePassword, serviceAccount, oidcMock, clientKeyMock } from './k8Mocks'
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideLightModal: noop,
+  onSuccess: noop
+}
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
@@ -26,13 +34,7 @@ describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
-          isEditMode={false}
-          mock={mockResponse}
-        />
+        <CreateK8sConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
     // fill step 1
@@ -52,12 +54,11 @@ describe('Create k8 connector Wizard', () => {
   })
 
   test('should form for edit authtype username', async () => {
+    updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateK8sConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
@@ -83,8 +84,8 @@ describe('Create k8 connector Wizard', () => {
         description: 'k8 descriptipn',
         identifier: 'k8',
         name: 'k87',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           credential: {
             spec: {
@@ -108,12 +109,11 @@ describe('Create k8 connector Wizard', () => {
   })
 
   test('should form for edit authtype serviceAccount', async () => {
+    updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateK8sConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={serviceAccount as ConnectorInfoDTO}
           mock={mockResponse}
@@ -138,8 +138,8 @@ describe('Create k8 connector Wizard', () => {
         description: 'k8 descriptipn',
         identifier: 'k8',
         name: 'k8Connector',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           credential: {
             spec: {
@@ -161,12 +161,11 @@ describe('Create k8 connector Wizard', () => {
   })
 
   test('should form for edit authtype OIDC', async () => {
+    updateConnector.mockReset()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateK8sConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={oidcMock as ConnectorInfoDTO}
           mock={mockResponse}
@@ -189,8 +188,8 @@ describe('Create k8 connector Wizard', () => {
         description: 'k8 descriptipn',
         identifier: 'k8Connector',
         name: 'k8Connector',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           credential: {
             spec: {
@@ -219,12 +218,11 @@ describe('Create k8 connector Wizard', () => {
 })
 
 test('should form for edit authtype clientKey', async () => {
+  updateConnector.mockReset()
   const { container } = render(
     <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
       <CreateK8sConnector
-        setIsEditMode={noop}
-        hideLightModal={noop}
-        onConnectorCreated={noop}
+        {...commonProps}
         isEditMode={true}
         connectorInfo={clientKeyMock as ConnectorInfoDTO}
         mock={mockResponse}
@@ -249,8 +247,8 @@ test('should form for edit authtype clientKey', async () => {
       description: 'k8 descriptipn',
       identifier: 'k8',
       name: 'k8Connector',
-      orgIdentifier: undefined,
-      projectIdentifier: undefined,
+      orgIdentifier: '',
+      projectIdentifier: '',
       spec: {
         credential: {
           spec: {

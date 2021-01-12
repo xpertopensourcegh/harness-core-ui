@@ -17,6 +17,14 @@ import {
   usernameTokenWithAPIAccessToken
 } from './githubMocks'
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideLightModal: noop,
+  onSuccess: noop
+}
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
@@ -40,14 +48,7 @@ describe('Create Github connector Wizard', () => {
 
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGithubConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
-          isEditMode={false}
-          connectorInfo={(null as unknown) as void}
-          mock={mockResponse}
-        />
+        <CreateGithubConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 
@@ -116,9 +117,7 @@ describe('Create Github connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
@@ -139,9 +138,7 @@ describe('Create Github connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernameTokenWithAPIAccessGithubApp as ConnectorInfoDTO}
           mock={mockResponse}
@@ -166,8 +163,8 @@ describe('Create Github connector Wizard', () => {
         description: 'connector before demo',
         identifier: 'asasas',
         name: 'GithubWorking1',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         spec: {
           type: 'Account',
           url: 'https://github.com/dev',
@@ -194,9 +191,7 @@ describe('Create Github connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernameTokenWithAPIAccessToken as ConnectorInfoDTO}
           mock={mockResponse}
@@ -218,8 +213,8 @@ describe('Create Github connector Wizard', () => {
         name: 'GithubWorking1',
         identifier: 'asasas',
         description: 'connector before demo',
-        orgIdentifier: undefined,
-        projectIdentifier: undefined,
+        orgIdentifier: '',
+        projectIdentifier: '',
         tags: {},
         type: 'Github',
         spec: {

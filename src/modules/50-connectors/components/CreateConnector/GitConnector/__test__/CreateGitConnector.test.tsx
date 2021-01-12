@@ -11,6 +11,15 @@ import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/util
 import CreateGitConnector from '../CreateGitConnector'
 import { mockResponse, mockSecret, usernamePassword } from './gitMocks'
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideLightModal: noop,
+  onSuccess: noop
+}
+
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
@@ -35,15 +44,10 @@ describe('Create Git connector Wizard', () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={false}
           connectorInfo={(null as unknown) as void}
           mock={mockResponse}
-          accountId="dummy"
-          orgIdentifier=""
-          projectIdentifier=""
         />
       </TestWrapper>
     )
@@ -106,15 +110,10 @@ describe('Create Git connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGitConnector
-          setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          {...commonProps}
           isEditMode={true}
           connectorInfo={usernamePassword as ConnectorInfoDTO}
           mock={mockResponse}
-          accountId="dummy"
-          orgIdentifier=""
-          projectIdentifier=""
         />
       </TestWrapper>
     )
