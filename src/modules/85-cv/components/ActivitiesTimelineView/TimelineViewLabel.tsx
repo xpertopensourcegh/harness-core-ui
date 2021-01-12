@@ -33,8 +33,8 @@ export const PredefinedLabels = {
     <TimelineViewLabel
       labelName="Config Changes"
       iconProps={{
-        name: 'wrench',
-        size: 13,
+        name: 'config-change',
+        size: 16,
         intent: 'success'
       }}
     />
@@ -52,8 +52,8 @@ export const PredefinedLabels = {
     <TimelineViewLabel
       labelName="Other Changes"
       iconProps={{
-        name: 'wrench',
-        size: 13,
+        name: 'config-change',
+        size: 16,
         intent: 'success'
       }}
     />
