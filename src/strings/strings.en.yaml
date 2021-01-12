@@ -241,7 +241,7 @@ global:
     StageRollback: Rollback Stage
     StepGroupRollback: Rollback Step Group
     ManualIntervention: Manual Intervention
-    EndExecution: End Execution
+    MarkAsSuccess: Mark As Success
   onTimeoutLabel: Post timeout action
   preRequisitesTitle: Pre-requisites
   advancedTitle: Advanced

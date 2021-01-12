@@ -10,7 +10,7 @@ import css from './StrategySelection.module.scss'
 export const strategyIconMap: Record<Strategy, IconName> = {
   [Strategy.Ignore]: 'delete',
   [Strategy.Abort]: 'ban-circle',
-  [Strategy.EndExecution]: 'step-forward',
+  [Strategy.MarkAsSuccess]: 'tick',
   [Strategy.StageRollback]: 'repeat',
   [Strategy.StepGroupRollback]: 'repeat',
   [Strategy.Retry]: 'refresh',

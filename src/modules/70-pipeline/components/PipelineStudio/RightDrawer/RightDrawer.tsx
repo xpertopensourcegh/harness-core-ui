@@ -74,11 +74,15 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
               if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
               if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
+              if (item.failureStrategies && item.tab === TabTypes.Advanced)
+                node.failureStrategies = item.failureStrategies
 
               // Delete values if they were already added and now removed
               if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
               if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
               if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+              if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
+                delete node.failureStrategies
 
               if (item.spec && item.tab !== TabTypes.Advanced) {
                 node.spec = { ...item.spec }

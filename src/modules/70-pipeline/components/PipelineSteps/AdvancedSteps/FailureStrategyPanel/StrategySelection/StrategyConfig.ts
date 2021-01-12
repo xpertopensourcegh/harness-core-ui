@@ -5,7 +5,18 @@ export enum Strategy {
   StepGroupRollback = 'StepGroupRollback',
   Retry = 'Retry',
   ManualIntervention = 'ManualIntervention',
-  EndExecution = 'EndExecution'
+  MarkAsSuccess = 'MarkAsSuccess'
+}
+
+export enum ErrorType {
+  All = 'All',
+  AnyOther = 'AnyOther',
+  Authentication = 'Authentication',
+  Connectivity = 'Connectivity',
+  Timeout = 'Timeout',
+  Authorization = 'Authorization',
+  Verification = 'Verification',
+  DelegateProvisioning = 'DelegateProvisioning'
 }
 
 export const allowedStrategiesAsPerStep: Record<string, Strategy[]> = {
@@ -15,6 +26,6 @@ export const allowedStrategiesAsPerStep: Record<string, Strategy[]> = {
     Strategy.StepGroupRollback,
     Strategy.Ignore,
     Strategy.Retry,
-    Strategy.EndExecution
+    Strategy.MarkAsSuccess
   ]
 }

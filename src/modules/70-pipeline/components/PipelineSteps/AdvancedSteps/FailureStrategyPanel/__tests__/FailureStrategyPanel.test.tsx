@@ -72,7 +72,7 @@ describe('<FailureStratergyPanel /> tests', () => {
   })
 
   test.each<[Strategy]>([
-    [Strategy.EndExecution],
+    [Strategy.MarkAsSuccess],
     [Strategy.Ignore],
     [Strategy.StageRollback],
     [Strategy.StepGroupRollback]

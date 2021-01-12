@@ -165,7 +165,9 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
                 details={<ShellScriptOutput formik={formik} />}
               />
             </Accordion>
-            <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
+            <div className={stepCss.actionsPanel}>
+              <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
+            </div>
           </>
         )
       }}

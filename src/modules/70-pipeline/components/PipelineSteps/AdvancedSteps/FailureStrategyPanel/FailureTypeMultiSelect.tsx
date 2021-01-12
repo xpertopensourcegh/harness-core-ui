@@ -6,6 +6,7 @@ import { get } from 'lodash-es'
 
 import { errorCheck } from '@common/utils/formikHelpers'
 
+import { ErrorType } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
@@ -15,14 +16,49 @@ interface Option {
 
 const MultiSelect = BPMultiSelect.ofType<Option>()
 
+/**
+ * String ALL_ERRORS = "All";
+  String OTHER_ERRORS = "AnyOther";
+  String AUTHENTICATION_ERROR = "Authentication";
+  String CONNECTIVITY_ERROR = "Connectivity";
+  String TIMEOUT_ERROR = "Timeout";
+  String AUTHORIZATION_ERROR = "Authorization";
+  String VERIFICATION_ERROR = "Verification";
+  String DELEGATE_PROVISIONING_ERROR = "DelegateProvisioning";
+ */
+
 const errorTypes: Option[] = [
   {
-    label: 'Permission Error',
-    value: 'Permission'
+    label: 'All Errors',
+    value: ErrorType.All
   },
   {
-    label: 'All Other',
-    value: 'AllOther'
+    label: 'Authentication Errors',
+    value: ErrorType.Authentication
+  },
+  {
+    label: 'Authorization Errors',
+    value: ErrorType.Authorization
+  },
+  {
+    label: 'Connectivity Errors',
+    value: ErrorType.Connectivity
+  },
+  {
+    label: 'Timeout Errors',
+    value: ErrorType.Timeout
+  },
+  {
+    label: 'Verification Errors',
+    value: ErrorType.Verification
+  },
+  {
+    label: 'Delegate Provisioning Errors',
+    value: ErrorType.DelegateProvisioning
+  },
+  {
+    label: 'Any Other',
+    value: ErrorType.AnyOther
   }
 ]
 
@@ -58,7 +94,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
   const selectedItemsValue = new Set<string>(get(formik.values, name) || [])
 
   function handleItemSelect(item: Option): void {
-    if (item.value === 'AllOther') {
+    if (item.value === ErrorType.AnyOther) {
       formik.setFieldValue(name, [item.value])
       return
     }
@@ -66,7 +102,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
   }
 
   function itemListPredicate(query: string, items: Option[]): Option[] {
-    if (selectedItemsValue.has('AllOther')) {
+    if (selectedItemsValue.has(ErrorType.AnyOther)) {
       return []
     }
 

@@ -1,6 +1,8 @@
 .main {
   transform: translateX(-60px);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   :global(.bp3-drawer-header) {
     margin: 0 var(--spacing-large);

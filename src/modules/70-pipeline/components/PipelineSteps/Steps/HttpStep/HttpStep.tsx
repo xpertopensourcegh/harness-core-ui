@@ -63,7 +63,9 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
               <Accordion.Panel id="step-1" summary="Http Step" details={<HttpStepBase formik={formik} />} />
               <Accordion.Panel id="step-2" summary="Response Mapping" details={<ResponseMapping formik={formik} />} />
             </Accordion>
-            <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
+            <div className={stepCss.actionsPanel}>
+              <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
+            </div>
           </React.Fragment>
         )
       }}

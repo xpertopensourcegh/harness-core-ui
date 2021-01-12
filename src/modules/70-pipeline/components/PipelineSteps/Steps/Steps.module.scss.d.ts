@@ -11,6 +11,7 @@ declare const styles: {
   readonly fieldsGroup: string
   readonly withoutSpacing: string
   readonly withoutAligning: string
+  readonly actionsPanel: string
   readonly optionalConfiguration: string
   readonly textWithTooltip: string
   readonly buttonsWrapper: string

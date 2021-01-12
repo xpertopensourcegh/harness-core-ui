@@ -57,7 +57,7 @@ ManualInterventionStep.timeoutStrategies = [
   Strategy.Ignore,
   Strategy.StageRollback,
   Strategy.StepGroupRollback,
-  Strategy.EndExecution
+  Strategy.MarkAsSuccess
 ]
 
 export function RetryStep(props: BaseStepProps): React.ReactElement {
@@ -137,7 +137,7 @@ RetryStep.retryFailureStrategies = [
   Strategy.Ignore,
   Strategy.StageRollback,
   Strategy.StepGroupRollback,
-  Strategy.EndExecution
+  Strategy.MarkAsSuccess
 ]
 
 export function RollbackStageStep(props: BaseStepProps): React.ReactElement {
@@ -176,14 +176,14 @@ export function IgnoreFailureStep(props: BaseStepProps): React.ReactElement {
   )
 }
 
-export function EndExecutionStep(props: BaseStepProps): React.ReactElement {
+export function MarkAsSuccessStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
     props.formik.setFieldValue(props.name, undefined)
   }
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.EndExecution} checked onChange={handleChange} />
+      <StrategyIcon strategy={Strategy.MarkAsSuccess} checked onChange={handleChange} />
     </div>
   )
 }
@@ -212,8 +212,8 @@ export function SelectedStep(props: SelectedStepProps): React.ReactElement {
       return <AbortStep name={name} formik={formik} parentStrategy={parentStrategy} />
     case Strategy.ManualIntervention:
       return <ManualInterventionStep name={name} formik={formik} parentStrategy={parentStrategy} />
-    case Strategy.EndExecution:
-      return <EndExecutionStep name={name} formik={formik} parentStrategy={parentStrategy} />
+    case Strategy.MarkAsSuccess:
+      return <MarkAsSuccessStep name={name} formik={formik} parentStrategy={parentStrategy} />
     case Strategy.Ignore:
       return <IgnoreFailureStep name={name} formik={formik} parentStrategy={parentStrategy} />
     case Strategy.Retry:

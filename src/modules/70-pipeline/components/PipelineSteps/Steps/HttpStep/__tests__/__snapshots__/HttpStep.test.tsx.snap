@@ -760,16 +760,20 @@ exports[`Http Step edit mode works 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -1788,16 +1792,20 @@ exports[`Http Step renders runtime inputs 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -2461,16 +2469,20 @@ exports[`Http Step should render edit view as new step 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;

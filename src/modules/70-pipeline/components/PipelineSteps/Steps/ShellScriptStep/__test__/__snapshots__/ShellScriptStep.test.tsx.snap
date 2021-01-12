@@ -605,16 +605,20 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -950,16 +954,20 @@ exports[`Test Shell Script Step should render edit view 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -1295,16 +1303,20 @@ exports[`Test Shell Script Step should render edit view 2`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -1638,16 +1650,20 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -1979,16 +1995,20 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-      type="button"
+    <div
+      class="actionsPanel"
     >
-      <span
-        class="bp3-button-text"
+      <button
+        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        type="button"
       >
-        Submit
-      </span>
-    </button>
+        <span
+          class="bp3-button-text"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;

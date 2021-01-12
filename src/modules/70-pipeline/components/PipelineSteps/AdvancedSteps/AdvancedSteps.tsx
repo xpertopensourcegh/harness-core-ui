@@ -1,7 +1,6 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
-import { debounce } from 'lodash-es'
+import { Formik, FormikForm, Accordion, Button } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/exports'
 import {
@@ -14,6 +13,8 @@ import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepC
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
+import stepCss from '../Steps/Steps.module.scss'
+
 import css from './AdvancedSteps.module.scss'
 
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -22,19 +23,13 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 
 export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactElement {
   const { step, onChange, hiddenPanels = [] } = props
-  const handleValidate = (values: Values): void => {
-    onChange({ ...values, tab: TabTypes.Advanced, shouldKeepOpen: true })
-  }
   const { getString } = useStrings()
-
-  const debouncedHandleValidate = React.useRef(debounce(handleValidate, 300)).current
 
   return (
     <Formik
       initialValues={{ skipCondition: step.skipCondition, failureStrategies: step.failureStrategies }}
-      validate={debouncedHandleValidate}
-      onSubmit={() => {
-        //
+      onSubmit={data => {
+        onChange({ ...data, tab: TabTypes.Advanced })
       }}
     >
       {(formikProps: FormikProps<Values>) => {
@@ -64,6 +59,9 @@ export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactEle
                   />
                 )}
               </Accordion>
+            </div>
+            <div className={stepCss.actionsPanel}>
+              <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
             </div>
           </FormikForm>
         )
