@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useGetListOfExecutions } from 'services/pipeline-ng'
+import { useGetListOfExecutions, PagePipelineExecutionSummary } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
-import { Page } from '@common/exports'
+import { Page, useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-
+import { PageSpinner } from '@common/components'
 import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
@@ -20,13 +20,37 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
+  const [pipelineExecutionSummary, setPipelineExecutionSummary] = useState<PagePipelineExecutionSummary>()
+  const [error, setError] = useState<Error>()
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
   const queryParams = useQueryParams<{ page?: string } & FilterQueryParams>()
   const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()
-  const { loading, data: pipelineExecutionSummary, error, refetch } = useGetListOfExecutions({
+  const { showError } = useToaster()
+
+  useEffect(() => {
+    ;(async () => {
+      await fetchExecutions()
+    })()
+  }, [page])
+
+  const fetchExecutions = async (): Promise<void> => {
+    try {
+      const { status, data } = await fetchListOfExecutions({
+        filterType: 'Pipeline'
+      })
+      if (status === 'SUCCESS') {
+        setPipelineExecutionSummary(data)
+      }
+    } catch (e) {
+      showError(e.data?.message || e.message)
+      setError(e)
+    }
+  }
+
+  const { loading, mutate: fetchListOfExecutions } = useGetListOfExecutions({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -55,7 +79,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   React.useEffect(() => {
     const timeoutId = window.setTimeout(() => {
       if (page == 1 && !loading) {
-        refetch()
+        fetchExecutions()
       }
     }, pollingIntervalInMilliseconds)
 
@@ -65,14 +89,16 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading])
 
-  return (
+  return loading ? (
+    <PageSpinner />
+  ) : (
     <Page.Body
       className={css.main}
       loading={loading}
       error={error?.message}
-      retryOnError={() => refetch?.()}
+      retryOnError={fetchExecutions}
       noData={{
-        when: () => !hasFilters && !pipelineExecutionSummary?.data?.content?.length,
+        when: () => !hasFilters && !pipelineExecutionSummary?.content?.length,
         icon: isCIModule ? 'ci-main' : 'cd-hover',
         noIconColor: isCIModule,
         message: getString(isCIModule ? 'noBuildsText' : 'noDeploymentText'),
@@ -81,8 +107,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       }}
     >
       <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
-      <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.data?.content} />
-      <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary?.data} />
+      <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.content} />
+      <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
     </Page.Body>
   )
 }

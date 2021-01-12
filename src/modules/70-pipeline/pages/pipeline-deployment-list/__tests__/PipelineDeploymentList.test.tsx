@@ -15,10 +15,10 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
-const refetch = jest.fn()
-
 jest.mock('services/pipeline-ng', () => ({
-  useGetListOfExecutions: jest.fn(() => ({ ...data, refetch })),
+  useGetListOfExecutions: jest.fn().mockImplementation(() => ({
+    mutate: async () => data
+  })),
   useGetPipelineList: jest.fn(() => ({ ...pipelines, refetch: jest.fn() })),
   useHandleInterrupt: jest.fn(() => ({}))
 }))
@@ -57,7 +57,6 @@ describe('Test Pipeline Deployment list', () => {
     ;(useGetListOfExecutions as jest.Mock).mockClear()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
   test('should render deployment list', async () => {
     const { container, getByText } = render(
       <TestWrapper
@@ -74,7 +73,7 @@ describe('Test Pipeline Deployment list', () => {
         <PipelineDeploymentList onRunPipeline={jest.fn()} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('test-p1'))
+    waitFor(() => getByText('test-p1'))
     expect(() => getByText('Pipelines', { selector: '.label' })).toThrowError()
     expect(container).toMatchSnapshot()
   })
@@ -94,9 +93,8 @@ describe('Test Pipeline Deployment list', () => {
         <PipelineDeploymentList onRunPipeline={jest.fn()} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('test-p1'))
-
-    expect(getByText('Pipelines', { selector: '.label' })).toBeDefined()
+    waitFor(() => getByText('test-p1'))
+    expect(() => getByText('Pipelines', { selector: '.label' })).toThrowError()
     expect(container).toMatchSnapshot()
   })
 
