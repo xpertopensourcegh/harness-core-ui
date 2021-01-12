@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { StepProps } from '@pipeline/exports'
 import { StepViewType } from '@pipeline/exports'
 import {
@@ -172,9 +172,53 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     )
   }
 
-  validateInputSet(): object {
-    return {}
+  validateInputSet(
+    data: ShellScriptData,
+    template: ShellScriptData,
+    getString?: UseStringsReturn['getString']
+  ): object {
+    const errors = { spec: { executionTarget: {}, source: { spec: {} } } } as any
+
+    /* istanbul ignore else */
+    if (
+      getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.source?.spec?.script)
+    ) {
+      errors.spec.source.spec.script = getString?.('fieldRequired', { field: 'Script' })
+    }
+
+    /* istanbul ignore else */
+    if (
+      getMultiTypeFromValue(template?.spec?.executionTarget?.host) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.executionTarget?.host)
+    ) {
+      errors.spec.executionTarget.host = getString?.('fieldRequired', { field: 'Target Host' })
+    }
+
+    /* istanbul ignore else */
+    if (
+      getMultiTypeFromValue(template?.spec?.executionTarget?.connectorRef) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.executionTarget?.connectorRef)
+    ) {
+      errors.spec.executionTarget.connectorRef = getString?.('fieldRequired', { field: 'SSH Connection Attribute' })
+    }
+
+    /* istanbul ignore else */
+    if (
+      getMultiTypeFromValue(template?.spec?.executionTarget?.workingDirectory) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.executionTarget?.workingDirectory)
+    ) {
+      errors.spec.executionTarget.workingDirectory = getString?.('fieldRequired', { field: 'Working Directory' })
+    }
+
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+
+    return errors
   }
+
   protected type = StepType.SHELLSCRIPT
   protected stepName = i18n.shellScriptStep
   protected stepIcon: IconName = 'command-shell-script'

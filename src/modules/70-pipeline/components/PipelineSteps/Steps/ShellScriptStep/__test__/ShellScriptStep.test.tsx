@@ -28,7 +28,6 @@ describe('Test Shell Script Step', () => {
         shell: 'BASH',
         executionTarget: {
           host: RUNTIME_INPUT_VALUE,
-          connectionType: RUNTIME_INPUT_VALUE,
           connectorRef: RUNTIME_INPUT_VALUE,
           workingDirectory: RUNTIME_INPUT_VALUE
         },
@@ -74,7 +73,6 @@ describe('Test Shell Script Step', () => {
         shell: 'BASH',
         executionTarget: {
           host: 'targethost',
-          connectionType: 'SSH',
           connectorRef: 'connectorRef',
           workingDirectory: './temp'
         },
@@ -127,7 +125,6 @@ describe('Test Shell Script Step', () => {
         },
         executionTarget: {
           host: 'targethost',
-          connectionType: 'SSH',
           connectorRef: 'connectorRef',
           workingDirectory: './temp'
         },
@@ -178,7 +175,6 @@ describe('Test Shell Script Step', () => {
         },
         executionTarget: {
           host: 'targethost',
-          connectionType: 'SSH',
           connectorRef: 'connectorRef',
           workingDirectory: './temp'
         },
@@ -347,9 +343,15 @@ describe('Test Shell Script Step', () => {
 
       await fireEvent.click(getByText('Execution Target'))
 
+      const executeScript = getByText('Where would you like to execute the script?')
+      expect(executeScript).toBeDefined()
+
       const radioButtons = container.querySelectorAll('input[type="radio"]')
 
       await fireEvent.click(radioButtons[0])
+
+      const connectorRef = getByText('SSH Connection Attribute')
+      expect(connectorRef).toBeDefined()
 
       fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
       fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
@@ -456,7 +458,6 @@ describe('Test Shell Script Step', () => {
       spec: {
         executionTarget: {
           host: RUNTIME_INPUT_VALUE,
-          connectionType: RUNTIME_INPUT_VALUE,
           connectorRef: RUNTIME_INPUT_VALUE,
           workingDirectory: RUNTIME_INPUT_VALUE
         }
@@ -489,7 +490,6 @@ describe('Test Shell Script Step', () => {
         },
         executionTarget: {
           host: 'targethost',
-          connectionType: 'SSH',
           connectorRef: 'connectorRef',
           workingDirectory: './temp'
         },
@@ -530,6 +530,73 @@ describe('Test Shell Script Step', () => {
         onUpdate={onUpdate}
       />
     )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render inputSet view and test validation', async () => {
+    const template = {
+      type: StepType.SHELLSCRIPT,
+      identifier: 'ShellScript'
+    }
+    const allValues = {
+      type: 'ShellScript',
+      identifier: 'ShellScript',
+      name: 'SSH',
+      spec: {
+        shell: 'BASH',
+        onDelegate: 'targethost',
+        source: {
+          type: 'Inline',
+          spec: {
+            script: 'test script'
+          }
+        },
+        executionTarget: {
+          host: 'targethost',
+          connectorRef: 'connectorRef',
+          workingDirectory: './temp'
+        },
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'Test_A'
+          },
+          {
+            name: 'testInput2',
+            type: 'String',
+            value: 'Test_B'
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'testOutput1',
+            value: 'Test_C'
+          },
+          {
+            name: 'testOutput2',
+            value: 'Test_D'
+          }
+        ]
+      }
+    }
+
+    const onUpdate = jest.fn()
+
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{}}
+        type={StepType.SHELLSCRIPT}
+        stepViewType={StepViewType.InputSet}
+        template={template}
+        allValues={allValues}
+        onUpdate={onUpdate}
+      />
+    )
+    await act(async () => {
+      fireEvent.click(getByText('Submit'))
+    })
 
     expect(container).toMatchSnapshot()
   })
