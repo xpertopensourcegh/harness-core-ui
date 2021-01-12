@@ -3,6 +3,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Text } from '@wings-software/uicore'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/exports'
@@ -109,6 +110,8 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
     onAddStep,
     onEditStep
   } = props
+
+  const { getString } = useStrings()
 
   const addStep = (event: ExecutionGraphAddStepEvent): void => {
     onAddStep(event)
@@ -402,7 +405,8 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
     state.dependenciesData,
     stepsFactory,
     { nodeListeners, linkListeners, layerListeners },
-    state.isRollback
+    state.isRollback,
+    getString
   )
 
   // load model into engine

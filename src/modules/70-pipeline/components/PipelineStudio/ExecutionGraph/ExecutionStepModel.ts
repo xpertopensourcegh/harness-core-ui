@@ -38,14 +38,15 @@ export class ExecutionStepModel extends DiagramModel {
     startY: number,
     factory: AbstractStepFactory,
     stepStates: StepStateMap,
-    prevNodes?: DefaultNodeModel[]
+    prevNodes?: DefaultNodeModel[],
+    getString?: (key: string, vars?: Record<string, any>) => string
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     const serviceState = stepStates.get(STATIC_SERVICE_GROUP_NAME)
     if (serviceState && serviceState.isStepGroupCollapsed) {
       startX += this.gap
       const nodeRender = new DefaultNodeModel({
         identifier: STATIC_SERVICE_GROUP_NAME,
-        name: 'Dependencies',
+        name: getString?.('pipelines-studio.dependenciesGroupTitle') as string,
         icon: factory.getStepIcon('StepGroup'),
         secondaryIcon: 'plus',
         draggable: false,
@@ -86,6 +87,7 @@ export class ExecutionStepModel extends DiagramModel {
       newX += this.gap * 0.75
 
       const createNode = new CreateNewModel({
+        name: getString?.('pipelines-studio.addDependency') as string,
         customNodeStyle: {
           borderColor: 'var(--pipeline-grey-border)'
         },
@@ -151,7 +153,8 @@ export class ExecutionStepModel extends DiagramModel {
     prevNodes?: DefaultNodeModel[],
     allowAdd?: boolean,
     isParallelNode = false,
-    isStepGroupNode = false
+    isStepGroupNode = false,
+    getString?: (key: string, vars?: Record<string, any>) => string
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
       const type = node?.step?.type || 'Approval'
@@ -361,6 +364,7 @@ export class ExecutionStepModel extends DiagramModel {
         } else {
           // Else show Create Node
           const createNode = new CreateNewModel({
+            name: getString?.('pipelines-studio.addStep'),
             identifier: `${EmptyNodeSeparator}${node.stepGroup.identifier}${EmptyNodeSeparator}`,
             customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
           })
@@ -399,7 +403,8 @@ export class ExecutionStepModel extends DiagramModel {
     servicesData: DependenciesWrapper[],
     factory: AbstractStepFactory,
     { nodeListeners, linkListeners, layerListeners }: Listeners,
-    isRollback: boolean
+    isRollback: boolean,
+    getString: (key: string, vars?: Record<string, any>) => string
   ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
@@ -419,13 +424,22 @@ export class ExecutionStepModel extends DiagramModel {
 
     // Create Node
     const createNode = new CreateNewModel({
+      name: getString('pipelines-studio.addStep'),
       customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
     })
 
     let prevNodes: DefaultNodeModel[] = [startNode]
 
     if (hasDependencies) {
-      const servicesResp = this.renderGraphServiceNodes(servicesData, startX, startY, factory, stepStates, prevNodes)
+      const servicesResp = this.renderGraphServiceNodes(
+        servicesData,
+        startX,
+        startY,
+        factory,
+        stepStates,
+        prevNodes,
+        getString
+      )
       startX = servicesResp.startX
       startY = servicesResp.startY
       if (servicesResp.prevNodes) {
@@ -434,7 +448,19 @@ export class ExecutionStepModel extends DiagramModel {
     }
 
     stepsData.forEach((node: ExecutionWrapper) => {
-      const resp = this.renderGraphStepNodes(node, startX, startY, factory, stepStates, isRollback, prevNodes, true)
+      const resp = this.renderGraphStepNodes(
+        node,
+        startX,
+        startY,
+        factory,
+        stepStates,
+        isRollback,
+        prevNodes,
+        true,
+        false,
+        false,
+        getString
+      )
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

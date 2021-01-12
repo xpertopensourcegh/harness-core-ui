@@ -1,20 +1,8 @@
 .createNode {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 64px;
+  display: block;
 
   .createNew {
     border-width: 2px !important;
     border-style: dashed !important;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-  }
-
-  .label {
-    color: var(--diagram-color-in-label);
-    font-size: var(--diagram-in-label-font) !important;
-    cursor: pointer;
   }
 }

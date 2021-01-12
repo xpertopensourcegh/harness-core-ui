@@ -291,6 +291,9 @@ global:
   exportScript: 'You can export script outputs as variables which can be used later in the pipeline.'
   sshConnector: 'SSH Connection Attribute'
   pipelines-studio:
+    addStep: Add step
+    dependenciesGroupTitle: Dependencies
+    addDependency: Add service dependency (optional)
     pipelineUpdated: Pipeline Updated
     errorWhileSaving: Error occurred saving pipeline
     pipelineUpdatedError: Pipeline is updated in the backend by someone so do you want to take the latest pipeline, this may you loose the local pipeline saved?

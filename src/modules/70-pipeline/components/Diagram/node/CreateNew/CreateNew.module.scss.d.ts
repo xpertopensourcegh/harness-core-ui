@@ -3,6 +3,5 @@
 declare const styles: {
   readonly createNode: string
   readonly createNew: string
-  readonly label: string
 }
 export default styles

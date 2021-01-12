@@ -59,10 +59,15 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
           { [cssDefault.selected]: props.node.isSelected() },
           { [cssDefault.selected]: dropable }
         )}
-        style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
+        style={{
+          marginTop: 32 - (options.height || 64) / 2,
+          width: options.width,
+          height: options.height,
+          ...options.customNodeStyle
+        }}
       >
         <div>
-          <Icon icon="plus" iconSize={isEmpty(options.name) ? 20 : 10} color={'var(--diagram-grey)'} />
+          <Icon icon="plus" iconSize={20} color={'var(--diagram-grey)'} />
 
           <div>
             <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
@@ -73,18 +78,17 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
             </div>
           </div>
         </div>
-        {!isEmpty(options.name) && (
-          <Text
-            font={{ size: 'small', align: 'center' }}
-            className={css.label}
-            padding="xsmall"
-            width={props.node.width - 10}
-            lineClamp={1}
-          >
-            {options.name}
-          </Text>
-        )}
       </div>
+      {!isEmpty(options.name) && (
+        <Text
+          font={{ align: 'center' }}
+          padding="xsmall"
+          lineClamp={2}
+          style={{ marginLeft: '-30px', marginRight: '-30px' }}
+        >
+          {options.name}
+        </Text>
+      )}
     </div>
   )
 }
