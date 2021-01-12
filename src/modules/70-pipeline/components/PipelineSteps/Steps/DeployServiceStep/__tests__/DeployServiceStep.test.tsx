@@ -153,6 +153,13 @@ describe('Test DeployService Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
+
+    // Clear first
+    await act(() => {
+      fireEvent.click(
+        document.body.querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)?.childNodes?.[0]!
+      )
+    })
     fireEvent.click(
       document.body
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)

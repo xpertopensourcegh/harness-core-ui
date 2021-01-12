@@ -161,6 +161,13 @@ describe('Test DeployEnvironment Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
+    // Clear first
+    await act(() => {
+      fireEvent.click(
+        document.body.querySelector(`[name="environmentRef"] + [class*="bp3-input-action"]`)?.childNodes?.[0]!
+      )
+    })
+
     fireEvent.click(
       document.body
         .querySelector(`[name="environmentRef"] + [class*="bp3-input-action"]`)

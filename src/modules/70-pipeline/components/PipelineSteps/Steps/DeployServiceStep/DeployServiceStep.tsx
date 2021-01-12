@@ -11,7 +11,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { isEmpty, noop, omit, pick } from 'lodash-es'
+import { isEmpty, isNil, noop, omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/exports'
@@ -120,7 +120,10 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         isOpen={true}
         canEscapeKeyClose
         canOutsideClickClose
-        onClose={() => hideModal()}
+        onClose={() => {
+          setState({ isEdit: false, data: { name: '', identifier: '' } })
+          hideModal()
+        }}
         title={state.isEdit ? getString('editService') : getString('newService')}
         isCloseButtonShown
         className={Classes.DIALOG}
@@ -138,6 +141,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
               item.label = values.name || ''
               setService(services)
             }
+            setState({ isEdit: false, data: { name: '', identifier: '' } })
             hideModal()
           }}
         />
@@ -162,12 +166,12 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [])
 
   React.useEffect(() => {
-    if (serviceResponse?.data?.content?.length) {
+    if (serviceResponse?.data?.content?.length && !isNil(initialValues.serviceRef)) {
       setService(
         serviceResponse.data.content.map(service => ({ label: service.name || '', value: service.identifier || '' }))
       )
     }
-  }, [serviceResponse, serviceResponse?.data?.content?.length])
+  }, [serviceResponse, serviceResponse?.data?.content?.length, initialValues.serviceRef])
 
   if (error?.message) {
     showError(error.message)
@@ -223,6 +227,10 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                       setFieldValue('serviceRef', '')
                     }
                     setFieldValue('service', undefined)
+                  },
+                  selectProps: {
+                    addClearBtn: true,
+                    items: services
                   }
                 }}
                 selectItems={services}

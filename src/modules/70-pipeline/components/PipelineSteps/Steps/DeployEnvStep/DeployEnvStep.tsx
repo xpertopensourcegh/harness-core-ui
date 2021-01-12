@@ -13,7 +13,7 @@ import {
   CardSelect
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { PipelineInfrastructure, useGetEnvironmentListForProject, EnvironmentYaml } from 'services/cd-ng'
@@ -164,7 +164,10 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
         isOpen={true}
         canEscapeKeyClose
         canOutsideClickClose
-        onClose={() => hideModal()}
+        onClose={() => {
+          setState({ isEdit: false, data: { name: '', identifier: '', type: 'PreProduction' } })
+          hideModal()
+        }}
         isCloseButtonShown
         title={state.isEdit ? getString('editEnvironment') : getString('newEnvironment')}
         className={Classes.DIALOG}
@@ -182,6 +185,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
               item.label = values.name || ''
               setEnvironments(environments)
             }
+            setState({ isEdit: false, data: { name: '', identifier: '', type: 'PreProduction' } })
             hideModal()
           }}
         />
@@ -206,7 +210,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
   }, [])
 
   React.useEffect(() => {
-    if (environmentsResponse?.data?.content?.length) {
+    if (environmentsResponse?.data?.content?.length && !isNil(initialValues.environmentRef)) {
       setEnvironments(
         environmentsResponse.data.content.map(env => ({
           label: env.name || '',
@@ -214,7 +218,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
         }))
       )
     }
-  }, [environmentsResponse, environmentsResponse?.data?.content?.length])
+  }, [environmentsResponse, environmentsResponse?.data?.content?.length, initialValues.environmentRef])
 
   if (error?.message) {
     showError(error.message)
@@ -271,6 +275,10 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
                       setFieldValue('environmentRef', '')
                     }
                     setFieldValue('environment', undefined)
+                  },
+                  selectProps: {
+                    addClearBtn: true,
+                    items: environments
                   }
                 }}
                 selectItems={environments}
