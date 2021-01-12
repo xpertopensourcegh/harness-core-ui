@@ -108,3 +108,11 @@ Run unit tests
 ```
 $ yarn test
 ```
+
+### Hotfix Process
+
+1. Create a branch from the corresponding release branch (eg. `release/0.53.x`) which you want to hotfix
+2. Commit your changes on your branch
+3. Bump up the patch version in `package.json` (eg. 0.53.0 -> 0.53.1)
+4. Raise PR with these changes
+5. When this PR gets merged, this [Jenkins job](https://jenkinsk8s.harness.io/view/UI-release/job/ng-ui-build-release/) will create a new build for you automatically
