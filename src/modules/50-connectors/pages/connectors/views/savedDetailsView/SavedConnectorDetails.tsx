@@ -266,7 +266,7 @@ const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
     },
     {
       label: i18n.Vault.renewal,
-      value: data.renewIntervalHours
+      value: data.renewalIntervalMinutes
     },
     {
       label: i18n.Vault.readOnly,

@@ -3,13 +3,13 @@ import { FormInput, Layout, Button, SelectOption } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { FormikContext } from 'formik'
-import * as Yup from 'yup'
 import {
   VaultAppRoleCredentialDTO,
   VaultAuthTokenCredentialDTO,
   VaultMetadataRequestSpecDTO,
   VaultMetadataSpecDTO,
-  useGetMetadata
+  useGetMetadata,
+  VaultConnectorDTO
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import type { VaultConfigFormData } from './VaultConfigForm'
@@ -42,34 +42,15 @@ interface VaultConnectorFormFieldsProps {
   formik: FormikContext<VaultConfigFormData>
   isEditing?: boolean
   identifier: string
+  accessType?: VaultConnectorDTO['accessType']
 }
 
-export const vaultConnectorFormFieldsValidationSchema = {
-  vaultUrl: Yup.string().trim().required(i18n.validationVaultUrl),
-  appRoleId: Yup.string().when('accessType', {
-    is: 'APP_ROLE',
-    then: Yup.string().trim().required(i18n.validationAppRole)
-  }),
-  secretId: Yup.string().when('accessType', {
-    is: 'APP_ROLE',
-    then: Yup.string().trim().required(i18n.validationSecretId)
-  }),
-  secretEngineName: Yup.string().when('engineType', {
-    is: 'manual',
-    then: Yup.string().trim().required(i18n.validationEngine)
-  }),
-  secretEngineVersion: Yup.number().when('engineType', {
-    is: 'manual',
-    then: Yup.number().positive(i18n.validationVersionNumber).required(i18n.validationVersion)
-  }),
-  secretEngine: Yup.string().when('engineType', {
-    is: 'fetch',
-    then: Yup.string().trim().required(i18n.validationSecretEngine)
-  }),
-  renewIntervalHours: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal)
-}
-
-const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ formik, identifier, isEditing }) => {
+const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
+  formik,
+  identifier,
+  isEditing,
+  accessType
+}) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { showError } = useToaster()
   const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])
@@ -121,6 +102,10 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
     return false
   }
 
+  React.useEffect(() => {
+    if (isEditing && formik.values.engineType === 'fetch') handleFetchEngines(formik.values)
+  }, [isEditing])
+
   return (
     <>
       <FormInput.Text name="vaultUrl" label={i18n.labelVaultUrl} />
@@ -134,14 +119,19 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
       {formik?.values['accessType'] === 'APP_ROLE' ? (
         <Layout.Horizontal spacing="medium">
           <FormInput.Text name="appRoleId" label={i18n.labelAppRoleId} />
-          <FormInput.Text name="secretId" label={i18n.labelSecretId} inputGroup={{ type: 'password' }} />
+          <FormInput.Text
+            name="secretId"
+            label={i18n.labelSecretId}
+            placeholder={isEditing && accessType === 'APP_ROLE' ? i18n.placeholderEncrypted : ''}
+            inputGroup={{ type: 'password' }}
+          />
         </Layout.Horizontal>
       ) : (
         <FormInput.Text
           name="authToken"
           label={i18n.labelToken}
           inputGroup={{ type: 'password' }}
-          placeholder={isEditing ? i18n.placeholderEncrypted : ''}
+          placeholder={isEditing && accessType === 'TOKEN' ? i18n.placeholderEncrypted : ''}
         />
       )}
       <FormInput.RadioGroup
@@ -162,7 +152,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
             text="Fetch Engines"
             margin={{ top: 'xsmall' }}
             onClick={() => handleFetchEngines(formik.values)}
-            disabled={isFetchDisabled(formik.values)}
+            disabled={isEditing ? false : isFetchDisabled(formik.values)}
           />
         </Layout.Horizontal>
       ) : null}
@@ -173,7 +163,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
         </Layout.Horizontal>
       ) : null}
 
-      <FormInput.Text name="renewIntervalHours" label={i18n.labelRenewal} />
+      <FormInput.Text name="renewalIntervalMinutes" label={i18n.labelRenewal} />
       <FormInput.CheckBox name="readOnly" label={i18n.labelReadOnly} padding={{ left: 'xxlarge' }} />
       <FormInput.CheckBox name="default" label={i18n.labelDefault} padding={{ left: 'xxlarge' }} />
     </>

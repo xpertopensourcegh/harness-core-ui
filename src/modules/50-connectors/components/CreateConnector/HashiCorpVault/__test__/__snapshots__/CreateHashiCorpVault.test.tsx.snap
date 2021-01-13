@@ -1033,6 +1033,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="secretId"
+                        placeholder=""
                         type="password"
                         value=""
                       />
@@ -1146,9 +1147,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall"
-                  disabled=""
-                  tabindex="-1"
+                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall"
                   type="button"
                 >
                   <span
@@ -1160,13 +1159,13 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="renewIntervalHours-7"
+                data-id="renewalIntervalMinutes-7"
               >
                 <label
                   class="bp3-label"
-                  for="renewIntervalHours"
+                  for="renewalIntervalMinutes"
                 >
-                  Renewal Interval (hours)
+                  Renewal Interval (minutes)
                    
                   <span
                     class="bp3-text-muted"
@@ -1181,7 +1180,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="renewIntervalHours"
+                      name="renewalIntervalMinutes"
                       type="text"
                       value="10"
                     />

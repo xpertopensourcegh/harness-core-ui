@@ -15,7 +15,7 @@ const secretManagerInfo = {
   type: Connectors.Vault,
   spec: {
     vaultUrl: 'http://localhost:8200',
-    renewIntervalHours: 10,
+    renewalIntervalMinutes: 10,
     secretEngineName: 'secret',
     secretEngineVersion: 2,
     default: false,

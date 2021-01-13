@@ -14,7 +14,7 @@ export default {
   labelSecretEngineName: 'Secret Engine Name',
   labelSecretEngineVersion: 'Secret Engine Version',
   labelHashicorpVault: 'Hashicorp Vault',
-  labelRenewal: 'Renewal Interval (hours)',
+  labelRenewal: 'Renewal Interval (minutes)',
   placeholderEncrypted: 'encrypted',
   titleDetails: 'Create Secret Manager',
   titleSecretManager: 'Secret Manager',

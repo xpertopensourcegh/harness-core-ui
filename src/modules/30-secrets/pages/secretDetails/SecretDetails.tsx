@@ -169,10 +169,10 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       <Container padding="large">
         <div className={css.switch}>
           <div className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })} onClick={() => setMode(Mode.VISUAL)}>
-            Visual
+            {getString('visual')}
           </div>
           <div className={cx(css.item, { [css.selected]: mode === Mode.YAML })} onClick={() => setMode(Mode.YAML)}>
-            YAML
+            {getString('yaml')}
           </div>
         </div>
         <Layout.Horizontal spacing="medium" margin={{ bottom: 'large', top: 'large' }} style={{ alignItems: 'center' }}>

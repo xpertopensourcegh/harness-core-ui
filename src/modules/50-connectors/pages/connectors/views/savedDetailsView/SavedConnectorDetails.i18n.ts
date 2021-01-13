@@ -87,7 +87,7 @@ export default {
     vaultUrl: 'Vault URL',
     engineName: 'Secret Engine Name',
     engineVersion: 'Secret Engine Version',
-    renewal: 'Renewal Interval (hours)',
+    renewal: 'Renewal Interval (minutes)',
     readOnly: 'Read Only',
     default: 'Default',
     yes: 'Yes',
