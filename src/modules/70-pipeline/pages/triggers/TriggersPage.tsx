@@ -2,6 +2,8 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/exports'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import TriggersList from './views/TriggersList'
 
 interface TriggerDataInterface {
@@ -34,6 +36,9 @@ const TriggersPage: React.FC = (): React.ReactElement => {
       })
     )
   }
+  const { getString } = useStrings()
+
+  useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
 
   return <TriggersList onNewTriggerClick={onNewTriggerClick} />
 }

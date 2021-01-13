@@ -7,6 +7,8 @@ import { useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
 import routes from '@common/RouteDefinitions'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { useStrings } from 'framework/exports'
 import i18n from './InputSetList.i18n'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
@@ -35,6 +37,8 @@ const InputSetList: React.FC = (): JSX.Element => {
     identifier?: string
   }>()
   const history = useHistory()
+  const { getString } = useStrings()
+  useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
 
   const goToInputSetForm = React.useCallback(
     (inputSetIdentifier = '-1') => {

@@ -4,6 +4,7 @@ import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGetPipelineSummary, useGetTrigger, ResponseNGTriggerResponse } from 'services/pipeline-ng'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -32,6 +33,8 @@ export const TriggerBreadcrumbs = ({
   const project = selectedProject
   const { getString } = useStrings()
   const onEditTriggerName = triggerResponse?.data?.name
+  useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
+
   return (
     <Breadcrumbs
       links={[

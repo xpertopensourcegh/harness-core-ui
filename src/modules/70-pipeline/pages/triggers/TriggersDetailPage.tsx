@@ -14,6 +14,7 @@ import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon } from './utils/TriggersListUtils'
 import css from './TriggersDetailPage.module.scss'
@@ -83,6 +84,7 @@ export default function TriggersDetailPage(): JSX.Element {
 
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
+  useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
   const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfig
   const pipelineInputSet = triggerObj?.target?.spec?.runtimeInputYaml as NgPipeline
 

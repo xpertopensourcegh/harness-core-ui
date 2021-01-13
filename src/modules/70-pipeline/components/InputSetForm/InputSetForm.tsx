@@ -31,6 +31,7 @@ import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useAppStore, useStrings } from 'framework/exports'
 import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
@@ -208,6 +209,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   }, [inputSetIdentifier])
 
   const { getString } = useStrings()
+  useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
 
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {

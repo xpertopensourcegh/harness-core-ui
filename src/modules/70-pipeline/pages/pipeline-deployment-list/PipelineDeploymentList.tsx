@@ -8,6 +8,7 @@ import { useQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
@@ -29,6 +30,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()
   const { showError } = useToaster()
+  useDocumentTitle([getString('pipelines'), getString('executionsText')])
 
   useEffect(() => {
     ;(async () => {
