@@ -57,3 +57,17 @@
     }
   }
 }
+
+.variationsList {
+  .variationItem {
+    padding: var(--spacing-small) 0 !important;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--grey-300) !important;
+    }
+
+    &:last-of-type {
+      padding-bottom: 0 !important;
+    }
+  }
+}

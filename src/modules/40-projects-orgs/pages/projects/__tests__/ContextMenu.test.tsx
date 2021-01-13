@@ -76,6 +76,6 @@ describe('Context Menu test', () => {
     }),
     test('Go to CF ', async () => {
       fireEvent.click(getByText('Go to Continuous Features'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCFProjectOverview(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCFFeatureFlags(routeParams))).toBeTruthy()
     })
 })

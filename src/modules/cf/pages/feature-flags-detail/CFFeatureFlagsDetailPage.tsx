@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { get } from 'lodash-es'
 import { Layout, Container, SelectOption } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -34,7 +35,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     }
   }, [environments?.length, envsLoading, environmentIdentifier])
 
-  const { data: singleFlag, loading: loadingFlag, error: errorFlag, refetch } = useGetFeatureFlag({
+  const { data: featureFlag, loading: loadingFlag, error: errorFlag, refetch } = useGetFeatureFlag({
     lazy: true,
     identifier: featureFlagIdentifier as string,
     queryParams: {
@@ -72,7 +73,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     <Container flex height="100%">
       <Layout.Horizontal className={css.flagContainer}>
         <Layout.Vertical width="100%">
-          <FlagActivationDetails singleFlag={singleFlag} refetchFlag={refetch} />
+          {featureFlag && <FlagActivationDetails featureFlag={featureFlag} refetchFlag={refetch} />}
         </Layout.Vertical>
       </Layout.Horizontal>
 
@@ -83,13 +84,13 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
             project={projectIdentifier as string}
             environments={environments}
             environment={environmentOption}
-            flagData={singleFlag ?? undefined}
-            isBooleanFlag={singleFlag?.kind === 'boolean'}
+            flagData={featureFlag ?? undefined}
+            isBooleanFlag={featureFlag?.kind === 'boolean'}
             onEnvChange={onEnvChange}
           />
           {error && (
             <PageError
-              message={error?.message}
+              message={get(error, 'data.message', error?.message)}
               onClick={() => {
                 refetchEnvironments()
               }}

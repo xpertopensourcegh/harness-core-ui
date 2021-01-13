@@ -1,6 +1,7 @@
 export default {
   env: 'Environment',
-  changeEditEnv: (editEnv: string) => `Flag is currently ${editEnv} for this environment`,
+  flagOff: 'Flag is currently off for this environment',
+  flagOn: 'Flag is currently on for this environment',
   targeting: 'Targeting',
   activity: 'Activity Log',
   save: 'Save',

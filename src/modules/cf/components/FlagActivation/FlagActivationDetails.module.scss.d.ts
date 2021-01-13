@@ -9,5 +9,7 @@ declare const styles: {
   readonly checkboxEditDetails: string
   readonly collapseFeatures: string
   readonly collapseFeaturesPrerequisites: string
+  readonly variationsList: string
+  readonly variationItem: string
 }
 export default styles

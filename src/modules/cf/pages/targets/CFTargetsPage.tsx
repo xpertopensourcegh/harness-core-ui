@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { omit } from 'lodash-es'
+import { get, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
@@ -206,7 +206,7 @@ const CFTargetsPage: React.FC = () => {
         )}
         {error && (
           <PageError
-            message={error?.message}
+            message={get(error, 'data.message', error?.message)}
             onClick={() => {
               refetchEnvironments()
             }}

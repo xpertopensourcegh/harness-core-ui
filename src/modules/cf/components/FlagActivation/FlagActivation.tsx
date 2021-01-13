@@ -6,7 +6,6 @@ import {
   Color,
   Container,
   Text,
-  Switch,
   Tabs,
   Tab,
   Button,
@@ -17,7 +16,7 @@ import {
   Formik,
   FormikForm as Form
 } from '@wings-software/uicore'
-import { Dialog } from '@blueprintjs/core'
+import { Switch, Classes, Dialog } from '@blueprintjs/core'
 import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
 import { extraOperators } from '@cf/constants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
@@ -249,7 +248,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
     return errors
   }
-
   const [openModalTestFlag, hideModalTestFlag] = useModalHook(() => (
     <Dialog onClose={hideModalTestFlag} isOpen={true} className={css.testFlagDialog}>
       <Container className={css.testFlagDialogContainer}>
@@ -292,15 +290,17 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               onChange={props.onEnvChange}
             />
             <FlexExpander />
-            <Switch
-              label={i18n.changeEditEnv(editEnvActivation as string)}
-              onChange={event => {
-                onChangeSwitchEnv(event.currentTarget.value, formikProps)
-              }}
-              alignIndicator="right"
-              large={true}
-              checked={editEnvActivation === envActivation.activeOn}
-            />
+            <Layout.Horizontal>
+              <Text>{(editEnvActivation || 'off') === 'off' ? i18n.flagOff : i18n.flagOn}</Text>
+              <Switch
+                onChange={event => {
+                  onChangeSwitchEnv(event.currentTarget.value, formikProps)
+                }}
+                alignIndicator="right"
+                className={Classes.LARGE}
+                checked={editEnvActivation === envActivation.activeOn}
+              />
+            </Layout.Horizontal>
           </Layout.Horizontal>
           <Container className={css.tabContainer}>
             {flagData && (

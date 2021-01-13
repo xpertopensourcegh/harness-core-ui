@@ -15,6 +15,7 @@ import {
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { Drawer, Menu, Position } from '@blueprintjs/core'
+import { get } from 'lodash-es'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
@@ -33,6 +34,7 @@ import i18n from './CFFeatureFlagsPage.i18n'
 import css from './CFFeatureFlagsPage.module.scss'
 
 type CustomColumn<T extends object> = Column<T>
+const PAGE_SIZE = 15
 
 const RenderColumnFlag: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
@@ -221,15 +223,20 @@ const CFFeatureFlagsPage: React.FC = () => {
     orgIdentifier,
     projectIdentifier
   } as GetEnvironmentListForProjectQueryParams)
-
-  const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
-    lazy: true,
-    queryParams: {
+  const [pageNumber, setPageNumber] = useState(0)
+  const queryParams = useMemo(() => {
+    return {
       project: projectIdentifier as string,
       environment: environment?.value as string,
       account: accountId,
-      org: orgIdentifier
+      org: orgIdentifier,
+      pageSize: PAGE_SIZE,
+      pageNumber
     }
+  }, [projectIdentifier, environment?.value, accountId, orgIdentifier, pageNumber])
+  const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
+    lazy: true,
+    queryParams
   })
 
   useEffect(() => {
@@ -381,8 +388,11 @@ const CFFeatureFlagsPage: React.FC = () => {
                 itemCount: flagList?.itemCount || 0,
                 pageSize: flagList?.pageSize || 0,
                 pageCount: flagList?.pageCount || 0,
-                pageIndex: flagList?.pageIndex || 0,
-                gotoPage: () => undefined
+                pageIndex: pageNumber,
+                gotoPage: index => {
+                  setPageNumber(index)
+                  refetch({ queryParams: { ...queryParams, pageNumber: index } })
+                }
               }}
             />
           </Layout.Vertical>
@@ -402,8 +412,9 @@ const CFFeatureFlagsPage: React.FC = () => {
 
         {error && (
           <PageError
-            message={error?.message}
+            message={get(error, 'data.message', error?.message)}
             onClick={() => {
+              setPageNumber(0)
               refetchEnvironments()
             }}
           />

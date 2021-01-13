@@ -20,7 +20,7 @@ export default function CDSideNav(): React.ReactElement {
 
   return (
     <Layout.Vertical spacing="small">
-      <SidebarLink label="Dashboard" to={routes.toCFHome({ accountId })} />
+      {/* <SidebarLink label="Dashboard" to={routes.toCFHome({ accountId })} /> */}
       <ProjectSelector
         moduleFilter={ModuleName.CF}
         onSelect={data => {
@@ -36,7 +36,7 @@ export default function CDSideNav(): React.ReactElement {
             )
           } else {
             history.push(
-              routes.toCFProjectOverview({
+              routes.toCFFeatureFlags({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId
@@ -47,7 +47,7 @@ export default function CDSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink label="Overview" to={routes.toCFProjectOverview(params)} />
+          {/* <SidebarLink label="Overview" to={routes.toCFProjectOverview(params)} /> */}
           <SidebarLink label="Feature Flags" to={routes.toCFFeatureFlags(params)} />
           <SidebarLink label="Targets" to={routes.toCFTargets(params)} />
           <SidebarLink label="Environments" to={routes.toCFEnvironments(params)} />

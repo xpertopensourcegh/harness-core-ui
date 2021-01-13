@@ -65,7 +65,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCFProjectOverview({
+      routes.toCFFeatureFlags({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
