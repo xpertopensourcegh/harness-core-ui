@@ -25,7 +25,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         executionTarget: {
           host: RUNTIME_INPUT_VALUE,
           connectorRef: RUNTIME_INPUT_VALUE,
@@ -70,7 +70,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         executionTarget: {
           host: 'targethost',
           connectorRef: 'connectorRef',
@@ -115,7 +115,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         onDelegate: 'targethost',
         source: {
           type: 'Inline',
@@ -165,7 +165,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         onDelegate: 'targethost',
         source: {
           type: 'Inline',
@@ -224,7 +224,7 @@ describe('Test Shell Script Step', () => {
 
     await act(async () => {
       fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
-      fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'BASH' } })
+      fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'Bash' } })
 
       fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
         target: { value: 'script test' },
@@ -267,7 +267,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'SSH',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         onDelegate: true,
         source: {
           type: 'Inline',
@@ -319,7 +319,7 @@ describe('Test Shell Script Step', () => {
 
     await act(async () => {
       fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'SSH' } })
-      fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'BASH' } })
+      fireEvent.change(queryByNameAttribute('spec.shell')!, { target: { value: 'Bash' } })
 
       fireEvent.input(queryByNameAttribute('spec.source.spec.script')!, {
         target: { value: 'script test' },
@@ -376,7 +376,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'SSH',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         onDelegate: false,
         source: {
           type: 'Inline',
@@ -480,7 +480,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         onDelegate: 'targethost',
         source: {
           type: 'Inline',
@@ -544,7 +544,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'ShellScript',
       name: 'SSH',
       spec: {
-        shell: 'BASH',
+        shell: 'Bash',
         onDelegate: 'targethost',
         source: {
           type: 'Inline',

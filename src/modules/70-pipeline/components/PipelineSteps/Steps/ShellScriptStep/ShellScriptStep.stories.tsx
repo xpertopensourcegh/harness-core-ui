@@ -54,7 +54,7 @@ ShellScriptsStep.args = {
     identifier: 'Test_A',
     type: StepType.SHELLSCRIPT,
     spec: {
-      shell: 'BASH',
+      shell: 'Bash',
       source: {
         spec: {
           script: RUNTIME_INPUT_VALUE
@@ -73,7 +73,7 @@ ShellScriptsStep.args = {
     name: 'Test A',
     identifier: 'Test_A',
     spec: {
-      shell: 'BASH',
+      shell: 'Bash',
       source: {
         spec: {
           script: RUNTIME_INPUT_VALUE

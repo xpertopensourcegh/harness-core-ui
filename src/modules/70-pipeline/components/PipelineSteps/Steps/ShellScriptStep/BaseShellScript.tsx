@@ -9,7 +9,7 @@ import type { ShellScriptFormData } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 
 export const shellScriptType: SelectOption[] = [
-  { label: 'Bash', value: 'BASH' },
+  { label: 'Bash', value: 'Bash' },
   { label: 'Powershell', value: 'POWERSHELL' }
 ]
 
