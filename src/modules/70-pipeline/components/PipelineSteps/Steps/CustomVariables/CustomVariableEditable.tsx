@@ -83,14 +83,14 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   selectedVariable={selectedVariable}
                   setSelectedVariable={setSelectedVariable}
                 />
-                {values.canAddVariable && (
+                {values.canAddVariable ? (
                   <div className={css.headerRow}>
                     <Text color={Color.BLACK}>
                       {stepViewType === StepViewType.Edit ? i18n.variables : i18n.customVariables}
                     </Text>
                     <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={addNew} />
                   </div>
-                )}
+                ) : /* istanbul ignore next */ null}
                 {stepViewType === StepViewType.StageVariable && values.variables.length > 0 && (
                   <section className={css.subHeader}>
                     <span>{i18n.variablesTableHeaders.name}</span>
@@ -119,7 +119,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                             name={`variables[${index}].value`}
                             label=""
                             multiTextInputProps={{
-                              textProps: { disabled: !initialValues.canAddVariable },
+                              textProps: {
+                                disabled: !initialValues.canAddVariable,
+                                type: variable.type === VariableTypes.Number ? 'number' : 'text'
+                              },
                               mentionsInfo: {
                                 data: done =>
                                   done([
@@ -138,8 +141,8 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
                             <ConfigureOptions
                               value={variable.value}
-                              type={variable.type || 'String'}
-                              variableName={variable.name || ''}
+                              type={variable.type || /* istanbul ignore next */ 'String'}
+                              variableName={variable.name || /* istanbul ignore next */ ''}
                               onChange={value => {
                                 setFieldValue(`variables[${index}].value`, value)
                               }}
@@ -150,17 +153,19 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               <Button
                                 icon="edit"
                                 tooltip={i18n.editVariable}
+                                data-testid={`edit-variable-${index}`}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
                                 }}
                               />
                               <Button
                                 icon="trash"
+                                data-testid={`delete-variable-${index}`}
                                 tooltip={i18n.removeThisVariable}
                                 onClick={() => handleRemove(index)}
                               />
                             </section>
-                          ) : null}
+                          ) : /* istanbul ignore next */ null}
                         </div>
                       </div>
                     </div>
