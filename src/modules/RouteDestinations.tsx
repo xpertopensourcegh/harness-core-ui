@@ -23,8 +23,8 @@ export default function RouteDestinations(): React.ReactElement {
       {...projectsOrgsRoutes.props.children}
       {...connectorRoutes.props.children}
       {...gitSyncRoutes.props.children}
-      {...CDRoutes.props.children}
       {...CIRoutes.props.children}
+      {...CDRoutes.props.children}
       {...CVRoutes.props.children}
       {...CFRoutes.props.children}
       {...CERoutes.props.children}
