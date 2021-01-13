@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
@@ -31,7 +32,7 @@ export default function ExecutionGraphView(): React.ReactElement {
     } else {
       const selectedStep = allNodeMap?.[step]
 
-      if (isExecutionNotStarted(selectedStep?.status)) {
+      if (isExecutionNotStarted(selectedStep?.status) || selectedStep?.status === ExecutionPipelineItemStatus.SKIPPED) {
         return
       }
 

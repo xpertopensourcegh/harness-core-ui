@@ -95,7 +95,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           color: isSelected && stage.status !== ExecutionPipelineItemStatus.NOT_STARTED ? 'var(--white)' : undefined
         },
         icon: stage.icon,
-        skipCondition: stage?.skipCondition
+        skipCondition: stage?.skipCondition,
+        status: stage.status
       }
 
       if (!nodeRender) {
