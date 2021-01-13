@@ -1,14 +1,17 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
 import { Icon } from '@wings-software/uicore'
+import { Switch } from '@blueprintjs/core'
 import { NavLink, useParams, useLocation, matchPath } from 'react-router-dom'
-import cx from 'classnames'
 
 import routes from '@common/RouteDefinitions'
+import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
-import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
+import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { String } from 'framework/exports'
 import i18n from './ExecutionTabs.i18n'
 
 import css from './ExecutionTabs.module.scss'
@@ -18,17 +21,13 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
   const { pipelineExecutionDetail } = useExecutionContext()
   const params = useParams<PipelineType<ExecutionPathProps>>()
   const location = useLocation()
-  const queryParams = new URLSearchParams(location.search)
-
-  let stageAndStepIdentifierQuery = ''
-  if (queryParams.get('stage')) stageAndStepIdentifierQuery += `&stage=${queryParams.get('stage')}`
-  if (queryParams.get('step')) stageAndStepIdentifierQuery += `&step=${queryParams.get('step')}`
+  const { view } = useQueryParams<ExecutionQueryParams>()
+  const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
 
   const isPipeLineView = !!matchPath(location.pathname, {
     path: routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })
   })
-  const view = queryParams.get('view')
-  const isGraphView = !view || view === 'graph'
+  // const isGraphView = !view || view === 'graph'
   const isLogView = view === 'log'
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
   const isCI = params.module === 'ci'
@@ -39,6 +38,12 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
   // by default we are showing Commits tab > 'isEmpty(pipelineExecutionDetail)'
   const ciShowCommitsTab =
     isEmpty(pipelineExecutionDetail) || !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length
+
+  function handleLogViewChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    const { checked } = e.target as HTMLInputElement
+
+    updateQueryParams({ view: checked ? 'log' : 'graph' })
+  }
 
   /* The following function does not have any business logic and hence can be ignored */
   /* istanbul ignore next */
@@ -72,7 +77,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
           <Icon name="manually-entered-data" size={16} />
           <span>{i18n.inputs}</span>
         </NavLink>
-        {!isCI && (
+        {/* {!isCI && (
           <NavLink
             to={routes.toExecutionArtifactsView(params)}
             className={css.tabLink}
@@ -81,7 +86,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
             <Icon name="add-to-artifact" size={16} />
             <span>{i18n.artifacts}</span>
           </NavLink>
-        )}
+        )} */}
         {isCI && (
           <>
             {ciShowCommitsTab ? (
@@ -105,18 +110,8 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
       <div className={css.children}>{children}</div>
       {isPipeLineView ? (
         <div className={css.viewToggle}>
-          <NavLink
-            className={cx({ [css.activeView]: isGraphView })}
-            to={`${routes.toExecutionPipelineView(params)}?view=graph${stageAndStepIdentifierQuery}`}
-          >
-            {i18n.graphView}
-          </NavLink>
-          <NavLink
-            className={cx({ [css.activeView]: isLogView })}
-            to={`${routes.toExecutionPipelineView(params)}?view=log${stageAndStepIdentifierQuery}`}
-          >
-            {i18n.logView}
-          </NavLink>
+          <String stringID="consoleView" />
+          <Switch checked={isLogView} name="console-view-toggle" onChange={handleLogViewChange} />
         </div>
       ) : null}
     </div>

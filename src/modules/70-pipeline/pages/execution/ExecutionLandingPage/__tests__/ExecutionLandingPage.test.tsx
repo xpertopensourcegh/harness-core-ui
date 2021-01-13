@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act, findByText as findByTextContainer } from '@testing-library/react'
+import { render, fireEvent, act, findByText as findByTextContainer, queryByAttribute } from '@testing-library/react'
 
 import { TestWrapper, NotFound } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
@@ -75,8 +75,8 @@ describe('<ExecutionLandingPage /> tests', () => {
 
   test.each<[string, string]>([
     [i18nTabs.piplines, routes.toExecutionPipelineView(pathParams)],
-    [i18nTabs.inputs, routes.toExecutionInputsView(pathParams)],
-    [i18nTabs.artifacts, routes.toExecutionArtifactsView(pathParams)]
+    [i18nTabs.inputs, routes.toExecutionInputsView(pathParams)]
+    // [i18nTabs.artifacts, routes.toExecutionArtifactsView(pathParams)]
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
     ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
@@ -97,16 +97,13 @@ describe('<ExecutionLandingPage /> tests', () => {
     expect(getByTestId('location').innerHTML.endsWith(url)).toBe(true)
   })
 
-  test.each<[string, string]>([
-    [i18nTabs.graphView, routes.toExecutionPipelineView(pathParams) + '?view=graph'],
-    [i18nTabs.logView, routes.toExecutionPipelineView(pathParams) + '?view=log']
-  ])('Navigation to "%s" Tabs work', async (tab, url) => {
+  test('Toggle between log/graph view works', async () => {
     ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
       loading: false,
       data: null
     }))
-    const { findByText, getByTestId } = render(
+    const { container, getByTestId } = render(
       <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
           <NotFound />
@@ -114,11 +111,27 @@ describe('<ExecutionLandingPage /> tests', () => {
       </TestWrapper>
     )
 
-    const tabElem = await findByText(tab)
+    const tabElem = queryByAttribute('name', container, 'console-view-toggle')!
 
     fireEvent.click(tabElem)
 
-    expect(getByTestId('location').innerHTML.endsWith(url)).toBe(true)
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log
+      </div>
+    `)
+
+    fireEvent.click(tabElem)
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=graph
+      </div>
+    `)
   })
 
   test.each<[ExecutionStatus, boolean]>([

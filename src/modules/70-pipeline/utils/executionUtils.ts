@@ -2,12 +2,21 @@ import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionSuccess, isExecutionCompletedWithBadState, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import type { GraphLayoutNode, PipelineExecutionSummary, ExecutionGraph } from 'services/pipeline-ng'
 
+/**
+ * @deprecated use import { ExecutionPathProps } from '@common/interfaces/RouteInterfaces' instead
+ */
 export interface ExecutionPathParams {
   orgIdentifier: string
   projectIdentifier: string
   pipelineIdentifier: string
   executionIdentifier: string
   accountId: string
+}
+
+export interface ExecutionQueryParams {
+  stage?: string
+  step?: string
+  view?: 'log' | 'graph'
 }
 
 export function getPipelineStagesMap(

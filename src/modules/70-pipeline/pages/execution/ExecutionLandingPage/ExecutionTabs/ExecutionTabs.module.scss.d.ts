@@ -8,7 +8,5 @@ declare const styles: {
   readonly tabIndicator: string
   readonly children: string
   readonly viewToggle: string
-  readonly activeView: string
-  readonly active: string
 }
 export default styles

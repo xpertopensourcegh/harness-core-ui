@@ -11,11 +11,12 @@ import type { GetTokenQueryParams } from 'services/logs'
 export const getTokenPromise = (
   props: GetUsingFetchProps<string, void, GetTokenQueryParams, void>,
   signal?: RequestInit['signal']
-) => getUsingFetch<string, void, GetTokenQueryParams, void>(getConfig('log-service'), `/token`, props, signal)
+): Promise<string> =>
+  getUsingFetch<string, void, GetTokenQueryParams, void>(getConfig('log-service'), `/token`, props, signal)
 
 /**
  * Fetch logs access token
  */
-export const fetchLogsAccessToken = (accountID: string) => {
+export const fetchLogsAccessToken = (accountID: string): Promise<string> => {
   return getTokenPromise({ queryParams: { accountID } })
 }

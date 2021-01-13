@@ -130,6 +130,7 @@ global:
   keyLabel: Key
   valueLabel: Value
   commandLabel: Command
+  consoleView: Console View
   commandInfo: Posix shell script executed inside the container. The script is invoked as if it were the container’s entrypoint.
   commandPlaceholder: |
     npm install

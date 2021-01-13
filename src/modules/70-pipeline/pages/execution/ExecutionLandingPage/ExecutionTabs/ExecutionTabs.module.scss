@@ -67,27 +67,17 @@
 
   & .viewToggle {
     display: flex;
-    height: var(--spacing-xlarge);
-    border-radius: var(--font-size-small);
-    overflow: hidden;
+    align-items: center;
     font-size: var(--font-size-small);
-    line-height: calc(2 * var(--font-size-small));
-    background: var(--grey-200);
+    column-gap: var(--spacing-small);
 
-    & > a {
-      color: var(--grey-500);
-      display: inline-flex;
-      padding: var(--spacing-none) var(--spacing-medium);
-      border-radius: var(--font-size-small);
-      &.activeView {
-        background: var(--blue-500);
-        color: var(--white);
-      }
+    & :global(.bp3-control) {
+      margin: 0;
+      transform: translateY(1px);
+    }
 
-      &:hover,
-      &.active:hover {
-        text-decoration: none;
-      }
+    & :global(.bp3-control.bp3-switch input:checked ~ .bp3-control-indicator) {
+      background-color: var(--blue-500);
     }
   }
 }
