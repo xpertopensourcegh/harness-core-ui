@@ -451,6 +451,7 @@ exports[`Create Artifactory connector Wizard should render form 2`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span

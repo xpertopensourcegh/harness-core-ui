@@ -391,6 +391,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
                   </label>
                   <button
                     class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                    data-testid="passwordRef"
                     type="button"
                   >
                     <span
@@ -633,6 +634,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                   </label>
                   <button
                     class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                    data-testid="passwordRef"
                     type="button"
                   >
                     <span

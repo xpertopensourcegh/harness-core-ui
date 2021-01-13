@@ -278,6 +278,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="password"
                       type="button"
                     >
                       <span
@@ -665,6 +666,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="password"
                       type="button"
                     >
                       <span
@@ -1057,6 +1059,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="password"
                       type="button"
                     >
                       <span
@@ -1439,6 +1442,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="password"
                       type="button"
                     >
                       <span
@@ -1724,6 +1728,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="serviceAccountToken"
                       type="button"
                     >
                       <span
@@ -2357,6 +2362,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="oidcPassword"
                         type="button"
                       >
                         <span
@@ -2419,6 +2425,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="oidcCleintId"
                         type="button"
                       >
                         <span
@@ -2476,6 +2483,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="oidcCleintSecret"
                         type="button"
                       >
                         <span

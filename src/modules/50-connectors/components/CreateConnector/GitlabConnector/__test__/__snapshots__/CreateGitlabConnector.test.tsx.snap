@@ -256,6 +256,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -1375,6 +1376,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 3`]
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -1639,6 +1641,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 4`]
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -1995,6 +1998,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -2259,6 +2263,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -2405,6 +2410,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span

@@ -197,6 +197,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           <Container>
             {edit && (
               <YamlBuilder
+                height={500}
                 entityType={'Secrets'}
                 fileName={`${secretData.secret.name}.yaml`}
                 // existingJson={}
@@ -212,6 +213,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
             )}
             {!edit && (
               <YamlBuilder
+                height={500}
                 entityType={'Secrets'}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 fileName={`${secretData.secret.name}.yaml`}

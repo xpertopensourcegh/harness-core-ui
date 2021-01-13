@@ -993,6 +993,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 3`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -1250,6 +1251,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -1432,6 +1434,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span
@@ -1760,6 +1763,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -2104,6 +2108,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -2280,6 +2285,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span

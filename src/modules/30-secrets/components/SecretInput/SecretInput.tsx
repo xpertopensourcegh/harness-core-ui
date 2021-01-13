@@ -58,6 +58,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
         {label ? <label className={'bp3-label'}>{label}</label> : null}
         <Button
           className={css.inputButton}
+          data-testid={name}
           onClick={openCreateOrSelectSecretModal}
           text={
             <Layout.Horizontal width={'100%'} spacing={'xsmall'} style={{ alignItems: 'center' }}>

@@ -575,6 +575,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="password"
                           type="button"
                         >
                           <span

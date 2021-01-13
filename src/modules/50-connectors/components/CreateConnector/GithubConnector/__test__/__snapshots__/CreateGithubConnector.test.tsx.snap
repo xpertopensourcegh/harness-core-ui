@@ -939,6 +939,7 @@ exports[`Create Github connector Wizard Github step one 3`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -1178,6 +1179,7 @@ exports[`Create Github connector Wizard Github step one 4`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="sshKey"
                         type="button"
                       >
                         <span
@@ -1326,6 +1328,7 @@ exports[`Create Github connector Wizard Github step one 4`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span
@@ -2018,6 +2021,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -2344,6 +2348,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span
@@ -2557,6 +2562,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="privateKey"
                           type="button"
                         >
                           <span
@@ -2864,6 +2870,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span
@@ -3010,6 +3017,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="accessToken"
                         type="button"
                       >
                         <span

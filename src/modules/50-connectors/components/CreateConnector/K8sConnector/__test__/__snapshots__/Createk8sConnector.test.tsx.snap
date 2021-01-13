@@ -647,6 +647,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="password"
                           type="button"
                         >
                           <span
@@ -1166,6 +1167,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           </label>
                           <button
                             class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            data-testid="oidcPassword"
                             type="button"
                           >
                             <span
@@ -1228,6 +1230,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           </label>
                           <button
                             class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            data-testid="oidcCleintId"
                             type="button"
                           >
                             <span
@@ -1285,6 +1288,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           </label>
                           <button
                             class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            data-testid="oidcCleintSecret"
                             type="button"
                           >
                             <span
@@ -1710,6 +1714,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="serviceAccountToken"
                           type="button"
                         >
                           <span
@@ -2540,6 +2545,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="password"
                           type="button"
                         >
                           <span
@@ -2933,6 +2939,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKey"
                           type="button"
                         >
                           <span
@@ -2990,6 +2997,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKeyPassphrase"
                           type="button"
                         >
                           <span
@@ -3051,6 +3059,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKeyCertificate"
                           type="button"
                         >
                           <span
@@ -3143,6 +3152,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKeyCACertificate"
                           type="button"
                         >
                           <span
@@ -3576,6 +3586,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKey"
                           type="button"
                         >
                           <span
@@ -3633,6 +3644,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKeyPassphrase"
                           type="button"
                         >
                           <span
@@ -3694,6 +3706,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKeyCertificate"
                           type="button"
                         >
                           <span
@@ -3786,6 +3799,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                         </label>
                         <button
                           class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="clientKeyCACertificate"
                           type="button"
                         >
                           <span

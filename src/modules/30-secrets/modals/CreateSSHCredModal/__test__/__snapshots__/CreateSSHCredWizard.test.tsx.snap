@@ -564,6 +564,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="key"
                       type="button"
                     >
                       <span
@@ -621,6 +622,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                     </label>
                     <button
                       class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      data-testid="encryptedPassphrase"
                       type="button"
                     >
                       <span

@@ -1029,6 +1029,7 @@ exports[`Create Git connector Wizard Git step one 3`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -1278,6 +1279,7 @@ exports[`Create Git connector Wizard Git step one 4`] = `
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
@@ -1907,6 +1909,7 @@ exports[`Create Git connector Wizard should form for edit http and authtype user
                       </label>
                       <button
                         class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        data-testid="password"
                         type="button"
                       >
                         <span
