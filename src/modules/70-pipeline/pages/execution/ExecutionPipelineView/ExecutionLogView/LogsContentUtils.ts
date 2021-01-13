@@ -42,15 +42,15 @@ export function createLogSection(
     let sourceType = 'blob'
     if (stepType === 'dependency-service') {
       // for dependency service we use STAGE status
-      if (isStatusSmellsLikeRunning(stageStatus)) {
+      if (isStatusRunningLike(stageStatus)) {
         sourceType = 'stream'
       }
-      enableLogLoading = isStatusSmellsLikeActive(stageStatus) && enableLogLoading
+      enableLogLoading = isStatusActiveLike(stageStatus) && enableLogLoading
     } else {
-      if (isStatusSmellsLikeRunning(stepStatus)) {
+      if (isStatusRunningLike(stepStatus)) {
         sourceType = 'stream'
       }
-      enableLogLoading = isStatusSmellsLikeActive(stepStatus) && enableLogLoading
+      enableLogLoading = isStatusActiveLike(stepStatus) && enableLogLoading
     }
 
     const queryVars = {
@@ -100,13 +100,11 @@ Rules:
 | 'Suspended'    // do not load logs 
 */
 
-function isStatusSmellsLikeRunning(status: 'Running' | string | undefined): boolean {
+function isStatusRunningLike(status: 'Running' | string | undefined): boolean {
   return status === 'Running' || status === 'Paused'
 }
 
-function isStatusSmellsLikeActive(
-  status: 'NotStarted' | 'Expired' | 'Waiting' | 'Suspended' | string | undefined
-): boolean {
+function isStatusActiveLike(status: 'NotStarted' | 'Expired' | 'Waiting' | 'Suspended' | string | undefined): boolean {
   const nonActive = status === 'NotStarted' || status === 'Expired' || status === 'Waiting' || status === 'Suspended'
   return !nonActive
 }
@@ -119,7 +117,7 @@ function isStatusSmellsLikeActive(
 const logBlobPromise = (
   props: GetUsingFetchProps<string, void, LogBlobQueryParams, void>,
   signal?: RequestInit['signal']
-) => getUsingFetch<string, void, LogBlobQueryParams, void>(getConfig('logs-service'), `/blob`, props, signal)
+) => getUsingFetch<string, void, LogBlobQueryParams, void>(getConfig('log-service'), `/blob`, props, signal)
 
 /**
  * Get Logs from blob
@@ -130,7 +128,7 @@ export async function getLogsFromBlob(
 ): Promise<Line[]> {
   return logBlobPromise(
     {
-      queryParams: pick(queryParams, ['key', 'accountId']) as LogBlobQueryParams,
+      queryParams: pick(queryParams, ['key', 'accountID']) as LogBlobQueryParams,
       requestOptions: { headers: { 'X-Harness-Token': queryParams['X-Harness-Token'] } }
     },
     signal
