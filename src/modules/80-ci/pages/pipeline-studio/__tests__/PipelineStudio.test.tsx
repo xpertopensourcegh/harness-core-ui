@@ -95,7 +95,7 @@ describe('Test Pipeline Studio', () => {
     )
   })
   test('should render edit pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
-    const { getByTitle, container } = render(
+    const { getByTestId, container } = render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -111,7 +111,7 @@ describe('Test Pipeline Studio', () => {
       </TestWrapper>
     )
     await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
-    const runPipeline = getByTitle('Run Pipeline')
+    const runPipeline = getByTestId('run-pipeline')
     fireEvent.click(runPipeline)
     await waitFor(() => getByText(document.body, 'Run Pipeline Form'))
     const dialog = findDialogContainer()
@@ -148,7 +148,7 @@ describe('Test Pipeline Studio', () => {
   })
 
   test('should render and test Trigger, Notifications, Templates and Variables Sections', async () => {
-    const { container, getByTitle } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -166,7 +166,7 @@ describe('Test Pipeline Studio', () => {
     await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
     const notificationsBtn = getByText(container, 'Notifications')
     fireEvent.click(notificationsBtn)
-    const varBtn = getByTitle('Input Variables')
+    const varBtn = getByTestId('input-variable')
     fireEvent.click(varBtn)
     expect(getByText(document.body, 'Pipeline Variables')).toBeDefined()
   })

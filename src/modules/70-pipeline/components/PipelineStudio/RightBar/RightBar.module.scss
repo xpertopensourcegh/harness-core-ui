@@ -24,4 +24,8 @@
       background-color: var(--grey-200);
     }
   }
+
+  :global(.bp3-popover-wrapper) {
+    text-align: center;
+  }
 }

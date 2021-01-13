@@ -620,6 +620,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     tooltip={getString('notifications')}
                     icon="yaml-builder-notifications"
                     iconProps={{ color: 'var(--dark-500)' }}
+                    disabled
                     onClick={() => {
                       updatePipelineView({
                         ...pipelineView,

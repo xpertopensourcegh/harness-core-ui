@@ -112,7 +112,7 @@ describe('Test Pipeline Studio', () => {
   })
 
   test('should render and test Trigger, Notifications, Templates and Variables Sections', async () => {
-    const { container, getByTitle } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -130,7 +130,7 @@ describe('Test Pipeline Studio', () => {
     await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
     const notificationsBtn = getByText(container, 'Notifications')
     fireEvent.click(notificationsBtn)
-    const varBtn = getByTitle('Input Variables')
+    const varBtn = getByTestId('input-variable')
     fireEvent.click(varBtn)
     expect(getByText(document.body, 'Pipeline Variables')).toBeDefined()
   })

@@ -10,7 +10,7 @@ import stepCss from '../Steps.module.scss'
 
 export const shellScriptType: SelectOption[] = [
   { label: 'Bash', value: 'Bash' },
-  { label: 'Powershell', value: 'POWERSHELL' }
+  { label: 'PowerShell', value: 'PowerShell' }
 ]
 
 export default function BaseShellScript(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {

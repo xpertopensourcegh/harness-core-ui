@@ -33,6 +33,7 @@ export const RightBar = (): JSX.Element => {
   return (
     <div className={css.rightBar}>
       <div />
+
       <Button
         noStyling
         disabled
@@ -44,9 +45,12 @@ export const RightBar = (): JSX.Element => {
             drawerData: { type: DrawerTypes.Templates, size: 700 }
           })
         }
+        tooltip={i18n.templateLibrary}
+        tooltipProps={{ isDark: true, position: 'left' }}
       >
-        <Icon name="template-library" title={i18n.templateLibrary} size={type === DrawerTypes.Templates ? 22 : 16} />
+        <Icon name="template-library" size={type === DrawerTypes.Templates ? 22 : 16} />
       </Button>
+
       <Button
         noStyling
         className={cx(css.iconButton, { [css.selected]: type === DrawerTypes.PipelineVariables })}
@@ -59,16 +63,24 @@ export const RightBar = (): JSX.Element => {
             splitViewData: {}
           })
         }
+        tooltip={i18n.inputVariables}
+        tooltipProps={{ isDark: true, position: 'left' }}
+        data-testid="input-variable"
       >
-        <Icon
-          name="pipeline-variables"
-          size={type === DrawerTypes.PipelineVariables ? 26 : 16}
-          title={i18n.inputVariables}
-        />
+        <Icon name="pipeline-variables" size={type === DrawerTypes.PipelineVariables ? 26 : 16} />
       </Button>
-      <Button noStyling className={css.iconButton} onClick={handleRunPipeline}>
-        <Icon name="run-pipeline" title={i18n.runPipeline} />
+
+      <Button
+        noStyling
+        className={css.iconButton}
+        onClick={handleRunPipeline}
+        tooltip={i18n.runPipeline}
+        tooltipProps={{ isDark: true, position: 'left' }}
+        data-testid="run-pipeline"
+      >
+        <Icon name="run-pipeline" />
       </Button>
+
       <div />
     </div>
   )
