@@ -31,18 +31,24 @@
     padding-top: var(--spacing-medium);
     padding-bottom: var(--spacing-medium);
   }
-  [class*='OverlaySpinner---overlaySpinner'] {
+
+  .content {
+    min-height: calc(100vh - 187px);
+    overflow: auto;
+    display: block;
+    max-height: calc(100vh - 187px);
+
+    & > form {
+      width: 100%;
+    }
+  }
+
+  .footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  [class*='OverlaySpinner--overlaySpinner'] {
     min-height: calc(100% - var(--page-header-height, 64px));
     overflow: hidden;
-
-    .content {
-      min-height: calc(100vh - 187px);
-      overflow: auto;
-      display: block;
-      max-height: calc(100vh - 187px);
-    }
-    .footer {
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
   }
 }

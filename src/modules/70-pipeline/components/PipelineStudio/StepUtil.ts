@@ -157,7 +157,7 @@ const validateStage = (
       getString
     )
     if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.execution.steps', errorsResponse)
+      set(errors, 'spec.execution', errorsResponse)
     }
   }
   if (stage.spec?.execution?.rollbackSteps) {
@@ -213,5 +213,6 @@ export const validatePipeline = (
       })
     }
   })
+
   return errors
 }

@@ -52,7 +52,7 @@
 }
 
 .input-set-form {
-  [class*='OverlaySpinner---overlaySpinner'] {
+  [class*='OverlaySpinner--overlaySpinner'] {
     min-height: calc(100% - var(--page-header-height, 64px));
     overflow: hidden;
 

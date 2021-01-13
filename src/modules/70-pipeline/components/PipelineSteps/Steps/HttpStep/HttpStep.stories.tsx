@@ -50,7 +50,7 @@ HTTPStep.args = {
   initialValues: { identifier: 'Test_A', type: StepType.HTTP },
   type: StepType.HTTP,
   stepViewType: StepViewType.Edit,
-  path: 'spec',
+  path: '',
   template: {
     identifier: 'Test_A',
     type: StepType.HTTP,

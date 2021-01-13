@@ -1,5 +1,6 @@
 import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, SelectOption, FormInput } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
@@ -20,16 +21,17 @@ export interface HttpInputSetStepProps {
 export default function HttpInputSetStep(props: HttpInputSetStepProps): React.ReactElement {
   const { template, onUpdate, initialValues, path, readonly } = props
   const { getString } = useStrings()
+  const prefix = isEmpty(path) ? '' : `${path}.`
 
   return (
     <React.Fragment>
       {getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text label={getString('UrlLabel')} name={`${path}.url`} disabled={readonly} />
+        <FormInput.Text label={getString('UrlLabel')} name={`${prefix}spec.url`} disabled={readonly} />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Select
           label={getString('methodLabel')}
-          name={`${path}.method`}
+          name={`${prefix}spec.method`}
           items={httpStepType}
           onChange={(opt: SelectOption) => {
             onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, method: opt.value.toString() } })
@@ -40,18 +42,18 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
       {getMultiTypeFromValue(template?.spec?.requestBody) === MultiTypeInputType.RUNTIME ? (
         <FormInput.TextArea
           label={getString('requestBodyLabel')}
-          name={`${path}.requestBody`}
+          name={`${prefix}spec.requestBody`}
           style={{ resize: 'vertical' }}
           disabled={readonly}
         />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.assertion) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.Text label={getString('assertionLabel')} name={`${path}.assertion`} disabled={readonly} />
+        <FormInput.Text label={getString('assertionLabel')} name={`${prefix}spec.assertion`} disabled={readonly} />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME ? (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${path}.timeout`}
+          name={`${prefix}spec.timeout`}
           disabled={readonly}
         />
       ) : null}

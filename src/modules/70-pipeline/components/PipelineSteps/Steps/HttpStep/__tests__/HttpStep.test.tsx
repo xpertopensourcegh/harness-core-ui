@@ -153,7 +153,7 @@ describe('Http Step', () => {
         type={StepType.HTTP}
         stepViewType={StepViewType.InputSet}
         onUpdate={onUpdate}
-        path="spec"
+        path=""
       />
     )
 
@@ -167,7 +167,7 @@ describe('Http Step', () => {
         type={StepType.HTTP}
         stepViewType={StepViewType.InputSet}
         template={{}}
-        path="spec"
+        path=""
       />
     )
 
