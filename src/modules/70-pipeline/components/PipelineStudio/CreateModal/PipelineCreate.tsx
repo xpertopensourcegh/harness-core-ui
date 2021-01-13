@@ -13,13 +13,18 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import isEmpty from 'lodash-es/isEmpty'
+import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName } from 'framework/exports'
 import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import i18n from './PipelineCreate.i18n'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import image1 from './images/first.png'
 import image2 from './images/second.png'
 import image3 from './images/third.png'
+import ciSteps from './images/ci-steps.svg'
+import pipelineStudio from './images/pipeline-studio.svg'
+import testIntelligence from './images/test-intelligence.svg'
 import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -45,6 +50,8 @@ export default function CreatePipelines({
   initialValues = { identifier: '', name: '', description: '', tags: {} },
   closeModal
 }: PipelineCreateProps): JSX.Element {
+  const { module } = useParams<PipelineType<any>>()
+
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
     initialValues.identifier = ''
@@ -103,7 +110,7 @@ export default function CreatePipelines({
         </div>
         <Carousel>
           <div className={css.helpImages}>
-            <img src={image1} />
+            <img src={module === 'ci' ? pipelineStudio : image1} />
             <div>
               <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
                 {i18n.pipelineConcepts}
@@ -112,7 +119,7 @@ export default function CreatePipelines({
             </div>
           </div>
           <div className={css.helpImages}>
-            <img src={image2} />
+            <img src={module === 'ci' ? testIntelligence : image2} />
             <div>
               <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
                 {i18n.pipelineConcepts}
@@ -121,7 +128,7 @@ export default function CreatePipelines({
             </div>
           </div>
           <div className={css.helpImages}>
-            <img src={image3} />
+            <img src={module === 'ci' ? ciSteps : image3} />
             <div>
               <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
                 {i18n.pipelineConcepts}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { queryByAttribute, render, getByPlaceholderText, fireEvent, act, waitFor } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import PipelineCreate from '../CreateModal/PipelineCreate'
 import i18n from '../CreateModal/PipelineCreate.i18n'
 import type { PipelineCreateProps } from '../CreateModal/PipelineCreate'
@@ -15,8 +16,49 @@ const getEditProps = (identifier = 'test', description = 'desc', name = 'pipelin
 })
 
 describe('PipelineCreate test', () => {
-  test('initializes ok ', async () => {
-    const { container } = render(<PipelineCreate />)
+  test('initializes ok for CI module', async () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/ci/dashboard"
+        pathParams={{
+          accountId: 'dummy'
+        }}
+      >
+        <PipelineCreate />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+    expect(queryByAttribute('class', container, /container/)).not.toBeNull()
+    const nameInput = getByPlaceholderText(container, i18n.pipelineNamePlaceholder)
+    expect(nameInput).not.toBeNull()
+    const collpase = container.querySelector('[class*="collapseDiv"]')
+    expect(collpase).not.toBeNull()
+    const submit = container.getElementsByTagName('button')[0]
+    await act(async () => {
+      fireEvent.change(nameInput, 'Sample Pipeline')
+      fireEvent.click(submit)
+    })
+    await waitFor(() => nameInput.getAttribute('value') == 'Sample Pipeline')
+    if (collpase) {
+      await act(async () => {
+        fireEvent.click(collpase)
+      })
+
+      expect(container.querySelector('[class*="collapseDiv"]')).not.toBeNull()
+    }
+  })
+  test('initializes ok for CD module', async () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cd/dashboard"
+        pathParams={{
+          accountId: 'dummy'
+        }}
+      >
+        <PipelineCreate />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
     expect(queryByAttribute('class', container, /container/)).not.toBeNull()
     const nameInput = getByPlaceholderText(container, i18n.pipelineNamePlaceholder)
     expect(nameInput).not.toBeNull()
@@ -38,7 +80,16 @@ describe('PipelineCreate test', () => {
   })
   test('initializes ok edit pipeline', async () => {
     afterSave.mockReset()
-    const { container, getByText } = render(<PipelineCreate {...getEditProps()} />)
+    const { container, getByText } = render(
+      <TestWrapper
+        path="/account/:accountId/ci/dashboard"
+        pathParams={{
+          accountId: 'dummy'
+        }}
+      >
+        <PipelineCreate {...getEditProps()} />
+      </TestWrapper>
+    )
     await waitFor(() => getByText('Save'))
     expect(container).toMatchSnapshot()
     const saveBtn = getByText('Save')
@@ -56,7 +107,16 @@ describe('PipelineCreate test', () => {
   })
   test('initializes ok new pipeline', async () => {
     closeModal.mockReset()
-    const { container, getByText } = render(<PipelineCreate {...getEditProps(DefaultNewPipelineId)} />)
+    const { container, getByText } = render(
+      <TestWrapper
+        path="/account/:accountId/ci/dashboard"
+        pathParams={{
+          accountId: 'dummy'
+        }}
+      >
+        <PipelineCreate {...getEditProps(DefaultNewPipelineId)} />
+      </TestWrapper>
+    )
     await waitFor(() => getByText('Start'))
     expect(container).toMatchSnapshot()
   })
