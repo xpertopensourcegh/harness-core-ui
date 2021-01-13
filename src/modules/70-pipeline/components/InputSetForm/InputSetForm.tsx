@@ -294,6 +294,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                 parse(pipeline.data.yamlPipeline).pipeline,
                 getString
               ) as any
+
+              if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
             return errors
           }}
