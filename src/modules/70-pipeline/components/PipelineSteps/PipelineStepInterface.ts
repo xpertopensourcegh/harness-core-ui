@@ -10,6 +10,7 @@ export enum StepType {
   K8sScale = 'K8sScale',
   K8sApply = 'K8sApply',
   K8sCanaryDelete = 'K8sCanaryDelete',
+  K8sDelete = 'K8sDelete',
   StepGroup = 'StepGroup',
   DeployService = 'DeployService',
   DeployEnvironment = 'DeployEnvironment',

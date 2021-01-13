@@ -631,6 +631,7 @@ global:
     dockerHubConnectorInfo: Docker Hub Container Registry to use for uploading the image
     k8sRolloutDeploy: K8s Rollout Deploy
     k8sApply: K8s Apply
+    k8sDelete: K8s Delete
     k8sRolloutRollback: K8s Rolling Rollback
     barrier: Barrier
     k8sBGDeploy: 'K8s Blue Green Deploy'
