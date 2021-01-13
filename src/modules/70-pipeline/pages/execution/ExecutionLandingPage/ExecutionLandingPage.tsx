@@ -44,10 +44,16 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
       ((liteEngineTask as any)?.outcomes as any)?.find((_item: any) => !!_item.serviceDependencyList)
         ?.serviceDependencyList || []
 
+    // 1. add service dependencies to nodeMap
     serviceDependencyList.forEach(service => {
       service.stepType = 'dependency-service'
       nodeMap[(service as any).identifier] = service
     })
+
+    // 2. add Initialize (Initialize step is LITE_ENGINE_TASK step)
+    // override step name
+    liteEngineTask.name = 'Initialize'
+    nodeMap[liteEngineTask.identifier] = liteEngineTask
   }
 }
 

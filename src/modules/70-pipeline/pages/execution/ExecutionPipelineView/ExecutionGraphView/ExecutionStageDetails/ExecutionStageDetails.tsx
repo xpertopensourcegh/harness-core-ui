@@ -95,7 +95,7 @@ const addDependencies = (
     const dependenciesGroup: ExecutionPipelineGroupInfo<ExecutionNode> = {
       identifier: STATIC_SERVICE_GROUP_NAME,
       name: 'Dependencies', // TODO: use getString('execution.dependencyGroupName'),
-      status: '' as any,
+      status: dependencies[0].status as any, // use status of first service
       data: {},
       icon: 'step-group',
       showLines: false,
@@ -152,7 +152,21 @@ const processNodeData = (
           (_item: any) => !!_item.serviceDependencyList
         )?.serviceDependencyList
 
+        // 1. Add dependency services
         addDependencies(serviceDependencyList, rootNodes)
+
+        // 2. Add Initialize step ( at the first place in array )
+        const stepItem: ExecutionPipelineItem<ExecutionNode> = {
+          identifier: nodeData.identifier as string,
+          name: 'Initialize',
+          type: ExecutionPipelineNodeType.NORMAL,
+          status: nodeData.status as any,
+          icon: 'initialize-step',
+          data: nodeData as ExecutionNode,
+          itemType: 'service-dependency'
+        }
+        const stepNode: ExecutionPipelineNode<ExecutionNode> = { item: stepItem }
+        rootNodes.unshift(stepNode)
       } else {
         const icon = factory.getStepIcon(nodeData?.stepType || '')
         items.push({

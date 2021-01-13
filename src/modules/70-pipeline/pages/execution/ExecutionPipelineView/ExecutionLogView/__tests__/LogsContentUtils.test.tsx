@@ -1,6 +1,50 @@
+import type { ExecutionNode } from 'services/pipeline-ng'
 import { createLogSection, getLogsFromBlob, getStageType } from '../LogsContentUtils'
 
 const fetchMock = jest.spyOn(global, 'fetch' as any)
+
+const getStep = () => {
+  return {
+    uuid: '12345',
+    name: 'name',
+    identifier: 'stepIdentifier',
+    startTs: 1610543218674,
+    endTs: 1610543254842,
+    stepType: 'stepType',
+    status: 'Running',
+    failureInfo: {},
+    executableResponses: [
+      {
+        taskChain: {
+          taskId: 'id',
+          logKeys: ['key1', 'key2'],
+          units: ['Initialize', 'Wrap Up']
+        }
+      },
+      {
+        taskChain: {
+          taskId: 'progressId123'
+        }
+      }
+    ],
+    taskIdToProgressDataMap: {
+      progressId123: [
+        {
+          commandUnitName: 'Initialize',
+          commandExecutionStatus: 'SUCCESS'
+        },
+        {
+          commandUnitName: 'Wrap Up',
+          commandExecutionStatus: 'SUCCESS'
+        },
+        {
+          commandUnitName: 'Wrap Up',
+          commandExecutionStatus: 'RUNNING'
+        }
+      ]
+    }
+  } as ExecutionNode
+}
 
 describe('LogsContentUtils', () => {
   test('getStageType', () => {
@@ -35,9 +79,9 @@ describe('LogsContentUtils', () => {
       'pipelineIdentifier',
       'stageIdentifier',
       'Running',
-      'stepIdentifier',
-      'Running',
-      'step'
+      getStep(),
+      false,
+      -1
     )
 
     const expectedResponse = [

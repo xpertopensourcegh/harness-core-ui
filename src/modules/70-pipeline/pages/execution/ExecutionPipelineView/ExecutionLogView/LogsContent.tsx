@@ -30,6 +30,7 @@ const LogsContent = (props: LogsContentProps) => {
   const [logsPerSection, setLogsPerSection] = useState<string[]>([])
   const [loadingIndex, setLoadingIndex] = useState(-1)
   const [touched, setTouched] = useState(false)
+  const [latestSelectedIdx, setLatestSelectedIdx] = useState(-1)
   const [blobController, setBlobController] = useState<AbortController | undefined>()
 
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<
@@ -52,6 +53,7 @@ const LogsContent = (props: LogsContentProps) => {
 
   useEffect(() => {
     setTouched(false)
+    setLatestSelectedIdx(-1)
   }, [(step as any)?.identifier]) // TODO: remove any once TDO is updated
 
   // get token for accessing logs
@@ -76,9 +78,9 @@ const LogsContent = (props: LogsContentProps) => {
     pipelineIdentifier,
     stage?.nodeIdentifier,
     stage?.status,
-    (step as any)?.identifier, // TODO: replace with identifier/nodeIdentifier once it's available
-    step?.status,
-    step?.stepType
+    step,
+    touched,
+    latestSelectedIdx
   )
 
   // set initial log arrays
@@ -105,7 +107,6 @@ const LogsContent = (props: LogsContentProps) => {
       setLogsPerSection([...logsPerSection])
     }
   }, [streamLogs])
-
   // load logs
   useEffect(() => {
     if (activeLoadingSection) {
@@ -207,6 +208,10 @@ const LogsContent = (props: LogsContentProps) => {
         style={{ background: '#0b0b0d !important' }}
         className={css.logViewer}
         toggleSection={(index: number) => {
+          // if it's open user want to close it / do not set latestSelectedIdx
+          if (openPanelArr[index] !== true) {
+            setLatestSelectedIdx(index)
+          }
           setOpenPanelArr(openPanelArr.map((item, idx) => (index === idx ? !item : item)))
           setTouched(() => true)
         }}

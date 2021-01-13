@@ -120,8 +120,8 @@ export default function ExecutionLogView(): React.ReactElement {
   }
 
   // TODO: do we need this logic inside UI?
-  const isNodeVisible = (node: ExecutionNode) => {
-    return ['LITE_ENGINE_TASK'].indexOf(node.stepType!) === -1
+  const isNodeVisible = (_node: ExecutionNode) => {
+    return true //['LITE_ENGINE_TASK'].indexOf(node.stepType!) === -1
   }
 
   // TODO: do we need this logic inside UI?

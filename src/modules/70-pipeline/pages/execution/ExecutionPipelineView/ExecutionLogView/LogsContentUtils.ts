@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es'
 import { getConfig, getUsingFetch, GetUsingFetchProps } from 'services/config'
 import type { Line, LogBlobQueryParams, LogStreamQueryParams } from 'services/logs'
-import type { GraphLayoutNode } from 'services/pipeline-ng'
+import type { ExecutionNode, GraphLayoutNode, ProgressData } from 'services/pipeline-ng'
 
 export interface LogsContentSection {
   enableLogLoading: boolean
@@ -21,41 +21,54 @@ export function createLogSection(
   pipelineIdentifier?: string,
   stageIdentifier?: string,
   stageStatus?: string | undefined | any,
-  stepIdentifier?: string,
-  stepStatus?: string | undefined | any,
-  stepType?: 'dependency-service' | string
+  step?: ExecutionNode,
+  disableAuto?: boolean,
+  forceLoadSectionIdx?: number
 ): LogsContentSection[] {
-  let enableLogLoading =
-    !!logsToken &&
-    !!accountId &&
-    !!orgIdentifier &&
-    !!projectIdentifier &&
-    !!runSequence &&
-    !!pipelineIdentifier &&
-    !!stageIdentifier &&
-    !!stageStatus &&
-    !!stepIdentifier &&
-    !!stepStatus &&
-    !!stepType
-
+  // TODO: remove some/all of the logic for CI to BE after beta
   if (stageType === 'ci') {
+    let enableLogLoading =
+      !!logsToken &&
+      !!accountId &&
+      !!orgIdentifier &&
+      !!projectIdentifier &&
+      !!runSequence &&
+      !!pipelineIdentifier &&
+      !!stageIdentifier &&
+      !!stageStatus &&
+      !!step?.identifier &&
+      !!step?.status &&
+      !!step?.stepType
+
     let sourceType = 'blob'
-    if (stepType === 'dependency-service') {
+    if (step?.stepType === 'dependency-service') {
       // for dependency service we use STAGE status
       if (isStatusRunningLike(stageStatus)) {
         sourceType = 'stream'
       }
       enableLogLoading = isStatusActiveLike(stageStatus) && enableLogLoading
     } else {
-      if (isStatusRunningLike(stepStatus)) {
+      if (isStatusRunningLike(step?.status)) {
         sourceType = 'stream'
       }
-      enableLogLoading = isStatusActiveLike(stepStatus) && enableLogLoading
+      enableLogLoading = isStatusActiveLike(step?.status) && enableLogLoading
+    }
+
+    let key
+    // NOTE: exception for Initialize/LITE_ENGINE_TASK
+    if (step?.stepType === 'LITE_ENGINE_TASK') {
+      // TODO: DTO
+      const taskObj = (step?.executableResponses?.find(item => item['task']) as any)?.task
+      key = taskObj?.logKeys?.[0]
+
+      enableLogLoading = !!key && enableLogLoading
+    } else {
+      key = `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${step?.identifier}`
     }
 
     const queryVars = {
       accountID: `${accountId}`,
-      key: `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${stepIdentifier}`,
+      key,
       'X-Harness-Token': logsToken!
     }
 
@@ -70,8 +83,42 @@ export function createLogSection(
       }
     ]
   } else if (stageType === 'cd') {
-    // TODO implement for CD STAGE
-    return []
+    // CD stage logs data
+    // TODO: DTO
+    // NOTE: first element for logKeys and units
+    const taskObj = step?.executableResponses?.[0].taskChain as any
+    const logKeys = taskObj?.logKeys || []
+    const sectionTitles = taskObj?.units || []
+
+    // NOTE: second element for progress
+    const taskId = step?.executableResponses?.[1]?.taskChain?.taskId || ''
+    const currentRunningIdx = getCurrentRunningUnitIdx(step?.taskIdToProgressDataMap?.[taskId], sectionTitles)
+
+    return logKeys.map((key: string, idx: number) => {
+      let enableLogLoading =
+        forceLoadSectionIdx !== -1
+          ? forceLoadSectionIdx === idx
+          : currentRunningIdx !== -1
+          ? currentRunningIdx === idx
+          : idx === 0
+
+      // overwrite
+      if (disableAuto && forceLoadSectionIdx === -1) {
+        enableLogLoading = false
+      }
+
+      return {
+        enableLogLoading,
+        sectionTitle: sectionTitles[idx] || '',
+        sectionIdx: idx,
+        sourceType: currentRunningIdx === idx ? 'stream' : 'blob',
+        queryVars: {
+          accountID: `${accountId}`,
+          key,
+          'X-Harness-Token': logsToken!
+        }
+      }
+    })
   }
 
   return []
@@ -86,6 +133,23 @@ export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | string {
   return 'unknown'
 }
 
+function getCurrentRunningUnitIdx(progressData: ProgressData[] | undefined, unitNames: string[]): number {
+  if (!progressData) return -1
+
+  const nameStatusMap = new Map<string, string>()
+  progressData.forEach(item => {
+    nameStatusMap.set(item.commandUnitName, item.commandExecutionStatus)
+  })
+
+  let runningIdx = -1
+  unitNames.forEach((unitName: string, idx: number) => {
+    if (nameStatusMap.get(unitName) === 'RUNNING') {
+      runningIdx = idx
+    }
+  })
+
+  return runningIdx
+}
 /*
 Rules:
 | 'Running'      // stream
