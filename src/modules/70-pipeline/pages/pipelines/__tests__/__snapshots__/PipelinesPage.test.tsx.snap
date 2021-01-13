@@ -199,46 +199,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large"
               >
                 <div
-                  class="Card--cardMenu menu"
-                >
-                  <div
-                    class="Card--dots"
-                  >
-                    <span
-                      class="bp3-popover-wrapper bp3-dark"
-                    >
-                      <span
-                        class="bp3-popover-target"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-more StyledProps--main"
-                            icon="more"
-                          >
-                            <svg
-                              data-icon="more"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                more
-                              </desc>
-                              <path
-                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <span
                   class="tags"
                 >
                   <span
@@ -256,7 +216,47 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </span>
                     </span>
                   </span>
-                </span>
+                  <div
+                    class="Card--cardMenu menu"
+                  >
+                    <div
+                      class="Card--dots"
+                    >
+                      <span
+                        class="bp3-popover-wrapper bp3-dark"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <button
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-more StyledProps--main"
+                              icon="more"
+                            >
+                              <svg
+                                data-icon="more"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  more
+                                </desc>
+                                <path
+                                  d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main clickable StyledProps--font-medium StyledProps--color StyledProps--color-black"
                   data-testid="pipeline1"
@@ -264,7 +264,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   pipeline1
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-medium"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-small"
                   style="--text-line-clamp: 2;"
                 >
                   pipeline1 description
@@ -465,46 +465,6 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-large"
               >
                 <div
-                  class="Card--cardMenu menu"
-                >
-                  <div
-                    class="Card--dots"
-                  >
-                    <span
-                      class="bp3-popover-wrapper bp3-dark"
-                    >
-                      <span
-                        class="bp3-popover-target"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-more StyledProps--main"
-                            icon="more"
-                          >
-                            <svg
-                              data-icon="more"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                more
-                              </desc>
-                              <path
-                                d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <span
                   class="tags"
                 >
                   <span
@@ -522,7 +482,47 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </span>
                     </span>
                   </span>
-                </span>
+                  <div
+                    class="Card--cardMenu menu"
+                  >
+                    <div
+                      class="Card--dots"
+                    >
+                      <span
+                        class="bp3-popover-wrapper bp3-dark"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <button
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-more StyledProps--main"
+                              icon="more"
+                            >
+                              <svg
+                                data-icon="more"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  more
+                                </desc>
+                                <path
+                                  d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main clickable StyledProps--font-medium StyledProps--color StyledProps--color-black"
                   data-testid="pipeline2"
@@ -530,7 +530,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   pipeline2
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-medium"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-small"
                   style="--text-line-clamp: 2;"
                 >
                   pipeline2 description

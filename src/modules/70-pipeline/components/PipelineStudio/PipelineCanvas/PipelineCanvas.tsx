@@ -210,8 +210,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     setConnectorUrl
   ])
 
-  const { showError } = useToaster()
-
+  const { showSuccess, showError } = useToaster()
   // todo: test before enabling
   // const addDrawerMap =
   //   isDrawerOpened && stageType && selectedStage
@@ -281,6 +280,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     if (response && response.status === 'SUCCESS') {
       if (pipelineIdentifier === DefaultNewPipelineId) {
         await deletePipelineCache()
+
+        showSuccess(getString('pipelines-studio.publishPipeline'))
+
         if (isYaml) {
           history.replace(
             toPipelineStudioYaml({

@@ -1,5 +1,5 @@
 export default {
-  title: 'Drag a step to the canvas',
+  title: 'Select a step',
   noSearchResultsFound: 'No results found. Please try another step name.',
   selectStep: 'Select a Step',
   recent: 'Recently Used',

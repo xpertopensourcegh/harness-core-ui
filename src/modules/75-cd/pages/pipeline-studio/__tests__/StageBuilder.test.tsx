@@ -139,7 +139,7 @@ describe('Stage Builder Test', () => {
     // Select Add Step
     const addStep = getByTextBody(document.body, 'Add Step')
     fireEvent.click(addStep)
-    await waitFor(() => getByTextBody(document.body, 'Drag a step to the canvas'))
+    await waitFor(() => getByTextBody(document.body, 'Select a step'))
     // Select the ShellScript Step
     const shellScriptAddStep = getByTextBody(document.body, 'Shell Script')
     fireEvent.click(shellScriptAddStep)

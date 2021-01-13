@@ -10,7 +10,7 @@
   width: 250px;
   box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
   padding: 0px;
-  padding-top: var(--spacing-xxxlarge);
+  padding-top: var(--spacing-xlarge);
 }
 .cardTags {
   background-color: var(--grey-200) !important;
@@ -57,8 +57,7 @@
   margin-left: var(--spacing-xxxlarge) !important;
 }
 .tags {
-  position: absolute;
-  top: 10px;
+  margin-bottom: 16px;
 
   :global(.bp3-tag) {
     border-radius: 10px;
@@ -68,9 +67,12 @@
 }
 
 .menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  position: relative;
+  :global(.bp3-popover-target) {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+  }
 }
 
 .clickable {

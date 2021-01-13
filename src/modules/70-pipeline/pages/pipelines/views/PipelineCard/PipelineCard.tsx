@@ -91,24 +91,26 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   return (
     <Card className={css.pipelineCard}>
       <Container padding={{ left: 'xlarge', right: 'xlarge', bottom: 'large' }}>
-        <CardBody.Menu
-          menuContent={
-            <ContextMenu
-              pipeline={pipeline}
-              goToPipelineStudio={goToPipelineStudio}
-              refetchPipeline={refetchPipeline}
-            />
-          }
-          menuPopoverProps={{
-            className: Classes.DARK
-          }}
-          className={css.menu}
-        />
-        <span className={css.tags}>
+        <div className={css.tags}>
           <Tag intent={Intent.PRIMARY} minimal>
             <String stringID="pipeline-list.readyToRun" />
           </Tag>
-        </span>
+
+          <CardBody.Menu
+            menuContent={
+              <ContextMenu
+                pipeline={pipeline}
+                goToPipelineStudio={goToPipelineStudio}
+                refetchPipeline={refetchPipeline}
+              />
+            }
+            menuPopoverProps={{
+              className: Classes.DARK
+            }}
+            className={css.menu}
+          />
+        </div>
+
         <Text
           font="medium"
           color={Color.BLACK}
@@ -119,7 +121,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           {pipeline.name}
         </Text>
         {pipeline.description ? (
-          <Text font="small" lineClamp={2} padding={{ top: 'medium' }}>
+          <Text font="small" lineClamp={2} padding={{ top: 'small' }}>
             {pipeline.description}
           </Text>
         ) : null}
