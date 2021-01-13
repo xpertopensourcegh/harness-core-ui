@@ -7,9 +7,9 @@ import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
 
 import AdminPage from '@common/pages/AccountSettings/AdminPage'
 import GovernancePage from '@common/pages/governance/GovernancePage'
-import AccountSetingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import SessionToken from 'framework/utils/SessionToken'
-import SidebarProvider from './navigation/SidebarProvider'
+import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
+import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
 
 const RedirectToHome = (): React.ReactElement => {
@@ -24,27 +24,32 @@ const RedirectToResourcesHome = (): React.ReactElement => {
   return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
+const AccountSettingsSideNavProps: SidebarContext = {
+  navComponent: AccountSettingsSideNav,
+  subtitle: 'ACCOUNT',
+  title: 'Settings'
+}
+
 export default (
-  <SidebarProvider navComponent={AccountSetingsSideNav} subtitle="ACCOUNT" title="Settings">
-    <Route path="/">
-      <Route exact path="/">
-        <RedirectToHome />
-      </Route>
-      <Route exact path={routes.toResources({ ...accountPathProps })}>
-        <RedirectToResourcesHome />
-      </Route>
-      <RouteWithLayout path={routes.toAdmin({ ...accountPathProps })} exact>
-        <AdminPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        path={[
-          routes.toGovernance({ ...accountPathProps }),
-          routes.toOrgGovernance({ ...accountPathProps, ...orgPathProps })
-        ]}
-        exact
-      >
-        <GovernancePage />
-      </RouteWithLayout>
+  <>
+    <Route exact path="/">
+      <RedirectToHome />
     </Route>
-  </SidebarProvider>
+    <Route exact path={routes.toResources({ ...accountPathProps })}>
+      <RedirectToResourcesHome />
+    </Route>
+    <RouteWithLayout sidebarProps={AccountSettingsSideNavProps} path={routes.toAdmin({ ...accountPathProps })} exact>
+      <AdminPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toGovernance({ ...accountPathProps }),
+        routes.toOrgGovernance({ ...accountPathProps, ...orgPathProps })
+      ]}
+      exact
+    >
+      <GovernancePage />
+    </RouteWithLayout>
+  </>
 )

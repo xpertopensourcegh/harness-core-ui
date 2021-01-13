@@ -9,7 +9,7 @@ import GitSyncRepoTab from '@gitsync/pages/views/repos/GitSyncRepoTab'
 import GitSyncActivities from '@gitsync/pages/views/activities/GitSyncActivities'
 import GitSyncEntityTab from '@gitsync/pages/views/entities/GitSyncEntityTab'
 import GitSyncErrors from '@gitsync/pages/views/errors/GitSyncErrors'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from './pages/GitSyncPage'
@@ -25,66 +25,71 @@ const RedirectToGitSyncHome = (): React.ReactElement => {
   )
 }
 
+const AccountSettingsSideNavProps: SidebarContext = {
+  navComponent: AccountSettingsSideNav,
+  subtitle: 'ACCOUNT',
+  title: 'Settings'
+}
+
 export default (
-  <Route path="/">
-    <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
-      <Route
-        exact
-        path={[
-          routes.toGitSync({ ...accountPathProps }),
-          routes.toOrgGitSync({ ...accountPathProps, ...orgPathProps })
-        ]}
-      >
-        <RedirectToGitSyncHome />
-      </Route>
+  <>
+    <Route
+      exact
+      path={[routes.toGitSync({ ...accountPathProps }), routes.toOrgGitSync({ ...accountPathProps, ...orgPathProps })]}
+    >
+      <RedirectToGitSyncHome />
+    </Route>
 
-      <RouteWithLayout
-        path={[
-          routes.toGitSyncRepos({ ...accountPathProps }),
-          routes.toOrgGitSyncRepos({ ...accountPathProps, ...orgPathProps })
-        ]}
-        exact
-      >
-        <GitSyncPage>
-          <GitSyncRepoTab />
-        </GitSyncPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toGitSyncRepos({ ...accountPathProps }),
+        routes.toOrgGitSyncRepos({ ...accountPathProps, ...orgPathProps })
+      ]}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncRepoTab />
+      </GitSyncPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        path={[
-          routes.toGitSyncActivities({ ...accountPathProps }),
-          routes.toOrgGitSyncActivities({ ...accountPathProps, ...orgPathProps })
-        ]}
-        exact
-      >
-        <GitSyncPage>
-          <GitSyncActivities />
-        </GitSyncPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toGitSyncActivities({ ...accountPathProps }),
+        routes.toOrgGitSyncActivities({ ...accountPathProps, ...orgPathProps })
+      ]}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncActivities />
+      </GitSyncPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        path={[
-          routes.toGitSyncEntities({ ...accountPathProps }),
-          routes.toOrgGitSyncEntities({ ...accountPathProps, ...orgPathProps })
-        ]}
-        exact
-      >
-        <GitSyncPage>
-          <GitSyncEntityTab />
-        </GitSyncPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toGitSyncEntities({ ...accountPathProps }),
+        routes.toOrgGitSyncEntities({ ...accountPathProps, ...orgPathProps })
+      ]}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncEntityTab />
+      </GitSyncPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        path={[
-          routes.toGitSyncErrors({ ...accountPathProps }),
-          routes.toOrgGitSyncErrors({ ...accountPathProps, ...orgPathProps })
-        ]}
-        exact
-      >
-        <GitSyncPage>
-          <GitSyncErrors />
-        </GitSyncPage>
-      </RouteWithLayout>
-    </SidebarProvider>
-  </Route>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toGitSyncErrors({ ...accountPathProps }),
+        routes.toOrgGitSyncErrors({ ...accountPathProps, ...orgPathProps })
+      ]}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncErrors />
+      </GitSyncPage>
+    </RouteWithLayout>
+  </>
 )

@@ -24,7 +24,7 @@ import CFTargetsPage from '@cf/pages/targets/CFTargetsPage'
 import CFTargetDetailsPage from '@cf/pages/target-details/CFTargetDetailsPage'
 import CFSegmentDetailsPage from '@cf/pages/segment-details/CFSegmentDetailsPage'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cf/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
@@ -56,113 +56,147 @@ const RedirectToResourcesHome = (): React.ReactElement => {
   return <Redirect to={routes.toCFAdminResourcesConnectors(params)} />
 }
 
+const CFSideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Features'
+}
+
 export default (
-  <Route path={routes.toCF({ ...accountPathProps })}>
-    <SidebarProvider navComponent={SideNav} subtitle="CONTINUOUS" title="Features">
-      <Route path={routes.toCF({ ...accountPathProps })} exact>
-        <RedirectToCFHome />
-      </Route>
+  <>
+    <Route path={routes.toCF({ ...accountPathProps })} exact>
+      <RedirectToCFHome />
+    </Route>
 
-      <Route path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })} exact>
-        <RedirectToCFProject />
-      </Route>
+    <Route path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToCFProject />
+    </Route>
 
-      <RouteWithLayout path={routes.toCFHome({ ...accountPathProps })} exact>
-        <CFHomePage />
-      </RouteWithLayout>
+    <RouteWithLayout sidebarProps={CFSideNavProps} path={routes.toCFHome({ ...accountPathProps })} exact>
+      <CFHomePage />
+    </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCFProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
-        <CFDashboardPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CFDashboardPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })} exact>
-        <CFFeatureFlagsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CFFeatureFlagsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        path={routes.toCFFeatureFlagsDetail({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...featureFlagPathProps,
-          ...environmentPathProps
-        })}
-        exact
-      >
-        <CFFeatureFlagsDetailPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFFeatureFlagsDetail({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...featureFlagPathProps,
+        ...environmentPathProps
+      })}
+      exact
+    >
+      <CFFeatureFlagsDetailPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        path={routes.toCFSegmentDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...segmentPathProps,
-          ...environmentPathProps
-        })}
-        exact
-      >
-        <CFSegmentDetailsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFSegmentDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...segmentPathProps,
+        ...environmentPathProps
+      })}
+      exact
+    >
+      <CFSegmentDetailsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        path={routes.toCFTargetDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...targetPathProps,
-          ...environmentPathProps
-        })}
-        exact
-      >
-        <CFTargetDetailsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFTargetDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...targetPathProps,
+        ...environmentPathProps
+      })}
+      exact
+    >
+      <CFTargetDetailsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })} exact>
-        <CFTargetsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CFTargetsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCFWorkflows({ ...accountPathProps, ...projectPathProps })} exact>
-        <CFWorkflowsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFWorkflows({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CFWorkflowsPage />
+    </RouteWithLayout>
 
-      <Route exact path={routes.toCFAdminResources({ ...accountPathProps, ...projectPathProps })}>
-        <RedirectToResourcesHome />
-      </Route>
+    <Route
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFAdminResources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <RedirectToResourcesHome />
+    </Route>
 
-      <RouteWithLayout exact path={routes.toCFAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}>
-        <ResourcesPage>
-          <ConnectorsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <ConnectorsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCFAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
-      >
-        <ResourcesPage>
-          <SecretsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <SecretsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCFAdminResourcesConnectorDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...connectorPathProps
-        })}
-      >
-        <ConnectorDetailsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFAdminResourcesConnectorDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...connectorPathProps
+      })}
+    >
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCFAdminResourcesSecretDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...secretPathProps
-        })}
-      >
-        <SecretDetails />
-      </RouteWithLayout>
-    </SidebarProvider>
-  </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFAdminResourcesSecretDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps
+      })}
+    >
+      <SecretDetails />
+    </RouteWithLayout>
+  </>
 )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
@@ -22,6 +22,7 @@ interface AppProps {
 
 function App(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
+
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
 
@@ -30,6 +31,12 @@ function App(props: AppProps): React.ReactElement {
     }
 
     return { headers }
+  }, [token])
+
+  useEffect(() => {
+    if (!token) {
+      window.location.href = '/#/login'
+    }
   }, [token])
 
   return (
@@ -66,6 +73,7 @@ function App(props: AppProps): React.ReactElement {
     <HashRouter>
       <Route
         path={[
+          // this path is needed for AppStoreProvider to populate accountId, orgId and projectId
           '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
           '/account/:accountId',
           '/*'

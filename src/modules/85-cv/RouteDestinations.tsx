@@ -31,7 +31,7 @@ import CVGovernancePage from '@cv/pages/admin/governance/CVGovernancePage'
 import CVSetupPage from '@cv/pages/admin/setup/CVSetupPage'
 import MonitoringSource from '@cv/pages/monitoring-source/MonitoringSource'
 import CVAccessControlPage from '@cv/pages/admin/access-control/CVAccessControlPage'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
@@ -67,214 +67,288 @@ const RedirectToResourcesHome = (): React.ReactElement => {
   return <Redirect to={routes.toCVAdminResourcesConnectors(params)} />
 }
 
+const CVSideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Verification'
+}
+
 export default (
-  <Route path={routes.toCV({ ...accountPathProps })}>
-    <SidebarProvider navComponent={SideNav} subtitle="CONTINUOUS" title="Vertification">
-      <Route path={routes.toCV({ ...accountPathProps })} exact>
-        <RedirectToCVHome />
-      </Route>
+  <>
+    <Route path={routes.toCV({ ...accountPathProps })} exact>
+      <RedirectToCVHome />
+    </Route>
 
-      <RouteWithLayout exact path={routes.toCVHome({ ...accountPathProps })}>
-        <CVHomePage />
-      </RouteWithLayout>
+    <RouteWithLayout exact sidebarProps={CVSideNavProps} path={routes.toCVHome({ ...accountPathProps })}>
+      <CVHomePage />
+    </RouteWithLayout>
 
-      <Route path={routes.toCVProject({ ...accountPathProps, ...projectPathProps })} exact>
-        <RedirectToCVProject />
-      </Route>
+    <Route path={routes.toCVProject({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToCVProject />
+    </Route>
 
-      <RouteWithLayout exact path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}>
-        <CVDashboardPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVDashboardPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCVDeploymentPage({
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVDeploymentPage({
+        ...accountPathProps,
+        ...projectPathProps,
+        serviceIdentifier: ':serviceIdentifier',
+        deploymentTag: ':deploymentTag'
+      })}
+    >
+      <DeploymentDrilldownView />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVActivityChangesPage({ ...accountPathProps, ...projectPathProps, activityId: ':activityId' })}
+    >
+      <ActivityChangesDrilldownView />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVDataSources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <DataSources />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVServicesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVOnBoardingSetup({ ...accountPathProps, ...projectPathProps, ...cvDataSourceTypePathProps })}
+    >
+      <DataSourceSetupPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVDataSourcesProductPage({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...cvDataSourceTypePathProps
+      })}
+    >
+      <DataSourceProductPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVSplunkInputTypePage({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...cvDataSourceTypePathProps
+      })}
+    >
+      <SplunkInputType />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVDataSourcesEntityPage({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...cvDataSourceTypePathProps
+      })}
+    >
+      <DataSourceListEntityPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={[
+        routes.toCVActivitySourceSetup({
           ...accountPathProps,
           ...projectPathProps,
-          serviceIdentifier: ':serviceIdentifier',
-          deploymentTag: ':deploymentTag'
-        })}
-      >
-        <DeploymentDrilldownView />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVActivityChangesPage({ ...accountPathProps, ...projectPathProps, activityId: ':activityId' })}
-      >
-        <ActivityChangesDrilldownView />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVDataSources({ ...accountPathProps, ...projectPathProps })}>
-        <DataSources />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}>
-        <CVServicesPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVOnBoardingSetup({ ...accountPathProps, ...projectPathProps, ...cvDataSourceTypePathProps })}
-      >
-        <DataSourceSetupPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVDataSourcesProductPage({
+          activitySource: ':activitySource'
+        }),
+        routes.toCVActivitySourceEditSetup({
           ...accountPathProps,
           ...projectPathProps,
-          ...cvDataSourceTypePathProps
-        })}
-      >
-        <DataSourceProductPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVSplunkInputTypePage({
+          activitySource: ':activitySource',
+          activitySourceId: ':activitySourceId'
+        })
+      ]}
+    >
+      <ActivitySourceSetup />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVMetricPackConfigureThresholdPage({ ...accountPathProps, ...projectPathProps })}
+    >
+      <MetricPackConfigure />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVActivityDashboard({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ActivityDashBoardPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminGeneralSettings({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVGeneralSettingsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminGovernance({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVGovernancePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminSetup({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVSetupPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={[
+        routes.toCVAdminSetupMonitoringSource({
           ...accountPathProps,
           ...projectPathProps,
-          ...cvDataSourceTypePathProps
-        })}
-      >
-        <SplunkInputType />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVDataSourcesEntityPage({
+          monitoringSource: ':monitoringSource'
+        }),
+        routes.toCVAdminSetupMonitoringSourceEdit({
           ...accountPathProps,
           ...projectPathProps,
-          ...cvDataSourceTypePathProps
-        })}
-      >
-        <DataSourceListEntityPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={[
-          routes.toCVActivitySourceSetup({
-            ...accountPathProps,
-            ...projectPathProps,
-            activitySource: ':activitySource'
-          }),
-          routes.toCVActivitySourceEditSetup({
-            ...accountPathProps,
-            ...projectPathProps,
-            activitySource: ':activitySource',
-            activitySourceId: ':activitySourceId'
-          })
-        ]}
-      >
-        <ActivitySourceSetup />
-      </RouteWithLayout>
+          monitoringSource: ':monitoringSource',
+          identifier: ':identifier'
+        })
+      ]}
+    >
+      <MonitoringSource />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminActivitySources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVActivitySourcesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminMonitoringSources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVMonitoringSourcesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminVerificationJobs({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVVerificationJobsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+    >
+      <VerificationJobs />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminSetupVerificationJobEdit({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...verificationPathProps
+      })}
+    >
+      <VerificationJobs />
+    </RouteWithLayout>
+    <Route
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminResources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <RedirectToResourcesHome />
+    </Route>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCVMetricPackConfigureThresholdPage({ ...accountPathProps, ...projectPathProps })}
-      >
-        <MetricPackConfigure />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVActivityDashboard({ ...accountPathProps, ...projectPathProps })}>
-        <ActivityDashBoardPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminGeneralSettings({ ...accountPathProps, ...projectPathProps })}>
-        <CVGeneralSettingsPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminGovernance({ ...accountPathProps, ...projectPathProps })}>
-        <CVGovernancePage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminSetup({ ...accountPathProps, ...projectPathProps })}>
-        <CVSetupPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={[
-          routes.toCVAdminSetupMonitoringSource({
-            ...accountPathProps,
-            ...projectPathProps,
-            monitoringSource: ':monitoringSource'
-          }),
-          routes.toCVAdminSetupMonitoringSourceEdit({
-            ...accountPathProps,
-            ...projectPathProps,
-            monitoringSource: ':monitoringSource',
-            identifier: ':identifier'
-          })
-        ]}
-      >
-        <MonitoringSource />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminActivitySources({ ...accountPathProps, ...projectPathProps })}>
-        <CVActivitySourcesPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminMonitoringSources({ ...accountPathProps, ...projectPathProps })}>
-        <CVMonitoringSourcesPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminVerificationJobs({ ...accountPathProps, ...projectPathProps })}>
-        <CVVerificationJobsPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}>
-        <VerificationJobs />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVAdminSetupVerificationJobEdit({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...verificationPathProps
-        })}
-      >
-        <VerificationJobs />
-      </RouteWithLayout>
-      <Route exact path={routes.toCVAdminResources({ ...accountPathProps, ...projectPathProps })}>
-        <RedirectToResourcesHome />
-      </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <ConnectorsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout exact path={routes.toCVAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}>
-        <ResourcesPage>
-          <ConnectorsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <SecretsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCVAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
-      >
-        <ResourcesPage>
-          <SecretsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminResourcesConnectorDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...connectorPathProps
+      })}
+    >
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCVAdminResourcesConnectorDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...connectorPathProps
-        })}
-      >
-        <ConnectorDetailsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminResourcesSecretDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps
+      })}
+    >
+      <SecretDetails />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCVAdminResourcesSecretDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...secretPathProps
-        })}
-      >
-        <SecretDetails />
-      </RouteWithLayout>
-
-      <RouteWithLayout exact path={routes.toCVAdminAccessControl({ ...accountPathProps, ...projectPathProps })}>
-        <CVAccessControlPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCVAdminNotifications({
-          ...accountPathProps,
-          ...projectPathProps
-        })}
-      >
-        <CVNotificationPage />
-      </RouteWithLayout>
-    </SidebarProvider>
-  </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminAccessControl({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVAccessControlPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVAdminNotifications({
+        ...accountPathProps,
+        ...projectPathProps
+      })}
+    >
+      <CVNotificationPage />
+    </RouteWithLayout>
+  </>
 )

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
@@ -12,31 +11,54 @@ import GetStartedProject from '@projects-orgs/pages/projects/views/GetStartedPro
 import ProjectDetails from '@projects-orgs/pages/projects/views/ProjectDetails/ProjectDetails'
 import OrganizationsPage from '@projects-orgs/pages/organizations/OrganizationsPage'
 import OrganizationDetailsPage from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 
+const AccountSettingsSideNavProps: SidebarContext = {
+  navComponent: AccountSettingsSideNav,
+  subtitle: 'ACCOUNT',
+  title: 'Settings'
+}
+
 export default (
-  <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
-    <Route path="/">
-      <RouteWithLayout layout={MinimalLayout} path={routes.toProjects({ ...accountPathProps })} exact>
-        <ProjectsPage />
-      </RouteWithLayout>
-      <RouteWithLayout layout={MinimalLayout} path={routes.toProjectsGetStarted({ ...accountPathProps })} exact>
-        <GetStartedProject />
-      </RouteWithLayout>
-      <RouteWithLayout
-        layout={MinimalLayout}
-        path={routes.toProjectDetails({ ...accountPathProps, ...projectPathProps })}
-        exact
-      >
-        <ProjectDetails />
-      </RouteWithLayout>
-      <RouteWithLayout path={routes.toOrganizations({ ...accountPathProps })} exact>
-        <OrganizationsPage />
-      </RouteWithLayout>
-      <RouteWithLayout path={routes.toOrganizationDetails({ ...accountPathProps, ...orgPathProps })} exact>
-        <OrganizationDetailsPage />
-      </RouteWithLayout>
-    </Route>
-  </SidebarProvider>
+  <>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      layout={MinimalLayout}
+      path={routes.toProjects({ ...accountPathProps })}
+      exact
+    >
+      <ProjectsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      layout={MinimalLayout}
+      path={routes.toProjectsGetStarted({ ...accountPathProps })}
+      exact
+    >
+      <GetStartedProject />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      layout={MinimalLayout}
+      path={routes.toProjectDetails({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <ProjectDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={routes.toOrganizations({ ...accountPathProps })}
+      exact
+    >
+      <OrganizationsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={routes.toOrganizationDetails({ ...accountPathProps, ...orgPathProps })}
+      exact
+    >
+      <OrganizationDetailsPage />
+    </RouteWithLayout>
+  </>
 )

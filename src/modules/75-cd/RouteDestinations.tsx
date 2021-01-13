@@ -3,7 +3,7 @@ import { Route, useParams, Redirect } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import { MinimalLayout } from '@common/layouts'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import {
   accountPathProps,
   projectPathProps,
@@ -89,193 +89,254 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
   return <Redirect to={routes.toExecutionPipelineView(params)} />
 }
 
+const CDSideNavProps: SidebarContext = {
+  navComponent: CDSideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Delivery'
+}
+
 export default (
-  <Route path={routes.toCD({ ...accountPathProps })}>
-    <SidebarProvider navComponent={CDSideNav} subtitle="CONTINUOUS" title="Delivery">
-      <Route path={routes.toCD({ ...accountPathProps })} exact>
-        <RedirectToCDHome />
-      </Route>
+  <>
+    <Route path={routes.toCD({ ...accountPathProps })} exact>
+      <RedirectToCDHome />
+    </Route>
 
-      <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
-        <RedirectToCDProject />
-      </Route>
+    <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToCDProject />
+    </Route>
 
-      <RouteWithLayout path={routes.toCDHome({ ...accountPathProps })} exact>
-        <CDHomePage />
-      </RouteWithLayout>
+    <RouteWithLayout sidebarProps={CDSideNavProps} path={routes.toCDHome({ ...accountPathProps })} exact>
+      <CDHomePage />
+    </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
-        <CDDashboardPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-        exact
-      >
-        <DeploymentsList />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CDDashboardPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <DeploymentsList />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-      >
-        <PipelinesPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <RunPipelinePage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        layout={MinimalLayout}
-        exact
-        path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <CDPipelineStudio />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <PipelinesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RunPipelinePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
+      exact
+      path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <CDPipelineStudio />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toPipelineDeploymentList({
-          ...accountPathProps,
-          ...pipelinePathProps,
-          ...pipelineModuleParams
-        })}
-      >
-        <PipelineDetails>
-          <CDPipelineDeploymentList />
-        </PipelineDetails>
-      </RouteWithLayout>
-      <Route exact path={routes.toCDResources({ ...accountPathProps, ...projectPathProps })}>
-        <RedirectToResourcesHome />
-      </Route>
-      <RouteWithLayout exact path={routes.toCDResourcesConnectors({ ...accountPathProps, ...projectPathProps })}>
-        <ResourcesPage>
-          <ConnectorsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCreateConnectorFromYamlAtProjectLevel({ ...accountPathProps, ...projectPathProps })}
-      >
-        <CreateConnectorFromYamlPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}>
-        <ResourcesPage>
-          <SecretsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCDResourcesConnectorDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...connectorPathProps
-        })}
-      >
-        <ConnectorDetailsPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCDResourcesSecretDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...secretPathProps
-        })}
-      >
-        <SecretDetails />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <PipelineDetails>
-          <InputSetList />
-        </PipelineDetails>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
-      >
-        <InputSetForm />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <PipelineDetails>
-          <TriggersPage />
-        </PipelineDetails>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
-      >
-        <TriggerDetails>
-          <TriggersWizardPage />
-        </TriggerDetails>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
-      >
-        <TriggersDetailPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toPipelineDeploymentList({
+        ...accountPathProps,
+        ...pipelinePathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <PipelineDetails>
+        <CDPipelineDeploymentList />
+      </PipelineDetails>
+    </RouteWithLayout>
+    <Route
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDResources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <RedirectToResourcesHome />
+    </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <ConnectorsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCreateConnectorFromYamlAtProjectLevel({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <SecretsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDResourcesConnectorDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...connectorPathProps
+      })}
+    >
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDResourcesSecretDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps
+      })}
+    >
+      <SecretDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <InputSetList />
+      </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
+    >
+      <InputSetForm />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <TriggersPage />
+      </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+    >
+      <TriggerDetails>
+        <TriggersWizardPage />
+      </TriggerDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+    >
+      <TriggersDetailPage />
+    </RouteWithLayout>
 
-      <Route exact path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}>
-        <RedirectToExecutionPipeline />
-      </Route>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
-      >
-        <ExecutionLandingPage>
-          <ExecutionPipelineView />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
-      >
-        <ExecutionLandingPage>
-          <ExecutionInputsView />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionArtifactsView({
-          ...accountPathProps,
-          ...executionPathProps,
-          ...pipelineModuleParams
-        })}
-      >
-        <ExecutionLandingPage>
-          <ExecutionArtifactsView />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <RedirectToPipelineDetailHome />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDTemplateLibrary({ ...accountPathProps, ...projectPathProps })}>
-        <CDTemplateLibraryPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDGitSync({ ...accountPathProps, ...projectPathProps })}>
-        <CDGitSyncPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDGovernance({ ...accountPathProps, ...projectPathProps })}>
-        <CDGovernancePage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDAccessControl({ ...accountPathProps, ...projectPathProps })}>
-        <CDAccessControlPage />
-      </RouteWithLayout>
-      <RouteWithLayout exact path={routes.toCDGeneralSettings({ ...accountPathProps, ...projectPathProps })}>
-        <CDGeneralSettingsPage />
-      </RouteWithLayout>
-    </SidebarProvider>
-  </Route>
+    <Route
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToExecutionPipeline />
+    </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionPipelineView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionInputsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toExecutionArtifactsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionArtifactsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToPipelineDetailHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDTemplateLibrary({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CDTemplateLibraryPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDGitSync({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CDGitSyncPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDGovernance({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CDGovernancePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDAccessControl({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CDAccessControlPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toCDGeneralSettings({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CDGeneralSettingsPage />
+    </RouteWithLayout>
+  </>
 )
 
 // export const routeCDResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {

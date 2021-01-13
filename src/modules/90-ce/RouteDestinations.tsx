@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
 import routes from '@common/RouteDefinitions'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -30,27 +30,43 @@ const RedirectToCEProject = (): React.ReactElement => {
   }
 }
 
+const CESideNavProps: SidebarContext = {
+  navComponent: CESideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Efficiency'
+}
+
 export default (
-  <Route path={routes.toCE({ ...accountPathProps })}>
-    <SidebarProvider navComponent={CESideNav} subtitle="CONTINUOUS" title="Efficiency">
-      <Route path={routes.toCE({ ...accountPathProps })} exact>
-        <RedirectToCEHome />
-      </Route>
-      <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
-        <RedirectToCEProject />
-      </Route>
-      <RouteWithLayout path={routes.toCEHome({ ...accountPathProps })} exact>
-        <CEHomePage />
-      </RouteWithLayout>
-      <RouteWithLayout path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })} exact>
-        <CEDashboardPage />
-      </RouteWithLayout>
-      <RouteWithLayout path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })} exact>
-        <CECODashboardPage />
-      </RouteWithLayout>
-      <RouteWithLayout path={routes.toCECOCreateGateway({ ...accountPathProps, ...projectPathProps })} exact>
-        <CECOCreateGatewayPage />
-      </RouteWithLayout>
-    </SidebarProvider>
-  </Route>
+  <>
+    <Route path={routes.toCE({ ...accountPathProps })} exact>
+      <RedirectToCEHome />
+    </Route>
+    <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToCEProject />
+    </Route>
+    <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
+      <CEHomePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CEDashboardPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CECODashboardPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCECOCreateGateway({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CECOCreateGatewayPage />
+    </RouteWithLayout>
+  </>
 )

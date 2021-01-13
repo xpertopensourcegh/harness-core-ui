@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, connectorPathProps } from '@common/utils/routeUtils'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
@@ -18,48 +18,49 @@ const RedirectToOrgResourcesHome = (): React.ReactElement => {
   return <Redirect to={routes.toOrgResourcesConnectors(params)} />
 }
 
+const AccountSettingsSideNavProps: SidebarContext = {
+  navComponent: AccountSettingsSideNav,
+  subtitle: 'ACCOUNT',
+  title: 'Settings'
+}
+
 export default (
-  <SidebarProvider navComponent={AccountSettingsSideNav} subtitle="ACCOUNT" title="Settings">
-    <Route path="/">
-      <Route exact path={routes.toOrgResources({ ...accountPathProps, ...orgPathProps })}>
-        <RedirectToOrgResourcesHome />
-      </Route>
-      <RouteWithLayout
-        path={[
-          routes.toResourcesConnectors({ ...accountPathProps }),
-          routes.toOrgResourcesConnectors({ ...accountPathProps, ...orgPathProps })
-        ]}
-        exact
-      >
-        <ResourcesPage>
-          <ConnectorsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        path={[
-          routes.toResourcesConnectorDetails({ ...accountPathProps, ...connectorPathProps }),
-          routes.toOrgResourcesConnectorDetails({
-            ...accountPathProps,
-            ...orgPathProps,
-            ...connectorPathProps
-          })
-        ]}
-        exact
-      >
-        <ConnectorDetailsPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        path={routes.toCreateConnectorFromYamlAtOrgLevel({
-          ...accountPathProps,
-          ...orgPathProps
-        })}
-        exact
-      >
-        <CreateConnectorFromYamlPage />
-      </RouteWithLayout>
-      <RouteWithLayout path={routes.toCreateConnectorFromYaml({ ...accountPathProps })} exact>
-        <CreateConnectorFromYamlPage />
-      </RouteWithLayout>
+  <>
+    <Route exact path={routes.toOrgResources({ ...accountPathProps, ...orgPathProps })}>
+      <RedirectToOrgResourcesHome />
     </Route>
-  </SidebarProvider>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toResourcesConnectors({ ...accountPathProps }),
+        routes.toOrgResourcesConnectors({ ...accountPathProps, ...orgPathProps })
+      ]}
+      exact
+    >
+      <ResourcesPage>
+        <ConnectorsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toResourcesConnectorDetails({ ...accountPathProps, ...connectorPathProps }),
+        routes.toOrgResourcesConnectorDetails({
+          ...accountPathProps,
+          ...orgPathProps,
+          ...connectorPathProps
+        })
+      ]}
+      exact
+    >
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps })}
+      exact
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+  </>
 )

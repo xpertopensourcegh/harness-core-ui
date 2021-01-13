@@ -25,7 +25,7 @@ import CIHomePage from '@ci/pages/home/CIHomePage'
 import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
-import SidebarProvider from '@common/navigation/SidebarProvider'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@ci/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
@@ -81,26 +81,35 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
   return <Redirect to={routes.toPipelineDeploymentList(params)} />
 }
 
+const CISideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Integration'
+}
+
 export default (
-  <Route path={routes.toCI({ ...accountPathProps })}>
-    <SidebarProvider navComponent={SideNav} subtitle="CONTINUOUS" title="Integration">
-      <Route path={routes.toCI({ ...accountPathProps })} exact>
-        <RedirectToCIHome />
-      </Route>
+  <>
+    <Route path={routes.toCI({ ...accountPathProps })} exact>
+      <RedirectToCIHome />
+    </Route>
 
-      <Route path={routes.toCIProject({ ...accountPathProps, ...projectPathProps })} exact>
-        <RedirectToCIProject />
-      </Route>
+    <Route path={routes.toCIProject({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToCIProject />
+    </Route>
 
-      <RouteWithLayout path={[routes.toCIHome({ ...accountPathProps })]} exact>
-        <CIHomePage />
-      </RouteWithLayout>
+    <RouteWithLayout sidebarProps={CISideNavProps} path={[routes.toCIHome({ ...accountPathProps })]} exact>
+      <CIHomePage />
+    </RouteWithLayout>
 
-      <RouteWithLayout path={routes.toCIProjectOverview({ ...accountPathProps, ...projectPathProps })} exact>
-        <CIDashboardPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toCIProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CIDashboardPage />
+    </RouteWithLayout>
 
-      {/* <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
+    {/* <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
         <CIBuildList />
       </RouteWithLayout>
 
@@ -133,184 +142,231 @@ export default (
         component={<BuildCommits />}
       /> */}
 
-      <Route exact path={routes.toCIAdminResources({ ...accountPathProps, ...projectPathProps })}>
-        <RedirectToResourcesHome />
-      </Route>
+    <Route
+      sidebarProps={CISideNavProps}
+      exact
+      path={routes.toCIAdminResources({ ...accountPathProps, ...projectPathProps })}
+    >
+      <RedirectToResourcesHome />
+    </Route>
 
-      <RouteWithLayout exact path={routes.toCIAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}>
-        <ResourcesPage>
-          <ConnectorsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCIAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <ConnectorsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCIAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
-      >
-        <ResourcesPage>
-          <SecretsPage />
-        </ResourcesPage>
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCIAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+    >
+      <ResourcesPage>
+        <SecretsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCIAdminResourcesConnectorDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...connectorPathProps
-        })}
-      >
-        <ConnectorDetailsPage />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCIAdminResourcesConnectorDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...connectorPathProps
+      })}
+    >
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toCIAdminResourcesSecretDetails({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...secretPathProps
-        })}
-      >
-        <SecretDetails />
-      </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCIAdminResourcesSecretDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps
+      })}
+    >
+      <SecretDetails />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        layout={MinimalLayout}
-        exact
-        path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <CIPipelineStudio />
-      </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      layout={MinimalLayout}
+      exact
+      path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <CIPipelineStudio />
+    </RouteWithLayout>
 
-      <RouteWithLayout
-        exact
-        path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-      >
-        <PipelinesPage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <PipelineDetails>
-          <InputSetList />
-        </PipelineDetails>
-      </RouteWithLayout>
-      <RouteWithLayout
-        path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-        exact
-      >
-        <DeploymentsList />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
-      >
-        <InputSetForm />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <PipelineDetails>
-          <TriggersPage />
-        </PipelineDetails>
-      </RouteWithLayout>
-      <RouteWithLayout
-        path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
-      >
-        <TriggerDetails>
-          <TriggersWizardPage />
-        </TriggerDetails>
-      </RouteWithLayout>
-      <Route exact path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}>
-        <RedirectToExecutionPipeline />
-      </Route>
-      <RouteWithLayout
-        exact
-        path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <RunPipelinePage />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
-      >
-        <ExecutionLandingPage>
-          <ExecutionPipelineView />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
-      >
-        <ExecutionLandingPage>
-          <ExecutionInputsView />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionArtifactsView({
-          ...accountPathProps,
-          ...executionPathProps,
-          ...pipelineModuleParams
-        })}
-      >
-        <ExecutionLandingPage>
-          <ExecutionArtifactsView />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionTestsView({
-          ...accountPathProps,
-          ...executionPathProps,
-          ...pipelineModuleParams
-        })}
-      >
-        <ExecutionLandingPage>
-          <BuildTests />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toExecutionCommitsView({
-          ...accountPathProps,
-          ...executionPathProps,
-          ...pipelineModuleParams
-        })}
-      >
-        <ExecutionLandingPage>
-          <BuildCommits />
-        </ExecutionLandingPage>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toPipelineDeploymentList({
-          ...accountPathProps,
-          ...pipelinePathProps,
-          ...pipelineModuleParams
-        })}
-      >
-        <PipelineDetails>
-          <CIPipelineDeploymentList />
-        </PipelineDetails>
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <RedirectToPipelineDetailHome />
-      </RouteWithLayout>
-      <RouteWithLayout
-        exact
-        path={routes.toCIPipelineDeploymentList({
-          ...accountPathProps,
-          ...pipelinePathProps
-        })}
-      >
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <PipelinesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <InputSetList />
+      </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <DeploymentsList />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
+    >
+      <InputSetForm />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <PipelineDetails>
+        <TriggersPage />
+      </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+    >
+      <TriggerDetails>
+        <TriggersWizardPage />
+      </TriggerDetails>
+    </RouteWithLayout>
+    <Route
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToExecutionPipeline />
+    </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RunPipelinePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionPipelineView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionInputsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toExecutionArtifactsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionArtifactsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toExecutionTestsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <BuildTests />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toExecutionCommitsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <BuildCommits />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toPipelineDeploymentList({
+        ...accountPathProps,
+        ...pipelinePathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <PipelineDetails>
         <CIPipelineDeploymentList />
-      </RouteWithLayout>
-    </SidebarProvider>
-  </Route>
+      </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToPipelineDetailHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCIPipelineDeploymentList({
+        ...accountPathProps,
+        ...pipelinePathProps
+      })}
+    >
+      <CIPipelineDeploymentList />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+    >
+      <RedirectToPipelineDetailHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCIPipelineDeploymentList({
+        ...accountPathProps,
+        ...pipelinePathProps
+      })}
+    >
+      <CIPipelineDeploymentList />
+    </RouteWithLayout>
+  </>
 )
