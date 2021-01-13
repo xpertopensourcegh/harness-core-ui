@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, queryByAttribute, fireEvent, findByText } from '@testing-library/react'
+import { render, waitFor, queryByAttribute, fireEvent, findByText as findByTextGlobal } from '@testing-library/react'
 import { useLocation } from 'react-router-dom'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps, projectPathProps } from '@common/utils/routeUtils'
@@ -16,9 +16,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('services/pipeline-ng', () => ({
-  useGetListOfExecutions: jest.fn().mockImplementation(() => ({
-    mutate: async () => data
-  })),
+  useGetListOfExecutions: jest.fn(() => ({ mutate: jest.fn(() => Promise.resolve(data)), loading: false })),
   useGetPipelineList: jest.fn(() => ({ ...pipelines, refetch: jest.fn() })),
   useHandleInterrupt: jest.fn(() => ({}))
 }))
@@ -53,12 +51,12 @@ describe('Test Pipeline Deployment list', () => {
     jest.spyOn(global.Date, 'now').mockReset()
   })
 
-  afterEach(() => {
-    ;(useGetListOfExecutions as jest.Mock).mockClear()
-  })
+  // afterEach(() => {
+  //   ;(useGetListOfExecutions as jest.Mock).mockClear()
+  // })
 
   test('should render deployment list', async () => {
-    const { container, getByText } = render(
+    const { container, findByText } = render(
       <TestWrapper
         path={routes.toPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
         pathParams={{
@@ -73,13 +71,12 @@ describe('Test Pipeline Deployment list', () => {
         <PipelineDeploymentList onRunPipeline={jest.fn()} />
       </TestWrapper>
     )
-    waitFor(() => getByText('test-p1'))
-    expect(() => getByText('Pipelines', { selector: '.label' })).toThrowError()
+    await waitFor(() => findByText('http_pipeline', { selector: '.pipelineName' }))
     expect(container).toMatchSnapshot()
   })
 
   test('should render deployment list with pipeline filter', async () => {
-    const { container, getByText } = render(
+    const { container, findByText } = render(
       <TestWrapper
         path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
         pathParams={{
@@ -93,8 +90,8 @@ describe('Test Pipeline Deployment list', () => {
         <PipelineDeploymentList onRunPipeline={jest.fn()} />
       </TestWrapper>
     )
-    waitFor(() => getByText('test-p1'))
-    expect(() => getByText('Pipelines', { selector: '.label' })).toThrowError()
+    await waitFor(() => findByText('http_pipeline', { selector: '.pipelineName' }))
+    // expect(() => getByText('Pipelines', { selector: '.label' })).toThrowError()
     expect(container).toMatchSnapshot()
   })
 
@@ -174,7 +171,7 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option1 = await findByText(document.body, 'Failed', { selector: '.bp3-fill' })
+    const option1 = await findByTextGlobal(document.body, 'Failed', { selector: '.bp3-fill' })
 
     fireEvent.click(option1)
 
@@ -204,7 +201,7 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option2 = await findByText(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+    const option2 = await findByTextGlobal(document.body, 'Clear Selection', { selector: '.bp3-fill' })
 
     fireEvent.click(option2)
 
@@ -246,7 +243,7 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option1 = await findByText(document.body, 'test345', { selector: '.bp3-fill' })
+    const option1 = await findByTextGlobal(document.body, 'test345', { selector: '.bp3-fill' })
 
     fireEvent.click(option1)
 
@@ -276,7 +273,7 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option2 = await findByText(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+    const option2 = await findByTextGlobal(document.body, 'Clear Selection', { selector: '.bp3-fill' })
 
     fireEvent.click(option2)
 

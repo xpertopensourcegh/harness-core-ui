@@ -73,7 +73,7 @@
   }
 
   & .icon {
-    color: var(--icon-color);
+    color: var(--icon-color) !important;
   }
 
   .graph > .stage:not(:first-child)::before,
