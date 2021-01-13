@@ -50,6 +50,7 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Overview" to={routes.toCFProjectOverview(params)} />
           <SidebarLink label="Feature Flags" to={routes.toCFFeatureFlags(params)} />
           <SidebarLink label="Targets" to={routes.toCFTargets(params)} />
+          <SidebarLink label="Environments" to={routes.toCFEnvironments(params)} />
           <AdminSelector path={routes.toCFAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCFAdminResources(params)} />
             {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />

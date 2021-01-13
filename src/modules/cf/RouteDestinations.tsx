@@ -23,6 +23,8 @@ import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFl
 import CFTargetsPage from '@cf/pages/targets/CFTargetsPage'
 import CFTargetDetailsPage from '@cf/pages/target-details/CFTargetDetailsPage'
 import CFSegmentDetailsPage from '@cf/pages/segment-details/CFSegmentDetailsPage'
+import CFEnvironmentsPage from '@cf/pages/environments/CFEnvironmentsPage'
+import CFEnvironmentDetails from '@cf/pages/environment-details/CFEnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cf/components/SideNav/SideNav'
@@ -137,6 +139,22 @@ export default (
       exact
     >
       <CFTargetsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFEnvironments({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CFEnvironmentsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFEnvironmentDetails({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+      exact
+    >
+      <CFEnvironmentDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

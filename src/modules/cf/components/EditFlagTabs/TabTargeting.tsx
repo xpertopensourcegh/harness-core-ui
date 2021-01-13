@@ -120,7 +120,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
 
   const variationItems = variations.map<SelectOption>(elem => ({
     label: elem.name as string,
-    value: elem.value as string
+    value: elem.identifier as string
   }))
 
   const onDefaultONChange = (item: SelectOption) => {

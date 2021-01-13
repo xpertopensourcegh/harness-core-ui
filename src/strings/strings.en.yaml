@@ -946,6 +946,19 @@ global:
       modalTitle: 'Create a Segment'
       displayIcon: 'Display Icon'
       uploadImage: 'Upload an image'
+    environments:
+      title: 'Environments'
+      empty: 'There are currently no environments'
+      createdBy: 'Created by'
+      modifiedBy: 'Modified by'
+      delete:
+        message: 'Are you sure you want to delete Environment: {{environmentName}}'
+        title: 'Delete Environment'
+      create:
+        title: 'Create an Environment'
+        description: 'An environment is the representation of your production or non-production infrastructure'
+        envTypeLabel: 'Environment type'
+        nameLabel: 'Name of your environment'
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'

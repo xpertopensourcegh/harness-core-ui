@@ -86,6 +86,16 @@ exports[`Sidenav render 1`] = `
         Targets
       </p>
     </a>
+    <a
+      class="link"
+      href="/account/dummy/cf/orgs/dummy/projects/dummy/environments"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Environments
+      </p>
+    </a>
     <div
       class="bp3-popover-wrapper bp3-fill"
     >

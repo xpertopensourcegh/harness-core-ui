@@ -1,4 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
 import { GetEnvironmentListForProjectQueryParams, useGetEnvironmentListForProject } from 'services/cd-ng'
 
 export const useEnvironments = (queryParams: GetEnvironmentListForProjectQueryParams) => {
@@ -17,5 +18,17 @@ export const useEnvironments = (queryParams: GetEnvironmentListForProjectQueryPa
     loading,
     error,
     refetch
+  }
+}
+
+/**
+ * getEnvString prepends "cf.environments" to given argument
+ * Provides base getString in case of needing it
+ */
+export const useEnvStrings = () => {
+  const { getString } = useStrings()
+  return {
+    getEnvString: (key: string, vars?: Record<string, any>) => getString(`cf.environments.${key}`, vars),
+    getString
   }
 }
