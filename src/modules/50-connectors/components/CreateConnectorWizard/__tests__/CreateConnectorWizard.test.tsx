@@ -11,7 +11,7 @@ const commonProps = {
   projectIdentifier: 'projectId',
   connectorInfo: undefined,
   isEditMode: false,
-  hideLightModal: jest.fn(),
+  hideModal: jest.fn(),
   onSuccess: jest.fn(),
   setIsEditMode: jest.fn()
 }

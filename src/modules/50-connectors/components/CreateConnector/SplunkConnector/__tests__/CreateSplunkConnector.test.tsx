@@ -22,7 +22,7 @@ describe('Create Splunk connector Wizard', () => {
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
-          hideLightModal={noop}
+          hideModal={noop}
           onConnectorCreated={noop}
           mockIdentifierValidate={mockIdentifierValidate}
         />

@@ -100,10 +100,11 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await createConnector(data)
+      const response = await createConnector(data)
+      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${data.connector?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData })
+      props.onConnectorCreated(response.data)
       props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
@@ -115,10 +116,11 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await updateConnector(data)
+      const response = await updateConnector(data)
+      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${data.connector?.name}' updated successfully`)
       nextStep?.({ ...prevStepData, ...stepData })
+      props.onConnectorCreated(response.data)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)

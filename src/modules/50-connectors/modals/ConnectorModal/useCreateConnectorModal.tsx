@@ -55,11 +55,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           setIsEditMode={setIsEditMode}
           connectorInfo={connectorInfo}
           onSuccess={data => {
-            props.onClose?.()
-            hideModal()
             handleSuccess(data)
           }}
-          hideLightModal={hideModal}
+          hideModal={hideModal}
         />
         <Button
           minimal

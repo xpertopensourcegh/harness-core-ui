@@ -31,7 +31,7 @@ interface CreateSplunkConnectorProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  hideLightModal: () => void
+  hideModal: () => void
   onConnectorCreated?: (data: ConnectorConfigDTO) => void | Promise<void>
   mockIdentifierValidate?: ResponseBoolean
 }

@@ -14,11 +14,20 @@ const mockResponse: ResponseBoolean = {
   correlationId: ''
 }
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideModal: noop,
+  onSuccess: noop
+}
+
 describe('Create AWS connector Wizard', () => {
   test('should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAWSConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} />
+        <CreateAWSConnector {...commonProps} isEditMode={false} mock={mockResponse} connectorInfo={undefined} />
       </TestWrapper>
     )
 

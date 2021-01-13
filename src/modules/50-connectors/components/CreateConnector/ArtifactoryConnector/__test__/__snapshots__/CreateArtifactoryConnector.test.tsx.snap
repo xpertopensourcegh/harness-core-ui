@@ -8,6 +8,32 @@ exports[`Create Artifactory connector Wizard should render form 1`] = `
     <div
       class="StepWizard--navBarList"
     >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 12 14"
+            width="40"
+          >
+            <g
+              fill="#619d42"
+            >
+              <path
+                d="M.6 5.4C.6 2.6 3 .1 5.9.1c2.8 0 5.3 2.2 5.3 5.4 0 2.9-2.4 5.3-5.4 5.3-3-.1-5.3-2.6-5.2-5.4zm9.7.1C10.3 3.1 8.4 1 5.9 1S1.5 3 1.5 5.4c0 2.5 2 4.4 4.4 4.4 2.4.1 4.4-1.9 4.4-4.3zM6 13h5c.2 0 .2 0 .2.2v.5c0 .1-.1.2-.2.2H.9c-.3 0-.3 0-.3-.2v-.5c.1-.2.1-.2.3-.2H4z"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Artifactory Repository
+      </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
       >
@@ -20,7 +46,7 @@ exports[`Create Artifactory connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONNECTOR DETAILS
+          Overview
         </p>
       </div>
       <div
@@ -50,7 +76,7 @@ exports[`Create Artifactory connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -234,6 +260,32 @@ exports[`Create Artifactory connector Wizard should render form 2`] = `
     <div
       class="StepWizard--navBarList"
     >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 12 14"
+            width="40"
+          >
+            <g
+              fill="#619d42"
+            >
+              <path
+                d="M.6 5.4C.6 2.6 3 .1 5.9.1c2.8 0 5.3 2.2 5.3 5.4 0 2.9-2.4 5.3-5.4 5.3-3-.1-5.3-2.6-5.2-5.4zm9.7.1C10.3 3.1 8.4 1 5.9 1S1.5 3 1.5 5.4c0 2.5 2 4.4 4.4 4.4 2.4.1 4.4-1.9 4.4-4.3zM6 13h5c.2 0 .2 0 .2.2v.5c0 .1-.1.2-.2.2H.9c-.3 0-.3 0-.3-.2v-.5c.1-.2.1-.2.3-.2H4z"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Artifactory Repository
+      </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
       >
@@ -264,7 +316,7 @@ exports[`Create Artifactory connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONNECTOR DETAILS
+          Overview
         </p>
       </div>
       <div
@@ -294,7 +346,7 @@ exports[`Create Artifactory connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>

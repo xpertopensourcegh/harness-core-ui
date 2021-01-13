@@ -33,7 +33,7 @@ interface CreateAppDynamicsConnectorProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  hideLightModal: () => void
+  hideModal: () => void
   onConnectorCreated?: (data: ConnectorRequestBody) => void | Promise<void>
   mockIdentifierValidate?: ResponseBoolean
 }

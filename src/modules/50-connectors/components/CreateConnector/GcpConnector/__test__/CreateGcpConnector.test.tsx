@@ -12,7 +12,7 @@ const commonProps = {
   orgIdentifier: '',
   projectIdentifier: '',
   setIsEditMode: noop,
-  hideLightModal: noop,
+  hideModal: noop,
   onSuccess: noop
 }
 
@@ -33,7 +33,7 @@ describe('Create GCP connector Wizard', () => {
   test('Should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGcpConnector {...commonProps} isEditMode={false} />
+        <CreateGcpConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
       </TestWrapper>
     )
 

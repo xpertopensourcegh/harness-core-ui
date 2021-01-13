@@ -9,7 +9,12 @@ export default {
   secretManagerDetails: 'Secret Manager Details',
   dockerConnectorDetails: 'Overview',
   gcpConnectorDetails: 'Google Cloud Provider Overview',
+  awsConnectorDetails: 'AWS Cloud Provider Overview',
   hashicorpVaultDetails: 'HashiCorp Vault Overview',
+  appDynamicsDetails: 'AppDynamics Connector Details',
+  splunkConnectorDetails: 'Splunk Connector Details',
+  nexusConnectorDetails: 'Nexus Connector Details',
+  artifactoryConnectorDetails: 'Artifactory Connector Details',
   LABEL: {
     k8sCluster: 'Kubernetes Cluster',
     gcpConnector: 'Google Cloud Provider',
@@ -22,13 +27,8 @@ export default {
     appdynamics: 'AppDynamics connector',
     splunk: 'Splunk connector',
     docker: 'Docker Registry',
-    aws: 'AWS Connector',
-    nexus: 'Nexus Connector',
-    artifactory: 'Artifactory Connector'
-  },
-  appDynamicsDetails: 'AppDynamics Connector Details',
-  splunkConnectorDetails: 'Splunk Connector Details',
-  awsConnectorDetails: 'AWS Connector Details',
-  nexusConnectorDetails: 'Nexus Connector Details',
-  artifactoryConnectorDetails: 'Artifactory Connector Details'
+    aws: 'AWS Cloud Provider',
+    nexus: 'Nexus Repository',
+    artifactory: 'Artifactory Repository'
+  }
 }

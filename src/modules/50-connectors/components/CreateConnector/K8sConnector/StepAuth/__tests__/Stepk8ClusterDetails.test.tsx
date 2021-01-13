@@ -16,7 +16,8 @@ const commonProps = {
   orgIdentifier: '',
   projectIdentifier: '',
   onConnectorCreated: noop,
-  setIsEditMode: noop
+  setIsEditMode: noop,
+  hideModal: noop
 }
 jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))

@@ -11,7 +11,7 @@ import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import VaultConfigForm from './views/VaultConfigForm'
 
 export interface CreateHashiCorpVaultProps {
-  hideLightModal: () => void
+  hideModal: () => void
   onSuccess: () => void
   isEditMode: boolean
   mock?: any
@@ -23,7 +23,7 @@ export interface StepSecretManagerProps extends ConnectorInfoDTO {
 }
 
 const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
-  const { hideLightModal, onSuccess } = props
+  const { hideModal, onSuccess } = props
   const { getString } = useStrings()
   return (
     <StepWizard<StepSecretManagerProps>
@@ -42,7 +42,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         renderInModal={true}
-        hideLightModal={hideLightModal}
+        hideModal={hideModal}
         onSuccess={onSuccess}
         isLastStep={true}
         type={Connectors.VAULT}

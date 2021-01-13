@@ -284,9 +284,6 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
       ;(column as any).reload?.()
-    },
-    onClose: () => {
-      ;(column as any).reload?.()
     }
   })
 

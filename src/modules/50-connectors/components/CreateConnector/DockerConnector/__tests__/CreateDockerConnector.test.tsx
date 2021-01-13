@@ -22,8 +22,8 @@ describe('Create Docker Connector  Wizard', () => {
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDockerConnector
           setIsEditMode={noop}
-          hideLightModal={noop}
-          onConnectorCreated={noop}
+          hideModal={noop}
+          onSuccess={noop}
           mock={mockResponse}
           isEditMode={false}
         />
@@ -51,9 +51,9 @@ describe('Create Docker Connector  Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDockerConnector
-          hideLightModal={noop}
+          hideModal={noop}
           setIsEditMode={noop}
-          onConnectorCreated={noop}
+          onSuccess={noop}
           isEditMode={true}
           connectorInfo={dockerMock as ConnectorInfoDTO}
           mock={mockResponse}

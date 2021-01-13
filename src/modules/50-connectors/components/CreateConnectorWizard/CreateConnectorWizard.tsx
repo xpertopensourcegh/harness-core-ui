@@ -25,15 +25,15 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  hideLightModal: () => void
+  hideModal: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
-  const { type, accountId, orgIdentifier, projectIdentifier, hideLightModal, ...rest } = props
+  const { type, accountId, orgIdentifier, projectIdentifier, hideModal, ...rest } = props
   const commonProps = pick(props, [
     'onSuccess',
-    'hideLightModal',
+    'hideModal',
     'isEditMode',
     'setIsEditMode',
     'connectorInfo',
@@ -53,21 +53,14 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.BITBUCKET:
       return <CreateBitbucketConnector {...commonProps} />
     case Connectors.VAULT:
-      return (
-        <CreateHashiCorpVault
-          hideLightModal={hideLightModal}
-          isEditMode={props.isEditMode}
-          connectorInfo={props.connectorInfo}
-          onSuccess={props.onSuccess}
-        />
-      )
+      return <CreateHashiCorpVault {...commonProps} />
     case Connectors.APP_DYNAMICS:
       return (
         <CreateAppDynamicsConnector
           {...rest}
+          hideModal={hideModal}
           onConnectorCreated={props.onSuccess}
           accountId={accountId}
-          hideLightModal={hideLightModal}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
         />
@@ -76,29 +69,21 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return (
         <CreateSplunkConnector
           {...rest}
+          hideModal={hideModal}
           onConnectorCreated={props.onSuccess}
           accountId={accountId}
-          hideLightModal={hideLightModal}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
         />
       )
     case Connectors.DOCKER:
-      return (
-        <CreateDockerConnector
-          onConnectorCreated={props.onSuccess}
-          hideLightModal={props.hideLightModal}
-          isEditMode={props.isEditMode}
-          connectorInfo={props.connectorInfo}
-          setIsEditMode={props.setIsEditMode}
-        />
-      )
+      return <CreateDockerConnector {...commonProps} />
     case Connectors.AWS:
-      return <CreateAWSConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+      return <CreateAWSConnector {...commonProps} />
     case Connectors.NEXUS:
-      return <CreateNexusConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+      return <CreateNexusConnector {...commonProps} />
     case Connectors.ARTIFACTORY:
-      return <CreateArtifactoryConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+      return <CreateArtifactoryConnector {...commonProps} />
     case Connectors.GCP:
       return <CreateGcpConnector {...commonProps} />
     default:

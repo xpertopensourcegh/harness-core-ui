@@ -1,16 +1,16 @@
 import React from 'react'
 import { StepWizard, Color } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
+import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
 
 interface CreateDockerConnectorProps {
-  hideLightModal: () => void
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  hideModal: () => void
+  onSuccess?: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
@@ -34,18 +34,18 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         />
         <StepDockerAuthentication
           name={getString('connectors.docker.stepTwoName')}
-          onConnectorCreated={props.onConnectorCreated}
+          onConnectorCreated={props.onSuccess}
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
           setIsEditMode={props.setIsEditMode}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
-          onSuccess={props.onConnectorCreated}
+          onSuccess={props.onSuccess}
           renderInModal={true}
           isLastStep={true}
           type={Connectors.DOCKER}
-          hideLightModal={props.hideLightModal}
+          hideModal={props.hideModal}
         />
       </StepWizard>
     </>

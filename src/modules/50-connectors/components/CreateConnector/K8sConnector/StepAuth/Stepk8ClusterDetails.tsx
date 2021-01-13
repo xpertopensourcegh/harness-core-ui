@@ -45,6 +45,7 @@ interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
 
 interface K8ClusterDetailsProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
+  hideModal: () => void
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
@@ -280,10 +281,11 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       modalErrorHandler?.hide()
       setLoadConnector(true)
       const response = await createConnector(data)
+      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${props.prevStepData?.name}' created successfully`)
+      props.onConnectorCreated(response.data)
       if (stepData.skipDefaultValidation) {
-        props.onConnectorCreated(response.data)
+        props.hideModal()
       } else {
         props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
         props.setIsEditMode(true)
@@ -298,10 +300,12 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       modalErrorHandler?.hide()
       setLoadConnector(true)
       const response = await updateConnector(data)
+      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${props.prevStepData?.name}' updated successfully`)
+      props.onConnectorCreated(response.data)
+
       if (stepData.skipDefaultValidation) {
-        props.onConnectorCreated(response.data)
+        props.hideModal()
       } else {
         props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
       }

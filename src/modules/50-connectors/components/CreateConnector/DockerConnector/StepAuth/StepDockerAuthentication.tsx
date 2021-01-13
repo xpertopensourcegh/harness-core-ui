@@ -113,10 +113,11 @@ const StepDockerAuthentication: React.FC<
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await createConnector(data)
+      const response = await createConnector(data)
+      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
+      props?.onConnectorCreated?.(response.data)
       props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
@@ -128,10 +129,11 @@ const StepDockerAuthentication: React.FC<
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await updateConnector(data)
+      const response = await updateConnector(data)
+      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
+      props?.onConnectorCreated?.(response.data)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)

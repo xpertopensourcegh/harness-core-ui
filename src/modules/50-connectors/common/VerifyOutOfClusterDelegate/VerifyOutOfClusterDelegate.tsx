@@ -25,7 +25,7 @@ interface RenderUrlInfo {
 interface VerifyOutOfClusterDelegateProps {
   testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
   type: string
-  hideLightModal?: () => void
+  hideModal?: () => void
   setIsEditMode?: (val: boolean) => void // Remove after removing all usages
   connectorIdentifier?: string
   name?: string
@@ -335,8 +335,8 @@ const VerifyOutOfClusterDelegate: React.FC<
               disabled={loading || stepDetails.status === 'ERROR'}
               intent="primary"
               onClick={() => {
-                props.hideLightModal?.()
                 props.onSuccess?.()
+                props.hideModal?.()
               }}
               text={getString('finish')}
             />

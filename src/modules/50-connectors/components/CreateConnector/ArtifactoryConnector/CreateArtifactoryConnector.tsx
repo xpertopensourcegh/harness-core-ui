@@ -1,30 +1,31 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { useStrings } from 'framework/exports'
 import StepArtifactoryAuthentication from './StepAuth/StepArtifactoryAuthentication'
 import i18n from './CreateArtifactoryConnector.i18n'
 
-interface CreateArtifactoryConnectorProps {
-  hideLightModal: () => void
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
-  mock?: ResponseBoolean
-}
-const CreateArtifactoryConnector: React.FC<CreateArtifactoryConnectorProps> = props => {
+const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props => {
+  const { getString } = useStrings()
   return (
     <>
-      <StepWizard<ConnectorInfoDTO>>
-        <ConnectorDetailsStep type={Connectors.ARTIFACTORY} name={i18n.STEP_ONE.NAME} mock={props.mock} />
-        <StepArtifactoryAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onConnectorCreated} />
+      <StepWizard
+        icon={getConnectorIconByType(Connectors.ARTIFACTORY)}
+        iconProps={{ size: 40 }}
+        title={getConnectorTitleTextByType(Connectors.ARTIFACTORY)}
+      >
+        <ConnectorDetailsStep type={Connectors.ARTIFACTORY} name={getString('overview')} mock={props.mock} />
+        <StepArtifactoryAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
-          name={i18n.STEP_THREE.NAME}
+          name={getString('connectors.stepThreeName')}
           renderInModal={true}
-          onSuccess={props.onConnectorCreated}
+          onSuccess={props.onSuccess}
           isLastStep={true}
           type={Connectors.ARTIFACTORY}
-          hideLightModal={props.hideLightModal}
+          hideModal={props.hideModal}
         />
       </StepWizard>
     </>

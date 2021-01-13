@@ -1,26 +1,14 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepBitbucketAuthentication from './StepAuth/StepBitbucketAuthentication'
 
-interface CreateBitbucketConnectorProps {
-  hideLightModal: () => void
-  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
-  isEditMode: boolean
-  setIsEditMode: (val: boolean) => void
-  connectorInfo: ConnectorInfoDTO | void
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  mock?: ResponseBoolean
-}
-const CreateBitbucketConnector = (props: CreateBitbucketConnectorProps): JSX.Element => {
+const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element => {
   const { getString } = useStrings()
   const commonProps = pick(props, [
     'isEditMode',
@@ -55,7 +43,7 @@ const CreateBitbucketConnector = (props: CreateBitbucketConnectorProps): JSX.Ele
         renderInModal={true}
         onSuccess={props.onSuccess}
         isLastStep={true}
-        hideLightModal={props.hideLightModal}
+        hideModal={props.hideModal}
       />
     </StepWizard>
   )

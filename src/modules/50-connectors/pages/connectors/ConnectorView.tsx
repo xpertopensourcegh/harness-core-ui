@@ -180,8 +180,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
 
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
-      state.setEnableEdit(false)
-      props.refetchConnector()
+      // Note: coonector successfilly created/updated but modal shold not be closed
+      // as verify connection is in progress
     },
     onClose: () => {
       state.setEnableEdit(false)

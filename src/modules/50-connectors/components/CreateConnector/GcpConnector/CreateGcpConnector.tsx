@@ -2,26 +2,13 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { ConnectorConfigDTO, ResponseBoolean, ConnectorInfoDTO } from 'services/cd-ng'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import GcpAuthentication from './StepAuth/GcpAuthentication'
 
-interface CreateGCPConnectorProps {
-  hideLightModal: () => void
-  onSuccess: (data?: ConnectorConfigDTO) => void | Promise<void>
-  mock?: ResponseBoolean
-  isEditMode: boolean
-  setIsEditMode: (val: boolean) => void
-  connectorInfo?: ConnectorInfoDTO | void
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-const CreateGcpConnector: React.FC<CreateGCPConnectorProps> = props => {
+const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
   const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
 
@@ -50,7 +37,7 @@ const CreateGcpConnector: React.FC<CreateGCPConnectorProps> = props => {
           renderInModal={true}
           isLastStep={true}
           type={Connectors.GCP}
-          hideLightModal={props.hideLightModal}
+          hideModal={props.hideModal}
         />
       </StepWizard>
     </>

@@ -15,11 +15,20 @@ const mockResponse: ResponseBoolean = {
   correlationId: ''
 }
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  hideModal: noop,
+  onSuccess: noop
+}
+
 describe('Create Artifactory connector Wizard', () => {
   test('should render form', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateArtifactoryConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} />
+        <CreateArtifactoryConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
       </TestWrapper>
     )
 

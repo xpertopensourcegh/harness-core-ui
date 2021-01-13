@@ -1,8 +1,5 @@
 export default {
   type: 'NexusRegistry',
-  STEP_ONE: {
-    NAME: 'CONNECTOR DETAILS'
-  },
   STEP_TWO: {
     NAME: 'AUTHENTICATION',
     Heading: 'Authentication',
@@ -17,8 +14,5 @@ export default {
       nexusVersion: 'Version is required',
       password: 'Password is required'
     }
-  },
-  STEP_THREE: {
-    NAME: 'VERIFY CONNECTION'
   }
 }

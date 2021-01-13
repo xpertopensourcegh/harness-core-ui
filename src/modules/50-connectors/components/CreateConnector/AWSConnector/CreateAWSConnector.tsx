@@ -1,29 +1,28 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import StepAWSAuthentication from './StepAuth/StepAWSAuthentication'
 import i18n from './CreateAWSConnector.i18n'
 
-interface CreateAWSConnectorProps {
-  hideLightModal: () => void
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
-  mock?: ResponseBoolean
-}
-const CreateAWSConnector: React.FC<CreateAWSConnectorProps> = props => {
+const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
   return (
     <>
-      <StepWizard<ConnectorInfoDTO>>
+      <StepWizard
+        icon={getConnectorIconByType(Connectors.AWS)}
+        iconProps={{ size: 37 }}
+        title={getConnectorTitleTextByType(Connectors.AWS)}
+      >
         <ConnectorDetailsStep type={Connectors.AWS} name={i18n.STEP.ONE.NAME} mock={props.mock} />
-        <StepAWSAuthentication name={i18n.STEP.TWO.NAME} onConnectorCreated={props.onConnectorCreated} />
+        <StepAWSAuthentication name={i18n.STEP.TWO.NAME} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
           name={i18n.STEP.THREE.NAME}
           renderInModal={true}
           isLastStep={true}
           type={Connectors.AWS}
-          hideLightModal={props.hideLightModal}
+          hideModal={props.hideModal}
         />
       </StepWizard>
     </>

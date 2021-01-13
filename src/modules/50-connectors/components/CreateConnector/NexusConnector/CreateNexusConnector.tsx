@@ -1,30 +1,31 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { useStrings } from 'framework/exports'
 import StepNexusAuthentication from './StepAuth/StepNexusAuthentication'
 import i18n from './CreateNexusConnector.i18n'
 
-interface CreateNexusConnectorProps {
-  hideLightModal: () => void
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
-  mock?: ResponseBoolean
-}
-const CreateNexusConnector: React.FC<CreateNexusConnectorProps> = props => {
+const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
+  const { getString } = useStrings()
   return (
     <>
-      <StepWizard<ConnectorInfoDTO>>
-        <ConnectorDetailsStep type={Connectors.NEXUS} name={i18n.STEP_ONE.NAME} mock={props.mock} />
-        <StepNexusAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onConnectorCreated} />
+      <StepWizard
+        icon={getConnectorIconByType(Connectors.NEXUS)}
+        iconProps={{ size: 40 }}
+        title={getConnectorTitleTextByType(Connectors.NEXUS)}
+      >
+        <ConnectorDetailsStep type={Connectors.NEXUS} name={getString('overview')} mock={props.mock} />
+        <StepNexusAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
-          name={i18n.STEP_THREE.NAME}
+          name={getString('connectors.stepThreeName')}
           renderInModal={true}
-          onSuccess={props.onConnectorCreated}
+          onSuccess={props.onSuccess}
           isLastStep={true}
           type={Connectors.NEXUS}
-          hideLightModal={props.hideLightModal}
+          hideModal={props.hideModal}
         />
       </StepWizard>
     </>

@@ -42,7 +42,7 @@ interface StepGitlabAuthenticationProps extends ConnectorInfoDTO {
 }
 
 interface GitlabAuthenticationProps {
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
@@ -182,10 +182,11 @@ const StepGitlabAuthentication: React.FC<
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await createConnector(data)
+      const response = await createConnector(data)
+      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(getString('connectors.successfullCreate', { name: prevStepData?.name }))
       nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
+      props.onConnectorCreated(response.data)
       props.setIsEditMode(true)
     } catch (e) {
       setLoadConnector(false)
@@ -197,10 +198,11 @@ const StepGitlabAuthentication: React.FC<
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await updateConnector(data)
+      const response = await updateConnector(data)
+      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(getString('connectors.successfullUpdate', { name: prevStepData?.name }))
       nextStep?.({ ...prevStepData, ...stepData } as StepGitlabAuthenticationProps)
+      props.onConnectorCreated(response.data)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)

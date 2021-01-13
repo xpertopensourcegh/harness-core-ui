@@ -22,7 +22,7 @@ const commonProps = {
   orgIdentifier: '',
   projectIdentifier: '',
   setIsEditMode: noop,
-  hideLightModal: noop,
+  hideModal: noop,
   onSuccess: noop
 }
 const updateConnector = jest.fn()

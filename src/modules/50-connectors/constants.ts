@@ -1,4 +1,11 @@
-import type { ConnectorInfoDTO, ConnectorConnectivityDetails, Activity, EntityDetail } from 'services/cd-ng'
+import type {
+  ConnectorInfoDTO,
+  ConnectorConnectivityDetails,
+  Activity,
+  EntityDetail,
+  ConnectorRequestBody,
+  ResponseBoolean
+} from 'services/cd-ng'
 
 interface ConnectorType {
   [key: string]: ConnectorInfoDTO['type']
@@ -14,6 +21,19 @@ interface ReferenceEntityType {
 interface ActivityStatusType {
   [key: string]: Activity['activityStatus']
 }
+
+export interface CreateConnectorModalProps {
+  hideModal: () => void
+  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
+  isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
+  connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  mock?: ResponseBoolean
+}
+
 export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
   GIT: 'Git',
