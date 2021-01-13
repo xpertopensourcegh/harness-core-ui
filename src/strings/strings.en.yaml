@@ -401,7 +401,8 @@ global:
     DELEGATE_CONFIGURATIONS: 'Delegate Configurations'
     DELEGATE_CONFIGURATION: 'Delegate Configuration'
   execution:
-    pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
+    pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
+    pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier
     latestCommit: 'Latest commit:'
     latestNCommits: 'Last {{numberOfCommits}} commits:'
     prSymbol: '#'
@@ -1264,9 +1265,7 @@ global:
     pipelineDeleted: Pipeline {{name}} deleted
     confirmDelete: Are you sure want to delete pipeline {{name}}
     readyToRun: Ready To Run
-pipeline-execution-ci:
-  execution:
-    pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier
+pipeline-execution-ci: {}
 pipeline-execution-cd: {}
 
 # !!! THIS NAMESPACE IS FOR TESTING PLEASE DO NOT REMOVE !!!

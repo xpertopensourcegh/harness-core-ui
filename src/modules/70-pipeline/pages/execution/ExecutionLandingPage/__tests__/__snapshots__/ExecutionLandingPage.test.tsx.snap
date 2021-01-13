@@ -74,7 +74,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
               class="pipelineId"
             >
               <span>
-                (Build ID: 9ZEgeMkqQGyv8T6NU0Gr1A)
+                (Execution ID: 6)
               </span>
             </div>
           </div>
@@ -566,7 +566,7 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
               class="pipelineId"
             >
               <span>
-                (Build ID: 9ZEgeMkqQGyv8T6NU0Gr1A)
+                (Execution ID: 6)
               </span>
             </div>
           </div>
@@ -1015,7 +1015,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               class="pipelineId"
             >
               <span>
-                (Build ID: )
+                (Execution ID: )
               </span>
             </div>
           </div>

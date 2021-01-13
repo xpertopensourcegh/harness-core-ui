@@ -82,7 +82,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               <span className={css.pipelineName}>{pipelineExecution?.name}</span>
               <String
                 className={css.executionId}
-                stringID="execution.pipelineIdentifierText"
+                stringID={module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'}
                 vars={pipelineExecution}
               />
             </Link>

@@ -282,7 +282,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                 <span
                   class="executionId"
                 >
-                  (Execution ID: IcZLrBrkR8a32AM_wxiE9A)
+                  (Execution ID: 6)
                 </span>
               </a>
             </div>
@@ -909,7 +909,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                 <span
                   class="executionId"
                 >
-                  (Execution ID: IcZLrBrkR8a32AM_wxiE9A)
+                  (Execution ID: 6)
                 </span>
               </a>
             </div>

@@ -205,8 +205,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                 <div className={css.title}>{pipelineExecutionSummary.name}</div>
                 <div className={css.pipelineId}>
                   <String
-                    stringID="execution.pipelineIdentifierText"
-                    namespace="pipeline-execution-ci"
+                    stringID={
+                      module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
+                    }
                     vars={pipelineExecutionSummary}
                   />
                 </div>
