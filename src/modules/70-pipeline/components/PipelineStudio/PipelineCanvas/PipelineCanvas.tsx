@@ -120,6 +120,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>()
 
+  const ciStageExists = pipeline?.stages?.some(stage => {
+    if (stage?.stage?.type) {
+      return stage?.stage?.type === 'CI'
+    } else {
+      return false
+    }
+  })
+
   const [isCodebaseDialogOpen, setIsCodebaseDialogOpen] = React.useState(false)
 
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
@@ -398,7 +406,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         }
       }
     }
-  }, [codebase, connector?.data?.connector?.spec.type, loading, setCodebaseStatus])
+  }, [codebase, connector?.data?.connector?.spec.type, loading])
 
   const onCloseCreate = React.useCallback(() => {
     if (pipeline.identifier === DefaultNewPipelineId) {
@@ -590,18 +598,21 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <div className={css.rightSideBottom}>
               {!isYaml && (
                 <>
-                  {typeof codebaseStatus !== 'undefined' && (
-                    <Button
-                      className={cx(css.codebaseConfiguration, css[codebaseStatus])}
-                      text={getString('codebase')}
-                      font={{ weight: 'semi-bold' }}
-                      icon={codebaseIcons[codebaseStatus] as IconName}
-                      minimal
-                      onClick={() => {
-                        openCodebaseDialog()
-                      }}
-                    />
-                  )}
+                  {typeof codebaseStatus !== 'undefined' &&
+                    selectedProject?.modules &&
+                    selectedProject.modules.indexOf?.('CI') > -1 &&
+                    ciStageExists && (
+                      <Button
+                        className={cx(css.codebaseConfiguration, css[codebaseStatus])}
+                        text={getString('codebase')}
+                        font={{ weight: 'semi-bold' }}
+                        icon={codebaseIcons[codebaseStatus] as IconName}
+                        minimal
+                        onClick={() => {
+                          openCodebaseDialog()
+                        }}
+                      />
+                    )}
                   <Button
                     minimal={!(splitViewType === SplitViewTypes.Notifications)}
                     text={getString('notifications')}
