@@ -16,7 +16,7 @@ import {
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
-import { debounce, get } from 'lodash-es'
+import { debounce, get, set } from 'lodash-es'
 import {
   PipelineContext,
   getStageFromPipeline,
@@ -259,6 +259,10 @@ export default function DeployServiceSpecifications(): JSX.Element {
         !hasDeploymentStages && setSetupMode(setupMode.DIFFERENT)
       }
     }
+    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      debounceUpdatePipeline(pipeline)
+    }
   }, [])
 
   React.useEffect(() => {
@@ -331,7 +335,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
       {stageIndex > 0 && (
         <div className={css.serviceSection}>
           <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
-            {i18n.serviceDetailLabel}
+            {getString('pipelineSteps.deploy.serviceSpecifications.useFromStageLabel')}
           </Layout.Vertical>
           <Layout.Vertical spacing="medium" style={{ paddingBottom: 'var(--spacing-large)' }}>
             <Layout.Horizontal
@@ -342,6 +346,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
               <div className={css.stageSelection}>
                 <section className={cx(css.serviceStageSelection)}>
                   <Radio
+                    id="mode_propagate"
                     checked={setupModeType === setupMode.PROPAGATE}
                     onChange={() => setSetupMode(setupMode.PROPAGATE)}
                     disabled={!canUseFromStage}
@@ -350,7 +355,11 @@ export default function DeployServiceSpecifications(): JSX.Element {
                 </section>
 
                 <section className={cx(css.serviceStageSelection)}>
-                  <Radio checked={setupModeType === setupMode.DIFFERENT} onClick={() => initWithServiceDefination()} />
+                  <Radio
+                    id="mode_different"
+                    checked={setupModeType === setupMode.DIFFERENT}
+                    onClick={() => initWithServiceDefination()}
+                  />
                   <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.deployDifferentLabel}</Text>
                 </section>
               </div>

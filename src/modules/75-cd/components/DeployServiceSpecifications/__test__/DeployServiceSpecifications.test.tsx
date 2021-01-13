@@ -12,6 +12,7 @@ import overridePipelineContext from './overrideSetPipeline.json'
 import DeployServiceSpecifications from '../DeployServiceSpecifications'
 import connectorListJSON from './connectorList.json'
 import mockListSecrets from './mockListSecret.json'
+import services from './servicesMock.json'
 const getOverrideContextValue = (): PipelineContextInterface => {
   return { ...overridePipelineContext, updatePipeline: jest.fn() } as any
 }
@@ -20,10 +21,9 @@ jest.mock('services/cd-ng', () => ({
   getConnectorListPromise: () => Promise.resolve(connectorListJSON),
 
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockListSecrets)),
-  // useValidateSecret: jest
-  //   .fn()
-  //   .mockImplementation(() => ({ mutate: () => Promise.resolve({ responseSecretValidation }) })),
-  // usePostSecret: jest.fn().mockImplementation(() => ({ mutate: createSSHSecret })),
+  useGetServiceListForProject: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
   usePostSecretTextV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
@@ -216,5 +216,18 @@ describe('OverrideSet tests', () => {
     fireEvent.click(projectbutton)
     const selectedSecret = await findByText(document.body, 'New Secret')
     fireEvent.click(selectedSecret)
+  })
+  test(`change mode `, () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getOverrideContextValue()}>
+          <DeployServiceSpecifications />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const propagatebutton = document.getElementById('mode_propagate')
+    expect(propagatebutton).toBeDefined()
+    fireEvent.click(propagatebutton as HTMLElement)
+    expect(container).toMatchSnapshot('change mode')
   })
 })

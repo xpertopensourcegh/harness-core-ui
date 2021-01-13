@@ -717,6 +717,7 @@ global:
         branch: 'Branch'
 
       serviceSpecifications:
+        useFromStageLabel: 'Use from Stage'
         deploymentTypes:
           artifacts: 'Artifacts'
           manifests: 'Manifests'
