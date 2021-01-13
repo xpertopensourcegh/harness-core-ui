@@ -13,9 +13,9 @@ import {
   Text,
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
-import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
+import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { isEmpty, set } from 'lodash-es'
+import { isEmpty, isEqual, set } from 'lodash-es'
 import type { NgPipeline, Failure, PipelineInfoConfig } from 'services/cd-ng'
 import { useAppStore, useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -41,7 +41,14 @@ import {
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 // import { DrawerTypes } from '../PipelineContext/PipelineActions'
-import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  PipelinePathProps,
+  ProjectPathProps,
+  PathFn,
+  PipelineType,
+  PipelineStudioQueryParams
+} from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
@@ -52,12 +59,12 @@ import { RightDrawer } from '../RightDrawer/RightDrawer'
 // import { addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
 
 // import { getAddDrawerMap, getCategoryItems } from './PipelineCanvasUtils'
+import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
+import StageBuilder from '../StageBuilder/StageBuilder'
 import css from './PipelineCanvas.module.scss'
 
 export interface PipelineCanvasProps {
-  toPipelineStudio: PathFn<PipelineType<PipelinePathProps>>
-  toPipelineStudioUI: PathFn<PipelineType<PipelinePathProps>>
-  toPipelineStudioYaml: PathFn<PipelineType<PipelinePathProps>>
+  toPipelineStudio: PathFn<PipelineType<PipelinePathProps & PipelineStudioQueryParams>>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
@@ -82,13 +89,10 @@ const codebaseIcons = {
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
-  children,
   toPipelineDetail,
   toPipelineList,
   toPipelineProject,
-  toPipelineStudio,
-  toPipelineStudioUI,
-  toPipelineStudioYaml
+  toPipelineStudio
 }): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache, updatePipelineView, fetchPipeline } = React.useContext(
     PipelineContext
@@ -99,6 +103,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     isUpdated,
     isLoading,
     isInitialized,
+    originalPipeline,
     yamlHandler,
     isBEPipelineUpdated,
     pipelineView: {
@@ -255,7 +260,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   })
 
   const history = useHistory()
-  const isYaml = history.location.pathname.endsWith('/yaml/')
+  const { view = 'ui' } = useQueryParams<PipelineStudioQueryParams>()
+  const isYaml = view === 'yaml'
+  const [isYamlError, setYamlError] = React.useState(false)
 
   const saveAndPublish = React.useCallback(async () => {
     let response: Failure | undefined
@@ -285,12 +292,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
         if (isYaml) {
           history.replace(
-            toPipelineStudioYaml({
+            toPipelineStudio({
               projectIdentifier,
               orgIdentifier,
               pipelineIdentifier: newPipelineId,
               accountId,
-              module
+              module,
+              view: 'yaml'
             })
           )
         } else {
@@ -310,7 +318,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     deletePipelineCache,
     accountId,
     history,
-    toPipelineStudioYaml,
     toPipelineStudio,
     projectIdentifier,
     orgIdentifier,
@@ -449,24 +456,40 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }}
     >
       <NavigationCheck
-        when={isUpdated}
+        when={true}
         shouldBlockNavigation={nextLocation => {
-          const matchUI = matchPath(nextLocation.pathname, {
-            path: toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
-            exact: true
-          })
-          const matchYaml = matchPath(nextLocation.pathname, {
-            path: toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
-            exact: true
-          })
           const matchDefault = matchPath(nextLocation.pathname, {
             path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
             exact: true
           })
-          return !(matchUI?.isExact || matchYaml?.isExact || matchDefault?.isExact)
+          let localUpdated = isUpdated
+          if (isYaml && yamlHandler) {
+            try {
+              const parsedYaml = parse(yamlHandler.getLatestYaml())
+              if (!parsedYaml) {
+                showError(getString('invalidYamlText'))
+                return true
+              }
+              localUpdated = !isEqual(originalPipeline, parsedYaml.pipeline)
+              updatePipeline(parsedYaml.pipeline)
+            } catch (e) {
+              setYamlError(true)
+              return true
+            }
+          }
+          setYamlError(false)
+          return !matchDefault?.isExact && localUpdated
+        }}
+        textProps={{
+          contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
+          titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle')
         }}
         navigate={newPath => {
-          deletePipelineCache()
+          const isPipeline = matchPath(newPath, {
+            path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
+            exact: true
+          })
+          !isPipeline?.isExact && deletePipelineCache()
           history.push(newPath)
         }}
       />
@@ -514,20 +537,35 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <span>Pipeline Studio</span>
               </div>
             </div>
-            <NavLink
-              className={css.topButtons}
-              activeClassName={css.selected}
-              to={toPipelineStudioUI({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
-            >
-              {getString('visual')}
-            </NavLink>
-            <NavLink
-              className={css.topButtons}
-              activeClassName={css.selected}
-              to={toPipelineStudioYaml({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
-            >
-              {getString('yaml')}
-            </NavLink>
+            <div className={css.optionBtns}>
+              <div
+                className={cx(css.item, { [css.selected]: !isYaml })}
+                onClick={() =>
+                  history.replace(
+                    toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })
+                  )
+                }
+              >
+                {getString('visual')}
+              </div>
+              <div
+                className={cx(css.item, { [css.selected]: isYaml })}
+                onClick={() =>
+                  history.replace(
+                    toPipelineStudio({
+                      orgIdentifier,
+                      projectIdentifier,
+                      pipelineIdentifier,
+                      accountId,
+                      module,
+                      view: 'yaml'
+                    })
+                  )
+                }
+              >
+                {getString('yaml')}
+              </div>
+            </div>
           </div>
           <div>
             <div className={css.savePublishContainer}>
@@ -585,7 +623,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           </div>
         </div>
       </div>
-      {children}
+      {isYaml ? <PipelineYamlView /> : <StageBuilder />}
       <RightDrawer />
       {/* todo: Requires more testing before merge */}
       {/* {isDrawerOpened && drawerData.data && stageType && addDrawerMap ? (

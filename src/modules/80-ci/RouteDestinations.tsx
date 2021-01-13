@@ -1,8 +1,6 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
-
 import { RouteWithLayout } from '@common/router'
-import { EmptyLayout, MinimalLayout } from '@common/layouts'
 import {
   accountPathProps,
   projectPathProps,
@@ -26,8 +24,6 @@ import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
 import CIHomePage from '@ci/pages/home/CIHomePage'
 import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
-import StageBuilder from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'
-import PipelineYamlView from '@pipeline/components/PipelineStudio/PipelineYamlView/PipelineYamlView'
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import SidebarProvider from '@common/navigation/SidebarProvider'
 import SideNav from '@ci/components/SideNav/SideNav'
@@ -51,6 +47,7 @@ import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
+import { MinimalLayout } from '@common/layouts'
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
@@ -76,12 +73,6 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
   return <Redirect to={routes.toCIAdminResourcesConnectors(params)} />
-}
-
-const RedirectToStudioUI = (): React.ReactElement => {
-  const params = useParams<PipelineType<PipelinePathProps>>()
-
-  return <Redirect to={routes.toPipelineStudioUI(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
@@ -142,16 +133,6 @@ export default (
         component={<BuildCommits />}
       /> */}
 
-      <RouteWithLayout
-        exact
-        layout={MinimalLayout}
-        path={routes.toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <CIPipelineStudio>
-          <StageBuilder />
-        </CIPipelineStudio>
-      </RouteWithLayout>
-
       <Route exact path={routes.toCIAdminResources({ ...accountPathProps, ...projectPathProps })}>
         <RedirectToResourcesHome />
       </Route>
@@ -194,21 +175,12 @@ export default (
       </RouteWithLayout>
 
       <RouteWithLayout
-        exact
-        layout={EmptyLayout}
-        path={routes.toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <CIPipelineStudio>
-          <PipelineYamlView />
-        </CIPipelineStudio>
-      </RouteWithLayout>
-
-      <Route
+        layout={MinimalLayout}
         exact
         path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
       >
-        <RedirectToStudioUI />
-      </Route>
+        <CIPipelineStudio />
+      </RouteWithLayout>
 
       <RouteWithLayout
         exact

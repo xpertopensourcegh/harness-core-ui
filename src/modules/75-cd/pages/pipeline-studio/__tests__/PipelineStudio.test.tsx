@@ -25,11 +25,30 @@ jest.mock('services/cd-ng', () => ({
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve({ response: { data: { content: [] } } }))
 }))
 
+jest.mock('resize-observer-polyfill', () => {
+  class ResizeObserver {
+    static default = ResizeObserver
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    observe() {
+      // do nothing
+    }
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    unobserve() {
+      // do nothing
+    }
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    disconnect() {
+      // do nothing
+    }
+  }
+  return ResizeObserver
+})
+
 const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('Test Pipeline Studio', () => {
   test('should render default pipeline studio', async () => {
-    const { container } = render(
+    render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -44,8 +63,7 @@ describe('Test Pipeline Studio', () => {
         <CDPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(document.body, 'Welcome to the Pipeline Studio'))
-    expect(container).toMatchSnapshot()
+    await waitFor(() => expect(getByText(document.body, 'Welcome to the Pipeline Studio')).toBeTruthy())
   })
   test('should render edit pipeline studio', async () => {
     const { container } = render(
@@ -63,8 +81,9 @@ describe('Test Pipeline Studio', () => {
         <CDPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
-    expect(container).toMatchSnapshot()
+    await waitFor(() =>
+      expect(getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1')).toBeTruthy()
+    )
   })
   test('should render new pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
     render(

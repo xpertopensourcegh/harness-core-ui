@@ -16,6 +16,9 @@ import services from './servicesMock.json'
 const getOverrideContextValue = (): PipelineContextInterface => {
   return { ...overridePipelineContext, updatePipeline: jest.fn() } as any
 }
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 jest.mock('services/cd-ng', () => ({
   getConnectorListPromise: () => Promise.resolve(connectorListJSON),

@@ -4,6 +4,9 @@ import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
 import BuildInfraSpecifications from '../BuildInfraSpecifications'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
   loading: false,

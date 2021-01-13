@@ -3,6 +3,10 @@ import { render, findByText, fireEvent } from '@testing-library/react'
 // import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import ManifestSelection from '../ManifestSelection'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('ManifestSelection tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(

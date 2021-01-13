@@ -962,7 +962,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Delivery
           </p>
           <a
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/-1/"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/-1/pipeline-studio/"
           >
             Create New pipeline
           </a>
@@ -990,7 +990,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Integration
           </p>
           <a
-            href="/account/testAcc/ci/orgs/testOrg/projects/test/pipeline-studio/pipelines/-1/"
+            href="/account/testAcc/ci/orgs/testOrg/projects/test/pipelines/-1/pipeline-studio/"
           >
             Create New pipeline
           </a>
@@ -1018,7 +1018,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Features
           </p>
           <a
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/-1/"
+            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/-1/pipeline-studio/"
           >
             TBD
           </a>

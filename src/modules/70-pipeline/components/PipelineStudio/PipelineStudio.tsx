@@ -1,7 +1,13 @@
 import React from 'react'
 import cx from 'classnames'
-import { Button, Layout, Text } from '@wings-software/uicore'
-import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { Button, Container, Layout, Text } from '@wings-software/uicore'
+import type {
+  PipelinePathProps,
+  ProjectPathProps,
+  PathFn,
+  PipelineType,
+  PipelineStudioQueryParams
+} from '@common/interfaces/RouteInterfaces'
 
 import { String } from 'framework/exports'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
@@ -13,24 +19,22 @@ export interface PipelineStudioProps {
   className?: string
   title?: string
   onClose?: () => void
-  routePipelineStudio: PathFn<PipelineType<PipelinePathProps>>
-  routePipelineStudioUI: PathFn<PipelineType<PipelinePathProps>>
-  routePipelineStudioYaml: PathFn<PipelineType<PipelinePathProps>>
+  routePipelineStudio: PathFn<PipelineType<PipelinePathProps & PipelineStudioQueryParams>>
   routePipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   routePipelineList: PathFn<PipelineType<ProjectPathProps>>
   routePipelineProject: PathFn<PipelineType<ProjectPathProps>>
 }
 
 interface PipelineStudioState {
-  error?: boolean
+  error?: Error
 }
 export class PipelineStudio extends React.Component<PipelineStudioProps, PipelineStudioState> {
-  state: PipelineStudioState = { error: false }
+  state: PipelineStudioState = { error: undefined }
   context!: React.ContextType<typeof PipelineContext>
   static contextType = PipelineContext
 
-  componentDidCatch(): boolean {
-    this.setState({ error: true })
+  componentDidCatch(error: Error): boolean {
+    this.setState({ error })
     return false
   }
 
@@ -64,15 +68,23 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
               <String stringID="errorHelp" />
             </Text>
           </Layout.Horizontal>
+          {__DEV__ && (
+            <React.Fragment>
+              <Text font="small">Error Message</Text>
+              <Container>
+                <details>
+                  <summary>Stacktrace</summary>
+                  <pre>{error.stack}</pre>
+                </details>
+              </Container>
+            </React.Fragment>
+          )}
         </Layout.Vertical>
       )
     }
     const {
-      children,
       className = '',
       routePipelineStudio,
-      routePipelineStudioUI,
-      routePipelineStudioYaml,
       routePipelineDetail,
       routePipelineList,
       routePipelineProject
@@ -81,14 +93,10 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
       <div className={cx(css.container, className)}>
         <PipelineCanvas
           toPipelineStudio={routePipelineStudio}
-          toPipelineStudioUI={routePipelineStudioUI}
-          toPipelineStudioYaml={routePipelineStudioYaml}
           toPipelineDetail={routePipelineDetail}
           toPipelineList={routePipelineList}
           toPipelineProject={routePipelineProject}
-        >
-          {children}
-        </PipelineCanvas>
+        ></PipelineCanvas>
         <RightBar />
       </div>
     )

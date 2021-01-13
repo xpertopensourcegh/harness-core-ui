@@ -20,6 +20,9 @@ import {
   GetInputSetsResponse
 } from './sharedMockResponses'
 import TriggersWizardPage from '../TriggersWizardPage'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 const useGetActionsList = jest.fn()
 const mockUpdate = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))

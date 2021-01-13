@@ -9,7 +9,7 @@ import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/
 import { useAppStore } from 'framework/exports'
 import css from './CDPipelineStudio.module.scss'
 
-const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
+const CDPipelineStudio: React.FC = (): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
@@ -42,14 +42,10 @@ const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
       <PipelineStudio
         className={css.container}
         routePipelineStudio={routes.toPipelineStudio}
-        routePipelineStudioUI={routes.toPipelineStudioUI}
-        routePipelineStudioYaml={routes.toPipelineStudioYaml}
         routePipelineProject={routes.toDeployments}
         routePipelineDetail={routes.toPipelineDetail}
         routePipelineList={routes.toPipelines}
-      >
-        {children}
-      </PipelineStudio>
+      ></PipelineStudio>
     </PipelineProvider>
   )
 }

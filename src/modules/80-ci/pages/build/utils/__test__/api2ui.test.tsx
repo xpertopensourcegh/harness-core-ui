@@ -1,6 +1,11 @@
+import React from 'react'
 import { ExecutionPipelineNode, ExecutionPipelineItemStatus } from '@pipeline/exports'
 import type { ItemData } from '../../context/BuildPageContext'
 import { getStagesStatusesCounter } from '../api2ui'
+
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 describe('api2ui', () => {
   test('getStagesStatusesCounter', () => {

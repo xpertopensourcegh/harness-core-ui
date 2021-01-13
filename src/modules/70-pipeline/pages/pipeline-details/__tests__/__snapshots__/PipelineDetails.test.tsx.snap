@@ -72,7 +72,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
         </a>
         <a
           class="tags"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipeline-studio/pipelines/pipeline/"
+          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue600"

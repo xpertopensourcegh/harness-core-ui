@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
-import { EmptyLayout, MinimalLayout } from '@common/layouts'
+import { MinimalLayout } from '@common/layouts'
 import SidebarProvider from '@common/navigation/SidebarProvider'
 import {
   accountPathProps,
@@ -29,8 +29,6 @@ import CDHomePage from '@cd/pages/home/CDHomePage'
 import CDDashboardPage from '@cd/pages/dashboard/CDDashboardPage'
 import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
 import CDPipelineStudio from '@cd/pages/pipeline-studio/CDPipelineStudio'
-import StageBuilder from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'
-import PipelineYamlView from '@pipeline/components/PipelineStudio/PipelineYamlView/PipelineYamlView'
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
@@ -85,12 +83,6 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
   return <Redirect to={routes.toPipelineDeploymentList(params)} />
 }
 
-const RedirectToStudioUI = (): React.ReactElement => {
-  const params = useParams<PipelineType<PipelinePathProps>>()
-
-  return <Redirect to={routes.toPipelineStudioUI(params)} />
-}
-
 const RedirectToExecutionPipeline = (): React.ReactElement => {
   const params = useParams<PipelineType<ExecutionPathProps>>()
 
@@ -134,31 +126,12 @@ export default (
       >
         <RunPipelinePage />
       </RouteWithLayout>
-      <Route
+      <RouteWithLayout
+        layout={MinimalLayout}
         exact
         path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
       >
-        <RedirectToStudioUI />
-      </Route>
-
-      <RouteWithLayout
-        exact
-        layout={MinimalLayout}
-        path={routes.toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <CDPipelineStudio>
-          <StageBuilder />
-        </CDPipelineStudio>
-      </RouteWithLayout>
-
-      <RouteWithLayout
-        exact
-        layout={EmptyLayout}
-        path={routes.toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-      >
-        <CDPipelineStudio>
-          <PipelineYamlView />
-        </CDPipelineStudio>
+        <CDPipelineStudio />
       </RouteWithLayout>
 
       <RouteWithLayout

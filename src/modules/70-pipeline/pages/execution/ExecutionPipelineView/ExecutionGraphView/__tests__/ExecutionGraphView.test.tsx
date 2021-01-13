@@ -10,6 +10,9 @@ import type { ExecutionContextParams } from '@pipeline/pages/execution/Execution
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import mock from './mock.json'
 import ExecutionGraphView from '../ExecutionGraphView'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 function renderNode(
   data: ExecutionPipelineNode<ExecutionNode>,

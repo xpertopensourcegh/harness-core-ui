@@ -8,6 +8,9 @@ import type { PipelineContextInterface } from '@pipeline/components/PipelineStud
 import BuildStageSetupShell from '../BuildStageSetupShell'
 
 import pipelineContextMock from './pipelineContext.json'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 const getContextValue = (): PipelineContextInterface => {
   return { ...pipelineContextMock, updatePipeline: jest.fn() } as any

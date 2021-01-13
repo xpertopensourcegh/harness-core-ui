@@ -102,7 +102,9 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
                 {}
               </CardSelect>
             </FormGroup>
-            <Button onClick={() => formikProps.submitForm()} intent="primary" text={getString('save')} />
+            <div>
+              <Button onClick={() => formikProps.submitForm()} intent="primary" text={getString('save')} />
+            </div>
           </Layout.Vertical>
         )}
       </Formik>
@@ -147,10 +149,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
   >()
 
   const { showError } = useToaster()
-  const { data: environmentsResponse, error, refetch } = useGetEnvironmentListForProject({
-    queryParams: { accountId, orgIdentifier, projectIdentifier },
-    lazy: true,
-    debounce: 500
+  const { data: environmentsResponse, error } = useGetEnvironmentListForProject({
+    queryParams: { accountId, orgIdentifier, projectIdentifier }
   })
 
   const [environments, setEnvironments] = React.useState<SelectOption[]>([])
@@ -203,11 +203,6 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
       setEnvironments([...environments])
     }
   }, [initialValues.environment, initialValues.environment?.identifier, environments])
-
-  React.useEffect(() => {
-    refetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   React.useEffect(() => {
     if (environmentsResponse?.data?.content?.length && !isNil(initialValues.environmentRef)) {

@@ -12,6 +12,24 @@ import { PipelineResponse } from './PipelineStudioMocks'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
+jest.mock('resize-observer-polyfill', () => {
+  class ResizeObserver {
+    static default = ResizeObserver
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    observe() {
+      // do nothing
+    }
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    unobserve() {
+      // do nothing
+    }
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    disconnect() {
+      // do nothing
+    }
+  }
+  return ResizeObserver
+})
 
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
@@ -39,7 +57,7 @@ const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePath
 
 describe('Test Pipeline Studio', () => {
   test('should render default pipeline studio', async () => {
-    const { container } = render(
+    render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -54,8 +72,7 @@ describe('Test Pipeline Studio', () => {
         <CIPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(document.body, 'Welcome to the Pipeline Studio'))
-    expect(container).toMatchSnapshot()
+    await waitFor(() => expect(getByText(document.body, 'Welcome to the Pipeline Studio')))
   })
   test('should render edit pipeline studio', async () => {
     const { container } = render(
@@ -73,8 +90,9 @@ describe('Test Pipeline Studio', () => {
         <CIPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
-    expect(container).toMatchSnapshot()
+    await waitFor(() =>
+      expect(getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1')).toBeTruthy()
+    )
   })
   test('should render edit pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
     const { getByTitle, container } = render(

@@ -4,6 +4,10 @@ import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import OverrideSets from '../OverrideSets'
 let selectedTab = 'Artifacts'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('OverrideSet tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(

@@ -254,6 +254,8 @@ global:
   createdAt: 'Created at:'
   username: 'Username'
   password: 'Password'
+  navigationYamlErrorTitle: Invalid Yaml Detected
+  navigationYamlError: You have provided an invalid yaml, navigating away will remove your changes
   navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
   navigationCheckTitle: 'Close without saving?'
   continueWithoutSavingTitle: Continue without saving?

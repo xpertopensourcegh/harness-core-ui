@@ -76,7 +76,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                 </a>
                 <a
                   class="tags"
-                  href="/account/undefined/undefined/orgs/undefined/projects/undefined/pipeline-studio/pipelines/undefined/"
+                  href="/account/undefined/undefined/orgs/undefined/projects/undefined/pipelines/undefined/pipeline-studio/"
                 >
                   <span
                     class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue600"

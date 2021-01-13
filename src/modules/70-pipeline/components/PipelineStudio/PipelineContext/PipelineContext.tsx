@@ -383,10 +383,12 @@ export const PipelineProvider: React.FC<{
       fetchPipeline(true)
     }
   }, [state.isDBInitialized])
+
   React.useEffect(() => {
     const time = SessionToken.getLastTokenSetTime()
     _initializeDb(dispatch, time || +new Date())
   }, [])
+
   return (
     <PipelineContext.Provider
       value={{

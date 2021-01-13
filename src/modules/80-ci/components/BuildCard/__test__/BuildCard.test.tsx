@@ -2,6 +2,9 @@ import React from 'react'
 import { noop } from 'lodash-es'
 import { render } from '@testing-library/react'
 import { BuildCard, BuildCardProps } from '../BuildCard'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 const getProps = (): BuildCardProps => ({
   id: 1,

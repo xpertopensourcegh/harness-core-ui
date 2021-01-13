@@ -5,10 +5,10 @@ import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
-import { CanvasButtons } from '@pipeline/exports'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/exports'
+import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import {
   CanvasWidget,
   createEngine,

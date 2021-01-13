@@ -20,7 +20,7 @@ export const runPipelineDialogProps: Omit<IDialogProps, 'isOpen'> = {
   style: { minWidth: 700, minHeight: 210 }
 }
 
-const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
+const CIPipelineStudio: React.FC = (): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
@@ -88,14 +88,10 @@ const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
           }
         }}
         routePipelineStudio={routes.toPipelineStudio}
-        routePipelineStudioUI={routes.toPipelineStudioUI}
-        routePipelineStudioYaml={routes.toPipelineStudioYaml}
         routePipelineDetail={routes.toPipelineStudio}
         routePipelineProject={routes.toCIBuilds}
         routePipelineList={routes.toPipelines}
-      >
-        {children}
-      </PipelineStudio>
+      ></PipelineStudio>
     </PipelineProvider>
   )
 }

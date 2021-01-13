@@ -263,16 +263,18 @@ exports[`Test DeployService Step should render edit service view (service), then
             </div>
           </div>
         </div>
-        <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
+        <div>
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            type="button"
           >
-            Save
-          </span>
-        </button>
+            <span
+              class="bp3-button-text"
+            >
+              Save
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -423,16 +425,18 @@ exports[`Test DeployService Step should render service view and save 1`] = `
             class="StyledProps--font StyledProps--main connectorFormElm"
           />
         </div>
-        <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
+        <div>
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            type="button"
           >
-            Save
-          </span>
-        </button>
+            <span
+              class="bp3-button-text"
+            >
+              Save
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

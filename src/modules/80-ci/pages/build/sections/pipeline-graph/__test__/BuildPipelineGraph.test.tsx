@@ -8,6 +8,9 @@ import BuildPipelineGraph from '../BuildPipelineGraph'
 import { BuildPipelineGraphLayoutType } from '../BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 
 import buildMock from './mock/buildMock.json'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 const getContextValue = (): Partial<BuildPageContextInterface> => {
   const response = cloneDeep(buildMock)

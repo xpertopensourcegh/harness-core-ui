@@ -517,7 +517,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipeline-studio/pipelines/-1/"
+                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
                     >
                       <span>
                         Create New Pipeline
@@ -1001,7 +1001,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipeline-studio/pipelines/-1/"
+                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
                     >
                       <span>
                         Create New Pipeline

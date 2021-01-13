@@ -6,10 +6,16 @@ import { useConfirmationDialog } from '../../modals/ConfirmDialog/useConfirmatio
 
 interface Props {
   when?: boolean
+  textProps?: {
+    contentText?: string
+    titleText?: string
+    confirmButtonText?: string
+    cancelButtonText?: string
+  }
   navigate: (path: string) => void
   shouldBlockNavigation?: (location: History.Location) => boolean
 }
-export const NavigationCheck = ({ when, navigate, shouldBlockNavigation }: Props): JSX.Element => {
+export const NavigationCheck = ({ when, navigate, shouldBlockNavigation, textProps }: Props): JSX.Element => {
   const [lastLocation, setLastLocation] = useState<History.Location | null>(null)
   const [confirmedNavigation, setConfirmedNavigation] = useState(false)
   const { getString } = useStrings()
@@ -29,10 +35,10 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation }: Props
   }
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
-    contentText: getString('navigationCheckText'),
-    titleText: getString('navigationCheckTitle'),
-    confirmButtonText: getString('confirm'),
+    cancelButtonText: textProps?.cancelButtonText || getString('cancel'),
+    contentText: textProps?.contentText || getString('navigationCheckText'),
+    titleText: textProps?.titleText || getString('navigationCheckTitle'),
+    confirmButtonText: textProps?.confirmButtonText || getString('confirm'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
         handleConfirmNavigationClick()
@@ -45,7 +51,7 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation }: Props
       // Navigate to the previous blocked location with your navigate function
       navigate(lastLocation.pathname)
     }
-  }, [navigate, confirmedNavigation, lastLocation])
+  }, [confirmedNavigation, lastLocation])
 
   return (
     <>

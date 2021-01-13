@@ -16,7 +16,8 @@ import type {
   SegmentPathProps,
   PipelineType,
   InputSetPathProps,
-  TargetPathProps
+  TargetPathProps,
+  PipelineStudioQueryParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -121,18 +122,17 @@ const routes = {
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toPipelineStudio: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/`
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      module,
+      view
+    }: PipelineType<PipelinePathProps & PipelineStudioQueryParams>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/${
+        view ? `?view=${view}` : ''
+      }`
   ),
-  toPipelineStudioUI: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/ui/`
-  ),
-  toPipelineStudioYaml: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipeline-studio/pipelines/${pipelineIdentifier}/yaml/`
-  ),
-
   toCDAdmin: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`

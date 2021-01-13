@@ -13,6 +13,8 @@ declare const styles: {
   readonly pipelineStudioTitleContainer: string
   readonly pipelineStudioTitle: string
   readonly rectangle: string
+  readonly optionBtns: string
+  readonly item: string
   readonly savePublishContainer: string
   readonly rightSideBottom: string
   readonly pipelineNameContainer: string

@@ -61,7 +61,9 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
                 isIdentifierEditable: !isEdit
               }}
             />
-            <Button onClick={() => formikProps.submitForm()} intent="primary" text={getString('save')} />
+            <div>
+              <Button onClick={() => formikProps.submitForm()} intent="primary" text={getString('save')} />
+            </div>
           </Layout.Vertical>
         )}
       </Formik>
@@ -106,10 +108,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   >()
 
   const { showError } = useToaster()
-  const { data: serviceResponse, error, refetch } = useGetServiceListForProject({
-    queryParams: { accountId, orgIdentifier, projectIdentifier },
-    lazy: true,
-    debounce: 500
+  const { data: serviceResponse, error } = useGetServiceListForProject({
+    queryParams: { accountId, orgIdentifier, projectIdentifier }
   })
 
   const [services, setService] = React.useState<SelectOption[]>([])
@@ -159,11 +159,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
       setService([...services])
     }
   }, [initialValues.service, initialValues.service?.identifier, services])
-
-  React.useEffect(() => {
-    refetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   React.useEffect(() => {
     if (serviceResponse?.data?.content?.length && !isNil(initialValues.serviceRef)) {

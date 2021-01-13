@@ -5,6 +5,9 @@ import { TestWrapper } from '@common/utils/testUtils'
 import CIBuildPage from '../CIBuildPage'
 
 import buildMock from './mock/buildMock.json'
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 jest.mock('@ci/services/LogService', () => ({
   getLogsFromBlob: (): Promise<void> => {
