@@ -294,7 +294,7 @@ export function RunPipelineForm({
                   <div className={css.editor}>
                     <YAMLBuilder
                       {...yamlBuilderReadOnlyModeProps}
-                      existingJSON={values}
+                      existingJSON={{ pipeline: values }}
                       bind={setYamlHandler}
                       schema={pipelineSchema}
                     />
