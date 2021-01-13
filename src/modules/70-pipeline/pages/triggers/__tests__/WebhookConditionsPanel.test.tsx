@@ -13,6 +13,7 @@ import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 

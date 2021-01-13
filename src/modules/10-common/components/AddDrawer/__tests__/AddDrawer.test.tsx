@@ -10,6 +10,7 @@ import AddDrawer from '../AddDrawer'
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 const defaultAddDrawerTriggersProps = getTriggerListDefaultProps()

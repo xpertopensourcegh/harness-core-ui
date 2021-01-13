@@ -14,6 +14,7 @@ import Wizard from '../Wizard'
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 

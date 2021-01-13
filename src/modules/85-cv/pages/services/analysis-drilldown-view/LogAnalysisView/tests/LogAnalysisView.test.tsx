@@ -11,6 +11,7 @@ import LogAnalysisView from '../LogAnalysisView'
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (

@@ -10,6 +10,7 @@ import { AppStoreContext as StringsContext, AppStoreContextProps } from '../../A
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 describe('String tests', () => {

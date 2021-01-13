@@ -43,6 +43,7 @@ jest.mock('react-timeago', () => () => 'dummy date')
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 

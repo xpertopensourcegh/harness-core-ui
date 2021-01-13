@@ -32,6 +32,7 @@ const TEST_PATH = routes.toRunPipeline({ ...accountPathProps, ...pipelinePathPro
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 

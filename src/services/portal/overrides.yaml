@@ -12,6 +12,7 @@ allowpaths:
   - '/services'
   - '/environments'
   - '/setup/delegates/{delegateId}.get'
+  - '/users/feature-flags/{accountId}.get'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
@@ -26,3 +27,4 @@ operationIdOverrides:
   /services.get: getListServices
   /environments.get: getListEnvironments
   /setup/delegates/{delegateId}.get: getDelegateFromId
+  /users/feature-flags/{accountId}.get: getFeatureFlags

@@ -22,6 +22,7 @@ jest.mock('services/pipeline-ng', () => ({
 
 const value: AppStoreContextProps = {
   strings,
+  featureFlags: {},
   updateAppStore: jest.fn()
 }
 

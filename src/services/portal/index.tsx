@@ -360,7 +360,6 @@ export interface AccountEvent {
 
 export interface CeLicenseInfo {
   licenseType?: 'FULL_TRIAL' | 'LIMITED_TRIAL' | 'PAID'
-
   expiryTime?: number
 }
 
@@ -18896,4 +18895,34 @@ export const useGetDelegateFromId = ({ delegateId, ...props }: UseGetDelegateFro
   useGet<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>(
     (paramsInPath: GetDelegateFromIdPathParams) => `/setup/delegates/${paramsInPath.delegateId}`,
     { base: getConfig('api'), pathParams: { delegateId }, ...props }
+  )
+
+export interface GetFeatureFlagsPathParams {
+  accountId: string
+}
+
+export type GetFeatureFlagsProps = Omit<
+  GetProps<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>,
+  'path'
+> &
+  GetFeatureFlagsPathParams
+
+export const GetFeatureFlags = ({ accountId, ...props }: GetFeatureFlagsProps) => (
+  <Get<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>
+    path="/users/feature-flags/${accountId}"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureFlagsProps = Omit<
+  UseGetProps<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>,
+  'path'
+> &
+  GetFeatureFlagsPathParams
+
+export const useGetFeatureFlags = ({ accountId, ...props }: UseGetFeatureFlagsProps) =>
+  useGet<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>(
+    (paramsInPath: GetFeatureFlagsPathParams) => `/users/feature-flags/${paramsInPath.accountId}`,
+    { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
