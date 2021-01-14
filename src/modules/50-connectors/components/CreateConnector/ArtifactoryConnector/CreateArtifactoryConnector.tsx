@@ -21,7 +21,7 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
         <StepArtifactoryAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
-          renderInModal={true}
+          isStep={true}
           onSuccess={props.onSuccess}
           isLastStep={true}
           type={Connectors.ARTIFACTORY}

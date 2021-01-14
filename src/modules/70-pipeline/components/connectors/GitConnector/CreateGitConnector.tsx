@@ -197,7 +197,7 @@ const CreateGitConnector = (props: CreateGITConnectorProps): JSX.Element => {
           name={getString('connectors.stepThreeName')}
           connectorIdentifier={''}
           setIsEditMode={() => setIsEditMode(true)}
-          renderInModal={true}
+          isStep={true}
           onSuccess={() => {
             // Handle on success
           }}

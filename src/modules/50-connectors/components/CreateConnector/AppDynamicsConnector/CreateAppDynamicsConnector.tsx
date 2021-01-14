@@ -135,7 +135,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           url={formData?.url}
           connectorIdentifier={formData?.identifier}
           onSuccess={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestBody)}
-          renderInModal
+          isStep
           isLastStep
           type={Connectors.APP_DYNAMICS}
           setIsEditMode={() => setIsEditMode(true)}

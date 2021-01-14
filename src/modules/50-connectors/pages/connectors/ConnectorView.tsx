@@ -10,7 +10,6 @@ import {
   useGetYamlSnippetMetadata,
   useGetYamlSnippet,
   ResponseJsonNode,
-  ConnectorConnectivityDetails,
   ResponseYamlSnippets,
   ResponseString
 } from 'services/cd-ng'
@@ -23,6 +22,7 @@ import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'
+import { getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails, {
   RenderDetailsSection,
   getActivityDetails
@@ -47,10 +47,6 @@ interface ConnectorViewState {
   setConnector: (object: ConnectorInfoDTO) => void
   selectedView: string
   setSelectedView: (selection: string) => void
-  lastTested: number
-  setLastTested: (val: number) => void
-  lastConnected: number
-  setLastConnected: (val: number) => void
 }
 
 const SelectedView = {
@@ -68,14 +64,13 @@ const ConnectorContext = React.createContext<ConnectorContextInterface>({
 
 const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const [enableEdit, setEnableEdit] = useState(false)
-  const [lastTested, setLastTested] = useState<number>(props.response?.status?.lastTestedAt || 0)
-  const [lastConnected, setLastConnected] = useState<number>(props.response?.status?.lastTestedAt || 0)
+
   const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
   const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(
     props.response?.connector || ({} as ConnectorInfoDTO)
   )
-  const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.response?.status?.status)
+
   const { setYamlHandler: setYamlHandlerContext } = React.useContext(ConnectorContext)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
@@ -96,11 +91,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     connector,
     setConnector,
     selectedView,
-    setSelectedView,
-    lastTested,
-    setLastTested,
-    lastConnected,
-    setLastConnected
+    setSelectedView
   }
   const { showSuccess, showError } = useToaster()
 
@@ -247,9 +238,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         title={i18n.title.connectorActivity}
         data={getActivityDetails({
           createdAt: props.response.createdAt || 0,
-          lastTested: lastTested || props.response.status?.lastTestedAt || 0,
+          lastTested: props.response.status?.lastTestedAt || 0,
           lastUpdated: (props.response.lastModifiedAt as number) || 0,
-          lastConnectionSuccess: lastConnected || props.response.status?.lastConnectedAt || 0,
+          lastConnectionSuccess: props.response.status?.lastConnectedAt || 0,
           status: status || props.response.status?.status || ''
         })}
       />
@@ -348,12 +339,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
               <Layout.Vertical>
                 {renderDetailsSection()}
                 <TestConnection
-                  connectorName={connector?.name || ''}
                   connectorIdentifier={connector?.identifier || ''}
-                  delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
-                  setLastTested={setLastTested}
-                  setLastConnected={setLastConnected}
-                  setStatus={setStatus}
+                  // ToDo:  delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
+
+                  url={getUrlValueByType(connector?.type || '', connector)}
+                  refetchConnector={props.refetchConnector}
                   connectorType={connector?.type || ''}
                 />
               </Layout.Vertical>

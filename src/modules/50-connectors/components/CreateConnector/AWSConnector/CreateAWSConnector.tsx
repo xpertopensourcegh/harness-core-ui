@@ -19,7 +19,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
         <StepAWSAuthentication name={i18n.STEP.TWO.NAME} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
           name={i18n.STEP.THREE.NAME}
-          renderInModal={true}
+          isStep={true}
           isLastStep={true}
           type={Connectors.AWS}
           hideModal={props.hideModal}

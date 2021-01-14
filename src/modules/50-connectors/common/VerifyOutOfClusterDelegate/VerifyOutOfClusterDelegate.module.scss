@@ -50,12 +50,14 @@
   margin: auto !important;
 }
 .content {
-  min-height: 460px;
   [class*='StepsProgress--stepWrap'] {
     > p {
       width: 100%;
     }
   }
+}
+.contentMinHeight {
+  min-height: 460px;
 }
 .errorResult {
   > span {

@@ -41,7 +41,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
       <VaultConfigForm name={getString('connectors.hashiCorpVault.stepTwoName')} {...props} />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
-        renderInModal={true}
+        isStep
         hideModal={hideModal}
         onSuccess={onSuccess}
         isLastStep={true}

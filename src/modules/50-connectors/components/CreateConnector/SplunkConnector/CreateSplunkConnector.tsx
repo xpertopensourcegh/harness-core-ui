@@ -133,7 +133,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           url={formData?.url}
           connectorIdentifier={formData?.identifier}
           onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
-          renderInModal
+          isStep
           isLastStep
           type={Connectors.SPLUNK}
           setIsEditMode={() => setIsEditMode(true)}

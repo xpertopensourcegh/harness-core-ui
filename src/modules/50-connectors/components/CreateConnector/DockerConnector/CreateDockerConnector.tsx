@@ -42,7 +42,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
           onSuccess={props.onSuccess}
-          renderInModal={true}
+          isStep={true}
           isLastStep={true}
           type={Connectors.DOCKER}
           hideModal={props.hideModal}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router'
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import VerifyOutOfClusterDelegate from '../VerifyOutOfClusterDelegate'
 import delegateNameresponse from './mockData/delegate-name-response-error.json'
@@ -11,23 +11,23 @@ jest.mock('services/portal', () => ({
     return { ...delegateNameresponse, refetch: jest.fn(), error: null, loading: false }
   })
 }))
+jest.mock('services/cd-ng', () => ({
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => {
+    return { data: testConnectionSuccess, refetch: jest.fn(), error: null }
+  })
+}))
 
 describe('Verification step for out of cluster delegate', () => {
-  test('render VerifyOutOfClusterDelegate for K8s in edit screen', () => {
-    const { container } = render(
+  test('render VerifyOutOfClusterDelegate for K8s in edit screen', async () => {
+    const { container, getByText } = render(
       <MemoryRouter>
         <TestWrapper>
-          <VerifyOutOfClusterDelegate
-            type="K8sCluster"
-            name="sample-name"
-            testConnectionMockData={{
-              data: testConnectionSuccess as any,
-              loading: false
-            }}
-          />
+          <VerifyOutOfClusterDelegate type="K8sCluster" name="sample-name" isStep={false} />
         </TestWrapper>
       </MemoryRouter>
     )
+
+    await waitFor(() => expect(getByText('Validating the cluster authentication and permissions')).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   }),
@@ -35,16 +35,7 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate
-              type="K8sCluster"
-              name="sample-name"
-              renderInModal={true}
-              isLastStep
-              testConnectionMockData={{
-                data: testConnectionSuccess as any,
-                loading: false
-              }}
-            />
+            <VerifyOutOfClusterDelegate type="K8sCluster" name="sample-name" isStep={true} />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -55,15 +46,7 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate
-              type="DockerRegistry"
-              name="sample-name"
-              renderInModal={true}
-              testConnectionMockData={{
-                data: testConnectionSuccess as any,
-                loading: false
-              }}
-            />
+            <VerifyOutOfClusterDelegate type="DockerRegistry" name="sample-name" isStep={true} />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -74,15 +57,7 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate
-              type="Nexus"
-              name="sample-name"
-              renderInModal={true}
-              testConnectionMockData={{
-                data: testConnectionSuccess as any,
-                loading: false
-              }}
-            />
+            <VerifyOutOfClusterDelegate type="Nexus" name="sample-name" isStep={true} />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -93,15 +68,7 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate
-              type="Splunk"
-              name="sample-name"
-              renderInModal={true}
-              testConnectionMockData={{
-                data: testConnectionSuccess as any,
-                loading: false
-              }}
-            />
+            <VerifyOutOfClusterDelegate type="Splunk" name="sample-name" isStep={true} />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -112,15 +79,7 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate
-              type="AppDynamics"
-              name="sample-name"
-              renderInModal={true}
-              testConnectionMockData={{
-                data: testConnectionSuccess as any,
-                loading: false
-              }}
-            />
+            <VerifyOutOfClusterDelegate type="AppDynamics" name="sample-name" isStep={true} />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -131,15 +90,7 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate
-              type="Artifactory"
-              name="sample-name"
-              renderInModal={true}
-              testConnectionMockData={{
-                data: testConnectionSuccess as any,
-                loading: false
-              }}
-            />
+            <VerifyOutOfClusterDelegate type="Artifactory" name="sample-name" isStep={true} />
           </TestWrapper>
         </MemoryRouter>
       )

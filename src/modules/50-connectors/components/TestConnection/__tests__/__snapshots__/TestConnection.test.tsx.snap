@@ -19,116 +19,6 @@ exports[`Test Connection render test connection 1`] = `
 </div>
 `;
 
-exports[`Test Connection render test connection verify existing delegate  1`] = `
-<div>
-  <div
-    class="Layout--vertical StyledProps--main"
-  >
-    <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
-      type="button"
-    >
-      <span
-        class="bp3-button-text"
-      >
-        Test Connection
-      </span>
-    </button>
-  </div>
-</div>
-`;
-
-exports[`Test Connection render test connection verify existing delegate  2`] = `
-<div>
-  <div
-    class="Layout--vertical StyledProps--main"
-  >
-    <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-      style="height: 100%;"
-    >
-      <div
-        class="Layout--vertical StyledProps--main"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
-        >
-          Test Connection
-        </p>
-        <div
-          class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
-            id="steps-progress"
-          >
-            <div
-              class="StepsProgress--progressBar"
-            >
-              <div
-                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
-              >
-                <div
-                  class="bp3-progress-meter"
-                  style="width: 100%;"
-                />
-              </div>
-            </div>
-            <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-            >
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
-                  icon="error"
-                >
-                  <svg
-                    data-icon="error"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      error
-                    </desc>
-                    <path
-                      d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <div
-                  class="StyledProps--font StyledProps--main"
-                  style=""
-                >
-                  <div
-                    class="Layout--vertical StyledProps--main"
-                    style="width: 100%;"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
-                    >
-                      Validating the cluster authentication and permissions
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
-                    >
-                      Test failed for the connector
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Test Connection render test connection verify out of cluster  1`] = `
 <div>
   <div
@@ -153,88 +43,16 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
   <div
     class="Layout--vertical StyledProps--main"
   >
-    <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-      style="height: 100%;"
+    <button
+      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+      type="button"
     >
-      <div
-        class="Layout--vertical StyledProps--main"
+      <span
+        class="bp3-button-text"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
-        >
-          Test Connection
-        </p>
-        <div
-          class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
-            id="steps-progress"
-          >
-            <div
-              class="StepsProgress--progressBar"
-            >
-              <div
-                class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
-              >
-                <div
-                  class="bp3-progress-meter"
-                  style="width: 100%;"
-                />
-              </div>
-            </div>
-            <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-            >
-              <div
-                class="StepsProgress--stepWrap"
-              >
-                <span
-                  class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
-                  icon="error"
-                >
-                  <svg
-                    data-icon="error"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      error
-                    </desc>
-                    <path
-                      d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <div
-                  class="StyledProps--font StyledProps--main"
-                  style=""
-                >
-                  <div
-                    class="Layout--vertical StyledProps--main"
-                    style="width: 100%;"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
-                    >
-                      Validating the cluster authentication and permissions
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
-                    >
-                      Test failed for the connector
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        Test Connection
+      </span>
+    </button>
   </div>
 </div>
 `;

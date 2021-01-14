@@ -3,15 +3,10 @@ import { useParams } from 'react-router'
 import cx from 'classnames'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps, Container } from '@wings-software/uicore'
 import { useGetDelegateFromId } from 'services/portal'
-import {
-  useGetTestConnectionResult,
-  ResponseConnectorValidationResult,
-  ConnectorConfigDTO,
-  ConnectorConnectivityDetails
-} from 'services/cd-ng'
-import type { UseGetMockData } from '@common/utils/testUtils'
+import { useGetTestConnectionResult, ResponseConnectorValidationResult, ConnectorConfigDTO } from 'services/cd-ng'
+
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
-import { Connectors, ConnectorStatus } from '@connectors/constants'
+import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import { GetTestConnectionValidationTextByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
@@ -23,20 +18,15 @@ interface RenderUrlInfo {
 }
 
 interface VerifyOutOfClusterDelegateProps {
-  testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
   type: string
+  isStep: boolean
+  connectorIdentifier?: string
   hideModal?: () => void
   setIsEditMode?: (val: boolean) => void // Remove after removing all usages
-  connectorIdentifier?: string
-  name?: string
   url?: string
   onSuccess?: () => void
-  renderInModal?: boolean
-  setLastTested?: (val: number) => void
-  setLastConnected?: (val: number) => void
-  setStatus?: (val: ConnectorConnectivityDetails['status']) => void
-  setTesting?: (val: boolean) => void
   isLastStep?: boolean
+  name?: string
 }
 export interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
@@ -124,7 +114,7 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
 const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
-  const { prevStepData, nextStep, isLastStep = false, renderInModal = false } = props
+  const { prevStepData, nextStep, isLastStep = false } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const [viewDetails, setViewDetails] = useState<boolean>(false)
@@ -160,7 +150,6 @@ const VerifyOutOfClusterDelegate: React.FC<
   const { mutate: reloadTestConnection, loading } = useGetTestConnectionResult({
     identifier: props.connectorIdentifier || prevStepData?.identifier || '',
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
-    mock: props.testConnectionMockData,
     requestOptions: {
       headers: {
         'content-type': 'application/json'
@@ -203,7 +192,7 @@ const VerifyOutOfClusterDelegate: React.FC<
           />
         </Layout.Horizontal>
         {viewDetails ? (
-          <div className={css.errorMsg} view-details={viewDetails}>
+          <div className={css.errorMsg}>
             <pre>
               {JSON.stringify(JSON.parse(JSON.stringify({ errors: testConnectionResponse?.data?.errors })), null, ' ')}
             </pre>
@@ -211,7 +200,7 @@ const VerifyOutOfClusterDelegate: React.FC<
         ) : null}
         {/* TODO: when install delegate behaviour is known {testConnectionResponse?.data?.delegateId ? ( */}
         <Layout.Horizontal spacing="small">
-          {renderInModal ? (
+          {props.isStep ? (
             <Button
               text={i18n.EDIT_CREDS}
               onClick={() => {
@@ -222,7 +211,7 @@ const VerifyOutOfClusterDelegate: React.FC<
           ) : null}
           <Text
             onClick={() => window.open(getPermissionsLink(), '_blank')}
-            className={cx(css.veiwPermission, { [css.marginAuto]: renderInModal })}
+            className={cx(css.veiwPermission, { [css.marginAuto]: props.isStep })}
             color={Color.BLUE_500}
           >
             {getString('connectors.testConnectionStep.viewPermissions')}
@@ -268,18 +257,15 @@ const VerifyOutOfClusterDelegate: React.FC<
       if (stepDetails.status === 'PROCESS') {
         try {
           const result = await reloadTestConnection()
-          props.setLastTested?.(new Date().getTime() || 0)
 
           setTestConnectionResponse(result)
           if (result?.data?.status === 'SUCCESS') {
-            props.setStatus?.(ConnectorStatus.SUCCESS)
             setStepDetails({
               step: 2,
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
           } else {
-            props.setStatus?.(ConnectorStatus.FAILURE)
             setStepDetails({
               step: 1,
               intent: Intent.DANGER,
@@ -287,7 +273,6 @@ const VerifyOutOfClusterDelegate: React.FC<
             })
           }
         } catch (err) {
-          props.setStatus?.(ConnectorStatus.FAILURE)
           setStepDetails({
             step: 1,
             intent: Intent.DANGER,
@@ -312,8 +297,8 @@ const VerifyOutOfClusterDelegate: React.FC<
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
           {getString('connectors.stepThreeName')}
         </Text>
-        {renderInModal ? <RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} /> : null}
-        <Container className={css.content} padding={{ top: 'xxlarge' }}>
+        <RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} />
+        <Container className={cx(css.content, { [css.contentMinHeight]: props.isStep })} padding={{ top: 'xxlarge' }}>
           <StepsProgress
             steps={[getStepOne()]}
             intent={stepDetails.intent}
@@ -328,7 +313,7 @@ const VerifyOutOfClusterDelegate: React.FC<
           ) : null}
         </Container>
       </Layout.Vertical>
-      {renderInModal ? (
+      {props.isStep ? (
         isLastStep ? (
           <Layout.Horizontal spacing="large" className={css.btnWrapper}>
             <Button

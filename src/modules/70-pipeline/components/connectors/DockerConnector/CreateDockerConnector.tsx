@@ -73,7 +73,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = p => {
 
         <VerifyOutOfClusterDelegate
           name={i18n.STEP_THREE.NAME}
-          renderInModal={true}
+          isStep={true}
           setIsEditMode={() => undefined}
           onSuccess={() => {
             // Handle on success

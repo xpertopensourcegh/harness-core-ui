@@ -39,7 +39,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
-        renderInModal={true}
+        isStep
         onSuccess={props.onSuccess}
         isLastStep={true}
         type={Connectors.KUBERNETES_CLUSTER}

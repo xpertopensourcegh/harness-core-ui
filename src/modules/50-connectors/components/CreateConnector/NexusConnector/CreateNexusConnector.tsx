@@ -21,7 +21,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
         <StepNexusAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onSuccess} />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
-          renderInModal={true}
+          isStep
           onSuccess={props.onSuccess}
           isLastStep={true}
           type={Connectors.NEXUS}

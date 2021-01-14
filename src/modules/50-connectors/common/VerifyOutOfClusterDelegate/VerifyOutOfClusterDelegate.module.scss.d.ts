@@ -13,6 +13,7 @@ declare const styles: {
   readonly veiwPermission: string
   readonly marginAuto: string
   readonly content: string
+  readonly contentMinHeight: string
   readonly errorResult: string
   readonly stepError: string
 }

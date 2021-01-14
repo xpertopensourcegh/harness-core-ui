@@ -396,7 +396,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
             </p>
           </div>
           <div
-            class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
+            class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
@@ -1408,7 +1408,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
             </p>
           </div>
           <div
-            class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
+            class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"

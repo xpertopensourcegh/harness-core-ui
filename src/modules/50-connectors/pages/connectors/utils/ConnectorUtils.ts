@@ -786,3 +786,33 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return ''
   }
 }
+export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: ConnectorInfoDTO): string => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return connector.spec.credential.spec.masterUrl
+    case Connectors.DOCKER:
+      return connector.spec.dockerRegistryUrl
+    case Connectors.NEXUS:
+      return connector.spec.nexusServerUrl
+
+    case Connectors.ARTIFACTORY:
+      return connector.spec.artifactoryServerUrl
+
+    case Connectors.APP_DYNAMICS:
+      return connector.spec.controllerUrl
+
+    case Connectors.SPLUNK:
+      return connector.spec.splunkUrl
+
+    case Connectors.VAULT:
+      return connector.spec.vaultUrl
+    case Connectors.BITBUCKET:
+    case Connectors.GITLAB:
+    case Connectors.GITHUB:
+    case Connectors.GIT:
+      return connector.spec.url
+
+    default:
+      return ''
+  }
+}
