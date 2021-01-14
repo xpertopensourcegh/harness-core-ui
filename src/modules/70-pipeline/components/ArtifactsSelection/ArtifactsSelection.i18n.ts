@@ -21,10 +21,10 @@ export default {
     submit: 'Submit'
   },
   artifactTable: {
-    type: 'TYPE',
-    server: 'SERVER',
-    artifactSource: 'ARTIFACT SOURCE CONFIGURATION',
-    imagePath: 'IMAGE PATH'
+    type: 'Type',
+    server: 'Repository Type',
+    artifactSource: 'Artifact Source Configuration',
+    imagePath: 'Image Path'
   },
   validation: {
     connectorId: 'Docker artifact server is a required field',

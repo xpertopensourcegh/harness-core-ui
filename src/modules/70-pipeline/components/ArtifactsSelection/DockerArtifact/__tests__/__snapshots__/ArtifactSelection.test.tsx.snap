@@ -61,17 +61,17 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
           class="thead"
         >
           <span>
-            TYPE
+            Type
           </span>
           <span>
-            SERVER
+            Repository Type
           </span>
           <span />
           <span>
-            ARTIFACT SOURCE CONFIGURATION
+            Artifact Source Configuration
           </span>
           <span>
-            IMAGE PATH
+            Image Path
           </span>
           <span />
         </section>
@@ -247,17 +247,17 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
           class="thead"
         >
           <span>
-            TYPE
+            Type
           </span>
           <span>
-            SERVER
+            Repository Type
           </span>
           <span />
           <span>
-            ARTIFACT SOURCE CONFIGURATION
+            Artifact Source Configuration
           </span>
           <span>
-            IMAGE PATH
+            Image Path
           </span>
           <span />
         </section>
@@ -433,17 +433,17 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
           class="thead"
         >
           <span>
-            TYPE
+            Type
           </span>
           <span>
-            SERVER
+            Repository Type
           </span>
           <span />
           <span>
-            ARTIFACT SOURCE CONFIGURATION
+            Artifact Source Configuration
           </span>
           <span>
-            IMAGE PATH
+            Image Path
           </span>
           <span />
         </section>

@@ -345,6 +345,7 @@ export default function ArtifactsSelection({
             context={context}
           />
         )}
+
         {view === ModalView.NEW && (
           <CreateDockerConnector
             handleSubmit={(data: { connectorId: undefined | { value: string }; imagePath: string }) => {
@@ -469,17 +470,20 @@ export default function ArtifactsSelection({
 
   const addSideCarArtifact = (): void => {
     setModalContext(ModalViewFor.SIDECAR)
+
     showConnectorModal()
   }
 
   const editPrimary = (): void => {
     setEditModeContext(ModalViewFor.PRIMARY)
+
     showEditConnectorModal()
   }
 
   const editSidecar = (index: number): void => {
     setEditModeContext(ModalViewFor.SIDECAR)
     setEditIndex(index)
+
     showEditConnectorModal()
   }
 
@@ -605,6 +609,7 @@ export default function ArtifactsSelection({
                           {sidecar.spec.connectorRef}
                         </Text>
                       </span>
+
                       <span>
                         <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
                           {sidecar.spec.imagePath}
@@ -617,13 +622,17 @@ export default function ArtifactsSelection({
                               name="edit"
                               size={14}
                               style={{ cursor: 'pointer' }}
-                              onClick={() => editSidecar(index)}
+                              onClick={() => {
+                                editSidecar(index)
+                              }}
                             />
                             <Icon
                               name="delete"
                               size={14}
                               style={{ cursor: 'pointer' }}
-                              onClick={() => removeSidecar(index)}
+                              onClick={() => {
+                                removeSidecar(index)
+                              }}
                             />
                           </Layout.Horizontal>
                         </span>
