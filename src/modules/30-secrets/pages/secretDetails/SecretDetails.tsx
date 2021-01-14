@@ -77,7 +77,9 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   })
   const { mutate: updateSecretYaml } = usePutSecretViaYaml({
     identifier: secretId,
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId },
+    // this is required to make sure backend understands the contnent type correctly
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
   const { data: snippetData } = useGetYamlSnippetMetadata({
     queryParams: {
