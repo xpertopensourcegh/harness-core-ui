@@ -98,7 +98,7 @@ const addDependencies = (
       status: dependencies[0].status as any, // use status of first service
       data: {},
       icon: 'step-group',
-      showLines: false,
+      verticalStepGroup: true,
       isOpen: true,
       items: [{ parallel: items }]
     }

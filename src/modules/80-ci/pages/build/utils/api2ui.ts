@@ -276,7 +276,7 @@ function addDependencies(dependencies: ServiceDependency[], stepsPipeline: Execu
       status: '' as ExecutionPipelineItemStatus,
       data: {},
       icon: 'step-group',
-      showLines: false,
+      verticalStepGroup: false,
       isOpen: true,
       items: [{ parallel: items }]
     }
