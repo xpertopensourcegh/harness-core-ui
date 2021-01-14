@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Label, FormInput } from '@wings-software/uicore'
+import { Label, NestedAccordionPanel } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set } from 'lodash-es'
 import { StepViewType, StepWidget } from '@pipeline/exports'
@@ -13,14 +13,14 @@ import type {
   ServiceConfig,
   PipelineInfrastructure
 } from 'services/cd-ng'
-import List from '@common/components/List/List'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
-
+import css from './PipelineInputSetForm.module.scss'
+// import { useStrings } from 'framework/exports'
 function StepForm({
   template,
   allValues,
@@ -60,6 +60,7 @@ export interface StageInputSetFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any
   readonly?: boolean
+  stageIdentifier?: string
 }
 
 function ExecutionWrapperInputSetForm(props: {
@@ -172,131 +173,144 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   deploymentStage,
   path,
   formik,
-  readonly
+  readonly,
+  stageIdentifier
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
-        <CollapseForm
-          header={i18n.service(deploymentStage?.serviceConfig?.service?.name || '')}
-          headerProps={{ font: { size: 'normal' } }}
-          headerColor="var(--black)"
-          open={false}
-        >
-          {deploymentStageTemplate.serviceConfig?.serviceRef && (
-            <StepWidget<ServiceConfig>
-              factory={factory}
-              initialValues={deploymentStageInputSet?.serviceConfig || {}}
-              template={deploymentStageTemplate?.serviceConfig || {}}
-              type={StepType.DeployService}
-              stepViewType={StepViewType.InputSet}
-              path={`${path}.serviceConfig`}
-              readonly={readonly}
-            />
-          )}
-          {deploymentStageTemplate.serviceConfig?.serviceDefinition?.type === 'Kubernetes' && (
-            <StepWidget<ServiceSpec>
-              factory={factory}
-              initialValues={deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}}
-              template={deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}}
-              type={StepType.K8sServiceSpec}
-              stepViewType={StepViewType.InputSet}
-              path={`${path}.serviceConfig.serviceDefinition.spec`}
-              readonly={readonly}
-              onUpdate={(data: any) => {
-                if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
-                  deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
-                  formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
-                }
-              }}
-            />
-          )}
-        </CollapseForm>
+        <NestedAccordionPanel
+          addDomId
+          id={`Stage.${stageIdentifier}.Service`}
+          summary={<div className={css.stagesTreeBulletCircle}>Service</div>}
+          details={
+            <>
+              {deploymentStage?.serviceConfig?.serviceRef && (
+                <StepWidget<ServiceConfig>
+                  factory={factory}
+                  initialValues={deploymentStageInputSet?.serviceConfig || {}}
+                  template={deploymentStageTemplate?.serviceConfig || {}}
+                  type={StepType.DeployService}
+                  stepViewType={StepViewType.InputSet}
+                  path={`${path}.serviceConfig`}
+                  readonly={readonly}
+                />
+              )}
+              {deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' && (
+                <StepWidget<ServiceSpec>
+                  factory={factory}
+                  initialValues={deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}}
+                  template={deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}}
+                  type={StepType.K8sServiceSpec}
+                  stepViewType={StepViewType.InputSet}
+                  path={`${path}.serviceConfig.serviceDefinition.spec`}
+                  readonly={readonly}
+                  onUpdate={(data: any) => {
+                    if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
+                      deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
+                      formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
+                    }
+                  }}
+                />
+              )}
+            </>
+          }
+        />
       )}
 
       {deploymentStageTemplate.infrastructure && (
-        <CollapseForm
-          header={i18n.infrastructure}
-          headerProps={{ font: { size: 'normal' } }}
-          headerColor="var(--black)"
-        >
-          {/* TODO: Fix typings */}
-          {(deploymentStageTemplate?.infrastructure as any)?.spec?.namespace && (
-            <FormInput.Text label={i18n.namespace} name={`${path}.infrastructure.spec.namespace`} />
-          )}
-          {deploymentStageTemplate.infrastructure?.environmentRef && (
-            <StepWidget<PipelineInfrastructure>
-              factory={factory}
-              initialValues={deploymentStageInputSet?.infrastructure || {}}
-              template={deploymentStageTemplate?.infrastructure || {}}
-              type={StepType.DeployEnvironment}
-              stepViewType={StepViewType.InputSet}
-              path={`${path}.infrastructure`}
-              readonly={readonly}
-            />
-          )}
-          {deploymentStageTemplate.infrastructure.infrastructureDefinition && (
-            <StepWidget<K8SDirectInfrastructure>
-              factory={factory}
-              template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
-              initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
-              allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
-              type={
-                (deploymentStage?.infrastructure?.infrastructureDefinition?.type as StepType) ||
-                StepType.KubernetesDirect
-              }
-              path={`${path}.infrastructure.infrastructureDefinition.spec`}
-              readonly={readonly}
-              onUpdate={data => {
-                if (deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec) {
-                  deploymentStageInputSet.infrastructure.infrastructureDefinition.spec = data
-                  formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
-                }
-              }}
-              stepViewType={StepViewType.InputSet}
-            />
-          )}
-        </CollapseForm>
+        <NestedAccordionPanel
+          addDomId
+          id={`Stage.${stageIdentifier}.Infrastructure`}
+          summary={<div className={css.stagesTreeBulletCircle}>Infrastructure</div>}
+          details={
+            <>
+              {deploymentStageTemplate.infrastructure?.environmentRef && (
+                <StepWidget<PipelineInfrastructure>
+                  factory={factory}
+                  initialValues={deploymentStageInputSet?.infrastructure || {}}
+                  template={deploymentStageTemplate?.infrastructure || {}}
+                  type={StepType.DeployEnvironment}
+                  stepViewType={StepViewType.InputSet}
+                  path={`${path}.infrastructure`}
+                  readonly={readonly}
+                />
+              )}
+              {deploymentStageTemplate.infrastructure.infrastructureDefinition && (
+                <StepWidget<K8SDirectInfrastructure>
+                  factory={factory}
+                  template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
+                  initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
+                  allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
+                  type={
+                    (deploymentStage?.infrastructure?.infrastructureDefinition?.type as StepType) ||
+                    StepType.KubernetesDirect
+                  }
+                  path={`${path}.infrastructure.infrastructureDefinition.spec`}
+                  readonly={readonly}
+                  onUpdate={data => {
+                    if (deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec) {
+                      deploymentStageInputSet.infrastructure.infrastructureDefinition.spec = data
+                      formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
+                    }
+                  }}
+                  stepViewType={StepViewType.InputSet}
+                />
+              )}
+            </>
+          }
+        />
       )}
       {deploymentStageTemplate.variables && (
-        <CollapseForm
-          header={i18n.stageVariables}
-          headerProps={{ font: { size: 'normal' } }}
-          headerColor="var(--black)"
-        >
-          <div>WIP</div>
-        </CollapseForm>
+        <NestedAccordionPanel
+          addDomId
+          id={`Stage.${stageIdentifier}.Variables`}
+          summary={<div className={css.stagesTreeBulletCircle}>Variables</div>}
+          details={<div>WIP</div>}
+        />
       )}
-      {deploymentStageTemplate?.sharedPaths && (
-        <CollapseForm header={i18n.sharedPaths} headerProps={{ font: { size: 'normal' } }} headerColor="var(--black)">
-          <List label={<Text margin={{ bottom: 'xsmall' }}>{i18n.sharedPaths}</Text>} name={`${path}.sharedPaths`} />
-        </CollapseForm>
-      )}
-      {deploymentStageTemplate.execution?.steps && (
-        <CollapseForm header={i18n.execution} headerProps={{ font: { size: 'normal' } }} headerColor="var(--black)">
-          <ExecutionWrapperInputSetForm
-            stepsTemplate={deploymentStageTemplate.execution.steps}
-            path={`${path}.execution.steps`}
-            allValues={deploymentStage?.execution?.steps}
-            values={deploymentStageInputSet?.execution?.steps}
-            formik={formik}
-            readonly={readonly}
-          />
-        </CollapseForm>
-      )}
-      {deploymentStageTemplate.execution?.rollbackSteps && (
-        <CollapseForm header={i18n.rollbackSteps} headerProps={{ font: { size: 'normal' } }} headerColor="var(--black)">
-          <ExecutionWrapperInputSetForm
-            stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
-            path={`${path}.execution.rollbackSteps`}
-            allValues={deploymentStage?.execution?.rollbackSteps}
-            values={deploymentStageInputSet?.execution?.rollbackSteps}
-            formik={formik}
-            readonly={readonly}
-          />
-        </CollapseForm>
-      )}
+      <NestedAccordionPanel
+        addDomId
+        id={`Stage.${stageIdentifier}.Execution`}
+        summary={<div className={css.stagesTreeBulletCircle}>Execution</div>}
+        details={
+          <>
+            {deploymentStageTemplate.execution?.steps && (
+              <CollapseForm
+                header={i18n.execution}
+                headerProps={{ font: { size: 'normal' } }}
+                headerColor="var(--black)"
+              >
+                <ExecutionWrapperInputSetForm
+                  stepsTemplate={deploymentStageTemplate.execution.steps}
+                  path={`${path}.execution.steps`}
+                  allValues={deploymentStage?.execution?.steps}
+                  values={deploymentStageInputSet?.execution?.steps}
+                  formik={formik}
+                  readonly={readonly}
+                />
+              </CollapseForm>
+            )}
+            {deploymentStageTemplate.execution?.rollbackSteps && (
+              <CollapseForm
+                header={i18n.rollbackSteps}
+                headerProps={{ font: { size: 'normal' } }}
+                headerColor="var(--black)"
+              >
+                <ExecutionWrapperInputSetForm
+                  stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
+                  path={`${path}.execution.rollbackSteps`}
+                  allValues={deploymentStage?.execution?.rollbackSteps}
+                  values={deploymentStageInputSet?.execution?.rollbackSteps}
+                  formik={formik}
+                  readonly={readonly}
+                />
+              </CollapseForm>
+            )}
+          </>
+        }
+      />
     </>
   )
 }

@@ -1,6 +1,9 @@
 import type { FormikErrors } from 'formik'
-import { isEmpty, set } from 'lodash-es'
-import type { UseStringsReturn } from 'framework/exports'
+import isEmpty from 'lodash-es/isEmpty'
+import set from 'lodash-es/set'
+import reduce from 'lodash-es/reduce'
+import isObject from 'lodash-es/isObject'
+import memoize from 'lodash-es/memoize'
 import type {
   NgPipeline,
   StageElementConfig,
@@ -11,6 +14,8 @@ import type {
   PipelineInfoConfig,
   StageElementWrapperConfig
 } from 'services/cd-ng'
+
+import type { UseStringsReturn } from 'framework/exports'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -138,7 +143,7 @@ const validateStage = (
       set(errors, 'spec.infrastructure.infrastructureDefinition.spec', errorsResponse)
     }
   }
-  if (stage.spec?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
+  if (originalStage?.spec?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
     const step = factory.getStep(StepType.K8sServiceSpec)
     const errorsResponse = step?.validateInputSet(
       stage.spec?.serviceConfig?.serviceDefinition?.spec,
@@ -146,7 +151,7 @@ const validateStage = (
       getString
     )
     if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.infrastructure.infrastructureDefinition.spec', errorsResponse)
+      set(errors, 'spec.serviceConfig.serviceDefinition.spec', errorsResponse)
     }
   }
   if (stage.spec?.execution?.steps) {
@@ -216,3 +221,33 @@ export const validatePipeline = (
 
   return errors
 }
+
+const getErrorsFlatten = memoize((errors: any): string[] => {
+  return reduce(
+    errors,
+    (result: string[], value: any) => {
+      if (typeof value === 'string') {
+        result.push(value)
+      } else if (isObject(value)) {
+        return result.concat(getErrorsFlatten(value as any))
+      }
+
+      return result
+    },
+    []
+  )
+})
+
+export const getErrorsList = memoize((errors: any): string[] => {
+  const errorList = getErrorsFlatten(errors)
+  const errorCountMap: { [key: string]: number } = {}
+  errorList.forEach(error => {
+    if (errorCountMap[error]) {
+      errorCountMap[error]++
+    } else {
+      errorCountMap[error] = 1
+    }
+  })
+  const finalErrors = Object.entries(errorCountMap).map(([key, count]) => `${count} ${key}`)
+  return finalErrors
+})

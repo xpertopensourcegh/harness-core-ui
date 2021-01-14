@@ -52,7 +52,7 @@ import ResourcesPage from '@cd/pages/Resources/ResourcesPage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
 import { ModuleName, useAppStore } from 'framework/exports'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
-import { InputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
+import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 
@@ -232,7 +232,7 @@ export default (
       sidebarProps={CDSideNavProps}
       path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
     >
-      <InputSetForm />
+      <EnhancedInputSetForm />
     </RouteWithLayout>
     <RouteWithLayout
       exact

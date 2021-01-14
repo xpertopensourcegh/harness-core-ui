@@ -1,3 +1,36 @@
 .container {
   --pipeline-form-blue: #89b1cc;
 }
+.header {
+  font-size: var(--font-size-medium);
+}
+
+.stages-tree-bullet-square {
+  text-indent: 20px;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 36px;
+    top: 32px;
+    width: 13px;
+    height: 13px;
+    background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+    opacity: 0.6;
+    border-radius: 3px;
+  }
+}
+
+.stages-tree-bullet-circle {
+  text-indent: 20px;
+  &::before {
+    content: '';
+    position: absolute;
+
+    left: 30px;
+    width: 13px;
+    height: 13px;
+    background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+    opacity: 0.6;
+    border-radius: 100px;
+  }
+}

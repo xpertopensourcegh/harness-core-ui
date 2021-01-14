@@ -48,7 +48,7 @@ const InputSetList: React.FC = (): JSX.Element => {
           orgIdentifier,
           projectIdentifier,
           pipelineIdentifier,
-          inputSetIdentifier,
+          inputSetIdentifier: typeof inputSetIdentifier !== 'string' ? '-1' : inputSetIdentifier,
           module
         })
       )

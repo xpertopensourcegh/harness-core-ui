@@ -6,8 +6,7 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
     <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px; font-weight: bold;"
+      class="StyledProps--font StyledProps--main sectionHeader"
     >
       Sidecar Artifact
     </p>
@@ -15,10 +14,33 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
       class="Layout--vertical StyledProps--main"
     >
       <p
-        class="StyledProps--font StyledProps--main"
-        style="font-size: 16px; color: black; margin-top: 15px;"
+        class="StyledProps--font StyledProps--main subSectonHeader"
       >
         sidecar1
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              tabindex="0"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </span>
+        </span>
       </p>
       <div
         class="bp3-form-group"
@@ -37,18 +59,23 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="TextInput--main"
+            class="bp3-form-group"
+            style="width: 400px;"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-form-content"
             >
-              <input
-                class="bp3-input"
-                name="imagePath"
-                style="width: 400px;"
-                type="text"
-                value=""
-              />
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name=".artifacts.sidecars[0].sidecar.spec.imagePath"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -69,7 +96,6 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
       >
         gitId
       </p>
-       
       <div
         class="bp3-form-group"
       >
@@ -87,18 +113,23 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="TextInput--main"
+            class="bp3-form-group"
+            style="width: 400px;"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-form-content"
             >
-              <input
-                class="bp3-input"
-                name="branch"
-                style="width: 400px;"
-                type="text"
-                value=""
-              />
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name=".manifests[0].manifest.spec.store.spec.branch"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>

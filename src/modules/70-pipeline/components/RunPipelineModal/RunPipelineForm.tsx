@@ -1,6 +1,15 @@
 import React from 'react'
 import { Classes } from '@blueprintjs/core'
-import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uicore'
+import {
+  Button,
+  Checkbox,
+  Formik,
+  FormikForm,
+  Layout,
+  Popover,
+  Text,
+  NestedAccordionProvider
+} from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
@@ -62,7 +71,7 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   }
 }
 
-export function RunPipelineForm({
+function RunPipelineFormBasic({
   pipelineIdentifier,
   accountId,
   orgIdentifier,
@@ -508,5 +517,13 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
       />
       <PageBody className={css.runForm}>{children}</PageBody>
     </React.Fragment>
+  )
+}
+
+export const RunPipelineForm: React.FC<RunPipelineFormProps> = props => {
+  return (
+    <NestedAccordionProvider>
+      <RunPipelineFormBasic {...props} />
+    </NestedAccordionProvider>
   )
 }

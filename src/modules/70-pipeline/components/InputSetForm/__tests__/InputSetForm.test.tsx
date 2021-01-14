@@ -11,7 +11,7 @@ import {
 } from '@common/utils/routeUtils'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
-import { InputSetForm } from '../InputSetForm'
+import { EnhancedInputSetForm } from '../InputSetForm'
 import {
   TemplateResponse,
   PipelineResponse,
@@ -25,6 +25,7 @@ import {
 const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }
 
 const successResponse = (): Promise<{ status: string }> => Promise.resolve({ status: 'SUCCESS' })
+window.HTMLElement.prototype.scrollIntoView = jest.fn()
 
 jest.mock(
   '@common/components/YAMLBuilder/YamlBuilder',
@@ -95,20 +96,20 @@ describe('Render Forms - Snapshot Testing', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm />
+        <EnhancedInputSetForm />
       </TestWrapper>
     )
-    await waitFor(() => getAllByText('Release name'))
-    expect(container).toMatchSnapshot()
+
     // Switch Mode
     fireEvent.click(getByText('YAML'))
     await waitFor(() => getAllByText('Yaml View'))
-    expect(container).toMatchSnapshot()
     // Switch Mode
     fireEvent.click(getByText('VISUAL'))
-    await waitFor(() => getAllByText('Release name'))
+    const stages = container.querySelector('.header')
+    fireEvent.click(stages as Element)
     // Close Form
     fireEvent.click(getByText('Cancel'))
+    expect(container).toMatchSnapshot()
   })
 
   test('render Overlay Input Set Form view', async () => {
@@ -153,16 +154,23 @@ describe('Render Forms - Snapshot Testing', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <InputSetForm />
+        <EnhancedInputSetForm />
       </TestWrapper>
     )
+    const stagePanel = container.querySelector('[data-testid="Stage.asd-summary"]')
+    act(() => {
+      fireEvent.click(stagePanel as Element)
+    })
+    const infraPanel = container.querySelector('[data-testid="Stage.asd.Infrastructure-summary"]')
+    fireEvent.click(infraPanel as Element)
+    expect(container).toMatchSnapshot('expanded')
     await waitFor(() => getAllByText('tesa1'))
-    expect(container).toMatchSnapshot()
     fireEvent.click(getByText('Save'))
     // Switch Mode
     fireEvent.click(getByText('YAML'))
     await waitFor(() => getAllByText('Yaml View'))
     fireEvent.click(getByText('Save'))
+    expect(container).toMatchSnapshot()
   })
 
   test('render Edit Overlay Input Set Form view', async () => {
@@ -222,15 +230,12 @@ describe('Render Forms - Snapshot Testing', () => {
       expect(container).toMatchSnapshot()
 
       fireEvent.dragLeave(container)
-      expect(container).toMatchSnapshot()
 
       const dropEffectEvent = Object.assign(createEvent.dragOver(container), eventData)
       fireEvent(container2, dropEffectEvent)
-      expect(container2).toMatchSnapshot()
 
       const dropEvent = Object.assign(createEvent.drop(container), eventData)
       fireEvent(container2, dropEvent)
-      expect(container2).toMatchSnapshot()
     })
   })
 })

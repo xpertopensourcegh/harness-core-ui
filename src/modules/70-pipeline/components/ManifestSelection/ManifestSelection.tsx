@@ -217,14 +217,14 @@ function ManifestListView({
     if (isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', null)) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
     }
-    if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', null)) {
+    if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests')) {
       set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', null)) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
     }
     return !isForOverrideSets
       ? !isForPredefinedSets

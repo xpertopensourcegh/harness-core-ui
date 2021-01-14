@@ -37,7 +37,7 @@ import { useAppStore, ModuleName } from 'framework/exports'
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
-import { InputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
+import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
 import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
@@ -235,7 +235,7 @@ export default (
       sidebarProps={CISideNavProps}
       path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
     >
-      <InputSetForm />
+      <EnhancedInputSetForm />
     </RouteWithLayout>
     <RouteWithLayout
       exact

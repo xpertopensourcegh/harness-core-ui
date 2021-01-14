@@ -1,7 +1,4 @@
 import React from 'react'
-import debounce from 'lodash-es/debounce'
-import noop from 'lodash-es/noop'
-import cloneDeep from 'lodash-es/cloneDeep'
 import get from 'lodash-es/get'
 import isEmpty from 'lodash-es/isEmpty'
 import {
@@ -13,24 +10,30 @@ import {
   Color,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  TextInput
+  FormInput,
+  Icon
 } from '@wings-software/uicore'
-import { FormGroup } from '@blueprintjs/core'
+import set from 'lodash-es/set'
+import { useParams } from 'react-router-dom'
+import { FormGroup, Tooltip } from '@blueprintjs/core'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { StepViewType } from '@pipeline/exports'
 import type { ServiceSpec } from 'services/cd-ng'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StepType } from '../../PipelineStepInterface'
+import css from './K8sServiceSpec.module.scss'
 interface KubernetesServiceInputFormProps {
   initialValues: K8SDirectServiceStep
   onUpdate?: ((data: ServiceSpec) => void) | undefined
   stepViewType?: StepViewType
   template?: ServiceSpec
   factory?: AbstractStepFactory
+  path?: string
 }
 
 const setupMode = {
@@ -82,40 +85,39 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
 const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues,
   template,
-  onUpdate
+  path
 }) => {
-  const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
-  const [state, setState] = React.useState(initialValues)
-  React.useEffect(() => {
-    if (isEmpty(state)) {
-      setState(cloneDeep(initialValues))
-    }
-  }, [initialValues])
-
-  const updateState = ({ index, key, value, artifactType }: any) => {
-    const updatedState: any = cloneDeep(state)
-    if (artifactType === 'primary' && updatedState?.artifacts[artifactType]) {
-      updatedState.artifacts[artifactType].spec[key] = value
-    }
-
-    if (artifactType === 'sidecars' && updatedState?.artifacts[artifactType]) {
-      updatedState.artifacts[artifactType][index].sidecar.spec[key] = value
-    }
-    if (artifactType === 'manifests' && updatedState?.manifests) {
-      updatedState.manifests[index].manifest.spec.store.spec[key] = value
-    }
-    delayedOnUpdate(updatedState)
-
-    return setState(updatedState)
-  }
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
   const { getString } = useStrings()
 
   return (
     <Layout.Vertical spacing="medium">
       <>
         {template?.artifacts?.primary && (
-          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
+          <Text className={css.sectionHeader}>
             {getString('primaryArtifactText')}
+            {(getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) !==
+              MultiTypeInputType.RUNTIME ||
+              getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) !==
+                MultiTypeInputType.RUNTIME) && (
+              <Tooltip
+                position="top"
+                content={JSON.stringify(
+                  {
+                    ConnectorRef: get(initialValues, `artifacts.primary.spec.connectorRef`, ''),
+                    ImagePath: get(initialValues, `artifacts.primary.spec.imagePath`, '')
+                  },
+                  null,
+                  2
+                )}
+              >
+                <Icon name="info" />
+              </Tooltip>
+            )}
           </Text>
         )}
         {template?.artifacts?.primary && (
@@ -123,53 +125,30 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
             {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
               MultiTypeInputType.RUNTIME && (
               <FormGroup labelFor={'connectorRef'} label={getString('pipelineSteps.deploy.inputSet.artifactServer')}>
-                <TextInput
-                  style={{ width: 400 }}
-                  name="connectorRef"
-                  defaultValue={
-                    getMultiTypeFromValue(get(initialValues, `artifacts.primary.spec.connectorRef`, '')) ===
-                    MultiTypeInputType.RUNTIME
-                      ? ''
-                      : get(initialValues, `artifacts.primary.spec.connectorRef`, '')
-                  }
-                  onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                    updateState({
-                      value: event.currentTarget.value,
-                      key: 'connectorRef',
-                      artifactType: 'primary'
-                    })
-                  }}
-                ></TextInput>
+                <FormMultiTypeConnectorField
+                  name={`${path}.artifacts.primary.spec.connectorRef`}
+                  label={''}
+                  placeholder={''}
+                  accountIdentifier={accountId}
+                  projectIdentifier={projectIdentifier}
+                  orgIdentifier={orgIdentifier}
+                  width={350}
+                  isNewConnectorLabelVisible={false}
+                  type={'DockerRegistry'}
+                  enableConfigureOptions={false}
+                />
               </FormGroup>
             )}
             {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
               MultiTypeInputType.RUNTIME && (
               <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
-                <TextInput
-                  style={{ width: 400 }}
-                  name="imagePath"
-                  defaultValue={
-                    getMultiTypeFromValue(get(initialValues, `artifacts.primary.spec.imagePath`, '')) ===
-                    MultiTypeInputType.RUNTIME
-                      ? ''
-                      : get(initialValues, `artifacts.primary.spec.imagePath`, '')
-                  }
-                  onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                    updateState({
-                      value: event.currentTarget.value,
-                      key: 'imagePath',
-                      artifactType: 'primary'
-                    })
-                  }}
-                ></TextInput>
+                <FormInput.Text style={{ width: 400 }} name={`${path}.artifacts.primary.spec.imagePath`} />
               </FormGroup>
             )}
           </Layout.Vertical>
         )}
         {template?.artifacts?.sidecars?.length && (
-          <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
-            {getString('sidecarArtifactText')}
-          </Text>
+          <Text className={css.sectionHeader}>{getString('sidecarArtifactText')}</Text>
         )}
         {template?.artifacts?.sidecars?.map(
           (
@@ -181,51 +160,59 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
             }: any,
             index: number
           ) => {
-            const connectorRefValue = get(initialValues, `artifacts.sidecars[${index}].sidecar.spec.connectorRef`, '')
-            const imagePathValue = get(initialValues, `artifacts.sidecars[${index}].sidecar.spec.imagePath`, '')
-
             return (
               <Layout.Vertical key={identifier}>
-                <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
+                <Text className={css.subSectonHeader}>
+                  {identifier}
+                  {(getMultiTypeFromValue(
+                    get(template, `artifacts.sidecars[${index}].sidecar.spec.connectorRef`, '')
+                  ) !== MultiTypeInputType.RUNTIME ||
+                    getMultiTypeFromValue(get(template, `artifacts.sidecars[${index}].sidecar.spec.imagePath`, '')) !==
+                      MultiTypeInputType.RUNTIME) && (
+                    <Tooltip
+                      position="top"
+                      content={JSON.stringify(
+                        {
+                          ConnectorRef: get(
+                            initialValues,
+                            `artifacts.sidecars[${index}].sidecar.spec.connectorRef`,
+                            ''
+                          ),
+                          ImagePath: get(initialValues, `artifacts.sidecars[${index}].sidecar.spec.imagePath`, '')
+                        },
+                        null,
+                        2
+                      )}
+                    >
+                      <Icon name="info" />
+                    </Tooltip>
+                  )}
+                </Text>
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                   <FormGroup
                     labelFor={'connectorRef'}
                     label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
                   >
-                    <TextInput
-                      style={{ width: 400 }}
-                      name="connectorRef"
-                      defaultValue={
-                        getMultiTypeFromValue(connectorRefValue) === MultiTypeInputType.RUNTIME ? '' : connectorRefValue
-                      }
-                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                        updateState({
-                          index,
-                          value: event.currentTarget.value,
-                          key: 'connectorRef',
-                          artifactType: 'sidecars'
-                        })
-                      }}
-                    ></TextInput>
+                    <FormMultiTypeConnectorField
+                      name={`${path}.artifacts.sidecars[${index}].sidecar.spec.connectorRef`}
+                      label={''}
+                      placeholder={''}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      width={350}
+                      isNewConnectorLabelVisible={false}
+                      type={'DockerRegistry'}
+                      enableConfigureOptions={false}
+                    />
                   </FormGroup>
                 )}
                 {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
                   <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
-                    <TextInput
+                    <FormInput.Text
                       style={{ width: 400 }}
-                      name="imagePath"
-                      defaultValue={
-                        getMultiTypeFromValue(imagePathValue) === MultiTypeInputType.RUNTIME ? '' : imagePathValue
-                      }
-                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                        updateState({
-                          index,
-                          value: event.currentTarget.value,
-                          key: 'imagePath',
-                          artifactType: 'sidecars'
-                        })
-                      }}
-                    ></TextInput>
+                      name={`${path}.artifacts.sidecars[${index}].sidecar.spec.imagePath`}
+                    />
                   </FormGroup>
                 )}
               </Layout.Vertical>
@@ -253,54 +240,26 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
             }: any,
             index: number
           ) => {
-            const branchValue = get(initialValues, `manifests[${index}].manifest.spec.store.spec.branch`, '')
-            const connectorRefValue = get(
-              initialValues,
-              `manifests[${index}].manifest.spec.store.spec.connectorRef`,
-              ''
-            )
             return (
               <Layout.Vertical key={identifier}>
-                <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>{' '}
+                <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                   <FormGroup
                     labelFor={'connectorRef'}
                     label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
                   >
-                    <TextInput
+                    <FormInput.Text
                       style={{ width: 400 }}
-                      name="connectorRef"
-                      defaultValue={
-                        getMultiTypeFromValue(connectorRefValue) === MultiTypeInputType.RUNTIME ? '' : connectorRefValue
-                      }
-                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                        updateState({
-                          index,
-                          value: event.currentTarget.value,
-                          key: 'connectorRef',
-                          artifactType: 'manifests'
-                        })
-                      }}
-                    ></TextInput>
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                    />
                   </FormGroup>
                 )}
                 {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
                   <FormGroup labelFor={'branch'} label={getString('pipelineSteps.deploy.inputSet.branch')}>
-                    <TextInput
+                    <FormInput.Text
                       style={{ width: 400 }}
-                      name="branch"
-                      defaultValue={
-                        getMultiTypeFromValue(branchValue) === MultiTypeInputType.RUNTIME ? '' : branchValue
-                      }
-                      onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                        updateState({
-                          index,
-                          value: event.currentTarget.value,
-                          key: 'branch',
-                          artifactType: 'manifests'
-                        })
-                      }}
-                    ></TextInput>
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
+                    />
                   </FormGroup>
                 )}
               </Layout.Vertical>
@@ -325,9 +284,52 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   protected stepIcon: IconName = 'service-kubernetes'
   protected stepName = 'Deplyment Service'
   protected stepPaletteVisible = false
-  validateInputSet(): object {
-    return {}
+
+  validateInputSet(
+    data: K8SDirectServiceStep,
+    template?: ServiceSpec,
+    getString?: UseStringsReturn['getString']
+  ): object {
+    const errors: K8SDirectServiceStep = {}
+    if (
+      isEmpty(data?.artifacts?.primary?.spec?.connectorRef) &&
+      getMultiTypeFromValue(template?.artifacts?.primary?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
+    ) {
+      set(errors, 'artifacts.primary.spec.connectorRef', getString?.('fieldRequired', { field: 'ConnectorRef' }))
+    }
+    if (
+      isEmpty(data?.artifacts?.primary?.spec?.imagePath) &&
+      getMultiTypeFromValue(template?.artifacts?.primary?.spec?.imagePath) === MultiTypeInputType.RUNTIME
+    ) {
+      set(errors, 'artifacts.primary.spec.imagePath', getString?.('fieldRequired', { field: 'Image Path' }))
+    }
+    data?.artifacts?.sidecars?.forEach((sidecar, index) => {
+      const currentSidecaTemplate = get(template, `artifacts.sidecars[${index}].sidecar.spec`, '')
+      if (
+        isEmpty(sidecar?.sidecar?.spec?.connectorRef) &&
+        getMultiTypeFromValue(currentSidecaTemplate?.connectorRef) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `artifacts.sidecars[${index}].sidecar.spec.connectorRef`,
+          getString?.('fieldRequired', { field: 'ConnectorRef' })
+        )
+      }
+      if (
+        isEmpty(sidecar?.sidecar?.spec?.imagePath) &&
+        getMultiTypeFromValue(currentSidecaTemplate?.imagePath) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `artifacts.sidecars[${index}].sidecar.spec.imagePath`,
+          getString?.('fieldRequired', { field: 'Image Path' })
+        )
+      }
+    })
+
+    return errors
   }
+
   renderStep(props: StepProps<K8SDirectServiceStep>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, factory } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -337,6 +339,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           template={inputSetData?.template}
+          path={inputSetData?.path}
         />
       )
     }
@@ -347,6 +350,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        path={inputSetData?.path}
       />
     )
   }

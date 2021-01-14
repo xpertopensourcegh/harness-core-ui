@@ -1,13 +1,25 @@
 import React from 'react'
 import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
-import type { IconName } from '@blueprintjs/core'
-import { Button, Collapse, Container, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
+import { IconName, ITreeNode, Intent } from '@blueprintjs/core'
+import {
+  Button,
+  Collapse,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Layout,
+  Text,
+  useNestedAccordion,
+  NestedAccordionProvider,
+  Accordion,
+  Icon
+} from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
 import type { FormikErrors } from 'formik'
 import type { NgPipeline } from 'services/cd-ng'
-
 import {
   useGetTemplateFromPipeline,
   useGetPipeline,
@@ -35,11 +47,12 @@ import { PageSpinner } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useAppStore, useStrings } from 'framework/exports'
-import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
-import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
+import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
+import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
+import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
+import i18n from './InputSetForm.18n'
 import css from './InputSetForm.module.scss'
-
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
   identifier?: string
@@ -132,6 +145,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
+  const [formErrors, setFormErrors] = React.useState<{}>({})
   const { showSuccess, showError } = useToaster()
 
   const { data: inputSetResponse, refetch, loading: loadingInputSet, error: errorInputSet } = useGetInputSetForPipeline(
@@ -143,7 +157,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   )
 
   const [mergeTemplate, setMergeTemplate] = React.useState<string>()
-
+  const { openNestedPath } = useNestedAccordion()
   const {
     mutate: mergeInputSet,
     loading: loadingMerge,
@@ -181,6 +195,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       const inputSetObj = inputSetResponse?.data
       const inputYamlObj =
         parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
+
       return {
         name: inputSetObj.name,
         tags: inputSetObj.tags,
@@ -287,12 +302,46 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         i18n.commonError
     )
   }
+  function handleSelectionChange(id: string): void {
+    setSelectedTreeNodeId(id)
+    openNestedPath(id)
+    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const renderErrors = React.useCallback(() => {
+    const errorList = getErrorsList(formErrors)
+    if (!errorList.length) {
+      return null
+    }
+    return (
+      <div className={css.errorHeader}>
+        <Accordion>
+          <Accordion.Panel
+            id="errors"
+            summary={
+              <span>
+                <Icon name="warning-sign" intent={Intent.DANGER} />
+                {`${errorList.length} problems with Input Set`}
+              </span>
+            }
+            details={
+              <ul>
+                {errorList.map((errorMessage, index) => (
+                  <li key={index}>{errorMessage}</li>
+                ))}
+              </ul>
+            }
+          />
+        </Accordion>
+      </div>
+    )
+  }, [formErrors])
 
   const child = (
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
         <Formik<InputSetDTO>
-          initialValues={{ ...inputSet }}
+          initialValues={inputSet}
           enableReinitialize={true}
           validate={values => {
             const errors: FormikErrors<InputSetDTO> = {}
@@ -309,6 +358,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
               if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
+            setFormErrors(errors)
             return errors
           }}
           onSubmit={values => {
@@ -319,37 +369,50 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             return (
               <>
                 {selectedView === SelectedView.VISUAL ? (
-                  <FormikForm>
-                    {executionView ? null : (
-                      <Layout.Vertical className={css.content} padding="xlarge">
-                        <AddDescriptionAndKVTagsWithIdentifier
-                          identifierProps={{
-                            inputLabel: i18n.overlaySetName,
-                            isIdentifierEditable: !isEdit
-                          }}
-                        />
-                        {pipeline?.data?.yamlPipeline &&
-                          template?.data?.inputSetTemplateYaml &&
-                          parse(template.data.inputSetTemplateYaml) && (
-                            <PipelineInputSetForm
-                              path="pipeline"
-                              originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
-                              template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
-                            />
-                          )}
-                      </Layout.Vertical>
-                    )}
-                    <Layout.Horizontal className={css.footer} padding="medium">
-                      <Button intent="primary" type="submit" text={i18n.save} />
-                      &nbsp; &nbsp;
-                      <Button
-                        onClick={() => {
-                          history.goBack()
-                        }}
-                        text={i18n.cancel}
+                  <div className={css.inputsetGrid}>
+                    <div className={css.treeSidebar}>
+                      <StagesTree
+                        contents={nodes}
+                        selectedId={selectedTreeNodeId}
+                        selectionChange={handleSelectionChange}
                       />
-                    </Layout.Horizontal>
-                  </FormikForm>
+                    </div>
+                    <div>
+                      {renderErrors()}
+
+                      <FormikForm>
+                        {executionView ? null : (
+                          <Layout.Vertical className={css.content} padding="xlarge">
+                            <AddDescriptionAndKVTagsWithIdentifier
+                              identifierProps={{
+                                inputLabel: i18n.inputSetName,
+                                isIdentifierEditable: !isEdit
+                              }}
+                            />
+                            {pipeline?.data?.yamlPipeline &&
+                              template?.data?.inputSetTemplateYaml &&
+                              parse(template.data.inputSetTemplateYaml) && (
+                                <PipelineInputSetForm
+                                  path="pipeline"
+                                  originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
+                                  template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
+                                />
+                              )}
+                          </Layout.Vertical>
+                        )}
+                        <Layout.Horizontal className={css.footer} padding="xlarge">
+                          <Button intent="primary" type="submit" text={i18n.save} />
+                          &nbsp; &nbsp;
+                          <Button
+                            onClick={() => {
+                              history.goBack()
+                            }}
+                            text={i18n.cancel}
+                          />
+                        </Layout.Horizontal>
+                      </FormikForm>
+                    </div>
+                  </div>
                 ) : (
                   <div className={css.editor}>
                     <Layout.Vertical className={css.content} padding="xlarge">
@@ -364,7 +427,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         />
                       )}
                     </Layout.Vertical>
-                    <Layout.Horizontal className={css.footer} padding="medium">
+                    <Layout.Horizontal className={css.footer} padding="xlarge">
                       <Button
                         intent="primary"
                         type="submit"
@@ -391,6 +454,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       </Layout.Vertical>
     </Container>
   )
+  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
+  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
+
+  React.useEffect(() => {
+    const parsedPipeline = parse(pipeline?.data?.yamlPipeline || '')
+    parsedPipeline && updateNodes(getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses))
+  }, [pipeline?.data?.yamlPipeline])
 
   return executionView ? (
     child
@@ -481,7 +551,16 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
           </Layout.Vertical>
         }
       />
+
       <PageBody loading={loading}>{children}</PageBody>
     </React.Fragment>
+  )
+}
+
+export const EnhancedInputSetForm: React.FC<InputSetFormProps> = props => {
+  return (
+    <NestedAccordionProvider>
+      <InputSetForm {...props} />
+    </NestedAccordionProvider>
   )
 }

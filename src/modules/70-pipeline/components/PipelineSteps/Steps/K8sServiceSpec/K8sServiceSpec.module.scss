@@ -3,3 +3,21 @@
   filter: grayscale(100%);
   cursor: not-allowed !important;
 }
+.section-header {
+  font-size: 14 !important;
+  color: #000 !important;
+  margin: var(--spacing-medium) 0 !important;
+  font-weight: bold !important;
+  :global {
+    .bp3-icon {
+      padding: 0 var(--spacing-medium) !important;
+    }
+  }
+}
+
+.sub-secton-header {
+  font-size: 13 !important;
+  margin-bottom: var(--spacing-small) !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
