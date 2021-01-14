@@ -13,11 +13,14 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
+import { useStrings } from 'framework/exports'
 import type { Distribution, WeightedVariation, Feature, Variation } from 'services/cf'
 import PercentageRollout from './PercentageRollout'
 import CustomRulesView from './CustomRulesView'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
+
+const ROLLOUT_PERCENTAGE_VALUE = 'percentage'
 
 interface TabTargetingProps {
   formikProps: any
@@ -117,6 +120,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
   formikProps
 }) => {
   const [percentageView, setPercentageView] = useState<boolean>(false)
+  const { getString } = useStrings()
 
   const variationItems = variations.map<SelectOption>(elem => ({
     label: elem.name as string,
@@ -155,14 +159,14 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
                 items={[
                   ...variationItems,
                   {
-                    label: 'Percentage rollout',
-                    value: 'percentage'
+                    label: getString('cf.featureFlags.percentageRollout'),
+                    value: ROLLOUT_PERCENTAGE_VALUE
                   }
                 ]}
                 onChange={onDefaultONChange}
               />
             ) : (
-              <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.onVariation}</Text>
+              <Text className={cx(css.textBlack)}>{formikProps.values.onVariation}</Text>
             )}
 
             {percentageView && (
@@ -184,7 +188,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
           {editing ? (
             <FormInput.Select name="offVariation" items={variationItems} onChange={formikProps.handleChange} />
           ) : (
-            <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.offVariation}</Text>
+            <Text className={cx(css.textBlack)}>{formikProps.values.offVariation}</Text>
           )}
         </Layout.Horizontal>
       </Container>

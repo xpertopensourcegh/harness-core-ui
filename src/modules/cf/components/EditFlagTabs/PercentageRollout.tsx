@@ -4,10 +4,24 @@ import { sumBy } from 'lodash-es'
 import type { Distribution, WeightedVariation, Variation } from 'services/cf'
 import css from './TabTargeting.module.scss'
 
-const randomColor = ['cyan', 'blue', 'lime', 'yellow', 'green', 'black']
+const Colors = [
+  '#4065A0',
+  '#65DEF2',
+  '#E3B14F',
+  '#42AB45',
+  '#D9DAE5',
+  '#00ADE4',
+  '#f78383',
+  '#e59c0b',
+  '#7c8d9f',
+  '#8c78ed',
+  '#ff8f3f',
+  '#ed61b5'
+]
 
 interface PercentageValues {
   id: string
+  displayName: string
   value: number
   color: string
 }
@@ -35,8 +49,9 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
     const weightedVariation = weightedVariations.find(wvElem => wvElem.variation === elem.identifier)
     return {
       id: elem.identifier,
+      displayName: elem.name || elem.value,
       value: weightedVariation?.weight || 100 / variations?.length,
-      color: randomColor[i]
+      color: Colors[i % Colors.length]
     }
   })
 
@@ -120,7 +135,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
                 className={css.circle}
                 style={{ backgroundColor: percentageValues[i].color, marginRight: '10px' }}
               ></span>
-              <Text margin={{ right: 'medium' }} width="100px" className={css.textUppercase}>
+              <Text margin={{ right: 'medium' }} width={100}>
                 {elem.id}
               </Text>
               {editing ? (

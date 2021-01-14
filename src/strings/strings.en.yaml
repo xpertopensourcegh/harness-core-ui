@@ -942,6 +942,8 @@ global:
       individual: 'Individual'
       segments: 'Segments'
       environment: 'environment'
+    featureFlags:
+      percentageRollout: 'Percentage Rollout'
     targets:
       title: 'Targets'
       ID: 'ID'
@@ -977,6 +979,8 @@ global:
         description: 'An environment is the representation of your production or non-production infrastructure'
         envTypeLabel: 'Environment type'
         nameLabel: 'Name of your environment'
+    auditLogs:
+      title: Audit Logs
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'
