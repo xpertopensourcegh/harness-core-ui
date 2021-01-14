@@ -34,16 +34,15 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
       <Stepk8ClusterDetails
         name={getString('connectors.k8.stepTwoName')}
         onConnectorCreated={props.onSuccess}
-        hideModal={props.hideModal}
+        hideModal={props.onClose}
         {...commonProps}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep
-        onSuccess={props.onSuccess}
         isLastStep={true}
         type={Connectors.KUBERNETES_CLUSTER}
-        hideModal={props.hideModal}
+        onClose={props.onClose}
         setIsEditMode={props.setIsEditMode}
       />
     </StepWizard>

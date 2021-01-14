@@ -75,9 +75,6 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = p => {
           name={i18n.STEP_THREE.NAME}
           isStep={true}
           setIsEditMode={() => undefined}
-          onSuccess={() => {
-            // Handle on success
-          }}
           isLastStep={false}
           type={Connectors.DOCKER}
         />

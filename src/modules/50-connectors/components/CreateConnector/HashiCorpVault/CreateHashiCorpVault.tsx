@@ -4,15 +4,15 @@ import { StepWizard } from '@wings-software/uicore'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import VaultConfigForm from './views/VaultConfigForm'
 
 export interface CreateHashiCorpVaultProps {
-  hideModal: () => void
-  onSuccess: () => void
+  onClose: () => void
+  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   mock?: any
   connectorInfo?: ConnectorInfoDTO | void
@@ -23,7 +23,7 @@ export interface StepSecretManagerProps extends ConnectorInfoDTO {
 }
 
 const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
-  const { hideModal, onSuccess } = props
+  const { onClose, onSuccess } = props
   const { getString } = useStrings()
   return (
     <StepWizard<StepSecretManagerProps>
@@ -38,12 +38,11 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <VaultConfigForm name={getString('connectors.hashiCorpVault.stepTwoName')} {...props} />
+      <VaultConfigForm name={getString('connectors.hashiCorpVault.stepTwoName')} {...props} onSuccess={onSuccess} />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep
-        hideModal={hideModal}
-        onSuccess={onSuccess}
+        onClose={onClose}
         isLastStep={true}
         type={Connectors.VAULT}
       />

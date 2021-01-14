@@ -22,10 +22,9 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
           isStep
-          onSuccess={props.onSuccess}
           isLastStep={true}
           type={Connectors.NEXUS}
-          hideModal={props.hideModal}
+          onClose={props.onClose}
         />
       </StepWizard>
     </>

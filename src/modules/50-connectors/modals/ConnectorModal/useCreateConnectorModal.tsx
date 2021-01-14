@@ -57,7 +57,10 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           onSuccess={data => {
             handleSuccess(data)
           }}
-          hideModal={hideModal}
+          onClose={() => {
+            props.onClose?.()
+            hideModal()
+          }}
         />
         <Button
           minimal

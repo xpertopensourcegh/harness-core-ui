@@ -16,7 +16,7 @@ const commonProps = {
   orgIdentifier: '',
   projectIdentifier: '',
   setIsEditMode: noop,
-  hideModal: noop,
+  onClose: noop,
   onSuccess: noop
 }
 

@@ -41,9 +41,8 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
         type={Connectors.BITBUCKET}
         name={getString('connectors.stepThreeName')}
         isStep={true}
-        onSuccess={props.onSuccess}
         isLastStep={true}
-        hideModal={props.hideModal}
+        onClose={props.onClose}
       />
     </StepWizard>
   )

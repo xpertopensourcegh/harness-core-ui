@@ -22,8 +22,8 @@ import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/V
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
+import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
-import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { getIconByType, GetTestConnectionValidationTextByType } from '../utils/ConnectorUtils'
 import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
@@ -32,6 +32,7 @@ interface ConnectorListViewProps {
   data?: PageConnectorResponse
   reload?: () => Promise<void>
   gotoPage: (pageNumber: number) => void
+  openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal']
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -281,12 +282,6 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
-  const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: () => {
-      ;(column as any).reload?.()
-    }
-  })
-
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.connector?.name || ''),
     titleText: i18n.confirmDeleteTitle,
@@ -319,7 +314,11 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     e.stopPropagation()
     setMenuOpen(false)
     if (!data?.connector?.identifier) return
-    openConnectorModal(true, row?.original?.connector?.type as ConnectorInfoDTO['type'], row.original.connector)
+    ;(column as any).openConnectorModal(
+      true,
+      row?.original?.connector?.type as ConnectorInfoDTO['type'],
+      row.original.connector
+    )
   }
 
   return (
@@ -393,11 +392,12 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         width: '5%',
         id: 'action',
         Cell: RenderColumnMenu,
+        openConnectorModal: props.openConnectorModal,
         reload: reload,
         disableSortBy: true
       }
     ],
-    [reload]
+    [props.openConnectorModal, reload]
   )
   return (
     <Table<ConnectorResponse>

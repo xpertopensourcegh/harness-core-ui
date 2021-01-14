@@ -9,7 +9,7 @@ import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'se
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
 
 interface CreateDockerConnectorProps {
-  hideModal: () => void
+  onClose: () => void
   onSuccess?: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode: boolean
@@ -41,11 +41,10 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
-          onSuccess={props.onSuccess}
           isStep={true}
           isLastStep={true}
           type={Connectors.DOCKER}
-          hideModal={props.hideModal}
+          onClose={props.onClose}
         />
       </StepWizard>
     </>

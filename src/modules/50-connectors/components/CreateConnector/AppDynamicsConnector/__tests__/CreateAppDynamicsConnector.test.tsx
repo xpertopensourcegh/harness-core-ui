@@ -22,7 +22,7 @@ describe('Create AppD connector Wizard', () => {
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
-          hideModal={noop}
+          onClose={noop}
           onConnectorCreated={noop}
           mockIdentifierValidate={mockIdentifierValidate}
         />

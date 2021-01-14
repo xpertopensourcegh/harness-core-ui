@@ -170,9 +170,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: () => {
-      // Note: coonector successfilly created/updated but modal shold not be closed
-      // as verify connection is in progress
+    onSuccess: data => {
+      setConnector(data?.connector as ConnectorInfoDTO)
+      setConnectorForYaml(data?.connector as ConnectorInfoDTO)
+      state.setEnableEdit(false)
     },
     onClose: () => {
       state.setEnableEdit(false)

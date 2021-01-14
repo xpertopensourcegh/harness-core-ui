@@ -22,7 +22,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
           isStep={true}
           isLastStep={true}
           type={Connectors.AWS}
-          hideModal={props.hideModal}
+          onClose={props.onClose}
         />
       </StepWizard>
     </>

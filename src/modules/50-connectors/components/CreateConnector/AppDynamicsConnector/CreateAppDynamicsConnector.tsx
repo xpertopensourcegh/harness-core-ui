@@ -33,7 +33,7 @@ interface CreateAppDynamicsConnectorProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  hideModal: () => void
+  onClose: () => void
   onConnectorCreated?: (data: ConnectorRequestBody) => void | Promise<void>
   mockIdentifierValidate?: ResponseBoolean
 }
@@ -134,7 +134,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           name={i18n.verifyConnection}
           url={formData?.url}
           connectorIdentifier={formData?.identifier}
-          onSuccess={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestBody)}
+          onClose={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestBody)}
           isStep
           isLastStep
           type={Connectors.APP_DYNAMICS}

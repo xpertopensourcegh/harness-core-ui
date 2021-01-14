@@ -25,15 +25,15 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  hideModal: () => void
+  onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
-  const { type, accountId, orgIdentifier, projectIdentifier, hideModal, ...rest } = props
+  const { type, accountId, orgIdentifier, projectIdentifier, onClose, ...rest } = props
   const commonProps = pick(props, [
     'onSuccess',
-    'hideModal',
+    'onClose',
     'isEditMode',
     'setIsEditMode',
     'connectorInfo',
@@ -58,7 +58,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return (
         <CreateAppDynamicsConnector
           {...rest}
-          hideModal={hideModal}
+          onClose={onClose}
           onConnectorCreated={props.onSuccess}
           accountId={accountId}
           orgIdentifier={orgIdentifier}
@@ -69,7 +69,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return (
         <CreateSplunkConnector
           {...rest}
-          hideModal={hideModal}
+          onClose={onClose}
           onConnectorCreated={props.onSuccess}
           accountId={accountId}
           orgIdentifier={orgIdentifier}

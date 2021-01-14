@@ -650,6 +650,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           <ConnectorsListView
             data={fetchedConnectorResponse}
             reload={fetchConnectorsWithFiltersApplied}
+            openConnectorModal={openConnectorModal}
             gotoPage={pageNumber => setPage(pageNumber)}
           />
         ) : (

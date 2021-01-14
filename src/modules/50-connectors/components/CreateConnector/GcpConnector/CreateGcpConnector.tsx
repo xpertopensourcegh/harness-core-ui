@@ -37,7 +37,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
           isStep={true}
           isLastStep={true}
           type={Connectors.GCP}
-          hideModal={props.hideModal}
+          onClose={props.onClose}
         />
       </StepWizard>
     </>

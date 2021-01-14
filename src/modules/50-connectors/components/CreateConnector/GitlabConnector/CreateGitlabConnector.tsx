@@ -40,10 +40,9 @@ const CreateGitlabConnector = (props: CreateConnectorModalProps): JSX.Element =>
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}
-        onSuccess={props.onSuccess}
         isLastStep={true}
         type={Connectors.GITLAB}
-        hideModal={props.hideModal}
+        onClose={props.onClose}
       />
     </StepWizard>
   )

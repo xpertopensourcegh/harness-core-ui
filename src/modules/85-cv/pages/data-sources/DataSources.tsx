@@ -216,7 +216,7 @@ function Providers(props: ProvidersProps): JSX.Element {
             }
             hideConnectorModal()
           }}
-          hideModal={hideConnectorModal}
+          onClose={hideConnectorModal}
         />
         <Button
           minimal

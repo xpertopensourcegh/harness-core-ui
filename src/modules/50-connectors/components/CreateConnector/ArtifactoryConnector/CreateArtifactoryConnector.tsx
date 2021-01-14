@@ -22,10 +22,9 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
           isStep={true}
-          onSuccess={props.onSuccess}
           isLastStep={true}
           type={Connectors.ARTIFACTORY}
-          hideModal={props.hideModal}
+          onClose={props.onClose}
         />
       </StepWizard>
     </>

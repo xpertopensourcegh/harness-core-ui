@@ -21,10 +21,9 @@ interface VerifyOutOfClusterDelegateProps {
   type: string
   isStep: boolean
   connectorIdentifier?: string
-  hideModal?: () => void
+  onClose?: () => void
   setIsEditMode?: (val: boolean) => void // Remove after removing all usages
   url?: string
-  onSuccess?: () => void
   isLastStep?: boolean
   name?: string
 }
@@ -320,8 +319,7 @@ const VerifyOutOfClusterDelegate: React.FC<
               disabled={loading || stepDetails.status === 'ERROR'}
               intent="primary"
               onClick={() => {
-                props.onSuccess?.()
-                props.hideModal?.()
+                props.onClose?.()
               }}
               text={getString('finish')}
             />

@@ -31,7 +31,7 @@ interface CreateSplunkConnectorProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  hideModal: () => void
+  onClose: () => void
   onConnectorCreated?: (data: ConnectorConfigDTO) => void | Promise<void>
   mockIdentifierValidate?: ResponseBoolean
 }
@@ -132,7 +132,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           name={i18n.verifyConnection}
           url={formData?.url}
           connectorIdentifier={formData?.identifier}
-          onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
+          onClose={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
           isStep
           isLastStep
           type={Connectors.SPLUNK}

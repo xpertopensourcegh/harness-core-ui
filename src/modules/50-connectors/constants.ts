@@ -23,7 +23,7 @@ interface ActivityStatusType {
 }
 
 export interface CreateConnectorModalProps {
-  hideModal: () => void
+  onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void

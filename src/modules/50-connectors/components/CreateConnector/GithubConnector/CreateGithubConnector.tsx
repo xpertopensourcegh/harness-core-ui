@@ -40,10 +40,9 @@ const CreateGithubConnector = (props: CreateConnectorModalProps): JSX.Element =>
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}
-        onSuccess={props.onSuccess}
         isLastStep={true}
         type={Connectors.GITHUB}
-        hideModal={props.hideModal}
+        onClose={props.onClose}
       />
     </StepWizard>
   )
