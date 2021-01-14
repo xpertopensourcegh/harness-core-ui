@@ -161,30 +161,6 @@ describe('<ExecutionLandingPage /> tests', () => {
     expect(refetch).toHaveBeenCalledTimes(called ? 1 : 0)
   })
 
-  test('Toggle details works', async () => {
-    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
-      refetch: jest.fn(),
-      loading: false,
-      data: mockData
-    }))
-
-    const { container, findByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
-        <ExecutionLandingPage>
-          <NotFound />
-        </ExecutionLandingPage>
-      </TestWrapper>
-    )
-
-    const toggle = await findByTestId('toggle-details')
-
-    expect(container).toMatchSnapshot('Without Details')
-
-    fireEvent.click(toggle)
-
-    expect(container).toMatchSnapshot('With Details')
-  })
-
   test('auto stage selection works', () => {
     ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),

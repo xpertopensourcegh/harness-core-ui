@@ -1,7 +1,5 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Icon, Tag } from '@wings-software/uicore'
-import cx from 'classnames'
 
 import { isEmpty } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
@@ -58,7 +56,6 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
 }
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
-  const [showDetail, setShowDetails] = React.useState(false)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>
   >()
@@ -105,10 +102,6 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     addServiceDependenciesFromLiteTaskEngine(nodeMap)
     return nodeMap
   }, [data?.data?.executionGraph?.nodeMap])
-
-  function toggleDetails(): void {
-    setShowDetails(status => !status)
-  }
 
   // setup polling
   React.useEffect(() => {
@@ -182,7 +175,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       {loading && !data ? <PageSpinner /> : null}
       <main className={css.main}>
         <div className={css.lhs}>
-          <header className={cx(css.header, { [css.showDetails]: showDetail })}>
+          <header className={css.header}>
             <Breadcrumbs
               links={[
                 {
@@ -242,29 +235,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                 />
               </div>
             </div>
-            <div className={css.headerBottomRow}>
-              <Button
-                className={css.toggleDetails}
-                icon={showDetail ? 'chevron-down' : 'chevron-right'}
-                small
-                iconProps={{ size: 14 }}
-                onClick={toggleDetails}
-                data-testid="toggle-details"
-              />
-              <div className={css.tags}>
-                <Icon name="main-tags" size={14} />
-                {pipelineExecutionSummary.tags &&
-                  (Object.entries(pipelineExecutionSummary.tags) || []).map(tag => (
-                    <Tag className={css.tag} key={tag[0]}>
-                      {tag[1].length > 0 ? `${tag[0]}: ${tag[1]}` : tag[0]}
-                    </Tag>
-                  ))}
-              </div>
-            </div>
           </header>
-          {showDetail ? <ExecutionMetadata /> : null}
+          <ExecutionMetadata />
           <ExecutionTabs />
-          <div className={cx(css.childContainer, { [css.showDetails]: showDetail })} id="pipeline-execution-container">
+          <div className={css.childContainer} id="pipeline-execution-container">
             {props.children}
           </div>
         </div>

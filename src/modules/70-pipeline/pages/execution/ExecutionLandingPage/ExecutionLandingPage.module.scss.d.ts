@@ -17,6 +17,5 @@ declare const styles: {
   readonly statusLabel: string
   readonly toggleDetails: string
   readonly childContainer: string
-  readonly showDetails: string
 }
 export default styles

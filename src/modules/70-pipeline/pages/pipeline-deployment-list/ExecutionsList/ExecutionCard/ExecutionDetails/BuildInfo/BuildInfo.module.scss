@@ -1,11 +1,5 @@
 .gitInfo1 {
   margin-top: var(--spacing-small);
-  display: flex;
-  align-items: center;
-
-  > * + * {
-    margin-left: var(--spacing-small) !important;
-  }
 }
 
 .gitInfo2 {
@@ -19,31 +13,6 @@
   }
 }
 
-.greyBox {
-  display: inline-flex;
-  background: var(--grey-200);
-  color: var(--grey-700);
-  border-radius: var(--spacing-small);
-  font-size: var(--font-size-normal);
-  font-weight: bold;
-  padding: var(--spacing-xsmall) var(--spacing-small);
-
-  .greyBoxIcon {
-    color: var(--grey-400) !important;
-    padding: 3px var(--spacing-small) 0 0 !important;
-  }
-
-  .greyBoxDelimiter {
-    border-left: 1px solid var(--grey-300);
-    margin: 0 var(--spacing-small) !important;
-  }
-
-  .sourceTargetArrow {
-    color: var(--grey-400) !important;
-    padding: 0 var(--spacing-xsmall);
-  }
-}
-
 .commitOrPrTitle {
   display: block;
   color: var(--grey-900) !important;
@@ -53,11 +22,11 @@
 .pullRequestStatus {
   font-size: var(--font-size-small);
   font-weight: 500;
-  background: var(--grey-200);
+  background: var(--grey-250);
   color: var(--grey-800);
   padding: 3px var(--spacing-small);
   border-radius: 100px;
-  border: 1px solid var(--grey-300);
+  text-transform: uppercase;
 }
 
 .ellipsis {

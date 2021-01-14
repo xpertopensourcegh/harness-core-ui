@@ -52,3 +52,5 @@ export { useExecutionLayoutContext, ExecutionLayoutState } from './components/Ex
 export { PipelineStage } from './components/PipelineStages/PipelineStage'
 export { PipelineStages } from './components/PipelineStages/PipelineStages'
 export { default as ExecutionStatusLabel } from './components/ExecutionStatusLabel/ExecutionStatusLabel'
+export { default as BuildBranchBadge } from './components/badges/BuildBranchBadge/BuildBranchBadge'
+export { default as BuildPullRequestBadge } from './components/badges/BuildPullRequestBadge/BuildPullRequestBadge'

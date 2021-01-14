@@ -12,12 +12,12 @@
 
   .header {
     height: $header-height;
-    box-shadow: inset var(--grey-200) 0 -1px 0;
+    //box-shadow: inset var(--grey-200) 0 -1px 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: var(--spacing-small) var(--spacing-medium) var(--spacing-medium) var(--spacing-xxlarge);
+    padding: var(--spacing-small) var(--spacing-medium) var(--spacing-none) var(--spacing-xxlarge);
 
     .breadcrumbs {
       font-size: var(--font-size-small);
@@ -37,6 +37,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      margin-top: var(--spacing-xsmall);
     }
 
     & .titleContainer {
@@ -46,9 +47,9 @@
 
     & .title {
       font-weight: 600;
-      font-size: var(--font-size-large);
-      line-height: 28px;
-      color: var(--grey-800);
+      font-size: 20px;
+      //line-height: 28px;
+      color: var(--grey-700);
       margin-right: var(--spacing-small);
     }
 
@@ -58,9 +59,10 @@
     }
 
     & .pipelineId {
+      font-size: var(--fon-size-normal);
       color: var(--grey-500);
       font-weight: 500;
-      line-height: 24px;
+      line-height: 22px;
     }
 
     & .headerBottomRow {
@@ -114,10 +116,6 @@
 
   .childContainer {
     position: relative;
-    height: calc(100vh - #{$header-height + $tabs-height});
-
-    &.showDetails {
-      height: calc(100vh - #{$header-height + $details-height + $tabs-height});
-    }
+    height: calc(100vh - #{$header-height + $details-height + $tabs-height});
   }
 }

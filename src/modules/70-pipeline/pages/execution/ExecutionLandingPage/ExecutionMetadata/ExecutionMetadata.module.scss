@@ -4,29 +4,66 @@
   height: $details-height;
   overflow: hidden;
   box-shadow: inset var(--grey-200) 0 -2px 0;
-  padding: var(--spacing-small) var(--spacing-medium) var(--spacing-small) var(--spacing-xxlarge);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  align-items: center;
+  padding: 0 var(--spacing-medium) 0 var(--spacing-xxlarge);
+  display: flex;
 
-  & .entry {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  > div {
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+
+  .commitMessageValue,
+  .pullRequestValue {
+    display: flex;
+    align-items: center;
+
+    > * + * {
+      margin-left: var(--spacing-small) !important;
+    }
+  }
+
+  .pullRequestMessage {
+    display: block;
+    max-width: 250px;
+  }
+
+  .pullRequestStatus {
     font-size: var(--font-size-small);
+    font-weight: 500;
+    background: var(--grey-200);
+    color: var(--grey-700);
+    padding: 3px var(--spacing-small);
+    border-radius: 100px;
+    text-transform: uppercase;
   }
 
-  & .label {
-    display: inline-block;
-    color: var(--grey-350);
-    margin-right: var(--spacing-large);
-    min-width: 80px;
+  .pullRequestLink {
+    white-space: nowrap !important;
   }
 
-  & .value {
-    overflow: hidden;
+  .commitMessage {
+    max-width: 250px;
+  }
+
+  .ellipsis {
     text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: hidden;
+    white-space: nowrap !important;
+  }
+
+  .moreBox {
+    display: inline-flex;
+    padding: 0px 1px;
+    color: var(--grey-500);
+    border-radius: 3px !important;
+    border: 1px solid var(--grey-500) !important;
+
+    // icon
+    > span {
+      margin: 1px !important;
+    }
   }
 }

@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { first } from 'lodash-es'
 import { Color, Icon, Link, Text } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/exports'
+import { BuildBranchBadge, BuildPullRequestBadge } from '@pipeline/exports'
 import type { CIBuildResponseDTO } from '../Types/types'
 import css from './BuildInfo.module.scss'
 
@@ -20,25 +21,17 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
   const { getString } = useStrings()
 
   let sourceInfo
+
   switch (buildData?.event) {
     case 'branch': {
       const lastCommit = first(buildData?.branch?.commits)
       sourceInfo = (
         <>
-          <div className={css.gitInfo1}>
-            <span className={css.greyBox}>
-              <Icon className={css.greyBoxIcon} color={Color.GREY_500} name="git-branch" size={10} />
-              <span className={css.ellipsis} style={{ maxWidth: '250px' }}>
-                {buildData?.branch?.name}
-              </span>
-            </span>
-            {lastCommit ? (
-              <span className={css.greyBox}>
-                <Icon className={css.greyBoxIcon} color={Color.GREY_500} name="git-commit" size={10} />
-                {lastCommit?.id?.slice(0, 7)}
-              </span>
-            ) : null}
-          </div>
+          <BuildBranchBadge
+            branchName={buildData?.branch?.name}
+            commitId={lastCommit?.id?.slice(0, 7)}
+            className={css.gitInfo1}
+          />
 
           {lastCommit ? (
             <div className={css.gitInfo2}>
@@ -63,25 +56,12 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
       const lastCommit = first(buildData?.pullRequest?.commits)
       sourceInfo = (
         <>
-          <div className={css.gitInfo1}>
-            <span className={css.greyBox}>
-              <span className={css.ellipsis} style={{ maxWidth: '150px' }}>
-                {buildData?.pullRequest?.sourceRepo}
-              </span>
-              <span className={css.greyBoxDelimiter} />
-              <Icon className={css.greyBoxIcon} name="git-branch" size={10} />
-              <span className={css.ellipsis} style={{ maxWidth: '150px' }}>
-                {buildData?.pullRequest?.sourceBranch}
-              </span>
-            </span>
-            <Icon className={css.sourceTargetArrow} name="arrow-right" size={12} />
-            <span className={css.greyBox}>
-              <Icon className={css.greyBoxIcon} name="git-branch" size={10} />
-              <span className={css.ellipsis} style={{ maxWidth: '150px' }}>
-                {buildData?.pullRequest?.targetBranch}
-              </span>
-            </span>
-          </div>
+          <BuildPullRequestBadge
+            sourceRepo={buildData?.pullRequest?.sourceRepo}
+            sourceBranch={buildData?.pullRequest?.sourceBranch}
+            targetBranch={buildData?.pullRequest?.targetBranch}
+            className={css.gitInfo1}
+          />
 
           <div className={css.gitInfo2}>
             <Text className={cx(css.ellipsis, css.commitOrPrTitle)}>{buildData?.pullRequest?.title}</Text>
@@ -107,18 +87,7 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
 
     // NOTE: if no other data is available we are showing only branch name
     default: {
-      sourceInfo = (
-        <>
-          <div className={css.gitInfo1}>
-            <span className={css.greyBox}>
-              <Icon className={css.greyBoxIcon} color={Color.GREY_500} name="git-branch" size={10} />
-              <span className={css.ellipsis} style={{ maxWidth: '250px' }}>
-                {branchName}
-              </span>
-            </span>
-          </div>
-        </>
-      )
+      sourceInfo = <BuildBranchBadge branchName={branchName} className={css.gitInfo1} />
       break
     }
   }

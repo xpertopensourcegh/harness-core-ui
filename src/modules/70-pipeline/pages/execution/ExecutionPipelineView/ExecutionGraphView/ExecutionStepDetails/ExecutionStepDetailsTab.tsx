@@ -42,7 +42,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
       {step?.failureInfo && !isEmpty(step.failureInfo) ? (
         <div className={css.errorMsg}>
           <String className={css.title} stringID="errorSummaryText" tagName="div" />
-          <p>{step?.failureInfo.errorMessage}</p>
+          <p>{step?.failureInfo?.errorMessage}</p>
         </div>
       ) : null}
       <table className={css.detailsTable}>
