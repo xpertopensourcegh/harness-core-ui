@@ -15,6 +15,8 @@ import { v4 as uuid } from 'uuid'
 import { isEmpty } from 'lodash-es'
 
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
@@ -38,7 +40,8 @@ interface HttpStepWidgetProps {
   readonly?: boolean
 }
 
-const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function HttpStepWidget(props: HttpStepWidgetProps, formikRef: StepFormikFowardRef<HttpStepData>): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
@@ -57,6 +60,9 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
       })}
     >
       {(formik: FormikProps<HttpStepFormData>) => {
+        // this is required
+        setFormikRef(formikRef, formik)
+
         return (
           <React.Fragment>
             <Accordion activeId="step-1" className={stepCss.accordion}>
@@ -73,9 +79,11 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
   )
 }
 
+const HttpStepWidgetWithRef = React.forwardRef(HttpStepWidget)
+
 export class HttpStep extends PipelineStep<HttpStepData> {
   renderStep(this: HttpStep, props: StepProps<HttpStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -91,11 +99,12 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     }
 
     return (
-      <HttpStepWidget
+      <HttpStepWidgetWithRef
         initialValues={this.processInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
+        ref={formikRef}
       />
     )
   }
@@ -105,6 +114,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected stepIcon: IconName = 'http-step'
 
   validateInputSet(data: HttpStepData, template: HttpStepData, getString?: UseStringsReturn['getString']): object {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
 
     /* istanbul ignore else */

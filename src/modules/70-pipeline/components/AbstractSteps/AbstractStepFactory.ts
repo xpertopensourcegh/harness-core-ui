@@ -63,7 +63,7 @@ export abstract class AbstractStepFactory {
     }
   }
 
-  getStep<T extends object>(type?: string): Step<T> | undefined {
+  getStep<T>(type?: string): Step<T> | undefined {
     if (type && !isEmpty(type)) {
       return this.stepBank.get(type) as Step<T>
     }

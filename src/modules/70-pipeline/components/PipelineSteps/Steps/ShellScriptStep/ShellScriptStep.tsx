@@ -16,6 +16,7 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './ShellScriptStep.i18n'
 import { PipelineStep } from '../../PipelineStep'
@@ -38,7 +39,10 @@ interface ShellScriptWidgetProps {
   stepViewType?: StepViewType
 }
 
-const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function ShellScriptWidget(
+  { initialValues, onUpdate }: ShellScriptWidgetProps,
+  formikRef: StepFormikFowardRef
+): JSX.Element {
   const { getString } = useStrings()
 
   const defaultSSHSchema = Yup.object().shape({
@@ -145,6 +149,9 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
       validationSchema={validationSchema}
     >
       {(formik: FormikProps<ShellScriptFormData>) => {
+        // this is required
+        setFormikRef(formikRef, formik)
+
         return (
           <>
             <Accordion activeId="step-1" className={stepCss.accordion}>
@@ -175,9 +182,11 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
   )
 }
 
+const ShellScriptWidgetWithRef = React.forwardRef(ShellScriptWidget)
+
 export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   renderStep(props: StepProps<ShellScriptData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -192,10 +201,11 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       )
     }
     return (
-      <ShellScriptWidget
+      <ShellScriptWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
+        ref={formikRef}
       />
     )
   }

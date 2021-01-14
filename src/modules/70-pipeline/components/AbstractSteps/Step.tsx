@@ -1,5 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
-import type { FormikErrors } from 'formik'
+import type { FormikErrors, FormikProps } from 'formik'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import type { UseStringsReturn } from 'framework/exports'
 import type { AbstractStepFactory } from './AbstractStepFactory'
@@ -20,6 +20,11 @@ export interface InputSetData<T> {
   readonly?: boolean
 }
 
+export type StepFormikFowardRef<T = unknown> =
+  | ((instance: FormikProps<T> | null) => void)
+  | React.MutableRefObject<FormikProps<T> | null>
+  | null
+
 export interface StepProps<T, U = unknown> {
   initialValues: T
   onUpdate?: (data: T) => void
@@ -27,7 +32,18 @@ export interface StepProps<T, U = unknown> {
   inputSetData?: InputSetData<T>
   factory?: AbstractStepFactory
   path: string
+  formikRef?: StepFormikFowardRef<T>
   customStepProps?: U
+}
+
+export function setFormikRef<T = unknown, U = unknown>(ref: StepFormikFowardRef<T>, formik: FormikProps<U>): void {
+  if (!ref) return
+
+  if (typeof ref === 'function') {
+    return
+  }
+
+  ref.current = (formik as unknown) as FormikProps<T>
 }
 
 export abstract class Step<T> {

@@ -30,7 +30,8 @@ export default {
 } as Meta
 
 export const DeployEnvironment: Story<Omit<TestStepWidgetProps, 'factory'>> = args => {
-  const [value, setValue] = React.useState({ ...args.initialValues })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [value, setValue] = React.useState({ ...(args.initialValues as any) })
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', columnGap: '20px' }}>
       <Card>

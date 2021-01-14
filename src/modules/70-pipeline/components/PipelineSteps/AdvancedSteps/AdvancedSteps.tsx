@@ -9,6 +9,7 @@ import {
   Values
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
@@ -21,7 +22,7 @@ export interface AdvancedStepsProps extends StepCommandsProps {
   _?: unknown // to void empty interface error
 }
 
-export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactElement {
+export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
   const { step, onChange, hiddenPanels = [] } = props
   const { getString } = useStrings()
 
@@ -33,6 +34,8 @@ export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactEle
       }}
     >
       {(formikProps: FormikProps<Values>) => {
+        setFormikRef(formikRef, formikProps)
+
         return (
           <FormikForm className={css.form}>
             <div>
@@ -69,3 +72,5 @@ export default function AdvancedSteps(props: AdvancedStepsProps): React.ReactEle
     </Formik>
   )
 }
+
+export const AdvancedStepsWithRef = React.forwardRef(AdvancedSteps)
