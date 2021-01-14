@@ -610,6 +610,14 @@ global:
     limitCPUExample: 'Ex: 1'
     timeoutLabel: 'Timeout'
     timeoutPlaceholder: '120s'
+    resourceNameLabel: 'Resource Name'
+    resourceNameValue: 'ResourceName'
+    releaseNameLabel: 'Release Name'
+    releaseNameValue: 'ReleaseName'
+    manifestPathLabel: 'Manifest Path'
+    manifestPathValue: 'ManifestPath'
+    deleteResourcesBy: 'Delete resources by'
+    deleteResourcesPlaceHolder: 'Specify resources to be delete'
     timeoutInfo: |
       You can use:
 
@@ -726,6 +734,7 @@ global:
         deploymentTypes:
           artifacts: 'Artifacts'
           manifests: 'Manifests'
+
   validation:
     nameRequired: Name is a required field
     stepNameRequired: Step Name is a required field

@@ -50,23 +50,29 @@ interface K8sDeleteProps {
   }
   readonly?: boolean
 }
-const accessTypeOptions: IOptionProps[] = [
-  {
-    label: 'Resource Name',
-    value: 'ResourceName'
-  },
-  {
-    label: 'Release Name',
-    value: 'ReleaseName'
-  },
-  {
-    label: 'Manifest Path',
-    value: 'ManifestPath'
-  }
-]
 
 const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const { getString } = useStrings()
+
+  const accessTypeOptions = React.useMemo(() => {
+    // eslint-disable-next-line no-shadow
+    const options: IOptionProps[] = [
+      {
+        label: getString('pipelineSteps.resourceNameLabel'),
+        value: getString('pipelineSteps.resourceNameValue')
+      },
+      {
+        label: getString('pipelineSteps.releaseNameLabel'),
+        value: getString('pipelineSteps.releaseNameValue')
+      },
+      {
+        label: getString('pipelineSteps.manifestPathLabel'),
+        value: getString('pipelineSteps.manifestPathValue')
+      }
+    ]
+    return options
+  }, [])
+
   return (
     <>
       <Formik<K8sDeleteData>
@@ -75,13 +81,16 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
 
           const data = values
           /* making sure to remove other entities */
-          if (data.spec?.deleteResourcesBy === 'ResourceName') {
+          if (data.spec?.deleteResourcesBy === getString('pipelineSteps.resourceNameValue')) {
+            /* istanbul ignore next */
             delete data.spec?.spec?.deleteNamespace
             delete data.spec?.spec?.manifestPaths
-          } else if (data.spec?.deleteResourcesBy === 'ReleaseName') {
+          } else if (data.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue')) {
+            /* istanbul ignore next */
             delete data.spec?.spec?.resourceNames
             delete data.spec?.spec?.manifestPaths
-          } else if (data.spec?.deleteResourcesBy === 'ManifestPath') {
+          } else if (data.spec?.deleteResourcesBy === getString('pipelineSteps.manifestPathValue')) {
+            /* istanbul ignore next */
             delete data.spec?.spec?.resourceNames
             delete data.spec?.spec?.deleteNamespace
           }
@@ -106,13 +115,13 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
                       <FormInput.InputWithIdentifier inputLabel={getString('name')} />
 
                       <FormInput.RadioGroup
-                        label="Delete resources by"
+                        label={getString('pipelineSteps.deleteResourcesBy')}
                         name="spec.deleteResourcesBy"
                         items={accessTypeOptions}
                         radioGroup={{ inline: true }}
                       />
 
-                      {values?.spec?.deleteResourcesBy === 'ResourceName' && (
+                      {values?.spec?.deleteResourcesBy === getString('pipelineSteps.resourceNameValue') && (
                         <FieldArray
                           name="spec.spec.resourceNames"
                           render={arrayHelpers => (
@@ -125,14 +134,21 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
                                 >
                                   <FormInput.MultiTextInput
                                     label=""
-                                    placeholder={'Specify resources to be delete'}
+                                    placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
                                     name={`spec.spec.resourceNames[${index}]`}
                                     style={{ width: '430px' }}
                                   />
                                   {/* istanbul ignore next */}
                                   {formikProps.values?.spec?.spec?.resourceNames &&
                                     formikProps.values?.spec?.spec?.resourceNames.length > 1 && (
-                                      <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                      <Button
+                                        minimal
+                                        icon="minus"
+                                        onClick={() => {
+                                          /* istanbul ignore next */
+                                          arrayHelpers.remove(index)
+                                        }}
+                                      />
                                     )}
                                 </Layout.Horizontal>
                               ))}
@@ -141,7 +157,10 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
                                   minimal
                                   text={getString('addFileText')}
                                   intent="primary"
-                                  onClick={() => arrayHelpers.push('')}
+                                  onClick={() => {
+                                    /* istanbul ignore next */
+                                    arrayHelpers.push('')
+                                  }}
                                 />
                               </span>
                             </Layout.Vertical>
@@ -149,7 +168,7 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
                         />
                       )}
 
-                      {values?.spec?.deleteResourcesBy === 'ReleaseName' && (
+                      {values?.spec?.deleteResourcesBy === getString('pipelineSteps.releaseNameValue') && (
                         <Layout.Horizontal
                           spacing="medium"
                           flex={{ distribution: 'space-between' }}
@@ -160,11 +179,12 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
                         </Layout.Horizontal>
                       )}
 
-                      {values?.spec?.deleteResourcesBy === 'ManifestPath' && (
+                      {values?.spec?.deleteResourcesBy === getString('pipelineSteps.manifestPathValue') && (
                         <FieldArray
                           name="spec.spec.manifestPaths"
                           render={arrayHelpers => (
                             <Layout.Vertical>
+                              {/* istanbul ignore next */}
                               {formikProps.values?.spec?.spec?.manifestPaths?.map((path: string, index: number) => (
                                 <Layout.Horizontal
                                   key={path}
@@ -173,7 +193,7 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
                                 >
                                   <FormInput.MultiTextInput
                                     label=""
-                                    placeholder={'Specify resources to be delete'}
+                                    placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
                                     name={`spec.spec.manifestPaths[${index}]`}
                                     style={{ width: '430px' }}
                                   />
@@ -253,6 +273,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
     const { initialValues, onUpdate, stepViewType, inputSetData } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+      /* istanbul ignore next */
       return (
         <K8sDeleteInputStep
           initialValues={initialValues}
