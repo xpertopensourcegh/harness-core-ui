@@ -48,13 +48,8 @@ export const Connectors: ConnectorType = {
   GCP_KMS: 'GcpKms',
   LOCAL: 'Local',
   AWS: 'Aws',
-  SECRET_MANAGER: 'CustomSecretManager',
   NEXUS: 'Nexus',
-  ARTIFACTORY: 'Artifactory',
-  CYBERARK: 'Cyberark',
-  AZUREVAULT: 'Azurevault',
-  AWSKMS: 'AwsKms',
-  AWSSM: 'Awssecretsmanager'
+  ARTIFACTORY: 'Artifactory'
 }
 
 export const ConnectorInfoText = {

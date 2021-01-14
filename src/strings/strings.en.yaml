@@ -72,6 +72,7 @@ global:
   production: Production
   nonProduction: Non Production
   primaryArtifactText: Primary Artifact
+  artifactDisplay: '{{image}} (tag: #{{tag}})'
   sidecarArtifactText: Sidecar Artifact
   sidecarsText: Sidecars
   manifestsText: Manifest

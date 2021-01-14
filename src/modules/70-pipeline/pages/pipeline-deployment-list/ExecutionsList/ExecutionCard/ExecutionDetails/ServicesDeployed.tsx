@@ -6,7 +6,7 @@ import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 
-import type { CDPipelineModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
+import type { CDPipelineModuleInfo, CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import css from '../ExecutionCard.module.scss'
 
 export interface ServicesDeployedProps {
@@ -25,7 +25,7 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
     const map = new Map<string, ServiceExecutionSummary>()
 
     stagesMap.forEach(stage => {
-      const serviceInfo = stage.moduleInfo?.cd?.serviceInfoList as ServiceExecutionSummary
+      const serviceInfo = (stage.moduleInfo?.cd as CDStageModuleInfo)?.serviceInfo
       if (serviceInfo?.identifier) {
         map.set(serviceInfo.identifier, serviceInfo)
       }
@@ -57,14 +57,38 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
             >
               <div className={css.serviceName}>{service.displayName}</div>
               <div className={css.servicesDeployedHoverCard}>
-                <String tagName="div" className={css.title} stringID="primaryArtifactText" />
-                {service?.artifacts ? (
-                  <div>{JSON.stringify(service.artifacts)}</div>
-                ) : (
-                  <String tagName="div" stringID="na" />
-                )}
-                <String tagName="div" className={css.title} stringID="sidecarsText" />
-                <String tagName="div" stringID="todo" />
+                {service?.artifacts?.primary ? (
+                  <>
+                    <String tagName="div" className={css.title} stringID="primaryArtifactText" />
+                    <String
+                      tagName="div"
+                      stringID="artifactDisplay"
+                      useRichText
+                      vars={{
+                        image: ((service.artifacts.primary as unknown) as any).imagePath,
+                        tag: ((service.artifacts.primary as unknown) as any).tag
+                      }}
+                    />
+                  </>
+                ) : null}
+                {service?.artifacts?.sidecars && service.artifacts.sidecars.length > 0 ? (
+                  <>
+                    <String tagName="div" className={css.title} stringID="sidecarsText" />
+                    {service.artifacts.sidecars.map((artifact, index) => (
+                      <String
+                        tagName="div"
+                        key={index}
+                        stringID="artifactDisplay"
+                        useRichText
+                        vars={{
+                          image: ((artifact as unknown) as any).imagePath,
+                          tag: ((artifact as unknown) as any).tag
+                        }}
+                      />
+                    ))}
+                  </>
+                ) : null}
+
                 <String tagName="div" className={css.title} stringID="manifestsText" />
                 <String tagName="div" stringID="todo" />
               </div>

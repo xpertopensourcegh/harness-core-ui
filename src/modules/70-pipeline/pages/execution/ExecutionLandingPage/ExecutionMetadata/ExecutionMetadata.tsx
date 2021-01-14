@@ -21,12 +21,15 @@ export default function ExecutionMetadata(): React.ReactElement {
 
     pipelineStagesMap.forEach(stage => {
       const stageInfo = stage.moduleInfo?.cd as CDStageModuleInfo
-      if (stageInfo?.serviceInfoList?.identifier && environments.indexOf(stageInfo.serviceInfoList.identifier) === -1) {
-        services.push(stageInfo.serviceInfoList.identifier)
+      if (stageInfo?.serviceInfo?.identifier && environments.indexOf(stageInfo.serviceInfo.identifier) === -1) {
+        services.push(stageInfo.serviceInfo.identifier)
       }
 
-      if (stageInfo?.infrastructureIdentifiers && environments.indexOf(stageInfo.infrastructureIdentifiers) === -1) {
-        environments.push(stageInfo.infrastructureIdentifiers)
+      if (
+        stageInfo?.infraExecutionSummary?.identifier &&
+        environments.indexOf(stageInfo.infraExecutionSummary.identifier) === -1
+      ) {
+        environments.push(stageInfo.infraExecutionSummary.identifier)
       }
     })
 

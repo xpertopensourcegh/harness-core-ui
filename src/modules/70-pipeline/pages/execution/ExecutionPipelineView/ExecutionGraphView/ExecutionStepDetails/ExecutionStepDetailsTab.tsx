@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
+import { isEmpty } from 'lodash-es'
 import type { ExecutionNode } from 'services/cd-ng'
 import { String } from 'framework/exports'
 import { DurationI18n, timeDelta } from '@common/exports'
@@ -38,7 +39,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   }
   return (
     <div className={css.detailsTab}>
-      {step?.failureInfo ? (
+      {step?.failureInfo && !isEmpty(step.failureInfo) ? (
         <div className={css.errorMsg}>
           <String className={css.title} stringID="errorSummaryText" tagName="div" />
           <p>{step?.failureInfo.errorMessage}</p>

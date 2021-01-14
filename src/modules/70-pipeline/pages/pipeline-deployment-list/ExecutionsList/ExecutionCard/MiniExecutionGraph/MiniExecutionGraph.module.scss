@@ -226,6 +226,10 @@
 
   .errorMsg {
     color: var(--red-500);
+    max-width: 280px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
   }
 }

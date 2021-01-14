@@ -86,7 +86,7 @@ export function createLogSection(
     // CD stage logs data
     // TODO: DTO
     // NOTE: first element for logKeys and units
-    const taskObj = step?.executableResponses?.[0].taskChain as any
+    const taskObj = step?.executableResponses?.[0]?.taskChain as any
     const logKeys = taskObj?.logKeys || []
     const sectionTitles = taskObj?.units || []
 

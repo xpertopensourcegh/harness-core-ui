@@ -1,10 +1,9 @@
 import React from 'react'
 import { Layout, Button } from '@wings-software/uicore'
 
-import type { ResponseConnectorValidationResult } from 'services/cd-ng'
+import type { ResponseConnectorValidationResult, ConnectorInfoDTO } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useTestConnectionModal from '@connectors/common/useTestConnectionModal/useTestConnectionModal'
-import type { ConnectorInfoDTO } from 'services/cv'
 import i18n from './TestConnection.i18n'
 import css from './TestConnection.module.scss'
 

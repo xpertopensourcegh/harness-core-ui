@@ -2,6 +2,7 @@ import React from 'react'
 import { IconName, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 
+import { Tooltip } from '@blueprintjs/core'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
@@ -117,7 +118,9 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
           </div>
         ) : null}
         {isExecutionCompletedWithBadState(status) && executionErrorInfo?.message ? (
-          <div className={cx(css.stepCount, css.errorMsg)}>{executionErrorInfo.message}</div>
+          <Tooltip content={executionErrorInfo.message}>
+            <div className={cx(css.stepCount, css.errorMsg)}>{executionErrorInfo.message}</div>
+          </Tooltip>
         ) : null}
       </div>
     </div>

@@ -13,6 +13,6 @@ export default {
   notifyOnlyMe: 'Notify only me',
   skipPreFlightCheck: 'Skip pre-flight check',
   noRuntimeInput: 'No Runtime input in pipeline',
-  pipelineRunSuccessFully: 'Pipeline Started SuccessFully',
+  pipelineRunSuccessFully: 'Pipeline started successfully',
   runPipelineFailed: 'Failed to run pipeline'
 }
