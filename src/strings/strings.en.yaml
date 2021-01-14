@@ -268,6 +268,7 @@ global:
   noProjects: 'No Projects Found'
   string: 'String'
   number: 'Number'
+  secretType: 'Secret'
   list: 'List'
   map: 'Map'
   HTTPS: 'HTTPS'
@@ -719,9 +720,7 @@ global:
         variablesCell: 'VARIABLES'
         valueCell: 'VALUE'
         addVariable: '+ Add Variable'
-        addCustomVariableDialogTitle: 'Add Custom Variable'
-        textType: 'Text'
-        secretType: 'Secret'
+        addVariableDialogTitle: 'Add Variable'
       infraSpecifications:
         whereToRun: Where do you want the builds to run?
         propagate: 'Propagate from an existing stage'

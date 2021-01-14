@@ -33,7 +33,7 @@ export const List = (props: ListProps): React.ReactElement => {
       value: item
     }))
 
-    // Provide default value
+    // Adding a default value
     if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {
       initialValueInCorrectFormat.push(generateNewValue())
     }
@@ -44,19 +44,6 @@ export const List = (props: ListProps): React.ReactElement => {
   const error = get(formik?.errors, name, '')
   const touched = get(formik?.touched, name)
   const hasSubmitted = get(formik, 'submitCount', 0) > 0
-
-  React.useEffect(() => {
-    let valueInCorrectFormat: ListType = []
-    if (Array.isArray(value)) {
-      valueInCorrectFormat = value.filter(item => !!item.value).map(item => item.value)
-    }
-
-    if (isEmpty(valueInCorrectFormat)) {
-      formik?.setFieldValue(name, undefined)
-    } else {
-      formik?.setFieldValue(name, valueInCorrectFormat)
-    }
-  }, [name, value, formik?.setFieldValue])
 
   const addValue: () => void = () => {
     setValue(currentValue => currentValue.concat(generateNewValue()))
@@ -80,6 +67,38 @@ export const List = (props: ListProps): React.ReactElement => {
       })
     )
   }
+
+  React.useEffect(() => {
+    const initialValue = get(formik?.values, name, '') as ListType
+    const valueWithoutEmptyItems = value.filter(item => !!item.value)
+
+    if (isEmpty(valueWithoutEmptyItems) && initialValue) {
+      const initialValueInCorrectFormat = (initialValue || []).map(item => ({
+        id: uuid('', nameSpace()),
+        value: item
+      }))
+
+      // Adding a default value
+      if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {
+        initialValueInCorrectFormat.push(generateNewValue())
+      }
+
+      setValue(initialValueInCorrectFormat)
+    }
+  }, [formik?.values, name, value])
+
+  React.useEffect(() => {
+    let valueInCorrectFormat: ListType = []
+    if (Array.isArray(value)) {
+      valueInCorrectFormat = value.filter(item => !!item.value).map(item => item.value)
+    }
+
+    if (isEmpty(valueInCorrectFormat)) {
+      formik?.setFieldValue(name, undefined)
+    } else {
+      formik?.setFieldValue(name, valueInCorrectFormat)
+    }
+  }, [name, value, formik?.setFieldValue])
 
   return (
     <div style={style}>

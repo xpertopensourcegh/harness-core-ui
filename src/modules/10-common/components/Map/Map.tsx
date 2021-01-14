@@ -70,6 +70,26 @@ export const Map = (props: MapProps): React.ReactElement => {
   }
 
   React.useEffect(() => {
+    const initialValue = get(formik?.values, name, '') as MapType
+    const valueWithoutEmptyItems = value.filter(item => !!item.value)
+
+    if (isEmpty(valueWithoutEmptyItems) && initialValue) {
+      const initialValueInCorrectFormat = Object.keys(initialValue || {}).map(key => ({
+        id: uuid('', nameSpace()),
+        key: key,
+        value: initialValue[key]
+      }))
+
+      // Adding a default value
+      if (Array.isArray(initialValueInCorrectFormat) && initialValueInCorrectFormat.length === 0) {
+        initialValueInCorrectFormat.push(generateNewValue())
+      }
+
+      setValue(initialValueInCorrectFormat)
+    }
+  }, [formik?.values, name, value])
+
+  React.useEffect(() => {
     const valueInCorrectFormat: MapType = {}
     if (Array.isArray(value)) {
       value.forEach(mapValue => {

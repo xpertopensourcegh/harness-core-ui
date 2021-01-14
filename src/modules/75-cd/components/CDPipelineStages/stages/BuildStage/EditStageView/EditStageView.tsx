@@ -199,7 +199,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 defaultChecked={formikProps.values.cloneCodebase}
               />
               <div className={css.cloneCodebaseInfo}>
-                <Button icon="info" minimal tooltip={getString('details')} iconProps={{ size: 8 }} />
+                <Button icon="info" minimal iconProps={{ size: 8 }} />
                 <Text font="xsmall">{getString('pipelineSteps.build.create.cloneCodebaseHelperText')}</Text>
               </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}

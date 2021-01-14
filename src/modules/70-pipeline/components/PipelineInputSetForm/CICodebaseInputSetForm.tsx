@@ -1,5 +1,5 @@
 import React from 'react'
-import { get } from 'lodash-es'
+import { get, isEmpty } from 'lodash-es'
 import { FormInput } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import i18n from './PipelineInputSetForm.i18n'
@@ -11,7 +11,9 @@ export interface CICodebaseInputSetFormProps {
 }
 
 const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {
-  const type = get(formik?.values, `${path}.properties.ci.codebase.build.type`, '') as 'branch' | 'tag'
+  const type = get(formik?.values, `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`, '') as
+    | 'branch'
+    | 'tag'
 
   const radioGroupItems = [
     {
@@ -34,17 +36,17 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   return (
     <>
       <FormInput.RadioGroup
-        name={`${path}.properties.ci.codebase.build.type`}
+        name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
         onChange={() => {
-          formik?.setFieldValue(`${path}.properties.ci.codebase.build.spec`, undefined)
+          formik?.setFieldValue(`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec`, undefined)
         }}
       />
       {type && (
         <FormInput.Text
           label={inputLabels[type]}
-          name={`${path}.properties.ci.codebase.build.spec.${type}`}
+          name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${type}`}
           disabled={readonly}
         />
       )}

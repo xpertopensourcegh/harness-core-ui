@@ -65,8 +65,8 @@ export interface Variable {
 
 enum VariableTypes {
   // eslint-disable-next-line no-shadow
-  Text = 'text',
-  Secret = 'secret'
+  String = 'String',
+  Secret = 'Secret'
 }
 
 const secretsOptions: Map<string, string> = new Map()
@@ -82,7 +82,7 @@ export default function BuildStageSpecifications(): JSX.Element {
   const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>({
     name: '',
-    type: VariableTypes.Text,
+    type: VariableTypes.String,
     value: ''
   })
 
@@ -142,7 +142,7 @@ export default function BuildStageSpecifications(): JSX.Element {
     tags: null | string[]
     cloneCodebase: boolean
     sharedPaths: string[]
-    customVariables: { name: string; type: string; value?: string }[]
+    variables: { name: string; type: string; value?: string }[]
     // connectorRef?: ConnectorReferenceFieldProps['selected']
     // repoName?: string
   } => {
@@ -160,7 +160,7 @@ export default function BuildStageSpecifications(): JSX.Element {
             id: uuid('', nameSpace()),
             value: _value
           })) || []
-    const customVariables = spec?.customVariables || []
+    const variables = spec?.variables || []
     // let connectorRef
     // const repoName = codebase?.repoName || ''
 
@@ -187,7 +187,7 @@ export default function BuildStageSpecifications(): JSX.Element {
       tags: null,
       cloneCodebase,
       sharedPaths,
-      customVariables
+      variables
       // connectorRef,
       // repoName
     }
@@ -226,10 +226,10 @@ export default function BuildStageSpecifications(): JSX.Element {
         delete spec.sharedPaths
       }
 
-      if (values.customVariables && values.customVariables.length > 0) {
-        spec.customVariables = values.customVariables
+      if (values.variables && values.variables.length > 0) {
+        spec.variables = values.variables
       } else {
-        delete spec.customVariables
+        delete spec.variables
       }
 
       // if (values.connectorRef) {
@@ -260,7 +260,7 @@ export default function BuildStageSpecifications(): JSX.Element {
   const closeDialog = React.useCallback(() => {
     setSelectedVariable({
       name: '',
-      type: VariableTypes.Text,
+      type: VariableTypes.String,
       value: ''
     })
     setIsDialogOpen(false)
@@ -319,6 +319,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           className: css.fields,
                           placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder')
                         }}
+                        isIdentifierEditable={false}
                       />
                       <div className={css.addDataLinks}>
                         {!isDescriptionVisible && !formValues.description && (
@@ -485,10 +486,10 @@ export default function BuildStageSpecifications(): JSX.Element {
                   </Layout.Vertical>
                   <FormikForm>
                     <FieldArray
-                      name="customVariables"
+                      name="variables"
                       render={({ push, remove }) => (
                         <>
-                          {formValues.customVariables.length > 0 && (
+                          {formValues.variables.length > 0 && (
                             <>
                               <div className={css.variablesGrid}>
                                 <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
@@ -500,7 +501,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                 </Text>
                               </div>
                               <div className={css.box}>
-                                {formValues.customVariables.map(({ name, type, value }, index) => (
+                                {formValues.variables.map(({ name, type, value }, index) => (
                                   <div className={cx(css.variablesGrid, css.row)} key={name}>
                                     <Text color="black">{name}</Text>
 
@@ -520,10 +521,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                                   projectIdentifier={projectIdentifier}
                                                   orgIdentifier={orgIdentifier}
                                                   onSelect={secret => {
-                                                    setFieldValue(
-                                                      `customVariables[${index}].value`,
-                                                      getSecretKey(secret)
-                                                    )
+                                                    setFieldValue(`variables[${index}].value`, getSecretKey(secret))
                                                   }}
                                                 />
                                               </Popover>
@@ -531,12 +529,12 @@ export default function BuildStageSpecifications(): JSX.Element {
                                           )}
                                           <MultiTextInput
                                             value={secretsOptions.get(value as string) || value}
-                                            name={`customVariables[${index}].value`}
+                                            name={`variables[${index}].value`}
                                             textProps={{
                                               disabled: true
                                             }}
                                             onChange={newValue => {
-                                              setFieldValue(`customVariables[${index}].value`, newValue)
+                                              setFieldValue(`variables[${index}].value`, newValue)
                                             }}
                                           />
                                         </div>
@@ -546,28 +544,26 @@ export default function BuildStageSpecifications(): JSX.Element {
                                         <>
                                           <FormInput.MultiTextInput
                                             label=""
-                                            name={`customVariables[${index}].value`}
+                                            name={`variables[${index}].value`}
                                             style={{ flexGrow: 1 }}
                                           />
                                         </>
                                       )}
 
-                                      {getMultiTypeFromValue(formValues.customVariables[index].value) ===
+                                      {getMultiTypeFromValue(formValues.variables[index].value) ===
                                         MultiTypeInputType.RUNTIME && (
                                         <ConfigureOptions
-                                          value={formValues.customVariables[index].value as string}
+                                          value={formValues.variables[index].value as string}
                                           type={
                                             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                                               <Text>{name}</Text>
                                             </Layout.Horizontal>
                                           }
-                                          variableName={`customVariables[${index}].value`}
+                                          variableName={`variables[${index}].value`}
                                           showRequiredField={false}
                                           showDefaultField={false}
                                           showAdvanced={true}
-                                          onChange={newValue =>
-                                            setFieldValue(`customVariables[${index}].value`, newValue)
-                                          }
+                                          onChange={newValue => setFieldValue(`variables[${index}].value`, newValue)}
                                         />
                                       )}
 
@@ -597,7 +593,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           {isDialogOpen && (
                             <Dialog
                               isOpen={true}
-                              title={getString('pipelineSteps.build.stageSpecifications.addCustomVariableDialogTitle')}
+                              title={getString('pipelineSteps.build.stageSpecifications.addVariableDialogTitle')}
                               onClose={closeDialog}
                             >
                               <Formik
@@ -607,7 +603,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                   type: yup.string().trim().required()
                                 })}
                                 onSubmit={(values: { name: string; type: string }): void => {
-                                  const index = formValues.customVariables.findIndex(variable =>
+                                  const index = formValues.variables.findIndex(variable =>
                                     isEqual(selectedVariable, variable)
                                   )
 
@@ -618,10 +614,10 @@ export default function BuildStageSpecifications(): JSX.Element {
                                       value: ''
                                     })
                                   } else {
-                                    setFieldValue(`customVariables[${index}]`, {
+                                    setFieldValue(`variables[${index}]`, {
                                       name: values.name,
                                       type: values.type,
-                                      value: formValues.customVariables[index].value
+                                      value: formValues.variables[index].value
                                     })
                                   }
 
@@ -641,11 +637,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                                           name="type"
                                           items={[
                                             {
-                                              label: getString('pipelineSteps.build.stageSpecifications.textType'),
-                                              value: VariableTypes.Text
+                                              label: getString('string'),
+                                              value: VariableTypes.String
                                             },
                                             {
-                                              label: getString('pipelineSteps.build.stageSpecifications.secretType'),
+                                              label: getString('secretType'),
                                               value: VariableTypes.Secret
                                             }
                                           ]}
