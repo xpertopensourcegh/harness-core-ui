@@ -21,41 +21,8 @@ const scrollIntoItem = (): void => {
   }
 }
 
-function renderColumn(col: keyof TestCase | 'order'): Renderer<CellProps<TestCase>> {
-  return (({ row }) => {
-    const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
-    const tooltip = failed && col === 'name' ? <TestsFailedPopover testCase={row.original} /> : undefined
-
-    return (
-      <Container width="90%" className={css.testCell}>
-        <Text
-          className={cx(css.text, tooltip && css.failed)}
-          color={failed ? Color.RED_700 : Color.GREY_700}
-          lineClamp={!tooltip ? 1 : undefined}
-          tooltip={tooltip}
-        >
-          {col === 'order' ? (
-            row.index + 1
-          ) : col === 'result' ? (
-            row.original[col]?.status
-          ) : col === 'duration_ms' ? (
-            <Duration
-              icon={undefined}
-              durationText=" "
-              startTime={now}
-              endTime={now + (row.original[col] || 0)}
-              color={failed ? Color.RED_700 : undefined}
-            />
-          ) : (
-            row.original[col]
-          )}
-        </Text>
-      </Container>
-    )
-  }) as Renderer<CellProps<TestCase>>
-}
-
-const now = Date.now()
+const NOW = Date.now()
+const PAGE_SIZE = 10
 
 export interface TestExecutionEntryProps {
   buildIdentifier: string
@@ -93,7 +60,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     status,
     sort: 'status',
     order: 'ASC',
-    pageIndex
+    pageIndex,
+    pageSize: PAGE_SIZE
   } as unknown) as TestCaseSummaryQueryParams
   const { data, error, loading, refetch } = useTestCaseSummary({
     queryParams,
@@ -115,6 +83,39 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     },
     [isMounted, refetch]
   )
+  function renderColumn(col: keyof TestCase | 'order'): Renderer<CellProps<TestCase>> {
+    return (({ row }) => {
+      const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
+      const tooltip = failed && col === 'name' ? <TestsFailedPopover testCase={row.original} /> : undefined
+
+      return (
+        <Container width="90%" className={css.testCell}>
+          <Text
+            className={cx(css.text, tooltip && css.failed)}
+            color={failed ? Color.RED_700 : Color.GREY_700}
+            lineClamp={!tooltip ? 1 : undefined}
+            tooltip={tooltip}
+          >
+            {col === 'order' ? (
+              PAGE_SIZE * pageIndex + (row.index + 1)
+            ) : col === 'result' ? (
+              row.original[col]?.status
+            ) : col === 'duration_ms' ? (
+              <Duration
+                icon={undefined}
+                durationText=" "
+                startTime={NOW}
+                endTime={NOW + (row.original[col] || 0)}
+                color={failed ? Color.RED_700 : undefined}
+              />
+            ) : (
+              row.original[col]
+            )}
+          </Text>
+        </Container>
+      )
+    }) as Renderer<CellProps<TestCase>>
+  }
   const columns: Column<TestCase>[] = React.useMemo(
     () => [
       {
@@ -171,14 +172,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">
       <Container flex>
         <Text className={css.testSuiteHeading} color={Color.GREY_500}>
-          <Button
-            minimal
-            large
-            icon={expanded ? 'chevron-down' : 'chevron-right'}
-            onClick={() => {
-              onExpand()
-            }}
-          />
+          <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
           {getString('ci.testsReports.testSuite')}
           <Text inline className={css.testSuiteName} lineClamp={1}>
             {executionSummary.name}
@@ -189,8 +183,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           <Duration
             icon={undefined}
             durationText=" "
-            startTime={now}
-            endTime={now + (executionSummary.duration_ms || 0)}
+            startTime={NOW}
+            endTime={NOW + (executionSummary.duration_ms || 0)}
             style={{ display: 'block' }}
           />
         </Text>

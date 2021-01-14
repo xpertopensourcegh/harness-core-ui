@@ -21,6 +21,8 @@ export const TestsOverview: React.FC<{ testOverviewData: TestReportSummary | nul
   const failedTests = (
     testOverviewData?.tests?.filter(({ status }) => status === TestStatus.FAILED || status === TestStatus.ERROR) || []
   ).length
+  const skippedTests = (testOverviewData?.tests?.filter(({ status }) => status === TestStatus.SKIPPED) || []).length
+  const passedTests = total - failedTests - skippedTests
   const failureRate = failedTests / (total || 1)
   const failureRateDisplay = renderFailureRate(failureRate) + `%`
 
@@ -61,12 +63,15 @@ export const TestsOverview: React.FC<{ testOverviewData: TestReportSummary | nul
         <Layout.Horizontal margin={{ bottom: 'medium' }} spacing="medium">
           <Text inline icon="stop" iconProps={{ size: 16, color: Color.ORANGE_500 }}>
             {getString('failed')}
+            {` (${failedTests})`}
           </Text>
           <Text inline icon="stop" iconProps={{ size: 16, color: Color.GREEN_450 }}>
             {getString('passed')}
+            {` (${passedTests})`}
           </Text>
           <Text inline icon="stop" iconProps={{ size: 16, color: Color.GREY_300 }}>
             {getString('ci.testsReports.skipped')}
+            {` (${skippedTests})`}
           </Text>
         </Layout.Horizontal>
         <Container className={css.graphWrapper}>

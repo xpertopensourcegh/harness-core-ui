@@ -29,3 +29,29 @@ export const TestStatus = {
   ERROR: 'error',
   FAILED: 'failed'
 }
+
+enum ExecutionStatus {
+  RUNNING = 'running',
+  FAILED = 'failed',
+  NOTSTARTED = 'notstarted',
+  EXPIRED = 'expired',
+  ABORTED = 'aborted',
+  QUEUED = 'queued',
+  PAUSED = 'paused',
+  WAITING = 'waiting',
+  SUCCESS = 'success',
+  SUSPENDED = 'suspended',
+  SKIPPED = 'skipped'
+}
+
+export const isExecutionComplete = (status: string) => {
+  const _status = (status || '').toLowerCase()
+
+  return (
+    _status === ExecutionStatus.SUCCESS ||
+    _status === ExecutionStatus.FAILED ||
+    _status === ExecutionStatus.EXPIRED ||
+    _status === ExecutionStatus.ABORTED ||
+    _status === ExecutionStatus.SKIPPED
+  )
+}

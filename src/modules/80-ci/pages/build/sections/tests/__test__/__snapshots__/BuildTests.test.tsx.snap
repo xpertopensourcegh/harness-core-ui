@@ -119,6 +119,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               </svg>
             </span>
             Failed
+             (2)
           </span>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline"
@@ -144,6 +145,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               </svg>
             </span>
             Passed
+             (3780)
           </span>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline"
@@ -169,6 +171,7 @@ exports[`BuildTests snapshot test should render all components properly 1`] = `
               </svg>
             </span>
             Skipped
+             (0)
           </span>
         </div>
         <div

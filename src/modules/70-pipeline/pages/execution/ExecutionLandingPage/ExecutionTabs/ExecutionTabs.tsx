@@ -1,5 +1,4 @@
 import React from 'react'
-import { isEmpty } from 'lodash-es'
 import { Icon } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
 import { NavLink, useParams, useLocation, matchPath } from 'react-router-dom'
@@ -36,8 +35,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
     ?.ciExecutionInfoDTO as CIBuildResponseDTO
   // NOTE: hide commits tab if there are no commits
   // by default we are showing Commits tab > 'isEmpty(pipelineExecutionDetail)'
-  const ciShowCommitsTab =
-    isEmpty(pipelineExecutionDetail) || !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length
+  const ciShowCommitsTab = !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length
 
   function handleLogViewChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { checked } = e.target as HTMLInputElement

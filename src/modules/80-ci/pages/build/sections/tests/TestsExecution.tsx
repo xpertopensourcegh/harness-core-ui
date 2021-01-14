@@ -33,7 +33,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
   const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status)
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
-  const [expandedIndex, setExpandedIndex] = useState(0)
+  const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -188,7 +188,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
             status={showFailedTestsOnly ? 'failed' : undefined}
             expanded={index === expandedIndex ? true : undefined}
             onExpand={() => {
-              setExpandedIndex(index)
+              setExpandedIndex(expandedIndex !== index ? index : undefined)
             }}
           />
         ))}

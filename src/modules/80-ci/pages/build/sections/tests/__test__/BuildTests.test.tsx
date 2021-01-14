@@ -14,10 +14,6 @@ jest.mock('services/ti-service', () => ({
     data: ReportsSummaryMock,
     refetch: jest.fn()
   }),
-  useGetBuild: () => ({
-    data: BuildsMock,
-    refetch: jest.fn()
-  }),
   useTestSuiteSummary: () => ({
     data: TestSuiteMock,
     refetch: jest.fn()
@@ -31,12 +27,20 @@ jest.mock('services/ti-service', () => ({
   })
 }))
 
+jest.mock('@pipeline/pages/execution/ExecutionContext/ExecutionContext', () => ({
+  useExecutionContext: () => ({
+    pipelineExecutionDetail: {
+      pipelineExecutionSummary: BuildsMock
+    }
+  })
+}))
+
 describe('BuildTests snapshot test', () => {
   // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should render all components properly', async () => {
+  test('should render all components properly', async () => {
     const { container } = render(
       <TestWrapper
-        path="/account/zEaak-FLS425IEO7OLzMUg/ci/orgs/default/projects/citestproject/builds/2445/tests"
+        path="/account/zEaak-FLS425IEO7OLzMUg/ci/orgs/default/projects/TestCiProject1/pipelines/harshtriggerpipeline/executions/2NHi3lznTkegKnerhPf5og/tests"
         pathParams={{
           accountId: 'zEaak-FLS425IEO7OLzMUg',
           orgIdentifier: 'default',

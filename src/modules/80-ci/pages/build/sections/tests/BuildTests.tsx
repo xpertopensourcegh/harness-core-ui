@@ -10,6 +10,7 @@ import { BuildLoadingState } from './BuildLoadingState'
 import { BuildZeroState } from './BuildZeroState'
 import { TestsExecution } from './TestsExecution'
 import { TestsOverview } from './TestsOverview'
+import { isExecutionComplete } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 const BuildTests: React.FC = () => {
@@ -57,7 +58,7 @@ const BuildTests: React.FC = () => {
     }
   })
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-  const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status)
+  const isBuildComplete = isExecutionComplete(status)
   const buildHasZeroTest = testOverviewData?.total_tests === 0
 
   useEffect(() => {
