@@ -1,0 +1,39 @@
+{
+  "outcomes": [
+    {
+      "type": "environmentOutcome",
+      "name": "env1",
+      "identifier": "env",
+      "environmentType": "Production",
+      "tags": [],
+      "_pms_class": "io.harness.cdng.environment.EnvironmentOutcome"
+    },
+    {
+      "type": "KubernetesDirect",
+      "connectorRef": "account.KubernetesConnectorForAutomationTestasd",
+      "namespace": "ng-testing",
+      "releaseName": "release-pipeline-1",
+      "kind": "KubernetesDirect",
+      "_pms_class": "io.harness.cdng.infra.beans.K8sDirectInfrastructureOutcome"
+    }
+  ],
+  "stepParameters": {
+    "pipelineInfrastructure": {
+      "infrastructureDefinition": {
+        "type": "KubernetesDirect",
+        "spec": {
+          "connectorRef": "account.KubernetesConnectorForAutomationTestasd",
+          "namespace": "ng-testing",
+          "releaseName": "release-pipeline-1"
+        }
+      },
+      "environment": {
+        "name": "env1",
+        "identifier": "env",
+        "description": null,
+        "type": "Production"
+      },
+      "environmentRef": null
+    }
+  }
+}

@@ -3,8 +3,7 @@ import { Tabs } from '@blueprintjs/core'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import ExecutionLayout from '../../../../../components/ExecutionLayout/ExecutionLayout'
 import ExecutionStepDetailsTab from './ExecutionStepDetailsTab'
-import ExecutionStepInputTab from './ExecutionStepInputTab'
-import ExecutionStepOutputTab from './ExecutionStepOutputTab'
+import ExecutionStepInputOutputTab from './ExecutionStepInputOutputTab'
 
 import css from './ExecutionStepDetails.module.scss'
 
@@ -26,8 +25,16 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
       </div>
       <Tabs id="step-details" className={css.tabs} renderActiveTabPanelOnly>
         <Tabs.Tab id="details" title="Details" panel={<ExecutionStepDetailsTab step={step} />} />
-        <Tabs.Tab id="input" title="Input" panel={<ExecutionStepInputTab step={step} />} />
-        <Tabs.Tab id="output" title="Output" panel={<ExecutionStepOutputTab step={step} />} />
+        <Tabs.Tab
+          id="input"
+          title="Input"
+          panel={<ExecutionStepInputOutputTab mode="input" data={[(step as any).stepParameters]} />}
+        />
+        <Tabs.Tab
+          id="output"
+          title="Output"
+          panel={<ExecutionStepInputOutputTab mode="output" data={(step as any).outcomes || []} />}
+        />
       </Tabs>
     </div>
   )

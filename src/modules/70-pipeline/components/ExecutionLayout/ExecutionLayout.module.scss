@@ -3,10 +3,11 @@
   height: 100%;
 
   :global(.Resizer.horizontal:not(.disabled)) {
-    height: var(--spacing-small);
+    height: var(--spacing-small) !important;
     cursor: row-resize;
     background: transparent;
     z-index: 2;
+    display: block !important;
   }
 
   :global(.Resizer.vertical:not(.disabled)) {
@@ -47,6 +48,11 @@
       margin-bottom: calc(-1 * var(--spacing-small));
     }
 
+    & :global(.Pane.horizontal.Pane2) {
+      height: 100%;
+      overflow: hidden;
+    }
+
     & :global(.Pane.horizontal) .pane22 {
       border-top: 1px solid var(--blue-350);
     }
@@ -59,10 +65,10 @@
   .resizers {
     position: absolute;
     right: var(--spacing-medium);
-    top: var(--spacing-none);
+    top: -5px;
     z-index: 3;
     transform: translateY(-18px);
-    height: 30px;
+    height: 46px;
     width: 22px;
     display: flex;
     flex-direction: column;

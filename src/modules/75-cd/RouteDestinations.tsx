@@ -270,6 +270,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
       path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
     >
       <ExecutionLandingPage>
@@ -279,6 +280,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
       path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
     >
       <ExecutionLandingPage>
@@ -288,6 +290,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
       path={routes.toExecutionArtifactsView({
         ...accountPathProps,
         ...executionPathProps,

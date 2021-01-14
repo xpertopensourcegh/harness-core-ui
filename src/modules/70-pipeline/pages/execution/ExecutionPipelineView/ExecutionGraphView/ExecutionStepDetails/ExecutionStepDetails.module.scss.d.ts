@@ -9,5 +9,11 @@ declare const styles: {
   readonly detailsTab: string
   readonly errorMsg: string
   readonly detailsTable: string
+  readonly ioTab: string
+  readonly ioRow: string
+  readonly key: string
+  readonly value: string
+  readonly panel: string
+  readonly panelTitle: string
 }
 export default styles

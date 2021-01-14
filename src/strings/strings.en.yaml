@@ -300,6 +300,10 @@ global:
   sshConnector: 'SSH Connection Attribute'
   addOutputVar: 'Add Output Variable'
   addInputVar: 'Add Input Variable'
+  inputValue: Input Value
+  inputName: Input Name
+  outputValue: Output Value
+  outputName: Output Name
   pipelines-studio:
     addStep: Add step
     dependenciesGroupTitle: Dependencies

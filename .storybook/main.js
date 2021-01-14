@@ -13,6 +13,10 @@ module.exports = {
             test: /.*\/node_modules\/xterm\/.*\.css/,
             use: 'ignore-loader'
           },
+          {
+            test: /.*\/node_modules\/monaco-editor\/.*\.css/,
+            use: 'ignore-loader'
+          },
           ...config.module.rules,
           ...webpackConfig.module.rules
         ]
