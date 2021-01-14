@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import type { NgPipeline } from 'services/cd-ng'
 
 import {
@@ -19,7 +18,8 @@ import {
   useGetOverlayInputSetForPipeline,
   useCreateOverlayInputSetForPipeline,
   useUpdateOverlayInputSetForPipeline,
-  ResponseOverlayInputSetResponse
+  ResponseOverlayInputSetResponse,
+  useGetYamlSchema
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -30,6 +30,7 @@ import type {
   CompletionItemInterface
 } from '@common/interfaces/YAMLBuilderProps'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import i18n from './OverlayInputSetForm.18n'
@@ -323,6 +324,15 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
     }
   )
 
+  const { loading, data: pipelineSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Pipelines',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
+  })
+
   return (
     <Dialog title={getTitle(isEdit, inputSet)} onClose={() => closeForm()} isOpen={isOpen} {...dialogProps}>
       {(loadingPipeline ||
@@ -434,13 +444,17 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                     </FormikForm>
                   ) : (
                     <div className={css.editor}>
-                      <YAMLBuilder
-                        {...yamlBuilderReadOnlyModeProps}
-                        existingJSON={{ overlayInputSet: omit(values, 'pipeline') }}
-                        invocationMap={invocationMap}
-                        bind={setYamlHandler}
-                        schema={pipelineSchema}
-                      />
+                      {loading ? (
+                        <PageSpinner />
+                      ) : (
+                        <YAMLBuilder
+                          {...yamlBuilderReadOnlyModeProps}
+                          existingJSON={{ overlayInputSet: omit(values, 'pipeline') }}
+                          invocationMap={invocationMap}
+                          bind={setYamlHandler}
+                          schema={pipelineSchema?.data}
+                        />
+                      )}
                       <Layout.Horizontal padding={{ top: 'medium' }}>
                         <Button
                           intent="primary"

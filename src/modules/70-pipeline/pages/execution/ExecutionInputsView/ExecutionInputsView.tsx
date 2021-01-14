@@ -5,8 +5,13 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import { useGetInputsetYaml } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
+import type { ResponseJsonNode } from 'services/cd-ng'
 
-export default function ExecutionInputsView(): React.ReactElement {
+interface ExecutionInputsViewInterface {
+  mockData?: ResponseJsonNode
+}
+
+export default function ExecutionInputsView(props: ExecutionInputsViewInterface): React.ReactElement {
   const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module, executionIdentifier } = useParams<
     PipelineType<ExecutionPathProps>
   >()
@@ -39,6 +44,7 @@ export default function ExecutionInputsView(): React.ReactElement {
       module={module}
       inputSetYAML={inputSetYaml || ''}
       executionView
+      mockData={props.mockData}
     />
   )
 }

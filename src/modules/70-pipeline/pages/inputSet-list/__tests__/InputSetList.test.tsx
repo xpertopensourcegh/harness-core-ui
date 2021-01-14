@@ -46,7 +46,8 @@ jest.mock('services/pipeline-ng', () => ({
   getInputSetForPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(GetInputSetsResponse.data)),
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
   useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet })),
-  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({}))
+  usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({})),
+  useGetYamlSchema: jest.fn(() => ({}))
 }))
 
 const TEST_PATH = routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })

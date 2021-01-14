@@ -18,18 +18,20 @@ import {
   InputSetResponse,
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
-  ResponsePMSPipelineResponseDTO
+  ResponsePMSPipelineResponseDTO,
+  useGetYamlSchema
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { PageSpinner } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useAppStore, useStrings } from 'framework/exports'
@@ -37,6 +39,7 @@ import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import css from './InputSetForm.module.scss'
+
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
   identifier?: string
@@ -211,6 +214,15 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const { getString } = useStrings()
   useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
 
+  const { loading, data: pipelineSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Pipelines',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
+  })
+
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
@@ -341,12 +353,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                 ) : (
                   <div className={css.editor}>
                     <Layout.Vertical className={css.content} padding="xlarge">
-                      <YAMLBuilder
-                        {...yamlBuilderReadOnlyModeProps}
-                        existingJSON={{ inputSet: omit(values, 'inputSetReferences') }}
-                        bind={setYamlHandler}
-                        schema={pipelineSchema}
-                      />
+                      {loading ? (
+                        <PageSpinner />
+                      ) : (
+                        <YAMLBuilder
+                          {...yamlBuilderReadOnlyModeProps}
+                          existingJSON={{ inputSet: omit(values, 'inputSetReferences') }}
+                          bind={setYamlHandler}
+                          schema={pipelineSchema?.data}
+                        />
+                      )}
                     </Layout.Vertical>
                     <Layout.Horizontal className={css.footer} padding="medium">
                       <Button

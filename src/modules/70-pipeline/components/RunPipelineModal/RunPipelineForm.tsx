@@ -8,7 +8,7 @@ import { pick, merge, isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import type { NgPipeline } from 'services/cd-ng'
+import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
   usePostPipelineExecuteWithInputSetYaml,
@@ -16,7 +16,8 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   Failure,
   getInputSetForPipelinePromise,
-  useCreateInputSetForPipeline
+  useCreateInputSetForPipeline,
+  useGetYamlSchema
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -24,12 +25,12 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import { pipelineSchema } from '@common/services/mocks/pipeline-schema.ts'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useAppStore, useStrings } from 'framework/exports'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
@@ -42,6 +43,7 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
   inputSetYAML?: string
   onClose?: () => void
   executionView?: boolean
+  mockData?: ResponseJsonNode
 }
 
 enum SelectedView {
@@ -181,6 +183,15 @@ export function RunPipelineForm({
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
+  const { loading, data: pipelineSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Pipelines',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
+  })
+
   React.useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
       if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
@@ -292,12 +303,16 @@ export function RunPipelineForm({
                   </FormikForm>
                 ) : (
                   <div className={css.editor}>
-                    <YAMLBuilder
-                      {...yamlBuilderReadOnlyModeProps}
-                      existingJSON={{ pipeline: values }}
-                      bind={setYamlHandler}
-                      schema={pipelineSchema}
-                    />
+                    {loading ? (
+                      <PageSpinner />
+                    ) : (
+                      <YAMLBuilder
+                        {...yamlBuilderReadOnlyModeProps}
+                        existingJSON={{ pipeline: values }}
+                        bind={setYamlHandler}
+                        schema={pipelineSchema?.data}
+                      />
+                    )}
                   </div>
                 )}
               </Layout.Horizontal>

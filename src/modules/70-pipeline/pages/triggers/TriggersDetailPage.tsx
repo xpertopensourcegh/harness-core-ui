@@ -6,10 +6,11 @@ import { isEmpty } from 'lodash-es'
 import { parse } from 'yaml'
 import { Page, useToaster } from '@common/exports'
 import type { NgPipeline } from 'services/cd-ng'
-import { NGTriggerConfig, useGetTriggerDetails, useUpdateTriggerStatus } from 'services/pipeline-ng'
+import { NGTriggerConfig, useGetTriggerDetails, useUpdateTriggerStatus, useGetYamlSchema } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import type { tagsType } from '@common/utils/types'
-import { TagsPopover } from '@common/components'
+import { TagsPopover, PageSpinner } from '@common/components'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
@@ -73,6 +74,15 @@ export default function TriggersDetailPage(): JSX.Element {
       })
     )
   }
+
+  const { loading, data: pipelineSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Pipelines',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
+  })
 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${triggerResponse?.data?.identifier ?? 'Trigger'}.yaml`,
@@ -210,7 +220,16 @@ export default function TriggersDetailPage(): JSX.Element {
               </Layout.Horizontal>
             ) : (
               <div className={css.editor}>
-                <YAMLBuilder {...yamlBuilderReadOnlyModeProps} isReadOnlyMode={true} showSnippetSection={false} />
+                {loading ? (
+                  <PageSpinner />
+                ) : (
+                  <YAMLBuilder
+                    {...yamlBuilderReadOnlyModeProps}
+                    isReadOnlyMode={true}
+                    showSnippetSection={false}
+                    schema={pipelineSchema?.data}
+                  />
+                )}
               </div>
             )}
           </Layout.Vertical>
