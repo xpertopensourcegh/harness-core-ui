@@ -11,6 +11,8 @@ import SessionToken from 'framework/utils/SessionToken'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
+import { EmptyLayout } from './layouts'
+import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 
 const RedirectToHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
@@ -50,6 +52,9 @@ export default (
       exact
     >
       <GovernancePage />
+    </RouteWithLayout>
+    <RouteWithLayout layout={EmptyLayout} path={routes.toGenericError({ ...accountPathProps })}>
+      <GenericErrorPage />
     </RouteWithLayout>
   </>
 )

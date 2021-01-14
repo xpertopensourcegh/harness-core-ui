@@ -273,6 +273,9 @@ global:
   HTTPS: 'HTTPS'
   SSH: 'SSH'
   SSH_KEY: 'SSH Key'
+  goToHome: Go To Home
+  generic_errors:
+    INVITE_EXPIRED: This invite link has expired
   snippets:
     copyToClipboard: Copy to Clipboard
     copied: Copied!

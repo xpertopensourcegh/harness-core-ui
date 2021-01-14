@@ -97,7 +97,7 @@ const routes = {
     ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/governance/${orgIdentifier}`
   ),
   toCreateSecretFromYaml: withAccountId(() => '/admin/resources/create-secret-from-yaml'),
-
+  toGenericError: withAccountId(() => '/error'),
   /********************************************************************************************************************/
   toCD: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
