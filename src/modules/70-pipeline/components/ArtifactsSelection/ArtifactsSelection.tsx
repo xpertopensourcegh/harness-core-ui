@@ -534,13 +534,16 @@ export default function ArtifactsSelection({
           <section>
             {primaryArtifact && (
               <section className={cx(css.thead, css.rowItem)} key={primaryArtifactType}>
-                <span className={css.type}>{i18n.primaryLabel}</span>
+                <Text width={200} className={css.type} lineClamp={1}>
+                  {i18n.primaryLabel}
+                </Text>
                 <span className={css.server}>
                   <Text
                     inline
                     icon={'service-dockerhub'}
                     iconProps={{ size: 18 }}
                     width={200}
+                    lineClamp={1}
                     style={{ color: Color.BLACK, fontWeight: 900 }}
                   >
                     {primaryArtifact.type}
@@ -589,13 +592,16 @@ export default function ArtifactsSelection({
                   const { sidecar } = data
                   return (
                     <section className={cx(css.thead, css.rowItem)} key={sidecar?.identifier + index}>
-                      <span className={css.type}>{i18n.sidecarLabel}</span>
+                      <Text width={200} lineClamp={1} className={css.type}>
+                        {i18n.sidecarLabel}
+                      </Text>
                       <span className={css.server}>
                         <Text
                           inline
                           icon={'service-dockerhub'}
                           iconProps={{ size: 18 }}
                           width={470}
+                          lineClamp={1}
                           style={{ color: Color.BLACK, fontWeight: 900 }}
                         >
                           {sidecar.type}

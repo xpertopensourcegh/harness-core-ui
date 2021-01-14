@@ -83,17 +83,18 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
           <section
             class="thead rowItem"
           >
-            <span
-              class="type"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main type"
+              style="--text-line-clamp: 1; width: 200px;"
             >
               Primary Artifact
-            </span>
+            </p>
             <span
               class="server"
             >
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; display: inline-flex; align-items: center; width: 200px;"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -269,17 +270,18 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
           <section
             class="thead rowItem"
           >
-            <span
-              class="type"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main type"
+              style="--text-line-clamp: 1; width: 200px;"
             >
               Primary Artifact
-            </span>
+            </p>
             <span
               class="server"
             >
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; display: inline-flex; align-items: center; width: 200px;"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -455,17 +457,18 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
           <section
             class="thead rowItem"
           >
-            <span
-              class="type"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main type"
+              style="--text-line-clamp: 1; width: 200px;"
             >
               Primary Artifact
-            </span>
+            </p>
             <span
               class="server"
             >
               <span
-                class="StyledProps--font StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; display: inline-flex; align-items: center; width: 200px;"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
