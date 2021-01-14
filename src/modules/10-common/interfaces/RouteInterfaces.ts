@@ -67,6 +67,12 @@ export interface CVDataSourceTypePathProps {
   dataSourceType: string
 }
 
-export type PipelineType<T> = T & { module: 'ci' | 'cd' | ':module' }
+export type Module = 'ci' | 'cd' | ':module(ci)' | ':module(cd)' | ':module'
+
+export interface ModulePathParams {
+  module: Module
+}
+
+export type PipelineType<T> = T & ModulePathParams
 
 export type PathFn<T> = (props: AccountPathProps & T) => string

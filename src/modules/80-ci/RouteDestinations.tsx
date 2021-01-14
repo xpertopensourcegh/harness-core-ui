@@ -7,7 +7,6 @@ import {
   pipelinePathProps,
   connectorPathProps,
   secretPathProps,
-  pipelineModuleParams,
   inputSetFormPathProps,
   triggerPathProps,
   executionPathProps
@@ -17,7 +16,8 @@ import type {
   ExecutionPathProps,
   PipelinePathProps,
   PipelineType,
-  ProjectPathProps
+  ProjectPathProps,
+  ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
 
 import DeploymentsList from '@cd/pages/deployments-list/DeploymentsList'
@@ -85,6 +85,10 @@ const CISideNavProps: SidebarContext = {
   navComponent: SideNav,
   subtitle: 'CONTINUOUS',
   title: 'Integration'
+}
+
+const pipelineModuleParams: ModulePathParams = {
+  module: ':module(ci)'
 }
 
 export default (

@@ -12,7 +12,6 @@ import {
   connectorPathProps,
   secretPathProps,
   executionPathProps,
-  pipelineModuleParams,
   inputSetFormPathProps
 } from '@common/utils/routeUtils'
 import type {
@@ -20,7 +19,8 @@ import type {
   PipelinePathProps,
   ExecutionPathProps,
   ProjectPathProps,
-  PipelineType
+  PipelineType,
+  ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
@@ -93,6 +93,10 @@ const CDSideNavProps: SidebarContext = {
   navComponent: CDSideNav,
   subtitle: 'CONTINUOUS',
   title: 'Delivery'
+}
+
+const pipelineModuleParams: ModulePathParams = {
+  module: ':module(cd)'
 }
 
 export default (
@@ -338,20 +342,3 @@ export default (
     </RouteWithLayout>
   </>
 )
-
-// export const routeCDResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
-//   module: ModuleName.CD,
-//   sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
-//   path: '/cd/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier',
-//   title: i18n.resources,
-//   pageId: 'cd-admin-resources',
-//   url: ({ projectIdentifier, orgIdentifier }) =>
-//     routeURL(routeCDResources, `/cd/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-//   component: React.lazy(() => import('@cd/pages/admin/resources/CDResourcesPage')),
-//   nestedRoutes: [
-//     routeCDResourcesConnectors,
-//     routeCDResourcesConnectorDetails,
-//     routeCDResourcesSecretsListing,
-//     routeCDResourcesSecretDetails
-//   ]
-// }
