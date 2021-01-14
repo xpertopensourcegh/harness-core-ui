@@ -239,7 +239,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         title={i18n.title.connectorActivity}
         data={getActivityDetails({
           createdAt: props.response.createdAt || 0,
-          lastTested: props.response.status?.lastTestedAt || 0,
+          lastTested: props.response.status?.testedAt || 0,
           lastUpdated: (props.response.lastModifiedAt as number) || 0,
           lastConnectionSuccess: props.response.status?.lastConnectedAt || 0,
           status: status || props.response.status?.status || ''

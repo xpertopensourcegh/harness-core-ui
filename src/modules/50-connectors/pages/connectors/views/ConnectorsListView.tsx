@@ -189,24 +189,31 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
             {data.status?.status || errorMessage ? (
               <Text
                 inline
-                icon={status === ConnectorStatus.SUCCESS ? 'full-circle' : 'warning-sign'}
+                icon={
+                  status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
+                    ? 'full-circle'
+                    : 'warning-sign'
+                }
                 iconProps={{
-                  size: status === ConnectorStatus.SUCCESS ? 6 : 12,
-                  color: status === ConnectorStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
+                  size: status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS ? 6 : 12,
+                  color:
+                    status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
+                      ? Color.GREEN_500
+                      : Color.RED_500
                 }}
                 tooltip={
                   status !== ConnectorStatus.SUCCESS || data.status?.status !== ConnectorStatus.SUCCESS ? (
-                    errorMessage || data.status?.errorMessage ? (
+                    errorMessage?.errorSummary || data.status?.errorSummary ? (
                       <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
                         <Text font={{ size: 'small' }} color={Color.WHITE}>
-                          {errorMessage?.errorSummary || data.status?.errorMessage}
+                          {errorMessage?.errorSummary || data.status?.errorSummary}
                         </Text>
-                        {errorMessage ? (
+                        {errorMessage?.errors || data.status?.errors ? (
                           <Text
                             color={Color.BLUE_400}
                             onClick={e => {
                               e.stopPropagation()
-                              openErrorModal(errorMessage as ConnectorValidationResult)
+                              openErrorModal((errorMessage as ConnectorValidationResult) || data.status)
                             }}
                             className={css.viewDetails}
                           >
@@ -225,13 +232,15 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                 }
                 tooltipProps={{ isDark: true, position: 'bottom' }}
               >
-                {status === ConnectorStatus.SUCCESS ? i18n.success : i18n.failed}
+                {status === ConnectorStatus.SUCCESS || data.status?.status === ConnectorStatus.SUCCESS
+                  ? i18n.success
+                  : i18n.failed}
               </Text>
             ) : null}
           </Layout.Horizontal>
-          {status || data.status ? (
+          {status || data.status?.status ? (
             <Text font={{ size: 'small' }} color={Color.GREY_400}>
-              {<ReactTimeago date={lastTestedAt || data.status?.lastTestedAt || ''} />}
+              {<ReactTimeago date={lastTestedAt || data.status?.testedAt || ''} />}
             </Text>
           ) : null}
         </Layout.Vertical>

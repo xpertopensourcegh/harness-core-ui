@@ -11,8 +11,8 @@ export const connectorsData = {
           name: 'AWS',
           identifier: 'AWSX',
           description: '',
-          orgIdentifier: null,
-          projectIdentifier: null,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
           tags: {},
           type: 'Aws',
           spec: {
@@ -33,8 +33,8 @@ export const connectorsData = {
           name: 'Git CTR',
           identifier: 'Git_CTR',
           description: 'To connect to Git',
-          orgIdentifier: null,
-          projectIdentifier: null,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
           tags: { git: '' },
           type: 'Git',
           spec: {
@@ -56,8 +56,8 @@ export const connectorsData = {
           name: 'Sample',
           identifier: 'SampleX',
           description: '',
-          orgIdentifier: null,
-          projectIdentifier: null,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
           tags: {},
           type: 'Git',
           spec: {
@@ -79,8 +79,8 @@ export const connectorsData = {
           name: 'XYZDocker',
           identifier: 'XYZDockerX',
           description: '',
-          orgIdentifier: null,
-          projectIdentifier: null,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
           tags: {},
           type: 'DockerRegistry',
           spec: {
@@ -99,8 +99,8 @@ export const connectorsData = {
           name: 'Docker CTR',
           identifier: 'DockerCTRX',
           description: '',
-          orgIdentifier: null,
-          projectIdentifier: null,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
           tags: {},
           type: 'DockerRegistry',
           spec: {
@@ -116,11 +116,38 @@ export const connectorsData = {
       },
       {
         connector: {
+          description: '',
+          identifier: 'Nexus_Connector',
+          name: 'NexusConnector',
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
+          spec: {
+            auth: { type: 'UsernamePassword', spec: { username: 'hgj', passwordRef: 'account.appdcorrectsecret' } },
+            nexusServerUrl: 'dbhgj',
+            version: '2.x'
+          },
+          tags: {},
+          type: 'Nexus',
+          createdAt: 1610106601445,
+          harnessManaged: false,
+          lastModifiedAt: 1610198427730,
+          status: {
+            errorSummary: null,
+            errors: null,
+            lastConnectedAt: 1610198427714,
+            lastTestedAt: 1610198427714,
+            status: 'SUCCESS',
+            testedAt: 161019842771
+          }
+        }
+      },
+      {
+        connector: {
           name: 'KubernetesCTR',
           identifier: 'Kubernetes CTRX',
           description: '',
-          orgIdentifier: null,
-          projectIdentifier: null,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
           tags: { qa: '', test: '' },
           type: 'K8sCluster',
           spec: {
@@ -557,8 +584,8 @@ export const filters = {
       {
         name: 'DockerOnly',
         identifier: 'DockerOnly',
-        orgIdentifier: null,
-        projectIdentifier: null,
+        orgIdentifier: undefined,
+        projectIdentifier: undefined,
         filterProperties: {
           connectorNames: [],
           connectorIdentifiers: [],
@@ -575,8 +602,8 @@ export const filters = {
       {
         name: 'AWSOnly',
         identifier: 'AWSOnly',
-        orgIdentifier: null,
-        projectIdentifier: null,
+        orgIdentifier: undefined,
+        projectIdentifier: undefined,
         filterProperties: {
           connectorNames: [],
           connectorIdentifiers: [],
