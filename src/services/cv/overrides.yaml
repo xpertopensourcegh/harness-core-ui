@@ -29,6 +29,7 @@ allowpaths:
   - /activity/deployment-activity-verifications/{deploymentTag}
   - /activity/deployment-activity-verifications-popover-summary/{deploymentTag}
   - /activity/recent-activity-verifications
+  - /activity/{activityId}/activity-risks
   - /activity/list
   - /setup/status
   - /kubernetes/namespaces
@@ -40,9 +41,11 @@ allowpaths:
   - /stackdriver/dashboards
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
-  - /activity/sources
-  - /activity/source
+  - /activity-source
+  - /activity-source/{identifier}
+  - /activity-source/list
   - /activity/{identifier}
+  - /activity/{activityId}/details
   - /setup/supported-providers
   - /verification-job-instance/baseline-executions
   - /verification-job/default-health-job

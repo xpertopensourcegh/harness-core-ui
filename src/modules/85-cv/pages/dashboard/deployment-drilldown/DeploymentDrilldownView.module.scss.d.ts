@@ -9,8 +9,11 @@ declare const styles: {
   readonly content: string
   readonly subHeader: string
   readonly panel: string
+  readonly kubernetesButton: string
   readonly filters: string
   readonly timeseriesList: string
+  readonly eventsEditor: string
+  readonly eventsLoading: string
   readonly metricsTab: string
   readonly timeFilterAndBar: string
   readonly timelineBar: string

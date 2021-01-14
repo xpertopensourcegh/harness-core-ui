@@ -61,7 +61,7 @@ const MockData = {
 
 describe('CVActivitySourcesPage unit tests', () => {
   test('Ensure when api returns data it is rendered correctly', async () => {
-    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListAllActivitySources')
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     const routeActivitySourceEditSetupSpy = jest.spyOn(routes, 'toCVActivitySourceEditSetup')
     useListKubernetesSourcesSpy.mockReturnValue({
       data: MockData,
@@ -84,7 +84,7 @@ describe('CVActivitySourcesPage unit tests', () => {
   })
 
   test('Ensure row is deleted and get api is called after deletion', async () => {
-    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListAllActivitySources')
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     useListKubernetesSourcesSpy.mockReturnValue({
       data: MockData,
       refetch: jest.fn() as unknown
@@ -128,7 +128,7 @@ describe('CVActivitySourcesPage unit tests', () => {
   })
 
   test('Ensure refetch is called on click of retry for api error', async () => {
-    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListAllActivitySources')
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     const refetchMock = jest.fn() as unknown
     useListKubernetesSourcesSpy.mockReturnValue({
       error: { message: 'mock error' },
@@ -152,7 +152,7 @@ describe('CVActivitySourcesPage unit tests', () => {
   })
 
   test('Ensure that when you click on oadd activity resource, you are navigated to correct page', async () => {
-    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListAllActivitySources')
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     const routeCVAdminSetupSpy = jest.spyOn(routes, 'toCVAdminSetup')
 
     useListKubernetesSourcesSpy.mockReturnValue({
@@ -172,7 +172,7 @@ describe('CVActivitySourcesPage unit tests', () => {
   })
 
   test('Ensure that no data card is displayed when api returns no data', async () => {
-    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListAllActivitySources')
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListActivitySources')
     useListKubernetesSourcesSpy.mockReturnValue({
       data: { resource: { content: [] } }
     } as UseGetReturn<any, unknown, any, unknown>)

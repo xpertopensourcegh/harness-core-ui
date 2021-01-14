@@ -11,7 +11,7 @@ import {
   GetServiceListForProjectQueryParams
 } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import { useListAllActivitySources, useListAllSupportedDataSource, useListBaselineExecutions } from 'services/cv'
+import { useListActivitySources, useListAllSupportedDataSource, useListBaselineExecutions } from 'services/cv'
 import { getMonitoringSourceLabel } from '@cv/pages/admin/setup/SetupUtils'
 import i18n from './VerificationJobForms.i18n'
 
@@ -299,7 +299,7 @@ export const ActivitySource: React.FC<BaseFieldProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [activityOptions, setActivityOptions] = useState([])
   const { zIndex } = props
-  const { data } = useListAllActivitySources({
+  const { data } = useListActivitySources({
     queryParams: {
       accountId,
       projectIdentifier,

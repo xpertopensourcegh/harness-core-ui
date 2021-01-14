@@ -273,6 +273,8 @@ export interface ResponseMessage {
     | 'NG_PIPELINE_CREATE_EXCEPTION'
     | 'RESOURCE_NOT_FOUND_EXCEPTION'
     | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -310,6 +312,18 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
+export interface ActivityDashboardDTO {
+  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityId?: string
+  activityName?: string
+  activityStartTime?: number
+  environmentIdentifier?: string
+  environmentName?: string
+  serviceIdentifier?: string
+  verificationStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  activityVerificationSummary?: ActivityVerificationSummary
+}
+
 export interface ActivityVerificationSummary {
   total?: number
   passed?: number
@@ -323,6 +337,14 @@ export interface ActivityVerificationSummary {
   durationMs?: number
   riskScore?: number
   aggregatedStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+}
+
+export interface RestResponseListActivityDashboardDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ActivityDashboardDTO[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface DeploymentActivityVerificationResultDTO {
@@ -432,11 +454,40 @@ export interface RestResponseActivityVerificationResultDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface Response {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: { [key: string]: any }
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseListString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface RestResponseString {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ActivityStatusDTO {
+  durationMs?: number
+  progressPercentage?: number
+  activityId?: string
+  status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+}
+
+export interface RestResponseActivityStatusDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ActivityStatusDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -493,38 +544,21 @@ export interface RestResponseBoolean {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ActivityDashboardDTO {
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
-  activityId?: string
-  activityName?: string
-  activityStartTime?: number
-  environmentIdentifier?: string
-  environmentName?: string
-  serviceIdentifier?: string
-  verificationStatus?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-  activityVerificationSummary?: ActivityVerificationSummary
+export interface PageString {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: string[]
+  pageIndex?: number
+  empty?: boolean
 }
 
-export interface RestResponseListActivityDashboardDTO {
+export interface RestResponsePageString {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: ActivityDashboardDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ActivityStatusDTO {
-  durationMs?: number
-  progressPercentage?: number
-  activityId?: string
-  status?: 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
-export interface RestResponseActivityStatusDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityStatusDTO
+  resource?: PageString
   responseMessages?: ResponseMessage[]
 }
 
@@ -545,24 +579,6 @@ export interface KubernetesActivityDTO {
   eventType?: 'Normal' | 'Warning' | 'Error'
   kubernetesActivityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
   type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
-}
-
-export interface PageString {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: string[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface RestResponsePageString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageString
-  responseMessages?: ResponseMessage[]
 }
 
 export interface AlertCondition {
@@ -621,14 +637,6 @@ export interface VerificationsNotify {
   allVerificationStatuses?: boolean
 }
 
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface PageAlertRuleDTO {
   totalPages?: number
   totalItems?: number
@@ -644,6 +652,14 @@ export interface RestResponsePageAlertRuleDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAlertRuleDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('PRE_DEPLOYMENT' | 'DURING_DEPLOYMENT' | 'POST_DEPLOYMENT' | 'INFRASTRUCTURE_CHANGE' | 'CONFIG_CHANGE')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1102,6 +1118,14 @@ export interface RestResponsePageAppDynamicsTier {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CVConfig {
   uuid?: string
   dataCollectionTaskIteration?: number
@@ -1145,14 +1169,6 @@ export interface RestResponseListCVConfig {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DatasourceTypeDTO {
   dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER'
   verificationType?: 'TIME_SERIES' | 'LOG'
@@ -1163,14 +1179,6 @@ export interface RestResponseSetDatasourceTypeDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: DatasourceTypeDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListDataSourceType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1188,6 +1196,14 @@ export interface RestResponseCVSetupStatus {
     [key: string]: { [key: string]: any }
   }
   resource?: CVSetupStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListDataSourceType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1595,9 +1611,9 @@ export interface DataCollectionRequest {
     | 'STACKDRIVER_SAMPLE_DATA'
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
-  dsl?: string
-  connectorConfigDTO?: ConnectorConfigDTO
   baseUrl?: string
+  connectorConfigDTO?: ConnectorConfigDTO
+  dsl?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -1828,7 +1844,7 @@ export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
 }
 
 export type KubernetesClusterConfigDTO = ConnectorConfigDTO & {
-  credential?: KubernetesCredentialDTO
+  credential: KubernetesCredentialDTO
 }
 
 export type KubernetesClusterDetailsDTO = KubernetesCredentialSpecDTO & {
@@ -2019,13 +2035,6 @@ export interface StackdriverDashboardDetail {
   dataSetList?: DataSet[]
 }
 
-export interface Response {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: { [key: string]: any }
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseStackdriverSampleDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: StackdriverSampleDataDTO
@@ -2136,41 +2145,6 @@ export interface RestResponseListAnomalyDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface CategoryRisksDTO {
-  startTimeEpoch?: number
-  endTimeEpoch?: number
-  categoryRisks?: CategoryRisk[]
-}
-
-export interface RestResponseCategoryRisksDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CategoryRisksDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface EnvServiceRiskDTO {
-  orgIdentifier?: string
-  projectIdentifier?: string
-  envIdentifier?: string
-  risk?: number
-  serviceRisks?: ServiceRisk[]
-}
-
-export interface RestResponseListEnvServiceRiskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvServiceRiskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceRisk {
-  serviceIdentifier?: string
-  risk?: number
-}
-
 export interface HeatMapDTO {
   startTime?: number
   endTime?: number
@@ -2217,6 +2191,41 @@ export interface ServiceSummary {
   serviceIdentifier?: string
   risk?: number
   analysisRisks?: AnalysisRisk[]
+}
+
+export interface CategoryRisksDTO {
+  startTimeEpoch?: number
+  endTimeEpoch?: number
+  categoryRisks?: CategoryRisk[]
+}
+
+export interface RestResponseCategoryRisksDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CategoryRisksDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface EnvServiceRiskDTO {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envIdentifier?: string
+  risk?: number
+  serviceRisks?: ServiceRisk[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceRisk {
+  serviceIdentifier?: string
+  risk?: number
 }
 
 export interface CountByTag {
@@ -2418,8 +2427,8 @@ export interface VerificationJobDTO {
   activitySourceIdentifier?: string
   dataSources?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER')[]
   duration?: string
-  defaultJob?: boolean
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
+  defaultJob?: boolean
 }
 
 export interface PageVerificationJobDTO {
@@ -4561,6 +4570,89 @@ export const getRecentActivityVerificationResultsPromise = (
     void
   >(getConfig('cv/api'), `/activity/recent-activity-verifications`, props, signal)
 
+export interface GetActivityVerificationResultQueryParams {
+  accountId: string
+}
+
+export interface GetActivityVerificationResultPathParams {
+  activityId: string
+}
+
+export type GetActivityVerificationResultProps = Omit<
+  GetProps<
+    RestResponseActivityVerificationResultDTO,
+    unknown,
+    GetActivityVerificationResultQueryParams,
+    GetActivityVerificationResultPathParams
+  >,
+  'path'
+> &
+  GetActivityVerificationResultPathParams
+
+/**
+ * get activity verification result
+ */
+export const GetActivityVerificationResult = ({ activityId, ...props }: GetActivityVerificationResultProps) => (
+  <Get<
+    RestResponseActivityVerificationResultDTO,
+    unknown,
+    GetActivityVerificationResultQueryParams,
+    GetActivityVerificationResultPathParams
+  >
+    path="/activity/${activityId}/activity-risks"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityVerificationResultProps = Omit<
+  UseGetProps<
+    RestResponseActivityVerificationResultDTO,
+    unknown,
+    GetActivityVerificationResultQueryParams,
+    GetActivityVerificationResultPathParams
+  >,
+  'path'
+> &
+  GetActivityVerificationResultPathParams
+
+/**
+ * get activity verification result
+ */
+export const useGetActivityVerificationResult = ({ activityId, ...props }: UseGetActivityVerificationResultProps) =>
+  useGet<
+    RestResponseActivityVerificationResultDTO,
+    unknown,
+    GetActivityVerificationResultQueryParams,
+    GetActivityVerificationResultPathParams
+  >((paramsInPath: GetActivityVerificationResultPathParams) => `/activity/${paramsInPath.activityId}/activity-risks`, {
+    base: getConfig('cv/api'),
+    pathParams: { activityId },
+    ...props
+  })
+
+/**
+ * get activity verification result
+ */
+export const getActivityVerificationResultPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseActivityVerificationResultDTO,
+    unknown,
+    GetActivityVerificationResultQueryParams,
+    GetActivityVerificationResultPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseActivityVerificationResultDTO,
+    unknown,
+    GetActivityVerificationResultQueryParams,
+    GetActivityVerificationResultPathParams
+  >(getConfig('cv/api'), `/activity/${activityId}/activity-risks`, props, signal)
+
 export interface ListActivitiesForDashboardQueryParams {
   accountId: string
   orgIdentifier: string
@@ -5280,59 +5372,6 @@ export const getStackdriverSampleDataPromise = (
     void
   >('POST', getConfig('cv/api'), `/stackdriver/sample-data`, props, signal)
 
-export interface ListAllActivitySourcesQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  offset: number
-  pageSize: number
-  filter?: string
-}
-
-export type ListAllActivitySourcesProps = Omit<
-  GetProps<RestResponsePageActivitySourceDTO, unknown, ListAllActivitySourcesQueryParams, void>,
-  'path'
->
-
-/**
- * lists all kubernetes event sources
- */
-export const ListAllActivitySources = (props: ListAllActivitySourcesProps) => (
-  <Get<RestResponsePageActivitySourceDTO, unknown, ListAllActivitySourcesQueryParams, void>
-    path="/activity/sources"
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseListAllActivitySourcesProps = Omit<
-  UseGetProps<RestResponsePageActivitySourceDTO, unknown, ListAllActivitySourcesQueryParams, void>,
-  'path'
->
-
-/**
- * lists all kubernetes event sources
- */
-export const useListAllActivitySources = (props: UseListAllActivitySourcesProps) =>
-  useGet<RestResponsePageActivitySourceDTO, unknown, ListAllActivitySourcesQueryParams, void>(`/activity/sources`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * lists all kubernetes event sources
- */
-export const listAllActivitySourcesPromise = (
-  props: GetUsingFetchProps<RestResponsePageActivitySourceDTO, unknown, ListAllActivitySourcesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePageActivitySourceDTO, unknown, ListAllActivitySourcesQueryParams, void>(
-    getConfig('cv/api'),
-    `/activity/sources`,
-    props,
-    signal
-  )
-
 export interface GetActivitySourceQueryParams {
   accountId: string
   orgIdentifier: string
@@ -5350,7 +5389,7 @@ export type GetActivitySourceProps = Omit<
  */
 export const GetActivitySource = (props: GetActivitySourceProps) => (
   <Get<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>
-    path="/activity/source"
+    path="/activity-source"
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5365,7 +5404,7 @@ export type UseGetActivitySourceProps = Omit<
  * gets a kubernetes event source by identifier
  */
 export const useGetActivitySource = (props: UseGetActivitySourceProps) =>
-  useGet<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>(`/activity/source`, {
+  useGet<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>(`/activity-source`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -5379,60 +5418,60 @@ export const getActivitySourcePromise = (
 ) =>
   getUsingFetch<RestResponseActivitySourceDTO, unknown, GetActivitySourceQueryParams, void>(
     getConfig('cv/api'),
-    `/activity/source`,
+    `/activity-source`,
     props,
     signal
   )
 
-export interface SaveActivitySourceQueryParams {
+export interface RegisterActivitySourceQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
 }
 
-export type SaveActivitySourceProps = Omit<
-  MutateProps<RestResponseString, unknown, SaveActivitySourceQueryParams, ActivitySourceDTO, void>,
+export type RegisterActivitySourceProps = Omit<
+  MutateProps<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
   'path' | 'verb'
 >
 
 /**
  * register a kubernetes event source
  */
-export const SaveActivitySource = (props: SaveActivitySourceProps) => (
-  <Mutate<RestResponseString, unknown, SaveActivitySourceQueryParams, ActivitySourceDTO, void>
+export const RegisterActivitySource = (props: RegisterActivitySourceProps) => (
+  <Mutate<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>
     verb="POST"
-    path="/activity/source"
+    path="/activity-source"
     base={getConfig('cv/api')}
     {...props}
   />
 )
 
-export type UseSaveActivitySourceProps = Omit<
-  UseMutateProps<RestResponseString, unknown, SaveActivitySourceQueryParams, ActivitySourceDTO, void>,
+export type UseRegisterActivitySourceProps = Omit<
+  UseMutateProps<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
   'path' | 'verb'
 >
 
 /**
  * register a kubernetes event source
  */
-export const useSaveActivitySource = (props: UseSaveActivitySourceProps) =>
-  useMutate<RestResponseString, unknown, SaveActivitySourceQueryParams, ActivitySourceDTO, void>(
+export const useRegisterActivitySource = (props: UseRegisterActivitySourceProps) =>
+  useMutate<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>(
     'POST',
-    `/activity/source`,
+    `/activity-source`,
     { base: getConfig('cv/api'), ...props }
   )
 
 /**
  * register a kubernetes event source
  */
-export const saveActivitySourcePromise = (
-  props: MutateUsingFetchProps<RestResponseString, unknown, SaveActivitySourceQueryParams, ActivitySourceDTO, void>,
+export const registerActivitySourcePromise = (
+  props: MutateUsingFetchProps<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseString, unknown, SaveActivitySourceQueryParams, ActivitySourceDTO, void>(
+  mutateUsingFetch<RestResponseString, unknown, RegisterActivitySourceQueryParams, ActivitySourceDTO, void>(
     'POST',
     getConfig('cv/api'),
-    `/activity/source`,
+    `/activity-source`,
     props,
     signal
   )
@@ -5454,7 +5493,7 @@ export type DeleteKubernetesSourceProps = Omit<
 export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
   <Mutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>
     verb="DELETE"
-    path="/activity"
+    path="/activity-source"
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5469,10 +5508,11 @@ export type UseDeleteKubernetesSourceProps = Omit<
  * deletes a kubernetes event source
  */
 export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps) =>
-  useMutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>('DELETE', `/activity`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+  useMutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>(
+    'DELETE',
+    `/activity-source`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * deletes a kubernetes event source
@@ -5484,7 +5524,121 @@ export const deleteKubernetesSourcePromise = (
   mutateUsingFetch<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>(
     'DELETE',
     getConfig('cv/api'),
-    `/activity`,
+    `/activity-source`,
+    props,
+    signal
+  )
+
+export interface ListActivitySourcesQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  offset: number
+  pageSize: number
+  filter?: string
+}
+
+export type ListActivitySourcesProps = Omit<
+  GetProps<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>,
+  'path'
+>
+
+/**
+ * lists all kubernetes event sources
+ */
+export const ListActivitySources = (props: ListActivitySourcesProps) => (
+  <Get<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>
+    path="/activity-source/list"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseListActivitySourcesProps = Omit<
+  UseGetProps<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>,
+  'path'
+>
+
+/**
+ * lists all kubernetes event sources
+ */
+export const useListActivitySources = (props: UseListActivitySourcesProps) =>
+  useGet<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>(`/activity-source/list`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * lists all kubernetes event sources
+ */
+export const listActivitySourcesPromise = (
+  props: GetUsingFetchProps<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageActivitySourceDTO, unknown, ListActivitySourcesQueryParams, void>(
+    getConfig('cv/api'),
+    `/activity-source/list`,
+    props,
+    signal
+  )
+
+export interface GetActivityDetailsQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface GetActivityDetailsPathParams {
+  activityId: string
+}
+
+export type GetActivityDetailsProps = Omit<
+  GetProps<ResponseListString, unknown, GetActivityDetailsQueryParams, GetActivityDetailsPathParams>,
+  'path'
+> &
+  GetActivityDetailsPathParams
+
+/**
+ * list all activities between a given time range for an environment, project, org
+ */
+export const GetActivityDetails = ({ activityId, ...props }: GetActivityDetailsProps) => (
+  <Get<ResponseListString, unknown, GetActivityDetailsQueryParams, GetActivityDetailsPathParams>
+    path="/activity/${activityId}/details"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityDetailsProps = Omit<
+  UseGetProps<ResponseListString, unknown, GetActivityDetailsQueryParams, GetActivityDetailsPathParams>,
+  'path'
+> &
+  GetActivityDetailsPathParams
+
+/**
+ * list all activities between a given time range for an environment, project, org
+ */
+export const useGetActivityDetails = ({ activityId, ...props }: UseGetActivityDetailsProps) =>
+  useGet<ResponseListString, unknown, GetActivityDetailsQueryParams, GetActivityDetailsPathParams>(
+    (paramsInPath: GetActivityDetailsPathParams) => `/activity/${paramsInPath.activityId}/details`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * list all activities between a given time range for an environment, project, org
+ */
+export const getActivityDetailsPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<ResponseListString, unknown, GetActivityDetailsQueryParams, GetActivityDetailsPathParams> & {
+    activityId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, unknown, GetActivityDetailsQueryParams, GetActivityDetailsPathParams>(
+    getConfig('cv/api'),
+    `/activity/${activityId}/details`,
     props,
     signal
   )

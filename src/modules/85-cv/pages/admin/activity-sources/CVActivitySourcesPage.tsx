@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import moment from 'moment'
 import { Color, Container, Text, TextInput, Icon, Button } from '@wings-software/uicore'
-import { ActivitySourceDTO, useDeleteKubernetesSource, useListAllActivitySources } from 'services/cv'
+import { ActivitySourceDTO, useDeleteKubernetesSource, useListActivitySources } from 'services/cv'
 import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -122,7 +122,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
     debounce: 0,
     filter: undefined
   })
-  const { data, loading, error, refetch: refetchSources } = useListAllActivitySources({
+  const { data, loading, error, refetch: refetchSources } = useListActivitySources({
     debounce,
     queryParams: {
       accountId: params.accountId,

@@ -19,14 +19,6 @@ import type {
   WorkloadInfo
 } from './KubernetesActivitySourceUtils'
 
-const TabComponents = [
-  SelectActivitySource,
-  SelectKubernetesConnector,
-  SelectKubernetesNamespaces,
-  MapWorkloadsToServices,
-  ReviewKubernetesActivitySource
-]
-
 export function transformApiData(activitySource?: KubernetesActivitySourceDTO): KubernetesActivitySourceInfo {
   if (!activitySource || !activitySource?.activitySourceConfigs?.length) return {} as KubernetesActivitySourceInfo
   const data: KubernetesActivitySourceInfo = {
@@ -74,7 +66,7 @@ export function transformApiData(activitySource?: KubernetesActivitySourceDTO): 
 
 export function KubernetesActivitySource(): JSX.Element {
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<KubernetesActivitySourceInfo>({
-    totalTabs: TabComponents.length
+    totalTabs: 5
   })
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & { activitySourceId: string }>()
@@ -98,14 +90,6 @@ export function KubernetesActivitySource(): JSX.Element {
     }
   }, [params])
 
-  const tabTitles = [
-    getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
-    getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
-    getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
-    getString(`cv.activitySources.kubernetes.tabNames[${3}]`),
-    getString('review')
-  ]
-
   return (
     <Page.Body loading={loading} error={error?.message}>
       <CVOnboardingTabs
@@ -114,19 +98,84 @@ export function KubernetesActivitySource(): JSX.Element {
         {...tabInfo}
         onNext={onNext}
         setName={val => setCurrentData({ ...currentData, name: val } as KubernetesActivitySourceInfo)}
-        tabProps={TabComponents.map((tabComponent, index) => ({
-          id: index + 1,
-          title: tabTitles[index],
-          component: React.createElement(tabComponent, {
-            data: currentData as KubernetesActivitySourceInfo,
-            isEditMode: Boolean(params.activitySourceId),
-            onSubmit: (submittedInfo: KubernetesActivitySourceInfo) => {
-              if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
-              onNext({ data: { ...currentData, ...submittedInfo } })
-            },
-            onPrevious: tabInfo.onPrevious
-          })
-        }))}
+        tabProps={[
+          {
+            id: 1,
+            title: getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
+            component: (
+              <SelectActivitySource
+                data={currentData as KubernetesActivitySourceInfo}
+                isEditMode={Boolean(params.activitySourceId)}
+                onSubmit={(submittedInfo: KubernetesActivitySourceInfo) => {
+                  if (submittedInfo) {
+                    if (currentData?.connectorRef?.value !== submittedInfo?.connectorRef?.value) {
+                      submittedInfo.selectedNamespaces = []
+                      submittedInfo.selectedWorkloads = new Map()
+                    }
+                    setCurrentData({ ...currentData, ...submittedInfo })
+                  }
+                  onNext({ data: { ...currentData, ...submittedInfo } })
+                }}
+              />
+            )
+          },
+          {
+            id: 2,
+            title: getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
+            component: (
+              <SelectKubernetesConnector
+                data={currentData as KubernetesActivitySourceInfo}
+                onSubmit={(submittedInfo: KubernetesActivitySourceInfo) => {
+                  if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
+                  onNext({ data: { ...currentData, ...submittedInfo } })
+                }}
+                onPrevious={tabInfo.onPrevious}
+              />
+            )
+          },
+          {
+            id: 3,
+            title: getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
+            component: (
+              <SelectKubernetesNamespaces
+                data={currentData as KubernetesActivitySourceInfo}
+                onSubmit={(submittedInfo: KubernetesActivitySourceInfo) => {
+                  if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
+                  onNext({ data: { ...currentData, ...submittedInfo } })
+                }}
+                onPrevious={tabInfo.onPrevious}
+              />
+            )
+          },
+          {
+            id: 4,
+            title: getString(`cv.activitySources.kubernetes.tabNames[${3}]`),
+            component: (
+              <MapWorkloadsToServices
+                data={currentData as KubernetesActivitySourceInfo}
+                onSubmit={(submittedInfo: KubernetesActivitySourceInfo) => {
+                  if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
+                  onNext({ data: { ...currentData, ...submittedInfo } })
+                }}
+                onPrevious={tabInfo.onPrevious}
+              />
+            )
+          },
+          {
+            id: 5,
+            title: getString('review'),
+            component: (
+              <ReviewKubernetesActivitySource
+                data={currentData as KubernetesActivitySourceInfo}
+                onSubmit={(submittedInfo: KubernetesActivitySourceInfo) => {
+                  if (submittedInfo) setCurrentData({ ...currentData, ...submittedInfo })
+                  onNext({ data: { ...currentData, ...submittedInfo } })
+                }}
+                onPrevious={tabInfo.onPrevious}
+              />
+            )
+          }
+        ]}
       />
     </Page.Body>
   )

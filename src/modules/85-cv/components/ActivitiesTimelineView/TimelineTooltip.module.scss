@@ -3,7 +3,7 @@
   overflow-y: scroll;
   padding: var(--spacing-small) !important;
   .timestamp {
-    margin-bottom: 2px;
+    margin-bottom: 2px !important;
     font-size: var(--font-size-small) !important;
   }
   .activityName {

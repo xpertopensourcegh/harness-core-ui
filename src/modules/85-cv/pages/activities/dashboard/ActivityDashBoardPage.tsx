@@ -26,14 +26,12 @@ interface AggregateActivityCardPrps {
 const ActivityTypes = {
   DEPLOYMENT: 'DEPLOYMENT',
   OTHER_CHANGES: 'OTHER',
-  INFRASTRUCTURE: 'INFRASTRUCTURE',
-  CONFIG_CHANGES: 'CONFIG'
+  INFRASTRUCTURE: 'INFRASTRUCTURE'
 }
 
 const ActivityTypesToIcon: { [key: string]: IconProps } = {
   [ActivityTypes.DEPLOYMENT]: { name: 'cd-main', size: 20 },
   [ActivityTypes.INFRASTRUCTURE]: { name: 'service-kubernetes', size: 20 },
-  [ActivityTypes.CONFIG_CHANGES]: { name: 'config-change', size: 20 },
   [ActivityTypes.OTHER_CHANGES]: { name: 'config-change', size: 20 }
 }
 
@@ -103,19 +101,6 @@ function generateActivityTracks(startTime: number, endTime: number): ActivityTra
       trackName: i18n.activityTrackTitle.deployment,
       trackIcon: {
         name: 'cd-main',
-        size: 22
-      },
-      startTime,
-      endTime,
-      cardContent: renderActivityCardContent,
-      aggregateCoverCard: renderAggregateActivityCard,
-      onActivityClick: () => undefined,
-      activities: []
-    },
-    {
-      trackName: i18n.activityTrackTitle.configChanges,
-      trackIcon: {
-        name: 'config-change',
         size: 22
       },
       startTime,

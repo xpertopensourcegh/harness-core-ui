@@ -13,7 +13,7 @@ jest.mock('services/cv', () => ({
     refetch: jest.fn(),
     data: null
   })),
-  useListAllActivitySources: jest.fn().mockImplementation(() => ({}))
+  useListActivitySources: jest.fn().mockImplementation(() => ({}))
 }))
 
 describe('VerificationJobsDetails', () => {

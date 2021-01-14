@@ -26,7 +26,6 @@ export interface ActivitiesTimelineViewProps {
   canSelect?: boolean
   preselectedEvent?: EventData
   deployments?: Array<EventData>
-  configChanges?: Array<EventData>
   infrastructureChanges?: Array<EventData>
   otherChanges?: Array<EventData>
   className?: string
@@ -90,7 +89,6 @@ export default function ActivitiesTimelineView({
   canSelect,
   preselectedEvent,
   deployments = [],
-  configChanges = [],
   infrastructureChanges = [],
   otherChanges = [],
   timelineViewProps,
@@ -194,10 +192,6 @@ export default function ActivitiesTimelineView({
           {
             name: PredefinedLabels.deployments,
             data: deployments
-          },
-          {
-            name: PredefinedLabels.configChanges,
-            data: configChanges
           },
           {
             name: PredefinedLabels.infrastructureChanges,

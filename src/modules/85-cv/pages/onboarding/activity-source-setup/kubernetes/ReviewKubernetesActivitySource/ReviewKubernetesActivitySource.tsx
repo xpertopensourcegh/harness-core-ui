@@ -8,7 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { String, useStrings } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useSaveActivitySource } from 'services/cv'
+import { useRegisterActivitySource } from 'services/cv'
 import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { KubernetesActivitySourceDTO, KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 
@@ -92,7 +92,7 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
   const history = useHistory()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { mutate, error } = useSaveActivitySource({
+  const { mutate, error } = useRegisterActivitySource({
     queryParams: {
       ...params
     }

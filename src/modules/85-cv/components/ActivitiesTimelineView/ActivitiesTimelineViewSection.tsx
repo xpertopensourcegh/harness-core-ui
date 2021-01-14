@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
 import ActivitiesTimelineView, { ActivitiesTimelineViewProps, EventData } from './ActivitiesTimelineView'
 import i18n from './ActivitiesTimelineView.i18n'
@@ -25,41 +26,37 @@ export default function ActivitesTimelineViewSection({
   className
 }: ActivitesTimelineViewSectionProps): React.ReactElement {
   const [deployments, setDeployments] = useState<Array<EventData>>()
-  const [configChanges, setConfigChanges] = useState<Array<EventData>>()
   const [infrastructureChanges, setInfrastructureChanges] = useState<Array<EventData>>()
   const [otherChanges, setOtherChanges] = useState<Array<EventData>>()
   const [preselectedActivity, setPreselectedActivity] = useState<EventData>()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const { data, refetch: getActivities, loading, error } = useListActivitiesForDashboard({
     lazy: true,
     resolve: (res: RestResponseListActivityDashboardDTO) => {
       if (res) {
         const deploymentsData: Array<EventData> = []
-        const configChangesData: Array<EventData> = []
         const infrastructureChangesData: Array<EventData> = []
         const otherChangesData: Array<EventData> = []
         res?.resource?.forEach(activity => {
-          const { activityName, activityStartTime, verificationStatus, activityType } = activity || {}
+          const { activityName, activityStartTime, verificationStatus, activityType, activityId } = activity || {}
           if (!activityName || !activityStartTime || !verificationStatus || !activityType) return
           const eventData: EventData = {
             startTime: activityStartTime,
             name: activityName,
+            activityId,
             verificationResult: verificationStatus
           }
           switch (activityType) {
             case 'DEPLOYMENT':
               deploymentsData.push(eventData)
               break
-            case 'CONFIG':
-              configChangesData.push(eventData)
-              break
+            case 'KUBERNETES':
             case 'INFRASTRUCTURE':
               infrastructureChangesData.push(eventData)
               break
             case 'CUSTOM':
             case 'OTHER':
-            case 'KUBERNETES':
               otherChangesData.push(eventData)
           }
           if (selectedActivityId === activity.activityId) {
@@ -70,7 +67,6 @@ export default function ActivitesTimelineViewSection({
           }
         })
         setDeployments(deploymentsData)
-        setConfigChanges(configChangesData)
         setInfrastructureChanges(infrastructureChangesData)
         setOtherChanges(otherChangesData)
       }
@@ -83,8 +79,8 @@ export default function ActivitesTimelineViewSection({
       getActivities({
         queryParams: {
           accountId,
-          orgIdentifier: orgIdentifier as string,
-          projectIdentifier: projectIdentifier as string,
+          orgIdentifier,
+          projectIdentifier,
           environmentIdentifier,
           startTime: startTime,
           endTime: endTime
@@ -105,8 +101,8 @@ export default function ActivitesTimelineViewSection({
             getActivities({
               queryParams: {
                 accountId,
-                orgIdentifier: orgIdentifier as string,
-                projectIdentifier: projectIdentifier as string,
+                orgIdentifier,
+                projectIdentifier,
                 environmentIdentifier,
                 startTime: startTime,
                 endTime: endTime
@@ -131,8 +127,8 @@ export default function ActivitesTimelineViewSection({
             getActivities({
               queryParams: {
                 accountId,
-                orgIdentifier: orgIdentifier as string,
-                projectIdentifier: projectIdentifier as string,
+                orgIdentifier,
+                projectIdentifier,
                 environmentIdentifier,
                 startTime: startTime,
                 endTime: endTime
@@ -152,7 +148,6 @@ export default function ActivitesTimelineViewSection({
       preselectedEvent={preselectedActivity}
       className={className}
       deployments={deployments}
-      configChanges={configChanges}
       infrastructureChanges={infrastructureChanges}
       otherChanges={otherChanges}
       timelineViewProps={{
