@@ -295,7 +295,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
               ...variable,
               id: uuid()
             }))
-          : [{ name: '', value: '', id: uuid() }]
+          : [{ name: '', type: 'String', value: '', id: uuid() }]
       }
     }
   }

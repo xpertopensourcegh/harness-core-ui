@@ -143,10 +143,12 @@ describe('Test Shell Script Step', () => {
         outputVariables: [
           {
             name: 'testOutput1',
+            type: 'String',
             value: 'Test_C'
           },
           {
             name: 'testOutput2',
+            type: 'String',
             value: 'Test_D'
           }
         ]
@@ -193,10 +195,12 @@ describe('Test Shell Script Step', () => {
         outputVariables: [
           {
             name: 'testOutput1',
+            type: 'String',
             value: 'Test_C'
           },
           {
             name: 'testOutput2',
+            type: 'String',
             value: 'Test_D'
           }
         ]
@@ -253,7 +257,7 @@ describe('Test Shell Script Step', () => {
         target: { value: 'response.message' }
       })
 
-      await fireEvent.click(getByText('Add'))
+      await fireEvent.click(getByText('Add Output Variable'))
 
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, {
@@ -293,10 +297,12 @@ describe('Test Shell Script Step', () => {
         outputVariables: [
           {
             name: 'testOutput1',
+            type: 'String',
             value: 'response.message'
           },
           {
             name: 'testOutput2',
+            type: 'String',
             value: 'response.message'
           }
         ]
@@ -362,7 +368,7 @@ describe('Test Shell Script Step', () => {
         target: { value: 'response.message' }
       })
 
-      await fireEvent.click(getByText('Add'))
+      await fireEvent.click(getByText('Add Output Variable'))
 
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, {
@@ -404,10 +410,12 @@ describe('Test Shell Script Step', () => {
         outputVariables: [
           {
             name: 'testOutput1',
+            type: 'String',
             value: 'response.message'
           },
           {
             name: 'testOutput2',
+            type: 'String',
             value: 'response.message'
           }
         ]
@@ -508,10 +516,12 @@ describe('Test Shell Script Step', () => {
         outputVariables: [
           {
             name: 'testOutput1',
+            type: 'String',
             value: 'Test_C'
           },
           {
             name: 'testOutput2',
+            type: 'String',
             value: 'Test_D'
           }
         ]
@@ -572,10 +582,12 @@ describe('Test Shell Script Step', () => {
         outputVariables: [
           {
             name: 'testOutput1',
+            type: 'String',
             value: 'Test_C'
           },
           {
             name: 'testOutput2',
+            type: 'String',
             value: 'Test_D'
           }
         ]

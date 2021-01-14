@@ -73,7 +73,7 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                 data-testid="add-environmentVar"
                 onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
               >
-                Add Input Variable
+                {getString('addInputVar')}
               </Button>
             </div>
           )

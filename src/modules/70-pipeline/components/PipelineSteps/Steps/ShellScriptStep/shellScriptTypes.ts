@@ -10,6 +10,7 @@ export interface ShellScriptOutputStepVariable {
   value: number | string
   id: string
   name?: string
+  type?: 'String'
 }
 interface ShellScriptSource {
   type?: string

@@ -293,6 +293,8 @@ global:
   workingDirectory: 'Working Directory'
   exportScript: 'You can export script outputs as variables which can be used later in the pipeline.'
   sshConnector: 'SSH Connection Attribute'
+  addOutputVar: 'Add Output Variable'
+  addInputVar: 'Add Input Variable'
   pipelines-studio:
     addStep: Add step
     dependenciesGroupTitle: Dependencies
