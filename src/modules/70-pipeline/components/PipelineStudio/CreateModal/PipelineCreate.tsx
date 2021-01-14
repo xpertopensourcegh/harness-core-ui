@@ -113,27 +113,27 @@ export default function CreatePipelines({
             <img src={module === 'ci' ? pipelineStudio : image1} />
             <div>
               <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
-                {i18n.pipelineConcepts}
+                {module === 'ci' ? i18n.ciItem1Title : i18n.pipelineConcepts}
               </Text>
-              <Text>{i18n.concept1}</Text>
+              <Text>{module === 'ci' ? i18n.ciItem1Description : i18n.concept1}</Text>
             </div>
           </div>
           <div className={css.helpImages}>
             <img src={module === 'ci' ? testIntelligence : image2} />
             <div>
               <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
-                {i18n.pipelineConcepts}
+                {module === 'ci' ? i18n.ciItem2Title : i18n.pipelineConcepts}
               </Text>
-              <Text>{i18n.concept1}</Text>
+              <Text>{module === 'ci' ? i18n.ciItem2Description : i18n.concept1}</Text>
             </div>
           </div>
           <div className={css.helpImages}>
             <img src={module === 'ci' ? ciSteps : image3} />
             <div>
               <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
-                {i18n.pipelineConcepts}
+                {module === 'ci' ? i18n.ciItem3Title : i18n.pipelineConcepts}
               </Text>
-              <Text>{i18n.concept1}</Text>
+              <Text>{module === 'ci' ? i18n.ciItem3Description : i18n.concept1}</Text>
             </div>
           </div>
         </Carousel>
