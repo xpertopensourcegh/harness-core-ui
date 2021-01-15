@@ -22,7 +22,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { useToaster } from '@common/exports'
+import { useConfirmationDialog, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -149,9 +149,28 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     }
   }, [secretData])
 
+  const { openDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('continueWithoutSavingText'),
+    titleText: getString('continueWithoutSavingTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        setEdit(false)
+        refetch()
+      }
+    }
+  })
+
+  const resetEditor = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    event.preventDefault()
+    event.stopPropagation()
+    openDialog()
+  }
+
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
-  if (!secretData) return <div>No Data</div>
+  if (!secretData) return <div>{getString('noData')}</div>
 
   return (
     <>
@@ -168,42 +187,44 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           </Layout.Vertical>
         }
       />
-      <Container padding="large">
-        <div className={css.switch}>
-          <div className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })} onClick={() => setMode(Mode.VISUAL)}>
-            {getString('visual')}
-          </div>
-          <div className={cx(css.item, { [css.selected]: mode === Mode.YAML })} onClick={() => setMode(Mode.YAML)}>
-            {getString('yaml')}
-          </div>
-        </div>
-        <Layout.Horizontal spacing="medium" margin={{ bottom: 'large', top: 'large' }} style={{ alignItems: 'center' }}>
-          <Text font={{ size: 'medium' }} color={Color.BLACK}>
-            {i18n.title}
-          </Text>
+      <Container padding={{ top: 'large', left: 'huge', right: 'huge' }}>
+        <Container padding={{ bottom: 'large' }}>
           {edit ? null : (
-            <Button
-              text={i18n.buttonEdit}
-              icon="edit"
-              onClick={() => {
-                mode === Mode.VISUAL
-                  ? secretData.secret.type === 'SSHKey'
-                    ? openCreateSSHCredModal(data?.data?.secret)
-                    : openCreateSecretModal(secretData.secret.type, secretData)
-                  : setEdit(true)
-              }}
-            />
+            <Layout.Horizontal flex>
+              <div className={css.switch}>
+                <div
+                  className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })}
+                  onClick={() => setMode(Mode.VISUAL)}
+                >
+                  {getString('visual')}
+                </div>
+                <div
+                  className={cx(css.item, { [css.selected]: mode === Mode.YAML })}
+                  onClick={() => setMode(Mode.YAML)}
+                >
+                  {getString('yaml')}
+                </div>
+              </div>
+              <Button
+                text={i18n.buttonEdit}
+                icon="edit"
+                onClick={() => {
+                  mode === Mode.VISUAL
+                    ? secretData.secret.type === 'SSHKey'
+                      ? openCreateSSHCredModal(data?.data?.secret)
+                      : openCreateSecretModal(secretData.secret.type, secretData)
+                    : setEdit(true)
+                }}
+              />
+            </Layout.Horizontal>
           )}
-        </Layout.Horizontal>
+        </Container>
         {mode === Mode.YAML ? (
           <Container>
             {edit && (
               <YamlBuilder
-                height={500}
                 entityType={'Secrets'}
                 fileName={`${secretData.secret.name}.yaml`}
-                // existingJson={}
-                // fieldRemovedFromYaml={[]}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 bind={setYamlHandler}
                 onSnippetCopy={onSnippetCopy}
@@ -215,7 +236,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
             )}
             {!edit && (
               <YamlBuilder
-                height={500}
                 entityType={'Secrets'}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 fileName={`${secretData.secret.name}.yaml`}
@@ -225,7 +245,10 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
               />
             )}
             {edit && (
-              <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
+              <Layout.Horizontal spacing="medium">
+                <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
+              </Layout.Horizontal>
             )}
           </Container>
         ) : (

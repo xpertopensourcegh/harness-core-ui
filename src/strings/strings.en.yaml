@@ -10,6 +10,7 @@ global:
   account: 'Account'
   repository: 'Repository'
   more: '+{{number}} more'
+  noData: No Data
   lastActivity: last activity
   fieldRequired: '{{field}} is a required field'
   deploymentText: Deployment
@@ -349,6 +350,9 @@ global:
     titleEditFile: 'Edit Encrypted File'
     inlineSecret: 'Inline Secret Value'
     referenceSecret: 'Reference Secret'
+    secretCreated: Secret Created
+    lastUpdated: Last Updated
+    secretActivity: Secret Activity
   instanceFieldOptions:
     percentage: 'percentage'
     instances: 'instances'

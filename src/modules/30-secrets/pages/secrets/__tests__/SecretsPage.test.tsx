@@ -81,7 +81,6 @@ describe('Secrets List', () => {
     expect(container).toMatchSnapshot()
     expect(container.querySelectorAll('div.row').length).toBe(4)
   })
-
   test('Edit SSH', async () => {
     const menu = container?.querySelectorAll("[id='Options_svg__a']")[0]
     fireEvent.click(menu!)
@@ -90,31 +89,9 @@ describe('Secrets List', () => {
     await act(async () => {
       fireEvent.click(edit)
     })
-    expect(container).toMatchSnapshot()
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
   })
-
-  test('Edit SecretText', async () => {
-    const menu = container?.querySelectorAll("[id='Options_svg__a']")[1]
-    fireEvent.click(menu!)
-    const popover = findPopoverContainer()
-    const edit = getByText(popover as HTMLElement, 'Edit')
-    await act(async () => {
-      fireEvent.click(edit)
-    })
-    expect(container).toMatchSnapshot()
-  })
-
-  test('Edit SecretFile', async () => {
-    const menu = container?.querySelectorAll("[id='Options_svg__a']")[2]
-    fireEvent.click(menu!)
-    const popover = findPopoverContainer()
-    const edit = getByText(popover as HTMLElement, 'Edit')
-    await act(async () => {
-      fireEvent.click(edit)
-    })
-    expect(container).toMatchSnapshot()
-  })
-
   test('Delete SSH', async () => {
     const menu = container?.querySelectorAll("[id='Options_svg__a']")[0]
     fireEvent.click(menu!)

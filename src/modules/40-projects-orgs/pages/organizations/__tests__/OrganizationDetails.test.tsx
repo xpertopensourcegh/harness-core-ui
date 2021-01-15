@@ -66,41 +66,15 @@ describe('Organization Details', () => {
       )
     ).toBeTruthy()
   })
-  test('Route Governance', async () => {
-    const governance = getByText('Governance')
-    fireEvent.click(governance)
-    await waitFor(() => getByTestId('location'))
-    expect(
-      getByTestId('location').innerHTML.endsWith(
-        routes.toOrgGovernance({
-          accountId: 'testAcc',
-          orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
-        })
-      )
-    ).toBeTruthy()
-  })
-  test('Route Git Sync', async () => {
-    const git = getByText('Git Sync')
-    fireEvent.click(git)
-    await waitFor(() => getByTestId('location'))
-    expect(
-      getByTestId('location').innerHTML.endsWith(
-        routes.toOrgGitSync({
-          accountId: 'testAcc',
-          orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
-        })
-      )
-    ).toBeTruthy()
+  test('Click on Add Admin', async () => {
+    const plus = getAllByText(container, '+')[0]
+    await act(async () => {
+      fireEvent.click(plus)
+      await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+    })
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
   }),
-    test('Click on Add Admin', async () => {
-      const plus = getAllByText(container, '+')[0]
-      await act(async () => {
-        fireEvent.click(plus)
-        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
-      })
-      const form = findDialogContainer()
-      expect(form).toBeTruthy()
-    }),
     test('Click on Add Collaborator', async () => {
       const plus = getAllByText(container, '+')[1]
       await act(async () => {

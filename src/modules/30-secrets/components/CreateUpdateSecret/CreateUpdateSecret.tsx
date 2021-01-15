@@ -191,8 +191,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
         validate={formData => {
           props.onChange?.({
             type: formData.type,
-            ...pick(formData, ['name', 'description', 'identifier']),
-            tags: {},
+            ...pick(formData, ['name', 'description', 'identifier', 'tags']),
             spec: pick(formData, ['value', 'valueType', 'secretManagerIdentifier']) as SecretTextSpecDTO
           })
         }}

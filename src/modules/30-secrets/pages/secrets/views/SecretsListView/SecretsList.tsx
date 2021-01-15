@@ -6,12 +6,13 @@ import type { Column, Renderer, CellProps } from 'react-table'
 import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uicore'
 
 import Table from '@common/components/Table/Table'
-import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
 import type { PageSecretResponseWrapper, SecretTextSpecDTO } from 'services/cd-ng'
 import { getStringForType } from '@secrets/utils/SSHAuthUtils'
-// import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModal'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
@@ -35,8 +36,7 @@ const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
           <Text color={Color.BLACK} lineClamp={1}>
             {data.name}
           </Text>
-          {/* TODO {Abhinav} Enable tags once spec is finalized */}
-          {/* {data.tags?.length ? <TagsPopover tags={data.tags} /> : null} */}
+          {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         <Text color={Color.GREY_400} width={230} lineClamp={1}>
           {data.identifier}
@@ -99,7 +99,6 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
 
 const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, column }) => {
   const data = row.original.secret
-  const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -107,6 +106,9 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
+
+  const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: (column as any).refreshSecrets })
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: (column as any).refreshSecrets })
 
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.name || ''),
@@ -132,8 +134,10 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
     openDialog()
   }
 
-  const handleEdit = (): void => {
-    history.push(routes.toResourcesSecretDetails({ secretId: data.identifier, accountId }))
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    data.type === 'SSHKey' ? openCreateSSHCredModal(data) : openCreateSecretModal(data.type, row.original)
   }
 
   return (

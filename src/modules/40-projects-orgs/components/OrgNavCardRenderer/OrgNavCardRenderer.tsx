@@ -14,30 +14,30 @@ interface OrgNavCardProps {
 }
 
 const options: OrgNavCardProps[] = [
-  {
-    icon: 'resources-icon',
-    title: i18n.accessContolTitle,
-    description: i18n.accessContolDescription,
-    route: (orgIdentifier, accountId) => routes.toOrgResources({ orgIdentifier, accountId })
-  },
-  {
-    icon: 'resources-icon',
-    title: i18n.governanceTitle,
-    description: i18n.governanceDescription,
-    route: (orgIdentifier, accountId) => routes.toOrgGovernance({ orgIdentifier, accountId })
-  },
+  // {
+  //   icon: 'resources-icon',
+  //   title: i18n.accessContolTitle,
+  //   description: i18n.accessContolDescription,
+  //   route: (orgIdentifier, accountId) => routes.toOrgResources({ orgIdentifier, accountId })
+  // },
+  // {
+  //   icon: 'resources-icon',
+  //   title: i18n.governanceTitle,
+  //   description: i18n.governanceDescription,
+  //   route: (orgIdentifier, accountId) => routes.toOrgGovernance({ orgIdentifier, accountId })
+  // },
   {
     icon: 'resources-icon',
     title: i18n.resourcesTitle,
     description: i18n.resourcesDescription,
     route: (orgIdentifier, accountId) => routes.toOrgResources({ orgIdentifier, accountId })
-  },
-  {
-    icon: 'resources-icon',
-    title: i18n.gitSyncTitle,
-    description: i18n.gitSyncDescription,
-    route: (orgIdentifier, accountId) => routes.toOrgGitSync({ orgIdentifier, accountId })
   }
+  // {
+  //   icon: 'resources-icon',
+  //   title: i18n.gitSyncTitle,
+  //   description: i18n.gitSyncDescription,
+  //   route: (orgIdentifier, accountId) => routes.toOrgGitSync({ orgIdentifier, accountId })
+  // }
 ]
 
 const OrgNavCardRenderer: React.FC = () => {

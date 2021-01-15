@@ -187,9 +187,10 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
               <Layout.Horizontal spacing="medium">
                 <Button text={i18n.buttonBack} onClick={() => previousStep?.(prevStepData)} />
                 <Button
-                  intent="primary"
                   type="submit"
-                  text={i18n.buttonNext}
+                  intent="primary"
+                  rightIcon="chevron-right"
+                  text={getString('saveAndContinue')}
                   disabled={updateLoading || createLoading}
                 />
               </Layout.Horizontal>
