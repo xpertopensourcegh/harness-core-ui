@@ -1,6 +1,7 @@
 import React from 'react'
 import type { ITreeNode } from '@blueprintjs/core'
 import { Text, Color } from '@wings-software/uicore'
+import get from 'lodash-es/get'
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 import i18n from './PipelineStudio.i18n'
 
@@ -10,7 +11,11 @@ export interface NodeClasses {
   empty?: string
 }
 
-const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode => {
+const getStageTree = (
+  stage: StageElement,
+  classes: NodeClasses = {},
+  { hideNonRuntimeFields = false, template = {} }: { hideNonRuntimeFields?: boolean; template?: {} } = {}
+): ITreeNode => {
   const stageNode: ITreeNode = {
     id: `Stage.${stage.identifier}`,
     hasCaret: true,
@@ -34,33 +39,74 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
   // only cd stage
   // TODO: Replace 'Deployment' literal with enum
   if (stage.type === 'Deployment') {
-    stageNode.childNodes?.push({
-      id: `Stage.${stage.identifier}.Service`,
-      hasCaret: false,
-      label: <Text>{i18n.service}</Text>,
-      className: classes.secondary,
-      isExpanded: true,
-      childNodes: [
-        {
+    const enabledChildList = Object.keys(get(template, 'spec.serviceConfig.serviceDefinition.spec', {}))
+    const childNodes = []
+    if (hideNonRuntimeFields) {
+      enabledChildList.includes('artifacts') &&
+        childNodes.push({
           id: `Stage.${stage.identifier}.Service.Artifacts`,
           hasCaret: false,
           label: <Text>{'Artifacts'}</Text>,
           className: classes.secondary
-        },
-        {
+        })
+      enabledChildList.includes('manifests') &&
+        childNodes.push({
           id: `Stage.${stage.identifier}.Service.Manifests`,
           hasCaret: false,
           label: <Text>{'Manifests'}</Text>,
           className: classes.secondary
-        },
-        {
+        })
+      enabledChildList.includes('variables') &&
+        childNodes.push({
           id: `Stage.${stage.identifier}.Service.Variables`,
           hasCaret: false,
           label: <Text>{'Variables'}</Text>,
           className: classes.secondary
-        }
-      ]
-    })
+        })
+    } else {
+      childNodes.push(
+        ...[
+          {
+            id: `Stage.${stage.identifier}.Service.Artifacts`,
+            hasCaret: false,
+            label: <Text>{'Artifacts'}</Text>,
+            className: classes.secondary
+          },
+          {
+            id: `Stage.${stage.identifier}.Service.Manifests`,
+            hasCaret: false,
+            label: <Text>{'Manifests'}</Text>,
+            className: classes.secondary
+          },
+          {
+            id: `Stage.${stage.identifier}.Service.Variables`,
+            hasCaret: false,
+            label: <Text>{'Variables'}</Text>,
+            className: classes.secondary
+          }
+        ]
+      )
+    }
+    if (hideNonRuntimeFields) {
+      Object.keys(get(template, 'spec', {})).includes('serviceConfig') &&
+        stageNode.childNodes?.push({
+          id: `Stage.${stage.identifier}.Service`,
+          hasCaret: false,
+          label: <Text>{i18n.service}</Text>,
+          className: classes.secondary,
+          isExpanded: true,
+          childNodes
+        })
+    } else {
+      stageNode.childNodes?.push({
+        id: `Stage.${stage.identifier}.Service`,
+        hasCaret: false,
+        label: <Text>{i18n.service}</Text>,
+        className: classes.secondary,
+        isExpanded: true,
+        childNodes
+      })
+    }
   }
 
   // only ci stage
@@ -76,24 +122,48 @@ const getStageTree = (stage: StageElement, classes: NodeClasses = {}): ITreeNode
   }
 
   // common to ci and cd stage
-  stageNode.childNodes?.push(
-    {
-      id: `Stage.${stage.identifier}.Infrastructure`,
-      hasCaret: false,
-      label: <Text>{i18n.infrastructure}</Text>,
-      className: classes.secondary
-    },
-    {
-      id: `Stage.${stage.identifier}.Execution`,
-      hasCaret: false,
-      label: <Text>{i18n.execution}</Text>,
-      className: classes.secondary
-    }
-  )
+  if (hideNonRuntimeFields) {
+    const enabledChildList = Object.keys(get(template, 'spec', {}))
+    enabledChildList.includes('infrastructure') &&
+      stageNode.childNodes?.push({
+        id: `Stage.${stage.identifier}.Infrastructure`,
+        hasCaret: false,
+        label: <Text>{i18n.infrastructure}</Text>,
+        className: classes.secondary
+      })
+
+    enabledChildList.includes('execution') &&
+      stageNode.childNodes?.push({
+        id: `Stage.${stage.identifier}.Execution`,
+        hasCaret: false,
+        label: <Text>{i18n.execution}</Text>,
+        className: classes.secondary
+      })
+  } else {
+    stageNode.childNodes?.push(
+      {
+        id: `Stage.${stage.identifier}.Infrastructure`,
+        hasCaret: false,
+        label: <Text>{i18n.infrastructure}</Text>,
+        className: classes.secondary
+      },
+      {
+        id: `Stage.${stage.identifier}.Execution`,
+        hasCaret: false,
+        label: <Text>{i18n.execution}</Text>,
+        className: classes.secondary
+      }
+    )
+  }
+
   return stageNode
 }
 
-export const getPipelineTree = (pipeline: NgPipeline, classes: NodeClasses = {}): ITreeNode[] => {
+export const getPipelineTree = (
+  pipeline: NgPipeline,
+  classes: NodeClasses = {},
+  options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: {} }] } } = {}
+): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [
     {
       id: 'Pipeline',
@@ -129,13 +199,15 @@ export const getPipelineTree = (pipeline: NgPipeline, classes: NodeClasses = {})
       ),
       childNodes: []
     }
-    pipeline.stages.forEach(data => {
+    pipeline.stages.forEach((data, index) => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
           nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes))
         })
       } /* istanbul ignore else */ else if (data.stage) {
-        stages.childNodes?.push(getStageTree(data.stage, classes))
+        stages.childNodes?.push(
+          getStageTree(data.stage, classes, { ...options, template: options.template?.stages[index].stage })
+        )
       }
     })
     returnNodes.push(stages)

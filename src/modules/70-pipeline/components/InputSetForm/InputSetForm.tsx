@@ -459,8 +459,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
   React.useEffect(() => {
     const parsedPipeline = parse(pipeline?.data?.yamlPipeline || '')
-    parsedPipeline && updateNodes(getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses))
-  }, [pipeline?.data?.yamlPipeline])
+    parsedPipeline &&
+      updateNodes(
+        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, {
+          hideNonRuntimeFields: true,
+          template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
+        })
+      )
+  }, [pipeline?.data?.yamlPipeline, template])
 
   return executionView ? (
     child
