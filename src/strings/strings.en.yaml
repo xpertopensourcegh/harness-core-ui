@@ -102,6 +102,7 @@ global:
   name: Name
   add: Add
   overview: Overview
+  reinstall: Reinstall
   edit: Edit
   delete: Delete
   select: Select

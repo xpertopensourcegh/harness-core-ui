@@ -86,7 +86,7 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = () => {
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item icon="edit" text={getString('edit')} />
+          <Menu.Item icon="edit" text={getString('reinstall')} />
           <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
         </Menu>
       </Popover>
