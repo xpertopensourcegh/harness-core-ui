@@ -1,6 +1,6 @@
 export default {
   STEP_ONE: {
-    name: 'SPECIFY MANIFEST SERVER',
+    name: 'Specify Manifest Server',
     addnewConnector: 'New Manifest Server',
     idPlaceholder: 'Give name to your manifest config',
     select: 'GIT Server',
@@ -9,7 +9,7 @@ export default {
     saveAndContinue: 'Save and Continue'
   },
   STEP_TWO: {
-    name: 'MANIFEST SOURCE',
+    name: 'Manifest Source',
     title: 'Configure Manifest Source',
     manifestInputType: 'Manifest Format',
     manifestIdentifier: 'Identifier can only contain alphanumerics, _ and $',

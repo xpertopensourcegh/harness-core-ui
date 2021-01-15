@@ -41,7 +41,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            SPECIFY MANIFEST SERVER
+            Specify Manifest Server
           </p>
         </div>
         <div
@@ -56,7 +56,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            MANIFEST SOURCE
+            Manifest Source
           </p>
         </div>
       </div>
@@ -394,7 +394,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main bottomButtons"
               >
                 <button
                   class="bp3-button StyledProps--font Button--button StyledProps--main"
@@ -467,7 +467,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            SPECIFY MANIFEST SERVER
+            Specify Manifest Server
           </p>
         </div>
         <div
@@ -482,7 +482,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            MANIFEST SOURCE
+            Manifest Source
           </p>
         </div>
       </div>
@@ -820,7 +820,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main bottomButtons"
               >
                 <button
                   class="bp3-button StyledProps--font Button--button StyledProps--main"
@@ -875,7 +875,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            SPECIFY MANIFEST SERVER
+            Specify Manifest Server
           </p>
         </div>
         <div
@@ -890,7 +890,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            MANIFEST SOURCE
+            Manifest Source
           </p>
         </div>
       </div>
@@ -905,7 +905,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-medium"
           >
-            MANIFEST SOURCE
+            Manifest Source
           </p>
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -918,7 +918,12 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                 style="align-items: center;"
               >
                 <div>
-                  GIT Server
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 5px;"
+                  >
+                    GIT Server
+                  </p>
                   <div
                     class="bp3-form-group"
                     style="margin-bottom: 0px;"

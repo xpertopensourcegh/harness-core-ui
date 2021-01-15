@@ -910,7 +910,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
 exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] = `
 <div
   class="bp3-dialog modal bp3-dark"
-  style="width: 1000px; min-height: 580px; padding-bottom: 0px; position: relative;"
+  style="width: 1175px; min-height: 640px; border-left: 0; padding-bottom: 0px; position: relative; overflow: hidden;"
 >
   <div
     class="bp3-dialog-header"
@@ -1035,7 +1035,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
 exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
 <div
   class="bp3-dialog modal bp3-dialog"
-  style="width: 1000px; min-height: 580px; padding-bottom: 0px; position: relative;"
+  style="width: 1175px; min-height: 640px; border-left: 0; padding-bottom: 0px; position: relative; overflow: hidden;"
 >
   <div
     class="bp3-dialog-header"
@@ -1090,7 +1090,7 @@ exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            SPECIFY MANIFEST SERVER
+            Specify Manifest Server
           </p>
         </div>
         <div
@@ -1105,7 +1105,7 @@ exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            MANIFEST SOURCE
+            Manifest Source
           </p>
         </div>
       </div>
@@ -1120,7 +1120,7 @@ exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-medium"
           >
-            MANIFEST SOURCE
+            Manifest Source
           </p>
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -1133,7 +1133,12 @@ exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
                 style="align-items: center;"
               >
                 <div>
-                  GIT Server
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 5px;"
+                  >
+                    GIT Server
+                  </p>
                   <div
                     class="bp3-form-group"
                     style="margin-bottom: 0px;"

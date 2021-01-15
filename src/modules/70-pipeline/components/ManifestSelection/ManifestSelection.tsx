@@ -106,7 +106,7 @@ function ManifestListView({
     canOutsideClickClose: false,
     enforceFocus: true,
     title: '',
-    style: { width: 1000, minHeight: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
+    style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()

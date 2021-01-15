@@ -81,7 +81,7 @@ const FirstStep = (props: any): JSX.Element => {
             <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
               <FormMultiTypeConnectorField
                 name="gitServer"
-                label={i18n.STEP_ONE.select}
+                label={<Text style={{ marginBottom: '5px' }}>{i18n.STEP_ONE.select}</Text>}
                 placeholder={i18n.STEP_ONE.gitServerPlaceholder}
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
@@ -321,7 +321,7 @@ const SecondStep = (props: any): JSX.Element => {
                 )}
               />
             </MultiTypeFieldSelector>
-            <Layout.Horizontal spacing="large">
+            <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button onClick={() => props.previousStep({})} text={i18n.STEP_TWO.back} />
               <Button type="submit" style={{ color: 'var(--blue-500)' }} text={i18n.STEP_TWO.submit} />
             </Layout.Horizontal>
