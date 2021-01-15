@@ -116,6 +116,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           <MultiTypeSecretInput name={`variables[${index}].value`} label="" />
                         ) : (
                           <FormInput.MultiTextInput
+                            className="variableInput"
                             name={`variables[${index}].value`}
                             label=""
                             multiTextInputProps={{

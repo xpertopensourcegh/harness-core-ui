@@ -1,5 +1,5 @@
 import React from 'react'
-import { Classes } from '@blueprintjs/core'
+import { Classes, ITreeNode } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -8,7 +8,8 @@ import {
   Layout,
   Popover,
   Text,
-  NestedAccordionProvider
+  NestedAccordionProvider,
+  useNestedAccordion
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -45,6 +46,8 @@ import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
+import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
+import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import css from './RunPipelineModal.module.scss'
 
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
@@ -86,25 +89,103 @@ function RunPipelineFormBasic({
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [notifyOnlyMe, setNotifyOnlyMe] = React.useState<boolean>(false)
-  const { data: template, loading: loadingTemplate, error: errorTemplate } = useGetTemplateFromPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
-  })
-
+  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
+  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
+  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
+  const { showError, showSuccess, showWarning } = useToaster()
+  const history = useHistory()
+  const { getString } = useStrings()
 
+  const { openNestedPath } = useNestedAccordion()
+  const { data: template, loading: loadingTemplate, error: errorTemplate } = useGetTemplateFromPipeline({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
+  })
+  const { data: pipelineResponse, loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+  const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+    identifier: pipelineIdentifier,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
+    }
+  })
   React.useEffect(() => {
     setCurrentPipeline(
       merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
     )
   }, [template?.data?.inputSetTemplateYaml])
 
-  const { showError, showSuccess, showWarning } = useToaster()
+  React.useEffect(() => {
+    setSelectedInputSets(inputSetSelected)
+  }, [inputSetSelected])
 
-  const { data: pipelineResponse, loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
-    pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  React.useEffect(() => {
+    if (template?.data?.inputSetTemplateYaml) {
+      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
+        const fetchData = async (): Promise<void> => {
+          const data = await mergeInputSet({
+            inputSetReferences: selectedInputSets.map(item => item.value as string)
+          })
+          if (data?.data?.pipelineYaml) {
+            setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
+          }
+        }
+        fetchData()
+      } else if (selectedInputSets && selectedInputSets.length === 1) {
+        const fetchData = async (): Promise<void> => {
+          const data = await getInputSetForPipelinePromise({
+            inputSetIdentifier: selectedInputSets[0].value as string,
+            queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+          })
+          if (data?.data?.inputSetYaml) {
+            if (selectedInputSets[0].type === 'INPUT_SET') {
+              setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
+            }
+          }
+        }
+        fetchData()
+      }
+    }
+  }, [
+    template?.data?.inputSetTemplateYaml,
+    selectedInputSets,
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    pipelineIdentifier
+  ])
+
+  const {
+    mutate: mergeInputSet,
+    loading: loadingUpdate,
+    error: errorMergeInputSet
+  } = useGetMergeInputSetFromPipelineTemplateWithListInput({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+  })
+
+  const {
+    mutate: createInputSet,
+    error: createInputSetError,
+    loading: createInputSetLoading
+  } = useCreateInputSetForPipeline({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
+  })
+
+  const { loading, data: pipelineSchema } = useGetYamlSchema({
+    queryParams: {
+      entityType: 'Pipelines',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
   })
 
   const handleModeSwitch = React.useCallback(
@@ -116,18 +197,7 @@ function RunPipelineFormBasic({
     },
     [yamlHandler?.getLatestYaml]
   )
-
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
-  const history = useHistory()
-  const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-    identifier: pipelineIdentifier,
-    requestOptions: {
-      headers: {
-        'content-type': 'application/yaml'
-      }
-    }
-  })
 
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline) => {
@@ -169,75 +239,11 @@ function RunPipelineFormBasic({
     ]
   )
 
-  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
-
   React.useEffect(() => {
-    setSelectedInputSets(inputSetSelected)
-  }, [inputSetSelected])
+    const parsedPipeline = parse(pipelineResponse?.data?.yamlPipeline || '')
+    parsedPipeline && updateNodes(getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses))
+  }, [pipelineResponse?.data?.yamlPipeline])
 
-  const {
-    mutate: mergeInputSet,
-    loading: loadingUpdate,
-    error: errorMergeInputSet
-  } = useGetMergeInputSetFromPipelineTemplateWithListInput({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
-  })
-
-  const {
-    mutate: createInputSet,
-    error: createInputSetError,
-    loading: createInputSetLoading
-  } = useCreateInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
-    requestOptions: { headers: { 'content-type': 'application/yaml' } }
-  })
-
-  const { loading, data: pipelineSchema } = useGetYamlSchema({
-    queryParams: {
-      entityType: 'Pipelines',
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    }
-  })
-
-  React.useEffect(() => {
-    if (template?.data?.inputSetTemplateYaml) {
-      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
-        const fetchData = async (): Promise<void> => {
-          const data = await mergeInputSet({
-            inputSetReferences: selectedInputSets.map(item => item.value as string)
-          })
-          if (data?.data?.pipelineYaml) {
-            setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
-          }
-        }
-        fetchData()
-      } else if (selectedInputSets && selectedInputSets.length === 1) {
-        const fetchData = async (): Promise<void> => {
-          const data = await getInputSetForPipelinePromise({
-            inputSetIdentifier: selectedInputSets[0].value as string,
-            queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
-          })
-          if (data?.data?.inputSetYaml) {
-            if (selectedInputSets[0].type === 'INPUT_SET') {
-              setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
-            }
-          }
-        }
-        fetchData()
-      }
-    }
-  }, [
-    template?.data?.inputSetTemplateYaml,
-    selectedInputSets,
-    accountId,
-    projectIdentifier,
-    orgIdentifier,
-    pipelineIdentifier
-  ])
-
-  const { getString } = useStrings()
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate || runLoading) {
     return <PageSpinner />
   }
@@ -250,6 +256,11 @@ function RunPipelineFormBasic({
         (createInputSetError?.data as Failure)?.message ||
         i18n.commonError
     )
+  }
+  const handleSelectionChange = (id: string): void => {
+    setSelectedTreeNodeId(id)
+    openNestedPath(id)
+    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   const child = (
@@ -297,19 +308,30 @@ function RunPipelineFormBasic({
                 padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}
               >
                 {selectedView === SelectedView.VISUAL ? (
-                  <FormikForm>
-                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
-                      <PipelineInputSetForm
-                        originalPipeline={pipeline}
-                        template={parse(template.data.inputSetTemplateYaml).pipeline}
-                        readonly={executionView}
+                  <div className={css.inputsetGrid}>
+                    <div className={css.treeSidebar}>
+                      <StagesTree
+                        contents={nodes || {}}
+                        selectedId={selectedTreeNodeId}
+                        selectionChange={handleSelectionChange}
                       />
-                    ) : (
-                      <Layout.Horizontal padding="medium" margin="medium">
-                        <Text>{i18n.noRuntimeInput}</Text>
-                      </Layout.Horizontal>
-                    )}
-                  </FormikForm>
+                    </div>
+                    <div>
+                      <FormikForm>
+                        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                          <PipelineInputSetForm
+                            originalPipeline={pipeline}
+                            template={parse(template.data.inputSetTemplateYaml).pipeline}
+                            readonly={executionView}
+                          />
+                        ) : (
+                          <Layout.Horizontal padding="medium" margin="medium">
+                            <Text>{i18n.noRuntimeInput}</Text>
+                          </Layout.Horizontal>
+                        )}
+                      </FormikForm>
+                    </div>
+                  </div>
                 ) : (
                   <div className={css.editor}>
                     {loading ? (

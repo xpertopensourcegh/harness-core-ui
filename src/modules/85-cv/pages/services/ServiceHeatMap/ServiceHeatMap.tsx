@@ -68,7 +68,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
   const categoryNames: any = {
     Performance: getString('performance'),
     Errors: getString('errors'),
-    Infrastructure: getString('infrastructure')
+    Infrastructure: getString('infrastructureText')
   }
   const translationToCategoryName = (value: string) => {
     const entry = Object.entries(categoryNames).find(([_, text]) => text === value)

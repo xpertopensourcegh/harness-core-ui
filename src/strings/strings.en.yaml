@@ -44,7 +44,7 @@ global:
   pipelines: Pipelines
   performance: Performance
   quality: quality
-  infrastructure: Infrastructure
+  infrastructureText: Infrastructure
   update: Update
   visual: VISUAL
   yaml: YAML

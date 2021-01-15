@@ -5,134 +5,74 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main sectionHeader"
-    >
-      Sidecar Artifact
-    </p>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Accordion--panel"
+      data-open="false"
+      data-testid="Stage..Service.Artifacts-panel"
+      id="Stage..Service.Artifacts-panel"
     >
-      <p
-        class="StyledProps--font StyledProps--main subSectonHeader"
-      >
-        sidecar1
-        <span
-          class="bp3-popover-wrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              tabindex="0"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 12 12"
-                width="16"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </span>
-        </span>
-      </p>
       <div
-        class="bp3-form-group"
+        class="Accordion--summary"
+        data-testid="Stage..Service.Artifacts-summary"
       >
-        <label
-          class="bp3-label"
-          for="imagePath"
-        >
-          Image Path
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
         <div
-          class="bp3-form-content"
+          class=""
         >
           <div
-            class="bp3-form-group"
-            style="width: 400px;"
+            class="stagesTreeBulletCircle"
           >
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name=".artifacts.sidecars[0].sidecar.spec.imagePath"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
+            <span>
+              Artifacts
+            </span>
           </div>
         </div>
+        <div
+          class="Accordion--chevron"
+        />
+      </div>
+      <div
+        class="bp3-collapse"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(-undefinedpx);"
+        />
       </div>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px; font-weight: bold;"
-    >
-      Manifests
-    </p>
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Accordion--panel"
+      data-open="false"
+      data-testid="Stage..Service.Manifests-panel"
+      id="Stage..Service.Manifests-panel"
     >
-      <p
-        class="StyledProps--font StyledProps--main"
-        style="font-size: 16px; color: black; margin-top: 15px;"
-      >
-        gitId
-      </p>
       <div
-        class="bp3-form-group"
+        class="Accordion--summary"
+        data-testid="Stage..Service.Manifests-summary"
       >
-        <label
-          class="bp3-label"
-          for="branch"
-        >
-          Branch
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
         <div
-          class="bp3-form-content"
+          class=""
         >
           <div
-            class="bp3-form-group"
-            style="width: 400px;"
+            class="stagesTreeBulletCircle"
           >
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name=".manifests[0].manifest.spec.store.spec.branch"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
+            <span>
+              Manifests
+            </span>
           </div>
         </div>
+        <div
+          class="Accordion--chevron"
+        />
+      </div>
+      <div
+        class="bp3-collapse"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(-undefinedpx);"
+        />
       </div>
     </div>
   </div>

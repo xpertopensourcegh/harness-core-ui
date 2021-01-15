@@ -4,5 +4,6 @@ declare const styles: {
   readonly disabled: string
   readonly sectionHeader: string
   readonly subSectonHeader: string
+  readonly stagesTreeBulletCircle: string
 }
 export default styles

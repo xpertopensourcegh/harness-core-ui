@@ -1,6 +1,5 @@
 .custom-variables {
-  padding: var(--spacing-large) 0 var(--spacing-large) var(--spacing-large);
-
+  width: 700px;
   .header-row {
     display: flex;
     justify-content: space-between;
@@ -41,6 +40,17 @@
     grid-template-columns: 280px var(--variable-column2) var(--variable-column3);
     align-items: baseline;
     margin-top: var(--spacing-large);
+
+    :global {
+      .variableInput {
+        button {
+          width: 100%;
+          &::before {
+            width: 15px;
+          }
+        }
+      }
+    }
   }
 
   .actionButtons {

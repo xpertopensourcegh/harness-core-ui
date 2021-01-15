@@ -12,6 +12,7 @@ import PipelineMock from './mock.json'
 import TemplateMock from './template.mock.json'
 import connectorListJSON from './connectorList.json'
 import secretMockdata from './secretMockdata.json'
+import { PipelineResponse } from './pipelineMock'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -89,7 +90,9 @@ jest.mock('services/cd-ng', () => ({
   useGetConnectorList: jest.fn(() => []),
   useGetTestConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
-
+jest.mock('services/pipeline-ng', () => ({
+  useGetPipeline: jest.fn(() => PipelineResponse)
+}))
 const PipelineContextValue = {
   state: PipelineMock.state,
   stepsFactory: PipelineMock.stepsFactory,

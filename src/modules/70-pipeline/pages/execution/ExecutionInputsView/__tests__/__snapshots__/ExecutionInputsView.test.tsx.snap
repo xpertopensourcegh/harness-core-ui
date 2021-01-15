@@ -8,21 +8,42 @@ exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
     <div
       class="Layout--horizontal StyledProps--main content StyledProps--padding-bottom-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <form
-        class="FormikForm--main"
+      <div
+        class="inputsetGrid"
       >
-        <div>
+        <div
+          class="treeSidebar"
+        >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
+            class="container"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
+            <div
+              class="bp3-tree"
             >
-              No Runtime input in pipeline
-            </p>
+              <ul
+                class="bp3-tree-node-list bp3-tree-root"
+              />
+            </div>
           </div>
         </div>
-      </form>
+        <div>
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  No Runtime input in pipeline
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

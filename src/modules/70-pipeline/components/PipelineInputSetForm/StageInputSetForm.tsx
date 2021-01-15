@@ -13,6 +13,7 @@ import type {
   ServiceConfig,
   PipelineInfrastructure
 } from 'services/cd-ng'
+import { String } from 'framework/exports'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -20,7 +21,6 @@ import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import css from './PipelineInputSetForm.module.scss'
-// import { useStrings } from 'framework/exports'
 function StepForm({
   template,
   allValues,
@@ -183,7 +183,11 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         <NestedAccordionPanel
           addDomId
           id={`Stage.${stageIdentifier}.Service`}
-          summary={<div className={css.stagesTreeBulletCircle}>Service</div>}
+          summary={
+            <div className={css.stagesTreeBulletCircle}>
+              <String stringID="service" />
+            </div>
+          }
           details={
             <>
               {deploymentStage?.serviceConfig?.serviceRef && (
@@ -223,7 +227,11 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         <NestedAccordionPanel
           addDomId
           id={`Stage.${stageIdentifier}.Infrastructure`}
-          summary={<div className={css.stagesTreeBulletCircle}>Infrastructure</div>}
+          summary={
+            <div className={css.stagesTreeBulletCircle}>
+              <String stringID="infrastructureText" />
+            </div>
+          }
           details={
             <>
               {deploymentStageTemplate.infrastructure?.environmentRef && (
@@ -266,51 +274,61 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         <NestedAccordionPanel
           addDomId
           id={`Stage.${stageIdentifier}.Variables`}
-          summary={<div className={css.stagesTreeBulletCircle}>Variables</div>}
+          summary={
+            <div className={css.stagesTreeBulletCircle}>
+              <String stringID="pipelineSteps.build.stageSpecifications.variablesDetails" />
+            </div>
+          }
           details={<div>WIP</div>}
         />
       )}
-      <NestedAccordionPanel
-        addDomId
-        id={`Stage.${stageIdentifier}.Execution`}
-        summary={<div className={css.stagesTreeBulletCircle}>Execution</div>}
-        details={
-          <>
-            {deploymentStageTemplate.execution?.steps && (
-              <CollapseForm
-                header={i18n.execution}
-                headerProps={{ font: { size: 'normal' } }}
-                headerColor="var(--black)"
-              >
-                <ExecutionWrapperInputSetForm
-                  stepsTemplate={deploymentStageTemplate.execution.steps}
-                  path={`${path}.execution.steps`}
-                  allValues={deploymentStage?.execution?.steps}
-                  values={deploymentStageInputSet?.execution?.steps}
-                  formik={formik}
-                  readonly={readonly}
-                />
-              </CollapseForm>
-            )}
-            {deploymentStageTemplate.execution?.rollbackSteps && (
-              <CollapseForm
-                header={i18n.rollbackSteps}
-                headerProps={{ font: { size: 'normal' } }}
-                headerColor="var(--black)"
-              >
-                <ExecutionWrapperInputSetForm
-                  stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
-                  path={`${path}.execution.rollbackSteps`}
-                  allValues={deploymentStage?.execution?.rollbackSteps}
-                  values={deploymentStageInputSet?.execution?.rollbackSteps}
-                  formik={formik}
-                  readonly={readonly}
-                />
-              </CollapseForm>
-            )}
-          </>
-        }
-      />
+      {deploymentStageTemplate.execution && (
+        <NestedAccordionPanel
+          addDomId
+          id={`Stage.${stageIdentifier}.Execution`}
+          summary={
+            <div className={css.stagesTreeBulletCircle}>
+              <String stringID="executionText" />
+            </div>
+          }
+          details={
+            <>
+              {deploymentStageTemplate.execution?.steps && (
+                <CollapseForm
+                  header={i18n.execution}
+                  headerProps={{ font: { size: 'normal' } }}
+                  headerColor="var(--black)"
+                >
+                  <ExecutionWrapperInputSetForm
+                    stepsTemplate={deploymentStageTemplate.execution.steps}
+                    path={`${path}.execution.steps`}
+                    allValues={deploymentStage?.execution?.steps}
+                    values={deploymentStageInputSet?.execution?.steps}
+                    formik={formik}
+                    readonly={readonly}
+                  />
+                </CollapseForm>
+              )}
+              {deploymentStageTemplate.execution?.rollbackSteps && (
+                <CollapseForm
+                  header={i18n.rollbackSteps}
+                  headerProps={{ font: { size: 'normal' } }}
+                  headerColor="var(--black)"
+                >
+                  <ExecutionWrapperInputSetForm
+                    stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
+                    path={`${path}.execution.rollbackSteps`}
+                    allValues={deploymentStage?.execution?.rollbackSteps}
+                    values={deploymentStageInputSet?.execution?.rollbackSteps}
+                    formik={formik}
+                    readonly={readonly}
+                  />
+                </CollapseForm>
+              )}
+            </>
+          }
+        />
+      )}
     </>
   )
 }

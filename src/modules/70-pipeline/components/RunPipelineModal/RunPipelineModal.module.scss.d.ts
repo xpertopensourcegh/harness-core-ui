@@ -8,5 +8,10 @@ declare const styles: {
   readonly editor: string
   readonly content: string
   readonly footer: string
+  readonly inputsetGrid: string
+  readonly treeSidebar: string
+  readonly cardCard: string
+  readonly inputSetcard: string
+  readonly errorHeader: string
 }
 export default styles

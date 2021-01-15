@@ -592,7 +592,9 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                       <div
                                         class="stagesTreeBulletCircle"
                                       >
-                                        Infrastructure
+                                        <span>
+                                          Infrastructure
+                                        </span>
                                       </div>
                                     </div>
                                     <div
@@ -778,39 +780,6 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
-                                <div
-                                  class="Accordion--panel"
-                                  data-open="false"
-                                  data-testid="Stage.asd.Execution-panel"
-                                  id="Stage.asd.Execution-panel"
-                                >
-                                  <div
-                                    class="Accordion--summary"
-                                    data-testid="Stage.asd.Execution-summary"
-                                  >
-                                    <div
-                                      class=""
-                                    >
-                                      <div
-                                        class="stagesTreeBulletCircle"
-                                      >
-                                        Execution
-                                      </div>
-                                    </div>
-                                    <div
-                                      class="Accordion--chevron"
-                                    />
-                                  </div>
-                                  <div
-                                    class="bp3-collapse"
-                                  >
-                                    <div
-                                      aria-hidden="false"
-                                      class="bp3-collapse-body"
-                                      style="transform: translateY(-undefinedpx);"
-                                    />
                                   </div>
                                 </div>
                               </div>
