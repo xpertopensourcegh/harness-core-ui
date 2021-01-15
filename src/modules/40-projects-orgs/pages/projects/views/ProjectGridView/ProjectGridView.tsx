@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { Project, useGetProjectAggregateDTOList, ProjectAggregateDTO } from 'services/cd-ng'
+import { Project, useGetProjectAggregateDTOList, ProjectAggregateDTO, Error } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import i18n from './ProjectGridView.i18n'
@@ -31,7 +31,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
   } = props
   const [page, setPage] = useState(0)
   const { accountId } = useParams()
-  const { data, loading, refetch } = useGetProjectAggregateDTOList({
+  const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
@@ -57,6 +57,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     <Page.Body
       loading={loading}
       retryOnError={() => refetch()}
+      error={(error?.data as Error)?.message}
       noData={
         !searchParameter && openProjectModal
           ? {

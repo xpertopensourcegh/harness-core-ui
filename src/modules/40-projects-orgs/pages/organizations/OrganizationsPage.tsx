@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList } from 'services/cd-ng'
+import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList, Error } from 'services/cd-ng'
 
 import { useOrganizationModal } from '@projects-orgs/modals/OrganizationModal/useOrganizationModal'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
@@ -52,7 +52,7 @@ const OrganizationsPage: React.FC = () => {
       />
       <Page.Body
         loading={loading}
-        error={error?.message}
+        error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
         noData={{
           when: () => !data?.data?.content?.length,

@@ -4,7 +4,7 @@ import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { Project, ProjectAggregateDTO, useGetProjectAggregateDTOList } from 'services/cd-ng'
+import { Project, ProjectAggregateDTO, useGetProjectAggregateDTOList, Error } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
@@ -170,7 +170,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const [page, setPage] = useState(0)
   const history = useHistory()
   const { getString } = useStrings()
-  const { data, loading, refetch } = useGetProjectAggregateDTOList({
+  const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
@@ -259,6 +259,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     <Page.Body
       loading={loading}
       retryOnError={() => refetch()}
+      error={(error?.data as Error)?.message}
       noData={
         !searchParameter && openProjectModal
           ? {

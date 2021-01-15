@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uicore'
 import { Menu, Position } from '@blueprintjs/core'
-import { useListSecretsV2, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
@@ -105,7 +105,10 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
         </div>
       ) : error ? (
         <div style={{ paddingTop: '200px' }}>
-          <PageError message={error.message} onClick={/* istanbul ignore next */ () => refetch()} />
+          <PageError
+            message={(error.data as Error)?.message || error.message}
+            onClick={/* istanbul ignore next */ () => refetch()}
+          />
         </div>
       ) : !secretsResponse?.data?.empty ? (
         <SecretsList

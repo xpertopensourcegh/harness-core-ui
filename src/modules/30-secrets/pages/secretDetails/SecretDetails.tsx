@@ -13,7 +13,8 @@ import {
   ResponsePageConnectorResponse,
   useGetYamlSchema,
   useGetYamlSnippetMetadata,
-  useGetYamlSnippet
+  useGetYamlSnippet,
+  Error
 } from 'services/cd-ng'
 
 import { useStrings } from 'framework/exports'
@@ -169,7 +170,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   }
 
   if (loading) return <PageSpinner />
-  if (error) return <PageError message={error.message} onClick={() => refetch()} />
+  if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   if (!secretData) return <div>{getString('noData')}</div>
 
   return (
