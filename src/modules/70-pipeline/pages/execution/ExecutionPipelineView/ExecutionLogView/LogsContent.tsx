@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Color, MultiLogsViewer } from '@wings-software/uicore'
+import { MultiLogsViewer } from '@wings-software/uicore'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import LogsHeader from './LogsHeader'
@@ -190,7 +190,7 @@ const LogsContent = (props: LogsContentProps) => {
         activePanel={openedIndex}
         isSectionOpen={(sectionIndex: number) => openPanelArr[sectionIndex]}
         rightElementForSection={() => {
-          return <Text color={Color.GREY_100}>2m 38s</Text>
+          return <span /> //TODO: unit execution time: <Text color={Color.GREY_100}>2m 38s</Text>
         }}
         logContentForSection={logContentForSection}
         searchDir={searchDir}

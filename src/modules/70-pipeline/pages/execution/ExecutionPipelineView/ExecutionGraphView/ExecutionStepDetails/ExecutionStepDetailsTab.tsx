@@ -69,7 +69,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
           </tr>*/}
         </tbody>
       </table>
-      <LogsContent rows={7} header="Step Logs" showCross={false} redirectToLogView={redirectToLogView} />
+      <LogsContent rows={7} header="Step Logs" redirectToLogView={redirectToLogView} />
       {/* <div style={{ background: '#00162B', height: '100%', flex: '1 1 0%' }}></div> */}
     </div>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, ExpandingSearchInput, Text } from '@wings-software/uicore'
+import { Button, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import css from './LogsHeader.module.scss'
 
@@ -13,15 +13,15 @@ interface LogsHeaderProps {
   redirectToLogView?: any
 }
 const LogsHeader = (props: LogsHeaderProps) => {
-  const { subHeader = 'Log Message', searchDir, header = 'Console logs', showCross = true, redirectToLogView } = props
+  const { subHeader = '', /* searchDir */ header = 'Logs', showCross = false, redirectToLogView } = props
   const { getString } = useStrings()
-  const onSearch = (text: string) => {
+  /*const onSearch = (text: string) => {
     if (searchDir === 'prev') {
       props.onPrev(text)
     } else if (searchDir === 'next') {
       props.onNext(text)
     }
-  }
+  }*/
 
   return (
     <Container className={css.headerContainer}>
@@ -46,7 +46,7 @@ const LogsHeader = (props: LogsHeaderProps) => {
           ></Button>
         )}
         <div className={css.searchInput}>
-          <ExpandingSearchInput
+          {/*TODO: curent implementation is not working (temporary removed)<ExpandingSearchInput
             onChange={onSearch}
             onEnter={onSearch}
             placeholder="Search"
@@ -54,10 +54,10 @@ const LogsHeader = (props: LogsHeaderProps) => {
             onNext={props.onNext}
             showPrevNextButtons
             throttle={200}
-          />
+          />*/}
         </div>
         {/* TODO: disabled until implementation is done*/}
-        <Button disabled minimal icon="download" className={css.download}></Button>
+        {/* <Button disabled minimal icon="download" className={css.download}></Button> */}
         {/* <Icon name="download" size={16} className={css.btn} /> */}
         {showCross && <Button minimal icon="cross" className={css.remove}></Button>}
       </section>

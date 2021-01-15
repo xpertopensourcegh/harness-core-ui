@@ -53,7 +53,7 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
     // 2. add Initialize (Initialize step is LITE_ENGINE_TASK step)
     // override step name
     liteEngineTask.name = 'Initialize'
-    nodeMap[liteEngineTask.identifier] = liteEngineTask
+    nodeMap[liteEngineTask.uuid] = liteEngineTask
   }
 }
 

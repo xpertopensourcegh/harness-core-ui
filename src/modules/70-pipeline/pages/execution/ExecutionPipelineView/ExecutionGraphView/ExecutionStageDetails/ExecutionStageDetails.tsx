@@ -155,7 +155,7 @@ const processNodeData = (
 
         // 2. Add Initialize step ( at the first place in array )
         const stepItem: ExecutionPipelineItem<ExecutionNode> = {
-          identifier: nodeData.identifier as string,
+          identifier: nodeData.uuid as string,
           name: 'Initialize',
           type: ExecutionPipelineNodeType.NORMAL,
           status: nodeData.status as any,
@@ -298,7 +298,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const { layout, setLayout } = useExecutionLayoutContext()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
-    label: item[1].nodeType || /* istanbul ignore next */ '',
+    label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
     value: item[1].nodeUuid || /* istanbul ignore next */ '',
     icon: { name: 'pipeline-deploy' },
     disabled: item[1].status === 'NotStarted'
@@ -345,7 +345,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           }}
           showStageSelection={true}
           selectedStage={{
-            label: stage?.nodeType || /* istanbul ignore next */ '',
+            label: stage?.nodeIdentifier || /* istanbul ignore next */ '',
             value: stage?.nodeUuid || /* istanbul ignore next */ '',
             icon: { name: 'pipeline-deploy' }
           }}

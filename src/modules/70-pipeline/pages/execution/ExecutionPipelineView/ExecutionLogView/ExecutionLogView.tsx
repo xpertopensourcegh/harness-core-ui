@@ -112,7 +112,7 @@ export default function ExecutionLogView(): React.ReactElement {
 
     if (startTs && endTs) {
       return (
-        <Text font={{ size: 'xsmall' }} className={css.timeDiff}>
+        <Text font={{ size: 'small' }} className={css.timeDiff}>
           {moment(moment(node.endTs).diff(moment(node.startTs))).format('S')}s
         </Text>
       )
@@ -145,7 +145,7 @@ export default function ExecutionLogView(): React.ReactElement {
     const onClickProps = hasNodeLogs(rootNode)
       ? {
           onClick: () => {
-            replaceQueryParams({ ...queryParams, step: rootNode.uuid })
+            replaceQueryParams({ ...queryParams, stage: selectedStageId, step: rootNode.uuid })
             setSelectedNode(rootNode.uuid)
           }
         }
@@ -301,7 +301,7 @@ export default function ExecutionLogView(): React.ReactElement {
       <Container className={css.logsContainer}>
         <TreeNode node={stageIds[0]} isRootNode={true} level={0} />
 
-        <LogsContent rows={30} />
+        <LogsContent rows={30} header="Step Logs" />
       </Container>
     )
   }
