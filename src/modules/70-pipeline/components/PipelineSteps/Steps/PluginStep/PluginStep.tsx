@@ -7,7 +7,7 @@ import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeMapType, MultiTypeMapUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
-import { PluginStepBase } from './PluginStepBase'
+import { PluginStepBaseWithRef } from './PluginStepBase'
 import { PluginStepInputSet } from './PluginStepInputSet'
 
 export interface PluginStepSpec {
@@ -99,7 +99,8 @@ export class PluginStep extends PipelineStep<PluginStepData> {
   }
 
   renderStep(props: StepProps<PluginStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <PluginStepInputSet
@@ -113,6 +114,13 @@ export class PluginStep extends PipelineStep<PluginStepData> {
       )
     }
 
-    return <PluginStepBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <PluginStepBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

@@ -6,7 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
-import { SaveCacheS3StepBase } from './SaveCacheS3StepBase'
+import { SaveCacheS3StepBaseWithRef } from './SaveCacheS3StepBase'
 import { SaveCacheS3StepInputSet } from './SaveCacheS3StepInputSet'
 import type { MultiTypeListType, MultiTypeListUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
 
@@ -116,7 +116,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
     return errors
   }
   renderStep(props: StepProps<SaveCacheS3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <SaveCacheS3StepInputSet
@@ -129,6 +129,13 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
         />
       )
     }
-    return <SaveCacheS3StepBase initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <SaveCacheS3StepBaseWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 }

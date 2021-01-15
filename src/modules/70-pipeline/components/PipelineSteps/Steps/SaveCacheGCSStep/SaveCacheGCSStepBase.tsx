@@ -9,6 +9,9 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import type { FormikProps } from 'formik'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -114,7 +117,10 @@ const validateFields = [
   }
 ]
 
-export const SaveCacheGCSStepBase: React.FC<SaveCacheGCSStepProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const SaveCacheGCSStepBase = (
+  { initialValues, onUpdate }: SaveCacheGCSStepProps,
+  formikRef: StepFormikFowardRef<SaveCacheGCSStepData>
+): JSX.Element => {
   const {
     state: { pipeline, pipelineView },
     updatePipelineView
@@ -159,133 +165,148 @@ export const SaveCacheGCSStepBase: React.FC<SaveCacheGCSStepProps> = ({ initialV
       <Text className={css.boldLabel} font={{ size: 'medium' }}>
         {getString('pipelineSteps.saveCacheGCS.title')}
       </Text>
-      <Formik
-        enableReinitialize={true}
-        initialValues={values}
-        validate={validate}
-        onSubmit={(_values: SaveCacheGCSStepDataUI) => {
-          const schemaValues = getFormValuesInCorrectFormat<SaveCacheGCSStepDataUI, SaveCacheGCSStepData>(
-            _values,
-            transformValuesFields
-          )
-          onUpdate?.(schemaValues)
-        }}
-      >
-        {({ values: formValues }) => (
-          <FormikForm>
-            <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-              />
-              <FormMultiTypeConnectorField
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('pipelineSteps.gcpConnectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.gcpConnectorInfo')}
-                      iconProps={{ size: 14 }}
-                    />
+      {loading ? (
+        getString('loading')
+      ) : (
+        <Formik
+          initialValues={values}
+          validate={validate}
+          onSubmit={(_values: SaveCacheGCSStepDataUI) => {
+            const schemaValues = getFormValuesInCorrectFormat<SaveCacheGCSStepDataUI, SaveCacheGCSStepData>(
+              _values,
+              transformValuesFields
+            )
+            onUpdate?.(schemaValues)
+          }}
+        >
+          {(formik: FormikProps<SaveCacheGCSStepData>) => {
+            // This is required
+            setFormikRef?.(formikRef, formik)
+
+            return (
+              <FormikForm>
+                <div className={css.fieldsSection}>
+                  <FormInput.InputWithIdentifier
+                    inputName="name"
+                    idName="identifier"
+                    inputLabel={getString('pipelineSteps.stepNameLabel')}
+                  />
+                  <FormMultiTypeConnectorField
+                    label={
+                      <Text style={{ display: 'flex', alignItems: 'center' }}>
+                        {getString('pipelineSteps.gcpConnectorLabel')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('pipelineSteps.gcpConnectorInfo')}
+                          iconProps={{ size: 14 }}
+                        />
+                      </Text>
+                    }
+                    type={'Gcp'}
+                    width={
+                      getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                    }
+                    name="spec.connectorRef"
+                    placeholder={getString('select')}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                  <MultiTypeTextField
+                    name="spec.bucket"
+                    label={
+                      <Text>
+                        {getString('pipelineSteps.bucketLabel')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('pipelineSteps.GCSBucketInfo')}
+                          iconProps={{ size: 14 }}
+                        />
+                      </Text>
+                    }
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                  <MultiTypeTextField
+                    name="spec.key"
+                    label={
+                      <Text>
+                        {getString('keyLabel')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('pipelineSteps.keyInfo')}
+                          iconProps={{ size: 14 }}
+                        />
+                      </Text>
+                    }
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                  <MultiTypeList
+                    name="spec.sourcePaths"
+                    multiTypeFieldSelectorProps={{
+                      label: (
+                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          {getString('pipelineSteps.sourcePathsLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.cacheSourcePathsInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      )
+                    }}
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                </div>
+                <div className={css.fieldsSection}>
+                  <Text
+                    className={css.optionalConfiguration}
+                    font={{ weight: 'semi-bold' }}
+                    margin={{ bottom: 'small' }}
+                  >
+                    {getString('pipelineSteps.optionalConfiguration')}
                   </Text>
-                }
-                type={'Gcp'}
-                width={getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
-                name="spec.connectorRef"
-                placeholder={loading ? getString('loading') : getString('select')}
-                disabled={loading}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeTextField
-                name="spec.bucket"
-                label={
-                  <Text>
-                    {getString('pipelineSteps.bucketLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeTextField
-                name="spec.key"
-                label={
-                  <Text>
-                    {getString('keyLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.keyInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeList
-                name="spec.sourcePaths"
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.sourcePathsLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.cacheSourcePathsInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {getString('pipelineSteps.optionalConfiguration')}
-              </Text>
-              <MultiTypeTextField
-                name="spec.target"
-                label={
-                  <Text>
-                    {getString('pipelineSteps.targetLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.artifactsTargetPlaceholder')
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <StepCommonFields />
-            </div>
-            <div className={css.buttonsWrapper}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('save')}
-                margin={{ right: 'xxlarge' }}
-                data-testid={'submit'}
-              />
-              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
-            </div>
-          </FormikForm>
-        )}
-      </Formik>
+                  <MultiTypeTextField
+                    name="spec.target"
+                    label={
+                      <Text>
+                        {getString('pipelineSteps.targetLabel')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('pipelineSteps.artifactsTargetInfo')}
+                          iconProps={{ size: 14 }}
+                        />
+                      </Text>
+                    }
+                    multiTextInputProps={{
+                      placeholder: getString('pipelineSteps.artifactsTargetPlaceholder')
+                    }}
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                  <StepCommonFields />
+                </div>
+                <div className={css.buttonsWrapper}>
+                  <Button
+                    intent="primary"
+                    type="submit"
+                    text={getString('save')}
+                    margin={{ right: 'xxlarge' }}
+                    data-testid={'submit'}
+                  />
+                  <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
+                </div>
+              </FormikForm>
+            )
+          }}
+        </Formik>
+      )}
     </>
   )
 }
+
+export const SaveCacheGCSStepBaseWithRef = React.forwardRef(SaveCacheGCSStepBase)

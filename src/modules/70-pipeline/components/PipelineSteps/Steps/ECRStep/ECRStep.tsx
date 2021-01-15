@@ -14,7 +14,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '../StepsTypes'
-import { ECRStepBase } from './ECRStepBase'
+import { ECRStepBaseWithRef } from './ECRStepBase'
 import { ECRStepInputSet } from './ECRStepInputSet'
 
 export interface ECRStepSpec {
@@ -130,7 +130,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
   }
 
   renderStep(props: StepProps<ECRStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -145,6 +145,13 @@ export class ECRStep extends PipelineStep<ECRStepData> {
       )
     }
 
-    return <ECRStepBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <ECRStepBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

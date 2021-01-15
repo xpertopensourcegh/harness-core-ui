@@ -7,7 +7,7 @@ import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
-import { GCSStepBase } from './GCSStepBase'
+import { GCSStepBaseWithRef } from './GCSStepBase'
 import { GCSStepInputSet } from './GCSStepInputSet'
 
 export interface GCSStepSpec {
@@ -96,7 +96,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
     return errors
   }
   renderStep(props: StepProps<GCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -110,6 +110,13 @@ export class GCSStep extends PipelineStep<GCSStepData> {
         />
       )
     }
-    return <GCSStepBase initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <GCSStepBaseWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 }

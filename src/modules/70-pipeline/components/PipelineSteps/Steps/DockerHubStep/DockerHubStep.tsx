@@ -14,7 +14,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '../StepsTypes'
-import { DockerHubStepBase } from './DockerHubStepBase'
+import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 
 export interface DockerHubStepSpec {
@@ -117,7 +117,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -132,6 +132,13 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
       )
     }
 
-    return <DockerHubStepBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <DockerHubStepBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

@@ -192,9 +192,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
-                              >
-                                connectorRef
-                              </p>
+                              />
                               <div
                                 class="rightStatus"
                               >
@@ -226,7 +224,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
                                     <span
                                       class="bp3-text-overflow-ellipsis bp3-fill"
                                     >
-                                      account
+                                      project
                                     </span>
                                   </span>
                                 </span>
@@ -1878,52 +1876,11 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
                           <span
                             class="bp3-button-text"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                              style="justify-content: space-between; width: 100%;"
+                            <span
+                              class="placeholder"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                              >
-                                connectorRef
-                              </p>
-                              <div
-                                class="rightStatus"
-                              >
-                                <span
-                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                  icon="full-circle"
-                                >
-                                  <svg
-                                    data-icon="full-circle"
-                                    height="6"
-                                    viewBox="0 0 16 16"
-                                    width="6"
-                                  >
-                                    <desc>
-                                      full-circle
-                                    </desc>
-                                    <path
-                                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
-                                </span>
-                                <span
-                                  class="Tag--main"
-                                >
-                                  <span
-                                    class="bp3-tag bp3-minimal tag"
-                                  >
-                                    <span
-                                      class="bp3-text-overflow-ellipsis bp3-fill"
-                                    >
-                                      account
-                                    </span>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
+                              Select
+                            </span>
                           </span>
                           <span
                             class="bp3-icon bp3-icon-caret-down StyledProps--main"

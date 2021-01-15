@@ -159,9 +159,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
-                              >
-                                connectorRef
-                              </p>
+                              />
                               <div
                                 class="rightStatus"
                               >
@@ -193,7 +191,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                                     <span
                                       class="bp3-text-overflow-ellipsis bp3-fill"
                                     >
-                                      account
+                                      project
                                     </span>
                                   </span>
                                 </span>
@@ -446,6 +444,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.tags[0].value-4"
                       style="flex-grow: 1;"
                     >
                       
@@ -521,6 +520,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.tags[1].value-5"
                       style="flex-grow: 1;"
                     >
                       
@@ -596,6 +596,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.tags[2].value-6"
                       style="flex-grow: 1;"
                     >
                       
@@ -981,6 +982,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
+                        data-id="spec.labels[0].key-10"
                         style="margin: 0px;"
                       >
                         <div
@@ -1013,6 +1015,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.labels[0].value-11"
                           style="flex-grow: 1;"
                         >
                           
@@ -1093,6 +1096,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     >
                       <div
                         class="bp3-form-group"
+                        data-id="spec.labels[1].key-12"
                         style="margin: 0px;"
                       >
                         <div
@@ -1120,6 +1124,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.labels[1].value-13"
                           style="flex-grow: 1;"
                         >
                           
@@ -1200,6 +1205,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     >
                       <div
                         class="bp3-form-group"
+                        data-id="spec.labels[2].key-14"
                         style="margin: 0px;"
                       >
                         <div
@@ -1227,6 +1233,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.labels[2].value-15"
                           style="flex-grow: 1;"
                         >
                           
@@ -1425,6 +1432,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
+                        data-id="spec.buildArgs[0].key-17"
                         style="margin: 0px;"
                       >
                         <div
@@ -1457,6 +1465,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.buildArgs[0].value-18"
                           style="flex-grow: 1;"
                         >
                           
@@ -1537,6 +1546,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     >
                       <div
                         class="bp3-form-group"
+                        data-id="spec.buildArgs[1].key-19"
                         style="margin: 0px;"
                       >
                         <div
@@ -1564,6 +1574,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.buildArgs[1].value-20"
                           style="flex-grow: 1;"
                         >
                           
@@ -1644,6 +1655,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     >
                       <div
                         class="bp3-form-group"
+                        data-id="spec.buildArgs[2].key-21"
                         style="margin: 0px;"
                       >
                         <div
@@ -1671,6 +1683,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.buildArgs[2].value-22"
                           style="flex-grow: 1;"
                         >
                           
@@ -3771,52 +3784,11 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                           <span
                             class="bp3-button-text"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                              style="justify-content: space-between; width: 100%;"
+                            <span
+                              class="placeholder"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                              >
-                                connectorRef
-                              </p>
-                              <div
-                                class="rightStatus"
-                              >
-                                <span
-                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                  icon="full-circle"
-                                >
-                                  <svg
-                                    data-icon="full-circle"
-                                    height="6"
-                                    viewBox="0 0 16 16"
-                                    width="6"
-                                  >
-                                    <desc>
-                                      full-circle
-                                    </desc>
-                                    <path
-                                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
-                                </span>
-                                <span
-                                  class="Tag--main"
-                                >
-                                  <span
-                                    class="bp3-tag bp3-minimal tag"
-                                  >
-                                    <span
-                                      class="bp3-text-overflow-ellipsis bp3-fill"
-                                    >
-                                      account
-                                    </span>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
+                              Select
+                            </span>
                           </span>
                           <span
                             class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -4064,6 +4036,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.tags[0].value-4"
                       style="flex-grow: 1;"
                     >
                       
@@ -4449,6 +4422,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
+                        data-id="spec.labels[0].key-8"
                         style="margin: 0px;"
                       >
                         <div
@@ -4481,6 +4455,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.labels[0].value-9"
                           style="flex-grow: 1;"
                         >
                           
@@ -4679,6 +4654,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
+                        data-id="spec.buildArgs[0].key-11"
                         style="margin: 0px;"
                       >
                         <div
@@ -4711,6 +4687,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.buildArgs[0].value-12"
                           style="flex-grow: 1;"
                         >
                           

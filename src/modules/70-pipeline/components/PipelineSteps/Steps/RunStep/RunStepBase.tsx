@@ -9,6 +9,9 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import type { FormikProps } from 'formik'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -136,7 +139,10 @@ const validateFields = [
   }
 ]
 
-export const RunStepBase: React.FC<RunStepProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const RunStepBase = (
+  { initialValues, onUpdate }: RunStepProps,
+  formikRef: StepFormikFowardRef<RunStepData>
+): JSX.Element => {
   const {
     state: { pipeline, pipelineView },
     updatePipelineView
@@ -185,144 +191,162 @@ export const RunStepBase: React.FC<RunStepProps> = ({ initialValues, onUpdate })
       <Text className={css.boldLabel} font={{ size: 'medium' }}>
         {getString('pipelineSteps.run.title')}
       </Text>
-      <Formik
-        enableReinitialize={true}
-        initialValues={values}
-        validate={validate}
-        onSubmit={(_values: RunStepDataUI) => {
-          const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(_values, transformValuesFields)
-          onUpdate?.(schemaValues)
-        }}
-      >
-        {({ values: formValues }) => (
-          <FormikForm>
-            <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-              />
-              <FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="description"
-                label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-              />
-              <FormMultiTypeConnectorField
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('pipelineSteps.connectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.connectorInfo')}
-                      iconProps={{ size: 14 }}
-                    />
+      {loading ? (
+        getString('loading')
+      ) : (
+        <Formik
+          initialValues={values}
+          validate={validate}
+          onSubmit={(_values: RunStepDataUI) => {
+            const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
+              _values,
+              transformValuesFields
+            )
+            onUpdate?.(schemaValues)
+          }}
+        >
+          {(formik: FormikProps<RunStepData>) => {
+            // This is required
+            setFormikRef?.(formikRef, formik)
+
+            return (
+              <FormikForm>
+                <div className={css.fieldsSection}>
+                  <FormInput.InputWithIdentifier
+                    inputName="name"
+                    idName="identifier"
+                    inputLabel={getString('pipelineSteps.stepNameLabel')}
+                  />
+                  <FormMultiTypeTextAreaField
+                    className={css.removeBpLabelMargin}
+                    name="description"
+                    label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                  />
+                  <FormMultiTypeConnectorField
+                    label={
+                      <Text style={{ display: 'flex', alignItems: 'center' }}>
+                        {getString('pipelineSteps.connectorLabel')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('pipelineSteps.connectorInfo')}
+                          iconProps={{ size: 14 }}
+                        />
+                      </Text>
+                    }
+                    type={['Gcp', 'Aws', 'DockerRegistry']}
+                    width={
+                      getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                    }
+                    name="spec.connectorRef"
+                    placeholder={getString('select')}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    style={{ marginBottom: 0, marginTop: 'var(--spacing-small)' }}
+                  />
+                  <MultiTypeTextField
+                    name="spec.image"
+                    label={
+                      <Text margin={{ top: 'small' }}>
+                        {getString('imageLabel')}
+                        <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
+                      </Text>
+                    }
+                    multiTextInputProps={{
+                      placeholder: getString('imagePlaceholder')
+                    }}
+                  />
+                  <FormMultiTypeTextAreaField
+                    className={css.removeBpLabelMargin}
+                    name="spec.command"
+                    label={
+                      <Text margin={{ top: 'small' }} style={{ display: 'flex', alignItems: 'center' }}>
+                        {getString('commandLabel')}
+                        <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
+                      </Text>
+                    }
+                    placeholder={getString('commandPlaceholder')}
+                    style={{ marginBottom: 0 }}
+                  />
+                </div>
+                <div className={css.fieldsSection}>
+                  <Text
+                    className={css.optionalConfiguration}
+                    font={{ weight: 'semi-bold' }}
+                    margin={{ bottom: 'small' }}
+                  >
+                    {getString('pipelineSteps.optionalConfiguration')}
                   </Text>
-                }
-                type={['Gcp', 'Aws', 'DockerRegistry']}
-                width={getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
-                name="spec.connectorRef"
-                placeholder={loading ? getString('loading') : getString('select')}
-                disabled={loading}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                style={{ marginBottom: 0, marginTop: 'var(--spacing-small)' }}
-              />
-              <MultiTypeTextField
-                name="spec.image"
-                label={
-                  <Text margin={{ top: 'small' }}>
-                    {getString('imageLabel')}
-                    <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                multiTextInputProps={{
-                  placeholder: getString('imagePlaceholder')
-                }}
-              />
-              <FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="spec.command"
-                label={
-                  <Text margin={{ top: 'small' }} style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('commandLabel')}
-                    <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                placeholder={getString('commandPlaceholder')}
-                style={{ marginBottom: 0 }}
-              />
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {getString('pipelineSteps.optionalConfiguration')}
-              </Text>
-              <MultiTypeList
-                name="spec.reportPaths"
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.reportPathsLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.reportPathsInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeMap
-                name="spec.envVariables"
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('environmentVariables')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('environmentVariablesInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeList
-                name="spec.outputVariables"
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('pipelineSteps.outputVariablesLabel')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  )
-                }}
-              />
-              <StepCommonFields />
-            </div>
-            <div className={css.buttonsWrapper}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('save')}
-                margin={{ right: 'xxlarge' }}
-                data-testid={'submit'}
-              />
-              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
-            </div>
-          </FormikForm>
-        )}
-      </Formik>
+                  <MultiTypeList
+                    name="spec.reportPaths"
+                    multiTypeFieldSelectorProps={{
+                      label: (
+                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          {getString('pipelineSteps.reportPathsLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.reportPathsInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      )
+                    }}
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                  <MultiTypeMap
+                    name="spec.envVariables"
+                    multiTypeFieldSelectorProps={{
+                      label: (
+                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          {getString('environmentVariables')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('environmentVariablesInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      )
+                    }}
+                    style={{ marginBottom: 'var(--spacing-small)' }}
+                  />
+                  <MultiTypeList
+                    name="spec.outputVariables"
+                    multiTypeFieldSelectorProps={{
+                      label: (
+                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          {getString('pipelineSteps.outputVariablesLabel')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.outputVariablesInfo')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      )
+                    }}
+                  />
+                  <StepCommonFields />
+                </div>
+                <div className={css.buttonsWrapper}>
+                  <Button
+                    intent="primary"
+                    type="submit"
+                    text={getString('save')}
+                    margin={{ right: 'xxlarge' }}
+                    data-testid={'submit'}
+                  />
+                  <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
+                </div>
+              </FormikForm>
+            )
+          }}
+        </Formik>
+      )}
     </>
   )
 }
+
+export const RunStepBaseWithRef = React.forwardRef(RunStepBase)

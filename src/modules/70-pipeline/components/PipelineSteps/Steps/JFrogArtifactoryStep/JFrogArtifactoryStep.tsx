@@ -7,7 +7,7 @@ import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
-import { JFrogArtifactoryStepBase } from './JFrogArtifactoryStepBase'
+import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
 
 export interface JFrogArtifactoryStepSpec {
@@ -107,7 +107,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   }
 
   renderStep(props: StepProps<JFrogArtifactoryStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -122,6 +122,13 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
       )
     }
 
-    return <JFrogArtifactoryStepBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <JFrogArtifactoryStepBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

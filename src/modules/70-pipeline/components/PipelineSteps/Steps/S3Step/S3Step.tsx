@@ -7,7 +7,7 @@ import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeConnectorRef, Resources } from '../StepsTypes'
-import { S3StepBase } from './S3StepBase'
+import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
 
 export interface S3StepSpec {
@@ -108,7 +108,7 @@ export class S3Step extends PipelineStep<S3StepData> {
     return errors
   }
   renderStep(props: StepProps<S3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -122,6 +122,13 @@ export class S3Step extends PipelineStep<S3StepData> {
         />
       )
     }
-    return <S3StepBase initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <S3StepBaseWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 }

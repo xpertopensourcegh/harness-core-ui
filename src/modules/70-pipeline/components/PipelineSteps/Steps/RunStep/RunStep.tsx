@@ -14,7 +14,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '../StepsTypes'
-import { RunStepBase } from './RunStepBase'
+import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
 
 export interface RunStepSpec {
@@ -114,7 +114,8 @@ export class RunStep extends PipelineStep<RunStepData> {
   }
 
   renderStep(props: StepProps<RunStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <RunStepInputSet
@@ -128,6 +129,13 @@ export class RunStep extends PipelineStep<RunStepData> {
       )
     }
 
-    return <RunStepBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <RunStepBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

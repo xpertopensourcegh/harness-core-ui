@@ -14,7 +14,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '../StepsTypes'
-import { GCRStepBase } from './GCRStepBase'
+import { GCRStepBaseWithRef } from './GCRStepBase'
 import { GCRStepInputSet } from './GCRStepInputSet'
 
 export interface GCRStepSpec {
@@ -137,7 +137,7 @@ export class GCRStep extends PipelineStep<GCRStepData> {
   }
 
   renderStep(props: StepProps<GCRStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -152,6 +152,13 @@ export class GCRStep extends PipelineStep<GCRStepData> {
       )
     }
 
-    return <GCRStepBase initialValues={initialValues} stepViewType={stepViewType} onUpdate={onUpdate} />
+    return (
+      <GCRStepBaseWithRef
+        initialValues={initialValues}
+        stepViewType={stepViewType}
+        onUpdate={onUpdate}
+        ref={formikRef}
+      />
+    )
   }
 }

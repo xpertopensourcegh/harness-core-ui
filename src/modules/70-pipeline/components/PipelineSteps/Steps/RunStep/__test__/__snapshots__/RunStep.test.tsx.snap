@@ -223,9 +223,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
-                              >
-                                connectorRef
-                              </p>
+                              />
                               <div
                                 class="rightStatus"
                               >
@@ -257,7 +255,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                                     <span
                                       class="bp3-text-overflow-ellipsis bp3-fill"
                                     >
-                                      account
+                                      project
                                     </span>
                                   </span>
                                 </span>
@@ -617,6 +615,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.reportPaths[0].value-6"
                       style="flex-grow: 1;"
                     >
                       
@@ -692,6 +691,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.reportPaths[1].value-7"
                       style="flex-grow: 1;"
                     >
                       
@@ -767,6 +767,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.reportPaths[2].value-8"
                       style="flex-grow: 1;"
                     >
                       
@@ -842,6 +843,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.reportPaths[3].value-9"
                       style="flex-grow: 1;"
                     >
                       
@@ -917,6 +919,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.reportPaths[4].value-10"
                       style="flex-grow: 1;"
                     >
                       
@@ -1113,6 +1116,7 @@ npm test
                       </p>
                       <div
                         class="bp3-form-group"
+                        data-id="spec.envVariables[0].key-12"
                         style="margin: 0px;"
                       >
                         <div
@@ -1145,6 +1149,7 @@ npm test
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.envVariables[0].value-13"
                           style="flex-grow: 1;"
                         >
                           
@@ -1225,6 +1230,7 @@ npm test
                     >
                       <div
                         class="bp3-form-group"
+                        data-id="spec.envVariables[1].key-14"
                         style="margin: 0px;"
                       >
                         <div
@@ -1252,6 +1258,7 @@ npm test
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.envVariables[1].value-15"
                           style="flex-grow: 1;"
                         >
                           
@@ -1332,6 +1339,7 @@ npm test
                     >
                       <div
                         class="bp3-form-group"
+                        data-id="spec.envVariables[2].key-16"
                         style="margin: 0px;"
                       >
                         <div
@@ -1359,6 +1367,7 @@ npm test
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.envVariables[2].value-17"
                           style="flex-grow: 1;"
                         >
                           
@@ -1549,6 +1558,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.outputVariables[0].value-19"
                       style="flex-grow: 1;"
                     >
                       
@@ -1624,6 +1634,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.outputVariables[1].value-20"
                       style="flex-grow: 1;"
                     >
                       
@@ -1699,6 +1710,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.outputVariables[2].value-21"
                       style="flex-grow: 1;"
                     >
                       
@@ -1774,6 +1786,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.outputVariables[3].value-22"
                       style="flex-grow: 1;"
                     >
                       
@@ -3709,52 +3722,11 @@ exports[`Run Step Edit View should render properly 1`] = `
                           <span
                             class="bp3-button-text"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                              style="justify-content: space-between; width: 100%;"
+                            <span
+                              class="placeholder"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                              >
-                                connectorRef
-                              </p>
-                              <div
-                                class="rightStatus"
-                              >
-                                <span
-                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                  icon="full-circle"
-                                >
-                                  <svg
-                                    data-icon="full-circle"
-                                    height="6"
-                                    viewBox="0 0 16 16"
-                                    width="6"
-                                  >
-                                    <desc>
-                                      full-circle
-                                    </desc>
-                                    <path
-                                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
-                                </span>
-                                <span
-                                  class="Tag--main"
-                                >
-                                  <span
-                                    class="bp3-tag bp3-minimal tag"
-                                  >
-                                    <span
-                                      class="bp3-text-overflow-ellipsis bp3-fill"
-                                    >
-                                      account
-                                    </span>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
+                              Select
+                            </span>
                           </span>
                           <span
                             class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -4107,6 +4079,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.reportPaths[0].value-6"
                       style="flex-grow: 1;"
                     >
                       
@@ -4303,6 +4276,7 @@ npm test
                       </p>
                       <div
                         class="bp3-form-group"
+                        data-id="spec.envVariables[0].key-8"
                         style="margin: 0px;"
                       >
                         <div
@@ -4335,6 +4309,7 @@ npm test
                       >
                         <div
                           class="bp3-form-group"
+                          data-id="spec.envVariables[0].value-9"
                           style="flex-grow: 1;"
                         >
                           
@@ -4525,6 +4500,7 @@ npm test
                   >
                     <div
                       class="bp3-form-group"
+                      data-id="spec.outputVariables[0].value-11"
                       style="flex-grow: 1;"
                     >
                       

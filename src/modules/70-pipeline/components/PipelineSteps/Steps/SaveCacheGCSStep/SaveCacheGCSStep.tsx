@@ -7,7 +7,7 @@ import { StepViewType } from '@pipeline/exports'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import type { MultiTypeListType, MultiTypeListUIType, MultiTypeConnectorRef, Resources } from '../StepsTypes'
-import { SaveCacheGCSStepBase } from './SaveCacheGCSStepBase'
+import { SaveCacheGCSStepBaseWithRef } from './SaveCacheGCSStepBase'
 import { SaveCacheGCSStepInputSet } from './SaveCacheGCSStepInputSet'
 
 export interface SaveCacheGCSStepSpec {
@@ -105,7 +105,8 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
     return errors
   }
   renderStep(props: StepProps<SaveCacheGCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <SaveCacheGCSStepInputSet
@@ -118,6 +119,13 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
         />
       )
     }
-    return <SaveCacheGCSStepBase initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <SaveCacheGCSStepBaseWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 }
