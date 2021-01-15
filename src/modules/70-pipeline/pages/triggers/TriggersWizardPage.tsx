@@ -106,7 +106,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const originalPipeline: NgPipeline | undefined = (pipelineResponse?.data?.yamlPipeline as any)?.pipeline
+  const originalPipeline: NgPipeline | undefined = parse((pipelineResponse?.data?.yamlPipeline as any) || '')?.pipeline
 
   useEffect(() => {
     if (triggerResponse?.data?.yaml && triggerResponse.data.type) {
@@ -304,6 +304,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     },
     onEditInitialValues
   )
+
   const wizardMap =
     initialValues.sourceRepo && initialValues.triggerType
       ? getWizardMap({ triggerType: initialValues.triggerType, getString, triggerName: initialValues?.name })

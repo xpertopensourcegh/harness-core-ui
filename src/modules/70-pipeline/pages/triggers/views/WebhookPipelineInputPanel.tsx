@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text } from '@wings-software/uicore'
+import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
@@ -21,7 +21,9 @@ interface WebhookPipelineInputPanelPropsInterface {
   formikProps?: any
 }
 
-const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterface> = ({ formikProps }): JSX.Element => {
+const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInterface> = ({
+  formikProps
+}): JSX.Element => {
   const {
     values: { inputSetSelected, pipeline, originalPipeline },
     values
@@ -131,6 +133,14 @@ const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterfac
         </Layout.Horizontal>
       )}
     </Layout.Vertical>
+  )
+}
+
+const WebhookPipelineInputPanel: React.FC<WebhookPipelineInputPanelPropsInterface> = props => {
+  return (
+    <NestedAccordionProvider>
+      <WebhookPipelineInputPanelForm {...props} />
+    </NestedAccordionProvider>
   )
 }
 export default WebhookPipelineInputPanel
