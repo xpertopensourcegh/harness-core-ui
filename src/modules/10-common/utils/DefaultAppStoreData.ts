@@ -11,7 +11,7 @@ export const project: Project = {
   description: 'test',
   tags: { tag1: '', tag2: 'tag3' }
 }
-export const defaultAppStoreValues: Pick<AppStoreContextProps, 'selectedProject'> = {
+export const defaultAppStoreValues: Pick<AppStoreContextProps, 'selectedProject' | 'featureFlags'> = {
   selectedProject: {
     accountIdentifier: 'testAcc',
     orgIdentifier: 'testOrg',
@@ -21,5 +21,12 @@ export const defaultAppStoreValues: Pick<AppStoreContextProps, 'selectedProject'
     modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
     description: 'test',
     tags: { tag1: '', tag2: 'tag3' }
+  },
+  featureFlags: {
+    CDNG_ENABLED: true,
+    CVNG_ENABLED: true,
+    CING_ENABLED: true,
+    CENG_ENABLED: true,
+    CFNG_ENABLED: true
   }
 }

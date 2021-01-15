@@ -3,7 +3,7 @@ import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import routes from '@common/RouteDefinitions'
-import { defaultAppStoreValues } from './DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { projectWithModules } from './ProjectPageMock'
 
 const reloadProjects = jest.fn()

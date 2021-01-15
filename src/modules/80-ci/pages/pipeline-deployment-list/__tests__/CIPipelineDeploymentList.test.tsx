@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 import CIPipelineDeploymentList from '../CIPipelineDeploymentList'
 

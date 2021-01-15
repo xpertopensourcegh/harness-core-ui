@@ -9,7 +9,7 @@ import {
 } from '@testing-library/react'
 import { TestWrapper, UseGetMockData, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import CDPipelinesPage from '../PipelinesPage'

@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import commonRoutes from '@common/RouteDestinations'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import secretsRoutes from '@secrets/RouteDestinations'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
@@ -15,6 +16,7 @@ import delegatesRoutes from '@delegates/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 export default function RouteDestinations(): React.ReactElement {
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   return (
     <Switch>
       {...commonRoutes.props.children}
@@ -23,11 +25,11 @@ export default function RouteDestinations(): React.ReactElement {
       {...projectsOrgsRoutes.props.children}
       {...connectorRoutes.props.children}
       {...gitSyncRoutes.props.children}
-      {...CIRoutes.props.children}
-      {...CDRoutes.props.children}
-      {...CVRoutes.props.children}
-      {...CFRoutes.props.children}
-      {...CERoutes.props.children}
+      {...CING_ENABLED ? CIRoutes.props.children : []}
+      {...CDNG_ENABLED ? CDRoutes.props.children : []}
+      {...CVNG_ENABLED ? CVRoutes.props.children : []}
+      {...CFNG_ENABLED ? CFRoutes.props.children : []}
+      {...CENG_ENABLED ? CERoutes.props.children : []}
 
       <Route path="*">
         <NotFoundPage />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { TestWrapper } from '@common/utils/testUtils'
 import { BuildPageContext, BuildPageContextInterface } from '@ci/pages/build/context/BuildPageContext'
 import ReportsSummaryMock from './mock/reports-summary.json'

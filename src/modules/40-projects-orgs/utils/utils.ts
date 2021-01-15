@@ -1,9 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import { ModuleName } from 'framework/exports'
-import type { Project } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-
-const allModules: Required<Project>['modules'] = ['CD', 'CV', 'CI', 'CE', 'CF']
 
 export const getModuleIcon = (module: ModuleName): IconName => {
   switch (module) {
@@ -51,8 +48,4 @@ export const getModuleDescription = (module: ModuleName): string => {
       return i18n.newProjectWizard.purposeList.descriptionCF
   }
   return ''
-}
-
-export const getEnableModules = (modules: Required<Project>['modules']): Required<Project>['modules'] => {
-  return allModules.filter(module => !modules.includes(module))
 }

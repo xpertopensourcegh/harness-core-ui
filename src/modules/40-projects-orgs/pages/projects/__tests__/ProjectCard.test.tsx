@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import routes from '@common/RouteDefinitions'
 import type { ProjectAggregateDTO } from 'services/cd-ng'
-import { defaultAppStoreValues } from './DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { responseProjectAggregateDTO, responseProjectAggregateDTOWithNoModules } from './ProjectPageMock'
 
 const routeParams = {

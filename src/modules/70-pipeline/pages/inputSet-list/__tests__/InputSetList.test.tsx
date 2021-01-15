@@ -3,7 +3,7 @@ import { render, RenderResult, waitFor, fireEvent, getByText, queryByText, getBy
 import { act } from 'react-dom/test-utils'
 import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import InputSetList from '../InputSetList'
 import {

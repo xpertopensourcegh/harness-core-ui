@@ -9,6 +9,7 @@ import { usePutProject } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useToaster } from '@common/exports'
 import { ModuleName } from 'framework/exports'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
@@ -22,39 +23,39 @@ interface PurposeType {
   Description: string
   module: Required<Project>['modules'][number]
 }
+const CDNG_OPTIONS: PurposeType = {
+  title: i18n.newProjectWizard.purposeList.delivery,
+  icon: 'cd-main',
+  Description: i18n.newProjectWizard.purposeList.descriptionCD,
+  module: ModuleName.CD
+}
+const CVNG_OPTIONS: PurposeType = {
+  title: i18n.newProjectWizard.purposeList.verification,
+  icon: 'cv-main',
+  Description: i18n.newProjectWizard.purposeList.descriptionCV,
+  module: ModuleName.CV
+}
 
-const options: PurposeType[] = [
-  {
-    title: i18n.newProjectWizard.purposeList.delivery,
-    icon: 'cd-main',
-    Description: i18n.newProjectWizard.purposeList.descriptionCD,
-    module: ModuleName.CD
-  },
-  {
-    title: i18n.newProjectWizard.purposeList.verification,
-    icon: 'cv-main',
-    Description: i18n.newProjectWizard.purposeList.descriptionCV,
-    module: ModuleName.CV
-  },
-  {
-    title: i18n.newProjectWizard.purposeList.integration,
-    icon: 'ci-main',
-    Description: i18n.newProjectWizard.purposeList.descriptionCI,
-    module: ModuleName.CI
-  },
-  {
-    title: i18n.newProjectWizard.purposeList.efficiency,
-    icon: 'ce-main',
-    Description: i18n.newProjectWizard.purposeList.descriptionCE,
-    module: ModuleName.CE
-  },
-  {
-    title: i18n.newProjectWizard.purposeList.features,
-    icon: 'cf-main',
-    Description: i18n.newProjectWizard.purposeList.descriptionCF,
-    module: ModuleName.CF
-  }
-]
+const CING_OPTIONS: PurposeType = {
+  title: i18n.newProjectWizard.purposeList.integration,
+  icon: 'ci-main',
+  Description: i18n.newProjectWizard.purposeList.descriptionCI,
+  module: ModuleName.CI
+}
+
+const CENG_OPTIONS: PurposeType = {
+  title: i18n.newProjectWizard.purposeList.efficiency,
+  icon: 'ce-main',
+  Description: i18n.newProjectWizard.purposeList.descriptionCE,
+  module: ModuleName.CE
+}
+
+const CFNG_OPTIONS: PurposeType = {
+  title: i18n.newProjectWizard.purposeList.features,
+  icon: 'cf-main',
+  Description: i18n.newProjectWizard.purposeList.descriptionCF,
+  module: ModuleName.CF
+}
 
 const getModuleLinks = (
   module: Required<Project>['modules'][number],
@@ -140,6 +141,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   const { data: projectData, onSuccess } = props
   const { accountId } = useParams()
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { showSuccess, showError } = useToaster()
   const { mutate: updateProject } = usePutProject({
     identifier: projectData.identifier,
@@ -162,6 +164,17 @@ const PurposeList: React.FC<ProjectModalData> = props => {
       showError(e.data.message)
     }
   }
+
+  const getOptions = (): PurposeType[] => {
+    const options: PurposeType[] = []
+    if (CDNG_ENABLED) options.push(CDNG_OPTIONS)
+    if (CVNG_ENABLED) options.push(CVNG_OPTIONS)
+    if (CING_ENABLED) options.push(CING_OPTIONS)
+    if (CENG_ENABLED) options.push(CENG_OPTIONS)
+    if (CFNG_ENABLED) options.push(CFNG_OPTIONS)
+    return options
+  }
+
   return (
     <Layout.Vertical spacing="large" className={css.modalPage}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
@@ -170,7 +183,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container width="65%">
           <div className={css.border}>
-            {options.map(option => (
+            {getOptions().map(option => (
               <Card key={option.title} className={css.card}>
                 <Layout.Horizontal spacing="small">
                   <Icon name={option.icon} size={30} />

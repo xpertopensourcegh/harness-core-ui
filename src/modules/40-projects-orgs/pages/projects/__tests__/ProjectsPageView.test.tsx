@@ -13,9 +13,9 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { orgMockData } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
 import routes from '@common/RouteDefinitions'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectsListPage from '../ProjectsPage'
 import { createMockData, OrgMockData, projectMockData, projectPageMock } from './ProjectPageMock'
-import { defaultAppStoreValues } from './DefaultAppStoreData'
 
 const getProjectList = jest.fn()
 const deleteProject = jest.fn()

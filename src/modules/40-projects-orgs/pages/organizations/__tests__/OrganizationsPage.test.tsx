@@ -9,7 +9,7 @@ import {
   createOrgMockData,
   getOrganizationAggregateDTOListMockData
 } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { clickBack, clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import OrganizationsPage from '../OrganizationsPage'
 

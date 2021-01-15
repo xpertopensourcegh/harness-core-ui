@@ -1,12 +1,13 @@
 import { Card, Color, Container, Icon, Layout, Text, CardBody, AvatarGroup } from '@wings-software/uicore'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Menu, Classes } from '@blueprintjs/core'
+import { Menu, Classes, Intent } from '@blueprintjs/core'
 import { OrganizationAggregateDTO, useDeleteOrganization } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
 import { useToaster } from '@common/exports'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
+import { useStrings } from 'framework/exports'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
@@ -32,12 +33,13 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   } = organizationAggregateDTO
   const orgMembers = admins?.concat(collaborators || [])
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
-
+  const { getString } = useStrings()
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name),
+    contentText: getString('orgs.confirmDelete', { name: data.name }),
     titleText: i18n.confirmDeleteTitle,
     confirmButtonText: i18n.delete,
     cancelButtonText: i18n.cancelButton,
+    intent: Intent.WARNING,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {

@@ -8,13 +8,13 @@ import { Project, useGetProjectAggregateDTO } from 'services/cd-ng'
 import { ModuleName, useAppStore, useStrings } from 'framework/exports'
 import ModuleListCard from '@projects-orgs/components/ModuleListCard/ModuleListCard'
 import ModuleEnableCard from '@projects-orgs/components/ModuleEnableCard/ModuleEnableCard'
-import { getEnableModules } from '@projects-orgs/utils/utils'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
@@ -24,6 +24,7 @@ const ProjectDetails: React.FC = () => {
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { updateAppStore } = useAppStore()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { data, loading, error, refetch } = useGetProjectAggregateDTO({
     identifier: projectIdentifier,
     queryParams: {
@@ -60,6 +61,17 @@ const ProjectDetails: React.FC = () => {
   useEffect(() => {
     updateAppStore({ selectedProject: projectData })
   }, [projectData])
+
+  const getEnableModules = (): Required<Project>['modules'] => {
+    const modulesPresent: Required<Project>['modules'] = []
+    if (CDNG_ENABLED) modulesPresent.push(ModuleName.CD)
+    if (CVNG_ENABLED) modulesPresent.push(ModuleName.CV)
+    if (CING_ENABLED) modulesPresent.push(ModuleName.CI)
+    if (CENG_ENABLED) modulesPresent.push(ModuleName.CE)
+    if (CFNG_ENABLED) modulesPresent.push(ModuleName.CF)
+
+    return modulesPresent.filter(module => !projectData?.modules?.includes(module))
+  }
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
@@ -173,13 +185,13 @@ const ProjectDetails: React.FC = () => {
               </Layout.Vertical>
             </Container>
             <Container padding="xxlarge">
-              {projectData.modules?.length === 5 ? null : (
+              {getEnableModules().length === 0 ? null : (
                 <>
                   <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
                     {i18n.enableModules}
                   </Text>
                   <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
-                    {getEnableModules(projectData.modules || []).map(module => (
+                    {getEnableModules().map(module => (
                       <ModuleEnableCard
                         key={module}
                         data={projectData as Project}

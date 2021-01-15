@@ -2,6 +2,7 @@ import React from 'react'
 import { act, fireEvent, getAllByText, getByText, render, waitFor } from '@testing-library/react'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
 import {
   createMockData,
@@ -53,6 +54,7 @@ describe('Project Details', () => {
       <TestWrapper
         path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
         pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+        defaultAppStoreValues={defaultAppStoreValues}
       >
         <ProjectDetails />
       </TestWrapper>
@@ -76,6 +78,7 @@ describe('Project Details', () => {
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+          defaultAppStoreValues={defaultAppStoreValues}
         >
           <ProjectDetails />
         </TestWrapper>
@@ -100,6 +103,7 @@ describe('Project Details', () => {
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+          defaultAppStoreValues={defaultAppStoreValues}
         >
           <ProjectDetails />
         </TestWrapper>
@@ -114,6 +118,7 @@ describe('Project Details', () => {
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+          defaultAppStoreValues={defaultAppStoreValues}
         >
           <ProjectDetails />
         </TestWrapper>
@@ -131,6 +136,7 @@ describe('Project Details', () => {
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+          defaultAppStoreValues={defaultAppStoreValues}
         >
           <ProjectDetails />
         </TestWrapper>

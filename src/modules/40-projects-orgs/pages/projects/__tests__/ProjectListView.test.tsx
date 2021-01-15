@@ -6,8 +6,8 @@ import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
 import ProjectListView from '@projects-orgs/pages/projects/views/ProjectListView/ProjectListView'
 import routes from '@common/RouteDefinitions'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { projectPageMock } from './ProjectPageMock'
-import { defaultAppStoreValues } from './DefaultAppStoreData'
 
 jest.mock('react-timeago', () => () => 'dummy date')
 

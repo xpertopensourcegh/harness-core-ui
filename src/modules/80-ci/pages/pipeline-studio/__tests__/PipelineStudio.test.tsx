@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, getByText, waitFor, fireEvent } from '@testing-library/react'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'

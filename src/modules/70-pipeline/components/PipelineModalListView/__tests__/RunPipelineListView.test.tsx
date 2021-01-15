@@ -1,7 +1,7 @@
 import React from 'react'
 import { getByText, render, waitFor } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { TestWrapper, UseGetMockData } from '@common/utils/testUtils'
 import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
 import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'

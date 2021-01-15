@@ -1293,9 +1293,10 @@ global:
       resultLabel: TEST CASE EXECUTION RESULT
       sortBy: 'Sort by:'
   orgs:
-    searchPlaceHolder: 'Search Organizations by name, tags'
+    searchPlaceHolder: 'Search Organizations by name and tags'
     aboutTitle: 'About the Organization'
     collaboratorsTitle: 'Invite Members'
+    confirmDelete: Deleting the Organization '{{name}}' would mean that you are also deleting all the projects and the resources associated with it. Are you sure you want to delete the Organization?
   pipeline-list:
     aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
     listStages: Stages

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { useGetListOfExecutions } from 'services/pipeline-ng'
 
 import PipelineDeploymentList from '../PipelineDeploymentList'

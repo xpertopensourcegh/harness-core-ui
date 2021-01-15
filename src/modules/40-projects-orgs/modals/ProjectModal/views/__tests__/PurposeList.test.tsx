@@ -4,6 +4,7 @@ import { render, queryByText, fireEvent, act } from '@testing-library/react'
 import type { Project } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import PurposeList from '../PurposeList'
 
 const project: Project = {
@@ -25,7 +26,11 @@ jest.mock('services/cd-ng', () => ({
 describe('PurposeList test', () => {
   test('initializes ok ', async () => {
     const { container, getByTestId } = render(
-      <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: 'testAcc' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
         <PurposeList data={project} />
       </TestWrapper>
     )

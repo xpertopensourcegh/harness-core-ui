@@ -4,7 +4,7 @@ import { PipelineResponse } from '@pipeline/pages/pipeline-details/__tests__/Pip
 import { accountPathProps, pipelineModuleParams, triggerPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import TriggersDetailPage from '../TriggersDetailPage'
 import { GetTriggerResponse, GetTriggerDetailsResponse } from './TriggerDetailPageMock'
 
