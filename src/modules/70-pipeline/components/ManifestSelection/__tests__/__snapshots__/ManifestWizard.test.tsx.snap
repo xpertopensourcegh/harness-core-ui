@@ -240,7 +240,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   <div
                     class="formLabel"
                   >
-                    File / Folder Path
+                    File/Folder Path
                     <div
                       class="bp3-popover-wrapper typeSelectorWrapper"
                     >
@@ -666,7 +666,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                   <div
                     class="formLabel"
                   >
-                    File / Folder Path
+                    File/Folder Path
                     <div
                       class="bp3-popover-wrapper typeSelectorWrapper"
                     >

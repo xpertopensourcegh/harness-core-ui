@@ -952,7 +952,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
       level="2"
       style="font-size: 30px;"
     >
-      Specify your manifest file repository type
+      Select manifest type
     </h2>
     <h3
       class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-white StyledProps--margin-top-large StyledProps--margin-bottom-medium"

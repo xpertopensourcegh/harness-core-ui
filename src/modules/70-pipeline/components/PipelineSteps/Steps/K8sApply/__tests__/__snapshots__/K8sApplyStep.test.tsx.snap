@@ -169,7 +169,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                     <div
                       class="formLabel"
                     >
-                      File / Folder Path
+                      File/Folder Path
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -711,7 +711,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                     <div
                       class="formLabel"
                     >
-                      File / Folder Path
+                      File/Folder Path
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >

@@ -76,7 +76,7 @@ global:
   sidecarArtifactText: Sidecar Artifact
   sidecarsText: Sidecars
   manifestsText: Manifest
-  fileFolderPathText: File / Folder Path
+  fileFolderPathText: File/Folder Path
   addFileText: + Add File
   lastExecutionTs: 'Last Run'
   addOverrideSet: + Add Predefined Set
