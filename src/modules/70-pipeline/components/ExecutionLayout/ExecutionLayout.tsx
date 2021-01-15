@@ -4,6 +4,7 @@ import { Button } from '@wings-software/uicore'
 import { debounce } from 'lodash-es'
 import cx from 'classnames'
 
+import { useLocalStorage } from '@common/hooks'
 import { ExecutionLayoutContext, ExecutionLayoutState } from './ExecutionLayoutContext'
 import ExecutionLayoutFloatingView from './ExecutionLayoutFloatingView'
 import ExcecutionLayoutToggle from './ExecutionLayoutToggle'
@@ -36,11 +37,16 @@ const splitPaneProps: Partial<Record<ExecutionLayoutState, SplitPaneProps>> = {
 export interface ExecutionLayoutProps {
   className?: string
   defaultLayout?: ExecutionLayoutState
+  defaultStepVisibility?: boolean
 }
 
 function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
   const [child1, child2, child3] = React.Children.toArray(props.children)
-  const [layoutState, setLayoutState] = React.useState(props.defaultLayout || ExecutionLayoutState.NONE)
+  const [layoutState, setLayoutState] = useLocalStorage(
+    'execution_layout',
+    props.defaultLayout || ExecutionLayoutState.RIGHT
+  )
+  const [isStepDetailsVisible, setStepDetailsVisibility] = React.useState(!!props.defaultStepVisibility)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
   const [teritiaryPaneSize, setTeritiaryPaneSize] = React.useState(250)
   const resizerRef = React.useRef<HTMLDivElement | null>(null)
@@ -78,7 +84,9 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
         primaryPaneSize,
         teritiaryPaneSize,
         setPrimaryPaneSize,
-        setTeritiaryPaneSize
+        setTeritiaryPaneSize,
+        isStepDetailsVisible,
+        setStepDetailsVisibility
       }}
     >
       <div className={cx(css.main, props.className)} id={EXECUTION_LAYOUT_DOM_ID}>
@@ -105,7 +113,8 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
         >
           <Pane className={css.pane11}>{child1}</Pane>
           <Pane className={css.pane12}>
-            {layoutState === ExecutionLayoutState.BOTTOM || layoutState === ExecutionLayoutState.RIGHT ? (
+            {isStepDetailsVisible &&
+            (layoutState === ExecutionLayoutState.BOTTOM || layoutState === ExecutionLayoutState.RIGHT) ? (
               <SplitPane
                 className={css.splitPane2}
                 {...splitPaneProps[layoutState]}
@@ -118,9 +127,7 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
             ) : (
               <React.Fragment>
                 {child2}
-                {layoutState === ExecutionLayoutState.NONE ? null : (
-                  <ExecutionLayoutFloatingView>{child3}</ExecutionLayoutFloatingView>
-                )}
+                {isStepDetailsVisible ? <ExecutionLayoutFloatingView>{child3}</ExecutionLayoutFloatingView> : null}
               </React.Fragment>
             )}
           </Pane>

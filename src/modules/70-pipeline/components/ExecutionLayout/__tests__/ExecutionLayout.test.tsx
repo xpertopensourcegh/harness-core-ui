@@ -22,10 +22,10 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('Showing third child works', () => {
     function Child2(): React.ReactElement {
-      const { setLayout } = useExecutionLayoutContext()
+      const { setStepDetailsVisibility } = useExecutionLayoutContext()
 
       return (
-        <button data-testid="layout" onClick={() => setLayout(ExecutionLayoutState.RIGHT)}>
+        <button data-testid="layout" onClick={() => setStepDetailsVisibility(true)}>
           Show Child 3
         </button>
       )
@@ -48,7 +48,7 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"RIGHT" Layout works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT}>
+      <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
         <div data-testid="child-1">Child 1</div>
         <div data-testid="child-2">Child 2</div>
         <div data-testid="child-3">Child 3</div>
@@ -64,7 +64,7 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"BOTTOM" Layout works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.BOTTOM}>
+      <ExecutionLayout defaultLayout={ExecutionLayoutState.BOTTOM} defaultStepVisibility>
         <div data-testid="child-1">Child 1</div>
         <div data-testid="child-2">Child 2</div>
         <div data-testid="child-3">Child 3</div>
@@ -80,7 +80,7 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"FLOATING" Layout works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING}>
+      <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING} defaultStepVisibility>
         <div data-testid="child-1">Child 1</div>
         <div data-testid="child-2">Child 2</div>
         <div data-testid="child-3">Child 3</div>
@@ -96,7 +96,7 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"FLOATING" Layout - toggle window works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING}>
+      <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING} defaultStepVisibility>
         <div data-testid="child-1">Child 1</div>
         <div data-testid="child-2">Child 2</div>
         <div data-testid="child-3">Child 3</div>
@@ -133,7 +133,7 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('ExecutionLayout.Toggle works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT}>
+      <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
         <div data-testid="child-1">Child 1</div>
         <div data-testid="child-2">
           <ExecutionLayout.Toggle />

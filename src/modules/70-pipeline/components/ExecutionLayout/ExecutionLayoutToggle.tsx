@@ -11,7 +11,6 @@ export interface ExecutionLayoutToggleProps {
 }
 
 const iconNameMap: Record<ExecutionLayoutState, IconName> = {
-  [ExecutionLayoutState.NONE]: 'airplane',
   [ExecutionLayoutState.BOTTOM]: 'layout-bottom',
   [ExecutionLayoutState.FLOATING]: 'layout-float',
   [ExecutionLayoutState.RIGHT]: 'layout-right'

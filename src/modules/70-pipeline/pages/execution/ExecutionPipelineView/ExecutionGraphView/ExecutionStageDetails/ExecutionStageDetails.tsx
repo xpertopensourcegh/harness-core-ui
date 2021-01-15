@@ -5,10 +5,7 @@ import { useParams } from 'react-router-dom'
 import type { ExecutionNode, ExecutionGraph } from 'services/pipeline-ng'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import {
-  ExecutionLayoutState,
-  useExecutionLayoutContext
-} from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
+import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import {
   ExecutionPipelineNode,
@@ -294,8 +291,8 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
 }
 
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail, pipelineStagesMap, queryParams, loading } = useExecutionContext()
-  const { layout, setLayout } = useExecutionLayoutContext()
+  const { pipelineExecutionDetail, pipelineStagesMap, loading } = useExecutionContext()
+  const { setStepDetailsVisibility } = useExecutionLayoutContext()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
     label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
@@ -312,14 +309,10 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     status: stage?.status as any
   }
 
-  // open details view when a user selection is active
+  // open details view when a step is selected
   React.useEffect(() => {
-    if (queryParams.step && layout === ExecutionLayoutState.NONE) {
-      setLayout(ExecutionLayoutState.RIGHT)
-    } else if (!queryParams.step && layout !== ExecutionLayoutState.NONE) {
-      setLayout(ExecutionLayoutState.NONE)
-    }
-  }, [queryParams, layout, setLayout])
+    setStepDetailsVisibility(!!props.selectedStep)
+  }, [props.selectedStep, setStepDetailsVisibility])
   return (
     <div
       className={css.main}
