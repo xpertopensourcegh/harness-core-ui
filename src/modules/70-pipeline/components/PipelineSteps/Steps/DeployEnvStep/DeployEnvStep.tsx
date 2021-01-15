@@ -208,7 +208,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
     if (environmentsResponse?.data?.content?.length && !isNil(initialValues.environmentRef)) {
       setEnvironments(
         environmentsResponse.data.content.map(env => ({
-          label: env.name || '',
+          label: env.name || env.identifier || '',
           value: env.identifier || ''
         }))
       )
@@ -343,7 +343,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
     if (environmentsResponse?.data?.content?.length) {
       setEnvironments(
         environmentsResponse.data.content.map(env => ({
-          label: env.name || '',
+          label: env.name || env.identifier || '',
           value: env.identifier || ''
         }))
       )

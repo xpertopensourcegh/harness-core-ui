@@ -8,7 +8,10 @@ declare const styles: {
   readonly pullRequestStatus: string
   readonly pullRequestLink: string
   readonly commitMessage: string
+  readonly serviceName: string
   readonly ellipsis: string
   readonly moreBox: string
+  readonly servicesDeployedHoverCard: string
+  readonly title: string
 }
 export default styles

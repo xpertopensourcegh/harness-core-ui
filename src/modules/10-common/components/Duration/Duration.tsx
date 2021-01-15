@@ -50,6 +50,11 @@ export function timeDelta(start: number, end: number, formatter = 'wdhms'): Dura
 
 export const Duration: React.FC<DurationProps> = ({ startTime, endTime, formatter, durationText, ...textProps }) => {
   const [_endTime, setEndTime] = useState(endTime || Date.now())
+  React.useEffect(() => {
+    if (endTime) {
+      setEndTime(endTime)
+    }
+  }, [endTime])
   const delta = startTime ? timeDelta(startTime, _endTime, formatter) : { w: 0, d: 0, h: 0, m: 0, s: 0 }
 
   useEffect(() => {

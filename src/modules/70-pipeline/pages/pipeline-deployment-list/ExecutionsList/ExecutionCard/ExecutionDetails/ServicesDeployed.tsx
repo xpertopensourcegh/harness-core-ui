@@ -88,9 +88,6 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
                     ))}
                   </>
                 ) : null}
-
-                <String tagName="div" className={css.title} stringID="manifestsText" />
-                <String tagName="div" stringID="todo" />
               </div>
             </Popover>
           )

@@ -99,6 +99,7 @@
       "endTs": 1607782994773,
       "createdAt": 1607782989773,
       "successfulStagesCount": 0,
+      "tags": [{ "key": "tesg", "value": "asd" }],
       "runningStagesCount": 0,
       "failedStagesCount": 0,
       "totalStagesCount": 0

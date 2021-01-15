@@ -17,6 +17,7 @@ import routes from '@common/RouteDefinitions'
 // import ExecutionActionButtons from './ExecutionActionButtons/ExecutionActionButtons'
 // import ExecutionCardMenu from './ExecutionCardMenu/ExecutionCardMenu'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { TagsPopover } from '@common/components'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
 import BuildInfo from './ExecutionDetails/BuildInfo/BuildInfo'
@@ -85,6 +86,13 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 stringID={module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'}
                 vars={pipelineExecution}
               />
+              {pipelineExecution?.tags ? (
+                <TagsPopover
+                  tags={pipelineExecution.tags.reduce((val, tag) => {
+                    return Object.assign(val, { [tag.key]: tag.value })
+                  }, {} as { [key: string]: string })}
+                />
+              ) : null}
             </Link>
             {HAS_CI ? (
               <>

@@ -6,6 +6,7 @@
   box-shadow: inset var(--grey-200) 0 -2px 0;
   padding: 0 var(--spacing-medium) 0 var(--spacing-xxlarge);
   display: flex;
+  align-items: center;
 
   > div {
     margin-right: 30px;
@@ -48,6 +49,11 @@
     max-width: 250px;
   }
 
+  .serviceName {
+    color: var(--blue-500);
+    cursor: pointer;
+  }
+
   .ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -64,6 +70,20 @@
     // icon
     > span {
       margin: 1px !important;
+    }
+  }
+}
+.servicesDeployedHoverCard {
+  font-size: var(--font-size-small);
+  padding: var(--spacing-medium);
+  line-height: var(--sfont-size-medium);
+
+  & .title {
+    color: var(--grey-400);
+    margin-bottom: var(--spacing-xsmall);
+
+    &:not(:first-child) {
+      margin-top: var(--spacing-medium);
     }
   }
 }

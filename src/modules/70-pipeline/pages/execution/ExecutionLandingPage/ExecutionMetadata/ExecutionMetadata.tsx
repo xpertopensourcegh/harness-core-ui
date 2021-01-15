@@ -1,11 +1,13 @@
 import React from 'react'
 import cx from 'classnames'
 import { first, isObject } from 'lodash-es'
-import { Color, Icon, Link, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
-import type { CDStageModuleInfo } from 'services/cd-ng'
+import { Color, Icon, Link, Popover, Text } from '@wings-software/uicore'
+import { Position } from '@blueprintjs/core'
+import { useStrings, String } from 'framework/exports'
+import type { CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import { BuildBranchBadge, BuildPullRequestBadge } from '@pipeline/exports'
+import { TagsPopover } from '@common/components'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import ExecutionMetadataSection from './ExecutionMetadataSection/ExecutionMetadataSection'
 
@@ -21,21 +23,21 @@ export default function ExecutionMetadata(): React.ReactElement {
 
   const { services, environments } = React.useMemo(() => {
     // eslint-disable-next-line no-shadow
-    const services: string[] = []
+    const services: ServiceExecutionSummary[] = []
     // eslint-disable-next-line no-shadow
     const environments: string[] = []
 
     pipelineStagesMap.forEach(stage => {
       const stageInfo = stage.moduleInfo?.cd as CDStageModuleInfo
       if (stageInfo?.serviceInfo?.identifier && environments.indexOf(stageInfo.serviceInfo.identifier) === -1) {
-        services.push(stageInfo.serviceInfo.identifier)
+        services.push(stageInfo.serviceInfo)
       }
 
       if (
         stageInfo?.infraExecutionSummary?.identifier &&
         environments.indexOf(stageInfo.infraExecutionSummary.identifier) === -1
       ) {
-        environments.push(stageInfo.infraExecutionSummary.identifier)
+        environments.push(stageInfo.infraExecutionSummary.name || stageInfo.infraExecutionSummary.identifier)
       }
     })
 
@@ -116,7 +118,57 @@ export default function ExecutionMetadata(): React.ReactElement {
   // CD entries
   const cdEntries: { label?: string; value: JSX.Element }[] = []
   if (HAS_CD) {
-    cdEntries.push({ label: `Services (${services.length})`, value: <>{services.join(', ')}</> })
+    cdEntries.push({
+      label: `Services (${services.length})`,
+      value: (
+        <>
+          {services.map(service => (
+            <Popover
+              key={service.identifier}
+              wrapperTagName="div"
+              targetTagName="div"
+              interactionKind="hover"
+              position={Position.BOTTOM_RIGHT}
+            >
+              <span className={css.serviceName}>{service.displayName}</span>
+              <div className={css.servicesDeployedHoverCard}>
+                {service?.artifacts?.primary ? (
+                  <>
+                    <String tagName="div" className={css.title} stringID="primaryArtifactText" />
+                    <String
+                      tagName="div"
+                      stringID="artifactDisplay"
+                      useRichText
+                      vars={{
+                        image: ((service.artifacts.primary as unknown) as any).imagePath,
+                        tag: ((service.artifacts.primary as unknown) as any).tag
+                      }}
+                    />
+                  </>
+                ) : null}
+                {service?.artifacts?.sidecars && service.artifacts.sidecars.length > 0 ? (
+                  <>
+                    <String tagName="div" className={css.title} stringID="sidecarsText" />
+                    {service.artifacts.sidecars.map((artifact, index) => (
+                      <String
+                        tagName="div"
+                        key={index}
+                        stringID="artifactDisplay"
+                        useRichText
+                        vars={{
+                          image: ((artifact as unknown) as any).imagePath,
+                          tag: ((artifact as unknown) as any).tag
+                        }}
+                      />
+                    ))}
+                  </>
+                ) : null}
+              </div>
+            </Popover>
+          ))}
+        </>
+      )
+    })
     cdEntries.push({ label: `Environments (${services.length})`, value: <>{environments.join(', ')}</> })
   }
   // removed items from cdEntries
@@ -143,6 +195,13 @@ export default function ExecutionMetadata(): React.ReactElement {
 
   return (
     <div className={css.main}>
+      {pipelineExecutionSummary?.tags ? (
+        <TagsPopover
+          tags={pipelineExecutionSummary.tags.reduce((val, tag) => {
+            return Object.assign(val, { [tag.key]: tag.value })
+          }, {} as { [key: string]: string })}
+        />
+      ) : null}
       {HAS_CI ? <ExecutionMetadataSection title="BUILD" entries={ciEntries} delimiter={true} /> : null}
       {HAS_CD ? <ExecutionMetadataSection title="DEPLOYMENT" entries={cdEntries} delimiter={true} /> : null}
       <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />
