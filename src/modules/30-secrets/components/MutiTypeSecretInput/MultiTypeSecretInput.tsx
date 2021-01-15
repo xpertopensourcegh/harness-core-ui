@@ -31,9 +31,11 @@ export function MultiTypeSecretInputFixedTypeComponent(
   props: MultiTypeSecretInputFixedTypeComponentProps
 ): React.ReactElement {
   const { value, onChange, ...rest } = props
+  const { getString } = useStrings()
+
   return (
     <Button {...rest} className={css.value} icon="key-main" iconProps={{ size: 24, height: 12 }}>
-      {value}
+      {value || getString('createOrSelectSecret')}
     </Button>
   )
 }
@@ -76,7 +78,6 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     },
     [name, onSuccess]
   )
-  const { getString } = useStrings()
   const value = get(formik.values, name)
   const hasError = errorCheck(name, formik)
 
@@ -95,7 +96,7 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     <FormGroup {...rest} labelFor={name} label={label} intent={intent} helperText={helperText}>
       <ExpressionAndRuntimeType
         name={name}
-        value={value || getString('createOrSelectSecret')}
+        value={value}
         onChange={handleChange}
         style={{ flexGrow: 1 }}
         fixedTypeComponentProps={{ onClick: openCreateOrSelectSecretModal }}

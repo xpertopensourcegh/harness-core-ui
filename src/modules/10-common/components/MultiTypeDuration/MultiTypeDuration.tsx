@@ -33,7 +33,7 @@ function MultiTypeDurationFixedTypeComponent(
       {...inputGroupProps}
       value={value as string}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        onChange?.(event.target.value, MultiTypeInputValue.STRING)
+        onChange?.(event.target.value, MultiTypeInputValue.STRING, MultiTypeInputType.FIXED)
       }}
     />
   )
@@ -89,7 +89,7 @@ export function MultiTypeDuration(props: MultiTypeDurationProps): React.ReactEle
               showRequiredField={false}
               showDefaultField={false}
               showAdvanced={true}
-              onChange={val => onChange?.(val, MultiTypeInputValue.STRING)}
+              onChange={val => onChange?.(val, MultiTypeInputValue.STRING, MultiTypeInputType.RUNTIME)}
               style={{ marginLeft: 'var(--spacing-medium)' }}
               {...configureOptionsProps}
             />
@@ -125,14 +125,14 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
 
   const value: string = get(formik?.values, name, '')
   const handleChange: MultiTypeDurationProps['onChange'] = React.useCallback(
-    (val, valueType) => {
+    (val, valueType, type) => {
       const correctVal =
-        getMultiTypeFromValue(val) === MultiTypeInputType.FIXED && typeof val === 'string'
+        type === MultiTypeInputType.FIXED && typeof val === 'string'
           ? val.replace(DurationInputHelpers.TEXT_LIMIT_REGEX, '')
           : val
       formik?.setFieldValue(name, correctVal)
       formik?.setFieldTouched(name, true)
-      onChange?.(correctVal, valueType)
+      onChange?.(correctVal, valueType, type)
     },
     [formik?.setFieldTouched, formik?.setFieldValue, name, onChange]
   )

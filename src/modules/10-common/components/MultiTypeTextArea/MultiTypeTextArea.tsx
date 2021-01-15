@@ -29,7 +29,7 @@ function MultiTypeTextAreaFixedTypeComponent(
       className={cx(css.input, restProps.className)}
       value={value as string}
       onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        onChange?.(event.target.value, MultiTypeInputValue.STRING)
+        onChange?.(event.target.value, MultiTypeInputValue.STRING, MultiTypeInputType.FIXED)
       }}
     />
   )
@@ -74,7 +74,7 @@ export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
               showRequiredField={false}
               showDefaultField={false}
               showAdvanced={true}
-              onChange={val => onChange?.(val, MultiTypeInputValue.STRING)}
+              onChange={val => onChange?.(val, MultiTypeInputValue.STRING, MultiTypeInputType.RUNTIME)}
               style={{ marginLeft: 'var(--spacing-medium)' }}
               {...configureOptionsProps}
             />
@@ -125,9 +125,9 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
       <MultiTypeTextArea
         value={value}
         {...customProps}
-        onChange={(val, valueType) => {
+        onChange={(val, valueType, type) => {
           formik?.setFieldValue(name, val)
-          onChange?.(val, valueType)
+          onChange?.(val, valueType, type)
         }}
       />
     </FormGroup>

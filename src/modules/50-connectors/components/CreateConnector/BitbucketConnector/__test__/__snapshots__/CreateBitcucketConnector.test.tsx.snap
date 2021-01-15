@@ -20,7 +20,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 1`] = `
             width="50"
           >
             <g
-              clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+              clip-path="url(#bitbucket-new_svg__clip0)"
               fill="#fff"
             >
               <path
@@ -32,7 +32,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 1`] = `
             </g>
             <defs>
               <clippath
-                id="bitbucket-logo-black-and-white_svg__clip0"
+                id="bitbucket-new_svg__clip0"
               >
                 <path
                   d="M0 0h41.67v48H0z"
@@ -406,7 +406,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 2`] = `
             width="50"
           >
             <g
-              clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+              clip-path="url(#bitbucket-new_svg__clip0)"
               fill="#fff"
             >
               <path
@@ -418,7 +418,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 2`] = `
             </g>
             <defs>
               <clippath
-                id="bitbucket-logo-black-and-white_svg__clip0"
+                id="bitbucket-new_svg__clip0"
               >
                 <path
                   d="M0 0h41.67v48H0z"
@@ -665,6 +665,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 2`] = `
                               <input
                                 class="bp3-input-ghost"
                                 data-mentions="kv-tag-input-tags}"
+                                placeholder="Type and press enter to create a tag"
                                 value=""
                               />
                             </div>
@@ -856,7 +857,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 3`] = `
             width="50"
           >
             <g
-              clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+              clip-path="url(#bitbucket-new_svg__clip0)"
               fill="#fff"
             >
               <path
@@ -868,7 +869,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 3`] = `
             </g>
             <defs>
               <clippath
-                id="bitbucket-logo-black-and-white_svg__clip0"
+                id="bitbucket-new_svg__clip0"
               >
                 <path
                   d="M0 0h41.67v48H0z"
@@ -1114,7 +1115,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
             width="50"
           >
             <g
-              clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+              clip-path="url(#bitbucket-new_svg__clip0)"
               fill="#fff"
             >
               <path
@@ -1126,7 +1127,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
             </g>
             <defs>
               <clippath
-                id="bitbucket-logo-black-and-white_svg__clip0"
+                id="bitbucket-new_svg__clip0"
               >
                 <path
                   d="M0 0h41.67v48H0z"
@@ -1539,7 +1540,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
             width="50"
           >
             <g
-              clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+              clip-path="url(#bitbucket-new_svg__clip0)"
               fill="#fff"
             >
               <path
@@ -1551,7 +1552,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
             </g>
             <defs>
               <clippath
-                id="bitbucket-logo-black-and-white_svg__clip0"
+                id="bitbucket-new_svg__clip0"
               >
                 <path
                   d="M0 0h41.67v48H0z"
@@ -1884,7 +1885,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
             width="50"
           >
             <g
-              clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+              clip-path="url(#bitbucket-new_svg__clip0)"
               fill="#fff"
             >
               <path
@@ -1896,7 +1897,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
             </g>
             <defs>
               <clippath
-                id="bitbucket-logo-black-and-white_svg__clip0"
+                id="bitbucket-new_svg__clip0"
               >
                 <path
                   d="M0 0h41.67v48H0z"

@@ -86,9 +86,9 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
         textboxProps={{ name, label, ...textboxProps }}
         value={value}
         {...restMultiProps}
-        onChange={(val, valueType) => {
+        onChange={(val, valueType, type) => {
           formik?.setFieldValue(name, val)
-          onChange?.(val, valueType)
+          onChange?.(val, valueType, type)
         }}
       />
     </FormGroup>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Classes, Dialog, IconName } from '@blueprintjs/core'
+import { Classes, Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import {
@@ -11,7 +11,8 @@ import {
   FormInput,
   TextInput,
   Text,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  IconName
 } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -81,10 +82,10 @@ enum CodebaseStatuses {
   Validating = 'validating'
 }
 
-const codebaseIcons = {
+const codebaseIcons: Record<CodebaseStatuses, IconName> = {
   [CodebaseStatuses.NotConfigured]: 'execution-warning',
   [CodebaseStatuses.Valid]: 'command-artifact-check',
-  [CodebaseStatuses.Invalid]: 'codebase-invalid',
+  [CodebaseStatuses.Invalid]: 'circle-cross',
   [CodebaseStatuses.Validating]: 'steps-spinner'
 }
 

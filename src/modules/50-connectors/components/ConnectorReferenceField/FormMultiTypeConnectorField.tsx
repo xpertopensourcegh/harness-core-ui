@@ -77,7 +77,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           label: data.name,
           value: scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${data.identifier}` : data.identifier
         }
-        props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION)
+        props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
         formik?.setFieldValue(name, val)
       }
     }
@@ -125,9 +125,9 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           ...optionalReferenceSelectProps,
           disabled
         }}
-        onChange={(val, valueType) => {
+        onChange={(val, valueType, type1) => {
           formik?.setFieldValue(name, val)
-          onChange?.(val, valueType)
+          onChange?.(val, valueType, type1)
         }}
         value={selected}
       />
@@ -150,7 +150,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
               showAdvanced={true}
               onChange={val => {
                 formik?.setFieldValue(name, val)
-                onChange?.(val, MultiTypeInputValue.STRING)
+                onChange?.(val, MultiTypeInputValue.STRING, MultiTypeInputType.RUNTIME)
               }}
               style={{ marginLeft: 'var(--spacing-medium)' }}
               {...configureOptionsProps}

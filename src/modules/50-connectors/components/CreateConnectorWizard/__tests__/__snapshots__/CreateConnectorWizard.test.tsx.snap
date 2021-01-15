@@ -23,7 +23,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
               width="50"
             >
               <g
-                clip-path="url(#bitbucket-logo-black-and-white_svg__clip0)"
+                clip-path="url(#bitbucket-new_svg__clip0)"
                 fill="#fff"
               >
                 <path
@@ -35,7 +35,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
               </g>
               <defs>
                 <clippath
-                  id="bitbucket-logo-black-and-white_svg__clip0"
+                  id="bitbucket-new_svg__clip0"
                 >
                   <path
                     d="M0 0h41.67v48H0z"

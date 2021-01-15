@@ -1003,6 +1003,7 @@ exports[`About Project test create project  2`] = `
                                 <input
                                   class="bp3-input-ghost"
                                   data-mentions="kv-tag-input-tags}"
+                                  placeholder="Type and press enter to create a tag"
                                   value=""
                                 />
                               </div>

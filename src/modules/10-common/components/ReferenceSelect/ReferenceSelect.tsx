@@ -8,7 +8,8 @@ import {
   Layout,
   Text,
   Color,
-  FixedTypeComponentProps
+  FixedTypeComponentProps,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { Position, Classes } from '@blueprintjs/core'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -126,7 +127,8 @@ function MultiTypeReferenceInputFixedTypeComponent<T extends MinimalObject>(
             value: scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier,
             scope
           } as any,
-          MultiTypeInputValue.SELECT_OPTION
+          MultiTypeInputValue.SELECT_OPTION,
+          MultiTypeInputType.FIXED
         )
       }}
     />

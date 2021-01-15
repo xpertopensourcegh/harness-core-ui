@@ -348,6 +348,7 @@ exports[`Connector details step render for create kubernetes connector step one 
                           <input
                             class="bp3-input-ghost"
                             data-mentions="kv-tag-input-tags}"
+                            placeholder="Type and press enter to create a tag"
                             value=""
                           />
                         </div>
