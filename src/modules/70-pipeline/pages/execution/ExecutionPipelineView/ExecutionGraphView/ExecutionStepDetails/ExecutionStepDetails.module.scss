@@ -150,6 +150,8 @@
   }
 
   .panel {
+    padding: 0 var(--spacing-xsmall);
+
     &:not(:last-child) {
       border-bottom: 1px solid var(--grey-250);
     }

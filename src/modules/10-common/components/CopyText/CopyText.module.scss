@@ -1,0 +1,37 @@
+.main {
+  position: relative;
+  padding-right: var(--spacing-xxlarge);
+
+  .text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn-wrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--spacing-small);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .copy-icon {
+    padding: 0 !important;
+    min-height: unset !important;
+    min-width: unset !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  &:hover .btn-wrapper {
+    opacity: 1;
+  }
+}
+
+.tooltip {
+  padding: var(--spacing-small);
+  line-height: 2;
+  font-size: var(--font-size-small);
+}

@@ -1,9 +1,10 @@
 import React from 'react'
-import { isPlainObject, toPairs, startCase } from 'lodash-es'
+import { isPlainObject, toPairs, startCase, isEmpty } from 'lodash-es'
 import { Collapse as BPCollapse, Icon } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import { useStrings } from 'framework/exports'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import css from './ExecutionStepDetails.module.scss'
 
 function Collapse(props: React.PropsWithChildren<{ title: string }>): React.ReactElement {
@@ -28,6 +29,7 @@ export interface ExecutionStepInputOutputTabRowProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>
   level: number
+  prefix: string
 }
 
 export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTabRowProps): React.ReactElement {
@@ -39,14 +41,16 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
         if (typeof value === 'string') {
           return (
             <div className={css.ioRow} key={key}>
-              <div className={css.key}>{startCase(key)}</div>
+              <div className={css.key}>
+                <CopyText textToCopy={`${props.prefix}.${key}`}>{startCase(key)}</CopyText>
+              </div>
               <div className={css.value}>{value}</div>
             </div>
           )
-        } else if (isPlainObject(value)) {
+        } else if (isPlainObject(value) && !isEmpty(value)) {
           return (
             <Collapse key={key} title={startCase(key)}>
-              <ExecutionStepInputOutputTabRow data={value} level={props.level + 1} />
+              <ExecutionStepInputOutputTabRow prefix={`${props.prefix}.${key}`} data={value} level={props.level + 1} />
             </Collapse>
           )
         }
@@ -61,10 +65,12 @@ export interface ExecutionStepInputOutputTabProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Array<Record<string, any>>
   mode: 'input' | 'output'
+  baseFqn?: string
 }
 
 export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOutputTabProps): React.ReactElement {
   const { getString } = useStrings()
+  const prefix = props.baseFqn || ''
 
   return (
     <div className={css.ioTab}>
@@ -73,7 +79,7 @@ export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOut
         <div>{getString(props.mode === 'input' ? 'inputValue' : 'outputValue')}</div>
       </div>
       {props.data.map((row, i) => (
-        <ExecutionStepInputOutputTabRow data={row} key={i} level={0} />
+        <ExecutionStepInputOutputTabRow prefix={prefix} data={row} key={i} level={0} />
       ))}
     </div>
   )

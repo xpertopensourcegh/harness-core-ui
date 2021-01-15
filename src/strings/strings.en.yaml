@@ -82,6 +82,8 @@ global:
   addFileText: + Add File
   lastExecutionTs: 'Last Run'
   addOverrideSet: + Add Predefined Set
+  clickToCopy: Click to copy
+  copiedToClipboard: Copied to clipboard
   multipleFilesHelpText:
     'Multiple files can be overlaid together. They are applied in the order specified - first one gets
     applied first, and the subsequent ones get layered in the order and overrides any previously

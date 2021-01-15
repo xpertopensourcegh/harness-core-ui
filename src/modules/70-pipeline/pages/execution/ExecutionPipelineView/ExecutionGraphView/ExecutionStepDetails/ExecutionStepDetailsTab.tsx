@@ -24,7 +24,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const params = useParams<PipelineType<ExecutionPathParams>>()
 
   const history = useHistory()
-  const redirectToLogView = () => {
+  const redirectToLogView = (): void => {
     const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId, module } = params
     const logUrl = routes.toExecutionPipelineView({
       orgIdentifier,
@@ -37,6 +37,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
 
     history.push(`${logUrl}?view=log`)
   }
+
   return (
     <div className={css.detailsTab}>
       {step?.failureInfo && !isEmpty(step.failureInfo) ? (
@@ -70,7 +71,6 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
         </tbody>
       </table>
       <LogsContent rows={7} header="Step Logs" redirectToLogView={redirectToLogView} />
-      {/* <div style={{ background: '#00162B', height: '100%', flex: '1 1 0%' }}></div> */}
     </div>
   )
 }

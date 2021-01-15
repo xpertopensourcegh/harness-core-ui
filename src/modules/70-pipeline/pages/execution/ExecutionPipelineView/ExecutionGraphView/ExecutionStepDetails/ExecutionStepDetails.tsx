@@ -28,12 +28,16 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
         <Tabs.Tab
           id="input"
           title="Input"
-          panel={<ExecutionStepInputOutputTab mode="input" data={[(step as any).stepParameters]} />}
+          panel={
+            <ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="input" data={[(step as any).stepParameters]} />
+          }
         />
         <Tabs.Tab
           id="output"
           title="Output"
-          panel={<ExecutionStepInputOutputTab mode="output" data={(step as any).outcomes || []} />}
+          panel={
+            <ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="output" data={(step as any).outcomes || []} />
+          }
         />
       </Tabs>
     </div>
