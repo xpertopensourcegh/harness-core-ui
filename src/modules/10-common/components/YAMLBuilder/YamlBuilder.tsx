@@ -8,7 +8,7 @@ import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.w
 //@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import cx from 'classnames'
-import { stringify } from 'yaml'
+import { scalarOptions, stringify } from 'yaml'
 import { Tag, Layout, Icon } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
@@ -33,6 +33,8 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
+// Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
+scalarOptions.str.fold.lineWidth = 100000
 const EDITOR_BASE_DARK_THEME = 'vs-dark'
 const EDITOR_BASE_LIGHT_THEME = 'vs'
 /* Dark theme colors */
