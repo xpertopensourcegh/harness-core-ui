@@ -71,18 +71,12 @@ export const getHeadingByType = (type: string): string => {
       return i18n.appDynamicsDetails
     case Connectors.SPLUNK:
       return i18n.splunkConnectorDetails
-    case Connectors.DOCKER:
-      return i18n.dockerConnectorDetails
     case Connectors.AWS:
       return i18n.awsConnectorDetails
-    case Connectors.NEXUS:
-      return i18n.nexusConnectorDetails
-    case Connectors.ARTIFACTORY:
-      return i18n.artifactoryConnectorDetails
     case Connectors.GCP:
       return i18n.gcpConnectorDetails
     default:
-      return ''
+      return i18n.default
   }
 }
 

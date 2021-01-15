@@ -1,0 +1,49 @@
+.secondStep {
+  min-height: 500px;
+  .formRow {
+    display: flex;
+    .urlInput {
+      width: 50%;
+      margin-right: var(--spacing-small);
+    }
+    .versionInput {
+      width: 120px;
+    }
+  }
+
+  .authHeaderRow {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+
+    :global {
+      .bp3-input,
+      .bp3-button,
+      .bp3-checkbox {
+        height: 36px;
+      }
+    }
+
+    .authTitle {
+      font-size: var(font-size-normal);
+      color: var(--black-600);
+      padding-top: var(--spacing-small);
+      font-weight: bold !important;
+    }
+    :global {
+      .bp3-input-group {
+        .bp3-input {
+          width: 100% !important;
+          border: none !important;
+          padding: var(--spacing-small) 0;
+          min-width: 260px;
+          text-align: end !important;
+        }
+      }
+    }
+  }
+
+  .formWrapper {
+    width: 50%;
+  }
+}

@@ -45,7 +45,7 @@ const Snippet: React.FC<SnippetInterface> = props => {
         </div>
         <div className={css.description}>{description}</div>
         <div className={css.snippetVersion}>
-          {getString('snippets.version')} {version}
+          {getString('version')} {version}
         </div>
       </div>
       <Popover

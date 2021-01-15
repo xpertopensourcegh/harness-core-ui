@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create Nexus connector Wizard should render form 1`] = `
+exports[`Create Nexus connector Wizard Should render form 1`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -74,7 +74,7 @@ exports[`Create Nexus connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          AUTHENTICATION
+          Nexus Repository Details
         </p>
       </div>
       <div
@@ -103,7 +103,7 @@ exports[`Create Nexus connector Wizard should render form 1`] = `
         <div
           class="heading"
         >
-          Nexus Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -143,7 +143,10 @@ exports[`Create Nexus connector Wizard should render form 1`] = `
                             <span
                               class="InputWithIdentifier--idInput"
                               contenteditable="true"
-                            />
+                            >
+                              dummy_name
+                              
+                            </span>
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main"
                               icon="edit"
@@ -190,7 +193,7 @@ exports[`Create Nexus connector Wizard should render form 1`] = `
                                   class="bp3-input"
                                   name="name"
                                   type="text"
-                                  value=""
+                                  value="dummy name"
                                 />
                               </div>
                             </div>
@@ -265,4 +268,1133 @@ exports[`Create Nexus connector Wizard should render form 1`] = `
 </div>
 `;
 
-exports[`Create Nexus connector Wizard should render form 2`] = `<div />`;
+exports[`Create Nexus connector Wizard Should render form 2`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 14 14"
+            width="40"
+          >
+            <path
+              d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
+              fill="#346898"
+            />
+            <path
+              d="M13.8 10.3v.2c0 .4-.4.6-.8.6H.9c-.3 0-.5-.1-.7-.4-.1-.2-.1-.5 0-.7.2-.2.5-.4.8-.3H13.2c.3 0 .5.2.6.6zM13.8 8.1c0 .3-.1.5-.3.7-.1.1-.3.1-.4.1H.9c-.3 0-.7-.2-.7-.4-.1-.4-.1-.7.3-.9.1-.1.2-.1.3-.1.3.1.5 0 .8 0H13c.2 0 .5 0 .7.2 0 .1.1.2.1.4z"
+              fill="#040608"
+            />
+            <path
+              d="M13.4 5.3c.3.2.4.4.4.7s-.3.6-.7.6h-12c-.2 0-.5.1-.7-.1-.4-.2-.4-1 .2-1.2H13c.1 0 .3-.1.4 0z"
+              fill="#346898"
+            />
+            <path
+              d="M13.8 12.5v.2c-.1.4-.3.5-.8.5H.8c-.3 0-.5-.2-.6-.4s0-.6.2-.8.4-.2.7-.2h12c.4.2.6.3.7.7z"
+              fill="#040608"
+            />
+            <path
+              d="M13.5 1.9c-.3.1-.5.1-.7.1H.9c-.5 0-.7-.3-.7-.7C.2 1 .5.7.8.7H13.1c.3 0 .5.1.6.3s.1.4 0 .7l-.2.2z"
+              fill="#346898"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Nexus Repository
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Nexus Repository Details
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical StyledProps--main StyledProps--margin-small"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        >
+          Nexus Repository Details
+        </p>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main formRow"
+                >
+                  <div
+                    class="bp3-form-group urlInput"
+                    data-id="nexusServerUrl-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="nexusServerUrl"
+                    >
+                      Nexus Repository URL
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="nexusServerUrl"
+                          placeholder="URL"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group versionInput"
+                    data-id="nexusVersion-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="nexusVersion"
+                    >
+                      Version
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="nexusVersion"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value=""
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group"
+                    data-id="authType-2"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Username and Password"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main formWrapper"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="username-3"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="username"
+                    >
+                      Username
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="username"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-4"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <label
+                          class="bp3-label"
+                        >
+                          Password
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="password"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                Create or Select a Secret
+                              </span>
+                            </div>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 14 14"
+            width="40"
+          >
+            <path
+              d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
+              fill="#346898"
+            />
+            <path
+              d="M13.8 10.3v.2c0 .4-.4.6-.8.6H.9c-.3 0-.5-.1-.7-.4-.1-.2-.1-.5 0-.7.2-.2.5-.4.8-.3H13.2c.3 0 .5.2.6.6zM13.8 8.1c0 .3-.1.5-.3.7-.1.1-.3.1-.4.1H.9c-.3 0-.7-.2-.7-.4-.1-.4-.1-.7.3-.9.1-.1.2-.1.3-.1.3.1.5 0 .8 0H13c.2 0 .5 0 .7.2 0 .1.1.2.1.4z"
+              fill="#040608"
+            />
+            <path
+              d="M13.4 5.3c.3.2.4.4.4.7s-.3.6-.7.6h-12c-.2 0-.5.1-.7-.1-.4-.2-.4-1 .2-1.2H13c.1 0 .3-.1.4 0z"
+              fill="#346898"
+            />
+            <path
+              d="M13.8 12.5v.2c-.1.4-.3.5-.8.5H.8c-.3 0-.5-.2-.6-.4s0-.6.2-.8.4-.2.7-.2h12c.4.2.6.3.7.7z"
+              fill="#040608"
+            />
+            <path
+              d="M13.5 1.9c-.3.1-.5.1-.7.1H.9c-.5 0-.7-.3-.7-.7C.2 1 .5.7.8.7H13.1c.3 0 .5.1.6.3s.1.4 0 .7l-.2.2z"
+              fill="#346898"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Nexus Repository
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Nexus Repository Details
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+      >
+        <div
+          class="heading"
+        >
+          Overview
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+        >
+          <div
+            class="OverlaySpinner--overlaySpinner"
+          >
+            <form
+              class="FormikForm--main"
+            >
+              <div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main main"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main connectorFormNameWrapper"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main connectorFormNameElm"
+                      >
+                        <div
+                          class="InputWithIdentifier--txtNameContainer"
+                        >
+                          <div
+                            class="Layout--horizontal StyledProps--main InputWithIdentifier--txtIdContainer"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier--idInput"
+                              contenteditable="false"
+                              disabled=""
+                            >
+                              NexusTest
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value="dummy name"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                        >
+                          + Tags
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main connectorFormElm"
+                    >
+                      <div
+                        class="bp3-form-group expandedDescription"
+                        data-id="description-1"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="description"
+                        >
+                          <div
+                            class="StyledProps--font StyledProps--main headerRow"
+                          >
+                            <span
+                              class="StyledProps--font StyledProps--main StyledProps--inline"
+                            >
+                              Description
+                            </span>
+                            <span
+                              class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
+                            >
+                              remove
+                            </span>
+                          </div>
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <textarea
+                            autocomplete="off"
+                            class="bp3-input bp3-fill"
+                            name="description"
+                          >
+                            connectorDescription
+                          </textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <button
+                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 14 14"
+            width="40"
+          >
+            <path
+              d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
+              fill="#346898"
+            />
+            <path
+              d="M13.8 10.3v.2c0 .4-.4.6-.8.6H.9c-.3 0-.5-.1-.7-.4-.1-.2-.1-.5 0-.7.2-.2.5-.4.8-.3H13.2c.3 0 .5.2.6.6zM13.8 8.1c0 .3-.1.5-.3.7-.1.1-.3.1-.4.1H.9c-.3 0-.7-.2-.7-.4-.1-.4-.1-.7.3-.9.1-.1.2-.1.3-.1.3.1.5 0 .8 0H13c.2 0 .5 0 .7.2 0 .1.1.2.1.4z"
+              fill="#040608"
+            />
+            <path
+              d="M13.4 5.3c.3.2.4.4.4.7s-.3.6-.7.6h-12c-.2 0-.5.1-.7-.1-.4-.2-.4-1 .2-1.2H13c.1 0 .3-.1.4 0z"
+              fill="#346898"
+            />
+            <path
+              d="M13.8 12.5v.2c-.1.4-.3.5-.8.5H.8c-.3 0-.5-.2-.6-.4s0-.6.2-.8.4-.2.7-.2h12c.4.2.6.3.7.7z"
+              fill="#040608"
+            />
+            <path
+              d="M13.5 1.9c-.3.1-.5.1-.7.1H.9c-.5 0-.7-.3-.7-.7C.2 1 .5.7.8.7H13.1c.3 0 .5.1.6.3s.1.4 0 .7l-.2.2z"
+              fill="#346898"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Nexus Repository
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Nexus Repository Details
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical StyledProps--main StyledProps--margin-small"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        >
+          Nexus Repository Details
+        </p>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main formRow"
+                >
+                  <div
+                    class="bp3-form-group urlInput"
+                    data-id="nexusServerUrl-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="nexusServerUrl"
+                    >
+                      Nexus Repository URL
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="nexusServerUrl"
+                          placeholder="URL"
+                          type="text"
+                          value="dummyRespositoryUrl"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group versionInput"
+                    data-id="nexusVersion-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="nexusVersion"
+                    >
+                      Version
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="nexusVersion"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="2.x"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    Authentication
+                  </span>
+                  <div
+                    class="bp3-form-group"
+                    data-id="authType-2"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="authType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="Username and Password"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main formWrapper"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="username-3"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="username"
+                    >
+                      Username
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="username"
+                          type="text"
+                          value="dev"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-4"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <label
+                          class="bp3-label"
+                        >
+                          Password
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="password"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                connectorPass
+                              </span>
+                            </div>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save and Continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

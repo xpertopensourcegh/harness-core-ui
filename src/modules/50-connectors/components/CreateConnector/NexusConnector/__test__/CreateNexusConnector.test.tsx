@@ -1,18 +1,11 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { mockResponse, mockSecret, mockConnector } from './mocks'
 import CreateNexusConnector from '../CreateNexusConnector'
-
-const mockResponse: ResponseBoolean = {
-  status: 'SUCCESS',
-  data: true,
-  metaData: {},
-  correlationId: ''
-}
 
 const commonProps = {
   accountId: 'dummy',
@@ -23,20 +16,26 @@ const commonProps = {
   onSuccess: noop
 }
 
+const createConnector = jest.fn()
+const updateConnector = jest.fn()
+jest.mock('services/portal', () => ({
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+}))
+
 jest.mock('services/cd-ng', () => ({
-  validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse))
+  validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
+  useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
 }))
 
 describe('Create Nexus connector Wizard', () => {
-  test('should render form', async () => {
+  test('Should render form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNexusConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
       </TestWrapper>
     )
-
-    // match step 1
-    expect(container).toMatchSnapshot()
 
     // fill step 1
     await act(async () => {
@@ -44,6 +43,8 @@ describe('Create Nexus connector Wizard', () => {
         target: { value: 'dummy name' }
       })
     })
+    // match step 1
+    expect(container).toMatchSnapshot()
 
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
@@ -51,5 +52,59 @@ describe('Create Nexus connector Wizard', () => {
 
     // match step 2
     expect(container).toMatchSnapshot()
+  })
+
+  test('Should render form for edit ', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateNexusConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={mockConnector as ConnectorInfoDTO}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    )
+    // editing connector name
+    await act(async () => {
+      fireEvent.change(container.querySelector('input[name="name"]')!, {
+        target: { value: 'dummy name' }
+      })
+    })
+    expect(container).toMatchSnapshot()
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    // step 2
+    expect(queryByText(container, 'Nexus Repository URL')).toBeDefined()
+    expect(container).toMatchSnapshot()
+
+    //updating connector
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    expect(updateConnector).toBeCalledWith({
+      connector: {
+        description: 'connectorDescription',
+        identifier: 'NexusTest',
+        name: 'dummy name',
+        orgIdentifier: '',
+        projectIdentifier: '',
+        spec: {
+          nexusServerUrl: 'dummyRespositoryUrl',
+          version: '2.x',
+          auth: {
+            spec: {
+              passwordRef: 'account.connectorPass',
+              username: 'dev'
+            },
+            type: 'UsernamePassword'
+          }
+        },
+        tags: {},
+        type: 'Nexus'
+      }
+    })
   })
 })

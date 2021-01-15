@@ -90,7 +90,7 @@ exports[`Create Artifactory connector Wizard should render form 1`] = `
         <div
           class="heading"
         >
-          Artifactory Connector Details
+          Overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"

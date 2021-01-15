@@ -276,13 +276,13 @@ global:
   HTTPS: 'HTTPS'
   SSH: 'SSH'
   SSH_KEY: 'SSH Key'
+  version: Version
   goToHome: Go To Home
   generic_errors:
     INVITE_EXPIRED: This invite link has expired
   snippets:
     copyToClipboard: Copy to Clipboard
     copied: Copied!
-    version: Version
   fetching: Fetching
   somethingWentWrong: Something went wrong
   saveChanges: Save Changes
@@ -798,6 +798,8 @@ global:
     privateKey: 'GitHub Private Key is required'
     accessToken: Access token is required
     dockerRegistryUrl: 'Docker Registry URL is required'
+    nexusServerURL: 'Nexus URL is required'
+    nexusVersion: 'Version is required'
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
     tagsRequired: Tags is a required field
     environmentVariablesRequired: Environment Variables is a required field
@@ -890,6 +892,9 @@ global:
         clientKeyCertificate: 'Client Key Certificate'
     hashiCorpVault:
       stepTwoName: 'HashiCorp Vault Details'
+    nexus:
+      stepTwoName: 'Nexus Repository Details'
+      nexusServerUrl: 'Nexus Repository URL'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
       delegateOutClusterInfo: 'Specify credentials here'

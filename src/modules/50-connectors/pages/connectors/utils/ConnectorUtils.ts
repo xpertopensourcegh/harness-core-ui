@@ -464,6 +464,28 @@ export const setupDockerFormData = async (connectorInfo: ConnectorInfoDTO, accou
   return formData
 }
 
+export const setupNexusFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    nexusServerUrl: connectorInfo.spec.nexusServerUrl,
+    nexusVersion: connectorInfo.spec.version,
+    authType: connectorInfo.spec.auth.type,
+    username:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD ? connectorInfo.spec.auth.spec.username : undefined,
+    password:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
+        ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
+        : undefined
+  }
+
+  return formData
+}
+
 export const buildAWSPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -606,16 +628,16 @@ export const buildKubFormData = (connector: ConnectorInfoDTO) => {
 export const buildNexusPayload = (formData: FormData) => {
   const savedData = {
     type: Connectors.NEXUS,
-    ...pick(formData, ['name', 'identifier', 'description', 'tags']),
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     spec: {
       nexusServerUrl: formData?.nexusServerUrl,
       version: formData?.nexusVersion,
       auth:
-        formData.userName && formData.password
+        formData.username && formData.password
           ? {
-              type: 'UsernamePassword',
+              type: AuthTypes.USER_PASSWORD,
               spec: {
-                username: formData.userName,
+                username: formData.username,
                 passwordRef: formData.password.referenceString
               }
             }
@@ -635,7 +657,7 @@ export const buildArtifactoryPayload = (formData: FormData) => {
       auth:
         formData.userName && formData.password
           ? {
-              type: 'UsernamePassword',
+              type: AuthTypes.USER_PASSWORD,
               spec: {
                 username: formData.userName,
                 passwordRef: formData.password.referenceString

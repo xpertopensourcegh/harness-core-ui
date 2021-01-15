@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router'
+import React, { useState, useEffect } from 'react'
 import {
   Layout,
   Button,
@@ -10,10 +9,16 @@ import {
   ModalErrorHandlerBinding,
   FormikForm as Form,
   StepProps,
-  Color
+  Color,
+  Container,
+  SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { buildNexusPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  buildNexusPayload,
+  SecretReferenceInterface,
+  setupNexusFormData
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
@@ -24,7 +29,10 @@ import {
   Connector
 } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import i18n from '../CreateNexusConnector.i18n'
+import { useStrings } from 'framework/exports'
+import { PageSpinner } from '@common/components'
+import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import css from './StepNexusConnector.module.scss'
 
 interface StepNexusAuthenticationProps extends ConnectorInfoDTO {
   name: string
@@ -33,6 +41,28 @@ interface StepNexusAuthenticationProps extends ConnectorInfoDTO {
 
 interface NexusAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
+  connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+interface NexusFormInterface {
+  nexusServerUrl: ''
+  nexusVersion: ''
+  authType: string
+  username: string
+  password: SecretReferenceInterface | void
+}
+
+const defaultInitialFormData: NexusFormInterface = {
+  nexusServerUrl: '',
+  nexusVersion: '',
+  authType: AuthTypes.USER_PASSWORD,
+  username: '',
+  password: undefined
 }
 
 const nexusVersions = [
@@ -42,12 +72,26 @@ const nexusVersions = [
 
 const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> & NexusAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = props
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
+  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+  const { getString } = useStrings()
+
+  const authOptions: SelectOption[] = [
+    {
+      label: getString('usernamePassword'),
+      value: AuthTypes.USER_PASSWORD
+    }
+    // {
+    //   label: getString('annonymous'),
+    //   value: AuthTypes.ANNONYMOUS
+    // }
+  ]
 
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
@@ -68,32 +112,58 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await updateConnector(data)
+      const response = await updateConnector(data)
+      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
       setLoadConnector(false)
-      showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepNexusAuthenticationProps)
+      props?.onConnectorCreated?.(response.data)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
     }
   }
 
-  return (
-    <Layout.Vertical height={'inherit'}>
+  useEffect(() => {
+    if (loadingConnectorSecrets) {
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupNexusFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as NexusFormInterface)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
+          setLoadingConnectorSecrets(false)
+        }
+      }
+    }
+  }, [loadingConnectorSecrets])
+
+  return loadingConnectorSecrets ? (
+    <PageSpinner />
+  ) : (
+    <Layout.Vertical height={'inherit'} margin="small">
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {i18n.STEP_TWO.Heading}
+        {getString('connectors.nexus.stepTwoName')}
       </Text>
       <Formik
         initialValues={{
-          userName: '',
-          password: undefined,
-          nexusServerUrl: '',
-          nexusVersion: '',
+          ...initialValues,
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          nexusServerUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.nexusServerURL),
-          nexusVersion: Yup.string().trim().required(i18n.STEP_TWO.validation.nexusVersion)
+          nexusServerUrl: Yup.string().trim().required(getString('validation.nexusServerURL')),
+          nexusVersion: Yup.string().trim().required(getString('validation.nexusVersion')),
+          username: Yup.string()
+            .nullable()
+            .when('authType', {
+              is: authType => authType === AuthTypes.USER_PASSWORD,
+              then: Yup.string().required(getString('validation.username'))
+            }),
+          password: Yup.object().when('authType', {
+            is: authType => authType === AuthTypes.USER_PASSWORD,
+            then: Yup.object().required(getString('validation.password')),
+            otherwise: Yup.object().nullable()
+          })
         })}
         onSubmit={stepData => {
           const connectorData = {
@@ -104,35 +174,58 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
           }
           const data = buildNexusPayload(connectorData)
 
-          if (prevStepData?.isEditMode) {
+          if (props.isEditMode) {
             handleUpdate(data as Connector, stepData)
           } else {
             handleCreate(data as Connector, stepData)
           }
         }}
       >
-        {() => (
+        {formikProps => (
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
 
-            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'} style={{ minHeight: '440px' }}>
-              <FormInput.Text name="nexusServerUrl" label={i18n.STEP_TWO.NexusServerURL} />
-              <FormInput.Select name="nexusVersion" label={i18n.STEP_TWO.NexusVersion} items={nexusVersions} />
-              <FormInput.Text name="userName" label={i18n.STEP_TWO.Username} />
-              <SecretInput name={'password'} label={i18n.STEP_TWO.Password} />
+            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
+              <Container className={css.formRow}>
+                <FormInput.Text
+                  className={css.urlInput}
+                  name="nexusServerUrl"
+                  placeholder={getString('UrlLabel')}
+                  label={getString('connectors.nexus.nexusServerUrl')}
+                />
+                <FormInput.Select
+                  className={css.versionInput}
+                  name="nexusVersion"
+                  label={getString('version')}
+                  items={nexusVersions}
+                />
+              </Container>
+
+              <Container className={css.authHeaderRow}>
+                <Text className={css.authTitle} inline>
+                  {getString('connectors.authTitle')}
+                </Text>
+                <FormInput.Select name="authType" items={authOptions} disabled={false} />
+              </Container>
+              {formikProps.values.authType === AuthTypes.USER_PASSWORD ? (
+                <Container className={css.formWrapper}>
+                  <FormInput.Text name="username" label={getString('username')} />
+                  {/* <TextReference
+                    name="username"
+                    label={getString('username')}
+                    type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
+                  /> */}
+                  <SecretInput name={'password'} label={getString('password')} />
+                </Container>
+              ) : null}
             </Layout.Vertical>
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-              <Button
-                onClick={() => props.previousStep?.({ ...prevStepData } as StepNexusAuthenticationProps)}
-                text={i18n.STEP_TWO.BACK}
-              />
-              <Button
-                type="submit"
-                text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE}
-                font="small"
-                disabled={loadConnector}
-              />
-            </Layout.Horizontal>
+            <Button
+              type="submit"
+              intent="primary"
+              text={getString('saveAndContinue')}
+              rightIcon="chevron-right"
+              disabled={loadConnector}
+            />
           </Form>
         )}
       </Formik>
