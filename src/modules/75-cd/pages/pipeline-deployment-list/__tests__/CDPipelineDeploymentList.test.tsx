@@ -12,7 +12,11 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('services/pipeline-ng', () => ({
-  useGetListOfExecutions: jest.fn(() => ({ mutate: jest.fn(() => Promise.resolve(data)), loading: false })),
+  useGetListOfExecutions: jest.fn(() => ({
+    mutate: jest.fn(() => Promise.resolve(data)),
+    loading: false,
+    cancel: jest.fn()
+  })),
   useGetTemplateFromPipeline: jest.fn(() => ({ data: {} })),
   useGetPipeline: jest.fn(() => ({ data: {} })),
   useCreateInputSetForPipeline: jest.fn(() => ({ data: {} })),

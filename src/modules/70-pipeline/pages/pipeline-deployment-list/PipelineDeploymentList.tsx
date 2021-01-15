@@ -12,6 +12,8 @@ import { useQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { PageSpinner } from '@common/components'
+import { shouldShowError } from '@common/utils/errorUtils'
 import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
@@ -25,7 +27,7 @@ export interface PipelineDeploymentListProps {
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
   const [pipelineExecutionSummary, setPipelineExecutionSummary] = useState<PagePipelineExecutionSummary>()
-  const [error, setError] = useState<Error>()
+  const [error, setError] = useState<Error | null>(null)
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
@@ -36,7 +38,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { showError } = useToaster()
   useDocumentTitle([getString('pipelines'), getString('executionsText')])
 
-  const { loading, mutate: fetchListOfExecutions } = useGetListOfExecutions({
+  const { loading, mutate: fetchListOfExecutions, cancel } = useGetListOfExecutions({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -52,6 +54,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const fetchExecutions = React.useCallback(
     async (params?: GetListOfExecutionsQueryParams): Promise<void> => {
       try {
+        cancel()
+        setError(null)
         const { status, data } = await fetchListOfExecutions(
           {
             filterType: 'Pipeline'
@@ -63,17 +67,26 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           setPipelineExecutionSummary(data)
         }
       } catch (e) {
-        showError(e.data?.message || e.message)
-        setError(e)
+        if (shouldShowError(e)) {
+          showError(e.data?.message || e.message)
+          setError(e)
+        }
       }
     },
-    [fetchListOfExecutions, showError]
+    [fetchListOfExecutions, showError, cancel]
   )
 
   useEffect(() => {
-    fetchExecutions()
+    setInitLoading(true)
+    fetchExecutions({
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      pipelineIdentifier,
+      page: page - 1
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [page, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier])
 
   const hasFilters: boolean = !!queryParams.query || !!queryParams.pipeline || !!queryParams.status
   const isCIModule = module === 'ci'
@@ -105,7 +118,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   return (
     <Page.Body
       className={css.main}
-      loading={initLoading}
       error={error?.message}
       retryOnError={() => fetchExecutions()}
       noData={{
@@ -117,9 +129,15 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         onClick: props.onRunPipeline
       }}
     >
-      <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
-      <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.content} />
-      <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
+      {initLoading ? (
+        <PageSpinner />
+      ) : (
+        <React.Fragment>
+          <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
+          <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.content} />
+          <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
+        </React.Fragment>
+      )}
     </Page.Body>
   )
 }
