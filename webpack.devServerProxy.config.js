@@ -1,10 +1,10 @@
-const baseUrl = 'https://qb.harness.io'
+const baseUrl = 'https://qb.harness.io/gateway'
 const targetLocalHost = true // set to false to target baseUrl environment instead of localhost
 
 module.exports = {
   '/ng/api': {
     pathRewrite: { '^/ng/api': '' },
-    target: targetLocalHost ? 'http://localhost:7457' : `${baseUrl}/ng/api`
+    target: targetLocalHost ? 'https://localhost:7090' : `${baseUrl}/ng/api`
   },
   '/pipeline/api': {
     pathRewrite: { '^/pipeline/api': '/api' },
@@ -28,10 +28,9 @@ module.exports = {
     target: targetLocalHost ? 'https://localhost:7171' : baseUrl
   },
   '/ti-service': {
-    target: targetLocalHost ? 'https://localhost:7457' : baseUrl,
-    pathRewrite: targetLocalHost ? undefined : { '/ti-service/': '/gateway/ti-service/' }
+    target: targetLocalHost ? 'https://localhost:7457' : baseUrl
   },
-  '/gateway/log-service': {
+  '/log-service': {
     target: targetLocalHost ? 'https://localhost:7457' : baseUrl
   },
   '/lw/api': {
