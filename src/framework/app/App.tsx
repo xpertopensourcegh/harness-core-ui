@@ -48,7 +48,7 @@ function App(props: AppProps): React.ReactElement {
           // 401 might be returned due to RBAC maybe?
           // check response body to confirm invalid token
           response.json().then(body => {
-            if (body?.code === 'INVALID_TOKEN') {
+            if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
               window.location.href = '/#/login'
             }
           })
