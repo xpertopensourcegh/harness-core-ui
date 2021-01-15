@@ -17,7 +17,8 @@ import type {
   PipelineType,
   InputSetPathProps,
   TargetPathProps,
-  PipelineStudioQueryParams
+  PipelineStudioQueryParams,
+  ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -96,8 +97,17 @@ const routes = {
   toOrgGovernance: withAccountId(
     ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/governance/${orgIdentifier}`
   ),
-  toCreateSecretFromYaml: withAccountId(() => '/admin/resources/create-secret-from-yaml'),
   toGenericError: withAccountId(() => '/error'),
+  toCreateSecretFromYaml: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/create-secret-from-yaml`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/resources/create-secret-from-yaml`
+      }
+      return '/admin/resources/create-secret-from-yaml'
+    }
+  ),
   /********************************************************************************************************************/
   toCD: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier

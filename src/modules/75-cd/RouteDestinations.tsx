@@ -12,7 +12,9 @@ import {
   connectorPathProps,
   secretPathProps,
   executionPathProps,
-  inputSetFormPathProps
+  inputSetFormPathProps,
+  orgPathProps,
+  modulePathProps
 } from '@common/utils/routeUtils'
 import type {
   AccountPathProps,
@@ -55,6 +57,7 @@ import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
+import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -193,7 +196,7 @@ export default (
       path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
     >
       <ResourcesPage>
-        <SecretsPage />
+        <SecretsPage module="cd" />
       </ResourcesPage>
     </RouteWithLayout>
     <RouteWithLayout
@@ -217,6 +220,18 @@ export default (
       })}
     >
       <SecretDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toCreateSecretFromYaml({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...orgPathProps,
+        ...modulePathProps
+      })}
+      exact
+    >
+      <CreateSecretFromYamlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

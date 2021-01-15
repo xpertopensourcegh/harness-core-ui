@@ -9,7 +9,9 @@ import {
   secretPathProps,
   inputSetFormPathProps,
   triggerPathProps,
-  executionPathProps
+  executionPathProps,
+  modulePathProps,
+  orgPathProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import type {
@@ -48,6 +50,7 @@ import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
 import { MinimalLayout } from '@common/layouts'
+import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
@@ -170,10 +173,21 @@ export default (
       path={routes.toCIAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
     >
       <ResourcesPage>
-        <SecretsPage />
+        <SecretsPage module="ci" />
       </ResourcesPage>
     </RouteWithLayout>
-
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toCreateSecretFromYaml({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...orgPathProps,
+        ...modulePathProps
+      })}
+      exact
+    >
+      <CreateSecretFromYamlPage />
+    </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}

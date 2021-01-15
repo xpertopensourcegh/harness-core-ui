@@ -16,7 +16,8 @@ import type {
   DelegatePathProps,
   InputSetPathProps,
   VerificationPathProps,
-  TargetPathProps
+  TargetPathProps,
+  ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -66,6 +67,10 @@ export const secretPathProps: SecretsPathProps = {
 
 export const delegatePathProps: DelegatePathProps = {
   delegateId: ':delegateId'
+}
+
+export const modulePathProps: ModulePathParams = {
+  module: ':module'
 }
 
 export const pipelineModuleParams: Record<keyof PipelineType<{}>, 'ci' | 'cd' | ':module'> = {

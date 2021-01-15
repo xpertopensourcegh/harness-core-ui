@@ -12,16 +12,18 @@ import { useStrings } from 'framework/exports'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'
 import css from './SecretsPage.module.scss'
 
 interface SecretsPageProps {
+  module?: Module
   mock?: UseGetMockData<ResponsePageSecretResponseWrapper>
 }
 
-const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
+const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const history = useHistory()
   const { getString } = useStrings()
@@ -78,7 +80,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
               text={i18n.newSecret.yaml}
               onClick={
                 /* istanbul ignore next */ () => {
-                  history.push(routes.toCreateSecretFromYaml({ accountId }))
+                  history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
                 }
               }
             />

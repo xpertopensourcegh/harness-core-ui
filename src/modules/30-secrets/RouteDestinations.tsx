@@ -47,7 +47,10 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={routes.toCreateSecretFromYaml({ ...accountPathProps })}
+      path={[
+        routes.toCreateSecretFromYaml({ ...accountPathProps }),
+        routes.toCreateSecretFromYaml({ ...accountPathProps, ...orgPathProps })
+      ]}
       exact
     >
       <CreateSecretFromYamlPage />
