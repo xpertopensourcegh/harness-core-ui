@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Text, Card } from '@wings-software/uicore'
+import { Text, Card, Layout, Tag } from '@wings-software/uicore'
 
 import type { NgPipeline } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -23,7 +23,6 @@ export interface PipelineCardProps {
 
 export default function PipelineCard(props: PipelineCardProps): React.ReactElement {
   const { pipeline, stepsFactory, updatePipeline } = props
-
   return (
     <Card className={css.variableCard} id="Pipeline-panel">
       <div className={css.variableListTable}>
@@ -42,7 +41,14 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
         <Text>{pipeline.description}</Text>
         <Text style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-large)' }}>$pipeline.tags</Text>
         <Text>{i18n.string}</Text>
-        <Text>{pipeline.tags}</Text>
+        {pipeline.tags ? (
+          <Layout.Horizontal padding="small" spacing="small">
+            {Object.keys(pipeline.tags).map(key => {
+              const value = pipeline.tags?.[key]
+              return <Tag key={key}>{value ? `${key}:${value}` : key}</Tag>
+            })}
+          </Layout.Horizontal>
+        ) : null}
       </div>
 
       <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>

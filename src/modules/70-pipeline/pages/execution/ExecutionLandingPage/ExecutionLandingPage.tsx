@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { isEmpty } from 'lodash-es'
+import { Layout, Text } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/cd-ng'
@@ -23,6 +24,7 @@ import { useQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { formatDatetoLocale } from '@common/utils/dateUtils'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -214,6 +216,14 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
               <div className={css.statusBar}>
                 {pipelineExecutionSummary.status && (
                   <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
+                )}
+                {pipelineExecutionSummary.startTs && (
+                  <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
+                    <Text>
+                      <String stringID="startTime" />
+                    </Text>
+                    <Text font={{ weight: 'semi-bold' }}>{formatDatetoLocale(pipelineExecutionSummary.startTs)}</Text>
+                  </Layout.Horizontal>
                 )}
                 <Duration
                   startTime={pipelineExecutionSummary.startTs}

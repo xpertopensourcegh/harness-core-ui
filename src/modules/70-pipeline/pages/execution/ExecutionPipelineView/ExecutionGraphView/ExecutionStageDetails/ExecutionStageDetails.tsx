@@ -47,11 +47,10 @@ export enum StepTypes {
   SERVICE = 'SERVICE',
   INFRASTRUCTURE = 'INFRASTRUCTURE',
   GENERIC_SECTION = 'GENERIC_SECTION',
-  SECTION_CHAIN = 'SECTION CHAIN',
-  SECTION = 'SECTION',
+  STEP_GROUP = 'STEP_GROUP',
   NG_SECTION = 'NG_SECTION',
   K8S_ROLLING = 'K8S_ROLLING',
-  FORK = 'FORK',
+  FORK = 'NG_FORK',
   HTTP = 'HTTP'
 }
 
@@ -60,10 +59,9 @@ const IconsMap: { [key in StepTypes]: IconName } = {
   GENERIC_SECTION: 'step-group',
   K8S_ROLLING: 'service-kubernetes',
   NG_SECTION: 'step-group',
-  'SECTION CHAIN': 'step-group',
-  SECTION: 'step-group',
+  STEP_GROUP: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
-  FORK: 'fork',
+  NG_FORK: 'fork',
   HTTP: 'command-http'
 }
 
@@ -126,7 +124,7 @@ const processNodeData = (
           rootNodes
         )
       })
-    } else if (nodeData?.stepType === StepTypes.SECTION_CHAIN || nodeData?.stepType === StepTypes.SECTION) {
+    } else if (nodeData?.stepType === StepTypes.STEP_GROUP) {
       const icon = factory.getStepIcon(nodeData?.stepType)
       items.push({
         group: {
@@ -192,6 +190,25 @@ const processNodeData = (
             nodeAdjacencyListMap,
             rootNodes
           )
+        })
+      } else if (nodeDataNext?.stepType === StepTypes.STEP_GROUP) {
+        const icon = factory.getStepIcon(nodeDataNext?.stepType)
+        items.push({
+          group: {
+            name: nodeDataNext.name || /* istanbul ignore next */ '',
+            identifier: id,
+            data: nodeDataNext,
+            showInLabel: false,
+            status: nodeDataNext.status as any,
+            isOpen: true,
+            icon: icon !== 'disable' ? icon : IconsMap[nodeDataNext?.stepType as StepTypes] || 'cross',
+            items: processNodeData(
+              nodeAdjacencyListMap?.[id].children || /* istanbul ignore next */ [],
+              nodeMap,
+              nodeAdjacencyListMap,
+              rootNodes
+            )
+          }
         })
       } else {
         const icon = factory.getStepIcon(nodeData?.stepType || '')

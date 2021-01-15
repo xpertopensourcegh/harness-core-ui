@@ -19,9 +19,10 @@ describe('PipelineCreate test', () => {
   test('initializes ok for CI module', async () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/ci/dashboard"
+        path="/account/:accountId/ci/dashboard/:pipelineIdentifier/"
         pathParams={{
-          accountId: 'dummy'
+          accountId: 'dummy',
+          pipelineIdentifier: -1
         }}
       >
         <PipelineCreate />
@@ -50,9 +51,10 @@ describe('PipelineCreate test', () => {
   test('initializes ok for CD module', async () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/cd/dashboard"
+        path="/account/:accountId/cd/dashboard/:pipelineIdentifier/"
         pathParams={{
-          accountId: 'dummy'
+          accountId: 'dummy',
+          pipelineIdentifier: -1
         }}
       >
         <PipelineCreate />
@@ -82,9 +84,10 @@ describe('PipelineCreate test', () => {
     afterSave.mockReset()
     const { container, getByText } = render(
       <TestWrapper
-        path="/account/:accountId/ci/dashboard"
+        path="/account/:accountId/ci/dashboard/:pipelineIdentifier/"
         pathParams={{
-          accountId: 'dummy'
+          accountId: 'dummy',
+          pipelineIdentifier: 'test'
         }}
       >
         <PipelineCreate {...getEditProps()} />

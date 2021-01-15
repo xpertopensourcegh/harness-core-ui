@@ -50,8 +50,7 @@ export default function CreatePipelines({
   initialValues = { identifier: '', name: '', description: '', tags: {} },
   closeModal
 }: PipelineCreateProps): JSX.Element {
-  const { module } = useParams<PipelineType<any>>()
-
+  const { module, pipelineIdentifier } = useParams<PipelineType<{ module: string; pipelineIdentifier: string }>>()
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
     initialValues.identifier = ''
@@ -80,7 +79,7 @@ export default function CreatePipelines({
               <FormikForm>
                 <div className={css.formInput}>
                   <FormInput.InputWithIdentifier
-                    isIdentifierEditable={!isEdit}
+                    isIdentifierEditable={pipelineIdentifier === DefaultNewPipelineId}
                     inputLabel={i18n.pipelineNameLabel}
                     inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
                   />

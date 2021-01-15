@@ -60,6 +60,7 @@ global:
   status: Status
   filePaths: File Paths
   submit: Submit
+  startTime: Start time
   services: Services
   buildText: Build
   pipeline: Pipeline
