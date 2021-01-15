@@ -120,7 +120,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              LAST EXECUTION
+              LAST ACTIVATION
             </div>
           </div>
           <div
@@ -214,9 +214,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-              >
-                Work in Progress
-              </p>
+              />
             </div>
           </div>
           <div
@@ -358,45 +356,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="activityStatement"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main"
-                  style="align-items: center;"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                    style="text-align: end;"
-                  >
-                    <span>
-                      Last Run:
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      dummy date
-                    </p>
-                  </div>
-                  <span
-                    class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--color StyledProps--color-green500"
-                    icon="dot"
-                  >
-                    <svg
-                      data-icon="dot"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      width="20"
-                    >
-                      <desc>
-                        dot
-                      </desc>
-                      <path
-                        d="M10 6a4 4 0 100 8 4 4 0 100-8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div
@@ -436,6 +396,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
                 <input
+                  checked=""
                   type="checkbox"
                 />
                 <span
@@ -527,6 +488,36 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                   >
                     test1
                   </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                        >
+                          <svg
+                            height="15"
+                            viewBox="0 0 14 14"
+                            width="15"
+                          >
+                            <path
+                              d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                              fill="#4d5969"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        />
+                      </div>
+                    </span>
+                  </span>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -547,9 +538,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-              >
-                Work in Progress
-              </p>
+              />
             </div>
           </div>
           <div
@@ -562,119 +551,18 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <span
                 class="activityChart"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main SparkChart--main"
-                  role="spark-chart"
-                >
-                  <div
-                    class="container vertical rounded"
-                  >
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 40%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 60%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 80%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 100%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 80%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 60%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 40%;"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </span>
+              />
               <div
                 class="StyledProps--font StyledProps--main"
                 style="text-align: start;"
               >
                 <span>
-                  23 Activations in
+                  0 Activations in
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Last 7 days
+                  Last  days
                 </p>
               </div>
             </div>
@@ -700,9 +588,6 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                     class="StyledProps--font StyledProps--main"
                     style="text-align: end;"
                   >
-                    <span>
-                      Last Run:
-                    </span>
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
@@ -769,6 +654,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
               >
                 <input
+                  checked=""
                   type="checkbox"
                 />
                 <span
@@ -880,9 +766,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-              >
-                Work in Progress
-              </p>
+              />
             </div>
           </div>
           <div
@@ -895,119 +779,18 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <span
                 class="activityChart"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main SparkChart--main"
-                  role="spark-chart"
-                >
-                  <div
-                    class="container vertical rounded"
-                  >
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 40%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 60%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 80%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 100%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 80%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 60%;"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="progress-bar"
-                      role="spark"
-                    >
-                      <div
-                        class="progress-track"
-                      >
-                        <div
-                          class="progress-fill"
-                          style="height: 40%;"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </span>
+              />
               <div
                 class="StyledProps--font StyledProps--main"
                 style="text-align: start;"
               >
                 <span>
-                  23 Activations in
+                  0 Activations in
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Last 7 days
+                  Last  days
                 </p>
               </div>
             </div>
@@ -1024,45 +807,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <div
                 class="activityStatement"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main"
-                  style="align-items: center;"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                    style="text-align: end;"
-                  >
-                    <span>
-                      Last Run:
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      dummy date
-                    </p>
-                  </div>
-                  <span
-                    class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--color StyledProps--color-green500"
-                    icon="dot"
-                  >
-                    <svg
-                      data-icon="dot"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      width="20"
-                    >
-                      <desc>
-                        dot
-                      </desc>
-                      <path
-                        d="M10 6a4 4 0 100 8 4 4 0 100-8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div

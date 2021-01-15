@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, FormInput, SelectOption, Text, Heading } from '@wings-software/uicore'
-import isEmpty from 'lodash/isEmpty'
+import { isEmpty } from 'lodash-es'
 import { useGetActionsList, useGetSourceRepoToEvent } from 'services/pipeline-ng'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -25,13 +25,14 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
 }) => {
   const { sourceRepo, actions, event } = formikProps.values
   const { data: ResponseSourceRepoToEvent, loading: loadingGetSourceRepoToEvent } = useGetSourceRepoToEvent({})
-  const { data: actionsListResponse, refetch } = useGetActionsList({
+  const { data: actionsListResponse, refetch: refetchActions } = useGetActionsList({
     queryParams: { sourceRepo, event },
     lazy: true,
     debounce: 300
   })
   const [eventOptions, setEventOptions] = useState<SelectOption[]>([])
   const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([]) // will need to get actions from api
+  const [actionsDisabled, setActionsDisabled] = useState<boolean>(false) // no action options to choose from
   const { getString } = useStrings()
   const loading = loadingGetSourceRepoToEvent
 
@@ -42,8 +43,6 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
         setEventOptions(eventsList.map(e => ({ label: e, value: e })))
         if (event && !eventsList.includes(event)) {
           formikProps.setFieldValue('event', '')
-        } else if (!isEmpty(event)) {
-          refetch()
         }
       }
     }
@@ -51,13 +50,18 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
 
   useEffect(() => {
     if (actionsListResponse?.data) {
-      setActionsOptions(actionsListResponse.data.map(item => ({ label: item, value: item })))
+      const actionsOptionsKV = actionsListResponse.data.map(item => ({ label: item, value: item }))
+      setActionsOptions(actionsOptionsKV)
+      if (actionsOptionsKV.length === 0) {
+        formikProps.setValues({ ...formikProps.values, actions: [], anyAction: true })
+        setActionsDisabled(true)
+      }
     }
   }, [actionsListResponse?.data])
 
   useEffect(() => {
-    if (!isEmpty(event) && !isEmpty(sourceRepo)) {
-      refetch()
+    if (event && sourceRepo) {
+      refetchActions()
     }
   }, [event, sourceRepo])
 
@@ -88,6 +92,15 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             label={getString('pipeline-triggers.triggerConfigurationPanel.payloadType')}
             name="sourceRepo"
             items={sourceRepoOptions}
+            onChange={e => {
+              setActionsDisabled(false)
+              formikProps.setValues({
+                ...formikProps.values,
+                sourceRepo: e.value,
+                actions: undefined,
+                anyAction: false
+              })
+            }}
           />
           <FormInput.Text name="repoUrl" label={getString('repositoryUrlLabel')} />
           <FormInput.Select
@@ -95,6 +108,10 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             label={getString('pipeline-triggers.triggerConfigurationPanel.event')}
             name="event"
             items={eventOptions}
+            onChange={e => {
+              setActionsDisabled(false)
+              formikProps.setValues({ ...formikProps.values, event: e.value, actions: undefined, anyAction: false })
+            }}
           />
           <div className={css.actionsContainer}>
             <div>
@@ -119,6 +136,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
               name="anyAction"
               key={Date.now()}
               label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
+              disabled={actionsDisabled}
               defaultChecked={Array.isArray(actions) && actions.length === 0}
               className={css.anyAction}
               onClick={(e: React.FormEvent<HTMLInputElement>) => {

@@ -5,7 +5,7 @@ import type {
   ResponseInputSetTemplateResponse,
   ResponseMergeInputSetResponse,
   ResponsePageInputSetSummaryResponse,
-  ResponsePageNGTriggerResponse
+  ResponsePageNGTriggerDetailsResponse
 } from 'services/pipeline-ng'
 
 export const GetPipelineResponse: UseGetReturnData<ResponseNGPipelineResponse> = {
@@ -242,7 +242,7 @@ export const GetInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryR
     correlationId: 'dbc7238c-380f-4fe0-b160-a29510cfe0c8'
   }
 }
-export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTriggerResponse> = {
+export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTriggerDetailsResponse> = {
   loading: false,
   refetch: jest.fn(),
   error: null,
@@ -259,37 +259,35 @@ export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTri
           identifier: 'AllValues',
           description: 'desc',
           type: 'Webhook',
-          accountIdentifier: 'accountIdentifier',
-          orgIdentifier: 'default',
-          projectIdentifier: 'project1',
-          targetIdentifier: 'p1',
+          executions: [2, 3, 4, 5, 4, 3, 2],
+          enabled: true,
           yaml:
-            'trigger:\n  name: AllValues123\n  identifier: AllValues\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: repoUrlss1\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n',
-          version: 13
+            'trigger:\n  name: AllValues123\n  identifier: AllValues\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: repoUrlss1\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n'
         },
         {
           name: 'test1',
           identifier: 'test1',
           type: 'Webhook',
-          accountIdentifier: 'accountIdentifier',
-          orgIdentifier: 'default',
-          projectIdentifier: 'project1',
-          targetIdentifier: 'p1',
+          lastTriggerExecutionDetails: {
+            lastExecutionTime: 1607637774407,
+            lastExecutionSuccessful: true
+          },
+          enabled: true,
+          tags: {
+            tag1: '',
+            tag2: 'val2'
+          },
           yaml:
-            'trigger:\n  name: test1\n  identifier: test1\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: namespace\n                        releaseName: releaseName\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: test\n        event: Pull Request\n        actions: []\n',
-          version: 0
+            'trigger:\n  name: test1\n  identifier: test1\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: namespace\n                        releaseName: releaseName\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: test\n        event: Pull Request\n        actions: []\n'
         },
         {
           name: 'trigger-2',
           identifier: 'trigger2',
           type: 'Webhook',
-          accountIdentifier: 'accountIdentifier',
-          orgIdentifier: 'default',
-          projectIdentifier: 'project1',
-          targetIdentifier: 'p1',
+          enabled: false,
+
           yaml:
-            'trigger:\n  name: trigger-2\n  identifier: trigger2\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline: {}\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: "12"\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - labeled\n        payloadConditions:\n          - key: sourceBranch\n            operator: regex\n            value: abc\n          - key: targetBranch\n            operator: contains\n            value: abc\n',
-          version: 1
+            'trigger:\n  name: trigger-2\n  identifier: trigger2\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline: {}\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: "12"\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - labeled\n        payloadConditions:\n          - key: sourceBranch\n            operator: regex\n            value: abc\n          - key: targetBranch\n            operator: contains\n            value: abc\n'
         }
       ],
       pageIndex: 0,

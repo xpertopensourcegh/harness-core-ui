@@ -113,13 +113,21 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         loading={loading}
         error={error?.message}
         retryOnError={() => refetch()}
-        noData={{
-          when: () => Array.isArray(triggerList) && triggerList.length === 0,
-          icon: 'yaml-builder-trigger',
-          message: getString('pipeline-triggers.aboutTriggers'),
-          buttonText: getString('pipeline-triggers.addNewTrigger'),
-          onClick: openDrawer
-        }}
+        noData={
+          !searchParam
+            ? {
+                when: () => Array.isArray(triggerList) && triggerList.length === 0,
+                icon: 'yaml-builder-trigger',
+                message: getString('pipeline-triggers.aboutTriggers'),
+                buttonText: getString('pipeline-triggers.addNewTrigger'),
+                onClick: openDrawer
+              }
+            : {
+                when: () => Array.isArray(triggerList) && triggerList.length === 0,
+                icon: 'yaml-builder-trigger',
+                message: getString('pipeline-triggers.noTriggersFound')
+              }
+        }
       >
         <TriggersListSection
           data={triggerList}

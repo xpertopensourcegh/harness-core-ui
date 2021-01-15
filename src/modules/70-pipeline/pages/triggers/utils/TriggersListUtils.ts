@@ -33,33 +33,33 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
   showAllLabel: getString('pipeline-triggers.showAllTriggers'),
   searchPlaceholder: getString('pipeline-triggers.searchPlaceholder'),
   categories: [
-    {
-      categoryLabel: getString('pipeline-triggers.onNewArtifactLabel'),
-      categoryValue: 'OnArtifact',
-      items: [
-        {
-          itemLabel: getString('pipeline-triggers.newArtifactLabel'),
-          value: 'NewArtifact',
-          iconName: 'trigger-artifact' as IconName
-        },
-        {
-          itemLabel: getString('pipeline-triggers.newManifestLabel'),
-          value: 'NewManifest',
-          iconName: 'trigger-artifact' as IconName
-        }
-      ]
-    },
-    {
-      categoryLabel: getString('pipeline-triggers.scheduledLabel'),
-      categoryValue: 'OnSchedule',
-      items: [
-        {
-          itemLabel: getString('pipeline-triggers.onScheduleLabel'),
-          value: 'OnSchedule',
-          iconName: 'trigger-schedule' as IconName
-        }
-      ]
-    },
+    // {
+    //   categoryLabel: getString('pipeline-triggers.onNewArtifactLabel'),
+    //   categoryValue: 'OnArtifact',
+    //   items: [
+    //     {
+    //       itemLabel: getString('pipeline-triggers.newArtifactLabel'),
+    //       value: 'NewArtifact',
+    //       iconName: 'trigger-artifact' as IconName
+    //     },
+    //     {
+    //       itemLabel: getString('pipeline-triggers.newManifestLabel'),
+    //       value: 'NewManifest',
+    //       iconName: 'trigger-artifact' as IconName
+    //     }
+    //   ]
+    // },
+    // {
+    //   categoryLabel: getString('pipeline-triggers.scheduledLabel'),
+    //   categoryValue: 'OnSchedule',
+    //   items: [
+    //     {
+    //       itemLabel: getString('pipeline-triggers.onScheduleLabel'),
+    //       value: 'OnSchedule',
+    //       iconName: 'trigger-schedule' as IconName
+    //     }
+    //   ]
+    // },
     {
       categoryLabel: getString('execution.triggerType.WEBHOOK'),
       categoryValue: 'Webhook',

@@ -427,6 +427,7 @@ global:
     triggersLabel: 'Triggers'
     triggersSubLabel: 'All Trigger Types'
     searchPlaceholder: 'Search Triggers'
+    noTriggersFound: 'No Triggers Found'
     newTrigger: + New Trigger
     pipelineExecutionInput: Pipeline Execution Input
     lastExecutionDetails: Last Execution Details
@@ -447,7 +448,7 @@ global:
     confirmDelete: 'Are you sure you want to delete trigger' # followed by name
     pageNotFound: 'Page not found'
     triggerLabel: 'Trigger'
-    lastExecutionLabel: 'LAST EXECUTION'
+    lastActivationLabel: 'LAST ACTIVATION'
     enableLabel: 'ENABLE'
     activityActivation: '{{numActivations}} Activations in'
     activityDays: 'Last {{numDays}} days'

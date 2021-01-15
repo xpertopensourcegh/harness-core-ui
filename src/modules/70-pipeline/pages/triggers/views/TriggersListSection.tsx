@@ -172,7 +172,7 @@ const RenderColumnStatus: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" data-testid={data.identifier}>
-      <Text color={Color.GREY_400}>Work in Progress</Text>
+      <Text color={Color.GREY_400}></Text>
     </Layout.Horizontal>
   )
 }
@@ -185,7 +185,7 @@ const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column: { getString: (str: string, obj: { numActivations?: number; numDays?: number }) => string }
 }) => {
   const data = row.original as any // temporary until API ready
-  const executions = data.executions || [2, 3, 4, 5, 4, 3, 2]
+  const executions = data.executions
   const numDays = executions?.length
   if (numDays === 0) return undefined
   const numActivations = sum(executions)
@@ -200,21 +200,26 @@ const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   )
 }
 
-const RenderColumnLastExecution: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
+const RenderColumnLastActivation: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
   const data = row.original
-  data.lastTriggerExecutionDetails = { lastExecutionTime: 1607637774407, lastExecutionSuccessful: true }
-  const lastExecutionTime = 1607637774407
+  const lastExecutionTime = data.lastTriggerExecutionDetails?.lastExecutionTime
+  const lastExecutionSuccessful = data.lastTriggerExecutionDetails?.lastExecutionSuccessful
+
   return (
     <Layout.Horizontal style={{ justifyContent: 'center' }} spacing="small" data-testid={data.identifier}>
       <div className={css.activityStatement}>
-        {!isUndefined(data.lastTriggerExecutionDetails?.lastExecutionTime) ? (
+        {!isUndefined(lastExecutionTime) && !isUndefined(lastExecutionSuccessful) ? (
           <>
             <Layout.Horizontal style={{ alignItems: 'center' }}>
               <Container style={{ textAlign: 'end', marginLeft: 'var(--spacing-small)' }}>
-                <span>Last Run:</span>
                 <Text>{lastExecutionTime ? <ReactTimeago date={lastExecutionTime} /> : null}</Text>
               </Container>
-              <Icon style={{ paddingLeft: 'var(--spacing-xsmall)' }} name="dot" color="green500" size={20} />
+              <Icon
+                style={{ paddingLeft: 'var(--spacing-xsmall)' }}
+                name="dot"
+                color={lastExecutionSuccessful ? 'green500' : 'red500'}
+                size={20}
+              />
             </Layout.Horizontal>
           </>
         ) : null}
@@ -226,9 +231,11 @@ const RenderColumnLastExecution: Renderer<CellProps<NGTriggerDetailsResponse>> =
 const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column
 }: {
-  column: { accountId: string; getString: (str: string) => string }
+  column: { accountId: string; orgIdentifier: string; projectIdentifier: string; getString: (str: string) => string }
 }) => {
-  const webhookUrl = window.location.origin + `/pipeline/api/webhook/trigger?accountIdentifier=${column.accountId}`
+  const webhookUrl =
+    window.location.origin +
+    `/pipeline/api/webhook/trigger?accountIdentifier=${column.accountId}&orgIdentifier=${column.orgIdentifier}&projectIdentifier=${column.projectIdentifier}`
   return (
     <div className={css.textCentered}>
       <Icon
@@ -340,10 +347,10 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         getString
       },
       {
-        Header: RenderCenteredColumnHeader(getString('pipeline-triggers.lastExecutionLabel')),
+        Header: RenderCenteredColumnHeader(getString('pipeline-triggers.lastActivationLabel')),
         accessor: 'lastExecutionTime',
         width: '18%',
-        Cell: RenderColumnLastExecution,
+        Cell: RenderColumnLastActivation,
         disableSortBy: true
       },
 
