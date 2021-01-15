@@ -77,19 +77,24 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   domId: `Stage.${stage.identifier}.Variables-panel`
                 }}
               />
-              <ServiceCardPanel stage={stage} />
-              <NestedAccordionPanel
-                addDomId
-                id={`Stage.${stage.identifier}.Infrastructure`}
-                summary="InfraStructure"
-                details={<div />}
-              />
-              <NestedAccordionPanel
-                addDomId
-                id={`Stage.${stage.identifier}.Execution`}
-                summary="Execution"
-                details={<div />}
-              />
+              {/* TODO: Temporary disable for  CI (TBD)*/}
+              {stage.type === 'Deployment' ? (
+                <>
+                  <ServiceCardPanel stage={stage} />
+                  <NestedAccordionPanel
+                    addDomId
+                    id={`Stage.${stage.identifier}.Infrastructure`}
+                    summary="InfraStructure"
+                    details={<div />}
+                  />
+                  <NestedAccordionPanel
+                    addDomId
+                    id={`Stage.${stage.identifier}.Execution`}
+                    summary="Execution"
+                    details={<div />}
+                  />
+                </>
+              ) : null}
             </React.Fragment>
           )}
         </div>

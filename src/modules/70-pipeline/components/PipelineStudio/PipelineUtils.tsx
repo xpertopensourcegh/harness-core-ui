@@ -111,7 +111,8 @@ const getStageTree = (
 
   // only ci stage
   // TODO: Replace 'ci' literal with enum
-  if (stage.type === 'CI') {
+  // TODO: hide as implementation is not done
+  /*if (stage.type === 'CI') {
     stageNode.childNodes?.push({
       id: `Stage.${stage.identifier}.Dependencies`,
       hasCaret: false,
@@ -119,43 +120,45 @@ const getStageTree = (
       className: classes.secondary,
       isExpanded: false
     })
-  }
+  }*/
 
   // common to ci and cd stage
-  if (hideNonRuntimeFields) {
-    const enabledChildList = Object.keys(get(template, 'spec', {}))
-    enabledChildList.includes('infrastructure') &&
-      stageNode.childNodes?.push({
-        id: `Stage.${stage.identifier}.Infrastructure`,
-        hasCaret: false,
-        label: <Text>{i18n.infrastructure}</Text>,
-        className: classes.secondary
-      })
+  // TODO: temporary enable only for CD as Ci is not implemented
+  if (stage.type === 'Deployment') {
+    if (hideNonRuntimeFields) {
+      const enabledChildList = Object.keys(get(template, 'spec', {}))
+      enabledChildList.includes('infrastructure') &&
+        stageNode.childNodes?.push({
+          id: `Stage.${stage.identifier}.Infrastructure`,
+          hasCaret: false,
+          label: <Text>{i18n.infrastructure}</Text>,
+          className: classes.secondary
+        })
 
-    enabledChildList.includes('execution') &&
-      stageNode.childNodes?.push({
-        id: `Stage.${stage.identifier}.Execution`,
-        hasCaret: false,
-        label: <Text>{i18n.execution}</Text>,
-        className: classes.secondary
-      })
-  } else {
-    stageNode.childNodes?.push(
-      {
-        id: `Stage.${stage.identifier}.Infrastructure`,
-        hasCaret: false,
-        label: <Text>{i18n.infrastructure}</Text>,
-        className: classes.secondary
-      },
-      {
-        id: `Stage.${stage.identifier}.Execution`,
-        hasCaret: false,
-        label: <Text>{i18n.execution}</Text>,
-        className: classes.secondary
-      }
-    )
+      enabledChildList.includes('execution') &&
+        stageNode.childNodes?.push({
+          id: `Stage.${stage.identifier}.Execution`,
+          hasCaret: false,
+          label: <Text>{i18n.execution}</Text>,
+          className: classes.secondary
+        })
+    } else {
+      stageNode.childNodes?.push(
+        {
+          id: `Stage.${stage.identifier}.Infrastructure`,
+          hasCaret: false,
+          label: <Text>{i18n.infrastructure}</Text>,
+          className: classes.secondary
+        },
+        {
+          id: `Stage.${stage.identifier}.Execution`,
+          hasCaret: false,
+          label: <Text>{i18n.execution}</Text>,
+          className: classes.secondary
+        }
+      )
+    }
   }
-
   return stageNode
 }
 
