@@ -161,7 +161,8 @@ export const S3StepBase = (
 
   const validate = useValidate<S3StepDataUI>(validateFields, {
     initialValues,
-    steps: currentStage?.stage.spec.execution.steps
+    steps: currentStage?.stage?.spec?.execution?.steps || {},
+    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
   })
 
   const handleCancelClick = (): void => {

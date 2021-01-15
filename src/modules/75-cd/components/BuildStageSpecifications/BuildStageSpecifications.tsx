@@ -21,7 +21,8 @@ import { Dialog, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { FieldArray } from 'formik'
 import {
-  isEqual
+  isEqual,
+  debounce
   // isEmpty,
   // set
 } from 'lodash-es'
@@ -219,9 +220,7 @@ export default function BuildStageSpecifications(): JSX.Element {
         spec.sharedPaths =
           typeof values.sharedPaths === 'string'
             ? values.sharedPaths
-            : values.sharedPaths
-                ?.filter((listValue: { id: string; value: string }) => !!listValue.value)
-                .map((listValue: { id: string; value: string }) => listValue.value)
+            : values.sharedPaths.map((listValue: { id: string; value: string }) => listValue.value)
       } else {
         delete spec.sharedPaths
       }
@@ -254,6 +253,12 @@ export default function BuildStageSpecifications(): JSX.Element {
       updatePipeline(pipeline)
     }
   }
+
+  const debounceHandleValidate = React.useRef(
+    debounce((values: any) => {
+      return handleValidate(values)
+    }, 500)
+  ).current
 
   const openDialog = (): void => setIsDialogOpen(true)
 
@@ -301,7 +306,7 @@ export default function BuildStageSpecifications(): JSX.Element {
             enableReinitialize
             initialValues={getInitialValues()}
             validationSchema={validationSchema}
-            validate={handleValidate}
+            validate={debounceHandleValidate}
             onSubmit={values => logger.info(JSON.stringify(values))}
           >
             {({ values: formValues, setFieldValue }) => (

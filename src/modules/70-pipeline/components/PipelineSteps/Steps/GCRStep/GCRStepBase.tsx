@@ -192,7 +192,8 @@ export const GCRStepBase = (
 
   const validate = useValidate<GCRStepDataUI>(validateFields, {
     initialValues,
-    steps: currentStage?.stage.spec.execution.steps
+    steps: currentStage?.stage?.spec?.execution?.steps || {},
+    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
   })
 
   const handleCancelClick = (): void => {

@@ -143,7 +143,8 @@ export const RestoreCacheGCSStepBase = (
 
   const validate = useValidate<RestoreCacheGCSStepDataUI>(validateFields, {
     initialValues,
-    steps: currentStage?.stage.spec.execution.steps
+    steps: currentStage?.stage?.spec?.execution?.steps || {},
+    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
   })
 
   const handleCancelClick = (): void => {

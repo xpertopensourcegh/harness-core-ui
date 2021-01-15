@@ -109,7 +109,7 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           disabled={readonly}
         />
       )}
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} withoutTimeout />
     </FormikForm>
   )
 }

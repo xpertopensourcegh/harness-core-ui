@@ -159,6 +159,7 @@ global:
   environment: 'Environment'
   environmentVariables: 'Environment Variables'
   environmentVariablesInfo: Environment variables injected into the container to be used in the “command” property
+  dependencyEnvironmentVariablesInfo: Environment variables injected into the container
   service: 'Service'
   plusAdd: '+ Add'
   entryPointLabel: 'Entry Point'
@@ -614,7 +615,7 @@ global:
     setContainerResourcesTooltip: |
       Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.
 
-      Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki.
+      Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: G, M. You can also use the power-of-two equivalents: Gi, Mi.
 
       Use “Limit CPU” to limit the number of cores that the container can use. Limits for CPU resources are measured in cpu units. Fractional requests are allowed. The expression 0.1 is equivalent to the expression 100m, which can be read as "one hundred millicpu"
     limitMemoryLabel: 'Limit Memory'
@@ -771,7 +772,7 @@ global:
     validReportPathRegex: Report paths should end with .xml
     validStepNameRegex: Step Name can only contain alphanumerics, spaces, _ and -
     illegalIdentifier: 'Identifier must not be one of the following values: or, and, eq, ne, lt, gt, le, ge, div, mod, not, null, true, false, new, var, return'
-    uniqueStepId: Identifier should be unique across the steps
+    uniqueStepAndServiceDependenciesId: Identifier should be unique across the steps and service dependencies
     uniqueKeys: Keys should be unique
     uniqueValues: Values should be unique
     matchPattern: Invalid value, please look for info above to read more

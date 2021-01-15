@@ -148,7 +148,8 @@ export const GCSStepBase = (
 
   const validate = useValidate<GCSStepDataUI>(validateFields, {
     initialValues,
-    steps: currentStage?.stage.spec.execution.steps
+    steps: currentStage?.stage?.spec?.execution?.steps || {},
+    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
   })
 
   const handleCancelClick = (): void => {

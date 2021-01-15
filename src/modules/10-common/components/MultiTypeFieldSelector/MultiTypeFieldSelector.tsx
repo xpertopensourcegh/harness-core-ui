@@ -82,7 +82,7 @@ function TypeSelector(props: {
   )
 }
 
-export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorProps): React.ReactElement {
+export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorProps): React.ReactElement | null {
   const { formik, label, name, children, defaultValueToReset, disableTypeSelection, ...restProps } = props
   const hasError = errorCheck(name, formik)
 
@@ -109,6 +109,16 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
         : undefined
     )
   }
+
+  React.useEffect(() => {
+    const newType = getMultiTypeFromValue(value)
+
+    if (newType !== type) {
+      setType(newType)
+    }
+  }, [value, type, setType])
+
+  if (type === MultiTypeInputType.RUNTIME && getMultiTypeFromValue(value) !== MultiTypeInputType.RUNTIME) return null
 
   return (
     <FormGroup

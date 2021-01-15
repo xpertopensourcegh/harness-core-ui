@@ -88,8 +88,8 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
           }
         }}
         routePipelineStudio={routes.toPipelineStudio}
-        routePipelineDetail={routes.toPipelineStudio}
-        routePipelineProject={routes.toCIBuilds}
+        routePipelineDetail={routes.toPipelineDetail}
+        routePipelineProject={routes.toDeployments}
         routePipelineList={routes.toPipelines}
       ></PipelineStudio>
     </PipelineProvider>

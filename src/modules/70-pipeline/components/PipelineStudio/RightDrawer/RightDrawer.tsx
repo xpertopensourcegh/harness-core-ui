@@ -151,7 +151,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 name: item.name,
                 type: StepType.Dependency,
                 ...(item.description && { description: item.description }),
-                ...(item.timeout && { timeout: item.timeout }),
                 spec: item.spec
               })
               updatePipeline(pipeline)
@@ -166,16 +165,18 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 if (item.identifier) node.identifier = item.identifier
                 if (item.name) node.name = item.name
                 if (item.description) node.description = item.description
-                if (item.timeout) node.timeout = item.timeout
                 if (item.spec) node.spec = item.spec
 
                 // Delete values if they were already added and now removed
                 if (node.description && !item.description) delete node.description
-                if (node.timeout && !item.timeout) delete node.timeout
 
                 updatePipeline(pipeline)
               }
-              updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+              updatePipelineView({
+                ...pipelineView,
+                isDrawerOpened: false,
+                drawerData: { type: DrawerTypes.ConfigureService }
+              })
             }
           }}
         />

@@ -406,6 +406,15 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
               </div>
             </div>
           </div>
+        </div>
+        <div
+          class="fieldsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
+          >
+            OPTIONAL CONFIGURATIONS
+          </p>
           <div
             class="group withoutSpacing"
           >
@@ -856,15 +865,6 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="fieldsSection"
-        >
-          <p
-            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
-          >
-            OPTIONAL CONFIGURATIONS
-          </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
@@ -1595,6 +1595,15 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
               </button>
             </div>
           </div>
+        </div>
+        <div
+          class="fieldsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
+          >
+            OPTIONAL CONFIGURATIONS
+          </p>
           <div
             class="group withoutSpacing"
           >
@@ -1722,15 +1731,6 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
               </span>
             </button>
           </div>
-        </div>
-        <div
-          class="fieldsSection"
-        >
-          <p
-            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
-          >
-            OPTIONAL CONFIGURATIONS
-          </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
@@ -2482,6 +2482,15 @@ exports[`Plugin Step Edit View should render properly 1`] = `
               </div>
             </div>
           </div>
+        </div>
+        <div
+          class="fieldsSection"
+        >
+          <p
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
+          >
+            OPTIONAL CONFIGURATIONS
+          </p>
           <div
             class="group withoutSpacing"
           >
@@ -2714,15 +2723,6 @@ exports[`Plugin Step Edit View should render properly 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="fieldsSection"
-        >
-          <p
-            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
-          >
-            OPTIONAL CONFIGURATIONS
-          </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >

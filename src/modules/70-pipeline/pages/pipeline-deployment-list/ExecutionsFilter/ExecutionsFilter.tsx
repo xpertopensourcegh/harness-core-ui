@@ -54,20 +54,26 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
             <Button disabled>My</Button>
           </ButtonGroup>
         </div>
-        <div className={css.filterGroup}>
-          <String className={css.label} stringID="status" />
-          <StatusSelect value={queryParams.status} onSelect={handleStatusSelect} />
-        </div>
-        {pipelineIdentifier ? null : (
-          <div className={css.filterGroup}>
-            <String className={css.label} stringID="pipelines" />
-            <PipelineSelect selectedPipeline={queryParams.pipeline} onPipelineSelect={handlePipelineSelect} />
-          </div>
+        {module !== 'ci' && (
+          <>
+            <div className={css.filterGroup}>
+              <String className={css.label} stringID="status" />
+              <StatusSelect value={queryParams.status} onSelect={handleStatusSelect} />
+            </div>
+            {pipelineIdentifier ? null : (
+              <div className={css.filterGroup}>
+                <String className={css.label} stringID="pipelines" />
+                <PipelineSelect selectedPipeline={queryParams.pipeline} onPipelineSelect={handlePipelineSelect} />
+              </div>
+            )}
+          </>
         )}
       </div>
-      <div className={css.rhs}>
-        <ExpandingSearchInput defaultValue={queryParams.query} className={css.search} onChange={handleSearch} />
-      </div>
+      {module !== 'ci' && (
+        <div className={css.rhs}>
+          <ExpandingSearchInput defaultValue={queryParams.query} className={css.search} onChange={handleSearch} />
+        </div>
+      )}
     </div>
   )
 }

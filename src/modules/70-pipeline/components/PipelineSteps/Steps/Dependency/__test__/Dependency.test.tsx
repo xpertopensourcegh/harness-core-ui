@@ -61,7 +61,6 @@ describe('Dependency Step', () => {
         identifier: 'My_Dependency_Step',
         name: 'My Dependency Step',
         description: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE,
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
@@ -104,7 +103,6 @@ describe('Dependency Step', () => {
         identifier: 'My_Dependency_Step',
         name: 'My Dependency Step',
         description: 'Description',
-        timeout: '10s',
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
@@ -157,7 +155,6 @@ describe('Dependency Step', () => {
         type: StepType.Dependency,
         identifier: 'My_Dependency_Step',
         description: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE,
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
@@ -180,7 +177,6 @@ describe('Dependency Step', () => {
         name: 'Test A',
         identifier: 'My_Dependency_Step',
         description: RUNTIME_INPUT_VALUE,
-        timeout: RUNTIME_INPUT_VALUE,
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
@@ -225,7 +221,6 @@ describe('Dependency Step', () => {
         identifier: 'My_Dependency_Step',
         name: 'My Dependency Step',
         description: 'Description',
-        timeout: '10s',
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',

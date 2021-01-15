@@ -57,7 +57,6 @@ Dependency.args = {
     type: StepType.Dependency,
     identifier: 'Test_A',
     description: RUNTIME_INPUT_VALUE,
-    timeout: RUNTIME_INPUT_VALUE,
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
@@ -79,7 +78,6 @@ Dependency.args = {
     name: 'Test A',
     identifier: 'Test_A',
     description: RUNTIME_INPUT_VALUE,
-    timeout: RUNTIME_INPUT_VALUE,
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,

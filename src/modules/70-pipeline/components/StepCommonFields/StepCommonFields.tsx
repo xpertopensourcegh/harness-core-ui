@@ -20,7 +20,11 @@ export const usePullOptions: () => PullOptions = () => {
   ]
 }
 
-const StepCommonFields: React.FC = () => {
+interface StepCommonFieldsProps {
+  withoutTimeout?: boolean
+}
+
+const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Element => {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   const { getString } = useStrings()
   // const pullOptions = usePullOptions()
@@ -71,17 +75,24 @@ const StepCommonFields: React.FC = () => {
           style={{ flexGrow: 1, flexBasis: '50%' }}
         />
       </div>
-      <FormMultiTypeDurationField
-        className={css.removeBpLabelMargin}
-        name="timeout"
-        label={
-          <Text style={{ display: 'flex', alignItems: 'center' }}>
-            {getString('pipelineSteps.timeoutLabel')}
-            <Button icon="question" minimal tooltip={getString('pipelineSteps.timeoutInfo')} iconProps={{ size: 14 }} />
-          </Text>
-        }
-        style={{ marginBottom: 0 }}
-      />
+      {!withoutTimeout && (
+        <FormMultiTypeDurationField
+          className={css.removeBpLabelMargin}
+          name="timeout"
+          label={
+            <Text style={{ display: 'flex', alignItems: 'center' }}>
+              {getString('pipelineSteps.timeoutLabel')}
+              <Button
+                icon="question"
+                minimal
+                tooltip={getString('pipelineSteps.timeoutInfo')}
+                iconProps={{ size: 14 }}
+              />
+            </Text>
+          }
+          style={{ marginBottom: 0 }}
+        />
+      )}
     </>
   )
 }

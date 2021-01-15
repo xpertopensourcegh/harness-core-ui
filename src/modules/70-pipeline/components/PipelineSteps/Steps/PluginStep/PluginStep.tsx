@@ -62,8 +62,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     type: StepType.Plugin as string,
     spec: {
       connectorRef: '',
-      image: '',
-      settings: {}
+      image: ''
     }
   }
 
@@ -85,14 +84,6 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     /* istanbul ignore else */
     if (isEmpty(data?.spec?.image) && getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME) {
       set(errors, 'spec.image', getString?.('fieldRequired', { field: getString?.('imageLabel') }))
-    }
-
-    /* istanbul ignore else */
-    if (
-      isEmpty(data?.spec?.settings) &&
-      getMultiTypeFromValue(template?.spec?.settings as string) === MultiTypeInputType.RUNTIME
-    ) {
-      set(errors, 'spec.settings', getString?.('fieldRequired', { field: getString?.('pipelineSteps.settingsLabel') }))
     }
 
     return errors

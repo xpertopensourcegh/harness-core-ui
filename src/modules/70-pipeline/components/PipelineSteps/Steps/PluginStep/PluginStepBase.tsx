@@ -97,8 +97,7 @@ const validateFields = [
   },
   {
     name: 'spec.settings',
-    type: ValidationFieldTypes.Settings,
-    required: true
+    type: ValidationFieldTypes.Settings
   },
   {
     name: 'spec.limitMemory',
@@ -150,7 +149,8 @@ export const PluginStepBase = (
 
   const validate = useValidate<PluginStepDataUI>(validateFields, {
     initialValues,
-    steps: currentStage?.stage.spec.execution.steps
+    steps: currentStage?.stage?.spec?.execution?.steps || {},
+    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
   })
 
   const handleCancelClick = (): void => {
@@ -236,8 +236,16 @@ export const PluginStepBase = (
                     multiTextInputProps={{
                       placeholder: getString('pluginImagePlaceholder')
                     }}
-                    style={{ marginBottom: 'var(--spacing-small)' }}
                   />
+                </div>
+                <div className={css.fieldsSection}>
+                  <Text
+                    className={css.optionalConfiguration}
+                    font={{ weight: 'semi-bold' }}
+                    margin={{ bottom: 'small' }}
+                  >
+                    {getString('pipelineSteps.optionalConfiguration')}
+                  </Text>
                   <MultiTypeMap
                     name="spec.settings"
                     multiTypeFieldSelectorProps={{
@@ -253,16 +261,8 @@ export const PluginStepBase = (
                         </Text>
                       )
                     }}
+                    style={{ marginBottom: 'var(--spacing-small)' }}
                   />
-                </div>
-                <div className={css.fieldsSection}>
-                  <Text
-                    className={css.optionalConfiguration}
-                    font={{ weight: 'semi-bold' }}
-                    margin={{ bottom: 'small' }}
-                  >
-                    {getString('pipelineSteps.optionalConfiguration')}
-                  </Text>
                   <StepCommonFields />
                 </div>
                 <div className={css.buttonsWrapper}>

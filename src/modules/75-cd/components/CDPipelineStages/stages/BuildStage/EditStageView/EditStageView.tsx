@@ -8,6 +8,7 @@ import {
   Collapse,
   Button,
   Switch,
+  Icon,
   TextInput,
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
@@ -197,9 +198,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 label={getString('cloneCodebaseLabel')}
                 onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
                 defaultChecked={formikProps.values.cloneCodebase}
+                margin={{ bottom: 'small' }}
               />
               <div className={css.cloneCodebaseInfo}>
-                <Button icon="info" minimal iconProps={{ size: 8 }} />
+                <Icon name="info" size={10} margin={{ right: 'small' }} />
                 <Text font="xsmall">{getString('pipelineSteps.build.create.cloneCodebaseHelperText')}</Text>
               </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}

@@ -9,7 +9,6 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import get from 'lodash-es/get'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -74,10 +73,6 @@ const transformValuesFields = [
   {
     name: 'spec.limitCPU',
     type: TransformValuesTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: TransformValuesTypes.Text
   }
 ]
 
@@ -121,10 +116,6 @@ const validateFields = [
   {
     name: 'spec.limitCPU',
     type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
   }
 ]
 
@@ -161,7 +152,8 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
 
   const validate = useValidate<DependencyDataUI>(validateFields, {
     initialValues,
-    steps: get(currentStage, 'stage.spec.execution.steps', {})
+    steps: currentStage?.stage?.spec?.execution?.steps || {},
+    serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {}
   })
 
   const handleCancelClick = (): void => {
@@ -248,7 +240,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
                       <Button
                         icon="question"
                         minimal
-                        tooltip={getString('environmentVariablesInfo')}
+                        tooltip={getString('dependencyEnvironmentVariablesInfo')}
                         iconProps={{ size: 14 }}
                       />
                     </Text>
@@ -278,7 +270,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
                   )
                 }}
               />
-              <StepCommonFields />
+              <StepCommonFields withoutTimeout />
             </div>
             <div className={css.buttonsWrapper}>
               <Button

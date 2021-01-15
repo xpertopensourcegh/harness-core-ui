@@ -66,7 +66,10 @@ export function validate<T>(values: T, schema: ObjectSchema): ValidateReturnType
   }
 }
 
-export function useValidate<T>(fields: Field[], { initialValues, steps }: Dependencies = {}): UseValidateReturnType<T> {
+export function useValidate<T>(
+  fields: Field[],
+  { initialValues, steps, serviceDependencies }: Dependencies = {}
+): UseValidateReturnType<T> {
   const { getString } = useStrings()
 
   const objectSchema: { [key: string]: any } = {}
@@ -80,28 +83,28 @@ export function useValidate<T>(fields: Field[], { initialValues, steps }: Depend
         .trim()
         .matches(validIdRegex, getString('validation.validStepIdRegex'))
         .notOneOf(StringUtils.illegalIdentifiers, getString('validation.illegalIdentifier'))
-        .test('isStepIdUnique', getString('validation.uniqueStepId'), identifier => {
+        .test('isStepIdUnique', getString('validation.uniqueStepAndServiceDependenciesId'), identifier => {
           if (!initialValues || !steps) return true
 
-          const allSteps: StepElementConfig[] = []
+          const stepsAndDependencies: StepElementConfig[] = [...serviceDependencies]
 
           // TODO: Add support for stepGroup
           steps.forEach(({ step, parallel }: ExecutionWrapperConfig) => {
             if (parallel) {
               // TODO: Fix typings
               ;(parallel as any).forEach(({ step: parallelStep }: { step: StepElementConfig }) => {
-                allSteps.push(parallelStep)
+                stepsAndDependencies.push(parallelStep)
               })
             } else {
-              allSteps.push(step as StepElementConfig)
+              stepsAndDependencies.push(step as StepElementConfig)
             }
           })
 
-          const currentStepIndex = allSteps.findIndex(step => {
+          const currentStepIndex = stepsAndDependencies.findIndex(step => {
             return step?.identifier === initialValues.identifier
           })
 
-          return allSteps.every((step, index: number) => {
+          return stepsAndDependencies.every((step, index: number) => {
             // Skip ID validation for the currently opened step (if it was already added)
             if (currentStepIndex === index) return true
 
@@ -337,7 +340,8 @@ export function useValidate<T>(fields: Field[], { initialValues, steps }: Depend
           ? yup
               .string()
               // ^$ in the end is to pass empty string because otherwise it will fail
-              .matches(/^\d+$|^\d+(E|P|T|G|M|K|Ei|Pi|Ti|Gi|Mi|Ki)$|^$/, getString('validation.matchPattern'))
+              // .matches(/^\d+$|^\d+(E|P|T|G|M|K|Ei|Pi|Ti|Gi|Mi|Ki)$|^$/, getString('validation.matchPattern'))
+              .matches(/^\d+(\.\d+)?$|^\d+(\.\d+)?(G|M|Gi|Mi)$|^$/, getString('validation.matchPattern'))
           : yup.string()
       )
     }

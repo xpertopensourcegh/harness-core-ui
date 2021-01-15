@@ -13,10 +13,11 @@ interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' 
   // @TODO: set up proper typing
   // eslint-disable-next-line
   template: any
+  withoutTimeout?: boolean
 }
 
 function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): JSX.Element | null {
-  const { path, template, readonly } = props
+  const { path, template, readonly, withoutTimeout } = props
   const { getString } = useStrings()
   // const pullOptions = usePullOptions()
   const isLimitMemoryRuntime =
@@ -74,7 +75,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
           </div>
         </>
       )}
-      {isTimeoutRuntime && (
+      {!withoutTimeout && isTimeoutRuntime && (
         <DurationInputFieldForInputSet
           className={css.removeBpLabelMargin}
           label={
