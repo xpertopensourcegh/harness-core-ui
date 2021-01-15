@@ -1,7 +1,10 @@
 import React from 'react'
 import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import type { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepGroupElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './StepGroupStep.i18n'
@@ -14,7 +17,11 @@ interface StepGroupWidgetProps {
   stepViewType?: StepViewType
 }
 
-const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function StepGroupWidget(
+  props: StepGroupWidgetProps,
+  formikRef: StepFormikFowardRef<StepGroupElement>
+): React.ReactElement {
+  const { initialValues, onUpdate } = props
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
@@ -29,7 +36,9 @@ const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onUpda
           name: Yup.string().required(i18n.stageNameRequired)
         })}
       >
-        {({ submitForm }) => {
+        {(formik: FormikProps<StepGroupElement>) => {
+          const { submitForm } = formik
+          setFormikRef(formikRef, formik)
           return (
             <>
               <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
@@ -41,12 +50,19 @@ const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onUpda
     </>
   )
 }
-
+const StepGroupWidgetRef = React.forwardRef(StepGroupWidget)
 export class StepGroupStep extends PipelineStep<StepGroupElement> {
   renderStep(props: StepProps<StepGroupElement>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType } = props
+    const { initialValues, onUpdate, stepViewType, formikRef } = props
 
-    return <StepGroupWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <StepGroupWidgetRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 
   validateInputSet(): object {

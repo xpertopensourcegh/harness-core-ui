@@ -9,10 +9,13 @@ import {
   MultiTypeInputType,
   Accordion
 } from '@wings-software/uicore'
-import { FieldArray } from 'formik'
+import { FieldArray, FormikProps } from 'formik'
 import * as Yup from 'yup'
+import type {} from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -48,7 +51,8 @@ interface K8sApplyProps {
   readonly?: boolean
 }
 
-const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardRef<K8sApplyData>): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   const defaultValueToReset = ['']
   return (
@@ -63,8 +67,9 @@ const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate
           timeout: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >
-        {formikProps => {
-          const values = formikProps.values
+        {(formik: FormikProps<K8sApplyData>) => {
+          const { values, setFieldValue, submitForm } = formik
+          setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -83,7 +88,7 @@ const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate
                           name="spec.filePaths"
                           render={arrayHelpers => (
                             <Layout.Vertical>
-                              {formikProps.values?.spec?.filePaths?.map((path: string, index: number) => (
+                              {values?.spec?.filePaths?.map((path: string, index: number) => (
                                 <Layout.Horizontal
                                   key={path}
                                   flex={{ distribution: 'space-between' }}
@@ -96,10 +101,9 @@ const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate
                                     style={{ width: '430px' }}
                                   />
 
-                                  {formikProps.values?.spec?.filePaths &&
-                                    formikProps.values?.spec?.filePaths?.length > 1 && (
-                                      <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                                    )}
+                                  {values?.spec?.filePaths && values?.spec?.filePaths?.length > 1 && (
+                                    <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                  )}
                                 </Layout.Horizontal>
                               ))}
                               <span>
@@ -121,7 +125,7 @@ const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate
                           label={getString('pipelineSteps.timeoutLabel')}
                           multiTypeDurationProps={{ enableConfigureOptions: false }}
                         />
-                        {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
+                        {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
                             value={values.timeout as string}
                             type="String"
@@ -130,7 +134,7 @@ const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate
                             showDefaultField={false}
                             showAdvanced={true}
                             onChange={value => {
-                              formikProps.setFieldValue('spec.timeout', value)
+                              setFieldValue('spec.timeout', value)
                             }}
                           />
                         )}
@@ -147,7 +151,7 @@ const K8sApplyDeployWidget: React.FC<K8sApplyProps> = ({ initialValues, onUpdate
                   }
                 />
               </Accordion>
-              <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
+              <Button intent="primary" text={getString('submit')} onClick={submitForm} />
             </Layout.Vertical>
           )
         }}
@@ -185,10 +189,10 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
     </>
   )
 }
-
+const K8sApplyDeployWidgetWithRef = React.forwardRef(K8sApplyDeployWidget)
 export class K8sApplyStep extends PipelineStep<K8sApplyData> {
   renderStep(props: StepProps<K8sApplyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -202,11 +206,12 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       )
     }
     return (
-      <K8sApplyDeployWidget
+      <K8sApplyDeployWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
+        ref={formikRef}
       />
     )
   }

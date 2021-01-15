@@ -12,9 +12,12 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 // import { get } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -34,7 +37,8 @@ interface K8BGDeployProps {
   template?: K8sBGDeployData
 }
 
-const K8BGDeployWidget: React.FC<K8BGDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef<K8sBGDeployData>): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
@@ -50,7 +54,9 @@ const K8BGDeployWidget: React.FC<K8BGDeployProps> = ({ initialValues, onUpdate }
           spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<K8sBGDeployData>) => {
+          const { submitForm, values, setFieldValue } = formik
+          setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -127,10 +133,10 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ onUpdate, initialValue
     </>
   )
 }
-
+const K8BGDeployWidgetWidgetWithRef = React.forwardRef(K8BGDeployWidget)
 export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
   renderStep(props: StepProps<K8sBGDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -142,7 +148,14 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
         />
       )
     }
-    return <K8BGDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <K8BGDeployWidgetWidgetWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 
   validateInputSet(): object {

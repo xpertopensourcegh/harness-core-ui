@@ -10,11 +10,15 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+
+import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
@@ -35,7 +39,11 @@ interface K8RolloutDeployProps {
   }
 }
 
-const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8RolloutDeployWidget(
+  props: K8RolloutDeployProps,
+  formikRef: StepFormikFowardRef<K8RolloutDeployData>
+): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   return (
     <>
@@ -49,7 +57,9 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
           spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<K8RolloutDeployData>) => {
+          setFormikRef(formikRef, formik)
+          const { values, submitForm, setFieldValue } = formik
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -118,9 +128,10 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
   )
 }
 
+const K8sRolloutDeployRef = React.forwardRef(K8RolloutDeployWidget)
 export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
   renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -132,7 +143,14 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
         />
       )
     }
-    return <K8RolloutDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <K8sRolloutDeployRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
   validateInputSet(
     data: K8RolloutDeployData,

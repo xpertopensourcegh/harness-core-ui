@@ -10,8 +10,11 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
@@ -33,7 +36,11 @@ interface K8sRollingRollbackProps {
   }
 }
 
-const K8sRollingRollbackWidget: React.FC<K8sRollingRollbackProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8sRollingRollbackWidget(
+  props: K8sRollingRollbackProps,
+  formikRef: StepFormikFowardRef<K8sRollingRollbackData>
+): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   return (
     <>
@@ -47,7 +54,10 @@ const K8sRollingRollbackWidget: React.FC<K8sRollingRollbackProps> = ({ initialVa
           spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<K8sRollingRollbackData>) => {
+          const { values, setFieldValue, submitForm } = formik
+          setFormikRef(formikRef, formik)
+
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -104,10 +114,10 @@ const K8sRollingRollbackInputStep: React.FC<K8sRollingRollbackProps> = ({ inputS
     </>
   )
 }
-
+const K8sRollingRollbackWidgetWithRef = React.forwardRef(K8sRollingRollbackWidget)
 export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData> {
   renderStep(props: StepProps<K8sRollingRollbackData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sRollingRollbackInputStep
@@ -118,7 +128,14 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
         />
       )
     }
-    return <K8sRollingRollbackWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <K8sRollingRollbackWidgetWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
   validateInputSet(
     data: K8sRollingRollbackData,

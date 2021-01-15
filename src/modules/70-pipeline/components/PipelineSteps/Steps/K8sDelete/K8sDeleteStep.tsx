@@ -9,11 +9,13 @@ import {
   MultiTypeInputType,
   Accordion
 } from '@wings-software/uicore'
-import { FieldArray } from 'formik'
+import { FieldArray, FormikProps } from 'formik'
 import type { IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/exports'
@@ -51,7 +53,11 @@ interface K8sDeleteProps {
   readonly?: boolean
 }
 
-const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8sDeleteDeployWidget(
+  props: K8sDeleteProps,
+  formikRef: StepFormikFowardRef<K8sDeleteData>
+): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   const accessTypeOptions = React.useMemo(() => {
@@ -102,7 +108,8 @@ const K8sDeleteDeployWidget: React.FC<K8sDeleteProps> = ({ initialValues, onUpda
           timeout: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >
-        {formikProps => {
+        {(formikProps: FormikProps<K8sDeleteData>) => {
+          setFormikRef(formikRef, formikProps)
           const values = formikProps.values
           return (
             <Layout.Vertical spacing="xlarge">
@@ -265,12 +272,12 @@ const K8sDeleteInputStep: React.FC<K8sDeleteProps> = ({ inputSetData, readonly }
     </>
   )
 }
-
+const K8sDeleteDeployWidgetWithRef = React.forwardRef(K8sDeleteDeployWidget)
 export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
   renderStep(props: StepProps<K8sDeleteData>): JSX.Element {
     /* istanbul ignore next */
 
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       /* istanbul ignore next */
@@ -287,11 +294,12 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
     /* istanbul ignore next */
 
     return (
-      <K8sDeleteDeployWidget
+      <K8sDeleteDeployWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
+        ref={formikRef}
       />
     )
   }

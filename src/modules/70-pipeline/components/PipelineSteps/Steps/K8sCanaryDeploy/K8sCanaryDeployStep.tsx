@@ -12,8 +12,11 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import { FormGroup } from '@blueprintjs/core'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
@@ -37,7 +40,11 @@ interface K8sCanaryDeployProps {
   template?: K8sCanaryDeployData
 }
 
-const K8CanaryDeployWidget: React.FC<K8sCanaryDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8CanaryDeployWidget(
+  props: K8sCanaryDeployProps,
+  formikRef: StepFormikFowardRef<K8sCanaryDeployData>
+): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
@@ -76,7 +83,9 @@ const K8CanaryDeployWidget: React.FC<K8sCanaryDeployProps> = ({ initialValues, o
             .required(getString('pipelineSteps.instancesRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<K8sCanaryDeployData>) => {
+          const { submitForm, values, setFieldValue } = formik
+          setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -187,10 +196,10 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ onUpdate, ini
     </>
   )
 }
-
+const K8CanaryDeployWidgetWithRef = React.forwardRef(K8CanaryDeployWidget)
 export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     const data = initialValues
     if (initialValues.spec.instanceSelection) {
@@ -212,7 +221,14 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
         />
       )
     }
-    return <K8CanaryDeployWidget initialValues={data} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <K8CanaryDeployWidgetWithRef
+        initialValues={data}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 
   protected type = StepType.K8sCanaryDeploy

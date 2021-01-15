@@ -10,8 +10,11 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
@@ -33,7 +36,8 @@ interface BarrierProps {
   }
 }
 
-const BarrierWidget: React.FC<BarrierProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<BarrierData>): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
   return (
     <>
@@ -47,7 +51,9 @@ const BarrierWidget: React.FC<BarrierProps> = ({ initialValues, onUpdate }): JSX
           spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<BarrierData>) => {
+          const { submitForm, values, setFieldValue } = formik
+          setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -104,10 +110,10 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
     </>
   )
 }
-
+const BarrierWidgetWithRef = React.forwardRef(BarrierWidget)
 export class BarrierStep extends PipelineStep<BarrierData> {
   renderStep(props: StepProps<BarrierData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -119,7 +125,14 @@ export class BarrierStep extends PipelineStep<BarrierData> {
         />
       )
     }
-    return <BarrierWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <BarrierWidgetWithRef
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
   validateInputSet(data: BarrierData, template: BarrierData, getString?: UseStringsReturn['getString']): object {
     const errors = {} as any

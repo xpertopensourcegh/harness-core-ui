@@ -11,8 +11,11 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import { FormGroup } from '@blueprintjs/core'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -30,7 +33,8 @@ interface K8sBGSwapProps {
   readonly?: boolean
 }
 
-const K8sBGSwapWidget: React.FC<K8sBGSwapProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8sBGSwapWidget(props: K8sBGSwapProps, formikRef: StepFormikFowardRef<StepElement>): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
@@ -45,7 +49,10 @@ const K8sBGSwapWidget: React.FC<K8sBGSwapProps> = ({ initialValues, onUpdate }):
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<StepElement>) => {
+          const { values, setFieldValue, submitForm } = formik
+          setFormikRef(formikRef, formik)
+
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -110,10 +117,10 @@ const K8sBGSwapInputStep: React.FC<K8sBGSwapProps> = ({ onUpdate, initialValues,
     </>
   )
 }
-
+const K8sBGSwapWidgetWithRef = React.forwardRef(K8sBGSwapWidget)
 export class K8sBGSwapServices extends PipelineStep<StepElement> {
   renderStep(props: StepProps<StepElement>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -127,11 +134,12 @@ export class K8sBGSwapServices extends PipelineStep<StepElement> {
       )
     }
     return (
-      <K8sBGSwapWidget
+      <K8sBGSwapWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
+        ref={formikRef}
       />
     )
   }

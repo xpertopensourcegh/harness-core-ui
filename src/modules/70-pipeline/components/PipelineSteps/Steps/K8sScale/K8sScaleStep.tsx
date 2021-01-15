@@ -12,8 +12,11 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import { FormGroup } from '@blueprintjs/core'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
@@ -37,7 +40,8 @@ interface K8sScaleProps {
   template?: K8sScaleData
 }
 
-const K8ScaleDeployWidget: React.FC<K8sScaleProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRef<K8sScaleData>): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
@@ -76,7 +80,9 @@ const K8ScaleDeployWidget: React.FC<K8sScaleProps> = ({ initialValues, onUpdate 
             .required(getString('pipelineSteps.instancesRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<K8sScaleData>) => {
+          const { submitForm, values, setFieldValue } = formik
+          setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -214,10 +220,10 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ onUpdate, initialValues, te
     </>
   )
 }
-
+const K8ScaleDeployWidgetWithRef = React.forwardRef(K8ScaleDeployWidget)
 export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
     const data = initialValues
     if (initialValues.spec.instanceSelection) {
       data.instanceType = initialValues.spec.instanceSelection.type
@@ -238,7 +244,14 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
         />
       )
     }
-    return <K8ScaleDeployWidget initialValues={data} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <K8ScaleDeployWidgetWithRef
+        initialValues={data}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        ref={formikRef}
+      />
+    )
   }
 
   protected type = StepType.K8sScale

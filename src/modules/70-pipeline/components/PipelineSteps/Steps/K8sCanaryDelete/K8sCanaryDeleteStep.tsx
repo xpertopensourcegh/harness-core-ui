@@ -11,8 +11,11 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
 import { FormGroup } from '@blueprintjs/core'
 import { StepViewType, StepProps } from '@pipeline/exports'
+import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -30,7 +33,11 @@ interface K8sCanaryDeployProps {
   readonly?: boolean
 }
 
-const K8sCanaryDeleteWidget: React.FC<K8sCanaryDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
+function K8sCanaryDeleteWidget(
+  props: K8sCanaryDeployProps,
+  formikRef: StepFormikFowardRef<StepElement>
+): React.ReactElement {
+  const { initialValues, onUpdate } = props
   const { getString } = useStrings()
 
   return (
@@ -44,7 +51,9 @@ const K8sCanaryDeleteWidget: React.FC<K8sCanaryDeployProps> = ({ initialValues, 
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired'))
         })}
       >
-        {({ submitForm, values, setFieldValue }) => {
+        {(formik: FormikProps<StepElement>) => {
+          const { values, setFieldValue, submitForm } = formik
+          setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical spacing="xlarge">
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
@@ -108,10 +117,10 @@ const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ onUpdate, 
     </>
   )
 }
-
+const K8sCanaryDeleteWidgetWithRef = React.forwardRef(K8sCanaryDeleteWidget)
 export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
   renderStep(props: StepProps<StepElement>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -125,11 +134,12 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
       )
     }
     return (
-      <K8sCanaryDeleteWidget
+      <K8sCanaryDeleteWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
+        ref={formikRef}
       />
     )
   }
