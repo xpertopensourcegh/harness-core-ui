@@ -361,6 +361,8 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         Cell: RenderColumnWebhook,
         disableSortBy: true,
         showSuccess,
+        orgIdentifier,
+        projectIdentifier,
         accountId,
         getString
       },
