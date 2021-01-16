@@ -1,14 +1,17 @@
 import React from 'react'
-import { IconName, Icon } from '@wings-software/uicore'
+import { IconName, Icon, Button } from '@wings-software/uicore'
+import { Tooltip, ITooltipProps, Popover, ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
-import { startCase, sortBy } from 'lodash-es'
+import { startCase, sortBy, throttle } from 'lodash-es'
+import { useHistory } from 'react-router-dom'
 
-import { Tooltip, ITooltipProps } from '@blueprintjs/core'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
-
 import { processLayoutNodeMap } from '@pipeline/utils/executionUtils'
+import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
+
 import css from './MiniExecutionGraph.module.scss'
 
 const IconMap: Record<ExecutionStatus, IconName> = {
@@ -52,10 +55,10 @@ function RunningIcon(): React.ReactElement {
 
 export interface StageNodeProps extends Omit<ITooltipProps, 'content'> {
   stage: GraphLayoutNode
-  onMouseEnter?(): void
+  onClick(stageId: string): void
 }
 
-export function StageNode({ stage, onMouseEnter, ...rest }: StageNodeProps): React.ReactElement {
+export function StageNode({ stage, onClick, ...rest }: StageNodeProps): React.ReactElement {
   const statusLower = stage.status?.toLowerCase() || ''
 
   return (
@@ -65,9 +68,9 @@ export function StageNode({ stage, onMouseEnter, ...rest }: StageNodeProps): Rea
       content={startCase(stage.status)}
       className={cx(css.stageWrapper, css[statusLower as keyof typeof css])}
       targetClassName={css.stage}
-      targetProps={{ onMouseEnter }}
       targetTagName="div"
       wrapperTagName="div"
+      targetProps={{ onClick: () => onClick(stage.nodeUuid || '') }}
     >
       {stage.status === 'Running' ? (
         <RunningIcon />
@@ -80,92 +83,214 @@ export function StageNode({ stage, onMouseEnter, ...rest }: StageNodeProps): Rea
 
 export interface ParallelNodeProps {
   stages: GraphLayoutNode[]
+  onClick(stageId: string): void
 }
 
 const STEP_DETAILS_LIMIT = 4
+const SCROLL_DELTA = 60
+const THROTTLE_TIME = 300
 
 export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement {
-  const [showDetails, setShowDetails] = React.useState(false)
-  const { stages } = props
+  const { stages, onClick } = props
   const sortedStages = sortBy(stages, stage => 100 - StagePriority[stage.status as ExecutionStatus])
 
-  function handleMouseEnter(): void {
-    setShowDetails(true)
-  }
-
-  function handleMouseLeave(): void {
-    setShowDetails(false)
-  }
-
   return (
-    <div className={cx(css.parallelNodes, { [css.showDetails]: showDetails })} onMouseLeave={handleMouseLeave}>
-      <div className={css.moreStages}>
+    <Popover
+      interactionKind="hover"
+      minimal
+      position="bottom"
+      lazy
+      autoFocus={false}
+      enforceFocus={false}
+      className={css.parallelNodes}
+      wrapperTagName="div"
+      targetTagName="div"
+      targetClassName={css.ghostNodes}
+      popoverClassName={css.moreStages}
+      targetProps={{ 'data-stages': sortedStages.length } as any}
+      modifiers={{ offset: { offset: '0,8px' } }}
+    >
+      <StageNode stage={sortedStages[0]} onClick={onClick} />
+      <React.Fragment>
         {sortedStages.slice(1, STEP_DETAILS_LIMIT).map((stage: GraphLayoutNode, i) => (
-          <StageNode key={i} stage={stage} />
+          <StageNode key={i} stage={stage} onClick={onClick} />
         ))}
         {sortedStages.length > STEP_DETAILS_LIMIT ? (
           <div className={css.extraCount}>+ {stages.length - STEP_DETAILS_LIMIT}</div>
         ) : null}
-      </div>
-      <div className={css.ghostNodes} data-stages={Math.min(stages.length - 1, 2)} />
-      <StageNode stage={sortedStages[0]} onMouseEnter={handleMouseEnter} />
-    </div>
+      </React.Fragment>
+    </Popover>
   )
 }
 
-export interface MiniExecutionGraphProps {
+export interface MiniExecutionGraphProps extends ProjectPathProps, ModulePathParams {
   pipelineExecution: PipelineExecutionSummary
 }
 
 export default function MiniExecutionGraph(props: MiniExecutionGraphProps): React.ReactElement {
+  const { pipelineExecution, accountId, orgIdentifier, projectIdentifier, module } = props
   const {
     successfulStagesCount,
     runningStagesCount,
     failedStagesCount,
     status,
     totalStagesCount,
-    executionErrorInfo
-  } = props.pipelineExecution
-  const elements = processLayoutNodeMap(props.pipelineExecution)
+    executionErrorInfo,
+    pipelineIdentifier = '',
+    planExecutionId = ''
+  } = pipelineExecution
+  const history = useHistory()
+  const elements = React.useMemo(() => processLayoutNodeMap(pipelineExecution), [pipelineExecution])
+  const graphRef = React.useRef<HTMLDivElement | null>(null)
+  const wrapperRef = React.useRef<HTMLDivElement | null>(null)
+
+  React.useLayoutEffect(() => {
+    hideShowButtons()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const hideShowButtons = React.useCallback(
+    throttle(() => {
+      window.requestAnimationFrame(() => {
+        if (graphRef.current && wrapperRef.current) {
+          const graph = graphRef.current.getBoundingClientRect()
+          const wrapper = wrapperRef.current.getBoundingClientRect()
+          const leftBtn = wrapperRef.current.parentElement?.querySelector(`.${css.scrollLeft}`) as HTMLButtonElement
+          const rightBtn = wrapperRef.current.parentElement?.querySelector(`.${css.scrollRight}`) as HTMLButtonElement
+
+          if (graph.width > wrapper.width) {
+            // show buttons
+            leftBtn?.style.removeProperty('display')
+            rightBtn?.style.removeProperty('display')
+          } else {
+            // hide buttons
+            leftBtn?.style.setProperty('display', 'none')
+            rightBtn?.style.setProperty('display', 'none')
+          }
+        }
+      })
+    }, THROTTLE_TIME),
+    []
+  )
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleRightClick = React.useCallback(
+    throttle(
+      (): void => {
+        window.requestAnimationFrame(() => {
+          if (graphRef.current && wrapperRef.current) {
+            const graph = graphRef.current.getBoundingClientRect()
+            const wrapper = wrapperRef.current.getBoundingClientRect()
+
+            if (graph.right > wrapper.right) {
+              graphRef.current.style.transform = `translateX(${Math.max(
+                graph.left - wrapper.left - SCROLL_DELTA,
+                wrapper.width - graph.width
+              )}px)`
+            }
+          }
+        })
+      },
+      THROTTLE_TIME,
+      { leading: true }
+    ),
+    []
+  )
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleLeftClick = React.useCallback(
+    throttle(
+      (): void => {
+        window.requestAnimationFrame(() => {
+          if (graphRef.current && wrapperRef.current) {
+            const graph = graphRef.current.getBoundingClientRect()
+            const wrapper = wrapperRef.current.getBoundingClientRect()
+
+            if (graph.left < wrapper.left) {
+              graphRef.current.style.transform = `translateX(${Math.min(
+                graph.left - wrapper.left + SCROLL_DELTA,
+                0
+              )}px)`
+            }
+          }
+        })
+      },
+      THROTTLE_TIME,
+      { leading: true }
+    ),
+    []
+  )
+
+  function handleStageClick(stageId: string): void {
+    const path = routes.toExecutionPipelineView({
+      accountId,
+      module,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      executionIdentifier: planExecutionId
+    })
+
+    history.push(`${path}?stage=${stageId}`)
+  }
 
   return (
-    <div className={css.main}>
-      <div className={css.graphWrapper}>
-        <div className={css.graph}>
-          {(elements || []).map(({ stage, parallel }, i) => {
-            if (parallel && Array.isArray(parallel)) {
-              return <ParallelStageNode key={i} stages={parallel} />
-            }
+    <ResizeSensor onResize={hideShowButtons}>
+      <div className={css.main}>
+        <div ref={wrapperRef} className={css.graphWrapper}>
+          <div ref={graphRef} className={css.graph}>
+            {(elements || []).map(({ stage, parallel }, i) => {
+              if (parallel && Array.isArray(parallel)) {
+                return <ParallelStageNode key={i} stages={parallel} onClick={handleStageClick} />
+              }
 
-            if (stage) {
-              return <StageNode key={stage.nodeUuid} stage={stage} />
-            }
+              if (stage) {
+                return <StageNode key={stage.nodeUuid} stage={stage} onClick={handleStageClick} />
+              }
 
-            return null
-          })}
+              return null
+            })}
+          </div>
+        </div>
+        <Button
+          minimal
+          icon="arrow-left"
+          className={css.scrollLeft}
+          iconProps={{ size: 10 }}
+          style={{ display: 'none' }}
+          onClick={handleLeftClick}
+        />
+        <Button
+          minimal
+          icon="arrow-right"
+          className={css.scrollRight}
+          iconProps={{ size: 10 }}
+          style={{ display: 'none' }}
+          onClick={handleRightClick}
+        />
+        <div className={css.stepCounts}>
+          <div className={css.stepCount} data-status="success">
+            <Icon name={IconMap.Success} size={10} />
+            {successfulStagesCount} / {totalStagesCount}
+          </div>
+          {isExecutionRunning(status) ? (
+            <div className={css.stepCount} data-status="running">
+              <RunningIcon />
+              {runningStagesCount}
+            </div>
+          ) : isExecutionCompletedWithBadState(status) ? (
+            <div className={css.stepCount} data-status="failed">
+              <Icon name={IconMap.Failed} size={10} /> {failedStagesCount}
+            </div>
+          ) : null}
+          {isExecutionCompletedWithBadState(status) && executionErrorInfo?.message ? (
+            <Tooltip content={executionErrorInfo.message}>
+              <div className={cx(css.stepCount, css.errorMsg)}>{executionErrorInfo.message}</div>
+            </Tooltip>
+          ) : null}
         </div>
       </div>
-      <div className={css.stepCounts}>
-        <div className={css.stepCount} data-status="success">
-          <Icon name={IconMap.Success} size={10} />
-          {successfulStagesCount} / {totalStagesCount}
-        </div>
-        {isExecutionRunning(status) ? (
-          <div className={css.stepCount} data-status="running">
-            <RunningIcon />
-            {runningStagesCount}
-          </div>
-        ) : isExecutionCompletedWithBadState(status) ? (
-          <div className={css.stepCount} data-status="failed">
-            <Icon name={IconMap.Failed} size={10} /> {failedStagesCount}
-          </div>
-        ) : null}
-        {isExecutionCompletedWithBadState(status) && executionErrorInfo?.message ? (
-          <Tooltip content={executionErrorInfo.message}>
-            <div className={cx(css.stepCount, css.errorMsg)}>{executionErrorInfo.message}</div>
-          </Tooltip>
-        ) : null}
-      </div>
-    </div>
+    </ResizeSensor>
   )
 }

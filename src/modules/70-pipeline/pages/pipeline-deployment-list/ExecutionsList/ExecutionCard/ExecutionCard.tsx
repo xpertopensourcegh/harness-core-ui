@@ -10,7 +10,7 @@ import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionAct
 import { String } from 'framework/exports'
 
 import routes from '@common/RouteDefinitions'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
@@ -26,13 +26,7 @@ export interface ExecutionCardProps {
 
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
   const { pipelineExecution } = props
-  const { orgIdentifier, projectIdentifier, accountId, module } = useParams<
-    PipelineType<{
-      projectIdentifier: string
-      orgIdentifier: string
-      accountId: string
-    }>
-  >()
+  const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
 
   const [showCommits, setShowCommits] = useState(false)
 
@@ -112,7 +106,13 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               </div>
             ) : null}
           </div>
-          <MiniExecutionGraph pipelineExecution={pipelineExecution} />
+          <MiniExecutionGraph
+            pipelineExecution={pipelineExecution}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            accountId={accountId}
+            module={module}
+          />
           <div className={css.actions}>
             <ExecutionStatusLabel status={pipelineExecution.status} />
             <ExecutionActions

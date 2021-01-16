@@ -8,7 +8,15 @@ import pipeline from './pipeline.json'
 describe('<MiniExecutionGraph /> tests', () => {
   test('snapshot test', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { container } = render(<MiniExecutionGraph pipelineExecution={pipeline as any} />)
+    const { container } = render(
+      <MiniExecutionGraph
+        pipelineExecution={pipeline as any}
+        projectIdentifier="TEST_PROJECT"
+        orgIdentifier="TEST_ORG"
+        accountId="TEST_ACCOUNT"
+        module="cd"
+      />
+    )
 
     expect(container).toMatchSnapshot()
   })

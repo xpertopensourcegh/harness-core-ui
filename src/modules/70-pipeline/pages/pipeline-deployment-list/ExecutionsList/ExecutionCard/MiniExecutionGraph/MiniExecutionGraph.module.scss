@@ -3,18 +3,46 @@ $node-width: 40px;
 
 .main {
   margin-top: var(--spacing-large);
+  overflow: hidden;
+  position: relative;
 
   .graphWrapper {
-    width: 100%;
-    height: calc(2 * var(--spacing-small) + #{$node-height});
-    padding: var(--spacing-small);
-    overflow: visible;
-    z-index: 2;
+    height: $node-height;
+    margin: var(--spacing-large) var(--spacing-medium);
   }
 
   .graph {
     display: flex;
     column-gap: var(--spacing-large);
+    width: fit-content;
+    transition: transform 0.2s linear;
+
+    & > .stageWrapper:first-child::before {
+      width: 0;
+    }
+  }
+
+  .scrollLeft,
+  .scrollRight {
+    position: absolute;
+    top: calc(var(--spacing-large) + 5px);
+    background: var(--blue-100) !important;
+    color: var(--blue-500) !important;
+    border: 1px solid var(--blue-500) !important;
+    padding: 0 !important;
+    min-width: unset !important;
+    min-height: unset !important;
+    width: 25px;
+    border-radius: 5px;
+    height: 14px !important;
+  }
+
+  .scrollLeft {
+    left: 0;
+  }
+
+  .scrollRight {
+    right: 0;
   }
 
   .stepCounts {
@@ -62,6 +90,17 @@ $node-width: 40px;
   --stage-border: var(--grey-300);
   --stage-bg: var(--grey-100);
   --icon-color: var(--grey-400);
+
+  &::before {
+    content: '';
+    display: block;
+    width: var(--spacing-large);
+    height: 1px;
+    background-color: var(--stage-border);
+    position: absolute;
+    right: 100%;
+    top: $node-height / 2;
+  }
 
   & .stage {
     position: relative;
@@ -130,62 +169,20 @@ $node-width: 40px;
   position: relative;
   width: $node-width;
   height: $node-height;
-  overflow: visible;
-  z-index: 1;
 
-  &:first-child {
-    & > .stageWrapper::before {
-      width: 0;
-    }
+  &:first-child .stageWrapper::before {
+    width: 0;
   }
 
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 130px;
-    transform-origin: top center;
-  }
-
-  .stageWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .moreStages {
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-    transition-delay: 0.1s;
-
-    & > .stageWrapper {
-      transform: translate(0, 0) scale(1);
-      transition: transform 0.2s ease-in-out;
-
-      &::before {
-        width: 0;
-      }
-    }
-
-    & > .extraCount {
-      background: #f3f3fa;
-      border: 0.5px solid #9293ab;
-      font-size: var(--font-size-small);
-      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-      border-radius: 3px;
-      padding: 0 3px;
-      text-align: center;
-      white-space: nowrap;
-      transform: translate(33%, 0);
-      transition: transform 0.2s ease-in-out;
-      width: fit-content;
-    }
+  & .stageWrapper {
+    z-index: 2;
   }
 
   .ghostNodes {
     opacity: 1;
     transition: opacity 0.2s ease-in-out;
     transition-delay: 0.1s;
+    z-index: 1;
 
     &::before,
     &::after {
@@ -200,7 +197,7 @@ $node-width: 40px;
       position: absolute;
       background: var(--grey-100);
       border: 1px solid var(--grey-300);
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.1s ease-out;
     }
 
     &::before {
@@ -211,56 +208,61 @@ $node-width: 40px;
       transform: translate(2px, -3px);
     }
 
+    &[data-stages='2']::before,
     &[data-stages='1']::before {
       display: none;
     }
-  }
 
-  &.showDetails {
-    .ghostNodes {
-      opacity: 0;
-
+    &:global(.bp3-popover-open) {
       &::before,
       &::after {
         transform: translate(0, 0);
       }
     }
-
-    .moreStages {
-      opacity: 1;
-
-      & > .stageWrapper::before {
-        width: 0;
-      }
-
-      & > .stageWrapper:nth-child(1) {
-        transform: translate(0, 32px) scale(0.92);
-      }
-
-      & > .stageWrapper:nth-child(2) {
-        transform: translate(0, 62px) scale(0.81);
-      }
-
-      & > .stageWrapper:nth-child(3) {
-        transform: translate(0, 90px) scale(0.72);
-      }
-
-      & > .extraCount {
-        transform: translate(33%, 120px);
-      }
-    }
   }
 }
 
-.stageWrapper:not(:first-child)::before {
-  content: '';
-  display: block;
-  width: var(--spacing-large);
-  height: 1px;
-  background-color: var(--stage-border);
-  position: absolute;
-  right: 100%;
-  top: $node-height / 2;
+.moreStages {
+  box-shadow: none !important;
+
+  & :global(.bp3-popover-content) {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: var(--spacing-xsmall);
+  }
+
+  & .stageWrapper {
+    &::before {
+      width: 0;
+    }
+
+    &:nth-child(1) {
+      transform: scale(0.92);
+    }
+
+    &:nth-child(2) {
+      transform: scale(0.81);
+    }
+
+    &:nth-child(3) {
+      transform: scale(0.72);
+    }
+  }
+
+  & .extraCount {
+    background: #f3f3fa;
+    border: 0.5px solid #9293ab;
+    font-size: var(--font-size-small);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: 0 3px;
+    text-align: center;
+    white-space: nowrap;
+    transition: transform 0.2s ease-in-out;
+    width: fit-content;
+  }
 }
 
 .running-animation {
