@@ -15,11 +15,10 @@ import css from './BuildTests.module.scss'
 
 const BuildTests: React.FC = () => {
   const context = useExecutionContext()
-  const { accountId, buildIdentifier, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
-    buildIdentifier: string
   }>()
   const { data: serviceToken, loading: serviceTokenLoading, error: serviceTokenError } = useGetToken({
     queryParams: { accountId }
@@ -38,7 +37,6 @@ const BuildTests: React.FC = () => {
       accountId,
       orgIdentifier,
       projectIdentifier,
-      buildIdentifier,
       context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier,
       context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
     ]

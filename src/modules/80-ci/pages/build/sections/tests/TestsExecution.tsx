@@ -18,7 +18,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
 import { TestsExecutionItem } from './TestsExecutionItem'
-import { SortByKey } from './TestsUtils'
+import { SortByKey, isExecutionComplete } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 const PAGE_SIZE = 20
@@ -31,7 +31,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   const context = useExecutionContext()
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-  const isBuildComplete = ['SUCCESS', 'FAILURE', 'ERROR'].includes(status)
+  const isBuildComplete = isExecutionComplete(status)
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{

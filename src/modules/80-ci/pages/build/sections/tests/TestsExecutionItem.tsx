@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
@@ -83,39 +83,42 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     },
     [isMounted, refetch]
   )
-  function renderColumn(col: keyof TestCase | 'order'): Renderer<CellProps<TestCase>> {
-    return (({ row }) => {
-      const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
-      const tooltip = failed && col === 'name' ? <TestsFailedPopover testCase={row.original} /> : undefined
+  const renderColumn = useMemo(
+    () => (col: keyof TestCase | 'order') => {
+      return (({ row }) => {
+        const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
+        const tooltip = failed && col === 'name' ? <TestsFailedPopover testCase={row.original} /> : undefined
 
-      return (
-        <Container width="90%" className={css.testCell}>
-          <Text
-            className={cx(css.text, tooltip && css.failed)}
-            color={failed ? Color.RED_700 : Color.GREY_700}
-            lineClamp={!tooltip ? 1 : undefined}
-            tooltip={tooltip}
-          >
-            {col === 'order' ? (
-              PAGE_SIZE * pageIndex + (row.index + 1)
-            ) : col === 'result' ? (
-              row.original[col]?.status
-            ) : col === 'duration_ms' ? (
-              <Duration
-                icon={undefined}
-                durationText=" "
-                startTime={NOW}
-                endTime={NOW + (row.original[col] || 0)}
-                color={failed ? Color.RED_700 : undefined}
-              />
-            ) : (
-              row.original[col]
-            )}
-          </Text>
-        </Container>
-      )
-    }) as Renderer<CellProps<TestCase>>
-  }
+        return (
+          <Container width="90%" className={css.testCell}>
+            <Text
+              className={cx(css.text, tooltip && css.failed)}
+              color={failed ? Color.RED_700 : Color.GREY_700}
+              lineClamp={!tooltip ? 1 : undefined}
+              tooltip={tooltip}
+            >
+              {col === 'order' ? (
+                PAGE_SIZE * pageIndex + (row.index + 1)
+              ) : col === 'result' ? (
+                row.original[col]?.status
+              ) : col === 'duration_ms' ? (
+                <Duration
+                  icon={undefined}
+                  durationText=" "
+                  startTime={NOW}
+                  endTime={NOW + (row.original[col] || 0)}
+                  color={failed ? Color.RED_700 : undefined}
+                />
+              ) : (
+                row.original[col]
+              )}
+            </Text>
+          </Container>
+        )
+      }) as Renderer<CellProps<TestCase>>
+    },
+    [pageIndex]
+  )
   const columns: Column<TestCase>[] = React.useMemo(
     () => [
       {
@@ -150,7 +153,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         Cell: renderColumn('duration_ms')
       }
     ],
-    [getString]
+    [getString, renderColumn]
   )
   const failureRate = (executionSummary.failed_tests || 0) / (executionSummary.total_tests || 1)
 
