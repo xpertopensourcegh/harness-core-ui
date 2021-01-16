@@ -21,6 +21,7 @@ import { useStrings, UseStringsReturn } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep, StepProps } from '../../PipelineStep'
+import stepCss from '../Steps.module.scss'
 
 export interface BarrierData extends StepElement {
   spec: K8sRollingRollbackStepInfo
@@ -55,7 +56,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           const { submitForm, values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
-            <Layout.Vertical spacing="xlarge">
+            <>
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
                 <Accordion.Panel
                   id="details"
@@ -87,8 +88,10 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                   }
                 />
               </Accordion>
-              <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-            </Layout.Vertical>
+              <div className={stepCss.actionsPanel}>
+                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
+              </div>
+            </>
           )
         }}
       </Formik>

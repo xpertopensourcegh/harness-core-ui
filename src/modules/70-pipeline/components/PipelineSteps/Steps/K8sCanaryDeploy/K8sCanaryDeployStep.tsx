@@ -4,7 +4,6 @@ import {
   Formik,
   FormInput,
   Button,
-  Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
   TextInput,
@@ -87,7 +86,7 @@ function K8CanaryDeployWidget(
           const { submitForm, values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
-            <Layout.Vertical spacing="xlarge">
+            <>
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
                 <Accordion.Panel
                   id="details"
@@ -149,8 +148,10 @@ function K8CanaryDeployWidget(
                   }
                 />
               </Accordion>
-              <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-            </Layout.Vertical>
+              <div className={stepCss.actionsPanel}>
+                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
+              </div>
+            </>
           )
         }}
       </Formik>

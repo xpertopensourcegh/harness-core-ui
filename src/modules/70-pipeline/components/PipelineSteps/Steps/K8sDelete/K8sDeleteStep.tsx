@@ -25,6 +25,7 @@ import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDurat
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import css from './K8sDeleteStep.module.scss'
+import stepCss from '../Steps.module.scss'
 
 interface K8sDeleteSpec {
   resourceNames?: string[]
@@ -112,7 +113,7 @@ function K8sDeleteDeployWidget(
           setFormikRef(formikRef, formikProps)
           const values = formikProps.values
           return (
-            <Layout.Vertical spacing="xlarge">
+            <>
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
                 <Accordion.Panel
                   id="details"
@@ -248,8 +249,10 @@ function K8sDeleteDeployWidget(
                   }
                 />
               </Accordion>
-              <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
-            </Layout.Vertical>
+              <div className={stepCss.actionsPanel}>
+                <Button intent="primary" text={getString('submit')} onClick={formikProps.submitForm} />
+              </div>
+            </>
           )
         }}
       </Formik>

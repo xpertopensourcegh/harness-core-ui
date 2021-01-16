@@ -46,6 +46,9 @@ export const getSnippetTags = (
       break
     case 'Pipelines':
       tags.push('pipeline')
+      if (entitySubType === 'ci') {
+        tags.splice(0, 1)
+      }
       break
     default:
   }

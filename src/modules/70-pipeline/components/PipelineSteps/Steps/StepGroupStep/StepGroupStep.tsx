@@ -1,11 +1,12 @@
 import React from 'react'
-import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, Button, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import type { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepGroupElement } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './StepGroupStep.i18n'
 import { PipelineStep } from '../../PipelineStep'
@@ -22,11 +23,9 @@ function StepGroupWidget(
   formikRef: StepFormikFowardRef<StepGroupElement>
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
+  const { getString } = useStrings()
   return (
     <>
-      <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {i18n.stepGroup}
-      </Text>
       <Formik<StepGroupElement>
         onSubmit={values => {
           onUpdate?.(values)
@@ -41,8 +40,20 @@ function StepGroupWidget(
           setFormikRef(formikRef, formik)
           return (
             <>
-              <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
-              <Button intent="primary" text={i18n.submit} onClick={submitForm} />
+              <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
+                <Accordion.Panel
+                  id="details"
+                  summary={getString('pipelineSteps.k8sDelete')}
+                  details={
+                    <>
+                      <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
+                    </>
+                  }
+                />
+              </Accordion>
+              <div className={stepCss.actionsPanel}>
+                <Button intent="primary" text={i18n.submit} onClick={submitForm} />
+              </div>
             </>
           )
         }}

@@ -61,7 +61,7 @@ function K8RolloutDeployWidget(
           setFormikRef(formikRef, formik)
           const { values, submitForm, setFieldValue } = formik
           return (
-            <Layout.Vertical spacing="xlarge">
+            <>
               <Accordion activeId="details" collapseProps={{ transitionDuration: 0 }}>
                 <Accordion.Panel
                   id="details"
@@ -97,8 +97,10 @@ function K8RolloutDeployWidget(
                   }
                 />
               </Accordion>
-              <Button intent="primary" text={getString('submit')} onClick={submitForm} />
-            </Layout.Vertical>
+              <div className={stepCss.actionsPanel}>
+                <Button intent="primary" text={getString('submit')} onClick={submitForm} />
+              </div>
+            </>
           )
         }}
       </Formik>

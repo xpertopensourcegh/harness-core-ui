@@ -51,6 +51,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       isRollback: boolean
       isParallelNodeClicked: boolean
       entity: Diagram.DefaultNodeModel
+      hiddenAdvancedPanels?: AdvancedPanels[]
     }
     stepConfig?: {
       node: ExecutionWrapper | DependenciesWrapper

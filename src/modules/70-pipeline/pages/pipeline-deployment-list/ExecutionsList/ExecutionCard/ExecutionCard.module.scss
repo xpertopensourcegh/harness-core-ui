@@ -127,6 +127,7 @@
   & .serviceName {
     color: var(--blue-500);
     cursor: pointer;
+    margin-right: var(--spacing-xsmall);
   }
 
   & > :global(.bp3-popover-wrapper:not(:last-child))::after {
