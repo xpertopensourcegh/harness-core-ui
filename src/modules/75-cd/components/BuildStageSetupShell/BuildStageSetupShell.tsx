@@ -9,7 +9,7 @@ import {
   getSelectStageOptionsFromPipeline,
   StageSelectOption
 } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
-import { PipelineContext, getStageFromPipeline, ExecutionGraph, getStageIndexFromPipeline } from '@pipeline/exports'
+import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type {
@@ -132,7 +132,6 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
-    const { index } = getStageIndexFromPipeline(pipeline, selectedStageId)
     if (data) {
       if (!get(data, 'stage.spec.execution.steps', null)) {
         set(data, 'stage.spec.execution.steps', [])
@@ -141,8 +140,6 @@ export default function BuildStageSetupShell(): JSX.Element {
         set(data, 'stage.spec.serviceDependencies', [])
       }
     }
-
-    set(pipeline, `stages[${index}]`, data)
 
     updatePipeline(pipeline)
   }, [])
