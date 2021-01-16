@@ -192,7 +192,7 @@ export default function ArtifactsSelection({
     canOutsideClickClose: false,
     enforceFocus: true,
     title: '',
-    style: { width: 1000, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
+    style: { width: 1050, height: 650, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
@@ -308,12 +308,10 @@ export default function ArtifactsSelection({
       >
         {view === ModalView.OPTIONS && (
           <Container className={css.optionsViewContainer}>
-            <Heading level={2} color={Color.WHITE} style={{ fontSize: '30px' }}>
+            <Heading level={2} color={Color.WHITE} style={{ fontSize: '30px' }} margin={{ bottom: 'medium' }}>
               {i18n.modalHeading}
             </Heading>
-            <Heading level={3} font="small" color={Color.WHITE} margin={{ top: 'large', bottom: 'medium' }}>
-              {i18n.modalSubHeading}
-            </Heading>
+
             <Layout.Horizontal spacing="large">
               <CardSelect<OrganizationCreationType>
                 onChange={() => setView(ModalView.EXISTING)}

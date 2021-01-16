@@ -5,11 +5,11 @@ export default {
   sidecarLabel: 'Sidecar',
   modalHeading: 'Select your artifact server ',
   modalSubHeading: 'Start by selecting your artifact server.',
-  specifyArtifactServer: 'Specify the Artifact Server',
+  specifyArtifactServer: 'Specify the Server',
   kubernetesConnector: 'Kubernetes Connector',
   dockerIconLabel: 'Docker',
   existingDocker: {
-    connectorLabel: 'Docker artifact server',
+    connectorLabel: 'Docker server',
     connectorPlaceholder: 'Select',
     imageName: ' Image path',
     imageNamePlaceholder: 'Enter path here',

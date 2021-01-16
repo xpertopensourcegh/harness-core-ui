@@ -292,7 +292,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main toggleDesc"
                       type="button"
                     >
                       <span
@@ -831,7 +831,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main toggleDesc"
                       type="button"
                     >
                       <span

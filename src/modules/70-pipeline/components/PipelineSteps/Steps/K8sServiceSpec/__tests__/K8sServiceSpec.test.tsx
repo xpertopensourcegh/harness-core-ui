@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, findByText, waitFor, getAllByText } from '@testing-library/react'
+import { render, fireEvent, findByText, waitFor, getAllByText, findAllByText } from '@testing-library/react'
 
 import { act } from 'react-test-renderer'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -252,7 +252,7 @@ describe('StepWidget tests', () => {
     const createArtifactButton = await findByText(document.body, 'New Artifact Server')
     fireEvent.click(createArtifactButton)
 
-    const createArtifactModalTitle = await findByText(document.body, 'Overview')
+    const createArtifactModalTitle = await findAllByText(document.body, 'Overview')
     expect(createArtifactModalTitle).toBeDefined() // Create New Artifact Server Modal Rendered
     const portal = document.getElementsByClassName('bp3-dialog')[0]
     expect(portal).toMatchSnapshot('Artifact Name Step ')

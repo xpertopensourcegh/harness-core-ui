@@ -129,6 +129,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                         <Button
                           minimal
                           text={getString('description')}
+                          className={css.toggleDesc}
                           icon="plus"
                           onClick={() => toggleDescription(true)}
                         />

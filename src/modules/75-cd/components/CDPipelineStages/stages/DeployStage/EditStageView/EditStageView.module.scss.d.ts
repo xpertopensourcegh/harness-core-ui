@@ -25,5 +25,6 @@ declare const styles: {
   readonly editVariable: string
   readonly fixed: string
   readonly icon: string
+  readonly toggleDesc: string
 }
 export default styles

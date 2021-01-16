@@ -4,13 +4,16 @@ import { render, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { MemoryRouter } from 'react-router'
 
+import { TestWrapper } from '@common/utils/testUtils'
 import CreateDockerConnector from '../CreateDockerConnector'
 
 describe('Create Docker connector Wizard', () => {
   test('should render form', () => {
     const { container, getByText } = render(
       <MemoryRouter>
-        <CreateDockerConnector hideLightModal={noop} handleSubmit={noop} />
+        <TestWrapper>
+          <CreateDockerConnector hideLightModal={noop} handleSubmit={noop} />
+        </TestWrapper>
       </MemoryRouter>
     )
     expect(getByText('Name')).toBeDefined()

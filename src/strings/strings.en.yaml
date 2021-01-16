@@ -834,6 +834,7 @@ global:
     heartbeatFailure: Heart beat Failure
   connectors:
     stepThreeName: 'Test Connection'
+    stepFourName: 'Artifact Source'
     name: 'Connector Name'
     authTitle: 'Authentication'
     updating: Updating connector

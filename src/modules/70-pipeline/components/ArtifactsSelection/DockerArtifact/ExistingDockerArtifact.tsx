@@ -1,4 +1,4 @@
-import { StepWizard, getMultiTypeFromValue, Icon, Text } from '@wings-software/uicore'
+import { getMultiTypeFromValue, Icon, Text } from '@wings-software/uicore'
 import React from 'react'
 import { Layout, Button, Formik, FormInput, FormikForm as Form, MultiTypeInputType } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
@@ -52,10 +52,12 @@ function ExampleStep({
           <Form>
             <div className={css.connectorForm}>
               {context === 2 && (
-                <FormInput.InputWithIdentifier
-                  inputLabel={i18n.existingDocker.sidecarId}
-                  inputGroupProps={{ placeholder: i18n.existingDocker.sidecarIdPlaceholder }}
-                />
+                <div className={css.dockerSideCard}>
+                  <FormInput.InputWithIdentifier
+                    inputLabel={i18n.existingDocker.sidecarId}
+                    inputGroupProps={{ placeholder: i18n.existingDocker.sidecarIdPlaceholder }}
+                  />
+                </div>
               )}
               <div className={css.connectorContainer}>
                 <FormMultiTypeConnectorField
@@ -147,16 +149,13 @@ export default function ExistingDockerArtifact({
   handleViewChange: () => void
 }): JSX.Element {
   return (
-    <section>
-      <StepWizard className={css.existingDocker}>
-        <ExampleStep
-          name={i18n.specifyArtifactServer}
-          handleSubmit={handleSubmit}
-          context={context}
-          handleViewChange={handleViewChange}
-        />
-        <></>
-      </StepWizard>
-    </section>
+    <div style={{ margin: '0 auto' }}>
+      <ExampleStep
+        name={i18n.specifyArtifactServer}
+        handleSubmit={handleSubmit}
+        context={context}
+        handleViewChange={handleViewChange}
+      />
+    </div>
   )
 }

@@ -9,6 +9,7 @@ declare const styles: {
   readonly addNewArtifact: string
   readonly artifactSelect: string
   readonly bp3Button: string
+  readonly dockerSideCard: string
   readonly imagePathContainer: string
   readonly configureOptions: string
   readonly connectorContainer: string

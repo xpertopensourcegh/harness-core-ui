@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
-import { StepWizard, Layout, Button, Formik, FormInput, FormikForm as Form, StepProps } from '@wings-software/uicore'
+import {
+  StepWizard,
+  Layout,
+  Button,
+  Formik,
+  FormInput,
+  FormikForm as Form,
+  StepProps,
+  Color
+} from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
 import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
+import { useStrings } from 'framework/exports'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import i18n from './CreateDockerConnector.i18n'
 import css from './DockerConnector.module.scss'
 interface CreateDockerConnectorProps {
   hideLightModal: () => void
   handleSubmit: (data: { connectorId: { value: string }; imagePath: string }) => void
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
+  mock?: ResponseBoolean
+  isEditMode?: boolean
+  connectorInfo?: ConnectorInfoDTO | void
 }
 
 interface StepDockerAuthenticationProps extends ConnectorInfoDTO {
@@ -59,28 +73,40 @@ const DockerImagePathSelection: React.FC<
   )
 }
 
-const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = p => {
-  return (
-    <section className={css.wrapper}>
-      <StepWizard<ConnectorInfoDTO>>
-        <ConnectorDetailsStep type={Connectors.DOCKER} name={i18n.STEP_ONE.NAME} />
-        <StepDockerAuthentication
-          name={i18n.STEP_TWO.NAME}
-          isEditMode={false}
-          connectorInfo={undefined}
-          setIsEditMode={() => undefined}
-        />
+const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
+  const { getString } = useStrings()
 
-        <VerifyOutOfClusterDelegate
-          name={i18n.STEP_THREE.NAME}
-          isStep={true}
-          setIsEditMode={() => undefined}
-          isLastStep={false}
-          type={Connectors.DOCKER}
-        />
-        <DockerImagePathSelection name={i18n.STEP_FOUR.name} handleSubmit={p.handleSubmit} />
-      </StepWizard>
-    </section>
+  const [isEditMode, setIsEditMode] = useState(false)
+  return (
+    <StepWizard
+      icon={getConnectorIconByType(Connectors.DOCKER)}
+      iconProps={{ size: 37, color: Color.WHITE }}
+      title={getConnectorTitleTextByType(Connectors.DOCKER)}
+      className={css.wrapper}
+    >
+      <ConnectorDetailsStep
+        type={Connectors.DOCKER}
+        name={getString('overview')}
+        isEditMode={props.isEditMode}
+        connectorInfo={props.connectorInfo}
+        mock={props.mock}
+      />
+      <StepDockerAuthentication
+        name={getString('connectors.docker.stepTwoName')}
+        onConnectorCreated={props.onConnectorCreated}
+        isEditMode={isEditMode as boolean}
+        connectorInfo={props.connectorInfo}
+        setIsEditMode={setIsEditMode}
+      />
+      <VerifyOutOfClusterDelegate
+        name={getString('connectors.stepThreeName')}
+        isStep={true}
+        isLastStep={false}
+        type={Connectors.DOCKER}
+      />
+
+      <DockerImagePathSelection name={getString('connectors.stepFourName')} handleSubmit={props.handleSubmit} />
+    </StepWizard>
   )
 }
 
