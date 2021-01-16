@@ -1,7 +1,7 @@
+$node-height: 25px;
+$node-width: 40px;
+
 .main {
-  overflow: hidden;
-  $node-height: 25px;
-  $node-width: 40px;
   margin-top: var(--spacing-large);
 
   .graphWrapper {
@@ -15,184 +15,6 @@
   .graph {
     display: flex;
     column-gap: var(--spacing-large);
-  }
-
-  & .stage,
-  & .parallel {
-    --stage-color: var(--grey-300);
-    --stage-bg: var(--grey-100);
-    --icon-color: var(--grey-400);
-
-    &[data-status='failed'],
-    &[data-status='aborted'],
-    &[data-status='error'],
-    &[data-status='rejected'] {
-      --stage-color: var(--red-500);
-      --stage-bg: linear-gradient(147.14deg, #ff8800 6.95%, #e63535 93.05%);
-      --icon-color: var(--white);
-    }
-
-    &[data-status='success'] {
-      --stage-color: var(--green-500);
-    }
-
-    &[data-status='running'],
-    &[data-status='starting'],
-    &[data-status='aborting'],
-    &[data-status='waiting'],
-    &[data-status='pausing'],
-    &[data-status='paused'] {
-      --stage-bg: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
-      --icon-color: var(--white);
-      border: none;
-    }
-
-    &[data-status='queued'],
-    &[data-status='skipped'],
-    &[data-status='expired'],
-    &[data-status='suspended'],
-    &[data-status='notstarted'] {
-      --stage-color: var(--grey-300);
-    }
-  }
-
-  & .stage,
-  & .parallel > .parallelNodes::before,
-  & .parallel > .parallelNodes::after {
-    width: $node-width;
-    height: $node-height;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid var(--stage-color);
-    border-radius: 3px;
-    background: var(--stage-bg);
-    cursor: pointer;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-    position: relative;
-  }
-
-  & .icon {
-    color: var(--icon-color) !important;
-  }
-
-  .graph > .stage:not(:first-child)::before,
-  .graph > .parallel:not(:first-child)::before {
-    content: '';
-    display: block;
-    width: var(--spacing-large);
-    height: 1px;
-    background-color: var(--stage-color);
-    position: absolute;
-    right: 100%;
-    top: $node-height / 2;
-  }
-
-  & .parallel {
-    width: 40px;
-    height: $node-height;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-  }
-
-  & .parallel > .moreStages,
-  & .parallel > .parallelNodes {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  & .parallel > .moreStages {
-    width: 100%;
-    height: 100%;
-  }
-
-  & .parallel > .parallelNodes {
-    width: 100%;
-    opacity: 1;
-    transition: opacity 0.2s ease-in-out;
-
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      background: var(--grey-100);
-      transition: transform 0.2s ease-in-out;
-    }
-
-    &::before {
-      transform: translate(6px, -6px);
-    }
-
-    &::after {
-      transform: translate(2px, -3px);
-    }
-  }
-
-  // do not show 2nd card when only 1 extra step
-  & .parallel > .parallelNodes[data-stages='1']::before {
-    opacity: 0;
-  }
-
-  & .parallel > .moreStages {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-
-    & > .stage,
-    & > .extraCount {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: transform 0.3s ease-in-out;
-      transform-origin: top center;
-      cursor: pointer;
-    }
-
-    & > .stage {
-      transform: translate(0, 0) scale(1);
-    }
-
-    & > .extraCount {
-      background: #f3f3fa;
-      border: 0.5px solid #9293ab;
-      font-size: var(--font-size-small);
-      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-      border-radius: 3px;
-      padding: 0 3px;
-      white-space: nowrap;
-      transform: translate(33%, 0);
-    }
-  }
-
-  & .parallel.showDetails > .parallelNodes {
-    opacity: 0;
-
-    &::before,
-    &::after {
-      transform: translate(0, 0);
-    }
-  }
-
-  & .parallel.showDetails > .moreStages {
-    opacity: 1;
-
-    & > .stage:nth-child(1) {
-      transform: translate(0, 32px) scale(0.92);
-    }
-
-    & > .stage:nth-child(2) {
-      transform: translate(0, 62px) scale(0.81);
-    }
-
-    & > .stage:nth-child(3) {
-      transform: translate(0, 90px) scale(0.72);
-    }
-
-    & > .extraCount {
-      transform: translate(33%, 116px);
-    }
   }
 
   .stepCounts {
@@ -211,7 +33,8 @@
     border: 0.4px solid #d9dae6;
     border-radius: 4px;
 
-    & > :global(.bp3-icon) {
+    & > :global(.bp3-icon),
+    & > .running-animation {
       margin-right: var(--spacing-xsmall);
     }
 
@@ -231,5 +54,246 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+  }
+}
+
+.stageWrapper {
+  position: relative;
+  --stage-border: var(--grey-300);
+  --stage-bg: var(--grey-100);
+  --icon-color: var(--grey-400);
+
+  & .stage {
+    position: relative;
+    width: $node-width;
+    height: $node-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--stage-border);
+    border-radius: 3px;
+    background: var(--stage-bg);
+    cursor: pointer;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  & .icon {
+    color: var(--icon-color) !important;
+  }
+
+  &.success {
+    --stage-border: var(--green-500);
+    --icon-color: var(--green-500);
+  }
+
+  &.running {
+    --stage-bg: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+    --icon-color: var(--white);
+    --stage-border: #0063f7;
+    & .stage {
+      border: none;
+    }
+  }
+
+  &.failed,
+  &.expired,
+  &.aborted,
+  &.suspended {
+    --stage-bg: linear-gradient(147.14deg, #ff8800 6.95%, #e63535 93.05%);
+    --icon-color: var(--white);
+    --stage-border: #ff8800;
+    & .stage {
+      border: none;
+    }
+  }
+
+  &.notstarted {
+    --stage-bg: var(--white);
+    --icon-color: var(--grey-700);
+  }
+
+  &.waiting {
+    --stage-bg: var(--orange-400);
+    --icon-color: var(--grey-700);
+    --stage-border: var(--orange-400);
+  }
+
+  &.queued,
+  &.paused,
+  &.skipped {
+    --stage-bg: var(--grey-300);
+    --icon-color: var(--grey-700);
+  }
+}
+
+.parallelNodes {
+  position: relative;
+  width: $node-width;
+  height: $node-height;
+  overflow: visible;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 130px;
+    transform: scaleY(7.5);
+    transform-origin: top center;
+  }
+
+  .stageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .moreStages {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    transition-delay: 0.1s;
+
+    & > .stageWrapper {
+      transform: translate(0, 0) scale(1);
+      transition: transform 0.2s ease-in-out;
+
+      &::before {
+        width: 0;
+      }
+    }
+
+    & > .extraCount {
+      background: #f3f3fa;
+      border: 0.5px solid #9293ab;
+      font-size: var(--font-size-small);
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      padding: 0 3px;
+      text-align: center;
+      white-space: nowrap;
+      transform: translate(33%, 0);
+      transition: transform 0.2s ease-in-out;
+      width: fit-content;
+    }
+  }
+
+  .ghostNodes {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+    transition-delay: 0.1s;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $node-width;
+      height: $node-height;
+      border-radius: 3px;
+      content: '';
+      display: block;
+      position: absolute;
+      background: var(--grey-100);
+      border: 1px solid var(--grey-300);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &::before {
+      transform: translate(6px, -6px);
+    }
+
+    &::after {
+      transform: translate(2px, -3px);
+    }
+  }
+
+  &.showDetails {
+    .ghostNodes {
+      opacity: 0;
+
+      &::before,
+      &::after {
+        transform: translate(0, 0);
+      }
+    }
+
+    .moreStages {
+      opacity: 1;
+
+      & > .stageWrapper::before {
+        width: 0;
+      }
+
+      & > .stageWrapper:nth-child(1) {
+        transform: translate(0, 32px) scale(0.92);
+      }
+
+      & > .stageWrapper:nth-child(2) {
+        transform: translate(0, 62px) scale(0.81);
+      }
+
+      & > .stageWrapper:nth-child(3) {
+        transform: translate(0, 90px) scale(0.72);
+      }
+
+      & > .extraCount {
+        transform: translate(33%, 120px);
+      }
+    }
+  }
+}
+
+.stageWrapper:not(:first-child)::before {
+  content: '';
+  display: block;
+  width: var(--spacing-large);
+  height: 1px;
+  background-color: var(--stage-border);
+  position: absolute;
+  right: 100%;
+  top: $node-height / 2;
+}
+
+.running-animation {
+  position: relative;
+  height: 4px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > div {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--icon-color, var(--grey-400));
+    animation: pulse 1s infinite;
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(0);
   }
 }

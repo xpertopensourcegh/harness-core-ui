@@ -1,8 +1,9 @@
 import React from 'react'
 import { IconName, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
+import { startCase, sortBy } from 'lodash-es'
 
-import { Tooltip } from '@blueprintjs/core'
+import { Tooltip, ITooltipProps } from '@blueprintjs/core'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
@@ -10,30 +11,70 @@ import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/
 import { processLayoutNodeMap } from '@pipeline/utils/executionUtils'
 import css from './MiniExecutionGraph.module.scss'
 
-// TODO: Update icon map with correct icons
 const IconMap: Record<ExecutionStatus, IconName> = {
   Success: 'tick-circle',
-  Running: 'dot',
-  Failed: 'error',
-  Expired: 'error',
-  Aborted: 'error',
-  Suspended: 'error',
-  Queued: 'spinner',
-  NotStarted: 'spinner',
-  Paused: 'spinner',
-  Waiting: 'spinner',
-  Skipped: 'spinner'
+  Running: 'main-more',
+  Failed: 'circle-cross',
+  Expired: 'expired',
+  Aborted: 'banned',
+  Suspended: 'banned',
+  Queued: 'queued',
+  NotStarted: 'pending',
+  Paused: 'pause',
+  Waiting: 'waiting',
+  Skipped: 'skipped'
 }
 
-export interface StageNodeProps extends React.HTMLAttributes<HTMLDivElement> {
-  stage: GraphLayoutNode
+// Higher the number, Higher the Priority, Max 100.
+const StagePriority: Record<ExecutionStatus, number> = {
+  Success: 1,
+  Running: 2,
+  Failed: 20,
+  Expired: 18,
+  Aborted: 19,
+  Suspended: 17,
+  Queued: 0,
+  NotStarted: 0,
+  Paused: 24,
+  Waiting: 25,
+  Skipped: 15
 }
 
-export function StageNode({ stage, ...rest }: StageNodeProps): React.ReactElement {
+function RunningIcon(): React.ReactElement {
   return (
-    <div {...rest} className={css.stage} data-status={stage.status?.toLowerCase()}>
-      <Icon name={IconMap[stage.status as ExecutionStatus]} size={13} className={css.icon} />
+    <div className={css.runningAnimation}>
+      <div />
+      <div />
+      <div />
     </div>
+  )
+}
+
+export interface StageNodeProps extends Omit<ITooltipProps, 'content'> {
+  stage: GraphLayoutNode
+  onMouseEnter?(): void
+}
+
+export function StageNode({ stage, onMouseEnter, ...rest }: StageNodeProps): React.ReactElement {
+  const statusLower = stage.status?.toLowerCase() || ''
+
+  return (
+    <Tooltip
+      position="top"
+      {...rest}
+      content={startCase(stage.status)}
+      className={cx(css.stageWrapper, css[statusLower as keyof typeof css])}
+      targetClassName={css.stage}
+      targetProps={{ onMouseEnter }}
+      targetTagName="div"
+      wrapperTagName="div"
+    >
+      {stage.status === 'Running' ? (
+        <RunningIcon />
+      ) : (
+        <Icon name={IconMap[stage.status as ExecutionStatus]} size={13} className={css.icon} />
+      )}
+    </Tooltip>
   )
 }
 
@@ -46,7 +87,8 @@ const STEP_DETAILS_LIMIT = 4
 export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement {
   const [showDetails, setShowDetails] = React.useState(false)
   const { stages } = props
-  const sortedStages = stages.slice(0)
+  const sortedStages = sortBy(stages, stage => 100 - StagePriority[stage.status as ExecutionStatus])
+
   function handleMouseEnter(): void {
     setShowDetails(true)
   }
@@ -56,16 +98,16 @@ export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement 
   }
 
   return (
-    <div className={cx(css.parallel, { [css.showDetails]: showDetails })} onMouseLeave={handleMouseLeave}>
+    <div className={cx(css.parallelNodes, { [css.showDetails]: showDetails })} onMouseLeave={handleMouseLeave}>
       <div className={css.moreStages}>
-        {stages.slice(1, STEP_DETAILS_LIMIT).map((stage: GraphLayoutNode, i) => (
+        {sortedStages.slice(1, STEP_DETAILS_LIMIT).map((stage: GraphLayoutNode, i) => (
           <StageNode key={i} stage={stage} />
         ))}
-        {stages.length > STEP_DETAILS_LIMIT ? (
+        {sortedStages.length > STEP_DETAILS_LIMIT ? (
           <div className={css.extraCount}>+ {stages.length - STEP_DETAILS_LIMIT}</div>
         ) : null}
       </div>
-      <div className={css.parallelNodes} data-stages={Math.min(stages.length - 1, 2)} />
+      <div className={css.ghostNodes} data-stages={Math.min(stages.length - 1, 2)} />
       <StageNode stage={sortedStages[0]} onMouseEnter={handleMouseEnter} />
     </div>
   )
@@ -85,6 +127,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     executionErrorInfo
   } = props.pipelineExecution
   const elements = processLayoutNodeMap(props.pipelineExecution)
+
   return (
     <div className={css.main}>
       <div className={css.graphWrapper}>
@@ -109,7 +152,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
         </div>
         {isExecutionRunning(status) ? (
           <div className={css.stepCount} data-status="running">
-            <Icon name={IconMap.Running} size={10} />
+            <RunningIcon />
             {runningStagesCount}
           </div>
         ) : isExecutionCompletedWithBadState(status) ? (
