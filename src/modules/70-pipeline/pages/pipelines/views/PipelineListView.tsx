@@ -267,7 +267,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
     <Layout.Vertical>
       <Layout.Horizontal spacing="large" margin={{ left: 'xxlarge', top: 'large', bottom: 'large' }}>
         <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
-          {getString('total')}: {data?.content?.length}
+          {getString('total')}: {data?.totalElements}
         </Text>
       </Layout.Horizontal>
 

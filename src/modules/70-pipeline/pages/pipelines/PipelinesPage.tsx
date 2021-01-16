@@ -67,14 +67,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const [view, setView] = React.useState<Views>(Views.GRID)
   const { getString } = useStrings()
 
-  let extraParam: { page?: number; size?: number } = {}
-  if (extraParam && view === Views.LIST) {
-    extraParam = {
-      page,
-      size: 10
-    }
-  }
-
   const [searchParam, setSearchParam] = React.useState('')
 
   const { loading, data, refetch: reloadPipelines, error } = useGetPipelineList({
@@ -84,7 +76,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       module,
       orgIdentifier,
       searchTerm: searchParam,
-      ...extraParam
+      page,
+      size: 10
     },
     debounce: 300,
     mock: mockData
