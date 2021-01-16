@@ -18,7 +18,7 @@ export const CIDashboardPage: React.FC = () => {
         <Layout.Vertical spacing="large" flex>
           <Heading>{i18n.welcome}</Heading>
           <Text>{i18n.description}</Text>
-          <Icon name="nav-cd" size={200} />
+          <Icon padding={'xxxlarge'} name="ci-main" size={100} />
           <Button
             width={200}
             text={i18n.creatPipeline}

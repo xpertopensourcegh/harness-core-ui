@@ -1286,6 +1286,12 @@ global:
     notValidExpression: 'Not a valid input Expression'
     advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
   ci:
+    continuousIntegration: 'Continuous Integration'
+    dashboard:
+      subHeading: Take your software build processes to the next level using our Harness Continuous Integration
+      learnMore: Learn more about Continuous Integration
+      createProject: Create Project
+      orSelectExisting: Or select an existing project
     testsReports:
       totalExecutedTest: Total Executed Tests
       failedTests: Failed Tests

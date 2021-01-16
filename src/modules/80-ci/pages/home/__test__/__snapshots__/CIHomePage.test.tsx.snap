@@ -6,13 +6,61 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
     class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-large"
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-large"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
       >
-        Dashboard
+        Continuous Integration
       </p>
+      <p
+        class="StyledProps--font StyledProps--main"
+        style="width: 340px;"
+      >
+        Take your software build processes to the next level using our Harness Continuous Integration
+      </p>
+      <a
+        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        href="https://docs.harness.io/"
+        rel="noreferrer noopener"
+        role="button"
+        style="align-self: flex-start;"
+        tabindex="0"
+        target="_blank"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Learn more about Continuous Integration
+        </span>
+      </a>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+      >
+        <a
+          class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+          href="/#/account/undefined/projects"
+          role="button"
+          tabindex="0"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Create Project
+          </span>
+        </a>
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+           
+          Or select an existing project
+        </p>
+      </div>
+      <img
+        alt=""
+        aria-hidden="true"
+        src="test-file-stub"
+      />
     </div>
   </div>
 </div>

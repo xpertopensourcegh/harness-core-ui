@@ -21,7 +21,6 @@ export default function CDSideNav(): React.ReactElement {
 
   return (
     <Layout.Vertical spacing="small">
-      <SidebarLink label="Dashboard" to={routes.toCIHome({ accountId })} />
       <ProjectSelector
         moduleFilter={ModuleName.CI}
         onSelect={data => {
