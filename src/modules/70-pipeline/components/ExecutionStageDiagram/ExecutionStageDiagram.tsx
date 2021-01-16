@@ -160,6 +160,10 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   }, [data.identifier])
 
   React.useEffect(() => {
+    moveStageToFocus(engine, selectedIdentifier, true), [selectedIdentifier]
+  })
+
+  React.useEffect(() => {
     model.clearAllNodesAndLinks()
     engine.repaintCanvas()
   }, [data.identifier])

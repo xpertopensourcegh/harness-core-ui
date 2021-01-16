@@ -1,6 +1,5 @@
 import type { LinkModelListener, NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import type { IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { last, isEmpty } from 'lodash-es'
 import {
@@ -144,125 +143,81 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       return { startX, startY, prevNodes: [nodeRender] }
     } else if (node.parallel && prevNodes) {
       const { parallel } = node
-      /* istanbul ignore else */ if (parallel.length > 1 || verticalStepGroup) {
-        if (diagramContainerHeight && diagramContainerHeight < (this.gap * parallel.length) / 2 + 40) {
-          const parallelStageNames: Array<string> = []
-          let isSelected = false
-          const icons: Array<IconName> = []
-          parallel.forEach(nodeP => {
-            if (nodeP.item?.identifier === selectedStageId && nodeP.item?.icon) {
-              parallelStageNames.unshift(nodeP.item?.name || '')
-              icons.unshift(nodeP.item?.icon) // stageTypeToIconNameMapper[nodeP.stage.type])
-              isSelected = true
-            } else {
-              parallelStageNames.push(nodeP.item?.name || '')
-              icons.push(nodeP.item?.icon || 'edit') // stageTypeToIconNameMapper[nodeP.stage.type])
-            }
-          })
-          const groupedNode = new Diagram.GroupNodeModel({
-            // TODO: check this - customNodeStyle: getNodeStyles(isSelected),
-            identifier: isSelected ? selectedStageId : parallel[0].item?.identifier,
-            name:
-              parallelStageNames.length > 2
-                ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
-                : parallelStageNames.join(', '),
-            width: nodeStyle.width,
-            height: nodeStyle.height,
-            icons
-          })
-          startX += this.gap
-          this.addNode(groupedNode)
-          groupedNode.setPosition(startX, startY)
-          /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
-            prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(
-                groupedNode,
-                prevNode,
-                false,
-                0,
-                getArrowsColor(
-                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED
-                )
-              )
+      /* istanbul ignore else */ if (parallel.length > 1) {
+        let newX = startX
+        let newY = startY
+        /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
+          const emptyNodeStart =
+            this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`) ||
+            new Diagram.EmptyNodeModel({
+              id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`,
+              name: 'Empty',
+              showPorts: !verticalStepGroup
             })
-          }
-          prevNodes = [groupedNode]
-        } else {
-          let newX = startX
-          let newY = startY
-          /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
-            const emptyNodeStart =
-              this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`) ||
-              new Diagram.EmptyNodeModel({
-                id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`,
-                name: 'Empty',
-                showPorts: !verticalStepGroup
-              })
-            this.addNode(emptyNodeStart)
-            newX += this.gap
-            emptyNodeStart.setPosition(newX, newY)
-            prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(
-                emptyNodeStart,
-                prevNode,
-                false,
-                0,
-                getArrowsColor(
-                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
-                  undefined,
-                  verticalStepGroup
-                )
+          this.addNode(emptyNodeStart)
+          newX += this.gap
+          emptyNodeStart.setPosition(newX, newY)
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(
+              emptyNodeStart,
+              prevNode,
+              false,
+              0,
+              getArrowsColor(
+                parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                undefined,
+                verticalStepGroup
               )
-            })
-            prevNodes = [emptyNodeStart]
-            newX = newX - this.gap / 2 - 20
-          }
-          const prevNodesAr: Diagram.DefaultNodeModel[] = []
-          parallel.forEach(nodeP => {
-            const resp = this.renderGraphNodes(
-              nodeP,
-              newX,
-              newY,
-              selectedStageId,
-              diagramContainerHeight,
-              prevNodes,
-              showEndNode,
-              groupStage,
-              verticalStepGroup
             )
-            startX = resp.startX
-            newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
-            /* istanbul ignore else */ if (resp.prevNodes) {
-              prevNodesAr.push(...resp.prevNodes)
-            }
           })
-          /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
-            const emptyNodeEnd =
-              this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`) ||
-              new Diagram.EmptyNodeModel({
-                id: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`,
-                name: 'Empty',
-                showPorts: !verticalStepGroup
-              })
-            this.addNode(emptyNodeEnd)
-            startX += this.gap
-            emptyNodeEnd.setPosition(startX, startY)
-            prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(
-                emptyNodeEnd,
-                prevNode,
-                false,
-                0,
-                getArrowsColor(
-                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
-                  true,
-                  verticalStepGroup
-                )
-              )
-            })
-            prevNodes = [emptyNodeEnd]
-            startX = startX - this.gap / 2 - 20
+          prevNodes = [emptyNodeStart]
+          newX = newX - this.gap / 2 - 20
+        }
+        const prevNodesAr: Diagram.DefaultNodeModel[] = []
+        parallel.forEach(nodeP => {
+          const resp = this.renderGraphNodes(
+            nodeP,
+            newX,
+            newY,
+            selectedStageId,
+            diagramContainerHeight,
+            prevNodes,
+            showEndNode,
+            groupStage,
+            verticalStepGroup
+          )
+          startX = resp.startX
+          newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
+          /* istanbul ignore else */ if (resp.prevNodes) {
+            prevNodesAr.push(...resp.prevNodes)
           }
+        })
+        /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
+          const emptyNodeEnd =
+            this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`) ||
+            new Diagram.EmptyNodeModel({
+              id: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`,
+              name: 'Empty',
+              showPorts: !verticalStepGroup
+            })
+          this.addNode(emptyNodeEnd)
+          startX += this.gap
+          emptyNodeEnd.setPosition(startX, startY)
+          prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(
+              emptyNodeEnd,
+              prevNode,
+              false,
+              0,
+              getArrowsColor(
+                parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                true,
+                verticalStepGroup
+              )
+            )
+          })
+          prevNodes = [emptyNodeEnd]
+          startX = startX - this.gap / 2 - 20
         }
       } else {
         return this.renderGraphNodes(

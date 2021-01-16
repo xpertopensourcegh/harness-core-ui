@@ -196,9 +196,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                     accountId,
                     module
                   }),
-                  label: getString('executionText')
+                  label: pipelineExecutionSummary.name || getString('pipeline')
                 },
-                { url: '#', label: pipelineExecutionSummary.name || '' }
+                { url: '#', label: getString('executionText') }
               ]}
             />
             <div className={css.headerTopRow}>

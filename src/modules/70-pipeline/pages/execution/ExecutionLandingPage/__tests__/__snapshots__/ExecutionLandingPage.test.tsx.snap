@@ -116,7 +116,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               class="breadcrumb"
               href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
             >
-              Execution
+              Pipeline
             </a>
             <span
               class="separator"
@@ -127,7 +127,9 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           <div>
             <span
               class="lastBreadcrumb"
-            />
+            >
+              Execution
+            </span>
           </div>
         </div>
         <div

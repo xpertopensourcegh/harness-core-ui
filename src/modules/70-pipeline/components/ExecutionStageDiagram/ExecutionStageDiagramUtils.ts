@@ -209,19 +209,27 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
   return groupState
 }
 
-export const moveStageToFocus = (engine: DiagramEngine, identifier: string): void => {
+export const moveStageToFocus = (engine: DiagramEngine, identifier: string, focusOnVisibility?: boolean): void => {
   const model = engine.getModel() as Diagram.DiagramModel
   const layer = model.getGroupLayer(identifier) || model.getNodeFromId(identifier)
   const canvas = engine.getCanvas()
   /* istanbul ignore else */ if (layer && canvas) {
     const rect = canvas.getBoundingClientRect()
     let newOffsetX = 100
-    if (layer instanceof Diagram.StepGroupNodeLayerModel) {
-      newOffsetX = rect.width * 0.2 - layer.startNode.getPosition().x
-    } else {
-      newOffsetX = rect.width * 0.2 - layer.getPosition().x
+    let offsetY = engine.getModel().getOffsetY()
+    const node = (engine.getModel() as Diagram.DiagramModel).getNodeFromId(identifier)
+    if (focusOnVisibility && node && rect.width < node.getPosition().x + node.width + 40) {
+      newOffsetX = (rect.width - node.width) * 0.8 - node.getPosition().x
+    } else if (!focusOnVisibility) {
+      if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+        newOffsetX = rect.width * 0.2 - layer.startNode.getPosition().x
+      } else {
+        newOffsetX = rect.width * 0.2 - layer.getPosition().x
+      }
     }
-    const offsetY = engine.getModel().getOffsetY()
+    if (node && rect.height < node.getPosition().y + node.height + 40) {
+      offsetY = (rect.height - node.height) * 0.8 - node.getPosition().y
+    }
     engine.getModel().setOffset(newOffsetX, offsetY)
     engine.getModel().setZoomLevel(100)
     engine.repaintCanvas()
