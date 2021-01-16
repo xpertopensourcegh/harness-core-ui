@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, set } from 'lodash-es'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
@@ -215,14 +215,14 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     template: ShellScriptData,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors = { spec: { executionTarget: {}, source: { spec: {} } } } as any
+    const errors = {} as any
 
     /* istanbul ignore else */
     if (
       getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.source?.spec?.script)
     ) {
-      errors.spec.source.spec.script = getString?.('fieldRequired', { field: 'Script' })
+      set(errors, 'spec.source.spec.script', getString?.('fieldRequired', { field: 'Script' }))
     }
 
     /* istanbul ignore else */
@@ -230,7 +230,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       getMultiTypeFromValue(template?.spec?.executionTarget?.host) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.executionTarget?.host)
     ) {
-      errors.spec.executionTarget.host = getString?.('fieldRequired', { field: 'Target Host' })
+      set(errors, 'spec.executionTarget.host', getString?.('fieldRequired', { field: 'Target Host' }))
     }
 
     /* istanbul ignore else */
@@ -238,7 +238,11 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       getMultiTypeFromValue(template?.spec?.executionTarget?.connectorRef) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.executionTarget?.connectorRef)
     ) {
-      errors.spec.executionTarget.connectorRef = getString?.('fieldRequired', { field: 'SSH Connection Attribute' })
+      set(
+        errors,
+        'spec.executionTarget.connectorRef',
+        getString?.('fieldRequired', { field: 'SSH Connection Attribute' })
+      )
     }
 
     /* istanbul ignore else */
@@ -246,12 +250,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       getMultiTypeFromValue(template?.spec?.executionTarget?.workingDirectory) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.executionTarget?.workingDirectory)
     ) {
-      errors.spec.executionTarget.workingDirectory = getString?.('fieldRequired', { field: 'Working Directory' })
-    }
-
-    /* istanbul ignore else */
-    if (isEmpty(errors.spec)) {
-      delete errors.spec
+      set(errors, 'spec.executionTarget.workingDirectory', getString?.('fieldRequired', { field: 'Working Directory' }))
     }
 
     return errors
