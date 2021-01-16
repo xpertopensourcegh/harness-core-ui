@@ -94,33 +94,7 @@ describe('Test Pipeline Studio', () => {
       expect(getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1')).toBeTruthy()
     )
   })
-  test('should render edit pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
-    const { getByTestId, container } = render(
-      <TestWrapper
-        path={TEST_PATH}
-        pathParams={{
-          accountId: 'testAcc',
-          orgIdentifier: 'testOrg',
-          projectIdentifier: 'test',
-          pipelineIdentifier: 'editPipeline',
-          module: 'ci'
-        }}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
-        <CIPipelineStudio />
-      </TestWrapper>
-    )
-    await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
-    const runPipeline = getByTestId('run-pipeline')
-    fireEvent.click(runPipeline)
-    await waitFor(() => getByText(document.body, 'Run Pipeline Form'))
-    const dialog = findDialogContainer()
-    expect(dialog).toBeDefined()
-    const crossBtn = getByText(dialog as HTMLElement, 'Close Pipeline Form')
-    fireEvent.click(crossBtn)
-    const saveBtn = getByText(document.body, 'Save and Publish')
-    fireEvent.click(saveBtn)
-  })
+
   test('should render new pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
     render(
       <TestWrapper
