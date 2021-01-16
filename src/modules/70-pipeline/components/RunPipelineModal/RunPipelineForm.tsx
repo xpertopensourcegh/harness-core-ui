@@ -289,6 +289,7 @@ function RunPipelineFormBasic({
         validate={values => {
           let errors: FormikErrors<InputSetDTO> = {}
 
+          setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
           if (values && template?.data?.inputSetTemplateYaml && pipeline) {
             errors = validatePipeline(
               values as NgPipeline,
@@ -342,6 +343,8 @@ function RunPipelineFormBasic({
                         existingJSON={{ pipeline: values }}
                         bind={setYamlHandler}
                         schema={pipelineSchema?.data}
+                        height="calc(100vh - 330px)"
+                        width="calc(100vw - 300px)"
                       />
                     )}
                   </div>
@@ -428,7 +431,6 @@ function RunPipelineFormBasic({
                       )}
                       <Button
                         text={i18n.cancel}
-                        minimal
                         onClick={() => {
                           if (onClose) {
                             onClose()

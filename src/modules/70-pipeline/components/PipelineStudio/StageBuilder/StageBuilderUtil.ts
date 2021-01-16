@@ -178,3 +178,7 @@ export const resetDiagram = (engine: DiagramEngine): void => {
   engine.getModel().setOffset(0, 0)
   engine.repaintCanvas()
 }
+
+export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]) => {
+  return stages?.some(({ stage }) => stage.identifier === id)
+}

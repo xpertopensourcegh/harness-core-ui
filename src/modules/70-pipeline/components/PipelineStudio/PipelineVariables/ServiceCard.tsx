@@ -19,18 +19,21 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
   return (
     <div>
       <NestedAccordionPanel
+        isDefaultOpen
         addDomId
         id={`Stage.${stage.identifier}.Service.Artifacts`}
         summary="Artifacts"
         details={<div />}
       />
       <NestedAccordionPanel
+        isDefaultOpen
         addDomId
         id={`Stage.${stage.identifier}.Service.Manifests`}
         summary="Manifests"
         details={<div />}
       />
       <NestedAccordionPanel
+        isDefaultOpen
         addDomId
         id={`Stage.${stage.identifier}.Service.Variables`}
         summary="Variables"
@@ -62,6 +65,7 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
 export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
   return (
     <NestedAccordionPanel
+      isDefaultOpen
       addDomId
       id={`Stage.${props.stage.identifier}.Service`}
       summary="Service"

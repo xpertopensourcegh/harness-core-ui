@@ -36,6 +36,7 @@
   grid-template-columns: 350px 1fr;
   padding: 0px var(--spacing-medium);
   border-bottom: 1px solid var(--grey-200);
+
   .tabHeading {
     font-weight: 500;
     font-size: var(--font-size-medium);
@@ -58,6 +59,11 @@
     .stageOverridesTab {
       justify-content: end;
       display: grid;
+    }
+    :global {
+      .customVariables {
+        width: 700px !important;
+      }
     }
     button {
       width: fit-content;

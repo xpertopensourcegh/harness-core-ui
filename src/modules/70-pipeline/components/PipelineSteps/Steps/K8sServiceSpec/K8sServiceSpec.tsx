@@ -120,6 +120,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
   return (
     <Layout.Vertical spacing="medium">
       <NestedAccordionPanel
+        isDefaultOpen
         addDomId
         id={`Stage.${stageIdentifier}.Service.Artifacts`}
         summary={
@@ -244,6 +245,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         }
       />
       <NestedAccordionPanel
+        isDefaultOpen
         addDomId
         id={`Stage.${stageIdentifier}.Service.Manifests`}
         summary={

@@ -8,7 +8,7 @@ document.createRange = () => ({
     ownerDocument: document
   }
 })
-
+window.HTMLElement.prototype.scrollIntoView = jest.fn()
 window.scrollTo = jest.fn()
 
 window.fetch = jest.fn((url, options) => {

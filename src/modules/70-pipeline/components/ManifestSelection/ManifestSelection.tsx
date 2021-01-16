@@ -11,7 +11,8 @@ import {
   CardSelect,
   Formik,
   FormInput,
-  FormikForm as Form
+  FormikForm as Form,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { useParams } from 'react-router-dom'
@@ -34,7 +35,6 @@ import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import { getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
-
 interface ManifestTable {
   [key: string]: string
 }
@@ -277,11 +277,12 @@ function ManifestListView({
 
   const getManifestInitialValues = () => {
     const initValues = get(selectedManifestReference, 'spec.store.spec', null)
+    initValues.connectorRef = initValues?.connectorRef || initValues?.connectorIdentifier
     if (initValues) {
       const values = {
         ...initValues,
         connectorRef:
-          isValidScopeValue(initValues?.connectorRef) === 0
+          isValidScopeValue(initValues?.connectorRef || initValues?.connectorIdentifier) === 0
             ? {
                 label: initValues?.connectorRef?.split('.')[1],
                 scope: initValues?.connectorRef?.split('.')[0],
@@ -445,10 +446,12 @@ function ManifestListView({
                               )}
                               {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
                               <FormInput.MultiTextInput
-                                label=""
-                                placeholder={'Enter overrides file path'}
                                 name={`paths[${index}].path`}
                                 style={{ width: '430px' }}
+                                multiTextInputProps={{
+                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                }}
+                                label=""
                               />
                             </Layout.Horizontal>
                             {formik.values?.paths?.length > 1 && (

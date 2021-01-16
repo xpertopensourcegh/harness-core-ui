@@ -26,6 +26,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
 
   return (
     <NestedAccordionPanel
+      isDefaultOpen
       key={stage.identifier}
       id={`Stage.${stage.identifier}`}
       addDomId
@@ -82,12 +83,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                 <>
                   <ServiceCardPanel stage={stage} />
                   <NestedAccordionPanel
+                    isDefaultOpen
                     addDomId
                     id={`Stage.${stage.identifier}.Infrastructure`}
                     summary="InfraStructure"
                     details={<div />}
                   />
                   <NestedAccordionPanel
+                    isDefaultOpen
                     addDomId
                     id={`Stage.${stage.identifier}.Execution`}
                     summary="Execution"

@@ -181,6 +181,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
     <>
       {deploymentStageTemplate.serviceConfig && (
         <NestedAccordionPanel
+          isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Service`}
           summary={
@@ -225,6 +226,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
 
       {deploymentStageTemplate.infrastructure && (
         <NestedAccordionPanel
+          isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Infrastructure`}
           summary={
@@ -272,6 +274,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
       )}
       {deploymentStageTemplate.variables && (
         <NestedAccordionPanel
+          isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Variables`}
           summary={
@@ -284,6 +287,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
       )}
       {deploymentStageTemplate.execution && (
         <NestedAccordionPanel
+          isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Execution`}
           summary={

@@ -22,8 +22,12 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  usePipelineContext,
+  PipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
+import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
 const newStageData = [
@@ -61,6 +65,11 @@ export interface EditStageView {
 }
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context, onChange }): JSX.Element => {
+  const {
+    state: {
+      pipeline: { stages = [] }
+    }
+  } = React.useContext(PipelineContext)
   const [isDescriptionVisible, toggleDescription] = React.useState(!!data?.stage?.description)
   const { stepsFactory } = usePipelineContext()
 
@@ -97,9 +106,14 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                 }
               }}
               validate={values => {
+                const errors: { name?: string } = {}
+                if (isDuplicateStageId(values.identifier, stages)) {
+                  errors.name = getString('validation.identifierDuplicate')
+                }
                 if (context && data) {
                   onChange?.(values)
                 }
+                return errors
               }}
               validationSchema={Yup.object().shape({
                 name: Yup.string().required(i18n.stageNameRequired)

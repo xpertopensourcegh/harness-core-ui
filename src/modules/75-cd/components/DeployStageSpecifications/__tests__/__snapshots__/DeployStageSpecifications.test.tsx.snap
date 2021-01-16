@@ -491,7 +491,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
           class="stageCreate stageDetails"
         >
           <div
-            class="customVariables"
+            class="customVariables customVariables"
           >
             <div
               class="headerRow"
@@ -1030,7 +1030,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           class="stageCreate stageDetails"
         >
           <div
-            class="customVariables"
+            class="customVariables customVariables"
           >
             <div
               class="headerRow"

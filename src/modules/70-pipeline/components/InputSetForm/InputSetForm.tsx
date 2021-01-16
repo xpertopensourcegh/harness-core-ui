@@ -424,6 +424,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           existingJSON={{ inputSet: omit(values, 'inputSetReferences') }}
                           bind={setYamlHandler}
                           schema={pipelineSchema?.data}
+                          height="calc(100vh - 230px)"
+                          width="calc(100vw - 300px)"
                         />
                       )}
                     </Layout.Vertical>

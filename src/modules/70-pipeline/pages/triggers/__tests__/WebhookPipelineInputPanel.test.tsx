@@ -16,7 +16,6 @@ import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-
 const value: AppStoreContextProps = {
   strings,
   featureFlags: {},

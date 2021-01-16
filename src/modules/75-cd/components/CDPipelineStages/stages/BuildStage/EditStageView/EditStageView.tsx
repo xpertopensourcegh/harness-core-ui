@@ -30,6 +30,7 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -121,10 +122,15 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       })
     )
 
-  const handleValidate = (values: Values): void => {
+  const handleValidate = (values: Values): {} => {
+    const errors: { name?: string } = {}
+    if (isDuplicateStageId(values.identifier, pipeline?.stages || [])) {
+      errors.name = getString('validation.identifierDuplicate')
+    }
     if (data) {
       onChange?.(values)
     }
+    return errors
   }
 
   const handleSubmit = (values: Values): void => {

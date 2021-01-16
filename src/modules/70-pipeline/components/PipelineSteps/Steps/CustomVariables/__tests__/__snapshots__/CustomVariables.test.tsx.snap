@@ -3,7 +3,7 @@
 exports[`Http Step can add a string variable 1`] = `
 <div>
   <div
-    class="customVariables"
+    class="customVariables customVariables"
   >
     <div
       class="headerRow"
@@ -191,7 +191,7 @@ exports[`Http Step can add a string variable 1`] = `
 exports[`Http Step can delete variable: After Delete 1`] = `
 <div>
   <div
-    class="customVariables"
+    class="customVariables customVariables"
   >
     <div
       class="headerRow"
@@ -533,7 +533,7 @@ exports[`Http Step can delete variable: After Delete 1`] = `
 exports[`Http Step can delete variable: Before Delete 1`] = `
 <div>
   <div
-    class="customVariables"
+    class="customVariables customVariables"
   >
     <div
       class="headerRow"
@@ -1048,7 +1048,7 @@ exports[`Http Step can delete variable: Before Delete 1`] = `
 exports[`Http Step should render edit view as new step 1`] = `
 <div>
   <div
-    class="customVariables"
+    class="customVariables customVariables"
   >
     <div
       class="headerRow"
@@ -1095,7 +1095,7 @@ exports[`Http Step should render edit view as new step 1`] = `
 exports[`Http Step should render variables 1`] = `
 <div>
   <div
-    class="customVariables"
+    class="customVariables customVariables"
   >
     <div
       class="headerRow"

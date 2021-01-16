@@ -301,6 +301,9 @@ const SecondStep = (props: any): JSX.Element => {
                             placeholder={i18n.STEP_TWO.filePathPlaceholder}
                             name={`filePath[${index}].path`}
                             style={{ width: '330px' }}
+                            multiTextInputProps={{
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
                           />
                         </Layout.Horizontal>
                         {formik.values?.filePath?.length > 1 && (

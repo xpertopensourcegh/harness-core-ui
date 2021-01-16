@@ -30,6 +30,7 @@ function StageForm({
 }): JSX.Element {
   return (
     <NestedAccordionPanel
+      isDefaultOpen
       addDomId
       id={`Stage.${allValues?.stage?.identifier}`}
       summary={<div className={css.stagesTreeBulletSquare}>{allValues?.stage?.name || ''}</div>}

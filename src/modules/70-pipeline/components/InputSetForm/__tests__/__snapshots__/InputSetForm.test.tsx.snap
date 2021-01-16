@@ -542,7 +542,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       >
                         <div
                           class="Accordion--panel"
-                          data-open="true"
+                          data-open="false"
                           data-testid="Stage.asd-panel"
                           id="Stage.asd-panel"
                         >
@@ -578,7 +578,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               >
                                 <div
                                   class="Accordion--panel"
-                                  data-open="true"
+                                  data-open="false"
                                   data-testid="Stage.asd.Infrastructure-panel"
                                   id="Stage.asd.Infrastructure-panel"
                                 >
@@ -1862,7 +1862,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       >
                         <div
                           class="Accordion--panel"
-                          data-open="false"
+                          data-open="true"
                           data-testid="Stage.asd-panel"
                           id="Stage.asd-panel"
                         >
@@ -1885,12 +1885,228 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           </div>
                           <div
                             class="bp3-collapse"
+                            style="height: auto; overflow-y: visible; transition: none;"
                           >
                             <div
                               aria-hidden="false"
                               class="bp3-collapse-body"
-                              style="transform: translateY(-undefinedpx);"
-                            />
+                              style="transform: translateY(0); transition: none;"
+                            >
+                              <div
+                                class="Accordion--details"
+                                data-testid="Stage.asd-details"
+                              >
+                                <div
+                                  class="Accordion--panel"
+                                  data-open="true"
+                                  data-testid="Stage.asd.Infrastructure-panel"
+                                  id="Stage.asd.Infrastructure-panel"
+                                >
+                                  <div
+                                    class="Accordion--summary"
+                                    data-testid="Stage.asd.Infrastructure-summary"
+                                  >
+                                    <div
+                                      class=""
+                                    >
+                                      <div
+                                        class="stagesTreeBulletCircle"
+                                      >
+                                        <span>
+                                          Infrastructure
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="Accordion--chevron"
+                                    />
+                                  </div>
+                                  <div
+                                    class="bp3-collapse"
+                                    style="height: auto; overflow-y: visible; transition: none;"
+                                  >
+                                    <div
+                                      aria-hidden="false"
+                                      class="bp3-collapse-body"
+                                      style="transform: translateY(0); transition: none;"
+                                    >
+                                      <div
+                                        class="Accordion--details"
+                                        data-testid="Stage.asd.Infrastructure-details"
+                                      >
+                                        <div
+                                          class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
+                                        >
+                                          <div
+                                            class="bp3-form-group"
+                                            data-id="null-1"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                            >
+                                              Connector
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <span
+                                                class="bp3-popover-wrapper"
+                                              >
+                                                <span
+                                                  class="bp3-popover-target"
+                                                >
+                                                  <button
+                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                    style="width: 400px;"
+                                                    type="button"
+                                                  >
+                                                    <span
+                                                      class="bp3-button-text"
+                                                    >
+                                                      <div
+                                                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                                                        style="justify-content: space-between; width: 100%;"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                        <div
+                                                          class="rightStatus"
+                                                        >
+                                                          <span
+                                                            class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                            icon="full-circle"
+                                                          >
+                                                            <svg
+                                                              data-icon="full-circle"
+                                                              height="6"
+                                                              viewBox="0 0 16 16"
+                                                              width="6"
+                                                            >
+                                                              <desc>
+                                                                full-circle
+                                                              </desc>
+                                                              <path
+                                                                d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                                fill-rule="evenodd"
+                                                              />
+                                                            </svg>
+                                                          </span>
+                                                          <span
+                                                            class="Tag--main"
+                                                          >
+                                                            <span
+                                                              class="bp3-tag bp3-minimal tag"
+                                                            >
+                                                              <span
+                                                                class="bp3-text-overflow-ellipsis bp3-fill"
+                                                              >
+                                                                org
+                                                              </span>
+                                                            </span>
+                                                          </span>
+                                                        </div>
+                                                      </div>
+                                                    </span>
+                                                    <span
+                                                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                                                      icon="caret-down"
+                                                    >
+                                                      <svg
+                                                        data-icon="caret-down"
+                                                        height="16"
+                                                        viewBox="0 0 16 16"
+                                                        width="16"
+                                                      >
+                                                        <desc>
+                                                          caret-down
+                                                        </desc>
+                                                        <path
+                                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                                          fill-rule="evenodd"
+                                                        />
+                                                      </svg>
+                                                    </span>
+                                                  </button>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="bp3-form-group"
+                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-2"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                            >
+                                              Release name
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <div
+                                                class="bp3-input-group"
+                                              >
+                                                <input
+                                                  autocomplete="off"
+                                                  class="bp3-input"
+                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                                  placeholder="Specify a release name"
+                                                  type="text"
+                                                  value="asd"
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="bp3-form-group"
+                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                            >
+                                              Namespace
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <div
+                                                class="bp3-input-group"
+                                              >
+                                                <input
+                                                  autocomplete="off"
+                                                  class="bp3-input"
+                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                                  placeholder="Specify a namespace"
+                                                  type="text"
+                                                  value="asd"
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

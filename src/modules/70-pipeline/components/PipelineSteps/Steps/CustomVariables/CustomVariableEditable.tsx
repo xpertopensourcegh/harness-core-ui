@@ -3,7 +3,7 @@ import { Text, Color, Button, FormInput, MultiTypeInputType, getMultiTypeFromVal
 // import { useParams } from 'react-router-dom'
 import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
-
+import cx from 'classnames'
 import { debounce } from 'lodash-es'
 import { StepViewType } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -76,7 +76,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
             }
 
             return (
-              <div className={css.customVariables} id={domId}>
+              <div className={cx(css.customVariables, 'customVariables')} id={domId}>
                 <AddEditCustomVariable
                   addNewVariable={handleAdd}
                   updateVariable={handleUpdate}

@@ -79,7 +79,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
             >
               <div
                 class="Accordion--panel"
-                data-open="false"
+                data-open="true"
                 data-testid="Stage.stage1-panel"
                 id="Stage.stage1-panel"
               >
@@ -100,12 +100,125 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 </div>
                 <div
                   class="bp3-collapse"
+                  style="height: 0px;"
                 >
                   <div
                     aria-hidden="false"
                     class="bp3-collapse-body"
-                    style="transform: translateY(-undefinedpx);"
-                  />
+                    style="transform: translateY(0);"
+                  >
+                    <div
+                      class="Accordion--details"
+                      data-testid="Stage.stage1-details"
+                    >
+                      <div
+                        class="Accordion--panel"
+                        data-open="true"
+                        data-testid="Stage.stage1.Infrastructure-panel"
+                        id="Stage.stage1.Infrastructure-panel"
+                      >
+                        <div
+                          class="Accordion--summary"
+                          data-testid="Stage.stage1.Infrastructure-summary"
+                        >
+                          <div
+                            class=""
+                          >
+                            <div
+                              class="stagesTreeBulletCircle"
+                            >
+                              <span>
+                                Infrastructure
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            class="Accordion--chevron"
+                          />
+                        </div>
+                        <div
+                          class="bp3-collapse"
+                          style="height: 0px;"
+                        >
+                          <div
+                            aria-hidden="false"
+                            class="bp3-collapse-body"
+                            style="transform: translateY(0);"
+                          >
+                            <div
+                              class="Accordion--details"
+                              data-testid="Stage.stage1.Infrastructure-details"
+                            >
+                              <div
+                                class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
+                              >
+                                <div
+                                  class="bp3-form-group"
+                                >
+                                  <label
+                                    class="bp3-label"
+                                    for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                  >
+                                    Release name
+                                     
+                                    <span
+                                      class="bp3-text-muted"
+                                    />
+                                  </label>
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                        placeholder="Specify a release name"
+                                        type="text"
+                                        value="<+input>"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="bp3-form-group"
+                                >
+                                  <label
+                                    class="bp3-label"
+                                    for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                  >
+                                    Namespace
+                                     
+                                    <span
+                                      class="bp3-text-muted"
+                                    />
+                                  </label>
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                        placeholder="Specify a namespace"
+                                        type="text"
+                                        value="<+input>"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
