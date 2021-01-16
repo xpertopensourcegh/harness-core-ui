@@ -192,7 +192,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
 exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = `
 <div
   class="bp3-dialog modal bp3-dialog"
-  style="width: 1050px; height: 650px; padding-bottom: 0px; position: relative;"
+  style="width: 1050px; height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
     class="bp3-dialog-header"
@@ -654,7 +654,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
 exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
 <div
   class="bp3-dialog modal bp3-dialog"
-  style="width: 1050px; height: 650px; padding-bottom: 0px; position: relative;"
+  style="width: 1050px; height: 580px; padding-bottom: 0px; position: relative;"
 >
   <div
     class="bp3-dialog-header"

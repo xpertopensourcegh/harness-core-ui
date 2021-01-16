@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { first, isObject } from 'lodash-es'
+import { first, isEmpty, isObject } from 'lodash-es'
 import { Color, Icon, Link, Popover, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
 import { useStrings, String } from 'framework/exports'
@@ -195,9 +195,9 @@ export default function ExecutionMetadata(): React.ReactElement {
 
   return (
     <div className={css.main}>
-      {pipelineExecutionSummary?.tags ? (
+      {!isEmpty(pipelineExecutionSummary?.tags) ? (
         <TagsPopover
-          tags={pipelineExecutionSummary.tags.reduce((val, tag) => {
+          tags={(pipelineExecutionSummary?.tags || []).reduce((val, tag) => {
             return Object.assign(val, { [tag.key]: tag.value })
           }, {} as { [key: string]: string })}
         />

@@ -82,7 +82,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               />
               {!isEmpty(pipelineExecution?.tags) ? (
                 <TagsPopover
-                  tags={(pipelineExecution.tags || []).reduce((val, tag) => {
+                  tags={(pipelineExecution?.tags || []).reduce((val, tag) => {
                     return Object.assign(val, { [tag.key]: tag.value })
                   }, {} as { [key: string]: string })}
                 />

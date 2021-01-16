@@ -208,7 +208,7 @@ const processNodeData = (
           }
         })
       } else {
-        const icon = factory.getStepIcon(nodeData?.stepType || '')
+        const icon = factory.getStepIcon(nodeDataNext?.stepType || '')
         items.push({
           item: {
             name: nodeDataNext?.name || /* istanbul ignore next */ '',

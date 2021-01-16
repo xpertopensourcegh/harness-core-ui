@@ -1,4 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import type {
   GetYamlSnippetMetadataQueryParams,
   GetYamlSchemaQueryParams,
@@ -22,7 +23,7 @@ export const getIconNameForTag = (tag: string): IconName => {
 
 export const getSnippetTags = (
   entityType: GetYamlSchemaQueryParams['entityType'],
-  entitySubType?: GetYamlSchemaForSubtypeQueryParams['subtype']
+  entitySubType?: GetYamlSchemaForSubtypeQueryParams['subtype'] | Module
 ): GetYamlSnippetMetadataQueryParams['tags'] => {
   const tags: GetYamlSnippetMetadataQueryParams['tags'] = []
   switch (entityType) {
@@ -42,6 +43,9 @@ export const getSnippetTags = (
       break
     case 'Secrets':
       tags.push('secret')
+      break
+    case 'Pipelines':
+      tags.push('pipeline')
       break
     default:
   }

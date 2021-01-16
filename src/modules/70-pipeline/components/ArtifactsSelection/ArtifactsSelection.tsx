@@ -192,7 +192,7 @@ export default function ArtifactsSelection({
     canOutsideClickClose: false,
     enforceFocus: true,
     title: '',
-    style: { width: 1050, height: 650, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
+    style: { width: 1050, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()

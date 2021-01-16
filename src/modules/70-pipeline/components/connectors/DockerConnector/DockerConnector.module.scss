@@ -6,6 +6,9 @@
   div[class*='StepWizard---main'] {
     height: 100%;
   }
+  > div {
+    background: white;
+  }
   form {
     min-height: 475px;
   }
