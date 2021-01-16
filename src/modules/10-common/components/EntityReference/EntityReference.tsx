@@ -41,7 +41,11 @@ export function getIdentifierFromValue(value: string): string {
   return value
 }
 
-export type EntityReferenceResponse<T> = { name: string; identifier: string; record: T }
+export type EntityReferenceResponse<T> = {
+  name: string
+  identifier: string
+  record: T
+}
 
 export interface EntityReferenceProps<T> {
   onSelect: (reference: T, scope: Scope) => void
@@ -82,6 +86,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       fetchRecords(scope, search, done)
     }, 300)
   ).current
+
   const fetchData = useCallback(() => {
     try {
       setError(null)

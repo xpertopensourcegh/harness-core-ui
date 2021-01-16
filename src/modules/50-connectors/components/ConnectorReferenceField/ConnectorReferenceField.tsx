@@ -156,7 +156,7 @@ export function getReferenceFieldProps({
               response.push({
                 name: connector.connector?.name || '',
                 identifier: connector.connector?.identifier || '',
-                record: connector.connector as ConnectorReferenceDTO
+                record: { ...connector.connector, status: connector.status } as ConnectorReferenceDTO
               })
             })
             done(response)
