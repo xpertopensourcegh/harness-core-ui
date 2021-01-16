@@ -133,12 +133,17 @@ $node-width: 40px;
   overflow: visible;
   z-index: 1;
 
+  &:first-child {
+    & > .stageWrapper::before {
+      width: 0;
+    }
+  }
+
   &::before {
     content: '';
     position: absolute;
     width: 100%;
     height: 130px;
-    transform: scaleY(7.5);
     transform-origin: top center;
   }
 
@@ -204,6 +209,10 @@ $node-width: 40px;
 
     &::after {
       transform: translate(2px, -3px);
+    }
+
+    &[data-stages='1']::before {
+      display: none;
     }
   }
 

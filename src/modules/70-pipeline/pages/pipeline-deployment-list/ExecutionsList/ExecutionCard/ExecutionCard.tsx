@@ -1,21 +1,15 @@
 import React, { useState } from 'react'
-// import cx from 'classnames'
 import { Card, Icon } from '@wings-software/uicore'
-// import * as BP from '@blueprintjs/core'
 import { Link, useParams } from 'react-router-dom'
 
-import { isObject } from 'lodash-es'
+import { isObject, isEmpty } from 'lodash-es'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgo } from '@common/exports'
-// import { ExecutionStatusLabel, ExecutionStageGraph, RenderStageButtonInfo } from '@pipeline/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/exports'
 
 import routes from '@common/RouteDefinitions'
-// import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
-// import ExecutionActionButtons from './ExecutionActionButtons/ExecutionActionButtons'
-// import ExecutionCardMenu from './ExecutionCardMenu/ExecutionCardMenu'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
@@ -86,9 +80,9 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 stringID={module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'}
                 vars={pipelineExecution}
               />
-              {pipelineExecution?.tags ? (
+              {!isEmpty(pipelineExecution?.tags) ? (
                 <TagsPopover
-                  tags={pipelineExecution.tags.reduce((val, tag) => {
+                  tags={(pipelineExecution.tags || []).reduce((val, tag) => {
                     return Object.assign(val, { [tag.key]: tag.value })
                   }, {} as { [key: string]: string })}
                 />

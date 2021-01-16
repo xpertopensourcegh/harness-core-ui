@@ -77,6 +77,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   )
 
   useEffect(() => {
+    cancel()
     setInitLoading(true)
     fetchExecutions({
       accountIdentifier: accountId,
@@ -118,6 +119,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   return (
     <Page.Body
       className={css.main}
+      key={pipelineIdentifier}
       error={error?.message}
       retryOnError={() => fetchExecutions()}
       noData={{

@@ -1,6 +1,8 @@
 .container {
   width: 450px;
   padding: var(--spacing-small) !important;
+  min-height: 160px;
+
   .scopeButton {
     border-radius: 20px !important;
 
