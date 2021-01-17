@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconName, Icon, Button } from '@wings-software/uicore'
-import { Tooltip, ITooltipProps, Popover, ResizeSensor } from '@blueprintjs/core'
+import { Tooltip, ITooltipProps, Popover, ResizeSensor, Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import { startCase, sortBy, throttle } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
@@ -285,7 +285,10 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
             </div>
           ) : null}
           {isExecutionCompletedWithBadState(status) && executionErrorInfo?.message ? (
-            <Tooltip content={executionErrorInfo.message}>
+            <Tooltip
+              content={<div className={css.errorTooltip}>{executionErrorInfo.message}</div>}
+              position={Position.BOTTOM}
+            >
               <div className={cx(css.stepCount, css.errorMsg)}>{executionErrorInfo.message}</div>
             </Tooltip>
           ) : null}

@@ -136,7 +136,7 @@ export default function ExecutionLogView(): React.ReactElement {
 
   // TODO: do we need this logic inside UI?
   const hasNodeLogs = (node: ExecutionNode) => {
-    return ['NG_SECTION'].indexOf(node.stepType!) === -1
+    return ['NG_SECTION', 'NG_FORK'].indexOf(node.stepType!) === -1
   }
 
   const renderNodeDetails = (nodeId: string) => {

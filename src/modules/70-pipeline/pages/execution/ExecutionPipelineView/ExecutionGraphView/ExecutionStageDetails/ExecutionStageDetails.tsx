@@ -241,7 +241,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.NG_SECTION) {
+        if (nodeData.stepType === StepTypes.NG_SECTION && !isEmpty(nodeAdjacencyListMap[nodeId].children)) {
           const icon = factory.getStepIcon(nodeData?.stepType || '')
           items.push({
             group: {
