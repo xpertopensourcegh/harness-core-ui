@@ -71,11 +71,11 @@
       > div > div {
         display: flex;
         justify-content: flex-start;
-      }
-      > div > div > label {
-        font-size: var(--font-size-normal);
-        color: var(--radio-group-label);
-        margin-right: 100px;
+        > label {
+          font-size: var(--font-size-normal);
+          color: var(--radio-group-label);
+          margin-right: 100px;
+        }
       }
     }
   }

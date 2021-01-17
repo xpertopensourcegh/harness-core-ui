@@ -37,7 +37,10 @@ const artifactListHeaders: ArtifactTable = {
   imagePath: i18n.artifactTable.imagePath
 }
 
-const TagTypes = { Value: 'value', Regex: 'regex' }
+enum TagTypes {
+  Value = 'value',
+  Regex = 'regex'
+}
 
 export type CreationType = 'DOCKER'
 export interface OrganizationCreationType {
