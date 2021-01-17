@@ -14,5 +14,7 @@ declare const styles: {
   readonly configureOptions: string
   readonly connectorContainer: string
   readonly bp3PopoverTarget: string
+  readonly tagGroup: string
+  readonly radioGroup: string
 }
 export default styles

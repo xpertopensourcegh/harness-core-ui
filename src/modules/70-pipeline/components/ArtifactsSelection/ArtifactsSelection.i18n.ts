@@ -13,12 +13,16 @@ export default {
     connectorPlaceholder: 'Select',
     imageName: ' Image path',
     imageNamePlaceholder: 'Enter path here',
-    sidecarId: 'Give your sidecar artifact a name',
-    sidecarIdPlaceholder: 'Specify artifact identifier name',
+    sidecarId: 'Give your sidecar identifier',
+    sidecarIdPlaceholder: 'Specify artifact identifier',
     addnewConnector: 'New Artifact Server',
     editModalTitle: 'Artifact Source Configuration',
     save: 'Save',
-    submit: 'Submit'
+    submit: 'Submit',
+    tag: 'Tag',
+    tagRegex: 'Tag Regex',
+    enterTag: 'Enter Tag',
+    enterTagRegex: 'Enter Tag Regex'
   },
   artifactTable: {
     type: 'Type',

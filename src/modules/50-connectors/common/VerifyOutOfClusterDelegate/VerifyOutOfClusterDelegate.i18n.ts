@@ -16,7 +16,7 @@ export default {
   delegateFound: (count: number | undefined) =>
     `${count ? count : 'No'} delegate${count && count > 1 ? 's' : ''} found`,
   STEP_TWO_POPOVER: 'Establishing connection',
-  CONTINUE: 'CONTINUE',
+  CONTINUE: 'Continue',
   CLOSE: 'CLOSE',
   VERIFICATION_TIME_TEXT:
     'This process may take a while. You may close your window or wait until verification is completed.'

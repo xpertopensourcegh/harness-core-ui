@@ -6,23 +6,17 @@ import {
   Icon,
   Color,
   useModalHook,
-  Button,
   Heading,
   CardSelect,
-  Formik,
-  FormInput,
-  FormikForm as Form,
-  CardBody
+  CardBody,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
-import * as Yup from 'yup'
 import cx from 'classnames'
 
 import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
@@ -31,7 +25,6 @@ import { getStageIndexFromPipeline, getPrevoiusStageFromIndex } from '../Pipelin
 
 import i18n from './ArtifactsSelection.i18n'
 import css from './ArtifactsSelection.module.scss'
-// import { getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 interface ArtifactTable {
   [key: string]: string
@@ -43,6 +36,8 @@ const artifactListHeaders: ArtifactTable = {
   source: i18n.artifactTable.artifactSource,
   imagePath: i18n.artifactTable.imagePath
 }
+
+const TagTypes = { Value: 'value', Regex: 'regex' }
 
 export type CreationType = 'DOCKER'
 export interface OrganizationCreationType {
@@ -180,8 +175,6 @@ export default function ArtifactsSelection({
 
   const primaryArtifactType = 'Dockerhub'
 
-  // const sideCarArtifact = get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
-
   const sideCarArtifact = getSidecarPath()
 
   const DIALOG_PROPS: IDialogProps = {
@@ -195,20 +188,20 @@ export default function ArtifactsSelection({
     style: { width: 1050, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-
   const ModalView = { OPTIONS: 1, EXISTING: 2, NEW: 3 }
   const ModalViewFor = { PRIMARY: 1, SIDECAR: 2 }
 
   const [view, setView] = React.useState(ModalView.OPTIONS)
   const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
-  const [editContext, setEditModeContext] = React.useState(ModalViewFor.PRIMARY)
   const [sidecarIndex, setEditIndex] = React.useState(0)
 
   const addArtifact = (data: {
     connectorId: undefined | { value: string }
     imagePath: string
     identifier?: string
+    tag?: string
+    tagRegex?: string
+    tagType?: string
   }): void => {
     if (context === ModalViewFor.PRIMARY) {
       if (isPropagating) {
@@ -216,7 +209,9 @@ export default function ArtifactsSelection({
           type: primaryArtifactType,
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-            imagePath: data.imagePath
+            imagePath: data.imagePath,
+            tag: data.tagType === TagTypes.Value ? data.tag : '',
+            tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : ''
           }
         }
       }
@@ -230,7 +225,9 @@ export default function ArtifactsSelection({
                   type: primaryArtifactType,
                   spec: {
                     connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-                    imagePath: data.imagePath
+                    imagePath: data.imagePath,
+                    tag: data.tagType === TagTypes.Value ? data.tag : '',
+                    tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : ''
                   }
                 }
               }
@@ -245,7 +242,9 @@ export default function ArtifactsSelection({
           type: primaryArtifactType,
           spec: {
             connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-            imagePath: data.imagePath
+            imagePath: data.imagePath,
+            tag: data.tagType === TagTypes.Value ? data.tag : '',
+            tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : ''
           }
         }
       }
@@ -256,13 +255,17 @@ export default function ArtifactsSelection({
         spec: {
           connectorRef: string | undefined | { value: string }
           imagePath: string
+          tag?: string
+          tagRegex?: string
         }
       } = {
         type: primaryArtifactType,
         identifier: data.identifier as string,
         spec: {
           connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-          imagePath: data.imagePath
+          imagePath: data.imagePath,
+          tag: data.tagType === TagTypes.Value ? data.tag : '',
+          tagRegex: data.tagType === TagTypes.Regex ? data.tagRegex : ''
         }
       }
 
@@ -336,17 +339,28 @@ export default function ArtifactsSelection({
 
         {view === ModalView.EXISTING && (
           <ExistingDockerArtifact
-            handleSubmit={(data: { connectorId: undefined | { value: string }; imagePath: string }) => {
+            handleSubmit={(data: {
+              connectorId: undefined | { value: string }
+              imagePath: string
+              tag?: string
+              tagRegex?: string
+            }) => {
               addArtifact(data)
             }}
             handleViewChange={() => setView(ModalView.NEW)}
             context={context}
+            initialValues={getInitialValues(primaryArtifact, sideCarArtifact)}
           />
         )}
 
         {view === ModalView.NEW && (
           <CreateDockerConnector
-            handleSubmit={(data: { connectorId: undefined | { value: string }; imagePath: string }) => {
+            handleSubmit={(data: {
+              connectorId: undefined | { value: string }
+              imagePath: string
+              tag?: string
+              tagRegex?: string
+            }) => {
               addArtifact(data)
             }}
             hideLightModal={hideConnectorModal}
@@ -358,20 +372,36 @@ export default function ArtifactsSelection({
   )
 
   const isValidScopeValue = (value: string): number => {
-    return value.indexOf(Scope.ACCOUNT) && value.indexOf(Scope.PROJECT) && value.indexOf(Scope.ORG)
+    if (value) {
+      return value.indexOf(Scope.ACCOUNT) && value.indexOf(Scope.PROJECT) && value.indexOf(Scope.ORG)
+    }
+    return 0
   }
 
   const getInitialValues = (
-    primaryArtifactParam: { spec: { connectorRef: string; imagePath: string } },
+    primaryArtifactParam: {
+      spec: { connectorRef: string; imagePath: string; tag: string; tagRegex: string }
+    },
     sideCarArtifactParam: any
   ) => {
     let spec
-    if (editContext === ModalViewFor.PRIMARY) {
+    if (context === ModalViewFor.PRIMARY) {
       spec = primaryArtifactParam?.spec
     } else {
       spec = sideCarArtifactParam[sidecarIndex]?.sidecar.spec
     }
+    if (!spec) {
+      return {
+        connectorId: undefined,
+        identifier: '',
+        imagePath: '',
+        tag: RUNTIME_INPUT_VALUE,
+        tagType: TagTypes.Value,
+        tagRegex: ''
+      }
+    }
     const initialValues = {
+      identifier: spec.identifier,
       connectorId:
         isValidScopeValue(spec?.connectorRef) === 0
           ? {
@@ -380,86 +410,14 @@ export default function ArtifactsSelection({
               value: spec?.connectorRef
             }
           : spec?.connectorRef,
-      imagePath: spec.imagePath
+      imagePath: spec.imagePath,
+      tagType: spec.tag ? TagTypes.Value : TagTypes.Regex,
+      tag: spec.tag,
+      tagRegex: spec.tagRegex
     }
 
     return initialValues
   }
-
-  const resetFormValues = (): object => {
-    return { connectorId: undefined, imagePath: '' }
-  }
-
-  const updateArtifact = (value: { imagePath: string; connectorId: { value: string } }): void => {
-    if (editContext === ModalViewFor.PRIMARY) {
-      primaryArtifact.spec.imagePath = value.imagePath
-      primaryArtifact.spec.connectorRef = value.connectorId.value ? value.connectorId.value : value.connectorId
-    } else {
-      sideCarArtifact[sidecarIndex].sidecar.spec.imagePath = value.imagePath
-      sideCarArtifact[sidecarIndex].sidecar.spec.connectorRef = value.connectorId.value
-        ? value.connectorId.value
-        : value.connectorId
-    }
-
-    updatePipeline(pipeline)
-  }
-
-  const [showEditConnectorModal, hideEditConnectorModal] = useModalHook(
-    () => (
-      <Dialog
-        onClose={() => {
-          resetFormValues()
-          setEditModeContext(ModalViewFor.PRIMARY)
-          hideEditConnectorModal()
-        }}
-        {...DIALOG_PROPS}
-        style={{ width: 600, height: 300, borderLeft: 'none', paddingBottom: 0, position: 'relative' }}
-        className={Classes.DIALOG}
-      >
-        <Layout.Vertical spacing="large" padding="xlarge" className={css.editForm}>
-          <Text style={{ color: 'var(--black)' }}>{i18n.existingDocker.editModalTitle}</Text>
-          <Formik
-            validationSchema={Yup.object().shape({
-              connectorId: Yup.string().trim().required(i18n.validation.connectorId),
-              imagePath: Yup.string().trim().required(i18n.validation.imagePath)
-            })}
-            initialValues={getInitialValues(primaryArtifact, sideCarArtifact)}
-            onSubmit={values => {
-              updateArtifact(values)
-              hideEditConnectorModal()
-            }}
-          >
-            {() => (
-              <Form>
-                <div>
-                  <FormMultiTypeConnectorField
-                    name="connectorId"
-                    label={i18n.existingDocker.connectorLabel}
-                    placeholder={i18n.existingDocker.connectorPlaceholder}
-                    accountIdentifier={accountId}
-                    projectIdentifier={projectIdentifier}
-                    orgIdentifier={orgIdentifier}
-                    width={350}
-                    isNewConnectorLabelVisible={false}
-                    type={'DockerRegistry'}
-                    enableConfigureOptions={false}
-                  />
-                  <FormInput.MultiTextInput
-                    label={i18n.existingDocker.imageName}
-                    name="imagePath"
-                    style={{ width: 350 }}
-                    placeholder={i18n.existingDocker.imageNamePlaceholder}
-                  />
-                </div>
-                <Button intent="primary" type="submit" text={i18n.existingDocker.submit} />
-              </Form>
-            )}
-          </Formik>
-        </Layout.Vertical>
-      </Dialog>
-    ),
-    [primaryArtifact, sideCarArtifact, editContext, sidecarIndex]
-  )
 
   const addPrimaryArtifact = (): void => {
     setModalContext(ModalViewFor.PRIMARY)
@@ -473,16 +431,16 @@ export default function ArtifactsSelection({
   }
 
   const editPrimary = (): void => {
-    setEditModeContext(ModalViewFor.PRIMARY)
-
-    showEditConnectorModal()
+    setModalContext(ModalViewFor.PRIMARY)
+    setView(ModalView.EXISTING)
+    showConnectorModal()
   }
 
   const editSidecar = (index: number): void => {
-    setEditModeContext(ModalViewFor.SIDECAR)
+    setModalContext(ModalViewFor.SIDECAR)
+    setView(ModalView.EXISTING)
     setEditIndex(index)
-
-    showEditConnectorModal()
+    showConnectorModal()
   }
 
   const removePrimary = (): void => {
