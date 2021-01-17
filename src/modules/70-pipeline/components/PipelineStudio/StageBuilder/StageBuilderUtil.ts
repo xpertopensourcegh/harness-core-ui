@@ -20,19 +20,25 @@ export interface PopoverData {
   groupSelectedStageId?: string
   isParallel?: boolean
   event?: Diagram.DefaultNodeEvent
-  addStage?: (newStage: StageElementWrapper, isParallel?: boolean, event?: Diagram.DefaultNodeEvent) => void
+  addStage?: (
+    newStage: StageElementWrapper,
+    isParallel?: boolean,
+    event?: Diagram.DefaultNodeEvent,
+    insertAt?: number,
+    openSetupAfterAdd?: boolean
+  ) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
   onClickGroupStage?: (stageId: string, type: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }
 
-export const getNewStageFromType = (type: string): StageElementWrapper => {
+export const getNewStageFromType = (type: string, clearDefaultValues = false): StageElementWrapper => {
   // TODO: replace string with type
   if (type === 'ci') {
     return {
       stage: {
-        name: EmptyStageName,
-        identifier: uuid(),
+        name: clearDefaultValues ? '' : EmptyStageName,
+        identifier: clearDefaultValues ? '' : uuid(),
         description: '',
         type: type,
         spec: {
@@ -45,8 +51,8 @@ export const getNewStageFromType = (type: string): StageElementWrapper => {
 
   return {
     stage: {
-      name: EmptyStageName,
-      identifier: uuid(),
+      name: clearDefaultValues ? '' : EmptyStageName,
+      identifier: clearDefaultValues ? '' : uuid(),
       description: '',
       type: type,
       spec: {}

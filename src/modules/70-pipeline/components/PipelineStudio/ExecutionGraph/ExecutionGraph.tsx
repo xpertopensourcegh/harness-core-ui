@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { Button, Text } from '@wings-software/uicore'
+import { Button, Layout, Text } from '@wings-software/uicore'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/exports'
@@ -50,22 +50,20 @@ interface PopoverData {
 const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, event }: PopoverData): JSX.Element => {
   return (
     <>
-      <div>
+      <Layout.Vertical spacing="small" padding="small">
         <Button
           minimal
           icon="Edit"
           text={i18n.addStep}
           onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
         />
-      </div>
-      <div>
         <Button
           minimal
           icon="step-group"
           text={i18n.addStepGroup}
           onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
         />
-      </div>
+      </Layout.Vertical>
     </>
   )
 }

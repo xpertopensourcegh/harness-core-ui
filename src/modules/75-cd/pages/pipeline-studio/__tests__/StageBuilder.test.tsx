@@ -95,10 +95,6 @@ describe('Stage Builder Test', () => {
     const deployBtn = getByTextBody(document.body, 'Deploy')
     // Select Deploy
     fireEvent.click(deployBtn)
-    await waitFor(() => getByTextContainer('Untitled'))
-    const newStage = getByTextContainer('Untitled')
-    // Select new Stage
-    fireEvent.click(newStage)
     await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name
@@ -204,10 +200,6 @@ describe('Stage Builder Test', () => {
     const deployBtn = getByTextBody(document.body, 'Deploy')
     // Select Deploy
     fireEvent.click(deployBtn)
-    await waitFor(() => getByTextContainer('Untitled'))
-    const newStage = getByTextContainer('Untitled')
-    // Select new Stage
-    fireEvent.click(newStage)
     await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name

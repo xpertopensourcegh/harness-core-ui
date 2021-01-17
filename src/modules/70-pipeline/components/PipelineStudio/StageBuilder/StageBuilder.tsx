@@ -107,7 +107,14 @@ export const renderPopover = ({
   return renderPipelineStage({
     isParallel,
     showSelectMenu: true,
-    onSelectStage: type => addStage?.(getNewStageFromType(type as any), isParallel, event)
+    getNewStageFromType,
+    onSelectStage: (type, stage) => {
+      if (stage) {
+        addStage?.(stage, isParallel, event, undefined, true)
+      } else {
+        addStage?.(getNewStageFromType(type as any), isParallel, event)
+      }
+    }
   })
 }
 
@@ -140,7 +147,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     newStage: StageElementWrapper,
     isParallel = false,
     event?: DefaultNodeEvent,
-    insertAt?: number
+    insertAt?: number,
+    openSetupAfterAdd?: boolean
   ): void => {
     if (!pipeline.stages) {
       pipeline.stages = []
@@ -201,8 +209,23 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
     dynamicPopoverHandler?.hide()
     model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId)
+    if (newStage.stage.name !== EmptyStageName) {
+      stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
+    }
     engine.repaintCanvas()
-    updatePipeline(pipeline)
+    updatePipeline(pipeline).then(() => {
+      if (openSetupAfterAdd) {
+        updatePipelineView({
+          ...pipelineView,
+          isSplitViewOpen: true,
+          splitViewData: {
+            selectedStageId: newStage.stage.identifier,
+            type: SplitViewTypes.StageView,
+            stageType: newStage.stage.type
+          }
+        })
+      }
+    })
   }
 
   React.useEffect(() => {
@@ -255,8 +278,13 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               renderPipelineStage,
               stagesMap
             },
-            { useArrows: true, darkMode: true }
+            { useArrows: false, darkMode: true }
           )
+          updatePipelineView({
+            ...pipelineView,
+            isSplitViewOpen: false,
+            splitViewData: {}
+          })
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
           const parent = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).parent
           /* istanbul ignore else */ if (parent?.parallel) {
@@ -279,7 +307,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 stagesMap,
                 renderPipelineStage
               },
-              { useArrows: true, darkMode: true }
+              { useArrows: false, darkMode: true }
             )
           }
         } /* istanbul ignore else */ else if (eventTemp.entity.getType() !== DiagramType.StartNode) {
@@ -405,7 +433,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: true, darkMode: true },
+          { useArrows: false, darkMode: true },
           eventTemp.callback
         )
       }
@@ -458,7 +486,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: true, darkMode: true }
+          { useArrows: false, darkMode: true }
         )
       }
     },

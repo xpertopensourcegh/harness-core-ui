@@ -1,5 +1,4 @@
 import React from 'react'
-import { noop } from 'lodash-es'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
@@ -8,8 +7,9 @@ export interface PipelineStagesProps<T = {}> {
   minimal?: boolean
   stageType?: string
   isParallel?: boolean
+  getNewStageFromType?: (type: string, clearDefaultValues?: boolean) => T
   stageProps?: T
-  onSelectStage?: (stageType: string) => void
+  onSelectStage?: (stageType: string, stage?: T) => void
   showSelectMenu?: boolean
 }
 
@@ -22,6 +22,7 @@ export function PipelineStages<T = {}>({
   showSelectMenu,
   isParallel = false,
   onSelectStage,
+  getNewStageFromType,
   stageType,
   stageProps,
   minimal = false
@@ -40,19 +41,54 @@ export function PipelineStages<T = {}>({
     setStages(stagesLocal)
   }, [children])
 
-  const selected = stages.get(stageType || '')
+  const [showMenu, setShowMenu] = React.useState(showSelectMenu)
+  const [type, setType] = React.useState(stageType)
+
+  React.useEffect(() => {
+    if (type) {
+      setType(type)
+    }
+  }, [type])
+
+  React.useEffect(() => {
+    if (showSelectMenu) {
+      setShowMenu(true)
+    }
+  }, [showSelectMenu])
+  const selected = stages.get(type || '')
   const selectedStageIndex = selected?.index || 0
   const stage = React.Children.toArray(children)[selectedStageIndex] as React.ReactElement<PipelineStageProps>
   return (
     <>
-      {showSelectMenu && (
+      {showSelectMenu && showMenu && (
         <AddStageView
           stages={[...stages].map(item => item[1])}
           isParallel={isParallel}
-          callback={onSelectStage || noop}
+          callback={selectedType => {
+            if (getNewStageFromType) {
+              setShowMenu(false)
+              setType(selectedType)
+            } else {
+              onSelectStage?.(selectedType)
+            }
+          }}
         />
       )}
       {!showSelectMenu && selected && stage && <>{React.cloneElement(stage, { ...selected, minimal, stageProps })}</>}
+      {!showMenu && showSelectMenu && type && stage && (
+        <>
+          {React.cloneElement(stage, {
+            ...selected,
+            minimal: true,
+            stageProps: {
+              data: getNewStageFromType?.(type, true),
+              onSubmit: (stageData: T) => {
+                onSelectStage?.(type, stageData)
+              }
+            }
+          })}
+        </>
+      )}
     </>
   )
 }
