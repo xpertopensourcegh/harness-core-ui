@@ -108,20 +108,38 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
               const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+              const newStepData = {
+                step: {
+                  type: item.type,
+                  name: item.name,
+                  identifier: generateRandomString(item.name)
+                }
+              }
               addStepOrGroup(
                 paletteData.entity,
                 pipelineStage?.stage.spec.execution,
-                {
-                  step: {
-                    type: item.type,
-                    name: item.name,
-                    identifier: generateRandomString(item.name)
-                  }
-                },
+                newStepData,
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
               )
-              updatePipeline(pipeline)
+              updatePipeline(pipeline).then(() => {
+                updatePipelineView({
+                  ...pipelineView,
+                  isDrawerOpened: true,
+                  drawerData: {
+                    type: DrawerTypes.StepConfig,
+                    data: {
+                      stepConfig: {
+                        node: newStepData.step,
+                        isStepGroup: false,
+                        addOrEdit: 'edit',
+                        hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
+                      }
+                    }
+                  }
+                })
+              })
+              return
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
           }}

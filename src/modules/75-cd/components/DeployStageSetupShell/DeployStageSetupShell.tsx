@@ -232,7 +232,8 @@ export default function DeployStageSetupShell(): JSX.Element {
                           entity: event.entity,
                           // isAddStepOverride: true,
                           isRollback: event.isRollback,
-                          isParallelNodeClicked: event.isParallel
+                          isParallelNodeClicked: event.isParallel,
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
                         }
                       }
                     }

@@ -312,7 +312,8 @@ export default function BuildStageSetupShell(): JSX.Element {
                             entity: event.entity,
                             // isAddStepOverride: true,
                             isRollback: event.isRollback,
-                            isParallelNodeClicked: event.isParallel
+                            isParallelNodeClicked: event.isParallel,
+                            hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
                           }
                         }
                       }
