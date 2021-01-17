@@ -486,6 +486,30 @@ export const setupNexusFormData = async (connectorInfo: ConnectorInfoDTO, accoun
   return formData
 }
 
+export const setupArtifactoryFormData = async (
+  connectorInfo: ConnectorInfoDTO,
+  accountId: string
+): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    artifactoryServerUrl: connectorInfo.spec.artifactoryServerUrl,
+    authType: connectorInfo.spec.auth.type,
+    username:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD ? connectorInfo.spec.auth.spec.username : undefined,
+    password:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
+        ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
+        : undefined
+  }
+
+  return formData
+}
+
 export const buildAWSPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -651,15 +675,15 @@ export const buildNexusPayload = (formData: FormData) => {
 export const buildArtifactoryPayload = (formData: FormData) => {
   const savedData = {
     type: Connectors.ARTIFACTORY,
-    ...pick(formData, ['name', 'identifier', 'description', 'tags']),
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     spec: {
       artifactoryServerUrl: formData?.artifactoryServerUrl,
       auth:
-        formData.userName && formData.password
+        formData.username && formData.password
           ? {
               type: AuthTypes.USER_PASSWORD,
               spec: {
-                username: formData.userName,
+                username: formData.username,
                 passwordRef: formData.password.referenceString
               }
             }

@@ -26,6 +26,15 @@ describe('Create connector Wizard', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should open CreateConnectorWizard for Git', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateConnectorWizard type={Connectors.GIT} {...commonProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
   test('should open CreateConnectorWizard for Github', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
@@ -75,6 +84,24 @@ describe('Create connector Wizard', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateConnectorWizard type={Connectors.GCP} {...commonProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should open CreateConnectorWizard for Nexus', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateConnectorWizard type={Connectors.NEXUS} {...commonProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should open CreateConnectorWizard for Artifactory', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateConnectorWizard type={Connectors.ARTIFACTORY} {...commonProps} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

@@ -37,9 +37,8 @@ describe('Connector Utils', () => {
           description: '',
           identifier: 'dummy_name',
           tags: {},
-          username: '',
           artifactoryServerUrl: 'dummyurl',
-          userName: 'dummyusername',
+          username: 'dummyusername',
           password: { name: 'jkdhkjdhk', identifier: 'jkdhkjdhk', referenceString: 'account.jkdhkjdhk' }
         })
       ).toEqual({

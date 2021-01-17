@@ -806,6 +806,7 @@ global:
     dockerRegistryUrl: 'Docker Registry URL is required'
     nexusServerURL: 'Nexus URL is required'
     nexusVersion: 'Version is required'
+    artifactoryServerURL: 'Artifactory URL is required'
     timeout10SecMinimum: 'Min Timeout is 10 Seconds'
     tagsRequired: Tags is a required field
     environmentVariablesRequired: Environment Variables is a required field
@@ -902,6 +903,9 @@ global:
     nexus:
       stepTwoName: 'Nexus Repository Details'
       nexusServerUrl: 'Nexus Repository URL'
+    artifactory:
+      stepTwoName: 'Artifactory Repository Details'
+      artifactoryServerUrl: 'Artifactory Repository URL'
     GCP:
       stepTwoName: 'Google Cloud Provider Details'
       delegateOutClusterInfo: 'Specify credentials here'

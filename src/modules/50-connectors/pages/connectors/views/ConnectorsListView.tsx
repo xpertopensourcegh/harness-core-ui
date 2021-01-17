@@ -41,7 +41,7 @@ type CustomColumn<T extends object> = Column<T> & {
 
 const getConnectorDisplaySummaryLabel = (titleStringId: string, value: string): JSX.Element | string => {
   return (
-    <div className={css.name}>
+    <div className={css.name} color={Color.BLACK}>
       {titleStringId ? <String stringID={titleStringId} /> : null}
       {value ? (
         <Text inline margin={{ left: 'xsmall' }} color={Color.BLACK}>
@@ -66,7 +66,7 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
     case Connectors.NEXUS:
       return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.nexusServerUrl)
     case Connectors.ARTIFACTORY:
-      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.nexusSeartifactoryServerUrlrverUrl)
+      return getConnectorDisplaySummaryLabel('UrlLabel', connector?.spec?.artifactoryServerUrl)
     default:
       return ''
   }
@@ -80,7 +80,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) 
       <Icon name={getIconByType(data.connector?.type)} size={30}></Icon>
       <div className={css.wrapper}>
         <Layout.Horizontal spacing="small">
-          <div className={css.name} title={data.connector?.name}>
+          <div className={css.name} color={Color.BLACK} title={data.connector?.name}>
             {data.connector?.name}
           </div>
           {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
@@ -98,7 +98,9 @@ const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) =>
   return data.connector ? (
     <div className={css.wrapper}>
       <div color={Color.BLACK}>{getConnectorDisplaySummary(data.connector)}</div>
-      <Text color={Color.GREY_400}>{data.connector?.description}</Text>
+      <div className={css.name} color={Color.GREY_400}>
+        {data.connector?.description}
+      </div>
     </div>
   ) : null
 }
