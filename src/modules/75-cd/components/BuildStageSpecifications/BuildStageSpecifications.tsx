@@ -483,7 +483,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                     />
                   </FormikForm>
                 </div>
-                <div className={css.section}>
+                <div className={css.section} style={{ display: 'none' }}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
                       {getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
