@@ -18926,3 +18926,33 @@ export const useGetFeatureFlags = ({ accountId, ...props }: UseGetFeatureFlagsPr
     (paramsInPath: GetFeatureFlagsPathParams) => `/users/feature-flags/${paramsInPath.accountId}`,
     { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
+
+export interface DeleteDelegateProfileQueryParams {
+  accountId?: string
+}
+
+export type DeleteDelegateProfileProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegateProfile = (props: DeleteDelegateProfileProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>
+    verb="DELETE"
+    path="/delegate-profiles/v2"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateProfileProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegateProfile = (props: UseDeleteDelegateProfileProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>(
+    'DELETE',
+    `/delegate-profiles/v2`,
+    { base: getConfig('api'), ...props }
+  )

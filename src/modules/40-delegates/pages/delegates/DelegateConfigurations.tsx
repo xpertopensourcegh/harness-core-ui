@@ -1,11 +1,12 @@
 import React from 'react'
-
 import { useParams } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Card, Text, CardBody, Layout, Tag, Intent, Container } from '@wings-software/uicore'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import { useGetDelegateProfilesV2 } from 'services/portal'
-
+import { useDeleteDelegateProfile } from 'services/portal/index'
 import { useStrings } from 'framework/exports'
+import useDeleteDelegateConfigModal from '../../modals/DelegateModal/useDeleteDelegateConfigModal'
 import css from './DelegatesPage.module.scss'
 
 interface DelegateProfile {
@@ -47,7 +48,32 @@ export default function DelegateConfigurations(): JSX.Element {
   const { getString } = useStrings()
   const { accountId } = useParams()
   const { data } = useGetDelegateProfilesV2({ queryParams: { accountId } })
+  const { showSuccess, showError } = useToaster()
   const profiles: Array<DelegateProfile> = formatProfileList(data)
+  const { mutate: deleteDelegateProfile } = useDeleteDelegateProfile({
+    queryParams: { accountId: accountId }
+  })
+  const { openDialog } = useDeleteDelegateConfigModal({
+    delegateConfigName: 'profiles.name',
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteDelegateProfile('profiles.accountId')
+
+          if (deleted) {
+            showSuccess(getString('delegate.deleteDelegateConfigurationSuccess'))
+            ;(profiles as any).reload?.()
+          }
+        } catch (error) {
+          showError(error.message)
+        }
+      }
+    }
+  })
+  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    openDialog()
+  }
   /* istanbul ignore next */
   if (data) {
     const { resource } = data
@@ -61,7 +87,7 @@ export default function DelegateConfigurations(): JSX.Element {
                   menuContent={
                     <Menu>
                       <Menu.Item icon="edit" text={getString('edit')} />
-                      <Menu.Item icon="cross" text={getString('delete')} />
+                      <Menu.Item icon="cross" text={getString('delete')} onClick={handleDelete} />
                     </Menu>
                   }
                 >

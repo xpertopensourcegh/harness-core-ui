@@ -421,6 +421,9 @@ global:
         name: 'Linux'
     DELEGATE_CONFIGURATIONS: 'Delegate Configurations'
     DELEGATE_CONFIGURATION: 'Delegate Configuration'
+    deleteDelegateConfiguration: 'Delete Delegate Configuration'
+    deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration '
+    deleteDelegateConfigurationSuccess: 'Delegate Configuration {profiles.name} deleted'
   execution:
     pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
     pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier
