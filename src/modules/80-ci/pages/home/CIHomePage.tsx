@@ -1,6 +1,6 @@
 import React from 'react'
-import { Color, Layout, Text, Link } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { Color, Layout, Text } from '@wings-software/uicore'
+import { Link, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
@@ -19,11 +19,11 @@ const CIHomePage: React.FC = () => {
           {getString('ci.continuousIntegration')}
         </Text>
         <Text width={340}>{getString('ci.dashboard.subHeading')}</Text>
-        <Link style={{ alignSelf: 'flex-start' }} href="https://docs.harness.io/" target="_blank">
+        <a style={{ alignSelf: 'flex-start' }} href="https://docs.harness.io/" target="_blank" rel="noreferrer">
           {getString('ci.dashboard.learnMore')}
-        </Link>
+        </a>
         <Layout.Horizontal spacing="xxlarge">
-          <Link href={routes.toProjects({ accountId })}>{getString('ci.dashboard.createProject')}</Link>
+          <Link to={routes.toProjects({ accountId })}>{getString('ci.dashboard.createProject')}</Link>
           <Text> {getString('ci.dashboard.orSelectExisting')}</Text>
         </Layout.Horizontal>
         <img src={homeIllustration} alt="" aria-hidden />

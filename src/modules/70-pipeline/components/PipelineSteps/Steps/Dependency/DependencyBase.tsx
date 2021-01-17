@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Text,
   Formik,
@@ -133,7 +133,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
     accountId: string
   }>()
 
-  const { connector, loading } = useConnectorRef(initialValues.spec.connectorRef)
+  const { connector: onEditConnector, loading } = useConnectorRef(initialValues.spec.connectorRef)
 
   const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
 
@@ -146,9 +146,15 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
   // })
   const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(initialValues, transformValuesFields)
 
-  if (!loading) {
-    values.spec.connectorRef = connector
-  }
+  const [formikInitialValues, setInitialValues] = useState(values)
+
+  useEffect(() => {
+    if (onEditConnector) {
+      const newInitialValues = { ...formikInitialValues }
+      newInitialValues.spec.connectorRef = onEditConnector
+      setInitialValues(newInitialValues)
+    }
+  }, [onEditConnector])
 
   const validate = useValidate<DependencyDataUI>(validateFields, {
     initialValues,
@@ -167,7 +173,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
   return (
     <Formik<DependencyDataUI>
       enableReinitialize={true}
-      initialValues={values}
+      initialValues={formikInitialValues}
       validate={validate}
       onSubmit={(_values: DependencyDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(

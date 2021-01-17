@@ -22,6 +22,33 @@ import { String, useStrings } from 'framework/exports'
 import { ReferenceSelect, ReferenceSelectProps } from '../../../10-common/components/ReferenceSelect/ReferenceSelect'
 import css from './ConnectorReferenceField.module.scss'
 
+interface AdditionalParams {
+  projectIdentifier?: string
+  orgIdentifier?: string
+}
+
+const getAdditionalParams = ({
+  scope,
+  projectIdentifier,
+  orgIdentifier
+}: {
+  scope?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+}): AdditionalParams => {
+  const additionalParams: AdditionalParams = {}
+
+  if (scope === Scope.PROJECT) {
+    additionalParams.projectIdentifier = projectIdentifier
+  }
+
+  if (scope === Scope.PROJECT || scope === Scope.ORG) {
+    additionalParams.orgIdentifier = orgIdentifier
+  }
+
+  return additionalParams
+}
+
 export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
   accountIdentifier: string
   name: string
@@ -122,10 +149,13 @@ export function getReferenceFieldProps({
     createNewLabel: getString('newConnector'),
     recordClassName: css.listItem,
     fetchRecords: (scope, search = '', done) => {
+      const additionalParams = getAdditionalParams({ scope, projectIdentifier, orgIdentifier })
       const request = Array.isArray(type)
         ? getConnectorListV2Promise({
             queryParams: {
-              accountIdentifier
+              accountIdentifier,
+              searchTerm: search,
+              ...additionalParams
             },
             body: {
               ...(!category && { types: type }),
