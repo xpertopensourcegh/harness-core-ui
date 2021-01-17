@@ -302,7 +302,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         i18n.commonError
     )
   }
-  function handleSelectionChange(id: string): void {
+  const handleSelectionChange = (id: string): void => {
     setSelectedTreeNodeId(id)
     openNestedPath(id)
     document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })

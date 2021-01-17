@@ -36,7 +36,7 @@ import {
   TriggerTypes,
   getValidationSchema
 } from './utils/TriggersWizardPageUtils'
-
+import css from './TriggersWizardPage.module.scss'
 const TriggersWizardPage: React.FC = (): JSX.Element => {
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier, triggerIdentifier, module } = useParams<
     PipelineType<{
@@ -345,6 +345,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           validationSchema: getValidationSchema(getString),
           enableReinitialize: true
         }}
+        className={css.tabs}
         wizardMap={wizardMap}
         tabWidth="218px"
         onHide={returnToTriggersPage}

@@ -241,8 +241,14 @@ function RunPipelineFormBasic({
 
   React.useEffect(() => {
     const parsedPipeline = parse(pipelineResponse?.data?.yamlPipeline || '')
-    parsedPipeline && updateNodes(getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses))
-  }, [pipelineResponse?.data?.yamlPipeline])
+    parsedPipeline &&
+      updateNodes(
+        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, {
+          hideNonRuntimeFields: true,
+          template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
+        })
+      )
+  }, [pipelineResponse?.data?.yamlPipeline, template?.data?.inputSetTemplateYaml])
 
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate || runLoading) {
     return <PageSpinner />
@@ -265,12 +271,13 @@ function RunPipelineFormBasic({
 
   const child = (
     <>
-      {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
-        <Layout.Horizontal
-          padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-          flex={{ distribution: 'space-between' }}
-        >
-          <Text font="medium">{i18n.pipeline}</Text>
+      <Layout.Horizontal
+        className={css.pipelineHeader}
+        padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+        flex={{ distribution: 'space-between' }}
+      >
+        <Text font="medium">{i18n.pipeline}</Text>
+        {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
           <InputSetSelector
             pipelineIdentifier={pipelineIdentifier}
             onChange={value => {
@@ -278,8 +285,9 @@ function RunPipelineFormBasic({
             }}
             value={selectedInputSets}
           />
-        </Layout.Horizontal>
-      )}
+        )}
+      </Layout.Horizontal>
+
       <Formik
         initialValues={currentPipeline?.pipeline ? clearRuntimeInput(currentPipeline.pipeline) : {}}
         onSubmit={values => {

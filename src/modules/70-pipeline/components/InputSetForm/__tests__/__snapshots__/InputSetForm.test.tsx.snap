@@ -307,36 +307,6 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       </div>
                     </li>
                     <li
-                      class="bp3-tree-node stagesTreeBulletEmpty"
-                    >
-                      <div
-                        class="bp3-tree-node-content bp3-tree-node-content-0"
-                      >
-                        <span
-                          class="bp3-tree-node-caret-none"
-                        />
-                        <span
-                          class="bp3-tree-node-label"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                            style="font-weight: 500;"
-                          >
-                            Custom Variables
-                          </p>
-                        </span>
-                      </div>
-                      <div
-                        class="bp3-collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </li>
-                    <li
                       class="bp3-tree-node bp3-tree-node-expanded"
                     >
                       <div
@@ -1594,36 +1564,6 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             style="font-weight: 500;"
                           >
                             Pipeline Variables
-                          </p>
-                        </span>
-                      </div>
-                      <div
-                        class="bp3-collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </li>
-                    <li
-                      class="bp3-tree-node stagesTreeBulletEmpty"
-                    >
-                      <div
-                        class="bp3-tree-node-content bp3-tree-node-content-0"
-                      >
-                        <span
-                          class="bp3-tree-node-caret-none"
-                        />
-                        <span
-                          class="bp3-tree-node-label"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                            style="font-weight: 500;"
-                          >
-                            Custom Variables
                           </p>
                         </span>
                       </div>

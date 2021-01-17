@@ -103,7 +103,6 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   if (!uids.current[index]) {
                     uids.current[index] = uuid()
                   }
-
                   const key = uids.current[index]
 
                   return (

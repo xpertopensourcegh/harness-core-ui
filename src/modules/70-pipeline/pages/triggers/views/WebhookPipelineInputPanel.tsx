@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import { Layout, Heading, Text, NestedAccordionProvider, useNestedAccordion } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge } from 'lodash-es'
+import type { ITreeNode } from '@blueprintjs/core'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
 import type { NgPipeline } from 'services/cd-ng'
 import {
@@ -15,6 +16,8 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
 
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
+import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesThree/StagesTree'
+import { getPipelineTree } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
 interface WebhookPipelineInputPanelPropsInterface {
@@ -39,6 +42,8 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)
+  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
+  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
   const { getString } = useStrings()
 
   useEffect(() => {
@@ -100,33 +105,56 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     pipelineIdentifier
   ])
 
+  useEffect(() => {
+    originalPipeline &&
+      updateNodes(
+        getPipelineTree(originalPipeline, stagesTreeNodeClasses, {
+          hideNonRuntimeFields: true,
+          template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
+        })
+      )
+  }, [originalPipeline, template])
+
+  const { openNestedPath } = useNestedAccordion()
+
+  const handleSelectionChange = (id: string): void => {
+    setSelectedTreeNodeId(id)
+    openNestedPath(id)
+    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
-    <Layout.Vertical className={css.webhookPipelineInputContainer} spacing="large" padding="medium">
+    <Layout.Vertical className={css.webhookPipelineInputContainer} spacing="large" padding="none">
       {loading && (
         <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
           <PageSpinner />
         </div>
       )}
       {pipeline && template?.data?.inputSetTemplateYaml ? (
-        <>
-          <div className={css.pipelineInputRow}>
-            <Heading level={2}>{getString('pipeline-triggers.pipelineInputLabel')}</Heading>
-            <InputSetSelector
-              pipelineIdentifier={pipelineIdentifier}
-              onChange={value => {
-                setSelectedInputSets(value)
-              }}
-              value={selectedInputSets}
+        <div className={css.inputsetGrid}>
+          <div className={css.treeSidebar}>
+            <StagesTree contents={nodes} selectedId={selectedTreeNodeId} selectionChange={handleSelectionChange} />
+          </div>
+          <div className={css.inputSetContent}>
+            <div className={css.pipelineInputRow}>
+              <Heading level={2}>{getString('pipeline-triggers.pipelineInputLabel')}</Heading>
+              <InputSetSelector
+                pipelineIdentifier={pipelineIdentifier}
+                onChange={value => {
+                  setSelectedInputSets(value)
+                }}
+                value={selectedInputSets}
+              />
+            </div>
+            <PipelineInputSetForm
+              originalPipeline={originalPipeline}
+              template={
+                (template?.data?.inputSetTemplateYaml && parse(template.data.inputSetTemplateYaml).pipeline) || {}
+              }
+              path="pipeline"
             />
           </div>
-          <PipelineInputSetForm
-            originalPipeline={originalPipeline}
-            template={
-              (template?.data?.inputSetTemplateYaml && parse(template.data.inputSetTemplateYaml).pipeline) || {}
-            }
-            path="pipeline"
-          />
-        </>
+        </div>
       ) : (
         <Layout.Horizontal padding="medium" margin="medium">
           <Text>{getString('pipeline-triggers.pipelineInputPanel.noRuntimeInputs')}</Text>

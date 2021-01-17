@@ -490,9 +490,8 @@ export default function DeployServiceSpecifications(): JSX.Element {
                   </div>
                 )}
               </div>
-              {selectedTab !== getString('pipelineSteps.build.stageSpecifications.variablesDetails') && (
-                <OverrideSets selectedTab={selectedTab} />
-              )}
+
+              <OverrideSets selectedTab={selectedTab} />
             </div>
           </div>
         </>

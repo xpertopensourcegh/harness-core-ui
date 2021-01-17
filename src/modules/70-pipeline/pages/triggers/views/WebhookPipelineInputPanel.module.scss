@@ -1,6 +1,6 @@
 .webhookPipelineInputContainer {
   width: 800px !important;
-  padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
+  // padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
 }
 
 .pipelineInputRow {
@@ -10,5 +10,36 @@
   h2 {
     font-size: 1.5em !important;
     font-weight: bold !important;
+    padding-left: var(--spacing-medium) !important;
+  }
+}
+
+.inputsetGrid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: #fafbfc;
+  .treeSidebar {
+    border-right: solid 1px #ccc;
+    background: #fff;
+    height: calc(100vh - 236px);
+  }
+  .input-set-content {
+    height: calc(100vh - 236px);
+    overflow: auto;
+  }
+  .Card--card {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  }
+  .inputSetcard {
+    margin: var(--spacing-large);
+  }
+  .errorHeader {
+    background: #fff9e7;
+    color: #000;
+    :global {
+      .bp3-icon {
+        padding-right: var(--spacing-large);
+      }
+    }
   }
 }

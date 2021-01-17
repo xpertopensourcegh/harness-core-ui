@@ -106,7 +106,6 @@ export default function WorkflowVariables({
       return predefinedSetsPath?.['variables'] || []
     }
     const overrideSets = stageSpec['variableOverrideSets']
-
     return overrideSets
       .map((variableSet: { overrideSet: { identifier: string; variables: Variable[] } }) => {
         if (variableSet?.overrideSet?.identifier === identifierName) {

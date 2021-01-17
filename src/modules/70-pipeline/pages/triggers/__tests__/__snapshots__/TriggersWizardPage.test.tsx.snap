@@ -10,7 +10,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
     >
       
       <section
-        class="wizardShell"
+        class="wizardShell tabs"
       >
         <section
           class="extendedNav"

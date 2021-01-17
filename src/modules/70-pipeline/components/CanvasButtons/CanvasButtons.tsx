@@ -16,9 +16,15 @@ interface CanvasButtonsProps {
   engine: DiagramEngine
   className?: string
   callback?: (action: CanvasButtonsActions) => void
+  tooltipPosition?: string
 }
 
-export const CanvasButtons: React.FC<CanvasButtonsProps> = ({ engine, callback, className = '' }) => {
+export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
+  engine,
+  callback,
+  className = '',
+  tooltipPosition = 'top'
+}) => {
   const zoomToFit = useCallback(() => {
     engine.zoomToFit()
     callback?.(CanvasButtonsActions.ZoomToFit)
@@ -49,15 +55,35 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({ engine, callback, 
     <span className={cx(css.canvasButtons, className)}>
       <Layout.Vertical spacing="medium" id="button-group">
         <ButtonGroup>
-          <Button icon="canvas-position" tooltip={i18n.zoomToFit} onClick={zoomToFit} />
+          <Button
+            icon="canvas-position"
+            tooltip={i18n.zoomToFit}
+            tooltipProps={{ position: tooltipPosition as any }}
+            onClick={zoomToFit}
+          />
         </ButtonGroup>
         <ButtonGroup>
-          <Button icon="canvas-selector" tooltip={i18n.reset} onClick={zoomReset} />
+          <Button
+            icon="canvas-selector"
+            tooltip={i18n.reset}
+            onClick={zoomReset}
+            tooltipProps={{ position: tooltipPosition as any }}
+          />
         </ButtonGroup>
         <span className={css.verticalButtons}>
           <ButtonGroup>
-            <Button icon="zoom-in" tooltip={i18n.zoomIn} onClick={zoomIn} />
-            <Button icon="zoom-out" tooltip={i18n.zoomOut} onClick={zoomOut} />
+            <Button
+              icon="zoom-in"
+              tooltip={i18n.zoomIn}
+              onClick={zoomIn}
+              tooltipProps={{ position: tooltipPosition as any }}
+            />
+            <Button
+              icon="zoom-out"
+              tooltip={i18n.zoomOut}
+              onClick={zoomOut}
+              tooltipProps={{ position: tooltipPosition as any }}
+            />
           </ButtonGroup>
         </span>
       </Layout.Vertical>

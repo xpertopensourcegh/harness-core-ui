@@ -3,6 +3,15 @@
 exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
 <div>
   <div
+    class="Layout--horizontal StyledProps--main pipelineHeader StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-medium"
+    >
+      Pipeline
+    </p>
+  </div>
+  <div
     class="OverlaySpinner--overlaySpinner"
   >
     <div

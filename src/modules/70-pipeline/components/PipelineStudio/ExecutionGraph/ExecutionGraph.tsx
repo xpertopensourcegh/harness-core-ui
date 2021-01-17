@@ -517,7 +517,7 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
             active: state.isRollback ? StepsType.Rollback : StepsType.Normal
           }}
         />
-        <CanvasButtons engine={engine} />
+        <CanvasButtons engine={engine} tooltipPosition="left" />
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}

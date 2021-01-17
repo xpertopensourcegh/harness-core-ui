@@ -260,6 +260,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         callback={action => {
           canvasListener(action)
         }}
+        tooltipPosition="right"
       />
     </div>
   )

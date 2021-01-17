@@ -7,6 +7,7 @@ declare const styles: {
   readonly runForm: string
   readonly editor: string
   readonly content: string
+  readonly pipelineHeader: string
   readonly footer: string
   readonly inputsetGrid: string
   readonly treeSidebar: string

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, createRef, RefObject } from 'react'
 import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikErrors } from 'formik'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useStrings } from 'framework/exports'
@@ -47,6 +48,7 @@ interface WizardProps {
   rightNav?: JSX.Element
   leftNav?: JSX.Element
   showVisualYaml?: boolean
+  className?: string
 }
 
 // enum SelectedView {
@@ -68,7 +70,8 @@ const Wizard: React.FC<WizardProps> = ({
   errorToasterMessage,
   rightNav,
   leftNav,
-  showVisualYaml = false
+  showVisualYaml = false,
+  className = ''
 }) => {
   const { wizardLabel } = wizardMap
   const defaultWizardTabId = wizardMap.panels[0].id
@@ -116,7 +119,7 @@ const Wizard: React.FC<WizardProps> = ({
     </Heading>
   )
   return (
-    <section className={css.wizardShell} ref={layoutRef}>
+    <section className={cx(css.wizardShell, className)} ref={layoutRef}>
       {leftNav || showVisualYaml || rightNav ? (
         <section className={css.extendedNav}>
           {title}

@@ -29,12 +29,23 @@ const getStageTree = (
   }
 
   // common to ci and cd stage
-  stageNode.childNodes?.push({
-    id: `Stage.${stage.identifier}.Variables`,
-    hasCaret: false,
-    label: <Text>{i18n.customVariables}</Text>,
-    className: classes.secondary
-  })
+  if (hideNonRuntimeFields) {
+    const hasVariables = get(template, 'variables', null)
+    hasVariables &&
+      stageNode.childNodes?.push({
+        id: `Stage.${stage.identifier}.Variables`,
+        hasCaret: false,
+        label: <Text>{i18n.customVariables}</Text>,
+        className: classes.secondary
+      })
+  } else {
+    stageNode.childNodes?.push({
+      id: `Stage.${stage.identifier}.Variables`,
+      hasCaret: false,
+      label: <Text>{i18n.customVariables}</Text>,
+      className: classes.secondary
+    })
+  }
 
   // only cd stage
   // TODO: Replace 'Deployment' literal with enum
@@ -177,8 +188,22 @@ export const getPipelineTree = (
         </Text>
       ),
       className: classes.primary
-    },
-    {
+    }
+  ]
+  if (options.hideNonRuntimeFields) {
+    get(options.template, 'variables', null) &&
+      returnNodes.push({
+        id: 'Pipeline.Variables',
+        hasCaret: false,
+        label: (
+          <Text color={Color.GREY_800} style={{ fontWeight: 500 }}>
+            {i18n.customVariables}
+          </Text>
+        ),
+        className: classes.empty
+      })
+  } else {
+    returnNodes.push({
       id: 'Pipeline.Variables',
       hasCaret: false,
       label: (
@@ -187,9 +212,8 @@ export const getPipelineTree = (
         </Text>
       ),
       className: classes.empty
-    }
-  ]
-
+    })
+  }
   /* istanbul ignore else */ if (pipeline.stages && pipeline.stages?.length > 0) {
     const stages: ITreeNode = {
       id: 'Stages',
@@ -209,7 +233,7 @@ export const getPipelineTree = (
         })
       } /* istanbul ignore else */ else if (data.stage) {
         stages.childNodes?.push(
-          getStageTree(data.stage, classes, { ...options, template: options.template?.stages[index].stage })
+          getStageTree(data.stage, classes, { ...options, template: options.template?.stages[index]?.stage })
         )
       }
     })
