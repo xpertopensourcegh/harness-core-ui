@@ -246,7 +246,7 @@ exports[`Http Step edit mode works 1`] = `
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="GET"
+                                value="POST"
                               />
                               <span
                                 class="bp3-input-action"

@@ -177,7 +177,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
         method:
           getMultiTypeFromValue(initialValues.spec?.method as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.method as string)
-            : httpStepType.find(step => step.value === initialValues.spec?.method || 'GET'),
+            : httpStepType.find(step => step.value === (initialValues.spec?.method || 'GET')),
         headers:
           getMultiTypeFromValue(initialValues.spec?.headers as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.headers as string)
