@@ -9,25 +9,24 @@ export interface UseStringsReturn {
   getString(key: string, vars?: Record<string, any>): string
 }
 
-export function useStrings(namespace = 'global'): UseStringsReturn {
+export function useStrings(): UseStringsReturn {
   const { strings } = useAppStore()
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getString(key: string, vars: Record<string, any> = {}) {
-      const template = get(strings[namespace] || strings.global, key)
+      const template = get(strings, key)
 
       if (typeof template !== 'string') {
         throw new Error(`No valid template with id "${key}" found in any namespace`)
       }
 
-      return render(template, vars)
+      return render(template, { ...vars, $: strings })
     }
   }
 }
 
 export interface StringProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
-  namespace: string
   stringID: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   vars?: Record<string, any>
@@ -36,8 +35,8 @@ export interface StringProps extends React.DetailedHTMLProps<React.HTMLAttribute
 }
 
 export function String(props: StringProps): React.ReactElement | null {
-  const { namespace, stringID, vars, useRichText, tagName: Tag, ...rest } = props
-  const { getString } = useStrings(namespace)
+  const { stringID, vars, useRichText, tagName: Tag, ...rest } = props
+  const { getString } = useStrings()
 
   try {
     const text = getString(stringID, vars)
@@ -57,6 +56,5 @@ export function String(props: StringProps): React.ReactElement | null {
 }
 
 String.defaultProps = {
-  namespace: 'global',
   tagName: 'span'
 }

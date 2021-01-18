@@ -3,75 +3,62 @@ const path = require('path')
 const yaml = require('yaml')
 const _ = require('lodash')
 const chalk = require('chalk')
+const textTable = require('text-table')
 
 const stringsFile = 'src/strings/strings.en.yaml'
 
 const content = fs.readFileSync(path.resolve(process.cwd(), stringsFile), 'utf-8')
-const { global: globalNamespace, ...otherNamespaces } = yaml.parse(content)
+const parsedContent = yaml.parse(content)
 
-let errors = 0
+const REFERENCE_REGEX = /\{\{\s*\$\.(.+?)\s*\}\}/g
 
-// check for duplicate values
+const errors = []
 const valuesMap = new Map()
-function checkForDuplicateValues(ns, data, parentPath = []) {
-  Object.keys(data).forEach(key => {
-    const value = data[key]
-    const path = [...parentPath, key].join('.')
 
-    if (typeof value === 'string') {
-      if (valuesMap.has(value)) {
-        errors++
-        console.log(
-          `${chalk.red('error')} '${path}' has duplicate value of '${value}'. Please use "${valuesMap.get(
-            value
-          )}" instead or extract the value to a common place`
-        )
-      } else {
-        valuesMap.set(value, `(${ns}) ${path}`)
-      }
-    } else {
-      checkForDuplicateValues(ns, value, [...parentPath, key])
+function validateReferences(str, path) {
+  const matches = str.matchAll(REFERENCE_REGEX)
+
+  for (const match of matches) {
+    if (!_.has(parsedContent, match[1])) {
+      errors.push([chalk.red('error'), `"${path}" has incorrect reference: "${match[0]}"`])
     }
-  })
+  }
 }
 
-// overrides should be present only if they are defined in global namespace
-function checkKeyinGlobalNameSpace(data, parentPath = []) {
-  Object.keys(data).forEach(key => {
-    const value = data[key]
+function validateStrings(data, parentPath = []) {
+  Object.entries(data).forEach(([key, value]) => {
     const path = [...parentPath, key].join('.')
 
     if (typeof value === 'string') {
-      // do not merge the if condition checks. They are required to be sepreate in order to work properly
-      if (!_.has(globalNamespace, path)) {
-        errors++
-        console.log(
-          `${chalk.red(
-            'error'
-          )} '${path}' is not defined in global namespace. Namespaces are meant to be used only for overrides.`
-        )
+      // only variable values
+      if (value.startsWith('{{') && value.endsWith('}}')) {
+        validateReferences(value, path)
+        return
+      }
+
+      if (valuesMap.has(value)) {
+        const existingPath = valuesMap.get(value)
+        errors.push([
+          chalk.red('error'),
+          `"${path}" has duplicate value of "${value}". Please use "${existingPath}" instead or extract the value to a common place`
+        ])
       } else {
-        // do nothing
+        valuesMap.set(value, path)
+        validateReferences(value, path)
       }
     } else {
-      checkKeyinGlobalNameSpace(value, [...parentPath, key])
+      validateStrings(value, [...parentPath, key])
     }
   })
 }
 
 // perform actual checks
-console.log(chalk.blueBright(`\nNamespace: global`))
-checkForDuplicateValues('global', globalNamespace)
+validateStrings(parsedContent)
 
-Object.keys(otherNamespaces).forEach(ns => {
-  console.log(chalk.blueBright(`\nNamespace: ${ns}`))
-  checkForDuplicateValues(ns, otherNamespaces[ns])
-  checkKeyinGlobalNameSpace(otherNamespaces[ns])
-})
-
-if (errors > 0) {
-  console.log(chalk.red(`\n❌ ${errors} errors found`))
+if (errors.length > 0) {
+  console.log(chalk.red(`\n❌ ${errors.length} issues found\n`))
+  console.log(textTable(errors))
   process.exit(1)
 } else {
-  console.log(chalk.green(`\n✅  0 errors found`))
+  console.log(chalk.green(`\n✅  0 issues found`))
 }

@@ -62,7 +62,7 @@ function getLiteralValue(node) {
   }
 }
 
-function checkAndReportIssues({ context, node, pathToStr, nsStr, globalNamespace, otherNamespaces, def }) {
+function checkAndReportIssues({ context, node, pathToStr, stringsData, def }) {
   if (_.isNil(pathToStr)) {
     // it can be undefined in cases of conditional assignment and/or template literals
     return
@@ -72,64 +72,10 @@ function checkAndReportIssues({ context, node, pathToStr, nsStr, globalNamespace
     return context.report(node, node.loc, 'StringID cannot be empty.')
   }
 
-  // check if a namespace value is empty string
-  if (nsStr === '') {
-    return context.report(
-      def ? _.get(def, 'node.init') : node,
-      def ? _.get(def, 'node.init.loc') : node.loc,
-      'Namespace cannot be empty. Either use a correct namespace or remove it.'
-    )
-  }
+  const presentInData = isValidType(_.get(stringsData, pathToStr))
 
-  const namespaceDefined = !_.isNil(nsStr)
-  const presentInGlobal = isValidType(_.get(globalNamespace, pathToStr))
-  const validNamespace = !namespaceDefined || _.has(otherNamespaces, nsStr)
-  const presentInNamespace = isValidType(_.get(otherNamespaces[nsStr], pathToStr))
-
-  // check if a namespace value is valid value
-  if (!validNamespace) {
-    return context.report(
-      def ? _.get(def, 'node.init') : node,
-      def ? _.get(def, 'node.init.loc') : node.loc,
-      `Namespace "${nsStr}" does not exist`
-    )
-  }
-
-  // check if a default value is defined in global scope before overriding it.
-  if (namespaceDefined) {
-    if (presentInNamespace) {
-      //
-      if (presentInGlobal) {
-        // do nothing
-      } else {
-        // not presentInGlobal
-        context.report(
-          node,
-          node.loc,
-          `A default string with key "${pathToStr}" does not exists in "global" namespace. Please add a default string in "global" namespace first, then provide override using namespaces.`
-        )
-      }
-    } else {
-      // not presentInNamespace
-
-      if (presentInGlobal) {
-        context.report(
-          node,
-          node.loc,
-          `A string with key "${pathToStr}" does not exists in "${nsStr}" namespace, this will fallback to "global" namespace. Please remove the namespace.`
-        )
-      } else {
-        context.report(
-          node,
-          node.loc,
-          `A string with key "${pathToStr}" exists neither in "${nsStr}" namespace nor in "global" namespace.`
-        )
-      }
-    }
-  } else {
-    if (!presentInGlobal) {
-      context.report(node, node.loc, `A string with key "${pathToStr}" does not exists in "global" namespace.`)
-    }
+  if (!presentInData) {
+    context.report(node, node.loc, `A string definition with key "${pathToStr}" does not exists.`)
   }
 }
 
@@ -139,19 +85,17 @@ module.exports = {
   },
   create(context) {
     const content = fs.readFileSync(path.resolve(process.cwd(), stringsFile), 'utf-8')
-    const { global: globalNamespace, ...otherNamespaces } = yaml.parse(content)
+    const stringsData = yaml.parse(content)
 
     return {
       JSXElement(node) {
         if (_.get(node, 'openingElement.name.name') === 'String') {
           const attrs = _.get(node, 'openingElement.attributes') || []
           const stringID = attrs.find(attr => attr.type === 'JSXAttribute' && attr.name.name === 'stringID')
-          const namespace = attrs.find(attr => attr.type === 'JSXAttribute' && attr.name.name === 'namespace')
 
           const pathToStr = getLiteralValue(stringID)
-          const nsStr = getLiteralValue(namespace)
 
-          checkAndReportIssues({ context, node, pathToStr, nsStr, globalNamespace, otherNamespaces })
+          checkAndReportIssues({ context, node, pathToStr, stringsData })
         }
       },
       CallExpression(node) {
@@ -181,16 +125,14 @@ module.exports = {
 
         if (defType === 'ObjectPattern' && isUseString(def)) {
           // example: const { getString } = useStrings()
-          const nsStr = getLiteralValue({ value: _.get(def, 'node.init.arguments[0]') })
           const pathToStr = getLiteralValue({ value: _.get(node, 'arguments[0]') })
 
-          checkAndReportIssues({ context, node, pathToStr, nsStr, globalNamespace, otherNamespaces, def })
+          checkAndReportIssues({ context, node, pathToStr, stringsData, def })
         } else if (defType === 'Identifier' && isUseString(def)) {
           // example: const strings = useStrings()
-          const nsStr = getLiteralValue({ value: _.get(def, 'node.init.arguments[0]') })
           const pathToStr = getLiteralValue({ value: _.get(node, 'arguments[0]') })
 
-          checkAndReportIssues({ context, node, pathToStr, nsStr, globalNamespace, otherNamespaces, def })
+          checkAndReportIssues({ context, node, pathToStr, stringsData, def })
         }
       }
     }

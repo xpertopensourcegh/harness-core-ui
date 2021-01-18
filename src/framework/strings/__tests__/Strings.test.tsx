@@ -3,13 +3,15 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 
-import strings from 'strings/strings.en.yaml'
-
 import { String, useStrings } from '../String'
 import { AppStoreContext as StringsContext, AppStoreContextProps } from '../../AppStore/AppStoreContext'
 
 const value: AppStoreContextProps = {
-  strings,
+  strings: {
+    a: { b: 'Test Value 1' },
+    harness: 'Harness',
+    test: '{{ $.a.b }}'
+  },
   featureFlags: {},
   updateAppStore: jest.fn()
 }
@@ -48,15 +50,7 @@ describe('String tests', () => {
 
   test('renders strings with nested value', () => {
     const { container } = render(
-      <StringsContext.Provider
-        value={{
-          ...value,
-          strings: {
-            global: { a: { b: 'Test Value 1' } },
-            namespace: { a: { b: 'Test Value 2' } }
-          }
-        }}
-      >
+      <StringsContext.Provider value={value}>
         <String stringID="a.b" />
       </StringsContext.Provider>
     )
@@ -70,41 +64,10 @@ describe('String tests', () => {
     `)
   })
 
-  test('renders strings with override value', () => {
+  test('renders strings with self reference values', () => {
     const { container } = render(
-      <StringsContext.Provider
-        value={{
-          ...value,
-          strings: {
-            global: { a: { b: 'Test Value 1' } },
-            namespace: { a: { b: 'Test Value 2' } }
-          }
-        }}
-      >
-        <String stringID="a.b" namespace="namespace" />
-      </StringsContext.Provider>
-    )
-
-    expect(container).toMatchInlineSnapshot(`
-      <div>
-        <span>
-          Test Value 2
-        </span>
-      </div>
-    `)
-  })
-
-  test('renders strings with global fallback', () => {
-    const { container } = render(
-      <StringsContext.Provider
-        value={{
-          ...value,
-          strings: {
-            global: { a: { b: 'Test Value 1' } }
-          }
-        }}
-      >
-        <String stringID="a.b" namespace="namespace" />
+      <StringsContext.Provider value={value}>
+        <String stringID="test" />
       </StringsContext.Provider>
     )
 
@@ -126,48 +89,25 @@ describe('useString tests', () => {
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
-      expect(result.current.getString('harness')).toBe(strings.global.harness)
+      expect(result.current.getString('harness')).toBe(value.strings.harness)
     })
 
     test('works with nested values', () => {
       const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-        <StringsContext.Provider value={{ ...value, strings: { global: { a: { b: 'Test Value' } } } }}>
-          {children}
-        </StringsContext.Provider>
+        <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
-      expect(result.current.getString('a.b')).toBe('Test Value')
+      expect(result.current.getString('a.b')).toBe(value.strings.a.b)
     })
 
-    test('works with overrides ', () => {
+    test('works with self reference values', () => {
       const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-        <StringsContext.Provider
-          value={{
-            ...value,
-            strings: {
-              global: { a: { b: 'Test Value 1' } },
-              namespace: { a: { b: 'Test Value 2' } }
-            }
-          }}
-        >
-          {children}
-        </StringsContext.Provider>
+        <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
       )
-      const { result } = renderHook(() => useStrings('namespace'), { wrapper })
+      const { result } = renderHook(() => useStrings(), { wrapper })
 
-      expect(result.current.getString('a.b')).toBe('Test Value 2')
-    })
-
-    test('works with global fallback', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-        <StringsContext.Provider value={{ ...value, strings: { global: { a: { b: 'Test Value' } } } }}>
-          {children}
-        </StringsContext.Provider>
-      )
-      const { result } = renderHook(() => useStrings('namespace'), { wrapper })
-
-      expect(result.current.getString('a.b')).toBe('Test Value')
+      expect(result.current.getString('test')).toBe(value.strings.a.b)
     })
 
     test('throws when key not found', () => {
