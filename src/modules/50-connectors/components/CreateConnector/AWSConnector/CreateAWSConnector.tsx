@@ -1,13 +1,16 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
+import { pick } from 'lodash-es'
+import { useStrings } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import StepAWSAuthentication from './StepAuth/StepAWSAuthentication'
-import i18n from './CreateAWSConnector.i18n'
 
 const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
+  const { getString } = useStrings()
+  const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
   return (
     <>
       <StepWizard
@@ -15,10 +18,21 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
         iconProps={{ size: 37 }}
         title={getConnectorTitleTextByType(Connectors.AWS)}
       >
-        <ConnectorDetailsStep type={Connectors.AWS} name={i18n.STEP.ONE.NAME} mock={props.mock} />
-        <StepAWSAuthentication name={i18n.STEP.TWO.NAME} onConnectorCreated={props.onSuccess} />
+        <ConnectorDetailsStep
+          type={Connectors.AWS}
+          name={getString('overview')}
+          isEditMode={props.isEditMode}
+          connectorInfo={props.connectorInfo}
+          mock={props.mock}
+        />
+        <StepAWSAuthentication
+          name={getString('connectors.aws.stepTwoName')}
+          {...commonProps}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+        />
         <VerifyOutOfClusterDelegate
-          name={i18n.STEP.THREE.NAME}
+          name={getString('connectors.stepThreeName')}
           isStep={true}
           isLastStep={true}
           type={Connectors.AWS}

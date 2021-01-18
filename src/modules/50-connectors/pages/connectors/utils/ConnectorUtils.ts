@@ -1,7 +1,13 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uicore'
 import { Connectors, EntityTypes } from '@connectors/constants'
-import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  ConnectorInfoDTO,
+  getSecretV2Promise,
+  GetSecretV2QueryParams,
+  ConnectorConfigDTO,
+  AwsCredential
+} from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
@@ -21,13 +27,16 @@ export interface DelegateCardInterface {
   info: string
   disabled?: boolean
 }
+export interface CredentialType {
+  [key: string]: AwsCredential['type']
+}
 
 export const GCP_AUTH_TYPE = {
   DELEGATE: 'delegate',
   ENCRYPTED_KEY: 'encryptedKey'
 }
 
-export const DelegateTypes = {
+export const DelegateTypes: CredentialType = {
   DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
   DELEGATE_OUT_CLUSTER: 'ManualConfig'
 }
@@ -438,6 +447,25 @@ export const setupGCPFormData = async (connectorInfo: ConnectorInfoDTO, accountI
     delegateType: connectorInfo.spec.credential.type,
     delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
     password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams)
+  }
+
+  return formData
+}
+
+export const setupAWSFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    credential: connectorInfo.spec.credential.type,
+    accessKey: connectorInfo.spec.credential.spec.accessKey,
+    secretKeyRef: await setSecretField(connectorInfo.spec.credential.spec.secretKeyRef, scopeQueryParams),
+    crossAccountAccess: !!connectorInfo.spec.credential.crossAccountAccess,
+    crossAccountRoleArn: connectorInfo.spec.credential.crossAccountAccess?.crossAccountRoleArn,
+    externalId: connectorInfo.spec.credential.crossAccountAccess?.externalId
   }
 
   return formData

@@ -953,6 +953,20 @@ connectors:
     harbour: 'Harbour'
     quay: 'Quay'
     other: 'Other (Docker V2 compliant)'
+  aws:
+    stepTwoName: AWS Credentials
+    awsAccessKey: AWS Access Key
+    accessKey: Access Key
+    secretKey: Secret Key
+    enableCrossAcc: Enable cross-account access
+    crossAccURN: Cross account role URN
+    externalId: External Id (Optional)
+    assumeIAMRole: Assume IAM role on delegate
+    validation:
+      delegateSelector: 'Delegate Tag is required'
+      secretKeyRef: 'Secret key is required'
+      accessKey: 'Access key is required'
+      crossAccountRoleArn: 'Role ARN is required'
 
 cf:
   clause:

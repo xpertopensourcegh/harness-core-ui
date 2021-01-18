@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly radioGroup: string
+  readonly formDataAws: string
   readonly incluster: string
   readonly howToProceed: string
   readonly radioOption: string

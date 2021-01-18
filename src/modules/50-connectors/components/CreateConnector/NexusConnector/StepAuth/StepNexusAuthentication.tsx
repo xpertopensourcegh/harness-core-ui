@@ -97,9 +97,10 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await createConnector(data)
+      const response = await createConnector(data)
       setLoadConnector(false)
-      props.onConnectorCreated?.()
+      props.setIsEditMode(true)
+      props.onConnectorCreated?.(response.data)
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepNexusAuthenticationProps)
     } catch (e) {
