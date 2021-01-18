@@ -493,6 +493,7 @@ global:
       branchConditions: 'Branch Conditions'
       sourceBranch: 'Source Branch'
       targetBranch: 'Target Branch'
+      branchName: 'Branch Name'
       payloadConditions: 'Payload Conditions'
       attribute: 'Attribute'
       operator: 'Operator'

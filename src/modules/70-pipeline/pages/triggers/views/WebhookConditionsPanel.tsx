@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, FormInput, Heading, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
+import { eventTypes } from '../utils/TriggersWizardPageUtils'
 import PayloadConditionsSection from './PayloadConditionsSection'
 import css from './WebhookConditionsPanel.module.scss'
 
@@ -22,12 +23,12 @@ interface WebhookConditionsPanelPropsInterface {
 
 const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = ({ formikProps }): JSX.Element => {
   const {
-    values: { payloadConditions },
+    values: { payloadConditions, event },
     setFieldValue,
     errors
   } = formikProps
   const { getString } = useStrings()
-
+  const eventIsPush = event === eventTypes.PUSH
   return (
     <Layout.Vertical
       key={payloadConditions?.length || 0}
@@ -46,23 +47,29 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         <Heading level={2} font={{ weight: 'bold' }}>
           {getString('pipeline-triggers.conditionsPanel.branchConditions')}
         </Heading>
-        <div className={css.conditionsRow}>
-          <div>
-            <Text style={{ fontSize: 16 }}>{getString('pipeline-triggers.conditionsPanel.sourceBranch')}</Text>
+        {!eventIsPush && (
+          <div className={css.conditionsRow}>
+            <div>
+              <Text style={{ fontSize: 16 }}>{getString('pipeline-triggers.conditionsPanel.sourceBranch')}</Text>
+            </div>
+            <FormInput.Select
+              items={mockOperators}
+              name="sourceBranchOperator"
+              label={getString('pipeline-triggers.conditionsPanel.operator')}
+            />
+            <FormInput.Text
+              name="sourceBranchValue"
+              label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
+            />
           </div>
-          <FormInput.Select
-            items={mockOperators}
-            name="sourceBranchOperator"
-            label={getString('pipeline-triggers.conditionsPanel.operator')}
-          />
-          <FormInput.Text
-            name="sourceBranchValue"
-            label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
-          />
-        </div>
+        )}
         <div className={css.conditionsRow}>
           <div>
-            <Text style={{ fontSize: 16 }}>{getString('pipeline-triggers.conditionsPanel.targetBranch')}</Text>
+            <Text style={{ fontSize: 16 }}>
+              {eventIsPush
+                ? getString('pipeline-triggers.conditionsPanel.branchName')
+                : getString('pipeline-triggers.conditionsPanel.targetBranch')}
+            </Text>
           </div>
           <FormInput.Select
             items={mockOperators}

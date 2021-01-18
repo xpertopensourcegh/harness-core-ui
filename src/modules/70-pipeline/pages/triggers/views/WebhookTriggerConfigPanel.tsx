@@ -6,6 +6,7 @@ import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDes
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
 import { GitSourceProviders } from '../utils/TriggersListUtils'
+import { eventTypes } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookTriggerConfigPanel.module.scss'
 
 export interface WebhookTriggerConfigPanelPropsInterface {
@@ -110,44 +111,59 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             items={eventOptions}
             onChange={e => {
               setActionsDisabled(false)
-              formikProps.setValues({ ...formikProps.values, event: e.value, actions: undefined, anyAction: false })
+              const additionalValues: { sourceBranchOperator?: string; sourceBranchValue?: string } = {}
+
+              if (event === eventTypes.PUSH) {
+                additionalValues.sourceBranchOperator = undefined
+                additionalValues.sourceBranchValue = undefined
+              }
+
+              formikProps.setValues({
+                ...formikProps.values,
+                event: e.value,
+                actions: undefined,
+                anyAction: false,
+                ...additionalValues
+              })
             }}
           />
-          <div className={css.actionsContainer}>
-            <div>
-              <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-                {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
-              </Text>
-              <FormInput.MultiSelect
-                name="actions"
-                items={actionsOptions}
-                // yaml design: empty array means selecting all
-                disabled={Array.isArray(actions) && isEmpty(actions)}
-                onChange={e => {
-                  if (!e || (Array.isArray(e) && isEmpty(e))) {
-                    formikProps.setFieldValue('actions', undefined)
+          {event && event !== eventTypes.PUSH && (
+            <div className={css.actionsContainer}>
+              <div>
+                <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+                  {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
+                </Text>
+                <FormInput.MultiSelect
+                  name="actions"
+                  items={actionsOptions}
+                  // yaml design: empty array means selecting all
+                  disabled={Array.isArray(actions) && isEmpty(actions)}
+                  onChange={e => {
+                    if (!e || (Array.isArray(e) && isEmpty(e))) {
+                      formikProps.setFieldValue('actions', undefined)
+                    } else {
+                      formikProps.setFieldValue('actions', e)
+                    }
+                  }}
+                />
+              </div>
+              <FormInput.CheckBox
+                name="anyAction"
+                key={Date.now()}
+                label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
+                disabled={actionsDisabled}
+                defaultChecked={Array.isArray(actions) && actions.length === 0}
+                className={css.anyAction}
+                onClick={(e: React.FormEvent<HTMLInputElement>) => {
+                  if (e.currentTarget?.checked) {
+                    formikProps.setFieldValue('actions', [])
                   } else {
-                    formikProps.setFieldValue('actions', e)
+                    formikProps.setFieldValue('actions', undefined)
                   }
                 }}
               />
             </div>
-            <FormInput.CheckBox
-              name="anyAction"
-              key={Date.now()}
-              label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
-              disabled={actionsDisabled}
-              defaultChecked={Array.isArray(actions) && actions.length === 0}
-              className={css.anyAction}
-              onClick={(e: React.FormEvent<HTMLInputElement>) => {
-                if (e.currentTarget?.checked) {
-                  formikProps.setFieldValue('actions', [])
-                } else {
-                  formikProps.setFieldValue('actions', undefined)
-                }
-              }}
-            />
-          </div>
+          )}
         </section>
       </div>
     </Layout.Vertical>

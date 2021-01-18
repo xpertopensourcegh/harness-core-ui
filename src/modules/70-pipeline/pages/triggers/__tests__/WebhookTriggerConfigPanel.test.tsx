@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { InputTypes, setFieldValue, fillAtForm } from '@common/utils/JestFormHelper'
 
 import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
@@ -69,6 +69,21 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
           result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
+      fillAtForm([
+        {
+          container: container,
+          type: InputTypes.SELECT,
+          fieldId: 'sourceRepo',
+          value: 'GITHUB'
+        },
+        {
+          container: container,
+          type: InputTypes.SELECT,
+          fieldId: 'event',
+          value: 'Pull Request'
+        }
+      ])
+      await waitFor(() => expect(container.querySelector('[name="actions"]')).not.toBeNull())
 
       expect(container.querySelector('[name="actions"]')).toHaveProperty('disabled', false)
       setFieldValue({ type: InputTypes.CHECKBOX, container: container, fieldId: 'anyAction' })

@@ -247,3 +247,7 @@ export const getValidationSchema = (getString: (key: string) => string): ObjectS
       }
     )
   })
+
+export const eventTypes = {
+  PUSH: 'Push'
+}
