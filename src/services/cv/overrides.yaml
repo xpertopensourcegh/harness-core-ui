@@ -15,6 +15,7 @@ allowpaths:
   - /heatmap
   - /heatmap/category-risks
   - /heatmap/env-service-risks
+  - /heatmap/risk-summary-popover
   - /verification-job
   - /verification-job/list
   - /timeseries-dashboard/anomalous-metric-data

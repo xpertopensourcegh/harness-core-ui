@@ -70,7 +70,7 @@ describe('Unit tests for service selector', () => {
     }
 
     expect(environmentRow.children[0]?.innerHTML).toEqual('Environment: Prod')
-    expect(environmentRow.children[1]?.getAttribute('class')).toContain('heatmapColor1')
+    expect(environmentRow.children[1]?.getAttribute('class')).toContain('noRiskScore')
 
     const serviceRow = container.querySelector('[class*="serviceRow"]')
     if (!serviceRow) {

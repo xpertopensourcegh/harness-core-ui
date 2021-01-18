@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import CVDashboardPage from '../CVDashboardPage'
 
 jest.mock('../CategoryRiskCards/CategoryRiskCards', () => ({
@@ -16,7 +17,11 @@ jest.mock('../RecentActivityChanges/RecentActivityChanges', () => () => (
 
 describe('CVDashboardPage', () => {
   test('renders subcomponents correctly', () => {
-    const { container } = render(<CVDashboardPage />)
+    const { container } = render(
+      <TestWrapper>
+        <CVDashboardPage />
+      </TestWrapper>
+    )
     expect(container.querySelector('.test-category-risk-cards')).toBeTruthy()
     expect(container.querySelector('.test-activity-verifications')).toBeTruthy()
     expect(container.querySelector('.test-recent-activity-changes')).toBeTruthy()

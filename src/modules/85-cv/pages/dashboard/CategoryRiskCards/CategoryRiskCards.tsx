@@ -15,18 +15,21 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
 import i18n from './CategoryRiskCards.i18n'
 import getRiskGaugeChartOptions from './RiskGauge'
+import RiskCardTooltip from './RiskCardTooltip/RiskCardTooltip'
 import css from './CategoryRiskCards.module.scss'
 
 interface CategoryRiskCardsWithApiProps {
   environmentIdentifier?: string
   serviceIdentifier?: string
   className?: string
+  onCardSelect?(category?: string): void
 }
 
 interface CategoryRiskCardProps {
   categoryName: string
   riskScore: number
   className?: string
+  onClick?(): void
 }
 
 interface CategoryRiskCardsProps {
@@ -34,11 +37,13 @@ interface CategoryRiskCardsProps {
   data: RestResponseCategoryRisksDTO | null
   loading?: boolean
   error?: string
+  onCardSelect?(category?: string): void
 }
 
 interface OverallRiskScoreCard {
   overallRiskScore: number
   className?: string
+  onClick?(): void
 }
 
 highchartsMore(Highcharts)
@@ -80,7 +85,7 @@ function transformCategoryRiskResponse(
 export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
   const { riskScore = 0, categoryName = '', className } = props
   return (
-    <Container className={cx(css.categoryRiskCard, className)}>
+    <Container className={cx(css.categoryRiskCard, className)} onClick={props.onClick}>
       <Container className={css.riskInfoContainer}>
         <Text color={Color.BLACK} className={css.categoryName}>
           {categoryName}
@@ -108,7 +113,10 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
       </Text>
     </Container>
   ) : (
-    <Container className={cx(css.overallRiskScoreCard, className, getColorStyle(overallRiskScore, 0, 100))}>
+    <Container
+      onClick={props.onClick}
+      className={cx(css.overallRiskScoreCard, className, getColorStyle(overallRiskScore, 0, 100))}
+    >
       <Text color={Color.BLACK} className={css.overallRiskScoreValue}>
         {overallRiskScore}
       </Text>
@@ -137,7 +145,15 @@ export function CategoryRiskCardsWithApi(props: CategoryRiskCardsWithApiProps): 
     }
   })
 
-  return <CategoryRiskCards className={className} data={data} error={error?.message} loading={loading} />
+  return (
+    <CategoryRiskCards
+      className={className}
+      data={data}
+      error={error?.message}
+      loading={loading}
+      onCardSelect={props.onCardSelect}
+    />
+  )
 }
 
 export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
@@ -188,14 +204,20 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
         )}
       </Container>
       <Container className={css.cardContainer}>
-        {isNumber(overallRiskScore) && <OverallRiskScoreCard overallRiskScore={overallRiskScore} />}
+        {isNumber(overallRiskScore) && (
+          <RiskCardTooltip endTime={endTimeEpoch}>
+            <OverallRiskScoreCard overallRiskScore={overallRiskScore} onClick={() => props?.onCardSelect?.()} />
+          </RiskCardTooltip>
+        )}
         {categoriesAndRisk.map(({ categoryName, riskScore }) => (
-          <CategoryRiskCard
-            categoryName={categoryName || ''}
-            riskScore={riskScore ?? -1}
-            key={categoryName}
-            className={className}
-          />
+          <RiskCardTooltip key={categoryName} category={categoryName} endTime={endTimeEpoch}>
+            <CategoryRiskCard
+              categoryName={categoryName || ''}
+              riskScore={riskScore ?? -1}
+              className={className}
+              onClick={() => props?.onCardSelect?.(categoryName)}
+            />
+          </RiskCardTooltip>
         ))}
       </Container>
     </Container>

@@ -3501,6 +3501,59 @@ export const getEnvServiceRisksPromise = (
     signal
   )
 
+export interface GetRiskSummaryPopoverQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  endTime: number
+  serviceIdentifier?: string
+  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
+}
+
+export type GetRiskSummaryPopoverProps = Omit<
+  GetProps<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>,
+  'path'
+>
+
+/**
+ * get current risk summary
+ */
+export const GetRiskSummaryPopover = (props: GetRiskSummaryPopoverProps) => (
+  <Get<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>
+    path="/heatmap/risk-summary-popover"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetRiskSummaryPopoverProps = Omit<
+  UseGetProps<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>,
+  'path'
+>
+
+/**
+ * get current risk summary
+ */
+export const useGetRiskSummaryPopover = (props: UseGetRiskSummaryPopoverProps) =>
+  useGet<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>(
+    `/heatmap/risk-summary-popover`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get current risk summary
+ */
+export const getRiskSummaryPopoverPromise = (
+  props: GetUsingFetchProps<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>(
+    getConfig('cv/api'),
+    `/heatmap/risk-summary-popover`,
+    props,
+    signal
+  )
+
 export interface GetVerificationJobQueryParams {
   accountId?: string
   identifier?: string

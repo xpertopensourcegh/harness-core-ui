@@ -4,6 +4,8 @@ import type { RestResponseCategoryRisksDTO } from 'services/cv'
 import { CategoryRiskCards } from '../CategoryRiskCards'
 import i18n from '../CategoryRiskCards.i18n'
 
+jest.mock('../RiskCardTooltip/RiskCardTooltip', () => (props: any) => <div>{props.children}</div>)
+
 const InvalidTimestampMockApiData: RestResponseCategoryRisksDTO = {
   metaData: {},
   resource: {

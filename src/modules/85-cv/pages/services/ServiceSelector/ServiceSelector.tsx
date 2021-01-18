@@ -20,17 +20,19 @@ interface RowProps {
   onSelect: (entityName: string) => void
 }
 
+const NO_DATA_RISK_SCORE = -1
+
 function generateOverallRiskScores(serviceData?: EnvServiceRiskDTO[]): Map<string, number> {
   const riskScoreMap = new Map<string, number>()
   if (!serviceData) {
     return riskScoreMap
   }
 
-  let maxOverallRiskScore = 0
+  let maxOverallRiskScore = NO_DATA_RISK_SCORE
   for (const serviceInfo of serviceData) {
     if (!serviceInfo?.serviceRisks?.length || !serviceInfo?.envIdentifier) continue
 
-    let envScore = 0
+    let envScore = NO_DATA_RISK_SCORE
     for (const serviceScore of serviceInfo.serviceRisks) {
       if (serviceScore?.risk && serviceScore.risk > envScore) envScore = serviceScore.risk
     }

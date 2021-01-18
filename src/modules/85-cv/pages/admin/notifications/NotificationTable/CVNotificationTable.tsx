@@ -203,7 +203,7 @@ const RenderConditions: Renderer<CellProps<AlertRuleDTO>> = ({ row }) => {
         <Layout.Horizontal>
           <Icon name="tick" color={Color.BLUE_500} />
           <Text padding={{ left: 'xsmall' }} color={Color.BLACK}>
-            {getString('cv.admin.notifications.create.stepThree.risk')}
+            {getString('risk')}
           </Text>
         </Layout.Horizontal>
       ) : null}

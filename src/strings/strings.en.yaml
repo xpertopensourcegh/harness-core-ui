@@ -39,6 +39,7 @@ global:
   test: Test
   enable: Enable
   reset: Reset
+  risk: Risk
   health: Health
   activitySource: Activity Source
   dataSource: Data Source
@@ -1015,6 +1016,9 @@ global:
     harnessService: 'Harness Service'
     harnessEnvironment: 'Harness Environment'
     selectOrCreateEnv: 'Select or create an environment'
+    riskCardTooltip:
+      header: Performance risk was computed based on metrics from your data providers
+      allServicesGreen: all services green
     analysisScreens:
       analysisTab:
         metrics: 'Metrics'
@@ -1045,7 +1049,6 @@ global:
             name: Give name to your notification rule
           stepThree:
             verification: Verification
-            risk: Risk
             headingOne: Select Condition for Notification
             headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
             notifyVerification: Notify on completed verifications
