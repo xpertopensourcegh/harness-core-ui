@@ -125,7 +125,10 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                     </Collapse>
                   </div>
                   <div className={css.collapseDiv}>
-                    <Collapse isOpen={formikProps.values.tags?.length ? true : false} {...tagCollapseProps}>
+                    <Collapse
+                      isOpen={formikProps.values.tags && Object.keys(formikProps.values.tags).length ? true : false}
+                      {...tagCollapseProps}
+                    >
                       <FormInput.KVTagInput name="tags" />
                     </Collapse>
                   </div>

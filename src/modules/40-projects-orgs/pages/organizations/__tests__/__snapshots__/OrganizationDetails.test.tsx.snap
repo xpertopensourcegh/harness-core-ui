@@ -42,7 +42,8 @@ exports[`Organization Details Render 1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag tag"
+              class="bp3-tag"
+              style="max-width: 120px;"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -55,7 +56,8 @@ exports[`Organization Details Render 1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag tag"
+              class="bp3-tag"
+              style="max-width: 120px;"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"

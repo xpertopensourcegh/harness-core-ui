@@ -77,7 +77,8 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag tag"
+                class="bp3-tag"
+                style="max-width: 75px;"
               >
                 <span
                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -90,25 +91,13 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag tag"
+                class="bp3-tag"
+                style="max-width: 75px;"
               >
                 <span
                   class="bp3-text-overflow-ellipsis bp3-fill"
                 >
                   tag2:tag3
-                </span>
-              </span>
-            </span>
-            <span
-              class="Tag--main"
-            >
-              <span
-                class="bp3-tag tag"
-              >
-                <span
-                  class="bp3-text-overflow-ellipsis bp3-fill"
-                >
-                  tag4:tag3
                 </span>
               </span>
             </span>
@@ -122,7 +111,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
                   class="StyledProps--font StyledProps--main"
                   tabindex="0"
                 >
-                  +2
+                  +3
                 </p>
               </span>
             </span>
@@ -1541,7 +1530,8 @@ exports[`Project Card test initializes ok  1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag tag"
+                class="bp3-tag"
+                style="max-width: 75px;"
               >
                 <span
                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1554,25 +1544,13 @@ exports[`Project Card test initializes ok  1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag tag"
+                class="bp3-tag"
+                style="max-width: 75px;"
               >
                 <span
                   class="bp3-text-overflow-ellipsis bp3-fill"
                 >
                   tag2:tag3
-                </span>
-              </span>
-            </span>
-            <span
-              class="Tag--main"
-            >
-              <span
-                class="bp3-tag tag"
-              >
-                <span
-                  class="bp3-text-overflow-ellipsis bp3-fill"
-                >
-                  tag4:tag3
                 </span>
               </span>
             </span>
@@ -1586,7 +1564,7 @@ exports[`Project Card test initializes ok  1`] = `
                   class="StyledProps--font StyledProps--main"
                   tabindex="0"
                 >
-                  +2
+                  +3
                 </p>
               </span>
             </span>

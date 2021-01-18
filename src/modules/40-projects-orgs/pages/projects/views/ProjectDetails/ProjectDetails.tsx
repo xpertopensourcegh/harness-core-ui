@@ -96,7 +96,7 @@ const ProjectDetails: React.FC = () => {
               {projectData.description}
             </Text>
             <Layout.Horizontal padding={{ top: 'small' }}>
-              <TagsRenderer tags={projectData.tags || {}}></TagsRenderer>
+              <TagsRenderer tags={projectData.tags || {}} length={6} />
             </Layout.Horizontal>
           </Layout.Vertical>
         }

@@ -93,7 +93,10 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
                   </Collapse>
                 </div>
                 <div className={css.collapseDiv}>
-                  <Collapse isOpen={formikProps.values.tags?.length ? true : false} {...tagCollapseProps}>
+                  <Collapse
+                    isOpen={formikProps.values.tags && Object.keys(formikProps.values.tags).length ? true : false}
+                    {...tagCollapseProps}
+                  >
                     <FormInput.KVTagInput name="tags" className={css.desc} />
                   </Collapse>
                 </div>

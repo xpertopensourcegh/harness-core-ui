@@ -41,7 +41,7 @@ const OrganizationDetailsPage: React.FC = () => {
               {data?.data?.organizationResponse.organization.description}
             </Text>
             <Layout.Horizontal padding={{ top: 'small' }}>
-              <TagsRenderer tags={data?.data?.organizationResponse.organization.tags || {}}></TagsRenderer>
+              <TagsRenderer tags={data?.data?.organizationResponse.organization.tags || {}} length={6} />
             </Layout.Horizontal>
           </Layout.Vertical>
         }

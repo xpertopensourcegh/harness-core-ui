@@ -95,7 +95,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           ) : null}
           {data.tags && (
             <Container padding={{ top: 'medium' }}>
-              <TagsRenderer tags={data.tags} length={3} />
+              <TagsRenderer tags={data.tags} length={2} width={150} />
             </Container>
           )}
 

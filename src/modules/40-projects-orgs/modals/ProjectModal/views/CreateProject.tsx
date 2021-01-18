@@ -7,6 +7,7 @@ import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { useQueryParams } from '@common/hooks'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
@@ -16,7 +17,8 @@ interface CreateModalData {
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { nextStep, onSuccess, modules } = props
-  const { accountId, orgIdentifier } = useParams()
+  const { accountId } = useParams()
+  const { orgId: orgIdentifier } = useQueryParams()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({
     queryParams: {
@@ -72,7 +74,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   }
   return (
     <ProjectForm
-      disableSelect={orgIdentifier ? true : false}
+      disableSelect={false}
       enableEdit={true}
       disableSubmit={saving}
       initialOrgIdentifier={orgIdentifier || defaultOrg}

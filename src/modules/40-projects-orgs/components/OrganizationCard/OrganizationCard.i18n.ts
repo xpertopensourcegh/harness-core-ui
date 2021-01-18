@@ -5,7 +5,6 @@ export default {
   },
   numberOfProjects: '-',
   projects: 'projects',
-  orgMembers: 'Org Members',
   edit: 'Edit',
   invite: 'Invite Collaborators',
   clone: 'Clone',

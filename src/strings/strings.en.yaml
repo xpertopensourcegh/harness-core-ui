@@ -11,6 +11,7 @@ global:
   repository: 'Repository'
   more: '+{{number}} more'
   noData: No Data
+  members: Members
   lastActivity: last activity
   fieldRequired: '{{field}} is a required field'
   deploymentText: Deployment

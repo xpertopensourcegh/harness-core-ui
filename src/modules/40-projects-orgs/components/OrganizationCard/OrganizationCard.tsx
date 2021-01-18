@@ -107,10 +107,10 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           <Layout.Horizontal padding={{ top: 'xlarge' }}>
             <Layout.Vertical spacing="small">
               <Layout.Horizontal spacing="small" flex={{ align: 'center-center' }}>
-                <Icon name="nav-project" size={25}></Icon>
+                <Icon name="nav-project" size={32}></Icon>
                 <Text font="medium">{projectsCount}</Text>
               </Layout.Horizontal>
-              <Text font="xsmall">{i18n.projects.toUpperCase()}</Text>
+              <Text font="small">{getString('projectsText')}</Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ left: 'huge' }} spacing="small" flex>
               <AvatarGroup
@@ -120,7 +120,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   inviteCollab?.()
                 }}
               />
-              <Text font="xsmall">{i18n.orgMembers.toUpperCase()}</Text>
+              <Text font="small">{`${orgMembers?.length} ${getString('members')}`}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>
         </Layout.Vertical>

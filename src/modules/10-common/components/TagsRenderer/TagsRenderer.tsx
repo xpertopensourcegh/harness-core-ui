@@ -4,15 +4,26 @@ import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 
 import type { tagsType } from '@common/utils/types'
 import { useStrings } from 'framework/exports'
-import css from './TagsRenderer.module.scss'
 
 export interface ListTagsProps {
   tags: tagsType
   length?: number
   className?: string
+  width?: number
+}
+
+const getWidthForTags = (length: number, width: number): number => {
+  switch (length) {
+    case 1:
+      return width
+    case 2:
+      return width / 2
+    default:
+      return width / 3
+  }
 }
 const TagsRenderer: React.FC<ListTagsProps> = props => {
-  const { tags, length = 4, className } = props
+  const { tags, length = 3, className, width = 240 } = props
   const baseTags = Object.keys(tags).slice(0, length)
   const remainingTags = Object.keys(tags)
     .slice(length)
@@ -27,7 +38,7 @@ const TagsRenderer: React.FC<ListTagsProps> = props => {
         {baseTags.map(key => {
           const value = tags[key]
           return (
-            <Tag className={css.tag} key={key}>
+            <Tag style={{ maxWidth: getWidthForTags(baseTags.length, width) }} key={key}>
               {value ? `${key}:${value}` : key}
             </Tag>
           )

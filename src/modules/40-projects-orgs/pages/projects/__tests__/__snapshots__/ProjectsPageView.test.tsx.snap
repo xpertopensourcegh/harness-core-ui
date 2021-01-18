@@ -294,7 +294,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -307,7 +308,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -626,7 +628,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -639,7 +642,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1129,7 +1133,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1142,7 +1147,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1777,7 +1783,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1790,7 +1797,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -2126,7 +2134,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -2139,7 +2148,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -3142,7 +3152,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -3155,7 +3166,8 @@ exports[`Project Page List Create Project and Close 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -3695,7 +3707,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -3708,7 +3721,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -4027,7 +4041,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -4040,7 +4055,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -4530,7 +4546,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -4543,7 +4560,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -5178,7 +5196,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -5191,7 +5210,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -5527,7 +5547,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -5540,7 +5561,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -6543,7 +6565,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -6556,7 +6579,8 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -7096,7 +7120,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -7109,7 +7134,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -7428,7 +7454,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -7441,7 +7468,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -7931,7 +7959,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -7944,7 +7973,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -8579,7 +8609,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -8592,7 +8623,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -8928,7 +8960,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -8941,7 +8974,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -9944,7 +9978,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -9957,7 +9992,8 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -10497,7 +10533,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -10510,7 +10547,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -10829,7 +10867,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -10842,7 +10881,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -11332,7 +11372,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -11345,7 +11386,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -11980,7 +12022,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -11993,7 +12036,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -12329,7 +12373,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -12342,7 +12387,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -13345,7 +13391,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
@@ -13358,7 +13405,8 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag tag"
+                        class="bp3-tag"
+                        style="max-width: 75px;"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
