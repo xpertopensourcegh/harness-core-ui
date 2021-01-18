@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delegate Selectors test snapshot testing 1`] = `
+<div>
+  <div
+    class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
+  >
+    <div
+      class="bp3-popover-target"
+    >
+      <div
+        class=""
+      >
+        <div
+          class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
+        >
+          <div
+            class="bp3-tag-input-values"
+          >
+            <input
+              class="bp3-input-ghost bp3-multi-select-tag-input-input"
+              placeholder="Add specific selectors or leave empty to target any delegate"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

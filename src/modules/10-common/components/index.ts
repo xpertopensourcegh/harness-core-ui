@@ -22,6 +22,7 @@ import { FormMultiTypeTextAreaField, MultiTypeTextArea } from './MultiTypeTextAr
 import { FormMultiTypeCheckboxField, MultiTypeCheckbox } from './MultiTypeCheckbox/MultiTypeCheckbox'
 import { FormMultiTypeRadioGroupField, MultiTypeRadioGroup } from './MultiTypeRadioGroup/MultiTypeRadioGroup'
 import { InstanceDropdownField, FormInstanceDropdown } from './InstanceDropdownField/InstanceDropdownField'
+import { DelegateSelectors } from './DelegateSelectors/DelegateSelectors'
 import Wizard from './Wizard/Wizard'
 
 export {
@@ -53,5 +54,6 @@ export {
   FormInstanceDropdown,
   MultiTypeCheckbox,
   UserLabel,
-  Wizard
+  Wizard,
+  DelegateSelectors
 }

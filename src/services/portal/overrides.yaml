@@ -14,6 +14,7 @@ allowpaths:
   - '/setup/delegates/{delegateId}.get'
   - '/users/feature-flags/{accountId}.get'
   - '/delegate-profiles/v2/{delegateProfileId}.delete'
+  - '/setup/delegates/delegate-selectors.get'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
@@ -30,3 +31,4 @@ operationIdOverrides:
   /setup/delegates/{delegateId}.get: getDelegateFromId
   /users/feature-flags/{accountId}.get: getFeatureFlags
   /delegate-profiles/v2/{delegateProfileId}.delete: deleteDelegateProfile
+  /setup/delegates/delegate-selectors.get: getDelegateSelectors

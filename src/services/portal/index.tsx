@@ -18956,3 +18956,31 @@ export const useDeleteDelegateProfile = (props: UseDeleteDelegateProfileProps) =
     `/delegate-profiles/v2`,
     { base: getConfig('api'), ...props }
   )
+
+export interface GetDelegateSelectorsQueryParams {
+  accountId?: string
+}
+
+export type GetDelegateSelectorsProps = Omit<
+  GetProps<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateSelectors = (props: GetDelegateSelectorsProps) => (
+  <Get<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>
+    path="/setup/delegates/delegate-selectors"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateSelectorsProps = Omit<
+  UseGetProps<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateSelectors = (props: UseGetDelegateSelectorsProps) =>
+  useGet<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>(`/setup/delegates/delegate-selectors`, {
+    base: getConfig('api'),
+    ...props
+  })
