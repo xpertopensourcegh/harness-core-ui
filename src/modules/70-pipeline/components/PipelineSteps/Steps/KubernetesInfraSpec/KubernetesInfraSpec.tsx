@@ -156,8 +156,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  width={400}
+                  width={450}
                   enableConfigureOptions={false}
+                  style={{ marginBottom: 'var(--spacing-small)' }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -188,12 +189,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.namespace as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Icon name={getIconByType('K8sCluster')}></Icon>
-                        <Text>{i18n.kubernetesConnector}</Text>
-                      </Layout.Horizontal>
-                    }
+                    type="String"
                     variableName="namespace"
                     showRequiredField={false}
                     showDefaultField={false}
@@ -214,12 +210,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.releaseName as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Icon name={getIconByType('K8sCluster')}></Icon>
-                        <Text>{i18n.kubernetesConnector}</Text>
-                      </Layout.Horizontal>
-                    }
+                    type="String"
                     variableName="releaseName"
                     showRequiredField={false}
                     showDefaultField={false}

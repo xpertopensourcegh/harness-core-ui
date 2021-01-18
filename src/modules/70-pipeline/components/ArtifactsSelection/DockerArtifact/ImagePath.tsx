@@ -5,16 +5,13 @@ import {
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  Text,
   Button,
-  Icon,
   StepProps
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { getIconByType } from '@connectors/exports'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'
 
@@ -75,12 +72,7 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
                   <div className={css.configureOptions}>
                     <ConfigureOptions
                       value={formik.values.imagePath as string}
-                      type={
-                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                          <Icon name={getIconByType('K8sCluster')}></Icon>
-                          <Text>{i18n.kubernetesConnector}</Text>
-                        </Layout.Horizontal>
-                      }
+                      type="String"
                       variableName="dockerConnector"
                       showRequiredField={false}
                       showDefaultField={false}
@@ -112,12 +104,7 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
                     <div className={css.configureOptions}>
                       <ConfigureOptions
                         value={formik.values.tag as string}
-                        type={
-                          <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                            <Icon name={getIconByType('K8sCluster')}></Icon>
-                            <Text>{i18n.kubernetesConnector}</Text>
-                          </Layout.Horizontal>
-                        }
+                        type="String"
                         variableName="dockerConnector"
                         showRequiredField={false}
                         showDefaultField={false}
@@ -142,12 +129,7 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
                     <div className={css.configureOptions}>
                       <ConfigureOptions
                         value={formik.values.tagRegex as string}
-                        type={
-                          <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                            <Icon name={getIconByType('K8sCluster')}></Icon>
-                            <Text>{i18n.kubernetesConnector}</Text>
-                          </Layout.Horizontal>
-                        }
+                        type="String"
                         variableName="dockerConnector"
                         showRequiredField={false}
                         showDefaultField={false}

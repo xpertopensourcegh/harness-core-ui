@@ -57,23 +57,6 @@ function ShellScriptWidget(
     })
   })
 
-  const shellscriptSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-    spec: Yup.object().shape({
-      shell: Yup.string().required(getString('validation.scriptTypeRequired')),
-      source: Yup.object().shape({
-        spec: Yup.object().shape({
-          script: Yup.string().required(getString('validation.scriptTypeRequired'))
-        })
-      }),
-      executionTarget: Yup.object().shape({
-        host: Yup.string().required(getString('validation.targethostRequired')),
-        connectorRef: Yup.string().required(getString('validation.sshConnectorRequired')),
-        workingDirectory: Yup.string().required(getString('validation.workingDirRequired'))
-      })
-    })
-  })
-
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -133,11 +116,7 @@ function ShellScriptWidget(
     values.spec.executionTarget.connectorRef = initialValues.spec.executionTarget?.connectorRef
   }
 
-  let validationSchema = defaultSSHSchema
-
-  if (values.spec.onDelegate === 'targethost') {
-    validationSchema = shellscriptSchema
-  }
+  const validationSchema = defaultSSHSchema
 
   return (
     <Formik<ShellScriptFormData>
@@ -145,7 +124,6 @@ function ShellScriptWidget(
         onUpdate?.(submit)
       }}
       initialValues={values}
-      enableReinitialize
       validationSchema={validationSchema}
     >
       {(formik: FormikProps<ShellScriptFormData>) => {

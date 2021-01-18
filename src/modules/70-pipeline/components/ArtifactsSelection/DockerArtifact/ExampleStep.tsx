@@ -5,16 +5,13 @@ import {
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  Text,
   Button,
-  Icon,
   StepProps
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { getIconByType } from '@connectors/exports'
 import { StringUtils } from '@common/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import i18n from '../ArtifactsSelection.i18n'
@@ -86,12 +83,7 @@ export const ExampleStep: React.FC<StepProps<any> & ExampleStepProps> = props =>
                   <div className={css.configureOptions}>
                     <ConfigureOptions
                       value={(formik.values.connectorId as unknown) as string}
-                      type={
-                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                          <Icon name={getIconByType('K8sCluster')}></Icon>
-                          <Text>{i18n.kubernetesConnector}</Text>
-                        </Layout.Horizontal>
-                      }
+                      type={'DockerRegistry'}
                       variableName="dockerConnector"
                       showRequiredField={false}
                       showDefaultField={false}

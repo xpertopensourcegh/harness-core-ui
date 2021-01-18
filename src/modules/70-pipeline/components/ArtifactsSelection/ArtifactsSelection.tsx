@@ -226,6 +226,7 @@ export default function ArtifactsSelection({
               artifact.overrideSet.artifacts = {
                 primary: {
                   type: primaryArtifactType,
+                  identifier: data.identifier,
                   spec: {
                     connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
                     imagePath: data.imagePath,
@@ -404,7 +405,7 @@ export default function ArtifactsSelection({
       }
     }
     const initialValues = {
-      identifier: spec.identifier,
+      identifier: sideCarArtifactParam[sidecarIndex]?.sidecar.identifier,
       connectorId:
         isValidScopeValue(spec?.connectorRef) === 0
           ? {
