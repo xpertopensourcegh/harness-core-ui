@@ -80,7 +80,7 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
     <ExecutionLayoutContext.Provider
       value={{
         layout: layoutState,
-        setLayout: (e: any) => setLayoutState(e),
+        setLayout: (e: ExecutionLayoutState) => setLayoutState(e),
         primaryPaneSize,
         teritiaryPaneSize,
         setPrimaryPaneSize,

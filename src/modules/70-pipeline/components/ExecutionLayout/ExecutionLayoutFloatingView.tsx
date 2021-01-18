@@ -4,6 +4,8 @@ import { usePopper } from 'react-popper'
 import { Button } from '@wings-software/uicore'
 import cx from 'classnames'
 
+import { useLocalStorage } from '@common/hooks'
+
 import { useExecutionLayoutContext } from './ExecutionLayoutContext'
 import css from './ExecutionLayout.module.scss'
 
@@ -12,6 +14,7 @@ import css from './ExecutionLayout.module.scss'
  */
 export default function ExecutionLayoutFloatingView(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { layout } = useExecutionLayoutContext()
+  const [position, setPosition] = useLocalStorage('execution_layout_float_position', { x: -40, y: -30 })
   const [isOpen, setIsOpen] = React.useState(true)
   const [referenceElement, setReferenceElement] = React.useState<HTMLElement | null>(null)
   const [popperElement, setPopperElement] = React.useState<HTMLElement | null>(null)
@@ -40,7 +43,8 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           offsetParent={document.getElementById('pipeline-execution-container')!}
           disabled={isOpen}
-          defaultPosition={{ x: -40, y: -30 }}
+          position={position}
+          onStop={(_e, data) => setPosition({ x: data.x, y: data.y })}
         >
           <div className={cx(css.stepDetails, { [css.draggable]: !isOpen })} ref={setReferenceElement}>
             <span>Step Details</span>
