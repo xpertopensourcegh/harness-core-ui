@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Layout, StepProps, Collapse, IconName, Heading, Text, Link, Color } from '@wings-software/uicore'
+import { Button, Layout, StepProps, Accordion, Heading, Text, Link, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
@@ -11,11 +11,9 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
   const onClickBack = (): void => {
     previousStep?.()
   }
-  const collapseProps = {
-    collapsedIcon: 'main-chevron-up' as IconName,
-    expandedIcon: 'main-chevron-down' as IconName,
-    isRemovable: false,
-    isOpen: true
+  /* test script */
+  const schema = {
+    a: 'b'
   }
   return (
     <>
@@ -23,16 +21,24 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
       <Layout.Horizontal>
         <Layout.Vertical padding="xlarge" spacing="medium">
           <div className={css.collapseDiv}>
-            <Collapse {...collapseProps}>
-              <YamlBuilder
-                entityType="Secrets"
-                fileName={`harness-delegate.yaml`}
-                isReadOnlyMode={true}
-                showSnippetSection={false}
-                width="568px"
-                height="462px"
+            <Accordion activeId="yamlbuilder" collapseProps={{ transitionDuration: 0 }} className={css.yamlAccordion}>
+              <Accordion.Panel
+                id="yamlbuilder"
+                summary={<div className={css.headerLabel}>harness-delegate.yaml</div>}
+                details={
+                  <YamlBuilder
+                    entityType="Delegates"
+                    fileName={``}
+                    isReadOnlyMode={true}
+                    existingJSON={schema}
+                    showSnippetSection={false}
+                    width="568px"
+                    height="462px"
+                    theme="DARK"
+                  />
+                }
               />
-            </Collapse>
+            </Accordion>
           </div>
           <Layout.Horizontal padding="small">
             <Button

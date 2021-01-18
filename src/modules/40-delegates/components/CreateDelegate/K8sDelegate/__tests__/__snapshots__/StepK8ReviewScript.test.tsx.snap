@@ -16,36 +16,30 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
         class="collapseDiv"
       >
         <div
-          class="Collapse--main"
+          class="Accordion--accordion yamlAccordion"
         >
           <div
-            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+            class="Accordion--panel"
+            data-open="true"
+            data-testid="yamlbuilder-panel"
           >
             <div
-              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+              class="Accordion--summary"
+              data-testid="yamlbuilder-summary"
             >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              <div
+                class=""
               >
-                <svg
-                  height="10"
-                  viewBox="0 0 14 8"
-                  width="10"
+                <div
+                  class="headerLabel"
                 >
-                  <path
-                    d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                    fill="#4d5969"
-                  />
-                </svg>
-              </span>
+                  harness-delegate.yaml
+                </div>
+              </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-            />
-          </div>
-          <div
-            class="Collapse--collapse"
-          >
             <div
               class="bp3-collapse"
               style="height: auto; overflow-y: visible; transition: none;"
@@ -55,8 +49,13 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
                 class="bp3-collapse-body"
                 style="transform: translateY(0); transition: none;"
               >
-                <div>
-                  yamlDiv
+                <div
+                  class="Accordion--details"
+                  data-testid="yamlbuilder-details"
+                >
+                  <div>
+                    yamlDiv
+                  </div>
                 </div>
               </div>
             </div>
@@ -218,36 +217,30 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
         class="collapseDiv"
       >
         <div
-          class="Collapse--main"
+          class="Accordion--accordion yamlAccordion"
         >
           <div
-            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+            class="Accordion--panel"
+            data-open="true"
+            data-testid="yamlbuilder-panel"
           >
             <div
-              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+              class="Accordion--summary"
+              data-testid="yamlbuilder-summary"
             >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              <div
+                class=""
               >
-                <svg
-                  height="10"
-                  viewBox="0 0 14 8"
-                  width="10"
+                <div
+                  class="headerLabel"
                 >
-                  <path
-                    d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                    fill="#4d5969"
-                  />
-                </svg>
-              </span>
+                  harness-delegate.yaml
+                </div>
+              </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-            />
-          </div>
-          <div
-            class="Collapse--collapse"
-          >
             <div
               class="bp3-collapse"
               style="height: auto; overflow-y: visible; transition: none;"
@@ -257,8 +250,13 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
                 class="bp3-collapse-body"
                 style="transform: translateY(0); transition: none;"
               >
-                <div>
-                  yamlDiv
+                <div
+                  class="Accordion--details"
+                  data-testid="yamlbuilder-details"
+                >
+                  <div>
+                    yamlDiv
+                  </div>
                 </div>
               </div>
             </div>
@@ -420,36 +418,30 @@ exports[`Create Step Review Script Delegate render data 1`] = `
         class="collapseDiv"
       >
         <div
-          class="Collapse--main"
+          class="Accordion--accordion yamlAccordion"
         >
           <div
-            class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+            class="Accordion--panel"
+            data-open="true"
+            data-testid="yamlbuilder-panel"
           >
             <div
-              class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+              class="Accordion--summary"
+              data-testid="yamlbuilder-summary"
             >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              <div
+                class=""
               >
-                <svg
-                  height="10"
-                  viewBox="0 0 14 8"
-                  width="10"
+                <div
+                  class="headerLabel"
                 >
-                  <path
-                    d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                    fill="#4d5969"
-                  />
-                </svg>
-              </span>
+                  harness-delegate.yaml
+                </div>
+              </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
-            <div
-              class="StyledProps--font StyledProps--main"
-            />
-          </div>
-          <div
-            class="Collapse--collapse"
-          >
             <div
               class="bp3-collapse"
               style="height: auto; overflow-y: visible; transition: none;"
@@ -459,8 +451,13 @@ exports[`Create Step Review Script Delegate render data 1`] = `
                 class="bp3-collapse-body"
                 style="transform: translateY(0); transition: none;"
               >
-                <div>
-                  yamlDiv
+                <div
+                  class="Accordion--details"
+                  data-testid="yamlbuilder-details"
+                >
+                  <div>
+                    yamlDiv
+                  </div>
                 </div>
               </div>
             </div>
