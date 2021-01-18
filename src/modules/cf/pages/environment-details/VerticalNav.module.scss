@@ -1,0 +1,6 @@
+.nav-option {
+  & :global(.bp3-button):hover {
+    background-color: transparent;
+    color: var(--black);
+  }
+}

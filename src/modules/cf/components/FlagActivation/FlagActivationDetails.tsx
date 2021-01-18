@@ -22,7 +22,7 @@ import moment from 'moment'
 import { Menu, Dialog, Classes } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
 import { FieldArray } from 'formik'
-import { Feature, usePatchFeatureFlag, Variation } from 'services/cf'
+import { Feature, usePatchFeature, Variation } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from '../CreateFlagWizard/common/InputDescOptional'
 import patch from '../../utils/instructions'
@@ -99,7 +99,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const [listPrerequisites, setListPrequisites] = useState<ListPrerequisitesOptionElement[]>([])
   const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
-  const { mutate: submitPatch } = usePatchFeatureFlag({
+  const { mutate: submitPatch } = usePatchFeature({
     identifier: featureFlag?.identifier as string,
     queryParams: {
       project: featureFlag?.project as string,

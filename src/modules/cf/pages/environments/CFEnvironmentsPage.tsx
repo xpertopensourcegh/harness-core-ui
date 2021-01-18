@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import type { CellProps, Column } from 'react-table'
+import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Menu, Position } from '@blueprintjs/core'
 import { Button, Color, Container, Layout, Text } from '@wings-software/uicore'
@@ -12,18 +12,16 @@ import { PageError } from '@common/components/Page/PageError'
 import { useEnvStrings } from '@cf/hooks/environment'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
+import { withTableData } from '../../utils/table-utils'
 import css from './CFEnvironmentsPage.module.scss'
 
 type Environment = EnvironmentResponseDTO
-
-function withTableData<T>(
-  mapDataToProps: (data: CellProps<Environment>) => T
-): (Comp: React.FC<T>) => React.FC<CellProps<Environment>> {
-  return (Comp: React.FC<T>) => (cellProps: CellProps<Environment>) => <Comp {...mapDataToProps(cellProps)} />
-}
-
-const withEnvironment = withTableData(({ row }) => ({ environment: row.original }))
-const withActions = withTableData(({ row, column }) => ({
+type EnvData = { environment: Environment }
+const withEnvironment = withTableData<Environment, EnvData>(({ row }) => ({ environment: row.original }))
+const withActions = withTableData<
+  Environment,
+  EnvData & { actions: { [P in 'onEdit' | 'onDelete']?: (id: string) => void } }
+>(({ row, column }) => ({
   environment: row.original,
   actions: (column as any).actions as { [P in 'onEdit' | 'onDelete']?: (id: string) => void }
 }))

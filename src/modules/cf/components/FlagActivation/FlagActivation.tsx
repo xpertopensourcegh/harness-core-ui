@@ -17,7 +17,7 @@ import {
   FormikForm as Form
 } from '@wings-software/uicore'
 import { Switch, Classes, Dialog } from '@blueprintjs/core'
-import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
+import { Feature, FeatureState, usePatchFeature, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
 import { extraOperators } from '@cf/constants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
@@ -68,7 +68,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   const [editing, setEditing] = useState(false)
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
   const dirty = editEnvActivation !== flagData?.envProperties?.state
-  const { mutate: patchFeature } = usePatchFeatureFlag({
+  const { mutate: patchFeature } = usePatchFeature({
     identifier: flagData?.identifier as string,
     queryParams: {
       project: project as string,

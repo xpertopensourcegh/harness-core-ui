@@ -53,6 +53,7 @@ export interface ApiKey {
    */
   apiKey: string
   identifier: string
+  type: 'Server' | 'Client'
 }
 
 export type ApiKeys = Pagination & {
@@ -142,7 +143,6 @@ export interface Feature {
     state: FeatureState
     defaultServe: Serve
     offVariation: string
-    createdAt: number
     modifiedAt: number
     version?: number
   }
@@ -238,7 +238,7 @@ export type AuditTrails = Pagination & {
  */
 export interface ObjectSnapshot {
   id: string
-  value?: string
+  value?: { [key: string]: any }
 }
 
 export interface ProjectRequestRequestBody {
@@ -248,11 +248,11 @@ export interface ProjectRequestRequestBody {
   tags?: Tag[]
 }
 
-export interface APIKeyRequestRequestBody {
+export type APIKeyRequestRequestBody = {
   identifier: string
   name: string
   description?: string
-  type: string
+  type: 'Server' | 'Client'
   expiredAt?: number
 }
 
@@ -286,7 +286,7 @@ export type FeatureFlagRequestRequestBody = {
   permanent: boolean
 }
 
-export type FeatureFlagPatchRequestRequestBody = PatchOperation
+export type FeaturePatchRequestRequestBody = PatchOperation
 
 export type TargetRequestRequestBody = Target
 
@@ -362,22 +362,12 @@ export interface ProjectResponseResponse {
 /**
  * OK
  */
-export interface APIKeysResponseResponse {
-  status: Status
-  data: ApiKeys
-  metaData?: { [key: string]: any }
-  correlationId: string
-}
+export type APIKeysResponseResponse = ApiKeys
 
 /**
  * Created
  */
-export interface APIKeyResponseResponse {
-  status: Status
-  data: ApiKey
-  metaData?: { [key: string]: any }
-  correlationId: string
-}
+export type APIKeyResponseResponse = ApiKey
 
 /**
  * OK
@@ -1746,9 +1736,9 @@ export type CreateFeatureFlagProps = Omit<
 >
 
 /**
- * Create feature flag.
+ * Create a feature
  *
- * Used to create feature flag.
+ * Create a feature flag.
  */
 export const CreateFeatureFlag = (props: CreateFeatureFlagProps) => (
   <Mutate<
@@ -1785,9 +1775,9 @@ export type UseCreateFeatureFlagProps = Omit<
 >
 
 /**
- * Create feature flag.
+ * Create a feature
  *
- * Used to create feature flag.
+ * Create a feature flag.
  */
 export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
   useMutate<
@@ -1930,9 +1920,9 @@ export type GetFeatureFlagProps = Omit<
   GetFeatureFlagPathParams
 
 /**
- * Retrieve feature flag.
+ * Retrieve a feature
  *
- * Used to retrieve certain feature flags for certain id and account id.
+ * Retrieve certain feature flag with certain identifier and account id.
  */
 export const GetFeatureFlag = ({ identifier, ...props }: GetFeatureFlagProps) => (
   <Get<
@@ -1959,9 +1949,9 @@ export type UseGetFeatureFlagProps = Omit<
   GetFeatureFlagPathParams
 
 /**
- * Retrieve feature flag.
+ * Retrieve a feature
  *
- * Used to retrieve certain feature flags for certain id and account id.
+ * Retrieve certain feature flag with certain identifier and account id.
  */
 export const useGetFeatureFlag = ({ identifier, ...props }: UseGetFeatureFlagProps) =>
   useGet<
@@ -1975,7 +1965,7 @@ export const useGetFeatureFlag = ({ identifier, ...props }: UseGetFeatureFlagPro
     ...props
   })
 
-export interface PatchFeatureFlagQueryParams {
+export interface PatchFeatureQueryParams {
   /**
    * Account
    */
@@ -1994,14 +1984,14 @@ export interface PatchFeatureFlagQueryParams {
   environment: string
 }
 
-export interface PatchFeatureFlagPathParams {
+export interface PatchFeaturePathParams {
   /**
    * Unique identifier for the object in the API.
    */
   identifier: string
 }
 
-export type PatchFeatureFlagProps = Omit<
+export type PatchFeatureProps = Omit<
   MutateProps<
     FeatureResponseResponse,
     | BadRequestResponse
@@ -2010,20 +2000,20 @@ export type PatchFeatureFlagProps = Omit<
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    PatchFeatureFlagQueryParams,
-    FeatureFlagPatchRequestRequestBody,
-    PatchFeatureFlagPathParams
+    PatchFeatureQueryParams,
+    FeaturePatchRequestRequestBody,
+    PatchFeaturePathParams
   >,
   'path' | 'verb'
 > &
-  PatchFeatureFlagPathParams
+  PatchFeaturePathParams
 
 /**
- * Modify feature flag using instructions.
+ * Modify a feature using instructions
  *
- * Used to modify feature flag with certain id and account id.
+ * Modify feature flag with certain identifier and account id.
  */
-export const PatchFeatureFlag = ({ identifier, ...props }: PatchFeatureFlagProps) => (
+export const PatchFeature = ({ identifier, ...props }: PatchFeatureProps) => (
   <Mutate<
     FeatureResponseResponse,
     | BadRequestResponse
@@ -2032,9 +2022,9 @@ export const PatchFeatureFlag = ({ identifier, ...props }: PatchFeatureFlagProps
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    PatchFeatureFlagQueryParams,
-    FeatureFlagPatchRequestRequestBody,
-    PatchFeatureFlagPathParams
+    PatchFeatureQueryParams,
+    FeaturePatchRequestRequestBody,
+    PatchFeaturePathParams
   >
     verb="PATCH"
     path="/admin/features/${identifier}"
@@ -2043,7 +2033,7 @@ export const PatchFeatureFlag = ({ identifier, ...props }: PatchFeatureFlagProps
   />
 )
 
-export type UsePatchFeatureFlagProps = Omit<
+export type UsePatchFeatureProps = Omit<
   UseMutateProps<
     FeatureResponseResponse,
     | BadRequestResponse
@@ -2052,20 +2042,20 @@ export type UsePatchFeatureFlagProps = Omit<
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    PatchFeatureFlagQueryParams,
-    FeatureFlagPatchRequestRequestBody,
-    PatchFeatureFlagPathParams
+    PatchFeatureQueryParams,
+    FeaturePatchRequestRequestBody,
+    PatchFeaturePathParams
   >,
   'path' | 'verb'
 > &
-  PatchFeatureFlagPathParams
+  PatchFeaturePathParams
 
 /**
- * Modify feature flag using instructions.
+ * Modify a feature using instructions
  *
- * Used to modify feature flag with certain id and account id.
+ * Modify feature flag with certain identifier and account id.
  */
-export const usePatchFeatureFlag = ({ identifier, ...props }: UsePatchFeatureFlagProps) =>
+export const usePatchFeature = ({ identifier, ...props }: UsePatchFeatureProps) =>
   useMutate<
     FeatureResponseResponse,
     | BadRequestResponse
@@ -2074,10 +2064,10 @@ export const usePatchFeatureFlag = ({ identifier, ...props }: UsePatchFeatureFla
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    PatchFeatureFlagQueryParams,
-    FeatureFlagPatchRequestRequestBody,
-    PatchFeatureFlagPathParams
-  >('PATCH', (paramsInPath: PatchFeatureFlagPathParams) => `/admin/features/${paramsInPath.identifier}`, {
+    PatchFeatureQueryParams,
+    FeaturePatchRequestRequestBody,
+    PatchFeaturePathParams
+  >('PATCH', (paramsInPath: PatchFeaturePathParams) => `/admin/features/${paramsInPath.identifier}`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
@@ -2110,9 +2100,9 @@ export type DeleteFeatureFlagProps = Omit<
 >
 
 /**
- * Delete feature flag.
+ * Delete a feature
  *
- * Delete feature flag with certain id and account id.
+ * Delete feature with certain identifier and account id.
  */
 export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
   <Mutate<
@@ -2141,9 +2131,9 @@ export type UseDeleteFeatureFlagProps = Omit<
 >
 
 /**
- * Delete feature flag.
+ * Delete a feature
  *
- * Delete feature flag with certain id and account id.
+ * Delete feature with certain identifier and account id.
  */
 export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
   useMutate<
@@ -3276,34 +3266,3 @@ export const useGetOSById = ({ identifier, ...props }: UseGetOSByIdProps) =>
     pathParams: { identifier },
     ...props
   })
-
-export interface StreamPathParams {
-  /**
-   * Unique UUID for the environemnt object in the API.
-   */
-  environmentId: string
-}
-
-export type StreamProps = Omit<GetProps<void, void, void, StreamPathParams>, 'path'> & StreamPathParams
-
-/**
- * Stream endpoint.
- */
-export const Stream = ({ environmentId, ...props }: StreamProps) => (
-  <Get<void, void, void, StreamPathParams>
-    path="/stream/environments/${environmentId}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseStreamProps = Omit<UseGetProps<void, void, void, StreamPathParams>, 'path'> & StreamPathParams
-
-/**
- * Stream endpoint.
- */
-export const useStream = ({ environmentId, ...props }: UseStreamProps) =>
-  useGet<void, void, void, StreamPathParams>(
-    (paramsInPath: StreamPathParams) => `/stream/environments/${paramsInPath.environmentId}`,
-    { base: getConfig('cf'), pathParams: { environmentId }, ...props }
-  )

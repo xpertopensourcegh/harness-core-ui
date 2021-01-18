@@ -1,0 +1,16 @@
+.card-select {
+  margin-top: var(--spacing-medium);
+
+  :global {
+    .bp3-card {
+      margin-right: var(--spacing-large);
+      & .cardBody {
+        text-align: center;
+        word-wrap: break-word;
+        height: 50px;
+        width: 50px;
+        font-weight: bold;
+      }
+    }
+  }
+}

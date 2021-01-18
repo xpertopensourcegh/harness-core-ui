@@ -1022,6 +1022,17 @@ cf:
       description: 'An environment is the representation of your production or non-production infrastructure'
       envTypeLabel: 'Environment type'
       nameLabel: 'Name of your environment'
+    apiKeys:
+      message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
+      title: 'SDK Keys'
+      addKey: 'Add Key'
+      clientType: 'Client'
+      clientId: 'Client ID'
+      serverType: 'Server'
+      deleteTitle: 'Confirm Key Delete'
+      deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
+      keyType: 'Key Type'
+      noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
   auditLogs:
     title: Audit Logs
 cv:
