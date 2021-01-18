@@ -1,7 +1,8 @@
 import React from 'react'
-import { Label, NestedAccordionPanel } from '@wings-software/uicore'
+import { Label, NestedAccordionPanel, FormInput } from '@wings-software/uicore'
 import { connect } from 'formik'
-import { get, set } from 'lodash-es'
+import { get, set, isEmpty } from 'lodash-es'
+import List from '@common/components/List/List'
 import { StepViewType, StepWidget } from '@pipeline/exports'
 import type {
   DeploymentStageConfig,
@@ -236,6 +237,12 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           }
           details={
             <>
+              {(deploymentStageTemplate.infrastructure as any)?.spec?.namespace && (
+                <FormInput.Text
+                  label={<String stringID="pipelineSteps.build.infraSpecifications.namespace" />}
+                  name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
+                />
+              )}
               {deploymentStageTemplate.infrastructure?.environmentRef && (
                 <StepWidget<PipelineInfrastructure>
                   factory={factory}
@@ -270,6 +277,19 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               )}
             </>
           }
+        />
+      )}
+      {deploymentStageTemplate.sharedPaths && (
+        <NestedAccordionPanel
+          isDefaultOpen
+          addDomId
+          id={`Stage.${stageIdentifier}.SharedPaths`}
+          summary={
+            <div className={css.stagesTreeBulletCircle}>
+              <String stringID="pipelineSteps.build.stageSpecifications.sharedPaths" />
+            </div>
+          }
+          details={<List name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`} />}
         />
       )}
       {deploymentStageTemplate.variables && (

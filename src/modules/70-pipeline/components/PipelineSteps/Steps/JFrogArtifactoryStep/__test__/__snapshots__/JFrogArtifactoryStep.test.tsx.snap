@@ -192,7 +192,9 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
-                              />
+                              >
+                                connectorRef
+                              </p>
                               <div
                                 class="rightStatus"
                               >
@@ -224,7 +226,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
                                     <span
                                       class="bp3-text-overflow-ellipsis bp3-fill"
                                     >
-                                      project
+                                      account
                                     </span>
                                   </span>
                                 </span>

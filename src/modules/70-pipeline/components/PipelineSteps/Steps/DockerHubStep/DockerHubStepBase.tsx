@@ -9,6 +9,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import { isPlainObject } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -108,7 +109,7 @@ const validateFields = [
   },
   {
     name: 'spec.repo',
-    type: ValidationFieldTypes.Repo,
+    type: ValidationFieldTypes.DockerRegistry,
     required: true
   },
   {
@@ -189,12 +190,18 @@ export const DockerHubStepBase = (
     })
   }
 
+  const isConnectorLoaded =
+    initialValues.spec.connectorRef &&
+    getMultiTypeFromValue(initialValues.spec.connectorRef) === MultiTypeInputType.FIXED
+      ? isPlainObject(values.spec.connectorRef)
+      : true
+
   return (
     <>
       <Text className={css.boldLabel} font={{ size: 'medium' }}>
         {getString('pipelineSteps.dockerHub.title')}
       </Text>
-      {loading ? (
+      {!isConnectorLoaded ? (
         getString('loading')
       ) : (
         <Formik
@@ -247,7 +254,7 @@ export const DockerHubStepBase = (
                     name="spec.repo"
                     label={
                       <Text margin={{ top: 'small' }}>
-                        {getString('repository')}
+                        {getString('dockerRegistry')}
                         <Button
                           icon="question"
                           minimal

@@ -33,7 +33,7 @@
           },
           {
             "type": "BuildAndPushDockerHub",
-            "name": "Build and Push to DockerHub"
+            "name": "Build and Publish to Docker Registry"
           },
           {
             "type": "BuildAndPushGCR",
@@ -55,7 +55,7 @@
         "stepsData": [
           {
             "type": "BuildAndPushDockerHub",
-            "name": "Build and Push to DockerHub"
+            "name": "Build and Publish to Docker Registry"
           },
           {
             "type": "BuildAndPushGCR",

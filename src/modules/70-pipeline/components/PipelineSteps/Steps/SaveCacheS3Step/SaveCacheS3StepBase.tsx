@@ -9,6 +9,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { isPlainObject } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -174,12 +175,18 @@ export const SaveCacheS3StepBase = (
     })
   }
 
+  const isConnectorLoaded =
+    initialValues.spec.connectorRef &&
+    getMultiTypeFromValue(initialValues.spec.connectorRef) === MultiTypeInputType.FIXED
+      ? isPlainObject(values.spec.connectorRef)
+      : true
+
   return (
     <>
       <Text className={css.boldLabel} font={{ size: 'medium' }}>
         {getString('pipelineSteps.saveCacheS3.title')}
       </Text>
-      {loading ? (
+      {!isConnectorLoaded ? (
         getString('loading')
       ) : (
         <Formik

@@ -161,7 +161,7 @@ export default function BuildStageSpecifications(): JSX.Element {
             id: uuid('', nameSpace()),
             value: _value
           })) || []
-    const variables = spec?.variables || []
+    const variables = pipelineData?.variables || []
     // let connectorRef
     // const repoName = codebase?.repoName || ''
 
@@ -226,9 +226,9 @@ export default function BuildStageSpecifications(): JSX.Element {
       }
 
       if (values.variables && values.variables.length > 0) {
-        spec.variables = values.variables
+        pipelineData.variables = values.variables
       } else {
-        delete spec.variables
+        delete pipelineData.variables
       }
 
       // if (values.connectorRef) {
@@ -483,7 +483,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                     />
                   </FormikForm>
                 </div>
-                <div className={css.section} style={{ display: 'none' }}>
+                <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
                       {getString('pipelineSteps.build.stageSpecifications.variablesDetails')}

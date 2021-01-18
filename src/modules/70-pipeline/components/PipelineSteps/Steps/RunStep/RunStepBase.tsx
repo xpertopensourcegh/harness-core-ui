@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Text,
   Formik,
@@ -9,6 +9,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { isPlainObject } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -156,7 +157,7 @@ export const RunStepBase = (
     accountId: string
   }>()
 
-  const { connector: onEditConnector, loading } = useConnectorRef(initialValues.spec.connectorRef)
+  const { connector, loading } = useConnectorRef(initialValues.spec.connectorRef)
 
   const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
 
@@ -169,15 +170,9 @@ export const RunStepBase = (
   // })
   const values = getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(initialValues, transformValuesFields)
 
-  const [formikInitialValues, setInitialValues] = useState(values)
-
-  useEffect(() => {
-    if (onEditConnector) {
-      const newInitialValues = { ...formikInitialValues }
-      newInitialValues.spec.connectorRef = onEditConnector
-      setInitialValues(newInitialValues)
-    }
-  }, [onEditConnector])
+  if (!loading) {
+    values.spec.connectorRef = connector
+  }
 
   const validate = useValidate<RunStepDataUI>(validateFields, {
     initialValues,
@@ -193,16 +188,22 @@ export const RunStepBase = (
     })
   }
 
+  const isConnectorLoaded =
+    initialValues.spec.connectorRef &&
+    getMultiTypeFromValue(initialValues.spec.connectorRef) === MultiTypeInputType.FIXED
+      ? isPlainObject(values.spec.connectorRef)
+      : true
+
   return (
     <>
       <Text className={css.boldLabel} font={{ size: 'medium' }}>
         {getString('pipelineSteps.run.title')}
       </Text>
-      {loading ? (
+      {!isConnectorLoaded ? (
         getString('loading')
       ) : (
         <Formik
-          initialValues={formikInitialValues}
+          initialValues={values}
           validate={validate}
           onSubmit={(_values: RunStepDataUI) => {
             const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(

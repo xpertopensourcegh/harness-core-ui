@@ -604,7 +604,6 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                   </div>
                   <div
                     class="section"
-                    style="display: none;"
                   >
                     <div
                       class="Layout--vertical StyledProps--main specTabs StyledProps--flex"

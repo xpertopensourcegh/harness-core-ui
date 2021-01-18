@@ -24,6 +24,7 @@ export enum Types {
   Region,
   Account,
   Repo,
+  DockerRegistry,
   Bucket,
   SourcePath,
   Target,
@@ -197,6 +198,12 @@ export function useValidate<T>(
     if (type === Types.Repo) {
       if (required) {
         validationRule = yup.string().required(getString('validation.repoRequired'))
+      }
+    }
+
+    if (type === Types.DockerRegistry) {
+      if (required) {
+        validationRule = yup.string().required(getString('validation.dockerRegistryRequired'))
       }
     }
 

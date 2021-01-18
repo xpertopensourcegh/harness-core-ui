@@ -133,6 +133,7 @@ describe('Plugin Step', () => {
       await act(async () => {
         fireEvent.click(getByTestId('submit'))
       })
+
       expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
   })

@@ -400,7 +400,6 @@ exports[`BuildStageSpecifications tests clicking on description and tags shows c
           </div>
           <div
             class="section"
-            style="display: none;"
           >
             <div
               class="Layout--vertical StyledProps--main specTabs StyledProps--flex"
@@ -778,7 +777,6 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           </div>
           <div
             class="section"
-            style="display: none;"
           >
             <div
               class="Layout--vertical StyledProps--main specTabs StyledProps--flex"

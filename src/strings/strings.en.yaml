@@ -17,6 +17,7 @@ deploymentText: Deployment
 cloudCostsText: Cloud Costs
 changeVerificationText: Change Verifications
 deploymentsText: Deployments
+dockerRegistry: 'Docker Registry'
 executionText: Execution
 executionsText: Executions
 runPipelineText: Run Pipeline
@@ -662,8 +663,8 @@ pipelineSteps:
   gcpConnectorLabel: GCP Connector
   gcpConnectorInfo: GCP connector to use for saving the cache to GCS
   restoreCacheGcpConnectorInfo: GCP connector to use for restoring the cache from GCS
-  dockerHubConnectorLabel: Docker Hub Registry
-  dockerHubConnectorInfo: Docker Hub Container Registry to use for uploading the image
+  dockerHubConnectorLabel: Docker Registry Connector
+  dockerHubConnectorInfo: Docker Registry Connector to use for uploading the image
   k8sRolloutDeploy: K8s Rollout Deploy
   k8sApply: K8s Apply
   k8sDelete: K8s Delete
@@ -698,7 +699,7 @@ pipelineSteps:
   restoreCacheS3:
     title: 'Restore Cache From S3'
   dockerHub:
-    title: 'Build and Push to DockerHub'
+    title: 'Build and Publish to Docker Registry'
   gcs:
     title: 'Upload Artifacts to GCS'
   s3:
@@ -768,7 +769,7 @@ validation:
   connectorRefRequired: Container Registry is a required field
   AWSConnectorRefRequired: AWS connector is a required field
   GCPConnectorRefRequired: GCP connector is a required field
-  dockerHubConnectorRefRequired: Docker Hub Registry is a required field
+  dockerHubConnectorRefRequired: Docker Registry Connector is a required field
   imageRequired: Image is a required field
   commandRequired: Command is a required field
   limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
@@ -820,6 +821,7 @@ validation:
   buildArgsRequired: Build Arguments is a required field
   imageNameRequired: Image Name is a required field
   regionRequired: Region is a required field
+  dockerRegistryRequired: Docker Registry is a required field
   accountRequired: Account ID is a required field
   repoRequired: Repository is a required field
   bucketRequired: Bucket is a required field

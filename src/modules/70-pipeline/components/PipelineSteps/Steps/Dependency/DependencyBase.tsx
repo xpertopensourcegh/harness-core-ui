@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Text,
   Formik,
@@ -8,6 +8,7 @@ import {
   MultiTypeInputType,
   FormikForm
 } from '@wings-software/uicore'
+import { isPlainObject } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
@@ -133,7 +134,7 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
     accountId: string
   }>()
 
-  const { connector: onEditConnector, loading } = useConnectorRef(initialValues.spec.connectorRef)
+  const { connector, loading } = useConnectorRef(initialValues.spec.connectorRef)
 
   const { stage: currentStage } = getStageFromPipeline(pipeline, pipelineView.splitViewData.selectedStageId || '')
 
@@ -146,15 +147,9 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
   // })
   const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(initialValues, transformValuesFields)
 
-  const [formikInitialValues, setInitialValues] = useState(values)
-
-  useEffect(() => {
-    if (onEditConnector) {
-      const newInitialValues = { ...formikInitialValues }
-      newInitialValues.spec.connectorRef = onEditConnector
-      setInitialValues(newInitialValues)
-    }
-  }, [onEditConnector])
+  if (!loading) {
+    values.spec.connectorRef = connector
+  }
 
   const validate = useValidate<DependencyDataUI>(validateFields, {
     initialValues,
@@ -170,10 +165,17 @@ export const DependencyBase: React.FC<DependencyProps> = ({ initialValues, onUpd
     })
   }
 
+  const isConnectorLoaded =
+    initialValues.spec.connectorRef &&
+    getMultiTypeFromValue(initialValues.spec.connectorRef) === MultiTypeInputType.FIXED
+      ? isPlainObject(values.spec.connectorRef)
+      : true
+
+  if (!isConnectorLoaded) return <>{getString('loading')}</>
+
   return (
     <Formik<DependencyDataUI>
-      enableReinitialize={true}
-      initialValues={formikInitialValues}
+      initialValues={values}
       validate={validate}
       onSubmit={(_values: DependencyDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(

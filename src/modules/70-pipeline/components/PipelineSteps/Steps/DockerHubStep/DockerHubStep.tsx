@@ -67,7 +67,7 @@ export interface DockerHubStepProps {
 
 export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   protected type = StepType.DockerHub
-  protected stepName = 'Build and Push to DockerHub'
+  protected stepName = 'Build and Publish to Docker Registry'
   protected stepIcon: IconName = 'docker-hub-step'
   protected stepPaletteVisible = false
 
