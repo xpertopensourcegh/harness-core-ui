@@ -35,7 +35,8 @@ jest.mock('services/cv', () => ({
           }
         ]
       }
-    }
+    },
+    refetch: jest.fn()
   }),
   useGetMetricPacks: () => ({
     data: {

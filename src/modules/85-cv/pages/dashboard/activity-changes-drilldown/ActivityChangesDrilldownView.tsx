@@ -16,6 +16,7 @@ export default function ActivityChangesDrilldownView(): React.ReactElement {
             deploymentTag={activity?.activityName}
             environments={[activity?.environmentIdentifier]}
             service={activity?.serviceIdentifier}
+            sourceType={activity?.activityType}
           />
         }
       />

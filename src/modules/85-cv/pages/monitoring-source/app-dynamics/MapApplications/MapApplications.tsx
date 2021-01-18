@@ -137,17 +137,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     return statuses
   }, [state, errors])
 
-  const { data: tiers, loading: loadingTiers } = useGetAppDynamicsTiers({
-    queryParams: {
-      accountId,
-      appName: selectedAppName,
-      connectorIdentifier: stepData?.connectorIdentifier,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string,
-      offset: pageIndex,
-      pageSize: PAGE_SIZE,
-      filter: textFilter
-    },
+  const { data: tiers, loading: loadingTiers, refetch: loadTiers } = useGetAppDynamicsTiers({
     resolve: response => {
       if (Number.isInteger(response?.resource?.totalItems)) {
         setState(old => ({
@@ -159,8 +149,26 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
         }))
       }
       return response
-    }
+    },
+    lazy: true
   })
+
+  useEffect(() => {
+    if (selectedAppName) {
+      loadTiers({
+        queryParams: {
+          accountId,
+          appName: selectedAppName,
+          connectorIdentifier: stepData?.connectorIdentifier,
+          orgIdentifier: orgIdentifier,
+          projectIdentifier: projectIdentifier,
+          offset: pageIndex,
+          pageSize: PAGE_SIZE,
+          filter: textFilter
+        }
+      })
+    }
+  }, [accountId, selectedAppName, pageIndex, PAGE_SIZE, textFilter])
 
   const onValidateTier = async (appName: string, tierName: string) => {
     if (state[appName]?.metricPacks?.length) {

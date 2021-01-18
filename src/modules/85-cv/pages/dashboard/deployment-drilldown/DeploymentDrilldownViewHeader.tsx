@@ -1,15 +1,17 @@
 import React from 'react'
-import { Container, Icon, Text } from '@wings-software/uicore'
+import { Container, Icon, IconName, Text } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import i18n from './DeploymentDrilldownView.i18n'
+import { getIconBySourceType } from '../../admin/setup/SetupUtils'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export interface DeploymentDrilldownViewHeaderProps {
   deploymentTag?: string
   environments?: string[]
   service?: string
+  sourceType?: string
 }
 
 export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldownViewHeaderProps): React.ReactElement {
@@ -24,7 +26,9 @@ export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldown
         })}
       >{`${i18n.dashboard} /`}</Link>
       <Container className={styles.headerWrap}>
-        <Icon size={30} name="cd-main" />
+        {!!getIconBySourceType(props.sourceType!) && (
+          <Icon size={30} margin="xsmall" name={getIconBySourceType(props.sourceType!) as IconName} />
+        )}
         <Text font={{ size: 'medium', weight: 'bold' }}>{props.deploymentTag}</Text>
         <Text margin={{ right: 'small', left: 'small' }}>{i18n.environments}:</Text>
         <Text font={{ weight: 'bold' }}>{props?.environments?.join(', ')}</Text>
