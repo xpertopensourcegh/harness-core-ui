@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Text, Icon, Link, Layout } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { Container, Text, Icon, Layout } from '@wings-software/uicore'
+import { useParams, Link } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
@@ -21,7 +21,7 @@ const Error: React.FC<ErrorProps> = ({ code, message }) => {
       return (
         <>
           <Text>{getString('generic_errors.INVITE_EXPIRED')}</Text>
-          <Link href={routes.toProjects({ accountId })}>{getString('goToHome')}</Link>
+          <Link to={routes.toProjects({ accountId })}>{getString('goToHome')}</Link>
           <Icon name="harness-logo-black" size={200} />
         </>
       )

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon, Layout, Heading, Text, Container, Link } from '@wings-software/uicore'
+import { Link } from 'react-router-dom'
+import { Icon, Layout, Heading, Text, Container } from '@wings-software/uicore'
 
 export default function NotFoundPage(): JSX.Element {
   return (
@@ -7,7 +8,7 @@ export default function NotFoundPage(): JSX.Element {
       <Layout.Vertical spacing="large" flex={{ align: 'center-center' }}>
         <Heading>404</Heading>
         <Text>Oops, we could not find this page.</Text>
-        <Link href="/">Go to Home</Link>
+        <Link to="/">Go to Home</Link>
         <Icon name="harness-logo-black" size={200} />
       </Layout.Vertical>
     </Container>

@@ -34,16 +34,9 @@ exports[`Generic Error Page valid error code 1`] = `
         This invite link has expired
       </p>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
-        href="/#/account/dummy/projects"
-        role="button"
-        tabindex="0"
+        href="/account/dummy/projects"
       >
-        <span
-          class="bp3-button-text"
-        >
-          Go To Home
-        </span>
+        Go To Home
       </a>
       <span
         class="bp3-icon StyledProps--main"

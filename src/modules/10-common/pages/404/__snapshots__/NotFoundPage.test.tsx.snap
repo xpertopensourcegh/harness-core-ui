@@ -20,16 +20,9 @@ exports[`NotFoundPage render 1`] = `
         Oops, we could not find this page.
       </p>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
-        href="/#/"
-        role="button"
-        tabindex="0"
+        href="/"
       >
-        <span
-          class="bp3-button-text"
-        >
-          Go to Home
-        </span>
+        Go to Home
       </a>
       <span
         class="bp3-icon StyledProps--main"
