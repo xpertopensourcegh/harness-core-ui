@@ -219,12 +219,21 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     <div
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
-                      <div
-                        class="Avatar--AvatarInner"
-                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                      <span
+                        class="bp3-popover-wrapper"
                       >
-                        E
-                      </div>
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="Avatar--AvatarInner"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            tabindex="0"
+                          >
+                            E
+                          </div>
+                        </span>
+                      </span>
                     </div>
                     <div
                       class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
@@ -345,12 +354,21 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     <div
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
-                      <div
-                        class="Avatar--AvatarInner"
-                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                      <span
+                        class="bp3-popover-wrapper"
                       >
-                        E
-                      </div>
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="Avatar--AvatarInner"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            tabindex="0"
+                          >
+                            E
+                          </div>
+                        </span>
+                      </span>
                     </div>
                     <div
                       class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
@@ -471,12 +489,21 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     <div
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
-                      <div
-                        class="Avatar--AvatarInner"
-                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                      <span
+                        class="bp3-popover-wrapper"
                       >
-                        E
-                      </div>
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="Avatar--AvatarInner"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            tabindex="0"
+                          >
+                            E
+                          </div>
+                        </span>
+                      </span>
                     </div>
                     <div
                       class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
@@ -597,12 +624,21 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     <div
                       class="Avatar--Avatar Avatar--contentStyle"
                     >
-                      <div
-                        class="Avatar--AvatarInner"
-                        style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                      <span
+                        class="bp3-popover-wrapper"
                       >
-                        E
-                      </div>
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="Avatar--AvatarInner"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
+                            tabindex="0"
+                          >
+                            E
+                          </div>
+                        </span>
+                      </span>
                     </div>
                     <div
                       class="Layout--vertical StyledProps--main StyledProps--padding-left-small"

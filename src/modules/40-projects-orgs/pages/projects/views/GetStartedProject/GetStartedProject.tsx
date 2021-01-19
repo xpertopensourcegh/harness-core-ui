@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useHistory, useParams } from 'react-router-dom'
-import { Button, Heading, Color, Link } from '@wings-software/uicore'
+import { useHistory, useParams, Link } from 'react-router-dom'
+import { Button, Heading, Color, Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { Page } from '@common/components/Page/Page'
@@ -14,12 +14,13 @@ const GetStartedProject: React.FC = () => {
   let projectCreated = false
   const history = useHistory()
   const projectCreateSuccessHandler = (): void => {
+    /* istanbul ignore next */
     projectCreated = true
   }
   const { openProjectModal } = useProjectModal({
     onSuccess: projectCreateSuccessHandler,
     onCloseModal: () => {
-      /* istanbul ignore else */ if (projectCreated) {
+      /*  istanbul ignore next  */ if (projectCreated) {
         history.push(routes.toProjects({ accountId }))
       }
     }
@@ -28,34 +29,21 @@ const GetStartedProject: React.FC = () => {
     <>
       <Page.Header
         title={i18n.getNewProjectStarted}
-        content={
-          <Link
-            withoutHref
-            onClick={() => {
-              history.push(routes.toProjects({ accountId }))
-            }}
-          >
-            {i18n.projects}
-          </Link>
-        }
+        content={<Link to={routes.toProjects({ accountId })}>{i18n.projects}</Link>}
       />
       <div className={css.getStartedMainContainer}>
-        <div className={css.getStartedContainer}>
-          <img src={getStarted} className={css.image} />
-          <Heading level={1} font={{ weight: 'bold' }} color={Color.BLACK}>
-            {i18n.newProjectWizard.GetStartedProjectPage.welcome}
-          </Heading>
-          <Heading color={Color.GREY_600} level={2}>
-            {i18n.newProjectWizard.GetStartedProjectPage.welcomeSecondLine}
-          </Heading>
-          <Button
-            margin={{ top: '24px' }}
-            intent="primary"
-            text={i18n.newProject}
-            icon="plus"
-            onClick={() => openProjectModal()}
-          />
-        </div>
+        <Layout.Vertical spacing="xxxlarge" flex>
+          <Layout.Vertical spacing="medium" flex>
+            <img src={getStarted} className={css.image} />
+            <Heading level={1} font={{ weight: 'bold' }} color={Color.BLACK}>
+              {i18n.newProjectWizard.GetStartedProjectPage.welcome}
+            </Heading>
+            <Heading color={Color.GREY_600} level={2}>
+              {i18n.newProjectWizard.GetStartedProjectPage.welcomeSecondLine}
+            </Heading>
+          </Layout.Vertical>
+          <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
+        </Layout.Vertical>
       </div>
     </>
   )

@@ -59,7 +59,7 @@ describe('Get Started Project test', () => {
     expect(form).not.toBeTruthy()
   }),
     test('Go to Projects ', async () => {
-      const { getByText, getByTestId } = render(
+      const { getByTestId, getByText } = render(
         <TestWrapper path="/account/:accountId/projects/getstarted" pathParams={{ accountId: 'testAcc' }}>
           <GetStartedProject />
         </TestWrapper>

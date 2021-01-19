@@ -29,12 +29,21 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -83,12 +92,21 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -163,12 +181,21 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -217,12 +244,21 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -271,12 +307,21 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -325,12 +370,21 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -379,12 +433,21 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -459,12 +522,21 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -513,12 +585,21 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -567,12 +648,21 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -621,12 +711,21 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"
@@ -675,12 +774,21 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
             <div
               class="avatar Avatar--Avatar Avatar--contentStyle"
             >
-              <div
-                class="Avatar--AvatarInner"
-                style="border-radius: 100%; line-height: 16px; width: 16px; height: 16px; font-size: 7px;"
+              <span
+                class="bp3-popover-wrapper"
               >
-                O
-              </div>
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
             </div>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--color StyledProps--color-grey900"

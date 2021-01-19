@@ -400,7 +400,7 @@ exports[`About Project test create project  1`] = `
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
                           </div>
@@ -423,7 +423,7 @@ exports[`About Project test create project  1`] = `
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
                           </div>
@@ -1085,7 +1085,7 @@ exports[`About Project test create project  2`] = `
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
                           </div>
@@ -1108,7 +1108,7 @@ exports[`About Project test create project  2`] = `
                         >
                           <div
                             class="Avatar--AvatarInner"
-                            style="border-radius: 100%; line-height: 32px; width: 32px; height: 32px; font-size: 10px;"
+                            style="border-radius: 100%; line-height: 28px; width: 32px; height: 32px; font-size: 10px;"
                           >
                             +
                           </div>

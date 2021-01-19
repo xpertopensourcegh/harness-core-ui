@@ -12,40 +12,37 @@ exports[`Get Started Project test Add a new Project  1`] = `
       Get Started
     </h2>
     <a
-      class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
-      href="javascript:void()"
-      role="button"
-      tabindex="0"
+      href="/account/testAcc/projects"
     >
-      <span
-        class="bp3-button-text"
-      >
-        Projects
-      </span>
+      Projects
     </a>
   </div>
   <div
     class="getStartedMainContainer"
   >
     <div
-      class="getStartedContainer"
+      class="Layout--vertical Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex"
     >
-      <img
-        class="image"
-        src="test-file-stub"
-      />
-      <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-        level="1"
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
       >
-        Welcome, let's get you started!
-      </h1>
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey600"
-        level="2"
-      >
-        Take your software delivery processes to the next level using our Harness modules
-      </h2>
+        <img
+          class="image"
+          src="test-file-stub"
+        />
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          level="1"
+        >
+          Welcome, let's get you started!
+        </h1>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey600"
+          level="2"
+        >
+          Take your software delivery processes to the next level using our Harness modules
+        </h2>
+      </div>
       <button
         class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
