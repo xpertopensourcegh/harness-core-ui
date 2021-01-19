@@ -12,6 +12,7 @@ import { Form } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'
 
@@ -24,11 +25,21 @@ interface ImagePathProps {
     tagRegex?: string
   }) => void
   name?: string
+  context?: number
   initialValues: any
 }
 
 const primarySchema = Yup.object().shape({
   imagePath: Yup.string().trim().required(i18n.validation.imagePath)
+})
+
+const sidecarSchema = Yup.object().shape({
+  connectorId: Yup.string().trim().required(i18n.validation.connectorId),
+  identifier: Yup.string()
+    .trim()
+    .required(i18n.validation.sidecarId)
+    .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
+    .notOneOf(StringUtils.illegalIdentifiers)
 })
 
 const tagOptions: IOptionProps[] = [
@@ -43,7 +54,7 @@ const tagOptions: IOptionProps[] = [
 ]
 
 export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
-  const { name, handleSubmit, prevStepData, initialValues } = props
+  const { name, context, handleSubmit, prevStepData, initialValues } = props
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
@@ -51,10 +62,9 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
       <Formik
         initialValues={{
           ...initialValues,
-          connectorId: prevStepData?.connectorId || '',
-          identifier: prevStepData?.identifier || ''
+          connectorId: prevStepData?.connectorId || ''
         }}
-        validationSchema={primarySchema}
+        validationSchema={context === 2 ? sidecarSchema : primarySchema}
         onSubmit={formData => {
           handleSubmit(formData)
         }}
@@ -62,6 +72,15 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
         {formik => (
           <Form>
             <div className={css.connectorForm}>
+              {context === 2 && (
+                <div className={css.dockerSideCard}>
+                  <FormInput.Text
+                    label={i18n.existingDocker.sidecarId}
+                    placeholder={i18n.existingDocker.sidecarIdPlaceholder}
+                    name="identifier"
+                  />
+                </div>
+              )}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={i18n.existingDocker.imageName}

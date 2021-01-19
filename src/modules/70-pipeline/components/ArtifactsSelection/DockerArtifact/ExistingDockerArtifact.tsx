@@ -34,14 +34,10 @@ export default function ExistingDockerArtifact({
         iconProps={{ size: 37, color: Color.WHITE }}
         title={getConnectorTitleTextByType(Connectors.DOCKER)}
       >
-        <ExampleStep
-          name={getString('overview')}
-          context={context}
-          handleViewChange={handleViewChange}
-          initialValues={initialValues}
-        />
+        <ExampleStep name={getString('overview')} handleViewChange={handleViewChange} initialValues={initialValues} />
         <ImagePath
           name={getString('connectors.stepFourName')}
+          context={context}
           handleSubmit={handleSubmit}
           initialValues={initialValues}
         />
