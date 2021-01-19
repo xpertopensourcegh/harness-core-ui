@@ -162,7 +162,7 @@ export default function CVMonitoringSourcesPage() {
                 Cell: ImportStatusCell
               },
               {
-                Header: getString('cv.admin.monitoringSources.importedOn'),
+                Header: getString('cv.admin.activitySources.tableColumnNames.lastUpdatedOn'),
                 accessor: 'importedAt',
                 width: '25%',
                 Cell: function ImportedCellWrap(props) {
@@ -233,9 +233,11 @@ function ImportedOnCell(
         onEdit={() => props?.onEdit(props.row.original.monitoringSourceIdentifier, props.row.original.type)}
         onDelete={() => props?.onDelete(props.row.original.monitoringSourceIdentifier)}
         titleText={getString('cv.admin.monitoringSources.confirmDeleteTitle')}
-        contentText={getString('cv.admin.monitoringSources.confirmDeleteContent', {
-          name: props.row.original.monitoringSourceName
-        })}
+        contentText={
+          getString('cv.admin.monitoringSources.confirmDeleteContent', {
+            name: props.row.original.monitoringSourceName
+          }) + '?'
+        }
       />
     </Container>
   )

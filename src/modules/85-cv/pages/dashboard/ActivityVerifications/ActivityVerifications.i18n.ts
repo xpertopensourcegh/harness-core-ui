@@ -1,7 +1,4 @@
 export default {
-  activityVerificationHeaderText: {
-    title: 'Recent Activity Verifications'
-  },
   activityVerificationsColumns: {
     deployments: 'Deployments',
     preProd: 'Pre Production Tests',

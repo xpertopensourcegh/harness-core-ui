@@ -19,6 +19,7 @@ import VerificationJobsDetails from './VerificationJobsDetails/VerificationJobsD
 import TestVerificationJob from './TestVerificationJob/TestVerificationJob'
 import CanaryBlueGreenVerificationJob from './CanaryBlueGreenVerificationJob/CanaryBlueGreenVerificationJob'
 import HealthVerificationJob from './HealthVerificationJob/HealthVerificationJob'
+import { getMonitoringSourceLabel } from '../admin/setup/SetupUtils'
 import css from './VerificationJobsSetup.module.scss'
 
 interface VerificationJobsData {
@@ -76,7 +77,6 @@ const VerificationJobsSetup = (): JSX.Element => {
   const { getString } = useStrings()
 
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<VerificationJobsData>({ totalTabs: 2 })
-
   const { data: verificationJob, loading, error, refetch: getVerificationJob } = useGetVerificationJob({ lazy: true })
 
   useEffect(() => {
@@ -93,15 +93,22 @@ const VerificationJobsSetup = (): JSX.Element => {
   useEffect(() => {
     if (verificationJob?.resource) {
       setCurrentData({
-        ...pick(verificationJob.resource, ['identifier', 'type', 'duration', 'sensitivity', 'dataSources']),
+        ...pick(verificationJob.resource, ['identifier', 'type', 'sensitivity']),
+        dataSource: verificationJob.resource.dataSources?.map(source => ({
+          label: getMonitoringSourceLabel(source),
+          value: source
+        })),
+        duration: { label: verificationJob.resource.duration, value: verificationJob.resource.duration },
         name: verificationJob.resource.jobName,
-        service: verificationJob.resource.serviceIdentifier,
-        environment: verificationJob.resource.envIdentifier,
+        service: {
+          label: verificationJob.resource.serviceIdentifier,
+          value: verificationJob.resource.serviceIdentifier
+        },
+        environment: { label: verificationJob.resource.envIdentifier, value: verificationJob.resource.envIdentifier },
         activitySource: verificationJob.resource.activitySourceIdentifier
       } as VerificationJobsData)
     }
   }, [verificationJob?.resource])
-
   return (
     <Container className={css.pageDimensions}>
       <OnBoardingPageHeader
@@ -118,7 +125,11 @@ const VerificationJobsSetup = (): JSX.Element => {
         ]}
       />
       {
-        <Page.Body loading={Boolean(verificationId) && loading} error={verificationId ? error?.message : undefined}>
+        <Page.Body
+          loading={Boolean(verificationId) && loading}
+          key={Boolean(verificationId).toString() && loading?.toString()}
+          error={verificationId ? error?.message : undefined}
+        >
           <CVOnboardingTabs
             iconName={getIconByVerificationType(currentData?.type)}
             defaultEntityName={currentData?.name || 'Default Name'}

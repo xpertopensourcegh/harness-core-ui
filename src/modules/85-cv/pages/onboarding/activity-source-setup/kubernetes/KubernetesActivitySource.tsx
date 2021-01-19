@@ -91,17 +91,17 @@ export function KubernetesActivitySource(): JSX.Element {
   }, [params])
 
   return (
-    <Page.Body loading={loading} error={error?.message}>
+    <Page.Body loading={loading} key={loading?.toString()} error={error?.message}>
       <CVOnboardingTabs
         iconName="service-kubernetes"
-        defaultEntityName={i18n.defaultActivitySourceName}
+        defaultEntityName={currentData?.name || i18n.defaultActivitySourceName}
         {...tabInfo}
         onNext={onNext}
         setName={val => setCurrentData({ ...currentData, name: val } as KubernetesActivitySourceInfo)}
         tabProps={[
           {
             id: 1,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
+            title: getString(`cv.activitySources.harnessCD.select`),
             component: (
               <SelectActivitySource
                 data={currentData as KubernetesActivitySourceInfo}
@@ -121,7 +121,7 @@ export function KubernetesActivitySource(): JSX.Element {
           },
           {
             id: 2,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
+            title: getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
             component: (
               <SelectKubernetesConnector
                 data={currentData as KubernetesActivitySourceInfo}
@@ -135,7 +135,7 @@ export function KubernetesActivitySource(): JSX.Element {
           },
           {
             id: 3,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
+            title: getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
             component: (
               <SelectKubernetesNamespaces
                 data={currentData as KubernetesActivitySourceInfo}
@@ -149,7 +149,7 @@ export function KubernetesActivitySource(): JSX.Element {
           },
           {
             id: 4,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${3}]`),
+            title: getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
             component: (
               <MapWorkloadsToServices
                 data={currentData as KubernetesActivitySourceInfo}

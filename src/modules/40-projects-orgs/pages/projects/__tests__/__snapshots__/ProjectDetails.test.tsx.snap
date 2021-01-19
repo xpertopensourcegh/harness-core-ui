@@ -763,17 +763,17 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/admin/setup/activity-source-setup/undefined"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/admin/setup"
                     >
                       <span>
-                        Set Up Activity Sources
+                        Set Up Change Sources
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/datasources"
+                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/admin/setup?step=2"
                     >
                       <span>
-                        Set Up Data Sources
+                        Set Up Monitoring Sources
                       </span>
                     </a>
                   </div>

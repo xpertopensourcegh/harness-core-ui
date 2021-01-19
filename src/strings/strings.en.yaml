@@ -35,14 +35,15 @@ please: Please
 clickHere: ' click here '
 blueGreen: BlueGreen
 canary: Canary
+changes: 'Changes'
 details: Details
 test: Test
 enable: Enable
 reset: Reset
 risk: Risk
 health: Health
-activitySource: Activity Source
-dataSource: Data Source
+changeSource: Change Source
+monitoringSource: Monitoring Source
 sensitivity: Sensitivity
 pipelines: Pipelines
 performance: Performance
@@ -535,8 +536,8 @@ moduleRenderer:
   start: No modules enabled
   newPipeLine: Create New Pipeline
   viewPipelines: View Pipelines
-  setupActivity: Set Up Activity Sources
-  dataSources: Set Up Data Sources
+  setupChanges: Set Up Change Sources
+  monitoringSources: Set Up Monitoring Sources
 projectContextMenuRenderer:
   gotoCV: 'Go to Continuous Verification'
   gotoCD: 'Go to Continuous Delivery'
@@ -1046,6 +1047,8 @@ cv:
   harnessService: 'Harness Service'
   harnessEnvironment: 'Harness Environment'
   selectOrCreateEnv: 'Select or create an environment'
+  overviewPage:
+    recentChangeVerifications: 'Recent Change Verifications'
   riskCardTooltip:
     header: Performance risk was computed based on metrics from your data providers
     allServicesGreen: all services green
@@ -1054,12 +1057,11 @@ cv:
       metrics: 'Metrics'
       logs: 'Logs'
   navLinks:
-    dataSource: 'Data Sources'
     activities: 'Activities'
     dashboard: 'Dashboard'
     adminSideNavLinks:
       setup: 'Setup'
-      activitySources: 'Activity Sources'
+      activitySources: 'Change Sources'
       monitoringSources: 'Monitoring Sources'
   admin:
     mapsTo: maps to
@@ -1093,11 +1095,11 @@ cv:
         validation:
           type: Select a notification type
     activitySources:
-      searchBoxPlaceholder: 'Search by Activity Source name'
-      noDataMessage: 'No Activity Sources onboarded'
-      addActivitySource: '+ Add Activity Source(s)'
-      dialogDeleteContent: 'Are you sure you want to delete Activity Source: '
-      dialogDeleteTitle: 'Delete Activity Source'
+      searchBoxPlaceholder: 'Search by Change Source name'
+      noDataMessage: 'No Change Sources onboarded'
+      addActivitySource: '+ Add Change Source(s)'
+      dialogDeleteContent: 'Are you sure you want to delete Change Source: '
+      dialogDeleteTitle: 'Delete Change Source'
       tableColumnNames:
         environments: 'Number of Environments'
         createdOn: 'Created on'
@@ -1124,26 +1126,26 @@ cv:
       confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
   onboarding:
     monitoringSources:
-      addMoreSources: Add more monitoring sources
-      addedStatus: You have added {{sourceCount}} monitoring source
+      addMoreSources: Add more Monitoring Sources
+      addedStatus: You have added {{sourceCount}} Monitoring Source
     activitySources:
-      addMoreSources: Add more activity sources
-      addedStatus: You have added {{sourceCount}} activity source
+      addMoreSources: Add more Change Sources
+      addedStatus: You have added {{sourceCount}} Change Source
     verificationJobs:
       heading: Almost there
-      infoText: Verification jobs trigger automatically whenever a relevant change is sourced from an Activity Source. They verify the risk of the change by analyzing the data collected from the Verification Data Sources.
+      infoText: Verification jobs trigger automatically whenever a relevant change is sourced from an Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
       subHeading: Default health verification jobs are applied automatically.
       createJobQues: Would you like to create a new verification job?
       createJob: Create Job
       keepGoing: Want to keep going...
     progress:
       heading: 'Your Progress'
-      mapServices: 'Map the above {{serviceLabel}} to a monitoring source.'
+      mapServices: 'Map the above {{serviceLabel}} to a Monitoring source.'
       serviceEnvCount: 'You have {{serviceCount}} {{serviceLabel}} and {{envCount}} {{environmentLabel}}.'
-      servicesUsedInActivitySources: '{{serviceCount}} service is used in activity sources.'
-      multiServicesUsedInActivitySources: '{{serviceCount}} services are used in activity sources.'
-      serviceUsedInMonitoringSources: '{{serviceCount}} service is used in monitoring sources.'
-      multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in monitoring sources.'
+      servicesUsedInActivitySources: '{{serviceCount}} service is used in Change Sources.'
+      multiServicesUsedInActivitySources: '{{serviceCount}} services are used in Change Sources.'
+      serviceUsedInMonitoringSources: '{{serviceCount}} service is used in Monitoring Sources.'
+      multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in Monitoring Sources.'
       servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
       multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
     selectProductScreen:
@@ -1166,7 +1168,6 @@ cv:
       mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
       noAppsMsg: No Applications were found
       noTiersMsg: No Tiers were found for selected application
-      metricPackValidation: METRIC PACK VALIDATION
       mappingToHarnessService: MAPPING TO HARNESS SERVICE
       mapToHarnessEnvironment: MAP TO HARNESS ENVIRONMENT
       harnessServices: HARNESS SERVICES
@@ -1244,11 +1245,11 @@ cv:
         selectDashboards: 'Select Dashboards'
 
   activitySources:
-    name: 'Name your activity source'
+    name: 'Name your Change Source'
     harnessCD:
       defaultName: 'My Harness CD'
-      select: 'Select your activity source'
-      selectActivitySource: 'Select Activity Source'
+      select: 'Select your Change Source'
+      selectActivitySource: 'Select Change Source'
       selectApplication: 'Select Applications'
       selectEnvironment: 'Select Environments'
       selectService: 'Review Services'
@@ -1265,14 +1266,13 @@ cv:
         env: 'ENVIRONMENTS'
       service:
         noData: 'No services were found'
-        infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification data source to your servcies.'
+        infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.'
         harnessServices: 'HARNESS CD 1.0 SERVICES'
         services: 'HARNESS CV 2.0 SERVICES'
       validation:
         selectedApplication: 'Select atleast one application'
     kubernetes:
       tabNames:
-        - 'Select your Activity Source'
         - 'Select Kubernetes Connector'
         - 'Select Kubernetes Namespace(s)'
         - 'Map Workloads to Services'
@@ -1290,11 +1290,11 @@ cv:
           service: 'HARNESS SERVICE'
   verificationJobs:
     validation:
-      type: Please select verification job type
+      type: Please select Verification Job type
       service: Please select a service
       environment: Please select a environment
       duration: Please select duration
-      dataSource: Please select a data source
+      dataSource: Please select a Monitoring Source
     details:
       name: Name of your job
       tabName: Select Verification Job Type

@@ -53,7 +53,6 @@ function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
       name: activitySource.name,
       identifier: activitySource.identifier || '',
       type: activitySource.type,
-      createdOn: moment(activitySource.createdAt).format(DATE_FORMAT_STRING),
       lastUpdatedOn: moment(activitySource.lastUpdatedAt).format(DATE_FORMAT_STRING)
     })
   }
@@ -77,6 +76,7 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
   const params = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
+  const history = useHistory()
   const { mutate } = useDeleteKubernetesSource({
     queryParams: {
       accountId: params.accountId,
@@ -102,6 +102,17 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
         titleText={getString('cv.admin.activitySources.dialogDeleteTitle')}
         contentText={`${getString('cv.admin.activitySources.dialogDeleteContent')}${tableProps.row.original?.name} ?`}
         onDelete={onDelete}
+        onEdit={() =>
+          history.push(
+            routes.toCVActivitySourceEditSetup({
+              projectIdentifier: params.projectIdentifier,
+              orgIdentifier: params.orgIdentifier,
+              activitySource: 'kubernetes',
+              activitySourceId: tableProps.row.original.identifier,
+              accountId: params.accountId
+            })
+          )
+        }
       />
     </Container>
   )
@@ -209,7 +220,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
               {
                 accessor: 'name',
                 Header: getString('name'),
-                width: '16.5%',
+                width: '25%',
                 Cell: TableCell
               },
               {
@@ -232,15 +243,9 @@ export default function CVActivitySourcesPage(): JSX.Element {
                 Cell: TableCell
               },
               {
-                accessor: 'createdOn',
-                Header: getString('cv.admin.activitySources.tableColumnNames.createdOn'),
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
                 accessor: 'lastUpdatedOn',
                 Header: getString('cv.admin.activitySources.tableColumnNames.lastUpdatedOn'),
-                width: '16.5%',
+                width: '25%',
                 Cell: function LastColumn(cellProps: CellProps<TableData>) {
                   return <LastUpdatedOnWithMenu {...cellProps} onDelete={refetchSources} />
                 }

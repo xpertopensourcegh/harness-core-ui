@@ -10,21 +10,21 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { useToaster } from '@common/exports'
-
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SETUP_INDEXDB_ID } from '@cv/constants'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
 import OnboardedSourceSummary from './OnboardedSourceSummary/OnboardedSourceSummary'
-import { SetupIndexDBData, STEP, getCardLabelByType, getIconBySourceType } from './SetupUtils'
+import { SetupIndexDBData, Step, getCardLabelByType, getIconBySourceType } from './SetupUtils'
 import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
 
 export const StepIndex = new Map([
-  [STEP.ACTIVITY_SOURCE, 1],
-  [STEP.MONITORING_SOURCE, 2],
-  [STEP.VERIFICATION_JOBS, 3]
+  [Step.CHANGE_SOURCE, 1],
+  [Step.MONITORING_SOURCE, 2],
+  [Step.VERIFICATION_JOBS, 3]
 ])
 
 const Status = {
@@ -33,7 +33,7 @@ const Status = {
   NOT_VISITED: 'NOT_VISITED'
 }
 
-const ActivitySourcesHarness = [
+const ChangeSourcesHarness = [
   {
     type: 'HarnessCD_1.0',
     icon: 'cd-main',
@@ -43,7 +43,7 @@ const ActivitySourcesHarness = [
   }
 ]
 
-const ActivitySources = [
+const ChangeSources = [
   {
     type: 'K8sCluster',
     icon: 'service-kubernetes',
@@ -84,7 +84,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const [showSummary, setShowSummary] = useState(Boolean(props.step))
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   return (
     <Container>
@@ -93,7 +93,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
           {showSummary && props.indexDBData?.activitySources?.length ? (
             <OnboardedSourceSummary
               sources={props.indexDBData?.activitySources}
-              title={`You have added ${props.indexDBData.activitySources.length} activity source${pluralize(
+              title={`You have added ${props.indexDBData.activitySources.length} Change Source${pluralize(
                 props.indexDBData.activitySources.length
               )}`}
               setShowSummary={setShowSummary}
@@ -102,14 +102,14 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
           ) : (
             <>
               <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
-                {i18n.activitySource.content.heading.start}
+                {i18n.changeSource.content.heading.start}
               </Text>
-              <Text>{i18n.activitySource.content.info}</Text>
+              <Text>{i18n.changeSource.content.info}</Text>
               <Layout.Horizontal margin={{ top: 'xxlarge' }}>
                 <Layout.Vertical margin={{ right: 'xxlarge' }}>
                   <Text>{i18n.harness} </Text>
                   <div className={css.items}>
-                    {ActivitySourcesHarness.map((item, index) => {
+                    {ChangeSourcesHarness.map((item, index) => {
                       return (
                         <div
                           className={css.cardWrapper}
@@ -137,7 +137,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                 <Layout.Vertical>
                   <Text>{i18n.infrastructureProvider} </Text>
                   <div className={css.items}>
-                    {ActivitySources.map((item, index) => {
+                    {ChangeSources.map((item, index) => {
                       return (
                         <div
                           className={css.cardWrapper}
@@ -168,17 +168,17 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
         </div>
       </Container>
       <Layout.Horizontal style={{ float: 'right' }} padding="small">
-        <Text margin={{ right: 'xsmall' }}>{i18n.activitySource.noActivitySource}</Text>
+        <Text margin={{ right: 'xsmall' }}>{i18n.changeSource.noActivitySource}</Text>
 
         <Link
           withoutHref
           onClick={() => {
-            props.setActiveStep(STEP.MONITORING_SOURCE)
+            props.setActiveStep(Step.MONITORING_SOURCE)
             props.setActivitySource(Status.COMPLETED)
             props.setMonitoringSource(Status.ACTIVE)
           }}
         >
-          {i18n.activitySource.skip}
+          {i18n.changeSource.skip}
         </Link>
       </Layout.Horizontal>
     </Container>
@@ -198,7 +198,7 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
   const history = useHistory()
   const { getString } = useStrings()
   const [showSummary, setShowSummary] = useState(Boolean(props.step))
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   return (
     <Layout.Horizontal>
@@ -207,7 +207,7 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
           {showSummary && props.indexDBData?.monitoringSources?.length ? (
             <OnboardedSourceSummary
               sources={props.indexDBData?.monitoringSources}
-              title={`You have added ${props.indexDBData.monitoringSources.length} monitoring source${pluralize(
+              title={`You have added ${props.indexDBData.monitoringSources.length} Monitoring Source${pluralize(
                 props.indexDBData.monitoringSources.length
               )}`}
               setShowSummary={setShowSummary}
@@ -261,7 +261,7 @@ const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const [showSummary] = useState(Boolean(props.step))
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data, loading } = useGetDefaultHealthVerificationJob({
     queryParams: { accountId, projectIdentifier, orgIdentifier }
   })
@@ -385,10 +385,10 @@ const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
 }
 
 const CVSetupPage: React.FC<CVSetupPageProps> = props => {
-  const [activitySource, setActivitySource] = useState<string>(Status.ACTIVE)
+  const [changeSource, setChangeSource] = useState<string>(Status.ACTIVE)
   const [monitoringSource, setMonitoringSource] = useState<string>(Status.NOT_VISITED)
   const [verificationJob, setVerificationJob] = useState<string>(Status.NOT_VISITED)
-  const [activeStep, setActiveStep] = useState<string>(STEP.ACTIVITY_SOURCE)
+  const [activeStep, setActiveStep] = useState<string>(Step.CHANGE_SOURCE)
   const { getString } = useStrings()
   const location = useLocation()
   const history = useHistory()
@@ -396,7 +396,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const [indexDBData, setIndexDBData] = useState<SetupIndexDBData>()
   const { isInitializingDB, dbInstance: setUpDbInstance } = useIndexedDBHook({})
 
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const queryParams = new URLSearchParams(location.search)
   const step = queryParams.get('step')
 
@@ -433,27 +433,27 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
         setUpDbInstance.get(CVObjectStoreNames.SETUP, SETUP_INDEXDB_ID)?.then(resultData => {
           if (resultData) {
             setIndexDBData(resultData)
+          }
 
-            if (step === '1') {
-              if (activeStep === STEP.MONITORING_SOURCE) {
-                setActivitySource(Status.COMPLETED)
-              }
+          if (step === '1') {
+            if (activeStep === Step.MONITORING_SOURCE) {
+              setChangeSource(Status.COMPLETED)
             }
+          }
 
-            if (step === '2') {
-              if (activeStep === STEP.ACTIVITY_SOURCE) {
-                setActiveStep(STEP.MONITORING_SOURCE)
-                setMonitoringSource(Status.ACTIVE)
-                setActivitySource(Status.COMPLETED)
-              }
+          if (step === '2') {
+            if (activeStep === Step.CHANGE_SOURCE) {
+              setActiveStep(Step.MONITORING_SOURCE)
+              setMonitoringSource(Status.ACTIVE)
+              setChangeSource(Status.COMPLETED)
             }
-            if (step === '3') {
-              if (activeStep === STEP.ACTIVITY_SOURCE) {
-                setActiveStep(STEP.VERIFICATION_JOBS)
-                setVerificationJob(Status.COMPLETED)
-                setActivitySource(Status.COMPLETED)
-                setMonitoringSource(Status.COMPLETED)
-              }
+          }
+          if (step === '3') {
+            if (activeStep === Step.CHANGE_SOURCE) {
+              setActiveStep(Step.VERIFICATION_JOBS)
+              setVerificationJob(Status.COMPLETED)
+              setChangeSource(Status.COMPLETED)
+              setMonitoringSource(Status.COMPLETED)
             }
           }
         })
@@ -476,29 +476,29 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               <Layout.Vertical style={{ position: 'relative', top: 150 }}>
                 <Layout.Horizontal>
                   <Layout.Vertical spacing="xsmall">
-                    {activitySource === Status.COMPLETED ? (
+                    {changeSource === Status.COMPLETED ? (
                       <Icon name="tick-circle" color="green500" size={20} />
-                    ) : activeStep === STEP.ACTIVITY_SOURCE && activitySource === Status.ACTIVE ? (
+                    ) : activeStep === Step.CHANGE_SOURCE && changeSource === Status.ACTIVE ? (
                       <span className={css.number}>1</span>
                     ) : (
                       <Text>1</Text>
                     )}
                     <div
                       className={cx(css.dashedLine, {
-                        [css.dashedLineVisited]: activitySource !== Status.NOT_VISITED,
-                        [css.dashedLineNotVisited]: activitySource === Status.NOT_VISITED
+                        [css.dashedLineVisited]: changeSource !== Status.NOT_VISITED,
+                        [css.dashedLineNotVisited]: changeSource === Status.NOT_VISITED
                       })}
                     ></div>
                   </Layout.Vertical>
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
                       font={{ size: 'medium', weight: 'bold' }}
-                      color={activeStep === STEP.ACTIVITY_SOURCE ? Color.BLACK : Color.GREY_500}
+                      color={activeStep === Step.CHANGE_SOURCE ? Color.BLACK : Color.GREY_500}
                     >
-                      {i18n.activitySource.heading}
+                      {i18n.changeSource.heading}
                     </Text>
                     <Text font={{ weight: 'light' }} color={Color.GREY_400}>
-                      {i18n.activitySource.info}
+                      {i18n.changeSource.info}
                     </Text>
                   </Layout.Vertical>
                 </Layout.Horizontal>
@@ -506,7 +506,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical spacing="xsmall">
                     {monitoringSource === Status.COMPLETED ? (
                       <Icon name="tick-circle" color="green500" size={20} />
-                    ) : activeStep === STEP.MONITORING_SOURCE && monitoringSource === Status.ACTIVE ? (
+                    ) : activeStep === Step.MONITORING_SOURCE && monitoringSource === Status.ACTIVE ? (
                       <span className={css.number}>2</span>
                     ) : (
                       <span className={css.onlyNumber}> 2</span>
@@ -521,7 +521,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
                       font={{ size: 'medium', weight: 'bold' }}
-                      color={activeStep === STEP.MONITORING_SOURCE ? Color.BLACK : Color.GREY_500}
+                      color={activeStep === Step.MONITORING_SOURCE ? Color.BLACK : Color.GREY_500}
                     >
                       {i18n.monitoringSource.heading}
                     </Text>
@@ -534,7 +534,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical>
                     {verificationJob === Status.COMPLETED ? (
                       <Icon name="tick-circle" color="green500" size={20} />
-                    ) : activeStep === STEP.VERIFICATION_JOBS && verificationJob === Status.ACTIVE ? (
+                    ) : activeStep === Step.VERIFICATION_JOBS && verificationJob === Status.ACTIVE ? (
                       <span className={css.number}>{3}</span>
                     ) : (
                       <span className={css.onlyNumber}> 3</span>
@@ -543,7 +543,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                   <Layout.Vertical width="90%" className={css.stepLabel} spacing="small">
                     <Text
                       font={{ size: 'medium', weight: 'bold' }}
-                      color={activeStep === STEP.VERIFICATION_JOBS ? Color.BLACK : Color.GREY_500}
+                      color={activeStep === Step.VERIFICATION_JOBS ? Color.BLACK : Color.GREY_500}
                     >
                       {i18n.verificationJob.heading}
                     </Text>
@@ -559,13 +559,13 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 text="Previous"
                 icon="chevron-left"
                 onClick={() => {
-                  if (activeStep === STEP.ACTIVITY_SOURCE) {
+                  if (activeStep === Step.CHANGE_SOURCE) {
                     history.push(routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier }))
-                  } else if (activeStep === STEP.MONITORING_SOURCE) {
-                    setActiveStep(STEP.ACTIVITY_SOURCE)
-                    setActivitySource(Status.ACTIVE)
-                  } else if (activeStep === STEP.VERIFICATION_JOBS) {
-                    setActiveStep(STEP.MONITORING_SOURCE)
+                  } else if (activeStep === Step.MONITORING_SOURCE) {
+                    setActiveStep(Step.CHANGE_SOURCE)
+                    setChangeSource(Status.ACTIVE)
+                  } else if (activeStep === Step.VERIFICATION_JOBS) {
+                    setActiveStep(Step.MONITORING_SOURCE)
                     setMonitoringSource(Status.ACTIVE)
                   }
                 }}
@@ -575,15 +575,15 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 text={step === '3' ? getString('finish') : getString('next')}
                 rightIcon="chevron-right"
                 onClick={() => {
-                  if (activeStep === STEP.ACTIVITY_SOURCE) {
-                    setActiveStep(STEP.MONITORING_SOURCE)
+                  if (activeStep === Step.CHANGE_SOURCE) {
+                    setActiveStep(Step.MONITORING_SOURCE)
                     setMonitoringSource(Status.ACTIVE)
-                    setActivitySource(Status.COMPLETED)
-                  } else if (activeStep === STEP.MONITORING_SOURCE) {
-                    setActiveStep(STEP.VERIFICATION_JOBS)
+                    setChangeSource(Status.COMPLETED)
+                  } else if (activeStep === Step.MONITORING_SOURCE) {
+                    setActiveStep(Step.VERIFICATION_JOBS)
                     setVerificationJob(Status.ACTIVE)
                     setMonitoringSource(Status.COMPLETED)
-                  } else if (activeStep === STEP.VERIFICATION_JOBS) {
+                  } else if (activeStep === Step.VERIFICATION_JOBS) {
                     history.push(routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier }))
                   }
                 }}
@@ -594,27 +594,27 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
             background={Color.GREY_200}
             width={data?.resource?.totalNumberOfEnvironments && data?.resource?.totalNumberOfServices ? '50%' : '70%'}
           >
-            {activeStep === STEP.ACTIVITY_SOURCE ? (
+            {activeStep === Step.CHANGE_SOURCE ? (
               <ActivitySourceContent
                 setActiveStep={setActiveStep}
-                setActivitySource={setActivitySource}
+                setActivitySource={setChangeSource}
                 setMonitoringSource={setMonitoringSource}
                 step={step}
                 indexDBData={indexDBData as SetupIndexDBData}
                 // setActivitySourceType={setActivitySourceType}
               />
-            ) : activeStep === STEP.MONITORING_SOURCE ? (
+            ) : activeStep === Step.MONITORING_SOURCE ? (
               <MonitoringSourceContent
                 step={step}
                 indexDBData={indexDBData as SetupIndexDBData}
                 statusData={data}
                 monitoringSource={monitoringSource}
                 setActiveStep={setActiveStep}
-                setActivitySource={setActivitySource}
+                setActivitySource={setChangeSource}
                 setMonitoringSource={setMonitoringSource}
                 setVerificationJob={setVerificationJob}
               />
-            ) : activeStep === STEP.VERIFICATION_JOBS ? (
+            ) : activeStep === Step.VERIFICATION_JOBS ? (
               <VerificatiionContent step={step} indexDBData={indexDBData as SetupIndexDBData} />
             ) : null}
           </Container>

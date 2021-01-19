@@ -13,8 +13,8 @@ import {
   ServiceName,
   EnvironmentName,
   Duration
-} from '@cv/pages/activity-setup/VerificationJobForms/VerificationJobFields'
-import { useVerificationJobFormSubmit } from '@cv/pages/activity-setup/VerificationJobForms/VerificationJobFormCommons'
+} from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
+import { useVerificationJobFormSubmit } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFormCommons'
 
 interface VerificationJobsDetailsProps {
   stepData: any

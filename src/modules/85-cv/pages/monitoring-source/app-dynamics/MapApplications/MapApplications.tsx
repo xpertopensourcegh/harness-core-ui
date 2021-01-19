@@ -352,7 +352,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                 id: '3',
                 Header: (
                   <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
-                    {getString('cv.monitoringSources.appD.metricPackValidation')}
+                    {getString('cv.monitoringSources.appD.validation').toLocaleUpperCase()}
                   </Text>
                 ),
                 width: '30%',

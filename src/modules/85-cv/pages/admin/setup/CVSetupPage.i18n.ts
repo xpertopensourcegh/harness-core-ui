@@ -1,32 +1,32 @@
 export default {
   harness: 'HARNESS',
   infrastructureProvider: 'INFRASTRUCTURE PROVIDER',
-  activitySource: {
-    heading: 'ACTIVITY SOURCE',
-    info: 'Activity sources provide the details of deployment and infrastructure change',
-    noActivitySource: 'Don’t have an activity source? ',
-    skip: 'Skip to monitoring sources',
+  changeSource: {
+    heading: 'CHANGE SOURCES',
+    info: 'Change Sources provide the details of deployment and infrastructure change',
+    noActivitySource: 'Don’t have a Change Source? ',
+    skip: 'Skip to Monitoring Sources',
     content: {
       heading: {
         start: 'Let’s get you started'
       },
-      info: 'Select your activity source'
+      info: 'Select your Change Source'
     }
   },
   monitoringSource: {
-    heading: 'MONITORING SOURCE',
+    heading: 'MONITORING SOURCES',
     info:
-      'Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure',
+      'Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure',
     content: {
       heading: 'Select your Monitoring Source ',
       info:
-        'Monitoring sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure'
+        'Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure'
     }
   },
   verificationJob: {
     heading: 'VERIFICATION JOBS',
     info:
-      'Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.'
+      'Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.'
   },
   NEXT: 'Next'
 }

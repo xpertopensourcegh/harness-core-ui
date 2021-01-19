@@ -220,7 +220,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          Imported On
+          Last Updated on
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"

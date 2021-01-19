@@ -8,11 +8,13 @@ import routes from '@common/RouteDefinitions'
 import VerificationJobsSetup from '../VerificationJobsSetup'
 jest.mock('services/cv', () => ({
   useGetVerificationJob: jest.fn().mockImplementation(() => ({
-    refetch: jest.fn()
+    refetch: jest.fn(),
+    loading: false
   })),
   useListAllSupportedDataSource: jest.fn().mockImplementation(() => ({
     refetch: jest.fn(),
-    data: null
+    data: null,
+    loading: false
   })),
   useListActivitySources: jest.fn().mockImplementation(() => ({}))
 }))

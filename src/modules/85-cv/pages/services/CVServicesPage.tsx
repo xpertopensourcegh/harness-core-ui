@@ -6,6 +6,7 @@ import { Page } from '@common/exports'
 import ActivitesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/exports'
 import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
@@ -48,6 +49,7 @@ const getRangeDates = (val: number, endTime?: number) => {
 
 export default function CVServicesPage(): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   const [serviceIsEmpty, setIsServiceEmpty] = useState<boolean>(false)
   const [{ selectedValue, startTime, endTime }, setRange] = useState<{
     selectedValue: number
@@ -95,7 +97,7 @@ export default function CVServicesPage(): JSX.Element {
   const isTimeRangeMoreThan4Hours = moment(endTime).diff(startTime, 'minutes') > 4 * 60
   return (
     <>
-      <Page.Header title="Services" toolbar={<Container></Container>} />
+      <Page.Header title={getString('services').toLocaleUpperCase()} toolbar={<Container></Container>} />
       <Page.Body
         loading={loading}
         noData={{

@@ -5,13 +5,13 @@ import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-
 import { StringUtils } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import routes from '@common/RouteDefinitions'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { VerificationJobType } from '@cv/constants'
-import { ActivitySource, DataSources } from '@cv/pages/activity-setup/VerificationJobForms/VerificationJobFields'
+import { ActivitySource, DataSources } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
 interface VerificationJobsDetailsProps {
   stepData: any
   onNext: (data: any) => void
@@ -19,7 +19,7 @@ interface VerificationJobsDetailsProps {
 const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props => {
   const { getString } = useStrings()
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   return (
     <Container style={{ position: 'relative', top: 50 }}>
@@ -71,7 +71,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                     return (
                       <Layout.Horizontal spacing="xxxlarge">
                         <Container>
-                          <Text margin={{ top: 'medium', bottom: 'medium' }} width={'150px'}>
+                          <Text margin={{ top: 'medium', bottom: 'medium' }} width="150px">
                             {getString('cv.verificationJobs.details.preDeploymentTests')}
                           </Text>
                           <CVSelectionCard
@@ -89,7 +89,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                           />
                         </Container>
                         <Container>
-                          <Text margin={{ top: 'medium', bottom: 'medium' }} width={'200px'}>
+                          <Text margin={{ top: 'medium', bottom: 'medium' }} width="200px">
                             {getString('cv.verificationJobs.details.productionDep')}
                           </Text>
                           <Layout.Horizontal>
@@ -122,7 +122,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                           </Layout.Horizontal>
                         </Container>
                         <Container>
-                          <Text margin={{ top: 'medium', bottom: 'medium' }} width={'150px'}>
+                          <Text margin={{ top: 'medium', bottom: 'medium' }} width="150px">
                             {getString('cv.verificationJobs.details.postDeploymentTests')}
                           </Text>
                           <CVSelectionCard

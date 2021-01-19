@@ -235,6 +235,7 @@ function renderSummaryCardContent(data: Activity, onClose: () => void): JSX.Elem
 }
 
 export default function ActivityDashboardPage(): JSX.Element {
+  const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const timelineEndTime = moment(timelineStartTime).subtract(6, 'months').startOf('month').valueOf()
   // const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
@@ -263,7 +264,7 @@ export default function ActivityDashboardPage(): JSX.Element {
 
   return (
     <>
-      <Page.Header title={i18n.pageTitle} />
+      <Page.Header title={getString('changes').toLocaleUpperCase()} />
       <Page.Body loading={loading} error={error?.message}>
         <ActivityTimeline
           timelineStartTime={timelineStartTime}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
+import { PopoverInteractionKind, Tooltip } from '@blueprintjs/core'
 import { Container, Icon, Text, Color, Button, IconName, TextInput } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -13,6 +14,9 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
 import styles from './CVVerificationJobsPage.module.scss'
+
+const ENV_IDENTIFIER = '${envIdentifier}'
+const SERVICE_IDENTIFIER = '${serviceIdentifier}'
 
 export default function CVVerificationJobsPage() {
   const { getString } = useStrings()
@@ -114,7 +118,9 @@ export default function CVVerificationJobsPage() {
         />
         {(loading || isDeleting) && <PageSpinner />}
         <Table<VerificationJobDTO>
-          onRowClick={val => onEdit(val.identifier!)}
+          onRowClick={val => {
+            if (!val.defaultJob) onEdit(val.identifier!)
+          }}
           columns={[
             {
               Header: getString('name'),
@@ -124,31 +130,31 @@ export default function CVVerificationJobsPage() {
             },
             {
               Header: getString('typeLabel'),
-              width: '10%',
+              width: '5%',
               accessor: 'type',
               Cell: TypeCell
             },
             {
               Header: getString('services'),
-              width: '10%',
+              width: '12%',
               accessor: 'serviceIdentifier',
               Cell: TableCell
             },
             {
               Header: getString('environment'),
-              width: '10%',
+              width: '12%',
               accessor: 'envIdentifier',
               Cell: TableCell
             },
             {
-              Header: getString('activitySource'),
-              width: '10%',
+              Header: getString('changeSource'),
+              width: '12%',
               accessor: 'activitySourceIdentifier',
-              Cell: TableCell
+              Cell: ChangeSourceCell
             },
             {
-              Header: getString('dataSource'),
-              width: '10%',
+              Header: getString('monitoringSource'),
+              width: '12%',
               accessor: 'dataSources',
               Cell: DataSourceCell
             },
@@ -166,13 +172,15 @@ export default function CVVerificationJobsPage() {
             },
             {
               Header: getString('execution.triggerType.WEBHOOK'),
-              width: '15%',
+              width: '12%',
               Cell: function WebHookCellWrapper(props: CellProps<VerificationJobDTO>) {
-                return (
+                return props.row.original?.defaultJob ? (
+                  <Text color={Color.BLACK}>{getString('na')}</Text>
+                ) : (
                   <WebHookCell
                     {...props}
-                    onDelete={() => onDelete(props.row.original.identifier)}
-                    onEdit={() => onEdit(props.row.original.identifier!)}
+                    onDelete={() => onDelete(props.row.original?.identifier)}
+                    onEdit={() => onEdit(props.row.original?.identifier!)}
                   />
                 )
               }
@@ -193,10 +201,24 @@ export default function CVVerificationJobsPage() {
 }
 
 function TableCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
+  const { getString } = useStrings()
   return (
     <Container className={styles.tableCell}>
       <Text lineClamp={1} color={Color.BLACK}>
-        {tableProps.value}
+        {tableProps.value === SERVICE_IDENTIFIER || tableProps.value === ENV_IDENTIFIER
+          ? getString('all')
+          : tableProps.value}
+      </Text>
+    </Container>
+  )
+}
+
+function ChangeSourceCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
+  const { getString } = useStrings()
+  return (
+    <Container className={styles.tableCell}>
+      <Text lineClamp={1} color={Color.BLACK}>
+        {tableProps.row.original?.defaultJob ? getString('all') : tableProps.value}
       </Text>
     </Container>
   )
@@ -209,27 +231,39 @@ function TypeCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
   switch (tableProps.value) {
     case 'TEST':
       return (
-        <Text icon="canary-outline" iconProps={iconProps}>
-          <String stringID="cv.admin.verificationJobs.jobTypes.test" />
-        </Text>
+        <Tooltip
+          interactionKind={PopoverInteractionKind.HOVER}
+          content={<String stringID="cv.admin.verificationJobs.jobTypes.test" />}
+        >
+          <Icon name="canary-outline" {...iconProps} />
+        </Tooltip>
       )
     case 'CANARY':
       return (
-        <Text icon="canary-outline" iconProps={iconProps}>
-          <String stringID="cv.admin.verificationJobs.jobTypes.canary" />
-        </Text>
+        <Tooltip
+          interactionKind={PopoverInteractionKind.HOVER}
+          content={<String stringID="cv.admin.verificationJobs.jobTypes.canary" />}
+        >
+          <Icon name="canary-outline" {...iconProps} />
+        </Tooltip>
       )
     case 'BLUE_GREEN':
       return (
-        <Text icon="bluegreen" iconProps={iconProps}>
-          <String stringID="cv.admin.verificationJobs.jobTypes.blueGreen" />
-        </Text>
+        <Tooltip
+          interactionKind={PopoverInteractionKind.HOVER}
+          content={<String stringID="cv.admin.verificationJobs.jobTypes.blueGreen" />}
+        >
+          <Icon name="bluegreen" {...iconProps} />
+        </Tooltip>
       )
     case 'HEALTH':
       return (
-        <Text icon="health" iconProps={iconProps}>
-          <String stringID="cv.admin.verificationJobs.jobTypes.health" />
-        </Text>
+        <Tooltip
+          interactionKind={PopoverInteractionKind.HOVER}
+          content={<String stringID="cv.admin.verificationJobs.jobTypes.health" />}
+        >
+          <Icon name="health" {...iconProps} />
+        </Tooltip>
       )
     default:
       return <Text />
@@ -237,7 +271,11 @@ function TypeCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
 }
 
 function DataSourceCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
-  return (
+  const { serviceIdentifier, envIdentifier } = tableProps.row.original || {}
+  const { getString } = useStrings()
+  return envIdentifier === ENV_IDENTIFIER && serviceIdentifier === SERVICE_IDENTIFIER ? (
+    <Text color={Color.BLACK}>{getString('all')}</Text>
+  ) : (
     <>
       {tableProps.row.original.dataSources?.map(item => {
         let iconName: IconName
@@ -264,8 +302,11 @@ function DataSourceCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element 
 
 function SensitivityCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
   // TODO - swagger issue, VerificationJobDTO's missing sensitivity
+  const { getString } = useStrings()
   const data = tableProps.row.original as any
-  return <Text>{data.sensitivity}</Text>
+  return (
+    <Text color={Color.BLACK}>{tableProps.row.original.type === 'HEALTH' ? getString('na') : data.sensitivity}</Text>
+  )
 }
 
 function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): void; onEdit(): void }): JSX.Element {
@@ -273,14 +314,18 @@ function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): v
   return (
     <Container flex>
       <Button minimal icon="link" disabled />
-      <ContextMenuActions
-        titleText={getString('cv.admin.verificationJobs.confirmDeleteTitle')}
-        contentText={getString('cv.admin.verificationJobs.confirmDeleteContent', {
-          jobName: tableProps.row.original.jobName
-        })}
-        onDelete={tableProps.onDelete}
-        onEdit={tableProps.onEdit}
-      />
+      {!tableProps.row.original?.defaultJob ? (
+        <ContextMenuActions
+          titleText={getString('cv.admin.verificationJobs.confirmDeleteTitle')}
+          contentText={
+            getString('cv.admin.verificationJobs.confirmDeleteContent', {
+              jobName: tableProps.row.original.jobName
+            }) + '?'
+          }
+          onDelete={tableProps.onDelete}
+          onEdit={tableProps.onEdit}
+        />
+      ) : null}
     </Container>
   )
 }

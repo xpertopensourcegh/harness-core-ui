@@ -29,7 +29,7 @@ describe('CVSetupPage', () => {
       </TestWrapper>
     )
     await waitFor(() => queryByText(container, 'Setup'))
-    expect(getByText('ACTIVITY SOURCE')).toBeDefined()
+    expect(getByText('CHANGE SOURCES')).toBeDefined()
     expect(getByText('Let’s get you started')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
@@ -54,7 +54,7 @@ describe('CVSetupPage', () => {
       const nextBtn = getByText('Next')
       fireEvent.click(nextBtn)
     })
-    expect(getByText('MONITORING SOURCE')).toBeDefined()
+    expect(getByText('MONITORING SOURCES')).toBeDefined()
     expect(getByText('Select your Monitoring Source')).toBeDefined()
     expect(container).toMatchSnapshot()
 

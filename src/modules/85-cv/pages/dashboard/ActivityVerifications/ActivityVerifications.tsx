@@ -1,9 +1,10 @@
 import React from 'react'
-import { Container, Text, Color, Button } from '@wings-software/uicore'
+import { Container, Text, Button } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/exports'
 import i18n from './ActivityVerifications.i18n'
 import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
@@ -22,6 +23,7 @@ const RECENT_VERIFICATIONS_COLUMN_NAMES = Object.values(i18n.activityVerificatio
 export default function ActivityVerifications(): JSX.Element {
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
+  const { getString } = useStrings()
   const { data } = useGetRecentDeploymentActivityVerifications({
     queryParams: {
       accountId: accountId as string,
@@ -33,12 +35,7 @@ export default function ActivityVerifications(): JSX.Element {
 
   return (
     <Container className={css.main}>
-      <Container className={css.header}>
-        <Text className={css.headerText}>{i18n.activityVerificationHeaderText.title}</Text>
-        <Text rightIcon="horizontal-bar-chart-asc" rightIconProps={{ intent: 'primary' }} color={Color.BLACK}>
-          {i18n.viewAllActivities}
-        </Text>
-      </Container>
+      <Text className={css.headerText}>{getString('cv.overviewPage.recentChangeVerifications')}</Text>
       <ul className={css.activityList}>
         <li className={css.headerRow}>{RECENT_VERIFICATIONS_COLUMN_NAMES}</li>
         {data?.resource?.map(item => {

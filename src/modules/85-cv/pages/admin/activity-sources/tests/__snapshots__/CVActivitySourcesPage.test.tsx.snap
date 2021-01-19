@@ -23,7 +23,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
         <span
           class="lastBreadcrumb"
         >
-          Activity Sources
+          Change Sources
         </span>
       </div>
     </div>
@@ -54,7 +54,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
         </span>
         <input
           class="bp3-input"
-          placeholder="Search by Activity Source name"
+          placeholder="Search by Change Source name"
           type="text"
           value=""
         />
@@ -74,7 +74,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
         <span
           class="bp3-button-text"
         >
-          + Add Activity Source(s)
+          + Add Change Source(s)
         </span>
       </button>
       <div
@@ -88,7 +88,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 16.5%;"
+            style="width: 25%;"
             title="Toggle SortBy"
           >
             Name
@@ -180,35 +180,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 16.5%;"
-            title="Toggle SortBy"
-          >
-            Created on
-            <span
-              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-              icon="double-caret-vertical"
-            >
-              <svg
-                data-icon="double-caret-vertical"
-                height="15"
-                viewBox="0 0 16 16"
-                width="15"
-              >
-                <desc>
-                  double-caret-vertical
-                </desc>
-                <path
-                  d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </div>
-          <div
-            class="cell"
-            colspan="1"
-            role="columnheader"
-            style="width: 16.5%;"
+            style="width: 25%;"
             title="Toggle SortBy"
           >
             Last Updated on
@@ -240,7 +212,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           <div
             class="cell"
             role="cell"
-            style="width: 16.5%;"
+            style="width: 25%;"
           >
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
@@ -285,19 +257,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           <div
             class="cell"
             role="cell"
-            style="width: 16.5%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              Dec 1, 2020 6:07 pm
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
+            style="width: 25%;"
           >
             <div
               class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -347,7 +307,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           <div
             class="cell"
             role="cell"
-            style="width: 16.5%;"
+            style="width: 25%;"
           >
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
@@ -392,19 +352,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           <div
             class="cell"
             role="cell"
-            style="width: 16.5%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              Dec 2, 2020 6:06 pm
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
+            style="width: 25%;"
           >
             <div
               class="StyledProps--font StyledProps--main StyledProps--flex"

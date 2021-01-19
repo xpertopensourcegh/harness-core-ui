@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { useSaveVerificationJob, VerificationJobDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 
 export const FormControlButtons = connect(({ formik }) => (
@@ -98,7 +99,7 @@ export interface UseVerificationFormSubmitProps {
 }
 
 export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitProps) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const history = useHistory()
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })
@@ -126,6 +127,7 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
   }
   const onSubmit = (values: any) => {
     const payload = {
+      activitySourceIdentifier: values?.activitySource,
       identifier: values.identifier,
       jobName: values.name,
       serviceIdentifier: values.service?.value || values.service,

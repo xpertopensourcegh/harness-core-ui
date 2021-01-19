@@ -145,7 +145,7 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
           props.onSubmit({
             ...data,
             type: 'KUBERNETES',
-            sourceType: ONBOARDING_ENTITIES.ACTIVITY_SOURCE as BaseSetupTabsObject['sourceType']
+            sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE as BaseSetupTabsObject['sourceType']
           })
 
           history.push(`${routes.toCVAdminSetup(params)}?step=1`)

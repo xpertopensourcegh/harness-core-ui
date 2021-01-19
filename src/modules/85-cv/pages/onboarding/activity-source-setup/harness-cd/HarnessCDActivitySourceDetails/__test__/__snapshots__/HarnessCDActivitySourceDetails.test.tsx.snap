@@ -19,7 +19,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large"
             >
-              Select your activity source
+              Select your Change Source
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main monitoringCard"
@@ -151,7 +151,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name your activity source
+                        Name your Change Source
                          
                         <span
                           class="bp3-text-muted"

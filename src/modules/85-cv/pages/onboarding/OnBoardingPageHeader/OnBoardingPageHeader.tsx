@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Color, Container, Tag } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Breadcrumb, Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import i18n from './OnBoardingPageHeader.i18n'
@@ -13,7 +14,7 @@ export interface OnBoardingPageHeader {
 
 export function OnBoardingPageHeader(props: OnBoardingPageHeader): JSX.Element {
   const { breadCrumbs } = props
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [selectedView, setSelectedView] = useState(i18n.visualAndYamlLabels.visual)
   return (
     <Container className={css.main}>

@@ -60,17 +60,17 @@ export interface SetupIndexDBData {
   verificationJobs: SetupIndexDBDataObject[]
 }
 
-export const STEP = {
-  ACTIVITY_SOURCE: 'ACTIVITY_SOURCE',
+export const Step = {
+  CHANGE_SOURCE: 'CHANGE_SOURCE',
   MONITORING_SOURCE: 'MONITORING_SOURCE',
   VERIFICATION_JOBS: 'VERIFICATION_JOBS'
 }
 
-export const ONBOARDING_ENTITIES = STEP
+export const ONBOARDING_ENTITIES = Step
 
 export interface BaseSetupTabsObject {
   name?: string
   identifier?: string
-  sourceType?: 'ACTIVITY_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS'
+  sourceType?: 'CHANGE_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS'
   type?: string // Replace with types in apis
 }

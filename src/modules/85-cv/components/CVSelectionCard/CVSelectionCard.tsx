@@ -25,27 +25,32 @@ export interface CVSelectionCardGroupProps {
 
 export function CVSelectionCard(props: CVSelectionCardProps): JSX.Element {
   const { isSelected, iconProps, onCardSelect, cardLabel, renderLabelOutsideCard, className, isLarge } = props
+  const isSelectable = isSelected && !props.cardProps?.disabled
   return (
     <Layout.Vertical spacing="small" className={className}>
       <Card
         {...props.cardProps}
-        selected={isSelected}
+        selected={isSelectable}
         interactive={true}
         className={cx(
           css.selectionCard,
-          isSelected ? css.selectedCard : undefined,
+          isSelectable ? css.selectedCard : undefined,
           isLarge ? css.largeCard : undefined
         )}
-        onClick={() => onCardSelect?.(!isSelected)}
+        onClick={() => {
+          if (!props.cardProps?.disabled) {
+            onCardSelect?.(!isSelected)
+          }
+        }}
       >
-        {isSelected ? (
+        {isSelectable ? (
           <div className={css.triangle}>
             <Icon name="tick" size={14} className={css.tick} color={Color.WHITE} />
           </div>
         ) : null}
 
         <CardBody.Icon
-          className={cx(css.cardIcon, { [css.cardIconSelected]: isSelected })}
+          className={cx(css.cardIcon, { [css.cardIconSelected]: isSelectable })}
           icon={iconProps.name}
           iconSize={iconProps.size}
           {...iconProps}

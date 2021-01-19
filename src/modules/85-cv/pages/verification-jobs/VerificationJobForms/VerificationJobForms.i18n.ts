@@ -22,7 +22,7 @@ export default {
   },
   fieldLabels: {
     trafficSplit: 'Traffic Split Percentage (optional)',
-    dataSource: 'Data Source',
+    monitoringSource: 'Monitoring Source',
     baseline: 'Baseline',
     environment: 'Environment',
     service: 'Service',

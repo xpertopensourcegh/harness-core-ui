@@ -112,11 +112,11 @@ describe('CVActivitySourcesPage unit tests', () => {
     fireEvent.click(threeDotMenu)
     await waitFor(() => expect(document.body.querySelector('[class*="bp3-menu-item"]')).not.toBeNull())
 
-    const deleteOption = document.body.querySelector('[class*="bp3-menu-item"]')
+    const deleteOption = document.body.querySelectorAll('[class*="bp3-menu-item"]')
     if (!deleteOption) {
       throw Error('Delete option was not rendered')
     }
-    fireEvent.click(deleteOption)
+    fireEvent.click(deleteOption[1])
     await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog"]')).not.toBeNull())
 
     const confirmModalButtons = document.body.querySelectorAll('[class*="bp3-dialog"] button')
@@ -167,7 +167,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    fireEvent.click(getByText('+ Add Activity Source(s)'))
+    fireEvent.click(getByText('+ Add Change Source(s)'))
     await waitFor(() => expect(routeCVAdminSetupSpy).toHaveBeenCalledTimes(1))
   })
 
@@ -183,8 +183,8 @@ describe('CVActivitySourcesPage unit tests', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('No Activity Sources onboarded')).not.toBeNull())
-    const retryButton = getByText('+ Add Activity Source(s)')
+    await waitFor(() => expect(getByText('No Change Sources onboarded')).not.toBeNull())
+    const retryButton = getByText('+ Add Change Source(s)')
     if (!retryButton) {
       throw new Error('Retry button is missing.')
     }

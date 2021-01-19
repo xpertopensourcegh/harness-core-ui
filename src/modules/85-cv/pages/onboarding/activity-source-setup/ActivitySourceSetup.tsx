@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { ActivitySourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/exports'
 import { KubernetesActivitySource } from './kubernetes/KubernetesActivitySource'
 import { OnBoardingPageHeader } from '../OnBoardingPageHeader/OnBoardingPageHeader'
 import HarnessCDActivitySource from './harness-cd/HarnessCDActivitySource'
-import i18n from './ActivitySourceSetup.i18n'
 import css from './ActivitySourceSetup.module.scss'
 
 function activitySourceTypeToComponent(activitySource: string): JSX.Element {
@@ -25,18 +25,19 @@ export default function ActivitySourceSetup(): JSX.Element {
   const { activitySource, projectIdentifier, orgIdentifier, accountId } = useParams<
     ProjectPathProps & { activitySource: string }
   >()
+  const { getString } = useStrings()
   return (
     <Container className={css.pageDimensions}>
       <OnBoardingPageHeader
         breadCrumbs={[
           {
             url: routes.toCVActivitySourceSetup({
-              projectIdentifier: projectIdentifier,
-              orgIdentifier: orgIdentifier,
-              activitySource: activitySource,
+              projectIdentifier,
+              orgIdentifier,
+              activitySource,
               accountId
             }),
-            label: i18n.breadCrumbLabel
+            label: getString('changeSource')
           }
         ]}
       />

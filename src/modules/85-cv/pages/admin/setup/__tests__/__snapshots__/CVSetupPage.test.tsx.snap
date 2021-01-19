@@ -48,12 +48,12 @@ exports[`CVSetupPage check next and previous 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  ACTIVITY SOURCE
+                  CHANGE SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Activity sources provide the details of deployment and infrastructure change
+                  Change Sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
@@ -79,12 +79,12 @@ exports[`CVSetupPage check next and previous 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  MONITORING SOURCE
+                  MONITORING SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
@@ -112,7 +112,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
+                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
                 </p>
               </div>
             </div>
@@ -203,7 +203,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Select your activity source
+                Select your Change Source
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
@@ -337,7 +337,7 @@ exports[`CVSetupPage check next and previous 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
-              Don’t have an activity source? 
+              Don’t have a Change Source? 
             </p>
             <a
               class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
@@ -348,7 +348,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Skip to monitoring sources
+                Skip to Monitoring Sources
               </span>
             </a>
           </div>
@@ -421,12 +421,12 @@ exports[`CVSetupPage check next and previous 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  ACTIVITY SOURCE
+                  CHANGE SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Activity sources provide the details of deployment and infrastructure change
+                  Change Sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
@@ -452,12 +452,12 @@ exports[`CVSetupPage check next and previous 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  MONITORING SOURCE
+                  MONITORING SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
@@ -485,7 +485,7 @@ exports[`CVSetupPage check next and previous 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
+                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
                 </p>
               </div>
             </div>
@@ -604,7 +604,7 @@ exports[`CVSetupPage check next and previous 2`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Monitoring sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
               </p>
               <div
                 class="items"
@@ -747,12 +747,12 @@ exports[`CVSetupPage check next and previous 3`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  ACTIVITY SOURCE
+                  CHANGE SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Activity sources provide the details of deployment and infrastructure change
+                  Change Sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
@@ -778,12 +778,12 @@ exports[`CVSetupPage check next and previous 3`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  MONITORING SOURCE
+                  MONITORING SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
@@ -811,7 +811,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
+                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
                 </p>
               </div>
             </div>
@@ -958,7 +958,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Select your activity source
+                Select your Change Source
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
@@ -1092,7 +1092,7 @@ exports[`CVSetupPage check next and previous 3`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
-              Don’t have an activity source? 
+              Don’t have a Change Source? 
             </p>
             <a
               class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
@@ -1103,7 +1103,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               <span
                 class="bp3-button-text"
               >
-                Skip to monitoring sources
+                Skip to Monitoring Sources
               </span>
             </a>
           </div>
@@ -1162,12 +1162,12 @@ exports[`CVSetupPage render initial state 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                 >
-                  ACTIVITY SOURCE
+                  CHANGE SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Activity sources provide the details of deployment and infrastructure change
+                  Change Sources provide the details of deployment and infrastructure change
                 </p>
               </div>
             </div>
@@ -1193,12 +1193,12 @@ exports[`CVSetupPage render initial state 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey500"
                 >
-                  MONITORING SOURCE
+                  MONITORING SOURCES
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification data sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
+                  Verification Monitoring Sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure
                 </p>
               </div>
             </div>
@@ -1226,7 +1226,7 @@ exports[`CVSetupPage render initial state 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-light StyledProps--color StyledProps--color-grey400"
                 >
-                  Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.
+                  Verification Jobs score the risk of changes coming in from Change Sources using data from verification Monitoring Sources.
                 </p>
               </div>
             </div>
@@ -1317,7 +1317,7 @@ exports[`CVSetupPage render initial state 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Select your activity source
+                Select your Change Source
               </p>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
@@ -1451,7 +1451,7 @@ exports[`CVSetupPage render initial state 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
             >
-              Don’t have an activity source? 
+              Don’t have a Change Source? 
             </p>
             <a
               class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
@@ -1462,7 +1462,7 @@ exports[`CVSetupPage render initial state 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Skip to monitoring sources
+                Skip to Monitoring Sources
               </span>
             </a>
           </div>

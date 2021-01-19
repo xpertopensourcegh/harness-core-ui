@@ -363,7 +363,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
                       <FormInput.MultiSelect
                         items={VerificationStatusOptions}
                         name="verificationStatuses"
-                        label={getString('cv.admin.notifications.create.stepThree.verification')}
+                        label={getString('cv.admin.notifications.create.stepThree.verificationStatus')}
                         className={css.activityType}
                       />
                     </Layout.Horizontal>

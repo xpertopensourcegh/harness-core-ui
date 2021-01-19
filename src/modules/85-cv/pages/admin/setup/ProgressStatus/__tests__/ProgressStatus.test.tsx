@@ -34,7 +34,7 @@ describe('ProgressStatus', () => {
       </TestWrapper>
     )
 
-    expect(getByText('2 services are used in monitoring sources.')).toBeDefined()
+    expect(getByText('2 services are used in Monitoring Sources.')).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })

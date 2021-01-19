@@ -8,7 +8,7 @@ exports[`Select Services render services for application 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
-      The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification data source to your servcies.
+      The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"

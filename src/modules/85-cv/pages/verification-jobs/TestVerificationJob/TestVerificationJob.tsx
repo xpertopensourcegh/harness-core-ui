@@ -15,8 +15,8 @@ import {
   EnvironmentName,
   Duration,
   BaselineSelect
-} from '@cv/pages/activity-setup/VerificationJobForms/VerificationJobFields'
-import { useVerificationJobFormSubmit } from '@cv/pages/activity-setup/VerificationJobForms/VerificationJobFormCommons'
+} from '../VerificationJobForms/VerificationJobFields'
+import { useVerificationJobFormSubmit } from '../VerificationJobForms/VerificationJobFormCommons'
 interface VerificationJobsDetailsProps {
   stepData: any
   onPrevious: () => void

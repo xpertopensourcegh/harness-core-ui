@@ -26,7 +26,7 @@ type TableData = {
 
 function TableColumn(props: CellProps<TableData>): JSX.Element {
   return (
-    <Text color={Color.BLACK} lineClamp={1} width="100%" className={css.textOverflow}>
+    <Text color={Color.BLACK} lineClamp={1} className={css.textOverflow}>
       {props.value}
     </Text>
   )
@@ -131,7 +131,7 @@ export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps)
           {
             Header: getString('cv.monitoringSources.gco.reviewPage.gcoMetrics'),
             accessor: 'metricName',
-            width: '25%',
+            width: '40%',
             Cell: TableColumn
           },
           {

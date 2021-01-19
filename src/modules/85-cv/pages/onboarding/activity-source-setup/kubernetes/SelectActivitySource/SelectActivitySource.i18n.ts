@@ -1,9 +1,9 @@
 export default {
-  selectActivitySource: 'Select your Activity Source',
+  selectActivitySource: 'Select your Change Source',
   connectorOptionHeading: 'Select the best method for Harness to reach your Kubernetes Cluster',
   infraSpecification: 'Infrastructure Specification',
   fieldLabels: {
-    nameActivitySource: 'Name your Activity Source',
+    nameActivitySource: 'Name your Change Source',
     infraType: 'Type of Infrastructure'
   },
   productSelectionCategory: {
@@ -13,7 +13,7 @@ export default {
     kubernetes: 'Kubernetes'
   },
   validationStrings: {
-    nameActivitySource: 'Activity Source name is required.',
+    nameActivitySource: 'Change Source name is required.',
     connectorType: 'Kubernetes Connector Type is required.'
   }
 }

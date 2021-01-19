@@ -66,7 +66,7 @@ export default {
       ce: 'Continuous Efficiency',
       cf: 'Continuous Features',
       linkcd: 'Create New pipeline',
-      linkcv: 'Add New Data Sources',
+      linkcv: 'Add New Monitoring Sources',
       linkci: 'Create New pipeline',
       linkce: 'TBD',
       linkcf: 'TBD',

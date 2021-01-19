@@ -43,11 +43,11 @@ const getModuleLinks = (
     case ModuleName.CV:
       return (
         <Layout.Vertical spacing="medium">
-          <Link to={routes.toCVActivitySourceSetup({ accountId, orgIdentifier, projectIdentifier })}>
-            <String stringID="moduleRenderer.setupActivity" />
+          <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}>
+            <String stringID="moduleRenderer.setupChanges" />
           </Link>
-          <Link to={routes.toCVDataSources({ accountId, orgIdentifier, projectIdentifier })}>
-            <String stringID="moduleRenderer.dataSources" />
+          <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier, step: 2 })}>
+            <String stringID="moduleRenderer.monitoringSources" />
           </Link>
         </Layout.Vertical>
       )

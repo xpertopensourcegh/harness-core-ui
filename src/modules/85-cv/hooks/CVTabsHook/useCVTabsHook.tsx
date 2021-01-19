@@ -118,7 +118,7 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
                       : item
                     : resultData?.monitoringSources,
                 activitySources:
-                  data?.sourceType === ONBOARDING_ENTITIES.ACTIVITY_SOURCE
+                  data?.sourceType === ONBOARDING_ENTITIES.CHANGE_SOURCE
                     ? resultData?.activitySources
                       ? resultData?.activitySources?.concat(item)
                       : item

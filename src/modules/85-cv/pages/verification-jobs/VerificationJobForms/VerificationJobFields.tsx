@@ -1,5 +1,6 @@
 import React, { useMemo, CSSProperties, useEffect, useState } from 'react'
 import { FormInput, SelectOption, MultiTypeInputType, MultiSelectOption } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import {
@@ -10,13 +11,43 @@ import {
   GetEnvironmentListForProjectQueryParams,
   GetServiceListForProjectQueryParams
 } from 'services/cd-ng'
+import { useToaster } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
-import { useListActivitySources, useListAllSupportedDataSource, useListBaselineExecutions } from 'services/cv'
+import {
+  ActivitySourceDTO,
+  useListActivitySources,
+  useListAllSupportedDataSource,
+  useListBaselineExecutions
+} from 'services/cv'
 import { getMonitoringSourceLabel } from '@cv/pages/admin/setup/SetupUtils'
 import i18n from './VerificationJobForms.i18n'
+import css from './VerificationJobFields.module.scss'
 
 interface BaseFieldProps {
   zIndex?: Pick<CSSProperties, 'zIndex'>
+}
+
+function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconProps {
+  switch (activityType) {
+    case 'CD':
+      return {
+        name: 'cd-main',
+        size: 15
+      }
+    case 'KUBERNETES':
+      return {
+        name: 'service-kubernetes',
+        size: 15
+      }
+    case 'OTHER':
+      return {
+        name: 'config-change',
+        size: 15
+      }
+    default:
+      return {} as IconProps
+  }
 }
 
 export const VerificationJobNameFieldNames = {}
@@ -55,7 +86,7 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
 }
 
 export function ServiceName(props: BaseFieldProps): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { data: serviceOptions } = useGetServiceListForProject({
     queryParams: {
       accountId,
@@ -89,6 +120,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
       items: [
         { label: '5 min', value: '5m' },
         { label: '10 min', value: '10m' },
+        { label: '15 min', value: '15m' },
         { label: '30 min', value: '30m' }
       ]
     }),
@@ -110,7 +142,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
 }
 
 export function EnvironmentName(props: BaseFieldProps): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { data: environmentOptions } = useGetEnvironmentListForProject({
     queryParams: {
       accountId,
@@ -190,7 +222,7 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
 }
 
 export function BaselineSelect(props: BaseFieldProps): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [baselineOption, setBaselineOption] = useState([
     { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' },
     { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
@@ -247,7 +279,7 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
     <FormInput.MultiSelectTypeInput
       name="dataSource"
       style={style}
-      label={i18n.fieldLabels.dataSource}
+      label={i18n.fieldLabels.monitoringSource}
       selectItems={selectProps.items}
       multiSelectTypeInputProps={{
         multiSelectProps: {
@@ -260,7 +292,7 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
 }
 
 export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [monitoringOptions, setMonitoringOptions] = useState([{ label: 'All', value: 'All' }])
   const { data } = useListAllSupportedDataSource({
     queryParams: {
@@ -288,18 +320,19 @@ export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }
     <FormInput.MultiSelect
       name="dataSource"
       style={style}
-      label={i18n.fieldLabels.dataSource}
+      label={i18n.fieldLabels.monitoringSource}
       items={monitoringOptions}
     />
   )
 }
 
-export const ActivitySource: React.FC<BaseFieldProps> = props => {
+export const ActivitySource: React.FC<BaseFieldProps & { onChange?: (val: SelectOption) => void }> = props => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const [activityOptions, setActivityOptions] = useState([])
-  const { zIndex } = props
-  const { data } = useListActivitySources({
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { showError } = useToaster()
+  const [activityOptions, setActivityOptions] = useState<SelectOption[]>([{ label: getString('loading'), value: '' }])
+  const { zIndex, onChange } = props
+  const { data, error } = useListActivitySources({
     queryParams: {
       accountId,
       projectIdentifier,
@@ -310,24 +343,30 @@ export const ActivitySource: React.FC<BaseFieldProps> = props => {
   })
 
   useEffect(() => {
-    if (data?.resource?.content?.length) {
+    if (data?.resource?.content) {
       const options = data.resource.content.map(item => {
         return {
           label: item.name,
-          value: { identifier: item.identifier, type: item.type }
+          value: item.identifier,
+          icon: activityTypeToIconProps(item.type)
         }
       })
       setActivityOptions(options as any)
+    } else if (error?.message) {
+      setActivityOptions([])
+      showError(error.message, 7000)
     }
-  }, [data])
+  }, [data, error?.message])
 
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
   return (
     <FormInput.Select
       name="activitySource"
       style={style}
-      label={getString('activitySource')}
-      items={activityOptions as SelectOption[]}
+      className={css.activitySourceSelect}
+      onChange={onChange}
+      label={getString('changeSource')}
+      items={activityOptions}
     />
   )
 }
