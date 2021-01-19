@@ -8,7 +8,11 @@ import { AppStoreContext as StringsContext, AppStoreContextProps } from 'framewo
 import { useStrings } from 'framework/exports'
 import strings from 'strings/strings.en.yaml'
 import { getTriggerConfigDefaultProps, triggerConfigInitialValues } from './webhookMockConstants'
-import { GetSourceRepoToEventResponse, GetActionsListResponse } from './webhookMockResponses'
+import {
+  GetSourceRepoToEventResponse,
+  GetActionsListResponse,
+  GenerateWebhookTokenResponse
+} from './webhookMockResponses'
 import WebhookTriggerConfigPanel from '../views/WebhookTriggerConfigPanel'
 
 const useGetActionsList = jest.fn()
@@ -17,7 +21,8 @@ jest.mock('services/pipeline-ng', () => ({
   useGetActionsList: jest.fn(args => {
     useGetActionsList(args)
     return GetActionsListResponse
-  })
+  }),
+  useGenerateWebhookToken: jest.fn(() => GenerateWebhookTokenResponse)
 }))
 
 const value: AppStoreContextProps = {

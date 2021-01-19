@@ -10,7 +10,8 @@ import {
   GetActionsListResponse,
   GetTriggerResponse,
   updateTriggerMockResponseYaml,
-  enabledFalseUpdateTriggerMockResponseYaml
+  enabledFalseUpdateTriggerMockResponseYaml,
+  GenerateWebhookTokenResponse
 } from './webhookMockResponses'
 import {
   GetPipelineResponse,
@@ -34,6 +35,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(
     () => GetMergeInputSetFromPipelineTemplateWithListInputResponse
   ),
+  useGenerateWebhookToken: jest.fn(() => GenerateWebhookTokenResponse),
   useGetPipeline: jest.fn(() => GetPipelineResponse),
   useGetTemplateFromPipeline: jest.fn(() => GetTemplateFromPipelineResponse),
   useGetSourceRepoToEvent: jest.fn(() => GetSourceRepoToEventResponse),

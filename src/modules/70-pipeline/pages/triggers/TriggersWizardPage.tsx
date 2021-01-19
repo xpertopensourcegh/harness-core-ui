@@ -22,6 +22,8 @@ import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import type { PayloadConditionInterface } from './views/PayloadConditionsSection'
+import { GitSourceProviders } from './utils/TriggersListUtils'
+import { eventTypes } from './utils/TriggersWizardPageUtils'
 import { GetTriggerRightNav } from '../trigger-details/TriggerDetails'
 import { WebhookTriggerConfigPanel, WebhookConditionsPanel, WebhookPipelineInputPanel } from './views'
 import {
@@ -120,7 +122,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             tags,
             source: {
               spec: {
-                spec: { actions, event, repoUrl, payloadConditions },
+                spec: { actions, event, repoUrl, payloadConditions, authToken },
                 type
               }
             },
@@ -147,7 +149,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           // set error
           setGetTriggerErrorMessage('Cannot parse pipeline input values')
         }
-        const newOnEditInitialValues = {
+        const newOnEditInitialValues: FlatOnEditValuesInterface = {
           name,
           identifier,
           description,
@@ -158,6 +160,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           repoUrl,
           event,
           targetIdentifier,
+          secureToken: authToken?.spec?.value,
           actions: actions?.map((action: string) => ({ label: action, value: action })),
           sourceBranchOperator,
           sourceBranchValue,
@@ -214,22 +217,25 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       sourceBranchValue,
       targetBranchOperator,
       targetBranchValue,
-      payloadConditions = []
+      payloadConditions = [],
+      secureToken
     } = val
 
-    if (targetBranchOperator && targetBranchValue?.trim()) {
-      payloadConditions.unshift({
-        key: PayloadConditionTypes.TARGET_BRANCH,
-        operator: targetBranchOperator,
-        value: targetBranchValue
-      })
-    }
-    if (sourceBranchOperator && sourceBranchValue?.trim()) {
-      payloadConditions.unshift({
-        key: PayloadConditionTypes.SOURCE_BRANCH,
-        operator: sourceBranchOperator,
-        value: sourceBranchValue
-      })
+    if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
+      if (targetBranchOperator && targetBranchValue?.trim() && event !== eventTypes.PUSH) {
+        payloadConditions.unshift({
+          key: PayloadConditionTypes.TARGET_BRANCH,
+          operator: targetBranchOperator,
+          value: targetBranchValue
+        })
+      }
+      if (sourceBranchOperator && sourceBranchValue?.trim()) {
+        payloadConditions.unshift({
+          key: PayloadConditionTypes.SOURCE_BRANCH,
+          operator: sourceBranchOperator,
+          value: sourceBranchValue
+        })
+      }
     }
 
     // actions will be required thru validation
@@ -255,6 +261,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           spec: { repoUrl, event, actions: actionsValues }
         }
       }
+    }
+
+    if (formikValueSourceRepo === GitSourceProviders.CUSTOM.value && secureToken && triggerJson.source?.spec) {
+      triggerJson.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }
     }
 
     if (!isEmpty(payloadConditions) && triggerJson.source?.spec) {

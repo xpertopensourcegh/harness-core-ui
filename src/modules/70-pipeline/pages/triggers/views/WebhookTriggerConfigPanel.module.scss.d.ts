@@ -10,5 +10,7 @@ declare const styles: {
   readonly conditionsRow: string
   readonly payloadConditions: string
   readonly footer: string
+  readonly fieldWarning: string
+  readonly eyeCon: string
 }
 export default styles

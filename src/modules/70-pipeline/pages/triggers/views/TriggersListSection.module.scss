@@ -26,3 +26,7 @@
     display: block;
   }
 }
+
+button.webhookUrl span svg path {
+  fill: var(--blue-500) !important;
+}

@@ -5,9 +5,9 @@ import type { GetActionsListQueryParams } from 'services/pipeline-ng'
 import { TriggerTypes } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders = {
-  GITHUB: { value: 'GITHUB', iconName: 'github', label: 'GitHub' },
-  GITLAB: { value: 'GITLAB', iconName: 'service-gotlab', label: 'GitLab' },
-  BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket', label: 'BitBucket' },
+  GITHUB: { value: 'GITHUB', iconName: 'github' },
+  GITLAB: { value: 'GITLAB', iconName: 'service-gotlab' },
+  BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket' },
   CUSTOM: { value: 'CUSTOM', iconName: 'build' }
 }
 
@@ -78,11 +78,23 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
           itemLabel: getString('repo-provider.bitbucketLabel'),
           value: GitSourceProviders.BITBUCKET.value,
           iconName: GitSourceProviders.BITBUCKET.iconName as IconName
+        },
+        {
+          itemLabel: getString('repo-provider.customLabel'),
+          value: GitSourceProviders.CUSTOM.value,
+          iconName: GitSourceProviders.CUSTOM.iconName as IconName
         }
       ]
     }
   ]
 })
+
+export const getSourceRepoOptions = (getString: (str: string) => string): { label: string; value: string }[] => [
+  { label: getString('repo-provider.githubLabel'), value: GitSourceProviders.GITHUB.value },
+  { label: getString('repo-provider.gitlabLabel'), value: GitSourceProviders.GITLAB.value },
+  { label: getString('repo-provider.bitbucketLabel'), value: GitSourceProviders.BITBUCKET.value },
+  { label: getString('repo-provider.customLabel'), value: GitSourceProviders.CUSTOM.value }
+]
 
 export const getCategoryItems = (getString: (key: string) => string): AddDrawerMapInterface =>
   triggerDrawerMap(getString)

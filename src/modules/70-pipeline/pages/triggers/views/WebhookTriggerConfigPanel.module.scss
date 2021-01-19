@@ -62,3 +62,16 @@
   z-index: 1;
   box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
 }
+
+.fieldWarning {
+  background-color: #f2f2f2 !important;
+  width: 324px !important;
+  padding: var(--spacing-small) !important;
+  justify-content: space-between;
+}
+
+.eyeCon {
+  span[icon='eye-open'] {
+    color: var(--blue-500) !important;
+  }
+}

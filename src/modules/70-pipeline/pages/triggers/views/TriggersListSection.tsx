@@ -12,7 +12,8 @@ import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTriggerStatus } fr
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useStrings } from 'framework/exports'
-import { getTriggerIcon } from '../utils/TriggersListUtils'
+import { getTriggerIcon, GitSourceProviders } from '../utils/TriggersListUtils'
+import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 
 import css from './TriggersListSection.module.scss'
 export interface GoToEditWizardInterface {
@@ -152,7 +153,7 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
           name={
             data.type
               ? getTriggerIcon({ type: data.type, webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo })
-              : 'deployment-success-new'
+              : 'yaml-builder-trigger'
           }
           size={26}
         />
@@ -228,27 +229,109 @@ const RenderColumnLastActivation: Renderer<CellProps<NGTriggerDetailsResponse>> 
   )
 }
 
-const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
+const RenderWebhookIcon = ({
+  type,
+  webhookSourceRepo,
+  webhookSecret,
   column
 }: {
+  type?: string
+  webhookSourceRepo?: string
+  webhookSecret?: string
   column: { accountId: string; orgIdentifier: string; projectIdentifier: string; getString: (str: string) => string }
-}) => {
+}): JSX.Element => {
+  const [optionsOpen, setOptionsOpen] = React.useState(false)
+  if (!type || type !== TriggerTypes.WEBHOOK) {
+    return <Text color={Color.GREY_400}>N/A</Text>
+  }
   const webhookUrl =
     window.location.origin +
     `/pipeline/api/webhook/trigger?accountIdentifier=${column.accountId}&orgIdentifier=${column.orgIdentifier}&projectIdentifier=${column.projectIdentifier}`
-  return (
-    <div className={css.textCentered}>
-      <Icon
-        style={{ cursor: 'pointer' }}
-        name="main-link"
-        size={20}
-        color="blue500"
+
+  if (webhookSourceRepo === GitSourceProviders.CUSTOM.value && webhookSecret) {
+    const curlCommand = `curl -X POST 
+    -H 'X-Harness-Webhook-Token: ${webhookSecret}' -H 'content-type: application/json' 
+     --url ${webhookUrl}
+      -d '{
+        "object_kind": "merge_request",
+        ...
+        }'`
+
+    return (
+      <Popover
+        isOpen={optionsOpen}
+        onInteraction={nextOpenState => {
+          setOptionsOpen(nextOpenState)
+        }}
+        className={Classes.DARK}
+        position={Position.BOTTOM_RIGHT}
+      >
+        <Button
+          minimal
+          className={css.webhookUrl}
+          icon="main-link"
+          onClick={e => {
+            e.stopPropagation()
+            setOptionsOpen(true)
+          }}
+        />
+        <Menu style={{ minWidth: 'unset' }}>
+          <Menu.Item
+            text={column.getString('pipeline-triggers.copyAsUrl')}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              copy(webhookUrl)
+              ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookUrlCopied'))
+              setOptionsOpen(false)
+            }}
+          />
+          <Menu.Divider />
+          <Menu.Item
+            text={column.getString('pipeline-triggers.copyAsCurl')}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              copy(curlCommand)
+              ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookCurlCopied'))
+              setOptionsOpen(false)
+            }}
+          />
+        </Menu>
+      </Popover>
+    )
+  } else {
+    return (
+      <Button
+        className={css.webhookUrl}
+        icon="main-link"
+        color={Color.BLUE_500}
+        minimal
         onClick={e => {
           e.stopPropagation()
           copy(webhookUrl)
           ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookUrlCopied'))
         }}
       />
+    )
+  }
+}
+
+const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: { accountId: string; orgIdentifier: string; projectIdentifier: string; getString: (str: string) => string }
+}) => {
+  const data = row.original
+
+  return (
+    <div className={css.textCentered}>
+      {RenderWebhookIcon({
+        type: data?.type,
+        webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo,
+        webhookSecret: data?.webhookDetails?.webhookSecret,
+        column
+      })}
     </div>
   )
 }

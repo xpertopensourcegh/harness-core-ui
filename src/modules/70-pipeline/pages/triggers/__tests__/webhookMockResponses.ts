@@ -21,6 +21,12 @@ export const GetSourceRepoToEventResponse: UseGetReturnData<ResponseMapWebhookSo
   }
 }
 
+export const GenerateWebhookTokenResponse = {
+  metaData: {},
+  resource: 'token',
+  responseMessages: []
+}
+
 export const GetActionsListResponse: UseGetReturnData<ResponseListWebhookAction> = {
   loading: false,
   refetch: jest.fn(),

@@ -5,6 +5,8 @@ import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import type { PayloadConditionInterface } from '../views/PayloadConditionsSection'
 
+const CUSTOM = 'CUSTOM'
+
 export interface FlatInitialValuesInterface {
   triggerType: NGTriggerSource['type']
   sourceRepo?: GetActionsListQueryParams['sourceRepo'] | string
@@ -19,6 +21,7 @@ export interface FlatInitialValuesInterface {
 export interface FlatOnEditValuesInterface {
   name: string
   identifier: string
+  targetIdentifier: string
   description?: string
   tags?: {
     [key: string]: string
@@ -30,6 +33,7 @@ export interface FlatOnEditValuesInterface {
   repoUrl: string
   event: string
   actions: string[]
+  secureToken?: string
   sourceBranchOperator?: string
   sourceBranchValue?: string
   targetBranchOperator?: string
@@ -52,6 +56,7 @@ export interface FlatValidFormikValuesInterface {
   repoUrl: string
   event: string
   actions: string[]
+  secureToken?: string
   sourceBranchOperator?: string
   sourceBranchValue?: string
   targetBranchOperator?: string
@@ -128,6 +133,15 @@ const isRowUnfilled = (payloadCondition: PayloadConditionInterface): boolean => 
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
 
+const checkValidTriggerConfiguration = (formikValues: FlatValidFormikValuesInterface): boolean => {
+  const sourceRepo = formikValues['sourceRepo']
+
+  if (sourceRepo !== CUSTOM && (!formikValues['event'] || !formikValues['repoUrl'] || !formikValues['actions'])) {
+    return false
+  }
+  return true
+}
+
 const checkValidPayloadConditions = (formikValues: FlatValidFormikValuesInterface): boolean => {
   const payloadConditions = formikValues['payloadConditions']
   if (
@@ -147,7 +161,8 @@ const getPanels = (getString: (key: string) => string): PanelInterface[] => [
   {
     id: 'Trigger Configuration',
     tabTitle: getString('pipeline-triggers.triggerConfigurationLabel'),
-    requiredFields: ['name', 'identifier', 'event', 'repoUrl', 'actions']
+    requiredFields: ['name', 'identifier'], // conditional required validations checkValidTriggerConfiguration
+    checkValidPanel: checkValidTriggerConfiguration
   },
   {
     id: 'Conditions',
@@ -182,13 +197,25 @@ export const getValidationSchema = (getString: (key: string) => string): ObjectS
   object().shape({
     name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
     identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
-    event: string().trim().nullable().required(getString('pipeline-triggers.validation.event')),
-    repoUrl: string().trim().required(getString('pipeline-triggers.validation.repoUrl')),
+    event: string().test(
+      getString('pipeline-triggers.validation.event'),
+      getString('pipeline-triggers.validation.event'),
+      function (event) {
+        return this.parent.sourceRepo === CUSTOM || event
+      }
+    ),
+    repoUrl: string().test(
+      getString('pipeline-triggers.validation.repoUrl'),
+      getString('pipeline-triggers.validation.repoUrl'),
+      function (repoUrl) {
+        return this.parent.sourceRepo === CUSTOM || repoUrl
+      }
+    ),
     actions: array().test(
       getString('pipeline-triggers.validation.actions'),
       getString('pipeline-triggers.validation.actions'),
       function (actions) {
-        return !isUndefined(actions)
+        return this.parent.sourceRepo === CUSTOM || !isUndefined(actions)
       }
     ),
     sourceBranchOperator: string().test(
