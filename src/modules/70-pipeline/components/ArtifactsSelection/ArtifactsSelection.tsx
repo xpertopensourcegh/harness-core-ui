@@ -292,7 +292,11 @@ export default function ArtifactsSelection({
           }
         )
       } else {
-        sideCarArtifact.push({ sidecar: sideCarObject })
+        if (view === ModalView.EXISTING) {
+          sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
+        } else {
+          sideCarArtifact.push({ sidecar: sideCarObject })
+        }
       }
     }
 
@@ -415,7 +419,8 @@ export default function ArtifactsSelection({
 
   const addSideCarArtifact = (): void => {
     setModalContext(ModalViewFor.SIDECAR)
-
+    setView(ModalView.OPTIONS)
+    setEditIndex(sidecarIndex + 1)
     showConnectorModal()
   }
 
