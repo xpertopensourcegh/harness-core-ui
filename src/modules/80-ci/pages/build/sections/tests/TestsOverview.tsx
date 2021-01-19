@@ -79,7 +79,7 @@ export const TestsOverview: React.FC<{ testOverviewData: TestReportSummary | nul
             <ul className={css.graph}>
               {testOverviewData?.tests?.map((test, index) => (
                 <li key={(test.name as string) + index} data-status={test.status}>
-                  &nbsp;
+                  <Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */>&nbsp;</Text>
                 </li>
               ))}
             </ul>

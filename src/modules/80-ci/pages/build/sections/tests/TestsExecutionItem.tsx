@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
-import { Button, Color, Icon, Container, Text, useIsMounted } from '@wings-software/uicore'
+import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
@@ -85,30 +85,32 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   )
   const renderColumn = useMemo(
     () => (col: keyof TestCase | 'order') => {
-      return (({ row }) => {
+      let itemOrderNumber = 0
+      return (props => {
+        const { row, rows } = props
         const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
         const tooltip = failed && col === 'name' ? <TestsFailedPopover testCase={row.original} /> : undefined
+
+        itemOrderNumber++
+
+        if (itemOrderNumber > rows.length) {
+          itemOrderNumber = 1
+        }
 
         return (
           <Container width="90%" className={css.testCell}>
             <Text
               className={cx(css.text, tooltip && css.failed)}
-              color={failed ? Color.RED_700 : Color.GREY_700}
+              color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
               lineClamp={!tooltip ? 1 : undefined}
               tooltip={tooltip}
             >
               {col === 'order' ? (
-                PAGE_SIZE * pageIndex + (row.index + 1)
+                PAGE_SIZE * pageIndex + itemOrderNumber + '.'
               ) : col === 'result' ? (
                 row.original[col]?.status
               ) : col === 'duration_ms' ? (
-                <Duration
-                  icon={undefined}
-                  durationText=" "
-                  startTime={NOW}
-                  endTime={NOW + (row.original[col] || 0)}
-                  color={failed ? Color.RED_700 : undefined}
-                />
+                <Duration icon={undefined} durationText=" " startTime={NOW} endTime={NOW + (row.original[col] || 0)} />
               ) : (
                 row.original[col]
               )}
@@ -119,41 +121,45 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     },
     [pageIndex]
   )
-  const columns: Column<TestCase>[] = React.useMemo(
+  const columns: Column<TestCase>[] = useMemo(
     () => [
       {
         Header: '#',
         accessor: 'order' as 'name',
-        width: '5%',
+        width: '50px',
         Cell: renderColumn('order'),
         disableSortBy: true
       },
       {
         Header: getString('ci.testsReports.testCaseName'),
         accessor: 'name',
-        width: '40%',
-        Cell: renderColumn('name')
+        width: 'calc(50% - 130px)',
+        Cell: renderColumn('name'),
+        disableSortBy: (data?.content?.length || 0) === 1
       },
       {
         Header: getString('ci.testsReports.className'),
         accessor: 'class_name',
-        width: '35%',
-        Cell: renderColumn('class_name')
+        width: 'calc(50% - 120px)',
+        Cell: renderColumn('class_name'),
+        disableSortBy: (data?.content?.length || 0) === 1
       },
       {
         Header: getString('ci.testsReports.result'),
         accessor: 'result',
-        width: '10%',
-        Cell: renderColumn('result')
+        width: '100px',
+        Cell: renderColumn('result'),
+        disableSortBy: (data?.content?.length || 0) === 1
       },
       {
         Header: getString('ci.testsReports.duration').toUpperCase(),
         accessor: 'duration_ms',
-        width: '10%',
-        Cell: renderColumn('duration_ms')
+        width: '100px',
+        Cell: renderColumn('duration_ms'),
+        disableSortBy: (data?.content?.length || 0) === 1
       }
     ],
-    [getString, renderColumn]
+    [getString, renderColumn, data?.content?.length]
   )
   const failureRate = (executionSummary.failed_tests || 0) / (executionSummary.total_tests || 1)
 
@@ -173,43 +179,64 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
 
   return (
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">
-      <Container flex>
-        <Text className={css.testSuiteHeading} color={Color.GREY_500}>
+      <Container flex className={css.headingContainer}>
+        <Text
+          className={css.testSuiteHeading}
+          color={Color.GREY_500}
+          style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
+        >
           <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
           {getString('ci.testsReports.testSuite')}
           <Text inline className={css.testSuiteName} lineClamp={1}>
+            {' '}
             {executionSummary.name}
           </Text>
         </Text>
-        <Text className={css.testSuiteHeading} color={Color.GREY_500}>
-          {getString('ci.testsReports.duration')}
-          <Duration
-            icon={undefined}
-            durationText=" "
-            startTime={NOW}
-            endTime={NOW + (executionSummary.duration_ms || 0)}
-            style={{ display: 'block' }}
-          />
-        </Text>
-        <Text className={css.testSuiteHeading} color={Color.GREY_500}>
+        <Text
+          className={cx(css.testSuiteHeading, css.withSeparator)}
+          color={Color.GREY_500}
+          font={{ size: 'small' }}
+          padding={{ left: 'small', right: 'small' }}
+        >
           {getString('ci.testsReports.totalTests')}
           <span>{executionSummary.total_tests}</span>
         </Text>
-        <Text className={css.testSuiteHeading} color={Color.GREY_500}>
+        <Text
+          className={cx(css.testSuiteHeading, css.withSeparator)}
+          color={Color.GREY_500}
+          font={{ size: 'small' }}
+          padding={{ left: 'small', right: 'small' }}
+        >
           {getString('ci.testsReports.failedTests')}
           <span>{executionSummary.failed_tests}</span>
         </Text>
-        <Text className={css.testSuiteHeading} color={Color.GREY_500}>
+        <Text
+          className={cx(css.testSuiteHeading, css.withSeparator)}
+          color={Color.GREY_500}
+          font={{ size: 'small' }}
+          padding={{ left: 'small', right: 'small' }}
+        >
           {getString('ci.testsReports.failureRate')}
           <span>{renderFailureRate(failureRate)}%</span>
         </Text>
-        <ProgressBar
-          className={css.progressBar}
-          animate={false}
-          intent={failureRate > 0 ? Intent.DANGER : Intent.SUCCESS}
-          stripes={false}
-          value={failureRate || 1}
-        />
+        <Layout.Vertical spacing="xsmall" style={{ marginRight: 'var(--spacing-large)' }} flex>
+          <Duration
+            icon="time"
+            durationText=" "
+            startTime={NOW}
+            endTime={NOW + (executionSummary.duration_ms || 0)}
+            font={{ size: 'small' }}
+            color={Color.GREY_500}
+            iconProps={{ color: Color.GREY_500, size: 12 }}
+          />
+          <ProgressBar
+            className={css.progressBar}
+            animate={false}
+            intent={failureRate > 0 ? Intent.DANGER : Intent.SUCCESS}
+            stripes={false}
+            value={failureRate || 1}
+          />
+        </Layout.Vertical>
       </Container>
       {expanded && (
         <>
