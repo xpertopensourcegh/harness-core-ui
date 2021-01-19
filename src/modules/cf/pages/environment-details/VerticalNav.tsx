@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Color, Container, Layout } from '@wings-software/uicore'
-import css from './VerticalNav.module.scss'
-
+import { Button, Container, Layout } from '@wings-software/uicore'
 interface VerticalNavSubComponents {
   Option: React.FC<{ id: any; name: string; component: React.FC<any> }>
 }
@@ -22,9 +20,9 @@ const VerticalNav: React.FC<{ initialTab: string; sharedProps?: any }> & Vertica
     <Layout.Horizontal height="100%" width="100%">
       <Layout.Vertical
         height="100%"
-        background={Color.GREY_200}
         spacing="medium"
         padding={{ top: 'xxxlarge', bottom: 'xxxlarge', left: 'xlarge', right: 'xlarge' }}
+        style={{ backgroundColor: 'rgba(196,196,196,0.1)' }}
       >
         {children.map((child: any) => {
           const { id, name } = child.props
@@ -35,16 +33,15 @@ const VerticalNav: React.FC<{ initialTab: string; sharedProps?: any }> & Vertica
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
-                alignItems: 'center'
+                alignItems: 'center',
+                color: `var(--${selected === id ? 'white' : 'black'})`,
+                backgroundColor: `var(--${selected === id ? 'black-100' : 'transparent'})`,
+                border: 'none'
               }}
-              className={css.navOption}
               key={id}
               onClick={() => setSelected(id)}
-              minimal={selected !== id}
-              intent={selected === id ? 'primary' : undefined}
-            >
-              {name}
-            </Button>
+              text={name}
+            />
           )
         })}
       </Layout.Vertical>

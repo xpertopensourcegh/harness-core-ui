@@ -180,11 +180,13 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
         Header: getString('environment').toUpperCase(),
         id: 'name',
         width: '45%',
+        accessor: 'name',
         Cell: NameCell
       },
       {
         Header: getString('typeLabel').toUpperCase(),
         id: 'type',
+        accessor: 'type',
         width: '45%',
         Cell: TypeCell
       },

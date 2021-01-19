@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useRef, useState } from 'react'
-import { Tabs, Tab, Text, Container, Layout, Button, Heading, Color } from '@wings-software/uicore'
+import { Tabs, Tab, Text, Container, Layout, Button, Heading, Color, Utils } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import type { Column } from 'react-table'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
@@ -44,7 +44,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
   const showCopy = isNew(apiKey.identifier) || apiKey.type === CLIENT
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(textRef.current?.innerText || '')
+    Utils.copy(textRef.current?.innerText || '')
   }
 
   return (
@@ -140,18 +140,20 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
     pageIndex: 0,
     pageSize: PAGE_SIZE
   }
-  const hasData = (apiKeys || []).length > 0 || recents.length > 0
-  const emptyData = (apiKeys || []).length === 0 && recents.length === 0
+  const hasData = !error && !loading && (apiKeys || []).length > 0
+  const emptyData = !error && !loading && (apiKeys || []).length === 0
 
   const columns: CustomColumn<ApiKey>[] = useMemo(
     () => [
       {
         Header: getString('name').toUpperCase(),
+        accessor: 'name',
         width: '25%',
         Cell: NameCell
       },
       {
         Header: getString('typeLabel').toUpperCase(),
+        accessor: 'type',
         width: '25%',
         Cell: TypeCell
       },
@@ -181,7 +183,7 @@ const FeatureFlagsTab: React.FC<{ environment: EnvironmentResponseDTO }> = ({ en
               }}
             >
               <Table<ApiKey>
-                data={apiKeys as ApiKey[]}
+                data={(apiKeys || []) as ApiKey[]}
                 columns={columns}
                 pagination={{
                   itemCount: pagination.itemCount,
