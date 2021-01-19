@@ -19,13 +19,14 @@ import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Ste
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import type { HttpHeaderConfig, NGVariable } from 'services/cd-ng'
 
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import HttpStepBase, { httpStepType } from './HttpStepBase'
 import ResponseMapping from './ResponseMapping'
 import HttpInputSetStep from './HttpInputSetStep'
-import type { HttpStepData, HttpStepFormData, HttpStepOutputVariable, HttpStepHeader } from './types'
+import type { HttpStepData, HttpStepFormData, HttpStepHeaderConfig, HttpStepOutputVariable } from './types'
 import stepCss from '../Steps.module.scss'
 
 /**
@@ -173,25 +174,28 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     return {
       ...initialValues,
       spec: {
-        ...initialValues.spec,
+        ...(initialValues.spec as HttpStepFormData),
         method:
           getMultiTypeFromValue(initialValues.spec?.method as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.method as string)
-            : httpStepType.find(step => step.value === (initialValues.spec?.method || 'GET')),
+            : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              httpStepType.find(step => step.value === (initialValues.spec?.method || 'GET'))!,
         headers:
           getMultiTypeFromValue(initialValues.spec?.headers as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.headers as string)
             : Array.isArray(initialValues.spec?.headers)
-            ? initialValues.spec.headers.map((header: Omit<HttpStepHeader, 'id'>) => ({
-                ...header,
-                id: uuid()
-              }))
+            ? initialValues.spec.headers.map(
+                (header: HttpHeaderConfig): HttpStepHeaderConfig => ({
+                  ...header,
+                  id: uuid()
+                })
+              )
             : [{ key: '', value: '', id: uuid() }],
         outputVariables:
           getMultiTypeFromValue(initialValues.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.outputVariables as string)
             : Array.isArray(initialValues.spec?.outputVariables)
-            ? initialValues.spec.outputVariables.map((variable: Omit<HttpStepOutputVariable, 'id'>) => ({
+            ? initialValues.spec.outputVariables.map((variable: NGVariable) => ({
                 ...variable,
                 id: uuid()
               }))
@@ -211,8 +215,8 @@ export class HttpStep extends PipelineStep<HttpStepData> {
             ? (data.spec.headers as string)
             : Array.isArray(data.spec.headers)
             ? data.spec.headers
-                .filter((variable: HttpStepHeader) => variable.value)
-                .map(({ id, ...header }: HttpStepHeader) => header)
+                .filter((variable: HttpStepHeaderConfig) => variable.value)
+                .map(({ id, ...header }: HttpStepHeaderConfig) => header)
             : undefined,
         outputVariables:
           getMultiTypeFromValue(data.spec.outputVariables as string) === MultiTypeInputType.RUNTIME

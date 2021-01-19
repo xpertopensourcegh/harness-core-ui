@@ -1,34 +1,25 @@
 import type { SelectOption } from '@wings-software/uicore'
-import type { HttpStepInfo, StepElement } from 'services/cd-ng'
+import type { HttpStepInfo, StepElement, HttpHeaderConfig, NGVariable } from 'services/cd-ng'
 
-export interface HttpStepHeader {
+export interface HttpStepHeaderConfig extends HttpHeaderConfig {
   id: string
-  key: string
-  value: string
 }
 
-export interface HttpStepOutputVariable {
+export interface HttpStepOutputVariable extends NGVariable {
   id: string
-  name: string
-  value: string
-  type: string
 }
 
 export interface HttpStepData extends StepElement {
-  spec: HttpStepInfo & {
-    requestBody?: string
-    headers?: string | Array<Omit<HttpStepHeader, 'id'>>
-    outputVariables?: string | Array<Omit<HttpStepOutputVariable, 'id'>>
-    timeout: string
+  spec: Omit<HttpStepInfo, 'header' | 'outputVariables'> & {
+    header?: HttpHeaderConfig[] | string
+    outputVariables?: NGVariable[] | string
   }
 }
 
 export interface HttpStepFormData extends StepElement {
-  spec: Omit<HttpStepInfo, 'method'> & {
-    method?: string | SelectOption
-    requestBody?: string
-    headers?: string | HttpStepHeader[]
-    outputVariables?: string | HttpStepOutputVariable[]
-    timeout: string
+  spec: Omit<HttpStepInfo, 'method' | 'header' | 'outputVariables'> & {
+    method: SelectOption | string
+    header?: HttpStepHeaderConfig[] | string
+    outputVariables?: HttpStepOutputVariable[] | string
   }
 }

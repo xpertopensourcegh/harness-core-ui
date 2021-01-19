@@ -3,7 +3,6 @@ import { SelectOption, FormInput, getMultiTypeFromValue, MultiTypeInputType, But
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
-import type { HttpStepInfo } from 'services/cd-ng'
 
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -11,7 +10,7 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import type { HttpStepHeader } from './types'
+import type { HttpStepFormData, HttpStepHeaderConfig } from './types'
 import css from './HttpStep.module.scss'
 import stepCss from '../Steps.module.scss'
 
@@ -24,7 +23,7 @@ export const httpStepType: SelectOption[] = [
   { value: 'OPTIONS', label: 'OPTIONS' }
 ]
 
-export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> }): React.ReactElement {
+export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormData> }): React.ReactElement {
   const { getString } = useStrings()
   const {
     formik: { values: formValues, setFieldValue }
@@ -53,7 +52,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
         <FormInput.MultiTypeInput selectItems={httpStepType} label={getString('methodLabel')} name="spec.method" />
         {getMultiTypeFromValue(formValues.spec.method) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formValues.spec.method}
+            value={formValues.spec.method as string}
             type="String"
             variableName="spec.method"
             showRequiredField={false}
@@ -79,7 +78,7 @@ export default function HttpStepBase(props: { formik: FormikProps<HttpStepInfo> 
                     <span className={css.label}>Key</span>
                     <span className={css.label}>Value</span>
                   </div>
-                  {formValues.spec.headers.map(({ id }: HttpStepHeader, i: number) => (
+                  {formValues.spec.headers.map(({ id }: HttpStepHeaderConfig, i: number) => (
                     <div className={css.headerRow} key={id}>
                       <FormInput.Text name={`spec.headers[${i}].key`} />
                       <FormInput.MultiTextInput
