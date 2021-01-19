@@ -18897,6 +18897,35 @@ export const useGetDelegateFromId = ({ delegateId, ...props }: UseGetDelegateFro
     { base: getConfig('api'), pathParams: { delegateId }, ...props }
   )
 
+export interface DeleteDelegateQueryParams {
+  accountId?: string
+}
+
+export type DeleteDelegateProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegate = (props: DeleteDelegateProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>
+    verb="DELETE"
+    path="/setup/delegates"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegate = (props: UseDeleteDelegateProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>('DELETE', `/setup/delegates`, {
+    base: getConfig('api'),
+    ...props
+  })
+
 export interface GetFeatureFlagsPathParams {
   accountId: string
 }

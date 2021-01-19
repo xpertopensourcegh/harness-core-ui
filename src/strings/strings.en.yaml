@@ -432,6 +432,8 @@ delegate:
       name: 'Linux'
   DELEGATE_CONFIGURATIONS: 'Delegate Configurations'
   DELEGATE_CONFIGURATION: 'Delegate Configuration'
+  deleteDelegate: 'Delete Delegate'
+  questionDeleteDelegate: 'Are you sure you want to delete this Delegate?'
   deleteDelegateConfiguration: 'Delete Delegate Configuration'
   deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration '
   deleteDelegateConfigurationSuccess: 'Delegate Configuration {profiles.name} deleted'

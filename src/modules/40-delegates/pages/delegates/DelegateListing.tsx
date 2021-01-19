@@ -3,8 +3,12 @@ import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Button, Container, Intent, Tag, Layout, Popover } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
+import { useDeleteDelegate } from 'services/portal/index'
 import Table from '@common/components/Table/Table'
+import useDeleteDelegateModal from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
 import DelegateDetails from './DelegateDetails'
 import success from './success.svg'
 
@@ -57,14 +61,37 @@ const RenderTagsColumn: Renderer<CellProps<Delegate>> = ({ row }) => {
   )
 }
 
-const RenderColumnMenu: Renderer<CellProps<Delegate>> = () => {
+const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
+  const data = row.original.uuid
   const [menuOpen, setMenuOpen] = useState(false)
+  const { showSuccess, showError } = useToaster()
+  const { accountId } = useParams()
+  const { mutate: deleteDelegate } = useDeleteDelegate({
+    queryParams: { accountId: accountId }
+  })
+  const { openDialog } = useDeleteDelegateModal({
+    delegateName: row.original.delegateName,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteDelegate(data)
+
+          if (deleted) {
+            showSuccess(`Delegate ${row.original.delegateName} deleted`)
+            ;(column as any).reload?.()
+          }
+        } catch (error) {
+          showError(error.message)
+        }
+      }
+    }
+  })
   const { getString } = useStrings()
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
-    // setMenuOpen(false)
+    setMenuOpen(false)
     // if (!data?.connector?.identifier) return
-    // openDialog()
+    openDialog()
   }
 
   return (
@@ -101,15 +128,6 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
   if (!props.delegateResponse) {
     return <div>Delegate Listing</div>
   }
-
-  // const goToDetails = ({ uuid }: Delegate): void => {
-  //   history.push(
-  //     routes.toResourcesDelegatesDetails({
-  //       accountId,
-  //       delegateId: uuid
-  //     })
-  //   )
-  // }
 
   const {
     delegateResponse: {

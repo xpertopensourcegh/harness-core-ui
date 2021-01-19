@@ -13,6 +13,7 @@ allowpaths:
   - '/environments'
   - '/setup/delegates/{delegateId}.get'
   - '/users/feature-flags/{accountId}.get'
+  - '/setup/delegates/{delegateId}.delete'
   - '/delegate-profiles/v2/{delegateProfileId}.delete'
   - '/setup/delegates/delegate-selectors.get'
 operationIdOverrides:
@@ -30,5 +31,6 @@ operationIdOverrides:
   /environments.get: getListEnvironments
   /setup/delegates/{delegateId}.get: getDelegateFromId
   /users/feature-flags/{accountId}.get: getFeatureFlags
+  /setup/delegates/{delegateId}.delete: deleteDelegate
   /delegate-profiles/v2/{delegateProfileId}.delete: deleteDelegateProfile
   /setup/delegates/delegate-selectors.get: getDelegateSelectors
