@@ -24,6 +24,7 @@ import { FormMultiTypeRadioGroupField, MultiTypeRadioGroup } from './MultiTypeRa
 import { InstanceDropdownField, FormInstanceDropdown } from './InstanceDropdownField/InstanceDropdownField'
 import { DelegateSelectors } from './DelegateSelectors/DelegateSelectors'
 import Wizard from './Wizard/Wizard'
+import WizardWithProgress from './WizardWithProgress/WizardWithProgress'
 
 export {
   AdminSelector,
@@ -55,5 +56,6 @@ export {
   MultiTypeCheckbox,
   UserLabel,
   Wizard,
-  DelegateSelectors
+  DelegateSelectors,
+  WizardWithProgress
 }

@@ -3,10 +3,6 @@
 exports[`Create Step Review Script Delegate Click back button 1`] = `
 <div>
   <div
-    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-    style="height: 130px; background: rgb(236, 246, 253);"
-  />
-  <div
     class="Layout--horizontal StyledProps--main"
   >
     <div
@@ -204,10 +200,6 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
 exports[`Create Step Review Script Delegate Click continue button 1`] = `
 <div>
   <div
-    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-    style="height: 130px; background: rgb(236, 246, 253);"
-  />
-  <div
     class="Layout--horizontal StyledProps--main"
   >
     <div
@@ -404,10 +396,6 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
 
 exports[`Create Step Review Script Delegate render data 1`] = `
 <div>
-  <div
-    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-    style="height: 130px; background: rgb(236, 246, 253);"
-  />
   <div
     class="Layout--horizontal StyledProps--main"
   >

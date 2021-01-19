@@ -5,19 +5,18 @@ import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 import css from '../CreateK8sDelegate.module.scss'
 
-const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
-  const { previousStep } = props
+interface K8sReviewProps {
+  onBack?: any
+}
+const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO> & K8sReviewProps> = props => {
+  // const { previousStep } = props
   const { getString } = useStrings()
-  const onClickBack = (): void => {
-    previousStep?.()
-  }
   /* test script */
   const schema = {
     a: 'b'
   }
   return (
     <>
-      <Layout.Horizontal spacing="large" style={{ height: '130px', background: '#ECF6FD' }}></Layout.Horizontal>
       <Layout.Horizontal>
         <Layout.Vertical padding="xlarge" spacing="medium">
           <div className={css.collapseDiv}>
@@ -52,8 +51,9 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO>> = props => {
             <Button
               id="stepReviewScriptBackButton"
               text={getString('back')}
-              onClick={onClickBack}
+              // onClick={onClickBack}
               icon="chevron-left"
+              onClick={props.onBack}
               margin={{ right: 'small' }}
             />
             <Button

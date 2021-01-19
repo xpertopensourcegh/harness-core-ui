@@ -1,0 +1,83 @@
+.wizard {
+  position: relative;
+  height: 100%;
+  background: #fbfcfd;
+}
+.container {
+  display: grid !important;
+  grid-template-rows: 500px 1fr;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  bottom: 20px;
+  //   z-index: 1;
+
+  //   padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
+  //   p:hover {
+  //     cursor: pointer;
+  //     color: var(--grey-700);
+  //   }
+  //   .cancel {
+  //     margin-left: var(--spacing-xxxlarge) !important;
+  //   }
+}
+
+.headerContainer {
+  border: 1px solid;
+  width: 100%;
+  padding: 10px !important;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecf6fd !important;
+}
+
+.completedIcon {
+  position: relative;
+  left: 120px;
+}
+
+.headerContent {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  margin-left: 16px;
+  position: relative;
+}
+
+.headerSeparator {
+  width: 90%;
+  /* width: 80%; */
+  left: 54%;
+  position: absolute;
+}
+
+.headerTitle {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: var(--spacing-medium) !important;
+  cursor: pointer;
+}
+
+.inprogress {
+  color: #22222a !important;
+}
+
+.progressSeparator {
+  border-color: #0278d5 !important  ;
+}
+
+.progressIcon {
+  background: #0278d5;
+}
+
+.footer {
+}
+
+.btn {
+  margin-right: var(--spacing-medium) !important;
+}

@@ -11,6 +11,7 @@ interface DelegateDetailsStepProps extends StepProps<DelegateConfigDTO> {
   name: string
   delegateInfo?: DelegateConfigDTO | void
   detailsData?: string
+  onClick?: any
 }
 export interface CardData {
   text: string
@@ -26,8 +27,6 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
     /* istanbul ignore next */
     setSelectedCard(value)
   }
-
-  const { nextStep } = props
 
   return (
     <>
@@ -102,7 +101,7 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
               rightIcon="chevron-right"
               onClick={() => {
                 /* istanbul ignore next */
-                nextStep?.({ detailsData: selectedCard })
+                props?.onClick()
               }}
               disabled={selectedCard ? false : true}
             />
