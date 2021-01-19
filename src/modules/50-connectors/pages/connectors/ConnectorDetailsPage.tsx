@@ -96,7 +96,11 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         ) : null}
         {activeCategory === 1 ? (
           !loading && data ? (
-            <ReferencedBy accountId={accountId} entityIdentifier={data.data?.connector?.identifier} />
+            <ReferencedBy
+              accountId={accountId}
+              entityType={'Connectors'}
+              entityIdentifier={data.data?.connector?.identifier}
+            />
           ) : (
             <PageSpinner />
           )

@@ -4,7 +4,12 @@ import { Layout, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from '@common/components/Table/Table'
 
-import { useListReferredByEntities, EntitySetupUsageDTO, ResponsePageEntitySetupUsageDTO } from 'services/cd-ng'
+import {
+  useListReferredByEntities,
+  EntitySetupUsageDTO,
+  ResponsePageEntitySetupUsageDTO,
+  ListReferredByEntitiesQueryParams
+} from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Page } from '@common/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -15,6 +20,7 @@ import css from './ReferencedBy.module.scss'
 interface ReferencedByProps {
   accountId: string
   entityIdentifier: string | undefined
+  entityType: ListReferredByEntitiesQueryParams['entityType']
   mockData?: UseGetMockData<ResponsePageEntitySetupUsageDTO>
 }
 
@@ -54,6 +60,7 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
     queryParams: {
       accountIdentifier: props.accountId,
       identifier: props.entityIdentifier,
+      entityType: props.entityType,
       pageIndex: page,
       pageSize: 10
     },

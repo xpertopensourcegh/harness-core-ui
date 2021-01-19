@@ -13,6 +13,7 @@ describe('Referenced By', () => {
         <ReferencedBy
           accountId="accountId"
           entityIdentifier="entityIdentifier"
+          entityType="Connectors"
           mockData={{
             data: {} as any,
             loading: false
@@ -29,6 +30,7 @@ describe('Referenced By', () => {
         <ReferencedBy
           accountId="accountId"
           entityIdentifier="entityIdentifier"
+          entityType="Connectors"
           mockData={{
             data: referencedData as any,
             loading: false
