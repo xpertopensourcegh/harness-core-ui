@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, MultiTextInput } from '@wings-software/uicore'
+import { Button, getMultiTypeFromValue, MultiTextInput, MultiTypeInputType } from '@wings-software/uicore'
 import {
   FormGroup,
   HTMLInputProps,
@@ -12,7 +12,8 @@ import {
   Position
 } from '@blueprintjs/core'
 import { connect } from 'formik'
-import { get } from 'lodash-es'
+import { get, isNil } from 'lodash-es'
+import * as Yup from 'yup'
 import { useStrings } from 'framework/exports'
 import { errorCheck } from '@common/utils/formikHelpers'
 // import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -24,13 +25,82 @@ export enum InstanceTypes {
   Instances = 'Count'
 }
 export interface InstanceFieldValue {
-  instanceType: InstanceTypes
-  instance: number
+  type: InstanceTypes
+  spec: {
+    percentage?: number | string
+    count?: number | string
+  }
+}
+export interface GetDurationValidationSchemaProps {
+  maximum?: number
+  required?: boolean
+  requiredErrorMessage?: string
+  minimumErrorMessage?: string
+  maximumErrorMessage?: string
+}
+
+export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProps = {}): Yup.ObjectSchema {
+  const { maximum } = props
+
+  if (maximum && typeof maximum !== 'number') {
+    throw new Error(`Invalid format "${maximum}" provided for maximum value`)
+  }
+  return Yup.object({
+    type: Yup.string().test({
+      test(val: InstanceTypes): boolean | Yup.ValidationError {
+        const { maximumErrorMessage, minimumErrorMessage, required = false, requiredErrorMessage } = props
+        let type: InstanceTypes | undefined = val
+        if (isNil(val)) {
+          if (!isNil(this.parent?.spec?.count)) {
+            type = InstanceTypes.Instances
+          } else if (!isNil(this.parent?.spec?.percentage)) {
+            type = InstanceTypes.Percentage
+          }
+        }
+        if (type === InstanceTypes.Instances) {
+          const value = this.parent?.spec?.count || 0
+          if (getMultiTypeFromValue((value as unknown) as string) !== MultiTypeInputType.FIXED) {
+            return true
+          }
+          if (required && isNil(value)) {
+            return this.createError({
+              message: requiredErrorMessage || `Instance is an required field"`
+            })
+          } else if (value < 0) {
+            return this.createError({
+              message: minimumErrorMessage || `Instances must be greater than or equal to 0`
+            })
+          } else if (maximum && value > maximum) {
+            return this.createError({
+              message: maximumErrorMessage || `Instances must be less than or equal to "${maximum}"`
+            })
+          }
+        } else if (type === InstanceTypes.Percentage) {
+          const value = this.parent?.spec?.percentage || 0
+          if (required && isNil(value)) {
+            return this.createError({
+              message: requiredErrorMessage || `Instance is a required field"`
+            })
+          } else if (value < 0) {
+            return this.createError({
+              message: minimumErrorMessage || `Percentage must be greater than or equal to 0`
+            })
+          } else if (value > 100) {
+            return this.createError({
+              message: maximumErrorMessage || `Percentage must be less than or equal to 100`
+            })
+          }
+        }
+        return true
+      }
+    })
+  })
 }
 interface InstanceDropdownFieldProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
   onChange?: (value: InstanceFieldValue) => void
   value: InstanceFieldValue
   label: string
+  disabledType?: boolean
   name: string
   textProps?: Omit<IInputGroupProps & HTMLInputProps, 'onChange' | 'value' | 'type' | 'placeholder'>
 }
@@ -40,47 +110,66 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
   label,
   name,
   onChange,
+  disabledType = false,
   textProps,
   ...restProps
 }): JSX.Element => {
   const { getString } = useStrings()
-  const selectedText =
-    value.instanceType === InstanceTypes.Percentage
-      ? getString('instanceFieldOptions.percentageText')
-      : getString('instanceFieldOptions.instanceText')
+  let isPercentageType = value.type === InstanceTypes.Percentage
+  if (isNil(value.type)) {
+    if (!isNil(value.spec.percentage)) {
+      isPercentageType = true
+    } else {
+      isPercentageType = false
+    }
+  }
+  const selectedText = isPercentageType
+    ? getString('instanceFieldOptions.percentageText')
+    : getString('instanceFieldOptions.instanceText')
   return (
     <FormGroup labelFor={name} label={label} className={css.formGroup} {...restProps}>
       <MultiTextInput
-        width={380}
-        name={name}
+        name={`${name}.spec.${isPercentageType ? 'percentage' : 'count'}`}
         textProps={{
           type: 'number',
-          placeholder:
-            value.instanceType === InstanceTypes.Percentage
-              ? getString('instanceFieldOptions.percentagePlaceHolder')
-              : getString('instanceFieldOptions.instanceHolder'),
+          placeholder: isPercentageType
+            ? getString('instanceFieldOptions.percentagePlaceHolder')
+            : getString('instanceFieldOptions.instanceHolder'),
           ...textProps
         }}
-        onChange={val => {
-          /* istanbul ignore next */ onChange?.({ ...value, instance: (val as unknown) as number })
+        onChange={(val, _valType, typeInput) => {
+          if (typeInput === MultiTypeInputType.FIXED && typeof val === 'string') {
+            if (isPercentageType && val) {
+              onChange?.({ ...value, spec: { percentage: parseFloat(val) } })
+            } else {
+              onChange?.({ ...value, spec: { count: parseFloat(val) } })
+            }
+          } else {
+            if (isPercentageType && val) {
+              onChange?.({ ...value, spec: { percentage: (val as unknown) as number } })
+            } else {
+              onChange?.({ ...value, spec: { count: (val as unknown) as number } })
+            }
+          }
         }}
-        value={(value.instance as unknown) as string}
+        value={((isPercentageType ? value.spec.percentage : value.spec.count) as unknown) as string}
       />
 
       <Popover
+        disabled={disabledType}
         content={
           <Menu>
             <MenuItem
               text={getString('instanceFieldOptions.percentageText')}
               onClick={() => {
-                onChange?.({ ...value, instanceType: InstanceTypes.Percentage })
+                onChange?.({ spec: {}, type: InstanceTypes.Percentage })
               }}
               data-name="percentage"
             />
             <MenuItem
               text={getString('instanceFieldOptions.instanceText')}
               onClick={() => {
-                onChange?.({ ...value, instanceType: InstanceTypes.Instances })
+                onChange?.({ spec: {}, type: InstanceTypes.Instances })
               }}
               data-name="instances"
             />
@@ -89,7 +178,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
         position={Position.BOTTOM}
         className={css.instancePopover}
       >
-        <Button rightIcon="caret-down" text={selectedText} minimal />
+        <Button rightIcon="caret-down" disabled={disabledType} text={selectedText} minimal />
       </Popover>
     </FormGroup>
   )
@@ -98,35 +187,32 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
 export interface FormInstanceDropdownFieldProps extends Omit<InstanceDropdownFieldProps, 'value'> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any
-  typeName: string
 }
 
 const FormInstanceDropdownField: React.FC<FormInstanceDropdownFieldProps> = (props): JSX.Element => {
-  const { label, textProps, formik, typeName, name, onChange, ...restProps } = props
-  const hasError = errorCheck(name, formik)
+  const { label, textProps, formik, name, onChange, ...restProps } = props
+  const hasError = errorCheck(`${name}.type`, formik)
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? get(formik?.errors, `${name}.type`) : null,
     disabled,
     ...rest
   } = restProps
 
-  const value: number = get(formik?.values, name, 0)
-  const typeValue: InstanceTypes = get(formik?.values, typeName, InstanceTypes.Percentage)
+  const value: InstanceFieldValue = get(formik?.values, name, { type: InstanceTypes.Instances, spec: { count: 0 } })
 
   return (
     <InstanceDropdownField
       label={label}
       name={name}
       textProps={{ ...textProps }}
-      value={{ instance: value, instanceType: typeValue }}
+      value={value}
       intent={intent}
       helperText={helperText}
       onChange={valueObj => {
         /* istanbul ignore next */
-        formik.setFieldValue(name, valueObj.instance)
-        formik.setFieldValue(typeName, valueObj.instanceType)
+        formik.setFieldValue(name, valueObj)
       }}
       {...rest}
     />

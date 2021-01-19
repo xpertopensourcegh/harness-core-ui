@@ -24,10 +24,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sScale',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE, workload: 'test' },
-
-          instances: RUNTIME_INPUT_VALUE,
-          instanceType: 'Count'
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: RUNTIME_INPUT_VALUE,
+            workload: RUNTIME_INPUT_VALUE,
+            instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
+          }
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
@@ -38,17 +40,36 @@ describe('Test K8sBlueGreenDeployStep', () => {
   test('should render edit view', () => {
     const { container } = render(
       <TestStepWidget
-        initialValues={{ identifier: 'Test_A', type: 'K8sScale', spec: { skipDryRun: false, workload: 'test' } }}
+        initialValues={{
+          identifier: 'Test_A',
+          type: 'K8sScale',
+          spec: {
+            skipDryRun: false,
+            workload: 'test',
+            timeout: '10m',
+            instanceSelection: { type: 'Count', spec: { count: 10 } }
+          }
+        }}
         template={{
           identifier: 'Test_A',
           type: 'K8sScale',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, workload: 'test' }
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: RUNTIME_INPUT_VALUE,
+            workload: RUNTIME_INPUT_VALUE,
+            instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
+          }
         }}
         allValues={{
           type: 'K8sScale',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m', workload: 'test' }
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: RUNTIME_INPUT_VALUE,
+            workload: RUNTIME_INPUT_VALUE,
+            instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
+          }
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.InputSet}
@@ -66,7 +87,12 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sScale',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m', workload: 'test' }
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: '10m',
+            workload: 'test',
+            instanceSelection: { type: 'Count', spec: { count: 10 } }
+          }
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
@@ -83,19 +109,6 @@ describe('Test K8sBlueGreenDeployStep', () => {
           identifier: 'Test_A',
           type: 'K8sScale',
           spec: { skipDryRun: false, workload: 'test' }
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sScale',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, workload: 'test' }
-        }}
-        allValues={{
-          type: 'K8sScale',
-          name: 'Test A',
-          identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m', workload: 'test' },
-          instances: -1,
-          instanceType: 'percentage'
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
@@ -118,23 +131,13 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sScale',
-          spec: { skipDryRun: false, timeout: '10ms', workload: 'test' },
-          name: 'Test A',
-          instances: 10,
-          instanceType: InstanceTypes.Instances
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sScale',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, workload: 'test' }
-        }}
-        allValues={{
-          type: 'K8sScale',
-          name: 'Test A',
-          identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m', workload: 'test' },
-          instances: 10,
-          instanceType: InstanceTypes.Instances
+          spec: {
+            skipDryRun: false,
+            timeout: '10m',
+            workload: 'test',
+            instanceSelection: { type: 'Count', spec: { count: 10 } }
+          },
+          name: 'Test A'
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
@@ -143,27 +146,26 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 10
+            },
+            type: 'Count'
+          },
+          skipDryRun: false,
+          timeout: '10m',
+          workload: 'test'
+        },
+        type: 'K8sScale'
+      })
+    )
     expect(container).toMatchSnapshot()
     // expect(onUpdate).toBeCalled()
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            count: 10
-          },
-          type: 'Count'
-        },
-        skipDryRun: false,
-        timeout: '10ms',
-        workload: 'test'
-      },
-      type: 'K8sScale'
-    })
   })
 
   test('should submit with valid paylod for instace type percentage', async () => {
@@ -173,23 +175,18 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sScale',
-          spec: { skipDryRun: false, timeout: '10ms', workload: 'test' },
-          name: 'Test A',
-          instances: 10,
-          instanceType: InstanceTypes.Percentage
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sScale',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, workload: 'test' }
-        }}
-        allValues={{
-          type: 'K8sScale',
-          name: 'Test A',
-          identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m', workload: 'test' },
-          instances: 10,
-          instanceType: InstanceTypes.Percentage
+          spec: {
+            skipDryRun: false,
+            timeout: '10m',
+            workload: 'test',
+            instanceSelection: {
+              spec: {
+                percentage: 10
+              },
+              type: InstanceTypes.Percentage
+            }
+          },
+          name: 'Test A'
         }}
         type={StepType.K8sScale}
         stepViewType={StepViewType.Edit}
@@ -198,27 +195,25 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
-    expect(container).toMatchSnapshot()
-    // expect(onUpdate).toBeCalled()
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            percentage: 10
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              percentage: 10
+            },
+            type: 'Percentage'
           },
-          type: 'Percentage'
+          skipDryRun: false,
+          timeout: '10m',
+          workload: 'test'
         },
-        skipDryRun: false,
-        timeout: '10ms',
-        workload: 'test'
-      },
-      type: 'K8sScale'
-    })
+        type: 'K8sScale'
+      })
+    )
+    expect(container).toMatchSnapshot()
   })
 
   test('on Edit view for instance type percentage', async () => {
@@ -236,28 +231,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
               type: 'Percentage'
             },
             skipDryRun: false,
-            timeout: '10ms',
-            workload: 'test'
-          },
-          type: 'K8sScale'
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sScale',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, workload: 'test' }
-        }}
-        allValues={{
-          identifier: 'Test_A',
-          name: 'Test A',
-          spec: {
-            instanceSelection: {
-              spec: {
-                percentage: 10
-              },
-              type: 'Percentage'
-            },
-            skipDryRun: false,
-            timeout: '10ms',
+            timeout: '10m',
             workload: 'test'
           },
           type: 'K8sScale'
@@ -269,25 +243,24 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            percentage: 10
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              percentage: 10
+            },
+            type: 'Percentage'
           },
-          type: 'Percentage'
+          skipDryRun: false,
+          timeout: '10m',
+          workload: 'test'
         },
-        skipDryRun: false,
-        timeout: '10ms',
-        workload: 'test'
-      },
-      type: 'K8sScale'
-    })
+        type: 'K8sScale'
+      })
+    )
   })
   test('on Edit view for instance type count', async () => {
     const onUpdate = jest.fn()
@@ -304,28 +277,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
               type: 'Count'
             },
             skipDryRun: false,
-            timeout: '10ms',
-            workload: 'test'
-          },
-          type: 'K8sScale'
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sScale',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, workload: 'test' }
-        }}
-        allValues={{
-          identifier: 'Test_A',
-          name: 'Test A',
-          spec: {
-            instanceSelection: {
-              spec: {
-                count: 10
-              },
-              type: 'Count'
-            },
-            skipDryRun: false,
-            timeout: '10ms',
+            timeout: '10m',
             workload: 'test'
           },
           type: 'K8sScale'
@@ -337,24 +289,23 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            count: 10
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 10
+            },
+            type: 'Count'
           },
-          type: 'Count'
+          skipDryRun: false,
+          timeout: '10m',
+          workload: 'test'
         },
-        skipDryRun: false,
-        timeout: '10ms',
-        workload: 'test'
-      },
-      type: 'K8sScale'
-    })
+        type: 'K8sScale'
+      })
+    )
   })
 })

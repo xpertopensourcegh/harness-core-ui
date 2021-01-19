@@ -6,23 +6,26 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  TextInput,
-  Checkbox,
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
-import { FormGroup } from '@blueprintjs/core'
+import { FormikProps, yupToFormErrors } from 'formik'
+import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
-import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
+import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
+import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -37,6 +40,8 @@ interface K8sCanaryDeployProps {
   onUpdate?: (data: K8sCanaryDeployData) => void
   stepViewType?: StepViewType
   template?: K8sCanaryDeployData
+  readonly?: boolean
+  path?: string
 }
 
 function K8CanaryDeployWidget(
@@ -50,36 +55,18 @@ function K8CanaryDeployWidget(
     <>
       <Formik<K8sCanaryDeployData>
         onSubmit={(values: K8sCanaryDeployData) => {
-          const data = values
-          data.spec.instanceSelection = {}
-          if (values?.instanceType === InstanceTypes.Instances) {
-            data.spec.instanceSelection = {
-              type: InstanceTypes.Instances,
-              spec: {
-                count: values.instances
-              }
-            }
-          } else if (values?.instanceType === InstanceTypes.Percentage) {
-            data.spec.instanceSelection = {
-              type: InstanceTypes.Percentage,
-              spec: {
-                percentage: values.instances
-              }
-            }
-          }
-          delete data.instanceType
-          delete data.instances
-          onUpdate?.(data)
+          onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
 
-          spec: Yup.string().required(getString('pipelineSteps.timeoutRequired')),
-          instances: Yup.number()
-            .min(0, getString('pipelineSteps.lessThanZero'))
-            .max(100, getString('pipelineSteps.morethanHundred'))
-            .required(getString('pipelineSteps.instancesRequired'))
+          spec: Yup.object().shape({
+            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+              getString('validation.timeout10SecMinimum')
+            ),
+            instanceSelection: getInstanceDropdownSchema()
+          })
         })}
       >
         {(formik: FormikProps<K8sCanaryDeployData>) => {
@@ -98,8 +85,7 @@ function K8CanaryDeployWidget(
                       </div>
                       <div className={stepCss.formGroup}>
                         <FormInstanceDropdown
-                          typeName={getString('pipelineSteps.typeName')}
-                          name={getString('instanceFieldOptions.instances')}
+                          name={'spec.instanceSelection'}
                           label={getString('pipelineSteps.instanceLabel')}
                         />
                         {getMultiTypeFromValue(values.instances) === MultiTypeInputType.RUNTIME && (
@@ -159,40 +145,34 @@ function K8CanaryDeployWidget(
   )
 }
 
-const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ onUpdate, initialValues, template }) => {
+const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, readonly, path }) => {
   const { getString } = useStrings()
+  const prefix = isEmpty(path) ? '' : `${path}.`
   return (
     <>
-      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.timeoutLabel')}>
-          <TextInput
-            name="spec.timeout"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, timeout: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
-      )}
+      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME ? (
+        <DurationInputFieldForInputSet
+          label={getString('pipelineSteps.timeoutLabel')}
+          name={`${prefix}spec.timeout`}
+          disabled={readonly}
+        />
+      ) : null}
       {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormGroup>
-          <Checkbox
-            name="spec.skipDryRun"
-            className={stepCss.checkbox}
-            label={getString('pipelineSteps.skipDryRun')}
-            onChange={event => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, skipDryRun: event.currentTarget.checked } })
-            }}
-          />
-        </FormGroup>
+        <FormInput.CheckBox
+          name={`${prefix}spec.skipDryRun`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipDryRun')}
+          disabled={readonly}
+        />
       )}
-      {getMultiTypeFromValue(template?.instances) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.instanceLabel')}>
-          <InstanceDropdownField
-            value={template?.instances}
-            name={getString('instanceFieldOptions.instances')}
-            label={getString('pipelineSteps.instanceLabel')}
-          />
-        </FormGroup>
+      {(getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
+        getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME) && (
+        <FormInstanceDropdown
+          label={getString('pipelineSteps.instanceLabel')}
+          name={`${prefix}spec.instanceSelection`}
+          disabledType
+          disabled={readonly}
+        />
       )}
     </>
   )
@@ -202,29 +182,21 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
 
-    const data = initialValues
-    if (initialValues.spec.instanceSelection) {
-      data.instanceType = initialValues.spec.instanceSelection.type
-      data.instances =
-        initialValues.spec.instanceSelection.type === InstanceTypes.Instances
-          ? initialValues.spec.instanceSelection.spec.count
-          : initialValues.spec.instanceSelection.spec.percentage
-      delete data.spec.instanceSelection
-    }
-
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8CanaryDeployInputStep
-          initialValues={data}
+          initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           template={inputSetData?.template}
+          readonly={inputSetData?.readonly}
+          path={inputSetData?.path}
         />
       )
     }
     return (
       <K8CanaryDeployWidgetWithRef
-        initialValues={data}
+        initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         ref={formikRef}
@@ -236,18 +208,66 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   protected stepName = 'K8s Canary Deploy'
 
   protected stepIcon: IconName = 'service-kubernetes'
-  /* istanbul ignore next */
-  validateInputSet(): object {
-    /* istanbul ignore next */
-    return {}
+  validateInputSet(
+    data: K8sCanaryDeployData,
+    template: K8sCanaryDeployData,
+    getString?: UseStringsReturn['getString']
+  ): object {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errors = { spec: {} } as any
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    } else if (
+      getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
+      getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME
+    ) {
+      const instanceSelection = Yup.object().shape({
+        instanceSelection: getInstanceDropdownSchema({
+          required: true,
+          requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
+        })
+      })
+
+      try {
+        instanceSelection.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+
+    return errors
   }
   protected defaultValues: K8sCanaryDeployData = {
     identifier: '',
     spec: {
       skipDryRun: false,
-      timeout: '10m'
-    },
-    instances: '',
-    instanceType: InstanceTypes.Instances
+      timeout: '10m',
+      instanceSelection: {
+        type: InstanceTypes.Instances,
+        spec: { count: 1 }
+      }
+    }
   }
 }

@@ -8,7 +8,7 @@ const props = {
   label: 'Instance',
   name: 'instances',
 
-  value: { instance: 0, instanceType: InstanceTypes.Instances },
+  value: { type: InstanceTypes.Instances, spec: { count: 10 } },
   onChange: jest.fn()
 }
 
@@ -32,7 +32,7 @@ describe('Unit tests for InstanceDropdownField Component', () => {
       <TestWrapper>
         <Formik onSubmit={onSubmit} initialValues={initialValues}>
           <Form>
-            <FormInstanceDropdown {...props} typeName="instanceType" />
+            <FormInstanceDropdown {...props} />
           </Form>
         </Formik>
       </TestWrapper>

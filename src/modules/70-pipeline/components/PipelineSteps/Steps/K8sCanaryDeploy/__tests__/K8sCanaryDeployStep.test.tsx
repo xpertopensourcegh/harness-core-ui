@@ -24,9 +24,16 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: RUNTIME_INPUT_VALUE },
-          instances: RUNTIME_INPUT_VALUE,
-          instanceType: 'Count'
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: RUNTIME_INPUT_VALUE,
+            instanceSelection: {
+              spec: {
+                count: RUNTIME_INPUT_VALUE
+              },
+              type: 'Count'
+            }
+          }
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
@@ -38,12 +45,34 @@ describe('Test K8sBlueGreenDeployStep', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: false } }}
-        template={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: RUNTIME_INPUT_VALUE } }}
+        template={{
+          identifier: 'Test_A',
+          type: 'K8sCanaryDeploy',
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: RUNTIME_INPUT_VALUE,
+            instanceSelection: {
+              spec: {
+                count: RUNTIME_INPUT_VALUE
+              },
+              type: 'Count'
+            }
+          }
+        }}
         allValues={{
           type: 'K8sCanaryDeploy',
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' }
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            timeout: RUNTIME_INPUT_VALUE,
+            instanceSelection: {
+              spec: {
+                count: RUNTIME_INPUT_VALUE
+              },
+              type: 'Count'
+            }
+          }
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.InputSet}
@@ -55,13 +84,10 @@ describe('Test K8sBlueGreenDeployStep', () => {
   test('should render edit view', () => {
     const { container } = render(
       <TestStepWidget
-        initialValues={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: false } }}
-        template={{ identifier: 'Test_A', type: 'K8sCanaryDeploy', spec: { skipDryRun: RUNTIME_INPUT_VALUE } }}
-        allValues={{
-          type: 'K8sCanaryDeploy',
-          name: 'Test A',
+        initialValues={{
           identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' }
+          type: 'K8sCanaryDeploy',
+          spec: { skipDryRun: false, timeout: '10m', instanceSelection: { type: 'Count', spec: { count: 20 } } }
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
@@ -79,19 +105,6 @@ describe('Test K8sBlueGreenDeployStep', () => {
           type: 'K8sCanaryDeploy',
           spec: { skipDryRun: false }
         }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
-        }}
-        allValues={{
-          type: 'K8sCanaryDeploy',
-          name: 'Test A',
-          identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' },
-          instances: -1,
-          instanceType: 'percentage'
-        }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
@@ -100,10 +113,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
+    await waitFor(() => expect(onUpdate).not.toBeCalled())
     expect(container).toMatchSnapshot()
-    expect(onUpdate).not.toBeCalled()
   })
 
   test('should submit with valid paylod for instace type count', async () => {
@@ -113,23 +124,8 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: false, timeout: '10ms' },
-          name: 'Test A',
-          instances: 10,
-          instanceType: InstanceTypes.Instances
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
-        }}
-        allValues={{
-          type: 'K8sCanaryDeploy',
-          name: 'Test A',
-          identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' },
-          instances: 10,
-          instanceType: InstanceTypes.Instances
+          spec: { skipDryRun: false, timeout: '10m', instanceSelection: { type: 'Count', spec: { count: 20 } } },
+          name: 'Test A'
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
@@ -138,26 +134,25 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 20
+            },
+            type: 'Count'
+          },
+          skipDryRun: false,
+          timeout: '10m'
+        },
+        type: 'K8sCanaryDeploy'
+      })
+    )
     expect(container).toMatchSnapshot()
     // expect(onUpdate).toBeCalled()
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            count: 10
-          },
-          type: 'Count'
-        },
-        skipDryRun: false,
-        timeout: '10ms'
-      },
-      type: 'K8sCanaryDeploy'
-    })
   })
 
   test('should submit with valid paylod for instace type percentage', async () => {
@@ -167,23 +162,17 @@ describe('Test K8sBlueGreenDeployStep', () => {
         initialValues={{
           identifier: 'Test_A',
           type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: false, timeout: '10ms' },
-          name: 'Test A',
-          instances: 10,
-          instanceType: InstanceTypes.Percentage
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
-        }}
-        allValues={{
-          type: 'K8sCanaryDeploy',
-          name: 'Test A',
-          identifier: 'Test_A',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE, timeout: '10m' },
-          instances: 10,
-          instanceType: InstanceTypes.Percentage
+          spec: {
+            skipDryRun: false,
+            timeout: '10m',
+            instanceSelection: {
+              spec: {
+                percentage: 20
+              },
+              type: InstanceTypes.Percentage
+            }
+          },
+          name: 'Test A'
         }}
         type={StepType.K8sCanaryDeploy}
         stepViewType={StepViewType.Edit}
@@ -192,26 +181,25 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              percentage: 20
+            },
+            type: 'Percentage'
+          },
+          skipDryRun: false,
+          timeout: '10m'
+        },
+        type: 'K8sCanaryDeploy'
+      })
+    )
     expect(container).toMatchSnapshot()
     // expect(onUpdate).toBeCalled()
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            percentage: 10
-          },
-          type: 'Percentage'
-        },
-        skipDryRun: false,
-        timeout: '10ms'
-      },
-      type: 'K8sCanaryDeploy'
-    })
   })
 
   test('on Edit view for instance type percentage', async () => {
@@ -229,27 +217,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
               type: 'Percentage'
             },
             skipDryRun: false,
-            timeout: '10ms'
-          },
-          type: 'K8sCanaryDeploy'
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
-        }}
-        allValues={{
-          identifier: 'Test_A',
-          name: 'Test A',
-          spec: {
-            instanceSelection: {
-              spec: {
-                percentage: 10
-              },
-              type: 'Percentage'
-            },
-            skipDryRun: false,
-            timeout: '10ms'
+            timeout: '10m'
           },
           type: 'K8sCanaryDeploy'
         }}
@@ -260,88 +228,22 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     fireEvent.click(getByText('Submit').closest('button')!)
 
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            percentage: 10
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              percentage: 10
+            },
+            type: 'Percentage'
           },
-          type: 'Percentage'
+          skipDryRun: false,
+          timeout: '10m'
         },
-        skipDryRun: false,
-        timeout: '10ms'
-      },
-      type: 'K8sCanaryDeploy'
-    })
-  })
-  test('on Edit view for instance type count', async () => {
-    const onUpdate = jest.fn()
-    const { getByText } = render(
-      <TestStepWidget
-        initialValues={{
-          identifier: 'Test_A',
-          name: 'Test A',
-          spec: {
-            instanceSelection: {
-              spec: {
-                count: 10
-              },
-              type: 'Count'
-            },
-            skipDryRun: false,
-            timeout: '10ms'
-          },
-          type: 'K8sCanaryDeploy'
-        }}
-        template={{
-          identifier: 'Test_A',
-          type: 'K8sCanaryDeploy',
-          spec: { skipDryRun: RUNTIME_INPUT_VALUE }
-        }}
-        allValues={{
-          identifier: 'Test_A',
-          name: 'Test A',
-          spec: {
-            instanceSelection: {
-              spec: {
-                count: 10
-              },
-              type: 'Count'
-            },
-            skipDryRun: false,
-            timeout: '10ms'
-          },
-          type: 'K8sCanaryDeploy'
-        }}
-        type={StepType.K8sCanaryDeploy}
-        stepViewType={StepViewType.Edit}
-        onUpdate={onUpdate}
-      />
+        type: 'K8sCanaryDeploy'
+      })
     )
-    fireEvent.click(getByText('Submit').closest('button')!)
-
-    await waitFor(() => Promise.resolve())
-    await waitFor(() => Promise.resolve())
-
-    expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'Test_A',
-      name: 'Test A',
-      spec: {
-        instanceSelection: {
-          spec: {
-            count: 10
-          },
-          type: 'Count'
-        },
-        skipDryRun: false,
-        timeout: '10ms'
-      },
-      type: 'K8sCanaryDeploy'
-    })
   })
 })

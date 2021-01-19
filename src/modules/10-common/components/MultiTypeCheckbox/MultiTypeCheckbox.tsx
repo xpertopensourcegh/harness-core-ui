@@ -9,7 +9,7 @@ import {
   MultiTypeInputValue
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { get } from 'lodash-es'
+import { get, isNil } from 'lodash-es'
 import { connect } from 'formik'
 
 import { errorCheck } from '@common/utils/formikHelpers'
@@ -71,7 +71,9 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
 
   const { textboxProps, ...restMultiProps } = multiTypeTextbox || {}
   const value: boolean = get(formik?.values, name, false)
-  const isFixedValue = getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
+  const [type, setType] = React.useState<MultiTypeInputType>(getMultiTypeFromValue(value))
+
+  const isFixedValue = type === MultiTypeInputType.FIXED
   return (
     <FormGroup
       {...rest}
@@ -86,8 +88,13 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
         textboxProps={{ name, label, ...textboxProps }}
         value={value}
         {...restMultiProps}
-        onChange={(val, valueType, type) => {
-          formik?.setFieldValue(name, val)
+        onChange={(val, valueType, typeVal) => {
+          if (typeVal === MultiTypeInputType.EXPRESSION && isNil(val)) {
+            formik?.setFieldValue(name, '')
+          } else {
+            formik?.setFieldValue(name, val)
+          }
+          setType(typeVal)
           onChange?.(val, valueType, type)
         }}
       />

@@ -6,23 +6,26 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  TextInput,
-  Checkbox,
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
-import { FormGroup } from '@blueprintjs/core'
+import { FormikProps, yupToFormErrors } from 'formik'
+import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
-import { FormMultiTypeCheckboxField, FormInstanceDropdown, InstanceDropdownField } from '@common/components'
+import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/exports'
+import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -37,6 +40,8 @@ interface K8sScaleProps {
   onUpdate?: (data: K8sScaleData) => void
   stepViewType?: StepViewType
   template?: K8sScaleData
+  readonly?: boolean
+  path?: string
 }
 
 function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRef<K8sScaleData>): React.ReactElement {
@@ -47,36 +52,18 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
     <>
       <Formik<K8sScaleData>
         onSubmit={(values: K8sScaleData) => {
-          const data = values
-          data.spec.instanceSelection = {}
-          if (values?.instanceType === InstanceTypes.Instances) {
-            data.spec.instanceSelection = {
-              type: InstanceTypes.Instances,
-              spec: {
-                count: values.instances
-              }
-            }
-          } else if (values?.instanceType === InstanceTypes.Percentage) {
-            data.spec.instanceSelection = {
-              type: InstanceTypes.Percentage,
-              spec: {
-                percentage: values.instances
-              }
-            }
-          }
-          delete data.instanceType
-          delete data.instances
-          onUpdate?.(data)
+          onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
 
-          spec: Yup.string().required(getString('pipelineSteps.timeoutRequired')),
-          instances: Yup.number()
-            .min(0, getString('pipelineSteps.lessThanZero'))
-            .max(100, getString('pipelineSteps.morethanHundred'))
-            .required(getString('pipelineSteps.instancesRequired'))
+          spec: Yup.object().shape({
+            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+              getString('validation.timeout10SecMinimum')
+            ),
+            instanceSelection: getInstanceDropdownSchema()
+          })
         })}
       >
         {(formik: FormikProps<K8sScaleData>) => {
@@ -95,8 +82,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       </div>
                       <div className={stepCss.formGroup}>
                         <FormInstanceDropdown
-                          typeName={getString('pipelineSteps.typeName')}
-                          name={getString('instanceFieldOptions.instances')}
+                          name={'spec.instanceSelection'}
                           label={getString('pipelineSteps.instanceLabel')}
                         />
                         {getMultiTypeFromValue(values.instances) === MultiTypeInputType.RUNTIME && (
@@ -173,50 +159,37 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
   )
 }
 
-const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ onUpdate, initialValues, template }) => {
+const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path }) => {
   const { getString } = useStrings()
+  const prefix = isEmpty(path) ? '' : `${path}.`
   return (
     <>
       {getMultiTypeFromValue(template?.spec?.workload) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.workload')}>
-          <TextInput
-            name="spec.workload"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, workload: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
+        <FormInput.Text name="spec.workload" label={getString('pipelineSteps.workload')} disabled={readonly} />
       )}
-      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.timeoutLabel')}>
-          <TextInput
-            name="spec.timeout"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, timeout: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
-      )}
+      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME ? (
+        <DurationInputFieldForInputSet
+          label={getString('pipelineSteps.timeoutLabel')}
+          name={`${prefix}spec.timeout`}
+          disabled={readonly}
+        />
+      ) : null}
       {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormGroup>
-          <Checkbox
-            name="spec.skipDryRun"
-            className={stepCss.checkbox}
-            label={getString('pipelineSteps.skipDryRun')}
-            onChange={event => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, skipDryRun: event.currentTarget.checked } })
-            }}
-          />
-        </FormGroup>
+        <FormInput.CheckBox
+          name={`${prefix}spec.skipDryRun`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipDryRun')}
+          disabled={readonly}
+        />
       )}
-      {getMultiTypeFromValue(template?.instances) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.instanceLabel')}>
-          <InstanceDropdownField
-            value={template?.instances}
-            name={getString('instanceFieldOptions.instances')}
-            label={getString('pipelineSteps.instanceLabel')}
-          />
-        </FormGroup>
+      {(getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
+        getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME) && (
+        <FormInstanceDropdown
+          label={getString('pipelineSteps.instanceLabel')}
+          name={`${prefix}spec.instanceSelection`}
+          disabledType
+          disabled={readonly}
+        />
       )}
     </>
   )
@@ -225,29 +198,22 @@ const K8ScaleDeployWidgetWithRef = React.forwardRef(K8ScaleDeployWidget)
 export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
-    const data = initialValues
-    if (initialValues.spec.instanceSelection) {
-      data.instanceType = initialValues.spec.instanceSelection.type
-      data.instances =
-        initialValues.spec.instanceSelection.type === InstanceTypes.Instances
-          ? initialValues.spec.instanceSelection.spec.count
-          : initialValues.spec.instanceSelection.spec.percentage
-      delete data.spec.instanceSelection
-    }
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8ScaleInputStep
-          initialValues={data}
+          initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           template={inputSetData?.template}
+          readonly={inputSetData?.readonly}
+          path={inputSetData?.path}
         />
       )
     }
     return (
       <K8ScaleDeployWidgetWithRef
-        initialValues={data}
+        initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         ref={formikRef}
@@ -260,18 +226,60 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
 
   protected stepIcon: IconName = 'service-kubernetes'
   /* istanbul ignore next */
-  validateInputSet(): object {
-    /* istanbul ignore next */
-    return {}
+  validateInputSet(data: K8sScaleData, template: K8sScaleData, getString?: K8sScaleData['getString']): object {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errors = { spec: {} } as any
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    } else if (
+      getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
+      getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME
+    ) {
+      const instanceSelection = Yup.object().shape({
+        instanceSelection: getInstanceDropdownSchema({
+          required: true,
+          requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
+        })
+      })
+
+      try {
+        instanceSelection.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+
+    return errors
   }
   protected defaultValues: K8sScaleData = {
     identifier: '',
     spec: {
       skipDryRun: false,
       timeout: '10m',
-      workload: ''
-    },
-    instances: '',
-    instanceType: InstanceTypes.Instances
+      workload: '',
+      instanceSelection: { type: InstanceTypes.Instances, spec: { count: 0 } }
+    }
   }
 }

@@ -21,7 +21,6 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
       >
         <div
           class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-          style="width: 380px;"
         >
           <div
             class="bp3-input-group MultiTypeInput--input"
@@ -30,7 +29,7 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
               class="bp3-input"
               placeholder="Count"
               type="number"
-              value="0"
+              value="10"
             />
           </div>
           <span
@@ -123,7 +122,6 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
     >
       <div
         class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-        style="width: 380px;"
       >
         <div
           class="bp3-input-group MultiTypeInput--input"
@@ -132,7 +130,7 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
             class="bp3-input"
             placeholder="Count"
             type="number"
-            value="0"
+            value="10"
           />
         </div>
         <span

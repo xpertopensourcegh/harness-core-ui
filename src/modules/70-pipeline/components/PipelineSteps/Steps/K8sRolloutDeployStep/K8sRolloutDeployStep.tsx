@@ -4,14 +4,13 @@ import {
   Formik,
   FormInput,
   Button,
-  Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
-import type { FormikProps } from 'formik'
+import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
@@ -20,7 +19,11 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn } from 'framework/exports'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -36,6 +39,7 @@ interface K8RolloutDeployProps {
   inputSetData?: {
     template?: K8RolloutDeployData
     path?: string
+    readonly?: boolean
   }
 }
 
@@ -54,7 +58,11 @@ function K8RolloutDeployWidget(
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
+          spec: Yup.object().shape({
+            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+              getString('validation.timeout10SecMinimum')
+            )
+          })
         })}
       >
         {(formik: FormikProps<K8RolloutDeployData>) => {
@@ -68,8 +76,10 @@ function K8RolloutDeployWidget(
                   summary={getString('pipelineSteps.k8sRolloutDeploy')}
                   details={
                     <>
-                      <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                      <div className={stepCss.formGroup}>
+                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                      </div>
+                      <div className={stepCss.formGroup}>
                         <FormMultiTypeDurationField
                           name="spec.timeout"
                           label={getString('pipelineSteps.timeoutLabel')}
@@ -88,11 +98,13 @@ function K8RolloutDeployWidget(
                             }}
                           />
                         )}
-                      </Layout.Horizontal>
-                      <FormMultiTypeCheckboxField
-                        name="spec.skipDryRun"
-                        label={getString('pipelineSteps.skipDryRun')}
-                      />
+                      </div>
+                      <div className={stepCss.formGroup}>
+                        <FormMultiTypeCheckboxField
+                          name="spec.skipDryRun"
+                          label={getString('pipelineSteps.skipDryRun')}
+                        />
+                      </div>
                     </>
                   }
                 />
@@ -113,10 +125,10 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeDurationField
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+        <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false }}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          disabled={inputSetData?.readonly}
         />
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
@@ -124,6 +136,7 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
           className={stepCss.checkbox}
           label={getString('pipelineSteps.skipDryRun')}
+          disabled={inputSetData?.readonly}
         />
       )}
     </>
@@ -159,11 +172,29 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     template: K8RolloutDeployData,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors = {} as any
-    if (isEmpty(data?.spec?.timeout) && getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
-      errors.spec = {}
-      errors.spec.timeout = getString?.('fieldRequired', { field: 'Timeout' })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errors = { spec: {} } as any
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
     }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+
     return errors
   }
 
