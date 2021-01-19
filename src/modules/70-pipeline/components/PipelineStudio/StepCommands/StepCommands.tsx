@@ -20,7 +20,8 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
   onChange,
   isStepGroup,
   stepsFactory,
-  hiddenPanels
+  hiddenPanels,
+  hasStepGroupAncestor
 }) => {
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
@@ -86,6 +87,7 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
                 onChange={onChange}
                 hiddenPanels={hiddenPanels}
                 isStepGroup={isStepGroup}
+                hasStepGroupAncestor={hasStepGroupAncestor}
                 ref={advancedConfRef}
               />
             }

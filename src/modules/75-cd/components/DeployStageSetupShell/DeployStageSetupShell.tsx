@@ -15,6 +15,7 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { useStrings } from 'framework/exports'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -51,6 +52,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   } = React.useContext(PipelineContext)
 
   const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
+  const { getString } = useStrings()
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
@@ -65,13 +67,13 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
 
-  const handleTabChange = (data: string) => {
+  const handleTabChange = (data: string): void => {
     setSelectedTabId(data)
   }
   const handleStageChange = (
     selectedStage: StageSelectOption,
     event?: React.SyntheticEvent<HTMLElement, Event> | undefined
-  ) => {
+  ): void => {
     event?.preventDefault()
     event?.stopPropagation()
     const value = selectedStage.value.toString()
@@ -84,6 +86,16 @@ export default function DeployStageSetupShell(): JSX.Element {
         ...pipelineView.splitViewData,
         selectedStageId: value,
         stageType: stage?.stage?.type
+      }
+    })
+  }
+
+  function openFailureStrategyPanel(): void {
+    updatePipelineView({
+      ...pipelineView,
+      isDrawerOpened: true,
+      drawerData: {
+        type: DrawerTypes.FailureStrategy
       }
     })
   }
@@ -127,6 +139,7 @@ export default function DeployStageSetupShell(): JSX.Element {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipeline, selectedTabId, selectedStageId])
 
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
@@ -217,6 +230,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                 hasRollback={true}
                 hasDependencies={false}
                 stepsFactory={stepsFactory}
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 stage={selectedStage!}
                 updateStage={() => {
                   updatePipeline(pipeline)
@@ -249,6 +263,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                         stepConfig: {
                           node: event.node,
                           isStepGroup: event.isStepGroup,
+                          isUnderStepGroup: event.isUnderStepGroup,
                           addOrEdit: event.addOrEdit,
                           hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
                         }
@@ -259,6 +274,17 @@ export default function DeployStageSetupShell(): JSX.Element {
               />
             }
           />
+          {selectedTabId === i18n.executionLabel ? (
+            <Button
+              minimal
+              intent="primary"
+              className={css.failureStrategy}
+              onClick={openFailureStrategyPanel}
+              rightIcon="cog"
+            >
+              {getString('failureStrategy.title')}
+            </Button>
+          ) : null}
         </Tabs>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>

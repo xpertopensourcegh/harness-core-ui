@@ -2,16 +2,18 @@ import React from 'react'
 import { render, fireEvent, waitFor, act } from '@testing-library/react'
 
 import { Basic } from '../FailureStrategyPanel.stories'
-import { Strategy } from '../StrategySelection/StrategyConfig'
+import { Strategy, FailureStrategyPanelMode } from '../StrategySelection/StrategyConfig'
 
 describe('<FailureStratergyPanel /> tests', () => {
   test('initial render with no data', () => {
-    const { container } = render(<Basic data={{ failureStrategies: [] }} />)
+    const { container } = render(<Basic data={{ failureStrategies: [] }} mode={FailureStrategyPanelMode.STEP} />)
     expect(container).toMatchSnapshot()
   })
 
   test('adding a new strategy works', async () => {
-    const { container, findByTestId } = render(<Basic data={{ failureStrategies: [] }} />)
+    const { container, findByTestId } = render(
+      <Basic data={{ failureStrategies: [] }} mode={FailureStrategyPanelMode.STEP} />
+    )
 
     const add = await findByTestId('add-failure-strategy')
 
@@ -38,7 +40,9 @@ describe('<FailureStratergyPanel /> tests', () => {
   })
 
   test('removing a strategy works', async () => {
-    const { container, findByTestId, getByTestId } = render(<Basic data={{ failureStrategies: [{}, {}] }} />)
+    const { container, findByTestId, getByTestId } = render(
+      <Basic data={{ failureStrategies: [{}, {}] }} mode={FailureStrategyPanelMode.STEP} />
+    )
 
     const step2 = await findByTestId('failure-strategy-step-1')
 
@@ -77,7 +81,9 @@ describe('<FailureStratergyPanel /> tests', () => {
     [Strategy.StageRollback],
     [Strategy.StepGroupRollback]
   ])('simple strategy: "%s"', async strategy => {
-    const { container, findByTestId } = render(<Basic data={{ failureStrategies: [{}] }} />)
+    const { container, findByTestId } = render(
+      <Basic data={{ failureStrategies: [{}] }} mode={FailureStrategyPanelMode.STEP_GROUP} />
+    )
 
     const selection = await findByTestId(`failure-strategy-${strategy.toLowerCase()}`)
 

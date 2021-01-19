@@ -1,6 +1,9 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Icon } from '@wings-software/uicore'
+
+import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
+
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommands } from '../StepCommands/StepCommands'
@@ -34,7 +37,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
-
   const stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
 
   return (
@@ -61,10 +63,11 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       className={css.main}
       {...restDrawerProps}
     >
-      {type === DrawerTypes.StepConfig && data?.stepConfig && data?.stepConfig.node && (
+      {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node}
           stepsFactory={stepsFactory}
+          hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={item => {
             const node = data?.stepConfig?.node
             if (node) {
@@ -156,6 +159,24 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineVariables && <PipelineVariables />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
+      {type === DrawerTypes.FailureStrategy && selectedStageId ? (
+        <FailureStrategy
+          selectedStage={selectedStage || {}}
+          onUpdate={({ failureStrategies }) => {
+            const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+            if (pipelineStage && pipelineStage.stage) {
+              pipelineStage.stage.failureStrategies = failureStrategies
+              updatePipeline(pipeline)
+            }
+
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.ConfigureService }
+            })
+          }}
+        />
+      ) : null}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepWidget
           initialValues={data.stepConfig.node}

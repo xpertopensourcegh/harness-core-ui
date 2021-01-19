@@ -26,7 +26,8 @@ export enum DrawerTypes {
   Templates = 'Templates',
   ExecutionStrategy = 'ExecutionStrategy',
   AddService = 'AddService',
-  ConfigureService = 'ConfigureService'
+  ConfigureService = 'ConfigureService',
+  FailureStrategy = 'FailureStrategy'
 }
 
 export const DrawerSizes: { [key: string]: number } = {
@@ -36,7 +37,8 @@ export const DrawerSizes: { [key: string]: number } = {
   Templates: 450,
   ExecutionStrategy: 1000,
   AddService: 485,
-  ConfigureService: 600
+  ConfigureService: 600,
+  FailureStrategy: 600
 }
 
 export enum SplitViewTypes {
@@ -57,6 +59,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       node: ExecutionWrapper | DependenciesWrapper
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
+      isUnderStepGroup?: boolean
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
   }

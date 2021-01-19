@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { connect, FormikContext, FieldArray } from 'formik'
-import { get } from 'lodash-es'
+import { get, difference } from 'lodash-es'
 import { FormInput, Button } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
@@ -20,10 +20,11 @@ export interface BaseStepProps {
   formik: FormikContext<any>
   name: string
   parentStrategy?: Strategy
+  allowedStrategies: Strategy[]
 }
 
 export function ManualInterventionStep(props: BaseStepProps): React.ReactElement {
-  const { name, formik, parentStrategy } = props
+  const { name, formik, parentStrategy, allowedStrategies } = props
 
   function handleChange(): void {
     formik.setFieldValue(name, undefined)
@@ -44,24 +45,17 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
         name={`${name}.spec.onTimeout.action`}
         formik={formik}
         parentStrategy={Strategy.ManualIntervention}
-        allowedStrategies={ManualInterventionStep.timeoutStrategies.filter(
-          strategy => !parentStrategy || strategy !== parentStrategy
-        )}
+        allowedStrategies={difference(allowedStrategies, [
+          Strategy.ManualIntervention,
+          parentStrategy || Strategy.ManualIntervention
+        ])}
       />
     </div>
   )
 }
 
-ManualInterventionStep.timeoutStrategies = [
-  Strategy.Retry,
-  Strategy.Ignore,
-  Strategy.StageRollback,
-  Strategy.StepGroupRollback,
-  Strategy.MarkAsSuccess
-]
-
 export function RetryStep(props: BaseStepProps): React.ReactElement {
-  const { name, formik, parentStrategy } = props
+  const { name, formik, parentStrategy, allowedStrategies } = props
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
 
@@ -124,21 +118,11 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         name={`${name}.spec.onRetryFailure.action`}
         formik={formik}
         parentStrategy={Strategy.Retry}
-        allowedStrategies={RetryStep.retryFailureStrategies.filter(
-          strategy => !parentStrategy || strategy !== parentStrategy
-        )}
+        allowedStrategies={difference(allowedStrategies, [Strategy.Retry, parentStrategy || Strategy.Retry])}
       />
     </div>
   )
 }
-
-RetryStep.retryFailureStrategies = [
-  Strategy.ManualIntervention,
-  Strategy.Ignore,
-  Strategy.StageRollback,
-  Strategy.StepGroupRollback,
-  Strategy.MarkAsSuccess
-]
 
 export function RollbackStageStep(props: BaseStepProps): React.ReactElement {
   function handleChange(): void {
@@ -202,26 +186,26 @@ export function AbortStep(props: BaseStepProps): React.ReactElement {
 
 export interface SelectedStepProps extends BaseStepProps {
   strategy: Strategy
-  parentStrategy?: Strategy
 }
 
 export function SelectedStep(props: SelectedStepProps): React.ReactElement {
-  const { name, formik, strategy, parentStrategy } = props
+  const { strategy, ...rest } = props
+
   switch (strategy) {
     case Strategy.Abort:
-      return <AbortStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <AbortStep {...rest} />
     case Strategy.ManualIntervention:
-      return <ManualInterventionStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <ManualInterventionStep {...rest} />
     case Strategy.MarkAsSuccess:
-      return <MarkAsSuccessStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <MarkAsSuccessStep {...rest} />
     case Strategy.Ignore:
-      return <IgnoreFailureStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <IgnoreFailureStep {...rest} />
     case Strategy.Retry:
-      return <RetryStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <RetryStep {...rest} />
     case Strategy.StageRollback:
-      return <RollbackStageStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <RollbackStageStep {...rest} />
     case Strategy.StepGroupRollback:
-      return <RollbackStepGroupStep name={name} formik={formik} parentStrategy={parentStrategy} />
+      return <RollbackStepGroupStep {...rest} />
     default:
       return <div>&quot;{strategy}&quot; in not supported</div>
   }
@@ -249,7 +233,13 @@ export function StrategySelection(props: ConnectedStrategySelectionProps): React
   return (
     <FormGroup label={label} labelFor={name} helperText={helperText} intent={intent}>
       {value.type ? (
-        <SelectedStep strategy={value.type} name={name} formik={formik} parentStrategy={parentStrategy} />
+        <SelectedStep
+          strategy={value.type}
+          name={name}
+          formik={formik}
+          parentStrategy={parentStrategy}
+          allowedStrategies={allowedStrategies}
+        />
       ) : (
         <StrategyStepsList allowedStrategies={allowedStrategies} name={`${name}.type`} formik={formik} />
       )}

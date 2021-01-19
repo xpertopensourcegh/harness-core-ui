@@ -7,7 +7,7 @@ import { String, useStrings } from 'framework/exports'
 import type { Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
-import { allowedStrategiesAsPerStep } from './StrategySelection/StrategyConfig'
+import { allowedStrategiesAsPerStep, FailureStrategyPanelMode } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
 import css from './FailureStrategyPanel.module.scss'
 
@@ -19,16 +19,19 @@ import css from './FailureStrategyPanel.module.scss'
 
 export interface FailureStrategyPanelProps {
   formikProps: FormikProps<Values>
+  mode: FailureStrategyPanelMode
 }
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
   const {
-    formikProps: { values: formValues }
+    formikProps: { values: formValues },
+    mode
   } = props
   const [selectedStategyNum, setSelectedStategyNum] = React.useState(0)
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
+  const isDefaultStageStrategy = mode === FailureStrategyPanelMode.STAGE && selectedStategyNum === 0
 
   React.useEffect(() => {
     /* istanbul ignore else */
@@ -39,7 +42,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
 
   return (
     <div className={css.main}>
-      <String className={css.helpText} stringID="failureStrategyHelpText" />
+      <String className={css.helpText} stringID="failureStrategy.helpText" />
       <div className={css.header}>
         <FieldArray name="failureStrategies">
           {({ push, remove }) => {
@@ -58,7 +61,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                 <div className={css.tabs}>
                   {hasFailureStrategies ? (
                     <ul className={css.stepList}>
-                      {formValues.failureStrategies.map((_, i) => {
+                      {(formValues.failureStrategies || []).map((_, i) => {
                         // generated uuid if they are not present
                         if (!uids.current[i]) {
                           uids.current[i] = uuid()
@@ -94,7 +97,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     <String stringID="add" />
                   </Button>
                 </div>
-                {hasFailureStrategies ? (
+                {hasFailureStrategies && !isDefaultStageStrategy ? (
                   <Button
                     icon="trash"
                     minimal
@@ -108,17 +111,22 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
             )
           }}
         </FieldArray>
-      </div>{' '}
+      </div>
       {hasFailureStrategies ? (
         <React.Fragment>
-          <FailureTypeMultiSelect
-            name={`failureStrategies[${selectedStategyNum}].onFailure.errors`}
-            label={getString('failureTypeSelectLabel')}
-          />
+          {isDefaultStageStrategy ? (
+            <String tagName="div" className={css.defaultStageText} stringID="failureStrategy.defaultStageText" />
+          ) : (
+            <FailureTypeMultiSelect
+              name={`failureStrategies[${selectedStategyNum}].onFailure.errors`}
+              label={getString('failureTypeSelectLabel')}
+            />
+          )}
+
           <StrategySelection
             name={`failureStrategies[${selectedStategyNum}].onFailure.action`}
             label={getString('performAction')}
-            allowedStrategies={allowedStrategiesAsPerStep.default}
+            allowedStrategies={allowedStrategiesAsPerStep[mode]}
           />
         </React.Fragment>
       ) : null}

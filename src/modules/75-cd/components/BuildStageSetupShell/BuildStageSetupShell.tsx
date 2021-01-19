@@ -330,6 +330,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                         stepConfig: {
                           node: event.node,
                           isStepGroup: event.isStepGroup,
+                          isUnderStepGroup: event.isUnderStepGroup,
                           addOrEdit: event.addOrEdit,
                           hiddenAdvancedPanels: [AdvancedPanels.FailureStrategy, AdvancedPanels.PreRequisites]
                         }

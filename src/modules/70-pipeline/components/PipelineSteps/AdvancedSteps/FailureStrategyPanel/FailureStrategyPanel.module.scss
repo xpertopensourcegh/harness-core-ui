@@ -13,7 +13,7 @@
   .header {
     justify-content: space-between;
     min-height: 22px;
-    margin: var(--spacing-small) 0;
+    margin: var(--spacing-medium) 0;
 
     :global(.bp3-button) {
       height: 22px !important;
@@ -48,6 +48,11 @@
         border-color: var(--grey-300) !important;
       }
     }
+  }
+
+  .defaultStageText {
+    margin: var(--spacing-large) 0;
+    font-size: var(--font-size-small);
   }
 }
 

@@ -11,6 +11,7 @@ export interface StepCommandsProps {
   onChange: (step: ExecutionWrapper) => void
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
+  hasStepGroupAncestor?: boolean
   hiddenPanels?: AdvancedPanels[]
 }
 
@@ -23,5 +24,5 @@ export interface Values {
   tab?: TabTypes
   skipCondition?: string
   shouldKeepOpen?: boolean
-  failureStrategies: any[]
+  failureStrategies?: any[]
 }

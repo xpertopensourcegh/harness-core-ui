@@ -67,6 +67,7 @@
         border-bottom: 0;
         z-index: 1;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+        align-items: center;
       }
       .bp3-tab-panel {
         position: absolute;
@@ -95,6 +96,11 @@
         }
       }
     }
+  }
+
+  .failureStrategy {
+    position: absolute;
+    right: 160px;
   }
 
   .footer {

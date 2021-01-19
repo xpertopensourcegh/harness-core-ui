@@ -10,6 +10,7 @@ import {
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import { FailureStrategyPanelMode } from './FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
@@ -23,7 +24,7 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 }
 
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
-  const { step, onChange, hiddenPanels = [] } = props
+  const { step, onChange, hiddenPanels = [], hasStepGroupAncestor } = props
   const { getString } = useStrings()
 
   return (
@@ -57,8 +58,15 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                 {hiddenPanels.indexOf(AdvancedPanels.FailureStrategy) === -1 && (
                   <Accordion.Panel
                     id={AdvancedPanels.FailureStrategy}
-                    summary={getString('failureStrategyTitle')}
-                    details={<FailureStrategyPanel formikProps={formikProps} />}
+                    summary={getString('failureStrategy.title')}
+                    details={
+                      <FailureStrategyPanel
+                        mode={
+                          hasStepGroupAncestor ? FailureStrategyPanelMode.STEP_GROUP : FailureStrategyPanelMode.STEP
+                        }
+                        formikProps={formikProps}
+                      />
+                    }
                   />
                 )}
               </Accordion>

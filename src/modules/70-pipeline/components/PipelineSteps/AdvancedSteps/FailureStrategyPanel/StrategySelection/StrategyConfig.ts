@@ -19,13 +19,27 @@ export enum ErrorType {
   DelegateProvisioning = 'DelegateProvisioning'
 }
 
-export const allowedStrategiesAsPerStep: Record<string, Strategy[]> = {
-  default: [
+export enum FailureStrategyPanelMode {
+  STAGE = 'STAGE',
+  STEP_GROUP = 'STEP_GROUP',
+  STEP = 'STEP'
+}
+
+export const allowedStrategiesAsPerStep: Record<FailureStrategyPanelMode, Strategy[]> = {
+  [FailureStrategyPanelMode.STEP]: [
+    Strategy.ManualIntervention,
+    Strategy.StageRollback,
+    Strategy.Ignore,
+    Strategy.Retry,
+    Strategy.MarkAsSuccess
+  ],
+  [FailureStrategyPanelMode.STEP_GROUP]: [
     Strategy.ManualIntervention,
     Strategy.StageRollback,
     Strategy.StepGroupRollback,
     Strategy.Ignore,
     Strategy.Retry,
     Strategy.MarkAsSuccess
-  ]
+  ],
+  [FailureStrategyPanelMode.STAGE]: [Strategy.StageRollback, Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess]
 }

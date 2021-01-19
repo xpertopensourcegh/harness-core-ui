@@ -133,6 +133,7 @@ description: Description
 recentlyUsed: Recently Used
 stageDetails: Stage Details
 stageNameLabel: Stage Name
+stageName: 'Stage: {{ name }}'
 tagsLabel: Tags
 tagsInfo: Specify one or more tags for the Docker image
 removeLabel: 'remove'
@@ -245,9 +246,12 @@ skipConditionHelpText: |
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
-failureStrategyTitle: Failure Strategy
-failureStrategyHelpText: |
-  Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
+failureStrategy:
+  title: Failure Strategy
+  helpText: |
+    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
+  defaultStageText: |
+    On all errors other than those specified in failure strategies defined here, perform action:
 failureTypeSelectLabel: On failure of type
 performAction: Perform Action
 failureStrategies:

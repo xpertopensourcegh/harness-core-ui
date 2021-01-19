@@ -79,6 +79,7 @@ export interface ExecutionGraphEditStepEvent {
   /** step or dependency model */
   node: ExecutionWrapper | DependenciesWrapper
   isStepGroup: boolean
+  isUnderStepGroup?: boolean
   addOrEdit: 'add' | 'edit'
   stepType: StepType | undefined
 }
@@ -264,6 +265,7 @@ const ExecutionGraph: React.FC<ExecutionGraphProp> = (props): JSX.Element => {
         /* istanbul ignore else */ if (node) {
           editStep({
             node: node,
+            isUnderStepGroup: eventTemp.entity.getParent() instanceof StepGroupNodeLayerModel,
             isStepGroup: false,
             addOrEdit: 'edit',
             stepType: stepState?.stepType
