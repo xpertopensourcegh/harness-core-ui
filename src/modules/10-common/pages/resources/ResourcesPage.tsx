@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uicore'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 
@@ -9,6 +10,7 @@ import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
   const { accountId, orgIdentifier } = useParams()
+  const { CDNG_ENABLED } = useFeatureFlags()
   return (
     <>
       <Page.Header
@@ -40,17 +42,19 @@ const ResourcesPage: React.FC = ({ children }) => {
                 {i18n.secrets}
               </NavLink>
 
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={
-                  orgIdentifier
-                    ? routes.toOrgResourcesDelegates({ accountId, orgIdentifier })
-                    : routes.toResourcesDelegates({ accountId })
-                }
-              >
-                {i18n.delegates}
-              </NavLink>
+              {CDNG_ENABLED && (
+                <NavLink
+                  className={css.tags}
+                  activeClassName={css.activeTag}
+                  to={
+                    orgIdentifier
+                      ? routes.toOrgResourcesDelegates({ accountId, orgIdentifier })
+                      : routes.toResourcesDelegates({ accountId })
+                  }
+                >
+                  {i18n.delegates}
+                </NavLink>
+              )}
               {/* TODO: ENABLE IT WHEN IMPLEMENTED */}
               {/* <NavLink className={css.tags} to="#TBD">
                 {i18n.templates}

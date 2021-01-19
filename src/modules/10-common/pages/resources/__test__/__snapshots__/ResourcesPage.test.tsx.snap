@@ -29,12 +29,6 @@ exports[`Resources Page render 1`] = `
         >
           Secrets
         </a>
-        <a
-          class="tags"
-          href="/account/dummy/admin/resources/delegates"
-        >
-          Delegates
-        </a>
       </div>
     </div>
   </div>
