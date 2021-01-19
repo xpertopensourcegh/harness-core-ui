@@ -15,6 +15,8 @@ import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
+const LOGIN_PAGE_URL = '/#/login'
+
 interface AppProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   strings: Record<string, any>
@@ -35,7 +37,7 @@ function App(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (!token) {
-      window.location.href = '/#/login'
+      window.location.href = LOGIN_PAGE_URL
     }
   }, [token])
 
@@ -47,11 +49,11 @@ function App(props: AppProps): React.ReactElement {
         if (!response.ok && response.status === 401) {
           // 401 might be returned due to RBAC maybe?
           // check response body to confirm invalid token
-          response.json().then(body => {
-            if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
-              window.location.href = '/#/login'
-            }
-          })
+          // response.json().then(body => {
+          //   if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
+          window.location.href = LOGIN_PAGE_URL
+          // }
+          // })
         }
       }}
     >
