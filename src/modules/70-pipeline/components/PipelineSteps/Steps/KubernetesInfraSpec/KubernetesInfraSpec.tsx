@@ -24,10 +24,7 @@ import {
   getConnectorListV2Promise,
   ConnectorResponse
 } from 'services/cd-ng'
-import {
-  FormMultiTypeConnectorField,
-  MultiTypeConnectorFieldProps
-} from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getScopeFromDTO,
   getIdentifierFromValue,
@@ -73,10 +70,6 @@ const getConnectorName = (connector?: ConnectorResponse): string =>
       : `Account -> ${connector?.connector?.name}`
   }` || ''
 
-interface FormValues extends Omit<K8SDirectInfrastructure, 'connectorRef'> {
-  connectorRef: MultiTypeConnectorFieldProps['selected'] | string
-}
-
 const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
   initialValues,
   onUpdate
@@ -87,50 +80,13 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     accountId: string
   }>()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
-  const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
-  const initialScope = getScopeFromValue(initialValues.connectorRef || '')
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorRef,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    lazy: true,
-    debounce: 300
-  })
-
-  React.useEffect(() => {
-    if (
-      !isEmpty(initialValues.connectorRef) &&
-      getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
-    ) {
-      refetch()
-    }
-  }, [initialValues.connectorRef])
-  const values: FormValues = { ...initialValues, connectorRef: undefined }
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.connectorRef = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope,
-      live: connector?.data?.status?.status === 'SUCCESS',
-      connector: connector?.data?.connector
-    }
-  } else {
-    values.connectorRef = initialValues.connectorRef
-  }
 
   return (
     <Layout.Vertical spacing="medium">
       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.stepName}</Text>
       <Formik
         enableReinitialize
-        initialValues={values}
+        initialValues={initialValues}
         validate={value => {
           const data: K8SDirectInfrastructure = {
             namespace: value.namespace,
@@ -151,8 +107,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 <FormMultiTypeConnectorField
                   name="connectorRef"
                   label={i18n.k8ConnectorDropDownLabel}
-                  placeholder={loading ? i18n.loading : i18n.k8ConnectorDropDownPlaceholder}
-                  disabled={loading}
+                  placeholder={i18n.k8ConnectorDropDownPlaceholder}
+                  // disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}

@@ -680,7 +680,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             })}
             onSubmit={(values): void => {
               set(pipeline, 'properties.ci.codebase', {
-                connectorRef: values.connectorRef?.value,
+                connectorRef:
+                  typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
                 ...(values.repoName && { repoName: values.repoName }),
                 build: RUNTIME_INPUT_VALUE
               })

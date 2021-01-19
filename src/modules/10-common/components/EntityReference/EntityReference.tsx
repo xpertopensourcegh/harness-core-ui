@@ -25,9 +25,9 @@ export function getScopeFromDTO<T extends ScopedObjectDTO>(obj: T): Scope {
 }
 
 export function getScopeFromValue(value: string): Scope {
-  if (value.startsWith(`${Scope.ACCOUNT}.`)) {
+  if (typeof value === 'string' && value.startsWith(`${Scope.ACCOUNT}.`)) {
     return Scope.ACCOUNT
-  } else if (value.startsWith(`${Scope.ORG}.`)) {
+  } else if (typeof value === 'string' && value.startsWith(`${Scope.ORG}.`)) {
     return Scope.ORG
   }
   return Scope.PROJECT
@@ -35,7 +35,7 @@ export function getScopeFromValue(value: string): Scope {
 
 export function getIdentifierFromValue(value: string): string {
   const scope = getScopeFromValue(value)
-  if (scope === Scope.ACCOUNT || scope === Scope.ORG) {
+  if ((typeof value === 'string' && scope === Scope.ACCOUNT) || scope === Scope.ORG) {
     return value.replace(`${scope}.`, '')
   }
   return value

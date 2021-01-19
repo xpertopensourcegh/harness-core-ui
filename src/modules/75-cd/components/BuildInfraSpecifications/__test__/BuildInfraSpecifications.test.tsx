@@ -1,5 +1,5 @@
 import React from 'react'
-import { waitFor, act, fireEvent, findByText, render } from '@testing-library/react'
+import { waitFor, act, fireEvent, findByText, findAllByText, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
@@ -68,16 +68,16 @@ describe('BuildInfraSpecifications snapshot test', () => {
         <BuildInfraSpecifications />
       </TestWrapper>
     )
-    const selectBtn = await findByText(container, 'Select')
+    const selectBtn = await findByText(container, 'tesa 1')
     expect(selectBtn).toBeDefined()
     fireEvent.click(selectBtn)
     await act(async () => {
       const portal = document.getElementsByClassName('bp3-portal')[0]
       expect(portal).toBeDefined()
       fireEvent.click(await findByText(portal as HTMLElement, 'Account'))
-      const connector = await findByText(portal as HTMLElement, 'tesa_1')
-      await waitFor(() => expect(connector).toBeDefined())
-      fireEvent.click(connector)
+      const connector = await findAllByText(portal as HTMLElement, 'tesa_1')
+      await waitFor(() => expect(connector?.[0]).toBeDefined())
+      fireEvent.click(connector?.[0])
     })
     const chosenConnector = await findByText(container, 'tesa 1')
     expect(chosenConnector).toBeDefined()

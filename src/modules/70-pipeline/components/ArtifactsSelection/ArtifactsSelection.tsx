@@ -17,7 +17,6 @@ import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import CreateDockerConnector from '@pipeline/components/connectors/DockerConnector/CreateDockerConnector'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
@@ -375,13 +374,6 @@ export default function ArtifactsSelection({
     [view, context]
   )
 
-  const isValidScopeValue = (value: string): number => {
-    if (value) {
-      return value.indexOf(Scope.ACCOUNT) && value.indexOf(Scope.PROJECT) && value.indexOf(Scope.ORG)
-    }
-    return 0
-  }
-
   const getInitialValues = (
     primaryArtifactParam: {
       spec: { connectorRef: string; imagePath: string; tag: string; tagRegex: string }
@@ -406,14 +398,7 @@ export default function ArtifactsSelection({
     }
     const initialValues = {
       identifier: sideCarArtifactParam[sidecarIndex]?.sidecar.identifier,
-      connectorId:
-        isValidScopeValue(spec?.connectorRef) === 0
-          ? {
-              label: spec?.connectorRef?.split('.')[1],
-              scope: spec?.connectorRef?.split('.')[0],
-              value: spec?.connectorRef
-            }
-          : spec?.connectorRef,
+      connectorId: spec?.connectorRef,
       imagePath: spec.imagePath,
       tagType: spec.tag ? TagTypes.Value : TagTypes.Regex,
       tag: spec.tag,

@@ -23,7 +23,6 @@ import { get, set } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { getStageFromPipeline } from '@pipeline/exports'
 import { PipelineContext } from '@pipeline/exports'
 import CreateGitConnector from '@pipeline/components/connectors/GitConnector/CreateGitConnector'
@@ -271,24 +270,13 @@ function ManifestListView({
     showEditConnectorModal()
   }
 
-  const isValidScopeValue = (value: string): number => {
-    return value.indexOf(Scope.ACCOUNT) && value.indexOf(Scope.PROJECT) && value.indexOf(Scope.ORG)
-  }
-
   const getManifestInitialValues = () => {
     const initValues = get(selectedManifestReference, 'spec.store.spec', null)
     initValues.connectorRef = initValues?.connectorRef || initValues?.connectorIdentifier
     if (initValues) {
       const values = {
         ...initValues,
-        connectorRef:
-          isValidScopeValue(initValues?.connectorRef || initValues?.connectorIdentifier) === 0
-            ? {
-                label: initValues?.connectorRef?.split('.')[1],
-                scope: initValues?.connectorRef?.split('.')[0],
-                value: initValues?.connectorRef
-              }
-            : initValues?.connectorRef,
+        connectorRef: initValues?.connectorRef,
         paths:
           typeof initValues['paths'] === 'string'
             ? initValues['paths']

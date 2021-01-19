@@ -1,6 +1,15 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
-import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uicore'
+import {
+  Layout,
+  Icon,
+  Color,
+  Button,
+  Tag,
+  Text,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import {
   Failure,
@@ -10,9 +19,14 @@ import {
   GetConnectorListQueryParams,
   ConnectorResponse,
   getConnectorListV2Promise,
-  ConnectorFilterProperties
+  ConnectorFilterProperties,
+  useGetConnector
 } from 'services/cd-ng'
-import { EntityReferenceResponse, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import {
+  EntityReferenceResponse,
+  getIdentifierFromValue,
+  getScopeFromValue
+} from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from '@connectors/exports'
 import useCreateConnectorModal, {
   UseCreateConnectorModalReturn
@@ -48,20 +62,20 @@ const getAdditionalParams = ({
 
   return additionalParams
 }
-
+interface ConnectorSelectedValue {
+  label: string
+  value: string
+  scope: Scope
+  live: boolean
+  connector: ConnectorInfoDTO
+}
 export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
   accountIdentifier: string
   name: string
   placeholder: string
   label: string | React.ReactElement
   projectIdentifier?: string
-  selected?: {
-    label: string
-    value: string
-    scope: Scope
-    live: boolean
-    connector: ConnectorInfoDTO
-  }
+  selected?: ConnectorSelectedValue | string
   onChange?: (connector: ConnectorReferenceDTO, scope: Scope) => void
   orgIdentifier?: string
   defaultScope?: Scope
@@ -75,7 +89,7 @@ interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
 }
 export function getEditRenderer(
-  selected: ConnectorReferenceFieldProps['selected'],
+  selected: ConnectorSelectedValue,
   openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal'],
   type: ConnectorInfoDTO['type']
 ): JSX.Element {
@@ -101,7 +115,7 @@ export function getEditRenderer(
     </Layout.Horizontal>
   )
 }
-export function getSelectedRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
+export function getSelectedRenderer(selected: ConnectorSelectedValue): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
       <Text>{selected?.label}</Text>
@@ -143,7 +157,7 @@ export function getReferenceFieldProps({
   return {
     name,
     width,
-    selected,
+    selected: selected as ConnectorSelectedValue,
     placeholder,
     defaultScope,
     createNewLabel: getString('newConnector'),
@@ -264,11 +278,69 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     }
   })
 
+  const [selectedValue, setSelectedValue] = React.useState(selected)
+
+  const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
+  const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
+  const { data: connectorData, loading, refetch } = useGetConnector({
+    identifier: selectedRef as string,
+    queryParams: {
+      accountIdentifier,
+      orgIdentifier: scopeFromSelected === Scope.ORG || scopeFromSelected === Scope.PROJECT ? orgIdentifier : undefined,
+      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (
+      typeof selected == 'string' &&
+      getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
+      selected.length > 0
+    ) {
+      refetch()
+    } else {
+      setSelectedValue(selected)
+    }
+  }, [selected])
+
+  React.useEffect(() => {
+    if (
+      typeof selected === 'string' &&
+      getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
+      connectorData &&
+      connectorData?.data?.connector?.name &&
+      !loading
+    ) {
+      const scope = getScopeFromValue(selected || '')
+      const value = {
+        label: connectorData?.data?.connector?.name,
+        value:
+          scope === Scope.ORG || scope === Scope.ACCOUNT
+            ? `${scope}.${connectorData?.data?.connector?.identifier}`
+            : connectorData?.data?.connector?.identifier,
+        scope: scope,
+        live: connectorData?.data?.status?.status === 'SUCCESS',
+        connector: connectorData?.data?.connector
+      }
+      setSelectedValue(value)
+    }
+  }, [
+    connectorData?.data?.connector?.name,
+    loading,
+    selected,
+    defaultScope,
+    connectorData,
+    connectorData?.data?.connector?.identifier,
+    connectorData?.data?.status?.status,
+    name
+  ])
+
   const helperText = error ? error : undefined
   const intent = error ? Intent.DANGER : Intent.NONE
-
   const { getString } = useStrings()
 
+  const placeHolderLocal = loading ? getString('loading') : placeholder
   const optionalReferenceSelectProps: Pick<
     ReferenceSelectProps<ConnectorConfigDTO>,
     'createNewHandler' | 'editRenderer'
@@ -282,17 +354,17 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
   }
 
   // TODO: Add support for multi type connectors
-  if (typeof type === 'string') {
+  if (typeof type === 'string' && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
-      selected,
+      selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      selected?.connector?.type || type
+      (selectedValue as ConnectorSelectedValue)?.connector?.type || type
     )
-  } else if (Array.isArray(type)) {
+  } else if (Array.isArray(type) && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
-      selected,
+      selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      selected?.connector?.type || type[0]
+      (selectedValue as ConnectorSelectedValue)?.connector?.type || type[0]
     )
   }
 
@@ -309,17 +381,17 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           orgIdentifier,
           type,
           name,
-          selected,
+          selected: selectedValue,
           width,
-          placeholder,
+          placeholder: placeHolderLocal,
           label,
           getString,
           category,
           openConnectorModal
         })}
-        selectedRenderer={getSelectedRenderer(selected)}
+        selectedRenderer={getSelectedRenderer(selectedValue as ConnectorSelectedValue)}
         {...optionalReferenceSelectProps}
-        disabled={disabled}
+        disabled={disabled || loading}
       />
     </FormGroup>
   )

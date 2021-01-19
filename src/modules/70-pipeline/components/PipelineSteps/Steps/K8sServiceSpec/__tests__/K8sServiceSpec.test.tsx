@@ -2,11 +2,12 @@ import React from 'react'
 import { render, fireEvent, findByText, waitFor, getAllByText, findAllByText } from '@testing-library/react'
 
 import { act } from 'react-test-renderer'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, UseGetReturnData } from '@common/utils/testUtils'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { KubernetesServiceSpec, K8SDirectServiceStep } from '../K8sServiceSpec'
 import PipelineMock from './mock.json'
 import TemplateMock from './template.mock.json'
@@ -16,9 +17,38 @@ import { PipelineResponse } from './pipelineMock'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-
+export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      connector: {
+        name: 'connectorRef',
+        identifier: 'connectorRef',
+        description: '',
+        tags: {},
+        type: 'K8sCluster',
+        spec: {
+          credential: {
+            type: 'ManualConfig',
+            spec: {
+              masterUrl: 'asd',
+              auth: { type: 'UsernamePassword', spec: { username: 'asd', passwordRef: 'account.test1111' } }
+            }
+          }
+        }
+      },
+      createdAt: 1602062958274,
+      lastModifiedAt: 1602062958274
+    },
+    correlationId: 'e1841cfc-9ed5-4f7c-a87b-c9be1eeaae34'
+  }
+}
 jest.mock('services/cd-ng', () => ({
   getConnectorListPromise: () => Promise.resolve(connectorListJSON),
+  useGetConnector: jest.fn(() => ConnectorResponse),
   useCreateConnector: jest.fn(() =>
     Promise.resolve({
       status: 'SUCCESS',
@@ -207,7 +237,7 @@ describe('StepWidget tests', () => {
     expect(k8sButton).toBeDefined()
     fireEvent.click(k8sButton)
     await waitFor(() => findByText(portal as HTMLElement, 'GIT Server'))
-    const serverInput = await findByText(portal as HTMLElement, 'Select GIT Server')
+    const serverInput = await findByText(portal as HTMLElement, 'connectorRef')
     fireEvent.click(serverInput)
     await waitFor(() => findByText(document.body, 'Account'))
 
@@ -244,7 +274,7 @@ describe('StepWidget tests', () => {
     fireEvent.click(dockerButton)
     await waitFor(() => expect(document.querySelector("label[for='connectorId']")).toBeDefined())
 
-    const connectButton = await findByText(document.body, 'Select')
+    const connectButton = await findByText(document.body, 'connectorRef')
     expect(connectButton).toBeDefined()
     fireEvent.click(connectButton)
 

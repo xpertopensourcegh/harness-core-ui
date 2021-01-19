@@ -12,7 +12,7 @@ import {
   MultiTypeInputType
 } from '@wings-software/uicore'
 import { Position, Classes } from '@blueprintjs/core'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import type { Scope } from '@common/interfaces/SecretsInterface'
 import { EntityReferenceProps, EntityReference } from '../EntityReference/EntityReference'
 import css from './ReferenceSelect.module.scss'
 
@@ -121,15 +121,7 @@ function MultiTypeReferenceInputFixedTypeComponent<T extends MinimalObject>(
       selected={selected}
       width={width - 28}
       onChange={(record, scope) => {
-        onChange?.(
-          {
-            label: record.name,
-            value: scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier,
-            scope
-          } as any,
-          MultiTypeInputValue.SELECT_OPTION,
-          MultiTypeInputType.FIXED
-        )
+        onChange?.({ record, scope } as any, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
       }}
     />
   )
