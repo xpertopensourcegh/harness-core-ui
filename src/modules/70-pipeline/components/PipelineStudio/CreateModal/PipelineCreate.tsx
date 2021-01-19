@@ -14,9 +14,10 @@ import {
 import * as Yup from 'yup'
 import isEmpty from 'lodash-es/isEmpty'
 import { useParams } from 'react-router-dom'
-import { loggerFor, ModuleName } from 'framework/exports'
+import { loggerFor, ModuleName, useStrings } from 'framework/exports'
 import type { NgPipeline } from 'services/cd-ng'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { StringUtils } from '@common/exports'
 import i18n from './PipelineCreate.i18n'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import image1 from './images/first.png'
@@ -51,6 +52,8 @@ export default function CreatePipelines({
   closeModal
 }: PipelineCreateProps): JSX.Element {
   const { module, pipelineIdentifier } = useParams<PipelineType<{ module: string; pipelineIdentifier: string }>>()
+  const { getString } = useStrings()
+
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
     initialValues.identifier = ''
@@ -68,7 +71,15 @@ export default function CreatePipelines({
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(i18n.pipelineNameRequired)
+              name: Yup.string().trim().required(i18n.pipelineNameRequired),
+              identifier: Yup.string().when('name', {
+                is: val => val?.length,
+                then: Yup.string()
+                  .trim()
+                  .required(getString('validation.identifierRequired'))
+                  .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+                  .notOneOf(StringUtils.illegalIdentifiers)
+              })
             })}
             onSubmit={values => {
               logger.info(JSON.stringify(values))
