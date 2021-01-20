@@ -454,17 +454,14 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   }, [tagOpts, availableTargets])
 
   const avatars = editing ? targetAvatars.concat([addTargetAvatar(openEditModal)]) : targetAvatars
+  const selectValue = variationOps.find(v => v.value === variation)
 
   const component = (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
       <Text>{i18n.serveVariation.serve}</Text>
       <div style={{ maxWidth: '210px', margin: '0px 10px' }}>
         {editing ? (
-          <Select
-            value={toOption(variation)}
-            items={variationOps}
-            onChange={compose(onChangeVariation, prop('value'))}
-          />
+          <Select value={selectValue} items={variationOps} onChange={compose(onChangeVariation, prop('value'))} />
         ) : (
           <Text>{variation}</Text>
         )}
@@ -510,7 +507,10 @@ const ServingCard: React.FC<ServingCardProps> = ({
   onUpdate,
   onRemove
 }) => {
-  const [variationOps] = useOptions(variations, x => x.identifier)
+  const variationOps = variations.map(variation => ({
+    label: variation.name || variation.identifier,
+    value: variation.identifier
+  }))
 
   const handleUpdate = (idx: number, attr: 'targets' | 'variation') => (data: any) => onUpdate(idx, attr, data)
 

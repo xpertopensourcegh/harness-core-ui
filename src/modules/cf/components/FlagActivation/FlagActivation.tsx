@@ -30,7 +30,7 @@ interface FlagActivationProps {
   project: string
   environments: SelectOption[]
   environment: SelectOption | null
-  flagData: Feature | undefined
+  flagData: Feature
   isBooleanFlag: boolean
   onEnvChange: any
   refetchFlag: any
@@ -63,13 +63,12 @@ export enum envActivation {
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
   const { flagData, project, environments, environment, isBooleanFlag, refetchFlag } = props
-
-  const [editEnvActivation, seteditEnvActivation] = useState<FeatureState | undefined>(flagData?.envProperties?.state)
+  const [editEnvActivation, seteditEnvActivation] = useState<FeatureState | undefined>(flagData.envProperties?.state)
   const [editing, setEditing] = useState(false)
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const dirty = editEnvActivation !== flagData?.envProperties?.state
+  const dirty = editEnvActivation !== flagData.envProperties?.state
   const { mutate: patchFeature } = usePatchFeature({
-    identifier: flagData?.identifier as string,
+    identifier: flagData.identifier as string,
     queryParams: {
       project: project as string,
       environment: environment?.value as string,
@@ -77,6 +76,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       org: orgIdentifier
     }
   })
+
+  useEffect(() => {
+    seteditEnvActivation(flagData.envProperties?.state)
+  }, [flagData.envProperties?.state])
 
   const toggleFlag = () => {
     seteditEnvActivation(
@@ -98,16 +101,16 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   }
 
   const initialValues: Values = {
-    state: flagData?.envProperties?.state as string,
-    onVariation: flagData?.envProperties?.defaultServe.variation
-      ? flagData?.envProperties?.defaultServe.variation
-      : flagData?.envProperties?.defaultServe.distribution
+    state: flagData.envProperties?.state as string,
+    onVariation: flagData.envProperties?.defaultServe.variation
+      ? flagData.envProperties?.defaultServe.variation
+      : flagData.envProperties?.defaultServe.distribution
       ? 'percentage'
-      : flagData?.defaultOnVariation,
-    offVariation: flagData?.envProperties?.offVariation as string,
-    defaultServe: flagData?.envProperties?.defaultServe as Serve,
-    customRules: flagData?.envProperties?.rules ?? [],
-    variationMap: flagData?.envProperties?.variationMap ?? []
+      : flagData.defaultOnVariation,
+    offVariation: flagData.envProperties?.offVariation as string,
+    defaultServe: flagData.envProperties?.defaultServe as Serve,
+    customRules: flagData.envProperties?.rules ?? [],
+    variationMap: flagData.envProperties?.variationMap ?? []
   }
 
   const onSaveChanges = (values: Values): void => {
@@ -210,6 +213,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
           .then(() => {
             patch.feature.reset()
             refetchFlag()
+            setEditing(false)
           })
           .catch(() => {
             patch.feature.reset()

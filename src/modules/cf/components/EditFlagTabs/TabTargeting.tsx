@@ -139,6 +139,13 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
     setPercentageView(formikProps.values.onVariation === 'percentage')
   }, [formikProps.values.onVariation])
 
+  const onLabel =
+    variations.find(variation => formikProps.values.onVariation === variation.identifier)?.name ||
+    formikProps.values.onVariation
+  const offLabel =
+    variations.find(variation => formikProps.values.offVariation === variation.identifier)?.name ||
+    formikProps.values.offVariation
+
   return (
     <>
       <Text
@@ -166,7 +173,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
                 onChange={onDefaultONChange}
               />
             ) : (
-              <Text className={cx(css.textBlack)}>{formikProps.values.onVariation}</Text>
+              <Text className={cx(css.textBlack)}>{onLabel}</Text>
             )}
 
             {percentageView && (
@@ -188,7 +195,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({
           {editing ? (
             <FormInput.Select name="offVariation" items={variationItems} onChange={formikProps.handleChange} />
           ) : (
-            <Text className={cx(css.textBlack)}>{formikProps.values.offVariation}</Text>
+            <Text className={cx(css.textBlack)}>{offLabel}</Text>
           )}
         </Layout.Horizontal>
       </Container>

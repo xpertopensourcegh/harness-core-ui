@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
+import * as yup from 'yup'
 import {
   Color,
   Formik,
@@ -15,7 +16,6 @@ import {
 } from '@wings-software/uicore'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
-import InputDescOptional from './common/InputDescOptional'
 import i18n from './FlagWizard.i18n'
 import css from './FlagElemVariations.module.scss'
 
@@ -29,14 +29,10 @@ interface FlagElemVariationsProps {
   isLoadingCreateFeatureFlag: boolean
 }
 
-interface FeatureErrors {
-  defaultOnVariation?: 'Required'
-  defaultOffVariation?: 'Required'
-}
-const ON = 'On'
-const OFF = 'Off'
 const TRUE = 'true'
 const FALSE = 'false'
+const True = 'True'
+const False = 'False'
 
 // FIXME: Change any for StepProps
 const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
@@ -56,8 +52,19 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     toggleFlagType(newFlagTypeVal)
   }
 
-  const selectValueTrue = { label: ON, value: TRUE }
-  const selectValueFalse = { label: OFF, value: FALSE }
+  const [trueFlagOption, setTrueFlagOption] = useState(True)
+  const [falseFlagOption, setFalseFlagOption] = useState(False)
+
+  const onTrueFlagChange = (valInput: string): void => {
+    setTrueFlagOption(valInput)
+  }
+
+  const onFalseFlagChange = (valInput: string): void => {
+    setFalseFlagOption(valInput)
+  }
+
+  const selectValueTrue = { label: trueFlagOption, value: TRUE }
+  const selectValueFalse = { label: falseFlagOption, value: FALSE }
 
   const flagBooleanRules = [selectValueTrue, selectValueFalse]
 
@@ -65,136 +72,134 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     previousStep?.({ ...prevStepData })
   }
 
-  // TODO: WIP; possible solution is to use yup.addMethod
-  const validateForm = (values: any): any => {
-    const errors: FeatureErrors = {}
-
-    if (values.defaultOnVariation.length === 0) {
-      errors.defaultOnVariation = 'Required'
-    }
-    if (values.defaultOffVariation.length === 0) {
-      errors.defaultOffVariation = 'Required'
-    }
-
-    return errors
-  }
-
   return (
-    <>
-      <Formik
-        initialValues={{
-          kind: FlagTypeVariations.booleanFlag,
-          variations: [
-            { identifier: TRUE, name: ON, description: '', value: TRUE },
-            { identifier: FALSE, name: OFF, description: '', value: FALSE }
-          ],
-          defaultOnVariation: TRUE,
-          defaultOffVariation: FALSE,
-          ...prevStepData
-        }}
-        // TODO: WIP
-        validate={validateForm}
-        onSubmit={vals => {
-          const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
-          onWizardStepSubmit(data)
-        }}
-      >
-        {() => (
-          <Form>
-            <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
-              <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
-                <ModalErrorHandler bind={setModalErrorHandler} />
-                <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
-                  {i18n.varSettingsFlag.variationSettingsHeading}
-                </Text>
-                <Layout.Vertical>
-                  <FormInput.Select
-                    name="kind"
-                    label={i18n.varSettingsFlag.flagType}
-                    items={flagTypeOptions}
-                    onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
-                    className={css.inputSelectFlagType}
+    <Formik
+      initialValues={{
+        kind: FlagTypeVariations.booleanFlag,
+        variations: [
+          { identifier: TRUE, name: True, value: TRUE },
+          { identifier: FALSE, name: False, value: FALSE }
+        ],
+        defaultOnVariation: TRUE,
+        defaultOffVariation: FALSE,
+        ...prevStepData
+      }}
+      validationSchema={yup.object().shape({
+        variations: yup.array().of(
+          yup.object().shape({
+            name: yup.string().trim().required(i18n.nameIsRequired)
+          })
+        )
+      })}
+      onSubmit={vals => {
+        const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
+        onWizardStepSubmit(data)
+      }}
+    >
+      {() => (
+        <Form>
+          <Container
+            flex
+            height="100%"
+            style={{ flexDirection: 'column', alignItems: 'baseline' }}
+            className={css.booleanForm}
+          >
+            <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
+                {i18n.varSettingsFlag.variationSettingsHeading}
+              </Text>
+              <Layout.Vertical>
+                <FormInput.Select
+                  name="kind"
+                  label={i18n.varSettingsFlag.flagType}
+                  items={flagTypeOptions}
+                  onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
+                  className={css.inputSelectFlagType}
+                />
+                <Layout.Horizontal spacing="small">
+                  <FormInput.Text
+                    name="variations[0].value"
+                    label={i18n.variation1}
+                    disabled
+                    className={css.disabledInput}
                   />
-                  <Layout.Horizontal>
-                    <Container width="35%" margin={{ right: 'medium' }}>
-                      <FormInput.Text disabled name="variations[0].name" label={i18n.trueFlag} />
-                    </Container>
-                    <Container width="65%" className={css.collapseContainer}>
-                      <InputDescOptional
-                        text={i18n.descOptional}
-                        inputName="variations[0].description"
-                        inputPlaceholder={''}
-                      />
-                    </Container>
-                  </Layout.Horizontal>
-                  <Layout.Horizontal>
-                    <Container width="35%" margin={{ right: 'medium' }}>
-                      <FormInput.Text disabled name="variations[1].name" label={i18n.falseFlag} />
-                    </Container>
-                    <Container width="65%" className={css.collapseContainer}>
-                      <InputDescOptional
-                        text={i18n.descOptional}
-                        inputName="variations[1].description"
-                        inputPlaceholder={''}
-                      />
-                    </Container>
-                  </Layout.Horizontal>
-                  {/* TODO: WIP */}
-                  {/* {formikProps.errors.variations ? <Text intent="danger">{formikProps.errors.variations}</Text> : null} */}
+                  <FormInput.Text
+                    name="variations[0].name"
+                    label={i18n.name}
+                    onChange={e => {
+                      onTrueFlagChange((e.currentTarget as HTMLInputElement).value)
+                    }}
+                  />
+                </Layout.Horizontal>
+                <Layout.Horizontal spacing="small">
+                  <FormInput.Text
+                    name="variations[1].value"
+                    label={i18n.variation2}
+                    disabled
+                    className={css.disabledInput}
+                  />
+                  <FormInput.Text
+                    name="variations[1].name"
+                    label={i18n.name}
+                    onChange={e => {
+                      onFalseFlagChange((e.currentTarget as HTMLInputElement).value)
+                    }}
+                  />
+                </Layout.Horizontal>
 
-                  <Container margin={{ bottom: 'xlarge' }}>
-                    <Text color={Color.BLACK} inline>
-                      {i18n.varSettingsFlag.defaultRules}
-                    </Text>
+                <Container margin={{ bottom: 'xlarge' }}>
+                  <Text color={Color.BLACK} margin={{ top: 'medium' }}>
+                    {i18n.varSettingsFlag.defaultRules}
+                  </Text>
 
-                    <Layout.Vertical margin={{ top: 'medium' }}>
-                      <Container>
-                        <Layout.Horizontal>
-                          <Text width="25%" className={css.serveTextAlign}>
-                            {i18n.varSettingsFlag.flagOn}
-                          </Text>
-                          <FormInput.Select name="defaultOnVariation" items={flagBooleanRules} />
-                        </Layout.Horizontal>
-                      </Container>
-                      <Container>
-                        <Layout.Horizontal>
-                          <Text width="25%" className={css.serveTextAlign}>
-                            {i18n.varSettingsFlag.flagOff}
-                          </Text>
-                          <FormInput.Select name="defaultOffVariation" items={flagBooleanRules} />
-                        </Layout.Horizontal>
-                      </Container>
-                    </Layout.Vertical>
-                  </Container>
-                </Layout.Vertical>
-              </Container>
-
-              <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
-                <Button text={i18n.back} onClick={onClickBack} />
-                <Button
-                  type="submit"
-                  intent="primary"
-                  text={i18n.varSettingsFlag.saveAndClose}
-                  disabled={isLoadingCreateFeatureFlag}
-                  loading={isLoadingCreateFeatureFlag}
-                />
-                <FlexExpander />
-                <Button
-                  type="button"
-                  text={i18n.varSettingsFlag.testFlagOption}
-                  rightIcon="chevron-right"
-                  minimal
-                  className={css.testFfBtn}
-                  onClick={() => {
-                    nextStep?.({ ...prevStepData })
-                  }}
-                />
-              </Layout.Horizontal>
+                  <Layout.Vertical margin={{ top: 'medium' }}>
+                    <Container>
+                      <Layout.Horizontal>
+                        <Text width="25%" className={css.serveTextAlign}>
+                          {i18n.varSettingsFlag.flagOn}
+                        </Text>
+                        <FormInput.Select name="defaultOnVariation" items={flagBooleanRules} />
+                      </Layout.Horizontal>
+                    </Container>
+                    <Container>
+                      <Layout.Horizontal>
+                        <Text width="25%" className={css.serveTextAlign}>
+                          {i18n.varSettingsFlag.flagOff}
+                        </Text>
+                        <FormInput.Select name="defaultOffVariation" items={flagBooleanRules} />
+                      </Layout.Horizontal>
+                    </Container>
+                  </Layout.Vertical>
+                </Container>
+              </Layout.Vertical>
             </Container>
-          </Form>
-        )}
-      </Formik>
-    </>
+
+            <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
+              <Button text={i18n.back} onClick={onClickBack} />
+              <Button
+                type="submit"
+                intent="primary"
+                text={i18n.varSettingsFlag.saveAndClose}
+                disabled={isLoadingCreateFeatureFlag}
+                loading={isLoadingCreateFeatureFlag}
+              />
+              <FlexExpander />
+              <Button
+                type="button"
+                text={i18n.varSettingsFlag.testFlagOption}
+                rightIcon="chevron-right"
+                minimal
+                className={css.testFfBtn}
+                onClick={() => {
+                  nextStep?.({ ...prevStepData })
+                }}
+              />
+            </Layout.Horizontal>
+          </Container>
+        </Form>
+      )}
+    </Formik>
   )
 }
 

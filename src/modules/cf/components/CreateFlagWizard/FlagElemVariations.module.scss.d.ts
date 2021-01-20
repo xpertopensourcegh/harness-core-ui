@@ -9,5 +9,7 @@ declare const styles: {
   readonly testFfBtn: string
   readonly serveTextAlign: string
   readonly tooltipMultiFlag: string
+  readonly booleanForm: string
+  readonly disabledInput: string
 }
 export default styles

@@ -1,4 +1,5 @@
 import React, { useState, Dispatch, SetStateAction, useCallback } from 'react'
+import * as yup from 'yup'
 import {
   Color,
   Formik,
@@ -17,7 +18,6 @@ import {
 import { FieldArray } from 'formik'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
-import InputDescOptional from './common/InputDescOptional'
 import i18n from './FlagWizard.i18n'
 
 import css from './FlagElemVariations.module.scss'
@@ -59,8 +59,8 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
   } = props
 
   const [flagMultiRules, setFlagMultiRules] = useState<FlagMultivariateSelectOptions[]>([
-    { id: 'variations.0.identifier', label: 'Variation 1', value: '1' },
-    { id: 'variations.1.identifier', label: 'Variation 2', value: '2' }
+    { id: 'variation1', label: 'Variation 1', value: 'variation1' },
+    { id: 'variation2', label: 'Variation 2', value: 'variation2' }
   ])
 
   const handleNewFlagType = (newFlagTypeVal: string): void => {
@@ -75,26 +75,13 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
    * we are putting dummy values because of weird key render bug
    */
   const addNewFlagMultiRules = (): void => {
-    const copiedMultiFlagRules = [...flagMultiRules]
-    const multiRulesLength = copiedMultiFlagRules.length
+    const len = flagMultiRules.length + 1
     const newFlagMultivariateOption = {
-      id: `variations.${multiRulesLength}.identifier`,
-      label: `Variation ${multiRulesLength + 1}`,
-      value: `${multiRulesLength + 1}`
+      id: `variation${len}`,
+      label: `Variation ${len}`,
+      value: `variation${len}`
     }
     setFlagMultiRules(prevState => [...prevState, newFlagMultivariateOption])
-  }
-
-  const onDefaultMultiChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const targetElem = e.target
-    const copiedMultiFlagRules = [...flagMultiRules]
-    const newItemsMultiFlagRules = copiedMultiFlagRules.map(elem => {
-      if (elem.id === targetElem.name) {
-        return { ...elem, value: targetElem.value, label: targetElem.value }
-      }
-      return elem
-    })
-    setFlagMultiRules(newItemsMultiFlagRules)
   }
 
   const onClickBack = (): void => {
@@ -113,155 +100,172 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
   }, [])
 
   return (
-    <>
-      <Formik
-        initialValues={{
-          kind: FlagTypeVariationsSelect.string,
-          variations: [
-            { identifier: '', name: '', description: '', value: '' },
-            { identifier: '', name: '', description: '', value: '' }
-          ],
-          defaultOnVariation: '',
-          defaultOffVariation: '',
-          ...prevStepData
-        }}
-        onSubmit={vals => {
-          const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
-          onWizardStepSubmit(data)
-        }}
-      >
-        {formikProps => (
-          <Form>
-            <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
-              <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
-                <ModalErrorHandler bind={setModalErrorHandler} />
-                <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
-                  {i18n.varSettingsFlag.variationSettingsHeading}
-                </Text>
-                <Layout.Vertical>
-                  <Layout.Horizontal>
-                    <FormInput.Select
-                      name="kind"
-                      label={i18n.varSettingsFlag.flagType}
-                      items={flagTypeOptions}
-                      onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
-                      style={{ width: '35%' }}
-                    />
-                    <Select
-                      value={kindToSelectValue(formikProps.values.kind)}
-                      items={flagVariationOptions}
-                      className={css.spacingSelectVariation}
-                      onChange={kindVariation => {
-                        formikProps.setFieldValue('kind', kindVariation.value)
-                      }}
-                    />
-                  </Layout.Horizontal>
+    <Formik
+      initialValues={{
+        kind: FlagTypeVariationsSelect.string,
+        variations: [
+          { identifier: '', name: '', value: '' },
+          { identifier: '', name: '', value: '' }
+        ],
+        defaultOnVariation: '',
+        defaultOffVariation: '',
+        ...prevStepData
+      }}
+      validationSchema={yup.object().shape({
+        variations: yup.array().of(
+          yup.object().shape({
+            name: yup.string().trim().required(i18n.nameIsRequired),
+            identifier: yup.string().trim().required(i18n.variationIsRequired)
+          })
+        ),
+        defaultOnVariation: yup.string().trim().required(i18n.defaultVariationIsRequired),
+        defaultOffVariation: yup.string().trim().required(i18n.defaultVariationIsRequired)
+      })}
+      onSubmit={vals => {
+        const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
+        onWizardStepSubmit(data)
+      }}
+    >
+      {formikProps => (
+        <Form>
+          <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
+            <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%">
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <Text style={{ fontSize: '18px', color: Color.GREY_700 }} margin={{ bottom: 'xlarge' }}>
+                {i18n.varSettingsFlag.variationSettingsHeading}
+              </Text>
+              <Layout.Vertical>
+                <Layout.Horizontal>
+                  <FormInput.Select
+                    name="kind"
+                    label={i18n.varSettingsFlag.flagType}
+                    items={flagTypeOptions}
+                    onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
+                    style={{ width: '45%' }}
+                  />
+                  <Select
+                    value={kindToSelectValue(formikProps.values.kind)}
+                    items={flagVariationOptions}
+                    className={css.spacingSelectVariation}
+                    onChange={kindVariation => {
+                      formikProps.setFieldValue('kind', kindVariation.value)
+                    }}
+                  />
+                </Layout.Horizontal>
 
-                  <Container>
-                    <FieldArray name="variations">
-                      {arrayProps => {
-                        return (
-                          <>
-                            {formikProps.values?.variations?.map((_: HTMLElement, index: number) => (
-                              <Layout.Horizontal key={`flagElem-${index}`}>
-                                <FormInput.Text
-                                  name={`variations.${index}.identifier`}
-                                  label={`${i18n.varSettingsFlag.variation} ${index + 1}`}
-                                  style={{ width: '35%' }}
-                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    onDefaultMultiChange(e)
-                                    formikProps.setFieldValue(`variations.${index}.value`, e.target.value)
-                                  }}
-                                />
-                                <FormInput.Text
-                                  name={`variations.${index}.name`}
-                                  label={i18n.nameOptional}
-                                  placeholder={i18n.name}
-                                  className={css.spacingElemVariation}
-                                />
-                                <InputDescOptional
-                                  text={i18n.descOptional}
-                                  inputName={`variations.${index}.description`}
-                                  inputPlaceholder={i18n.varSettingsFlag.descVariationsPlaceholder}
-                                />
-                              </Layout.Horizontal>
-                            ))}
-                            <Button
-                              minimal
-                              intent="primary"
-                              icon="small-plus"
-                              text={i18n.varSettingsFlag.variation}
-                              margin={{ bottom: 'large' }}
-                              style={{ paddingLeft: 0 }}
-                              onClick={() => {
-                                arrayProps.push({ identifier: '', name: '', description: '', value: '' })
-                                addNewFlagMultiRules()
-                              }}
-                            />
-                          </>
-                        )
-                      }}
-                    </FieldArray>
-                  </Container>
+                <Container>
+                  <FieldArray name="variations">
+                    {arrayProps => {
+                      return (
+                        <>
+                          {formikProps.values?.variations?.map((_: HTMLElement, index: number) => (
+                            <Layout.Horizontal key={`flagElem-${index}`}>
+                              <FormInput.Text
+                                name={`variations.${index}.identifier`}
+                                label={`${i18n.varSettingsFlag.variation} ${index + 1}`}
+                                style={{ width: '45%' }}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                  const { value } = e.target
+                                  const cloneRules = [...flagMultiRules]
 
-                  <Container margin={{ bottom: 'large' }}>
-                    <Text
-                      color={Color.BLACK}
-                      inline
-                      tooltip={i18n.varSettingsFlag.defaultRulesTooltip}
-                      rightIconProps={{ size: 10, color: Color.BLUE_500 }}
-                      rightIcon="info-sign"
-                    >
-                      {i18n.varSettingsFlag.defaultRules}
-                    </Text>
-                    <Layout.Vertical margin={{ top: 'medium' }}>
-                      <Container>
-                        <Layout.Horizontal>
-                          <Text width="150px" className={css.serveTextAlign}>
-                            {i18n.varSettingsFlag.flagOn}
-                          </Text>
-                          <FormInput.Select name="defaultOnVariation" items={flagMultiRules} />
-                        </Layout.Horizontal>
-                      </Container>
-                      <Container>
-                        <Layout.Horizontal>
-                          <Text width="150px" className={css.serveTextAlign}>
-                            {i18n.varSettingsFlag.flagOff}
-                          </Text>
-                          <FormInput.Select name="defaultOffVariation" items={flagMultiRules} />
-                        </Layout.Horizontal>
-                      </Container>
-                    </Layout.Vertical>
-                  </Container>
-                </Layout.Vertical>
-              </Container>
+                                  formikProps.setFieldValue(`variations.${index}.value`, value)
+                                  cloneRules[index].id = cloneRules[index].value = value
 
-              <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
-                <Button text={i18n.back} onClick={onClickBack} />
-                <Button
-                  type="submit"
-                  intent="primary"
-                  text={i18n.varSettingsFlag.saveAndClose}
-                  disabled={isLoadingCreateFeatureFlag}
-                  loading={isLoadingCreateFeatureFlag}
-                />
-                <FlexExpander />
-                <Button
-                  type="submit"
-                  text={i18n.varSettingsFlag.testFlagOption}
-                  onClick={() => {
-                    nextStep?.({ ...prevStepData })
-                  }}
-                  rightIcon="chevron-right"
-                  minimal
-                  className={css.testFfBtn}
-                />
-              </Layout.Horizontal>
+                                  if (!formikProps.values?.variations?.[index]?.name) {
+                                    cloneRules[index].label = value
+                                  }
+                                }}
+                              />
+                              <FormInput.Text
+                                name={`variations.${index}.name`}
+                                style={{ width: '45%' }}
+                                label={i18n.name}
+                                placeholder={i18n.namePlaceholder}
+                                className={css.spacingElemVariation}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                  const cloneRules = [...flagMultiRules]
+
+                                  cloneRules[index].label = e.target.value
+                                  setFlagMultiRules(cloneRules)
+                                }}
+                              />
+                            </Layout.Horizontal>
+                          ))}
+                          <Button
+                            minimal
+                            intent="primary"
+                            icon="small-plus"
+                            text={i18n.varSettingsFlag.variation}
+                            margin={{ bottom: 'large' }}
+                            style={{ paddingLeft: 0 }}
+                            onClick={() => {
+                              arrayProps.push({ identifier: '', name: '', value: '' })
+                              addNewFlagMultiRules()
+                            }}
+                          />
+                        </>
+                      )
+                    }}
+                  </FieldArray>
+                </Container>
+
+                <Container margin={{ bottom: 'large' }}>
+                  <Text
+                    color={Color.BLACK}
+                    inline
+                    tooltip={i18n.varSettingsFlag.defaultRulesTooltip}
+                    rightIconProps={{ size: 10, color: Color.BLUE_500 }}
+                    rightIcon="info-sign"
+                  >
+                    {i18n.varSettingsFlag.defaultRules}
+                  </Text>
+                  <Layout.Vertical margin={{ top: 'medium' }}>
+                    <Container>
+                      <Layout.Horizontal>
+                        <Text width="150px" className={css.serveTextAlign}>
+                          {i18n.varSettingsFlag.flagOn}
+                        </Text>
+                        <FormInput.Select name="defaultOnVariation" items={flagMultiRules} />
+                      </Layout.Horizontal>
+                    </Container>
+                    <Container>
+                      <Layout.Horizontal>
+                        <Text width="150px" className={css.serveTextAlign}>
+                          {i18n.varSettingsFlag.flagOff}
+                        </Text>
+                        <FormInput.Select name="defaultOffVariation" items={flagMultiRules} />
+                      </Layout.Horizontal>
+                    </Container>
+                  </Layout.Vertical>
+                </Container>
+              </Layout.Vertical>
             </Container>
-          </Form>
-        )}
-      </Formik>
-    </>
+
+            <Layout.Horizontal spacing="small" margin={{ top: 'large' }} width="100%">
+              <Button text={i18n.back} onClick={onClickBack} />
+              <Button
+                type="submit"
+                intent="primary"
+                text={i18n.varSettingsFlag.saveAndClose}
+                disabled={isLoadingCreateFeatureFlag}
+                loading={isLoadingCreateFeatureFlag}
+              />
+              <FlexExpander />
+              <Button
+                type="submit"
+                text={i18n.varSettingsFlag.testFlagOption}
+                onClick={() => {
+                  nextStep?.({ ...prevStepData })
+                }}
+                rightIcon="chevron-right"
+                minimal
+                className={css.testFfBtn}
+              />
+            </Layout.Horizontal>
+          </Container>
+        </Form>
+      )}
+    </Formik>
   )
 }
 

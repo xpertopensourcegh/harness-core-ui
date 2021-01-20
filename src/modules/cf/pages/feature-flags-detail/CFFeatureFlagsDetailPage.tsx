@@ -79,15 +79,17 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
       <Layout.Horizontal width="70%" height="100%">
         <Layout.Vertical width="100%">
-          <FlagActivation
-            refetchFlag={refetch}
-            project={projectIdentifier as string}
-            environments={environments}
-            environment={environmentOption}
-            flagData={featureFlag ?? undefined}
-            isBooleanFlag={featureFlag?.kind === 'boolean'}
-            onEnvChange={onEnvChange}
-          />
+          {featureFlag && (
+            <FlagActivation
+              refetchFlag={refetch}
+              project={projectIdentifier as string}
+              environments={environments}
+              environment={environmentOption}
+              flagData={featureFlag}
+              isBooleanFlag={featureFlag.kind === 'boolean'}
+              onEnvChange={onEnvChange}
+            />
+          )}
           {error && (
             <PageError
               message={get(error, 'data.message', error?.message)}
