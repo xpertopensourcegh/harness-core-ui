@@ -153,7 +153,7 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-gcp'
     case 'Gcr':
       return 'service-gcp'
-    case 'DOCKER':
+    case 'Dockerhub':
       return 'service-dockerhub'
     default:
       return 'placeholder'

@@ -46,10 +46,10 @@ enum TagTypes {
   Regex = 'regex'
 }
 const ENABLED_ARTIFACT_TYPES: { [key: string]: OrganizationCreationType } = {
-  DOCKER: { type: 'DOCKER' },
+  DOCKER: { type: 'Dockerhub' },
   GCR: { type: 'Gcr' }
 }
-export type CreationType = 'DOCKER' | 'Gcr'
+export type CreationType = 'Dockerhub' | 'Gcr'
 export interface OrganizationCreationType {
   type: CreationType
 }
