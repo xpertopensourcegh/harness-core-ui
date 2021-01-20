@@ -11,7 +11,7 @@ exports[`Text Reference render create mode 1`] = `
       <div>
         <div
           class="bp3-form-group"
-          data-id="fieldType-0"
+          data-id="usernamefieldType-0"
         >
           <div
             class="bp3-form-content"
@@ -25,7 +25,7 @@ exports[`Text Reference render create mode 1`] = `
                 <label />
                 <div
                   class="bp3-form-group labelSelect"
-                  data-id="fieldType-1"
+                  data-id="usernamefieldType-1"
                 >
                   <div
                     class="bp3-form-content"
@@ -42,7 +42,7 @@ exports[`Text Reference render create mode 1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="fieldType"
+                            name="usernamefieldType"
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
@@ -89,7 +89,7 @@ exports[`Text Reference render create mode 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="textField"
+                      name="usernametextField"
                       type="text"
                       value=""
                     />
@@ -116,7 +116,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
       <div>
         <div
           class="bp3-form-group"
-          data-id="fieldType-0"
+          data-id="usernamefieldType-0"
         >
           <div
             class="bp3-form-content"
@@ -130,7 +130,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
                 <label />
                 <div
                   class="bp3-form-group labelSelect"
-                  data-id="fieldType-1"
+                  data-id="usernamefieldType-1"
                 >
                   <div
                     class="bp3-form-content"
@@ -147,7 +147,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="fieldType"
+                            name="usernamefieldType"
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
@@ -194,7 +194,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="textField"
+                      name="usernametextField"
                       type="text"
                       value=""
                     />
@@ -221,7 +221,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
       <div>
         <div
           class="bp3-form-group"
-          data-id="fieldType-0"
+          data-id="usernamefieldType-0"
         >
           <div
             class="bp3-form-content"
@@ -235,7 +235,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
                 <label />
                 <div
                   class="bp3-form-group labelSelect"
-                  data-id="fieldType-1"
+                  data-id="usernamefieldType-1"
                 >
                   <div
                     class="bp3-form-content"
@@ -252,7 +252,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="fieldType"
+                            name="usernamefieldType"
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
@@ -299,7 +299,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="textField"
+                      name="usernametextField"
                       type="text"
                       value="test"
                     />

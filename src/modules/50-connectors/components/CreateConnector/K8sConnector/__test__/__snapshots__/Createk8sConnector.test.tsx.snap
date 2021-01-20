@@ -540,7 +540,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                 >
                   <div
                     class="bp3-form-group"
-                    data-id="fieldType-2"
+                    data-id="usernamefieldType-2"
                   >
                     <div
                       class="bp3-form-content"
@@ -556,7 +556,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
-                            data-id="fieldType-3"
+                            data-id="usernamefieldType-3"
                           >
                             <div
                               class="bp3-form-content"
@@ -573,7 +573,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                                     <input
                                       autocomplete="off"
                                       class="bp3-input"
-                                      name="fieldType"
+                                      name="usernamefieldType"
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
@@ -620,7 +620,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                               <input
                                 autocomplete="off"
                                 class="bp3-input"
-                                name="textField"
+                                name="usernametextField"
                                 type="text"
                                 value=""
                               />
@@ -1060,7 +1060,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="fieldType-3"
+                      data-id="oidcUsernamefieldType-3"
                     >
                       <div
                         class="bp3-form-content"
@@ -1076,7 +1076,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             </label>
                             <div
                               class="bp3-form-group labelSelect"
-                              data-id="fieldType-4"
+                              data-id="oidcUsernamefieldType-4"
                             >
                               <div
                                 class="bp3-form-content"
@@ -1093,7 +1093,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                       <input
                                         autocomplete="off"
                                         class="bp3-input"
-                                        name="fieldType"
+                                        name="oidcUsernamefieldType"
                                         placeholder="Search..."
                                         style="padding-right: 0px;"
                                         type="text"
@@ -1140,7 +1140,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="textField"
+                                  name="oidcUsernametextField"
                                   type="text"
                                   value="OIDC username "
                                 />
@@ -2438,7 +2438,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                 >
                   <div
                     class="bp3-form-group"
-                    data-id="fieldType-2"
+                    data-id="usernamefieldType-2"
                   >
                     <div
                       class="bp3-form-content"
@@ -2454,7 +2454,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
-                            data-id="fieldType-3"
+                            data-id="usernamefieldType-3"
                           >
                             <div
                               class="bp3-form-content"
@@ -2471,7 +2471,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                                     <input
                                       autocomplete="off"
                                       class="bp3-input"
-                                      name="fieldType"
+                                      name="usernamefieldType"
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
@@ -2518,7 +2518,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                               <input
                                 autocomplete="off"
                                 class="bp3-input"
-                                name="textField"
+                                name="usernametextField"
                                 type="text"
                                 value="dev"
                               />

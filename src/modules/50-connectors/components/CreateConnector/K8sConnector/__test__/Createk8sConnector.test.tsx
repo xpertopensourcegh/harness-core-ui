@@ -18,7 +18,8 @@ const commonProps = {
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -26,8 +27,7 @@ jest.mock('services/cd-ng', () => ({
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
   getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
-  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
-  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 describe('Create k8 connector Wizard', () => {

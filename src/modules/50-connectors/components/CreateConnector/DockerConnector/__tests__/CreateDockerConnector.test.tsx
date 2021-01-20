@@ -9,11 +9,15 @@ import { mockResponse, dockerMock, mockSecret } from './mocks'
 
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
+jest.mock('services/portal', () => ({
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+}))
 jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
-  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 describe('Create Docker Connector  Wizard', () => {

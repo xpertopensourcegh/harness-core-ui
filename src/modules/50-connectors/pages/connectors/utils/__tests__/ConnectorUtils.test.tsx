@@ -9,21 +9,24 @@ describe('Connector Utils', () => {
         identifier: 'dummyaws',
         tags: {},
         credential: 'ManualConfig',
+        username: 'usename',
         secretKeyRef: { name: 'mysecretappd', identifier: 'mysecretappd', referenceString: 'account.mysecretappd' },
         crossAccountAccess: false,
-        accessKey: 'access key'
+        accessKey: { type: 'TEXT', value: 'accesskey' }
       })
     ).toEqual({
       connector: {
         name: 'dummyaws',
         description: '',
+        orgIdentifier: undefined,
+        projectIdentifier: undefined,
         identifier: 'dummyaws',
         tags: {},
         type: 'Aws',
         spec: {
           credential: {
             type: 'ManualConfig',
-            spec: { accessKey: 'access key', secretKeyRef: 'account.mysecretappd' },
+            spec: { accessKey: 'accesskey', accessKeyRef: undefined, secretKeyRef: 'account.mysecretappd' },
             crossAccountAccess: null
           }
         }
@@ -38,7 +41,7 @@ describe('Connector Utils', () => {
           identifier: 'dummy_name',
           tags: {},
           artifactoryServerUrl: 'dummyurl',
-          username: 'dummyusername',
+          username: { type: 'TEXT', value: 'dummyusername' },
           password: { name: 'jkdhkjdhk', identifier: 'jkdhkjdhk', referenceString: 'account.jkdhkjdhk' }
         })
       ).toEqual({
@@ -50,7 +53,10 @@ describe('Connector Utils', () => {
           tags: {},
           spec: {
             artifactoryServerUrl: 'dummyurl',
-            auth: { type: 'UsernamePassword', spec: { username: 'dummyusername', passwordRef: 'account.jkdhkjdhk' } }
+            auth: {
+              type: 'UsernamePassword',
+              spec: { username: 'dummyusername', usernameRef: undefined, passwordRef: 'account.jkdhkjdhk' }
+            }
           }
         }
       })
@@ -67,7 +73,6 @@ describe('Connector Utils', () => {
           url: 'url',
           urlType: 'Repo',
           connectType: 'Ssh',
-          username: 'username',
           sshKey: { referenceString: 'sshKeyRef' }
         })
       ).toEqual({

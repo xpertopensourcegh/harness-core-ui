@@ -148,12 +148,14 @@ const getGitAuthSpec = (formData: FormData) => {
   switch (authType) {
     case GitAuthTypes.USER_PASSWORD:
       return {
-        username: formData.username,
+        username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+        usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
         passwordRef: formData.password.referenceString
       }
     case GitAuthTypes.USER_TOKEN:
       return {
-        username: formData.username,
+        username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+        usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
         tokenRef: formData.accessToken.referenceString
       }
     case GitAuthTypes.KERBEROS:
@@ -195,7 +197,7 @@ export const buildGithubPayload = (formData: FormData) => {
     savedData.spec.apiAccess.spec =
       formData.apiAuthType === GitAPIAuthTypes.TOKEN
         ? {
-            tokenRef: formData.accessToken.referenceString
+            tokenRef: formData.apiAccessToken.referenceString
           }
         : {
             installationId: formData.installationId,
@@ -224,7 +226,7 @@ export const buildGitlabPayload = (formData: FormData) => {
         type: formData.connectionType,
         spec:
           formData.connectionType === GitConnectionType.SSH
-            ? { spec: { sshKeyRef: formData.sshKey.referenceString } }
+            ? { spec: { sshKeyRef: formData.sshKey?.referenceString } }
             : {
                 type: formData.authType,
                 spec: getGitAuthSpec(formData)
@@ -238,7 +240,7 @@ export const buildGitlabPayload = (formData: FormData) => {
     savedData.spec.apiAccess.spec =
       formData.apiAuthType === GitAPIAuthTypes.TOKEN
         ? {
-            tokenRef: formData.accessToken.referenceString
+            tokenRef: formData.apiAccessToken?.referenceString
           }
         : {
             installationId: formData.installationId,
@@ -279,7 +281,9 @@ export const buildBitbucketPayload = (formData: FormData) => {
 
   if (formData.enableAPIAccess) {
     savedData.spec.apiAccess.spec = {
-      username: formData.username,
+      username: formData.apiAccessUsername.type === ValueType.TEXT ? formData.apiAccessUsername.value : undefined,
+      usernameRef:
+        formData.apiAccessUsername.type === ValueType.ENCRYPTED ? formData.apiAccessUsername.value : undefined,
       tokenRef: formData.accessToken.referenceString
     }
   } else {
@@ -328,7 +332,14 @@ export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     sshKey: await setSecretField(connectorInfo?.spec?.sshKeyRef, scopeQueryParams),
-    username: connectorInfo?.spec?.spec?.username,
+    username:
+      connectorInfo?.spec?.spec?.username || connectorInfo?.spec?.spec?.usernameRef
+        ? {
+            value: connectorInfo?.spec?.spec?.username || connectorInfo?.spec?.spec?.usernameRef,
+            type: connectorInfo?.spec?.spec?.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     password: await setSecretField(connectorInfo?.spec?.spec?.passwordRef, scopeQueryParams)
   }
 
@@ -346,12 +357,20 @@ export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accou
   const formData = {
     sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
     authType: authData?.spec?.type,
-    username: authData?.spec?.spec?.username,
+    username:
+      authData?.spec?.spec?.username || authData?.spec?.spec?.usernameRef
+        ? {
+            value: authData?.spec?.spec?.username || authData?.spec?.spec?.usernameRef,
+            type: authData?.spec?.spec?.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     password: await setSecretField(authData?.spec?.spec?.passwordRef, scopeQueryParams),
     accessToken: await setSecretField(
       authData?.spec?.spec?.tokenRef || connectorInfo?.spec?.apiAccess?.spec?.tokenRef,
       scopeQueryParams
     ),
+    apiAccessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams),
     kerberosKey: await setSecretField(authData?.spec?.spec?.kerberosKeyRef, scopeQueryParams),
     enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
@@ -374,9 +393,23 @@ export const setupBitbucketFormData = async (connectorInfo: ConnectorInfoDTO, ac
   const formData = {
     sshKey: await setSecretField(authData?.spec?.spec?.sshKeyRef, scopeQueryParams),
     authType: authData?.spec?.type,
-    username: authData?.spec?.spec?.username,
+    username:
+      authData?.spec?.spec?.username || authData?.spec?.spec?.usernameRef
+        ? {
+            value: authData?.spec?.spec?.username || authData?.spec?.spec?.usernameRef,
+            type: authData?.spec?.spec?.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
     password: await setSecretField(authData?.spec?.spec?.passwordRef, scopeQueryParams),
     enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
+    apiAccessUsername:
+      connectorInfo?.spec?.apiAccess?.spec?.username || connectorInfo?.spec?.apiAccess?.spec?.usernameRef
+        ? {
+            value: connectorInfo?.spec?.apiAccess?.spec?.username || connectorInfo?.spec?.apiAccess?.spec?.usernameRef,
+            type: connectorInfo?.spec?.apiAccess?.spec?.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
     accessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams)
   }
@@ -461,7 +494,14 @@ export const setupAWSFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     credential: connectorInfo.spec.credential.type,
-    accessKey: connectorInfo.spec.credential.spec.accessKey,
+    accessKey:
+      connectorInfo.spec.credential.spec.accessKey || connectorInfo.spec.credential.spec.accessKeyRef
+        ? {
+            value: connectorInfo.spec.credential.spec.accessKey || connectorInfo.spec.credential.spec.accessKeyRef,
+            type: connectorInfo.spec.credential.spec.accessKeyRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     secretKeyRef: await setSecretField(connectorInfo.spec.credential.spec.secretKeyRef, scopeQueryParams),
     crossAccountAccess: !!connectorInfo.spec.credential.crossAccountAccess,
     crossAccountRoleArn: connectorInfo.spec.credential.crossAccountAccess?.crossAccountRoleArn,
@@ -483,7 +523,14 @@ export const setupDockerFormData = async (connectorInfo: ConnectorInfoDTO, accou
     authType: connectorInfo.spec.auth.type,
     dockerProviderType: connectorInfo.spec.providerType,
     username:
-      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD ? connectorInfo.spec.auth.spec.username : undefined,
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD &&
+      (connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef)
+        ? {
+            value: connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef,
+            type: connectorInfo.spec.auth.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     password:
       connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
         ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
@@ -504,7 +551,14 @@ export const setupNexusFormData = async (connectorInfo: ConnectorInfoDTO, accoun
     nexusVersion: connectorInfo.spec.version,
     authType: connectorInfo.spec.auth.type,
     username:
-      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD ? connectorInfo.spec.auth.spec.username : undefined,
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD &&
+      (connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef)
+        ? {
+            value: connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef,
+            type: connectorInfo.spec.auth.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     password:
       connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
         ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
@@ -528,7 +582,14 @@ export const setupArtifactoryFormData = async (
     artifactoryServerUrl: connectorInfo.spec.artifactoryServerUrl,
     authType: connectorInfo.spec.auth.type,
     username:
-      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD ? connectorInfo.spec.auth.spec.username : undefined,
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD &&
+      (connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef)
+        ? {
+            value: connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef,
+            type: connectorInfo.spec.auth.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
     password:
       connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
         ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
@@ -556,7 +617,9 @@ export const buildAWSPayload = (formData: FormData) => {
                 delegateSelector: formData.delegateSelector
               }
             : {
-                accessKey: formData.accessKey,
+                accessKey: formData.accessKey.type === ValueType.TEXT ? formData.accessKey.value : undefined,
+                accessKeyRef: formData.accessKey.type === ValueType.ENCRYPTED ? formData.accessKey.value : undefined,
+
                 secretKeyRef: formData.secretKeyRef.referenceString
               },
         crossAccountAccess: formData.crossAccountAccess
@@ -588,7 +651,8 @@ export const buildDockerPayload = (formData: FormData) => {
           ? {
               type: formData.authType,
               spec: {
-                username: formData.username,
+                username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+                usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
                 passwordRef: formData.password.referenceString
               }
             }
@@ -645,7 +709,8 @@ export const buildGitPayload = (formData: FormData) => {
         formData.connectionType === GitConnectionType.SSH
           ? { sshKeyRef: formData.sshKey.referenceString }
           : {
-              username: formData.username,
+              username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+              usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
               passwordRef: formData.password.referenceString
             }
 
@@ -689,7 +754,8 @@ export const buildNexusPayload = (formData: FormData) => {
           ? {
               type: AuthTypes.USER_PASSWORD,
               spec: {
-                username: formData.username,
+                username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+                usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
                 passwordRef: formData.password.referenceString
               }
             }
@@ -711,7 +777,8 @@ export const buildArtifactoryPayload = (formData: FormData) => {
           ? {
               type: AuthTypes.USER_PASSWORD,
               spec: {
-                username: formData.username,
+                username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+                usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
                 passwordRef: formData.password.referenceString
               }
             }

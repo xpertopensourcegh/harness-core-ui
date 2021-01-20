@@ -29,6 +29,7 @@ import {
   Connector
 } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -52,14 +53,14 @@ interface ArtifactoryAuthenticationProps {
 interface ArtifactoryFormInterface {
   artifactoryServerUrl: string
   authType: string
-  username: string
+  username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
 }
 
 const defaultInitialFormData: ArtifactoryFormInterface = {
   artifactoryServerUrl: '',
   authType: AuthTypes.USER_PASSWORD,
-  username: '',
+  username: undefined,
   password: undefined
 }
 
@@ -198,12 +199,11 @@ const StepArtifactoryAuthentication: React.FC<
               </Container>
               {formikProps.values.authType === AuthTypes.USER_PASSWORD ? (
                 <Container className={css.formWrapper}>
-                  <FormInput.Text name="username" label={getString('username')} />
-                  {/* <TextReference
+                  <TextReference
                     name="username"
                     label={getString('username')}
                     type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
-                  /> */}
+                  />
                   <SecretInput name={'password'} label={getString('password')} />
                 </Container>
               ) : null}

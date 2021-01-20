@@ -15,7 +15,6 @@
       .bp3-input,
       .bp3-button,
       .bp3-checkbox {
-        width: 42%;
         height: 36px;
       }
     }
@@ -23,7 +22,6 @@
     .authHeaderRow {
       display: flex;
       justify-content: space-between;
-      width: 42%;
 
       .authTitle {
         font-size: var(font-size-normal);
@@ -47,7 +45,6 @@
       display: flex;
       :global {
         .bp3-form-group {
-          width: 46%;
           .bp3-input,
           .bp3-button {
             width: 92%;

@@ -3,7 +3,6 @@ import {
   Layout,
   Button,
   Formik,
-  FormInput,
   Text,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
@@ -30,6 +29,7 @@ import {
 } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './StepGitAuthentication.module.scss'
@@ -51,23 +51,27 @@ interface GitAuthenticationProps {
 
 interface GitFormInterface {
   connectionType: string
-  username: string
+  username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
   sshKey: SecretReferenceInterface | void
 }
 
 const defaultInitialFormData: GitFormInterface = {
   connectionType: GitConnectionType.HTTPS,
-  username: '',
+  username: undefined,
   password: undefined,
   sshKey: undefined
 }
 
-const RenderGitAuthForm: React.FC<FormikProps<GitFormInterface>> = () => {
+const RenderGitAuthForm: React.FC<FormikProps<GitFormInterface>> = props => {
   const { getString } = useStrings()
   return (
     <>
-      <FormInput.Text name="username" label={getString('username')} />
+      <TextReference
+        name="username"
+        label={getString('username')}
+        type={props.values.username ? props.values.username?.type : ValueType.TEXT}
+      />
       <SecretInput name="password" label={getString('password')} />
     </>
   )
@@ -178,7 +182,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
         {formikProps => (
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
-            <Container className={css.stepFormWrapper}>
+            <Container className={css.stepFormWrapper} width={'52%'}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
               ) : (

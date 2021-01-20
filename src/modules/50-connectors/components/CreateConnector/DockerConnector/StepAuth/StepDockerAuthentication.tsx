@@ -32,6 +32,7 @@ import {
 } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/exports'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -53,7 +54,7 @@ interface DockerFormInterface {
   dockerRegistryUrl: string
   authType: string
   dockerProviderType: string
-  username: string
+  username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
 }
 
@@ -61,7 +62,7 @@ const defaultInitialFormData: DockerFormInterface = {
   dockerRegistryUrl: '',
   authType: AuthTypes.USER_PASSWORD,
   dockerProviderType: DockerProviderType.DOCKERHUB,
-  username: '',
+  username: undefined,
   password: undefined
 }
 
@@ -201,7 +202,7 @@ const StepDockerAuthentication: React.FC<
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
 
-            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
+            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
               <FormInput.Text
                 name="dockerRegistryUrl"
                 placeholder={getString('UrlLabel')}
@@ -220,11 +221,15 @@ const StepDockerAuthentication: React.FC<
                 <Text className={css.authTitle} inline>
                   {getString('connectors.authTitle')}
                 </Text>
-                <FormInput.Select name="authType" items={authOptions} disabled={false} />
+                <FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} />
               </Container>
               {formikProps.values.authType === AuthTypes.USER_PASSWORD ? (
                 <>
-                  <FormInput.Text name="username" label={getString('username')} />
+                  <TextReference
+                    name="username"
+                    label={getString('username')}
+                    type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
+                  />
                   <SecretInput name={'password'} label={getString('password')} />
                 </>
               ) : null}

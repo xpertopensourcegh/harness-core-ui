@@ -31,7 +31,8 @@ jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetDelegatesStatus: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 jest.mock('services/cd-ng', () => ({

@@ -31,9 +31,9 @@ import {
   AwsCredential
 } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 
 import css from './StepAWSAuthentication.module.scss'
-
 interface StepAWSAuthenticationProps extends ConnectorInfoDTO {
   name: string
 }
@@ -50,7 +50,7 @@ interface AWSAuthenticationProps {
 
 interface AWSFormInterface {
   credential: AwsCredential['type']
-  accessKey: string
+  accessKey: TextReferenceInterface | void
   secretKeyRef: SecretReferenceInterface | void
   crossAccountAccess: boolean
   crossAccountRoleArn: string
@@ -59,7 +59,7 @@ interface AWSFormInterface {
 
 const defaultInitialFormData: AWSFormInterface = {
   credential: DelegateTypes.DELEGATE_OUT_CLUSTER,
-  accessKey: '',
+  accessKey: undefined,
   secretKeyRef: undefined,
   crossAccountAccess: false,
   crossAccountRoleArn: '',
@@ -151,10 +151,13 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
           //   is: DelegateTypes.DELEGATE_IN_CLUSTER,
           //   then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
           // }),
-          accessKey: Yup.string().when('credential', {
-            is: DelegateTypes.DELEGATE_OUT_CLUSTER,
-            then: Yup.string().trim().required(getString('connectors.aws.validation.accessKey'))
-          }),
+
+          accessKey: Yup.string()
+            .nullable()
+            .when('credential', {
+              is: DelegateTypes.DELEGATE_OUT_CLUSTER,
+              then: Yup.string().trim().required(getString('connectors.aws.validation.accessKey'))
+            }),
           secretKeyRef: Yup.object().when('credential', {
             is: DelegateTypes.DELEGATE_OUT_CLUSTER,
             then: Yup.object().required(getString('connectors.aws.validation.secretKeyRef'))
@@ -233,7 +236,11 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                   <Text color={Color.BLACK} padding={{ top: 'small', bottom: 'large' }}>
                     {getString('connectors.authTitle')}
                   </Text>
-                  <FormInput.Text name="accessKey" label={getString('connectors.aws.accessKey')} />
+                  <TextReference
+                    name="accessKey"
+                    label={getString('connectors.aws.accessKey')}
+                    type={formikProps.values.accessKey ? formikProps.values.accessKey?.type : ValueType.TEXT}
+                  />
                   <SecretInput name="secretKeyRef" label={getString('connectors.aws.secretKey')} />
                 </Layout.Vertical>
               ) : null}

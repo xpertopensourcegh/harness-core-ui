@@ -440,37 +440,99 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   </p>
                   <div
                     class="bp3-form-group"
-                    data-id="accessKey-1"
+                    data-id="accessKeyfieldType-1"
                   >
-                    <label
-                      class="bp3-label"
-                      for="accessKey"
-                    >
-                      Access Key
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="accessKey"
-                          type="text"
-                          value=""
-                        />
+                        <div
+                          class="label"
+                        >
+                          <label>
+                            Access Key
+                          </label>
+                          <div
+                            class="bp3-form-group labelSelect"
+                            data-id="accessKeyfieldType-2"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-popover-wrapper Select--main bp3-fill"
+                              >
+                                <div
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-input-group"
+                                  >
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="accessKeyfieldType"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="Plaintext"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-form-group textCss"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="accessKeytextField"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="null-2"
+                    data-id="null-4"
                   >
                     <div
                       class="bp3-form-content"
@@ -532,7 +594,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                 >
                   <div
                     class="bp3-form-group"
-                    data-id="crossAccountAccess-3"
+                    data-id="crossAccountAccess-5"
                   >
                     <div
                       class="bp3-form-content"
@@ -1025,37 +1087,99 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   </p>
                   <div
                     class="bp3-form-group"
-                    data-id="accessKey-1"
+                    data-id="accessKeyfieldType-1"
                   >
-                    <label
-                      class="bp3-label"
-                      for="accessKey"
-                    >
-                      Access Key
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="accessKey"
-                          type="text"
-                          value="mockAccessKey"
-                        />
+                        <div
+                          class="label"
+                        >
+                          <label>
+                            Access Key
+                          </label>
+                          <div
+                            class="bp3-form-group labelSelect"
+                            data-id="accessKeyfieldType-2"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-popover-wrapper Select--main bp3-fill"
+                              >
+                                <div
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-input-group"
+                                  >
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="accessKeyfieldType"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="Plaintext"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-form-group textCss"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="accessKeytextField"
+                                type="text"
+                                value="mockAccessKey"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="null-2"
+                    data-id="null-4"
                   >
                     <div
                       class="bp3-form-content"
@@ -1117,7 +1241,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                 >
                   <div
                     class="bp3-form-group"
-                    data-id="crossAccountAccess-3"
+                    data-id="crossAccountAccess-5"
                   >
                     <div
                       class="bp3-form-content"
@@ -1139,7 +1263,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="crossAccountRoleArn-4"
+                    data-id="crossAccountRoleArn-6"
                   >
                     <label
                       class="bp3-label"
@@ -1169,7 +1293,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="externalId-5"
+                    data-id="externalId-7"
                   >
                     <label
                       class="bp3-label"

@@ -31,6 +31,7 @@ import {
 } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/exports'
 import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -54,7 +55,7 @@ interface GitlabAuthenticationProps {
 interface GitlabFormInterface {
   connectionType: string
   authType: string
-  username: string
+  username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
   accessToken: SecretReferenceInterface | void
   installationId: string
@@ -62,6 +63,7 @@ interface GitlabFormInterface {
   privateKey: SecretReferenceInterface | void
   sshKey: SecretReferenceInterface | void
   kerberosKey: SecretReferenceInterface | void
+  apiAccessToken: SecretReferenceInterface | void
   enableAPIAccess: boolean
   apiAuthType: string
 }
@@ -69,13 +71,14 @@ interface GitlabFormInterface {
 const defaultInitialFormData: GitlabFormInterface = {
   connectionType: GitConnectionType.HTTPS,
   authType: GitAuthTypes.USER_PASSWORD,
-  username: '',
+  username: undefined,
   password: undefined,
   accessToken: undefined,
   installationId: '',
   applicationId: '',
   privateKey: undefined,
   sshKey: undefined,
+  apiAccessToken: undefined,
   kerberosKey: undefined,
   enableAPIAccess: false,
   apiAuthType: GitAPIAuthTypes.TOKEN
@@ -87,14 +90,22 @@ const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props =
     case GitAuthTypes.USER_PASSWORD:
       return (
         <>
-          <FormInput.Text name="username" label={getString('username')} />
+          <TextReference
+            name="username"
+            label={getString('username')}
+            type={props.values.username ? props.values.username?.type : ValueType.TEXT}
+          />
           <SecretInput name="password" label={getString('password')} />
         </>
       )
     case GitAuthTypes.USER_TOKEN:
       return (
         <>
-          <FormInput.Text name="username" label={getString('username')} />
+          <TextReference
+            name="username"
+            label={getString('username')}
+            type={props.values.username ? props.values.username?.type : ValueType.TEXT}
+          />
           <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
         </>
       )
@@ -114,9 +125,9 @@ const RenderAPIAccessForm: React.FC<FormikProps<GitlabFormInterface>> = props =>
   switch (props.values.apiAuthType) {
     case GitAPIAuthTypes.TOKEN:
       return (
-        <>
-          <SecretInput name="accessToken" label={getString('connectors.git.accessToken')} />
-        </>
+        <Container width={'52%'}>
+          <SecretInput name="apiAccessToken" label={getString('connectors.git.accessToken')} />
+        </Container>
       )
     default:
       return null
@@ -138,7 +149,7 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GitlabFormInterface>> = f
       <Text font="small" margin={{ bottom: 'small' }}>
         {getString('connectors.git.APIAccessDescriptipn')}
       </Text>
-      <Container className={css.authHeaderRow}>
+      <Container className={css.authHeaderRow} width={'52%'}>
         <Text className={css.authTitle} inline>
           {getString('connectors.git.APIAuthentication')}
         </Text>
@@ -171,11 +182,12 @@ const StepGitlabAuthentication: React.FC<
     {
       label: getString('usernameToken'),
       value: GitAuthTypes.USER_TOKEN
-    },
-    {
-      label: getString('kerberos'),
-      value: GitAuthTypes.KERBEROS
     }
+    // Disabling temp:
+    // {
+    //   label: getString('kerberos'),
+    //   value: GitAuthTypes.KERBEROS
+    // }
   ]
 
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
@@ -264,16 +276,20 @@ const StepGitlabAuthentication: React.FC<
             then: Yup.object().required(getString('validation.kerberosKey')),
             otherwise: Yup.object().nullable()
           }),
-          accessToken: Yup.object().when(['connectionType', 'authType', 'enableAPIAccess', 'apiAuthType'], {
-            is: (connectionType, authType, enableAPIAccess, apiAuthType) =>
-              (connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_TOKEN) ||
-              (enableAPIAccess && apiAuthType === GitAPIAuthTypes.TOKEN),
+          accessToken: Yup.object().when(['connectionType', 'authType'], {
+            is: (connectionType, authType) =>
+              connectionType === GitConnectionType.HTTPS && authType === GitAuthTypes.USER_TOKEN,
             then: Yup.object().required(getString('validation.accessToken')),
             otherwise: Yup.object().nullable()
           }),
           apiAuthType: Yup.string().when('enableAPIAccess', {
             is: val => val,
             then: Yup.string().trim().required(getString('validation.authType'))
+          }),
+          apiAccessToken: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
+            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.TOKEN,
+            then: Yup.object().required(getString('validation.accessToken')),
+            otherwise: Yup.object().nullable()
           })
         })}
         onSubmit={stepData => {
@@ -298,14 +314,14 @@ const StepGitlabAuthentication: React.FC<
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Container className={css.stepFormWrapper}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
-                <>
+                <Container width={'52%'}>
                   <Text font={{ weight: 'bold' }} className={css.authTitle}>
                     {getString('connectors.authTitle')}
                   </Text>
                   <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
-                </>
+                </Container>
               ) : (
-                <>
+                <Container width={'52%'}>
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
                       {getString('connectors.authTitle')}
@@ -314,7 +330,7 @@ const StepGitlabAuthentication: React.FC<
                   </Container>
 
                   <RenderGitlabAuthForm {...formikProps} />
-                </>
+                </Container>
               )}
 
               <FormInput.CheckBox

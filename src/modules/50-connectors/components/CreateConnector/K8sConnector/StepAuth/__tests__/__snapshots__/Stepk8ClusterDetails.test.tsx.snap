@@ -171,7 +171,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="fieldType-2"
+                data-id="usernamefieldType-2"
               >
                 <div
                   class="bp3-form-content"
@@ -187,7 +187,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
-                        data-id="fieldType-3"
+                        data-id="usernamefieldType-3"
                       >
                         <div
                           class="bp3-form-content"
@@ -204,7 +204,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="fieldType"
+                                  name="usernamefieldType"
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
@@ -251,7 +251,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="textField"
+                            name="usernametextField"
                             type="text"
                             value=""
                           />
@@ -554,7 +554,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
             >
               <div
                 class="bp3-form-group bp3-intent-danger"
-                data-id="fieldType-2"
+                data-id="usernamefieldType-2"
               >
                 <div
                   class="bp3-form-content"
@@ -570,7 +570,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
-                        data-id="fieldType-3"
+                        data-id="usernamefieldType-3"
                       >
                         <div
                           class="bp3-form-content"
@@ -587,7 +587,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="fieldType"
+                                  name="usernamefieldType"
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
@@ -634,7 +634,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="textField"
+                            name="usernametextField"
                             type="text"
                             value=""
                           />
@@ -947,7 +947,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
             >
               <div
                 class="bp3-form-group bp3-intent-danger"
-                data-id="fieldType-2"
+                data-id="usernamefieldType-2"
               >
                 <div
                   class="bp3-form-content"
@@ -963,7 +963,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
-                        data-id="fieldType-3"
+                        data-id="usernamefieldType-3"
                       >
                         <div
                           class="bp3-form-content"
@@ -980,7 +980,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="fieldType"
+                                  name="usernamefieldType"
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
@@ -1027,7 +1027,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="textField"
+                            name="usernametextField"
                             type="text"
                             value="dummyusername"
                           />
@@ -1335,7 +1335,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="fieldType-2"
+                data-id="usernamefieldType-2"
               >
                 <div
                   class="bp3-form-content"
@@ -1351,7 +1351,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
-                        data-id="fieldType-3"
+                        data-id="usernamefieldType-3"
                       >
                         <div
                           class="bp3-form-content"
@@ -1368,7 +1368,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
-                                  name="fieldType"
+                                  name="usernamefieldType"
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
@@ -1415,7 +1415,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input"
-                            name="textField"
+                            name="usernametextField"
                             type="text"
                             value="username"
                           />
@@ -2255,7 +2255,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="fieldType-3"
+                  data-id="oidcUsernamefieldType-3"
                 >
                   <div
                     class="bp3-form-content"
@@ -2271,7 +2271,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                         </label>
                         <div
                           class="bp3-form-group labelSelect"
-                          data-id="fieldType-4"
+                          data-id="oidcUsernamefieldType-4"
                         >
                           <div
                             class="bp3-form-content"
@@ -2288,7 +2288,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                                   <input
                                     autocomplete="off"
                                     class="bp3-input"
-                                    name="fieldType"
+                                    name="oidcUsernamefieldType"
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
@@ -2335,7 +2335,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             <input
                               autocomplete="off"
                               class="bp3-input"
-                              name="textField"
+                              name="oidcUsernametextField"
                               type="text"
                               value="dmhdj"
                             />

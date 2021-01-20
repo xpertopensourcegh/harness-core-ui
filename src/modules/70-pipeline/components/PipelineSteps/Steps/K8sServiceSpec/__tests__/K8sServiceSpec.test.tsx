@@ -304,7 +304,7 @@ describe('StepWidget tests', () => {
       fireEvent.change(dockerRegistryInput!, { target: { value: 'https://hub.docker.com' } })
       expect(dockerRegistryInput).toHaveProperty('value', 'https://hub.docker.com')
 
-      const usernameInput = portal.querySelector("input[name='username']")
+      const usernameInput = portal.querySelector("input[name='usernametextField']")
       expect(usernameInput).toBeDefined()
       fireEvent.change(usernameInput!, { target: { value: 'test' } })
       expect(usernameInput).toHaveProperty('value', 'test')

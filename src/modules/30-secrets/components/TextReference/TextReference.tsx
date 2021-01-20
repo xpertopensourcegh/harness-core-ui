@@ -47,20 +47,20 @@ const TextReference: React.FC<FormikTextReference> = props => {
 
   useEffect(() => {
     if (props.type) {
-      formik.setFieldValue('fieldType', props.type)
+      formik.setFieldValue(`${name}fieldType`, props.type)
     } else {
-      formik.setFieldValue('fieldType', ValueType.TEXT)
+      formik.setFieldValue(`${name}fieldType`, ValueType.TEXT)
     }
   }, [])
 
   useEffect(() => {
-    if (formik.values.secretField) {
+    if (formik.values[`${name}secretField`]) {
       formik.setFieldValue(props.name, {
-        value: formik.values.secretField.referenceString,
+        value: formik.values[`${name}secretField`].referenceString,
         type: ValueType.ENCRYPTED
       })
     }
-  }, [formik.values.secretField])
+  }, [formik.values[`${name}secretField`]])
 
   const getSecretInfo = async (secretString: string) => {
     const scope = secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1]
@@ -88,10 +88,10 @@ const TextReference: React.FC<FormikTextReference> = props => {
   }
   useEffect(() => {
     if (formik.values[props.name]?.type === ValueType.TEXT) {
-      formik.setFieldValue('textField', formik.values[props.name].value)
+      formik.setFieldValue(`${name}textField`, formik.values[props.name].value)
     } else if (formik.values[props.name]?.type === ValueType.ENCRYPTED) {
       getSecretInfo(formik.values[props.name].value).then(data => {
-        formik.setFieldValue('secretField', data)
+        formik.setFieldValue(`${name}secretField`, data)
       })
     }
   }, [])
@@ -101,7 +101,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
         <div className={css.label}>
           <label>{props.label}</label>
           <FormInput.Select
-            name="fieldType"
+            name={`${name}fieldType`}
             items={[
               { label: getString('plaintext'), value: ValueType.TEXT },
               { label: getString('encrypted'), value: ValueType.ENCRYPTED }
@@ -109,15 +109,15 @@ const TextReference: React.FC<FormikTextReference> = props => {
             disabled={false}
             onChange={() => {
               formik.setFieldValue(props.name, undefined)
-              formik.setFieldValue('textField', undefined)
-              formik.setFieldValue('secretField', undefined)
+              formik.setFieldValue(`${name}textField`, undefined)
+              formik.setFieldValue(`${name}secretField`, undefined)
             }}
             className={css.labelSelect}
           />
         </div>
-        {formik.values.fieldType === ValueType.TEXT ? (
+        {formik.values[`${name}fieldType`] === ValueType.TEXT ? (
           <FormInput.Text
-            name={'textField'}
+            name={`${name}textField`}
             onChange={e => {
               if ((e.target as any).value === '') {
                 formik.setFieldValue(props.name, undefined)
@@ -132,7 +132,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
           />
         ) : (
           <Container className={css.secretField}>
-            <SecretInput name={'secretField'} />
+            <SecretInput name={`${name}secretField`} />
           </Container>
         )}
       </Layout.Vertical>

@@ -37,7 +37,7 @@ describe('Stepk8ClusterDetails', () => {
           {...commonProps}
           name="credentials"
           isEditMode={false}
-          connectorInfo={{ name: 'name', identifier: 'id', type: 'K8sCluster', spec: {} } as any}
+          connectorInfo={{ name: 'nameK8s', identifier: 'id', type: 'K8sCluster', spec: {} } as any}
         />
       </TestWrapper>
     )
@@ -60,7 +60,7 @@ describe('Stepk8ClusterDetails', () => {
       {
         container,
         type: InputTypes.TEXTFIELD,
-        fieldId: 'textField',
+        fieldId: 'usernametextField',
         value: 'dummyusername'
       }
     ])
