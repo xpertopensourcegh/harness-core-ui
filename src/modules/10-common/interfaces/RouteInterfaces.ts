@@ -48,6 +48,10 @@ export interface DelegatePathProps {
   delegateId: string
 }
 
+export interface DelegateConfigProps {
+  delegateConfigId: string
+}
+
 export interface FeatureFlagPathProps {
   featureFlagIdentifier: string
 }

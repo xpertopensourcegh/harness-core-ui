@@ -4,6 +4,7 @@ import type {
   ConnectorPathProps,
   SecretsPathProps,
   DelegatePathProps,
+  DelegateConfigProps,
   ProjectPathProps,
   PipelinePathProps,
   TriggerPathProps,
@@ -45,6 +46,9 @@ const routes = {
   toResourcesDelegates: withAccountId(() => '/admin/resources/delegates'),
   toResourcesDelegatesDetails: withAccountId(
     ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}/details`
+  ),
+  toResourcesDelegateConfigsDetails: withAccountId(
+    ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}`
   ),
   // org resources
   toOrgResources: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources`),

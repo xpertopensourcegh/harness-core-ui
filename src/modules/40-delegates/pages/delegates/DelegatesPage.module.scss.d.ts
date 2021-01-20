@@ -9,5 +9,9 @@ declare const styles: {
   readonly profileContainer: string
   readonly profileCard: string
   readonly content: string
+  readonly overviewCard: string
+  readonly detailsContainer: string
+  readonly section1: string
+  readonly profileDetailsContainer: string
 }
 export default styles

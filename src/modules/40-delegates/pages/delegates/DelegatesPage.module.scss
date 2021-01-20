@@ -31,13 +31,13 @@
 
 .profileContainer {
   display: flex;
-  padding: 20px !important;
-  margin: 20px !important;
+  padding: var(--spacing-large) !important;
+  margin: var(--spacing-large) !important;
 }
 
 .profileCard {
   width: 250px;
-  margin-right: 10px;
+  margin-right: var(--spacing-small);
   height: 296px;
 }
 
@@ -45,4 +45,36 @@
   display: flex;
   justify-content: space-between;
   height: 200px;
+}
+
+.profileContainer {
+  display: flex;
+  padding: var(--spacing-small) !important;
+}
+
+.profileCard {
+  width: 250px;
+  margin-right: var(--spacing-small);
+}
+.overviewCard {
+  width: 500px;
+  margin-right: var(--spacing-large);
+}
+
+.detailsContainer {
+  margin: var(--spacing-small) !important;
+  padding: var(--spacing-small) !important;
+}
+
+.section1 {
+  display: flex;
+}
+
+.profileDetailsContainer {
+  padding: var(--spacing-small) !important;
+  display: flex;
+}
+.overviewCard {
+  margin-right: var(--spacing-small);
+  width: 400px;
 }

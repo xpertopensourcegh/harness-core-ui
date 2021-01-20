@@ -1,7 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Card, Text, CardBody, Layout, Tag, Intent, Container } from '@wings-software/uicore'
+import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useGetDelegateProfilesV2 } from 'services/portal'
 import { useDeleteDelegateProfile } from 'services/portal/index'
@@ -46,6 +47,7 @@ const formatProfileList = (data: any) => {
 
 export default function DelegateConfigurations(): JSX.Element {
   const { getString } = useStrings()
+  const history = useHistory()
   const { accountId } = useParams()
   const { data } = useGetDelegateProfilesV2({ queryParams: { accountId } })
   const { showSuccess, showError } = useToaster()
@@ -82,7 +84,21 @@ export default function DelegateConfigurations(): JSX.Element {
         <Container className={css.profileContainer}>
           {profiles.map((item: DelegateProfile) => {
             return (
-              <Card interactive={false} elevation={0} selected={false} className={css.profileCard} key={item.name}>
+              <Card
+                interactive={false}
+                elevation={0}
+                selected={false}
+                className={css.profileCard}
+                key={item.name}
+                onClick={() => {
+                  history.push(
+                    routes.toResourcesDelegateConfigsDetails({
+                      accountId,
+                      delegateConfigId: item.uuid
+                    })
+                  )
+                }}
+              >
                 <CardBody.Menu
                   menuContent={
                     <Menu>

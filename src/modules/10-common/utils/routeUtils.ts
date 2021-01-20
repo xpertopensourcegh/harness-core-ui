@@ -14,6 +14,7 @@ import type {
   BuildPathProps,
   EnvironmentPathProps,
   DelegatePathProps,
+  DelegateConfigProps,
   InputSetPathProps,
   VerificationPathProps,
   TargetPathProps,
@@ -67,6 +68,10 @@ export const secretPathProps: SecretsPathProps = {
 
 export const delegatePathProps: DelegatePathProps = {
   delegateId: ':delegateId'
+}
+
+export const delegateConfigProps: DelegateConfigProps = {
+  delegateConfigId: ':delegateConfigId'
 }
 
 export const modulePathProps: ModulePathParams = {
