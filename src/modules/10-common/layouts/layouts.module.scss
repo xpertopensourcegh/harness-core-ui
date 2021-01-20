@@ -1,5 +1,5 @@
 .children {
-  flex: 1 1 auto;
+  min-height: 100vh;
 
   &[data-layout='empty'] {
     height: 100vh;
@@ -7,6 +7,14 @@
 }
 
 .main {
-  display: flex;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 90px 180px 1fr;
+
+  &[data-layout='minimal'] {
+    grid-template-columns: 90px 1fr;
+  }
+
+  &[data-layout='empty'] {
+    grid-template-columns: 1fr;
+  }
 }
