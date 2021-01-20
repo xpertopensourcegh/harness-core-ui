@@ -5,6 +5,7 @@ allowpaths:
   - '/setup/delegates/downloadUrl.get'
   - '/delegate-profiles.get'
   - '/delegate-profiles/v2.get'
+  - '/delegate-profiles/{delegateProfileId}.get'
   - '/setup/delegates/kubernetes-delegates'
   - '/users/user.get'
   - '/setup/delegates/delegate-tags.get'
@@ -16,7 +17,6 @@ allowpaths:
   - '/setup/delegates/{delegateId}.delete'
   - '/delegate-profiles/v2/{delegateProfileId}.delete'
   - '/setup/delegates/delegate-selectors.get'
-  - '/delegate-profiles/{delegateProfileId}.get'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus

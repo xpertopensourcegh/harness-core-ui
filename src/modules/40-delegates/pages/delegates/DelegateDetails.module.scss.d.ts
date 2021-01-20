@@ -9,6 +9,10 @@ declare const styles: {
   readonly optionBtns: string
   readonly item: string
   readonly selected: string
+  readonly advancedCard: string
   readonly cardContainer: string
+  readonly cardValue: string
+  readonly addSpacing: string
+  readonly labelSeparator: string
 }
 export default styles

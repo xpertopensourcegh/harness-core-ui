@@ -48,14 +48,41 @@
     cursor: default;
   }
 }
+.advancedCard {
+  width: 398px;
+  height: 259px;
+  background: #ffffff;
+  border-radius: 4px;
+}
 
 .overview {
   flex: 1;
   min-width: 400px;
   margin-bottom: var(--spacing-small);
+
+  width: 398px;
+  height: 358px;
+  background: #ffffff;
+  /* Light / Elevation 01 */
+
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+  border-radius: 4px !important;
 }
 
 .cardContainer {
   display: flex;
   flex-direction: column;
+}
+
+.cardValue {
+  font-size: 13px;
+  color: '#22272D';
+}
+
+.addSpacing {
+  margin-top: var(--spacing-small);
+}
+
+.labelSeparator {
+  border: 0.5px solid #cdd3dd;
 }

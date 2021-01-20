@@ -2,6 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
+  readonly card: string
+  readonly scopeCard: string
   readonly panel: string
   readonly information: string
   readonly overview: string
@@ -13,7 +15,5 @@ declare const styles: {
   readonly initScript: string
   readonly scopeScript: string
   readonly cardContainer: string
-  readonly card: string
-  readonly scopeCard: string
 }
 export default styles

@@ -62,6 +62,7 @@ const Stepk8ReviewScript: React.FC<StepProps<DelegateInfoDTO> & K8sReviewProps> 
               intent="primary"
               text={getString('continue')}
               rightIcon="chevron-right"
+              onClick={() => props.nextStep?.()}
             />
           </Layout.Horizontal>
         </Layout.Vertical>

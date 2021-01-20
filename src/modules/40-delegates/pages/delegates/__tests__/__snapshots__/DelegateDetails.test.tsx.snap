@@ -3,9 +3,32 @@
 exports[`Delegates Details Page render data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-bottom-medium StyledProps--padding-right-xlarge StyledProps--background-blue200"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
-    Navigation content
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+      >
+        <a
+          href="/account/dummy/resources/delegates/delegateId"
+        >
+          Resources
+        </a>
+        <span>
+          /
+        </span>
+        <a
+          href="/account/dummy/resources/delegates/delegateId"
+        >
+          Delegates
+        </a>
+      </div>
+      <span>
+        D
+      </span>
+    </div>
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody main"
@@ -56,7 +79,7 @@ exports[`Delegates Details Page render data 1`] = `
                   Hostname
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  class="StyledProps--font StyledProps--main cardValue StyledProps--font-small"
                 >
                   D
                 </p>
@@ -69,15 +92,19 @@ exports[`Delegates Details Page render data 1`] = `
                   Delegate Type
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  class="StyledProps--font StyledProps--main cardValue StyledProps--font-small"
                 >
                   ECS
                 </p>
               </div>
             </div>
-            <div>
+            <div
+              class="addSpacing"
+            >
               <div>
-                <hr />
+                <hr
+                  class="labelSeparator"
+                />
                 <div
                   class="StyledProps--font StyledProps--main StyledProps--flex"
                 >
@@ -89,7 +116,7 @@ exports[`Delegates Details Page render data 1`] = `
                       Description
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                      class="StyledProps--font StyledProps--main cardValue StyledProps--font-small"
                     >
                        
                     </p>
@@ -99,7 +126,7 @@ exports[`Delegates Details Page render data 1`] = `
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card--card overview"
+            class="bp3-card bp3-elevation-0 Card--card advancedCard"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
@@ -109,7 +136,9 @@ exports[`Delegates Details Page render data 1`] = `
             <div
               class="StyledProps--font StyledProps--main StyledProps--flex"
             >
-              <div>
+              <div
+                class="addSpacing"
+              >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-bottom: 5px;"
@@ -122,7 +151,7 @@ exports[`Delegates Details Page render data 1`] = `
                   You can use delegate tags to control if this delegate can be used for executing certain steps in a pipeline
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-small"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color"
                 >
                   Delegate Specific Tags
                 </p>

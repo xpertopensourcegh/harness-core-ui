@@ -18603,6 +18603,45 @@ export const useGetDelegateProfilesV2 = (props: UseGetDelegateProfilesV2Props) =
     { base: getConfig('api'), ...props }
   )
 
+export interface GetDelegateConfigFromIdQueryParams {
+  accountId?: string
+}
+
+export interface GetDelegateConfigFromIdPathParams {
+  delegateProfileId: string
+}
+
+export type GetDelegateConfigFromIdProps = Omit<
+  GetProps<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>,
+  'path'
+> &
+  GetDelegateConfigFromIdPathParams
+
+export const GetDelegateConfigFromId = ({ delegateProfileId, ...props }: GetDelegateConfigFromIdProps) => (
+  <Get<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>
+    path="/delegate-profiles/${delegateProfileId}"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateConfigFromIdProps = Omit<
+  UseGetProps<
+    RestResponseDelegateProfile,
+    unknown,
+    GetDelegateConfigFromIdQueryParams,
+    GetDelegateConfigFromIdPathParams
+  >,
+  'path'
+> &
+  GetDelegateConfigFromIdPathParams
+
+export const useGetDelegateConfigFromId = ({ delegateProfileId, ...props }: UseGetDelegateConfigFromIdProps) =>
+  useGet<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>(
+    (paramsInPath: GetDelegateConfigFromIdPathParams) => `/delegate-profiles/${paramsInPath.delegateProfileId}`,
+    { base: getConfig('api'), pathParams: { delegateProfileId }, ...props }
+  )
+
 export interface GetKubernetesDelegateNamesQueryParams {
   accountId?: string
 }
@@ -19013,42 +19052,3 @@ export const useGetDelegateSelectors = (props: UseGetDelegateSelectorsProps) =>
     base: getConfig('api'),
     ...props
   })
-
-export interface GetDelegateConfigFromIdQueryParams {
-  accountId?: string
-}
-
-export interface GetDelegateConfigFromIdPathParams {
-  delegateProfileId: string
-}
-
-export type GetDelegateConfigFromIdProps = Omit<
-  GetProps<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>,
-  'path'
-> &
-  GetDelegateConfigFromIdPathParams
-
-export const GetDelegateConfigFromId = ({ delegateProfileId, ...props }: GetDelegateConfigFromIdProps) => (
-  <Get<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>
-    path="/delegate-profiles/${delegateProfileId}"
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateConfigFromIdProps = Omit<
-  UseGetProps<
-    RestResponseDelegateProfile,
-    unknown,
-    GetDelegateConfigFromIdQueryParams,
-    GetDelegateConfigFromIdPathParams
-  >,
-  'path'
-> &
-  GetDelegateConfigFromIdPathParams
-
-export const useGetDelegateConfigFromId = ({ delegateProfileId, ...props }: UseGetDelegateConfigFromIdProps) =>
-  useGet<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>(
-    (paramsInPath: GetDelegateConfigFromIdPathParams) => `/delegate-profiles/${paramsInPath.delegateProfileId}`,
-    { base: getConfig('api'), pathParams: { delegateProfileId }, ...props }
-  )

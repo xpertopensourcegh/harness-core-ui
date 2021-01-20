@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Button, Container, Intent, Tag, Layout, Popover } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
 import { useDeleteDelegate } from 'services/portal/index'
+import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import useDeleteDelegateModal from '../../modals/DeleteDelegateModal/useDeleteDelegateModal'
-import DelegateDetails from './DelegateDetails'
 import success from './success.svg'
 
 import css from './DelegatesPage.module.scss'
@@ -123,8 +123,8 @@ const RenderColumnMenu: Renderer<CellProps<Delegate>> = ({ row, column }) => {
 
 export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateListingProps) => {
   const { getString } = useStrings()
-  const [selDelegate, setSelDelegate] = useState<Delegate | null>(null)
-  // const history = useHistory()
+  const { accountId } = useParams()
+  const history = useHistory()
   if (!props.delegateResponse) {
     return <div>Delegate Listing</div>
   }
@@ -168,38 +168,26 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
   ]
   return (
     <Container className={css.delegateContainer}>
-      {!selDelegate && (
-        <>
-          <Button
-            id="delegateButton"
-            intent="primary"
-            text={getString('delegate.NEW_DELEGATE')}
-            icon="plus"
-            onClick={props.onClick}
-          />
-          <Table
-            columns={columns}
-            data={delegates}
-            className={css.delegateTable}
-            onRowClick={item => {
-              setSelDelegate(item)
-            }}
-          />
-        </>
-      )}
-      {selDelegate && (
-        <>
-          <Button
-            minimal
-            onClick={() => {
-              setSelDelegate(null)
-            }}
-          >
-            {getString('delegate.ReturnToDelegates')}
-          </Button>
-          <DelegateDetails delegate={selDelegate} />
-        </>
-      )}
+      <Button
+        id="delegateButton"
+        intent="primary"
+        text={getString('delegate.NEW_DELEGATE')}
+        icon="plus"
+        onClick={props.onClick}
+      />
+      <Table
+        columns={columns}
+        data={delegates}
+        className={css.delegateTable}
+        onRowClick={item => {
+          history.push(
+            routes.toResourcesDelegatesDetails({
+              accountId,
+              delegateId: item.uuid
+            })
+          )
+        }}
+      />
     </Container>
   )
 }

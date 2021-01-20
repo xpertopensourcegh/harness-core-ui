@@ -5,11 +5,11 @@ import {
   ExpressionAndRuntimeTypeProps,
   ExpressionAndRuntimeType,
   MultiTypeInputValue,
+  MultiTypeInputType,
   Layout,
   Text,
   Color,
-  FixedTypeComponentProps,
-  MultiTypeInputType
+  FixedTypeComponentProps
 } from '@wings-software/uicore'
 import { Position, Classes } from '@blueprintjs/core'
 import type { Scope } from '@common/interfaces/SecretsInterface'

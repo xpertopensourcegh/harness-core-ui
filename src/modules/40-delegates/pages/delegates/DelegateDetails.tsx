@@ -1,48 +1,56 @@
 import React from 'react'
-import { Card, Container, Layout, Text, Tag, Intent, Color } from '@wings-software/uicore'
+import { Link, useParams, useLocation } from 'react-router-dom'
+import { Card, Container, Layout, Text, Tag, Intent } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
+import { useGetDelegateFromId, useGetDelegateConfigFromId } from 'services/portal'
 import css from './DelegateDetails.module.scss'
-interface Delegate {
-  status: string
-  connections: string[]
-  delegateName: string
-  hostName: string
-  lastHeartBeat: number
-  delegateProfileId?: string
-  uuid?: string
-  description?: string
-  tags?: string[]
-  delegateType?: string
-}
+// interface Delegate {
+//   status: string
+//   connections: string[]
+//   delegateName: string
+//   hostName: string
+//   lastHeartBeat: number
+//   delegateProfileId: string
+//   uuid?: string
+//   description?: string
+//   tags?: string[]
+//   delegateType?: string
+// }
 
-interface DelegateDetailsProps {
-  delegate?: Delegate | null
-}
-
-export default function DelegateDetails(props: DelegateDetailsProps): JSX.Element {
-  const { delegate } = props
-  // const { accountId } = useParams()
+export default function DelegateDetails(): JSX.Element {
+  // const { delegate } = props
+  const { delegateId, accountId } = useParams()
+  const { pathname } = useLocation()
   const { getString } = useStrings()
-  // const data = []
-  // const { data } = getDelegateProfilesV2({ queryParams: { accountId } })
-  // let delegateProfile: DelegateProfile | undefined
-  // if (data) {
-  //   const { resource } = data
-  //   if (resource && delegate?.delegateProfileId) {
-  //     const profiles = resource?.response
-  //     delegateProfile = profiles.find((item: any) => item.uuid === delegate?.delegateProfileId)
-  //   }
-  // }
+  const { data } = useGetDelegateFromId({
+    delegateId,
+    queryParams: { accountId }
+  })
+
+  const delegate = data?.resource
+
+  const { data: profileResponse } = useGetDelegateConfigFromId({
+    delegateProfileId: delegate?.delegateProfileId || '',
+    queryParams: { accountId }
+  })
+
+  const delegateProfile = profileResponse?.resource
+  const renderTitle = () => {
+    return (
+      <Layout.Vertical>
+        <Layout.Horizontal spacing="xsmall">
+          <Link to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>Resources</Link>
+          <span>/</span>
+          <Link to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>Delegates</Link>
+        </Layout.Horizontal>
+        <span>{delegate?.hostName}</span>
+      </Layout.Vertical>
+    )
+  }
   return (
     <>
-      <Container
-        padding={{ top: 'xlarge', left: 'xlarge', bottom: 'medium', right: 'xlarge' }}
-        background={Color.BLUE_200}
-      >
-        {/*TODO replace with breadcrumbs */}
-        Navigation content
-      </Container>
+      <Page.Header title={renderTitle()} />
       <Page.Body className={css.main}>
         <Layout.Vertical>
           <Container>
@@ -60,88 +68,85 @@ export default function DelegateDetails(props: DelegateDetailsProps): JSX.Elemen
                     <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
                       {getString('delegate.HostName')}
                     </Text>
-                    <Text font="small">{delegate?.hostName}</Text>
+                    <Text font="small" className={css.cardValue}>
+                      {delegate?.hostName}
+                    </Text>
                   </div>
                   {delegate?.delegateType && (
                     <div>
                       <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
                         {getString('delegate.DELEGATE_TYPE')}
                       </Text>
-                      <Text font="small">{delegate?.delegateType}</Text>
+                      <Text font="small" className={css.cardValue}>
+                        {delegate?.delegateType}
+                      </Text>
                     </div>
                   )}
                 </Container>
 
-                {/* {delegate?.delegateProfileId && delegateProfile && (
-                  <div>
-                    <hr style={{ border: '1px solid var(--grey-350)' }} />
+                {delegate?.delegateProfileId && delegateProfile && (
+                  <div className={css.addSpacing}>
+                    <hr className={css.labelSeparator} />
                     <Container flex>
                       <div>
                         <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
                           {getString('delegate.DELEGATE_CONFIGURATION')}
                         </Text>
-                        <Text font="small">{delegateProfile.name}</Text>
-                      </div>
-                    </Container>
-                  </div>
-                )} */}
-                <div>
-                  <div>
-                    <hr style={{ border: '1px solid var(--grey-350)' }} />
-                    <Container flex>
-                      <div>
-                        <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
-                          {getString('description')}
+                        <Text font="small" className={css.cardValue}>
+                          {delegateProfile.name}
                         </Text>
-                        <Text font="small">{delegate?.description}</Text>
                       </div>
                     </Container>
                   </div>
-                </div>
-                {/* <Text>{getString('description')}</Text>
-              <Text font={{ weight: 'bold' }} lineClamp={1}>
-                {triggerResponse?.data?.description || '-'}
-              </Text>
-              <hr />
-              <Text>{getString('identifier')}</Text>
-              <Text font={{ weight: 'bold' }} lineClamp={1}>
-                {triggerResponse?.data?.identifier}
-              </Text>
-              <hr />
-              <Text>{getString('tagsLabel')}</Text>
-              {!isEmpty(triggerResponse?.data?.tags) ? (
-                <TagsPopover tags={triggerResponse?.data?.tags as tagsType} />
-              ) : null} */}
+                )}
+                {delegate?.description && (
+                  <div className={css.addSpacing}>
+                    <div>
+                      <hr className={css.labelSeparator} />
+                      <Container flex>
+                        <div>
+                          <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
+                            {getString('description')}
+                          </Text>
+                          <Text font="small" className={css.cardValue}>
+                            {delegate?.description}
+                          </Text>
+                        </div>
+                      </Container>
+                    </div>
+                  </div>
+                )}
               </Card>
-              <Card interactive={false} elevation={0} selected={false} className={css.overview}>
+              <Card interactive={false} elevation={0} selected={false} className={css.advancedCard}>
                 <Text font={{ size: 'medium', weight: 'bold' }}>{getString('advancedTitle')}</Text>
                 <Container flex>
-                  {delegate?.tags && (
-                    <div>
-                      <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
-                        {getString('delegate.DelegateTags')}
-                      </Text>
-                      <Text font="small">{getString('delegate.DelegateTagDescription')}</Text>
-                      <Text font="small">{getString('delegate.DelegateSpecificTags')}</Text>
-                      {delegate?.tags.map((tag: string) => {
+                  <div className={css.addSpacing}>
+                    <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
+                      {getString('delegate.DelegateTags')}
+                    </Text>
+                    <Text font="small">{getString('delegate.DelegateTagDescription')}</Text>
+                    <Text font="small" color="#4F4F4F">
+                      {getString('delegate.DelegateSpecificTags')}
+                    </Text>
+                    {delegate?.tags &&
+                      delegate?.tags.map((tag: string) => {
                         return (
                           <Tag intent={Intent.PRIMARY} minimal={true} key={tag}>
                             <span>{tag}</span>
                           </Tag>
                         )
                       })}
-                      <Text font="small">{getString('delegate.TagsFromDelegateConfig')}</Text>
-                      {/* {delegateProfile &&
-                        delegateProfile?.selectors &&
-                        delegateProfile?.selectors.map((tag: string) => {
-                          return (
-                            <Tag intent={Intent.PRIMARY} minimal={true} key={tag}>
-                              <span>{tag}</span>
-                            </Tag>
-                          )
-                        })} */}
-                    </div>
-                  )}
+                    <Text font="small">{getString('delegate.TagsFromDelegateConfig')}</Text>
+                    {delegateProfile &&
+                      delegateProfile?.selectors &&
+                      delegateProfile?.selectors.map((tag: string) => {
+                        return (
+                          <Tag intent={Intent.PRIMARY} minimal={true} key={tag}>
+                            <span>{tag}</span>
+                          </Tag>
+                        )
+                      })}
+                  </div>
                 </Container>
               </Card>
             </Container>

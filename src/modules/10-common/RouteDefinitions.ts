@@ -45,7 +45,7 @@ const routes = {
   toResourcesSecretDetails: withAccountId(({ secretId }: SecretsPathProps) => `/admin/resources/secrets/${secretId}`),
   toResourcesDelegates: withAccountId(() => '/admin/resources/delegates'),
   toResourcesDelegatesDetails: withAccountId(
-    ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}/details`
+    ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}`
   ),
   toResourcesDelegateConfigsDetails: withAccountId(
     ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}`
