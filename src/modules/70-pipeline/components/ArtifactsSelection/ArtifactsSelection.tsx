@@ -97,6 +97,9 @@ export default function ArtifactsSelection({
           overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
         }) => {
           if (artifact?.overrideSet?.identifier === identifierName) {
+            if (!artifact?.overrideSet?.artifacts?.['sidecars']) {
+              set(artifact, 'overrideSet.artifacts.sidecars', [])
+            }
             return artifact.overrideSet.artifacts['sidecars']
           }
         }
