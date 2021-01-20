@@ -374,8 +374,8 @@ instanceFieldOptions:
   percentagePlaceHolder: 'Percentage'
   instanceHolder: 'Count'
 delegate:
-  HostName: 'Hostname'
-  DELEGATE_TYPE: 'Delegate Type'
+  hostName: 'Hostname'
+  delegateType: 'Delegate Type'
   DELEGATES: 'Delegates'
   NEW_DELEGATE: 'New Delegate'
   DelegateName: 'Delegate'
@@ -383,11 +383,11 @@ delegate:
   DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression, it does not include'
   DelegateSelectorErrMsgSplChars: 'has invalid characters, the selector property cannot contain'
   Delegate_Selector_placeholder: 'Add specific selectors or leave empty to target any delegate'
-  DelegateTags: 'Delegate Tags'
+  delegateTags: 'Delegate Tags'
   ReturnToDelegates: 'Return to list of Delegates'
-  TagsFromDelegateConfig: 'Tags inherited from the delegate configuration'
-  DelegateSpecificTags: 'Delegate Specific Tags'
-  DelegateTagDescription:
+  tagsFromDelegateConfig: 'Tags inherited from the delegate configuration'
+  delegateSpecificTags: 'Delegate Specific Tags'
+  delegateTagDescription:
     'You can use delegate tags to control if this delegate can be used for executing certain steps in
     a pipeline'
   LastHeartBeat: 'Last HeartBeat'
@@ -432,7 +432,7 @@ delegate:
       icon: 'service-ecs'
       name: 'Linux'
   DELEGATE_CONFIGURATIONS: 'Delegate Configurations'
-  DELEGATE_CONFIGURATION: 'Delegate Configuration'
+  delegateConfiguration: 'Delegate Configuration'
   CONFIGURATION_NAME: 'Delegate Configuration Name'
   Scope: 'Scope'
   ScopeDescription: 'Limit the delegate to perform tasks related to the following environments'

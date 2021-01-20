@@ -66,7 +66,7 @@ export default function DelegateDetails(): JSX.Element {
                 <Container flex>
                   <div>
                     <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
-                      {getString('delegate.HostName')}
+                      {getString('delegate.hostName')}
                     </Text>
                     <Text font="small" className={css.cardValue}>
                       {delegate?.hostName}
@@ -75,7 +75,7 @@ export default function DelegateDetails(): JSX.Element {
                   {delegate?.delegateType && (
                     <div>
                       <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
-                        {getString('delegate.DELEGATE_TYPE')}
+                        {getString('delegate.delegateType')}
                       </Text>
                       <Text font="small" className={css.cardValue}>
                         {delegate?.delegateType}
@@ -90,7 +90,7 @@ export default function DelegateDetails(): JSX.Element {
                     <Container flex>
                       <div>
                         <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
-                          {getString('delegate.DELEGATE_CONFIGURATION')}
+                          {getString('delegate.delegateConfiguration')}
                         </Text>
                         <Text font="small" className={css.cardValue}>
                           {delegateProfile.name}
@@ -122,11 +122,11 @@ export default function DelegateDetails(): JSX.Element {
                 <Container flex>
                   <div className={css.addSpacing}>
                     <Text font="small" style={{ marginBottom: '5px', color: 'var(--grey-350)' }}>
-                      {getString('delegate.DelegateTags')}
+                      {getString('delegate.delegateTags')}
                     </Text>
-                    <Text font="small">{getString('delegate.DelegateTagDescription')}</Text>
+                    <Text font="small">{getString('delegate.delegateTagDescription')}</Text>
                     <Text font="small" color="#4F4F4F">
-                      {getString('delegate.DelegateSpecificTags')}
+                      {getString('delegate.delegateSpecificTags')}
                     </Text>
                     {delegate?.tags &&
                       delegate?.tags.map((tag: string) => {
@@ -136,7 +136,7 @@ export default function DelegateDetails(): JSX.Element {
                           </Tag>
                         )
                       })}
-                    <Text font="small">{getString('delegate.TagsFromDelegateConfig')}</Text>
+                    <Text font="small">{getString('delegate.tagsFromDelegateConfig')}</Text>
                     {delegateProfile &&
                       delegateProfile?.selectors &&
                       delegateProfile?.selectors.map((tag: string) => {
