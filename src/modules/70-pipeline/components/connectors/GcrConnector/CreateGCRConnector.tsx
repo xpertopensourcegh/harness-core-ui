@@ -4,13 +4,12 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors } from '@connectors/constants'
-import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
+import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { ImagePath } from '@pipeline/components/ArtifactsSelection/DockerArtifact/ImagePath'
-import css from './DockerConnector.module.scss'
-interface CreateDockerConnectorProps {
+import css from './GCRConnector.module.scss'
+interface CreateGCRConnectorProps {
   hideLightModal: () => void
   handleSubmit: (data: {
     connectorId: undefined | { value: string }
@@ -21,30 +20,30 @@ interface CreateDockerConnectorProps {
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
   mock?: ResponseBoolean
   isEditMode?: boolean
-  connectorInfo?: ConnectorInfoDTO | void
   context?: number
+  connectorInfo?: ConnectorInfoDTO | void
 }
 
-const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
+const CreateGCRConnector: React.FC<CreateGCRConnectorProps> = props => {
   const { getString } = useStrings()
 
   const [isEditMode, setIsEditMode] = useState(false)
   return (
     <StepWizard
-      icon={getConnectorIconByType(Connectors.DOCKER)}
+      icon={getConnectorIconByType('Gcr')}
       iconProps={{ size: 37, color: Color.WHITE }}
-      title={getConnectorTitleTextByType(Connectors.DOCKER)}
+      title={getConnectorTitleTextByType('Gcr')}
       className={css.wrapper}
     >
       <ConnectorDetailsStep
-        type={Connectors.DOCKER}
+        type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <StepDockerAuthentication
-        name={getString('connectors.docker.stepTwoName')}
+      <GcrAuthentication
+        name={getString('connectors.GCR.stepTwoName')}
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={isEditMode as boolean}
         connectorInfo={props.connectorInfo}
@@ -54,7 +53,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         name={getString('connectors.stepThreeName')}
         isStep={true}
         isLastStep={false}
-        type={Connectors.DOCKER}
+        type={'Gcr'}
       />
       <ImagePath
         name={getString('connectors.stepFourName')}
@@ -66,4 +65,4 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
   )
 }
 
-export default CreateDockerConnector
+export default CreateGCRConnector

@@ -61,6 +61,7 @@ export const ConnectorInfoText = {
   DOCKER: 'Docker',
   YAML: 'Create via YAML Builder',
   GCP: 'GCP',
+  GCR: 'GCR',
   GCP_KMS: 'Secret Manager',
   LOCAL: 'Secret Manager',
   AWS: 'AWS',

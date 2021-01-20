@@ -8,6 +8,7 @@ export default {
   bitbucketConnectorDetails: 'Bitbucket Connector Overview',
   secretManagerDetails: 'Secret Manager Details',
   gcpConnectorDetails: 'Google Cloud Provider Overview',
+  gcrConnectorDetails: 'Google Container Registry Overview',
   awsConnectorDetails: 'AWS Cloud Provider Overview',
   hashicorpVaultDetails: 'HashiCorp Vault Overview',
   appDynamicsDetails: 'AppDynamics Connector Details',
@@ -16,6 +17,7 @@ export default {
   LABEL: {
     k8sCluster: 'Kubernetes Cluster',
     gcpConnector: 'Google Cloud Provider',
+    gcrConnector: 'Google Container Registry',
     gitConnector: 'Git Connector',
     githubConnector: 'GitHub Connector',
     gitlabConnector: 'GitLab Connector',

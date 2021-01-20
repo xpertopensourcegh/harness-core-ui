@@ -75,6 +75,8 @@ export const getHeadingByType = (type: string): string => {
       return i18n.awsConnectorDetails
     case Connectors.GCP:
       return i18n.gcpConnectorDetails
+    case 'Gcr':
+      return i18n.gcrConnectorDetails
     default:
       return i18n.default
   }
@@ -111,6 +113,8 @@ export const getConnectorTitleTextByType = (type: string): string => {
       return i18n.LABEL.artifactory
     case Connectors.GCP:
       return i18n.LABEL.gcpConnector
+    case 'Gcr':
+      return i18n.LABEL.gcrConnector
     default:
       return ''
   }
@@ -147,6 +151,10 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-artifactory'
     case Connectors.GCP:
       return 'service-gcp'
+    case 'Gcr':
+      return 'service-gcp'
+    case 'DOCKER':
+      return 'service-dockerhub'
     default:
       return 'placeholder'
   }

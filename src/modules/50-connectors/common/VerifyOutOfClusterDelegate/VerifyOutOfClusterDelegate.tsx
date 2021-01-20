@@ -58,6 +58,8 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
 
       case Connectors.VAULT:
         return getString('connectors.testConnectionStep.url.vault')
+      case Connectors.GCR:
+        return getString('connectors.testConnectionStep.url.gcr')
       case Connectors.BITBUCKET:
       case Connectors.GITLAB:
       case Connectors.GITHUB:
@@ -139,6 +141,8 @@ const VerifyOutOfClusterDelegate: React.FC<
       case Connectors.ARTIFACTORY:
         return 'https://docs.harness.io/article/nj3p1t7v3x-add-artifactory-servers#review_artifactory_permissions'
       case Connectors.GCP:
+        return 'https://docs.harness.io/article/6x52zvqsta-add-google-cloud-platform-cloud-provider#review_gcp_permissions_required'
+      case Connectors.GCR:
         return 'https://docs.harness.io/article/6x52zvqsta-add-google-cloud-platform-cloud-provider#review_gcp_permissions_required'
 
       default:

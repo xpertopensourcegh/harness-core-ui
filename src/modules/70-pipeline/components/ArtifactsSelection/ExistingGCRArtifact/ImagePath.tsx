@@ -11,10 +11,11 @@ import {
 import { Form } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
+import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
-import css from './DockerArtifact.module.scss'
+import css from './GCRArtifact.module.scss'
 
 interface ImagePathProps {
   handleSubmit: (data: {
@@ -30,7 +31,8 @@ interface ImagePathProps {
 }
 
 const primarySchema = Yup.object().shape({
-  imagePath: Yup.string().trim().required(i18n.validation.imagePath)
+  imagePath: Yup.string().trim().required(i18n.validation.imagePath),
+  registryHostname: Yup.string().trim().required('GCR Registry URL is required')
 })
 
 const sidecarSchema = Yup.object().shape({
@@ -39,7 +41,8 @@ const sidecarSchema = Yup.object().shape({
     .trim()
     .required(i18n.validation.sidecarId)
     .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-    .notOneOf(StringUtils.illegalIdentifiers)
+    .notOneOf(StringUtils.illegalIdentifiers),
+  registryHostname: Yup.string().trim().required('GCR Registry URL is required')
 })
 
 const tagOptions: IOptionProps[] = [
@@ -55,7 +58,7 @@ const tagOptions: IOptionProps[] = [
 
 export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
   const { name, context, handleSubmit, prevStepData, initialValues } = props
-
+  const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{i18n.specifyArtifactServer}</div>
@@ -83,6 +86,13 @@ export const ImagePath: React.FC<StepProps<any> & ImagePathProps> = props => {
                   />
                 </div>
               )}
+              <div className={css.dockerSideCard}>
+                <FormInput.Text
+                  label={getString('connectors.GCR.registryHostname')}
+                  placeholder={getString('UrlLabel')}
+                  name="registryHostname"
+                />
+              </div>
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={i18n.existingDocker.imageName}

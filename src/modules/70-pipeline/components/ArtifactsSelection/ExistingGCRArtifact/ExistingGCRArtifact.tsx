@@ -1,0 +1,46 @@
+import React from 'react'
+import { Color, StepWizard } from '@wings-software/uicore'
+import { getConnectorIconByType, getConnectorTitleTextByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { useStrings } from 'framework/exports'
+import { GCRDetailStep } from './GCRDetailStep'
+import { ImagePath } from './ImagePath'
+import css from './GCRArtifact.module.scss'
+
+export default function ExistingDockerArtifact({
+  handleSubmit,
+  context,
+  handleViewChange,
+  initialValues
+}: {
+  handleSubmit: (data: {
+    connectorId: undefined | { value: string }
+    imagePath: string
+    identifier?: string
+    tag?: string
+    tagRegex?: string
+    tagType?: string
+  }) => void
+  context: number
+  handleViewChange: () => void
+  initialValues: any
+}): JSX.Element {
+  const { getString } = useStrings()
+  return (
+    <div>
+      <StepWizard
+        className={css.existingDocker}
+        icon={getConnectorIconByType('Gcr')}
+        iconProps={{ size: 37, color: Color.WHITE }}
+        title={getConnectorTitleTextByType('Gcr')}
+      >
+        <GCRDetailStep name={getString('overview')} handleViewChange={handleViewChange} initialValues={initialValues} />
+        <ImagePath
+          name={getString('connectors.stepFourName')}
+          context={context}
+          handleSubmit={handleSubmit}
+          initialValues={initialValues}
+        />
+      </StepWizard>
+    </div>
+  )
+}

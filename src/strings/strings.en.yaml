@@ -831,6 +831,7 @@ validation:
   privateKey: 'GitHub Private Key is required'
   accessToken: Access token is required
   dockerRegistryUrl: 'Docker Registry URL is required'
+  registryHostname: 'GCR Registry URL is required'
   nexusServerURL: 'Nexus URL is required'
   nexusVersion: 'Version is required'
   artifactoryServerURL: 'Artifactory URL is required'
@@ -889,12 +890,14 @@ connectors:
       appD: 'Controller URL : '
       vault: 'Vault URL : '
       bitbucket: 'URL : '
+      gcr: 'GCR URL : '
     validationText:
       k8s: Validating the cluster authentication and permissions
       docker: Validating the Docker Registry authentication and permissions
       artifactory: Validating the Artifactory Repository authentication and permissions
       nexus: Validating the Nexus Repository authentication and permissions
       gcp: Validating the Google Cloud Provider authentication and permissions
+      gcr: Validating the Google Container Registry authentication and permissions
       aws: Validating the AWS Cloud Provider authentication and permissions
       appD: Validating the AppDynamics authentication and permissions
       splunk: Validating the Splunk authentication and permissions
@@ -938,6 +941,12 @@ connectors:
     stepTwoName: 'Google Cloud Provider Details'
     delegateOutClusterInfo: 'Specify credentials here'
     delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
+  GCR:
+    name: GCR
+    fullName: Google Container Registry
+    artifactServer: 'GCR Server'
+    stepTwoName: 'Google Container Registry Details'
+    registryHostname: 'GCR Registry URL'
   git:
     gitStepTwoName: 'Git Connection Details'
     githubStepTwoName: 'GitHub Connection Details'
