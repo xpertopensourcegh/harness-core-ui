@@ -42,16 +42,23 @@ export interface AdminSelectorLinkProps {
 }
 
 export const AdminSelectorLink: React.FC<AdminSelectorLinkProps> = ({ to, label, iconName, disabled }) => {
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     if (disabled) e.preventDefault()
+
+    // POPOVER_DISMISS does not work with <Link />, so we trigger click on parent
+    // https://github.com/palantir/blueprint/issues/2820
+    const { parentElement } = e.target as HTMLAnchorElement
+    parentElement?.click()
   }
 
   return (
-    <NavLink className={cx(css.link, Classes.POPOVER_DISMISS)} to={to} onClick={handleLinkClick}>
-      <Icon name={iconName} size={24} className={css.linkIcon} />
-      <Text inline style={{ paddingTop: 'var(--spacing-medium)' }} className={css.text}>
-        {label}
-      </Text>
-    </NavLink>
+    <span className={Classes.POPOVER_DISMISS}>
+      <NavLink className={css.link} to={to} onClick={handleLinkClick}>
+        <Icon name={iconName} size={24} className={css.linkIcon} />
+        <Text inline style={{ paddingTop: 'var(--spacing-medium)' }} className={css.text}>
+          {label}
+        </Text>
+      </NavLink>
+    </span>
   )
 }
