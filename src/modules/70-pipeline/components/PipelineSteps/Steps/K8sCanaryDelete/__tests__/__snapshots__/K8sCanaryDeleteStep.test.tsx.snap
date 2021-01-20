@@ -434,6 +434,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view for inputset 1`] = `
     >
       <label
         class="bp3-label"
+        for="spec.timeout"
       >
         Timeout
          
@@ -445,17 +446,15 @@ exports[`Test K8sCanaryDeleteStep should render edit view for inputset 1`] = `
         class="bp3-form-content"
       >
         <div
-          class="TextInput--main"
+          class="bp3-input-group bp3-fill"
         >
-          <div
-            class="bp3-input-group"
-          >
-            <input
-              class="bp3-input"
-              name="timeout"
-              type="text"
-            />
-          </div>
+          <input
+            class="bp3-input"
+            name="spec.timeout"
+            placeholder="Enter w/d/h/m/s/ms"
+            type="text"
+            value=""
+          />
         </div>
       </div>
     </div>

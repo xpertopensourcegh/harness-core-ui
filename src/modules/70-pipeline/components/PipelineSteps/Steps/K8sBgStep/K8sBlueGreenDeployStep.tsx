@@ -7,21 +7,23 @@ import {
   Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  TextInput,
-  Checkbox,
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
-// import { get } from 'lodash-es'
-import { FormGroup } from '@blueprintjs/core'
+import { FormikProps, yupToFormErrors } from 'formik'
+import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { useStrings } from 'framework/exports'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -34,7 +36,11 @@ interface K8BGDeployProps {
   initialValues: K8sBGDeployData
   onUpdate?: (data: K8sBGDeployData) => void
   stepViewType?: StepViewType
-  template?: K8sBGDeployData
+  inputSetData?: {
+    template?: K8sBGDeployData
+    path?: string
+    readonly?: boolean
+  }
 }
 
 function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef<K8sBGDeployData>): React.ReactElement {
@@ -51,7 +57,11 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
 
-          spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
+          spec: Yup.object().shape({
+            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+              getString('validation.timeout10SecMinimum')
+            )
+          })
         })}
       >
         {(formik: FormikProps<K8sBGDeployData>) => {
@@ -65,32 +75,37 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                   summary={getString('pipelineSteps.k8sBGDeploy')}
                   details={
                     <>
-                      <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <FormInput.MultiTextInput
-                          name="spec.timeout"
-                          label={getString('pipelineSteps.timeoutLabel')}
-                          className={stepCss.duration}
-                          style={{ width: '100%' }}
-                        />
-                        {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.spec.timeout as string}
-                            type="String"
-                            variableName="step.spec.timeout"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('spec.timeout', value)
-                            }}
+                      <div className={stepCss.formGroup}>
+                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                      </div>
+                      <div className={stepCss.formGroup}>
+                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                          <FormMultiTypeDurationField
+                            name="spec.timeout"
+                            label={getString('pipelineSteps.timeoutLabel')}
+                            multiTypeDurationProps={{ enableConfigureOptions: false }}
                           />
-                        )}
-                      </Layout.Horizontal>
-                      <FormMultiTypeCheckboxField
-                        name="spec.skipDryRun"
-                        label={getString('pipelineSteps.skipDryRun')}
-                      />
+                          {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={values.spec.timeout as string}
+                              type="String"
+                              variableName="step.spec.timeout"
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => {
+                                setFieldValue('spec.timeout', value)
+                              }}
+                            />
+                          )}
+                        </Layout.Horizontal>
+                      </div>
+                      <div className={stepCss.formGroup}>
+                        <FormMultiTypeCheckboxField
+                          name="spec.skipDryRun"
+                          label={getString('pipelineSteps.skipDryRun')}
+                        />
+                      </div>
                     </>
                   }
                 />
@@ -106,31 +121,24 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
   )
 }
 
-const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ onUpdate, initialValues, template }) => {
+const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
   return (
     <>
-      {getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.timeoutLabel')}>
-          <TextInput
-            name="spec.timeout"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, timeout: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
+        <DurationInputFieldForInputSet
+          label={getString('pipelineSteps.timeoutLabel')}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          disabled={inputSetData?.readonly}
+        />
       )}
-      {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormGroup>
-          <Checkbox
-            name="spec.skipDryRun"
-            className={stepCss.checkbox}
-            label={getString('pipelineSteps.skipDryRun')}
-            onChange={event => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, skipDryRun: event.currentTarget.checked } })
-            }}
-          />
-        </FormGroup>
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipDryRun')}
+          disabled={inputSetData?.readonly}
+        />
       )}
     </>
   )
@@ -146,7 +154,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={inputSetData?.template}
+          inputSetData={inputSetData}
         />
       )
     }
@@ -160,8 +168,35 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
     )
   }
 
-  validateInputSet(): object {
-    return {}
+  validateInputSet(
+    data: K8sBGDeployData,
+    template: K8sBGDeployData,
+    getString?: UseStringsReturn['getString']
+  ): object {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errors = { spec: {} } as any
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+
+    return errors
   }
   protected type = StepType.K8sBlueGreenDeploy
   protected stepName = 'K8s Blue Green Deploy'

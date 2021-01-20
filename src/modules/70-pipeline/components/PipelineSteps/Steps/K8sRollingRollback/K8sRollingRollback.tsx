@@ -10,7 +10,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
+import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -18,7 +18,12 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingRollbackStepInfo, StepElement } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings, UseStringsReturn } from 'framework/exports'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
+
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -34,6 +39,7 @@ interface K8sRollingRollbackProps {
   inputSetData?: {
     template?: K8sRollingRollbackData
     path?: string
+    readonly?: boolean
   }
 }
 
@@ -52,7 +58,11 @@ function K8sRollingRollbackWidget(
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          spec: Yup.string().required(getString('pipelineSteps.timeoutRequired'))
+          spec: Yup.object().shape({
+            timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+              getString('validation.timeout10SecMinimum')
+            )
+          })
         })}
       >
         {(formik: FormikProps<K8sRollingRollbackData>) => {
@@ -67,27 +77,31 @@ function K8sRollingRollbackWidget(
                   summary={getString('pipelineSteps.k8sRolloutRollback')}
                   details={
                     <>
-                      <FormInput.InputWithIdentifier inputLabel={getString('name')} />
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <FormMultiTypeDurationField
-                          name="spec.timeout"
-                          label={getString('pipelineSteps.timeoutLabel')}
-                          multiTypeDurationProps={{ enableConfigureOptions: false }}
-                        />
-                        {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.spec.timeout as string}
-                            type="String"
-                            variableName="step.spec.timeout"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('spec.timeout', value)
-                            }}
+                      <div className={stepCss.formGroup}>
+                        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+                      </div>
+                      <div className={stepCss.formGroup}>
+                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                          <FormMultiTypeDurationField
+                            name="spec.timeout"
+                            label={getString('pipelineSteps.timeoutLabel')}
+                            multiTypeDurationProps={{ enableConfigureOptions: false }}
                           />
-                        )}
-                      </Layout.Horizontal>
+                          {getMultiTypeFromValue(values.spec.timeout) === MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={values.spec.timeout as string}
+                              type="String"
+                              variableName="step.spec.timeout"
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => {
+                                setFieldValue('spec.timeout', value)
+                              }}
+                            />
+                          )}
+                        </Layout.Horizontal>
+                      </div>
                     </>
                   }
                 />
@@ -108,10 +122,10 @@ const K8sRollingRollbackInputStep: React.FC<K8sRollingRollbackProps> = ({ inputS
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeDurationField
+        <DurationInputFieldForInputSet
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false }}
+          disabled={inputSetData?.readonly}
         />
       )}
     </>
@@ -145,10 +159,27 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
     template: K8sRollingRollbackData,
     getString?: UseStringsReturn['getString']
   ): object {
-    const errors = {} as any
-    if (isEmpty(data?.spec?.timeout) && getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
-      errors.spec = {}
-      errors.spec.timeout = getString?.('fieldRequired', { field: 'Timeout' })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errors = { spec: {} } as any
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
     }
     return errors
   }

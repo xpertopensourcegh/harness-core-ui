@@ -6,20 +6,23 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  TextInput,
   Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
-import { FormGroup } from '@blueprintjs/core'
+import { FormikProps, yupToFormErrors } from 'formik'
+import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElement } from 'services/cd-ng'
-import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
+import {
+  DurationInputFieldForInputSet,
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -28,8 +31,11 @@ interface K8sCanaryDeployProps {
   initialValues: StepElement
   onUpdate?: (data: StepElement) => void
   stepViewType?: StepViewType
-  template?: StepElement
-  readonly?: boolean
+  inputSetData?: {
+    template?: StepElement
+    path?: string
+    readonly?: boolean
+  }
 }
 
 function K8sCanaryDeleteWidget(
@@ -47,7 +53,8 @@ function K8sCanaryDeleteWidget(
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired'))
+          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
         {(formik: FormikProps<StepElement>) => {
@@ -101,19 +108,16 @@ function K8sCanaryDeleteWidget(
   )
 }
 
-const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ onUpdate, initialValues, template }) => {
+const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
   return (
     <>
-      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME && (
-        <FormGroup label={getString('pipelineSteps.timeoutLabel')}>
-          <TextInput
-            name="timeout"
-            onChange={(event: React.SyntheticEvent<HTMLInputElement>) => {
-              onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, timeout: event.currentTarget.value } })
-            }}
-          />
-        </FormGroup>
+      {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
+        <DurationInputFieldForInputSet
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.timeout`}
+          label={getString('pipelineSteps.timeoutLabel')}
+          disabled={inputSetData?.readonly}
+        />
       )}
     </>
   )
@@ -129,8 +133,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
-          template={inputSetData?.template}
-          readonly={!!inputSetData?.readonly}
+          inputSetData={inputSetData}
         />
       )
     }
@@ -139,7 +142,6 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
-        readonly={!!inputSetData?.readonly}
         ref={formikRef}
       />
     )
@@ -150,10 +152,32 @@ export class K8sCanaryDeleteStep extends PipelineStep<StepElement> {
 
   protected stepIcon: IconName = 'service-kubernetes'
   /* istanbul ignore next */
-  validateInputSet(): object {
-    /* istanbul ignore next */
-    return {}
+  validateInputSet(data: StepElement, template: StepElement, getString?: UseStringsReturn['getString']): object {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errors = { spec: {} } as any
+    if (getMultiTypeFromValue(template?.spec?.timeout) === MultiTypeInputType.RUNTIME) {
+      const timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+
+      try {
+        timeout.validateSync(data.spec)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors.spec, err)
+        }
+      }
+    }
+    /* istanbul ignore else */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
+    }
+    return errors
   }
+
   protected defaultValues: StepElement = {
     name: '',
     identifier: '',
