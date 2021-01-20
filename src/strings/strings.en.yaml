@@ -864,6 +864,7 @@ activityHistory:
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
 connectors:
+  label: 'Connectors'
   stepThreeName: 'Test Connection'
   stepFourName: 'Artifact Source'
   name: 'Connector Name'

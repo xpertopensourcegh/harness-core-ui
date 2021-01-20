@@ -1,17 +1,18 @@
 import React from 'react'
-import { Layout, Container } from '@wings-software/uicore'
+import { Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Link, useParams, useLocation } from 'react-router-dom'
 import { Page } from 'modules/10-common/exports'
 import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
-import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services/cd-ng'
+import { useGetConnector, ConnectorResponse, useUpdateConnector, useGetOrganizationAggregateDTO } from 'services/cd-ng'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/exports'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import i18n from './ConnectorDetailsPage.i18n'
+import { getIconByType } from './utils/ConnectorUtils'
 import css from './ConnectorDetailsPage.module.scss'
 
 interface Categories {
@@ -38,27 +39,75 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     },
     mock: props.mockData
   })
+
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const renderTitle = () => {
+
+  const RenderBreadCrumb: React.FC = () => {
+    if (projectIdentifier) {
+      return renderCommonBreadCrumb(props)
+    } else {
+      return orgIdentifier ? RenderBreadCrumbForOrg(props) : renderCommonBreadCrumb(props)
+    }
+  }
+
+  const RenderBreadCrumbForOrg: React.FC = () => {
+    const { data: orgData } = useGetOrganizationAggregateDTO({
+      identifier: orgIdentifier,
+      queryParams: {
+        accountIdentifier: accountId
+      }
+    })
+
     return (
-      <Layout.Vertical>
-        <Layout.Horizontal spacing="xsmall">
-          <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
-            {i18n.Resources}
-          </Link>
-          <span>/</span>
-          <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
-            {i18n.Connectors}
-          </Link>
+      <Layout.Horizontal spacing="xsmall">
+        <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/resources'))}`}>
+          {orgData?.data && orgData?.data?.organizationResponse.organization.name}
+        </Link>
+        <span>/</span>
+        {renderCommonBreadCrumb(props)}
+      </Layout.Horizontal>
+    )
+  }
+
+  const renderCommonBreadCrumb: React.FC = () => {
+    return (
+      <Layout.Horizontal spacing="xsmall">
+        <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
+          {getString('resources')}
+        </Link>
+        <span>/</span>
+        <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
+          {getString('connectors.label')}
+        </Link>
+      </Layout.Horizontal>
+    )
+  }
+  const renderTitle: React.FC = () => {
+    return (
+      <Layout.Vertical padding={{ left: 'xsmall' }}>
+        {RenderBreadCrumb(props)}
+        <Layout.Horizontal spacing="small">
+          <Icon
+            margin={{ left: 'xsmall', right: 'xsmall' }}
+            name={getIconByType(data?.data?.connector?.type)}
+            size={35}
+          ></Icon>
+          <Container>
+            <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
+              {data?.data?.connector?.name}
+            </Text>
+            <Text color={Color.GREY_400}>{data?.data?.connector?.identifier}</Text>
+          </Container>
         </Layout.Horizontal>
-        <span className={css.heading}>{data?.data?.connector?.name}</span>
       </Layout.Vertical>
     )
   }
   return (
     <>
       <Page.Header
-        title={renderTitle()}
+        size="large"
+        className={css.header}
+        title={renderTitle(props)}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
