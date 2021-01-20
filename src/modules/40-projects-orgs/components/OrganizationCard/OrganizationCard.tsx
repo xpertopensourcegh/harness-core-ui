@@ -1,5 +1,5 @@
 import { Card, Color, Container, Icon, Layout, Text, CardBody, AvatarGroup } from '@wings-software/uicore'
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Menu, Classes, Intent } from '@blueprintjs/core'
 import { OrganizationAggregateDTO, useDeleteOrganization } from 'services/cd-ng'
@@ -32,6 +32,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
     collaborators
   } = organizationAggregateDTO
   const orgMembers = admins?.concat(collaborators || [])
+  const [menuOpen, setMenuOpen] = useState(false)
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
   const { getString } = useStrings()
   const { openDialog } = useConfirmationDialog({
@@ -54,16 +55,19 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   })
   const handleEdit = (e: React.MouseEvent): void => {
     e.stopPropagation()
+    setMenuOpen(false)
     editOrg?.()
   }
 
   const handleInvite = (e: React.MouseEvent): void => {
     e.stopPropagation()
+    setMenuOpen(false)
     inviteCollab?.()
   }
 
   const handleDelete = async (e: React.MouseEvent): Promise<void> => {
     e.stopPropagation()
+    setMenuOpen(false)
     if (!data?.identifier) return
     openDialog()
   }
@@ -87,7 +91,11 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
               </Menu>
             }
             menuPopoverProps={{
-              className: Classes.DARK
+              className: Classes.DARK,
+              isOpen: menuOpen,
+              onInteraction: nextOpenState => {
+                setMenuOpen(nextOpenState)
+              }
             }}
             className={css.cardMenu}
           />

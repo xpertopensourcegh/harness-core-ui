@@ -137,11 +137,14 @@ describe('Org Page List', () => {
       await act(async () => {
         fireEvent.click(invite)
         await waitFor(() => getByText(document.body, 'Invite Collaborators'))
-        let form = findDialogContainer()
+        const form = findDialogContainer()
         expect(form).toBeTruthy()
+      })
+      await act(async () => {
+        let form = findDialogContainer()
         fireEvent.click(form?.querySelector('[icon="cross"]')!)
         form = findDialogContainer()
-        expect(form).not.toBeTruthy()
+        expect(form).not.toBeTruthy
       })
     })
 })

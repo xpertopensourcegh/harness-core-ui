@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
@@ -41,6 +41,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const onDeleted = (): void => {
     reloadProjects?.()
   }
+  const [menuOpen, setMenuOpen] = useState(false)
   const openDialog = useDeleteProjectDialog(data, onDeleted)
 
   return (
@@ -58,10 +59,15 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 editProject={editProject}
                 collaborators={handleInviteCollaborators}
                 openDialog={openDialog}
+                setMenuOpen={setMenuOpen}
               />
             }
             menuPopoverProps={{
-              className: Classes.DARK
+              className: Classes.DARK,
+              isOpen: menuOpen,
+              onInteraction: nextOpenState => {
+                setMenuOpen(nextOpenState)
+              }
             }}
           />
         ) : null}
