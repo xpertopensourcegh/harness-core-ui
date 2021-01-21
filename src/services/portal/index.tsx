@@ -19052,3 +19052,31 @@ export const useGetDelegateSelectors = (props: UseGetDelegateSelectorsProps) =>
     base: getConfig('api'),
     ...props
   })
+
+export interface GetDelegateSizesQueryParams {
+  accountId?: string
+}
+
+export type GetDelegateSizesProps = Omit<
+  GetProps<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateSizes = (props: GetDelegateSizesProps) => (
+  <Get<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>
+    path="/setup/delegates/delegate-sizes"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateSizesProps = Omit<
+  UseGetProps<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateSizes = (props: UseGetDelegateSizesProps) =>
+  useGet<RestResponseSetString, unknown, GetDelegateSizesQueryParams, void>(`/setup/delegates/delegate-sizes`, {
+    base: getConfig('api'),
+    ...props
+  })

@@ -1,0 +1,13 @@
+{
+  "metadata": "",
+  "resource": [
+    {
+      "cpu": 0.5,
+      "label": "Extra Small",
+      "ram": 500,
+      "replicas": 1,
+      "size": "EXTRA_SMALL",
+      "taskLimit": 50
+    }
+  ]
+}

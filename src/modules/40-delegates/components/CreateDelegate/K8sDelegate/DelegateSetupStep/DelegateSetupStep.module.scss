@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer {
+  margin-bottom: 20px !important;
+}
+
+.delegateSizeWrapper {
+  :global {
+    .bp3-card {
+      margin-right: var(--spacing-small);
+    }
+  }
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+}
+
+.cardWrapper {
+  width: 120px;
+  height: 177px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sizeTag {
+  border-radius: 10px;
+  width: 100px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  color: #fafbfc;
+}
+
+.profileSelect {
+  :global {
+    .bp3-form-content {
+      width: 50%;
+    }
+  }
+}
+
+.small {
+  background: #39478f;
+}
+
+.medium {
+  background: #4d0b8f;
+}
+
+.large {
+  background: #39478f;
+  color: #fafbfc;
+}
+
+.footer {
+  display: flex;
+}
+
+.cardWrapper:not(:first-child) {
+  margin-right: var(--spacing-small);
+}

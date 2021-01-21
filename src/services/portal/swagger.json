@@ -12149,6 +12149,30 @@
         }
       }
     },
+    "/setup/delegates/delegate-sizes": {
+      "get": {
+        "tags": ["setupdelegates"],
+        "operationId": "delegateSizes",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseSetString"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/{delegateId}/description": {
       "put": {
         "tags": ["setupdelegates"],

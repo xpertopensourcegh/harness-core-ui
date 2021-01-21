@@ -24,12 +24,12 @@ export const DelegatesPage: React.FC = () => {
       <Tabs id="delegateTabs">
         <Tab
           id="delegate"
-          title={getString('delegate.DELEGATES')}
+          title={getString('delegate.delegates')}
           panel={<DelegateListing delegateResponse={data} onClick={openDelegateModal} />}
         />
         <Tab
           id="delegateConfiguration"
-          title={getString('delegate.DELEGATE_CONFIGURATIONS')}
+          title={getString('delegate.delegateConfigurations')}
           panel={
             <>
               <DelegateConfigurations />

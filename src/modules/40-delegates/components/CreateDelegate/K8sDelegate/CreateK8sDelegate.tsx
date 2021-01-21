@@ -6,6 +6,7 @@ import { GetDelegateTitleTextByType } from '@delegates/pages/delegates/utils/Del
 import { useStrings } from 'framework/exports'
 import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 import DelegateDetailsStep from '../commonSteps/DelegateDetailsStep'
+import DelegateSetupStep from './DelegateSetupStep/DelegateSetupStep'
 import Stepk8ReviewScript from './StepReviewScript/Stepk8sReviewScript'
 
 import StepSuccessVerification from './StepSuccessVerification/StepSuccessVerifcation'
@@ -22,13 +23,13 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
     {
       tabTitle: 'Delegate Setup',
       id: 'delegateSetup',
-      status: Status.COMPLETED
+      status: Status.TODO
     },
-    { tabTitle: 'Review Script', id: 'reviewScript', status: Status.INPROGRESS },
+    { tabTitle: 'Review Script', id: 'reviewScript', status: Status.TODO },
     {
       tabTitle: 'Verification ',
       id: 'verifications',
-      status: 'TODO'
+      status: Status.TODO
     }
   ]
 
@@ -50,12 +51,12 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
           className={css.stepWizard}
           panels={panels}
         >
-          <Stepk8ReviewScript
+          <DelegateSetupStep
             onBack={() => {
               setShowWizard(false)
             }}
           />
-
+          <Stepk8ReviewScript />
           <StepSuccessVerification />
         </WizardWithProgress>
       )}

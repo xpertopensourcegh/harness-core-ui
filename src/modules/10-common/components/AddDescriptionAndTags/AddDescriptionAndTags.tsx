@@ -34,6 +34,12 @@ export interface AddDescriptionAndTagsWithIdentifier {
   defaultOpenFields?: string[]
 }
 
+export interface AddDescription {
+  identifierProps: Omit<InputWithIdentifierProps, 'formik'>
+  className?: string
+  formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
+}
+
 export interface AddDescriptionAndKVTagsWithIdentifier {
   identifierProps: Omit<InputWithIdentifierProps, 'formik'>
   className?: string
@@ -208,6 +214,53 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
   )
 }
 
+export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Element {
+  const { formComponent, className, formikProps } = props
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(
+    formikProps?.values.description && formikProps.values.description.length > 0
+  )
+
+  React.useEffect(() => {
+    setIsDescriptionOpen(formikProps?.values.description && formikProps.values.description.length > 0)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formikProps?.values?.description])
+  return (
+    <Container className={cx(css.main, className)}>
+      <Container className={css.connectorFormNameWrapper}>
+        <Container className={css.connectorFormNameElm}>{formComponent}</Container>
+        {!isDescriptionOpen && (
+          <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
+            <AddFieldOption
+              label={i18n.addDescriptionLabel}
+              onClick={() => setIsDescriptionOpen(true)}
+              isOpen={!isDescriptionOpen}
+            />
+          </Layout.Vertical>
+        )}
+      </Container>
+
+      <Container className={css.connectorFormElm}>
+        {isDescriptionOpen && (
+          <FormInput.TextArea
+            className={css.expandedDescription}
+            name="description"
+            label={
+              <FieldLabelWithRemoveOption
+                onRemove={() => {
+                  setIsDescriptionOpen(false)
+                  formikProps?.setFieldValue('description', '')
+                }}
+                fieldLabel={i18n.descriptionLabel}
+              />
+            }
+          />
+        )}
+      </Container>
+    </Container>
+  )
+}
+
 export function AddDescriptionAndTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
   const { identifierProps, ...additionalProps } = props
   return (
@@ -226,4 +279,9 @@ export function AddDescriptionAndKVTagsWithIdentifier(props: AddDescriptionAndKV
       formComponent={<FormInput.InputWithIdentifier {...identifierProps} />}
     />
   )
+}
+
+export function AddDescriptionWithIdentifier(props: AddDescription): JSX.Element {
+  const { identifierProps, ...additionalProps } = props
+  return <AddDescription {...additionalProps} formComponent={<FormInput.InputWithIdentifier {...identifierProps} />} />
 }
