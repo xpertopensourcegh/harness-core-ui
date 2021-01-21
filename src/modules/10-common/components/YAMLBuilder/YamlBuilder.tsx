@@ -173,7 +173,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const replacer = (_key: string, value: unknown) => (typeof value === 'undefined' ? '' : value)
 
   const verifyIncomingJSON = (jsonObj: Record<string, any> | undefined): void => {
-    const jsonObjWithoutNulls = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/null/g, '""')) as Record<
+    const jsonObjWithoutNulls = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/:\s*null/g, ':""')) as Record<
       string,
       any
     >
