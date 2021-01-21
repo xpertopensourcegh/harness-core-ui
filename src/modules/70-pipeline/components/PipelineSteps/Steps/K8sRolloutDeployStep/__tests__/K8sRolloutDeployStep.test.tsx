@@ -31,6 +31,54 @@ describe('Test K8sRolloutDeployStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+  test('should render variable view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sRollingDeploy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          spec: { skipDryRun: true, timeout: '10m' }
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-skip': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.rolloutDeployment.skipDryRun',
+                localName: 'step.rolloutDeployment.skipDryRun'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.rolloutDeployment.timeout',
+                localName: 'step.rolloutDeployment.timeout'
+              }
+            },
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.rolloutDeployment.name',
+                localName: 'step.rolloutDeployment.name'
+              }
+            }
+          },
+          variablesData: {
+            name: 'step-name',
+            identifier: 'rolloutDeployment',
+            type: 'K8sRollingDeploy',
+            spec: {
+              timeout: 'step-timeout',
+              skipDryRun: 'step-skip'
+            }
+          }
+        }}
+        type={StepType.K8sRollingDeploy}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
   test('should render edit view', () => {
     const { container } = render(
       <TestStepWidget

@@ -58,7 +58,7 @@ export const RightBar = (): JSX.Element => {
           updatePipelineView({
             ...pipelineView,
             isDrawerOpened: true,
-            drawerData: { type: DrawerTypes.PipelineVariables, size: 1024, hasBackdrop: true },
+            drawerData: { type: DrawerTypes.PipelineVariables, size: 1140, hasBackdrop: true },
             isSplitViewOpen: false,
             splitViewData: {}
           })

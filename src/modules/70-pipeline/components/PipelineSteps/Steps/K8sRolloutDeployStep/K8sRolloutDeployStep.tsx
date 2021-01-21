@@ -6,7 +6,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Accordion
+  Accordion,
+  Text
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
@@ -24,9 +25,12 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
+import variableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 export interface K8RolloutDeployData extends StepElement {
   spec: K8sRollingStepInfo
@@ -142,11 +146,49 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
     </>
   )
 }
+export interface K8RolloutDeployVariableStepProps {
+  initialValues: K8RolloutDeployData
+  stageIdentifier: string
+  onUpdate?(data: K8RolloutDeployData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8RolloutDeployData
+}
+
+const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = ({
+  variablesData,
+  metadataMap,
+  initialValues
+}) => {
+  return (
+    <div className={variableCss.variableListTable}>
+      <>
+        <CopyText
+          textToCopy={metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.fqn || ''}
+        >
+          &lt;+{metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.localName || ''}&gt;
+        </CopyText>
+        <Text>Boolean</Text>
+        <Text>{initialValues.spec.skipDryRun === true ? 'true' : 'false'}</Text>
+      </>
+      <>
+        <CopyText textToCopy={metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.fqn || ''}>
+          &lt;+{metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.localName || ''}&gt;
+        </CopyText>
+        <Text>Boolean</Text>
+        <Text>{initialValues.spec.timeout}</Text>
+      </>
+    </div>
+  )
+}
 
 const K8sRolloutDeployRef = React.forwardRef(K8RolloutDeployWidget)
 export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
+  constructor() {
+    super()
+    this._hasStepVariables = true
+  }
   renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -157,7 +199,16 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
           inputSetData={inputSetData}
         />
       )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8RolloutDeployVariableStep
+          {...(customStepProps as K8RolloutDeployVariableStepProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
+        />
+      )
     }
+
     return (
       <K8sRolloutDeployRef
         initialValues={initialValues}
