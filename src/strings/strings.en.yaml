@@ -55,6 +55,8 @@ yaml: YAML
 verificationJobs: Verification Jobs
 abort: Abort
 conditions: Conditions
+gitBranch: Git Branch
+gitTag: Git Tag
 notifications: Notifications
 numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
@@ -620,7 +622,7 @@ pipelineSteps:
   autoTagSuffixLabel: 'Auto-Tag Suffix'
   settingsLabel: 'Settings'
   settingsInfo: Plugin specific settings. Please refer to the plugin's documentation page
-  repoInfo: For example, plugins/s3-cache
+  dockerRegistryInfo: Docker registry. For example, "plugins/s3"
   dockerfileLabel: 'Dockerfile'
   dockerfileInfo: If not provided assumed to be in the root folder of the codebase
   endpointLabel: 'Endpoint URL'
@@ -714,8 +716,8 @@ pipelineSteps:
   gcpConnectorLabel: GCP Connector
   gcpConnectorInfo: GCP connector to use for saving the cache to GCS
   restoreCacheGcpConnectorInfo: GCP connector to use for restoring the cache from GCS
-  dockerHubConnectorLabel: Docker Registry Connector
-  dockerHubConnectorInfo: Docker Registry Connector to use for uploading the image
+  dockerHubConnectorLabel: Docker Connector
+  dockerHubConnectorInfo: Docker Connector to use for uploading the image
   k8sRolloutDeploy: K8s Rollout Deploy
   k8sApply: K8s Apply
   k8sDelete: K8s Delete
@@ -750,7 +752,7 @@ pipelineSteps:
   restoreCacheS3:
     title: 'Restore Cache From S3'
   dockerHub:
-    title: 'Build and Publish to Docker Registry'
+    title: 'Build and Push an image to Docker Registry'
   gcs:
     title: 'Upload Artifacts to GCS'
   s3:
@@ -785,6 +787,7 @@ pipelineSteps:
       stageNamePlaceholder: 'Enter your stage name'
       variableNamePlaceholder: 'Enter Variable name'
       sharedPaths: 'Shared Paths'
+      sharedPathsInfo: By default, all of a stage’s steps use the same workspace to share data. If you need to share additional paths between steps, add Shared Paths
       addSharedPath: '+ Path'
       addDescription: 'description'
       addTags: 'tags'
@@ -820,7 +823,7 @@ validation:
   connectorRefRequired: Container Registry is a required field
   AWSConnectorRefRequired: AWS connector is a required field
   GCPConnectorRefRequired: GCP connector is a required field
-  dockerHubConnectorRefRequired: Docker Registry Connector is a required field
+  dockerHubConnectorRefRequired: Docker Connector is a required field
   imageRequired: Image is a required field
   commandRequired: Command is a required field
   limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0

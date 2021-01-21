@@ -1,5 +1,6 @@
 import React from 'react'
 import { Tabs, Tab } from '@wings-software/uicore'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 
@@ -62,7 +63,7 @@ export const StepCommands: React.FC<StepCommandsProps> = ({
 
   return (
     <div className={css.stepCommand}>
-      <div className={css.stepTabs}>
+      <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
         <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange} renderAllTabPanels>
           <Tab
             id={StepCommandTabs.StepConfiguration}

@@ -10,8 +10,12 @@
   overflow: hidden;
 
   .step-tabs {
+    height: calc(100% - var(--spacing-xlarge));
     padding: 0 var(--spacing-large);
-    height: calc(100% - 75px);
+
+    &_advanced {
+      height: calc(100% - 75px);
+    }
 
     :global(.bp3-tabs) {
       height: 100%;

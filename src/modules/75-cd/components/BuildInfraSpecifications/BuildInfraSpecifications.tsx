@@ -75,14 +75,14 @@ export default function BuildInfraSpecifications(): JSX.Element {
   const { stage = {} } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const [currentMode, setCurrentMode] = React.useState(() =>
-    stage?.stage?.spec?.infrastructure?.useFromStage?.stage ? Modes.Propagate : Modes.NewConfiguration
+    stage?.stage?.spec?.infrastructure?.useFromStage ? Modes.Propagate : Modes.NewConfiguration
   )
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getPrevoiusStageFromIndex(pipeline)
   const { stage: propagatedStage = {} } = getStageFromPipeline(
     pipeline,
-    stage?.stage?.spec?.infrastructure?.useFromStage?.stage || ''
+    stage?.stage?.spec?.infrastructure?.useFromStage || ''
   )
 
   const otherBuildStagesWithInfraConfigurationOptions: { label: string; value: string }[] = []
@@ -114,9 +114,9 @@ export default function BuildInfraSpecifications(): JSX.Element {
 
   const getInitialValues = (): Values => {
     if (stage?.stage?.spec?.infrastructure) {
-      if (stage?.stage?.spec?.infrastructure?.useFromStage?.stage) {
+      if (stage?.stage?.spec?.infrastructure?.useFromStage) {
         return {
-          useFromStage: stage?.stage?.spec?.infrastructure?.useFromStage?.stage
+          useFromStage: stage?.stage?.spec?.infrastructure?.useFromStage
         }
       } else if (connector?.data?.connector) {
         const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
@@ -154,9 +154,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
     if (stage) {
       if (currentMode === Modes.Propagate && values.useFromStage) {
         stage.stage.spec.infrastructure = {
-          useFromStage: {
-            stage: values.useFromStage
-          }
+          useFromStage: values.useFromStage
         }
       } else {
         stage.stage.spec.infrastructure = {

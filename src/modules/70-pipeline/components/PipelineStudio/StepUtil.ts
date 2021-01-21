@@ -1,4 +1,5 @@
 import type { FormikErrors } from 'formik'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import isEmpty from 'lodash-es/isEmpty'
 import set from 'lodash-es/set'
 import reduce from 'lodash-es/reduce'
@@ -132,6 +133,19 @@ const validateStage = (
   getString?: UseStringsReturn['getString']
 ): FormikErrors<StageElementConfig> => {
   const errors = {}
+
+  // Validation for infrastructure namespace
+  if (
+    isEmpty(stage.spec?.infrastructure?.spec?.namespace) &&
+    getMultiTypeFromValue(template.spec?.infrastructure?.spec?.namespace) === MultiTypeInputType.RUNTIME
+  ) {
+    set(
+      errors,
+      'spec.infrastructure.spec.namespace',
+      getString?.('fieldRequired', { field: getString?.('pipelineSteps.build.infraSpecifications.namespace') })
+    )
+  }
+
   if (
     stage.spec?.infrastructure?.infrastructureDefinition?.spec &&
     originalStage?.spec?.infrastructure?.infrastructureDefinition?.type
@@ -191,6 +205,43 @@ export const validatePipeline = (
   path?: string
 ): FormikErrors<NgPipeline> => {
   const errors = {}
+
+  // Validation for CI Codebase
+  if (
+    getMultiTypeFromValue(((template as PipelineInfoConfig)?.properties?.ci?.codebase?.build as unknown) as string) ===
+    MultiTypeInputType.RUNTIME
+  ) {
+    if (isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type)) {
+      set(
+        errors,
+        'properties.ci.codebase.build.type',
+        getString?.('fieldRequired', { field: getString?.('typeLabel') })
+      )
+    }
+
+    if (
+      (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'branch' &&
+      isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.branch)
+    ) {
+      set(
+        errors,
+        'properties.ci.codebase.build.spec.branch',
+        getString?.('fieldRequired', { field: getString?.('gitBranch') })
+      )
+    }
+
+    if (
+      (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'tag' &&
+      isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.tag)
+    ) {
+      set(
+        errors,
+        'properties.ci.codebase.build.spec.tag',
+        getString?.('fieldRequired', { field: getString?.('gitTag') })
+      )
+    }
+  }
+
   pipeline.stages?.forEach((stageObj, index) => {
     if (stageObj.stage) {
       const originalStage = getStageFromPipeline(stageObj.stage.identifier, originalPipeline)

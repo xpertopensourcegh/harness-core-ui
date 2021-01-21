@@ -32,8 +32,8 @@
             "name": "Save Cache to GCS"
           },
           {
-            "type": "BuildAndPushDockerHub",
-            "name": "Build and Publish to Docker Registry"
+            "type": "BuildAndPushDockerRegistry",
+            "name": "Build and Push an image to Docker Registry"
           },
           {
             "type": "BuildAndPushGCR",
@@ -54,8 +54,8 @@
         "name": "Artifacts",
         "stepsData": [
           {
-            "type": "BuildAndPushDockerHub",
-            "name": "Build and Publish to Docker Registry"
+            "type": "BuildAndPushDockerRegistry",
+            "name": "Build and Push an image to Docker Registry"
           },
           {
             "type": "BuildAndPushGCR",

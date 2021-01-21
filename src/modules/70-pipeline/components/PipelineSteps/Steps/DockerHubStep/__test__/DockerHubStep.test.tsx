@@ -63,7 +63,7 @@ describe('DockerHub Step', () => {
         timeout: RUNTIME_INPUT_VALUE,
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
-          repo: RUNTIME_INPUT_VALUE,
+          registry: RUNTIME_INPUT_VALUE,
           tags: RUNTIME_INPUT_VALUE,
           dockerfile: RUNTIME_INPUT_VALUE,
           context: RUNTIME_INPUT_VALUE,
@@ -105,7 +105,7 @@ describe('DockerHub Step', () => {
         timeout: '10s',
         spec: {
           connectorRef: 'account.connectorRef',
-          repo: 'Repository',
+          registry: 'Repository',
           tags: ['tag1', 'tag2', 'tag3'],
           dockerfile: 'Dockerfile',
           context: 'Context',
@@ -164,7 +164,7 @@ describe('DockerHub Step', () => {
         timeout: RUNTIME_INPUT_VALUE,
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
-          repo: RUNTIME_INPUT_VALUE,
+          registry: RUNTIME_INPUT_VALUE,
           tags: RUNTIME_INPUT_VALUE,
           dockerfile: RUNTIME_INPUT_VALUE,
           context: RUNTIME_INPUT_VALUE,
@@ -189,7 +189,7 @@ describe('DockerHub Step', () => {
         timeout: RUNTIME_INPUT_VALUE,
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
-          repo: RUNTIME_INPUT_VALUE,
+          registry: RUNTIME_INPUT_VALUE,
           tags: RUNTIME_INPUT_VALUE,
           dockerfile: RUNTIME_INPUT_VALUE,
           context: RUNTIME_INPUT_VALUE,
@@ -236,7 +236,7 @@ describe('DockerHub Step', () => {
         timeout: '10s',
         spec: {
           connectorRef: 'account.connectorRef',
-          repo: 'Repository',
+          registry: 'Repository',
           tags: ['tag1', 'tag2', 'tag3'],
           dockerfile: 'Dockerfile',
           context: 'Context',

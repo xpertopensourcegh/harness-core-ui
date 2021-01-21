@@ -31,8 +31,9 @@ import {
 import {
   ConnectorInfoDTO,
   useGetConnector,
-  useGetTestConnectionResult,
-  useGetTestGitRepoConnectionResult
+  getConnectorPromise,
+  getTestConnectionResultPromise,
+  getTestGitRepoConnectionResultPromise
 } from 'services/cd-ng'
 import {
   getIdentifierFromValue,
@@ -160,38 +161,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
-
-  const { mutate: testRepoLevelConnection } = useGetTestConnectionResult({
-    identifier: connectorId,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    requestOptions: {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-  })
-
-  const { mutate: testAccountLevelConnection } = useGetTestGitRepoConnectionResult({
-    identifier: connectorId,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
-      repoURL:
-        (connector?.data?.connector?.spec.url[connector?.data?.connector?.spec.url.length - 1] === '/'
-          ? connector?.data?.connector?.spec.url
-          : connector?.data?.connector?.spec.url + '/') + codebase?.repoName
-    },
-    requestOptions: {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-  })
 
   if (connector?.data?.connector) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
@@ -368,46 +337,72 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   ])
 
   React.useEffect(() => {
-    if (!loading) {
-      if (!codebase) {
-        setCodebaseStatus(CodebaseStatuses.NotConfigured)
-      } else {
-        const validate = async () => {
-          setCodebaseStatus(CodebaseStatuses.Validating)
+    if (!codebase?.connectorRef) {
+      setCodebaseStatus(CodebaseStatuses.NotConfigured)
+    } else {
+      const validate = async () => {
+        setCodebaseStatus(CodebaseStatuses.Validating)
 
-          if (connector?.data?.connector?.spec.type === 'Account') {
-            try {
-              const response = await testAccountLevelConnection()
+        const connectorResult = await getConnectorPromise({
+          identifier: connectorId,
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+            projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+          }
+        })
 
-              if (response?.data?.status === 'SUCCESS') {
-                setCodebaseStatus(CodebaseStatuses.Valid)
-              } else {
-                setCodebaseStatus(CodebaseStatuses.Invalid)
-              }
-            } catch (error) {
+        if (connectorResult?.data?.connector?.spec.type === 'Account') {
+          try {
+            const response = await getTestGitRepoConnectionResultPromise({
+              identifier: connectorId,
+              queryParams: {
+                accountIdentifier: accountId,
+                orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+                projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
+                repoURL:
+                  (connectorResult?.data?.connector?.spec.url[connectorResult?.data?.connector?.spec.url.length - 1] ===
+                  '/'
+                    ? connectorResult?.data?.connector?.spec.url
+                    : connectorResult?.data?.connector?.spec.url + '/') + codebase?.repoName
+              },
+              body: undefined
+            })
+
+            if (response?.data?.status === 'SUCCESS') {
+              setCodebaseStatus(CodebaseStatuses.Valid)
+            } else {
               setCodebaseStatus(CodebaseStatuses.Invalid)
             }
-          } else {
-            try {
-              const response = await testRepoLevelConnection()
+          } catch (error) {
+            setCodebaseStatus(CodebaseStatuses.Invalid)
+          }
+        } else {
+          try {
+            const response = await getTestConnectionResultPromise({
+              identifier: connectorId,
+              queryParams: {
+                accountIdentifier: accountId,
+                orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+                projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+              },
+              body: undefined
+            })
 
-              if (response?.data?.status === 'SUCCESS') {
-                setCodebaseStatus(CodebaseStatuses.Valid)
-              } else {
-                setCodebaseStatus(CodebaseStatuses.Invalid)
-              }
-            } catch (error) {
+            if (response?.data?.status === 'SUCCESS') {
+              setCodebaseStatus(CodebaseStatuses.Valid)
+            } else {
               setCodebaseStatus(CodebaseStatuses.Invalid)
             }
+          } catch (error) {
+            setCodebaseStatus(CodebaseStatuses.Invalid)
           }
         }
-
-        if (connector) {
-          validate()
-        }
       }
+
+      validate()
     }
-  }, [codebase, connector?.data?.connector?.spec.type, loading])
+  }, [codebase?.connectorRef, codebase?.repoName])
 
   const onCloseCreate = React.useCallback(() => {
     if (pipeline.identifier === DefaultNewPipelineId) {

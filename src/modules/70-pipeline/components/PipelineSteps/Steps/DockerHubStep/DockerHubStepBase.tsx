@@ -45,7 +45,7 @@ const transformValuesFields = [
     type: TransformValuesTypes.ConnectorRef
   },
   {
-    name: 'spec.repo',
+    name: 'spec.registry',
     type: TransformValuesTypes.Text
   },
   {
@@ -108,7 +108,7 @@ const validateFields = [
     required: true
   },
   {
-    name: 'spec.repo',
+    name: 'spec.registry',
     type: ValidationFieldTypes.DockerRegistry,
     required: true
   },
@@ -251,14 +251,14 @@ export const DockerHubStepBase = (
                     style={{ marginBottom: 0 }}
                   />
                   <MultiTypeTextField
-                    name="spec.repo"
+                    name="spec.registry"
                     label={
                       <Text margin={{ top: 'small' }}>
                         {getString('dockerRegistry')}
                         <Button
                           icon="question"
                           minimal
-                          tooltip={getString('pipelineSteps.repoInfo')}
+                          tooltip={getString('pipelineSteps.dockerRegistryInfo')}
                           iconProps={{ size: 14 }}
                         />
                       </Text>

@@ -59,7 +59,7 @@ DockerHubStep.args = {
     timeout: RUNTIME_INPUT_VALUE,
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
-      repo: RUNTIME_INPUT_VALUE,
+      registry: RUNTIME_INPUT_VALUE,
       tags: RUNTIME_INPUT_VALUE,
       dockerfile: RUNTIME_INPUT_VALUE,
       context: RUNTIME_INPUT_VALUE,
@@ -83,7 +83,7 @@ DockerHubStep.args = {
     timeout: RUNTIME_INPUT_VALUE,
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
-      repo: RUNTIME_INPUT_VALUE,
+      registry: RUNTIME_INPUT_VALUE,
       tags: RUNTIME_INPUT_VALUE,
       dockerfile: RUNTIME_INPUT_VALUE,
       context: RUNTIME_INPUT_VALUE,

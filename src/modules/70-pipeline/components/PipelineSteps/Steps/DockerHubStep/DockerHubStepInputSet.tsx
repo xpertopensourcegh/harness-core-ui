@@ -44,14 +44,19 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           disabled={readonly}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.repo) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(template?.spec?.registry) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.repo`}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.registry`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('repository')}
-              <Button icon="question" minimal tooltip={getString('pipelineSteps.repoInfo')} iconProps={{ size: 14 }} />
+              {getString('dockerRegistry')}
+              <Button
+                icon="question"
+                minimal
+                tooltip={getString('pipelineSteps.dockerRegistryInfo')}
+                iconProps={{ size: 14 }}
+              />
             </Text>
           }
           disabled={readonly}

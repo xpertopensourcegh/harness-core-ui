@@ -25,7 +25,7 @@ export enum MapStageTypeIconName {
   restoreCacheGCS = 'restore-cache-step',
   saveCacheS3 = 'save-cache-step',
   restoreCacheS3 = 'restore-cache-step',
-  buildAndPushDockerHub = 'docker-hub-step',
+  BuildAndPushDockerRegistry = 'docker-hub-step',
   uploadToGCS = 'gcs-step',
   uploadToS3 = 'service-service-s3',
   ArtifactoryUpload = 'service-artifactory'

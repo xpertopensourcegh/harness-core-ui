@@ -98,11 +98,6 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test('Toggle between log/graph view works', async () => {
-    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
-      refetch: jest.fn(),
-      loading: false,
-      data: null
-    }))
     const { container, getByTestId } = render(
       <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>

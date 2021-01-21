@@ -19,7 +19,7 @@ import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 
 export interface DockerHubStepSpec {
   connectorRef: string
-  repo: string
+  registry: string
   tags: MultiTypeListType
   dockerfile?: string
   context?: string
@@ -67,7 +67,7 @@ export interface DockerHubStepProps {
 
 export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   protected type = StepType.DockerHub
-  protected stepName = 'Build and Publish to Docker Registry'
+  protected stepName = 'Build and Push an image to Docker Registry'
   protected stepIcon: IconName = 'docker-hub-step'
   protected stepPaletteVisible = false
 
@@ -76,7 +76,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     type: StepType.DockerHub as string,
     spec: {
       connectorRef: '',
-      repo: '',
+      registry: '',
       tags: []
     }
   }
@@ -101,8 +101,11 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     }
 
     /* istanbul ignore else */
-    if (isEmpty(data?.spec?.repo) && getMultiTypeFromValue(template?.spec?.repo) === MultiTypeInputType.RUNTIME) {
-      set(errors, 'spec.repo', getString?.('fieldRequired', { field: getString?.('repository') }))
+    if (
+      isEmpty(data?.spec?.registry) &&
+      getMultiTypeFromValue(template?.spec?.registry) === MultiTypeInputType.RUNTIME
+    ) {
+      set(errors, 'spec.registry', getString?.('fieldRequired', { field: getString?.('dockerRegistry') }))
     }
 
     /* istanbul ignore else */

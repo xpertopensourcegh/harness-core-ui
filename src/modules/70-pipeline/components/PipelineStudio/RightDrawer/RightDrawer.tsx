@@ -45,8 +45,22 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
       }}
       autoFocus={true}
-      canEscapeKeyClose={type === DrawerTypes.ExecutionStrategy ? false : true}
-      canOutsideClickClose={type === DrawerTypes.ExecutionStrategy ? false : true}
+      canEscapeKeyClose={
+        type === DrawerTypes.ExecutionStrategy ||
+        type === DrawerTypes.ConfigureService ||
+        type === DrawerTypes.StepConfig ||
+        type === DrawerTypes.AddStep
+          ? false
+          : true
+      }
+      canOutsideClickClose={
+        type === DrawerTypes.ExecutionStrategy ||
+        type === DrawerTypes.ConfigureService ||
+        type === DrawerTypes.StepConfig ||
+        type === DrawerTypes.AddStep
+          ? false
+          : true
+      }
       enforceFocus={true}
       hasBackdrop={false}
       size={DrawerSizes[type]}

@@ -5,7 +5,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
   <p
     class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
   >
-    Build and Publish to Docker Registry
+    Build and Push an image to Docker Registry
   </p>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -94,7 +94,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Docker Registry Connector
+              Docker Connector
               <span
                 class="bp3-popover-wrapper"
               >
@@ -292,7 +292,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.repo-2"
+                data-id="spec.registry-2"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -307,7 +307,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     >
                       <input
                         class="bp3-input"
-                        name="spec.repo"
+                        name="spec.registry"
                         type="text"
                         value="Repository"
                       />
@@ -2166,7 +2166,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
   <p
     class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
   >
-    Build and Publish to Docker Registry
+    Build and Push an image to Docker Registry
   </p>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -2255,7 +2255,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Docker Registry Connector
+              Docker Connector
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2412,7 +2412,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.repo-2"
+                data-id="spec.registry-2"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -2431,7 +2431,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                         <input
                           class="bp3-input"
                           disabled=""
-                          name="spec.repo"
+                          name="spec.registry"
                           placeholder="<+input>"
                           type="text"
                           value="<+input>"
@@ -3640,7 +3640,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
   <p
     class="StyledProps--font StyledProps--main boldLabel StyledProps--font-size-medium"
   >
-    Build and Publish to Docker Registry
+    Build and Push an image to Docker Registry
   </p>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -3727,7 +3727,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Docker Registry Connector
+              Docker Connector
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3925,7 +3925,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.repo-2"
+                data-id="spec.registry-2"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -3940,7 +3940,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     >
                       <input
                         class="bp3-input"
-                        name="spec.repo"
+                        name="spec.registry"
                         type="text"
                         value=""
                       />
@@ -5258,7 +5258,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Docker Registry Connector
+              Docker Connector
               <span
                 class="bp3-popover-wrapper"
               >
@@ -5383,17 +5383,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.repo-1"
+          data-id="spec.registry-1"
         >
           <label
             class="bp3-label"
-            for="spec.repo"
+            for="spec.registry"
           >
             <p
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Repository
+              Docker Registry
               <span
                 class="bp3-popover-wrapper"
               >
@@ -5437,7 +5437,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                name="spec.repo"
+                name="spec.registry"
                 type="text"
                 value=""
               />

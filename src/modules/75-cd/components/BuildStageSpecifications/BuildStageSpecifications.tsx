@@ -475,8 +475,14 @@ export default function BuildStageSpecifications(): JSX.Element {
                       name="sharedPaths"
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text margin={{ bottom: 'xsmall' }}>
+                          <Text style={{ display: 'flex', alignItems: 'center' }}>
                             {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+                            <Button
+                              icon="question"
+                              minimal
+                              tooltip={getString('pipelineSteps.build.stageSpecifications.sharedPathsInfo')}
+                              iconProps={{ size: 14 }}
+                            />
                           </Text>
                         )
                       }}

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { isEmpty } from 'lodash-es'
 import { Layout, Text } from '@wings-software/uicore'
+import { Redirect } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/cd-ng'
@@ -160,6 +161,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   }, [loading, queryParams, autoSelectedStageId, autoSelectedStepId])
 
   const { pipelineExecutionSummary = {} } = data?.data || {}
+
+  if (!loading && !data) {
+    return <Redirect to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module })} />
+  }
 
   return (
     <ExecutionContext.Provider

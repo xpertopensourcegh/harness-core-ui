@@ -343,7 +343,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           />
         </Tabs>
       </Layout.Horizontal>
-      <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
+      {/* <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
         <Button
           text={i18n.previous}
           icon="chevron-left"
@@ -363,7 +363,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             }
           }}
         />
-      </Layout.Horizontal>
+      </Layout.Horizontal> */}
     </section>
   )
 }
