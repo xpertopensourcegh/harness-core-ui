@@ -107,7 +107,7 @@ const DBInitializationFailed = 'DB Creation retry exceeded.'
 
 let IdbPipeline: IDBPDatabase | undefined
 const IdbPipelineStoreName = 'pipeline-cache'
-const PipelineDBName = 'pipeline-db'
+export const PipelineDBName = 'pipeline-db'
 const KeyPath = 'identifier'
 
 export interface StagesMap {

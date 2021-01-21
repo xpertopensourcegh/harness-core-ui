@@ -1,21 +1,23 @@
 import React from 'react'
-import { Text, Color, Button, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
-// import { useParams } from 'react-router-dom'
+import { Text, Button, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
 import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
-import { StepViewType } from '@pipeline/exports'
+import type { StepViewType } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
+import type { NGVariable } from 'services/cd-ng'
+import type { YamlProperties } from 'services/pipeline-ng'
 
+import { CopyText } from '@common/components/CopyText/CopyText'
 import AddEditCustomVariable from './AddEditCustomVariable'
-import type { VariableState, Variable } from './AddEditCustomVariable'
+import type { VariableState } from './AddEditCustomVariable'
 import i18n from './CustomVariables.i18n'
 import css from './CustomVariables.module.scss'
 
 export interface CustomVariablesData {
-  variables: Variable[]
+  variables: NGVariable[]
   isPropagating?: boolean
   canAddVariable?: boolean
 }
@@ -23,6 +25,9 @@ export interface CustomVariablesData {
 export interface CustomVariableEditableExtraProps {
   variableNamePrefix?: string
   domId?: string
+  heading?: React.ReactNode
+  className?: string
+  yamlProperties?: YamlProperties[]
 }
 
 export interface CustomVariableEditableProps extends CustomVariableEditableExtraProps {
@@ -38,9 +43,8 @@ const VariableTypes = {
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
-  const { initialValues, onUpdate, stepViewType = StepViewType.Edit, variableNamePrefix = '', domId } = props
+  const { initialValues, onUpdate, variableNamePrefix = '', domId, heading, className, yamlProperties } = props
   const uids = React.useRef<string[]>([])
-  // const [secretsOptions] = React.useState()
 
   const [selectedVariable, setSelectedVariable] = React.useState<VariableState | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,12 +65,12 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
       {({ values, setFieldValue }) => (
         <FieldArray name="variables">
           {({ remove, push, replace }) => {
-            function handleAdd(variable: Variable): void {
+            function handleAdd(variable: NGVariable): void {
               uids.current.push(uuid())
               push(variable)
             }
 
-            function handleUpdate(index: number, variable: Variable): void {
+            function handleUpdate(index: number, variable: NGVariable): void {
               replace(index, variable)
             }
 
@@ -76,7 +80,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
             }
 
             return (
-              <div className={cx(css.customVariables, 'customVariables')} id={domId}>
+              <div className={cx(css.customVariables, className)} id={domId}>
                 <AddEditCustomVariable
                   addNewVariable={handleAdd}
                   updateVariable={handleUpdate}
@@ -85,29 +89,36 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                 />
                 {values.canAddVariable ? (
                   <div className={css.headerRow}>
-                    <Text color={Color.BLACK}>
-                      {stepViewType === StepViewType.Edit ? i18n.variables : i18n.customVariables}
-                    </Text>
+                    {heading ? heading : <div />}
                     <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={addNew} />
                   </div>
                 ) : /* istanbul ignore next */ null}
-                {stepViewType === StepViewType.StageVariable && values.variables.length > 0 && (
+                {values.variables.length > 0 ? (
                   <section className={css.subHeader}>
                     <span>{i18n.variablesTableHeaders.name}</span>
                     <span>{i18n.variablesTableHeaders.type}</span>
                     <span>{i18n.variablesTableHeaders.value}</span>
                   </section>
-                )}
+                ) : /* istanbul ignore next */ null}
                 {values.variables.map?.((variable, index) => {
                   // generated uuid if they are not present
                   if (!uids.current[index]) {
                     uids.current[index] = uuid()
                   }
                   const key = uids.current[index]
+                  const yamlData = yamlProperties?.[index]
 
                   return (
                     <div key={key} className={css.variableListTable}>
-                      <Text>{`${variableNamePrefix}${variable.name}`}</Text>
+                      {yamlData && yamlData.fqn && yamlData.localName ? (
+                        <CopyText textToCopy={yamlData.fqn}>
+                          &lt;+<span>{yamlData.localName}</span>&gt;
+                        </CopyText>
+                      ) : (
+                        <Text>
+                          &lt;+<span>{`${variableNamePrefix}${variable.name}`}</span>&gt;
+                        </Text>
+                      )}
 
                       <Text>{variable.type}</Text>
                       <div className={css.valueRow}>
@@ -140,7 +151,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                         <div>
                           {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
                             <ConfigureOptions
-                              value={variable.value}
+                              value={variable.value as string}
                               type={variable.type || /* istanbul ignore next */ 'String'}
                               variableName={variable.name || /* istanbul ignore next */ ''}
                               onChange={value => {

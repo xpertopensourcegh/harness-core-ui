@@ -19,6 +19,7 @@ import {
 import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 import { FormGroup, Tooltip } from '@blueprintjs/core'
+
 import { useGetPipeline } from 'services/pipeline-ng'
 import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteInterfaces'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
@@ -26,16 +27,17 @@ import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/Artifact
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { StepViewType } from '@pipeline/exports'
 import type { ServiceSpec, NgPipeline } from 'services/cd-ng'
-
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn, String } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+
 import { StepType } from '../../PipelineStepInterface'
-import type { Variable } from '../CustomVariables/AddEditCustomVariable'
 import type { CustomVariableInputSetExtraProps } from '../CustomVariables/CustomVariableInputSet'
+import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
+
 import css from './K8sServiceSpec.module.scss'
 
 export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }) => {
@@ -335,7 +337,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
             factory={(factory as unknown) as AbstractStepFactory}
             initialValues={{
-              variables: (initialValues.variables as Variable[]) || [],
+              variables: initialValues.variables || [],
               canAddVariable: true
             }}
             type={StepType.CustomVariable}
@@ -347,7 +349,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
               })
             }}
             customStepProps={{
-              template: { variables: template?.variables as Variable[] },
+              template: { variables: template?.variables || [] },
               path
             }}
           />
@@ -370,6 +372,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   protected stepIcon: IconName = 'service-kubernetes'
   protected stepName = 'Deplyment Service'
   protected stepPaletteVisible = false
+  protected _hasStepVariables = true
 
   validateInputSet(
     data: K8SDirectServiceStep,
@@ -441,7 +444,19 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   }
 
   renderStep(props: StepProps<K8SDirectServiceStep>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, factory } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, factory, customStepProps } = props
+
+    if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <K8sServiceSpecVariablesForm
+          {...(customStepProps as K8sServiceSpecVariablesFormProps)}
+          initialValues={initialValues}
+          stepsFactory={factory}
+          onUpdate={onUpdate}
+        />
+      )
+    }
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesServiceSpecEditable

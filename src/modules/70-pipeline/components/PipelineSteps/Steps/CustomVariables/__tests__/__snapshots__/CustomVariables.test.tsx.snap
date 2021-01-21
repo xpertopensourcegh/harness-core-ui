@@ -1,18 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Http Step can add a string variable 1`] = `
+exports[`Custom Variables can add a string variable 1`] = `
 <div>
   <div
-    class="customVariables customVariables"
+    class="customVariables"
   >
     <div
       class="headerRow"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-      >
-        Variables
-      </p>
+      <div />
       <button
         class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
@@ -43,13 +39,30 @@ exports[`Http Step can add a string variable 1`] = `
         </span>
       </button>
     </div>
+    <section
+      class="subHeader"
+    >
+      <span>
+        Name
+      </span>
+      <span>
+        Type
+      </span>
+      <span>
+        Value
+      </span>
+    </section>
     <div
       class="variableListTable"
     >
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar
+        &lt;+
+        <span>
+          myVar
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -188,19 +201,15 @@ exports[`Http Step can add a string variable 1`] = `
 </div>
 `;
 
-exports[`Http Step can delete variable: After Delete 1`] = `
+exports[`Custom Variables can delete variable: After Delete 1`] = `
 <div>
   <div
-    class="customVariables customVariables"
+    class="customVariables"
   >
     <div
       class="headerRow"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-      >
-        Custom Variables
-      </p>
+      <div />
       <button
         class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
@@ -250,7 +259,11 @@ exports[`Http Step can delete variable: After Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -391,7 +404,11 @@ exports[`Http Step can delete variable: After Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -530,19 +547,15 @@ exports[`Http Step can delete variable: After Delete 1`] = `
 </div>
 `;
 
-exports[`Http Step can delete variable: Before Delete 1`] = `
+exports[`Custom Variables can delete variable: Before Delete 1`] = `
 <div>
   <div
-    class="customVariables customVariables"
+    class="customVariables"
   >
     <div
       class="headerRow"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-      >
-        Custom Variables
-      </p>
+      <div />
       <button
         class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
@@ -592,7 +605,11 @@ exports[`Http Step can delete variable: Before Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -733,7 +750,11 @@ exports[`Http Step can delete variable: Before Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -874,7 +895,11 @@ exports[`Http Step can delete variable: Before Delete 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -1045,19 +1070,15 @@ exports[`Http Step can delete variable: Before Delete 1`] = `
 </div>
 `;
 
-exports[`Http Step should render edit view as new step 1`] = `
+exports[`Custom Variables should render edit view as new step 1`] = `
 <div>
   <div
-    class="customVariables customVariables"
+    class="customVariables"
   >
     <div
       class="headerRow"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-      >
-        Variables
-      </p>
+      <div />
       <button
         class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
@@ -1092,19 +1113,15 @@ exports[`Http Step should render edit view as new step 1`] = `
 </div>
 `;
 
-exports[`Http Step should render variables 1`] = `
+exports[`Custom Variables should render variables 1`] = `
 <div>
   <div
-    class="customVariables customVariables"
+    class="customVariables"
   >
     <div
       class="headerRow"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-      >
-        Custom Variables
-      </p>
+      <div />
       <button
         class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
         type="button"
@@ -1154,7 +1171,11 @@ exports[`Http Step should render variables 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -1295,7 +1316,11 @@ exports[`Http Step should render variables 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"
@@ -1436,7 +1461,11 @@ exports[`Http Step should render variables 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        myVar1
+        &lt;+
+        <span>
+          myVar1
+        </span>
+        &gt;
       </p>
       <p
         class="StyledProps--font StyledProps--main"

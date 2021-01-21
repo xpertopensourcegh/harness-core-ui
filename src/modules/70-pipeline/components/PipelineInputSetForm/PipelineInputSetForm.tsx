@@ -14,7 +14,6 @@ import type {
   CustomVariableInputSetExtraProps
 } from '../PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
-import type { Variable } from '../PipelineSteps/Steps/CustomVariables/AddEditCustomVariable'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
 import i18n from './PipelineInputSetForm.i18n'
@@ -57,13 +56,13 @@ function StageForm({
                 <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
                   factory={(factory as unknown) as AbstractStepFactory}
                   initialValues={{
-                    variables: (allValues?.stage?.variables as Variable[]) || [],
+                    variables: allValues?.stage?.variables || [],
                     canAddVariable: true
                   }}
                   type={StepType.CustomVariable}
                   stepViewType={StepViewType.InputSet}
                   customStepProps={{
-                    template: { variables: template?.stage?.variables as Variable[] },
+                    template: { variables: template?.stage?.variables },
                     path
                   }}
                 />
@@ -95,13 +94,13 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
               factory={(factory as unknown) as AbstractStepFactory}
               initialValues={{
-                variables: (originalPipeline.variables as Variable[]) || [],
+                variables: originalPipeline.variables || [],
                 canAddVariable: true
               }}
               type={StepType.CustomVariable}
               stepViewType={StepViewType.InputSet}
               customStepProps={{
-                template: { variables: template?.variables as Variable[] },
+                template: { variables: template?.variables || [] },
                 path
               }}
             />

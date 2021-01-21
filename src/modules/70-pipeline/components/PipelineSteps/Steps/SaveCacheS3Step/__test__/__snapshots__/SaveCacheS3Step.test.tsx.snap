@@ -3743,11 +3743,6 @@ exports[`Save Cache S3 Step InputSet View should not render any fields 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--intent-warning"
-    >
-      Step not found
-    </p>
-    <p
       class="StyledProps--font StyledProps--main"
     >
       Errors

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Text } from '@wings-software/uicore'
+
+import { String } from 'framework/exports'
 import type { AbstractStepFactory } from './AbstractStepFactory'
 import i18n from './StepWidget.i18n'
 import { StepViewType } from './Step'
@@ -31,10 +33,16 @@ export function StepWidget<T = unknown, U = unknown>(
     customStepProps
   }: StepWidgetProps<T, U>,
   formikRef: StepFormikFowardRef<T>
-): JSX.Element {
+): JSX.Element | null {
   const step = factory.getStep<T>(type)
   if (!step) {
-    return <Text intent="warning">{i18n.invalidStep}</Text>
+    return __DEV__ ? <Text intent="warning">{i18n.invalidStep}</Text> : null
+  } else if (stepViewType === StepViewType.InputVariable && !step.hasStepVariables) {
+    return __DEV__ ? (
+      <Text intent="warning">
+        <String stringID="wip" />
+      </Text>
+    ) : null
   } else {
     const values = step?.getDefaultValues(initialValues, stepViewType)
 

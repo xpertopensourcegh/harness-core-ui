@@ -6,13 +6,13 @@ import isEmpty from 'lodash-es/isEmpty'
 import { Step } from '@pipeline/exports'
 
 import type { UseStringsReturn } from 'framework/exports'
+import type { NGVariable } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { CustomVariableEditable, CustomVariableEditableExtraProps } from './CustomVariableEditable'
 import { CustomVariableInputSet, CustomVariableInputSetExtraProps } from './CustomVariableInputSet'
 import type { CustomVariablesData } from './CustomVariableEditable'
 import { StepType } from '../../PipelineStepInterface'
 import type { StepProps } from '../../PipelineStep'
-import type { Variable } from './AddEditCustomVariable'
 import i18n from './CustomVariables.i18n'
 
 export class CustomVariables extends Step<CustomVariablesData> {
@@ -44,7 +44,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
     getString?: UseStringsReturn['getString']
   ): object {
     const errors: CustomVariablesData = { variables: [] }
-    data?.variables?.forEach((variable: Variable, index) => {
+    data?.variables?.forEach((variable: NGVariable, index) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')
 
       if (isEmpty(variable.value) && getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME) {
@@ -61,6 +61,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
   protected stepName = i18n.customVariables
   protected stepIcon: IconName = 'variable'
   protected stepPaletteVisible = false
+  protected _hasStepVariables = true
 
   protected defaultValues: CustomVariablesData = { variables: [] }
 }

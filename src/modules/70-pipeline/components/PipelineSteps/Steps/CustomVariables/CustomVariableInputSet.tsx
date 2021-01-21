@@ -2,14 +2,16 @@ import React from 'react'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
 // import { useParams } from 'react-router-dom'
 import cx from 'classnames'
+
+import type { NGVariable } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/exports'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
-import type { Variable } from './AddEditCustomVariable'
+
 import i18n from './CustomVariables.i18n'
 import css from './CustomVariables.module.scss'
 
 export interface CustomVariablesData {
-  variables: Variable[]
+  variables: NGVariable[]
   isPropagating?: boolean
   canAddVariable?: boolean
 }

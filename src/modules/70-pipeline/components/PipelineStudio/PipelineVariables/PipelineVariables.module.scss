@@ -56,6 +56,7 @@
         .variable-list-header {
           display: grid;
           grid-template-columns: var(--variable-column1) var(--variable-column2) var(--variable-column3);
+          padding: 0 var(--spacing-large);
           > p {
             padding-left: var(--spacing-large);
           }
@@ -71,6 +72,12 @@
           display: grid;
           grid-template-columns: var(--variable-column1) var(--variable-column2) var(--variable-column3);
           align-items: baseline;
+          padding: var(--spacing-large) var(--spacing-large) 0 var(--spacing-large);
+          row-gap: var(--spacing-large);
+
+          & + :global(.Accordion--panel) {
+            margin-top: var(--spacing-large);
+          }
         }
 
         :global(.Accordion--panel) {
@@ -86,5 +93,9 @@
         }
       }
     }
+  }
+
+  .custom-variables {
+    padding: var(--spacing-large) var(--spacing-large) 0 var(--spacing-large);
   }
 }

@@ -30,7 +30,7 @@ export interface StepProps<T, U = unknown> {
   onUpdate?: (data: T) => void
   stepViewType?: StepViewType
   inputSetData?: InputSetData<T>
-  factory?: AbstractStepFactory
+  factory: AbstractStepFactory
   path: string
   formikRef?: StepFormikFowardRef<T>
   customStepProps?: U
@@ -51,6 +51,7 @@ export abstract class Step<T> {
   protected abstract defaultValues: T
   protected abstract stepIcon: IconName
   protected abstract stepName: string
+  protected _hasStepVariables = false
   protected invocationMap?: Map<
     RegExp,
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
@@ -83,6 +84,10 @@ export abstract class Step<T> {
 
   getStepPaletteVisibility(): boolean {
     return this.stepPaletteVisible ?? true
+  }
+
+  get hasStepVariables(): boolean {
+    return this._hasStepVariables
   }
 
   abstract renderStep(props: StepProps<T>): JSX.Element

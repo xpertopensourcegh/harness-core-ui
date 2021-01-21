@@ -1,10 +1,13 @@
 import React from 'react'
+import { deleteDB } from 'idb'
 import { render, getByText, waitFor, fireEvent } from '@testing-library/react'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
+
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
+import { PipelineDBName } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 import CIPipelineStudio from '../CIPipelineStudio'
 import { PipelineResponse } from './PipelineStudioMocks'
@@ -41,7 +44,8 @@ jest.mock('services/cd-ng', () => ({
 jest.mock('services/pipeline-ng', () => ({
   getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
   putPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
-  createPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' }))
+  createPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve({ status: 'SUCCESS' })),
+  useCreateVariables: jest.fn(() => ({ mutate: jest.fn(() => Promise.resolve({ data: { yaml: '' } })) }))
 }))
 
 jest.mock('@pipeline/components/RunPipelineModal/RunPipelineForm', () => ({
@@ -56,6 +60,10 @@ jest.mock('@pipeline/components/RunPipelineModal/RunPipelineForm', () => ({
 const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('Test Pipeline Studio', () => {
+  beforeEach(() => {
+    return deleteDB(PipelineDBName)
+  })
+
   test('should render default pipeline studio', async () => {
     render(
       <TestWrapper
@@ -142,6 +150,8 @@ describe('Test Pipeline Studio', () => {
     fireEvent.click(notificationsBtn)
     const varBtn = getByTestId('input-variable')
     fireEvent.click(varBtn)
-    expect(getByText(document.body, 'Pipeline Variables')).toBeDefined()
+    await waitFor(() => {
+      expect(getByText(document.body, 'Pipeline Variables')).toBeDefined()
+    })
   })
 })

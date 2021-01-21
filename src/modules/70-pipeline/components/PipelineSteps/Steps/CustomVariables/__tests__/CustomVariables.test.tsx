@@ -13,7 +13,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { CustomVariables } from '../CustomVariables'
 
-describe('Http Step', () => {
+describe('Custom Variables', () => {
   beforeAll(() => {
     factory.registerStep(new CustomVariables())
   })
@@ -59,7 +59,7 @@ describe('Http Step', () => {
       fireEvent.click(save)
     })
 
-    await waitFor(() => findByText('myVar', { selector: 'p' }))
+    await waitFor(() => findByText('myVar', { selector: 'span' }))
 
     const value = queryByAttribute('name', container, 'variables[0].value')
 

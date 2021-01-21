@@ -16,15 +16,7 @@ exports[`StepWidget tests shows different steps based on type 2`] = `
 </div>
 `;
 
-exports[`StepWidget tests shows invalid step 1`] = `
-<div>
-  <p
-    class="StyledProps--font StyledProps--main StyledProps--intent-warning"
-  >
-    Step not found
-  </p>
-</div>
-`;
+exports[`StepWidget tests shows invalid step 1`] = `<div />`;
 
 exports[`StepWidget tests shows step and merge initial values 1`] = `
 <div>

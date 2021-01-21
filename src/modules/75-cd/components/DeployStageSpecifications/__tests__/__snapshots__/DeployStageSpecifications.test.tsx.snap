@@ -491,16 +491,12 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
           class="stageCreate stageDetails"
         >
           <div
-            class="customVariables customVariables"
+            class="customVariables"
           >
             <div
               class="headerRow"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              >
-                Custom Variables
-              </p>
+              <div />
               <button
                 class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="button"
@@ -1030,16 +1026,12 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           class="stageCreate stageDetails"
         >
           <div
-            class="customVariables customVariables"
+            class="customVariables"
           >
             <div
               class="headerRow"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              >
-                Custom Variables
-              </p>
+              <div />
               <button
                 class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
                 type="button"

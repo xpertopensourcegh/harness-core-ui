@@ -12,5 +12,6 @@ declare const styles: {
   readonly variableListHeader: string
   readonly variableCard: string
   readonly variableListTable: string
+  readonly customVariables: string
 }
 export default styles

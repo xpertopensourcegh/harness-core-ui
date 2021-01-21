@@ -7,20 +7,16 @@ import type { NGVariable } from 'services/cd-ng'
 
 import i18n from './CustomVariables.i18n'
 
-export interface Variable extends Omit<NGVariable, 'value'> {
-  value: string
-}
-
 export interface VariableState {
-  variable: Variable
+  variable: NGVariable
   index: number
 }
 
 export interface AddEditCustomVariableProps {
   selectedVariable: VariableState | null
   setSelectedVariable(variable: VariableState | null): void
-  addNewVariable(variable: Variable): void
-  updateVariable(index: number, variable: Variable): void
+  addNewVariable(variable: NGVariable): void
+  updateVariable(index: number, variable: NGVariable): void
 }
 
 export enum VariableTypes {

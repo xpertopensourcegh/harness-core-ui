@@ -13,6 +13,7 @@ repository: 'Repository'
 more: '+{{number}} more'
 noData: No Data
 members: Members
+wip: Work in progress
 lastActivity: last activity
 fieldRequired: '{{field}} is a required field'
 deploymentText: Deployment
@@ -1431,3 +1432,5 @@ pipeline-list:
   pipelineDeleted: Pipeline {{name}} deleted
   confirmDelete: Are you sure want to delete pipeline {{name}}
   readyToRun: Ready To Run
+customVariables:
+  title: Custom Variables
