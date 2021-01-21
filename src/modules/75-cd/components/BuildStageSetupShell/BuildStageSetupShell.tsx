@@ -2,8 +2,6 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Select } from '@blueprintjs/select'
-import set from 'lodash-es/set'
-import get from 'lodash-es/get'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import {
   getSelectStageOptionsFromPipeline,
@@ -133,27 +131,20 @@ export default function BuildStageSetupShell(): JSX.Element {
   React.useEffect(() => {
     const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
     if (data) {
-      if (!get(data, 'stage.spec.execution.steps', null)) {
-        set(data, 'stage.spec.execution.steps', [])
-      }
-      if (!get(data, 'stage.spec.serviceDependencies', null)) {
-        set(data, 'stage.spec.serviceDependencies', [])
-      }
-    }
-
-    updatePipeline(pipeline)
-  }, [])
-
-  React.useEffect(() => {
-    const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
-    if (data) {
+      let shouldUpdate = false
       if (data?.stage?.spec?.execution) {
         if (!data.stage.spec.execution.steps) {
+          shouldUpdate = true
           data.stage.spec.execution.steps = []
         }
         if (!data.stage.spec.serviceDependencies) {
+          shouldUpdate = true
           data.stage.spec.serviceDependencies = []
         }
+      }
+
+      if (shouldUpdate) {
+        updatePipeline(pipeline)
       }
     }
   }, [pipeline, selectedStageId])

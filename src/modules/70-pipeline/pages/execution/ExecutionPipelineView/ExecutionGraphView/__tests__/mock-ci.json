@@ -1,0 +1,375 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pipelineExecutionSummary": {
+      "pipelineIdentifier": "TestPipelineWithDep",
+      "planExecutionId": "LGTQ2uylR0iVOm584eWqVw",
+      "name": "TestPipelineWithDep",
+      "status": "Success",
+      "tags": [],
+      "executionTriggerInfo": {
+        "triggerType": "MANUAL",
+        "triggeredBy": {
+          "uuid": "lv0euRhKRCyiXWzS7pOg6g",
+          "identifier": "Admin",
+          "extraInfo": {
+            "email": ""
+          }
+        }
+      },
+      "moduleInfo": { "ci": { "ciExecutionInfoDTO": {}, "branch": "main" } },
+      "layoutNodeMap": {
+        "9WDVNOmqRUyUIyidJA_yxA": {
+          "nodeType": "CI",
+          "nodeGroup": "STAGE",
+          "nodeIdentifier": "testCI",
+          "nodeUuid": "9WDVNOmqRUyUIyidJA_yxA",
+          "status": "Success",
+          "module": "ci",
+          "moduleInfo": { "ci": {} },
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        }
+      },
+      "startingNodeId": "9WDVNOmqRUyUIyidJA_yxA",
+      "startTs": 1611166759785,
+      "endTs": 1611166806999,
+      "createdAt": 1611166759960,
+      "runSequence": 8,
+      "successfulStagesCount": 1,
+      "runningStagesCount": 0,
+      "failedStagesCount": 0,
+      "totalStagesCount": 1
+    },
+    "executionGraph": {
+      "rootNodeId": "QYl_0KBOTLmRcCWsspF7lw",
+      "nodeMap": {
+        "_QbGiCUGT4mzbzX0ovfzCw": {
+          "uuid": "_QbGiCUGT4mzbzX0ovfzCw",
+          "name": "Git clone",
+          "identifier": "harness-git-clone",
+          "baseFqn": "pipeline.stages.testCI.execution.steps.harness-git-clone",
+          "outcomes": [
+            { "type": "ciStepOutcome", "outputVariables": {}, "_pms_class": "io.harness.beans.steps.CiStepOutcome" }
+          ],
+          "stepParameters": {
+            "type": "Plugin",
+            "retry": 1,
+            "settings": { "depth": "1" },
+            "image": "drone/git",
+            "connectorRef": "harnessImage",
+            "stepType": { "type": "Plugin" },
+            "nonYamlInfo": { "stepInfoType": "Plugin" },
+            "facilitatorType": "ASYNC",
+            "defaultTimeout": 7200
+          },
+          "startTs": 1611166793773,
+          "endTs": 1611166796721,
+          "stepType": "Plugin",
+          "status": "Success",
+          "failureInfo": {},
+          "executableResponses": [
+            {
+              "async": {
+                "callbackIds": ["ErdSwqPxQq6ptL0u7twlZQ"]
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {}
+        },
+        "YVodkE9fSUWzFGK0pvt6vQ": {
+          "uuid": "YVodkE9fSUWzFGK0pvt6vQ",
+          "name": "Execution",
+          "identifier": "execution",
+          "baseFqn": "pipeline.stages.testCI.execution",
+          "outcomes": [],
+          "stepParameters": { "childNodeId": "ardmh6yVTE2yPBHqUkGwWwsteps", "logMessage": "Execution Element" },
+          "startTs": 1611166767307,
+          "endTs": 1611166803484,
+          "stepType": "NG_SECTION",
+          "status": "Success",
+          "failureInfo": {},
+          "executableResponses": [
+            {
+              "child": {
+                "childNodeId": "ardmh6yVTE2yPBHqUkGwWwsteps"
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {}
+        },
+        "QYl_0KBOTLmRcCWsspF7lw": {
+          "uuid": "QYl_0KBOTLmRcCWsspF7lw",
+          "name": "testCI",
+          "identifier": "testCI",
+          "baseFqn": "pipeline.stages.testCI",
+          "outcomes": [],
+          "stepParameters": {
+            "identifier": "testCI",
+            "name": "testCI",
+            "description": "",
+            "type": "CI",
+            "infrastructure": {
+              "type": "KubernetesDirect",
+              "spec": { "connectorRef": "account.cidelegate", "namespace": "harness-delegate-uat" }
+            },
+            "dependencies": [
+              {
+                "identifier": "dep",
+                "name": "dep",
+                "type": "Service",
+                "spec": {
+                  "grpcPort": 20002,
+                  "envVariables": null,
+                  "entrypoint": null,
+                  "args": null,
+                  "image": "mysql:5",
+                  "connectorRef": "account.harness",
+                  "type": "Service"
+                }
+              }
+            ],
+            "sharedPaths": null,
+            "skipCondition": null,
+            "enableCloneRepo": true,
+            "childNodeID": "ardmh6yVTE2yPBHqUkGwWw"
+          },
+          "startTs": 1611166765172,
+          "endTs": 1611166805051,
+          "stepType": "IntegrationStageStepPMS",
+          "status": "Success",
+          "failureInfo": {},
+          "executableResponses": [
+            {
+              "child": {
+                "childNodeId": "ardmh6yVTE2yPBHqUkGwWw"
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {}
+        },
+        "EODeJuxnSdOmACdIovay_w": {
+          "uuid": "EODeJuxnSdOmACdIovay_w",
+          "name": "runtest",
+          "identifier": "runtest",
+          "baseFqn": "pipeline.stages.testCI.execution.steps.runtest",
+          "outcomes": [
+            { "type": "ciStepOutcome", "outputVariables": {}, "_pms_class": "io.harness.beans.steps.CiStepOutcome" }
+          ],
+          "stepParameters": {
+            "type": "Run",
+            "retry": 1,
+            "command": "echo foo",
+            "outputVariables": null,
+            "envVariables": null,
+            "image": "maven:3.6.3",
+            "connectorRef": "account.harness",
+            "stepType": { "type": "Run" },
+            "nonYamlInfo": { "stepInfoType": "Run" },
+            "facilitatorType": "ASYNC",
+            "defaultTimeout": 7200
+          },
+          "startTs": 1611166797978,
+          "endTs": 1611166800385,
+          "stepType": "Run",
+          "status": "Success",
+          "failureInfo": {},
+          "executableResponses": [
+            {
+              "async": {
+                "callbackIds": ["a69rOYNCT8yk91rYa1zoiQ"]
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {}
+        },
+        "UwHCXrkaT9Cx-gr_iRRcGg": {
+          "uuid": "UwHCXrkaT9Cx-gr_iRRcGg",
+          "name": "liteEngineTask1",
+          "identifier": "liteEngineTask1",
+          "baseFqn": "pipeline.stages.testCI.execution.steps.liteEngineTask1",
+          "outcomes": [
+            {
+              "type": "dependencyOutcome",
+              "serviceDependencyList": [
+                {
+                  "identifier": "dep",
+                  "name": "dep",
+                  "image": "mysql:5",
+                  "status": "SUCCESS",
+                  "startTime": "2021-01-20T18:19:43Z"
+                }
+              ],
+              "_pms_class": "io.harness.beans.outcomes.DependencyOutcome"
+            }
+          ],
+          "stepParameters": {
+            "type": "liteEngineTask",
+            "retry": 0,
+            "buildJobEnvInfo": {
+              "type": "K8",
+              "podsSetupInfo": {
+                "podSetupInfoList": [
+                  {
+                    "podSetupParams": {
+                      "containerDefinitionInfos": [
+                        {
+                          "name": "service-0",
+                          "containerImageDetails": {
+                            "imageDetails": { "name": "mysql", "tag": "5" },
+                            "connectorIdentifier": "account.harness"
+                          },
+                          "containerType": "SERVICE",
+                          "containerResourceParams": {
+                            "resourceRequestMemoryMiB": 400,
+                            "resourceLimitMemoryMiB": 400,
+                            "resourceRequestMilliCpu": 400,
+                            "resourceLimitMilliCpu": 400
+                          },
+                          "stepIdentifier": "dep",
+                          "stepName": "dep",
+                          "commands": ["/step-exec/.harness/bin/ci-addon"],
+                          "args": ["service", "--id", "dep", "--image", "mysql:5", "--port", "20002"],
+                          "ports": [20002],
+                          "mainLiteEngine": false
+                        },
+                        {
+                          "name": "step-1",
+                          "containerImageDetails": {
+                            "imageDetails": { "name": "drone/git" },
+                            "connectorIdentifier": "harnessImage"
+                          },
+                          "containerType": "PLUGIN",
+                          "containerResourceParams": {
+                            "resourceRequestMemoryMiB": 1,
+                            "resourceLimitMemoryMiB": 400,
+                            "resourceRequestMilliCpu": 1,
+                            "resourceLimitMilliCpu": 400
+                          },
+                          "stepIdentifier": "harness-git-clone",
+                          "stepName": "Git clone",
+                          "commands": ["/step-exec/.harness/bin/ci-addon"],
+                          "args": ["--port", "20003"],
+                          "ports": [20003],
+                          "envVars": { "DRONE_BUILD_NUMBER": "8", "PLUGIN_DEPTH": "1", "DRONE_COMMIT_BRANCH": "main" },
+                          "mainLiteEngine": false
+                        },
+                        {
+                          "name": "step-2",
+                          "containerImageDetails": {
+                            "imageDetails": { "name": "maven", "tag": "3.6.3" },
+                            "connectorIdentifier": "account.harness"
+                          },
+                          "containerType": "RUN",
+                          "containerResourceParams": {
+                            "resourceRequestMemoryMiB": 1,
+                            "resourceLimitMemoryMiB": 400,
+                            "resourceRequestMilliCpu": 1,
+                            "resourceLimitMilliCpu": 400
+                          },
+                          "stepIdentifier": "runtest",
+                          "stepName": "runtest",
+                          "commands": ["/step-exec/.harness/bin/ci-addon"],
+                          "args": ["--port", "20004"],
+                          "ports": [20004],
+                          "envVars": { "DRONE_BUILD_NUMBER": "8", "DRONE_COMMIT_BRANCH": "main" },
+                          "mainLiteEngine": false
+                        }
+                      ]
+                    },
+                    "pvcParamsList": [
+                      {
+                        "volumeName": "step-exec",
+                        "claimName": "harnessci-testci-hp48vmq5-step-exec",
+                        "storageClass": "faster",
+                        "sizeMib": 25600,
+                        "present": false
+                      }
+                    ],
+                    "volumeToMountPath": { "step-exec": "/step-exec" },
+                    "name": "harnessci-testci-hp48vmq5",
+                    "stageMemoryRequest": 400,
+                    "stageCpuRequest": 400,
+                    "serviceIdList": ["dep"],
+                    "serviceGrpcPortList": [20002],
+                    "workDirPath": "/step-exec/workspace"
+                  }
+                ]
+              },
+              "workDir": "workspace"
+            },
+            "executionElementConfig": {
+              "uuid": "eB3Blz5qQlSImUpo4QqUtA",
+              "steps": [
+                {
+                  "uuid": "C18tj31hS8KB0xmppYmwTA",
+                  "step": {
+                    "uuid": "ddnFf4OcToeUZnQJdyOd8Q",
+                    "identifier": "harness-git-clone",
+                    "name": "Git clone",
+                    "type": "Plugin",
+                    "spec": { "settings": { "depth": "1" }, "image": "drone/git", "connectorRef": "harnessImage" }
+                  },
+                  "parallel": null,
+                  "stepGroup": null
+                },
+                {
+                  "uuid": "zM_YtMYKS1i48KFBdlHr4Q",
+                  "step": {
+                    "identifier": "runtest",
+                    "type": "Run",
+                    "name": "runtest",
+                    "spec": {
+                      "connectorRef": "account.harness",
+                      "image": "maven:3.6.3",
+                      "command": "echo foo",
+                      "uuid": "h7MK4-OpRhSZCa1mchyLOQ"
+                    },
+                    "uuid": "_bYmajjUTfitbP5S8cm4Gg"
+                  },
+                  "parallel": null,
+                  "stepGroup": null
+                }
+              ]
+            },
+            "usePVC": false,
+            "ciCodebase": {
+              "connectorRef": "account.SpringBootApp",
+              "build": { "type": "branch", "spec": { "branch": "main" } }
+            },
+            "skipGitClone": false,
+            "timeout": 1200,
+            "stepType": { "type": "liteEngineTask" },
+            "nonYamlInfo": { "stepInfoType": "liteEngineTask" },
+            "facilitatorType": "TASK",
+            "defaultTimeout": 7200
+          },
+          "startTs": 1611166771554,
+          "endTs": 1611166792610,
+          "stepType": "liteEngineTask",
+          "status": "Success",
+          "failureInfo": {},
+          "executableResponses": [
+            {
+              "task": {
+                "taskId": "1LVZIZ-dSwqXXvVjNGX8pg",
+                "taskCategory": "DELEGATE_TASK_V2",
+                "units": ["accountId..."]
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {}
+        }
+      },
+      "nodeAdjacencyListMap": {
+        "_QbGiCUGT4mzbzX0ovfzCw": { "children": [], "nextIds": ["EODeJuxnSdOmACdIovay_w"] },
+        "YVodkE9fSUWzFGK0pvt6vQ": { "children": ["UwHCXrkaT9Cx-gr_iRRcGg"], "nextIds": [] },
+        "QYl_0KBOTLmRcCWsspF7lw": { "children": ["YVodkE9fSUWzFGK0pvt6vQ"], "nextIds": [] },
+        "EODeJuxnSdOmACdIovay_w": { "children": [], "nextIds": [] },
+        "UwHCXrkaT9Cx-gr_iRRcGg": { "children": [], "nextIds": ["_QbGiCUGT4mzbzX0ovfzCw"] }
+      },
+      "representationStrategy": "camelCase"
+    }
+  },
+  "metaData": null,
+  "correlationId": null
+}

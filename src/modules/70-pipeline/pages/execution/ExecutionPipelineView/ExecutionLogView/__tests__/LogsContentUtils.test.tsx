@@ -3,6 +3,33 @@ import { createLogSection, getLogsFromBlob, getStageType } from '../LogsContentU
 
 const fetchMock = jest.spyOn(global, 'fetch' as any)
 
+const getLiteEngineStep = () => {
+  return {
+    uuid: '12345',
+    name: 'name',
+    identifier: 'stepIdentifier',
+    startTs: 1610543218674,
+    endTs: 1610543254842,
+    stepType: 'liteEngineTask',
+    status: 'Running',
+    failureInfo: {},
+    executableResponses: [
+      {
+        task: {
+          taskId: 'id1',
+          logKeys: ['key1', 'key2'],
+          units: ['Initialize', 'Wrap Up']
+        }
+      },
+      {
+        task: {
+          taskId: 'id1'
+        }
+      }
+    ]
+  }
+}
+
 const getStep = () => {
   return {
     uuid: '12345',
@@ -16,19 +43,19 @@ const getStep = () => {
     executableResponses: [
       {
         taskChain: {
-          taskId: 'id',
+          taskId: 'id1',
           logKeys: ['key1', 'key2'],
           units: ['Initialize', 'Wrap Up']
         }
       },
       {
         taskChain: {
-          taskId: 'progressId123'
+          taskId: 'id1'
         }
       }
     ],
     taskIdToProgressDataMap: {
-      progressId123: [
+      id1: [
         {
           commandUnitName: 'Initialize',
           commandExecutionStatus: 'SUCCESS'
@@ -68,7 +95,7 @@ describe('LogsContentUtils', () => {
     fetchSpy.mockClear()
   })
 
-  test('createLogSection (basic test)', async () => {
+  test('createLogSection (basic test) - CI', async () => {
     const response = createLogSection(
       'ci',
       'logsToken',
@@ -95,6 +122,71 @@ describe('LogsContentUtils', () => {
           accountID: 'accountId',
           key: 'accountId/orgIdentifier/projectIdentifier/pipelineIdentifier/runSequence/stageIdentifier/stepIdentifier'
         }
+      }
+    ]
+
+    expect(response).toStrictEqual(expectedResponse)
+  })
+
+  test('createLogSection (basic test) - CD', async () => {
+    const response = createLogSection(
+      'cd',
+      'logsToken',
+      'accountId',
+      'orgIdentifier',
+      'projectIdentifier',
+      'runSequence',
+      'pipelineIdentifier',
+      'stageIdentifier',
+      'Running',
+      getStep(),
+      false,
+      -1
+    )
+
+    const expectedResponse = [
+      {
+        enableLogLoading: false,
+        queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'key1' },
+        sectionIdx: 0,
+        sectionTitle: 'Initialize',
+        sourceType: 'blob'
+      },
+      {
+        enableLogLoading: true,
+        queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'key2' },
+        sectionIdx: 1,
+        sectionTitle: 'Wrap Up',
+        sourceType: 'stream'
+      }
+    ]
+
+    expect(response).toStrictEqual(expectedResponse)
+  })
+
+  test('createLogSection (liteEngineTask)', async () => {
+    const response = createLogSection(
+      'ci',
+      'logsToken',
+      'accountId',
+      'orgIdentifier',
+      'projectIdentifier',
+      'runSequence',
+      'pipelineIdentifier',
+      'stageIdentifier',
+      'Success',
+      getLiteEngineStep() as any,
+      false,
+      -1
+    )
+
+    const expectedResponse = [
+      {
+        enableLogLoading: true,
+        sectionIdx: 0,
+        sectionTitle: 'Logs',
+        sourceType: 'stream',
+        queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'Initialize' }
       }
     ]
 

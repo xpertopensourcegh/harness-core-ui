@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import {
   Layout,
@@ -20,12 +20,7 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { FieldArray } from 'formik'
-import {
-  isEqual,
-  debounce
-  // isEmpty,
-  // set
-} from 'lodash-es'
+import { isEqual, debounce } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
 import {
@@ -80,7 +75,6 @@ export const getSecretKey = (secret: SecretDTOV2): string =>
 export default function BuildStageSpecifications(): JSX.Element {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
-  const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>({
     name: '',
     type: VariableTypes.String,
@@ -140,7 +134,6 @@ export default function BuildStageSpecifications(): JSX.Element {
     identifier: string
     name: string
     description: string
-    tags: null | string[]
     cloneCodebase: boolean
     sharedPaths: string[]
     variables: { name: string; type: string; value?: string }[]
@@ -185,7 +178,6 @@ export default function BuildStageSpecifications(): JSX.Element {
       identifier,
       name,
       description,
-      tags: null,
       cloneCodebase,
       sharedPaths,
       variables
@@ -207,12 +199,6 @@ export default function BuildStageSpecifications(): JSX.Element {
       } else {
         delete pipelineData.description
       }
-
-      // if (values.tags) {
-      //   pipelineData.tags = values.tags
-      // } else {
-      //   delete pipelineData.tags
-      // }
 
       spec.cloneCodebase = values.cloneCodebase
 
@@ -259,6 +245,13 @@ export default function BuildStageSpecifications(): JSX.Element {
       return handleValidate(values)
     }, 500)
   ).current
+
+  // Cleanup debounce
+  useEffect(() => {
+    return () => {
+      debounceHandleValidate.flush()
+    }
+  }, [])
 
   const openDialog = (): void => setIsDialogOpen(true)
 
@@ -335,14 +328,6 @@ export default function BuildStageSpecifications(): JSX.Element {
                             onClick={() => setDescriptionVisible(true)}
                           />
                         )}
-                        {!isTagsVisible && !formValues.tags && (
-                          <Button
-                            minimal
-                            text={getString('pipelineSteps.build.stageSpecifications.addTags')}
-                            icon="plus"
-                            onClick={() => setTagsVisible(true)}
-                          />
-                        )}
                       </div>
                     </Layout.Horizontal>
 
@@ -358,39 +343,6 @@ export default function BuildStageSpecifications(): JSX.Element {
                           {getString('removeLabel')}
                         </span>
                         <FormInput.TextArea name={'description'} label={getString('description')} />
-                      </div>
-                    )}
-
-                    {(isTagsVisible || formValues.tags) && (
-                      <div className={css.fields}>
-                        <span
-                          onClick={() => {
-                            setTagsVisible(false)
-                            setFieldValue('tags', '')
-                          }}
-                          className={css.removeLink}
-                        >
-                          {getString('removeLabel')}
-                        </span>
-                        <FormInput.TagInput
-                          name="tags"
-                          label={getString('tagsLabel')}
-                          items={[]}
-                          labelFor={name => name as string}
-                          itemFromNewTag={newTag => newTag}
-                          tagInputProps={{
-                            noInputBorder: true,
-                            openOnKeyDown: false,
-                            showAddTagButton: true,
-                            showClearAllButton: true,
-                            allowNewTag: true,
-                            getTagProps: (value, _index, _selectedItems, createdItems) => {
-                              return createdItems.includes(value)
-                                ? { intent: 'danger', minimal: true }
-                                : { intent: 'none', minimal: true }
-                            }
-                          }}
-                        />
                       </div>
                     )}
 

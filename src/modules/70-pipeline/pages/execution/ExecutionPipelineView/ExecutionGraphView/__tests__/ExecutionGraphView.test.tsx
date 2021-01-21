@@ -8,7 +8,8 @@ import type { ExecutionStageDiagramProps } from '@pipeline/components/ExecutionS
 import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
-import mock from './mock.json'
+import mockCD from './mock.json'
+import mockCI from './mock-ci.json'
 import ExecutionGraphView from '../ExecutionGraphView'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
@@ -61,7 +62,7 @@ jest.mock('@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram', ()
   }
 })
 
-const contextValue: ExecutionContextParams = {
+const contextValue = (mock: any = mockCD): ExecutionContextParams => ({
   pipelineExecutionDetail: mock.data as any,
   allNodeMap: mock.data.executionGraph.nodeMap as any,
   pipelineStagesMap: getPipelineStagesMap(
@@ -74,7 +75,7 @@ const contextValue: ExecutionContextParams = {
   queryParams: {},
   logsToken: 'token',
   setLogsToken: jest.fn()
-}
+})
 
 const fetchMock = jest.spyOn(global, 'fetch' as any)
 fetchMock.mockResolvedValue({
@@ -83,11 +84,23 @@ fetchMock.mockResolvedValue({
   headers: { get: () => 'application/json' }
 })
 
-describe('<ExecutionGrapView /> tests', () => {
-  test('renders excution graphs', () => {
+describe('<ExecutionGraphView /> tests', () => {
+  test('renders execution graphs with CD data', () => {
     const { container } = render(
       <TestWrapper>
-        <ExecutionContext.Provider value={contextValue}>
+        <ExecutionContext.Provider value={contextValue()}>
+          <ExecutionGraphView />
+          <NotFound />
+        </ExecutionContext.Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders execution graphs with CI data', () => {
+    const { container } = render(
+      <TestWrapper>
+        <ExecutionContext.Provider value={contextValue(mockCI)}>
           <ExecutionGraphView />
           <NotFound />
         </ExecutionContext.Provider>
@@ -99,7 +112,7 @@ describe('<ExecutionGrapView /> tests', () => {
   test('stage selection works', async () => {
     const { findByText, getByTestId } = render(
       <TestWrapper>
-        <ExecutionContext.Provider value={contextValue}>
+        <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
           <NotFound />
         </ExecutionContext.Provider>
@@ -122,7 +135,7 @@ describe('<ExecutionGrapView /> tests', () => {
   test('stage selection does not works for "NotStarted" status', async () => {
     const { findByText, getByTestId } = render(
       <TestWrapper>
-        <ExecutionContext.Provider value={contextValue}>
+        <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
           <NotFound />
         </ExecutionContext.Provider>
@@ -145,7 +158,7 @@ describe('<ExecutionGrapView /> tests', () => {
   test('step selection works', async () => {
     const { findByText, getByTestId } = render(
       <TestWrapper>
-        <ExecutionContext.Provider value={contextValue}>
+        <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
           <NotFound />
         </ExecutionContext.Provider>
@@ -168,7 +181,7 @@ describe('<ExecutionGrapView /> tests', () => {
   test('step selection does not works for "NotStarted" status', async () => {
     const { findByText, getByTestId } = render(
       <TestWrapper>
-        <ExecutionContext.Provider value={contextValue}>
+        <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
           <NotFound />
         </ExecutionContext.Provider>
@@ -195,7 +208,7 @@ describe('<ExecutionGrapView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider
           value={{
-            ...contextValue,
+            ...contextValue(),
             queryParams: { step: 'K8sRollingUuid' },
             selectedStepId: 'K8sRollingUuid'
           }}

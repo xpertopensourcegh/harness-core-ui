@@ -103,6 +103,32 @@ const addDependencies = (
   }
 }
 
+const processLiteEngineTask = (
+  nodeData: ExecutionNode | undefined,
+  rootNodes: ExecutionPipelineNode<ExecutionNode>[]
+): void => {
+  // NOTE: liteEngineTask contains information about dependencies
+  const serviceDependencyList: ServiceDependency[] = ((nodeData as any)?.outcomes as any)?.find(
+    (_item: any) => !!_item.serviceDependencyList
+  )?.serviceDependencyList
+
+  // 1. Add dependency services
+  addDependencies(serviceDependencyList, rootNodes)
+
+  // 2. Add Initialize step ( at the first place in array )
+  const stepItem: ExecutionPipelineItem<ExecutionNode> = {
+    identifier: nodeData?.uuid as string,
+    name: 'Initialize',
+    type: ExecutionPipelineNodeType.NORMAL,
+    status: nodeData?.status as any,
+    icon: 'initialize-step',
+    data: nodeData as ExecutionNode,
+    itemType: 'service-dependency'
+  }
+  const stepNode: ExecutionPipelineNode<ExecutionNode> = { item: stepItem }
+  rootNodes.unshift(stepNode)
+}
+
 const processNodeData = (
   children: string[],
   nodeMap: ExecutionGraph['nodeMap'],
@@ -142,26 +168,7 @@ const processNodeData = (
       })
     } else {
       if (nodeData?.stepType === LITE_ENGINE_TASK) {
-        // NOTE: liteEngineTask contains information about dependencies
-        const serviceDependencyList: ServiceDependency[] = ((nodeData as any)?.outcomes as any)?.find(
-          (_item: any) => !!_item.serviceDependencyList
-        )?.serviceDependencyList
-
-        // 1. Add dependency services
-        addDependencies(serviceDependencyList, rootNodes)
-
-        // 2. Add Initialize step ( at the first place in array )
-        const stepItem: ExecutionPipelineItem<ExecutionNode> = {
-          identifier: nodeData.uuid as string,
-          name: 'Initialize',
-          type: ExecutionPipelineNodeType.NORMAL,
-          status: nodeData.status as any,
-          icon: 'initialize-step',
-          data: nodeData as ExecutionNode,
-          itemType: 'service-dependency'
-        }
-        const stepNode: ExecutionPipelineNode<ExecutionNode> = { item: stepItem }
-        rootNodes.unshift(stepNode)
+        processLiteEngineTask(nodeData, rootNodes)
       } else {
         const icon = factory.getStepIcon(nodeData?.stepType || '')
         items.push({
@@ -229,16 +236,13 @@ const processNodeData = (
   return items
 }
 
-/** count children without LITE_ENGINE_TASK */
-const hasChildren = (children?: string[], graph?: ExecutionGraph): boolean => {
-  return children
-    ? children.filter(id => {
-        return !(
-          graph?.nodeMap?.[id]?.stepType === LITE_ENGINE_TASK &&
-          graph?.nodeAdjacencyListMap?.[id]?.nextIds?.length === 0
-        )
-      }).length > 0
-    : false
+const hasOnlyLiteEngineTask = (children?: string[], graph?: ExecutionGraph): boolean => {
+  return (
+    !!children &&
+    children.length === 1 &&
+    graph?.nodeMap?.[children[0]]?.stepType === LITE_ENGINE_TASK &&
+    graph?.nodeAdjacencyListMap?.[children[0]]?.nextIds?.length === 0
+  )
 }
 
 const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNode<ExecutionNode>> => {
@@ -253,24 +257,30 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.NG_SECTION && hasChildren(nodeAdjacencyListMap[nodeId].children, graph)) {
-          const icon = factory.getStepIcon(nodeData?.stepType || '')
-          items.push({
-            group: {
-              name: nodeData.name || /* istanbul ignore next */ '',
-              identifier: nodeId,
-              data: nodeData,
-              status: nodeData.status as any,
-              isOpen: true,
-              icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
-              items: processNodeData(
-                nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
-                graph?.nodeMap,
-                graph?.nodeAdjacencyListMap,
-                items
-              )
-            }
-          })
+        if (nodeData.stepType === StepTypes.NG_SECTION) {
+          // NOTE: exception if we have only lite task engine in Execution group
+          if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
+            const liteTaskEngineId = nodeAdjacencyListMap[nodeId]?.children?.[0]!
+            processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
+          } else {
+            const icon = factory.getStepIcon(nodeData?.stepType || '')
+            items.push({
+              group: {
+                name: nodeData.name || /* istanbul ignore next */ '',
+                identifier: nodeId,
+                data: nodeData,
+                status: nodeData.status as any,
+                isOpen: true,
+                icon: icon !== 'disable' ? icon : IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+                items: processNodeData(
+                  nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
+                  graph?.nodeMap,
+                  graph?.nodeAdjacencyListMap,
+                  items
+                )
+              }
+            })
+          }
         } else if (nodeData.stepType === StepTypes.FORK) {
           items.push({
             parallel: processNodeData(
@@ -298,7 +308,6 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       nodeId = nodeAdjacencyListMap[nodeId].nextIds?.[0]
     }
   }
-
   return items
 }
 

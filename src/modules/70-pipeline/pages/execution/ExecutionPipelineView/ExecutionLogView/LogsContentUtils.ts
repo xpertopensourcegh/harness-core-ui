@@ -198,9 +198,9 @@ export async function getLogsFromBlob(
     },
     signal
   ).then((resp: string) => {
-    const lines = resp.split('\n')
     let data: any[] = []
     try {
+      const lines = resp.split('\n')
       data = lines.filter(line => line.length > 0).map(line => line && JSON.parse(line))
     } catch (ex) {
       // TBD: how to handle errors

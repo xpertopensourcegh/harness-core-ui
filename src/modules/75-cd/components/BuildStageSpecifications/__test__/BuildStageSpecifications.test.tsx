@@ -85,7 +85,7 @@ describe('BuildStageSpecifications tests', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('clicking on description and tags shows corresponding inputs', async () => {
+  test('clicking on description shows corresponding inputs', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ accountIdentifier: 'dummy' }}>
         <BuildStageSpecifications />
@@ -93,14 +93,10 @@ describe('BuildStageSpecifications tests', () => {
     )
     const addDescriptionBtn = await findByText(container, 'description')
     expect(addDescriptionBtn).toBeDefined()
-    const addTagsBtn = await findByText(container, 'tags')
-    expect(addTagsBtn).toBeDefined()
     await act(async () => {
       fireEvent.click(addDescriptionBtn)
-      fireEvent.click(addTagsBtn)
     })
     expect(queryByAttribute('name', container, 'description')).toBeDefined()
-    expect(queryByAttribute('name', container, 'tags')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
   // TODO: Uncomment and fix it once have time for this
