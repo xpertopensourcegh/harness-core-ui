@@ -3,6 +3,10 @@
   height: calc(100%) !important;
 }
 
+.masonry {
+  height: calc(100vh - 128px - 64px);
+}
+
 .pagination {
-  padding: var(--spacing-large) var(--spacing-xxxlarge) !important ;
+  padding: 0 var(--spacing-xxxlarge) !important ;
 }

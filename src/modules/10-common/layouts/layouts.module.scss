@@ -1,9 +1,6 @@
 .children {
-  min-height: 100vh;
-
-  &[data-layout='empty'] {
-    height: 100vh;
-  }
+  height: 100vh;
+  background-color: var(--grey-100);
 }
 
 .main {

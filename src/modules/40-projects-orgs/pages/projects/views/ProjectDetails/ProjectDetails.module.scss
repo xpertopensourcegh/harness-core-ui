@@ -22,13 +22,11 @@
 }
 
 .enabledModules {
-  min-height: calc(50vh - 72px);
   min-width: 1200px;
 }
 
 .pageHeight {
   max-height: calc(100vh - 144px) !important;
-  background-color: var(--grey-100) !important;
 }
 
 .activityCard {

@@ -16,6 +16,7 @@
     margin-bottom: var(--spacing-small);
     padding: var(--spacing-medium);
     background-color: white;
+    border: 1px solid transparent;
   }
 
   .card {
@@ -26,7 +27,8 @@
   .card.clickable {
     cursor: pointer;
     &:hover {
-      box-shadow: 0px 1px 6px -3px var(--black);
+      box-shadow: 0px 2px 8px -5px var(--black);
+      border: 1px solid var(--blue-500);
     }
   }
 

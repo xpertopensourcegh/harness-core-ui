@@ -17,7 +17,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
 
   return (
     <>
-      <Container height="90%">
+      <Container className={css.masonry}>
         <Layout.Masonry
           center
           gutter={25}
@@ -36,7 +36,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
           }
         />
       </Container>
-      <Container height="10%" className={css.pagination}>
+      <Container className={css.pagination}>
         <Pagination
           itemCount={data?.data?.totalItems || 0}
           pageSize={data?.data?.pageSize || 10}

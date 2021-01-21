@@ -4,7 +4,6 @@ import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { useStrings } from 'framework/exports'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -82,13 +81,14 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
     })
   }
   return (
-    <PageBody>
+    <Container>
       <PageHeader title={getString('createSecretYAML.createSecret')} />
       <Container padding="xlarge">
         <YAMLBuilder
           fileName={getString('createSecretYAML.newSecret')}
           entityType={'Secrets'}
           bind={setYamlHandler}
+          height={400}
           schema={secretSchema?.data || ''}
           onSnippetCopy={onSnippetCopy}
           snippetYaml={snippet?.data}
@@ -101,7 +101,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           onClick={handleCreate}
         />
       </Container>
-    </PageBody>
+    </Container>
   )
 }
 
