@@ -7,19 +7,29 @@ import { useGetOrganizationAggregateDTO } from 'services/cd-ng'
 import OrgNavCardRenderer from '@projects-orgs/components/OrgNavCardRenderer/OrgNavCardRenderer'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
+import { useStrings } from 'framework/exports'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner } from '@common/components'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
   const { accountId, orgIdentifier } = useParams()
-  const { data, refetch } = useGetOrganizationAggregateDTO({
+  const { getString } = useStrings()
+  const { data, refetch, loading, error } = useGetOrganizationAggregateDTO({
     identifier: orgIdentifier,
     queryParams: {
       accountIdentifier: accountId
     }
   })
-
+  const organization = data?.data?.organizationResponse.organization
   const { openCollaboratorModal } = useCollaboratorModal()
+  useDocumentTitle([getString('orgsText'), organization?.name || ''])
+
+  if (loading) return <PageSpinner />
+  if (error) return <PageError message={error.message} onClick={() => refetch()} />
+  if (!organization) return <></>
 
   return (
     <>
@@ -35,13 +45,13 @@ const OrganizationDetailsPage: React.FC = () => {
               </Link>
             </Layout.Horizontal>
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
-              {data?.data?.organizationResponse.organization.name}
+              {organization.name}
             </Text>
             <Text font="small" lineClamp={2}>
-              {data?.data?.organizationResponse.organization.description}
+              {organization.description}
             </Text>
             <Layout.Horizontal padding={{ top: 'small' }}>
-              <TagsRenderer tags={data?.data?.organizationResponse.organization.tags || {}} length={6} />
+              <TagsRenderer tags={organization.tags || {}} length={6} />
             </Layout.Horizontal>
           </Layout.Vertical>
         }

@@ -10,6 +10,7 @@ import { useOrganizationModal } from '@projects-orgs/modals/OrganizationModal/us
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import { useStrings } from 'framework/exports'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
@@ -18,6 +19,7 @@ const OrganizationsPage: React.FC = () => {
   const [searchParam, setSearchParam] = useState<string>()
   const history = useHistory()
   const { getString } = useStrings()
+  useDocumentTitle(getString('orgsText'))
   const { loading, data, refetch, error } = useGetOrganizationAggregateDTOList({
     queryParams: { accountIdentifier: accountId, searchTerm: searchParam },
     debounce: 300

@@ -15,6 +15,7 @@ import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
@@ -57,6 +58,7 @@ const ProjectDetails: React.FC = () => {
     history.push(routes.toProjects({ accountId }))
   }
   const openDialog = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
+  useDocumentTitle([getString('projectsText'), projectData?.name || ''])
 
   useEffect(() => {
     updateAppStore({ selectedProject: projectData })

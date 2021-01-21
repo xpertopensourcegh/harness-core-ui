@@ -1,5 +1,7 @@
+import { Intent } from '@blueprintjs/core'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { useStrings } from 'framework/exports'
 import { Project, useDeleteProject } from 'services/cd-ng'
 
 import i18n from './DeleteProject.i18n'
@@ -11,12 +13,14 @@ const useDeleteProjectDialog = (data: Project, onSuccess: () => void) => {
       orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ ''
     }
   })
+  const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || /* istanbul ignore next */ ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.delete,
-    cancelButtonText: i18n.cancel,
+    contentText: getString('projectCard.confirmDelete', { name: data.name }),
+    titleText: getString('projectCard.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {

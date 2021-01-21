@@ -14,6 +14,7 @@ import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectMo
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -31,11 +32,38 @@ const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams()
   const { orgId } = useQueryParams()
   const { getString } = useStrings()
+  useDocumentTitle(getString('projectsText'))
   const [view, setView] = useState(Views.GRID)
   const [searchParam, setSearchParam] = useState<string>()
   const [page, setPage] = useState(0)
   const history = useHistory()
   let orgFilter = allOrgsSelectOption
+
+  const { data: orgsData } = useGetOrganizationList({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const organizations: SelectOption[] = [
+    allOrgsSelectOption,
+    ...(orgsData?.data?.content?.map(org => {
+      org.organization.identifier === orgId
+        ? (orgFilter = {
+            label: org.organization.name,
+            value: org.organization.identifier
+          })
+        : null
+      return {
+        label: org.organization.name,
+        value: org.organization.identifier
+      }
+    }) || [])
+  ]
+
+  React.useEffect(() => {
+    setPage(0)
+  }, [searchParam, orgFilter])
 
   const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
     queryParams: {
@@ -65,32 +93,6 @@ const ProjectsListPage: React.FC = () => {
   const showCollaborators = (project: Project): void => {
     openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
   }
-
-  const { data: orgsData } = useGetOrganizationList({
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
-
-  const organizations: SelectOption[] = [
-    allOrgsSelectOption,
-    ...(orgsData?.data?.content?.map(org => {
-      org.organization.identifier === orgId
-        ? (orgFilter = {
-            label: org.organization.name,
-            value: org.organization.identifier
-          })
-        : null
-      return {
-        label: org.organization.name,
-        value: org.organization.identifier
-      }
-    }) || [])
-  ]
-
-  React.useEffect(() => {
-    setPage(0)
-  }, [searchParam, orgFilter])
 
   return (
     <>

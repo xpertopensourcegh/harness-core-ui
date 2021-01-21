@@ -5,6 +5,8 @@ import { Button, Heading, Color, Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { Page } from '@common/components/Page/Page'
+import { useStrings } from 'framework/exports'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import i18n from '../../ProjectsPage.i18n'
 import getStarted from './images/getStarted.png'
 import css from './GetStartedProject.module.scss'
@@ -13,6 +15,9 @@ const GetStartedProject: React.FC = () => {
   const { accountId } = useParams()
   let projectCreated = false
   const history = useHistory()
+  const { getString } = useStrings()
+  useDocumentTitle(getString('getStarted'))
+
   const projectCreateSuccessHandler = (): void => {
     /* istanbul ignore next */
     projectCreated = true

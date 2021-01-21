@@ -3,6 +3,8 @@ harness: Harness # Name of the company
 featureFlagsText: Feature Flags
 logView: Log View
 projectsText: Projects
+orgsText: Organizations
+getStarted: Get Started
 projectLabel: Project
 orgLabel: Organization
 modules: Modules
@@ -24,6 +26,7 @@ runPipelineText: Run Pipeline
 noSecretsFound: 'No Connectors Found'
 resources: 'Resources'
 secrets: 'Secrets'
+secretDetails: 'Secret Details'
 noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
 noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
 newConnector: 'New Connector'
@@ -344,7 +347,7 @@ adminSideNavLinks:
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'
-  confirmDelete: 'Are you sure you want to delete the Project {{projectName}} ?'
+  confirmDelete: Deleting the Project '{{name}}' would mean that you are also deleting all the resources associated with it. Are you sure you want to delete the Project?
   confirmDeleteTitle: 'Delete Project'
   successMessage: 'Project {{projectName}} is deleted'
   cdRendererText: 'Deployments in last 7 days'

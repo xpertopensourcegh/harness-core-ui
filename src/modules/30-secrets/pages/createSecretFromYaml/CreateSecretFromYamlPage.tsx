@@ -19,10 +19,12 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
   const { accountId } = useParams()
   const { getString } = useStrings()
+  useDocumentTitle(getString('createSecretYAML.createSecret'))
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()

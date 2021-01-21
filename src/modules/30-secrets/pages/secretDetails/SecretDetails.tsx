@@ -30,6 +30,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -120,6 +121,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       }
     }
   }
+  useDocumentTitle([getString('resources'), getString('secrets'), secretData?.secret.name || ''])
 
   useEffect(() => {
     setSecretData(data?.data)
