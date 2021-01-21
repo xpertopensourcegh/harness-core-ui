@@ -126,7 +126,15 @@ export const DelegateListing: React.FC<DelegateListingProps> = (props: DelegateL
   const { accountId } = useParams()
   const history = useHistory()
   if (!props.delegateResponse) {
-    return <div>Delegate Listing</div>
+    return (
+      <Button
+        id="delegateButton"
+        intent="primary"
+        text="{getString(‘delegate.NEW_DELEGATE’)}"
+        icon="plus"
+        onClick={props.onClick}
+      />
+    )
   }
 
   const {

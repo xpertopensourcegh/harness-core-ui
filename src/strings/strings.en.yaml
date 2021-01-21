@@ -109,6 +109,7 @@ reinstall: Reinstall
 edit: Edit
 delete: Delete
 select: Select
+verify: Verify
 save: Save
 back: Back
 next: Next
@@ -410,6 +411,13 @@ delegate:
   reviewScript:
     configProxySettings: 'Configure Proxy Settings'
     descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh '
+  successVerification:
+    applyYAMLTitle: ' Apply YAML and verify connection'
+    description1: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.'
+    description2: 'Run the following command to apply the Harness delegate to your Kubernetes Cluster'
+    checkDelegateInstalled: Checking if the delegate is installed. It might take 1-2 minutes for the installation.
+    heartbeatReceived: Heartbeat received
+    delegateInitialized: Delegate initialized
   cardData:
     docker:
       text: 'Runs Harness Delegate as a Docker container on any Linux or Mac.'

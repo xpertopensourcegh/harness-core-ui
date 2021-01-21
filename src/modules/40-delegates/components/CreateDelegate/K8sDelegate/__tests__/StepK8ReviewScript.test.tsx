@@ -7,11 +7,15 @@ jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
   return ComponentToMock
 })
+
+const props = {
+  onBack: jest.fn()
+}
 describe('Create Step Review Script Delegate', () => {
   test('render data', () => {
     const { container } = render(
       <TestWrapper>
-        <Stepk8ReviewScript />
+        <Stepk8ReviewScript {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -19,7 +23,7 @@ describe('Create Step Review Script Delegate', () => {
   test('Click continue button', async () => {
     const { container } = render(
       <TestWrapper>
-        <Stepk8ReviewScript />
+        <Stepk8ReviewScript {...props} />
       </TestWrapper>
     )
     const stepReviewScriptContinueButton = container?.querySelector('#stepReviewScriptContinueButton')
@@ -30,7 +34,7 @@ describe('Create Step Review Script Delegate', () => {
   test('Click back button', async () => {
     const { container } = render(
       <TestWrapper>
-        <Stepk8ReviewScript />
+        <Stepk8ReviewScript {...props} />
       </TestWrapper>
     )
     const stepReviewScriptBackButton = container?.querySelector('#stepReviewScriptBackButton')

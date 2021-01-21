@@ -9,6 +9,50 @@
   .downloadButton {
     padding: var(--spacing-large) var(--spacing-medium) !important;
   }
+  .verticalLine {
+    border: none;
+    height: 100%;
+    border-right: 0.5px solid #d9dae6;
+  }
+  .verificationHeader {
+    height: 130px !important;
+    background: #ecf6fd !important;
+  }
+  .verificationBody {
+    padding: var(--spacing-xlarge) var(--spacing-xxxlarge) !important;
+    height: 629px !important;
+  }
+  .addConfigImg {
+    margin-right: var(--spacing-small);
+  }
+
+  .checkIcon {
+    margin-right: var(--spacing-xxsmall) !important;
+  }
+  .verificationField {
+    box-shadow: 0px 0px 5px rgba(40, 41, 61, 0.0348285);
+    background: #effbff !important;
+    margin-right: 27px !important;
+    border-radius: 4px !important;
+  }
+  .panelLeft {
+    margin-right: 41px !important;
+  }
+  .titleYAMLVerification {
+    color: #22272d !important;
+    font-weight: 600 !important;
+  }
+  .descriptionVerificationWrapper {
+    padding: var(--spacing-large) 0px !important;
+  }
+  .verificationFieldWrapper {
+    align-items: center !important;
+    padding: var(--spacing-large) 0px !important;
+  }
+  .checkItemsWrapper {
+    align-items: center !important;
+    padding: 0px var(--spacing-xxxlarge) !important;
+  }
 }
 
 .yamlAccordion {

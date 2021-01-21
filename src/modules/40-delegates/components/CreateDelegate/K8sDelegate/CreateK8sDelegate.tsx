@@ -7,7 +7,7 @@ import { useStrings } from 'framework/exports'
 import type { DelegateInfoDTO } from '@delegates/DelegateInterface'
 import DelegateDetailsStep from '../commonSteps/DelegateDetailsStep'
 import Stepk8ReviewScript from './StepReviewScript/Stepk8sReviewScript'
-
+import StepSuccessVerification from './StepSuccessVerification/StepSuccessVerifcation'
 import css from './CreateK8sDelegate.module.scss'
 
 interface CreateK8sDelegateProps {
@@ -54,7 +54,8 @@ const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = () => {
               setShowWizard(false)
             }}
           />
-          <div>hello</div>
+
+          <StepSuccessVerification />
         </WizardWithProgress>
       )}
     </>
