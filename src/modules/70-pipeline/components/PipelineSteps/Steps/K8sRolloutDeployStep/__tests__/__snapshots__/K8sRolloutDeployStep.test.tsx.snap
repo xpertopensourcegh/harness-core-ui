@@ -597,6 +597,7 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="copy"
             >
               <svg
                 height="16"
@@ -654,6 +655,7 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="copy"
             >
               <svg
                 height="16"

@@ -233,11 +233,13 @@ const RenderWebhookIcon = ({
   type,
   webhookSourceRepo,
   webhookSecret,
+  triggerIdentifier,
   column
 }: {
   type?: string
   webhookSourceRepo?: string
   webhookSecret?: string
+  triggerIdentifier?: string
   column: { accountId: string; orgIdentifier: string; projectIdentifier: string; getString: (str: string) => string }
 }): JSX.Element => {
   const [optionsOpen, setOptionsOpen] = React.useState(false)
@@ -250,7 +252,7 @@ const RenderWebhookIcon = ({
 
   if (webhookSourceRepo === GitSourceProviders.CUSTOM.value && webhookSecret) {
     const curlCommand = `curl -X POST 
-    -H 'X-Harness-Webhook-Token: ${webhookSecret}' -H 'content-type: application/json' 
+    -H 'X-Harness-Webhook-Token: ${webhookSecret}' -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}'
      --url ${webhookUrl}
       -d '{
         "object_kind": "merge_request",
@@ -320,7 +322,12 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column
 }: {
   row: RenderColumnRow
-  column: { accountId: string; orgIdentifier: string; projectIdentifier: string; getString: (str: string) => string }
+  column: {
+    accountId: string
+    orgIdentifier: string
+    projectIdentifier: string
+    getString: (str: string) => string
+  }
 }) => {
   const data = row.original
 
@@ -330,6 +337,7 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         type: data?.type,
         webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo,
         webhookSecret: data?.webhookDetails?.webhookSecret,
+        triggerIdentifier: data?.identifier,
         column
       })}
     </div>
