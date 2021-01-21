@@ -58,7 +58,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         setError(null)
         const { status, data } = await fetchListOfExecutions(
           {
-            filterType: 'Pipeline'
+            filterType: 'PipelineExecution'
           },
           { queryParams: params }
         )

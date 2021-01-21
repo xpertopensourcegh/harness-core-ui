@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Select as BPSelect, ItemRenderer, ItemListRenderer } from '@blueprintjs/select'
 import { Button, Menu, Spinner } from '@blueprintjs/core'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetPipelineList, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetPipelineList, PMSPipelineSummaryResponse, PagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 
 import css from './PipelineSelect.module.scss'
@@ -21,24 +21,38 @@ const itemRenderer: ItemRenderer<PMSPipelineSummaryResponse> = (item, props) => 
 )
 
 export default function PipelineSelect(props: PipelineSelectProps): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [query, setQuery] = React.useState('')
-  const { data, loading } = useGetPipelineList({
+  const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
+
+  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
+      module,
       orgIdentifier,
-      searchTerm: query
-    },
-    debounce: 300
+      searchTerm: query,
+      size: 10
+    }
   })
-  const selectedValue = props.selectedPipeline
-    ? (data?.data?.content || []).find(item => item.identifier === props.selectedPipeline)
-    : null
 
+  const fetchPipelines = React.useCallback(async () => {
+    cancel()
+    setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
+  }, [reloadPipelines, cancel])
+
+  React.useEffect(() => {
+    cancel()
+    fetchPipelines()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountId, projectIdentifier, orgIdentifier, module, query])
   function clearSelection(): void {
     props.onPipelineSelect('')
   }
+
+  const selectedValue = props.selectedPipeline
+    ? (data?.content || []).find(item => item.identifier === props.selectedPipeline)
+    : null
 
   const itemListRender: ItemListRenderer<PMSPipelineSummaryResponse> = itemListProps => (
     <Menu>
@@ -61,7 +75,7 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
 
   return (
     <Select
-      items={data?.data?.content || []}
+      items={data?.content || []}
       itemRenderer={itemRenderer}
       onItemSelect={handleSelect}
       popoverProps={{ minimal: true, wrapperTagName: 'div', targetTagName: 'div' }}

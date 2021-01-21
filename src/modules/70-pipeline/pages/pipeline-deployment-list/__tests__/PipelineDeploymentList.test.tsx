@@ -21,7 +21,9 @@ jest.mock('services/pipeline-ng', () => ({
     loading: false,
     cancel: jest.fn()
   })),
-  useGetPipelineList: jest.fn(() => ({ ...pipelines, refetch: jest.fn() })),
+  useGetPipelineList: jest.fn().mockImplementation(() => {
+    return { mutate: jest.fn(() => Promise.resolve(pipelines)), cancel: jest.fn(), loading: false }
+  }),
   useHandleInterrupt: jest.fn(() => ({}))
 }))
 function ComponentWrapper(): React.ReactElement {

@@ -3,7 +3,11 @@ import { Button, Color, ExpandingSearchInput, Icon, Layout, Text } from '@wings-
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { ResponsePagePMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
+import {
+  PagePMSPipelineSummaryResponse,
+  ResponsePagePMSPipelineSummaryResponse,
+  useGetPipelineList
+} from 'services/pipeline-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useAppStore, useStrings } from 'framework/exports'
@@ -68,8 +72,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const { getString } = useStrings()
 
   const [searchParam, setSearchParam] = React.useState('')
+  const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
 
-  const { loading, data, refetch: reloadPipelines, error } = useGetPipelineList({
+  const { loading, mutate: reloadPipelines, error, cancel } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -79,10 +84,19 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       page,
       size: 10
     },
-    debounce: 300,
     mock: mockData
   })
 
+  const fetchPipelines = React.useCallback(async () => {
+    cancel()
+    setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
+  }, [reloadPipelines, cancel])
+
+  React.useEffect(() => {
+    cancel()
+    fetchPipelines()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam])
   return (
     <>
       <Page.Header
@@ -152,9 +166,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         loading={loading}
         className={css.pageBody}
         error={error?.message}
-        retryOnError={/* istanbul ignore next */ () => reloadPipelines()}
+        retryOnError={/* istanbul ignore next */ () => fetchPipelines()}
         noData={{
-          when: () => !data?.data?.content?.length,
+          when: () => !data?.content?.length,
           icon: 'pipeline-ng',
           message: getString('pipeline-list.aboutPipeline'),
           buttonText: getString('addPipeline'),
@@ -164,18 +178,18 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         {view === Views.GRID ? (
           <PipelineGridView
             gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-            data={data?.data}
+            data={data}
             goToPipelineDetail={goToPipelineDetail}
             goToPipelineStudio={goToPipeline}
-            refetchPipeline={reloadPipelines}
+            refetchPipeline={fetchPipelines}
           />
         ) : (
           <PipelineListView
             gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-            data={data?.data}
+            data={data}
             goToPipelineDetail={goToPipelineDetail}
             goToPipelineStudio={goToPipeline}
-            refetchPipeline={reloadPipelines}
+            refetchPipeline={fetchPipelines}
           />
         )}
       </Page.Body>

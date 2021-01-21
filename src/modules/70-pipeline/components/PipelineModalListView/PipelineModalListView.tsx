@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 
 import { Button, Text, Color, Container, ExpandingSearchInput } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { ResponsePagePMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
+import {
+  PagePMSPipelineSummaryResponse,
+  ResponsePagePMSPipelineSummaryResponse,
+  useGetPipelineList
+} from 'services/pipeline-ng'
 import { Page } from '@common/exports'
 import { String, useStrings } from 'framework/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -28,18 +32,31 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
     }>
   >()
 
-  const { data, loading, refetch } = useGetPipelineList({
+  const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
+
+  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
     queryParams: {
-      page,
-      size: 10,
       accountIdentifier: accountId,
       projectIdentifier,
-      orgIdentifier,
       module,
-      searchTerm: searchParam
+      orgIdentifier,
+      searchTerm: searchParam,
+      page,
+      size: 10
     },
     mock: mockData
   })
+
+  const fetchPipelines = React.useCallback(async () => {
+    cancel()
+    setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
+  }, [reloadPipelines, cancel])
+
+  React.useEffect(() => {
+    cancel()
+    fetchPipelines()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam])
 
   const handleSearch = (query: string): void => {
     setSearchParam(query)
@@ -70,7 +87,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
           />
         </div>
 
-        {!data?.data?.content?.length ? (
+        {!data?.content?.length ? (
           <div className={css.noResultSection}>
             <Text font="medium">
               <String stringID="noSearchResultsFoundPeriod" />
@@ -79,8 +96,8 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
         ) : null}
 
         <RunPipelineListView
-          data={data?.data}
-          refetch={refetch}
+          data={data}
+          refetch={fetchPipelines}
           gotoPage={pageNumber => setPage(pageNumber)}
           hideHeaders={true}
         />

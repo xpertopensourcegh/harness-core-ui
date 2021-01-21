@@ -5,15 +5,15 @@ import {
   fireEvent,
   RenderResult,
   getByText,
-  getAllByText as getAllByTextLib
+  getAllByText as getAllByTextLib,
+  act
 } from '@testing-library/react'
-import { TestWrapper, UseGetMockData, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
-import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
+import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import CDPipelinesPage from '../PipelinesPage'
-import mocks, { EmptyResponse } from './PipelineMocks'
+import mocks from './PipelineMocks'
 
 const params = {
   accountId: 'testAcc',
@@ -25,8 +25,7 @@ const params = {
 const onRunPipelineClick: jest.Mock<void> = jest.fn()
 const mockGetCallFunction = jest.fn()
 jest.useFakeTimers()
-const aboutPipeline =
-  'Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.'
+
 const mockDeleteFunction = jest.fn()
 const deletePipeline = (): Promise<{ status: string }> => {
   mockDeleteFunction()
@@ -36,9 +35,9 @@ const deletePipeline = (): Promise<{ status: string }> => {
 jest.mock('services/pipeline-ng', () => ({
   useGetPipelineList: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
-    return args.mock || mocks
+    return { mutate: jest.fn(() => Promise.resolve(mocks)), cancel: jest.fn(), loading: false }
   }),
-  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: deletePipeline }))
+  useSoftDeletePipeline: jest.fn().mockImplementation(() => ({ mutate: deletePipeline, loading: false }))
 }))
 
 jest.mock('@pipeline/components/RunPipelineModal/RunPipelineModal', () => ({
@@ -52,35 +51,17 @@ describe('CD Pipeline Page List', () => {
   test('render card view', async () => {
     const { container, getByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-        <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
+        <CDPipelinesPage />
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
     expect(container).toMatchSnapshot()
   })
 
-  test('render empty list card view', async () => {
-    const { container, getByTestId } = render(
-      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-        <CDPipelinesPage mockData={EmptyResponse as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
-      </TestWrapper>
-    )
-    await waitFor(() => getByText(container, aboutPipeline))
-    expect(container).toMatchSnapshot()
-    const addButton = getByText(container, aboutPipeline).nextElementSibling
-    fireEvent.click(addButton!)
-    await waitFor(() => getByTestId('location'))
-    expect(
-      getByTestId('location').innerHTML.endsWith(
-        routes.toPipelineStudio({ ...params, pipelineIdentifier: '-1' } as any)
-      )
-    ).toBeTruthy()
-  })
-
   test('render list view', async () => {
     const { container, getByTestId, getAllByText } = render(
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-        <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
+        <CDPipelinesPage />
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
@@ -95,7 +76,7 @@ describe('CD Pipeline Page List', () => {
     onRunPipelineClick.mockReset()
     const { getByTestId, getAllByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-        <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
+        <CDPipelinesPage />
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
@@ -106,7 +87,7 @@ describe('CD Pipeline Page List', () => {
   test('test Pipeline click on card view', async () => {
     const { getByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-        <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
+        <CDPipelinesPage />
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
@@ -118,7 +99,7 @@ describe('CD Pipeline Page List', () => {
   test('test Add Pipeline on card view', async () => {
     const { getByTestId, getAllByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-        <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
+        <CDPipelinesPage />
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
@@ -139,10 +120,12 @@ describe('CD Pipeline Page List', () => {
     await waitFor(() => getByTestId(params.pipelineIdentifier))
     mockGetCallFunction.mockReset()
     const searchInput = container?.querySelector('[placeholder="Search"]') as HTMLInputElement
-    fireEvent.change(searchInput, { target: { value: 'asd' } })
-    jest.runOnlyPendingTimers()
+    act(() => {
+      fireEvent.change(searchInput, { target: { value: 'asd' } })
+      jest.runOnlyPendingTimers()
+    })
+
     expect(mockGetCallFunction).toBeCalledWith({
-      debounce: 300,
       mock: undefined,
       queryParams: {
         accountIdentifier: 'testAcc',
@@ -288,7 +271,6 @@ describe('Pipeline Card View Test Cases', () => {
     const confirmDelete = getByText(form as HTMLElement, 'Delete')
     mockDeleteFunction.mockReset()
     fireEvent.click(confirmDelete)
-    await waitFor(() => getByText(document.body, 'Pipeline pipeline1 deleted'))
     expect(mockDeleteFunction).toBeCalled()
   })
 })
