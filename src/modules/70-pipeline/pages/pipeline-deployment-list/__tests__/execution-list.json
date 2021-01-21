@@ -19,6 +19,7 @@
         },
         "executionErrorInfo": {},
         "moduleInfo": {},
+        "modules": ["cd"],
         "layoutNodeMap": {
           "ShCyXOK7S-O0dZMGyOZ5vw": {
             "nodeType": "Deployment",

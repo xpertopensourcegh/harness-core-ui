@@ -44,6 +44,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
+      module,
       page: page - 1
     },
     queryParamStringifyOptions: {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, Icon } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 
-import { isObject, isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgo } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
@@ -30,8 +30,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
 
   const [showCommits, setShowCommits] = useState(false)
 
-  const HAS_CD = isObject(pipelineExecution?.moduleInfo?.cd)
-  const HAS_CI = isObject(pipelineExecution?.moduleInfo?.ci)
+  const HAS_CD = pipelineExecution?.modules?.includes('cd')
+  const HAS_CI = pipelineExecution?.modules?.includes('ci')
 
   // TODO: remove type cast
   const ciBuildData = (pipelineExecution?.moduleInfo?.ci?.ciExecutionInfoDTO as unknown) as CIBuildResponseDTO

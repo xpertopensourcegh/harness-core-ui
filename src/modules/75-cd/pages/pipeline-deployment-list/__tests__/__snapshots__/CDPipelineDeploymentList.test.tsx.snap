@@ -189,8 +189,6 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
       >
         <div
           class="icons"
-          data-cd="false"
-          data-ci="false"
         />
         <div>
           <div
