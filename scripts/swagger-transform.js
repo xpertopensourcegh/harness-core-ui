@@ -9,6 +9,7 @@ module.exports = inputSchema => {
 
   if (config) {
     const overridesFile = path.join('src/services', config, 'overrides.yaml')
+    const transformFile = path.join('src/services', config, 'transform.js')
 
     if (fs.existsSync(overridesFile)) {
       const data = fs.readFileSync(overridesFile, 'utf8')
@@ -23,6 +24,15 @@ module.exports = inputSchema => {
           _.set(paths, [path, method, 'operationId'], value)
         }
       })
+
+      if (fs.existsSync(transformFile)) {
+        const transform = require(path.resolve(process.cwd(), transformFile))
+
+        return transform({
+          ...inputSchema,
+          paths
+        })
+      }
 
       return {
         ...inputSchema,
