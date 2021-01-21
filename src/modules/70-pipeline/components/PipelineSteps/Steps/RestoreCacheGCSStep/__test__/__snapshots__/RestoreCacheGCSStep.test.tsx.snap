@@ -64,7 +64,7 @@ exports[`Restore Cache GCS Step Edit View edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Step Name
+                Name
                  
                 <span
                   class="bp3-text-muted"
@@ -893,7 +893,7 @@ exports[`Restore Cache GCS Step Edit View renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Step Name
+                Name
                  
                 <span
                   class="bp3-text-muted"
@@ -1720,7 +1720,7 @@ exports[`Restore Cache GCS Step Edit View should render edit view as new step 1`
                 class="bp3-label"
                 for="name"
               >
-                Step Name
+                Name
                  
                 <span
                   class="bp3-text-muted"

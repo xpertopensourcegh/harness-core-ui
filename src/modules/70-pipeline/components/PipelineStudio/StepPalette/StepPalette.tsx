@@ -45,9 +45,9 @@ const primaryTypes = {
   RECENTLY_USED: 'recently_used'
 }
 
-const filterContext = {
-  NAV: 'NAV',
-  SEARCH: 'SEARCH'
+enum FilterContext {
+  NAV = 'NAV',
+  SEARCH = 'SEARCH'
 }
 
 export interface StepPaletteProps {
@@ -80,18 +80,18 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     }
   }, [stepsData?.data?.stepCategories])
 
-  const filterSteps = (stepName: string, context: string = filterContext.NAV): void => {
+  const filterSteps = (stepName: string, context = FilterContext.NAV): void => {
     const filteredData: StepCategory[] = []
     const name = stepName.toLowerCase()
     const cloneOriginalData = cloneDeep(originalData)
     if (name !== primaryTypes.SHOW_ALL) {
       cloneOriginalData.forEach((k: StepCategory) => {
-        if (k.name?.toLowerCase().search(name) !== -1) {
+        if (k.name?.toLowerCase() === name) {
           filteredData.push(k)
         } else if (k.stepCategories && k.stepCategories.length > 0) {
           const _stepCategories: StepCategory[] = []
           k.stepCategories.forEach((v: StepCategory) => {
-            if (v.name?.toLowerCase().search(name) !== -1) {
+            if (v.name?.toLowerCase() === name) {
               _stepCategories.push(v)
             }
           })
@@ -100,7 +100,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
             filteredData.push(k)
           }
         }
-        if (context === filterContext.SEARCH && k.stepsData) {
+        if (context === FilterContext.SEARCH && k.stepsData) {
           const _stepsData: StepData[] = []
           k.stepsData.forEach((m: StepData) => {
             if (m.name?.toLowerCase().search(name) !== -1) {
@@ -134,7 +134,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                   autoFocus
                   placeholder={i18n.searchPlaceholder}
                   throttle={200}
-                  onChange={(text: string) => filterSteps(text, filterContext.SEARCH)}
+                  onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
                 />
               </div>
             </Layout.Horizontal>

@@ -64,7 +64,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Step Name
+                Name
                  
                 <span
                   class="bp3-text-muted"
@@ -1229,7 +1229,7 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Step Name
+                Name
                  
                 <span
                   class="bp3-text-muted"
@@ -2183,7 +2183,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Step Name
+                Name
                  
                 <span
                   class="bp3-text-muted"
