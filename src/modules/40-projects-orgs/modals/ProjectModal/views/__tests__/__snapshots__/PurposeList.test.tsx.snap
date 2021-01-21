@@ -1018,7 +1018,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Features
           </p>
           <a
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/-1/pipeline-studio/"
+            href="/"
           >
             TBD
           </a>

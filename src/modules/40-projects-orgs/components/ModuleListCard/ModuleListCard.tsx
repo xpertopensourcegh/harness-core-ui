@@ -30,12 +30,12 @@ const getModuleLinks = (
               orgIdentifier,
               projectIdentifier,
               pipelineIdentifier: '-1',
-              module: 'ci'
+              module: 'cd'
             })}
           >
             <String stringID="moduleRenderer.newPipeLine" />
           </Link>
-          <Link to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'ci' })}>
+          <Link to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'cd' })}>
             <String stringID="moduleRenderer.viewPipelines" />
           </Link>
         </Layout.Vertical>

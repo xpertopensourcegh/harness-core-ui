@@ -78,7 +78,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier || '',
-      projectIdentifier: projectIdentifier || ''
+      projectIdentifier: projectIdentifier
     },
     mock: invitesMockData
   })
@@ -87,7 +87,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier || '',
-      projectIdentifier: projectIdentifier || ''
+      projectIdentifier: projectIdentifier
     }
   })
 
@@ -95,7 +95,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier || '',
-      projectIdentifier: projectIdentifier || ''
+      projectIdentifier: projectIdentifier
     },
     mock: rolesMockData
   })
@@ -239,7 +239,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     // eslint-disable-next-line react/display-name
                     tagRenderer: item => (
                       <Layout.Horizontal key={item.label.toString()} spacing="small">
-                        <Avatar email={item.value.toString()} size="xsmall" />
+                        <Avatar email={item.value.toString()} size="xsmall" hoverCard={false} />
                         <Text color={isEmail(item.value.toString().toLowerCase()) ? Color.BLACK : Color.RED_500}>
                           {item.label}
                         </Text>
@@ -251,7 +251,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                         <Menu.Item
                           text={
                             <Layout.Horizontal spacing="small" className={css.align}>
-                              <Avatar email={item.value.toString()} size="small" />
+                              <Avatar email={item.value.toString()} size="small" hoverCard={false} />
                               <Text>{item.label}</Text>
                             </Layout.Horizontal>
                           }

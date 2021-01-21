@@ -1,80 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
-import { Project, useGetProjectAggregateDTOList, ProjectAggregateDTO, Error } from 'services/cd-ng'
-import { Page } from '@common/components/Page/Page'
+import type { Project, ProjectAggregateDTO, ResponsePageProjectAggregateDTO } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
-import i18n from './ProjectGridView.i18n'
 import css from './ProjectGridView.module.scss'
 
 interface ProjectGridViewProps {
+  data: ResponsePageProjectAggregateDTO | null
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
-  searchParameter?: string
-  orgFilterId?: string
-  module?: Required<Project>['modules'][number]
-  reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
-  openProjectModal?: (project?: Project | undefined) => void
-  deselectModule?: boolean
+  reloadPage: () => Promise<void>
+  gotoPage: (index: number) => void
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
-  const {
-    showEditProject,
-    collaborators,
-    searchParameter,
-    orgFilterId,
-    module,
-    reloadPage,
-    openProjectModal,
-    deselectModule
-  } = props
-  const [page, setPage] = useState(0)
-  const { accountId } = useParams()
-  const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
-      moduleType: module,
-      searchTerm: searchParameter,
-      hasModule: deselectModule ? false : true,
-      pageIndex: page,
-      pageSize: 10
-    },
-    debounce: 300
-  })
-
-  /* istanbul ignore else */ if (reloadPage) {
-    refetch()
-    reloadPage(false)
-  }
-
-  useEffect(() => {
-    setPage(0)
-  }, [searchParameter, orgFilterId])
+  const { data, showEditProject, collaborators, reloadPage, gotoPage } = props
 
   return (
-    <Page.Body
-      loading={loading}
-      retryOnError={() => refetch()}
-      error={(error?.data as Error)?.message}
-      noData={
-        !searchParameter && openProjectModal
-          ? {
-              when: () => !data?.data?.content?.length,
-              icon: 'nav-project',
-              message: i18n.aboutProject,
-              buttonText: i18n.addProject,
-              onClick: () => openProjectModal?.()
-            }
-          : {
-              when: () => !data?.data?.content?.length,
-              icon: 'nav-project',
-              message: i18n.noProject
-            }
-      }
-      className={css.pageContainer}
-    >
+    <>
       <Container height="90%">
         <Layout.Masonry
           center
@@ -84,7 +26,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
           renderItem={(projectDTO: ProjectAggregateDTO) => (
             <ProjectCard
               data={projectDTO}
-              reloadProjects={refetch}
+              reloadProjects={reloadPage}
               editProject={showEditProject}
               handleInviteCollaborators={collaborators}
             />
@@ -100,10 +42,10 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
           pageSize={data?.data?.pageSize || 10}
           pageCount={data?.data?.totalPages || 0}
           pageIndex={data?.data?.pageIndex || 0}
-          gotoPage={(pageNumber: number) => setPage(pageNumber)}
+          gotoPage={gotoPage}
         />
       </Container>
-    </Page.Body>
+    </>
   )
 }
 

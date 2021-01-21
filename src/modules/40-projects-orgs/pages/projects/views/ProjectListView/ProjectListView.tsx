@@ -1,29 +1,25 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import ReactTimeago from 'react-timeago'
 import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { Project, ProjectAggregateDTO, useGetProjectAggregateDTOList, Error } from 'services/cd-ng'
+import type { Project, ProjectAggregateDTO, ResponsePageProjectAggregateDTO } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { ModuleName, String, useStrings } from 'framework/exports'
-import { Page } from '@common/components/Page/Page'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import { getModuleIcon } from '@projects-orgs/utils/utils'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
+  data: ResponsePageProjectAggregateDTO | null
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
-  searchParameter?: string
-  orgFilterId?: string
-  module?: Required<Project>['modules'][number]
-  reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
-  openProjectModal?: (project?: Project | undefined) => void
-  deselectModule?: boolean
+  reloadPage: () => Promise<void>
+  gotoPage: (index: number) => void
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -156,41 +152,10 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
 }
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
-  const {
-    showEditProject,
-    collaborators,
-    searchParameter,
-    orgFilterId,
-    module,
-    reloadPage,
-    openProjectModal,
-    deselectModule
-  } = props
-  const { accountId } = useParams()
-  const [page, setPage] = useState(0)
+  const { data, showEditProject, collaborators, gotoPage, reloadPage } = props
   const history = useHistory()
+  const { accountId } = useParams()
   const { getString } = useStrings()
-  const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
-      moduleType: module,
-      searchTerm: searchParameter,
-      hasModule: deselectModule ? false : true,
-      pageIndex: page,
-      pageSize: 10
-    },
-    debounce: 300
-  })
-
-  /* istanbul ignore else */ if (reloadPage) {
-    refetch()
-    reloadPage(false)
-  }
-
-  useEffect(() => {
-    setPage(0)
-  }, [searchParameter, orgFilterId])
 
   const columns: CustomColumn<ProjectAggregateDTO>[] = useMemo(
     () => [
@@ -247,58 +212,36 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         accessor: row => row.projectResponse.project.identifier,
         width: '5%',
         Cell: RenderColumnMenu,
-        refetchProjects: refetch,
+        refetchProjects: reloadPage,
         editProject: showEditProject,
         collaborators: collaborators,
         disableSortBy: true
       }
     ],
-    [refetch, showEditProject, collaborators]
+    [reloadPage, showEditProject, collaborators]
   )
   return (
-    <Page.Body
-      loading={loading}
-      retryOnError={() => refetch()}
-      error={(error?.data as Error)?.message}
-      noData={
-        !searchParameter && openProjectModal
-          ? {
-              when: () => !data?.data?.content?.length,
-              icon: 'nav-project',
-              message: getString('projectDescription'),
-              buttonText: getString('addProject'),
-              onClick: () => openProjectModal?.()
-            }
-          : {
-              when: () => !data?.data?.content?.length,
-              icon: 'nav-project',
-              message: getString('noProjects')
-            }
-      }
-      className={css.pageContainer}
-    >
-      <Table<ProjectAggregateDTO>
-        className={css.table}
-        columns={columns}
-        data={data?.data?.content || []}
-        onRowClick={project => {
-          history.push(
-            routes.toProjectDetails({
-              projectIdentifier: project.projectResponse.project.identifier,
-              orgIdentifier: project.projectResponse.project.orgIdentifier || '',
-              accountId: accountId || ''
-            })
-          )
-        }}
-        pagination={{
-          itemCount: data?.data?.totalItems || 0,
-          pageSize: data?.data?.pageSize || 10,
-          pageCount: data?.data?.totalPages || 0,
-          pageIndex: data?.data?.pageIndex || 0,
-          gotoPage: (pageNumber: number) => setPage(pageNumber)
-        }}
-      />
-    </Page.Body>
+    <Table<ProjectAggregateDTO>
+      className={css.table}
+      columns={columns}
+      data={data?.data?.content || []}
+      onRowClick={project => {
+        history.push(
+          routes.toProjectDetails({
+            projectIdentifier: project.projectResponse.project.identifier,
+            orgIdentifier: project.projectResponse.project.orgIdentifier || '',
+            accountId: accountId || ''
+          })
+        )
+      }}
+      pagination={{
+        itemCount: data?.data?.totalItems || 0,
+        pageSize: data?.data?.pageSize || 10,
+        pageCount: data?.data?.totalPages || 0,
+        pageIndex: data?.data?.pageIndex || 0,
+        gotoPage: gotoPage
+      }}
+    />
   )
 }
 

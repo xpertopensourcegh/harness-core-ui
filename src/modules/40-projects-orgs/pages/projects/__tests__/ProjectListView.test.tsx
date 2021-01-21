@@ -51,7 +51,13 @@ describe('Project List', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectListView showEditProject={showEditProject} collaborators={collaborators} />
+        <ProjectListView
+          data={projectPageMock.data as any}
+          showEditProject={showEditProject}
+          collaborators={collaborators}
+          reloadPage={jest.fn()}
+          gotoPage={jest.fn()}
+        />
       </TestWrapper>
     )
     container = renderObj.container

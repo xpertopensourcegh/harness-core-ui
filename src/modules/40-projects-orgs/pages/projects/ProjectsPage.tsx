@@ -6,13 +6,14 @@ import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 
-import { useGetOrganizationList } from 'services/cd-ng'
+import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
 import { useQueryParams } from '@common/hooks'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -29,14 +30,28 @@ const CustomSelect = Select.ofType<SelectOption>()
 const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams()
   const { orgId } = useQueryParams()
+  const { getString } = useStrings()
   const [view, setView] = useState(Views.GRID)
   const [searchParam, setSearchParam] = useState<string>()
-  const [reloadProjectPage, setReloadProjectPage] = useState(false)
-  const projectCreateSuccessHandler = (): void => {
-    setReloadProjectPage(true)
-  }
+  const [page, setPage] = useState(0)
   const history = useHistory()
   let orgFilter = allOrgsSelectOption
+
+  const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgFilter.value == 'ALL' ? undefined : orgFilter.value.toString(),
+      searchTerm: searchParam,
+      pageIndex: page,
+      pageSize: 10
+    },
+    debounce: 300
+  })
+
+  const projectCreateSuccessHandler = (): void => {
+    refetch()
+  }
+
   const { openProjectModal } = useProjectModal({
     onSuccess: projectCreateSuccessHandler
   })
@@ -72,6 +87,10 @@ const ProjectsListPage: React.FC = () => {
       }
     }) || [])
   ]
+
+  React.useEffect(() => {
+    setPage(0)
+  }, [searchParam, orgFilter])
 
   return (
     <>
@@ -147,27 +166,46 @@ const ProjectsListPage: React.FC = () => {
             </Layout.Horizontal>
           </Layout.Horizontal>
         </Layout.Horizontal>
-
-        {view === Views.GRID ? (
-          <ProjectsGridView
-            showEditProject={showEditProject}
-            collaborators={showCollaborators}
-            orgFilterId={orgFilter.value.toString()}
-            searchParameter={searchParam}
-            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
-            openProjectModal={openProjectModal}
-          />
-        ) : null}
-        {view === Views.LIST ? (
-          <ProjectsListView
-            showEditProject={showEditProject}
-            collaborators={showCollaborators}
-            orgFilterId={orgFilter.value.toString()}
-            searchParameter={searchParam}
-            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
-            openProjectModal={openProjectModal}
-          />
-        ) : null}
+        <Page.Body
+          loading={loading}
+          retryOnError={() => refetch()}
+          error={(error?.data as Error)?.message}
+          noData={
+            !searchParam && openProjectModal
+              ? {
+                  when: () => !data?.data?.content?.length,
+                  icon: 'nav-project',
+                  message: getString('projectDescription'),
+                  buttonText: getString('addProject'),
+                  onClick: () => openProjectModal?.()
+                }
+              : {
+                  when: () => !data?.data?.content?.length,
+                  icon: 'nav-project',
+                  message: getString('noProjects')
+                }
+          }
+          className={css.pageContainer}
+        >
+          {view === Views.GRID ? (
+            <ProjectsGridView
+              data={data}
+              showEditProject={showEditProject}
+              collaborators={showCollaborators}
+              reloadPage={refetch}
+              gotoPage={(pageNumber: number) => setPage(pageNumber)}
+            />
+          ) : null}
+          {view === Views.LIST ? (
+            <ProjectsListView
+              data={data}
+              showEditProject={showEditProject}
+              collaborators={showCollaborators}
+              reloadPage={refetch}
+              gotoPage={(pageNumber: number) => setPage(pageNumber)}
+            />
+          ) : null}
+        </Page.Body>
       </>
     </>
   )

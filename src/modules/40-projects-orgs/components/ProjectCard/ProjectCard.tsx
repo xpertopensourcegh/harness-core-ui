@@ -21,7 +21,7 @@ export interface ProjectCardProps {
   data: ProjectAggregateDTO
   isPreview?: boolean
   className?: string
-  reloadProjects?: () => Promise<unknown>
+  reloadProjects?: () => Promise<void>
   editProject?: (project: Project) => void
   handleInviteCollaborators?: (project: Project) => void
 }

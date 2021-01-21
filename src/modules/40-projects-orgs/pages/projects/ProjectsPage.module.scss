@@ -11,6 +11,10 @@
     text-decoration: none;
   }
 }
+.pageContainer {
+  background: var(--grey-100) !important;
+  height: calc(100vh - 128px);
+}
 
 .orgSelect {
   padding-left: 0px !important;

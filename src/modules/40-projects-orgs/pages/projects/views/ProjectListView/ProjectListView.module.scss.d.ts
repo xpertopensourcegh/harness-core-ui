@@ -5,7 +5,6 @@ declare const styles: {
   readonly colorbox: string
   readonly layout: string
   readonly verticalCenter: string
-  readonly pageContainer: string
   readonly project: string
   readonly org: string
 }

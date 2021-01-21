@@ -118,17 +118,7 @@ const getModuleLinks = (
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cf}</Text>
-          <Link
-            to={routes.toPipelineStudio({
-              orgIdentifier,
-              projectIdentifier,
-              pipelineIdentifier: '-1',
-              accountId,
-              module: 'cd'
-            })}
-          >
-            {i18n.newProjectWizard.purposeList.linkcf}
-          </Link>
+          <Link to={''}>{i18n.newProjectWizard.purposeList.linkcf}</Link>
         </Layout.Vertical>
       )
     default:
