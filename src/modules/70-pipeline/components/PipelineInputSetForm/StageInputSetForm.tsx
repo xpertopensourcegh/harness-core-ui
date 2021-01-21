@@ -299,7 +299,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           id={`Stage.${stageIdentifier}.Variables`}
           summary={
             <div className={css.stagesTreeBulletCircle}>
-              <String stringID="pipelineSteps.build.stageSpecifications.variablesDetails" />
+              <String stringID="variablesText" />
             </div>
           }
           details={<div>WIP</div>}

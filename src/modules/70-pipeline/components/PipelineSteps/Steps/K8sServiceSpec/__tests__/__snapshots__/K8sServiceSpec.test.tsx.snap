@@ -75,6 +75,41 @@ exports[`StepWidget tests renders ServiceStep for Input sets 1`] = `
         />
       </div>
     </div>
+    <div
+      class="Accordion--panel"
+      data-open="false"
+      data-testid="Stage..Service.Variables-panel"
+      id="Stage..Service.Variables-panel"
+    >
+      <div
+        class="Accordion--summary"
+        data-testid="Stage..Service.Variables-summary"
+      >
+        <div
+          class=""
+        >
+          <div
+            class="stagesTreeBulletCircle"
+          >
+            <span>
+              Variables
+            </span>
+          </div>
+        </div>
+        <div
+          class="Accordion--chevron"
+        />
+      </div>
+      <div
+        class="bp3-collapse"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(-undefinedpx);"
+        />
+      </div>
+    </div>
   </div>
 </div>
 `;

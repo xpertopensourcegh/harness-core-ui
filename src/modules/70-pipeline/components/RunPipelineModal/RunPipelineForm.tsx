@@ -337,6 +337,7 @@ function RunPipelineFormBasic({
                             originalPipeline={pipeline}
                             template={parse(template.data.inputSetTemplateYaml).pipeline}
                             readonly={executionView}
+                            path=""
                           />
                         ) : (
                           <Layout.Horizontal padding="medium" margin="medium">

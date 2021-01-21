@@ -83,6 +83,7 @@ artifactDisplay: '{{image}} (tag: #{{tag}})'
 sidecarArtifactText: Sidecar Artifact
 sidecarsText: Sidecars
 manifestsText: Manifest
+variablesText: Variables
 fileFolderPathText: File/Folder Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
@@ -791,7 +792,6 @@ pipelineSteps:
       addSharedPath: '+ Path'
       addDescription: 'description'
       addTags: 'tags'
-      variablesDetails: 'Variables'
       variablesCell: 'VARIABLES'
       valueCell: 'VALUE'
       addVariable: '+ Add Variable'

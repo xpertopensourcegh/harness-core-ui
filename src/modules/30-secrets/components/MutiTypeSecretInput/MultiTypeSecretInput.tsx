@@ -47,6 +47,7 @@ export interface MultiTypeSecretInputProps extends IFormGroupProps {
   onSuccess?: (secret: SecretReference) => void
   connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
   secretsListMockData?: ResponsePageSecretResponseWrapper
+  isMultiType?: boolean
 }
 
 export interface ConnectedMultiTypeSecretInputProps extends MultiTypeSecretInputProps {
@@ -63,6 +64,7 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     type = 'SecretText',
     connectorsListMockData,
     secretsListMockData,
+    isMultiType = true,
     ...restProps
   } = props
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
@@ -94,15 +96,23 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
 
   return (
     <FormGroup {...rest} labelFor={name} label={label} intent={intent} helperText={helperText}>
-      <ExpressionAndRuntimeType
-        name={name}
-        value={value}
-        onChange={handleChange}
-        style={{ flexGrow: 1 }}
-        fixedTypeComponentProps={{ onClick: openCreateOrSelectSecretModal }}
-        fixedTypeComponent={MultiTypeSecretInputFixedTypeComponent}
-        defaultValueToReset=""
-      />
+      {isMultiType ? (
+        <ExpressionAndRuntimeType
+          name={name}
+          value={value}
+          onChange={handleChange}
+          style={{ flexGrow: 1 }}
+          fixedTypeComponentProps={{ onClick: openCreateOrSelectSecretModal }}
+          fixedTypeComponent={MultiTypeSecretInputFixedTypeComponent}
+          defaultValueToReset=""
+        />
+      ) : (
+        <MultiTypeSecretInputFixedTypeComponent
+          value={value}
+          onChange={handleChange}
+          onClick={openCreateOrSelectSecretModal}
+        />
+      )}
     </FormGroup>
   )
 }

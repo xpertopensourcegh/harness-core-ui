@@ -160,6 +160,14 @@ const validateStage = (
       set(errors, 'spec.infrastructure.infrastructureDefinition.spec', errorsResponse)
     }
   }
+  if (stage?.variables) {
+    const step = factory.getStep(StepType.CustomVariable)
+    const errorsResponse: any = step?.validateInputSet(stage, template, getString)
+
+    if (!isEmpty(errorsResponse)) {
+      set(errors, 'variables', errorsResponse?.variables)
+    }
+  }
   if (originalStage?.spec?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
     const step = factory.getStep(StepType.K8sServiceSpec)
     const errorsResponse = step?.validateInputSet(
@@ -167,8 +175,22 @@ const validateStage = (
       template.spec?.serviceConfig?.serviceDefinition?.spec,
       getString
     )
+
     if (!isEmpty(errorsResponse)) {
       set(errors, 'spec.serviceConfig.serviceDefinition.spec', errorsResponse)
+    }
+
+    if (originalStage?.spec?.serviceConfig?.serviceDefinition?.spec?.variables) {
+      const currentStep = factory.getStep(StepType.CustomVariable)
+      const stepErrorsResponse = currentStep?.validateInputSet(
+        stage?.spec?.serviceConfig?.serviceDefinition?.spec,
+        template?.spec?.serviceConfig?.serviceDefinition?.spec,
+        getString
+      )
+
+      if (!isEmpty(stepErrorsResponse)) {
+        set(errors, 'spec.serviceConfig.serviceDefinition.spec', stepErrorsResponse)
+      }
     }
   }
   if (stage.spec?.execution?.steps) {
@@ -242,6 +264,14 @@ export const validatePipeline = (
     }
   }
 
+  if (pipeline?.variables) {
+    const step = factory.getStep(StepType.CustomVariable)
+    const errorsResponse: any = step?.validateInputSet(pipeline, template, getString)
+
+    if (!isEmpty(errorsResponse)) {
+      set(errors, 'variables', errorsResponse.variables)
+    }
+  }
   pipeline.stages?.forEach((stageObj, index) => {
     if (stageObj.stage) {
       const originalStage = getStageFromPipeline(stageObj.stage.identifier, originalPipeline)

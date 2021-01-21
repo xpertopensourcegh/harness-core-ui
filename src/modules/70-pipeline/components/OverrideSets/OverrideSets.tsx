@@ -57,7 +57,7 @@ export default function OverrideSets({
   const serviceDefPath = 'stage.spec.serviceConfig.serviceDefinition.spec'
   const artifactTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
   const manifestTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')
-  const variableTab = getString('pipelineSteps.build.stageSpecifications.variablesDetails')
+  const variableTab = getString('variablesText')
   const currentListPath =
     serviceDefPath +
     '.' +

@@ -26,11 +26,16 @@ import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/Artifact
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { StepViewType } from '@pipeline/exports'
 import type { ServiceSpec, NgPipeline } from 'services/cd-ng'
+
+import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings, UseStringsReturn, String } from 'framework/exports'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepType } from '../../PipelineStepInterface'
+import type { Variable } from '../CustomVariables/AddEditCustomVariable'
+import type { CustomVariableInputSetExtraProps } from '../CustomVariables/CustomVariableInputSet'
 import css from './K8sServiceSpec.module.scss'
 
 export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }) => {
@@ -85,8 +90,8 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         }
       />
       <Tab
-        id={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
-        title={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
+        id={getString('variablesText')}
+        title={getString('variablesText')}
         panel={
           <WorkflowVariables
             factory={factory as any}
@@ -99,7 +104,13 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   )
 }
 
-const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({ template, path }) => {
+const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
+  template,
+  path,
+  factory,
+  initialValues,
+  onUpdate
+}) => {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
@@ -311,6 +322,37 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           </>
         }
       />
+      <NestedAccordionPanel
+        isDefaultOpen
+        addDomId
+        id={`Stage.${stageIdentifier}.Service.Variables`}
+        summary={
+          <div className={css.stagesTreeBulletCircle}>
+            <String stringID="variablesText" />
+          </div>
+        }
+        details={
+          <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
+            factory={(factory as unknown) as AbstractStepFactory}
+            initialValues={{
+              variables: (initialValues.variables as Variable[]) || [],
+              canAddVariable: true
+            }}
+            type={StepType.CustomVariable}
+            stepViewType={StepViewType.InputSet}
+            onUpdate={({ variables }: CustomVariablesData) => {
+              onUpdate?.({
+                ...pipeline,
+                variables: variables as any
+              })
+            }}
+            customStepProps={{
+              template: { variables: template?.variables as Variable[] },
+              path
+            }}
+          />
+        }
+      />
     </Layout.Vertical>
   )
 }
@@ -408,6 +450,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           stepViewType={stepViewType}
           template={inputSetData?.template}
           path={inputSetData?.path}
+          factory={factory}
         />
       )
     }

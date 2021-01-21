@@ -2,11 +2,21 @@ import React from 'react'
 import { Layout, Card, NestedAccordionPanel, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import { CollapseForm } from './CollapseForm'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
+import { StepWidget } from '../AbstractSteps/StepWidget'
+import factory from '../PipelineSteps/PipelineStepFactory'
+import type {
+  CustomVariablesData,
+  CustomVariableInputSetExtraProps
+} from '../PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
+import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
+import type { Variable } from '../PipelineSteps/Steps/CustomVariables/AddEditCustomVariable'
+import { StepType } from '../PipelineSteps/PipelineStepInterface'
+import { StepViewType } from '../AbstractSteps/Step'
 import i18n from './PipelineInputSetForm.i18n'
 import css from './PipelineInputSetForm.module.scss'
 
@@ -28,6 +38,7 @@ function StageForm({
   path: string
   readonly?: boolean
 }): JSX.Element {
+  const { getString } = useStrings()
   return (
     <NestedAccordionPanel
       isDefaultOpen
@@ -35,15 +46,40 @@ function StageForm({
       id={`Stage.${allValues?.stage?.identifier}`}
       summary={<div className={css.stagesTreeBulletSquare}>{allValues?.stage?.name || ''}</div>}
       details={
-        template?.stage?.spec && (
-          <StageInputSetForm
-            stageIdentifier={template?.stage?.identifier}
-            path={path}
-            deploymentStageTemplate={template?.stage.spec}
-            deploymentStage={allValues?.stage?.spec}
-            readonly={readonly}
-          />
-        )
+        <>
+          {template?.stage?.variables && (
+            <NestedAccordionPanel
+              isDefaultOpen
+              addDomId
+              id={`Stage.${allValues?.stage?.identifier}.Variables`}
+              summary={<div className={css.stagesTreeBulletCircle}>{getString('variablesText')}</div>}
+              details={
+                <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
+                  factory={(factory as unknown) as AbstractStepFactory}
+                  initialValues={{
+                    variables: (allValues?.stage?.variables as Variable[]) || [],
+                    canAddVariable: true
+                  }}
+                  type={StepType.CustomVariable}
+                  stepViewType={StepViewType.InputSet}
+                  customStepProps={{
+                    template: { variables: template?.stage?.variables as Variable[] },
+                    path
+                  }}
+                />
+              }
+            />
+          )}
+          {template?.stage?.spec && (
+            <StageInputSetForm
+              stageIdentifier={template?.stage?.identifier}
+              path={`${path}.spec`}
+              deploymentStageTemplate={template?.stage.spec}
+              deploymentStage={allValues?.stage?.spec}
+              readonly={readonly}
+            />
+          )}
+        </>
       }
     />
   )
@@ -56,7 +92,19 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
       {(originalPipeline as any)?.variables?.length > 0 && (
         <CollapseForm header={i18n.pipelineVariables}>
           <Card>
-            <div>WIP</div>
+            <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
+              factory={(factory as unknown) as AbstractStepFactory}
+              initialValues={{
+                variables: (originalPipeline.variables as Variable[]) || [],
+                canAddVariable: true
+              }}
+              type={StepType.CustomVariable}
+              stepViewType={StepViewType.InputSet}
+              customStepProps={{
+                template: { variables: template?.variables as Variable[] },
+                path
+              }}
+            />
           </Card>
         </CollapseForm>
       )}
@@ -78,7 +126,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 <StageForm
                   template={stageObj}
                   allValues={allValues}
-                  path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].stage.spec`}
+                  path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].stage`}
                   readonly={readonly}
                 />
               </Card>
@@ -91,7 +139,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                   <StageForm
                     template={stageP}
                     allValues={allValues}
-                    path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].parallel[${indexp}].stage.spec`}
+                    path={`${!isEmpty(path) ? `${path}.` : ''}stages[${index}].parallel[${indexp}].stage`}
                     readonly={readonly}
                   />
                 </Card>

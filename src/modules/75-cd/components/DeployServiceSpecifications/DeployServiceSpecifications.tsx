@@ -507,10 +507,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
               id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
               title={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
             />
-            <Tab
-              id={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
-              title={getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
-            />
+            <Tab id={getString('variablesText')} title={getString('variablesText')} />
           </Tabs>
           <OverrideSets
             selectedTab={selectedTab}
