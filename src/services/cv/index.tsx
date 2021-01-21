@@ -3882,6 +3882,87 @@ export const getMetricDataPromise = (
     signal
   )
 
+export interface GetActivityMetricsQueryParams {
+  accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  startTime: number
+  endTime: number
+  anomalousOnly?: boolean
+  page?: number
+  size?: number
+}
+
+export interface GetActivityMetricsPathParams {
+  activityId: string
+}
+
+export type GetActivityMetricsProps = Omit<
+  GetProps<
+    RestResponsePageTimeSeriesMetricDataDTO,
+    unknown,
+    GetActivityMetricsQueryParams,
+    GetActivityMetricsPathParams
+  >,
+  'path'
+> &
+  GetActivityMetricsPathParams
+
+/**
+ * get activity metrics for given activityId
+ */
+export const GetActivityMetrics = ({ activityId, ...props }: GetActivityMetricsProps) => (
+  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetActivityMetricsQueryParams, GetActivityMetricsPathParams>
+    path="/timeseries-dashboard/${activityId}/metrics"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityMetricsProps = Omit<
+  UseGetProps<
+    RestResponsePageTimeSeriesMetricDataDTO,
+    unknown,
+    GetActivityMetricsQueryParams,
+    GetActivityMetricsPathParams
+  >,
+  'path'
+> &
+  GetActivityMetricsPathParams
+
+/**
+ * get activity metrics for given activityId
+ */
+export const useGetActivityMetrics = ({ activityId, ...props }: UseGetActivityMetricsProps) =>
+  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetActivityMetricsQueryParams, GetActivityMetricsPathParams>(
+    (paramsInPath: GetActivityMetricsPathParams) => `/timeseries-dashboard/${paramsInPath.activityId}/metrics`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get activity metrics for given activityId
+ */
+export const getActivityMetricsPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageTimeSeriesMetricDataDTO,
+    unknown,
+    GetActivityMetricsQueryParams,
+    GetActivityMetricsPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponsePageTimeSeriesMetricDataDTO,
+    unknown,
+    GetActivityMetricsQueryParams,
+    GetActivityMetricsPathParams
+  >(getConfig('cv/api'), `/timeseries-dashboard/${activityId}/metrics`, props, signal)
+
 export interface GetAllLogsQueryParams {
   accountId?: string
   projectIdentifier: string
@@ -4050,6 +4131,159 @@ export const getTagCountPromise = (
     props,
     signal
   )
+
+export interface GetActivityLogsQueryParams {
+  accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  startTime: number
+  endTime: number
+  anomalousOnly?: boolean
+  page?: number
+  size?: number
+}
+
+export interface GetActivityLogsPathParams {
+  activityId: string
+}
+
+export type GetActivityLogsProps = Omit<
+  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>,
+  'path'
+> &
+  GetActivityLogsPathParams
+
+/**
+ * get activity logs for given activityId
+ */
+export const GetActivityLogs = ({ activityId, ...props }: GetActivityLogsProps) => (
+  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>
+    path="/log-dashboard/${activityId}/logs"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityLogsProps = Omit<
+  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>,
+  'path'
+> &
+  GetActivityLogsPathParams
+
+/**
+ * get activity logs for given activityId
+ */
+export const useGetActivityLogs = ({ activityId, ...props }: UseGetActivityLogsProps) =>
+  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>(
+    (paramsInPath: GetActivityLogsPathParams) => `/log-dashboard/${paramsInPath.activityId}/logs`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get activity logs for given activityId
+ */
+export const getActivityLogsPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageAnalyzedLogDataDTO,
+    unknown,
+    GetActivityLogsQueryParams,
+    GetActivityLogsPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>(
+    getConfig('cv/api'),
+    `/log-dashboard/${activityId}/logs`,
+    props,
+    signal
+  )
+
+export interface GetTagCountForActivityQueryParams {
+  accountId?: string
+  projectIdentifier: string
+  orgIdentifier: string
+  startTime: number
+  endTime: number
+}
+
+export interface GetTagCountForActivityPathParams {
+  activityId: string
+}
+
+export type GetTagCountForActivityProps = Omit<
+  GetProps<
+    RestResponseSortedSetLogDataByTag,
+    unknown,
+    GetTagCountForActivityQueryParams,
+    GetTagCountForActivityPathParams
+  >,
+  'path'
+> &
+  GetTagCountForActivityPathParams
+
+/**
+ * get a sorted tag vs logs list for an activity
+ */
+export const GetTagCountForActivity = ({ activityId, ...props }: GetTagCountForActivityProps) => (
+  <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountForActivityQueryParams, GetTagCountForActivityPathParams>
+    path="/log-dashboard/${activityId}/log-count-by-tags"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetTagCountForActivityProps = Omit<
+  UseGetProps<
+    RestResponseSortedSetLogDataByTag,
+    unknown,
+    GetTagCountForActivityQueryParams,
+    GetTagCountForActivityPathParams
+  >,
+  'path'
+> &
+  GetTagCountForActivityPathParams
+
+/**
+ * get a sorted tag vs logs list for an activity
+ */
+export const useGetTagCountForActivity = ({ activityId, ...props }: UseGetTagCountForActivityProps) =>
+  useGet<
+    RestResponseSortedSetLogDataByTag,
+    unknown,
+    GetTagCountForActivityQueryParams,
+    GetTagCountForActivityPathParams
+  >((paramsInPath: GetTagCountForActivityPathParams) => `/log-dashboard/${paramsInPath.activityId}/log-count-by-tags`, {
+    base: getConfig('cv/api'),
+    pathParams: { activityId },
+    ...props
+  })
+
+/**
+ * get a sorted tag vs logs list for an activity
+ */
+export const getTagCountForActivityPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseSortedSetLogDataByTag,
+    unknown,
+    GetTagCountForActivityQueryParams,
+    GetTagCountForActivityPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseSortedSetLogDataByTag,
+    unknown,
+    GetTagCountForActivityQueryParams,
+    GetTagCountForActivityPathParams
+  >(getConfig('cv/api'), `/log-dashboard/${activityId}/log-count-by-tags`, props, signal)
 
 export interface GetDeploymentTimeSeriesQueryParams {
   accountId?: string

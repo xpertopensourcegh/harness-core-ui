@@ -20,9 +20,12 @@ allowpaths:
   - /verification-job/list
   - /timeseries-dashboard/anomalous-metric-data
   - /timeseries-dashboard/metric-data
+  - /timeseries-dashboard/{activityId}/metrics
   - /log-dashboard/all-logs
   - /log-dashboard/anomalous-logs
   - /log-dashboard/log-count-by-tags
+  - /log-dashboard/{activityId}/logs
+  - /log-dashboard/{activityId}/log-count-by-tags
   - /deployment-time-series-analysis/{verificationJobInstanceId}
   - /deployment-log-analysis/{verificationJobInstanceId}
   - /deployment-log-analysis/{verificationJobInstanceId}/clusters

@@ -10,6 +10,67 @@ import VerificationInstacePostDeploymentView, {
   getSeriesZones
 } from '../VerificationInstancePostDeploymentView'
 
+const MockLogData = {
+  resource: {
+    totalPages: 10,
+    totalItems: 100,
+    pageItemCount: 10,
+    pageSize: 10,
+    content: [
+      {
+        projectIdentifier: '1234_projectIdentifier',
+        orgIdentifier: '1234_orgIdentifier',
+        environmentIdentifier: '1234_envIdentifier',
+        serviceIdentifier: '1234_serviceIdentifier',
+        logData: {
+          text: '234234234',
+          label: '8978yjghfjghf',
+          count: 5,
+          trend: [
+            {
+              timestamp: 12143287,
+              count: 6
+            }
+          ],
+          tag: 'KNOWN'
+        }
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  }
+}
+
+const MockTimeSeriesData = {
+  resource: {
+    totalPages: 10,
+    totalItems: 100,
+    pageItemCount: 10,
+    pageSize: 10,
+    content: [
+      {
+        projectIdentifier: '1234_projectIdentifier',
+        orgIdentifier: '1234_orgIdentifier',
+        environmentIdentifier: '1234_envIdentifier',
+        serviceIdentifier: '1234_serviceIdentifier',
+        metricType: 'INFRA',
+        category: 'PERFORMANCE',
+        groupName: 'groupname',
+        metricName: 'metricname',
+        metricDataList: [
+          {
+            timestamp: 12143287,
+            value: 56,
+            risk: 'LOW_RISK'
+          }
+        ]
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  }
+}
+
 const MockData = {
   metaData: {},
   resource: {
@@ -183,6 +244,49 @@ describe('VerificationInstancePostDeploymentView', () => {
       throw Error('Retry button was not rendered.')
     }
     fireEvent.click(retryButton)
+    await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
+  })
+
+  test('Ensure that logs tab is rendered properly', async () => {
+    jest.spyOn(cvService, 'useGetActivityVerificationResult').mockReturnValue({
+      data: MockData
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useGetActivityDetails').mockReturnValue({
+      error: { message: 'mockError' },
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    const refetchMock = jest.fn()
+    jest.spyOn(cvService, 'useGetActivityLogs').mockReturnValue({
+      data: MockLogData,
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useGetActivityMetrics').mockReturnValue({
+      data: MockTimeSeriesData,
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    jest.spyOn(cvService, 'useGetTagCountForActivity').mockReturnValue({
+      data: null
+    } as UseGetReturn<any, any, any, any>)
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <VerificationInstacePostDeploymentView
+          selectedActivityId="1234_activity_id"
+          activityStartTime={1609946640000}
+          durationMs={15}
+          environmentIdentifier="1234_envIdentifier"
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    fireEvent.click(getByText('Logs'))
+    await waitFor(() => expect(container.querySelector('[class*="frequencyChart"]')).not.toBeNull())
+    fireEvent.click(getByText('2'))
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
   })
 })

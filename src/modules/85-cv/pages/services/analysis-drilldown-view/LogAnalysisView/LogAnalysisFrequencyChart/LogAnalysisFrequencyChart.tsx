@@ -4,9 +4,8 @@ import type { SeriesColumnOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
-import { useGet } from 'restful-react'
 import { useParams } from 'react-router-dom'
-import { RestResponseSortedSetLogDataByTag, useGetTagCount } from 'services/cv'
+import { RestResponseSortedSetLogDataByTag, useGetTagCount, useGetTagCountForActivity } from 'services/cv'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
 import { categoryNameToCategoryType } from '../../../CVServicePageUtils'
 import i18n from './LogAnalysisFrequencyChart.i18n'
@@ -138,7 +137,8 @@ export function ActivityLogAnalysisFrequencyChart({
   endTime
 }: ActivityLogAnalysisFrequencyChartProps): React.ReactElement {
   const { accountId } = useParams()
-  const { data } = useGet(`/cv/api/log-dashboard/${activityId}/log-count-by-tags`, {
+  const { data } = useGetTagCountForActivity({
+    activityId,
     queryParams: {
       accountId,
       projectIdentifier,

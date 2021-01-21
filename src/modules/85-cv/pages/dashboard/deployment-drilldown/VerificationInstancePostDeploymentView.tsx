@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useGet } from 'restful-react'
-import { Container, Tabs, Tab, Text, Link, useModalHook, Icon, Color } from '@wings-software/uicore'
+import { Container, Tabs, Tab, Text, Link, useModalHook, Icon, Color, Pagination } from '@wings-software/uicore'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
 import MonacoEditor from 'react-monaco-editor'
@@ -9,10 +8,14 @@ import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import { ActivitiesFlagBorder } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import ActivitiesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
-import CVPagination from '@cv/components/CVPagination/CVPagination'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { riskScoreToColor } from '@cv/pages/services/analysis-drilldown-view/MetricAnalysisView/MetricsAnalysisRow/MetricAnalysisRow'
-import { useGetActivityDetails, useGetActivityVerificationResult } from 'services/cv'
+import {
+  useGetActivityDetails,
+  useGetActivityMetrics,
+  useGetActivityVerificationResult,
+  useGetActivityLogs
+} from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import VerificationStatusBar from '../activity-changes-drilldown/VerificationStatusBar'
@@ -22,7 +25,10 @@ import {
   MetricAnalysisFilterType
 } from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
 import TimeseriesRow, { TimeseriesRowProps } from '../../../components/TimeseriesRow/TimeseriesRow'
-import { LogAnalysisRow } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisRow/LogAnalysisRow'
+import {
+  LogAnalysisRow,
+  LogAnalysisRowData
+} from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisRow/LogAnalysisRow'
 import i18n from './DeploymentDrilldownView.i18n'
 import { ActivityLogAnalysisFrequencyChart } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
 import styles from './DeploymentDrilldownView.module.scss'
@@ -272,10 +278,11 @@ function MetricsTab({
   endTime,
   selectedActivityStartTime
 }: MetricsTabProps) {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [metricsData, setMetricsData] = useState<Array<TimeseriesRowProps>>()
   const [anomalousOnly, setAnomalousOnly] = useState(true)
-  const { data, refetch, loading } = useGet(`/cv/api/timeseries-dashboard/${activityId}/metrics`, {
+  const { data, refetch, loading } = useGetActivityMetrics({
+    activityId,
     queryParams: {
       accountId,
       projectIdentifier,
@@ -325,15 +332,25 @@ function MetricsTab({
         />
       ))}
       <ActivitiesFlagBorder />
-      <CVPagination page={data?.resource} goToPage={goToPage} />
+      {(!!data?.resource && (data.resource.pageIndex ?? -1) >= 0 && (
+        <Pagination
+          pageSize={data.resource.pageSize as number}
+          pageCount={data.resource.totalPages as number}
+          itemCount={data.resource.totalItems as number}
+          pageIndex={data.resource.pageIndex}
+          gotoPage={p => goToPage?.(p)}
+        />
+      )) ||
+        null}
     </Container>
   )
 }
 
 function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: LogsTabProps) {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const [logsData, setLogsData] = useState()
-  const { data, refetch, loading } = useGet(`/cv/api/log-dashboard/${activityId}/logs`, {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const [logsData, setLogsData] = useState<LogAnalysisRowData[]>([])
+  const { data, refetch, loading } = useGetActivityLogs({
+    activityId,
     queryParams: {
       accountId,
       projectIdentifier,
@@ -342,33 +359,8 @@ function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: Logs
       startTime,
       endTime,
       page: 0
-    },
-    resolve: res => {
-      if (res?.resource?.content?.length) {
-        setLogsData(
-          res.resource.content.map(({ logData }: any) => ({
-            clusterType: logData.tag,
-            count: logData.count,
-            message: logData.text,
-            messageFrequency: [
-              {
-                type: 'line',
-                color: 'var(--green-500)',
-                data: logData?.trend
-                  ?.sort((a: any, b: any) => a.timestamp - b.timestamp)
-                  .map((d: any) => ({
-                    x: d.timestamp,
-                    y: d.count
-                  }))
-              }
-            ]
-          }))
-        )
-      }
-      return res
     }
   })
-
   const goToPage = (page: number) =>
     refetch({
       queryParams: {
@@ -382,6 +374,32 @@ function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: Logs
       }
     })
 
+  useEffect(() => {
+    if (data?.resource?.content?.length) {
+      setLogsData(
+        data.resource.content.map(({ logData }: any) => ({
+          clusterType: logData.tag,
+          count: logData.count,
+          message: logData.text,
+          messageFrequency: [
+            {
+              type: 'line',
+              color: 'var(--green-500)',
+              data: logData?.trend
+                ?.sort((a: any, b: any) => a.timestamp - b.timestamp)
+                .map((d: any) => ({
+                  x: d.timestamp,
+                  y: d.count
+                }))
+            }
+          ]
+        }))
+      )
+    } else {
+      setLogsData([])
+    }
+  }, [data])
+
   return (
     <Container>
       <Container className={classnames(styles.frequencyChart, styles.panel)}>
@@ -389,8 +407,8 @@ function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: Logs
           <Text font={{ weight: 'bold' }}>{`${i18n.logCluster} ${i18n.timeline}`}</Text>
           <ActivityLogAnalysisFrequencyChart
             activityId={activityId}
-            projectIdentifier={projectIdentifier as string}
-            orgIdentifier={orgIdentifier as string}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
             startTime={startTime}
             endTime={endTime}
           />
@@ -401,7 +419,16 @@ function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: Logs
       {!data?.resource?.content?.length && !loading && (
         <NoDataCard className={styles.noDataCard} message={i18n.nothingToDisplay} icon="warning-sign" />
       )}
-      <CVPagination page={data?.resource} goToPage={goToPage} />
+      {(!!data?.resource && (data.resource.pageIndex ?? -1) >= 0 && (
+        <Pagination
+          pageSize={data.resource.pageSize as number}
+          pageCount={data.resource.totalPages as number}
+          itemCount={data.resource.totalItems as number}
+          pageIndex={data.resource.pageIndex}
+          gotoPage={p => goToPage?.(p)}
+        />
+      )) ||
+        null}
     </Container>
   )
 }
