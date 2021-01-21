@@ -14,6 +14,7 @@ exports[`Test PipelineTriggers should test render 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-white"
+          data-icon="yaml-builder-trigger"
         >
           <svg
             height="16"

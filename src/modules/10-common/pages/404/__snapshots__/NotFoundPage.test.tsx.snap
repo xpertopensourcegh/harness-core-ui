@@ -26,6 +26,7 @@ exports[`NotFoundPage render 1`] = `
       </a>
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="harness-logo-black"
       >
         <svg
           height="200"

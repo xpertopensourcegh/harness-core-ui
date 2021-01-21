@@ -327,6 +327,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
             <div>
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                data-icon="main-chevron-right"
               >
                 <svg
                   height="20"
@@ -692,6 +693,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
             <div>
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                data-icon="main-chevron-right"
               >
                 <svg
                   height="20"
@@ -1057,6 +1059,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
             <div>
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                data-icon="main-chevron-right"
               >
                 <svg
                   height="20"
@@ -1421,6 +1424,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
             <div>
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                data-icon="main-chevron-right"
               >
                 <svg
                   height="20"

@@ -15,6 +15,7 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+          data-icon="cd-hover"
         >
           <svg
             height="48"

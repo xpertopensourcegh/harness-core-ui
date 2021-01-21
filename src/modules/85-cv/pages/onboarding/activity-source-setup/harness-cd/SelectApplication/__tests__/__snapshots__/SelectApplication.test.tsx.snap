@@ -62,6 +62,7 @@ exports[`SelectApplication render 1`] = `
                   />
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"
@@ -133,6 +134,7 @@ exports[`SelectApplication render 1`] = `
                   />
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"
@@ -204,6 +206,7 @@ exports[`SelectApplication render 1`] = `
                   />
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"

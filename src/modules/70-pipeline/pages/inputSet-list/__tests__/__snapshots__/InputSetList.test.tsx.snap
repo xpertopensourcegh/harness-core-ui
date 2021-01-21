@@ -181,6 +181,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+              data-icon="step-group"
             >
               <svg
                 height="30"
@@ -277,6 +278,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="run-pipeline"
               >
                 <svg
                   height="16"
@@ -370,6 +372,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+              data-icon="yaml-builder-input-sets"
             >
               <svg
                 height="30"
@@ -454,6 +457,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="run-pipeline"
               >
                 <svg
                   height="16"

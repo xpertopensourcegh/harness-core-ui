@@ -76,6 +76,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue600"
+            data-icon="pipeline-ng"
             style="margin-right: 8px;"
           >
             <svg

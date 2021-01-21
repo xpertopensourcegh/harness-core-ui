@@ -24,6 +24,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
         </p>
         <span
           class="bp3-icon StyledProps--main StyledProps--padding-xxxlarge"
+          data-icon="ci-main"
         >
           <svg
             fill="none"

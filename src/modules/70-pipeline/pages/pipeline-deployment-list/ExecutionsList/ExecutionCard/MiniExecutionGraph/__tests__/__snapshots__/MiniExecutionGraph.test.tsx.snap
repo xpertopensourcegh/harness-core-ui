@@ -54,6 +54,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main icon"
+                  data-icon="waiting"
                   tabindex="0"
                 >
                   <svg
@@ -81,6 +82,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="circle-cross"
               tabindex="0"
             >
               <svg
@@ -105,6 +107,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="expired"
               tabindex="0"
             >
               <svg
@@ -133,6 +136,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="banned"
               tabindex="0"
             >
               <svg
@@ -158,6 +162,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="banned"
               tabindex="0"
             >
               <svg
@@ -183,6 +188,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="queued"
               tabindex="0"
             >
               <svg
@@ -205,6 +211,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="pending"
               tabindex="0"
             >
               <svg
@@ -255,6 +262,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="waiting"
               tabindex="0"
             >
               <svg
@@ -280,6 +288,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main icon"
+              data-icon="skipped"
               tabindex="0"
             >
               <svg

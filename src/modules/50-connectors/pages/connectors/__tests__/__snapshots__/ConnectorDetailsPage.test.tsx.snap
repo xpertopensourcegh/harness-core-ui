@@ -109,6 +109,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
+          data-icon="steps-spinner"
         >
           <svg
             height="32"

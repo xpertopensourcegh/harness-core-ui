@@ -13,6 +13,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -425,6 +426,7 @@ exports[`CreateGitConnector tests renders with isForOverrideSets true without cr
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -837,6 +839,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 1 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -1249,6 +1252,7 @@ exports[`CreateGitConnector tests updates form  without crashing: step 2 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"

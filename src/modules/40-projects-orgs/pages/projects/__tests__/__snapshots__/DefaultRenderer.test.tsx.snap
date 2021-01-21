@@ -15,6 +15,7 @@ exports[`Default Renderer test initializes ok  1`] = `
     >
       <span
         class="bp3-icon StyledProps--main grayOutIcons"
+        data-icon="cd-main"
       >
         <svg
           fill="none"
@@ -50,6 +51,7 @@ exports[`Default Renderer test initializes ok  1`] = `
       </span>
       <span
         class="bp3-icon StyledProps--main grayOutIcons"
+        data-icon="cv-main"
       >
         <svg
           fill="none"
@@ -85,6 +87,7 @@ exports[`Default Renderer test initializes ok  1`] = `
       </span>
       <span
         class="bp3-icon StyledProps--main grayOutIcons"
+        data-icon="ce-main"
       >
         <svg
           fill="none"
@@ -120,6 +123,7 @@ exports[`Default Renderer test initializes ok  1`] = `
       </span>
       <span
         class="bp3-icon StyledProps--main grayOutIcons"
+        data-icon="cf-main"
       >
         <svg
           fill="none"
@@ -155,6 +159,7 @@ exports[`Default Renderer test initializes ok  1`] = `
       </span>
       <span
         class="bp3-icon StyledProps--main grayOutIcons"
+        data-icon="ci-main"
       >
         <svg
           fill="none"

@@ -17,6 +17,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="run-pipeline"
           >
             <svg
               height="16"
@@ -194,6 +195,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -259,6 +261,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-tags"
                       >
                         <svg
                           height="15"
@@ -315,6 +318,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main icon"
+                        data-icon="circle-cross"
                         tabindex="0"
                       >
                         <svg
@@ -419,6 +423,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="circle-cross"
                   >
                     <svg
                       height="10"
@@ -649,6 +654,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="run-pipeline"
           >
             <svg
               height="16"
@@ -879,6 +885,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -944,6 +951,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-tags"
                       >
                         <svg
                           height="15"
@@ -1000,6 +1008,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     >
                       <span
                         class="bp3-icon StyledProps--main icon"
+                        data-icon="circle-cross"
                         tabindex="0"
                       >
                         <svg
@@ -1104,6 +1113,7 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="circle-cross"
                   >
                     <svg
                       height="10"

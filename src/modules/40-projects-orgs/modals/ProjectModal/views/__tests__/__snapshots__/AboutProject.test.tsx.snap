@@ -451,6 +451,7 @@ exports[`About Project test create project  1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"
@@ -486,6 +487,7 @@ exports[`About Project test create project  1`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="cv-main"
                   >
                     <svg
                       fill="none"
@@ -521,6 +523,7 @@ exports[`About Project test create project  1`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="ce-main"
                   >
                     <svg
                       fill="none"
@@ -556,6 +559,7 @@ exports[`About Project test create project  1`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="cf-main"
                   >
                     <svg
                       fill="none"
@@ -591,6 +595,7 @@ exports[`About Project test create project  1`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="ci-main"
                   >
                     <svg
                       fill="none"
@@ -1136,6 +1141,7 @@ exports[`About Project test create project  2`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"
@@ -1171,6 +1177,7 @@ exports[`About Project test create project  2`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="cv-main"
                   >
                     <svg
                       fill="none"
@@ -1206,6 +1213,7 @@ exports[`About Project test create project  2`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="ce-main"
                   >
                     <svg
                       fill="none"
@@ -1241,6 +1249,7 @@ exports[`About Project test create project  2`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="cf-main"
                   >
                     <svg
                       fill="none"
@@ -1276,6 +1285,7 @@ exports[`About Project test create project  2`] = `
                   </span>
                   <span
                     class="bp3-icon StyledProps--main grayOutIcons"
+                    data-icon="ci-main"
                   >
                     <svg
                       fill="none"

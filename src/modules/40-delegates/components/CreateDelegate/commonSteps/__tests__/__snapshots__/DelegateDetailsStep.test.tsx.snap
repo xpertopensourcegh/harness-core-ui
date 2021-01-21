@@ -40,6 +40,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-dockerhub"
             >
               <svg
                 height="20"
@@ -84,6 +85,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-kubernetes"
             >
               <svg
                 height="20"
@@ -167,6 +169,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-ecs"
             >
               <svg
                 height="20"
@@ -533,6 +536,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-dockerhub"
             >
               <svg
                 height="20"
@@ -577,6 +581,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-kubernetes"
             >
               <svg
                 height="20"
@@ -660,6 +665,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-ecs"
             >
               <svg
                 height="20"

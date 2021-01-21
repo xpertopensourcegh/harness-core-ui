@@ -11,6 +11,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
+        data-icon="steps-spinner"
       >
         <svg
           height="32"
@@ -158,6 +159,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="hourglass"
               >
                 <svg
                   height="16"

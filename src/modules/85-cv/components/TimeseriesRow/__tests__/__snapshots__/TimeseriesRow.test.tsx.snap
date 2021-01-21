@@ -68,6 +68,7 @@ exports[`TimeseriesRow matches snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main verticalMoreIcon StyledProps--color StyledProps--color-grey350"
+              data-icon="main-more"
             >
               <svg
                 height="16"
@@ -159,6 +160,7 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main verticalMoreIcon StyledProps--color StyledProps--color-grey350"
+              data-icon="main-more"
             >
               <svg
                 height="16"

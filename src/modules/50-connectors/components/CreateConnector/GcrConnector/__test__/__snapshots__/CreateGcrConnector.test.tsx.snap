@@ -13,6 +13,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="placeholder"
         >
           <svg
             height="37"
@@ -274,6 +275,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="placeholder"
         >
           <svg
             height="37"
@@ -406,6 +408,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
+                        data-icon="deployment-success-new"
                       >
                         <svg
                           height="16"
@@ -468,6 +471,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg
@@ -549,6 +553,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="placeholder"
         >
           <svg
             height="37"
@@ -823,6 +828,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="placeholder"
         >
           <svg
             height="37"
@@ -955,6 +961,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
+                        data-icon="deployment-success-new"
                       >
                         <svg
                           height="16"
@@ -1017,6 +1024,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg

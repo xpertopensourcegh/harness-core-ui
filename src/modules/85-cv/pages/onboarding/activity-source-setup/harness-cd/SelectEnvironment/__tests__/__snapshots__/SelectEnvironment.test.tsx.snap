@@ -69,6 +69,7 @@ exports[`SelectEnvironment render 1`] = `
                   />
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"
@@ -130,6 +131,7 @@ exports[`SelectEnvironment render 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-right-small StyledProps--margin-top-small"
+                    data-icon="harness"
                   >
                     <svg
                       height="20"

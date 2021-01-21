@@ -140,6 +140,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="service-pagerduty"
       >
         <svg
           height="24"
@@ -301,6 +302,7 @@ exports[`ConfigureNotifications Slack 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="service-slack"
       >
         <svg
           height="24"

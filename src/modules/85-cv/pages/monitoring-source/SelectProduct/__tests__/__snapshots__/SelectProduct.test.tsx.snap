@@ -56,6 +56,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="service-appdynamics"
                   >
                     <svg
                       height="40"
@@ -258,6 +259,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"
@@ -325,6 +327,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="service-appdynamics"
                       >
                         <svg
                           height="30"

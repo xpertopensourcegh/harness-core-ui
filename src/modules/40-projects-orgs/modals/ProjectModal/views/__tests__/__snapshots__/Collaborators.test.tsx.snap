@@ -310,6 +310,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="remove"
                       >
                         <svg
                           height="20"
@@ -445,6 +446,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="remove"
                       >
                         <svg
                           height="20"
@@ -580,6 +582,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="remove"
                       >
                         <svg
                           height="20"
@@ -681,6 +684,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="command-approval"
                       >
                         <svg
                           height="16"
@@ -700,6 +704,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="remove"
                       >
                         <svg
                           height="16"

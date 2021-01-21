@@ -40,6 +40,7 @@ exports[`Generic Error Page valid error code 1`] = `
       </a>
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="harness-logo-black"
       >
         <svg
           height="200"

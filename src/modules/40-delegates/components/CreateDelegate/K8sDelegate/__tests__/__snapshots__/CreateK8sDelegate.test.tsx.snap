@@ -40,6 +40,7 @@ exports[`Create K8s Delegate render data 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-dockerhub"
             >
               <svg
                 height="20"
@@ -84,6 +85,7 @@ exports[`Create K8s Delegate render data 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-kubernetes"
             >
               <svg
                 height="20"
@@ -167,6 +169,7 @@ exports[`Create K8s Delegate render data 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-ecs"
             >
               <svg
                 height="20"

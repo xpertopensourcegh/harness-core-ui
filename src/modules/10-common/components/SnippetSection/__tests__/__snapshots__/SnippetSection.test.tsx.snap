@@ -14,6 +14,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="app-kubernetes"
         >
           <svg
             height="25"
@@ -67,6 +68,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="25"
@@ -86,6 +88,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-dockerhub"
         >
           <svg
             height="25"
@@ -130,6 +133,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="main-search"
             >
               <svg
                 height="20"
@@ -162,6 +166,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-kubernetes"
               >
                 <svg
                   height="25"
@@ -222,6 +227,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -254,6 +260,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-kubernetes"
               >
                 <svg
                   height="25"
@@ -314,6 +321,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -401,6 +409,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -433,6 +442,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-kubernetes"
               >
                 <svg
                   height="25"
@@ -493,6 +503,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -525,6 +536,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="service-github"
               >
                 <svg
                   height="25"
@@ -575,6 +587,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -607,6 +620,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="service-dockerhub"
               >
                 <svg
                   height="25"
@@ -662,6 +676,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -694,6 +709,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-kubernetes"
               >
                 <svg
                   height="25"
@@ -754,6 +770,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -786,6 +803,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="service-github"
               >
                 <svg
                   height="25"
@@ -836,6 +854,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"
@@ -868,6 +887,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-kubernetes"
               >
                 <svg
                   height="25"
@@ -928,6 +948,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main snippetIcon"
+                    data-icon="copy"
                   >
                     <svg
                       height="20"

@@ -293,6 +293,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="Options"
             >
               <svg
                 height="24"
@@ -365,6 +366,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="cd-main"
                     >
                       <svg
                         fill="none"
@@ -607,6 +609,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="cv-main"
                     >
                       <svg
                         fill="none"
@@ -849,6 +852,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="ci-main"
                     >
                       <svg
                         fill="none"
@@ -1091,6 +1095,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="ce-main"
                     >
                       <svg
                         fill="none"
@@ -1331,6 +1336,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="cf-main"
                     >
                       <svg
                         fill="none"
@@ -1789,6 +1795,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="Options"
             >
               <svg
                 height="24"
@@ -1851,6 +1858,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="nav-project"
               >
                 <svg
                   height="70"
@@ -1890,6 +1898,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="cd-main"
                 >
                   <svg
                     fill="none"
@@ -1969,6 +1978,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="cv-main"
                 >
                   <svg
                     fill="none"
@@ -2048,6 +2058,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="ci-main"
                 >
                   <svg
                     fill="none"
@@ -2127,6 +2138,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="ce-main"
                 >
                   <svg
                     fill="none"
@@ -2206,6 +2218,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="cf-main"
                 >
                   <svg
                     fill="none"

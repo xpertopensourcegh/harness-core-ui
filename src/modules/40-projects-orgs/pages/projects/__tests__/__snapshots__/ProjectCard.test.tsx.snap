@@ -301,6 +301,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -472,6 +473,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cv-main"
           >
             <svg
               fill="none"
@@ -643,6 +645,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="ci-main"
           >
             <svg
               fill="none"
@@ -814,6 +817,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cf-main"
           >
             <svg
               fill="none"
@@ -985,6 +989,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="ce-main"
           >
             <svg
               fill="none"
@@ -1382,6 +1387,7 @@ exports[`Project Card test Preview is ok 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main grayOutIcons"
+          data-icon="cd-main"
         >
           <svg
             fill="none"
@@ -1417,6 +1423,7 @@ exports[`Project Card test Preview is ok 1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main grayOutIcons"
+          data-icon="cv-main"
         >
           <svg
             fill="none"
@@ -1452,6 +1459,7 @@ exports[`Project Card test Preview is ok 1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main grayOutIcons"
+          data-icon="ce-main"
         >
           <svg
             fill="none"
@@ -1487,6 +1495,7 @@ exports[`Project Card test Preview is ok 1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main grayOutIcons"
+          data-icon="cf-main"
         >
           <svg
             fill="none"
@@ -1522,6 +1531,7 @@ exports[`Project Card test Preview is ok 1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main grayOutIcons"
+          data-icon="ci-main"
         >
           <svg
             fill="none"
@@ -1862,6 +1872,7 @@ exports[`Project Card test initializes ok  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -2033,6 +2044,7 @@ exports[`Project Card test initializes ok  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cv-main"
           >
             <svg
               fill="none"
@@ -2204,6 +2216,7 @@ exports[`Project Card test initializes ok  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="ci-main"
           >
             <svg
               fill="none"
@@ -2375,6 +2388,7 @@ exports[`Project Card test initializes ok  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cf-main"
           >
             <svg
               fill="none"
@@ -2546,6 +2560,7 @@ exports[`Project Card test initializes ok  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="ce-main"
           >
             <svg
               fill="none"

@@ -13,6 +13,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="bitbucket-new"
         >
           <svg
             fill="none"
@@ -399,6 +400,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="bitbucket-new"
         >
           <svg
             fill="none"
@@ -850,6 +852,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 3`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="bitbucket-new"
         >
           <svg
             fill="none"
@@ -1010,6 +1013,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 3`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1113,6 +1117,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="bitbucket-new"
         >
           <svg
             fill="none"
@@ -1273,6 +1278,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1522,6 +1528,7 @@ exports[`Create Bitbucketconnector Wizard Bitbucketconnector step one 4`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1609,6 +1616,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="bitbucket-new"
         >
           <svg
             fill="none"
@@ -1918,6 +1926,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -2021,6 +2030,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="bitbucket-new"
         >
           <svg
             fill="none"
@@ -2330,6 +2340,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -2574,6 +2585,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg

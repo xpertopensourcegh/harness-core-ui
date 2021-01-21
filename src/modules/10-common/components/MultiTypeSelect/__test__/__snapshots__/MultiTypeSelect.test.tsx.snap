@@ -73,6 +73,7 @@ exports[`<MultiTypeSelect /> tests Should render properly 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                    data-icon="fixed-input"
                   >
                     <svg
                       height="12"

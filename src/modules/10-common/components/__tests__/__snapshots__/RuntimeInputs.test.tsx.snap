@@ -43,6 +43,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -123,6 +124,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -179,6 +181,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -259,6 +262,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="runtime-input"
                     >
                       <svg
                         height="12"
@@ -324,6 +328,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="runtime-input"
                     >
                       <svg
                         height="12"
@@ -390,6 +395,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="runtime-input"
                     >
                       <svg
                         height="12"
@@ -456,6 +462,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -535,6 +542,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -589,6 +597,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"

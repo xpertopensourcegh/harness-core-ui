@@ -36,6 +36,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+            data-icon="pipeline-ng"
           >
             <svg
               height="20"
@@ -74,6 +75,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+          data-icon="github"
         >
           <svg
             height="20"
@@ -111,6 +113,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-left-small"
+          data-icon="copy"
           style="cursor: pointer;"
         >
           <svg
@@ -148,6 +151,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+            data-icon="pipeline-ng"
           >
             <svg
               height="20"
@@ -186,6 +190,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+          data-icon="service-gotlab"
         >
           <svg
             height="20"
@@ -248,6 +253,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-left-small"
+          data-icon="copy"
           style="cursor: pointer;"
         >
           <svg
@@ -285,6 +291,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+            data-icon="pipeline-ng"
           >
             <svg
               height="20"
@@ -321,6 +328,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+          data-icon="service-gotlab"
         >
           <svg
             height="20"
@@ -383,6 +391,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-left-small"
+          data-icon="copy"
           style="cursor: pointer;"
         >
           <svg
@@ -420,6 +429,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+            data-icon="pipeline-ng"
           >
             <svg
               height="20"
@@ -456,6 +466,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+          data-icon="service-github"
         >
           <svg
             height="20"
@@ -494,6 +505,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync Entity List  1`] = `
         </span>
         <span
           class="bp3-icon StyledProps--main StyledProps--margin-left-small"
+          data-icon="copy"
           style="cursor: pointer;"
         >
           <svg

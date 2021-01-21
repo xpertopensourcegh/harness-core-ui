@@ -17,6 +17,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="run-pipeline"
           >
             <svg
               height="16"
@@ -228,6 +229,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main icon"
+                        data-icon="circle-cross"
                         tabindex="0"
                       >
                         <svg
@@ -332,6 +334,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="circle-cross"
                   >
                     <svg
                       height="10"

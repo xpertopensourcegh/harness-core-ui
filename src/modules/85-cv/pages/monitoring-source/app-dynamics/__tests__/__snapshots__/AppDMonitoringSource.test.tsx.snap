@@ -37,6 +37,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
             <div>
               <span
                 class="bp3-icon StyledProps--main nameTypeIcon"
+                data-icon="service-appdynamics"
               >
                 <svg
                   height="16"
@@ -192,6 +193,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="service-appdynamics"
                           >
                             <svg
                               height="40"
@@ -394,6 +396,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                                     >
                                       <span
                                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                        data-icon="fixed-input"
                                       >
                                         <svg
                                           height="12"
@@ -461,6 +464,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="service-appdynamics"
                               >
                                 <svg
                                   height="30"

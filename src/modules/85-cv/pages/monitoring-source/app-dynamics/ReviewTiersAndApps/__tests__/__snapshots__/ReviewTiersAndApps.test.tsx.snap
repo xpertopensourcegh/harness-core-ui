@@ -76,6 +76,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-appdynamics"
             >
               <svg
                 height="16"
@@ -117,6 +118,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="harness"
             >
               <svg
                 height="16"

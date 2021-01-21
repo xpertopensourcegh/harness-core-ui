@@ -125,6 +125,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
+            data-icon="main-chevron-up"
           >
             <svg
               height="14"
@@ -269,6 +270,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
+            data-icon="main-chevron-down"
           >
             <svg
               height="14"
@@ -460,6 +462,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
+            data-icon="main-chevron-up"
           >
             <svg
               height="14"
@@ -651,6 +654,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500"
+            data-icon="main-chevron-down"
           >
             <svg
               height="14"

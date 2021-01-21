@@ -171,6 +171,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="github"
               >
                 <svg
                   height="26"
@@ -373,6 +374,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-link"
                 >
                   <svg
                     height="16"
@@ -469,6 +471,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="github"
               >
                 <svg
                   height="26"
@@ -504,6 +507,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="main-tags"
                         >
                           <svg
                             height="15"
@@ -635,6 +639,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-link"
                 >
                   <svg
                     height="16"
@@ -731,6 +736,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="github"
               >
                 <svg
                   height="26"
@@ -832,6 +838,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-link"
                 >
                   <svg
                     height="16"
@@ -1040,6 +1047,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="main-link"
                     >
                       <svg
                         height="16"

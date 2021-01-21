@@ -7,6 +7,7 @@ exports[`BuildLoadingState snapshot test should render properly 1`] = `
   >
     <span
       class="bp3-icon StyledProps--main"
+      data-icon="report-gear"
       style="margin: 0px auto;"
     >
       <svg

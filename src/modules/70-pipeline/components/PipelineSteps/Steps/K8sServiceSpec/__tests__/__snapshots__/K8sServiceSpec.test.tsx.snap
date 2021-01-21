@@ -272,6 +272,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+          data-icon="service-dockerhub"
         >
           <svg
             height="37"
@@ -681,6 +682,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Details Step 1`] = 
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg
@@ -797,6 +799,7 @@ exports[`StepWidget tests shows add artifact modal: Artifact Name Step  1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+          data-icon="service-dockerhub"
         >
           <svg
             height="37"
@@ -1122,6 +1125,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-kubernetes"
             >
               <svg
                 height="35"
@@ -1155,6 +1159,7 @@ exports[`StepWidget tests shows add manifests modal: Create Manifest modal 1`] =
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="functions"
             >
               <svg
                 height="35"
@@ -1390,6 +1395,7 @@ exports[`StepWidget tests shows add manifests modal: Git Server Step 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"

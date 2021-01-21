@@ -21,6 +21,7 @@ exports[`Activity Stack test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main icon"
+                data-icon="cd-main"
               >
                 <svg
                   fill="none"
@@ -96,6 +97,7 @@ exports[`Activity Stack test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main icon"
+                data-icon="cv-main"
               >
                 <svg
                   fill="none"
@@ -171,6 +173,7 @@ exports[`Activity Stack test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main icon"
+                data-icon="cv-main"
               >
                 <svg
                   fill="none"
@@ -246,6 +249,7 @@ exports[`Activity Stack test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main icon"
+                data-icon="cd-main"
               >
                 <svg
                   fill="none"
@@ -321,6 +325,7 @@ exports[`Activity Stack test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main icon"
+                data-icon="cf-main"
               >
                 <svg
                   fill="none"
@@ -396,6 +401,7 @@ exports[`Activity Stack test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main icon"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"

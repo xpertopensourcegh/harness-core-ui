@@ -53,6 +53,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="cd-main"
             >
               <svg
                 fill="none"
@@ -248,6 +249,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-kubernetes"
             >
               <svg
                 height="17"
@@ -291,6 +293,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--intent-success"
+              data-icon="config-change"
             >
               <svg
                 fill="none"

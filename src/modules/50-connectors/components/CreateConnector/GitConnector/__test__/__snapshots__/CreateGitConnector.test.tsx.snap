@@ -13,6 +13,7 @@ exports[`Create Git connector Wizard Git step one 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -413,6 +414,7 @@ exports[`Create Git connector Wizard Git step one 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -878,6 +880,7 @@ exports[`Create Git connector Wizard Git step one 3`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -1105,6 +1108,7 @@ exports[`Create Git connector Wizard Git step one 3`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg
@@ -1186,6 +1190,7 @@ exports[`Create Git connector Wizard Git step one 4`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -1418,6 +1423,7 @@ exports[`Create Git connector Wizard Git step one 4`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg
@@ -1504,6 +1510,7 @@ exports[`Create Git connector Wizard should form for edit http and authtype user
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -1884,6 +1891,7 @@ exports[`Create Git connector Wizard should form for edit http and authtype user
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-github"
         >
           <svg
             height="50"
@@ -2111,6 +2119,7 @@ exports[`Create Git connector Wizard should form for edit http and authtype user
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg

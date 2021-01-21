@@ -263,6 +263,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="service-appdynamics"
             >
               <svg
                 height="18"

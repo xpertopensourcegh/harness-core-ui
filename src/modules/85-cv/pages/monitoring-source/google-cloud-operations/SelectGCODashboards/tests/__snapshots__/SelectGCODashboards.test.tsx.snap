@@ -108,6 +108,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -160,6 +161,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -212,6 +214,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -264,6 +267,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -316,6 +320,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -368,6 +373,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -420,6 +426,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -472,6 +479,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -524,6 +532,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"
@@ -576,6 +585,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="service-stackdriver"
             >
               <svg
                 height="16"

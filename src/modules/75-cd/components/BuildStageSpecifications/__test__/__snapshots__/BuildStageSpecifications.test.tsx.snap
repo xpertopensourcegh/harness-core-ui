@@ -184,6 +184,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                               >
                                 <span
                                   class="bp3-icon StyledProps--main"
+                                  data-icon="question"
                                 >
                                   <svg
                                     height="14"
@@ -215,6 +216,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                               >
                                 <span
                                   class="bp3-icon StyledProps--main icon fixed"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="10"
@@ -284,6 +286,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                                     >
                                       <span
                                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                        data-icon="fixed-input"
                                       >
                                         <svg
                                           height="12"
@@ -310,6 +313,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="main-trash"
                             >
                               <svg
                                 height="20"
@@ -561,6 +565,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                               >
                                 <span
                                   class="bp3-icon StyledProps--main"
+                                  data-icon="question"
                                 >
                                   <svg
                                     height="14"
@@ -592,6 +597,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                               >
                                 <span
                                   class="bp3-icon StyledProps--main icon fixed"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="10"
@@ -661,6 +667,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                                     >
                                       <span
                                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                        data-icon="fixed-input"
                                       >
                                         <svg
                                           height="12"
@@ -687,6 +694,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="main-trash"
                             >
                               <svg
                                 height="20"

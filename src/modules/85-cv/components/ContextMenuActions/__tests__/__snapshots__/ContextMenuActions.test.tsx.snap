@@ -14,6 +14,7 @@ exports[`ContextMenuActions matches snapshot 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="main-more"
         >
           <svg
             height="16"

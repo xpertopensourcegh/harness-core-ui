@@ -56,6 +56,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="cd-main"
                   >
                     <svg
                       fill="none"

@@ -16,6 +16,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-artifactory"
           >
             <svg
               height="45"
@@ -272,6 +273,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="bitbucket-new"
           >
             <svg
               fill="none"
@@ -659,6 +661,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+            data-icon="service-dockerhub"
           >
             <svg
               height="37"
@@ -917,6 +920,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-gcp"
           >
             <svg
               height="37"
@@ -1228,6 +1232,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-github"
           >
             <svg
               height="50"
@@ -1629,6 +1634,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+            data-icon="github"
           >
             <svg
               height="37"
@@ -1998,6 +2004,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-gotlab"
           >
             <svg
               height="37"
@@ -2392,6 +2399,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-nexus"
           >
             <svg
               height="40"
@@ -2661,6 +2669,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="hashiCorpVault"
           >
             <svg
               fill="none"
@@ -2915,6 +2924,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="app-kubernetes"
           >
             <svg
               height="50"

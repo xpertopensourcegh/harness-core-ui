@@ -98,6 +98,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="service-dockerhub"
                 >
                   <svg
                     height="18"
@@ -285,6 +286,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="service-dockerhub"
                 >
                   <svg
                     height="18"
@@ -472,6 +474,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="service-dockerhub"
                 >
                   <svg
                     height="18"

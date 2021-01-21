@@ -26,6 +26,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="question"
                 >
                   <svg
                     height="14"
@@ -90,6 +91,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -155,6 +157,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -203,6 +206,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -256,6 +260,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="fixed-input"
                       >
                         <svg
                           height="12"
@@ -307,6 +312,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="question"
                 >
                   <svg
                     height="14"
@@ -371,6 +377,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -436,6 +443,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -484,6 +492,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -537,6 +546,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                     >
                       <span
                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="fixed-input"
                       >
                         <svg
                           height="12"

@@ -471,6 +471,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -567,6 +568,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="service-kubernetes"
               >
                 <svg
                   height="26"
@@ -602,6 +604,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="service-ecs"
               >
                 <svg
                   height="26"
@@ -683,6 +686,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="main-service-ami"
               >
                 <svg
                   height="26"
@@ -856,6 +860,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-aws-code-deploy"
               >
                 <svg
                   height="26"
@@ -921,6 +926,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="command-winrm"
               >
                 <svg
                   height="26"
@@ -950,6 +956,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="app-aws-lambda"
               >
                 <svg
                   height="26"
@@ -979,6 +986,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="service-pivotal"
               >
                 <svg
                   height="26"
@@ -1016,6 +1024,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="secret-ssh"
               >
                 <svg
                   height="26"

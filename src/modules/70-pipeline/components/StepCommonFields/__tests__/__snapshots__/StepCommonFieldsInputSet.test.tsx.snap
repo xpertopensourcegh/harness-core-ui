@@ -26,6 +26,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="question"
                 >
                   <svg
                     height="14"
@@ -148,6 +149,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -218,6 +220,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="question"
                 >
                   <svg
                     height="14"
@@ -338,6 +341,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"

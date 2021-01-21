@@ -173,6 +173,7 @@ exports[`Org Page List Create New Org 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="nav-project"
                     >
                       <svg
                         height="32"
@@ -407,6 +408,7 @@ exports[`Org Page List Create New Org 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="nav-project"
                     >
                       <svg
                         height="32"
@@ -564,6 +566,7 @@ exports[`Org Page List Create New Org 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="nav-project"
                     >
                       <svg
                         height="32"

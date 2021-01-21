@@ -1422,6 +1422,7 @@ exports[`Activity List render all activity 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              data-icon="main-delete"
               style="margin: 2px 5px;"
             >
               <svg
@@ -1599,6 +1600,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              data-icon="main-delete"
               style="margin: 2px 5px;"
             >
               <svg

@@ -110,6 +110,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="service-appdynamics"
               >
                 <svg
                   height="16"
@@ -139,6 +140,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+                data-icon="harness"
               >
                 <svg
                   height="16"
@@ -181,6 +183,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="service-appdynamics"
               >
                 <svg
                   height="16"
@@ -210,6 +213,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+                data-icon="harness"
               >
                 <svg
                   height="16"
@@ -304,6 +308,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500 StyledProps--margin-right-medium"
+            data-icon="info"
           >
             <svg
               height="16"

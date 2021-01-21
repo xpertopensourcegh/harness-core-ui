@@ -28,6 +28,7 @@ exports[`PurposeList test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cd-main"
               >
                 <svg
                   fill="none"
@@ -108,6 +109,7 @@ exports[`PurposeList test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cv-main"
               >
                 <svg
                   fill="none"
@@ -188,6 +190,7 @@ exports[`PurposeList test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"
@@ -268,6 +271,7 @@ exports[`PurposeList test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ce-main"
               >
                 <svg
                   fill="none"
@@ -348,6 +352,7 @@ exports[`PurposeList test initializes ok  1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cf-main"
               >
                 <svg
                   fill="none"
@@ -465,6 +470,7 @@ exports[`PurposeList test initializes ok  2`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cd-main"
               >
                 <svg
                   fill="none"
@@ -563,6 +569,7 @@ exports[`PurposeList test initializes ok  2`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cv-main"
               >
                 <svg
                   fill="none"
@@ -661,6 +668,7 @@ exports[`PurposeList test initializes ok  2`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"
@@ -759,6 +767,7 @@ exports[`PurposeList test initializes ok  2`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ce-main"
               >
                 <svg
                   fill="none"
@@ -857,6 +866,7 @@ exports[`PurposeList test initializes ok  2`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cf-main"
               >
                 <svg
                   fill="none"

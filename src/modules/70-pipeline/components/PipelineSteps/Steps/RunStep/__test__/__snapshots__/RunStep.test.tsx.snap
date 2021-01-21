@@ -132,6 +132,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
@@ -172,6 +173,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -297,6 +299,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -335,6 +338,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -388,6 +392,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -435,6 +440,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
                         <svg
                           height="14"
@@ -486,6 +492,7 @@ npm test
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
@@ -547,6 +554,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="question"
                           >
                             <svg
                               height="14"
@@ -578,6 +586,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main icon fixed"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="10"
@@ -648,6 +657,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -674,6 +684,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -724,6 +735,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -750,6 +762,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -800,6 +813,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -826,6 +840,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -876,6 +891,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -902,6 +918,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -952,6 +969,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -978,6 +996,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -1040,6 +1059,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="question"
                           >
                             <svg
                               height="14"
@@ -1071,6 +1091,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main icon fixed"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="10"
@@ -1182,6 +1203,7 @@ npm test
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -1208,6 +1230,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
                           >
                             <svg
                               height="20"
@@ -1291,6 +1314,7 @@ npm test
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -1317,6 +1341,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
                           >
                             <svg
                               height="20"
@@ -1400,6 +1425,7 @@ npm test
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -1426,6 +1452,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
                           >
                             <svg
                               height="20"
@@ -1490,6 +1517,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="question"
                           >
                             <svg
                               height="14"
@@ -1521,6 +1549,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main icon fixed"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="10"
@@ -1591,6 +1620,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -1617,6 +1647,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -1667,6 +1698,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -1693,6 +1725,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -1743,6 +1776,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -1769,6 +1803,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -1819,6 +1854,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -1845,6 +1881,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -1891,6 +1928,7 @@ npm test
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="question"
                   >
                     <svg
                       height="14"
@@ -1955,6 +1993,7 @@ npm test
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2020,6 +2059,7 @@ npm test
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2068,6 +2108,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
                         <svg
                           height="14"
@@ -2121,6 +2162,7 @@ npm test
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
@@ -2314,6 +2356,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="runtime-input"
                         >
                           <svg
                             height="12"
@@ -2379,6 +2422,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -2438,6 +2482,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="runtime-input"
                           >
                             <svg
                               height="12"
@@ -2501,6 +2546,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -2559,6 +2605,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="runtime-input"
                           >
                             <svg
                               height="12"
@@ -2631,6 +2678,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
                         <svg
                           height="14"
@@ -2689,6 +2737,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="runtime-input"
                         >
                           <svg
                             height="12"
@@ -2776,6 +2825,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="question"
                             >
                               <svg
                                 height="14"
@@ -2812,6 +2862,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main icon runtime"
+                            data-icon="runtime-input"
                           >
                             <svg
                               height="10"
@@ -2903,6 +2954,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="question"
                             >
                               <svg
                                 height="14"
@@ -2939,6 +2991,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main icon runtime"
+                            data-icon="runtime-input"
                           >
                             <svg
                               height="10"
@@ -3030,6 +3083,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="question"
                             >
                               <svg
                                 height="14"
@@ -3066,6 +3120,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main icon runtime"
+                            data-icon="runtime-input"
                           >
                             <svg
                               height="10"
@@ -3140,6 +3195,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="question"
                   >
                     <svg
                       height="14"
@@ -3209,6 +3265,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="runtime-input"
                             >
                               <svg
                                 height="12"
@@ -3304,6 +3361,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="runtime-input"
                             >
                               <svg
                                 height="12"
@@ -3377,6 +3435,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
                         <svg
                           height="14"
@@ -3435,6 +3494,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="runtime-input"
                         >
                           <svg
                             height="12"
@@ -3639,6 +3699,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
@@ -3679,6 +3740,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -3804,6 +3866,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -3842,6 +3905,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -3895,6 +3959,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -3942,6 +4007,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
                         <svg
                           height="14"
@@ -3991,6 +4057,7 @@ npm test
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
@@ -4052,6 +4119,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="question"
                           >
                             <svg
                               height="14"
@@ -4083,6 +4151,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main icon fixed"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="10"
@@ -4153,6 +4222,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -4179,6 +4249,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -4241,6 +4312,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="question"
                           >
                             <svg
                               height="14"
@@ -4272,6 +4344,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main icon fixed"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="10"
@@ -4383,6 +4456,7 @@ npm test
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -4409,6 +4483,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
                           >
                             <svg
                               height="20"
@@ -4473,6 +4548,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="question"
                           >
                             <svg
                               height="14"
@@ -4504,6 +4580,7 @@ npm test
                         >
                           <span
                             class="bp3-icon StyledProps--main icon fixed"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="10"
@@ -4574,6 +4651,7 @@ npm test
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"
@@ -4600,6 +4678,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-trash"
                       >
                         <svg
                           height="20"
@@ -4646,6 +4725,7 @@ npm test
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="question"
                   >
                     <svg
                       height="14"
@@ -4710,6 +4790,7 @@ npm test
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -4775,6 +4856,7 @@ npm test
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -4823,6 +4905,7 @@ npm test
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
                         <svg
                           height="14"
@@ -4876,6 +4959,7 @@ npm test
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                          data-icon="fixed-input"
                         >
                           <svg
                             height="12"
@@ -5017,6 +5101,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -5152,6 +5237,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -5215,6 +5301,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"
@@ -5265,6 +5352,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="question"
                   >
                     <svg
                       height="14"
@@ -5314,6 +5402,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-trash"
                 >
                   <svg
                     height="20"
@@ -5360,6 +5449,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="question"
                   >
                     <svg
                       height="14"
@@ -5439,6 +5529,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="main-trash"
                     >
                       <svg
                         height="20"
@@ -5487,6 +5578,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="question"
                   >
                     <svg
                       height="14"
@@ -5536,6 +5628,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-trash"
                 >
                   <svg
                     height="20"
@@ -5580,6 +5673,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="question"
                 >
                   <svg
                     height="14"
@@ -5700,6 +5794,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="question"
                     >
                       <svg
                         height="14"

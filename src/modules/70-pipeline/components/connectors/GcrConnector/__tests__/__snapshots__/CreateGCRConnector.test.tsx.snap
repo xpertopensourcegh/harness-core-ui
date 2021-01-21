@@ -13,6 +13,7 @@ exports[`Create Docker connector Wizard should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gcp"
         >
           <svg
             height="37"
@@ -335,6 +336,7 @@ exports[`Create Docker connector Wizard should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gcp"
         >
           <svg
             height="37"

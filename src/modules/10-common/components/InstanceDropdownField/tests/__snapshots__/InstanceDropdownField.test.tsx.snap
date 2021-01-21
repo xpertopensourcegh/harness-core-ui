@@ -43,6 +43,7 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                  data-icon="fixed-input"
                 >
                   <svg
                     height="12"
@@ -144,6 +145,7 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                data-icon="fixed-input"
               >
                 <svg
                   height="12"

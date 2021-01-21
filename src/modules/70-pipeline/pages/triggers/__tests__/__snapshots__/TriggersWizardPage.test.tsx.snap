@@ -80,6 +80,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sho
                 >
                   <span
                     class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue600"
+                    data-icon="pipeline-ng"
                     style="margin-right: 8px;"
                   >
                     <svg

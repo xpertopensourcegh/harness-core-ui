@@ -348,6 +348,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="service"
                               >
                                 <svg
                                   height="25"
@@ -382,6 +383,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="multi-service"
                               >
                                 <svg
                                   height="25"
@@ -416,6 +418,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="functions"
                               >
                                 <svg
                                   height="25"
@@ -450,6 +453,7 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="other-workload"
                               >
                                 <svg
                                   height="25"
@@ -883,6 +887,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="service"
                               >
                                 <svg
                                   height="25"
@@ -917,6 +922,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="multi-service"
                               >
                                 <svg
                                   height="25"
@@ -951,6 +957,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="functions"
                               >
                                 <svg
                                   height="25"
@@ -985,6 +992,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="other-workload"
                               >
                                 <svg
                                   height="25"

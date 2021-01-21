@@ -138,6 +138,7 @@ exports[`PipelineModal List View render list view 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="run-pipeline"
             >
               <svg
                 height="16"
@@ -231,6 +232,7 @@ exports[`PipelineModal List View render list view 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="run-pipeline"
             >
               <svg
                 height="16"

@@ -13,6 +13,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+          data-icon="service-dockerhub"
         >
           <svg
             height="37"
@@ -270,6 +271,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+          data-icon="service-dockerhub"
         >
           <svg
             height="37"
@@ -664,6 +666,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg
@@ -745,6 +748,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+          data-icon="service-dockerhub"
         >
           <svg
             height="37"
@@ -1015,6 +1019,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+          data-icon="service-dockerhub"
         >
           <svg
             height="37"
@@ -1409,6 +1414,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
                               style="height: 12px;"
                             >
                               <svg

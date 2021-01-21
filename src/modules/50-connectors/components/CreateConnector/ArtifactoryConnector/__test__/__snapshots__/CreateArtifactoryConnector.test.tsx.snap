@@ -13,6 +13,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-artifactory"
         >
           <svg
             height="45"
@@ -342,6 +343,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -424,6 +426,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-artifactory"
         >
           <svg
             height="45"
@@ -679,6 +682,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-artifactory"
         >
           <svg
             height="45"
@@ -1008,6 +1012,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg

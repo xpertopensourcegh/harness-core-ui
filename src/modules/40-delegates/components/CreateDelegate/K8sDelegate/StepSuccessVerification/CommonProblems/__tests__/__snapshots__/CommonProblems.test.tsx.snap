@@ -12,6 +12,7 @@ exports[`Create Common Problems Tab render data 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="support-troubleshoot"
       >
         <svg
           height="18"

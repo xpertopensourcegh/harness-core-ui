@@ -177,6 +177,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="support-troubleshoot"
                 >
                   <svg
                     height="18"
@@ -540,6 +541,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="support-troubleshoot"
                 >
                   <svg
                     height="18"

@@ -16,6 +16,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+            data-icon="main-caret-down"
           >
             <svg
               height="10"
@@ -64,6 +65,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+            data-icon="main-caret-down"
           >
             <svg
               height="10"
@@ -112,6 +114,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+            data-icon="main-caret-down"
           >
             <svg
               height="10"

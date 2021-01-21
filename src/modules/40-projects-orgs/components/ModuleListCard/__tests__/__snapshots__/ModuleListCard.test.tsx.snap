@@ -17,6 +17,7 @@ exports[`Project Details render 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -264,6 +265,7 @@ exports[`Project Details render 2`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cv-main"
           >
             <svg
               fill="none"
@@ -511,6 +513,7 @@ exports[`Project Details render 3`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="ce-main"
           >
             <svg
               fill="none"
@@ -756,6 +759,7 @@ exports[`Project Details render 4`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="cf-main"
           >
             <svg
               fill="none"
@@ -1001,6 +1005,7 @@ exports[`Project Details render 5`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="ci-main"
           >
             <svg
               fill="none"

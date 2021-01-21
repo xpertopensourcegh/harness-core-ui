@@ -341,6 +341,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="bluegreen"
                             >
                               <svg
                                 height="20"
@@ -478,6 +479,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main"
+                              data-icon="canary-outline"
                             >
                               <svg
                                 height="20"
@@ -522,6 +524,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="health"
                           >
                             <svg
                               height="20"

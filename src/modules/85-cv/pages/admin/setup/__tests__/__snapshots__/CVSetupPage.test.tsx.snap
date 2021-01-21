@@ -232,6 +232,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="cd-main"
                           >
                             <svg
                               fill="none"
@@ -299,6 +300,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="service-kubernetes"
                           >
                             <svg
                               height="40"
@@ -621,6 +623,7 @@ exports[`CVSetupPage check next and previous 2`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="service-appdynamics"
                       >
                         <svg
                           height="40"
@@ -657,6 +660,7 @@ exports[`CVSetupPage check next and previous 2`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="service-stackdriver"
                       >
                         <svg
                           height="40"
@@ -987,6 +991,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="cd-main"
                           >
                             <svg
                               fill="none"
@@ -1054,6 +1059,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="service-kubernetes"
                           >
                             <svg
                               height="40"
@@ -1346,6 +1352,7 @@ exports[`CVSetupPage render initial state 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="cd-main"
                           >
                             <svg
                               fill="none"
@@ -1413,6 +1420,7 @@ exports[`CVSetupPage render initial state 1`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="service-kubernetes"
                           >
                             <svg
                               height="40"

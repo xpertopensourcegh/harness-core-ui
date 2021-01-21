@@ -13,6 +13,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -334,6 +335,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -442,6 +444,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 1`]
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -835,6 +838,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 2`]
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -1293,6 +1297,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 3`]
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -1460,6 +1465,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 3`]
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1563,6 +1569,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 4`]
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -1730,6 +1737,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one for SSH key 4`]
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1838,6 +1846,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -2154,6 +2163,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -2257,6 +2267,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-gotlab"
         >
           <svg
             height="37"
@@ -2424,6 +2435,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -2577,6 +2589,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg

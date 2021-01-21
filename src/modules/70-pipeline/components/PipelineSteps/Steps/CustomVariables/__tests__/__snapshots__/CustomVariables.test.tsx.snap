@@ -103,6 +103,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -304,6 +305,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -449,6 +451,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -650,6 +653,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -795,6 +799,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -947,6 +952,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="runtime-input"
                     >
                       <svg
                         height="12"
@@ -1216,6 +1222,7 @@ exports[`Custom Variables should render variables 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -1361,6 +1368,7 @@ exports[`Custom Variables should render variables 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="12"
@@ -1513,6 +1521,7 @@ exports[`Custom Variables should render variables 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                      data-icon="runtime-input"
                     >
                       <svg
                         height="12"

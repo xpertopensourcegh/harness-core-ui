@@ -32,6 +32,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      data-icon="pipeline-deploy"
                     >
                       <svg
                         height="20"
@@ -98,6 +99,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main icon"
+                    data-icon="deployment-success-legacy"
                   >
                     <svg
                       height="16"
@@ -153,6 +155,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main icon"
+                      data-icon="deployment-success-legacy"
                     >
                       <svg
                         height="16"
@@ -208,6 +211,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-blue500"
+                        data-icon="spinner"
                       >
                         <svg
                           fill="none"

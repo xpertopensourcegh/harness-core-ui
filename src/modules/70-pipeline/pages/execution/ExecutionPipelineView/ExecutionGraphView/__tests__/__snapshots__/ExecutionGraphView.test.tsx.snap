@@ -16,6 +16,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="up"
         >
           <svg
             height="12"
@@ -38,6 +39,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="down"
         >
           <svg
             height="12"
@@ -182,6 +184,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="up"
         >
           <svg
             height="12"
@@ -204,6 +207,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="down"
         >
           <svg
             height="12"
@@ -340,6 +344,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="up"
         >
           <svg
             height="12"
@@ -362,6 +367,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="down"
         >
           <svg
             height="12"
@@ -526,6 +532,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         />
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="layout-right"
                         >
                           <svg
                             height="16"
@@ -563,6 +570,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         />
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="layout-bottom"
                         >
                           <svg
                             height="16"
@@ -601,6 +609,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         />
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="layout-float"
                         >
                           <svg
                             height="16"

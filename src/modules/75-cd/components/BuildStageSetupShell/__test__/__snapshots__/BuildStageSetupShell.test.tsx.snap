@@ -55,6 +55,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+                          data-icon="pipeline-deploy"
                         >
                           <svg
                             height="30"
@@ -77,6 +78,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         Deploy
                         <span
                           class="bp3-icon StyledProps--main stageDropdownButtonCaret StyledProps--margin-left-medium"
+                          data-icon="pipeline-stage-selection-caret"
                         >
                           <svg
                             fill="none"
@@ -143,6 +145,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="yaml-builder-stages"
                 style="height: 20px;"
               >
                 <svg
@@ -217,6 +220,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="yaml-builder-steps"
                 style="height: 20px;"
               >
                 <svg
@@ -444,6 +448,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                       >
                                         <span
                                           class="bp3-icon StyledProps--main"
+                                          data-icon="question"
                                         >
                                           <svg
                                             height="14"
@@ -475,6 +480,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                       >
                                         <span
                                           class="bp3-icon StyledProps--main icon fixed"
+                                          data-icon="fixed-input"
                                         >
                                           <svg
                                             height="10"
@@ -544,6 +550,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                             >
                                               <span
                                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                                data-icon="fixed-input"
                                               >
                                                 <svg
                                                   height="12"
@@ -570,6 +577,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main"
+                                      data-icon="main-trash"
                                     >
                                       <svg
                                         height="20"

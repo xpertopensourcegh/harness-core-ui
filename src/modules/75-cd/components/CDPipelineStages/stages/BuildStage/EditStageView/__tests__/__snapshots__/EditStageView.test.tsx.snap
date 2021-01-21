@@ -21,6 +21,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="pipeline-build"
               >
                 <svg
                   fill="none"
@@ -198,6 +199,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+                data-icon="info"
               >
                 <svg
                   height="10"
@@ -256,6 +258,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="pipeline-build"
               >
                 <svg
                   fill="none"
@@ -414,6 +417,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+                data-icon="info"
               >
                 <svg
                   height="10"

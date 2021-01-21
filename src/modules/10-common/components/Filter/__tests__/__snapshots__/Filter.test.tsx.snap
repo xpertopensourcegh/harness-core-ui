@@ -88,6 +88,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                     >
                       <span
                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="ng-filter"
                       >
                         <svg
                           height="25"

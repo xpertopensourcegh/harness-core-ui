@@ -277,6 +277,7 @@ exports[`Delegates Listing render data 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="main-more"
                   >
                     <svg
                       height="16"

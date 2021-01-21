@@ -33,6 +33,7 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main icon fixed"
+                      data-icon="fixed-input"
                     >
                       <svg
                         height="10"

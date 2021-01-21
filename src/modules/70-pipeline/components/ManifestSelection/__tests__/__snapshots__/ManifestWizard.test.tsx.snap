@@ -212,6 +212,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -256,6 +257,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                           >
                             <span
                               class="bp3-icon StyledProps--main icon fixed"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="10"
@@ -358,6 +360,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -638,6 +641,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                         >
                           <span
                             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                            data-icon="fixed-input"
                           >
                             <svg
                               height="12"
@@ -682,6 +686,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                           >
                             <span
                               class="bp3-icon StyledProps--main icon fixed"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="10"
@@ -784,6 +789,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -988,6 +994,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"

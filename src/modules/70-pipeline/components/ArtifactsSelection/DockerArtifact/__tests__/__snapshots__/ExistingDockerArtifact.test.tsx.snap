@@ -14,6 +14,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+            data-icon="service-dockerhub"
           >
             <svg
               height="37"
@@ -157,6 +158,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                               >
                                 <span
                                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
                                     height="12"

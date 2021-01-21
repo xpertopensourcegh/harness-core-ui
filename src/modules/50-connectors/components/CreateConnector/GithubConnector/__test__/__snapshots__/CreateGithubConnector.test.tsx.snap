@@ -13,6 +13,7 @@ exports[`Create Github connector Wizard Github step one 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -381,6 +382,7 @@ exports[`Create Github connector Wizard Github step one 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -814,6 +816,7 @@ exports[`Create Github connector Wizard Github step one 3`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -956,6 +959,7 @@ exports[`Create Github connector Wizard Github step one 3`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1059,6 +1063,7 @@ exports[`Create Github connector Wizard Github step one 4`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -1201,6 +1206,7 @@ exports[`Create Github connector Wizard Github step one 4`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1356,6 +1362,7 @@ exports[`Create Github connector Wizard Github step one 4`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -1444,6 +1451,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -1825,6 +1833,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -2116,6 +2125,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -2219,6 +2229,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -2510,6 +2521,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -2729,6 +2741,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               >
                                 <span
                                   class="bp3-icon StyledProps--main"
+                                  data-icon="key-main"
                                   style="height: 12px;"
                                 >
                                   <svg
@@ -2813,6 +2826,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
         >
           <svg
             height="37"
@@ -3104,6 +3118,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -3257,6 +3272,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg

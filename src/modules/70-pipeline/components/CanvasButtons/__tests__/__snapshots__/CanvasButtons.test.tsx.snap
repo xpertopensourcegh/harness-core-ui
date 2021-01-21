@@ -25,6 +25,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="canvas-position"
               >
                 <svg
                   height="16"
@@ -56,6 +57,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="canvas-selector"
               >
                 <svg
                   height="16"
@@ -90,6 +92,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="zoom-in"
                 >
                   <svg
                     height="16"
@@ -117,6 +120,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="zoom-out"
                 >
                   <svg
                     height="16"

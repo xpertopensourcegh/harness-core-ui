@@ -7,6 +7,7 @@ exports[`BuildSteps snapshot test should render properly 1`] = `
   >
     <span
       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red300"
+      data-icon="command-artifact-check"
     >
       <svg
         height="12"

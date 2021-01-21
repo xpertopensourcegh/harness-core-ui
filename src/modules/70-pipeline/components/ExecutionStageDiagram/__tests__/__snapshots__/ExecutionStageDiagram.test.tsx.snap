@@ -371,6 +371,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="28"
@@ -468,6 +469,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </div>
               <span
                 class="bp3-icon StyledProps--main secondaryIcon"
+                data-icon="execution-warning"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -590,6 +592,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="28"
@@ -687,6 +690,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </div>
               <span
                 class="bp3-icon StyledProps--main secondaryIcon"
+                data-icon="execution-input"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -741,6 +745,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="28"
@@ -838,6 +843,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </div>
               <span
                 class="bp3-icon StyledProps--main secondaryIcon StyledProps--color StyledProps--color-green450"
+                data-icon="execution-success"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -962,6 +968,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="28"
@@ -1389,6 +1396,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               </div>
               <span
                 class="bp3-icon StyledProps--main secondaryIcon"
+                data-icon="execution-abort"
                 style="top: -7px; right: -7px; animation: fadeIn 1s;"
               >
                 <svg
@@ -1522,6 +1530,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="canvas-position"
                 >
                   <svg
                     height="16"
@@ -1553,6 +1562,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="canvas-selector"
                 >
                   <svg
                     height="16"
@@ -1587,6 +1597,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="zoom-in"
                   >
                     <svg
                       height="16"
@@ -1614,6 +1625,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="zoom-out"
                   >
                     <svg
                       height="16"

@@ -10,6 +10,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="main-code-yaml"
       >
         <svg
           height="25"
@@ -60,6 +61,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main snippetIcon"
+            data-icon="copy"
           >
             <svg
               height="20"

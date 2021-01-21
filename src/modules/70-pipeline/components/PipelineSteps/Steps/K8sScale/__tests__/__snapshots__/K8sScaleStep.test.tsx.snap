@@ -123,6 +123,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                  data-icon="fixed-input"
                 >
                   <svg
                     height="12"
@@ -357,6 +358,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -456,6 +458,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -520,6 +523,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -574,6 +578,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -777,6 +782,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="runtime-input"
                             >
                               <svg
                                 height="12"
@@ -876,6 +882,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -945,6 +952,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="runtime-input"
                             >
                               <svg
                                 height="12"
@@ -1038,6 +1046,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="runtime-input"
                             >
                               <svg
                                 height="12"
@@ -1233,6 +1242,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1332,6 +1342,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1396,6 +1407,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1450,6 +1462,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1647,6 +1660,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1746,6 +1760,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1810,6 +1825,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -1864,6 +1880,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2061,6 +2078,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2160,6 +2178,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2224,6 +2243,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2278,6 +2298,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2480,6 +2501,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2579,6 +2601,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2643,6 +2666,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -2702,6 +2726,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"

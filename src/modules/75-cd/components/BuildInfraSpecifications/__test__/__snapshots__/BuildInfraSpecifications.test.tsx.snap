@@ -175,6 +175,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"
@@ -379,6 +380,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"

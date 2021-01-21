@@ -39,6 +39,7 @@ exports[`Unit tests for CVAccessControlPage Ensure page renders 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+          data-icon="nav-dashboard"
         >
           <svg
             height="48"

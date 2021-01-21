@@ -115,6 +115,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="trigger-artifact"
                         >
                           <svg
                             height="25"
@@ -154,6 +155,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="trigger-artifact"
                         >
                           <svg
                             height="25"
@@ -206,6 +208,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="trigger-schedule"
                         >
                           <svg
                             height="25"
@@ -262,6 +265,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="github"
                         >
                           <svg
                             height="25"
@@ -288,6 +292,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="service-gotlab"
                         >
                           <svg
                             height="25"
@@ -339,6 +344,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="bitbucket"
                         >
                           <svg
                             height="25"

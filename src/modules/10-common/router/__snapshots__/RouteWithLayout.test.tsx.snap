@@ -25,6 +25,7 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="harness"
               >
                 <svg
                   height="30"
@@ -60,6 +61,7 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cd-main"
               >
                 <svg
                   fill="none"
@@ -116,6 +118,7 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"
@@ -172,6 +175,7 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cf-main"
               >
                 <svg
                   fill="none"
@@ -228,6 +232,7 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ce-main"
               >
                 <svg
                   fill="none"
@@ -285,6 +290,7 @@ exports[`RouteWithLayout basic 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cv-main"
               >
                 <svg
                   fill="none"
@@ -342,6 +348,7 @@ exports[`RouteWithLayout basic 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="nav-settings"
             >
               <svg
                 fill="none"
@@ -443,6 +450,7 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="harness"
               >
                 <svg
                   height="30"
@@ -478,6 +486,7 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cd-main"
               >
                 <svg
                   fill="none"
@@ -534,6 +543,7 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ci-main"
               >
                 <svg
                   fill="none"
@@ -590,6 +600,7 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cf-main"
               >
                 <svg
                   fill="none"
@@ -646,6 +657,7 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="ce-main"
               >
                 <svg
                   fill="none"
@@ -703,6 +715,7 @@ exports[`RouteWithLayout minimal 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main"
+                data-icon="cv-main"
               >
                 <svg
                   fill="none"
@@ -760,6 +773,7 @@ exports[`RouteWithLayout minimal 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
+              data-icon="nav-settings"
             >
               <svg
                 fill="none"

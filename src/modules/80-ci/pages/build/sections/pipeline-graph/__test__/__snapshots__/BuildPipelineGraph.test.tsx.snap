@@ -193,6 +193,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="layout-right"
                       >
                         <svg
                           height="16"
@@ -225,6 +226,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="layout-bottom"
                       >
                         <svg
                           height="16"
@@ -258,6 +260,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="layout-float"
                       >
                         <svg
                           height="16"
@@ -312,6 +315,7 @@ exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
+                        data-icon="main-search"
                       >
                         <svg
                           height="16"

@@ -58,6 +58,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                data-icon="main-caret-down"
               >
                 <svg
                   height="10"
@@ -106,6 +107,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                data-icon="main-caret-down"
               >
                 <svg
                   height="10"
@@ -198,6 +200,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                data-icon="main-caret-down"
               >
                 <svg
                   height="10"
@@ -360,6 +363,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="service-jira"
               >
                 <svg
                   height="16"

@@ -279,6 +279,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="main-more"
                     >
                       <svg
                         height="16"
@@ -374,6 +375,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   >
                     <span
                       class="bp3-icon StyledProps--main"
+                      data-icon="main-more"
                     >
                       <svg
                         height="16"

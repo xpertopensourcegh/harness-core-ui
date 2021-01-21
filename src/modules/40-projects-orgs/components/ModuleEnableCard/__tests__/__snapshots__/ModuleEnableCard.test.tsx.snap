@@ -10,6 +10,7 @@ exports[`Module Enable Card render and Enable 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="cd-main"
       >
         <svg
           fill="none"
@@ -94,6 +95,7 @@ exports[`Module Enable Card render and Enable 2`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="cv-main"
       >
         <svg
           fill="none"
@@ -178,6 +180,7 @@ exports[`Module Enable Card render and Enable 3`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="ce-main"
       >
         <svg
           fill="none"
@@ -262,6 +265,7 @@ exports[`Module Enable Card render and Enable 4`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="cf-main"
       >
         <svg
           fill="none"
@@ -346,6 +350,7 @@ exports[`Module Enable Card render and Enable 5`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="ci-main"
       >
         <svg
           fill="none"

@@ -170,6 +170,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-slack"
           >
             <svg
               height="16"
@@ -234,6 +235,7 @@ exports[`CVNotificationTable render notification table 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-more"
                 >
                   <svg
                     height="16"
@@ -375,6 +377,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-slack"
           >
             <svg
               height="16"
@@ -439,6 +442,7 @@ exports[`CVNotificationTable render notification table 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-more"
                 >
                   <svg
                     height="16"
@@ -580,6 +584,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
+            data-icon="service-slack"
           >
             <svg
               height="16"
@@ -644,6 +649,7 @@ exports[`CVNotificationTable render notification table 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main"
+                  data-icon="main-more"
                 >
                   <svg
                     height="16"

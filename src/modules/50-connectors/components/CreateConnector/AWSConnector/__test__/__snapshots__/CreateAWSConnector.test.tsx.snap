@@ -13,6 +13,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-aws"
         >
           <svg
             height="37"
@@ -275,6 +276,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-aws"
         >
           <svg
             height="37"
@@ -559,6 +561,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg
@@ -680,6 +683,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-aws"
         >
           <svg
             height="37"
@@ -922,6 +926,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="service-aws"
         >
           <svg
             height="37"
@@ -1206,6 +1211,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
                                 style="height: 12px;"
                               >
                                 <svg

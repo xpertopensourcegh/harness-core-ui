@@ -19,6 +19,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-caret-right"
             >
               <svg
                 height="10"
@@ -36,6 +37,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="16"
@@ -91,6 +93,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-caret-right"
             >
               <svg
                 height="10"
@@ -108,6 +111,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="16"
@@ -163,6 +167,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-caret-right"
             >
               <svg
                 height="10"
@@ -180,6 +185,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="16"
@@ -235,6 +241,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-caret-right"
             >
               <svg
                 height="10"
@@ -252,6 +259,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="16"
@@ -307,6 +315,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-caret-right"
             >
               <svg
                 height="10"
@@ -324,6 +333,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="16"
@@ -379,6 +389,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-caret-right"
             >
               <svg
                 height="10"
@@ -396,6 +407,7 @@ exports[`ArtifactsComponent snapshot test should render properly 1`] = `
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                data-icon="pipeline-deploy"
               >
                 <svg
                   height="16"

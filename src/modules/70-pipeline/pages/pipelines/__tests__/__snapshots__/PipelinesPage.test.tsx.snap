@@ -98,6 +98,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
       </div>
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="ng-filter"
       >
         <svg
           height="24"
@@ -316,6 +317,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="step-group"
                       >
                         <svg
                           height="12"
@@ -415,6 +417,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      data-icon="run-pipeline"
                     >
                       <svg
                         height="16"
@@ -552,6 +555,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="step-group"
                       >
                         <svg
                           height="12"
@@ -651,6 +655,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      data-icon="run-pipeline"
                     >
                       <svg
                         height="16"
@@ -815,6 +820,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
       </div>
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="ng-filter"
       >
         <svg
           height="24"
@@ -1019,6 +1025,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
+                    data-icon="main-tags"
                   >
                     <svg
                       height="15"
@@ -1083,6 +1090,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="run-pipeline"
                 >
                   <svg
                     height="16"
@@ -1241,6 +1249,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="run-pipeline"
                 >
                   <svg
                     height="16"

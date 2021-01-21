@@ -13,6 +13,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="hashiCorpVault"
         >
           <svg
             fill="none"
@@ -263,6 +264,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="hashiCorpVault"
         >
           <svg
             fill="none"
@@ -499,6 +501,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="hashiCorpVault"
         >
           <svg
             fill="none"
@@ -765,6 +768,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="hashiCorpVault"
         >
           <svg
             fill="none"
@@ -1294,6 +1298,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="hashiCorpVault"
         >
           <svg
             fill="none"

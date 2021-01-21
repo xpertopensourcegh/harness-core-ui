@@ -11,6 +11,7 @@ exports[`VerificationItem VerificationItem 1`] = `
     >
       <span
         class="bp3-icon StyledProps--main"
+        data-icon="cd-main"
         style="align-self: center;"
       >
         <svg

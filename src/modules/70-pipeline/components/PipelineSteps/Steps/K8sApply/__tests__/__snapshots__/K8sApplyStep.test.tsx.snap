@@ -189,6 +189,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main icon fixed"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="10"
@@ -259,6 +260,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -339,6 +341,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                                   >
                                     <span
                                       class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                      data-icon="fixed-input"
                                     >
                                       <svg
                                         height="12"
@@ -447,6 +450,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"
@@ -516,6 +520,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="runtime-input"
                             >
                               <svg
                                 height="12"
@@ -570,6 +575,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -751,6 +757,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main icon fixed"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="10"
@@ -849,6 +856,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                             >
                               <span
                                 class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                data-icon="fixed-input"
                               >
                                 <svg
                                   height="12"
@@ -904,6 +912,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"
@@ -958,6 +967,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                           >
                             <span
                               class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="fixed-input"
                             >
                               <svg
                                 height="12"

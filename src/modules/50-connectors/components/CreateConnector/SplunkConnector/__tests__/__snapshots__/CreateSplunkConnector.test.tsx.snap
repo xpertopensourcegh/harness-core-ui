@@ -403,6 +403,7 @@ exports[`Create Splunk connector Wizard should render form 2`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="key-main"
                           style="height: 12px;"
                         >
                           <svg
@@ -646,6 +647,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                       >
                         <span
                           class="bp3-icon StyledProps--main"
+                          data-icon="key-main"
                           style="height: 12px;"
                         >
                           <svg

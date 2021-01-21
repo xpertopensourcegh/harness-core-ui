@@ -167,6 +167,7 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
                                 >
                                   <span
                                     class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                                    data-icon="fixed-input"
                                   >
                                     <svg
                                       height="12"

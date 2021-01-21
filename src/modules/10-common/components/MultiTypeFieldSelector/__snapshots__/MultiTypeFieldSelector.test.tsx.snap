@@ -29,6 +29,7 @@ exports[`<MultiTypeFieldSelector /> tests "Fixed value" renders children: Fixed 
                 >
                   <span
                     class="bp3-icon StyledProps--main icon fixed"
+                    data-icon="fixed-input"
                   >
                     <svg
                       height="10"
@@ -159,6 +160,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
                 >
                   <span
                     class="bp3-icon StyledProps--main icon runtime"
+                    data-icon="runtime-input"
                   >
                     <svg
                       height="10"
@@ -228,6 +230,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed 
                 >
                   <span
                     class="bp3-icon StyledProps--main icon fixed"
+                    data-icon="fixed-input"
                   >
                     <svg
                       height="10"
@@ -311,6 +314,7 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: Run
                 >
                   <span
                     class="bp3-icon StyledProps--main icon runtime"
+                    data-icon="runtime-input"
                   >
                     <svg
                       height="10"

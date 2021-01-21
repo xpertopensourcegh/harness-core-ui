@@ -13,6 +13,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="secret-ssh"
         >
           <svg
             height="37"
@@ -267,6 +268,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="secret-ssh"
         >
           <svg
             height="37"
@@ -576,6 +578,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="key-main"
                             style="height: 12px;"
                           >
                             <svg
@@ -634,6 +637,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                         >
                           <span
                             class="bp3-icon StyledProps--main"
+                            data-icon="key-main"
                             style="height: 12px;"
                           >
                             <svg
@@ -739,6 +743,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
+          data-icon="secret-ssh"
         >
           <svg
             height="37"
