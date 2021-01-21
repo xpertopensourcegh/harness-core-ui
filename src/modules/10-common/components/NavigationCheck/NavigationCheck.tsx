@@ -51,6 +51,9 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation, textPro
       // Navigate to the previous blocked location with your navigate function
       navigate(lastLocation.pathname)
     }
+
+    // reset back to false
+    confirmedNavigation && setConfirmedNavigation(false)
   }, [confirmedNavigation, lastLocation])
 
   return (

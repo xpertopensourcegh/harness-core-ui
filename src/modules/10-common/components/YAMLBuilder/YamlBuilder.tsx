@@ -243,6 +243,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           .then((errors: Diagnostic[]) => {
             if (errors && Array.isArray(errors) && errors.length > 0) {
               processYAMLValidationErrors(currentYaml, errors)
+            } else {
+              setYamlValidationErrors(new Map())
             }
           })
           .catch((error: string) => {
