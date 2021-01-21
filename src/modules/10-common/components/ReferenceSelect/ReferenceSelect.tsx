@@ -5,28 +5,25 @@ import {
   ExpressionAndRuntimeTypeProps,
   ExpressionAndRuntimeType,
   MultiTypeInputValue,
-  MultiTypeInputType,
   Layout,
   Text,
   Color,
-  FixedTypeComponentProps
+  FixedTypeComponentProps,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { Position, Classes } from '@blueprintjs/core'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import { EntityReferenceProps, EntityReference } from '../EntityReference/EntityReference'
 import css from './ReferenceSelect.module.scss'
-
 export interface MinimalObject {
   identifier?: string
   name?: string
 }
-
 export interface Item {
   label: string
   value: string
   scope: Scope
 }
-
 export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<EntityReferenceProps<T>, 'onSelect'> {
   name: string
   placeholder: string
@@ -40,7 +37,6 @@ export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<Enti
   onChange: (record: T, scope: Scope) => void
   disabled?: boolean
 }
-
 export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectProps<T>): JSX.Element {
   const {
     name,
@@ -105,12 +101,10 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     </Popover>
   )
 }
-
 interface MultiTypeReferenceInputProps<T extends MinimalObject>
   extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent' | 'fixedTypeComponentProps'> {
   referenceSelectProps: Omit<ReferenceSelectProps<T>, 'onChange'>
 }
-
 function MultiTypeReferenceInputFixedTypeComponent<T extends MinimalObject>(
   props: FixedTypeComponentProps & MultiTypeReferenceInputProps<T>['referenceSelectProps']
 ): React.ReactElement {
@@ -126,10 +120,8 @@ function MultiTypeReferenceInputFixedTypeComponent<T extends MinimalObject>(
     />
   )
 }
-
 export function MultiTypeReferenceInput<T extends MinimalObject>(props: MultiTypeReferenceInputProps<T>): JSX.Element {
   const { referenceSelectProps, ...rest } = props
-
   return (
     <ExpressionAndRuntimeType<MultiTypeReferenceInputProps<T>['referenceSelectProps']>
       width={referenceSelectProps.width}

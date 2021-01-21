@@ -1,10 +1,12 @@
 import React from 'react'
-import { Button, Layout, StepProps, Icon, Heading, Text, Container, Color } from '@wings-software/uicore'
+import { Button, Layout, StepProps, Tabs, Tab, Icon, Heading, Text, Container, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
+import CommonProblems from '@delegates/components/CreateDelegate/K8sDelegate/StepSuccessVerification/CommonProblems/CommonProblems'
 import addFile from './images/addFile.svg'
 import css from '../CreateK8sDelegate.module.scss'
 
 const StepSuccessVerification: React.FC<StepProps<null>> = props => {
+  const showTab = true
   const { previousStep } = props
   const { getString } = useStrings()
   const onClickBack = (): void => {
@@ -12,7 +14,6 @@ const StepSuccessVerification: React.FC<StepProps<null>> = props => {
   }
   return (
     <>
-      <Layout.Horizontal spacing="large" className={css.verificationHeader}></Layout.Horizontal>
       <Layout.Horizontal className={css.verificationBody}>
         <Layout.Vertical className={css.panelLeft}>
           <Layout.Horizontal>
@@ -30,7 +31,7 @@ const StepSuccessVerification: React.FC<StepProps<null>> = props => {
               {getString('delegate.successVerification.description2')}
             </Text>
           </Layout.Horizontal>
-          <Layout.Horizontal className={css.verificationFieldWrapper}>
+          <Layout.Horizontal spacing="medium" className={css.verificationFieldWrapper}>
             <Container
               intent="primary"
               padding="small"
@@ -49,22 +50,45 @@ const StepSuccessVerification: React.FC<StepProps<null>> = props => {
         <Layout.Vertical>
           <hr className={css.verticalLine} />
         </Layout.Vertical>
-        <Layout.Vertical spacing="xxlarge">
-          <Layout.Horizontal padding="large">
-            <Icon size={16} name="steps-spinner" style={{ marginRight: '12px' }} />
-            <Text font="small">{getString('delegate.successVerification.checkDelegateInstalled')}</Text>
-          </Layout.Horizontal>
+        {showTab ? (
           <Layout.Vertical padding="large">
-            <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
-              <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
-              <Text font={{ weight: 'bold' }}>{getString('delegate.successVerification.heartbeatReceived')}</Text>
+            <Layout.Horizontal spacing="small">
+              <Icon name="warning-sign" color={Color.ORANGE_600} size={16} />
+              <Text>{getString('delegate.delegateNotInstalled.title')}</Text>
             </Layout.Horizontal>
-            <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
-              <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
-              <Text font={{ weight: 'bold' }}>{getString('delegate.successVerification.delegateInitialized')}</Text>
+            <Layout.Horizontal spacing="small">
+              <Tabs id="delegateNotInstalledTabs">
+                <Tab
+                  id="tabId1"
+                  title={<Text>{getString('delegate.delegateNotInstalled.tabs.commonProblems.title')}</Text>}
+                  panel={<CommonProblems />}
+                />
+                <Tab
+                  id="tabId2"
+                  title={<Text>{getString('delegate.delegateNotInstalled.tabs.troubleshooting')}</Text>}
+                  panel={<div>Hello</div>}
+                />
+              </Tabs>
             </Layout.Horizontal>
           </Layout.Vertical>
-        </Layout.Vertical>
+        ) : (
+          <Layout.Vertical spacing="xxlarge">
+            <Layout.Horizontal padding="large">
+              <Icon size={16} name="steps-spinner" style={{ marginRight: '12px' }} />
+              <Text font="small">{getString('delegate.successVerification.checkDelegateInstalled')}</Text>
+            </Layout.Horizontal>
+            <Layout.Vertical padding="large">
+              <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
+                <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
+                <Text font={{ weight: 'bold' }}>{getString('delegate.successVerification.heartbeatReceived')}</Text>
+              </Layout.Horizontal>
+              <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
+                <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
+                <Text font={{ weight: 'bold' }}>{getString('delegate.successVerification.delegateInitialized')}</Text>
+              </Layout.Horizontal>
+            </Layout.Vertical>
+          </Layout.Vertical>
+        )}
       </Layout.Horizontal>
       <Layout.Horizontal padding="xxxlarge">
         <Button

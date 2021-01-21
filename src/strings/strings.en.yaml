@@ -418,6 +418,23 @@ delegate:
     checkDelegateInstalled: Checking if the delegate is installed. It might take 1-2 minutes for the installation.
     heartbeatReceived: Heartbeat received
     delegateInitialized: Delegate initialized
+  delegateNotInstalled:
+    title: Delegate not installed
+    verifyField1: kubectl describe pod <your-delegate-pod> -n harness-delegate
+    verifyField2: kubectl logs -f <harness-delegate> -n harness-delegate
+    verifyField3: kubectl describe pod_name -n harness-delegate
+    tabs:
+      commonProblems:
+        title: Common Problems
+        hereIsWhatYouCanDo: Here is what you can do
+        troubleshoot: Troubleshoot
+        checkTheDelegateLogs: Check the Delegate Logs
+        description1:
+          If the pod is not up, in your cluster you see the delegate pod in a CrashLoopBackOff:Kubernetes CLuster
+          Resources are not available. Check the Kubernetes Cluster Resources (CPU, Memory)
+        description2: If the Delegate didn’t reach a healthy state
+        checkEndPoint: Check the Health Check Endpoint in the Delegate. Search YAML for healthCheckEndpoint
+      troubleshooting: Troubleshooting
   cardData:
     docker:
       text: 'Runs Harness Delegate as a Docker container on any Linux or Mac.'
