@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StepWizard, Color, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { StepWizard, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
@@ -31,7 +31,7 @@ const CreateGCRConnector: React.FC<CreateGCRConnectorProps> = props => {
   return (
     <StepWizard
       icon={getConnectorIconByType('Gcr')}
-      iconProps={{ size: 37, color: Color.WHITE }}
+      iconProps={{ size: 37 }}
       title={getConnectorTitleTextByType('Gcr')}
       className={css.wrapper}
     >

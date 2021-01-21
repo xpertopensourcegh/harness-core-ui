@@ -494,7 +494,8 @@ export default function ArtifactsSelection({
       imagePath: spec.imagePath,
       tagType: spec.tag ? TagTypes.Value : TagTypes.Regex,
       tag: spec.tag,
-      tagRegex: spec.tagRegex
+      tagRegex: spec.tagRegex,
+      ...(selectedArtifactType === ENABLED_ARTIFACT_TYPES.GCR.type ? { registryHostname: spec.registryHostname } : {})
     }
 
     return initialValues

@@ -71,7 +71,7 @@ export const GCRDetailStep: React.FC<StepProps<any> & GCRDetailStepProps> = prop
                   <Button
                     intent="primary"
                     minimal
-                    text={i18n.existingDocker.addnewConnector}
+                    text={getString('newArtifactServer')}
                     icon="plus"
                     onClick={() => handleViewChange()}
                     className={css.addNewArtifact}
@@ -80,7 +80,7 @@ export const GCRDetailStep: React.FC<StepProps<any> & GCRDetailStepProps> = prop
               </div>
             </div>
 
-            <Button intent="primary" type="submit" text={i18n.existingDocker.save} className={css.saveBtn} />
+            <Button intent="primary" type="submit" text={getString('continue')} className={css.saveBtn} />
           </Form>
         )}
       </Formik>

@@ -85,6 +85,7 @@ fileFolderPathText: File/Folder Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 addOverrideSet: + Add Predefined Set
+newArtifactServer: New Artifact Server
 clickToCopy: Click to copy
 copiedToClipboard: Copied to clipboard
 multipleFilesHelpText:

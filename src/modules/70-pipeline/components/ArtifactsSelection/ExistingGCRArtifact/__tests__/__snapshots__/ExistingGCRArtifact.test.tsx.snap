@@ -13,7 +13,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
           class="StepWizard--header"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+            class="bp3-icon StyledProps--main"
           >
             <svg
               height="37"
@@ -267,7 +267,7 @@ exports[`ExistingDockerArtifact tests renders without crashing 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save
+                  Continue
                 </span>
               </button>
             </form>
