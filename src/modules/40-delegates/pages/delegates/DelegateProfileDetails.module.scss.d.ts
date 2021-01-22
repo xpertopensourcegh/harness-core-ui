@@ -2,9 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
+  readonly panel: string
   readonly card: string
   readonly scopeCard: string
-  readonly panel: string
   readonly information: string
   readonly overview: string
   readonly inputSet: string

@@ -75,3 +75,26 @@
 .lightBg {
   color: #b8bfca;
 }
+
+.errorSummary {
+  padding: var(--spacing-large) !important;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.details {
+  padding: var(--spacing-medium) !important;
+}
+
+.summaryPopover {
+  svg {
+    path {
+      fill: var(--black) !important;
+    }
+  }
+}
+
+.items {
+  padding-bottom: var(--spacing-xsmall);
+  font-size: small;
+}

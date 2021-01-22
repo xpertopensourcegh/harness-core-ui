@@ -22,16 +22,18 @@ import { sanitize } from '@common/utils/JSONUtils'
 import {
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
-  getYAMLPathToValidationErrorMap
+  getYAMLPathToValidationErrorMap,
+  DEFAULT_YAML_PATH
 } from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
-import { debounce } from 'lodash-es'
+import { debounce, truncate } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
@@ -66,6 +68,8 @@ export const EditorTheme = {
 }
 
 const getTheme = (theme: Theme) => (theme === 'DARK' ? EDITOR_BASE_DARK_THEME : EDITOR_BASE_LIGHT_THEME)
+
+const MAX_YAML_PARSING_ERR_MSSG_LENGTH = 80
 
 const setUpEditor = (theme: Theme): void => {
   //@ts-ignore
@@ -241,32 +245,19 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       if (schema && currentYaml) {
         validateYAMLWithSchema(currentYaml, getSchemaWithLanguageSettings(schema))
           .then((errors: Diagnostic[]) => {
-            if (errors && Array.isArray(errors) && errors.length > 0) {
-              processYAMLValidationErrors(currentYaml, errors)
-            } else {
-              setYamlValidationErrors(new Map())
-            }
+            processYAMLValidationErrors(currentYaml, errors)
           })
           .catch((error: string) => {
             showError(error, 5000)
           })
       }
     } catch (err) {
-      showError(getString('connectors.yamlError'))
+      showError(getString('yamlBuilder.yamlError'))
     }
   }
 
   const processYAMLValidationErrors = (currentYaml: string, validationErrors: Diagnostic[]): void => {
-    const validationErrorMap = getYAMLPathToValidationErrorMap(
-      currentYaml,
-      validationErrors,
-      editorRef?.current?.editor
-    )
-    if (yamlValidationErrors?.size == 0) {
-      setYamlValidationErrors(validationErrorMap)
-    } else {
-      setYamlValidationErrors(new Map([...(yamlValidationErrors || []), ...(validationErrorMap || [])]))
-    }
+    setYamlValidationErrors(getYAMLPathToValidationErrorMap(currentYaml, validationErrors, editorRef?.current?.editor))
   }
 
   const editorDidMount = (editor: any) => {
@@ -393,8 +384,38 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
         )
       }
     } catch (err) {
-      showError(getString('connectors.yamlError'))
+      showError(getString('yamlBuilder.yamlError'))
     }
+  }
+
+  const getErrorSummary = () => {
+    const summary: React.ReactElement[] = []
+    yamlValidationErrors?.forEach((value, key) => {
+      const errorItemSummary = (
+        <ul>
+          <li>
+            {key !== DEFAULT_YAML_PATH
+              ? `${getString('yamlBuilder.yamlPath')} ${key}`
+              : getString('yamlBuilder.yamlError')}
+          </li>
+          <ul className={css.details}>
+            {Array.isArray(value) ? (
+              value?.map(item => (
+                <li key={item} className={css.items}>
+                  {item}
+                </li>
+              ))
+            ) : (
+              <div className={css.items} title={value}>
+                {truncate(value, { length: MAX_YAML_PARSING_ERR_MSSG_LENGTH })}
+              </div>
+            )}
+          </ul>
+        </ul>
+      )
+      summary.push(errorItemSummary)
+    })
+    return <div className={css.errorSummary}>{summary}</div>
   }
 
   return (
@@ -412,12 +433,21 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
               <span className={cx(css.filePath, css.flexCenter, { [css.lightBg]: theme === 'DARK' })}>{fileName}</span>
               {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
             </div>
-            {yamlValidationErrors && yamlValidationErrors.size > 0 ? (
-              <div className={cx(css.flexCenter, css.validationStatus)}>
-                <Icon name="main-issue-filled" size={14} className={css.validationIcon} />
-                <span className={css.invalidYaml}>Invalid</span>
-              </div>
-            ) : null}
+            <div className={cx(css.flexCenter, css.validationStatus)}>
+              {yamlValidationErrors && yamlValidationErrors.size > 0 ? (
+                <Popover
+                  interactionKind={PopoverInteractionKind.HOVER}
+                  position={Position.TOP}
+                  content={getErrorSummary()}
+                  popoverClassName={css.summaryPopover}
+                >
+                  <div>
+                    <Icon name="main-issue-filled" size={14} className={css.validationIcon} />
+                    <span className={css.invalidYaml}>Invalid</span>
+                  </div>
+                </Popover>
+              ) : null}
+            </div>
           </div>
           <div className={css.editor}>
             <MonacoEditor

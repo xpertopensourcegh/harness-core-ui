@@ -5,7 +5,7 @@ import { Connectors } from '@connectors/constants'
 import type { DetailedReactHTMLElement } from 'react'
 import React from 'react'
 
-const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
+export const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
 /**
  * @description Find json path(s) of a given node in json from it's nearest parent

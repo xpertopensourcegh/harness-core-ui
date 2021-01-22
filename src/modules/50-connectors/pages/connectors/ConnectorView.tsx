@@ -141,7 +141,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
       if (connectorJSONEq) {
         const errorMap = getYAMLValidationErrorMap?.()
         if (errorMap && errorMap.size > 0) {
-          showError(getString('connectors.yamlError'))
+          showError(getString('yamlBuilder.yamlError'))
         } else {
           onSubmit(connectorJSONEq)
         }
@@ -150,7 +150,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
       }
     } /* istanbul ignore next */ catch (err) {
       if (err?.toString().includes('YAMLSemanticError')) {
-        showError(getString('connectors.yamlError'))
+        showError(getString('yamlBuilder.yamlError'))
         return
       }
       const { name, message } = err

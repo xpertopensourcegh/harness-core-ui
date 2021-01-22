@@ -16,5 +16,9 @@ declare const styles: {
   readonly editor: string
   readonly darkBg: string
   readonly lightBg: string
+  readonly errorSummary: string
+  readonly details: string
+  readonly summaryPopover: string
+  readonly items: string
 }
 export default styles
