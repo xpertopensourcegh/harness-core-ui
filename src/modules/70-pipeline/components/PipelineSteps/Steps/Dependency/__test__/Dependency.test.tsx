@@ -8,6 +8,10 @@ import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { Dependency } from '../Dependency'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
   loading: false,
   refetch: jest.fn(),

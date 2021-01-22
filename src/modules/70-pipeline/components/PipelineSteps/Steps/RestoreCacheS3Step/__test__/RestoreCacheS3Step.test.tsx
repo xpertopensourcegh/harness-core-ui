@@ -9,6 +9,10 @@ import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { RestoreCacheS3Step } from '../RestoreCacheS3Step'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 const fixedValues = {
   identifier: 'My_Restore_Cache_S3_Step',
   name: 'My Restore Cache S3 Step',

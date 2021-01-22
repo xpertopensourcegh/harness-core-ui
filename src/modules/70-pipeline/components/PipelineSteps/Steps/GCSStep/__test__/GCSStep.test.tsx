@@ -9,6 +9,10 @@ import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { GCSStep } from '../GCSStep'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 const runtimeValues = {
   identifier: 'My_GCS_Step',
   name: 'My GCS Step',

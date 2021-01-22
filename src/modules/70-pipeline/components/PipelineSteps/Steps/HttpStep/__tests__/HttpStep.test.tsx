@@ -6,6 +6,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { HttpStep } from '../HttpStep'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('Http Step', () => {
   beforeAll(() => {
     factory.registerStep(new HttpStep())

@@ -5,6 +5,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { K8sDeleteStep } from '../K8sDeleteStep'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('Test K8sBlueGreenDeployStep', () => {
   beforeEach(() => {
     factory.registerStep(new K8sDeleteStep())

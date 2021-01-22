@@ -9,6 +9,10 @@ import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { SaveCacheGCSStep } from '../SaveCacheGCSStep'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 const fixedValues = {
   identifier: 'My_Save_Cache_GCS_Step',
   name: 'My Save Cache GCS Step',

@@ -7,6 +7,10 @@ import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { K8sScaleStep } from '../K8sScaleStep'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('Test K8sBlueGreenDeployStep', () => {
   beforeEach(() => {
     factory.registerStep(new K8sScaleStep())

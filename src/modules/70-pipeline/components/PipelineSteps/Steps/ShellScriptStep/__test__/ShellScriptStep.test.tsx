@@ -6,6 +6,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { factory, TestStepWidget } from '../../__tests__/StepTestUtil'
 import { ShellScriptStep } from '../ShellScriptStep'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('Test Shell Script Step', () => {
   beforeEach(() => {
     factory.registerStep(new ShellScriptStep())

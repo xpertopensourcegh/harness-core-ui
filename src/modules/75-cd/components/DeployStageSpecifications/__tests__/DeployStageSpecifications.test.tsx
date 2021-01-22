@@ -11,6 +11,10 @@ import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/Step
 import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
 import DeployStageSpecifications from '../DeployStageSpecifications'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 factory.registerStep(new CustomVariables())
 
 const getPipelineContext = (): PipelineContextInterface => ({

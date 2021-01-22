@@ -5,6 +5,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { K8sRollingRollback } from '../K8sRollingRollback.stories'
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
+
 describe('Test K8sRollingRollback Step', () => {
   test('should render edit view', () => {
     const { container } = render(

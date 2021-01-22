@@ -5,9 +5,6 @@ import { StepWidgetWithFormikRef, StepWidgetProps } from '@pipeline/components/A
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
 
 class StepTestFactory extends AbstractStepFactory {
   protected type = 'test-factory'
