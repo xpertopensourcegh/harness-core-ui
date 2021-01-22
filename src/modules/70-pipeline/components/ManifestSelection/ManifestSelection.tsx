@@ -379,14 +379,19 @@ function ManifestListView({
                     enableConfigureOptions={false}
                   />
                 </div>
-                {getManifestInitialValues().gitFetchType === gitFetchTypes[0].value && (
+                <FormInput.Select
+                  name="gitFetchType"
+                  label={i18n.existingManifest.gitFetchTypeLabel}
+                  items={gitFetchTypes}
+                />
+                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
                   <FormInput.MultiTextInput
                     label={i18n.existingManifest.branchLabel}
                     placeholder={i18n.existingManifest.branchPlaceholder}
                     name="branch"
                   />
                 )}
-                {getManifestInitialValues().gitFetchType === gitFetchTypes[1].value && (
+                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
                   <FormInput.MultiTextInput
                     label={i18n.existingManifest.commitLabel}
                     placeholder={i18n.existingManifest.commitPlaceholder}

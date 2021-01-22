@@ -4,6 +4,7 @@ declare const styles: {
   readonly rowItem: string
   readonly type: string
   readonly server: string
+  readonly gitFetchTypeDropdwn: string
   readonly thead: string
   readonly sideCarBtn: string
   readonly overrideSetRow: string
