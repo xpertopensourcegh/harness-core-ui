@@ -184,10 +184,20 @@ jest.mock('services/cv', () => ({
           resource: mockDataWithInitiatedState
         }
       }
+    } else if (accountId === 'passed') {
+      const mockDataWithInitiatedState = cloneDeep(MockData)
+      mockDataWithInitiatedState[0].progressPercentage = 100
+      mockDataWithInitiatedState[0].status = 'VERIFICATION_PASSED'
+      mockDataWithInitiatedState[0].overallRisk = 5
+      return {
+        data: {
+          resource: mockDataWithInitiatedState
+        }
+      }
     } else if (accountId === 'failed') {
       const mockDataWithInitiatedState = cloneDeep(MockData)
       mockDataWithInitiatedState[0].progressPercentage = 45
-      mockDataWithInitiatedState[0].status = 'ERROR'
+      mockDataWithInitiatedState[0].status = 'VERIFICATION_FAILED'
       mockDataWithInitiatedState[0].overallRisk = 90
       return {
         data: {
@@ -394,5 +404,30 @@ describe('Unit tests for RecentActivityChanges', () => {
     const childNodes = container.querySelector('[class*="verificationProgress"]')?.children
     expect(childNodes?.length).toBe(3)
     expect(childNodes?.[0].innerHTML).toEqual('')
+  })
+
+  test('Ensure right status messaging is displayed when verification has passed', async () => {
+    const { container, getByText } = render(
+      <TestWrapper
+        path={TEST_PATH}
+        pathParams={{
+          accountId: 'passed',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_org'
+        }}
+      >
+        <RecentActivityChanges />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
+    expect(
+      getByText(
+        `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.passed} (${i18n.verificationProgressText.riskScore}: 5)`
+      )
+    )
+    const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
+    expect(progressMeter?.getAttribute('style')).toEqual('width: 100%;')
+    expect(progressMeter?.getAttribute('class')).toContain('heatmapColor1')
   })
 })

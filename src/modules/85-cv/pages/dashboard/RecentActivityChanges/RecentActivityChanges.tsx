@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { isNumber } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
 import {
   MetricCategoryNames,
   MetricCategoriesWithRiskScore
@@ -173,7 +174,7 @@ function activityTypeToIcon(activityType: ActivityVerificationResultDTO['activit
     case 'CONFIG':
     case 'OTHER':
     case 'CUSTOM':
-      return 'wrench'
+      return 'config-change'
     default:
       return 'custom-service'
   }
@@ -181,20 +182,24 @@ function activityTypeToIcon(activityType: ActivityVerificationResultDTO['activit
 
 function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgressWithRiskProps): JSX.Element {
   const { progressPercentage, overallRisk = 0, status, remainingTime, activityStartTime } = props
+  const { getString } = useStrings()
   let progressStatus = ''
   if (!isNumber(progressPercentage)) {
     progressStatus = ''
-  } else if (progressPercentage === 0 && (status === 'IN_PROGRESS' || status === 'NOT_STARTED')) {
+  } else if (status === 'NOT_STARTED') {
     progressStatus = i18n.verificationProgressText.initiated
-  } else if ((progressPercentage < 100 && status !== 'IN_PROGRESS') || progressPercentage === 100) {
-    progressStatus = `${i18n.verificationProgressText.verification} ${
-      status === 'VERIFICATION_PASSED' ? i18n.verificationProgressText.passed : i18n.verificationProgressText.failed
-    } (${i18n.verificationProgressText.riskScore}: ${overallRisk})`
-  } else if (progressPercentage < 100) {
+  } else if (status === 'IN_PROGRESS') {
     progressStatus = `${i18n.verificationProgressText.inProgress} (${
       remainingTime ? Math.floor(remainingTime / (1000 * 60)) : ''
     } ${i18n.verificationProgressText.remainingTime})`
+  } else if (status === 'VERIFICATION_FAILED') {
+    progressStatus = `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.failed} (${i18n.verificationProgressText.riskScore}: ${overallRisk})`
+  } else if (status === 'VERIFICATION_PASSED') {
+    progressStatus = `${i18n.verificationProgressText.verification} ${i18n.verificationProgressText.passed} (${i18n.verificationProgressText.riskScore}: ${overallRisk})`
+  } else if (status === 'ERROR') {
+    progressStatus = getString('cv.verificationErrored')
   }
+
   return (
     <Container className={css.verificationProgress}>
       <Text color={Color.BLACK} font={{ size: 'small' }}>
@@ -216,8 +221,8 @@ export default function ActivityChanges(): JSX.Element {
   const { loading, error, data, refetch: refetchActivities } = useGetRecentActivityVerificationResults({
     queryParams: {
       accountId,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      projectIdentifier,
+      orgIdentifier,
       size: 5
     }
   })
@@ -251,8 +256,8 @@ export default function ActivityChanges(): JSX.Element {
           onClick={() =>
             history.push(
               routes.toCVAdminSetup({
-                projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string,
+                projectIdentifier,
+                orgIdentifier,
                 accountId
               })
             )
@@ -287,8 +292,8 @@ export default function ActivityChanges(): JSX.Element {
               history.push(
                 routes.toCVActivityChangesPage({
                   activityId: recentActivity.activityId as string,
-                  projectIdentifier: projectIdentifier as string,
-                  orgIdentifier: orgIdentifier as string,
+                  projectIdentifier,
+                  orgIdentifier,
                   accountId
                 })
               )

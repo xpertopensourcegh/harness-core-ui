@@ -1115,6 +1115,7 @@ cv:
   harnessService: 'Harness Service'
   harnessEnvironment: 'Harness Environment'
   selectOrCreateEnv: 'Select or create an environment'
+  verificationErrored: 'Verification errored'
   overviewPage:
     recentChangeVerifications: 'Recent Change Verifications'
   riskCardTooltip:
