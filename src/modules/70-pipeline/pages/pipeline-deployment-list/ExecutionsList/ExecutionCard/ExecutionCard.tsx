@@ -30,8 +30,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
 
   const [showCommits, setShowCommits] = useState(false)
 
-  const HAS_CD = pipelineExecution?.modules?.includes('cd')
-  const HAS_CI = pipelineExecution?.modules?.includes('ci')
+  const HAS_CD = pipelineExecution?.modules?.includes('cd') || !isEmpty(pipelineExecution?.moduleInfo?.cd)
+  const HAS_CI = pipelineExecution?.modules?.includes('ci') || !isEmpty(pipelineExecution?.moduleInfo?.ci)
 
   // TODO: remove type cast
   const ciBuildData = (pipelineExecution?.moduleInfo?.ci?.ciExecutionInfoDTO as unknown) as CIBuildResponseDTO

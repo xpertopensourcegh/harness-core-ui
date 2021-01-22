@@ -5,9 +5,12 @@ import { Popover, Position } from '@blueprintjs/core'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { String } from 'framework/exports'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
-
+import { ServicePopoverCard } from '@pipeline/components/ServicePopoverCard/ServicePopoverCard'
 import type { CDPipelineModuleInfo, CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
+
 import css from '../ExecutionCard.module.scss'
+
+const SERVICES_LIMIT = 2
 
 export interface ServicesDeployedProps {
   pipelineExecution: PipelineExecutionSummary
@@ -33,14 +36,19 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
 
     return map
   }, [pipelineExecution])
-  const items = showMore && length > 2 ? serviceIdentifiers : serviceIdentifiers?.slice(0, 2)
+  const items = showMore && length > SERVICES_LIMIT ? serviceIdentifiers : serviceIdentifiers?.slice(0, SERVICES_LIMIT)
   function toggle(): void {
     setShowMore(status => !status)
   }
 
   return (
     <div className={css.servicesDeployed}>
-      <String stringID="executionList.servicesDeployedText" vars={{ size: length }} />
+      <String
+        tagName="div"
+        className={css.serviceLabel}
+        stringID="executionList.servicesDeployedText"
+        vars={{ size: length }}
+      />
       <div className={css.servicesList}>
         {items.map((identifier: string) => {
           const service = servicesMap.get(identifier)
@@ -54,53 +62,23 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
               targetTagName="div"
               interactionKind="hover"
               position={Position.BOTTOM_RIGHT}
+              className={css.serviceWrapper}
             >
               <div className={css.serviceName}>{service.displayName}</div>
-              <div className={css.servicesDeployedHoverCard}>
-                {service?.artifacts?.primary ? (
-                  <>
-                    <String tagName="div" className={css.title} stringID="primaryArtifactText" />
-                    <String
-                      tagName="div"
-                      stringID="artifactDisplay"
-                      useRichText
-                      vars={{
-                        image: ((service.artifacts.primary as unknown) as any).imagePath,
-                        tag: ((service.artifacts.primary as unknown) as any).tag
-                      }}
-                    />
-                  </>
-                ) : null}
-                {service?.artifacts?.sidecars && service.artifacts.sidecars.length > 0 ? (
-                  <>
-                    <String tagName="div" className={css.title} stringID="sidecarsText" />
-                    {service.artifacts.sidecars.map((artifact, index) => (
-                      <String
-                        tagName="div"
-                        key={index}
-                        stringID="artifactDisplay"
-                        useRichText
-                        vars={{
-                          image: ((artifact as unknown) as any).imagePath,
-                          tag: ((artifact as unknown) as any).tag
-                        }}
-                      />
-                    ))}
-                  </>
-                ) : null}
-              </div>
+              <ServicePopoverCard service={service} />
             </Popover>
           )
         })}
       </div>
-      {length > 2 ? (
+      {length > SERVICES_LIMIT ? (
         <Button
           className={css.infoToggle}
-          icon={showMore ? 'chevron-up' : 'chevron-down'}
+          rightIcon={showMore ? 'chevron-up' : 'chevron-down'}
           minimal
           small
           intent="primary"
           onClick={toggle}
+          text={showMore ? null : `(+${length - SERVICES_LIMIT})`}
         />
       ) : null}
     </div>

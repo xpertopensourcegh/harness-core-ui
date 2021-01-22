@@ -3,11 +3,14 @@ import cx from 'classnames'
 import { first, isEmpty, isObject } from 'lodash-es'
 import { Color, Icon, Link, Popover, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
-import { useStrings, String } from 'framework/exports'
+
+import { useStrings } from 'framework/exports'
 import type { CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import { BuildBranchBadge, BuildPullRequestBadge } from '@pipeline/exports'
 import { TagsPopover } from '@common/components'
+import { ServicePopoverCard } from '@pipeline/components/ServicePopoverCard/ServicePopoverCard'
+
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import ExecutionMetadataSection from './ExecutionMetadataSection/ExecutionMetadataSection'
 
@@ -119,56 +122,40 @@ export default function ExecutionMetadata(): React.ReactElement {
   const cdEntries: { label?: string; value: JSX.Element }[] = []
   if (HAS_CD) {
     cdEntries.push({
-      label: `Services (${services.length})`,
+      label: getString('servicesWithCount', { count: services.length }),
       value: (
-        <>
-          {services.map(service => (
+        <div className={css.servicesWrapper}>
+          {services.slice(0, 2).map(service => {
+            return (
+              <Popover
+                key={service.identifier}
+                wrapperTagName="div"
+                targetTagName="div"
+                interactionKind="hover"
+                position={Position.BOTTOM_RIGHT}
+                className={css.services}
+              >
+                <div>{service.displayName}</div>
+                <ServicePopoverCard service={service} />
+              </Popover>
+            )
+          })}
+          {services.length > 2 ? (
             <Popover
-              key={service.identifier}
               wrapperTagName="div"
               targetTagName="div"
               interactionKind="hover"
               position={Position.BOTTOM_RIGHT}
+              className={css.services}
             >
-              <span className={css.serviceName}>{service.displayName}</span>
-              <div className={css.servicesDeployedHoverCard}>
-                {service?.artifacts?.primary ? (
-                  <>
-                    <String tagName="div" className={css.title} stringID="primaryArtifactText" />
-                    <String
-                      tagName="div"
-                      stringID="artifactDisplay"
-                      useRichText
-                      vars={{
-                        image: ((service.artifacts.primary as unknown) as any).imagePath,
-                        tag: ((service.artifacts.primary as unknown) as any).tag
-                      }}
-                    />
-                  </>
-                ) : null}
-                {service?.artifacts?.sidecars && service.artifacts.sidecars.length > 0 ? (
-                  <>
-                    <String tagName="div" className={css.title} stringID="sidecarsText" />
-                    {service.artifacts.sidecars.map((artifact, index) => (
-                      <String
-                        tagName="div"
-                        key={index}
-                        stringID="artifactDisplay"
-                        useRichText
-                        vars={{
-                          image: ((artifact as unknown) as any).imagePath,
-                          tag: ((artifact as unknown) as any).tag
-                        }}
-                      />
-                    ))}
-                  </>
-                ) : null}
-              </div>
+              <div>(+{services.length - 2})</div>
+              <div>Table will come here</div>
             </Popover>
-          ))}
-        </>
+          ) : null}
+        </div>
       )
     })
+
     cdEntries.push({ label: `Environments (${services.length})`, value: <>{environments.join(', ')}</> })
   }
   // removed items from cdEntries

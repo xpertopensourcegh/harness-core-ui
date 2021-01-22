@@ -11,7 +11,7 @@ declare const styles: {
   readonly serviceName: string
   readonly ellipsis: string
   readonly moreBox: string
-  readonly servicesDeployedHoverCard: string
-  readonly title: string
+  readonly servicesWrapper: string
+  readonly services: string
 }
 export default styles

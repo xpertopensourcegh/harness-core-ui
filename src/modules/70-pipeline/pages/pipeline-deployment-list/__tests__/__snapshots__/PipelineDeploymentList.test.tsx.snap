@@ -292,9 +292,11 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                 <div
                   class="servicesDeployed"
                 >
-                  <span>
+                  <div
+                    class="serviceLabel"
+                  >
                     Services Deployed (0)
-                  </span>
+                  </div>
                   <div
                     class="servicesList"
                   />
@@ -982,9 +984,11 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                 <div
                   class="servicesDeployed"
                 >
-                  <span>
+                  <div
+                    class="serviceLabel"
+                  >
                     Services Deployed (0)
-                  </span>
+                  </div>
                   <div
                     class="servicesList"
                   />

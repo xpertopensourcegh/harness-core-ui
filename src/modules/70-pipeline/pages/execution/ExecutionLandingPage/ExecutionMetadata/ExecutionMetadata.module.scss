@@ -72,18 +72,22 @@
       margin: 1px !important;
     }
   }
-}
-.servicesDeployedHoverCard {
-  font-size: var(--font-size-small);
-  padding: var(--spacing-medium);
-  line-height: var(--sfont-size-medium);
 
-  & .title {
-    color: var(--grey-400);
-    margin-bottom: var(--spacing-xsmall);
+  .services-wrapper {
+    display: flex;
+  }
 
-    &:not(:first-child) {
-      margin-top: var(--spacing-medium);
+  .services {
+    display: inline-block;
+    cursor: pointer;
+
+    & :global(.bp3-popover-target) {
+      display: inline-block;
+    }
+
+    &:not(:last-child)::after {
+      content: ',';
+      margin-right: 2px;
     }
   }
 }

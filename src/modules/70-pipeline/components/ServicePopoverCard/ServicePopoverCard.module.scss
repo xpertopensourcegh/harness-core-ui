@@ -1,0 +1,14 @@
+.main {
+  font-size: var(--font-size-small);
+  padding: var(--spacing-medium);
+  line-height: var(--sfont-size-medium);
+
+  & .title {
+    color: var(--grey-400);
+    margin-bottom: var(--spacing-xsmall);
+
+    &:not(:first-child) {
+      margin-top: var(--spacing-medium);
+    }
+  }
+}

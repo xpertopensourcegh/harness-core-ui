@@ -72,6 +72,7 @@ filePaths: File Paths
 submit: Submit
 startTime: Start time
 services: Services
+servicesWithCount: '{{ $.services }} ({{ count }})'
 buildText: Build
 pipeline: Pipeline
 pipelineStudio: Pipeline Studio
@@ -85,6 +86,7 @@ production: Production
 nonProduction: Non Production
 primaryArtifactText: Primary Artifact
 artifactDisplay: '{{image}} (tag: #{{tag}})'
+noArtifact: No Artifact
 sidecarArtifactText: Sidecar Artifact
 sidecarsText: Sidecars
 manifestsText: Manifest

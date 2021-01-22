@@ -16,10 +16,11 @@ declare const styles: {
   readonly sectionTitle: string
   readonly actions: string
   readonly servicesDeployed: string
+  readonly serviceLabel: string
   readonly servicesList: string
   readonly serviceName: string
-  readonly servicesDeployedHoverCard: string
-  readonly buildInfo: string
   readonly infoToggle: string
+  readonly serviceWrapper: string
+  readonly buildInfo: string
 }
 export default styles
