@@ -42,7 +42,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
           return (
             <div className={css.ioRow} key={key}>
               <div className={css.key}>
-                <CopyText textToCopy={`${props.prefix}.${key}`}>{startCase(key)}</CopyText>
+                <CopyText textToCopy={`<+${props.prefix}.${key}>`}>{startCase(key)}</CopyText>
               </div>
               <div className={css.value}>{value}</div>
             </div>
