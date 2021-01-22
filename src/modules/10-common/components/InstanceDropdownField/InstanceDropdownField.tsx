@@ -158,7 +158,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
       <Popover
         disabled={disabledType}
         content={
-          <Menu>
+          <Menu className={css.popMenu}>
             <MenuItem
               text={getString('instanceFieldOptions.percentageText')}
               onClick={() => {
