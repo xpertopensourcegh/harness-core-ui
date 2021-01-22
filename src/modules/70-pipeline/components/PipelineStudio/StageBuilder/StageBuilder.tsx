@@ -209,7 +209,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
     dynamicPopoverHandler?.hide()
     model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId)
-    if (newStage.stage.name !== EmptyStageName) {
+    if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
     engine.repaintCanvas()
@@ -460,11 +460,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   },
                   false,
                   event,
-                  index
+                  index,
+                  false
                 )
               }
             } else {
-              addStage(dropNode, current?.parent?.parallel?.length > 0, event)
+              addStage(dropNode, current?.parent?.parallel?.length > 0, event, undefined, false)
             }
           }
         }

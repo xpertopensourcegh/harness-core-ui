@@ -161,6 +161,11 @@ export const removeNodeFromPipeline = (
           if (emptyParallel !== undefined && emptyParallel > -1) {
             data?.stages?.splice(emptyParallel, 1)
           }
+        } else if (parent.parallel.length === 1) {
+          const oneStageParallel = data?.stages?.indexOf(parent)
+          if (oneStageParallel !== undefined && oneStageParallel > -1) {
+            data?.stages?.splice(oneStageParallel, 1, parent.parallel[0])
+          }
         }
         updateStateMap && stageMap.delete(node.stage.identifier)
         return true

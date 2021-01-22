@@ -45,10 +45,10 @@ export function PipelineStages<T = {}>({
   const [type, setType] = React.useState(stageType)
 
   React.useEffect(() => {
-    if (type) {
-      setType(type)
+    if (stageType) {
+      setType(stageType)
     }
-  }, [type])
+  }, [stageType])
 
   React.useEffect(() => {
     if (showSelectMenu) {
@@ -74,7 +74,9 @@ export function PipelineStages<T = {}>({
           }}
         />
       )}
-      {!showSelectMenu && selected && stage && <>{React.cloneElement(stage, { ...selected, minimal, stageProps })}</>}
+      {!showSelectMenu && selected && stage && (
+        <>{React.cloneElement(stage, { ...selected, key: selected.type, minimal, stageProps })}</>
+      )}
       {!showMenu && showSelectMenu && type && stage && (
         <>
           {React.cloneElement(stage, {
