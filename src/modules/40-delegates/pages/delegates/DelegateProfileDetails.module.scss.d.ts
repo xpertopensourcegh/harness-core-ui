@@ -3,8 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly panel: string
-  readonly card: string
-  readonly scopeCard: string
   readonly information: string
   readonly overview: string
   readonly inputSet: string

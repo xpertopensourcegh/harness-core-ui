@@ -62,7 +62,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
         class="StyledProps--font StyledProps--main cardContainer"
       >
         <div
-          class="bp3-card bp3-elevation-0 Card--card overview card"
+          class="bp3-card bp3-elevation-0 Card--card overview"
         >
           <div
             class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
@@ -105,7 +105,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
         </div>
       </div>
       <div
-        class="bp3-card bp3-elevation-0 Card--card card initScript"
+        class="bp3-card bp3-elevation-0 Card--card initScript"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium"

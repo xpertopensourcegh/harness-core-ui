@@ -27,6 +27,7 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { CopyText } from '@common/components/CopyText/CopyText'
+import { toVariableStr } from '@common/utils/StringUtils'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
@@ -163,7 +164,9 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
     <div className={variableCss.variableListTable}>
       <>
         <CopyText
-          textToCopy={metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.fqn || ''}
+          textToCopy={toVariableStr(
+            metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.fqn || ''
+          )}
         >
           &lt;+{metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.localName || ''}&gt;
         </CopyText>
@@ -171,7 +174,11 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
         <Text>{initialValues.spec.skipDryRun === true ? 'true' : 'false'}</Text>
       </>
       <>
-        <CopyText textToCopy={metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.fqn || ''}>
+        <CopyText
+          textToCopy={toVariableStr(
+            metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.fqn || ''
+          )}
+        >
           &lt;+{metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.localName || ''}&gt;
         </CopyText>
         <Text>Boolean</Text>

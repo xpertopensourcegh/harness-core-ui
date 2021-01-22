@@ -262,7 +262,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
             >
               barcode
             </p>
@@ -489,7 +489,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
             >
               qa stage
             </p>
@@ -724,7 +724,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
             >
               Parallel 1
             </p>
@@ -865,7 +865,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
             >
               Parallel 2
             </p>
@@ -1067,7 +1067,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
             >
               stage 2
             </p>
@@ -1417,7 +1417,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
             >
               Badge
             </p>

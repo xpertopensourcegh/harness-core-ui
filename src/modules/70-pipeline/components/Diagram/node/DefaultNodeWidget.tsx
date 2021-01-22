@@ -2,6 +2,7 @@ import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button, Link } from '@wings-software/uicore'
 import cx from 'classnames'
+import { Position } from '@blueprintjs/core'
 import { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel.ts'
 import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
@@ -224,10 +225,11 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', lineHeight: '1.6' }}
         padding="xsmall"
         width={125}
         lineClamp={2}
+        tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
       >
         {options.name}
       </Text>

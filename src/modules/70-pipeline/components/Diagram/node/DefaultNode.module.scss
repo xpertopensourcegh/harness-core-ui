@@ -96,3 +96,11 @@
     white-space: break-spaces !important;
   }
 }
+
+.hoverName {
+  :global {
+    .bp3-popover-content p {
+      max-width: 200px !important;
+    }
+  }
+}

@@ -10,5 +10,6 @@ declare const styles: {
   readonly сonditional: string
   readonly iconGroup: string
   readonly addNode: string
+  readonly hoverName: string
 }
 export default styles

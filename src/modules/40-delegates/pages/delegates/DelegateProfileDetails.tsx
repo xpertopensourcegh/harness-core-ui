@@ -64,7 +64,7 @@ export default function DelegateProfileDetails(): JSX.Element {
         </Layout.Vertical>
         <Layout.Horizontal spacing="medium" className={css.configurationContainer}>
           <Container className={css.cardContainer}>
-            <Card key={`${profile?.uuid}-overview`} className={`${css.overview} ${css.card}`}>
+            <Card key={`${profile?.uuid}-overview`} className={`${css.overview}`}>
               <Layout.Vertical spacing="large">
                 <div>
                   <Text font="medium">{getString('overview')}</Text>
@@ -96,13 +96,13 @@ export default function DelegateProfileDetails(): JSX.Element {
               </Layout.Vertical>
             </Card>
             {profile?.scopingRules && profile?.scopingRules.length > 0 && (
-              <Card className={`${css.card} ${css.scopeCard}`}>
+              <Card>
                 <Text font="medium">{getString('delegate.Scope')} </Text>
                 <Text font="normal">{getString('delegate.ScopeDescription')}</Text>
               </Card>
             )}
           </Container>
-          <Card className={`${css.card} ${css.initScript}`}>
+          <Card className={`${css.initScript}`}>
             <Text font="medium"> {getString('delegate.Init_Script')}</Text>
             <CodeBlock allowCopy format="pre" snippet={profile?.startupScript} />
           </Card>
