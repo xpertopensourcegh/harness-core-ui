@@ -12,12 +12,14 @@ import {
   Icon,
   Color
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from '@common/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { String, useStrings } from 'framework/exports'
@@ -234,7 +236,10 @@ const SecondStep = (props: any): JSX.Element => {
           props.closeModal()
         }}
       >
-        {(formik: { values: { gitFetchType: string; filePath: { path: string; uuid: string }[] } }) => (
+        {(formik: {
+          setFieldValue: (a: string, b: string) => void
+          values: { gitFetchType: string; branch: string; filePath: { path: string; uuid: string }[] }
+        }) => (
           <Form className={css.formContainer}>
             <FormInput.Text
               name="identifier"
@@ -242,14 +247,30 @@ const SecondStep = (props: any): JSX.Element => {
               placeholder={i18n.STEP_ONE.idPlaceholder}
             />
             <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
+            <div>
+              {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                <FormInput.MultiTextInput
+                  label={i18n.STEP_TWO.branchLabel}
+                  placeholder={i18n.STEP_TWO.branchPlaceholder}
+                  name="branch"
+                  className={cx({
+                    [css.runtimeInput]: getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
+                  })}
+                />
+              )}
+              {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                <ConfigureOptions
+                  value={formik.values?.branch}
+                  type="String"
+                  variableName="branch"
+                  showRequiredField={false}
+                  showDefaultField={false}
+                  showAdvanced={true}
+                  onChange={value => formik.setFieldValue('branch', value)}
+                />
+              )}
+            </div>
 
-            {formik.values?.gitFetchType === gitFetchTypes[0].value && (
-              <FormInput.MultiTextInput
-                label={i18n.STEP_TWO.branchLabel}
-                placeholder={i18n.STEP_TWO.branchPlaceholder}
-                name="branch"
-              />
-            )}
             {formik.values?.gitFetchType === gitFetchTypes[1].value && (
               <FormInput.MultiTextInput
                 label={i18n.STEP_TWO.commitLabel}

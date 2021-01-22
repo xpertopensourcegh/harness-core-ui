@@ -17,7 +17,15 @@
     padding: var(--spacing-large) 0 var(--spacing-large) var(--spacing-large) !important;
   }
   .formContainer {
-    width: 60%;
+    :global {
+      .bp3-form-group {
+        width: 60%;
+      }
+    }
+
+    .runtime-input {
+      display: inline-block;
+    }
     height: 100%;
   }
   .bottomButtons {

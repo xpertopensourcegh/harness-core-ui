@@ -1,5 +1,5 @@
 import React from 'react'
-import { Classes, ITreeNode } from '@blueprintjs/core'
+import { Classes, ITreeNode, Tooltip } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -384,11 +384,14 @@ function RunPipelineFormBasic({
                         checked={skipPreFlightCheck}
                         onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
                       />
-                      <Checkbox
-                        label={i18n.notifyOnlyMe}
-                        checked={notifyOnlyMe}
-                        onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
-                      />
+                      <Tooltip position="top" content={getString('featureNA')}>
+                        <Checkbox
+                          disabled
+                          label={i18n.notifyOnlyMe}
+                          checked={notifyOnlyMe}
+                          onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                        />
+                      </Tooltip>
                     </Layout.Horizontal>
                     <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
                       {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (

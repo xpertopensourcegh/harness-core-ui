@@ -122,33 +122,33 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
 
                       <Text>{variable.type}</Text>
                       <div className={css.valueRow}>
-                        {variable.type === VariableTypes.Secret ? (
-                          <MultiTypeSecretInput name={`variables[${index}].value`} label="" />
-                        ) : (
-                          <FormInput.MultiTextInput
-                            className="variableInput"
-                            name={`variables[${index}].value`}
-                            label=""
-                            multiTextInputProps={{
-                              textProps: {
-                                disabled: !initialValues.canAddVariable,
-                                type: variable.type === VariableTypes.Number ? 'number' : 'text'
-                              },
-                              mentionsInfo: {
-                                data: done =>
-                                  done([
-                                    'app.name',
-                                    'app.description',
-                                    'pipeline.name',
-                                    'pipeline.description',
-                                    'pipeline.identifier',
-                                    'pipeline.stage.qa.displayName'
-                                  ])
-                              }
-                            }}
-                          />
-                        )}
                         <div>
+                          {variable.type === VariableTypes.Secret ? (
+                            <MultiTypeSecretInput name={`variables[${index}].value`} label="" />
+                          ) : (
+                            <FormInput.MultiTextInput
+                              className="variableInput"
+                              name={`variables[${index}].value`}
+                              label=""
+                              multiTextInputProps={{
+                                textProps: {
+                                  disabled: !initialValues.canAddVariable,
+                                  type: variable.type === VariableTypes.Number ? 'number' : 'text'
+                                },
+                                mentionsInfo: {
+                                  data: done =>
+                                    done([
+                                      'app.name',
+                                      'app.description',
+                                      'pipeline.name',
+                                      'pipeline.description',
+                                      'pipeline.identifier',
+                                      'pipeline.stage.qa.displayName'
+                                    ])
+                                }
+                              }}
+                            />
+                          )}
                           {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
                             <ConfigureOptions
                               value={variable.value as string}
@@ -159,6 +159,8 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               }}
                             />
                           ) : null}
+                        </div>
+                        <div>
                           {initialValues.canAddVariable ? (
                             <section className={css.actionButtons}>
                               <Button

@@ -3,6 +3,7 @@
 declare const styles: {
   readonly exampleWizard: string
   readonly formContainer: string
+  readonly runtimeInput: string
   readonly bottomButtons: string
   readonly formContainerStepOne: string
   readonly drag: string

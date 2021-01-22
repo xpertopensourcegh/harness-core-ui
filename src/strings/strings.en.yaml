@@ -1,6 +1,7 @@
 ---
 harness: Harness # Name of the company
 featureFlagsText: Feature Flags
+featureNA: This feature is not available as of now
 logView: Log View
 projectsText: Projects
 orgsText: Organizations
@@ -819,6 +820,7 @@ pipelineSteps:
       branch: 'Branch'
 
     serviceSpecifications:
+      serviceDefinition: Service Definition
       useFromStageLabel: 'Use from Stage'
       deploymentTypes:
         artifacts: 'Artifacts'

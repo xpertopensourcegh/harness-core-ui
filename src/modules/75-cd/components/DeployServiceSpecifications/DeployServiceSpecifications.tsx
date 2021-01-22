@@ -25,7 +25,7 @@ import {
   StepWidget,
   StepViewType
 } from '@pipeline/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
 
 import OverrideSets from '@pipeline/components/OverrideSets/OverrideSets'
 import type { K8SDirectServiceStep } from '@pipeline/components/PipelineSteps/Steps/K8sServiceSpec/K8sServiceSpec'
@@ -247,7 +247,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
     }
   }
   React.useEffect(() => {
-    if (isEmpty(stage?.stage?.spec)) {
+    if (stage?.stage?.spec) {
       if (stage.stage?.type === getString('deploymentText')) {
         let hasDeploymentStages = false
         for (let index = 0; index < stageIndex; index++) {
@@ -430,7 +430,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
           </Layout.Vertical>
           <div className={css.serviceSection}>
             <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
-              {i18n.serviceSpecificationLabel}
+              {<String stringID="pipelineSteps.deploy.serviceSpecifications.serviceDefinition" />}
             </Layout.Vertical>
             <div className={css.artifactType}>
               <div>
@@ -449,7 +449,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
                   <div className={css.stageOverridesTab}>
                     <Button
                       minimal
-                      disabled={stageIndex === 0}
+                      disabled={true}
                       text={i18n.stageOverrideLabel}
                       onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
                     />
@@ -497,7 +497,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
         </>
       )}
       {setupModeType === setupMode.PROPAGATE && checkedItems.overrideSetCheckbox && (
-        <div className={css.artifactType}>
+        <div className={cx(css.artifactType, css.overrideAlignCenter)}>
           <Tabs id="serviceSpecifications" onChange={handleTabChange}>
             <Tab
               id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}

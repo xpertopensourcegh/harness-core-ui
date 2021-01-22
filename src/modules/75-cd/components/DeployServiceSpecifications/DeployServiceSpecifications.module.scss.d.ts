@@ -14,6 +14,7 @@ declare const styles: {
   readonly selected: string
   readonly overideCheckbox: string
   readonly artifactType: string
+  readonly overrideAlignCenter: string
   readonly serviceSection: string
   readonly tabHeading: string
   readonly noPadVertical: string

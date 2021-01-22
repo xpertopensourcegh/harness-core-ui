@@ -27,10 +27,9 @@ exports[`OverrideSet tests change mode : change mode 1`] = `
               class="serviceStageSelection"
             >
               <label
-                class="bp3-control bp3-radio bp3-disabled StyledProps--font Radio--radio StyledProps--main"
+                class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main"
               >
                 <input
-                  disabled=""
                   id="mode_propagate"
                   type="radio"
                 />
@@ -160,7 +159,7 @@ exports[`OverrideSet tests change mode : change mode 1`] = `
       </p>
     </div>
     <div
-      class="artifactType"
+      class="artifactType overrideAlignCenter"
     >
       <div
         class="bp3-tabs Tabs--main"
@@ -511,7 +510,9 @@ exports[`OverrideSet tests renders without crashing 1`] = `
       <div
         class="Layout--vertical StyledProps--main specTabs tabHeading StyledProps--flex"
       >
-        Service Specification
+        <span>
+          Service Definition
+        </span>
       </div>
       <div
         class="artifactType"
@@ -536,7 +537,9 @@ exports[`OverrideSet tests renders without crashing 1`] = `
               class="stageOverridesTab"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
+                disabled=""
+                tabindex="-1"
                 type="button"
               >
                 <span

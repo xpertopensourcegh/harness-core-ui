@@ -100,7 +100,9 @@
   }
   .artifactType {
     display: grid;
-
+    &.overrideAlignCenter {
+      justify-items: center;
+    }
     & > div {
       width: 1024px;
     }
