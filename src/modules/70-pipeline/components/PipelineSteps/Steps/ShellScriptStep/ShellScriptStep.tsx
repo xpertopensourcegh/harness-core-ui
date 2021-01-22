@@ -1,21 +1,12 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import { IconName, Formik, Button, getMultiTypeFromValue, MultiTypeInputType, Accordion } from '@wings-software/uicore'
 import { isEmpty, set } from 'lodash-es'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { useStrings, UseStringsReturn } from 'framework/exports'
 import type { StepProps } from '@pipeline/exports'
 import { StepViewType } from '@pipeline/exports'
-import {
-  getIdentifierFromValue,
-  getScopeFromDTO,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './ShellScriptStep.i18n'
@@ -57,37 +48,6 @@ function ShellScriptWidget(
     })
   })
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<{
-      projectIdentifier: string
-      orgIdentifier: string
-      accountId: string
-    }>
-  >()
-
-  const connectorRef = getIdentifierFromValue(initialValues.spec.executionTarget?.connectorRef || '')
-  const initialScope = getScopeFromValue(initialValues.spec.executionTarget?.connectorRef || '')
-
-  const { data: connector, loading, refetch: fetchConnector } = useGetConnector({
-    identifier: connectorRef,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    lazy: true,
-    debounce: 300
-  })
-
-  React.useEffect(() => {
-    if (
-      !isEmpty(initialValues.spec.executionTarget?.connectorRef) &&
-      getMultiTypeFromValue(initialValues.spec.executionTarget?.connectorRef || '') === MultiTypeInputType.FIXED
-    ) {
-      fetchConnector()
-    }
-  }, [initialValues.spec.executionTarget?.connectorRef])
-
   const values: any = {
     ...initialValues,
     spec: {
@@ -97,23 +57,6 @@ function ShellScriptWidget(
         connectorRef: undefined
       }
     }
-  }
-
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.spec.executionTarget?.connectorRef || '') === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-
-    values.spec.executionTarget.connectorRef = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope,
-      live: connector?.data?.status?.status === 'SUCCESS',
-      connector: connector?.data?.connector
-    }
-  } else {
-    values.spec.executionTarget.connectorRef = initialValues.spec.executionTarget?.connectorRef
   }
 
   const validationSchema = defaultSSHSchema
@@ -139,11 +82,7 @@ function ShellScriptWidget(
                 summary="Script Input Variables"
                 details={<ShellScriptInput formik={formik} />}
               />
-              <Accordion.Panel
-                id="step-3"
-                summary="Execution Target"
-                details={<ExecutionTarget formik={formik} loading={loading} />}
-              />
+              <Accordion.Panel id="step-3" summary="Execution Target" details={<ExecutionTarget formik={formik} />} />
               <Accordion.Panel
                 id="step-4"
                 summary="Script Output Variables"

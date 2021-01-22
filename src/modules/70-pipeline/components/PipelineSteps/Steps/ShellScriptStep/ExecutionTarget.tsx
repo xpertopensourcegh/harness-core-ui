@@ -1,34 +1,20 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { Text, FormInput, getMultiTypeFromValue, MultiTypeInputType, TextInput, Layout } from '@wings-software/uicore'
+import { Text, FormInput, getMultiTypeFromValue, MultiTypeInputType, Layout } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { ShellScriptFormData } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 import css from './ShellScript.module.scss'
 
 export const connectionTypeOptions = [{ label: 'SSH', value: 'SSH' }]
 
-export default function ExecutionTarget(props: {
-  formik: FormikProps<ShellScriptFormData>
-  loading: any
-}): React.ReactElement {
+export default function ExecutionTarget(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
   const {
-    formik: { values: formValues, setFieldValue },
-    loading
+    formik: { values: formValues, setFieldValue }
   } = props
-
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<{
-      projectIdentifier: string
-      orgIdentifier: string
-      accountId: string
-    }>
-  >()
 
   const { getString } = useStrings()
 
@@ -77,24 +63,11 @@ export default function ExecutionTarget(props: {
             )}
           </div>
           <div className={stepCss.formGroup}>
-            {loading ? (
-              <TextInput value={getString('loading')} />
-            ) : (
-              <FormMultiTypeConnectorField
-                name="spec.executionTarget.connectorRef"
-                label={getString('sshConnector')}
-                placeholder={loading ? getString('loading') : getString('select')}
-                disabled={loading}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier as string}
-                orgIdentifier={orgIdentifier as string}
-                width={465}
-                isNewConnectorLabelVisible={false}
-                enableConfigureOptions={false}
-                type="Git"
-              />
-            )}
-
+            <MultiTypeSecretInput
+              type="SSHKey"
+              name="spec.executionTarget.connectorRef"
+              label={getString('sshConnector')}
+            />
             {getMultiTypeFromValue(formValues?.spec.executionTarget.connectorRef) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions
                 value={formValues?.spec.executionTarget.connectorRef as string}

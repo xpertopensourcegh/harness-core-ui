@@ -1,17 +1,11 @@
 import React from 'react'
-import { Text, getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm } from '@wings-software/uicore'
 import { FormGroup } from '@blueprintjs/core'
-
-import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
-
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { Scope } from '@common/interfaces/SecretsInterface'
-import { useConnectorRef } from '@connectors/common/StepsUseConnectorRef'
+import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
-import type { ConnectorRef } from '../StepsTypes'
 
 export interface ShellScriptInputSetStepProps {
   initialValues: ShellScriptFormData
@@ -23,16 +17,8 @@ export interface ShellScriptInputSetStepProps {
 }
 
 export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepProps): React.ReactElement {
-  const { template, onUpdate, initialValues, path } = props
+  const { template, path } = props
   const { getString } = useStrings()
-
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
-
-  const { connector, loading } = useConnectorRef(initialValues?.spec?.executionTarget?.connectorRef || '')
 
   return (
     <FormikForm>
@@ -49,31 +35,10 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.executionTarget?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <ConnectorReferenceField
-          label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('sshConnector')}</Text>}
-          accountIdentifier={accountId}
-          selected={connector as ConnectorRef}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={560}
+        <MultiTypeSecretInput
+          type="SSHKey"
           name={`${isEmpty(path) ? '' : `${path}.`}spec.executionTarget.connectorRef`}
-          placeholder={loading ? getString('loading') : getString('select')}
-          disabled={loading}
-          onChange={(record, scope) => {
-            onUpdate?.({
-              ...initialValues,
-              spec: {
-                ...initialValues.spec,
-                executionTarget: {
-                  ...initialValues.spec.executionTarget,
-                  connectorRef:
-                    scope === Scope.ORG || scope === Scope.PROJECT
-                      ? `${scope}.${record?.identifier}`
-                      : record?.identifier
-                }
-              }
-            })
-          }}
+          label={getString('sshConnector')}
         />
       )}
 
