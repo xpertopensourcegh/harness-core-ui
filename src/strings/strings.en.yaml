@@ -304,6 +304,8 @@ version: Version
 goToHome: Go To Home
 generic_errors:
   INVITE_EXPIRED: This invite link has expired
+
+gitFetchTypes: [{ label: 'Latest from Branch' }, { label: 'Specific Commit ID' }]
 snippets:
   copyToClipboard: Copy to Clipboard
   copied: Copied!

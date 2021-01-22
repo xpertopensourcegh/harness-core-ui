@@ -4,7 +4,7 @@ import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } fr
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ShellScriptFormData } from './shellScriptTypes'
 import stepCss from '../Steps.module.scss'
 
@@ -20,7 +20,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
 
   const { getString } = useStrings()
   return (
-    <div className={stepCss.stepPanel}>
+    <>
       <div className={stepCss.formGroup}>
         <FormInput.InputWithIdentifier inputLabel={getString('pipelineSteps.stepNameLabel')} />
       </div>
@@ -51,6 +51,27 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
           />
         )}
       </div>
-    </div>
+      <div className={stepCss.formGroup}>
+        <FormMultiTypeDurationField
+          name="spec.timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          multiTypeDurationProps={{ enableConfigureOptions: false }}
+          className={stepCss.duration}
+        />
+        {getMultiTypeFromValue(formValues.spec?.timeout) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formValues.spec?.timeout as string}
+            type="String"
+            variableName="step.spec.timeout"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => {
+              setFieldValue('spec.timeout', value)
+            }}
+          />
+        )}
+      </div>
+    </>
   )
 }

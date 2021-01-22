@@ -82,12 +82,12 @@ function ShellScriptWidget(
                 summary="Script Input Variables"
                 details={<ShellScriptInput formik={formik} />}
               />
-              <Accordion.Panel id="step-3" summary="Execution Target" details={<ExecutionTarget formik={formik} />} />
               <Accordion.Panel
                 id="step-4"
                 summary="Script Output Variables"
                 details={<ShellScriptOutput formik={formik} />}
               />
+              <Accordion.Panel id="step-3" summary="Execution Target" details={<ExecutionTarget formik={formik} />} />
             </Accordion>
             <div className={stepCss.actionsPanel}>
               <Button intent="primary" text={getString('submit')} onClick={formik.submitForm} />
