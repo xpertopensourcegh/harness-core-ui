@@ -534,6 +534,78 @@ exports[`StepWidget tests Updates DeployStageSpecifications form : Updated Form 
           </div>
         </div>
       </div>
+      <div
+        class="stageSection"
+      >
+        <div
+          class="Layout--vertical StyledProps--main tabHeading"
+        >
+          Skip Conditions
+        </div>
+        <div
+          class="stageCreate stageDetails"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="labelBold"
+            >
+              <label
+                class="Label--main"
+              >
+                <span>
+                  If the JEXL condition evaluates to true, skip this step
+                </span>
+              </label>
+            </div>
+            <div>
+              <div
+                class="TextInput--main"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    class="bp3-input"
+                    name="skipCondition"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
+                style="white-space: break-spaces;"
+              >
+                <span>
+                  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+
+Examples:
+&lt;+steps.step1.output.result&gt; == “success”
+&lt;+environment.name&gt; != “QA”
+
+                </span>
+                <br />
+                <a
+                  class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--font-small"
+                  href="javascript:void()"
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    <span>
+                      Learn more
+                    </span>
+                  </span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1069,6 +1141,78 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                   Add Variable
                 </span>
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="stageSection"
+      >
+        <div
+          class="Layout--vertical StyledProps--main tabHeading"
+        >
+          Skip Conditions
+        </div>
+        <div
+          class="stageCreate stageDetails"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="labelBold"
+            >
+              <label
+                class="Label--main"
+              >
+                <span>
+                  If the JEXL condition evaluates to true, skip this step
+                </span>
+              </label>
+            </div>
+            <div>
+              <div
+                class="TextInput--main"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    class="bp3-input"
+                    name="skipCondition"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-small"
+                style="white-space: break-spaces;"
+              >
+                <span>
+                  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+
+Examples:
+&lt;+steps.step1.output.result&gt; == “success”
+&lt;+environment.name&gt; != “QA”
+
+                </span>
+                <br />
+                <a
+                  class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--font-small"
+                  href="javascript:void()"
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    <span>
+                      Learn more
+                    </span>
+                  </span>
+                </a>
+              </p>
             </div>
           </div>
         </div>

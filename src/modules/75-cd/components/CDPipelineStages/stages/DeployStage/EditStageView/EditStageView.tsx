@@ -11,13 +11,15 @@ import {
   CardSelectType,
   CardSelect,
   Label,
-  Layout
+  Layout,
+  Link,
+  TextInput
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -96,6 +98,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                 identifier: data?.stage.identifier,
                 name: data?.stage.name,
                 description: data?.stage.description,
+                skipCondition: data?.stage.skipCondition,
                 serviceType: newStageData[0]
               }}
               onSubmit={values => {
@@ -186,6 +189,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                         className={css.grid}
                       />
                     </div>
+
                     {!context && (
                       <div className={css.btnSetup}>
                         <Button
@@ -225,6 +229,36 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
           ) : null}
         </div>
       </div>
+      {context && (
+        <div className={css.stageSection}>
+          <Layout.Vertical className={css.tabHeading}>{getString('skipConditionsTitle')}</Layout.Vertical>
+          <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
+            <Layout.Vertical>
+              <div className={css.labelBold}>
+                <Label>
+                  <String stringID="skipConditionLabel" />
+                </Label>
+              </div>
+              <div>
+                <TextInput
+                  name="skipCondition"
+                  defaultValue={data?.stage.skipCondition}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange?.({ ...data?.stage, skipCondition: event.target.value } as any)
+                  }}
+                />
+                <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
+                  <String stringID="skipConditionHelpText" />
+                  <br />
+                  <Link font="small" withoutHref>
+                    <String stringID="learnMore" />
+                  </Link>
+                </Text>
+              </div>
+            </Layout.Vertical>
+          </div>
+        </div>
+      )}
     </>
   )
 }

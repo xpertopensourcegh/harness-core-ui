@@ -54,6 +54,7 @@ export class StageBuilderModel extends DiagramModel {
             canDelete: selectedStageId && selectedStageId.length > 0 ? false : true,
             draggable: true,
             height: 57,
+            skipCondition: node.stage.skipCondition,
             iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
             icon: type.icon
           })
@@ -65,6 +66,7 @@ export class StageBuilderModel extends DiagramModel {
             width: 114,
             draggable: true,
             canDelete: selectedStageId && selectedStageId.length > 0 ? false : true,
+            skipCondition: node.stage.skipCondition,
             allowAdd: allowAdd === true,
             height: 50,
             iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
