@@ -6,179 +6,182 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
     class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
-      class="main"
+      class="Layout--horizontal StyledProps--main StyledProps--flex"
     >
       <div
-        class="lhs"
+        class="main"
       >
-        <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-          type="button"
+        <div
+          class="lhs"
         >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="run-pipeline"
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <defs>
-                <path
-                  d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                  id="run-pipeline_svg__a"
-                />
-              </defs>
-              <clippath
-                id="run-pipeline_svg__b"
-              >
-                <use
-                  overflow="visible"
-                  xlink:href="#run-pipeline_svg__a"
-                />
-              </clippath>
-              <path
-                clip-path="url(#run-pipeline_svg__b)"
-                d="M-5-5h26v26H-5z"
-                fill="#54b610"
-              />
-            </svg>
-          </span>
-          <span
-            class="bp3-button-text"
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            type="button"
           >
             <span
-              class="runText"
+              class="bp3-icon StyledProps--main"
             >
-              Run Pipeline
+              <svg
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <defs>
+                  <path
+                    d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                    id="run-pipeline_svg__a"
+                  />
+                </defs>
+                <clippath
+                  id="run-pipeline_svg__b"
+                >
+                  <use
+                    overflow="visible"
+                    xlink:href="#run-pipeline_svg__a"
+                  />
+                </clippath>
+                <path
+                  clip-path="url(#run-pipeline_svg__b)"
+                  d="M-5-5h26v26H-5z"
+                  fill="#54b610"
+                />
+              </svg>
             </span>
-          </span>
-        </button>
-        <div
-          class="filterGroup btnGroup"
-        >
-          <span
-            class="label"
-          >
-            Deployments
-          </span>
-          <div
-            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="button"
+            <span
+              class="bp3-button-text"
             >
               <span
-                class="bp3-button-text"
+                class="runText"
               >
-                <span>
-                  All
-                </span>
+                Run Pipeline
               </span>
-            </button>
-            <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                My
-              </span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="filterGroup"
-        >
-          <span
-            class="label"
-          >
-            Status
-          </span>
+            </span>
+          </button>
           <div
-            class="bp3-popover-wrapper"
+            class="filterGroup btnGroup"
           >
+            <span
+              class="label"
+            >
+              Deployments
+            </span>
             <div
-              class="bp3-popover-target"
+              class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
+            >
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  <span>
+                    All
+                  </span>
+                </span>
+              </button>
+              <button
+                class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  My
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="filterGroup"
+          >
+            <span
+              class="label"
+            >
+              Status
+            </span>
+            <div
+              class="bp3-popover-wrapper"
             >
               <div
-                class=""
+                class="bp3-popover-target"
               >
-                <button
-                  class="bp3-button main"
-                  data-testid="status-select"
-                  type="button"
+                <div
+                  class=""
                 >
-                  <span
-                    class="bp3-button-text"
+                  <button
+                    class="bp3-button main"
+                    data-testid="status-select"
+                    type="button"
                   >
-                    <span>
-                      All
-                    </span>
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-down"
-                    icon="chevron-down"
-                  >
-                    <svg
-                      data-icon="chevron-down"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
+                    <span
+                      class="bp3-button-text"
                     >
-                      <desc>
-                        chevron-down
-                      </desc>
-                      <path
-                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
+                      <span>
+                        All
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="rhs"
-      >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
-          data-name=""
+          class="rhs"
         >
-          <span
-            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
-            icon="search"
+          <div
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
+            data-name=""
           >
-            <svg
-              data-icon="search"
-              height="14"
-              viewBox="0 0 16 16"
-              width="14"
+            <span
+              class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
+              icon="search"
             >
-              <desc>
-                search
-              </desc>
-              <path
-                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <input
-            class="bp3-input "
-            dir="auto"
-            placeholder="Search"
-            type="search"
-            value=""
-          />
+              <svg
+                data-icon="search"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <desc>
+                  search
+                </desc>
+                <path
+                  d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input "
+              dir="auto"
+              placeholder="Search"
+              type="search"
+              value=""
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -195,7 +198,6 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main"
-            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -261,7 +263,6 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main"
-                        data-icon="main-tags"
                       >
                         <svg
                           height="15"
@@ -320,7 +321,6 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main icon"
-                        data-icon="circle-cross"
                         tabindex="0"
                       >
                         <svg
@@ -425,7 +425,6 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
                 >
                   <span
                     class="bp3-icon StyledProps--main"
-                    data-icon="circle-cross"
                   >
                     <svg
                       height="10"
@@ -645,232 +644,235 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
     class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
-      class="main"
+      class="Layout--horizontal StyledProps--main StyledProps--flex"
     >
       <div
-        class="lhs"
+        class="main"
       >
-        <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-          type="button"
+        <div
+          class="lhs"
         >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="run-pipeline"
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <defs>
-                <path
-                  d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                  id="run-pipeline_svg__a"
-                />
-              </defs>
-              <clippath
-                id="run-pipeline_svg__b"
-              >
-                <use
-                  overflow="visible"
-                  xlink:href="#run-pipeline_svg__a"
-                />
-              </clippath>
-              <path
-                clip-path="url(#run-pipeline_svg__b)"
-                d="M-5-5h26v26H-5z"
-                fill="#54b610"
-              />
-            </svg>
-          </span>
-          <span
-            class="bp3-button-text"
+          <button
+            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            type="button"
           >
             <span
-              class="runText"
+              class="bp3-icon StyledProps--main"
             >
-              Run Pipeline
+              <svg
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <defs>
+                  <path
+                    d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                    id="run-pipeline_svg__a"
+                  />
+                </defs>
+                <clippath
+                  id="run-pipeline_svg__b"
+                >
+                  <use
+                    overflow="visible"
+                    xlink:href="#run-pipeline_svg__a"
+                  />
+                </clippath>
+                <path
+                  clip-path="url(#run-pipeline_svg__b)"
+                  d="M-5-5h26v26H-5z"
+                  fill="#54b610"
+                />
+              </svg>
             </span>
-          </span>
-        </button>
-        <div
-          class="filterGroup btnGroup"
-        >
-          <span
-            class="label"
-          >
-            Deployments
-          </span>
-          <div
-            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
-          >
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-              type="button"
+            <span
+              class="bp3-button-text"
             >
               <span
-                class="bp3-button-text"
+                class="runText"
               >
-                <span>
-                  All
+                Run Pipeline
+              </span>
+            </span>
+          </button>
+          <div
+            class="filterGroup btnGroup"
+          >
+            <span
+              class="label"
+            >
+              Deployments
+            </span>
+            <div
+              class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
+            >
+              <button
+                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  <span>
+                    All
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
+              </button>
+              <button
+                class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                disabled=""
+                tabindex="-1"
+                type="button"
               >
-                My
-              </span>
-            </button>
+                <span
+                  class="bp3-button-text"
+                >
+                  My
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div
-          class="filterGroup"
-        >
-          <span
-            class="label"
-          >
-            Status
-          </span>
           <div
-            class="bp3-popover-wrapper"
+            class="filterGroup"
           >
+            <span
+              class="label"
+            >
+              Status
+            </span>
             <div
-              class="bp3-popover-target"
+              class="bp3-popover-wrapper"
             >
               <div
-                class=""
+                class="bp3-popover-target"
               >
-                <button
-                  class="bp3-button main"
-                  data-testid="status-select"
-                  type="button"
+                <div
+                  class=""
                 >
-                  <span
-                    class="bp3-button-text"
+                  <button
+                    class="bp3-button main"
+                    data-testid="status-select"
+                    type="button"
                   >
-                    <span>
-                      All
-                    </span>
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-down"
-                    icon="chevron-down"
-                  >
-                    <svg
-                      data-icon="chevron-down"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
+                    <span
+                      class="bp3-button-text"
                     >
-                      <desc>
-                        chevron-down
-                      </desc>
-                      <path
-                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
+                      <span>
+                        All
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="filterGroup"
+          >
+            <span
+              class="label"
+            >
+              Pipelines
+            </span>
+            <div
+              class="bp3-popover-wrapper"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class=""
+                >
+                  <button
+                    class="bp3-button main"
+                    data-testid="pipeline-select"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        All
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="filterGroup"
+          class="rhs"
         >
-          <span
-            class="label"
-          >
-            Pipelines
-          </span>
           <div
-            class="bp3-popover-wrapper"
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
+            data-name=""
           >
-            <div
-              class="bp3-popover-target"
+            <span
+              class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
+              icon="search"
             >
-              <div
-                class=""
+              <svg
+                data-icon="search"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
               >
-                <button
-                  class="bp3-button main"
-                  data-testid="pipeline-select"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    <span>
-                      All
-                    </span>
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-down"
-                    icon="chevron-down"
-                  >
-                    <svg
-                      data-icon="chevron-down"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-down
-                      </desc>
-                      <path
-                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-            </div>
+                <desc>
+                  search
+                </desc>
+                <path
+                  d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input "
+              dir="auto"
+              placeholder="Search"
+              type="search"
+              value=""
+            />
           </div>
-        </div>
-      </div>
-      <div
-        class="rhs"
-      >
-        <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
-          data-name=""
-        >
-          <span
-            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
-            icon="search"
-          >
-            <svg
-              data-icon="search"
-              height="14"
-              viewBox="0 0 16 16"
-              width="14"
-            >
-              <desc>
-                search
-              </desc>
-              <path
-                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <input
-            class="bp3-input "
-            dir="auto"
-            placeholder="Search"
-            type="search"
-            value=""
-          />
         </div>
       </div>
     </div>
@@ -887,7 +889,6 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
         >
           <span
             class="bp3-icon StyledProps--main"
-            data-icon="cd-main"
           >
             <svg
               fill="none"
@@ -953,7 +954,6 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     >
                       <span
                         class="bp3-icon StyledProps--main"
-                        data-icon="main-tags"
                       >
                         <svg
                           height="15"
@@ -1012,7 +1012,6 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                     >
                       <span
                         class="bp3-icon StyledProps--main icon"
-                        data-icon="circle-cross"
                         tabindex="0"
                       >
                         <svg
@@ -1117,7 +1116,6 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
                 >
                   <span
                     class="bp3-icon StyledProps--main"
-                    data-icon="circle-cross"
                   >
                     <svg
                       height="10"

@@ -11,7 +11,7 @@ import {
   OverlaySpinner
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { isEmpty, isUndefined, omitBy, omit, debounce, truncate } from 'lodash-es'
+import { omit, debounce, truncate } from 'lodash-es'
 import { Popover, PopoverInteractionKind, Position, MenuItem } from '@blueprintjs/core'
 import type { FormikErrors } from 'formik'
 import {
@@ -45,8 +45,16 @@ import routes from '@common/RouteDefinitions'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Filter } from '@common/components/Filter/Filter'
+import {
+  getFilterSummary,
+  removeNullAndEmpty,
+  isObjectEmpty,
+  UNSAVED_FILTER,
+  MAX_FILTER_NAME_LENGTH
+} from '@common/components/Filter/utils/FilterUtils'
 import { useStrings } from 'framework/exports'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
+import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
@@ -69,13 +77,6 @@ interface ConnectorsListProps {
   statisticsMockData?: UseGetMockData<ResponseConnectorStatistics>
   filtersMockData?: UseGetMockData<ResponsePageFilterDTO>
 }
-
-const removeNullAndEmpty = (object: Record<string, any>) => omitBy(omitBy(object, isUndefined), isEmpty)
-
-const isObjectEmpty = (arg: Record<string, any>): boolean => isEmpty(omitBy(arg, isEmpty))
-
-const UNSAVED_FILTER = 'Unsaved Filter'
-const MAX_FILTER_NAME_LENGTH = 25
 
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
@@ -106,7 +107,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     queryParams: defaultQueryParams
   })
 
-  const refetchConnectorList = async (filter?: ConnectorFilterProperties, needsRefinement = true) => {
+  const refetchConnectorList = async (filter?: ConnectorFilterProperties, needsRefinement = true): Promise<void> => {
     setIsFetchingConnectors(true)
 
     const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
@@ -402,7 +403,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     const matchingFilter = getFilterByIdentifier(identifier)
     const { name: _name, filterVisibility: _filterVisibility, filterProperties } = matchingFilter as FilterDTO
     const uniqueId = new Date().getTime().toString()
-    const duplicatedFilterName = _name.concat(' copy').concat(uniqueId) || ''
+    const duplicatedFilterName = (_name.concat(uniqueId) || '').substring(0, UNIQUE_ID_MAX_LENGTH)
     const requestBodyPayload = {
       name: duplicatedFilterName,
       identifier: StringUtils.getIdentifierFromName(duplicatedFilterName).concat(uniqueId),
@@ -470,7 +471,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         filters={filters?.map((item: FilterDTO) => {
           return {
             name: item?.name,
-            visible: item?.filterVisibility,
+            filterVisibility: item?.filterVisibility,
             identifier: item?.identifier
           }
         })}
@@ -485,7 +486,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           },
           metadata: {
             name,
-            visible: filterVisibility,
+            filterVisibility: filterVisibility,
             identifier: appliedFilter?.identifier || ''
           }
         }}
@@ -556,19 +557,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   fieldToLabelMapping.set('tags', getString('tagsLabel'))
   fieldToLabelMapping.set('connectivityStatuses', getString('filters.connectivityStatus'))
 
-  const getFilterSummary = (fields: object): JSX.Element => {
-    return (
-      <ol className={css.noStyleUl}>
-        {Object.entries(fields as object).map(([key, value]) => (
-          <li key={key} className={css.summaryItem}>
-            <span style={{ fontWeight: 'bold' }}>{fieldToLabelMapping.get(key)} : </span>
-            <span style={{ fontWeight: 'bold' }}>{renderItemByType(value)}</span>
-          </li>
-        ))}
-      </ol>
-    )
-  }
-
   const reset = (): void => {
     setAppliedFilter(null)
     refetchConnectorList()
@@ -614,7 +602,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             <Popover
               interactionKind={PopoverInteractionKind.HOVER}
               position={Position.BOTTOM}
-              content={getFilterSummary(filterWithValidFields)}
+              content={getFilterSummary(fieldToLabelMapping, filterWithValidFields)}
               popoverClassName={css.summaryPopover}
             >
               {renderFilterBtn()}

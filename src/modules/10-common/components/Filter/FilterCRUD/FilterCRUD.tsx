@@ -30,7 +30,7 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onClose: () => void
   onDuplicate: (identifier: string) => Promise<void>
   onFilterSelect: (identifier: string) => void
-  enableEdit: boolean
+  enableEdit?: boolean
   isRefreshingFilters: boolean
 }
 
@@ -76,9 +76,10 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
   const formHasInitialValues = (): boolean => isEmpty(omitBy(initialValues, isEmpty))
 
   useEffect(() => {
-    setFilterInContext(initialValues)
-    setIsNewFilter(formHasInitialValues())
-  }, [initialValues])
+    if (!isNewFilter) {
+      setFilterInContext(initialValues)
+    }
+  }, [isNewFilter, initialValues])
 
   useEffect(() => {
     if (filterInContext?.identifier) {
@@ -97,7 +98,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
   }
 
   const [showModal, hideModal] = useModalHook(() => {
-    const { visible, identifier } = filterInContext as T
+    const { filterVisibility, identifier } = filterInContext as T
     return (
       <Dialog
         title={getString('filters.confirmDelete')}
@@ -106,7 +107,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
         onClose={hideModal}
       >
         <div className={Classes.DIALOG_BODY}>
-          {visible === 'OnlyCreator'
+          {filterVisibility === 'OnlyCreator'
             ? getString('filters.deleteFilterForUser')
             : getString('filters.deleteFilterForEveryone')}
         </div>
@@ -182,7 +183,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
   }
 
   const renderFilter = (filter: T): JSX.Element => {
-    const { name, visible, identifier } = filter
+    const { name, filterVisibility, identifier } = filter
     return (
       <Layout.Horizontal
         flex
@@ -194,10 +195,10 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
           ignoreClickEventDefaultBehaviour(event)
           onFilterSelect(identifier)
         }}
-        title={getString('filters.visibilityTitle')}
+        title={filterVisibility === 'OnlyCreator' ? getString('filters.visibilityTitle') : ''}
       >
         <Layout.Horizontal spacing="small" padding="medium">
-          {visible === 'OnlyCreator' ? (
+          {filterVisibility === 'OnlyCreator' ? (
             <Icon name="lock" margin={{ left: 'xsmall' }} />
           ) : (
             <span className={css.noElement} />
@@ -222,7 +223,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
     submitCount: number,
     errors: FormikErrors<{
       name: string
-      visible: T['visible']
+      filterVisibility?: T['filterVisibility']
     }>
   ): JSX.Element => {
     return (
@@ -279,7 +280,7 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
               const payload = Object.assign(values, {
                 identifier: filterInContext?.identifier
               }) as T
-              /* istanbul ignore else */ if (payload?.name && payload?.visible) {
+              /* istanbul ignore else */ if (payload?.name && payload?.filterVisibility) {
                 onSaveOrUpdate(isNewFilter ? false : true, payload)?.then(_res => {
                   setFilterInContext(payload)
                 })
@@ -288,9 +289,11 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
             }}
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('filters.nameRequired')),
-              visible: Yup.mixed().oneOf(['OnlyCreator', 'EveryOne']).required(getString('filters.visibilityRequired'))
+              filterVisibility: Yup.mixed()
+                .oneOf(['OnlyCreator', 'EveryOne'])
+                .required(getString('filters.visibilityRequired'))
             })}
-            initialValues={isNewFilter ? { name: '', visible: undefined } : initialValues}
+            initialValues={isNewFilter ? { name: '' } : initialValues}
             enableReinitialize={true}
           >
             {formik => {
@@ -312,10 +315,12 @@ export const FilterCRUD = <T extends FilterInterface>(props: FilterCRUDProps<T>)
                         placeholder={getString('filters.typeFilterName')}
                       />
                       <Layout.Vertical spacing={'medium'} margin={{ top: 'large' }}>
-                        <Label style={{ fontSize: 'small', color: Color.WHITE }}>{getString('filters.visible')}</Label>
+                        <Label style={{ fontSize: 'small', color: Color.WHITE }}>
+                          {getString('filters.filterVisibility')}
+                        </Label>
                         <FormInput.RadioGroup
                           inline
-                          name="visible"
+                          name="filterVisibility"
                           items={[
                             { label: getString('filters.visibileToOnlyMe'), value: 'OnlyCreator' },
                             {

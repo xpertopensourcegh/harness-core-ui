@@ -1,0 +1,12 @@
+.noStyleUl {
+  list-style-type: none;
+  padding: var(--spacing-small);
+  margin: 0;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.summaryItem {
+  padding: var(--spacing-xsmall);
+  font-size: small;
+}

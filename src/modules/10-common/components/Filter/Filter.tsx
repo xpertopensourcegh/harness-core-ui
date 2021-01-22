@@ -26,6 +26,7 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   onDuplicate: (identifier: string) => Promise<void>
   onFilterSelect: (identifier: string) => void
   onValidate?: (values: Partial<T>) => FormikErrors<Partial<T>>
+  onClear?: () => void
 }
 
 export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) => {
@@ -40,7 +41,8 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
     onDuplicate,
     onFilterSelect,
     onValidate,
-    isRefreshingFilters
+    isRefreshingFilters,
+    onClear
   } = props
   const { getString } = useStrings()
 
@@ -68,8 +70,8 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
     )
   }
 
-  const { name, visible, identifier } = initialFilter?.metadata
-  const isUpdate = (name !== '' && visible !== undefined) as boolean
+  const { name, filterVisibility, identifier } = initialFilter?.metadata
+  const isUpdate = (name !== '' && filterVisibility !== undefined) as boolean
 
   return (
     <Drawer {...defaultPageDrawerProps} onClose={onClose}>
@@ -114,12 +116,21 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                               text={getString('filters.clearAll')}
                               onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
                                 event.preventDefault()
+                                onClear?.()
                                 formFields?.map((formField: JSX.Element) => {
                                   if (formField?.key === 'tags') {
                                     formik?.setFieldValue(formField?.key as string, {})
-                                  } else {
+                                    return
+                                  } else if (formField.type === 'div') {
                                     formik?.setFieldValue(formField?.key as string, undefined)
+                                    if (formField?.props?.children && Array.isArray(formField.props.children)) {
+                                      formField.props.children.forEach((childFormField: JSX.Element) => {
+                                        formik?.setFieldValue(childFormField?.key as string, undefined)
+                                      })
+                                    }
+                                    return
                                   }
+                                  formik?.setFieldValue(formField?.key as string, undefined)
                                 })
                               }}
                             />
@@ -139,12 +150,12 @@ export const Filter = <T, U extends FilterInterface>(props: FilterProps<T, U>) =
                         formValues: formik.values
                       } as FilterDataInterface<T, U>)
                     }}
-                    initialValues={{ name, visible, identifier } as U}
+                    initialValues={{ name, filterVisibility, identifier } as U}
                     onClose={onClose}
                     onDelete={onDelete}
                     onDuplicate={onDuplicate}
                     onFilterSelect={onFilterSelect}
-                    enableEdit={formik.dirty}
+                    // enableEdit={formik.dirty}
                   />
                 </section>
               </div>

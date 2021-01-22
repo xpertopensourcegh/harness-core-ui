@@ -1,0 +1,64 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 3,
+    "pageItemCount": 3,
+    "pageSize": 100,
+    "content": [
+      {
+        "name": "FailedFilter",
+        "identifier": "FailedFilter",
+        "orgIdentifier": "DemoOrg",
+        "projectIdentifier": "DemoProj",
+        "filterProperties": {
+          "status": ["Failed"],
+          "pipelineName": "",
+          "moduleProperties": null,
+          "tags": {},
+          "filterType": "PipelineExecution"
+        },
+        "filterVisibility": "OnlyCreator"
+      },
+      {
+        "name": "PRFilter",
+        "identifier": "PRFilter",
+        "orgIdentifier": "DemoOrg",
+        "projectIdentifier": "DemoProj",
+        "filterProperties": {
+          "status": [],
+          "pipelineName": "",
+          "moduleProperties": {
+            "ci": {
+              "ciExecutionInfoDTO": {
+                "event": "pullRequest",
+                "pullRequest": { "sourceBranch": "fromB", "targetBranch": "toB" }
+              }
+            }
+          },
+          "tags": {},
+          "filterType": "PipelineExecution"
+        },
+        "filterVisibility": "EveryOne"
+      },
+      {
+        "name": "SuccessFilter",
+        "identifier": "SuccessFilter",
+        "orgIdentifier": "DemoOrg",
+        "projectIdentifier": "DemoProj",
+        "filterProperties": {
+          "status": ["Success"],
+          "pipelineName": "",
+          "moduleProperties": null,
+          "tags": {},
+          "filterType": "PipelineExecution"
+        },
+        "filterVisibility": "OnlyCreator"
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": null
+}

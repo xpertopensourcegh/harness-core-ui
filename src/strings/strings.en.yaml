@@ -4,6 +4,7 @@ featureFlagsText: Feature Flags
 featureNA: This feature is not available as of now
 logView: Log View
 projectsText: Projects
+enterNamePlaceholder: Enter name
 orgsText: Organizations
 getStarted: Get Started
 projectLabel: Project
@@ -147,6 +148,7 @@ stageDetails: Stage Details
 stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
 tagsLabel: Tags
+tagLabel: Tag
 tagsInfo: Specify one or more tags for the Docker image
 removeLabel: 'remove'
 keyLabel: Key
@@ -218,7 +220,7 @@ createSecretYAML:
 formValidation:
   name: 'Name can only contain alphanumerics, _ and -'
 filters:
-  visible: Who can view and edit the filter?
+  filterVisibility: Who can view and edit the filter?
   name: Filter Name
   visibileToOnlyMe: Only me
   visibleToEveryone: Everyone
@@ -238,6 +240,12 @@ filters:
   invalidSelection: Invalid selection
   visibilityTitle: This filter is visible to only me.
   invalidCriteria: Invalid or no filter criteria specified.
+  noDataFound: No data found as per the applied filter(s).
+  executions:
+    pipelineName: Pipeline Name
+    buildType: Build Type
+    pullOrMergeRequest: Pull Request / Merge Request
+    tagPlaceholder: Enter tag
 customText: '{{text}}'
 adminLabel: 'Admin'
 collaboratorsLabel: 'Collaborators'

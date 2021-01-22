@@ -10,3 +10,80 @@
   //   width: 100px;
   // }
 }
+
+.filterSelector {
+  width: auto !important;
+  margin-right: var(--spacing-medium);
+}
+
+.ngFilter {
+  svg {
+    path:last-of-type {
+      fill: var(--black) !important;
+    }
+  }
+  border: 1px solid var(--grey-400) !important;
+}
+
+.filterBtn {
+  padding-right: var(--spacing-xxxlarge);
+}
+
+.summaryPopover {
+  svg {
+    path {
+      fill: var(--black) !important;
+    }
+  }
+}
+
+.fieldCount {
+  display: block;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  background-color: #0a3364;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  right: 3vh;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--spacing-xsmall);
+  padding-bottom: var(--spacing-medium);
+}
+.separator::before {
+  content: '';
+}
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--grey-200);
+}
+.separator::after {
+  margin-left: 0.5em;
+}
+
+.subfilter {
+  border-left: 1px solid var(--grey-350);
+  padding-left: var(--spacing-large);
+  margin-left: var(--spacing-large);
+}
+
+.noData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.loading {
+  margin: auto;
+  height: 100vh;
+}

@@ -1,4 +1,4 @@
-import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
+import type { MultiSelectOption } from '@wings-software/uicore'
 
 import { StringUtils } from '@common/exports'
 import type {
@@ -11,10 +11,10 @@ import type {
 import type { FilterDataInterface, FilterInterface } from '@common/components/Filter/Constants'
 
 export const getValidFilterArguments = (formData: Record<string, any>): ConnectorFilterProperties => {
-  const typeOptions = formData?.types?.map((type: SelectOption) => type?.value)
+  const typeOptions = formData?.types?.map((type: MultiSelectOption) => type?.value)
   const statusOptions = formData?.connectivityStatuses
-    ?.filter((status: SelectOption) => status?.value !== 'NA')
-    .map((status: SelectOption) => status?.value)
+    ?.filter((status: MultiSelectOption) => status?.value !== 'NA')
+    .map((status: MultiSelectOption) => status?.value)
   return {
     connectorNames: formData?.connectorNames || [],
     connectorIdentifiers: formData?.connectorIdentifiers || [],
@@ -42,7 +42,7 @@ export const createRequestBodyPayload = ({
   orgIdentifier: string
 }): FilterDTO => {
   const {
-    metadata: { name: _name, visible, identifier },
+    metadata: { name: _name, filterVisibility, identifier },
     formValues
   } = data
   const {
@@ -58,7 +58,7 @@ export const createRequestBodyPayload = ({
     identifier: isUpdate ? identifier : StringUtils.getIdentifierFromName(_name),
     projectIdentifier,
     orgIdentifier,
-    filterVisibility: visible,
+    filterVisibility: filterVisibility,
     filterProperties: {
       filterType: 'Connector',
       connectorNames: typeof _connectorNames === 'string' ? [_connectorNames] : _connectorNames,
@@ -157,12 +157,17 @@ export const enum ConnectorStatCategories {
 }
 
 export const createOption = (val: string, count?: number): MultiSelectOption => {
+  const valueSubLabel = count
+    ? count > 0
+      ? val
+          .concat(' ')
+          .concat('(')
+          .concat((count || '').toString())
+          .concat(')')
+      : val
+    : val
   return {
-    label: val
-      .concat(' ')
-      .concat('(')
-      .concat((count || '').toString())
-      .concat(')'),
+    label: valueSubLabel,
     value: val
   } as MultiSelectOption
 }

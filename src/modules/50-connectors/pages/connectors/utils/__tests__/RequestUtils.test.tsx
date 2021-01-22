@@ -18,7 +18,7 @@ describe('Request utils test', () => {
           connectivityStatuses: [{ label: 'SUCCESS', value: 'SUCCESS' }],
           types: [{ label: 'K8sCluster', value: 'K8sCluster' }]
         },
-        metadata: { name: 'Sample', visible: 'OnlyCreator', identifier: 'Sample' }
+        metadata: { name: 'Sample', filterVisibility: 'OnlyCreator', identifier: 'Sample' }
       },
       projectIdentifier: '',
       orgIdentifier: ''

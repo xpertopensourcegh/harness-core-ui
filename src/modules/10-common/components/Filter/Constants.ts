@@ -3,7 +3,7 @@ import type { FilterDTO } from 'services/cd-ng'
 
 export interface FilterInterface {
   name: string
-  visible: FilterDTO['filterVisibility']
+  filterVisibility?: FilterDTO['filterVisibility']
   identifier: string
 }
 

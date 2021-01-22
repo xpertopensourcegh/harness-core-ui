@@ -16,7 +16,6 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-            data-icon="ng-filter"
           >
             <svg
               height="25"
@@ -146,7 +145,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
-              title="This filter is visible to only me."
+              title=""
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
@@ -202,7 +201,6 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                     </div>
                     <span
                       class="bp3-icon StyledProps--main"
-                      data-icon="Options"
                     >
                       <svg
                         height="20"
@@ -249,8 +247,24 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
-                  class="noElement"
-                />
+                  class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--margin-left-xsmall"
+                  icon="lock"
+                >
+                  <svg
+                    data-icon="lock"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      lock
+                    </desc>
+                    <path
+                      d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
                 <div
                   class="filterLabel"
                   title="AWSOnly"
@@ -272,7 +286,6 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                   >
                     <span
                       class="bp3-icon StyledProps--main"
-                      data-icon="Options"
                     >
                       <svg
                         height="20"
@@ -371,7 +384,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                       class="bp3-control bp3-radio Radio--radio"
                     >
                       <input
-                        name="visible"
+                        name="filterVisibility"
                         type="radio"
                         value="OnlyCreator"
                       />
@@ -384,7 +397,7 @@ exports[`Test FilterCRUD component Add a new filter -> edit it -> duplicate it -
                       class="bp3-control bp3-radio Radio--radio"
                     >
                       <input
-                        name="visible"
+                        name="filterVisibility"
                         type="radio"
                         value="EveryOne"
                       />
@@ -473,7 +486,6 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-            data-icon="ng-filter"
           >
             <svg
               height="25"
@@ -603,7 +615,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
-              title="This filter is visible to only me."
+              title=""
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
@@ -632,7 +644,6 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
-                      data-icon="Options"
                     >
                       <svg
                         height="20"
@@ -679,8 +690,24 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
-                  class="noElement"
-                />
+                  class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--margin-left-xsmall"
+                  icon="lock"
+                >
+                  <svg
+                    data-icon="lock"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      lock
+                    </desc>
+                    <path
+                      d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
                 <div
                   class="filterLabel"
                   title="AWSOnly"
@@ -702,7 +729,6 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
-                      data-icon="Options"
                     >
                       <svg
                         height="20"
@@ -801,7 +827,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                       class="bp3-control bp3-radio Radio--radio"
                     >
                       <input
-                        name="visible"
+                        name="filterVisibility"
                         type="radio"
                         value="OnlyCreator"
                       />
@@ -814,7 +840,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                       class="bp3-control bp3-radio Radio--radio"
                     >
                       <input
-                        name="visible"
+                        name="filterVisibility"
                         type="radio"
                         value="EveryOne"
                       />
@@ -875,7 +901,6 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
         >
           <span
             class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-            data-icon="ng-filter"
           >
             <svg
               height="25"
@@ -977,7 +1002,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main filter StyledProps--flex StyledProps--padding-right-medium"
-              title="This filter is visible to only me."
+              title=""
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
@@ -1006,7 +1031,6 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
-                      data-icon="Options"
                     >
                       <svg
                         height="20"
@@ -1053,8 +1077,24 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
               >
                 <span
-                  class="noElement"
-                />
+                  class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--margin-left-xsmall"
+                  icon="lock"
+                >
+                  <svg
+                    data-icon="lock"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      lock
+                    </desc>
+                    <path
+                      d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
                 <div
                   class="filterLabel"
                   title="AWSOnly"
@@ -1076,7 +1116,6 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                   >
                     <span
                       class="bp3-icon StyledProps--main"
-                      data-icon="Options"
                     >
                       <svg
                         height="20"

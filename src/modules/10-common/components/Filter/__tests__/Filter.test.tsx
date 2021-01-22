@@ -17,7 +17,7 @@ const props: FilterProps<object, FilterInterface> = {
   onDuplicate: jest.fn(),
   initialFilter: {
     formValues: { connectorNames: [''], description: '' },
-    metadata: { name: 'Sample', visible: 'OnlyCreator', identifier: 'Sample' }
+    metadata: { name: 'Sample', filterVisibility: 'OnlyCreator', identifier: 'Sample' }
   },
   onFilterSelect: jest.fn(),
   isRefreshingFilters: false

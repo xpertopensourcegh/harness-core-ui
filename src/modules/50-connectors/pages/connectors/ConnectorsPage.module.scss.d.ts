@@ -12,8 +12,6 @@ declare const styles: {
   readonly dropdownLabel: string
   readonly ngFilter: string
   readonly fieldCount: string
-  readonly noStyleUl: string
-  readonly summaryItem: string
   readonly summaryPopover: string
   readonly loading: string
 }
