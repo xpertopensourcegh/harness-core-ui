@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestedAccordionPanel, Text } from '@wings-software/uicore'
+import { NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, omit } from 'lodash-es'
 import type { ServiceSpec } from 'services/cd-ng'
@@ -8,10 +8,8 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
-import { CopyText } from '@common/components/CopyText/CopyText'
-import { toVariableStr } from '@common/utils/StringUtils'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { CustomVariablesData, CustomVariableEditableExtraProps } from '../CustomVariables/CustomVariableEditable'
-import variableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import css from './K8sServiceSpec.module.scss'
 export interface K8sServiceSpecVariablesFormProps {
   initialValues: ServiceSpec
@@ -25,21 +23,6 @@ export interface VariableRowProps {
   data?: YamlProperties | undefined
   valueType?: string
   value: string
-}
-function VariableRow(props: VariableRowProps): React.ReactElement {
-  const { data, valueType = 'String', value } = props
-
-  return (
-    <div className={variableCss.variableListTable}>
-      <>
-        <CopyText textToCopy={data?.fqn || ''}>{toVariableStr(data?.localName || '')}</CopyText>
-        <Text>{valueType}</Text>
-        <Text lineClamp={2} width={280}>
-          {value}
-        </Text>
-      </>
-    </div>
-  )
 }
 
 export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
@@ -62,56 +45,21 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             variablesData?.artifacts && (
               <>
                 <div className={css.artifactHeader}>Primary Artifact</div>
-                {primaryArtifactVariables?.connectorRef && (
-                  <VariableRow
-                    data={metadataMap[(primaryArtifactVariables?.connectorRef as unknown) as string]?.yamlProperties}
-                    value={initialValues.artifacts?.primary?.spec?.connectorRef}
-                  />
-                )}
-                {primaryArtifactVariables?.imagePath && (
-                  <VariableRow
-                    data={metadataMap[(primaryArtifactVariables?.imagePath as unknown) as string]?.yamlProperties}
-                    value={initialValues.artifacts?.primary?.spec?.imagePath}
-                  />
-                )}
-                {primaryArtifactVariables?.tag && (
-                  <VariableRow
-                    data={metadataMap[(primaryArtifactVariables?.tag as unknown) as string]?.yamlProperties}
-                    value={initialValues.artifacts?.primary?.spec?.tag}
-                  />
-                )}
-                {primaryArtifactVariables?.tagRegex && (
-                  <VariableRow
-                    data={metadataMap[(primaryArtifactVariables?.tagRegex as unknown) as string]?.yamlProperties}
-                    value={initialValues.artifacts?.primary?.spec?.tagRegex}
-                  />
-                )}
+                <VariablesListTable
+                  data={primaryArtifactVariables}
+                  originalData={initialValues?.artifacts?.primary?.spec}
+                  metadataMap={metadataMap}
+                />
 
                 <div className={cx(css.artifactHeader, css.mtop)}>Sidecar Artifacts</div>
                 {Array.isArray(sidecarArtifactVariables) &&
-                  sidecarArtifactVariables?.map(({ sidecar }, index) => (
-                    <div key={index}>
-                      <VariableRow
-                        data={metadataMap[(sidecar?.spec?.connectorRef as unknown) as string]?.yamlProperties}
-                        value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef}
-                      />
-                      <VariableRow
-                        data={metadataMap[(sidecar?.spec?.imagePath as unknown) as string]?.yamlProperties}
-                        value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.imagePath}
-                      />
-                      {sidecar?.spec?.tag && (
-                        <VariableRow
-                          data={metadataMap[(sidecar?.spec?.tag as unknown) as string]?.yamlProperties}
-                          value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag}
-                        />
-                      )}
-                      {sidecar?.spec?.tagRegex && (
-                        <VariableRow
-                          data={metadataMap[(sidecar?.spec?.tagRegex as unknown) as string]?.yamlProperties}
-                          value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.tagRegex}
-                        />
-                      )}
-                    </div>
+                  sidecarArtifactVariables.map(({ sidecar }, index) => (
+                    <VariablesListTable
+                      key={index}
+                      data={sidecar}
+                      originalData={initialValues?.artifacts?.sidecars?.[index] || ({} as any)}
+                      metadataMap={metadataMap}
+                    />
                   ))}
               </>
             )
@@ -128,32 +76,12 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             manifestsVariables && (
               <>
                 {manifestsVariables?.map(({ manifest }, index) => (
-                  <div key={index}>
-                    <VariableRow
-                      data={
-                        metadataMap[(manifest?.spec?.store?.spec?.connectorRef as unknown) as string]?.yamlProperties
-                      }
-                      value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.connectorRef}
-                    />
-                    <VariableRow
-                      data={metadataMap[(manifest?.spec?.store?.spec?.branch as unknown) as string]?.yamlProperties}
-                      value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.branch}
-                    />
-                    {
-                      <VariableRow
-                        data={
-                          metadataMap[(manifest?.spec?.store?.spec?.gitFetchType as unknown) as string]?.yamlProperties
-                        }
-                        value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.gitFetchType}
-                      />
-                    }
-                    {manifest?.spec?.store?.spec?.paths && (
-                      <VariableRow
-                        data={metadataMap[(manifest?.spec?.store?.spec?.paths as unknown) as string]?.yamlProperties}
-                        value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.paths?.join(' , ')}
-                      />
-                    )}
-                  </div>
+                  <VariablesListTable
+                    key={index}
+                    data={manifest?.spec?.store?.spec}
+                    originalData={initialValues?.manifests?.[index]?.manifest?.spec?.store?.spec}
+                    metadataMap={metadataMap}
+                  />
                 ))}
               </>
             )

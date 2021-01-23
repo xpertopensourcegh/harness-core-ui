@@ -2,12 +2,39 @@ import React from 'react'
 import produce from 'immer'
 import { set } from 'lodash-es'
 import { NestedAccordionPanel } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
 
+import { useStrings } from 'framework/exports'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
 import type { PipelineVariablesData } from '../types'
-import { StepCardPanel } from './StepCard'
+import { StepCardPanel, StepGroupCardPanel } from './StepCard'
+import css from '../PipelineVariables.module.scss'
+
+export interface AddStepsParams {
+  steps?: ExecutionWrapperConfig[]
+  originalSteps?: ExecutionWrapperConfig[]
+  parentPath?: string
+}
+
+export interface StepRenderData {
+  step: StepElementConfig
+  originalStep: StepElementConfig
+  path: string
+  type: 'StepRenderData'
+}
+
+export interface StepGroupRenderData {
+  steps: Array<StepRenderData>
+  name: string
+  originalName: string
+  identifier: string
+  path: string
+  type: 'StepGroupRenderData'
+}
+
+// function isStepRenderData(obj: unknown): obj is StepRenderData {
+
+// }
 
 export interface ExecutionCardProps {
   execution: ExecutionElementConfig
@@ -19,67 +46,112 @@ export interface ExecutionCardProps {
 
 export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
   const { execution, originalExecution, metadataMap, stageIdentifier, onUpdateExecution } = props
-  const [allSteps, stepsPathMap] = React.useMemo(() => {
-    const cards: Array<[StepElementConfig, StepElementConfig]> = []
-    const pathsMap: Record<string, string> = {}
-
-    function addToCards(
-      steps?: ExecutionWrapperConfig[],
-      originalSteps?: ExecutionWrapperConfig[],
+  const allSteps = React.useMemo(() => {
+    function addToCards({
+      steps,
+      originalSteps,
       parentPath = ''
-    ): void {
-      if (!steps || !Array.isArray(steps)) return
+    }: AddStepsParams): Array<StepRenderData | StepGroupRenderData> {
+      if (!steps || !Array.isArray(steps)) return []
 
-      steps.forEach(({ step, stepGroup, parallel }, i) => {
+      return steps.reduce<Array<StepRenderData | StepGroupRenderData>>((cards, { step, stepGroup, parallel }, i) => {
         if (step) {
-          cards.push([step, originalSteps?.[i]?.step || {}])
-          // TODO: confirm if steps will have unique id
-          pathsMap[step.identifier || ''] = `${parentPath}[${i}]`
+          cards.push({
+            type: 'StepRenderData',
+            step,
+            originalStep: originalSteps?.[i]?.step || {},
+            path: `${parentPath}[${i}].step`
+          })
         } else if (stepGroup) {
-          addToCards(stepGroup.steps, originalSteps?.[i]?.stepGroup?.steps, `${parentPath}[${i}].stepGroup.steps`)
-          addToCards(
-            stepGroup.rollbackSteps,
-            originalSteps?.[i]?.stepGroup?.rollbackSteps,
-            `${parentPath}[${i}].stepGroup.rollbackSteps`
-          )
+          cards.push({
+            type: 'StepGroupRenderData',
+            steps: [
+              ...(addToCards({
+                steps: stepGroup.steps,
+                originalSteps: originalSteps?.[i]?.stepGroup?.steps,
+                parentPath: `${parentPath}[${i}].stepGroup.steps`
+              }) as StepRenderData[]),
+              ...(addToCards({
+                steps: stepGroup.rollbackSteps,
+                originalSteps: originalSteps?.[i]?.stepGroup?.rollbackSteps,
+                parentPath: `${parentPath}[${i}].stepGroup.rollbackSteps`
+              }) as StepRenderData[])
+            ],
+            name: stepGroup.name || '',
+            originalName: originalSteps?.[i]?.stepGroup?.name || '',
+            identifier: originalSteps?.[i]?.stepGroup?.identifier || '',
+            path: `${parentPath}[${i}].stepGroup`
+          })
         } else if (parallel) {
-          // BE does not generate correct types for parallel
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          addToCards(parallel as any, originalSteps?.[i]?.parallel as any, `${parentPath}[${i}].parallel`)
+          cards.push(
+            ...addToCards({
+              steps: parallel,
+              originalSteps: originalSteps?.[i]?.parallel,
+              parentPath: `${parentPath}[${i}].parallel`
+            })
+          )
         }
-      })
+
+        return cards
+      }, [])
     }
 
-    addToCards(execution.steps, originalExecution.steps, 'steps')
-    addToCards(execution.rollbackSteps, originalExecution.rollbackSteps, 'rollbackSteps')
-
-    return [cards, pathsMap]
+    return [
+      ...addToCards({ steps: execution.steps, originalSteps: originalExecution.steps, parentPath: 'steps' }),
+      ...addToCards({
+        steps: execution.rollbackSteps,
+        originalSteps: originalExecution.rollbackSteps,
+        parentPath: 'rollbackSteps'
+      })
+    ]
   }, [execution, originalExecution])
 
   return (
     <React.Fragment>
-      {allSteps.map(([step, originalStep]) => {
-        if (!step || !originalStep) return null
-
-        return (
-          <StepCardPanel
-            key={originalStep.identifier}
-            step={step}
-            originalStep={originalStep}
-            metadataMap={metadataMap}
-            stageIdentifier={stageIdentifier}
-            onUpdateStep={(data: StepElementConfig) => {
-              if (data.identifier && stepsPathMap[data.identifier]) {
+      {allSteps.map(row => {
+        if (row.type === 'StepRenderData' && row.step && row.originalStep) {
+          const { step, originalStep, path } = row
+          return (
+            <StepCardPanel
+              key={path}
+              step={step}
+              originalStep={originalStep}
+              metadataMap={metadataMap}
+              stageIdentifier={stageIdentifier}
+              stepPath={path}
+              onUpdateStep={(data: StepElementConfig, stepPath: string) => {
                 onUpdateExecution(
                   produce(originalExecution, draft => {
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    set(draft, stepsPathMap[data.identifier!], data)
+                    set(draft, stepPath, data)
                   })
                 )
-              }
-            }}
-          />
-        )
+              }}
+            />
+          )
+        }
+
+        if (row.type === 'StepGroupRenderData') {
+          return (
+            <StepGroupCardPanel
+              key={row.path}
+              steps={row.steps}
+              stepGroupIdentifier={row.identifier}
+              stepGroupName={row.name}
+              stepGroupOriginalName={row.originalName}
+              metadataMap={metadataMap}
+              stageIdentifier={stageIdentifier}
+              onUpdateStep={(data: StepElementConfig, stepPath: string) => {
+                onUpdateExecution(
+                  produce(originalExecution, draft => {
+                    set(draft, stepPath, data)
+                  })
+                )
+              }}
+            />
+          )
+        }
+
+        return null
       })}
     </React.Fragment>
   )
@@ -94,6 +166,7 @@ export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElemen
       addDomId
       id={`Stage.${props.stageIdentifier}.Execution`}
       summary={getString('executionText')}
+      panelClassName={css.panel}
       details={<ExecutionCard {...props} />}
     />
   )

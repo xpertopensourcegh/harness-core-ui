@@ -9,8 +9,9 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { NGVariable } from 'services/cd-ng'
 import type { YamlProperties } from 'services/pipeline-ng'
-
+import { toVariableStr } from '@common/utils/StringUtils'
 import { CopyText } from '@common/components/CopyText/CopyText'
+
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import i18n from './CustomVariables.i18n'
@@ -111,7 +112,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   return (
                     <div key={key} className={css.variableListTable}>
                       {yamlData && yamlData.fqn && yamlData.localName ? (
-                        <CopyText textToCopy={yamlData.fqn}>
+                        <CopyText textToCopy={toVariableStr(yamlData.fqn)}>
                           &lt;+<span>{yamlData.localName}</span>&gt;
                         </CopyText>
                       ) : (

@@ -14,7 +14,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
-import { VariableListTable } from './VariableListTable'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ServiceCardPanel } from './ServiceCard'
 import { InfrastructureCardPanel } from './InfrastructureCard'
 import { ExecutionCardPanel } from './ExecutionCard'
@@ -47,7 +47,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
       }
       details={
         <div className={css.variableCard}>
-          <VariableListTable data={stage} originalData={originalStage} metadataMap={metadataMap} />
+          <VariablesListTable data={stage} originalData={originalStage} metadataMap={metadataMap} />
 
           {originalSpec && (
             <React.Fragment>

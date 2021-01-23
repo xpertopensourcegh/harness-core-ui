@@ -11,8 +11,8 @@ import type {
   CustomVariableEditableExtraProps
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { useStrings } from 'framework/exports'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
-import { VariableListTable } from './VariableListTable'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
@@ -30,7 +30,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
 
   return (
     <Card className={css.variableCard} id="Pipeline-panel">
-      <VariableListTable data={pipeline} originalData={originalPipeline} metadataMap={metadataMap} />
+      <VariablesListTable data={pipeline} originalData={originalPipeline} metadataMap={metadataMap} />
 
       <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
         factory={stepsFactory}

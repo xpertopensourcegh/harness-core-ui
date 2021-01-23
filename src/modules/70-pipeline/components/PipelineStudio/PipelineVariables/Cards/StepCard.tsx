@@ -6,31 +6,32 @@ import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
 import type { PipelineVariablesData } from '../types'
-import { VariableListTable } from './VariableListTable'
 
 export interface StepCardProps {
   step: StepElementConfig
   originalStep: StepElementConfig
   stageIdentifier: string
   metadataMap: PipelineVariablesData['metadataMap']
-  onUpdateStep(data: StepElementConfig): void
+  onUpdateStep(data: StepElementConfig, path: string): void
+  stepPath: string
 }
 
 export function StepCard(props: StepCardProps): React.ReactElement {
-  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep } = props
+  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath } = props
   const { stepsFactory } = usePipelineContext()
 
   return (
     <React.Fragment>
-      <VariableListTable data={step} originalData={originalStep} metadataMap={metadataMap} />
+      <VariablesListTable data={step} originalData={originalStep} metadataMap={metadataMap} />
       <StepWidget<StepElementConfig>
         factory={stepsFactory}
         initialValues={originalStep}
         type={originalStep.type as StepType}
         stepViewType={StepViewType.InputVariable}
-        onUpdate={onUpdateStep}
+        onUpdate={(data: StepElementConfig) => onUpdateStep(data, stepPath)}
         customStepProps={{
           stageIdentifier,
           metadataMap,
@@ -49,6 +50,56 @@ export function StepCardPanel(props: StepCardProps): React.ReactElement {
       id={`Stage.${props.stageIdentifier}.Execution.Step.${props.originalStep.identifier}`}
       summary={props.originalStep.name}
       details={<StepCard {...props} />}
+    />
+  )
+}
+
+export interface StepGroupCardProps {
+  steps: Array<{ step: StepElementConfig; originalStep: StepElementConfig; path: string }>
+  stageIdentifier: string
+  metadataMap: PipelineVariablesData['metadataMap']
+  onUpdateStep(data: StepElementConfig, path: string): void
+  stepGroupIdentifier: string
+  stepGroupName: string
+  stepGroupOriginalName: string
+}
+
+export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
+  const { steps, metadataMap, onUpdateStep, stageIdentifier, stepGroupName, stepGroupOriginalName } = props
+
+  return (
+    <React.Fragment>
+      <VariablesListTable
+        data={{ name: stepGroupName }}
+        originalData={{ name: stepGroupOriginalName }}
+        metadataMap={metadataMap}
+      />
+      {steps.map(row => {
+        const { step, originalStep, path } = row
+        return (
+          <StepCardPanel
+            key={path}
+            step={step}
+            originalStep={originalStep}
+            metadataMap={metadataMap}
+            stepPath={path}
+            stageIdentifier={stageIdentifier}
+            onUpdateStep={onUpdateStep}
+          />
+        )
+      })}
+    </React.Fragment>
+  )
+}
+
+export function StepGroupCardPanel(props: StepGroupCardProps): React.ReactElement {
+  return (
+    <NestedAccordionPanel
+      isDefaultOpen
+      addDomId
+      id={`Stage.${props.stageIdentifier}.Execution.StepGroup.${props.stepGroupIdentifier}`}
+      summary={props.stepGroupOriginalName}
+      details={<StepGroupCard {...props} />}
     />
   )
 }

@@ -7,9 +7,11 @@ import { get, debounce } from 'lodash-es'
 
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { useCreateVariables } from 'services/pipeline-ng'
-
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
+import { shouldShowError } from '@common/utils/errorUtils'
+
+import { PageError } from '@common/components/Page/PageError'
 import i18n from './PipelineVariables.i18n'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { getPipelineTree } from '../PipelineUtils'
@@ -29,6 +31,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
 
   const { openNestedPath } = useNestedAccordion()
   const [initLoading, setInitLoading] = React.useState(true)
+  const [error, setError] = React.useState<string | null>(null)
   const [{ variablesPipeline, metadataMap }, setPipelineVariablesData] = React.useState<PipelineVariablesData>({
     variablesPipeline: { name: '', identifier: '' },
     metadataMap: {}
@@ -50,6 +53,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   const fetchVariablesData = React.useCallback(
     debounce(async (pipeline: NgPipeline): Promise<void> => {
       try {
+        setError(null)
         const { data } = await createVariables((stringify({ pipeline }) as unknown) as void, {
           queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
         })
@@ -60,7 +64,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
         })
         setInitLoading(false)
       } catch (e) {
-        //
+        if (shouldShowError(e)) {
+          setInitLoading(false)
+          setError(e.data?.message || e.message)
+        }
       }
     }, 300),
     [accountId, orgIdentifier, projectIdentifier]
@@ -109,6 +116,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   }
 
   if (initLoading) return <PageSpinner />
+
+  if (error) {
+    return <PageError message={error} />
+  }
 
   return (
     <div className={css.pipelineVariables}>

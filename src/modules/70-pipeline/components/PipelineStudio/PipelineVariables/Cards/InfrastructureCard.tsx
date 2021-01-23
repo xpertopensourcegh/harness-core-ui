@@ -7,9 +7,10 @@ import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepIn
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
 import type { PipelineVariablesData } from '../types'
-import { VariableListTable } from './VariableListTable'
+import css from '../PipelineVariables.module.scss'
 
 export interface InfrastructureCardProps {
   infrastructure: PipelineInfrastructure
@@ -25,7 +26,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
 
   return (
     <React.Fragment>
-      <VariableListTable
+      <VariablesListTable
         data={infrastructure.environment}
         originalData={originalInfrastructure.environment}
         metadataMap={metadataMap}
@@ -54,6 +55,7 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
       addDomId
       id={`Stage.${props.stageIdentifier}.Infrastructure`}
       summary={getString('infrastructureText')}
+      panelClassName={css.panel}
       details={<InfrastructureCard {...props} />}
     />
   )

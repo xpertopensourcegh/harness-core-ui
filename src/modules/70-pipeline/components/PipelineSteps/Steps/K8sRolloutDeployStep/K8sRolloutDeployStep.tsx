@@ -6,8 +6,7 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Accordion,
-  Text
+  Accordion
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
@@ -26,12 +25,10 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
-import { CopyText } from '@common/components/CopyText/CopyText'
-import { toVariableStr } from '@common/utils/StringUtils'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
-import variableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 export interface K8RolloutDeployData extends StepElement {
   spec: K8sRollingStepInfo
@@ -160,32 +157,7 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
   metadataMap,
   initialValues
 }) => {
-  return (
-    <div className={variableCss.variableListTable}>
-      <>
-        <CopyText
-          textToCopy={toVariableStr(
-            metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.fqn || ''
-          )}
-        >
-          &lt;+{metadataMap[(variablesData.spec.skipDryRun as unknown) as string].yamlProperties?.localName || ''}&gt;
-        </CopyText>
-        <Text>Boolean</Text>
-        <Text>{initialValues.spec.skipDryRun === true ? 'true' : 'false'}</Text>
-      </>
-      <>
-        <CopyText
-          textToCopy={toVariableStr(
-            metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.fqn || ''
-          )}
-        >
-          &lt;+{metadataMap[(variablesData.spec.timeout as unknown) as string].yamlProperties?.localName || ''}&gt;
-        </CopyText>
-        <Text>Boolean</Text>
-        <Text>{initialValues.spec.timeout}</Text>
-      </>
-    </div>
-  )
+  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
 }
 
 const K8sRolloutDeployRef = React.forwardRef(K8RolloutDeployWidget)

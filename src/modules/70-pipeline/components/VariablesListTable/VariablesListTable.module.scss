@@ -1,0 +1,11 @@
+.variables-list-table {
+  display: grid;
+  grid-template-columns: var(--variable-column1) var(--variable-column2) var(--variable-column3);
+  align-items: baseline;
+  padding: 0 var(--spacing-large) 0 var(--spacing-large);
+  row-gap: var(--spacing-large);
+
+  & + :global(.Accordion--panel) {
+    margin-top: var(--spacing-large);
+  }
+}

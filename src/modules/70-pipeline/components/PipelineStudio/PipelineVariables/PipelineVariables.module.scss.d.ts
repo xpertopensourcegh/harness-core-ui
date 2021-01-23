@@ -11,7 +11,7 @@ declare const styles: {
   readonly stageTitle: string
   readonly variableListHeader: string
   readonly variableCard: string
-  readonly variableListTable: string
   readonly customVariables: string
+  readonly panel: string
 }
 export default styles

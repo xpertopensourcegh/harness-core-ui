@@ -6,10 +6,11 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { useStrings } from 'framework/exports'
 
 import type { PipelineVariablesData } from '../types'
-import { VariableListTable } from './VariableListTable'
+import css from '../PipelineVariables.module.scss'
 
 const StepsMap: Record<string, StepType> = {
   Kubernetes: StepType.K8sServiceSpec
@@ -29,7 +30,7 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
 
   return (
     <React.Fragment>
-      <VariableListTable
+      <VariablesListTable
         data={serviceConfig.service}
         originalData={originalServiceConfig.service}
         metadataMap={metadataMap}
@@ -59,6 +60,7 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
       addDomId
       id={`Stage.${props.stageIdentifier}.Service`}
       summary={getString('service')}
+      panelClassName={css.panel}
       details={<ServiceCard {...props} />}
     />
   )

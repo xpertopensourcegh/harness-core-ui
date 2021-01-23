@@ -33,19 +33,17 @@ import {
 import { getIconByType } from '@connectors/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
-import { CopyText } from '@common/components/CopyText/CopyText'
-import { toVariableStr } from '@common/utils/StringUtils'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import i18n from './KubernetesInfraSpec.18n'
 import css from './KubernetesInfraSpec.module.scss'
-import variableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
@@ -288,41 +286,11 @@ const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProp
   const infraVariables = variablesData?.infrastructureDefinition?.spec
 
   return infraVariables ? (
-    <>
-      <div className={variableCss.variableListTable} key="connectorRef">
-        <div>
-          <CopyText textToCopy={metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.fqn || ''}>
-            {toVariableStr(metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.localName || '')}
-          </CopyText>
-          <Text>String</Text>
-          <Text lineClamp={2} width={280}>
-            {initialValues.connectorRef}
-          </Text>
-        </div>
-      </div>
-      <div className={variableCss.variableListTable} key="namespace">
-        <>
-          <CopyText textToCopy={metadataMap?.[infraVariables?.namespace]?.yamlProperties?.fqn || ''}>
-            {toVariableStr(metadataMap?.[infraVariables?.namespace]?.yamlProperties?.localName || '')}
-          </CopyText>
-          <Text>String</Text>
-          <Text lineClamp={2} width={280}>
-            {initialValues.namespace}
-          </Text>
-        </>
-      </div>
-      <div className={variableCss.variableListTable} key="releaseName">
-        <>
-          <CopyText textToCopy={metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.fqn || ''}>
-            {toVariableStr(metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.localName || '')}
-          </CopyText>
-          <Text>String</Text>
-          <Text lineClamp={2} width={280}>
-            {initialValues.releaseName}
-          </Text>
-        </>
-      </div>
-    </>
+    <VariablesListTable
+      data={infraVariables}
+      originalData={initialValues?.infrastructureDefinition?.spec}
+      metadataMap={metadataMap}
+    />
   ) : null
 }
 

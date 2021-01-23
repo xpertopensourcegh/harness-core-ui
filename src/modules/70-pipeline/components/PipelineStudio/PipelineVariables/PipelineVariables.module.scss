@@ -68,18 +68,6 @@
           box-shadow: none;
         }
 
-        .variable-list-table {
-          display: grid;
-          grid-template-columns: var(--variable-column1) var(--variable-column2) var(--variable-column3);
-          align-items: baseline;
-          padding: var(--spacing-large) var(--spacing-large) 0 var(--spacing-large);
-          row-gap: var(--spacing-large);
-
-          & + :global(.Accordion--panel) {
-            margin-top: var(--spacing-large);
-          }
-        }
-
         :global(.Accordion--panel) {
           background-color: var(--white);
         }
@@ -97,5 +85,25 @@
 
   .custom-variables {
     padding: var(--spacing-large) var(--spacing-large) 0 var(--spacing-large);
+  }
+
+  .panel {
+    :global(.Accordion--summary) {
+      position: relative;
+      padding-left: calc(var(--spacing-medium) + var(--spacing-small) + 13px) !important;
+    }
+
+    & :global(.Accordion--summary::before) {
+      content: '';
+      position: absolute;
+      left: var(--spacing-medium);
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      width: 13px;
+      height: 13px;
+      background: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+      border-radius: 50%;
+    }
   }
 }
