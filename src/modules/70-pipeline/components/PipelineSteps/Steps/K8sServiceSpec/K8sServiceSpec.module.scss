@@ -36,3 +36,10 @@
     border-radius: 100px;
   }
 }
+.artifactHeader {
+  display: block;
+  font-weight: bold;
+  &.mtop {
+    margin-top: var(--spacing-medium);
+  }
+}

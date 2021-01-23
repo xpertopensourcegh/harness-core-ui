@@ -32,6 +32,9 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from '@connectors/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { CopyText } from '@common/components/CopyText/CopyText'
+import { toVariableStr } from '@common/utils/StringUtils'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
@@ -42,6 +45,7 @@ import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import i18n from './KubernetesInfraSpec.18n'
 import css from './KubernetesInfraSpec.module.scss'
+import variableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
@@ -50,6 +54,8 @@ interface KubernetesInfraSpecEditableProps {
   onUpdate?: (data: K8SDirectInfrastructure) => void
   stepViewType?: StepViewType
   template?: K8SDirectInfrastructureTemplate
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: K8SDirectInfrastructure
 }
 
 const getConnectorValue = (connector?: ConnectorResponse): string =>
@@ -274,6 +280,54 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
   )
 }
 
+const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProps> = ({
+  metadataMap,
+  variablesData,
+  initialValues
+}) => {
+  const infraVariables = variablesData?.infrastructureDefinition?.spec
+
+  return (
+    infraVariables && (
+      <>
+        <div className={variableCss.variableListTable} key="connectorRef">
+          <>
+            <CopyText textToCopy={metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.fqn || ''}>
+              {toVariableStr(metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.localName || '')}
+            </CopyText>
+            <Text>String</Text>
+            <Text lineClamp={2} width={280}>
+              {initialValues.connectorRef}
+            </Text>
+          </>
+        </div>
+        <div className={variableCss.variableListTable} key="namespace">
+          <>
+            <CopyText textToCopy={metadataMap?.[infraVariables?.namespace]?.yamlProperties?.fqn || ''}>
+              {toVariableStr(metadataMap?.[infraVariables?.namespace]?.yamlProperties?.localName || '')}
+            </CopyText>
+            <Text>String</Text>
+            <Text lineClamp={2} width={280}>
+              {initialValues.namespace}
+            </Text>
+          </>
+        </div>
+        <div className={variableCss.variableListTable} key="releaseName">
+          <>
+            <CopyText textToCopy={metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.fqn || ''}>
+              {toVariableStr(metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.localName || '')}
+            </CopyText>
+            <Text>String</Text>
+            <Text lineClamp={2} width={280}>
+              {initialValues.releaseName}
+            </Text>
+          </>
+        </div>
+      </>
+    )
+  )
+}
+
 interface K8SDirectInfrastructureStep extends K8SDirectInfrastructure {
   name?: string
   identifier?: string
@@ -297,6 +351,8 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     super()
     this.lastFetched = new Date().getTime()
     this.invocationMap.set(KubernetesDirectRegex, this.getConnectorsListForYaml.bind(this))
+
+    this._hasStepVariables = true
   }
   protected getConnectorsListForYaml(
     path: string,
@@ -351,10 +407,11 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   }
 
   renderStep(props: StepProps<K8SDirectInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesInfraSpecInputForm
+          {...(customStepProps as KubernetesInfraSpecEditableProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
@@ -362,8 +419,25 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
           path={inputSetData?.path || ''}
         />
       )
+    } else if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <KubernetesInfraSpecVariablesForm
+          onUpdate={onUpdate}
+          stepViewType={stepViewType}
+          template={inputSetData?.template}
+          {...(customStepProps as KubernetesInfraSpecEditableProps)}
+          initialValues={initialValues}
+        />
+      )
     }
 
-    return <KubernetesInfraSpecEditable initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <KubernetesInfraSpecEditable
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        {...(customStepProps as KubernetesInfraSpecEditableProps)}
+        initialValues={initialValues}
+      />
+    )
   }
 }

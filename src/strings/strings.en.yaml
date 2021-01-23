@@ -267,6 +267,7 @@ skipConditionHelpText: |
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
+selectStrategy: Select a Strategy
 failureStrategy:
   title: Failure Strategy
   helpText: |
@@ -284,7 +285,7 @@ failureStrategies:
 onTimeoutLabel: Post timeout action
 preRequisitesTitle: Pre-requisites
 advancedTitle: Advanced
-stepConfiguration: Step Configuration
+stepConfiguration: Basics
 stepGroupConfiguration: Step Group Configuration
 image: 'Image:'
 createdAt: 'Created at:'

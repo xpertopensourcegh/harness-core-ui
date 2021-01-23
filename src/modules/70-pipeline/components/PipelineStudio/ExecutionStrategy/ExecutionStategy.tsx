@@ -8,13 +8,14 @@ import {
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
-import i18n from './ExecutionStrategy.i18n'
+import { useStrings } from 'framework/exports'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import BlueGreen from './images/BlueGreen.png'
 import Rolling from './images/Rolling.png'
 import Canary from './images/Canary.png'
 import BlankCanvas from './images/BlankCanvas.png'
+import i18n from './ExecutionStrategy.i18n'
 import css from './ExecutionStrategy.module.scss'
 
 export interface ExecutionStrategyProps {
@@ -54,7 +55,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-
+  const { getString } = useStrings()
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)
   const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
@@ -111,7 +112,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     <Layout.Vertical padding="xxlarge" spacing="large">
       <Layout.Horizontal>
         <Text font={{ size: 'medium' }} style={{ color: 'var(--grey-600)' }}>
-          {i18n.heading}
+          {getString('selectStrategy')}
         </Text>
       </Layout.Horizontal>
 
@@ -154,7 +155,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
           </section>
           <Button
             intent="primary"
-            text={i18n.selectBtn}
+            text={getString('filters.apply')}
             className={css.selectBtn}
             onClick={() =>
               updatePipelineView({

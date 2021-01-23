@@ -403,6 +403,7 @@ function ManifestListView({
                   defaultValueToReset={defaultValueToReset}
                   name={'paths'}
                   label={getString('fileFolderPathText')}
+                  disableTypeSelection
                 >
                   <Text
                     icon="info-sign"
@@ -556,7 +557,7 @@ function ManifestListView({
                       </Text>
                     </span>
                     <span>
-                      <Text width={280} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                      <Text width={220} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {typeof manifest.spec.store.spec.paths === 'string'
                           ? manifest.spec.store.spec.paths
                           : manifest.spec.store.spec.paths[0]}

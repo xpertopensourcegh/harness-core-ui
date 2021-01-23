@@ -5,5 +5,7 @@ declare const styles: {
   readonly sectionHeader: string
   readonly subSectonHeader: string
   readonly stagesTreeBulletCircle: string
+  readonly artifactHeader: string
+  readonly mtop: string
 }
 export default styles

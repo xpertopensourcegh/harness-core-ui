@@ -140,6 +140,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
           placeholder={i18n.search}
           leftIcon="search"
           value={searchTerm}
+          autoFocus
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSearchTerm(e.target.value)
           }}

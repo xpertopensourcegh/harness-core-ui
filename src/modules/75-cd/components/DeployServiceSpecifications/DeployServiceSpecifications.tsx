@@ -369,6 +369,18 @@ export default function DeployServiceSpecifications(): JSX.Element {
                     className={css.propagatedropdown}
                     items={previousStageList}
                     value={selectedPropagatedState}
+                    itemRenderer={(item, { handleClick }) => {
+                      return (
+                        <Text
+                          onClick={e => handleClick(e)}
+                          lineClamp={2}
+                          width={180}
+                          style={{ wordBreak: 'break-all' }}
+                        >
+                          {item.label}
+                        </Text>
+                      )
+                    }}
                     onChange={(item: SelectOption) => selectPropagatedStep(item)}
                   />
                 )}

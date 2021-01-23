@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Icon, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Select } from '@blueprintjs/select'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
@@ -165,14 +165,22 @@ export default function DeployStageSetupShell(): JSX.Element {
                   }}
                 >
                   <Icon name={MapStepTypeToIcon[stageData?.type]} size={20} margin={{ left: 'small' }} />
-                  {stageData?.name}
+                  {
+                    <Text lineClamp={2} width={70}>
+                      {stageData?.name}
+                    </Text>
+                  }
                 </Button>
                 <StageSelection
                   itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
                     <div key={item.value as string}>
                       <Button
                         icon={MapStepTypeToIcon[item.type]}
-                        text={item.label}
+                        text={
+                          <Text lineClamp={2} width={160}>
+                            {item.label}
+                          </Text>
+                        }
                         disabled={disabled}
                         minimal
                         className={css.stageDropDown}

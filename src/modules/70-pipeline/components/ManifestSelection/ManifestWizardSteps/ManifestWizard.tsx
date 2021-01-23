@@ -281,6 +281,7 @@ const SecondStep = (props: any): JSX.Element => {
 
             <MultiTypeFieldSelector
               defaultValueToReset={defaultValueToReset}
+              disableTypeSelection
               name={'filePath'}
               label={getString('fileFolderPathText')}
             >

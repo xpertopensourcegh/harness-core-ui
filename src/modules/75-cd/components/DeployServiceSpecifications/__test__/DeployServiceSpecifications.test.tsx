@@ -73,7 +73,7 @@ describe('OverrideSet tests', () => {
     const overrideSetCheckbox = container.querySelector('input[id=overrideSetCheckbox]')
     expect(overrideSetCheckbox).toBeDefined()
     fireEvent.click(overrideSetCheckbox as Element)
-
+    expect(overrideSetCheckbox).toMatchSnapshot('changed data')
     //Add Predefined Set to list
     await waitFor(() => findByText(container, '+ Add Predefined Set'))
     let addOverrideSetButton = container.querySelector('button[class*="addOverrideSetButton"]')
