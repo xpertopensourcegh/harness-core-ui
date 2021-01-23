@@ -193,6 +193,13 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
+      path={routes.toCreateConnectorFromYamlAtOrgLevel({ ...accountPathProps, ...orgPathProps })}
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
       path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
     >
       <ResourcesPage>

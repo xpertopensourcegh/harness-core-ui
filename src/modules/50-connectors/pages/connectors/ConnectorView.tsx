@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Layout, Container } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { useToaster, useConfirmationDialog } from 'modules/10-common/exports'
@@ -13,6 +14,7 @@ import {
   ResponseYamlSnippets,
   ResponseString
 } from 'services/cd-ng'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
@@ -63,6 +65,7 @@ const ConnectorContext = React.createContext<ConnectorContextInterface>({
 })
 
 const ConnectorView: React.FC<ConnectorViewProps> = props => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [enableEdit, setEnableEdit] = useState(false)
 
   const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
@@ -192,12 +195,12 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     identifier: '',
     requestOptions: { headers: { accept: 'application/json' } },
     lazy: true,
-    mock: props.mockSnippetData
-    // queryParams: {
-    //   projectIdentifier,
-    //   orgIdentifier,
-    //   scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    // }
+    mock: props.mockSnippetData,
+    queryParams: {
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
   })
 
   useEffect(() => {
@@ -225,10 +228,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
 
   const { data: connectorSchema } = useGetYamlSchema({
     queryParams: {
-      entityType: 'Connectors'
-      // projectIdentifier,
-      // orgIdentifier,
-      // scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+      entityType: 'Connectors',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     },
     mock: props.mockSchemaData
   })

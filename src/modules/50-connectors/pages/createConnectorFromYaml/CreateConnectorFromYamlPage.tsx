@@ -13,6 +13,7 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import i18n from './CreateConnectorFromYaml.i18n'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
@@ -69,12 +70,12 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { data: snippet, refetch } = useGetYamlSnippet({
     identifier: '',
     requestOptions: { headers: { accept: 'application/json' } },
-    lazy: true
-    // queryParams: {
-    //   projectIdentifier,
-    //   orgIdentifier,
-    //   scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    // }
+    lazy: true,
+    queryParams: {
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
   })
 
   useEffect(() => {
@@ -101,10 +102,10 @@ const CreateConnectorFromYamlPage: React.FC = () => {
 
   const { data: connectorSchema } = useGetYamlSchema({
     queryParams: {
-      entityType: 'Connectors'
-      // projectIdentifier,
-      // orgIdentifier,
-      // scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+      entityType: 'Connectors',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })
 
