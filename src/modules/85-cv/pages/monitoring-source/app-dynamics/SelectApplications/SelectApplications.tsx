@@ -219,8 +219,8 @@ function EnvironmentCell({ value, disabled, onSelect, options = [], onUpdateOpti
           onSelect(opt.value as string)
         }}
         onNewCreated={env => {
-          onUpdateOptions?.([{ label: env.name!, value: env.name! }, ...options])
-          onSelect(env.name as string)
+          onUpdateOptions?.([{ label: env.name!, value: env.identifier! }, ...options])
+          onSelect(env.identifier as string)
         }}
       />
     </Container>

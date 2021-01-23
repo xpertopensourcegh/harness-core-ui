@@ -73,8 +73,8 @@ export const ServiceCell = ({ value, disabled, onSelect, options = [], onUpdateO
       item={selectedOption}
       options={options}
       onNewCreated={service => {
-        onSelect(service.name as string)
-        onUpdateOptions([{ label: service.name!, value: service.name! }, ...options])
+        onUpdateOptions([{ label: service.name!, value: service.identifier! }, ...options])
+        onSelect(service.identifier!)
       }}
       onSelect={opt => {
         onSelect(opt.value as string)

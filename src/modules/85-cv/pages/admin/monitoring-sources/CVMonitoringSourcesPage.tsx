@@ -5,7 +5,7 @@ import { Container, Icon, Text, Button, TextInput } from '@wings-software/uicore
 import moment from 'moment'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings, String } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetMonitoringSources, MonitoringSource, useDeleteDSConfig } from 'services/cv'
@@ -147,24 +147,18 @@ export default function CVMonitoringSourcesPage() {
               {
                 Header: getString('typeLabel'),
                 accessor: 'type',
-                width: '10%',
+                width: '15%',
                 Cell: TypeTableCell
               },
               {
                 Header: getString('numberOfServices'),
                 accessor: 'numberOfServices',
-                width: '15%'
-              },
-              {
-                Header: getString('cv.admin.monitoringSources.importStatus'),
-                accessor: 'importStatus',
-                width: '25%',
-                Cell: ImportStatusCell
+                width: '20%'
               },
               {
                 Header: getString('cv.admin.activitySources.tableColumnNames.lastUpdatedOn'),
                 accessor: 'importedAt',
-                width: '25%',
+                width: '40%',
                 Cell: function ImportedCellWrap(props) {
                   return <ImportedOnCell {...props} onEdit={onEdit} onDelete={onDelete} />
                 }
@@ -191,31 +185,6 @@ function TypeTableCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
       {tableProps.value === 'APP_DYNAMICS' && <Icon name="service-appdynamics" size={18} />}
       {tableProps.value === 'STACKDRIVER' && <Icon name="service-stackdriver" size={18} />}
     </Container>
-  )
-}
-
-function ImportStatusCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
-  const {
-    numberOfApplications,
-    totalNumberOfApplications,
-    numberOfEnvironments,
-    totalNumberOfEnvironments
-  } = tableProps.value
-  return (
-    <>
-      <Text lineClamp={1}>
-        <String
-          stringID="cv.admin.monitoringSources.applicationsImported"
-          vars={{ num: numberOfApplications, total: totalNumberOfApplications }}
-        />
-      </Text>
-      <Text lineClamp={1}>
-        <String
-          stringID="cv.admin.monitoringSources.environmentsImported"
-          vars={{ num: numberOfEnvironments, total: totalNumberOfEnvironments }}
-        />
-      </Text>
-    </>
   )
 }
 
