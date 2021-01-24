@@ -149,14 +149,14 @@ describe('LogsContentUtils', () => {
         enableLogLoading: false,
         queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'key1' },
         sectionIdx: 0,
-        sectionTitle: 'Initialize',
+        sectionTitle: expect.any(Function),
         sourceType: 'blob'
       },
       {
         enableLogLoading: true,
         queryVars: { 'X-Harness-Token': 'logsToken', accountID: 'accountId', key: 'key2' },
         sectionIdx: 1,
-        sectionTitle: 'Wrap Up',
+        sectionTitle: expect.any(Function),
         sourceType: 'stream'
       }
     ]

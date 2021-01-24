@@ -95,7 +95,6 @@ const LogsContent = (props: LogsContentProps) => {
       setEnableStreaming(false)
     }
   }, [step?.uuid])
-
   // find active logs
   const activeLoadingSection = logsSectionsModel.find(item => item.enableLogLoading)
 
@@ -180,58 +179,65 @@ const LogsContent = (props: LogsContentProps) => {
   }
 
   return (
-    <section className={css.logContent}>
-      <LogsHeader
-        onNext={onNext}
-        onPrev={onPrev}
-        searchDir={searchDir}
-        header={props.header}
-        showCross={props.showCross}
-        redirectToLogView={props.redirectToLogView}
-      />
-      <MultiLogsViewer
-        loadingIndex={loadingIndex}
-        numberOfLogSections={logsSectionsModel.length}
-        titleForSection={sectionIndex => {
-          return logsSectionsModel[sectionIndex].sectionTitle
-        }}
-        sectionArr={openPanelArr}
-        activePanel={openedIndex}
-        isSectionOpen={(sectionIndex: number) => openPanelArr[sectionIndex]}
-        rightElementForSection={() => {
-          return <span /> //TODO: unit execution time: <Text color={Color.GREY_100}>2m 38s</Text>
-        }}
-        logContentForSection={(sectionIdx: number) => {
-          if (logsPerSection[sectionIdx]) {
-            return logsPerSection[sectionIdx]
-          }
-          return ''
-        }}
-        searchDir={searchDir}
-        highlightedIndex={highlightInd}
-        searchText={searchText}
-        updateSection={(currentIndex: number, nextIndex = -1) => {
-          if (nextIndex > -1) {
-            openPanelArr[currentIndex] = false
-            openPanelArr[nextIndex] = true
-            setOpenedIndex(nextIndex)
-          } else {
-            openPanelArr[currentIndex] = !openPanelArr[currentIndex]
-          }
-        }}
-        style={{ background: '#0b0b0d !important' }}
-        className={css.logViewer}
-        toggleSection={(index: number) => {
-          // if it's open user want to close it / do not set latestSelectedIdx
-          if (openPanelArr[index] !== true) {
-            setLatestSelectedIdx(index)
-          }
-          setOpenPanelArr(openPanelArr.map((item, idx) => (index === idx ? !item : item)))
-          setTouched(() => true)
-        }}
-      />
-      <Summary />
-    </section>
+    <>
+      {logsSectionsModel.length ? (
+        <section className={css.logContent}>
+          <LogsHeader
+            onNext={onNext}
+            onPrev={onPrev}
+            searchDir={searchDir}
+            header={props.header}
+            showCross={props.showCross}
+            redirectToLogView={props.redirectToLogView}
+          />
+          <MultiLogsViewer
+            loadingIndex={loadingIndex}
+            numberOfLogSections={logsSectionsModel.length}
+            titleForSection={sectionIndex => {
+              if (logsSectionsModel[sectionIndex].sectionTitle instanceof Function) {
+                return ((logsSectionsModel[sectionIndex].sectionTitle as unknown) as any)?.(sectionIndex)
+              }
+              return logsSectionsModel[sectionIndex].sectionTitle
+            }}
+            sectionArr={openPanelArr}
+            activePanel={openedIndex}
+            isSectionOpen={(sectionIndex: number) => openPanelArr[sectionIndex]}
+            rightElementForSection={() => {
+              return <span /> //TODO: unit execution time: <Text color={Color.GREY_100}>2m 38s</Text>
+            }}
+            logContentForSection={(sectionIdx: number) => {
+              if (logsPerSection[sectionIdx]) {
+                return logsPerSection[sectionIdx]
+              }
+              return ''
+            }}
+            searchDir={searchDir}
+            highlightedIndex={highlightInd}
+            searchText={searchText}
+            updateSection={(currentIndex: number, nextIndex = -1) => {
+              if (nextIndex > -1) {
+                openPanelArr[currentIndex] = false
+                openPanelArr[nextIndex] = true
+                setOpenedIndex(nextIndex)
+              } else {
+                openPanelArr[currentIndex] = !openPanelArr[currentIndex]
+              }
+            }}
+            style={{ background: '#0b0b0d !important' }}
+            className={css.logViewer}
+            toggleSection={(index: number) => {
+              // if it's open user want to close it / do not set latestSelectedIdx
+              if (openPanelArr[index] !== true) {
+                setLatestSelectedIdx(index)
+              }
+              setOpenPanelArr(openPanelArr.map((item, idx) => (index === idx ? !item : item)))
+              setTouched(() => true)
+            }}
+          />
+          <Summary />
+        </section>
+      ) : null}
+    </>
   )
 }
 

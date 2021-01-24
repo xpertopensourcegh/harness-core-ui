@@ -1,12 +1,22 @@
+import React from 'react'
+import { Color, IconName, Text } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { getConfig, getUsingFetch, GetUsingFetchProps } from 'services/config'
 import type { Line, LogBlobQueryParams, LogStreamQueryParams } from 'services/logs'
-import type { ExecutionNode, GraphLayoutNode, ProgressData } from 'services/pipeline-ng'
+import type { ExecutionNode, GraphLayoutNode } from 'services/pipeline-ng'
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
+
+export enum LogsStatus {
+  Running = 'RUNNING',
+  Failure = 'FAILURE',
+  Success = 'SUCCESS',
+  Paused = 'PAUSED'
+}
 
 export interface LogsContentSection {
   enableLogLoading: boolean
-  sectionTitle: string
+  sectionTitle: string | ((sectionIdx: number) => JSX.Element)
   sectionIdx: number
   sourceType: 'stream' | 'blob' | string
   queryVars: LogStreamQueryParams | LogBlobQueryParams
@@ -92,8 +102,14 @@ export function createLogSection(
     const sectionTitles = taskObj?.units || []
 
     // NOTE: second element for progress
-    const taskId = step?.executableResponses?.[1]?.taskChain?.taskId || ''
-    const currentRunningIdx = getCurrentRunningUnitIdx(step?.taskIdToProgressDataMap?.[taskId], sectionTitles)
+    const taskId =
+      step?.executableResponses?.[1]?.taskChain?.taskId || step?.executableResponses?.[0]?.task?.taskId || ''
+    const nameStatusMap = new Map<string, string>()
+    const progressData = step?.taskIdToProgressDataMap?.[taskId] || []
+    progressData.forEach(item => {
+      nameStatusMap.set(item.commandUnitName, item.commandExecutionStatus)
+    })
+    const currentRunningIdx = getCurrentRunningUnitIdx(nameStatusMap, sectionTitles)
 
     return logKeys.map((key: string, idx: number) => {
       let enableLogLoading =
@@ -110,7 +126,14 @@ export function createLogSection(
 
       return {
         enableLogLoading,
-        sectionTitle: sectionTitles[idx] || '',
+        sectionTitle: function logTitle(sectionIdx: number) {
+          const status = nameStatusMap.get(sectionTitles[sectionIdx]) as LogsStatus
+          return (
+            <Text icon={getLogStatusIcon(status)} iconProps={getLogStatusIconProps(status)}>
+              {sectionTitles[idx] || ''}
+            </Text>
+          )
+        },
         sectionIdx: idx,
         sourceType: currentRunningIdx === idx ? 'stream' : 'blob',
         queryVars: {
@@ -125,6 +148,28 @@ export function createLogSection(
   return []
 }
 
+export function getLogStatusIconProps(status?: LogsStatus): Omit<IconProps, 'name'> {
+  if (status === LogsStatus.Failure) {
+    return { padding: { right: 'medium' }, color: Color.RED_500 }
+  } else if (status === LogsStatus.Paused) {
+    return { padding: { right: 'medium' }, color: Color.ORANGE_400 }
+  } else {
+    return { padding: { right: 'medium' } }
+  }
+}
+export function getLogStatusIcon(status?: LogsStatus): IconName | undefined {
+  if (status === LogsStatus.Failure) {
+    return 'circle-cross'
+  } else if (status === LogsStatus.Paused) {
+    return 'pause'
+  } else if (status === LogsStatus.Running) {
+    return 'spinner'
+  } else if (status) {
+    return 'tick-circle'
+  }
+  return 'circle'
+}
+
 export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | string {
   if (node?.moduleInfo?.ci) {
     return 'ci'
@@ -134,14 +179,7 @@ export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | string {
   return 'unknown'
 }
 
-function getCurrentRunningUnitIdx(progressData: ProgressData[] | undefined, unitNames: string[]): number {
-  if (!progressData) return -1
-
-  const nameStatusMap = new Map<string, string>()
-  progressData.forEach(item => {
-    nameStatusMap.set(item.commandUnitName, item.commandExecutionStatus)
-  })
-
+function getCurrentRunningUnitIdx(nameStatusMap: Map<string, string>, unitNames: string[]): number {
   let runningIdx = -1
   unitNames.forEach((unitName: string, idx: number) => {
     if (nameStatusMap.get(unitName) === 'RUNNING') {

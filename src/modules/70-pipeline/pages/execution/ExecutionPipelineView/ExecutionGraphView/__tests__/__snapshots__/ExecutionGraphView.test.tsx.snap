@@ -741,62 +741,6 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </tr>
                           </tbody>
                         </table>
-                        <section
-                          class="logContent"
-                        >
-                          <div
-                            class="StyledProps--font StyledProps--main headerContainer"
-                          >
-                            <header
-                              class="logsHeader"
-                            >
-                              <section
-                                class="headerContent"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main header"
-                                >
-                                  Step Logs
-                                </p>
-                                <p
-                                  class="StyledProps--font StyledProps--main subHeader StyledProps--font-small"
-                                >
-                                  
-                                </p>
-                              </section>
-                              <div />
-                            </header>
-                            <section
-                              class="headerActions"
-                            >
-                              <button
-                                class="bp3-button StyledProps--font Button--button StyledProps--main redirectBtn"
-                                type="button"
-                              >
-                                <span
-                                  class="bp3-button-text"
-                                >
-                                  Log View
-                                </span>
-                              </button>
-                              <div
-                                class="searchInput"
-                              />
-                            </section>
-                          </div>
-                          <div
-                            class="StyledProps--font StyledProps--main logViewer MultiLogsViewer--container"
-                          >
-                            <div
-                              class="Layout--vertical StyledProps--main"
-                            />
-                          </div>
-                          <div
-                            class="summaryElement"
-                          >
-                            Summary
-                          </div>
-                        </section>
                       </div>
                     </div>
                   </div>

@@ -268,52 +268,6 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
         </div>
       </ul>
     </div>
-    <section
-      class="logContent"
-    >
-      <div
-        class="StyledProps--font StyledProps--main headerContainer"
-      >
-        <header
-          class="logsHeader"
-        >
-          <section
-            class="headerContent"
-          >
-            <p
-              class="StyledProps--font StyledProps--main header"
-            >
-              Step Logs
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main subHeader StyledProps--font-small"
-            >
-              
-            </p>
-          </section>
-          <div />
-        </header>
-        <section
-          class="headerActions"
-        >
-          <div
-            class="searchInput"
-          />
-        </section>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main logViewer MultiLogsViewer--container"
-      >
-        <div
-          class="Layout--vertical StyledProps--main"
-        />
-      </div>
-      <div
-        class="summaryElement"
-      >
-        Summary
-      </div>
-    </section>
   </div>
   <div>
     <h1>
