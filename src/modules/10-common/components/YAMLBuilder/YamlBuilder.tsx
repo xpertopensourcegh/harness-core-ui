@@ -147,6 +147,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
+  const KEY_CODE_FOR_SPACE = 'Space'
 
   let expressionCompletionDisposer: { dispose: () => void }
   let runTimeCompletionDisposer: { dispose: () => void }
@@ -158,6 +159,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     const currentVersionId = editorRef?.current?.editor?.getModel()?.getAlternativeVersionId()
     return editorVersionRef.current !== currentVersionId
   }
+
+  useEffect(() => {
+    return () => {
+      disposePreviousSuggestions()
+    }
+  }, [])
 
   /* #region Bootstrap editor with schema */
 
@@ -332,8 +339,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     if (editor && matchingPath) {
       invocationMap?.forEach((callBackFunc, yamlPath) => {
         if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
-          const yamlLFromEditor = getYAMLFromEditor(editor, true) as string
-          const suggestionsPromise = callBackFunc(matchingPath, yamlLFromEditor, params)
+          const yamlFromEditor = getYAMLFromEditor(editor, true) as string
+          const suggestionsPromise = callBackFunc(matchingPath, yamlFromEditor, params)
           registerCompletionItemProviderForRTInputs(editor, suggestionsPromise)
         }
       })
@@ -359,9 +366,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       openDialog()
     }
     try {
-      const { shiftKey, code } = event
+      const { shiftKey, code, ctrlKey } = event
       //TODO Need to check hotkey for cross browser/cross OS compatibility
       //TODO Need to debounce this function call for performance optimization
+      if (ctrlKey && code === KEY_CODE_FOR_SPACE) {
+        disposePreviousSuggestions()
+      }
       if (shiftKey) {
         if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
           const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath

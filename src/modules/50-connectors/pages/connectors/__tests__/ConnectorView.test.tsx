@@ -7,6 +7,7 @@ import ConnectorView from '../ConnectorView'
 import { GitHttp } from './mockData'
 import * as mockMetaData from './snippets.metadata.json'
 import * as mockSnippetData from './snippet.json'
+import * as mockSecretData from './mocks/secret.json'
 
 jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div />
@@ -21,10 +22,11 @@ describe('Connector Details Page', () => {
           type={type as ConnectorInfoDTO['type']}
           response={GitHttp.data.content as ConnectorResponse}
           updateConnector={(data: Connector) => new Promise(resolve => resolve(data))}
-          refetchConnector={() => new Promise(resolve => resolve())}
+          refetchConnector={() => new Promise(resolve => resolve(GitHttp.data.content as ConnectorResponse))}
           mockMetaData={mockMetaData as any}
           mockSnippetData={mockSnippetData as any}
           mockSchemaData={mockSchemaData as any}
+          mockSecretData={mockSecretData as any}
         ></ConnectorView>
       </TestWrapper>
     )

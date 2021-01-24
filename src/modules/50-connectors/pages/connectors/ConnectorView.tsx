@@ -3,6 +3,7 @@ import { Button, Layout, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import cx from 'classnames'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useToaster, useConfirmationDialog } from 'modules/10-common/exports'
 import {
   ConnectorInfoDTO,
@@ -12,12 +13,20 @@ import {
   useGetYamlSnippet,
   ResponseJsonNode,
   ResponseYamlSnippets,
-  ResponseString
+  ResponseString,
+  useListSecretsV2,
+  ResponsePageSecretResponseWrapper
 } from 'services/cd-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
+import type {
+  CompletionItemInterface,
+  InvocationMapFunction,
+  YamlBuilderHandlerBinding,
+  YamlBuilderProps
+} from 'modules/10-common/interfaces/YAMLBuilderProps'
+import { getReference } from '@secrets/utils/SSHAuthUtils'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { useGetYamlSchema } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
@@ -40,6 +49,7 @@ export interface ConnectorViewProps {
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
   mockSnippetData?: UseGetMockData<ResponseString>
   mockSchemaData?: UseGetMockData<ResponseJsonNode>
+  mockSecretData?: UseGetMockData<ResponsePageSecretResponseWrapper>
 }
 
 interface ConnectorViewState {
@@ -164,6 +174,95 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
       }
     }
   }
+
+  const { data: secretsResponse } = useListSecretsV2({
+    queryParams: {
+      accountIdentifier: accountId,
+      pageIndex: 0,
+      pageSize: 100,
+      orgIdentifier,
+      projectIdentifier
+    },
+    mock: props.mockSecretData,
+    debounce: 300
+  })
+
+  const currentScope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+
+  const secrets: CompletionItemInterface[] = React.useMemo(() => {
+    return (
+      secretsResponse?.data?.content?.map(item => ({
+        label: getReference(currentScope, item.secret.name) || /* istanbul ignore next */ '',
+        insertText: getReference(currentScope, item.secret.identifier) || /* istanbul ignore next */ '',
+        kind: CompletionItemKind.Field,
+        key: item.secret.identifier
+      })) || []
+    )
+  }, [secretsResponse?.data?.content?.map])
+
+  const getInvocationPaths = (): Set<RegExp> | undefined => {
+    switch (connector.type) {
+      case 'K8sCluster':
+        return new Set([
+          /^.+\.passwordRef$/,
+          /^.+\.usernameRef$/,
+          /^.+\.serviceAccountTokenRef$/,
+          /^.+\.oidcUsernameRef$/,
+          /^.+\.oidcClientIdRef$/,
+          /^.+\.oidcPasswordRef$/,
+          /^.+\.oidcSecretRef$/,
+          /^.+\.caCertRef$/,
+          /^.+\.clientCertRef$/,
+          /^.+\.clientKeyRef$/,
+          /^.+\.clientKeyPassphraseRef$/
+        ])
+      case 'DockerRegistry':
+        return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/])
+      case 'Nexus':
+        return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/])
+      case 'Git':
+        return new Set([/^.+\.passwordRef$/, /^.+\.usernameRef$/, /^.+\.encryptedSshKey$/])
+      case 'Splunk':
+        return new Set([/^.+\.passwordRef$/])
+      case 'AppDynamics':
+        return new Set([/^.+\.passwordRef$/])
+      case 'Gcp':
+        return new Set([/^.+\.secretKeyRef$/])
+      case 'Aws':
+        return new Set([/^.+\.accessKeyRef$/, /^.+\.secretKeyRef$/])
+      case 'Github':
+        return new Set([
+          /^.+\.usernameRef$/,
+          /^.+\.passwordRef$/,
+          /^.+\.tokenRef$/,
+          /^.+\.sshKeyRef$/,
+          /^.+\.privateKeyRef$/
+        ])
+      case 'Gitlab':
+        return new Set([
+          /^.+\.usernameRef$/,
+          /^.+\.passwordRef$/,
+          /^.+\.tokenRef$/,
+          /^.+\.sshKeyRef$/,
+          /^.+\.kerberosKeyRef$/
+        ])
+      case 'Bitbucket':
+        return new Set([/^.+\.usernameRef$/, /^.+\.passwordRef$/, /^.+\.tokenRef$/, /^.+\.sshKeyRef$/])
+    }
+    return
+  }
+
+  const invocationMap: YamlBuilderProps['invocationMap'] = new Map<RegExp, InvocationMapFunction>()
+  getInvocationPaths()?.forEach((path: RegExp) =>
+    invocationMap.set(
+      path,
+      (_matchingPath: string, _currentYaml: string): Promise<CompletionItemInterface[]> => {
+        return new Promise(resolve => {
+          resolve(secrets)
+        })
+      }
+    )
+  )
 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.name ?? 'Connector'}.yaml`,
@@ -322,6 +421,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
                 schema={connectorSchema?.data}
                 isReadOnlyMode={false}
                 bind={setYamlHandler}
+                invocationMap={invocationMap}
               />
               <Layout.Horizontal spacing="small">
                 <Button
