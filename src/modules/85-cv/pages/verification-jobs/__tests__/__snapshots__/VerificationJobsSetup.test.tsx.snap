@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VerificationJobsSetup Render initiaaly 1`] = `
+exports[`VerificationJobsSetup Render initialy 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main pageDimensions"
@@ -186,7 +186,7 @@ exports[`VerificationJobsSetup Render initiaaly 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
                       >
-                        Verification jobs trigger automatically whenever a relevant change is sourced from an Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
+                        Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
                       </p>
                       <div
                         class="StyledProps--font StyledProps--main main"

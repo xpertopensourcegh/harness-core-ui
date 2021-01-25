@@ -6,6 +6,7 @@ allowpaths:
   - /ds-config
   - /ds-config/{identifier}
   - /ds-config/listMonitoringSources
+  - /ds-config/available-monitoring-sources
   - /ds-config/env-to-services
   - /metric-pack
   - /splunk/validation

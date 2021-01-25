@@ -235,7 +235,7 @@ function TypeCell(tableProps: CellProps<VerificationJobDTO>): JSX.Element {
           interactionKind={PopoverInteractionKind.HOVER}
           content={<String stringID="cv.admin.verificationJobs.jobTypes.test" />}
         >
-          <Icon name="canary-outline" {...iconProps} />
+          <Icon name="lab-test" {...iconProps} />
         </Tooltip>
       )
     case 'CANARY':

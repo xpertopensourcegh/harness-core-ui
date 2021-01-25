@@ -67,7 +67,7 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
     }
   }
   const getRouteUrlForOnboarding = ({ type, sourceType, identifier }: any) => {
-    if (sourceType === 'ACTIVITY_SOURCE') {
+    if (sourceType === 'CHANGE_SOURCE') {
       return routes.toCVActivitySourceEditSetup({
         projectIdentifier,
         orgIdentifier,

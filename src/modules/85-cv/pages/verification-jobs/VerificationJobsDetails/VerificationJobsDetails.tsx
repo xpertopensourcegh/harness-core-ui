@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, Formik, FormikForm, Layout, Text, Color, FormInput } from '@wings-software/uicore'
-
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
@@ -57,13 +56,22 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
 
                 <Layout.Horizontal spacing="small" margin={{ bottom: 'large' }}>
                   <Container width="250px">
-                    <ActivitySource />
+                    <ActivitySource
+                      onChange={val => {
+                        if (
+                          val &&
+                          (formik.values.type !== VerificationJobType.TEST ||
+                            formik.values.type !== VerificationJobType.HEALTH)
+                        ) {
+                          formik.setFieldValue('type', '')
+                        }
+                      }}
+                    />
                   </Container>
                   <Container width="250px">
                     <DataSources formik={formik} />
                   </Container>
                 </Layout.Horizontal>
-
                 <FormInput.CustomRender
                   label={<Text color={Color.GREY_800}>{getString('cv.verificationJobs.details.selectType')}</Text>}
                   name="type"
@@ -82,7 +90,10 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                               size: 20
                             }}
                             onCardSelect={() => {
-                              formik.setFieldValue('type', VerificationJobType.TEST)
+                              const currValues = formik.values
+                              currValues.type = VerificationJobType.TEST
+                              delete currValues.trafficSplit
+                              formik.setValues({ ...currValues })
                             }}
                             cardLabel={getString('test')}
                             cardProps={{ disabled: formik.values.activitySource?.type === 'KUBERNETES' }}
@@ -101,7 +112,10 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                                 size: 20
                               }}
                               onCardSelect={() => {
-                                formik.setFieldValue('type', VerificationJobType.BLUE_GREEN)
+                                const currValues = formik.values
+                                currValues.type = VerificationJobType.BLUE_GREEN
+                                delete currValues.baseline
+                                formik.setValues({ ...currValues })
                               }}
                               cardLabel={getString('blueGreen')}
                               cardProps={{ disabled: !!formik.values.activitySource }}
@@ -114,7 +128,10 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                                 size: 20
                               }}
                               onCardSelect={() => {
-                                formik.setFieldValue('type', VerificationJobType.CANARY)
+                                const currValues = formik.values
+                                currValues.type = VerificationJobType.CANARY
+                                delete currValues.baseline
+                                formik.setValues({ ...currValues })
                               }}
                               cardLabel={getString('canary')}
                               cardProps={{ disabled: !!formik.values.activitySource }}
@@ -134,7 +151,12 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                               color: 'red'
                             }}
                             onCardSelect={() => {
-                              formik.setFieldValue('type', VerificationJobType.HEALTH)
+                              const currValues = formik.values
+                              currValues.type = VerificationJobType.HEALTH
+                              delete currValues.baseline
+                              delete currValues.sensitivity
+                              delete currValues.trafficSplit
+                              formik.setValues({ ...currValues })
                             }}
                             cardLabel={getString('health')}
                           />
@@ -148,15 +170,12 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
                   onPreviousClick={() =>
                     history.push(
                       routes.toCVAdminSetup({
-                        projectIdentifier: projectIdentifier as string,
-                        orgIdentifier: orgIdentifier as string,
+                        projectIdentifier,
+                        orgIdentifier,
                         accountId
                       })
                     )
                   }
-                  onNextClick={() => {
-                    formik.submitForm()
-                  }}
                 />
               </Layout.Vertical>
             </FormikForm>

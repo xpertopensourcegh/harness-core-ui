@@ -62,11 +62,11 @@ const HealthVerificationJob: React.FC<VerificationJobsDetailsProps> = props => {
                   {getString('cv.verificationJobs.configure.postDepText')}
                 </Text>
                 <Layout.Horizontal>
-                  <Container margin={{ right: 'xlarge' }} width={'300px'}>
+                  <Container margin={{ right: 'xlarge' }} width="300px">
                     <ServiceName />
                     <EnvironmentName />
                   </Container>
-                  <Container width={'300px'}>
+                  <Container width="300px">
                     <Duration />
                   </Container>
                 </Layout.Horizontal>

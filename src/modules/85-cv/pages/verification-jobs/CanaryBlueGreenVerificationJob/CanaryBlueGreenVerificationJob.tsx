@@ -24,7 +24,6 @@ interface VerificationJobsDetailsProps {
 }
 const CanaryBlueGreenVerificationJob: React.FC<VerificationJobsDetailsProps> = props => {
   const { getString } = useStrings()
-
   const { onSubmit, loading } = useVerificationJobFormSubmit({ onSuccess: props.onNext })
   return (
     <Container style={{ position: 'relative', top: 80 }}>

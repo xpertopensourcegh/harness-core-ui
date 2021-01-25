@@ -571,15 +571,15 @@ const routes = {
   ),
   toCVAdminMonitoringSources: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/admin/monitoring-sources/org/${orgIdentifier}/project/${projectIdentifier}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/monitoring-sources`
   ),
   toCVAdminVerificationJobs: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/admin/verification-jobs/org/${orgIdentifier}/project/${projectIdentifier}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/verification-jobs`
   ),
   toCVActivityDetails: withAccountId(
     ({ activityType, orgIdentifier, projectIdentifier }: ProjectPathProps & { activityType: string }) =>
-      `/cv/${activityType}/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/setup`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/setup/${activityType}`
   ),
   toCVAdminGeneralSettings: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -612,15 +612,15 @@ const routes = {
       monitoringSource,
       identifier
     }: ProjectPathProps & { monitoringSource: string; identifier: string }) =>
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}/${identifier}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}/${identifier}`
   ),
   toCVAdminSetupVerificationJob: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job`
   ),
   toCVAdminSetupVerificationJobEdit: withAccountId(
     ({ projectIdentifier, orgIdentifier, verificationId }: ProjectPathProps & { verificationId: string }) =>
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
   ),
 
   toCVAdminResourcesConnectors: withAccountId(

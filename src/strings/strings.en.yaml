@@ -71,6 +71,7 @@ studioText: Studio
 status: Status
 filePaths: File Paths
 submit: Submit
+previous: Previous
 startTime: Start time
 services: Services
 servicesWithCount: '{{ $.services }} ({{ count }})'
@@ -1230,7 +1231,7 @@ cv:
       addedStatus: You have added {{sourceCount}} Change Source
     verificationJobs:
       heading: Almost there
-      infoText: Verification jobs trigger automatically whenever a relevant change is sourced from an Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
+      infoText: Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
       subHeading: Default health verification jobs are applied automatically.
       createJobQues: Would you like to create a new verification job?
       createJob: Create Job

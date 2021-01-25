@@ -346,19 +346,22 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="bp3-popover-target"
             >
               <span
-                class="bp3-icon StyledProps--main"
-                data-icon="canary-outline"
+                class="bp3-icon bp3-icon-lab-test StyledProps--main"
+                icon="lab-test"
                 tabindex="0"
               >
                 <svg
+                  data-icon="lab-test"
                   height="18"
+                  viewBox="0 0 16 16"
                   width="18"
                 >
+                  <desc>
+                    lab-test
+                  </desc>
                   <path
-                    d="M15 15H6.251c-.965 0-1.817-.792-2.099-1.95L2.103 4.62H0L1.822 3.21S1.898.23 3.88.007c.435-.05.86.18 1.158.58C8.381 5.072 15 15 15 15"
-                    fill="none"
+                    d="M11 1a1 1 0 010 2v3l3 7v1.25a.75.75 0 01-.75.75H2.75a.75.75 0 01-.75-.75V13l3-7V3a1 1 0 110-2h6zM9 3H7v3l-1.714 4h5.428L9 6V3z"
                     fill-rule="evenodd"
-                    stroke="#FFE79A"
                   />
                 </svg>
               </span>

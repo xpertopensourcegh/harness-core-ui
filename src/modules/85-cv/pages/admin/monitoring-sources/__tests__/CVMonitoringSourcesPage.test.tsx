@@ -77,7 +77,7 @@ describe('CVMonitoringSourcesPage', () => {
       <div
         data-testid="location"
       >
-        /account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/monitoring-source/app-dynamics/nameTTID
+        /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/admin/setup/monitoring-source/app-dynamics/nameTTID
       </div>
     `)
   })

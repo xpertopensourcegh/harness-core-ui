@@ -17,10 +17,9 @@ import { useStrings } from 'framework/exports'
 import {
   ActivitySourceDTO,
   useListActivitySources,
-  useListAllSupportedDataSource,
+  useGetMonitoringSources,
   useListBaselineExecutions
 } from 'services/cv'
-import { getMonitoringSourceLabel } from '@cv/pages/admin/setup/SetupUtils'
 import i18n from './VerificationJobForms.i18n'
 import css from './VerificationJobFields.module.scss'
 
@@ -63,7 +62,7 @@ export function JobName(): JSX.Element {
   )
 }
 
-const VerificationSensitivityOptions: SelectOption[] = [
+export const VerificationSensitivityOptions: SelectOption[] = [
   { label: i18n.verificationSensitivityLabel.high, value: 'HIGH' },
   { label: i18n.verificationSensitivityLabel.medium, value: 'MEDIUM' },
   { label: i18n.verificationSensitivityLabel.low, value: 'LOW' }
@@ -90,8 +89,8 @@ export function ServiceName(props: BaseFieldProps): JSX.Element {
   const { data: serviceOptions } = useGetServiceListForProject({
     queryParams: {
       accountId,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string
+      projectIdentifier,
+      orgIdentifier
     } as GetServiceListForProjectQueryParams,
     resolve: serviceList =>
       serviceList?.data?.content?.map(({ identifier }: ServiceResponseDTO) => ({
@@ -146,8 +145,8 @@ export function EnvironmentName(props: BaseFieldProps): JSX.Element {
   const { data: environmentOptions } = useGetEnvironmentListForProject({
     queryParams: {
       accountId,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string
+      projectIdentifier,
+      orgIdentifier
     } as GetEnvironmentListForProjectQueryParams,
     resolve: envList =>
       envList?.data.content?.map(({ identifier }: EnvironmentResponseDTO) => ({
@@ -174,9 +173,9 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
   const selectProps = useMemo(
     () => ({
       items: [
-        { label: '5%', value: '5' },
-        { label: '10%', value: '10' },
-        { label: '15%', value: '15%' }
+        { label: '5%', value: 5 },
+        { label: '10%', value: 10 },
+        { label: '15%', value: 15 }
       ]
     }),
     []
@@ -293,35 +292,41 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
 
 export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const [monitoringOptions, setMonitoringOptions] = useState([{ label: 'All', value: 'All' }])
-  const { data } = useListAllSupportedDataSource({
+  const { getString } = useStrings()
+  const [monitoringOptions, setMonitoringOptions] = useState([{ label: getString('all'), value: getString('all') }])
+  const { data, loading } = useGetMonitoringSources({
     queryParams: {
       accountId,
       projectIdentifier,
       orgIdentifier
     }
   })
-  let options: MultiSelectOption[]
   useEffect(() => {
-    if (data?.resource?.length) {
-      options = data.resource.map(item => {
-        return {
-          label: getMonitoringSourceLabel(item),
-          value: item
-        }
-      })
-      setMonitoringOptions(monitoringOptions.concat(options as any))
-      props.formik.setFieldValue('dataSourceOptions', options)
+    if (!data?.resource?.content?.length) {
+      return
     }
+    const options: MultiSelectOption[] = []
+    for (const option of data.resource.content) {
+      if (option.monitoringSourceIdentifier && option.monitoringSourceName && option.type) {
+        options.push({
+          label: `${option.monitoringSourceName} - ${option.type?.toLocaleLowerCase()}`,
+          value: option.monitoringSourceIdentifier
+        })
+      }
+    }
+    setMonitoringOptions(monitoringOptions.concat(options as any))
+    props.formik.setFieldValue('dataSourceOptions', options)
   }, [data])
+
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
   return (
     <FormInput.MultiSelect
       name="dataSource"
       style={style}
+      key={monitoringOptions?.[0]?.label}
       label={i18n.fieldLabels.monitoringSource}
-      items={monitoringOptions}
+      items={loading ? [{ label: getString('loading'), value: getString('loading') }] : monitoringOptions}
     />
   )
 }

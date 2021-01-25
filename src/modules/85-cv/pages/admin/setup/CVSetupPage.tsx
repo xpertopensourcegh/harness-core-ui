@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Text, Layout, Container, Button, Color, Icon, Link, Card, CardBody, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
-import { useGetCVSetupStatus, RestResponseCVSetupStatus, useGetDefaultHealthVerificationJob } from 'services/cv'
+import {
+  useGetCVSetupStatus,
+  RestResponseCVSetupStatus,
+  useGetDefaultHealthVerificationJob,
+  useGetAvailableMonitoringSources
+} from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
@@ -114,7 +119,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                         <div
                           className={css.cardWrapper}
                           key={`${index}${item}`}
-                          onClick={() =>
+                          onClick={() => {
                             history.push(
                               item.routeUrl({
                                 activitySource: item.routeName,
@@ -123,7 +128,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                                 accountId
                               })
                             )
-                          }
+                          }}
                         >
                           <Card interactive={true} className={css.cardCss}>
                             <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
@@ -142,7 +147,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                         <div
                           className={css.cardWrapper}
                           key={`${index}${item}`}
-                          onClick={() =>
+                          onClick={() => {
                             history.push(
                               item.routeUrl({
                                 activitySource: item.routeName,
@@ -151,7 +156,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                                 accountId
                               })
                             )
-                          }
+                          }}
                         >
                           <Card interactive={true} className={css.cardCss}>
                             <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
@@ -225,7 +230,7 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
                     <div
                       className={css.cardWrapper}
                       key={`${index}${item}`}
-                      onClick={() =>
+                      onClick={() => {
                         history.push(
                           item.routeUrl({
                             monitoringSource: item.routeName,
@@ -234,7 +239,7 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
                             accountId
                           })
                         )
-                      }
+                      }}
                     >
                       <Card interactive={true} className={css.cardCss}>
                         <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
@@ -268,7 +273,6 @@ const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
   return (
     <Layout.Horizontal>
       <Container height="100vh" width="100%">
-        OnboardedSourceSummary.tsx
         <div className={css.monitoringContent}>
           <Text
             font={{ size: 'medium', weight: 'bold' }}
@@ -400,6 +404,9 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const queryParams = new URLSearchParams(location.search)
   const step = queryParams.get('step')
 
+  const { data: allMonitoringSources } = useGetAvailableMonitoringSources({
+    queryParams: { accountId: accountId, projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier }
+  })
   const { data, loading, refetch, error } = useGetCVSetupStatus({
     queryParams: {
       accountId: accountId,
@@ -427,6 +434,8 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
     }
   })
 
+  const hasOnBoardedMonitoringSources =
+    Number(indexDBData?.monitoringSources?.length) > 0 || Number(allMonitoringSources?.resource?.length) > 0
   useEffect(() => {
     if (step) {
       if (!isInitializingDB && setUpDbInstance) {
@@ -556,7 +565,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
             </Container>
             <Layout.Horizontal spacing="medium">
               <Button
-                text="Previous"
+                text={getString('previous')}
                 icon="chevron-left"
                 onClick={() => {
                   if (activeStep === Step.CHANGE_SOURCE) {
@@ -572,6 +581,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               />
               <Button
                 intent="primary"
+                disabled={activeStep === Step.MONITORING_SOURCE && !hasOnBoardedMonitoringSources}
                 text={step === '3' ? getString('finish') : getString('next')}
                 rightIcon="chevron-right"
                 onClick={() => {

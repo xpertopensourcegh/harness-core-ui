@@ -12,14 +12,12 @@ import { VerificationJobType } from '@cv/constants'
 import { useGetVerificationJob } from 'services/cv'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
+import { VerificationSensitivityOptions } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields.tsx'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
-
 import VerificationJobsDetails from './VerificationJobsDetails/VerificationJobsDetails'
-
 import TestVerificationJob from './TestVerificationJob/TestVerificationJob'
 import CanaryBlueGreenVerificationJob from './CanaryBlueGreenVerificationJob/CanaryBlueGreenVerificationJob'
 import HealthVerificationJob from './HealthVerificationJob/HealthVerificationJob'
-import { getMonitoringSourceLabel } from '../admin/setup/SetupUtils'
 import css from './VerificationJobsSetup.module.scss'
 
 interface VerificationJobsData {
@@ -32,6 +30,8 @@ interface ConfigureVerificationJobProps {
   onPrevious: () => void
   onNext: (data: any) => void
 }
+
+export type VerificationSensitivity = 'HIGH' | 'LOW' | 'MEDIUM'
 
 export const getIconByVerificationType = (type: string | undefined) => {
   switch (type) {
@@ -46,6 +46,18 @@ export const getIconByVerificationType = (type: string | undefined) => {
 
     default:
       return '' as IconName
+  }
+}
+
+export function sensitivityEnunToLabel(sensitivity: VerificationSensitivity): string {
+  switch (sensitivity) {
+    case 'HIGH':
+      return VerificationSensitivityOptions[0].label
+    case 'MEDIUM':
+      return VerificationSensitivityOptions[1].label
+    case 'LOW':
+    default:
+      return VerificationSensitivityOptions[2].label
   }
 }
 
@@ -93,12 +105,26 @@ const VerificationJobsSetup = (): JSX.Element => {
   useEffect(() => {
     if (verificationJob?.resource) {
       setCurrentData({
-        ...pick(verificationJob.resource, ['identifier', 'type', 'sensitivity']),
-        dataSource: verificationJob.resource.dataSources?.map(source => ({
-          label: getMonitoringSourceLabel(source),
+        ...pick(verificationJob.resource, ['identifier', 'type']),
+        dataSource: verificationJob.resource.monitoringSources?.map(source => ({
+          label: source,
           value: source
         })),
-        duration: { label: verificationJob.resource.duration, value: verificationJob.resource.duration },
+        sensitivity: (verificationJob.resource as any).sensitivity
+          ? {
+              label: sensitivityEnunToLabel((verificationJob.resource as any).sensitivity),
+              value: (verificationJob.resource as any).sensitivity
+            }
+          : undefined,
+        trafficSplit: (verificationJob.resource as any).trafficSplitPercentage
+          ? {
+              label: (verificationJob.resource as any).trafficSplitPercentage,
+              value: (verificationJob.resource as any).trafficSplitPercentage
+            }
+          : undefined,
+        duration: verificationJob.resource.duration
+          ? { label: verificationJob.resource.duration, value: verificationJob.resource.duration }
+          : undefined,
         name: verificationJob.resource.jobName,
         service: {
           label: verificationJob.resource.serviceIdentifier,
@@ -144,8 +170,8 @@ const VerificationJobsSetup = (): JSX.Element => {
                   <VerificationJobsDetails
                     stepData={currentData}
                     onNext={data => {
-                      setCurrentData({ ...currentData, ...data })
-                      onNext({ data: { ...currentData, ...data } })
+                      setCurrentData({ ...data })
+                      onNext({ data: { ...data } })
                     }}
                   />
                 )
@@ -158,8 +184,8 @@ const VerificationJobsSetup = (): JSX.Element => {
                     onPrevious={tabInfo.onPrevious}
                     currentData={currentData}
                     onNext={data => {
-                      setCurrentData({ ...currentData, ...data })
-                      onNext({ data: { ...currentData, ...data } })
+                      setCurrentData({ ...data })
+                      onNext({ data: { ...data } })
                     }}
                   />
                 )

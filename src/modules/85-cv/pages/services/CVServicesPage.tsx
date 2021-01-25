@@ -106,10 +106,11 @@ export default function CVServicesPage(): JSX.Element {
           buttonText: i18n.noDataText.goBackToDataSourcePage,
           onClick: () => {
             history.push({
-              pathname: routes.toCVDataSources({
+              pathname: routes.toCVAdminSetup({
                 projectIdentifier,
                 orgIdentifier,
-                accountId
+                accountId,
+                step: 2
               })
             })
           },

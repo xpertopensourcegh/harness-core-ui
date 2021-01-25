@@ -4,7 +4,7 @@ export default {
   activityTimeline: 'Activity Timeline',
   noDataText: {
     noServicesConfigured: 'No services have been configured',
-    goBackToDataSourcePage: 'Go to Data Source Page'
+    goBackToDataSourcePage: 'Go to Monitoring Source Page'
   },
   categoryNameLabels: {
     performance: 'Performance',

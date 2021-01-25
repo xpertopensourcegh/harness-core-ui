@@ -10,7 +10,29 @@ import * as cvService from 'services/cv'
 
 import VerificationJobsDetails from '../VerificationJobsDetails'
 
-const MockDataSources = { metaData: {}, resource: ['APP_DYNAMICS', 'SPLUNK', 'STACKDRIVER'], responseMessages: [] }
+const MockDataSources = {
+  metaData: {},
+  resource: {
+    content: [
+      {
+        type: 'APP_DYNAMICS',
+        monitoringSourceName: 'appD',
+        monitoringSourceIdentifier: 'appD'
+      },
+      {
+        type: 'STACKDRIVER',
+        monitoringSourceName: 'gco',
+        monitoringSourceIdentifier: 'gco'
+      },
+      {
+        type: 'SPLUNK',
+        monitoringSourceName: 'splunk',
+        monitoringSourceIdentifier: 'splunk'
+      }
+    ]
+  },
+  responseMessages: []
+}
 const MockActivitySource = {
   metaData: {},
   resource: {
@@ -67,7 +89,7 @@ const MockActivitySource = {
 
 describe('VerificationJobsDetails', () => {
   test('Render initiaaly', async () => {
-    jest.spyOn(cvService, 'useListAllSupportedDataSource').mockReturnValue({
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
       data: null,
       refetch: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
@@ -92,7 +114,7 @@ describe('VerificationJobsDetails', () => {
   })
 
   test('Ensure validation message is rendered, on submit', async () => {
-    jest.spyOn(cvService, 'useListAllSupportedDataSource').mockReturnValue({
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
       data: null,
       refetch: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
@@ -126,7 +148,7 @@ describe('VerificationJobsDetails', () => {
   })
 
   test('Ensure that edit data is rendered, correctly', async () => {
-    jest.spyOn(cvService, 'useListAllSupportedDataSource').mockReturnValue({
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
       data: MockDataSources,
       refetch: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
@@ -189,27 +211,337 @@ describe('VerificationJobsDetails', () => {
       expect(submitFuncMock).toHaveBeenCalledWith({
         dataSource: [
           {
-            label: 'App Dynamics',
-            value: 'APP_DYNAMICS'
+            label: 'appD - app_dynamics',
+            value: 'appD'
           }
         ],
         dataSourceOptions: [
           {
-            label: 'App Dynamics',
-            value: 'APP_DYNAMICS'
+            label: 'appD - app_dynamics',
+            value: 'appD'
           },
           {
-            label: 'Splunk',
-            value: 'SPLUNK'
+            label: 'gco - stackdriver',
+            value: 'gco'
           },
           {
-            label: 'Google Cloud Operations',
-            value: 'STACKDRIVER'
+            label: 'splunk - splunk',
+            value: 'splunk'
           }
         ],
         identifier: 'asdadas',
         name: 'asdadas',
         type: 'BLUE_GREEN'
+      })
+    )
+  })
+
+  test('Ensure that when user changes from canary to health, data is correct', async () => {
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
+      data: MockDataSources,
+      refetch: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({
+      data: MockActivitySource
+    } as UseGetReturn<any, any, any, any>)
+    const submitFuncMock = jest.fn()
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsDetails
+          onNext={submitFuncMock}
+          stepData={{
+            dataSource: [{ label: 'All', value: 'All' }],
+            identifier: 'sdfsfsdf',
+            serviceIdentifier: '1234_service',
+            environentIdentifier: '1234_environentIdentifier',
+            duration: '15m',
+            name: 'sdfsfsdf',
+            type: 'CANARY',
+            trafficSplit: 5,
+            sensitivity: { value: 'LOW', label: 'Low' }
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    const jobTypes = container.querySelectorAll('[class*="largeCard"]')
+    fireEvent.click(jobTypes[3])
+
+    await waitFor(() => expect(jobTypes[3].getAttribute('class')).toContain('selected'))
+    const buttons = container.querySelectorAll('button')
+    fireEvent.click(buttons[2])
+
+    await waitFor(() =>
+      expect(submitFuncMock).toHaveBeenCalledWith({
+        dataSource: [
+          {
+            label: 'All',
+            value: 'All'
+          }
+        ],
+        dataSourceOptions: [
+          {
+            label: 'appD - app_dynamics',
+            value: 'appD'
+          },
+          {
+            label: 'gco - stackdriver',
+            value: 'gco'
+          },
+          {
+            label: 'splunk - splunk',
+            value: 'splunk'
+          }
+        ],
+        duration: '15m',
+        environentIdentifier: '1234_environentIdentifier',
+        identifier: 'sdfsfsdf',
+        serviceIdentifier: '1234_service',
+        name: 'sdfsfsdf',
+        type: 'HEALTH'
+      })
+    )
+  })
+
+  test('Ensure that when user switches from test to blue green, data is correct', async () => {
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
+      data: MockDataSources,
+      refetch: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({
+      data: MockActivitySource
+    } as UseGetReturn<any, any, any, any>)
+    const submitFuncMock = jest.fn()
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsDetails
+          onNext={submitFuncMock}
+          stepData={{
+            dataSource: [{ label: 'All', value: 'All' }],
+            identifier: 'sdfsfsdf',
+            serviceIdentifier: '1234_service',
+            environentIdentifier: '1234_environentIdentifier',
+            duration: '15m',
+            name: 'sdfsfsdf',
+            type: 'TEST',
+            baseline: 'sdfsf',
+            sensitivity: { value: 'LOW', label: 'Low' }
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    const jobTypes = container.querySelectorAll('[class*="largeCard"]')
+    fireEvent.click(jobTypes[1])
+
+    await waitFor(() => expect(jobTypes[1].getAttribute('class')).toContain('selected'))
+    const buttons = container.querySelectorAll('button')
+    fireEvent.click(buttons[2])
+
+    await waitFor(() =>
+      expect(submitFuncMock).toHaveBeenCalledWith({
+        dataSource: [
+          {
+            label: 'All',
+            value: 'All'
+          }
+        ],
+        dataSourceOptions: [
+          {
+            label: 'appD - app_dynamics',
+            value: 'appD'
+          },
+          {
+            label: 'gco - stackdriver',
+            value: 'gco'
+          },
+          {
+            label: 'splunk - splunk',
+            value: 'splunk'
+          }
+        ],
+        duration: '15m',
+        environentIdentifier: '1234_environentIdentifier',
+        identifier: 'sdfsfsdf',
+        serviceIdentifier: '1234_service',
+        name: 'sdfsfsdf',
+        sensitivity: {
+          label: 'Low',
+          value: 'LOW'
+        },
+        type: 'BLUE_GREEN'
+      })
+    )
+  })
+
+  test('Ensure that when user switches from blue green to test, data is correct', async () => {
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
+      data: MockDataSources,
+      refetch: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({
+      data: MockActivitySource
+    } as UseGetReturn<any, any, any, any>)
+    const submitFuncMock = jest.fn()
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsDetails
+          onNext={submitFuncMock}
+          stepData={{
+            dataSource: [{ label: 'All', value: 'All' }],
+            identifier: 'sdfsfsdf',
+            serviceIdentifier: '1234_service',
+            environentIdentifier: '1234_environentIdentifier',
+            duration: '15m',
+            name: 'sdfsfsdf',
+            type: 'TEST',
+            baseline: 'sdfsfd',
+            sensitivity: { value: 'LOW', label: 'Low' }
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    const jobTypes = container.querySelectorAll('[class*="largeCard"]')
+    fireEvent.click(jobTypes[1])
+
+    await waitFor(() => expect(jobTypes[1].getAttribute('class')).toContain('selected'))
+    const buttons = container.querySelectorAll('button')
+    fireEvent.click(buttons[2])
+
+    await waitFor(() =>
+      expect(submitFuncMock).toHaveBeenCalledWith({
+        dataSource: [
+          {
+            label: 'All',
+            value: 'All'
+          }
+        ],
+        dataSourceOptions: [
+          {
+            label: 'appD - app_dynamics',
+            value: 'appD'
+          },
+          {
+            label: 'gco - stackdriver',
+            value: 'gco'
+          },
+          {
+            label: 'splunk - splunk',
+            value: 'splunk'
+          }
+        ],
+        duration: '15m',
+        environentIdentifier: '1234_environentIdentifier',
+        identifier: 'sdfsfsdf',
+        serviceIdentifier: '1234_service',
+        name: 'sdfsfsdf',
+        sensitivity: {
+          label: 'Low',
+          value: 'LOW'
+        },
+        type: 'BLUE_GREEN'
+      })
+    )
+  })
+
+  test('Ensure that when user changes from health verification to canary, data is correct', async () => {
+    jest.spyOn(cvService, 'useGetMonitoringSources').mockReturnValue({
+      data: MockDataSources,
+      refetch: jest.fn() as any
+    } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({
+      data: MockActivitySource
+    } as UseGetReturn<any, any, any, any>)
+    const submitFuncMock = jest.fn()
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <VerificationJobsDetails
+          onNext={submitFuncMock}
+          stepData={{
+            dataSource: [{ label: 'All', value: 'All' }],
+            identifier: 'sdfsfsdf',
+            serviceIdentifier: '1234_service',
+            environentIdentifier: '1234_environentIdentifier',
+            duration: '15m',
+            name: 'sdfsfsdf',
+            type: 'HEALTH'
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    const jobTypes = container.querySelectorAll('[class*="largeCard"]')
+    fireEvent.click(jobTypes[2])
+
+    await waitFor(() => expect(jobTypes[2].getAttribute('class')).toContain('selected'))
+    const buttons = container.querySelectorAll('button')
+    fireEvent.click(buttons[2])
+
+    await waitFor(() =>
+      expect(submitFuncMock).toHaveBeenCalledWith({
+        dataSource: [
+          {
+            label: 'All',
+            value: 'All'
+          }
+        ],
+        dataSourceOptions: [
+          {
+            label: 'appD - app_dynamics',
+            value: 'appD'
+          },
+          {
+            label: 'gco - stackdriver',
+            value: 'gco'
+          },
+          {
+            label: 'splunk - splunk',
+            value: 'splunk'
+          }
+        ],
+        duration: '15m',
+        environentIdentifier: '1234_environentIdentifier',
+        identifier: 'sdfsfsdf',
+        serviceIdentifier: '1234_service',
+        name: 'sdfsfsdf',
+        type: 'CANARY'
       })
     )
   })

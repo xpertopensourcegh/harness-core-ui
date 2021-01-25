@@ -16,15 +16,6 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 
-// jest.mock('react-router-dom', () => ({
-//   ...(jest.requireActual('react-router-dom') as object),
-//   useHistory: jest.fn(() => {
-//     return {
-//       push: jest.fn()
-//     }
-//   })
-// }))
-
 jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: any) => {
   return (
     <>
@@ -115,7 +106,7 @@ describe('CVVerificationJobsPage', () => {
       <div
         data-testid="location"
       >
-        /account/1234_accountId/cv/org/1234_org/projects/1234_project/admin/setup/verification-job/verificationId/Job1
+        /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/admin/setup/verification-job/verificationId/Job1
       </div>
     `)
   })

@@ -8,6 +8,7 @@ import { useSaveVerificationJob, VerificationJobDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
+import { useStrings } from 'framework/exports'
 
 export const FormControlButtons = connect(({ formik }) => (
   <Container
@@ -51,7 +52,9 @@ export interface UseFormSubmitProps {
 }
 // Remove this after old onbparding cleanup
 export const useFormSubmit = (props?: UseFormSubmitProps) => {
-  const { accountId, activityType, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, activityType, orgIdentifier, projectIdentifier } = useParams<
+    ProjectPathProps & { activityType: string }
+  >()
   const history = useHistory()
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })
@@ -64,8 +67,8 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
       } else {
         history.push(
           routes.toCVActivityDashboard({
-            orgIdentifier: orgIdentifier as string,
-            projectIdentifier: projectIdentifier as string,
+            orgIdentifier,
+            projectIdentifier,
             accountId
           })
         )
@@ -81,12 +84,12 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
       jobName: values.jobName,
       serviceIdentifier: values.service?.value || values.service,
       envIdentifier: values.environment?.value || values.environment,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      projectIdentifier,
+      orgIdentifier,
       dataSources: values.dataSource && values.dataSource.map((ds: SelectOption) => ds.value),
       sensitivity: values.sensitivity?.value || values.sensitivity,
       duration: values.duration?.value || values.duration,
-      type: mapType(activityType as string)
+      type: mapType(activityType)
     }
 
     saveVerificationJob(payload as VerificationJobDTO)
@@ -100,6 +103,7 @@ export interface UseVerificationFormSubmitProps {
 
 export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitProps) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   const history = useHistory()
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })
@@ -121,7 +125,7 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
 
   const isAllOptionSelected = (dataSource: MultiSelectOption[]): boolean => {
     for (let i = 0; i < dataSource.length; i++) {
-      if (dataSource[i].value === 'All') return true
+      if (dataSource[i].value === getString('all')) return true
     }
     return false
   }
@@ -132,14 +136,15 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
       jobName: values.name,
       serviceIdentifier: values.service?.value || values.service,
       envIdentifier: values.environment?.value || values.environment,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
-      dataSources: isAllOptionSelected(values.dataSource)
+      projectIdentifier,
+      orgIdentifier,
+      monitoringSources: isAllOptionSelected(values.dataSource)
         ? getDataSources(values.dataSourceOptions)
         : getDataSources(values.dataSource),
       sensitivity: values.sensitivity?.value || values.sensitivity,
       duration: values.duration?.value || values.duration,
-      type: values.type
+      type: values.type,
+      trafficSplitPercentage: values.trafficSplit?.value
     }
 
     saveVerificationJob(payload as VerificationJobDTO, values)
